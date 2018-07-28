@@ -1,1 +1,0 @@
-## Contributing by Filing Bugs
