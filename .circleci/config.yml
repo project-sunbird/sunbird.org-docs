@@ -1,0 +1,46 @@
+version: 2
+jobs:
+  staging:
+    working_directory: /project/workplace/
+    docker:
+      - image: lakhanmandloi/sunbird-ubuntu-fuller
+    steps:
+    
+      #Checkout
+      - checkout
+            
+      # Run Build command
+      - type: shell
+        command: |
+          if [ "$CIRCLE_BRANCH" != "dev" ]
+          then
+          echo "baseurl: /pr/$CIRCLE_PR_NUMBER/" >> _config.yml
+          echo "buildVersion: PR - $CIRCLE_PR_NUMBER" >> _config.yml
+          else
+          echo "baseurl: /review/" >> _config.yml
+          echo "buildVersion: Commit" >> _config.yml
+          fi
+          echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
+          cat _config.yml
+          ls
+workflows:
+  version: 2
+  toc-build-deploy:
+    jobs:
+      - staging:
+          filters:
+            branches:
+              only: toc
+      - hold:
+          type: approval
+          requires:
+              - staging
+          filters:
+            branches:
+              only: toc
+      - prod:
+          requires:
+              - hold
+          filters:
+            branches:
+              only: toc
