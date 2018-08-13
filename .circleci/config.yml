@@ -25,6 +25,56 @@ jobs:
           aws s3 sync --delete js/. s3://sunbird-docs-qa/staging/js/
           aws s3 sync --delete img/. s3://sunbird-docs-qa/staging/img/
           fi
+  prod:
+    working_directory: /project/workspace/
+    docker:
+      - image: lakhanmandloi/sunbird-ubuntu-fuller
+    steps:
+          
+      # Add SSH Key   
+      - add_ssh_keys:
+          fingerprints:
+            - $GITHUB_SSH_FINGERPRINT
+      #Add User
+      - type: shell
+        command: |
+          git config --global user.email $GITHUB_USER_EMAIL
+          git config --global user.name $GITHUB_USER_NAME
+      
+      # Pull Code from staging site
+      - type: shell
+        name: Download code from staging
+        command: |
+          cd ..
+          rm -rf downloads
+          mkdir downloads
+          cd downloads
+          aws s3 cp s3://sunbird-docs-qa/staging/index.html index.html 
+          aws s3 sync --delete s3://sunbird-docs-qa/staging/css/ css/
+          aws s3 sync --delete s3://sunbird-docs-qa/staging/js/ js/
+          aws s3 sync --delete s3://sunbird-docs-qa/staging/img img/
+           
+      # Deploy to Gitpages
+      - type: shell
+        name: Deploy code to gh-pages repo
+        command: |
+          cd ..
+          rm -rf deploy
+          cd deploy
+          git clone -b gh-pages git@github.com:project-sunbird/sunbird.org-docs.git cloned-repo
+          cd cloned-repo
+          cp -R .git/ ../
+          rm index.html
+          rm -rf css/
+          rm -rf js/
+          rm -rf img/
+          cd ..
+          cp -R ../downloads/* cloned-repo/
+          cp -R .git/ cloned-repo/
+          cd cloned-repo/
+          git add -A
+          git commit -m "$CIRCLE_BUILD"
+          git push origin gh-pages
 workflows:
   version: 2
   toc-build-deploy:
