@@ -1,0 +1,28 @@
+version: 2
+jobs:
+  pr:
+    working_directory: /project/workplace/
+    docker:
+      - image: lakhanmandloi/sunbird-ubuntu-fuller
+    steps:
+    
+      #Checkout
+      - checkout
+            
+      # Run Build command
+      - type: shell
+        name: Build & Deploy PR
+        command: |
+          echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
+          cat _config.yml
+          ls
+          bundle install
+          bundle exec jekyll build
+          cd _site
+          ls
+          
+workflows:
+  version: 2
+  docs-version-build-deploy:
+    jobs:
+      - pr
