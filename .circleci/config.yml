@@ -11,16 +11,10 @@ jobs:
             
       # Run Build command
       - type: shell
+        name: Build & Deploy
         command: |
-          if [ "$CIRCLE_BRANCH" != "dev" ]
-          then
-          echo "baseurl: /pr/$CIRCLE_PR_NUMBER/" >> _config.yml
-          echo "buildVersion: PR - $CIRCLE_PR_NUMBER" >> _config.yml
-          else
-          echo "baseurl: /review/" >> _config.yml
-          echo "buildVersion: Commit" >> _config.yml
-          fi
           echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
+          echo "CommitId: $CIRCLE_BUILD_NUM" >> _config.yml
           cat _config.yml
           ls
 workflows:
