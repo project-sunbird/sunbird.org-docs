@@ -18,9 +18,11 @@ jobs:
           echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
           bundle install
           bundle exec jekyll build
-          ls
           cd _site
           ls
+          aws s3 sync --delete index.html s3://sunbird-docs-qa/staging/index.html
+          aws s3 sync --delete css/ s3://sunbird-docs-qa/staging/css/
+          aws s3 sync --delete js/ s3://sunbird-docs-qa/staging/js/
           fi
 workflows:
   version: 2
