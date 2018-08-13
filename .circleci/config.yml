@@ -13,13 +13,14 @@ jobs:
       - type: shell
         name: Build & Deploy PR
         command: |
+          if [[ -z "$CIRCLE_PR_NUMBER" ]]
+          then
           echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
-          cat _config.yml
-          ls
           bundle install
           bundle exec jekyll build
           cd _site
-          ls
+          aws s3 sync --delete . s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/
+          fi
           
 workflows:
   version: 2
