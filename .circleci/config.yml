@@ -40,6 +40,7 @@ jobs:
             - $GITHUB_SSH_FINGERPRINT
       #Add User
       - type: shell
+        name: Configure git
         command: |
           git config --global user.email $GITHUB_USER_EMAIL
           git config --global user.name $GITHUB_USER_NAME
@@ -79,7 +80,7 @@ jobs:
           cp -R .git/ cloned-repo/
           cd cloned-repo/
           git add -A
-          git commit -m "$CIRCLE_BUILD"
+          git commit -m "Deploy - $CIRCLE_BUILD"
           git push origin gh-pages
 workflows:
   version: 2
