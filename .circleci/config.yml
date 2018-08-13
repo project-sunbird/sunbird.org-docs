@@ -20,10 +20,10 @@ jobs:
           bundle exec jekyll build
           cd _site
           ls  
-          aws s3 cp index.html s3://sunbird-docs-qa/staging/index.html
-          aws s3 sync --delete css/. s3://sunbird-docs-qa/staging/css/
-          aws s3 sync --delete js/. s3://sunbird-docs-qa/staging/js/
-          aws s3 sync --delete img/. s3://sunbird-docs-qa/staging/img/
+          aws s3 cp index.html s3://sunbird-docs-qa/docs-staging/index.html
+          aws s3 sync --delete css/. s3://sunbird-docs-qa/docs-staging/css/
+          aws s3 sync --delete js/. s3://sunbird-docs-qa/docs-staging/js/
+          aws s3 sync --delete img/. s3://sunbird-docs-qa/docs-staging/img/
           fi
   prod:
     working_directory: /project/workspace/
@@ -53,10 +53,10 @@ jobs:
           rm -rf downloads
           mkdir downloads
           cd downloads
-          aws s3 cp s3://sunbird-docs-qa/staging/index.html index.html 
-          aws s3 sync --delete s3://sunbird-docs-qa/staging/css/ css/
-          aws s3 sync --delete s3://sunbird-docs-qa/staging/js/ js/
-          aws s3 sync --delete s3://sunbird-docs-qa/staging/img img/
+          aws s3 cp s3://sunbird-docs-qa/docs-staging/index.html index.html 
+          aws s3 sync --delete s3://sunbird-docs-qa/docs-staging/css/ css/
+          aws s3 sync --delete s3://sunbird-docs-qa/docs-staging/js/ js/
+          aws s3 sync --delete s3://sunbird-docs-qa/docs-staging/img img/
            
       # Deploy to Gitpages
       - type: shell
@@ -85,9 +85,10 @@ jobs:
           
 workflows:
   version: 2
-  toc-build-deploy:
+  docs-toc-build-deploy:
     jobs:
       - staging
+      
       - hold:
           type: approval
           requires:
