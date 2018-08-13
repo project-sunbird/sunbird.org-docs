@@ -13,20 +13,22 @@ jobs:
       - type: shell
         name: Build & Deploy
         command: |
+          if [ "$CIRCLE_BRANCH" != "toc" ]
+          then
           echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
-          echo "CommitId: $CIRCLE_COMMIT_ID" >> _config.yml
-          cat _config.yml
-          ls
           bundle exec jekyll build
           ls
           cd _site
           ls
+          fi
 workflows:
   version: 2
   toc-build-deploy:
     jobs:
       - staging:
           filters:
+            tags:
+              ignore: /.*/
             branches:
               only: toc
       - hold:
