@@ -1,51 +1,94 @@
 version: 2
 jobs:
-  staging:
+  toc-pr:
     working_directory: /project/workplace/
     docker:
       - image: lakhanmandloi/sunbird-ubuntu-fuller
     steps:
     
-      #Checkout
+      # Checkout
       - checkout
-            
-      # Run Build command
+      
+      # Run Build command & deploy to PR site
       - type: shell
-        name: Build & Deploy
+        name: PR - Build & Deploy
         command: |
-          if [ "$CIRCLE_BRANCH" != "toc" ]
-          then
           echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
           bundle install
           bundle exec jekyll build
           cd _site
-          ls  
-          aws s3 cp index.html s3://sunbird-docs-qa/docs-staging/index.html
-          aws s3 sync --delete css/. s3://sunbird-docs-qa/docs-staging/css/
-          aws s3 sync --delete js/. s3://sunbird-docs-qa/docs-staging/js/
-          aws s3 sync --delete img/. s3://sunbird-docs-qa/docs-staging/img/
-          fi
-  prod:
+          aws s3 cp index.html           s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/index.html
+          aws s3 cp 404.html             s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/404.html
+          aws s3 cp robots.txt           s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/robots.txt
+          aws s3 cp sitemap.xml          s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/sitemap.xml
+          #aws s3 cp CNAME                s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/CNAME
+          #aws s3 cp favicon.ico          s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/favicon.ico
+          aws s3 sync --delete css/.     s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/css/
+          aws s3 sync --delete js/.      s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/js/
+          aws s3 sync --delete img/.     s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/img/
+          
+      # Comment on PR
+      - type: shell
+        name: PR - Add comment on PR with URL details
+        command: |
+         prdata=$(curl -X GET -u $GITHUB_USER_TOKEN:x-oauth-basic https://api.github.com/repos/project-sunbird/sunbird.org-docs/issues/$CIRCLE_PR_NUMBER) 
+         username=$(echo "${prdata}" | jq '.user.login')
+         contributor=${username//\"/}
+         curl \
+          -X POST \
+          -u $GITHUB_USER_TOKEN:x-oauth-basic \
+          -d '{"body": "Hello @'"$contributor"',<br/><br/> _This is a auto-generated response._ <br/><br/> Click the URL for review pull request - http://'"$CIRCLE_PR_NUMBER"'.qa.docs.sunbird.org ."}' \
+          https://api.github.com/repos/project-sunbird/sunbird.org-docs/issues/$CIRCLE_PR_NUMBER/comments
+  
+  toc-staging:
+    working_directory: /project/workplace/
+    docker:
+      - image: lakhanmandloi/sunbird-ubuntu-fuller
+    steps:
+    
+      # Checkout
+      - checkout
+      
+      # Run Build command & Deploy to Staging site
+      - type: shell
+        name: Commit - Build & Deploy
+        command: |
+          echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
+          bundle install
+          bundle exec jekyll build
+          cd _site
+          aws s3 cp index.html           s3://sunbird-docs-qa/docs-staging/index.html
+          aws s3 cp 404.html             s3://sunbird-docs-qa/docs-staging/404.html
+          aws s3 cp robots.txt           s3://sunbird-docs-qa/docs-staging/robots.txt
+          aws s3 cp sitemap.xml          s3://sunbird-docs-qa/docs-staging/sitemap.xml
+          #aws s3 cp CNAME                s3://sunbird-docs-qa/docs-staging/CNAME
+          #aws s3 cp favicon.ico          s3://sunbird-docs-qa/docs-staging/favicon.ico
+          aws s3 sync --delete css/.     s3://sunbird-docs-qa/docs-staging/css/
+          aws s3 sync --delete js/.      s3://sunbird-docs-qa/docs-staging/js/
+          aws s3 sync --delete img/.     s3://sunbird-docs-qa/docs-staging/img/
+          
+  toc-prod:
     working_directory: /project/workspace/
     docker:
       - image: lakhanmandloi/sunbird-ubuntu-fuller
     steps:
     
-      #Checkout
+      # Checkout
       - checkout
           
       # Add SSH Key   
       - add_ssh_keys:
           fingerprints:
             - $GITHUB_SSH_FINGERPRINT
-      #Add User
+            
+      # Configure Git 
       - type: shell
         name: Configure git
         command: |
           git config --global user.email $GITHUB_USER_EMAIL
           git config --global user.name $GITHUB_USER_NAME
       
-      # Pull Code from staging site
+      # Download code from staging
       - type: shell
         name: Download code from staging
         command: |
@@ -53,10 +96,15 @@ jobs:
           rm -rf downloads
           mkdir downloads
           cd downloads
-          aws s3 cp s3://sunbird-docs-qa/docs-staging/index.html index.html 
-          aws s3 sync --delete s3://sunbird-docs-qa/docs-staging/css/ css/
-          aws s3 sync --delete s3://sunbird-docs-qa/docs-staging/js/ js/
-          aws s3 sync --delete s3://sunbird-docs-qa/docs-staging/img img/
+          aws s3 cp s3://sunbird-docs-qa/docs-staging/index.html         index.html
+          aws s3 cp s3://sunbird-docs-qa/docs-staging/404.html           404.html
+          aws s3 cp s3://sunbird-docs-qa/docs-staging/robots.txt         robots.txt
+          aws s3 cp s3://sunbird-docs-qa/docs-staging/sitemap.xml        sitemap.xml
+          #aws s3 cp s3://sunbird-docs-qa/docs-staging/CNAME              CNAME 
+          #aws s3 cp s3://sunbird-docs-qa/docs-staging/favicon.ico        favicon.ico
+          aws s3 sync --delete s3://sunbird-docs-qa/docs-staging/css/    css/
+          aws s3 sync --delete s3://sunbird-docs-qa/docs-staging/js/     js/
+          aws s3 sync --delete s3://sunbird-docs-qa/docs-staging/img     img/
            
       # Deploy to Gitpages
       - type: shell
@@ -66,33 +114,76 @@ jobs:
           rm -rf deploy
           mkdir deploy
           cd deploy
-          git clone -b gh-pages git@github.com:project-sunbird/sunbird.org-docs.git cloned-repo
+          git clone -b gh-pages $CIRCLE_REPOSITORY_URL cloned-repo
           cd cloned-repo
           cp -R .git/ ../
+          
           if [ -f index.html ]; then
-          rm index.html
+           rm index.html
           fi
+          
+          if [ -f 404.html ]; then
+           rm 404.html
+          fi
+          
+          if [ -f robots.txt ]; then
+           rm robots.txt
+          fi
+          
+          if [ -f sitemap.xml ]; then
+           rm sitemap.xml
+          fi
+          
+          #if [ -f favicon.ico ]; then
+           #rm favicon.ico
+          #fi
+          
+          #if [ -f CNAME ]; then
+           #rm CNAME
+          #fi
+          
           rm -rf css/
           rm -rf js/
           rm -rf img/
+          
           cd ..
           cp -R ../downloads/* cloned-repo/
           cp -R .git/ cloned-repo/
           cd cloned-repo/
           git add -A
-          git commit -m "Deploy - $CIRCLE_BUILD_NUM"
+          git commit -m "Deploy Docs - Build No. $CIRCLE_BUILD_NUM"
           git push origin gh-pages
           
 workflows:
   version: 2
-  docs-toc-build-deploy:
+  toc-build-deploy:
     jobs:
-      - staging
-      
-      - hold:
+      - toc-pr:
+          filters:
+            branches:
+              only:
+                - /^pull.*/
+              ignore:
+                - master
+                - gh-pages
+                - toc
+      - toc-staging:
+          filters:
+            branches:
+              only:
+                - toc
+      - toc-hold:
           type: approval
           requires:
-              - staging
-      - prod:
+              - toc-staging
+          filters:
+            branches:
+              only:
+                - toc
+      - toc-prod:
           requires:
-              - hold
+              - toc-hold
+          filters:
+            branches:
+              only:
+                - toc
