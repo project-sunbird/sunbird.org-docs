@@ -1,29 +1,147 @@
 version: 2
 jobs:
-  pr:
+  version-pr:
     working_directory: /project/workplace/
     docker:
       - image: lakhanmandloi/sunbird-ubuntu-fuller
     steps:
     
-      #Checkout
+      # Checkout
       - checkout
-            
-      # Run Build command
+      
+      # Get PR details
       - type: shell
-        name: Build & Deploy PR
+        name: PR - Fetch details from API
         command: |
-          if [[ -z "$CIRCLE_PR_NUMBER" ]]
-          then
+          prdata=$(curl -X GET -u $GITHUB_USER_TOKEN:x-oauth-basic https://api.github.com/repos/project-sunbird/sunbird.org-docs/issues/$CIRCLE_PR_NUMBER)
+          branchname=$(echo "${prdata}" | jq '.base.ref')
+          branch=${branchname//\"/}
+          username=$(echo "${prdata}" | jq '.user.login')
+          contributor=${username//\"/}
+          
+      # Run Build command & deploy to PR site
+      - type: shell
+        name: PR - Build & Deploy
+        command: |
           echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
+          echo "docsVersion: $branch" >> _config.yml
           bundle install
           bundle exec jekyll build
           cd _site
-          aws s3 sync --delete . s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/
-          fi
+          aws s3 sync --delete . s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/$branch/
+          
+      # Comment on PR
+      - type: shell
+        name: PR - Add comment on PR with URL details
+        command: |
+         curl \
+          -X POST \
+          -u $GITHUB_USER_TOKEN:x-oauth-basic \
+          -d '{"body": "Hello @'"$contributor"',<br/><br/> _This is a auto-generated response._ <br/><br/> Click the URL for review pull request - http://'"$CIRCLE_PR_NUMBER"'.qa.docs.sunbird.org ."}' \
+          https://api.github.com/repos/project-sunbird/sunbird.org-docs/issues/$CIRCLE_PR_NUMBER/comments
+  
+  version-staging:
+    working_directory: /project/workplace/
+    docker:
+      - image: lakhanmandloi/sunbird-ubuntu-fuller
+    steps:
+    
+      # Checkout
+      - checkout
+      
+      # Run Build command & Deploy to Staging site
+      - type: shell
+        name: Commit - Build & Deploy
+        command: |
+          echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
+          echo "docsVersion: $CIRCLE_BRANCH" >> _config.yml
+          bundle install
+          bundle exec jekyll build
+          cd _site
+          aws s3 sync --delete . s3://sunbird-docs-qa/docs-staging/$CIRCLE_BRANCH/
+          
+  version-prod:
+    working_directory: /project/workspace/
+    docker:
+      - image: lakhanmandloi/sunbird-ubuntu-fuller
+    steps:
+    
+      # Checkout
+      - checkout
+          
+      # Add SSH Key   
+      - add_ssh_keys:
+          fingerprints:
+            - $GITHUB_SSH_FINGERPRINT
+            
+      # Configure Git 
+      - type: shell
+        name: Configure git
+        command: |
+          git config --global user.email $GITHUB_USER_EMAIL
+          git config --global user.name $GITHUB_USER_NAME
+      
+      # Download code from staging
+      - type: shell
+        name: Download code from staging
+        command: |
+          cd ..
+          rm -rf downloads
+          mkdir downloads
+          cd downloads
+          aws s3 sync --delete s3://sunbird-docs-qa/docs-staging/$CIRCLE_BRANCH/ .
+           
+      # Deploy to Gitpages
+      - type: shell
+        name: Deploy code to gh-pages repo
+        command: |
+          cd ..
+          rm -rf deploy
+          mkdir deploy
+          cd deploy
+          git clone -b gh-pages $CIRCLE_REPOSITORY_URL cloned-repo
+          rm -rf cloned-repo/$CIRCLE_BRANCH/
+          cp -R ../downloads/* cloned-repo/$CIRCLE_BRANCH/
+          cd cloned-repo/
+          git add -A
+          git commit -m "Version deploy - $CIRCLE_BRANCH Version & Build No. $CIRCLE_BUILD_NUM"
+          git push origin gh-pages
           
 workflows:
   version: 2
-  docs-version-build-deploy:
+  version-build-deploy:
     jobs:
-      - pr
+      - version-pr:
+          filters:
+            branches:
+              only:
+                - /^pull.*/
+              ignore:
+                - master
+                - gh-pages
+                - toc
+      - version-staging:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+                - toc
+      - version-hold:
+          type: approval
+          requires:
+              - version-staging
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+                - toc
+      - version-prod:
+          requires:
+              - version-hold
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+                - toc
+ 
+
