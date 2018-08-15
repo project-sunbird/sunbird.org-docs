@@ -21,6 +21,7 @@ jobs:
           aws s3 cp 404.html             s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/404.html
           aws s3 cp robots.txt           s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/robots.txt
           aws s3 cp sitemap.xml          s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/sitemap.xml
+          aws s3 cp latest               s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/latest
           #aws s3 cp CNAME                s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/CNAME
           #aws s3 cp favicon.ico          s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/favicon.ico
           aws s3 sync --delete css/.     s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/css/
@@ -61,6 +62,7 @@ jobs:
           aws s3 cp 404.html             s3://sunbird-docs-qa/docs-staging/404.html
           aws s3 cp robots.txt           s3://sunbird-docs-qa/docs-staging/robots.txt
           aws s3 cp sitemap.xml          s3://sunbird-docs-qa/docs-staging/sitemap.xml
+          aws s3 cp latest               s3://sunbird-docs-qa/docs-staging/latest
           #aws s3 cp CNAME                s3://sunbird-docs-qa/docs-staging/CNAME
           #aws s3 cp favicon.ico          s3://sunbird-docs-qa/docs-staging/favicon.ico
           aws s3 sync --delete css/.     s3://sunbird-docs-qa/docs-staging/css/
@@ -100,6 +102,7 @@ jobs:
           aws s3 cp s3://sunbird-docs-qa/docs-staging/404.html           404.html
           aws s3 cp s3://sunbird-docs-qa/docs-staging/robots.txt         robots.txt
           aws s3 cp s3://sunbird-docs-qa/docs-staging/sitemap.xml        sitemap.xml
+          aws s3 cp s3://sunbird-docs-qa/docs-staging/latest             latest
           #aws s3 cp s3://sunbird-docs-qa/docs-staging/CNAME              CNAME 
           #aws s3 cp s3://sunbird-docs-qa/docs-staging/favicon.ico        favicon.ico
           aws s3 sync --delete s3://sunbird-docs-qa/docs-staging/css/    css/
@@ -132,6 +135,10 @@ jobs:
           
           if [ -f sitemap.xml ]; then
            rm sitemap.xml
+          fi
+          
+          if [ -f latest ]; then
+           rm latest
           fi
           
           #if [ -f favicon.ico ]; then
