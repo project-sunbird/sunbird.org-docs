@@ -14,7 +14,7 @@ Sunbird APIs are:
 
 - REST based (JSON over HTTPS)
 - Stateless
-- Versioned
+- Versioned 
 
 The API endpoints follow a common URL structure, viz; https://{host:port}/{module}/{version}/{api_name}.
 
