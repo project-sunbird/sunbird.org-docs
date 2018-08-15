@@ -13,7 +13,7 @@ After successfully installing Sunbird, to make it functional, it is important to
 
 ### Create First RootOrg 
 Use the Initialise api (/v1/system/init) to create the First rootOrg. Use the following curl command :
-
+ 
 ```curl -X POST \
 
 {{learner_service_host}}/v1/system/init \
