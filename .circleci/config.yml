@@ -16,6 +16,7 @@ jobs:
           echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
           bundle install
           bundle exec jekyll build
+          cp latest _site/
           cd _site
           aws s3 cp index.html           s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/index.html
           aws s3 cp 404.html             s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/404.html
@@ -57,6 +58,7 @@ jobs:
           echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
           bundle install
           bundle exec jekyll build
+          cp latest _site/
           cd _site
           aws s3 cp index.html           s3://sunbird-docs-qa/docs-staging/index.html
           aws s3 cp 404.html             s3://sunbird-docs-qa/docs-staging/404.html
