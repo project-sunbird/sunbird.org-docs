@@ -7,6 +7,7 @@ description: API reference documentation
 keywords: API Documentation, API refeence, API,  
 published: true
 allowSearch: true
+layout: page
 ---
 Welcome to Sunbird API reference documentation!
 
