@@ -1,0 +1,47 @@
+<!-- Templates-->
+<script id="template-widgetOldVersions" type="text/x-handlebars-template">
+	<ul>
+	{{#each versions}}
+		{{#unless this.latest}}
+			<li>
+				<a href="/{{this.title}}/" >{{this.title}}</a>
+			</li>
+		{{/unless}}
+	{{/each}}
+	</ul>
+</script>
+<script id="template-widgetVersionSwitcher" type="text/x-handlebars-template">
+	<select>
+	{{#each versions}}
+		<option>
+			{{this.title}} {{#if this.latest}}(Latest){{/if}}
+		</option>
+	{{/each}}
+	</select>
+</script>
+<!-- /Templates-->
+
+<script>
+$(function () {
+	// Grab the template script
+	var widgetOldVersionsContainer = $("#template-widgetOldVersions").html();
+	// Compile the template
+	var widgetOldVersionsTemplate = Handlebars.compile(widgetOldVersionsContainer);
+	// Pass our data to the template
+	var widgetOldVersionsTemplateHtml = widgetOldVersionsTemplate(widgetsData);
+	// Add the compiled html to the page
+	$('#widgetOldVersions').html(widgetOldVersionsTemplateHtml);
+	
+	// Grab the template script
+	var widgetVersionSwitcherContainer = $("#template-widgetVersionSwitcher").html();
+	// Compile the template
+	var widgetVersionSwitcherTemplate = Handlebars.compile(widgetVersionSwitcherContainer);
+	// Pass our data to the template
+	var widgetVersionSwitcherTemplateHtml = widgetVersionSwitcherTemplate(widgetsData);
+	// Add the compiled html to the page
+	$('#widgetVersionSwitcher').html(widgetVersionSwitcherTemplateHtml);
+	
+});
+$(".js-latestVersion-title").text(latestVersion[0].title);
+$(".js-latestVersion-releaseDate").text(latestVersion[0].releaseDate);
+</script>
