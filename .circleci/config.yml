@@ -131,6 +131,20 @@ jobs:
           cd _site
           aws s3 sync --delete . s3://sunbird-docs-qa/docs-staging/$CIRCLE_BRANCH/
           
+      # Latest - Run Build command & Deploy to Staging site
+      - type: shell
+        name: Commit - Build & Deploy if version is latest
+        command: |
+          if [[ $LATEST_VERSION = $CIRCLE_BRANCH ]]
+          then
+          cd ..
+          sed -i '$ d' _config.yml
+          echo "docsVersion: latest" >> _config.yml
+          bundle exec jekyll build
+          cd _site
+          aws s3 sync --delete . s3://sunbird-docs-qa/docs-staging/latest/
+          fi
+          
   version-prod:
     working_directory: /project/workspace/
     docker:
@@ -174,6 +188,8 @@ jobs:
           git clone -b gh-pages $CIRCLE_REPOSITORY_URL cloned-repo
           rm -rf cloned-repo/$CIRCLE_BRANCH/
           mkdir cloned-repo/$CIRCLE_BRANCH/
+          rm latest
+          ln -s $LATEST_VERSION'/' latest
           cp -R ../downloads/* cloned-repo/$CIRCLE_BRANCH/
           cd cloned-repo/
           git add -A
