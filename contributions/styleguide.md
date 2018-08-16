@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: contributions
 title: Sunbird Style Guide
 page_title: Cheatsheet
 description: Style Guide

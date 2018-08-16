@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	{% include head.html %}
+	{% if page.allowSearch == true %}
+		<meta name="robots" content="index, follow">
+	{% else %}
+		<meta name="robots" content="noindex, nofollow">
+	{% endif %}
+  </head>
+  <body id="body" class="doc-layout">
+  <div class="container inner container-height docs">
+    <header class="logo-container">
+      <div class="logo">
+        <a href="/index.html">
+          <img src="/img/sunbird-logo.png" alt="Sunbird docs" title="Sunbird docs">
+        </a>
+      </div>
+      <button type="button" class="dropdown-toggle collapsed" id="dropdown-trigger" data-toggle="collapse" data-target="#mobile-dropdown" aria-expanded="false">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </button>
+    </header>
+    <nav class="sidebar-container" id="mobile-dropdown">
+      <div class="inner__sidebar">
+		<div class="widgetVersionSwitcher"></div>
+        {% include sidebar.html %}
+      </div>
+    </nav>
+    <div class="content">
+      <div class="inner__content header" id="heading">
+        <h1>{{ page.title }} </h1>
+      </div>
+
+      <div id="main-content" class="inner__content">
+			<p class="edit-para text-right">
+				<span>
+			<a target="_blank" class="contribute" href="/contributions/contribution_guidelines/">
+				  <i class="fa fa-book" aria-hidden="true"></i> <i>Contribution Guidelines</i>
+			  </a> &nbsp;&nbsp;
+			  
+			 <a target="_blank"  title="Edit this page"class="" href="https://github.com/project-sunbird/sunbird.org-docs/edit/toc/{{page.path}}">
+				  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+			  </a> 
+			  | 
+			  <a target="_blank" href="https://github.com/project-sunbird/sunbird.org-docs/issues" title="Report issue">
+				  <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+				  Report
+			  </a>
+			  </span>
+			</p>
+			<div class="widgetLatestVersionNotification"></div>
+          {{ content | toc_generate }}
+          
+          <hr />
+          
+          <p class="edit-para text-right">
+			<a target="_blank" href="https://github.com/project-sunbird/sunbird.org-docs/edit/toc/{{page.path}}" title="Fix this page">
+				<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a> |
+			<a target="_blank" href="https://github.com/project-sunbird/sunbird.org-docs/issues" title="Report issue">
+				<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Report</a>
+		  </p>
+		  <a href="{{page.url | remove_first: "/" }}#heading" class="scrollup"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
+          
+      </div>
+    </div>
+    <div class="page-footer">
+		{% include footer.html %}
+	</div>
+  </div>
+  <script type="text/javascript">
+	//TOC Toggle
+    $(function() {
+        $.toc.clickHideButton();
+    });
+    //Scroll to top
+    $(document).ready(function () {
+		$(".content").scroll(function () {
+			if ($(this).scrollTop() > 250) {
+				$('.scrollup').fadeIn();
+			} else {
+				$('.scrollup').fadeOut();
+			}
+		});
+	});
+	$('#toc a').each(function(){
+		var url = this.href.replace(baseURL.href, "");
+		this.href = '{{page.url | remove_first: "/" }}' + url;
+    })
+	$(".zoomcover").click(function(){
+		if (!$(this).hasClass("fullscreen")){
+			$(this).addClass("fullscreen");
+			$(this).find(".zoom").addClass("enabled").elevateZoom({
+				zoomType: "inner",
+				cursor  : "crosshair",
+				scrollZoom: "true"
+			});
+		} else {
+			$(this).removeClass("fullscreen");
+			$(this).find(".zoom").removeClass("enabled");
+			$(".zoomContainer").hide();
+		}
+	});
+	$(document).keyup(function(e) {
+     if (e.keyCode == 27) { 
+		$(".zoomcover").removeClass("fullscreen");
+		$(".zoomcover").find(".zoom").removeClass("enabled");
+		$(".zoomContainer").hide();
+    }
+});
+  </script>
+  <style>
+  .zoom:hover{
+	cursor:url(/img/zoom.png),crosshair;
+  }
+  .zoomWindowContainer:hover div{
+	cursor:url(/img/scroll.png),crosshair !important;
+	height:15px;
+	width:15px;
+  }
+  </style>
+  </body>
+</html>
