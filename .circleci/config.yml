@@ -16,13 +16,11 @@ jobs:
           echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
           bundle install
           bundle exec jekyll build
-          cp latest _site/
           cd _site
           aws s3 cp index.html           s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/index.html
           aws s3 cp 404.html             s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/404.html
           aws s3 cp robots.txt           s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/robots.txt
           aws s3 cp sitemap.xml          s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/sitemap.xml
-          aws s3 cp latest               s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/latest
           #aws s3 cp CNAME                s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/CNAME
           #aws s3 cp favicon.ico          s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/favicon.ico
           aws s3 sync --delete css/.     s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/css/
@@ -58,8 +56,9 @@ jobs:
           echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
           bundle install
           bundle exec jekyll build
-          cp latest _site/
           cd _site
+          version="$(cat version.txt)"
+          ln -s $version'/' latest
           aws s3 cp index.html           s3://sunbird-docs-qa/docs-staging/index.html
           aws s3 cp 404.html             s3://sunbird-docs-qa/docs-staging/404.html
           aws s3 cp robots.txt           s3://sunbird-docs-qa/docs-staging/robots.txt
