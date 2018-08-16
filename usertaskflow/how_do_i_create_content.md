@@ -8,4 +8,4 @@ keywords: ' create content, content editor'
 published: true
 allowSearch: true
 ---
-{% image src='images/create_content.svg' full center alt='How do Create Content' zoom %} 
+{% image src='usertaskflow/images/create_content.svg' full center alt='How do Create Content' zoom %} 
