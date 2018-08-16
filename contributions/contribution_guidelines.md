@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: contributions
 title: Contributing to Sunbird Documentation
 page_title: Contributing to Sunbird Documentation
 description: Guidelines about how to Contribute to Sunbird Documentation
@@ -159,11 +157,11 @@ Don't twist sentences into knots trying to avoid this, though. Also, at times, p
 
  Click the links below to view typical workflows to collaborate for Sunbird documentation
 
-- [Contribute to Sunbird Documentation](pages/contributions/images/contribute_to_sunbird.png){:target="_blank"}
-- [Editing Sunbird Page](pages/contributions/images/edit_on_sunbird.png){:target="_blank"}
-- [Reporting an Issue](pages/contributions/images/report_issue.png){:target="_blank"}
-- [Adding page or a section](pages/contributions/images/add_pageorsection.png){:target="_blank"}
-- [Review Process](pages/contributions/images/review_process.png){:target="_blank"}
+- [Contribute to Sunbird Documentation](/contributions/images/contribute_to_sunbird.png){:target="_blank"}
+- [Editing Sunbird Page](/contributions/images/edit_on_sunbird.png){:target="_blank"}
+- [Reporting an Issue](/contributions/images/report_issue.png){:target="_blank"}
+- [Adding page or a section](/contributions/images/add_pageorsection.png){:target="_blank"}
+- [Review Process](/contributions/images/review_process.png){:target="_blank"}
 
 ## How to edit an existing documentation page?
 
@@ -180,7 +178,7 @@ You can edit an existing page to correct inconsistencies or add missing informat
 	<li>Click the <strong>Edit</strong> button from the top or bottom of the required Sunbird web page</li>
         </ol>
      </td>
-    <td><img src="pages/contributions/images/edit1.png"></td>
+    <td><img src="/contributions/images/edit1.png"></td>
   </tr>
   <tr>
      <td><strong>Step 2: Page opens on Github</strong>
@@ -189,7 +187,7 @@ You can edit an existing page to correct inconsistencies or add missing informat
         <li>Complete all your edits</li>
         </ol>
     </td>
-    <td><img src="pages/contributions/images/edit2.png"></td>
+    <td><img src="/contributions/images/edit2.png"></td>
   </tr>
   <tr>
     <td><strong>Step 3: Scroll to the Propose file change section</strong>
@@ -199,7 +197,7 @@ You can edit an existing page to correct inconsistencies or add missing informat
 	<li>Click <strong>Propose file change</strong> button</li>
         </ol>
     </td>
-    <td><img src="pages/contributions/images/edit3.png"></td>
+    <td><img src="/contributions/images/edit3.png"></td>
   </tr>
   <tr>
     <td><strong>Step 4: Comparing changes page is displayed</strong>
@@ -207,7 +205,7 @@ You can edit an existing page to correct inconsistencies or add missing informat
 	<li>Click <strong>Create pull request</strong> button</li>
         </ol>
     </td>
-    <td><img src="pages/contributions/images/edit4.png"></td>
+    <td><img src="/contributions/images/edit4.png"></td>
   </tr>
   <tr>
     <td><strong>Step 5: Open a pull request page is displayed</strong>
@@ -216,7 +214,7 @@ You can edit an existing page to correct inconsistencies or add missing informat
 	<li>Click <strong>Create pull request</strong> button</li>
         </ol>
     </td>
-    <td><img src="pages/contributions/images/edit5.png"></td>
+    <td><img src="/contributions/images/edit5.png"></td>
   </tr>
   <tr>
     <td colspan="2"><strong>Step 6: Review by team</strong>
@@ -273,7 +271,7 @@ Before reporting any of these inconsistencies :
 	<li>Click the <strong>Report</strong> button from the top or bottom of the required web page</li>
         </ol>
 	</td>
-    <td><img src="pages/contributions/images/report_issue1.png"></td>
+    <td><img src="/contributions/images/report_issue1.png"></td>
   </tr>
   <tr>
     <td><strong>Step 2: Page opens on Github</strong>
@@ -282,7 +280,7 @@ Before reporting any of these inconsistencies :
 	<li>Click <strong>New Issue</strong> button</li>
         </ol>
 	</td>
-    <td><img src="pages/contributions/images/report_issue2.png"></td>
+    <td><img src="/contributions/images/report_issue2.png"></td>
   </tr>
   <tr>
     <td><strong>Step 3: A form opens up</strong>
@@ -295,7 +293,7 @@ Before reporting any of these inconsistencies :
         </ol>
         <strong>Note: You can track the progress and update on the reported issue using the issue number</strong>
     </td>
-    <td><img src="pages/contributions/images/report_issue3.png"></td>
+    <td><img src="/contributions/images/report_issue3.png"></td>
   </tr>
 </table>
 

@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: contributions
 title: Guidelines for filing a bug
 page_title: Guidelines for filing a bug
 description: How to file an effective bug report? 
