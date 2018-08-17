@@ -20,6 +20,13 @@
 	{{/each}}
 	</select>
 </script>
+<script id="template-widgetLatestVersionNotification" type="text/x-handlebars-template">
+	<div class="VersionNotification">
+		<div class="alert alert-danger">
+			Latest version documentaion available at - <a href="/latest/">Latest Version</a>
+		</div>
+	</div>
+</script>
 <!-- /Templates-->
 
 <script>
@@ -36,6 +43,12 @@ $(function () {
 	var widgetVersionSwitcherTemplateHtml = widgetVersionSwitcherTemplate(widgetsData);
 	$('#widgetVersionSwitcher').html(widgetVersionSwitcherTemplateHtml);
 	
+	// Latest Version notification
+	var widgetLatestVersionNotificationContainer = $("#template-widgetLatestVersionNotification").html();
+	var widgetLatestVersionNotificationTemplate = Handlebars.compile(widgetLatestVersionNotificationContainer);
+	var widgetLatestVersionNotificationTemplateHtml = widgetLatestVersionNotificationTemplate(widgetsData);
+	$('.widgetLatestVersionNotification').html(widgetLatestVersionNotificationTemplateHtml);
+	
 });
 </script>
 <script>
@@ -48,12 +61,13 @@ console.log(currentUrl);
 $('#widgetVersionSwitcher select').val(currentVersion);
 $('#widgetVersionSwitcher select').on('change', function () {
 	switchVersion = $(this).val();
-	if (switchVersion != latestVersion[0].title) { 
-		updatedUrl = currentUrl.replace('latest',switchVersion);
-		updatedUrl = currentUrl.replace(currentVersion,switchVersion);
-		console.log(updatedUrl);
-		window.location = updatedUrl; 
-	}
+	updatedUrl = currentUrl.replace('latest',switchVersion);
+	updatedUrl = updatedUrl.replace(currentVersion,switchVersion);
+	console.log(updatedUrl);
+	window.location = updatedUrl; 
+}
 });
-
+if (currentVersion == latestVersion[0].title){
+	$('.widgetLatestVersionNotification).remove();
+}
 </script>
