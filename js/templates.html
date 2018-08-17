@@ -1,5 +1,6 @@
 <!-- Templates-->
 <script id="template-widgetOldVersions" type="text/x-handlebars-template">
+	<h2>Older Versions</h2>
 	<ul>
 	{{#each versions}}
 		{{#unless this.latest}}
@@ -13,7 +14,7 @@
 <script id="template-widgetVersionSwitcher" type="text/x-handlebars-template">
 	<select>
 	{{#each versions}}
-		<option>
+		<option value="{{this.title}}" >
 			{{this.title}} {{#if this.latest}}(Latest){{/if}}
 		</option>
 	{{/each}}
@@ -23,25 +24,35 @@
 
 <script>
 $(function () {
-	// Grab the template script
+	// Old versions on main TOC
 	var widgetOldVersionsContainer = $("#template-widgetOldVersions").html();
-	// Compile the template
 	var widgetOldVersionsTemplate = Handlebars.compile(widgetOldVersionsContainer);
-	// Pass our data to the template
 	var widgetOldVersionsTemplateHtml = widgetOldVersionsTemplate(widgetsData);
-	// Add the compiled html to the page
 	$('#widgetOldVersions').html(widgetOldVersionsTemplateHtml);
 	
-	// Grab the template script
+	// Widget Switcher
 	var widgetVersionSwitcherContainer = $("#template-widgetVersionSwitcher").html();
-	// Compile the template
 	var widgetVersionSwitcherTemplate = Handlebars.compile(widgetVersionSwitcherContainer);
-	// Pass our data to the template
 	var widgetVersionSwitcherTemplateHtml = widgetVersionSwitcherTemplate(widgetsData);
-	// Add the compiled html to the page
 	$('#widgetVersionSwitcher').html(widgetVersionSwitcherTemplateHtml);
 	
 });
 $(".js-latestVersion-title").text(latestVersion[0].title);
 $(".js-latestVersion-releaseDate").text(latestVersion[0].releaseDate);
+</script>
+<script>
+$(function(){
+	currentVersion = $('#docsVersion').content;
+	$("#widgetVersionSwitcher select").val(currentVersion);
+	$('#widgetVersionSwitcher select').on('change', function () {
+		switchVersion = $(this).val();
+		if (switchVersion) { 
+			currentUrl = window.location.pathname;
+			
+			updatedUrl = currentUrl.replace(currentVersion,switchVersion);
+			window.location = updatedUrl; 
+		}
+		return false;
+	});
+});
 </script>
