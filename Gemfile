@@ -8,4 +8,3 @@ gem 'nokogiri'
 gem 'html-proofer'
 gem 'faraday'
 gem 'jekyll-redirect-from'
- 
