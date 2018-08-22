@@ -3,7 +3,7 @@ jobs:
   toc-pr:
     working_directory: /project/workplace/
     docker:
-      - image: lakhanmandloi/sunbird-ubuntu-fuller
+      - image: lakhanmandloi/docker-ubuntu-ruby-python-npm:2.0
     steps:
     
       # Checkout
@@ -14,7 +14,6 @@ jobs:
         name: PR - Build & Deploy
         command: |
           echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
-          bundle install
           bundle exec jekyll build
           cd _site
           aws s3 cp index.html                     s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/index.html
@@ -44,7 +43,7 @@ jobs:
   toc-staging:
     working_directory: /project/workplace/
     docker:
-      - image: lakhanmandloi/sunbird-ubuntu-fuller
+      - image: lakhanmandloi/docker-ubuntu-ruby-python-npm:2.0
     steps:
     
       # Checkout
@@ -55,7 +54,6 @@ jobs:
         name: Commit - Build & Deploy
         command: |
           echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
-          bundle install
           bundle exec jekyll build
           cd _site
           aws s3 cp index.html                     s3://sunbird-docs-qa/docs-staging/index.html
@@ -72,7 +70,7 @@ jobs:
   toc-prod:
     working_directory: /project/workspace/
     docker:
-      - image: lakhanmandloi/sunbird-ubuntu-fuller
+      - image: lakhanmandloi/docker-ubuntu-ruby-python-npm:2.0
     steps:
     
       # Checkout
