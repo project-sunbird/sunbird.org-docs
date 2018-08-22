@@ -3,7 +3,7 @@ jobs:
   version-pr:
     working_directory: /project/workplace/
     docker:
-      - image: lakhanmandloi/sunbird-ubuntu-fuller
+      - image: lakhanmandloi/docker-ubuntu-ruby-python-npm:2.0
     steps:
     
       # Checkout
@@ -29,7 +29,6 @@ jobs:
           echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
           echo "docsBranch: $branch" >> _config.yml
           echo "docsVersion: $branch" >> _config.yml
-          bundle install
           bundle exec jekyll build
           cd _site
           aws s3 sync --delete . s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/$branch/
@@ -43,7 +42,6 @@ jobs:
           git clone -b toc $CIRCLE_REPOSITORY_URL toc-build
           cd toc-build
           echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
-          bundle install
           bundle exec jekyll build
           cd _site
           aws s3 cp index.html                      s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/index.html
@@ -115,7 +113,7 @@ jobs:
   version-staging:
     working_directory: /project/workplace/
     docker:
-      - image: lakhanmandloi/sunbird-ubuntu-fuller
+      - image: lakhanmandloi/docker-ubuntu-ruby-python-npm:2.0
     steps:
     
       # Checkout
@@ -128,7 +126,6 @@ jobs:
           echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
           echo "docsBranch: $CIRCLE_BRANCH" >> _config.yml
           echo "docsVersion: $CIRCLE_BRANCH" >> _config.yml
-          bundle install
           bundle exec jekyll build
           cd _site
           aws s3 sync --delete . s3://sunbird-docs-qa/docs-staging/$CIRCLE_BRANCH/
@@ -150,7 +147,7 @@ jobs:
   version-prod:
     working_directory: /project/workspace/
     docker:
-      - image: lakhanmandloi/sunbird-ubuntu-fuller
+      - image: lakhanmandloi/docker-ubuntu-ruby-python-npm:2.0
     steps:
     
       # Checkout
