@@ -8,6 +8,6 @@ keywords: 'limited sharing, publishing, content creation'
 published: true
 allowSearch: true
 ---
-{% image src='pages/usertaskflow/images/limited_sharing.svg' full center alt='Limited Sharing' zoom %} 
+{% image src='usertaskflow/images/limited_sharing.svg' full center alt='Limited Sharing' zoom %} 
 
 

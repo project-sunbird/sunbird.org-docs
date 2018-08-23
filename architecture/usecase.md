@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: architecture
 title: Use Cases
 page_title: Use case
 description: Architecture Use case

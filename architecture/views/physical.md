@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: architecture/views
 title: Physical View
 page_title: Physical View
 description: Physical View

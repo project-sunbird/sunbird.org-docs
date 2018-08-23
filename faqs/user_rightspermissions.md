@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: faqs
 title: User Rights and Permissions
 page_title: User Rights and Permissions
 description: Product features

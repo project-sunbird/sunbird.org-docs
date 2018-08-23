@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/installation
 title: Migrate User Data 
 page_title: Migrate User Data 
 description: Migrate user data from one Sunbird instance to another 

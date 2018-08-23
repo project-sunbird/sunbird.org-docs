@@ -8,4 +8,4 @@ keywords: 'adding, hotspot'
 published: true
 allowSearch: true
 ---
-{% image src='pages/usertaskflow/images/adding_hotspot.svg' full center  alt='How do I Add Hotspot' zoom %} 
+{% image src='usertaskflow/images/adding_hotspot.svg' full center  alt='How do I Add Hotspot' zoom %} 

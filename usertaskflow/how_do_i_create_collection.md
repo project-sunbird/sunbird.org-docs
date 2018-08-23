@@ -8,4 +8,4 @@ keywords: 'adding, coolection, create'
 published: true
 allowSearch: true
 ---
-{% image src='pages/usertaskflow/images/create_collection.svg' full center alt='How Do I Create Collection' zoom %} 
+{% image src='usertaskflow/images/create_collection.svg' full center alt='How Do I Create Collection' zoom %} 

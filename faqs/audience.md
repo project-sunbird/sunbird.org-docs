@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: faqs
 title: Audience
 page_title: Audience
 description: About audience for the content

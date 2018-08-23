@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/telemetry
 title: Standalone Telemetry JS Library
 page_title: Standalone telemetry JS library
 description: telemetry specification of Sunbird
@@ -31,7 +29,7 @@ The following are prerequisites to use or integrate the JS library:
 
 * Valid Authtoken and Key to make API calls
 
-* The [telemetry.min.js](https://github.com/project-sunbird/project-sunbird.github.io/blob/dev/pages/developer-docs/telemetry/other_files/telemetry.min.js){:target="_blank"} file
+* The [telemetry.min.js](developer-docs/telemetry/other_files/telemetry.min.js){:target="_blank"} file
 
 **Note:** For details on generating and using the Authtoken and Key, refer to the section 
 

@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/installation/
 title: Upgrading the Cassandra Database
 page_title: Upgrading the Cassandra Database
 description: Upgrading Cassandra Database
@@ -10,7 +8,7 @@ allowSearch: true
 ---
 ## Overview
 
-Using an obsolete version of a database comes with disadvantages like missed opportunities for enhanced features, lack of technical support, incompatibility with software and hardware, and many others. Upgrading your database periodically, therefore is a necessity.    While upgrading, a careful review of the upgrade instructions will make a difference. By understanding what to do beforehand, you can ensure a smooth upgrade and avoid pitfalls and frustrations.
+Using an obsolete version of a database comes with disadvantages like missed opportunities for enhanced features, lack of technical support, incompatibility with software and hardware, and many others. Upgrading your database periodically, therefore is a necessity. While upgrading, a careful review of the upgrade instructions will make a difference. By understanding what to do beforehand, you can ensure a smooth upgrade and avoid pitfalls and frustrations.
 Read and understand the instructions on this page to plan and execute the upgrade of your Apache Cassandra database.
 
 ## Upgrading your Cassandra installation

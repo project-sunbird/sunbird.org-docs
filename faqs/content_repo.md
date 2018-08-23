@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: faqs
 title: Content Repositories
 page_title: Content Repositories
 description: Content and Organization's repositories

@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/singlesignon
 title: Protocol
 page_title: Protocol
 description: Lists Sunbird's authentication protocols. 

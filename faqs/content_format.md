@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: faqs
 title: Content Format
 page_title: Content Formats
 description: >-

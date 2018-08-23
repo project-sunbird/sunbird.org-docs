@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: faqs
 title: Feature
 page_title: Features
 description: Product features

@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: faqs
 title: Content Review
 page_title: Content Review
 description: Review and its lifecycle

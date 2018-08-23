@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: faqs
 title: Content Types
 page_title: Content Types
 description: Defination of different content types

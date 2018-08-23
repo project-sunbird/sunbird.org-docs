@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: Organization Type Creation
 page_title: Creating Organization Type
 description: Instructional guide on assiging user roles 
@@ -23,7 +21,7 @@ Similarly, a system administrator on Sunbird has specific roles. Only system adm
   <tr>
     <td>1. You are logged in as the system administrator <br>2. You are currently on <b>Profile</b> page. You want to create organization types
       </td>
-      <td><img src="pages/features-documentation/images/orgtype_setup01.png"></td>
+      <td><img src="features-documentation/images/orgtype_setup01.png"></td>
   </tr>
     </table>
 
@@ -36,11 +34,11 @@ Similarly, a system administrator on Sunbird has specific roles. Only system adm
   </tr>
   <tr>
     <td>1. Click <b>Setup</b> from the profile drop-down menu</td>
-     <td><img src="pages/features-documentation/images/orgtype_setup.png"></td>
+     <td><img src="features-documentation/images/orgtype_setup.png"></td>
   </tr>
   <tr>
     <td>The <b>Org Types</b> page is displayed <br>1. Click <b>+</b> icon on the right side of the screen. The <b>Add Org Type</b> page is displayed <br>2. Enter the type of organization you want to create <br>3. Click <b>Add</b> to add the organization type <br>4. Click <b>Cancel</b> to go back to the Org Types screen</td>
-      <td><img src="pages/features-documentation/images/orgtype_setup2.png"></td>
+      <td><img src="features-documentation/images/orgtype_setup2.png"></td>
   </tr>
     </table>
   
@@ -53,10 +51,10 @@ Similarly, a system administrator on Sunbird has specific roles. Only system adm
   </tr>
   <tr>
     <td>1. All organization types created are listed in the <b>Org Types</b> page <br>2. Click <b>Edit</b> icon to edit the created organization type</td>
-    <td><img src="pages/features-documentation/images/orgtype_update1.png"></td>
+    <td><img src="features-documentation/images/orgtype_update1.png"></td>
   </tr>
   <tr>
     <td>1. Edit the name of the organization type <br>2. Click <b>Update</b> to save the edited changes <br>3. Click <b>Cancel</b> to go back to the Org Type page</td>
-      <td><img src="pages/features-documentation/images/orgtype_update2.png"></td>
+      <td><img src="features-documentation/images/orgtype_update2.png"></td>
   </tr>
     </table>

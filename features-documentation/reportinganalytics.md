@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: Reporting Analytics
 page_title: Reporting Analytics
 description: Reporting and Analytics

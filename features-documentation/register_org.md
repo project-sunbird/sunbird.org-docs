@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: Register Organizations
 page_title: Register Organizations
 description: Register and Enrollment
@@ -21,7 +19,7 @@ Organization administrators can use their registered credentials and add other o
   <tr>
     <td>1. You are logged in <br>2. You are currently on <strong>Profile</strong> page. You want to upload organizations <br>3. You have clicked on <b>Upload Organizations</b> <br><b>Note</b>: Ensure that the system administrator of your organization has created the required organization types on the portal. For details on how to create organization types, refer <a href="features-documentation/create_orgtype" target="_blank">Organization Type Creation</a>    
       </td>
-      <td><img src="pages/features-documentation/images/upldorg_prereqsite.png"></td>
+      <td><img src="features-documentation/images/upldorg_prereqsite.png"></td>
   </tr>
     </table>
 

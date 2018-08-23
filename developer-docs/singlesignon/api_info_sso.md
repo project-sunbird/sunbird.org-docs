@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/singlesignon
 title: API Information
 page_title: API Information
 description: Details of API required for user onboarding and sinlge sign on

@@ -8,4 +8,4 @@ keywords: 'course'
 published: true
 allowSearch: true
 ---
-{% image src='pages/usertaskflow/images/create_course.svg' full center alt='How Do I Create Course' zoom %} 
+{% image src='usertaskflow/images/create_course.svg' full center alt='How Do I Create Course' zoom %} 

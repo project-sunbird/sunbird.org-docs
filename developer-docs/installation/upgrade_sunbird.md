@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/installation/
 title: Upgrading to new version of Sunbird
 page_title: upgrading Sunbird
 description: upgrading Sunbird

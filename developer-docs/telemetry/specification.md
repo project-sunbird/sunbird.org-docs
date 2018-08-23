@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/telemetry
 title: Telemetry Specifications
 page_title: Telemetry Specifications
 description: telemetry specification of Sunbird

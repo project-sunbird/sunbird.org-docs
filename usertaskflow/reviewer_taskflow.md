@@ -8,4 +8,4 @@ keywords: 'reviewer, review, enter details'
 published: true
 allowSearch: true
 ---
-{% image src='pages/usertaskflow/images/reviewer_taskflow.svg' full center  alt='reviewer taskflow' zoom %} 
+{% image src='usertaskflow/images/reviewer_taskflow.svg' full center  alt='reviewer taskflow' zoom %} 
