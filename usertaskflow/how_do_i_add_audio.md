@@ -8,4 +8,4 @@ keywords: 'adding, audio, enter details'
 published: true
 allowSearch: true
 ---
-{% image src='pages/usertaskflow/images/adding_audio.svg' full center alt='How do I add Audio' zoom %} 
+{% image src='usertaskflow/images/adding_audio.svg' full center alt='How do I add Audio' zoom %} 

@@ -8,4 +8,4 @@ keywords: 'creating, lessonplan, enter details'
 published: true
 allowSearch: true
 ---
-{% image src='pages/usertaskflow/images/lesson_plan.svg' full center alt='How Do I Create Lesson Plan' zoom %} 
+{% image src='usertaskflow/images/lesson_plan.svg' full center alt='How Do I Create Lesson Plan' zoom %} 

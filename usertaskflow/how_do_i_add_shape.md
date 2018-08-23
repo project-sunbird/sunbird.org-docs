@@ -8,4 +8,4 @@ keywords: 'adding, shape, enter details'
 published: true
 allowSearch: true
 ---
-{% image src='pages/usertaskflow/images/adding_shape.svg' full center  alt='How do I add Shape' zoom %} 
+{% image src='usertaskflow/images/adding_shape.svg' full center  alt='How do I add Shape' zoom %} 

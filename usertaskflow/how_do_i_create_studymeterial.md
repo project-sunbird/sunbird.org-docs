@@ -8,4 +8,4 @@ keywords: 'study, study meterial, create'
 published: true
 allowSearch: true
 ---
-{% image src='pages/usertaskflow/images/create_studymaterial.svg' full center alt='How Do I Create Study Meterial' zoom %} 
+{% image src='usertaskflow/images/create_studymaterial.svg' full center alt='How Do I Create Study Meterial' zoom %} 

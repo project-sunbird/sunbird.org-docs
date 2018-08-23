@@ -8,4 +8,4 @@ keywords: 'adding, scriblepad'
 published: true
 allowSearch: true
 ---
-{% image src='pages/usertaskflow/images/adding_scribblepad.svg' full center  alt='How do I add scribblepad' zoom %} 
+{% image src='usertaskflow/images/adding_scribblepad.svg' full center  alt='How do I add scribblepad' zoom %} 
