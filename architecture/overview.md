@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: architecture
 title: Overview
 page_title: Overview
 description: Architecture Overview
