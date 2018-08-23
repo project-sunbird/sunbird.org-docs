@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: faqs
 title: Registration and Enrollment
 page_title: Registration and Enrolment
 description: Who and how to register & enroll in the platform

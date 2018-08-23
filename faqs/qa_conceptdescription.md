@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: faqs
 title: Concept Description
 page_title: Concept Description
 description: Concept Description

@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: faqs
 title: Intellectual Property Licenses and Standards
 page_title: Intellectual Property Licenses and Standards
 description: Information on intelluctual property rights

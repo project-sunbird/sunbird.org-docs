@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: faqs
 title: Content Upload
 page_title: Content Upload
 description: Uploading Content
@@ -10,7 +8,7 @@ allowSearch: true
 ---
 **Q. How do you upload content on the platform?**
 
-The user must signed in with the registered credential and access the workspace. To access the workspace, [refer](http://www.sunbird.org/features-documentation/workspace/) steps.
+The user must signed in with the registered credential and access the workspace. To access the workspace, [refer](features-documentation/workspace/) steps.
 
 **Q. How to upload files from your Workspace?**
 
@@ -20,7 +18,7 @@ The user must signed in with the registered credential and access the workspace.
 	OR
 
 Enter URL of the video ( If the file to be uploaded is a Youtube Video)
-{% image src='/pages/faqs/images/upldcont.png' full center alt='Upload File' %}
+{% image src='faqs/images/upldcont.png' full center alt='Upload File' %}
 
 ***Note:*** These are the valid and supported file types:
 

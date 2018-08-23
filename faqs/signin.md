@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: faqs
 title: Sign In
 page_title: Sign In
 description: Registration and user credential
