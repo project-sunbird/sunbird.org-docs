@@ -8,4 +8,4 @@ keywords: 'adding, video'
 published: true
 allowSearch: true
 ---
-{% image src='usertaskflow/images/adding_videos.svg' full center alt='How do I add video' zoom %} 
+{% image src='pages/usertaskflow/images/adding_videos.svg' full center alt='How do I add video' zoom %} 
