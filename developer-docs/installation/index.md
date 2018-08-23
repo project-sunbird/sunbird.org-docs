@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/installation/
 title: Installation 
 page_title: Installation
 description: installation 

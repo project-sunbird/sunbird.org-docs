@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/installation
 title: Developer Installation
 page_title: Developer Installation
 description: Installing  the Sunbird portal or web application
@@ -168,4 +166,4 @@ Course Mentor| adoptercoursementor@adopter
 
 * To get the password for each demo user ID, send an email to info@sunbird.org
 
-* For information on user roles, refer to [Types of Users](pages/features-documentation/userrole){:target="_blank"}
+* For information on user roles, refer to [Types of Users](features-documentation/userrole){:target="_blank"}

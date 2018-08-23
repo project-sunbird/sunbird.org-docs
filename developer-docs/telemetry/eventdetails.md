@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/telemetry
 title: Telemetry Event Details
 page_title: Telemetry V3 Event Details
 description: telemetry V3 event details

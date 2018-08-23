@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs
 title: Troubleshooting
 page_title: Troubleshooting
 description: Troubleshooting

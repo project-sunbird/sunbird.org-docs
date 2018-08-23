@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/telemetry
 title: Telemetry HTML Interface Library
 page_title: Telemetry HTML Interface Library
 description: Telemetry HTML Interface Library

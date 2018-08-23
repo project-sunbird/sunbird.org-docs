@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs
 title: Developer Documentation 
 page_title: Developer Documentation
 description: Developer Documentation Overview

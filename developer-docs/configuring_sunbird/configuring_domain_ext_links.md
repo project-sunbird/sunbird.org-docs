@@ -1,11 +1,9 @@
 ---
-directory: developer-docs/configuring_sunbird
 title: Import External Content 
 page_title: Import External Content
 description: Details on how to configure Sunbird domain to whitelist external domains
 keywords: whitelist, upload external link, upload external video, upload other than youtube
 published: true
-type: landing
 allowSearch: true
 ---
 ## Overview
@@ -31,5 +29,5 @@ To enable a Sunbird instance to host content from external source:
 2.Set the "sunbird_extcont_whitelisted_domains" variable to whitelist an external website. For an example, to allow an instance to host content from an external source like "wordpress.com", you need to configure the environmen variable in the below format:
 SUNBIRD_EXTCONT_WHITELISTED_DOMAINS: env.sunbird_extcont_whitelisted_domains ||'wordpress.com'
 3.On successfully configuring the external domain, it allows content creators of the organisation to upload content from external sources
-For more details on how to upload external content to Sunbird content library, refer to the [Upload Content to Sunbird](http://www.sunbird.org/features-documentation/upload/) section.
+For more details on how to upload external content to Sunbird content library, refer to the [Upload Content to Sunbird](features-documentation/upload/) section.
 

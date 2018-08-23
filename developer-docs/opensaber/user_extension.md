@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/opensaber
 title:  Open Saber Integration
 page_title: Open Saber Integration
 description: Procedure document on how to integrate open saber with to Sunbird 

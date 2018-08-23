@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/installation
 title: Migrate Tenant Pages 
 page_title: Migrate Tenant Pages
 description: How and Why's about migrating the static pages to CDN

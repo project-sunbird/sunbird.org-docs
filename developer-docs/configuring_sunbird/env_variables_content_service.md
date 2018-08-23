@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/configuring_sunbird
 title: Content Service Environment Variables
 page_title: Content Service Environment Variables
 description: List of Environment variables required to operationalize the Sunbird content service 
