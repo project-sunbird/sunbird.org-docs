@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: architecture/views
 title: Logical View
 page_title: Logical View
 description: Logical View

@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: architecture/views
 title: Views
 page_title: Views
 description: Elementary Views
