@@ -7,7 +7,7 @@ description: Architecture Design
 keywords: Architecture Design
 published: true
 allowSearch: true
---- 
+---
 With a multi-tenant and robust framework, Sunbird architectural design is resilient, flexible and agile. The  micro-service pattern enhances the overall structure and functionality of Sunbird. 
 The Sunbird architectural design is an amalgamation of layered architecture and service-oriented architecture.
 It follows the design principles that maximizes on:
