@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: Adding Resources
 page_title: Adding Resources
 description: About Adding Resources in a book, course, collection, study material, and lesson plan 
@@ -35,7 +33,7 @@ Content creators can add resources from the existing list or create new resource
      <br><b>Note:</b> This option is exclusive for Book Creators
      <br>e. Use the keyboard shortcut <b>Ctrl+Alt+A</b> <br> For more details on keyboard shortcuts, refer <a href="features-documentation/keyboardshortcuts" target="_blank">Keyboard Shortcuts</a>
     </td>
-    <td><img src="pages/features-documentation/images/add_resources.png"></td>
+    <td><img src="features-documentation/images/add_resources.png"></td>
   </tr>
   </table>
   
@@ -64,7 +62,7 @@ Content creators can add resources from the existing list or create new resource
       <br>8. Click <b>Back</b> to go back to the previous screen
      <br>9. Click <b>Close</b> icon to go back to the main menu
      </td>
-    <td><img src="pages/features-documentation/images/add_resources1.png"></td>
+    <td><img src="features-documentation/images/add_resources1.png"></td>
   </tr>
   </table>
   
@@ -80,7 +78,7 @@ Content creators can add resources from the existing list or create new resource
     <br>1. Click <b>View Details</b> on the resource card to view all the details, OR
     <br>2. Click <b>View</b> to view all the details
     </td>
-    <td><img src="pages/features-documentation/images/add_resources2.png"></td>
+    <td><img src="features-documentation/images/add_resources2.png"></td>
     </tr>
   </table>
     
@@ -97,7 +95,7 @@ Content creators can add resources from the existing list or create new resource
     <br>3. Click <b>Save</b> to save the changes
     <br>4. Click <b>Send for Review</b> icon to send for review
     </td>
-    <td><img src="pages/features-documentation/images/preview_resources.png"></td>
+    <td><img src="features-documentation/images/preview_resources.png"></td>
  </tr>
     <tr>
      <td>The Resource page displays the Name, Description, and Keywords related to the resource.
@@ -106,6 +104,6 @@ Content creators can add resources from the existing list or create new resource
       <br>3. Click the link in the breadcrumb to visit the first level of the corresponding unit 
       <br>3. Click <b>Save</b> to save the changes
  </td>
-    <td><img src="pages/features-documentation/images/preview_page.png"></td>
+    <td><img src="features-documentation/images/preview_page.png"></td>
     </tr>
     </table>    

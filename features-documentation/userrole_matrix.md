@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: Registered User Role Function Matrix
 page_title: Registered User Role Function Matrix
 description: Registered User Role Function Matrix

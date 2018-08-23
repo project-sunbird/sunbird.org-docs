@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: Announcement Sender Role Function Matrix
 page_title: Announcement Sender Role Function Matrix
 description: Announcement Sender Role Function Matrix

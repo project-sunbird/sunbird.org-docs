@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: Publishing
 page_title: Publishing
 description: Publishing

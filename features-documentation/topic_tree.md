@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: Adding Topic
 page_title: Adding Topic
 description: About Adding Topic selector in the metatdata of book, course, collection, resource, and lesson plan 
@@ -22,6 +20,6 @@ The topic selector ensures that the content is linked with the topics and extrac
     <br>6. Click <b>Done</b> to proceed
     <br>7. Click <b>Cancel</b> to exit
     </td> 
-    <td><img src="pages/features-documentation/images/topic_selector.png"></td>
+    <td><img src="features-documentation/images/topic_selector.png"></td>
   </tr>
   </table>

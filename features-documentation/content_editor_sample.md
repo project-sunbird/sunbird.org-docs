@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: Content Editor
 page_title: Content Editor
 description: Features and functionality of the content editor
@@ -40,7 +38,7 @@ This page details how to create resources using the inbuilt content editor.
     <td>1. You are logged in as content creator <br>2. You are currently on <b>My Workspace</b> page <br>3. You want to create content
       resources.You have clicked the <b>Resource</b> tile
       </td>
-      <td><img src="pages/features-documentation/images/contenteditor2/resource_prerequisite1.png"></td>
+      <td><img src="features-documentation/images/contenteditor2/resource_prerequisite1.png"></td>
   </tr>
   <tr>
     <td>1. Enter <b>Name</b> of the resource <br>2. Select the following from their respective drop-down menu:
@@ -52,7 +50,7 @@ This page details how to create resources using the inbuilt content editor.
       <br>&emsp;f) <b>Resource Type</b>
       <br>3. Click <b>Start Creating</b> 
     </td>
-    <td><img src="pages/features-documentation/images/contenteditor2/resource_create.png"></td>
+    <td><img src="features-documentation/images/contenteditor2/resource_create.png"></td>
   </tr>
   </table>
   
@@ -71,7 +69,7 @@ Exploring the Content Editor
 <br>2. <b>Preview</b>: A viewer that allows you see how content will display when published 
 <br>3. <b>Right Pane</b>: A collection of tabs that allow you to customize defaults for tools from the tool bar, add animation or interactive controls and view information about the slide 
 <br>4. <b>Working Area</b>: The slide that is currently being worked upon <br>5. <b>Slide Sorter</b>: Use this area to order your slides </td>
-<td><img src="pages/features-documentation/images/contenteditor2/contenteditor1.png"></td>  
+<td><img src="features-documentation/images/contenteditor2/contenteditor1.png"></td>  
 </tr>
 </table>
 </summary>
@@ -88,7 +86,7 @@ Exploring the Content Editor
   <tr>
   <td>1. To add slides, click the <b>Add Slide</b> icon <br>2. Click to add a slide either in the: <br> a) <b>Beginning</b>: as the first slide <br> b) <b>End</b>: as the last slide <br>c) <b>After Current</b>: after the current slide <br> d) <b>Before Current</b>: before the current slide <br><b>Note</b>: Drag and drop slides in the left page to reorder them
   </td>
-  <td><img src="pages/features-documentation/images/contenteditor2/addslide.png"></td>
+  <td><img src="features-documentation/images/contenteditor2/addslide.png"></td>
   </tr>
   </table> </details>
   
@@ -101,7 +99,7 @@ Exploring the Content Editor
   <tr>
   <td>1. To add text, click the <b>Add Text</b> icon <br>2. Type text into the text box that is added to the slide <br>3. Click <b>Done</b> to add the text box or <b>Cancel</b> to remove the text box <br> After clicking <b>Done</b>, you can format and reposition the text box
   </td>
-  <td><img src="pages/features-documentation/images/contenteditor2/addtext1.png"></td>
+  <td><img src="features-documentation/images/contenteditor2/addtext1.png"></td>
   </tr>
   </table></details>
     

@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: Content Creation
 page_title: Content Creation
 description: Content Creation

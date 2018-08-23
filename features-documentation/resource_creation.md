@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: Creation and Curation of Resources
 page_title: Creation and Curation of Resources
 description: Details on how to create a resource using inbuilt content editor
@@ -35,7 +33,7 @@ This page details the procedure of creating resources on Sunbird.
   <tr>
     <td>1. You are logged in <br>2. You are currently on <b>My Workspace</b> page <br>3. You want to create resources, you have clicked the <b>Resource</b> tile
       </td>
-      <td><img src="pages/features-documentation/images/resource/resource_prerequisite.png"></td>
+      <td><img src="features-documentation/images/resource/resource_prerequisite.png"></td>
   </tr>
   </table>
   
@@ -57,7 +55,7 @@ This page details the procedure of creating resources on Sunbird.
       <br>3. Click <b>Start Creating</b> 
       <br><b>Note</b>: These details can also be filled in later when updating the resource details before sending it for review
     </td>
-    <td><img src="pages/features-documentation/images/resource/resource_create.png"></td>
+    <td><img src="features-documentation/images/resource/resource_create.png"></td>
   </tr>
   </table>
   
@@ -84,7 +82,7 @@ Once the resource is created, using the content editor, all details pertaining t
       <br>&emsp;g) <b>Audience</b>  
   <br>7. Enter <b>Attributions</b>, if any <br>8. Click <b>Save</b> to save all the details
     </td>
-    <td><img src="pages/features-documentation/images/resource/resource_details.png"></td>
+    <td><img src="features-documentation/images/resource/resource_details.png"></td>
   </tr>
   </table>
 
@@ -99,6 +97,6 @@ Once the resource is created, using the content editor, all details pertaining t
     <td>1. Click <b>Save</b> on the header to save the created resource 
       <br>2. Click <b>Send for review</b>. Before sending for review, you can share the content to a limited audience. To know more about Limited Sharing, refer <a href="features-documentation/limitedpublishnshare" target="_blank">Limited Publishing and Sharing</a>
     </td>
-    <td><img src="pages/features-documentation/images/resource/resource_review.png"></td>
+    <td><img src="features-documentation/images/resource/resource_review.png"></td>
   </tr>    
   </table>

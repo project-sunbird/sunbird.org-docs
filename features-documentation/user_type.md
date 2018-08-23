@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: Types of Users
 page_title: Types of Users
 description: User Roles and Permission
