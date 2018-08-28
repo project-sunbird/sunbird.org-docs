@@ -6,6 +6,13 @@ var widgetsData = {
          "releaseDate":"30th July",
          "latest":true,
          "published":true
+      },
+      {  
+         "title":"master",
+         "desc":"",
+         "releaseDate":"30th July",
+         "latest":false,
+         "published":true
       }
    ]
 }
