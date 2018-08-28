@@ -8,16 +8,6 @@ jobs:
     
       # Checkout
       - checkout
-      
-      # Get PR details
-      - type: shell
-        name: PR - Fetch details from API
-        command: |
-          prdata=$(curl -X GET -u $GITHUB_USER_TOKEN:x-oauth-basic https://api.github.com/repos/project-sunbird/sunbird.org-docs/pulls/$CIRCLE_PR_NUMBER)
-          branchname=$(echo "${prdata}" | jq '.base.ref')
-          branch=${branchname//\"/}
-          username=$(echo "${prdata}" | jq '.user.login')
-          contributor=${username//\"/}
           
       # Run Build command & deploy to PR site
       - type: shell
