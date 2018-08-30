@@ -66,7 +66,7 @@ jobs:
           }
           file=$(_jq '.filename')
           echo $file
-          if [[ "$file" == pages/* ]] && [[ "$file" == *.md ]]
+          if [[ "$file" == *.md ]]
           then
           filedocs=${file//\.md/}
           filedocs=${filedocs//index/}
@@ -97,7 +97,7 @@ jobs:
          curl \
           -X POST \
           -u $GITHUB_USER_TOKEN:x-oauth-basic \
-          -d '{"body": "Hello @'"$contributor"',<br/><br/> _This is a auto-generated response._ <br/><br/> Click the URL for review pull request - http://'"$CIRCLE_PR_NUMBER"'.qa.docs.sunbird.org/'"$branch"' .<br/> **Note:** Only _'"$branch"'_ version was generated for PR preview. <br/><br/> **Modified pages are -** <br />'"$updatedfileslist"' <br/> **Modified sections are -** <br />'"$updatedsectionslist"' "}' \
+          -d '{"body": "Hello @'"$contributor"',<br/><br/> _This is a auto-generated response._ <br/><br/> Click the URL for review pull request - http://'"$CIRCLE_PR_NUMBER"'.qa.docs.sunbird.org/'"$branch"/' .<br/> **Note:** Only _'"$branch"'_ version was generated for PR preview. <br/><br/> **Modified pages are -** <br />'"$updatedfileslist"' <br/> **Modified sections are -** <br />'"$updatedsectionslist"' "}' \
           https://api.github.com/repos/project-sunbird/sunbird.org-docs/issues/$CIRCLE_PR_NUMBER/comments
   
   version-staging:
