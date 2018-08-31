@@ -16,9 +16,9 @@ jobs:
           prdata=$(curl -X GET -u $GITHUB_USER_TOKEN:x-oauth-basic https://api.github.com/repos/project-sunbird/sunbird.org-docs/pulls/$CIRCLE_PR_NUMBER)
           branchname=$(echo "${prdata}" | jq '.base.ref')
           branch=${branchname//\"/}
-          echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
-          echo "docsBranch: $branch" >> _config.yml
-          echo "docsVersion: $branch" >> _config.yml
+          echo "buildNo: '"$CIRCLE_BUILD_NUM"'" >> _config.yml
+          echo "docsBranch: '"$branch"'" >> _config.yml
+          echo "docsVersion: '"$branch"'" >> _config.yml
           bundle exec jekyll build
           cd _site
           aws s3 sync --delete . s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/$branch/
@@ -31,7 +31,7 @@ jobs:
           rm -rf toc-build
           git clone -b toc $CIRCLE_REPOSITORY_URL toc-build
           cd toc-build
-          echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
+          echo "buildNo: '"$CIRCLE_BUILD_NUM"'" >> _config.yml
           bundle exec jekyll build
           cd _site
           aws s3 cp index.html                      s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/index.html
@@ -113,9 +113,9 @@ jobs:
       - type: shell
         name: Commit - Build & Deploy
         command: |
-          echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
-          echo "docsBranch: $CIRCLE_BRANCH" >> _config.yml
-          echo "docsVersion: $CIRCLE_BRANCH" >> _config.yml
+          echo "buildNo: '"$CIRCLE_BUILD_NUM"'" >> _config.yml
+          echo "docsBranch: '"$CIRCLE_BRANCH"'" >> _config.yml
+          echo "docsVersion: '"$CIRCLE_BRANCH"'" >> _config.yml
           bundle exec jekyll build
           cd _site
           aws s3 sync --delete . s3://sunbird-docs-qa/docs-staging/$CIRCLE_BRANCH/
@@ -128,7 +128,7 @@ jobs:
           if [[ $LATEST_VERSION = $CIRCLE_BRANCH ]]
           then
            sed -i '$ d' _config.yml
-           echo "docsVersion: latest" >> _config.yml
+           echo "docsVersion: '"latest"'" >> _config.yml
            bundle exec jekyll build
            cd _site
            aws s3 sync --delete . s3://sunbird-docs-qa/docs-staging/latest/
