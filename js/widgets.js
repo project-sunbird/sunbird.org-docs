@@ -4,8 +4,8 @@ publishedVersions = widgetsData.versions.filter(function(version){
 latestVersion = widgetsData.versions.filter(function(version){
 	return version.published === true && version.latest === true ;
 });
-currentVersionData = widgetsData.versions.filter(function(version){
-	return version.title == version;
+currentVersionData = widgetsData.versions.filter(function(version,currentVersion){
+	return version.title == currentVersion;
 });
 
 $(function(){
