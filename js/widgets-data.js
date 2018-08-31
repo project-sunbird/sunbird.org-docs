@@ -4,14 +4,14 @@ var widgetsData = {
          "title":"1.10",
          "desc":"",
          "releaseDate":"30th Aug",
-         "latest":false,
-         "published":false
+         "latest":true,
+         "published":true
       },
       {  
          "title":"1.9",
          "desc":"",
          "releaseDate":"30th July",
-         "latest":true,
+         "latest":false,
          "published":true
       },
       {  
