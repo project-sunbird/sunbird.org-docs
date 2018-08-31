@@ -127,12 +127,13 @@ jobs:
           LATEST_VERSION=$(curl https://raw.githubusercontent.com/project-sunbird/sunbird.org-docs/toc/js/latest-version.txt)
           if [[ $LATEST_VERSION = $CIRCLE_BRANCH ]]
           then
-          ls
-          sed -i '$ d' _config.yml
-          echo "docsVersion: latest" >> _config.yml
-          bundle exec jekyll build
-          cd _site
-          aws s3 sync --delete . s3://sunbird-docs-qa/docs-staging/latest/
+           sed -i '$ d' _config.yml
+           echo "docsVersion: latest" >> _config.yml
+           bundle exec jekyll build
+           cd _site
+           aws s3 sync --delete . s3://sunbird-docs-qa/docs-staging/latest/
+          else
+          curl -u $GITHUB_USER_TOKEN: -d build_parameters[CIRCLE_JOB]=version-staging https://circleci.com/api/v1.1/project/github/project-sunbird/sunbird.org-docs/tree/$LATEST_VERSION
           fi
           
   version-prod:
