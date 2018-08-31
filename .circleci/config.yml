@@ -13,7 +13,7 @@ jobs:
       - type: shell
         name: PR - Build & Deploy
         command: |
-          echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
+          echo "buildNo: '"$CIRCLE_BUILD_NUM"'" >> _config.yml
           bundle exec jekyll build
           cd _site
           aws s3 cp index.html                     s3://sunbird-docs-qa/docs-pr/$CIRCLE_PR_NUMBER/index.html
@@ -53,7 +53,7 @@ jobs:
       - type: shell
         name: Commit - Build & Deploy
         command: |
-          echo "buildNo: $CIRCLE_BUILD_NUM" >> _config.yml
+          echo "buildNo: '"$CIRCLE_BUILD_NUM"'" >> _config.yml
           bundle exec jekyll build
           cd _site
           aws s3 cp index.html                     s3://sunbird-docs-qa/docs-staging/index.html
