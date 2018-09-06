@@ -1,65 +1,61 @@
 {% assign directory = page.path | split: '/' %}
 <div id="">
-{% if site.showSearch == true %} {% include search.html %} {% endif %}
-<div id="widgetVersionSwitcher"></div>
-<div class="sidebar-wrapper {{directory[0] | slugify}}"> 
-{% for version in site.data.sidebar %}
-
-	{% if version.branch == this_version_branch %}
-		
-		{% for menu in version.sidebar %}
-		<!-- Section Start-->
-		{% assign finalurl = menu.url %}
-		{% assign sections = finalurl | split: '/' %}
-		<div class="section {% if (sections[3] == paths[3]) || ((if paths[3] == 'apis') && (sections[3] = 'developer-docs'))%}active{% endif %} section-{{sections[3]}} path-{{paths[3]}} {{contribution_class}}">
-			<a href="{{finalurl}}" {% if menu.target %}target="_{{menu.target}}"{% endif %}>
-				<h4 class="sidebar-group-title">{{menu.title}}</h4>
-			</a>
-			{% if menu.subfolderitems[0] %}
-				<ul class="sidebar-group">
-				{% for submenu in menu.subfolderitems %}
-					<li>
-								
-						{% if submenu.subfolderitems[0] %}
-							<div class="">
-								
+	
+	{% if site.showSearch == true %} {% include search.html %} {% endif %}
+	
+	<div id="widgetVersionSwitcher"></div>
+	
+	<div class="sidebar-wrapper {{directory[0] | slugify}}"> 
+		{% for version in site.data.sidebar %}
+			{% for menu in version.sidebar %}
+				{% assign finalurl = menu.url %}
+				{% assign sections = finalurl | split: '/' %}
+				<div class="{% if (sections[0] == directory[0] ) %}active{% endif %}">
+					<a href="{{finalurl}}" {% if menu.target %}target="_{{menu.target}}"{% endif %}>
+						<h4 class="sidebar-group-title">{{menu.title}}</h4>
+					</a>
+					{% if menu.subfolderitems[0] %}
+					<ul class="sidebar-group">
+					{% for submenu in menu.subfolderitems %}
+						<li>
+									
+							{% if submenu.subfolderitems[0] %}
+								<div class="">
+									
+									{% assign submenufinalurl = submenu.url %}
+									
+									<a href="{{submenufinalurl}}" {% if submenu.target %}target="_{{submenu.target}}"{% endif %}>
+										{{submenu.page}}
+									</a>
+									<ul class="sidebar-group">
+										{% for subsubmenu in submenu.subfolderitems %}
+										<li>
+											
+											{% assign subsubmenufinalurl = subsubmenu.url %}
+											
+											<a  href="{{subsubmenufinalurl}}" {% if subsubmenu.target %}target="_{{subsubmenu.target}}"{% endif %}>
+												{{subsubmenu.page}}
+											</a>
+										</li>
+										{% endfor %}
+									</ul>
+								</div>
+							{% else %}
 								{% assign submenufinalurl = submenu.url %}
-								
 								<a href="{{submenufinalurl}}" {% if submenu.target %}target="_{{submenu.target}}"{% endif %}>
 									{{submenu.page}}
 								</a>
-								<ul class="sidebar-group">
-									{% for subsubmenu in submenu.subfolderitems %}
-									<li>
-										
-										{% assign subsubmenufinalurl = subsubmenu.url %}
-										
-										<a  href="{{subsubmenufinalurl}}" {% if subsubmenu.target %}target="_{{subsubmenu.target}}"{% endif %}>
-											{{subsubmenu.page}}
-										</a>
-									</li>
-									{% endfor %}
-								</ul>
-							</div>
-						{% else %}
-							{% assign submenufinalurl = submenu.url %}
-							<a href="{{submenufinalurl}}" {% if submenu.target %}target="_{{submenu.target}}"{% endif %}>
-								{{submenu.page}}
-							</a>
-						{% endif %}
-					</li>
-				{% endfor %}
-				</ul>
-				{% endif %}
+							{% endif %}
+						</li>
+					{% endfor %}
+					</ul>
+					{% endif %}
+			</div>
+			{% endfor %}	
+		{% endfor %}
 		</div>
-		<!-- Section End-->
-	{% endfor %}
-	{% endif %}	
-	{% endfor %}
-	<!-- Contribution Sidebar-->
-</div>
-<script>
-	$("a[href$='{{page.url }}']").addClass("sidebar-link-selected");
-</script>
-</div>
+		<script>
+			$("a[href$='{{page.url }}']").addClass("sidebar-link-selected");
+		</script>
+	</div>
 </div>
