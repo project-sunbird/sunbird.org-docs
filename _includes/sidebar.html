@@ -1,8 +1,8 @@
 {% assign directory = page.path | split: '/' %}
-<div id="">
+
+<div id="" class="sidebar-cover">
 	
 	{% if site.showSearch == true %} {% include search.html %} {% endif %}
-	
 	<div id="widgetVersionSwitcher"></div>
 	
 	<div class="sidebar-wrapper {{directory[0] | slugify}}"> 
@@ -18,22 +18,25 @@
 					<ul class="sidebar-group">
 					{% for submenu in menu.subfolderitems %}
 						<li>
-									
 							{% if submenu.subfolderitems[0] %}
 								<div class="">
-									
 									{% assign submenufinalurl = submenu.url %}
-									
-									<a href="{{submenufinalurl}}" {% if submenu.target %}target="_{{submenu.target}}"{% endif %}>
+									<a 
+										href="{{submenufinalurl}}" 
+										{% if submenu.target %}target="_{{submenu.target}}"{% endif %} 
+										class="{% if submenufinalurl == page.url %}sidebar-link-selected{% endif %}" 
+										> 
 										{{submenu.page}}
 									</a>
 									<ul class="sidebar-group">
 										{% for subsubmenu in submenu.subfolderitems %}
 										<li>
-											
 											{% assign subsubmenufinalurl = subsubmenu.url %}
-											
-											<a  href="{{subsubmenufinalurl}}" {% if subsubmenu.target %}target="_{{subsubmenu.target}}"{% endif %}>
+											<a  
+												href="{{subsubmenufinalurl}}" 
+												{% if subsubmenu.target %}target="_{{subsubmenu.target}}"{% endif %}
+												class="{% if subsubmenufinalurl == page.url %}sidebar-link-selected{% endif %}" 
+												>
 												{{subsubmenu.page}}
 											</a>
 										</li>
@@ -42,7 +45,11 @@
 								</div>
 							{% else %}
 								{% assign submenufinalurl = submenu.url %}
-								<a href="{{submenufinalurl}}" {% if submenu.target %}target="_{{submenu.target}}"{% endif %}>
+								<a 
+									href="{{submenufinalurl}}" 
+									{% if submenu.target %}target="_{{submenu.target}}"{% endif %}
+									class="{% if submenufinalurl== page.url %}sidebar-link-selected{% endif %}" 
+									>
 									{{submenu.page}}
 								</a>
 							{% endif %}
@@ -50,12 +57,12 @@
 					{% endfor %}
 					</ul>
 					{% endif %}
-			</div>
+				</div>
 			{% endfor %}	
 		{% endfor %}
-		</div>
-		<script>
-			$("a[href$='{{page.url }}']").addClass("sidebar-link-selected");
-		</script>
 	</div>
 </div>
+
+<script>
+	$("a[href$='{{page.url}}']").addClass("sidebar-link-selected");
+</script>
