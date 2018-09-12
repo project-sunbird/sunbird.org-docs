@@ -22,7 +22,7 @@ var widgetsData = {
          "desc":"",
          "releaseDate":"30th July",
          "latest":false,
-         "published":true
+         "published":false
       }
    ]
 }
