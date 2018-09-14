@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: developer-docs/telemetry
 title: Telemetry
 page_title: Telemetry
 description: telemetry specification of Sunbird
@@ -82,10 +84,11 @@ Typically, there are four levels of telemetry:
 
 * Full
 
-<img src="developer-docs/installation/images/telemetry_1.png"> 
+<img src="pages/developer-docs/installation/images/telemetry_1.png"> 
 
 The level of data collected is a discrete decision of an organization or business. Analysis of this data offers insights into product and user behaviour and usage patterns, driving business decisions and research outcomes. You can program your telemetry analytics to suit your requirements.
 
 Sunbird’s telemetry service has Full level telemetry.
 
-
+<!--## What is Telemetry Channel?
+-->

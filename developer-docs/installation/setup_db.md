@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: developer-docs/installation/
 title: Setup Database
 page_title: Setup Database
 description: About setting up databases

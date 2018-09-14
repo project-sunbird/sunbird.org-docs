@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: developer-docs/installation
 title: Configure Keycloak 
 page_title: Configure Keycloak
 description: Keycloak configuration
@@ -13,7 +15,7 @@ Assuming that you have set up Sunbird on sunbird.example.com, You can open Keycl
 ## Import Realm
 
 - To simplify the configuration, Sunbird provides a ready to use realm that can be imported and used. 
--[Download](developer-docs/installation/other_files/keycloak-realm.json) the realm to get started.
+-[Download](https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/pages/developer-docs/installation/other_files/keycloak-realm.json) the realm to get started.
 
 Follow the steps to add, import and create the Keycloak realm:
 <table>
@@ -29,7 +31,7 @@ Follow the steps to add, import and create the Keycloak realm:
 
         </td>
             <td>
-            <img src="developer-docs/installation/images/keycloack-add-realm.png">
+            <img src="pages/developer-docs/installation/images/keycloack-add-realm.png">
             </td>
 </tr>
 <tr>
@@ -41,14 +43,14 @@ Follow the steps to add, import and create the Keycloak realm:
 2. Type the appropriate name <br>
         </td>
             <td>
-            <img src="developer-docs/installation/images/keycloak-choose-json.png">
+            <img src="pages/developer-docs/installation/images/keycloak-choose-json.png">
             </td>
 </tr>
 <tr>
         <td> 1. Click on <
         </td>
             <td>
-            <img src="developer-docs/installation/images/keycloak-import-realm-create.png">
+            <img src="pages/developer-docs/installation/images/keycloak-import-realm-create.png">
             </td>
 </tr>
 </table>
@@ -74,7 +76,7 @@ Navigate to Manage tab, then to Users and create a new user.
 **Note:** Refer to the following image for reference configuration.
 
 
-{% image src='developer-docs/installation/images/keycloak-add-user-manager.png' half center alt='Keycloak use management' %}{:target="_blank"}
+{% image src='pages/developer-docs/installation/images/keycloak-add-user-manager.png' half center alt='Keycloak use management' %}{:target="_blank"}
 
 Use the corresponding username and password values for this newly created user and set the values for **sunbird_sso_username** and **sunbird_sso_password** in the configuration file.
 
