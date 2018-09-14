@@ -1,5 +1,4 @@
 ---
-type: landing
 title: Types of Users
 page_title: Types of Users
 description: User Roles and Permission

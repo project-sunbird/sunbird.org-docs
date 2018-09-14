@@ -1,5 +1,4 @@
 ---
-type: landing
 title: Explore Sunbird
 page_title: Explore Sunbird
 description: Accessing the feature in Sunbird as an anonymous user 
