@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2018-09-14 15:37:39 +0530">
+<meta name="last-modified" content="2018-09-14 18:08:27 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="614" />
+<meta name="buildNo" content="631" />
 <meta name="version" id="docsVersion" content="master" />
 <!--/Build Details-->
 
@@ -1512,14 +1512,15 @@ resetBase();
           <ul>
             <li class="toc_level-1 toc_section-1">
               <a href="#overview"><span class="tocnumber">1 .</span> <span class="toctext">Overview</span></a>
-              <ul>
-                <li class="toc_level-2 toc_section-2">
-                  <a href="#user-interface-details"><span class="tocnumber">1.1 .</span> <span class="toctext">User Interface Details</span></a>
-                </li>
-                <li class="toc_level-2 toc_section-3">
-                  <a href="#configuring-review-checklist"><span class="tocnumber">1.2 .</span> <span class="toctext">Configuring Review Checklist</span></a>
-                </li>
-              </ul>
+            </li>
+            <li class="toc_level-1 toc_section-2">
+              <a href="#ui-display-with-default-configurations"><span class="tocnumber">2 .</span> <span class="toctext">UI Display with Default Configurations</span></a>
+            </li>
+            <li class="toc_level-1 toc_section-3">
+              <a href="#ui-display-with-customized-configurations"><span class="tocnumber">3 .</span> <span class="toctext">UI Display with Customized Configurations</span></a>
+            </li>
+            <li class="toc_level-1 toc_section-4">
+              <a href="#configuring-review-checklist"><span class="tocnumber">4 .</span> <span class="toctext">Configuring Review Checklist</span></a>
             </li>
           </ul>
         </td>
@@ -1527,19 +1528,19 @@ resetBase();
     </tbody>
   </table>
 </div><h2 id="overview">Overview</h2>
-<p>To ensure that content uploaded and available on Sunbird are quality driven and adheres to standard guidelines, content can be published only after it undergoes a review.</p>
+<p>Any content published on Sunbird undergoes a review to ensure that published content adheres to defined guidelines and standards set by the organization. Each organization can set guidelines based on their organization standards. Sunbird provides the feature of configuring review checklist. Any adopter can use this feature and configure checklists for the review process. A content reviewer on Sunbird can perform the following activities: 
+<br /> a) Request changes in the content submitted for review
+<br /> b) Publish the content submitted for review</p>
 
-<p>A content reviewer on Sunbird can perform the following activities: 
-<br /> a) Request changes
-<br /> b) Publish</p>
-
-<p>This page details the procedure on how to configure the review checklist. Configurations are supported at the following two levels:
+<p>Currently, before a content is published, the reviewer validates the content with a pre-defined checklist. This checklist can be configured based on organization requirements. This page details the procedure on how to configure the review checklist. Configurations are supported at the following two levels:
 <br /> a) Instance level
 <br /> b) Channel level</p>
 
 <p>When configuration is done at a channel level, it overrides instance level configuration.</p>
 
-<p><b>Note</b>: Configurations are set internally, users can override default configuration to customize checklists for organizational requirements.</p>
+<blockquote>
+  <p>Note: Configurations are set internally, users can override default configuration to customize checklists for organizational requirements.</p>
+</blockquote>
 
 <p>Different configuration can be defined differently for the following content types:</p>
 <ul>
@@ -1548,23 +1549,19 @@ resetBase();
   <li>Resource and Collection</li>
 </ul>
 
-<h3 id="user-interface-details">User Interface Details</h3>
-
-<h4 id="ui-display-with-default-configurations">UI Display with Default Configurations</h4>
+<h2 id="ui-display-with-default-configurations">UI Display with Default Configurations</h2>
 <p>The UI display, when there are no configurations set for the checklist, is as described:
 <br />1. When requesting changes to content, an information message <b>Please detail the required changes in the comments</b> is displayed over the comment box. On entering comments here, the <b>Request Changes</b> button is enabled
 <br />2. When publishing reviewed content, a confirmation message <b>Are you sure you want to publish?</b> is displayed. The <b>Publish</b> button is enabled and reviewer clicks the button to publish content</p>
 
-<h4 id="ui-display-with-customized-configurations">UI Display with Customized Configurations</h4>
+<h2 id="ui-display-with-customized-configurations">UI Display with Customized Configurations</h2>
 <p>The UI display, when configurations are set for the checklist, is as described:
 <br />1. When requesting changes to content, the configured checklist is displayed with a comment box. The reviewer must select atleast one checkbox and provide comments in the comment box to enable <b>Request Changes</b> button 
 <br />2. When publishing reviewed content, the configured checklist is displayed with a comment box. The reviewer must select atleast one checkbox to enable <b>Publish</b> button
 <br />3. In case of any system failure, when requesting changes to content or when publishing reviewed content, an error message <b>.Something went wrong. Please try again later</b> is displayed</p>
 
-<h3 id="configuring-review-checklist">Configuring Review Checklist</h3>
-<ul>
-  <li>Use the create/update form API with the following API request</li>
-</ul>
+<h2 id="configuring-review-checklist">Configuring Review Checklist</h2>
+<p>Use the create/update form API with the following API request</p>
 
 <p>
   <strong>Sample API request for Request Changes with configuration:</strong>
@@ -1574,17 +1571,17 @@ resetBase();
 {
 	"request": {
 		"type": "content",
-		"action": "requestForChangesChecklist",
+		"action": "requestforchanges",
 		"subType": "resource",
 		"data": {
 			"templateName": "defaultTemplate",
-			"action": "requestForChangesChecklist",
+			"action": "requestforchanges",
 			"fields": [{
 				"title": "Please tick the reasons for requesting changes and provide detailed comments:",
 				"otherReason": "Other Issue(s) (if there are any other issues, tick this and provide details in the comments box)",
 				"contents": [{
 						"name": "Appropriateness",
-						"checkList": [
+						"checklist": [
 							"Has Hate speech, Abuse, Violence, Profanity",
 							"Has Sexual content, Nudity or Vulgarity",
 							"Has Discriminatory or Defamatory content",
@@ -1593,7 +1590,7 @@ resetBase();
 					},
 					{
 						"name": "Content details",
-						"checkList": [
+						"checklist": [
 							"Inappropriate Title or Description",
 							"Incorrect Board, Grade, Subject or Medium",
 							"Inappropriate tags such as Resource Type or Concepts",
@@ -1602,7 +1599,7 @@ resetBase();
 					},
 					{
 						"name": "Usability",
-						"checkList": [
+						"checklist": [
 							"Content is NOT playing correctly",
 							"CANNOT see the content clearly on Desktop and App",
 							"Audio is NOT clear or NOT easy to understand",
@@ -1625,16 +1622,16 @@ resetBase();
 {
 	"request": {
 		"type": "content",
-		"action": "publishChecklist",
+		"action": "publish",
 		"subType": "resource",
 		"data": {
 			"templateName": "defaultTemplate",
-			"action": "publishChecklist",
+			"action": "publish",
 			"fields": [{
 				"title": "Please confirm that ALL the following items are verified (by ticking the check-boxes) before you can publish:",
 				"contents": [{
 						"name": "Appropriateness",
-						"checkList": [
+						"checklist": [
 							"No Hate speech, Abuse, Violence, Profanity",
 							"No Sexual content, Nudity or Vulgarity",
 							"No Discrimination or Defamation",
@@ -1643,7 +1640,7 @@ resetBase();
 					},
 					{
 						"name": "Content details",
-						"checkList": [
+						"checklist": [
 							"Appropriate Title, Description",
 							"Correct Board, Grade, Subject, Medium",
 							"Appropriate tags such as Resource Type, Concepts",
@@ -1652,7 +1649,7 @@ resetBase();
 					},
 					{
 						"name": "Usability",
-						"checkList": [
+						"checklist": [
 							"Content plays correctly",
 							"Can see the content clearly on Desktop and App",
 							"Audio (if any) is clear and easy to understand",
