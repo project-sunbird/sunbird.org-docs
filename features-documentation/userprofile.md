@@ -1,5 +1,4 @@
 ---
-type: landing
 title: User Profile
 page_title: User Profile
 description: User Profile

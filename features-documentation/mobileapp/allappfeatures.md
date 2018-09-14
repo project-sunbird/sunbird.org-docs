@@ -1,5 +1,4 @@
 ---
-type: landing
 title: Mobile Application
 page_title: Mobile Application
 description: The functions and features of the Sunbird Mobile App and its usage 
