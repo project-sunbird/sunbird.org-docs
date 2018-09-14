@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: developer-docs/configuring_sunbird
 title: Creating Announcements
 page_title: Creating Announcements 
 description: Enable organizations and users to configure and use the Announcement feature on Sunbird 
@@ -31,18 +33,18 @@ The Announcements feature does not support location hierarchy. While targeting a
  
   1.Create **Location** in Sunbird
  
-**Note:** To create locations, refer to [Geo Location APIs](apis/geolocationapi/){:target="_blank"}.
+**Note:** To create locations, refer to [Geo Location APIs](http://www.sunbird.org/apis/geolocationapi/){:target="_blank"}.
 
   2.On successful creation of a location, you will get a **locationId**
   3.Use the **locationId** to create or update an organization
  
-**Note** To create organizations, refer to [Organization Management APIs](apis/orgapi/){:target="_blank"}
+**Note** To create organizations, refer to [Organization Management APIs](http://www.sunbird.org/apis/orgapi/){:target="_blank"}
  
 ## Creating Announcement Types
 
 Announcements are categorised into different types, for example; orders, circulars, holidays, news etc. There must be atleast one announcement type created for the organization to enable the administrator to send an announcement. Announcement types are created as per the requirements of the tenant organization.
 
-**Note** To create announcement types, refer to [Manage Announcement Type APIs](apis/announcements/#tag/Manage-Announcement-Type-APIs){:target="_blank"}
+**Note** To create announcement types, refer to [Manage Announcement Type APIs](http://www.sunbird.org/apis/announcements/#tag/Manage-Announcement-Type-APIs){:target="_blank"}
 
 ## Assigning Roles to User(s)
 
@@ -55,19 +57,19 @@ To send announcements, it is essential that a user is assigned the role of an an
     </tr>
     <tr>
       <td>1. Log in with registered Administrator credentials <br />2. On the <b>Home</b> page, click <b>Profile</b> </td>
-      <td><img src="features-documentation/images/announcement/assignuserrole1.png" /></td>
+      <td><img src="pages/features-documentation/images/announcement/assignuserrole1.png" /></td>
     </tr>
     <tr>
     <td>1. Search for users, to whom you want to assign the role <br />2. Click <b>Edit</b> 
     </td>
-    <td><img src="features-documentation/images/announcement/assignuserrole2.png" />
+    <td><img src="pages/features-documentation/images/announcement/assignuserrole2.png" />
     </td>
     </tr>
     <tr>
     <td>1. In the <b>Select Role<b> screen, select <b>Announcement Sender</b> <br />2. Click <b>Update</b> to assign the role&lt;/td&gt;
-    </b></b></td><td><img src="features-documentation/images/announcement/assignuserrole3.png" />
+    </b></b></td><td><img src="pages/features-documentation/images/announcement/assignuserrole3.png" />
     </td>
 </tr>
 </table>
 
-**Note**: For details on other announcement features and their use, refer to the [Announcement](features-documentation/announcement/){:target="_blank"} section.
+**Note**: For details on other announcement features and their use, refer to the [Announcement](http://www.sunbird.org/features-documentation/announcement/){:target="_blank"} section.

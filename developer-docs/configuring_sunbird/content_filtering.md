@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: developer-docs/configuring_sunbird
 title: Content Filtering
 page_title:  Content Filtering
 description: How to setup filtering of content

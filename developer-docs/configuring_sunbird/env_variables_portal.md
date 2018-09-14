@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: developer-docs/configuring_sunbird
 title: Portal Service Environment Variables  
 page_title: Portal Service Environment Variables 
 description: List of environment variables needed to operationalize and customize Sunbird 

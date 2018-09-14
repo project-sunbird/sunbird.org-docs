@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: developer-docs/installation/
 title: Provisioning Servers
 page_title: Server Automation
 description: Provisioning server

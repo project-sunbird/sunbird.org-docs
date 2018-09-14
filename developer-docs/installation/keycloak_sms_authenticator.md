@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: developer-docs/installation
 title: Authentication
 page_title: IUser Authentication via OTP
 description: Authenticating user based on OTP

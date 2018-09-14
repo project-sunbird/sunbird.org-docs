@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: developer-docs/installation
 title: Developer Installation
 page_title: Developer Installation
 description: Installing  the Sunbird portal or web application
@@ -67,7 +69,7 @@ The following sections provide you with the sequence to set up the Sunbird porta
 <pre>
 sunbird_environment=local 
 sunbird_instance=sunbird
-sunbird_default_tenant=sunbird
+sunbird_default_channel=sunbird
 </pre>
 
 ## Configure the Service Stack
@@ -166,4 +168,4 @@ Course Mentor| adoptercoursementor@adopter
 
 * To get the password for each demo user ID, send an email to info@sunbird.org
 
-* For information on user roles, refer to [Types of Users](features-documentation/userrole){:target="_blank"}
+* For information on user roles, refer to [Types of Users](pages/features-documentation/userrole){:target="_blank"}

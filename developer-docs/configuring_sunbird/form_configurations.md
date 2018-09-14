@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: developer-docs/configuring_sunbird
 title: Configuration for Meta Forms
 page_title: Configuration for Meta Forms 
 description: Different configurations for forms
