@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: features-documentation
 title: Flag Reviewer Role Function Matrix
 page_title: Flag Reviewer Role Function Matrix
 description: Flag Reviewer Role Function Matrix

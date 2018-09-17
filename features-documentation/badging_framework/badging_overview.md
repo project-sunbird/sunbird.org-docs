@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: features-documentation/badging_framework
 title: Badging Framework 
 page_title: Badging Framework
 description: An overview of the badging framework on Sunbird

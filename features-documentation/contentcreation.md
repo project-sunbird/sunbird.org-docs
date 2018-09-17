@@ -1,12 +1,14 @@
 ---
+type: landing
+directory: features-documentation
 title: Content Creation
 page_title: Content Creation
 description: Content Creation
 keywords: >-
   content editor, create course, create content, create lesson, textbook,
   collection, course
-published: false
-allowSearch: false
+published: true
+allowSearch: true
 ---
 
 

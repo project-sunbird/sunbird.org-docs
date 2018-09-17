@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: features-documentation
 title: Intellectual Property
 page_title: Intelletual Property
 description: Intellectual Property
