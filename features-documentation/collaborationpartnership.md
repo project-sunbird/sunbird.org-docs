@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: features-documentation
 title: Collaboration and Partnership
 page_title: Collaboration and Partnership
 description: Collaboration and Partnership

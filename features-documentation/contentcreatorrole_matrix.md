@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: features-documentation
 title: Content Creator Role Function Matrix
 page_title: Content Creator Role Function Matrix
 description: Content Creator Role Function Matrix

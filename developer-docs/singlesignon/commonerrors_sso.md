@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: developer-docs/singlesignon
 title: Common Errors and Solutions
 page_title: Common Errors and Solutions
 description: Brief description of common errors ensountered during single sign on process and their respective solutions

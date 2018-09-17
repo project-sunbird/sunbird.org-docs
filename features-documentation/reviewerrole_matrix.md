@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: features-documentation
 title: Content Reviewer Role Function Matrix
 page_title: Content Reviewer Role Function Matrix
 description: Content Reviewer Role Function Matrix

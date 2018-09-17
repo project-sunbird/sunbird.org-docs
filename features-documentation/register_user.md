@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: features-documentation
 title: Register Users
 page_title: Register Users
 description: Registration and Enrollment
@@ -17,9 +19,9 @@ Organization administrators can use their registered credentials and add individ
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-    <td>1. You are logged in <br>2. You are currently on <strong>Profile</strong> page. You want to upload users <br>3. You have clicked on <b>Upload Users</b> <br><b>Note</b>: Ensure that the administrator of your organization has assigned user roles on the portal. For details on how to assign user roles, refer <a href="features-documentation/admin_assigning_users" target="_blank">Assigning User Roles</a>
+    <td>1. You are logged in <br>2. You are currently on <strong>Profile</strong> page. You want to upload users <br>3. You have clicked on <b>Upload Users</b> <br><b>Note</b>: Ensure that the administrator of your organization has assigned user roles on the portal. For details on how to assign user roles, refer <a href="http://www.sunbird.org/features-documentation/admin_assigning_users" target="_blank">Assigning User Roles</a>
       </td>
-      <td><img src="features-documentation/images/upldusr_prereqsite.png"></td>
+      <td><img src="pages/features-documentation/images/upldusr_prereqsite.png"></td>
   </tr>
     </table>
 

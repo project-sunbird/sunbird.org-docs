@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: developer-docs
 title: Library References
 page_title: Library References
 description: Library References
@@ -24,4 +26,3 @@ The ContentRenderer handles telemetry events for ECML content. HTML content has 
 The AuthToken generator JS library is used to generate or refresh the user AuthToken. The Authtoken is mandatory for any API request. 
 
 [AuthToken Generator JS Library](developer-docs/telemetry/authtokengenerator_jslibrary){:target="_blank"} details method and process of generating key and tokens.
- 

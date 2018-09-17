@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: features-documentation
 title: Lesson Plan
 page_title: Lesson Plan
 description: About Lesson Plan feature 
@@ -22,7 +24,7 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
      <br>3. You have selected <b>Create</b> 
      <br>4. You have clicked the <b>Lesson Plan</b> tile
     </td>
-    <td><img src="features-documentation/images/lessonplan/prerequisite.png"></td>
+    <td><img src="pages/features-documentation/images/lessonplan/prerequisite.png"></td>
    </tr>
  </table>
  
@@ -42,7 +44,7 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
     <br>&emsp;d) <b>Medium</b> 
    <br>3. Click <b>Start Creating</b> to create the lesson plan. A new Lesson Plan is created and displayed in a new page.
   </td>
-  <td><img src="features-documentation/images/lessonplan/create_lesson_plan.png"></td>
+  <td><img src="pages/features-documentation/images/lessonplan/create_lesson_plan.png"></td>
  </tr>
  </table>
   
@@ -57,7 +59,7 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
       <br>2. On clicking child node, a heading is added to the Table of Contents pane. For details on child node, sibling node, refer <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a>
       <br>3. Click <b>Add Resource</b> to add content to the headings. For details on adding resources, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
     </td>
-    <td><img src="features-documentation/images/lessonplan/add_content.png"></td>
+    <td><img src="pages/features-documentation/images/lessonplan/add_content.png"></td>
   </tr>
   </table>
 
@@ -84,7 +86,7 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
       <br>9. Click <b>Save</b> to collectively save all updates.  
       <br>10. Click <b>Cancel</b> to exit the page 
     </td>
-    <td><img src="features-documentation/images/lessonplan/edit_details.png"></td>
+    <td><img src="pages/features-documentation/images/lessonplan/edit_details.png"></td>
  </tr>
  </table>
 
@@ -106,7 +108,7 @@ You can see <b>Table of Content</b> tree in the left pane to navigate content co
     <td>1. Click <b>Delete</b> icon beside the burger menu <br>2. Click <b>Yes</b> to delete the added content
       <br><b>Note</b>: You can alternatively delete content by clicking <b>Delete</b> in the burger menu drop-down
       </td>
-    <td><img src="features-documentation/images/book/book_unit_delete.png"></td>
+    <td><img src="pages/features-documentation/images/book/book_unit_delete.png"></td>
   </tr>
 </table>
 
@@ -120,12 +122,12 @@ You can see <b>Table of Content</b> tree in the left pane to navigate content co
   <tr>
     <td>1. Drag and drop the content to the desired position to rearrange the order of the content added to the lesson plan 
       </td>
-    <td><img src="features-documentation/images/book/book_drag_content.png"></td>
+    <td><img src="pages/features-documentation/images/book/book_drag_content.png"></td>
   </tr>
   <tr>
     <td>1. Click the upward arrow to collapse the table of contents. Click the same arrow to expand collapsed table of contents.
      </td>
-    <td><img src="features-documentation/images/book/book_toc.png"></td>
+    <td><img src="pages/features-documentation/images/book/book_toc.png"></td>
   </tr>  
 </table>
 
@@ -141,7 +143,7 @@ Before the Lesson Plan is publihed, it must be reviewed. You can send it for rev
   <tr>
     <td>1. Click <b>Save</b> on the header to save the lesson <br>2. Click <b>Limited sharing</b> to publish the lesson to the limited audiences <br><b>Note</b>: Refer <a href="features-documentation/limitedpublishnshare" target="_blank">Limited Publishing and Sharing</a> to view and share all the contents created and ready for sharing. <br>3. Click <b>Send for review</b> to send the created lesson for review 
     </td>
-    <td><img src="features-documentation/images/lessonplan/review.png"></td>
+    <td><img src="pages/features-documentation/images/lessonplan/review.png"></td>
   </tr>    
   </table>
 
@@ -157,6 +159,6 @@ Before the Lesson Plan is publihed, it must be reviewed. You can send it for rev
       <br>1. Click on the <b>What's New</b> icon to view concise information about new product functionality 
       <br><b>Note</b>: The What's New icon is red before you view it for the first time. The icon turns grey after you view the information, until the next product version
     </td>
-    <td><img src="features-documentation/images/book/book_whats_new1.png"></td>
+    <td><img src="pages/features-documentation/images/book/book_whats_new1.png"></td>
   </tr>
   </table>

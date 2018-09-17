@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: features-documentation
 title: Onboarding
 page_title: Onboarding
 description: Onboarding
