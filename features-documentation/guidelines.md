@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: features-documentation
 title: Guidelines
 page_title: Guidelines
 description: Guidelines

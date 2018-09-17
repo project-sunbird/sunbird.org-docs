@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: features-documentation
 title: Product Features
 page_title: Product Features
 description: Sunbird offers extensive functionality and features 

@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: features-documentation
 title: demo
 page_title: demo
 description: About Adding Resources in a book, course, collection, study material, and lesson plan 
@@ -17,7 +19,7 @@ allowSearch: true
         <li>hello</li>
         </ol>
    </td>
-    <td><img src="features-documentation/images/add_resources.png"></td>
+    <td><img src="pages/features-documentation/images/add_resources.png"></td>
   </tr>
   <tr>
     <td>
@@ -25,7 +27,7 @@ allowSearch: true
         <li>This is step  </li>
         </ol>
    </td>
-    <td border="0"><img src="features-documentation/images/add_resources.png"></td>
+    <td border="0"><img src="pages/features-documentation/images/add_resources.png"></td>
   </tr>
   </table>
   

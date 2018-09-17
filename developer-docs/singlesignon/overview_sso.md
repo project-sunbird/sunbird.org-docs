@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: developer-docs/singlesignon
 title: Onboarding via Single Sign On
 page_title: Onboarding via Single Sign On
 description: Overview of single sign on process and user onboarding

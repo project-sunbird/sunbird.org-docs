@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: features-documentation
 title: Adding Question Set
 page_title: Adding Question Set
 description: Features and functionality of the content editor
@@ -23,7 +25,7 @@ To ensure that the content achieves the learning objective it is important to ch
      <br>2.Copying Question. Refer <a href="features-documentation/adding-question-set#copying-a-question">Copying a Question</a>
      <br>3.Creating Question. Refer <a href="features-documentation/adding-question-set#creating-questions">Creating Question</a>
     </td>
-    <td><img src="features-documentation/images/questionset/addquestionset.png"></td>
+    <td><img src="pages/features-documentation/images/questionset/addquestionset.png"></td>
   </tr>
   </table>
   
@@ -51,7 +53,7 @@ On the <b>Question Set</b> page, search for questions or apply filters to narrow
   <br>7. Click <b>Create Question</b> to create your own question. Refer <a href="features-documentation/adding-question-set#creating-questions">Creating Questions</a>
   <br>8. Click <b>Next</b>
 </td>
-  <td><img src="features-documentation/images/questionset/selectquestions.png"></td>
+  <td><img src="pages/features-documentation/images/questionset/selectquestions.png"></td>
 </tr> 
 </table>
   
@@ -72,7 +74,7 @@ On the <b>Question Set</b> page, search for questions or apply filters to narrow
   <br>3. Select questions from list
   <br>4. Click <b>Next</b>
   </td>
-  <td><img src="features-documentation/images/questionset/copyquestion.png"> </td>
+  <td><img src="pages/features-documentation/images/questionset/copyquestion.png"> </td>
   </tr>
   
 </table>
@@ -90,7 +92,7 @@ The delete option is available only for the questions that you have created
   <br>&emsp;a. Click <b>Delete</b> to confirm deletion
   <br>&emsp;b. Click <b>Cancel</b> to abort deletion 
   </td>
-  <td><img src="features-documentation/images/questionset/deletequestion.png"></td>
+  <td><img src="pages/features-documentation/images/questionset/deletequestion.png"></td>
   </tr>
 </table>
 
@@ -107,7 +109,7 @@ The delete option is available only for the questions that you have created
     <br>&emsp;c) <b>Match the Following Question</b> 
     <br>3. Click <b>Select</b> 
     </td>
-    <td><img src="features-documentation/images/questionset/createquestion.png"> </td>
+    <td><img src="pages/features-documentation/images/questionset/createquestion.png"> </td>
   </tr>
 </table>
 
@@ -130,7 +132,7 @@ The delete option is available only for the questions that you have created
  <br>8. Select <b>Back</b> to go back to the previous page
  <br><b>Note</b>: Editing a Fill in the Blanks question displays all the above options 
  </td>
-    <td><img src="features-documentation/images/questionset/Fillintheblanks.png"></td>
+    <td><img src="pages/features-documentation/images/questionset/Fillintheblanks.png"></td>
  </tr>
  </table>
 
@@ -158,7 +160,7 @@ The delete option is available only for the questions that you have created
   <br>15.Select <b>Back</b> to go back to the previous page 
   <br><b>Note</b>: Editing a Multiple Choice question displays the above options 
  </td>
-    <td><img src="features-documentation/images/questionset/multiplechoicequestion.png"></td>
+    <td><img src="pages/features-documentation/images/questionset/multiplechoicequestion.png"></td>
  </tr>
  </table>
  
@@ -183,7 +185,7 @@ The delete option is available only for the questions that you have created
   <br>10. Select <b>Back</b> to go back to the previous page 
   <br><b>Note</b>: Editing a Match the following question displays all the above options 
  </td>
-    <td><img src="features-documentation/images/questionset/matchthefollowing.png"></td>
+    <td><img src="pages/features-documentation/images/questionset/matchthefollowing.png"></td>
  </tr>
 </table>
 
@@ -217,7 +219,7 @@ The delete option is available only for the questions that you have created
     <br>15. Click <b>Submit</b> to configure the question details
     <br>16. Select <b>Back</b> to go back to the previous page 
   </td>
-  <td><img src="features-documentation/images/questionset/questiondetails.png"></td>
+  <td><img src="pages/features-documentation/images/questionset/questiondetails.png"></td>
  </tr>
 </table>
 
@@ -242,7 +244,7 @@ After creating and/or selecting the questions from the availble questions the qu
     
   <br>9.Select <b>Add more question</b> to continue adding more question in the question set 
   </td>
-  <td><img src="features-documentation/images/questionset/questionset.png"></td>
+  <td><img src="pages/features-documentation/images/questionset/questionset.png"></td>
  </tr>
 </table>
 
@@ -257,7 +259,7 @@ After creating and/or selecting the questions from the availble questions the qu
   <br>1.Select the question using the check box to include it in the question set OR 
   <br>2.You can edit the page using <b>Edit</b> icon. The corresponding question is displayed, you can edit the questions accordingly 
   <br>3.Click <b>Next</b> to include the questions in Question Set</td>
-  <td><img src="features-documentation/images/questionset/questionsetediting.png"></td>
+  <td><img src="pages/features-documentation/images/questionset/questionsetediting.png"></td>
  </tr>
 </table>
 
@@ -286,6 +288,6 @@ After creating and/or selecting the questions from the availble questions the qu
     <br>8. Click <b>Submit</b> to configure the question details
     <br>9. Select <b>Back</b> to go back to the previous page 
   </td>
-  <td><img src="features-documentation/images/questionset/questiondetails.png"></td>
+  <td><img src="pages/features-documentation/images/questionset/questiondetails.png"></td>
  </tr>
 </table>

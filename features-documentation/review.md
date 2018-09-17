@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: features-documentation
 title: Review
 page_title: Review
 description: Review
