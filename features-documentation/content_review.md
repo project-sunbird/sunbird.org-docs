@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: Content Review
 page_title: Content Review
 description: Features and functionality of the content reviewer
@@ -23,7 +21,7 @@ To ensure that content uploaded and available on Sunbird are quality driven and 
      <br>2. You are on the <b>Profile</b> tab
      <br>3. You have clicked on <b>View your workspace</b>
       </td>
-      <td><img src="pages/features-documentation/images/contentreviewer/content_reviewer_profile.png"></td>
+      <td><img src="features-documentation/images/contentreviewer/content_reviewer_profile.png"></td>
   </tr>
  </table>
 
@@ -45,7 +43,7 @@ To ensure that content uploaded and available on Sunbird are quality driven and 
      <br>5. You can view the list of content which is up for review
      <br>6. Click on the page navigation to access the required list on a particular page
   </td>
-    <td><img src="pages/features-documentation/images/contentreviewer/content_reviewer1.png"></td>
+    <td><img src="features-documentation/images/contentreviewer/content_reviewer1.png"></td>
   </tr>
   </table>
 
@@ -69,7 +67,7 @@ To ensure that content uploaded and available on Sunbird are quality driven and 
      <br>4. Click <b>Reset</b> to reset selected filter options
      <br>5. Click <b>Review</b> to open the content which is sent for review. The review page is displayed
     </td>
-    <td><img src="pages/features-documentation/images/contentreviewer/content_reviewer_filter.png"></td>
+    <td><img src="features-documentation/images/contentreviewer/content_reviewer_filter.png"></td>
   </tr>
   </table>
   
@@ -86,7 +84,7 @@ To ensure that content uploaded and available on Sunbird are quality driven and 
     <br>4. Click <b>Request Changes</b> to guide the creator to make changes in the content according to the guidelines. The Request Change page appears 
     <br>5. Click <b>Publish</b> to publish the content. The Publish page appears 
    </td>
-    <td><img src="pages/features-documentation/images/contentreviewer/review_content.png"></td>
+    <td><img src="features-documentation/images/contentreviewer/review_content.png"></td>
    </tr>
   </table>
   
@@ -104,7 +102,7 @@ To ensure that content uploaded and available on Sunbird are quality driven and 
    <br>5. Click <b>Cancel</b> to cancel   
      <br><b>Note:</b> Once the content sent for change, the creator is notified of the same and the content is rolled back to draft stage.
      </td> 
-    <td><img src="pages/features-documentation/images/contentreviewer/reject_content.png"></td>
+    <td><img src="features-documentation/images/contentreviewer/reject_content.png"></td>
   </tr>
   </table>
 
@@ -122,6 +120,6 @@ To ensure that content uploaded and available on Sunbird are quality driven and 
      <br><b>Note:</b>The creator is notified about the published content and the content will be available on Sunbird for consumption
    <br>4. Click <b>Cancel</b> to cancel   
    </td>
-    <td><img src="pages/features-documentation/images/contentreviewer/publish_content.png"></td>
+    <td><img src="features-documentation/images/contentreviewer/publish_content.png"></td>
   </tr>
   </table>

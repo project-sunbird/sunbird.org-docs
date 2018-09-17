@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: Keyboard Shortcuts
 page_title: Keyboard Shortcuts
 description: List of Keyboard shortcuts supported for collection editor

@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: Course Mentor Role Function Matrix
 page_title: Course Mentor Role Function Matrix
 description: Course Mentor Role Function Matrix
