@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/configuring_sunbird
 title: Fliter Content for a Channel
 page_title: Fliter Content for a Channel 
 description: Fliter Content for a Channel

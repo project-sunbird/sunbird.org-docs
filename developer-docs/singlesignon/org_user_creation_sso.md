@@ -37,7 +37,7 @@ The API has the following resources:
 - Remove Member from Organization
 - Single Sign-On API
 
-*For information on Organization Management APIs, refer [Organization Management APIs](http://www.sunbird.org/apis/orgapi/)*
+*For information on Organization Management APIs, refer [Organization Management APIs](apis/orgapi/)*
 
 ## User APIs
 
@@ -57,5 +57,5 @@ The API has the following resources:
 - Changes User Password
 - Adds Users Current Login Time
 
-*For information on User APIs, refer [User APIs](http://www.sunbird.org/apis/userapi/)*
+*For information on User APIs, refer [User APIs](apis/userapi/)*
 
