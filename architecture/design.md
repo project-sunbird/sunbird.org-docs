@@ -12,7 +12,7 @@ It follows the design principles that maximizes on:
 
 - Abstraction and security
 - Portability
-- Testing
+- Testing 
 - Seamless maintainability
 - Scalability
 - Availability
