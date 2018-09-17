@@ -1,5 +1,6 @@
 ---
-layout: page
+type: landing
+directory: apis
 title: API Reference Documentation
 page_title: API reference documentation
 description: API reference documentation
@@ -14,7 +15,7 @@ Sunbird APIs are:
 - REST based (JSON over HTTPS)
 - Stateless
 - Versioned
- 
+
 The API endpoints follow a common URL structure, viz; https://{host:port}/{module}/{version}/{api_name}.
 
 They are categorized by resource type. Each resource type has one or more data representations and asssociated methods.

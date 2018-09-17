@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: release_notes
 title: Release Notes
 page_title: Release Notes
 description: Release Notes
@@ -36,51 +38,15 @@ To download the release notes, click the download icon that corresponds to the r
         <th align="center">View</th>
         <th align="center">Download</th>
     </tr>
-      <tr>
-        <td align="left">Release 1.10</td>
-         <td>12/09/2018</td>
-        <td align="center"><a href="release_notes/view_pdf/ver1-10/" target="_blank">
-            <img src="release_notes/icons_used/viewicon.png" alt="View" style="width:25px;height:25px;border:0;">
-            </a>
-        </td>
-      <td align="center"><a href="release_notes/source_releasenotefiles/release_note_v1-10-0_sep2018.pdf" target="_blank">
-            <img src="release_notes/icons_used/download.png" alt="Download" style="width:42px;height:42px;border:0;">
-            </a>
-    </td>
-    </tr>
-      <tr>
-        <td align="left">Release 1.9.1</td>
-         <td>22/08/2018</td>
-        <td align="center"><a href="release_notes/view_pdf/ver1-9-1/" target="_blank">
-            <img src="release_notes/icons_used/viewicon.png" alt="View" style="width:25px;height:25px;border:0;">
-            </a>
-        </td>
-      <td align="center"><a href="release_notes/source_releasenotefiles/release_note_v1-9-1_aug2018" target="_blank">
-            <img src="release_notes/icons_used/download.png" alt="Download" style="width:42px;height:42px;border:0;">
-            </a>
-    </td>
-    </tr>
-    <tr>
-        <td align="left">Release 1.9</td>
-         <td>06/08/2018</td>
-        <td align="center"><a href="release_notes/view_pdf/ver1-9/" target="_blank">
-            <img src="release_notes/icons_used/viewicon.png" alt="View" style="width:25px;height:25px;border:0;">
-            </a>
-        </td>
-      <td align="center"><a href="release_notes/source_releasenotefiles/release_note_v1-9-0_aug2018.pdf" target="_blank">
-            <img src="release_notes/icons_used/download.png" alt="Download" style="width:42px;height:42px;border:0;">
-            </a>
-    </td>
-    </tr>
     <tr>
         <td align="left">Release 1.8</td>
          <td>06/07/2018</td>
         <td align="center"><a href="release_notes/view_pdf/ver1-8/" target="_blank">
-            <img src="release_notes/icons_used/viewicon.png" alt="View" style="width:25px;height:25px;border:0;">
+            <img src="pages/release_notes/icons_used/viewicon.png" alt="View" style="width:25px;height:25px;border:0;">
             </a>
         </td>
-      <td align="center"><a href="release_notes/source_releasenotefiles/release_note_v1-8-0_july2018.pdf" target="_blank">
-            <img src="release_notes/icons_used/download.png" alt="Download" style="width:42px;height:42px;border:0;">
+      <td align="center"><a href="https://github.com/project-sunbird/project-sunbird.github.io/raw/dev/pages/release_notes/source_releasenotefiles/release_note_v1-8-0_july2018.pdf" target="_blank">
+            <img src="pages/release_notes/icons_used/download.png" alt="Download" style="width:42px;height:42px;border:0;">
             </a>
     </td>
     </tr>
@@ -88,11 +54,11 @@ To download the release notes, click the download icon that corresponds to the r
         <td align="left">Release 1.7.1</td>
          <td>25/06/2018</td>
         <td align="center"><a href="release_notes/view_pdf/ver1-7-1/" target="_blank">
-            <img src="release_notes/icons_used/viewicon.png" alt="View" style="width:25px;height:25px;border:0;">
+            <img src="pages/release_notes/icons_used/viewicon.png" alt="View" style="width:25px;height:25px;border:0;">
             </a>
         </td>
-      <td align="center"><a href="release_notes/source_releasenotefiles/release_note_v1-7-1_june2018.pdf" target="_blank">
-            <img src="release_notes/icons_used/download.png" alt="Download" style="width:42px;height:42px;border:0;">
+      <td align="center"><a href="https://github.com/project-sunbird/project-sunbird.github.io/raw/dev/pages/release_notes/source_releasenotefiles/release_note_v1-7-1_june2018.pdf" target="_blank">
+            <img src="pages/release_notes/icons_used/download.png" alt="Download" style="width:42px;height:42px;border:0;">
             </a>
     </td>
     </tr>
@@ -100,11 +66,11 @@ To download the release notes, click the download icon that corresponds to the r
         <td align="left">Release 1.7</td>
          <td>14/06/2018</td>
         <td align="center"><a href="release_notes/view_pdf/ver1-7/" target="_blank">
-            <img src="release_notes/icons_used/viewicon.png" alt="View" style="width:25px;height:25px;border:0;">
+            <img src="pages/release_notes/icons_used/viewicon.png" alt="View" style="width:25px;height:25px;border:0;">
             </a>
         </td>
-      <td align="center"><a href="release_notes/source_releasenotefiles/release_note_v1-7-0_june2018.pdf" target="_blank">
-            <img src="release_notes/icons_used/download.png" alt="Download" style="width:42px;height:42px;border:0;">
+      <td align="center"><a href="https://github.com/project-sunbird/project-sunbird.github.io/raw/dev/pages/release_notes/source_releasenotefiles/release_note_v1-7-0_june2018.pdf" target="_blank">
+            <img src="pages/release_notes/icons_used/download.png" alt="Download" style="width:42px;height:42px;border:0;">
             </a>
     </td>
     </tr>    
@@ -112,11 +78,11 @@ To download the release notes, click the download icon that corresponds to the r
         <td align="left">Release 1.6</td>
          <td>03/05/2018</td>
         <td align="center"><a href="release_notes/view_pdf/ver1-6/" target="_blank">
-            <img src="release_notes/icons_used/viewicon.png" alt="View" style="width:25px;height:25px;border:0;">
+            <img src="pages/release_notes/icons_used/viewicon.png" alt="View" style="width:25px;height:25px;border:0;">
             </a>
         </td>
-      <td align="center"><a href="release_notes/source_releasenotefiles/release_note_v1-6-0_may2018.pdf" target="_blank">
-            <img src="release_notes/icons_used/download.png" alt="Download" style="width:42px;height:42px;border:0;">
+      <td align="center"><a href="https://github.com/project-sunbird/project-sunbird.github.io/raw/dev/pages/release_notes/source_releasenotefiles/release_note_v1-6-0_may2018.pdf" target="_blank">
+            <img src="pages/release_notes/icons_used/download.png" alt="Download" style="width:42px;height:42px;border:0;">
             </a>
     </td>
     </tr>    
@@ -124,11 +90,11 @@ To download the release notes, click the download icon that corresponds to the r
         <td align="left">Release 1.5</td>
         <td>29/03/2018</td>
         <td align="center"><a href="release_notes/view_pdf/ver1-5/" target="_blank">
-            <img src="release_notes/icons_used/viewicon.png" alt="View" style="width:25px;height:25px;border:0;">
+            <img src="pages/release_notes/icons_used/viewicon.png" alt="View" style="width:25px;height:25px;border:0;">
             </a>
         </td>
-      <td align="center"><a href="release_notes/source_releasenotefiles/release_note_v1-5-0_mar2018.pdf" target="_blank">
-            <img src="release_notes/icons_used/download.png" alt="Download" style="width:42px;height:42px;border:0;">
+      <td align="center"><a href="https://github.com/project-sunbird/project-sunbird.github.io/raw/dev/pages/release_notes/source_releasenotefiles/release_note_v1-5-0_mar2018.pdf" target="_blank">
+            <img src="pages/release_notes/icons_used/download.png" alt="Download" style="width:42px;height:42px;border:0;">
             </a>
       </td>
     </tr>
@@ -136,11 +102,11 @@ To download the release notes, click the download icon that corresponds to the r
         <td align="left">Release 1.4</td>
         <td>06/02/2018</td>
         <td align="center"><a href="release_notes/view_pdf/ver1-4/" target="_blank">
-            <img src="release_notes/icons_used/viewicon.png" alt="View" style="width:25px;height:25px;border:0;">
+            <img src="pages/release_notes/icons_used/viewicon.png" alt="View" style="width:25px;height:25px;border:0;">
             </a>
         </td>
-      <td align="center"><a href="release_notes/source_releasenotefiles/release_note_v1-4-0_feb2018.pdf" target="_blank">
-            <img src="release_notes/icons_used/download.png" alt="Download" style="width:42px;height:42px;border:0;">
+      <td align="center"><a href="https://github.com/project-sunbird/project-sunbird.github.io/raw/dev/pages/release_notes/source_releasenotefiles/release_note_v1-4-0_feb2018.pdf" target="_blank">
+            <img src="pages/release_notes/icons_used/download.png" alt="Download" style="width:42px;height:42px;border:0;">
             </a>
       </td>
     </tr>
