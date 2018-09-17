@@ -39,7 +39,7 @@ The workspace interface varies based on the role assigned to the user. For insta
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-    <td>In your Workspace you can: <br>a. Create Book, Course, Study material, Collection, Lesson plan <br>b. View content drafts which are not send for review <br>c. View list of content submitted for review <br>d. View published content <br>e. View all uploaded content <br>f. View list of content submitted for review. This option is available only for a content reviewer <br>g. View all the course batches you are enrolled in <br>h. View all flagged content. This option is available only for a flag content reviewer <br>i. View list of content that which have been shared to a specific audience. To read more on limited sharing feature, refer refer <a href="features-documentation/limitedpublishnshare" target="_blank">Limited Publishing and Sharing</a>
+    <td>In your Workspace you can: <br>a. Create Book, Course, Study material, Collection, Lesson plan <br>b. View content drafts which are not send for review <br>c. View list of content submitted for review <br>d. View published content <br>e. View all uploaded content <br>f. View list of content submitted for review. This option is available only for a content reviewer <br>g. View all the course batches you are enrolled in <br>h. View all flagged content. This option is available only for a flag content reviewer <br>i. View list of content that which have been shared to a specific audience. To read more on limited sharing feature, refer refer <a href="features-documentation/limitedpublishnshare/" target="_blank">Limited Publishing and Sharing</a>
     </td>
     <td><img src="features-documentation/images/workspace/workspace1.png"></td>
   </tr>
