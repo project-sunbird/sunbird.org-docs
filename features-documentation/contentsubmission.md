@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: features-documentation
 title: Content Submission
 page_title: Content Submission
 description: Content Submission

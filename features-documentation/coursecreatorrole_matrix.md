@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: features-documentation
 title: Course Creator Role Function Matrix
 page_title: Course Creator Role Function Matrix
 description: Course Creator Role Function Matrix

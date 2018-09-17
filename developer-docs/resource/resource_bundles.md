@@ -1,4 +1,6 @@
 ---
+type: Content
+directory: app/resourcebundles
 title: Resource Bundles
 page_title: resourceBundles
 description: The ResourceBundle class is used to show messages or content in multiple languages. In other words, we can say that it provides a mechanism to globalize the messages.

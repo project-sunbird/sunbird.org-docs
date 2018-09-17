@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: developer-docs/singlesignon
 title: Procedure
 page_title: Procedure to Onboard Organizations
 description: FIve step procedure to onboard organizations on Sunbird

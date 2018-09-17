@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: features-documentation
 title: Course Creation
 page_title: Course Creation
 description: Details on how to curate and compile a course
@@ -23,7 +25,7 @@ On Sunbird, you can compile a course by adding content to it. You can create eac
       <br>3. You have selected <b>Create</b> 
       <br>4. You have clicked the <b>Courses</b> tile
       </td>
-      <td><img src="features-documentation/images/course_workspace.png"></td>
+      <td><img src="pages/features-documentation/images/course_workspace.png"></td>
   </tr>
   </table>
   
@@ -37,7 +39,7 @@ On Sunbird, you can compile a course by adding content to it. You can create eac
     <td>1. Enter <b>Name</b> of the course <br>2. Enter <b>Description</b> of the course <br>3. Click <b>Start Creating</b> <br>  
       <b>Note</b>: These details can be entered later when filling the metadata of the course
     </td>
-    <td><img src="features-documentation/images/course_metadata.png"></td>
+    <td><img src="pages/features-documentation/images/course_metadata.png"></td>
   </tr>
   </table>
 
@@ -51,7 +53,7 @@ On Sunbird, you can compile a course by adding content to it. You can create eac
         <br>2. On clicking child node, a heading is added to the <b>Table of Contents</b> pane 
         <br>3. Click <b>Add Resource</b> to add content. For details on adding resources, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
       </td>
-      <td><img src="features-documentation/images/add_content0.png"></td>
+      <td><img src="pages/features-documentation/images/add_content0.png"></td>
   </tr>
    </table>
    
@@ -75,7 +77,7 @@ On Sunbird, you can compile a course by adding content to it. You can create eac
       <br>7. Select <b>Audience</b> 
       <br>8. Enter <b>Attributions</b> <br>9. Click <b>Save</b> to save the details <br>10. Click <b>Cancel</b> to exit the page
     </td>
-    <td><img src="features-documentation/images/add_details.png"></td>
+    <td><img src="pages/features-documentation/images/add_details.png"></td>
   </tr>
  </table>
  
@@ -91,7 +93,7 @@ On Sunbird, you can compile a course by adding content to it. You can create eac
     <br>3. Select the <b>Concepts</b> associated with the heading. Refer <a href="features-documentation/concept_selector" target="_blank">Concept Selector</a>
     <br>4. Enter <b>Keywords</b>
     </td>
-    <td><img src="features-documentation/images/add_content1.png"></td>
+    <td><img src="pages/features-documentation/images/add_content1.png"></td>
   </tr>
   </table> 
   
@@ -114,7 +116,7 @@ The Table of Contents tree seen in the left pane is used to navigate content com
     <td>1. Click <b>Delete</b> icon beside the burger menu <br>2. Click <b>Yes</b> to delete the added content
       <br><b>Note</b>: You can alternatively delete content by clicking <b>Delete</b> in the burger menu drop-down
       </td>
-    <td><img src="features-documentation/images/book/book_unit_delete.png"></td>
+    <td><img src="pages/features-documentation/images/book/book_unit_delete.png"></td>
   </tr>
 </table>
 
@@ -128,12 +130,12 @@ The Table of Contents tree seen in the left pane is used to navigate content com
   <tr>
     <td>1. Drag and drop the content to the desired position to rearrange the order of the content added to the course
       </td>
-    <td><img src="features-documentation/images/book/book_drag_content.png"></td>
+    <td><img src="pages/features-documentation/images/book/book_drag_content.png"></td>
   </tr>
   <tr>
     <td>1. Click the upward arrow to collapse the table of contents. Click the same arrow to expand collapsed table of contents. <br><b>Note:</b> You can edit or update the title of units in the course from the navigation hierarchy
     </td>
-    <td><img src="features-documentation/images/book/book_toc.png"></td>
+    <td><img src="pages/features-documentation/images/book/book_toc.png"></td>
   </tr>  
 </table>
 
@@ -151,7 +153,7 @@ Before the Course is published, it must be reviewed. You can send it for reviewi
       <br>2. Click <b>Limited sharing</b> to publish the lesson to the limited audiences <br><b>Note</b>: Refer <a href="features-documentation/limitedpublishnshare" target="_blank">Limited Publishing and Sharing</a> to view and share all the contents created and ready for sharing. 
       <br>3. Click <b>Send for review</b> to send the created course for review <br><br><b>Note:</b>Enter all course details before sending the it for review
     </td>
-    <td><img src="features-documentation/images/lessonplan/review.png"></td>
+    <td><img src="pages/features-documentation/images/lessonplan/review.png"></td>
   </tr>    
   </table>
 
@@ -167,6 +169,6 @@ Before the Course is published, it must be reviewed. You can send it for reviewi
       <br>1. Click on the <b>What's New</b> icon to view concise information about new product functionality 
       <br><b>Note</b>: The What's New icon is red before you view it for the first time. The icon turns grey after you view the information, until the next product version
     </td>
-    <td><img src="features-documentation/images/book/book_whats_new1.png"></td>
+    <td><img src="pages/features-documentation/images/book/book_whats_new1.png"></td>
   </tr>
   </table>

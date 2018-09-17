@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: developer-docs
 title: Onboarding API Consumers
 page_title: Onboarding API Consumers
 description: Onboarding API Consumers
