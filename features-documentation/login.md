@@ -18,7 +18,7 @@ Sign in on Sunbird is a seamless process. Any organization, recognized education
 	<tr>
 		<td>1. Click <b>Login</b> on the landing page of Sunbird Portal
     </td>
-    <td><img src="pages/features-documentation/images/landinglogin.png"></td>
+    <td><img src="features-documentation/images/landinglogin.png"></td>
     </tr>
     </table>
 
@@ -32,7 +32,7 @@ Sign in on Sunbird is a seamless process. Any organization, recognized education
   <tr>
    <td>1. Enter your <b>Username</b> or <b>Email ID</b> or <b>Phone number</b> <br>2. Enter your <b>Password</b> <br>3. Click <b>Login</b>
 	</td>
-	<td><img src="pages/features-documentation/images/loginwithphone.png"></td>
+	<td><img src="features-documentation/images/loginwithphone.png"></td>
     </tr>
 </table>
     
@@ -45,7 +45,7 @@ Sign in on Sunbird is a seamless process. Any organization, recognized education
   </tr>
   <tr>
 	  <td>1. Enter your <b>Username</b> or <b>Email</b> or <b>Phone number</b> <br>2. Click <b>Forgot Password?</b></td>
-	<td><img src="pages/features-documentation/images/forgotpassword.png"></td>
+	<td><img src="features-documentation/images/forgotpassword.png"></td>
     </tr>
     </table>
     
@@ -58,15 +58,15 @@ Sign in on Sunbird is a seamless process. Any organization, recognized education
   </tr>
   <tr>
     <td>1. Enter your registered <b>Email ID</b> <br>2. Click <b>Submit</b></td> 
-    <td><img src="pages/features-documentation/images/forgotpassword1.png"></td>
+    <td><img src="features-documentation/images/forgotpassword1.png"></td>
   </tr>
   <tr>
     <td>1. You will receive an email to reset your password <br>2. Click the <b>Link</b> in the email to reset credentials</td>
-    <td colspan="2"><img src="pages/features-documentation/images/emaillink.png"></td>
+    <td colspan="2"><img src="features-documentation/images/emaillink.png"></td>
   </tr>
   <tr>
     <td>1. The <b>Login</b> page is displayed <br>2. Enter <b>Email ID</b> <br>3. Enter new <b>Password</b> of your choice <br>4. Click <b>Login</b></td>
-    <td><img src="pages/features-documentation/images/loginemail.png"></td>
+    <td><img src="features-documentation/images/loginemail.png"></td>
   </tr>
   </table>
   
@@ -80,17 +80,17 @@ Sign in on Sunbird is a seamless process. Any organization, recognized education
   </tr>
   <tr>  
     <td>1. Enter your registered <b>Phone Number</b> <br>2. Click <b>Submit</b></td> 
-    <td colspan="2"><img src="pages/features-documentation/images/forgotpassword1.png"></td>
+    <td colspan="2"><img src="features-documentation/images/forgotpassword1.png"></td>
 	    
   </tr>
   <tr>
     <td>1. You will receive a <b>One Time Password (OTP)</b> on your registered phone number</td>
-    <td><img src="pages/features-documentation/images/mobileotp.png"></td>
+    <td><img src="features-documentation/images/mobileotp.png"></td>
 	  <td> </td>
   </tr>
   <tr>
     <td>1. Enter the <b>OTP</b> code sent to your mobile device <br>2. Click <b>Login</b></td>
-    <td colspan="2" ><img src="pages/features-documentation/images/otpcode.png"></td>
+    <td colspan="2" ><img src="features-documentation/images/otpcode.png"></td>
 	   
   </tr>
 </table>

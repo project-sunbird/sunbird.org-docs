@@ -86,9 +86,9 @@ To Create, update or read a metadata form:
 
 2. Get the Form API resources
 
-3. Use the [Form API](http://www.sunbird.org/apis/form/){:target=_"blank"} endpoints for either creating, updating or reading a form. For each of the operations, it is mandatory to provide the input for the required  fields of the request object payload
+3. Use the [Form API](apis/form/){:target=_"blank"} endpoints for either creating, updating or reading a form. For each of the operations, it is mandatory to provide the input for the required  fields of the request object payload
 
-4. You can  [refer](http://www.sunbird.org/apis/form/){:target=_"blank"} to the Form API  for more information about the request object payload
+4. You can  [refer](apis/form/){:target=_"blank"} to the Form API  for more information about the request object payload
 
 You can configure only one form field and its attribute or value at a time. Repeat the process to configure other form fields.
 

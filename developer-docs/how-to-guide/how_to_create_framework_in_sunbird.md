@@ -43,24 +43,24 @@ You can extend the core taxonomy via the framework. The separation of the taxono
 
 For details, refer to:
 
-* [Server Installation](http://www.sunbird.org/developer-docs/installation/server_installation/)
+* [Server Installation](developer-docs/installation/server_installation/)
 
-* [Channel APIs](http://www.sunbird.org/apis/framework/#tag/Channel-APIs)
+* [Channel APIs](apis/framework/#tag/Channel-APIs)
 
-* [First organization](http://www.sunbird.org/developer-docs/initialization) associated with channel ID
+* [First organization](developer-docs/initialization) associated with channel ID
 
 2.The API Key for access and basic authentication
   
-3.An API client to make API calls. For example use Postman refer [Using Postman] (http://www.sunbird.org/apis/framework/#tag/usingpostman)
+3.An API client to make API calls. For example use Postman refer [Using Postman] (apis/framework/#tag/usingpostman)
 
 4.Onboarding the following with access to the API
     - Admin user 
-    - Other [individual users](http://www.sunbird.org/apis/userapi/#operation/Create%20User) and [Bulk upload user](http://www.sunbird.org/apis/bulkupload/#operation/bulk%20upload%20user%20req1)
-    - [Individual Organization](http://www.sunbird.org/apis/orgapi/#operation/Organisation%20Create) and [Bulk upload organization](http://www.sunbird.org/apis/bulkupload/#operation/bulk%20org%20upload%20req)
-    - [Associated Users to organization](http://www.sunbird.org/apis/)
+    - Other [individual users](apis/userapi/#operation/Create%20User) and [Bulk upload user](apis/bulkupload/#operation/bulk%20upload%20user%20req1)
+    - [Individual Organization](apis/orgapi/#operation/Organisation%20Create) and [Bulk upload organization](apis/bulkupload/#operation/bulk%20org%20upload%20req)
+    - [Associated Users to organization](apis/)
 
 
-5.Access to [Framework API](http://www.sunbird.org/apis/framework/)
+5.Access to [Framework API](apis/framework/)
 
 ### Taskflow
  
@@ -116,10 +116,10 @@ name": "NCF",
 
 ### Additional Topics
 
-[How do I extend or customize a framework in Sunbird](http://www.sunbird.org/developer-docs)
+[How do I extend or customize a framework in Sunbird](developer-docs)
 
-[How do I seed a framework in Sunbird](http://www.sunbird.org/developer-docs)
+[How do I seed a framework in Sunbird](developer-docs)
 
-[How do I associate framework to categories and categories to a terms in Sunbird](http://www.sunbird.org/developer-docs)
+[How do I associate framework to categories and categories to a terms in Sunbird](developer-docs)
 
-[How to use Postman](http://www.sunbird.org/developer-docs)
+[How to use Postman](developer-docs)

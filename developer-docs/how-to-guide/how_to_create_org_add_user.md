@@ -20,17 +20,17 @@ Every user must belong to an organization and is identified within the organizat
 
 For details, refer to:
 
-* [Server Installation](http://www.sunbird.org/developer-docs/installation/server_installation/)
+* [Server Installation](developer-docs/installation/server_installation/)
 
-* [Channel APIs](http://www.sunbird.org/apis/framework/#tag/Channel-APIs)
+* [Channel APIs](apis/framework/#tag/Channel-APIs)
 
-* [First organization](http://www.sunbird.org/developer-docs/initialization) associated with channel ID
+* [First organization](developer-docs/initialization) associated with channel ID
 
 2.The API Key for access and basic authentication
   
-3.An API client to make API calls. For example use Postman refer [Using Postman] (http://www.sunbird.org/apis/framework/#tag/usingpostman)
+3.An API client to make API calls. For example use Postman refer [Using Postman] (apis/framework/#tag/usingpostman)
 
-4.Access to the [Mapping User to Organization API](http://www.sunbird.org//apis/orgapi/#operation/Organisation%20Add%20User)
+4.Access to the [Mapping User to Organization API](apis/orgapi/#operation/Organisation%20Add%20User)
 
 ### Taskflow
 
@@ -38,7 +38,7 @@ The sequence of tasks the organization administrator follows to create users inc
 
 1.Specify values for the following parameters in the request body of the API 
 
-An organization can be created in a Sunbird instance using [ORG API](http://www.sunbird.org/apis/userapi/#tag/Orgs-APIs), it can be further associated with a user and channel. Following is an example of request body for associating a user to an organization, the sample values provided in the request body are indicative:
+An organization can be created in a Sunbird instance using [ORG API](apis/userapi/#tag/Orgs-APIs), it can be further associated with a user and channel. Following is an example of request body for associating a user to an organization, the sample values provided in the request body are indicative:
 
 **Request Body**
 <pre>
@@ -75,9 +75,9 @@ An organization can be created in a Sunbird instance using [ORG API](http://www.
 
 ### Additional Topics
 
-[Creating first organization](http://www.sunbird.org/developer-docs/initialization)
+[Creating first organization](developer-docs/initialization)
 
-[Creating user](http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_user)
+[Creating user](developer-docs/how-to-guide/how_to_create_user)
 
-[Create organization](http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_organization)
+[Create organization](developer-docs/how-to-guide/how_to_create_organization)
 

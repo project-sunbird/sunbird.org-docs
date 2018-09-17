@@ -22,7 +22,7 @@ Book is a collection of content units.	On Sunbird, books can be compiled or cura
     <td>1. You are logged in <br>2. You are currently on <b>My Workspace</b>  
       <br>3. You want to create a book, you have clicked on <b>Book</b> tile
        </td>
-      <td><img src="pages/features-documentation/images/book/book_workspace.png"></td>
+      <td><img src="features-documentation/images/book/book_workspace.png"></td>
   </tr>
   </table>
   
@@ -44,7 +44,7 @@ Book is a collection of content units.	On Sunbird, books can be compiled or cura
       <br>4. Click <b>Start Creating</b> 
       <br><b>Note</b>: These details can be filled later when updating the book details
        </td>
-      <td><img src="pages/features-documentation/images/book/book_createbook.png"></td>
+      <td><img src="features-documentation/images/book/book_createbook.png"></td>
   </tr>
   </table>
   
@@ -60,7 +60,7 @@ You can add various elements in the book like units or chapters, heading details
     <br>2. A unit is added to the left pane and the corresponding heading details are displayed on the action pane. For details on child node, sibling node, refer <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a>
     <br>
     </td>
-    <td><img src="pages/features-documentation/images/book/adding_child.png"> </td>
+    <td><img src="features-documentation/images/book/adding_child.png"> </td>
   </tr>
  </table>
  
@@ -92,7 +92,7 @@ You can add various elements in the book like units or chapters, heading details
       <br>12. Click <b>Save</b> on the header to save the details
       <br>13. Click <b>Cancel</b> to go back to the previous screen
     </td>
-    <td><img src="pages/features-documentation/images/book/book_metadata1.png"></td>
+    <td><img src="features-documentation/images/book/book_metadata1.png"></td>
   </tr>
   </table>
 
@@ -113,7 +113,7 @@ You can add various elements in the book like units or chapters, heading details
         <br><b>Note:</b> DIAL code is used to link other digital content to the book. The list of DIAL codes associated with the book is provided to you by the organization administrator
       <br>6. Click <b>Add Resource</b> to add content to the unit or chapter. For details on adding resources, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
        </td>
-      <td><img src="pages/features-documentation/images/book/heading_metadata.png"> </td>
+      <td><img src="features-documentation/images/book/heading_metadata.png"> </td>
   </tr>
     </table>
     
@@ -129,13 +129,13 @@ You can add various elements in the book like units or chapters, heading details
     <td>Enter the code from the list of DIAL codes that correspond to the book being created   
       <br>1. Enter the right code for the heading to display ✔️ icon beside the code 
     </td>
-      <td><img src="pages/features-documentation/images/book/dial_code1.png"></td>
+      <td><img src="features-documentation/images/book/dial_code1.png"></td>
     <td>  </td>
   </tr>
   <tr>
     <td>2. Incorrect code displays ❌ icon 
       </td>
-      <td><img src="pages/features-documentation/images/book/dial_code2.png"></td> 
+      <td><img src="features-documentation/images/book/dial_code2.png"></td> 
     <td> </td>
   </tr>
   <tr>
@@ -143,7 +143,7 @@ You can add various elements in the book like units or chapters, heading details
         <br>&emsp;a. Unlink the DIAL code from the book
         <br>&emsp;b. Link the DIAL code to the book
     </td>
-      <td colspan="2"><img src="pages/features-documentation/images/book/dial_code_un_link.png"></td> 
+      <td colspan="2"><img src="features-documentation/images/book/dial_code_un_link.png"></td> 
     </tr>
  </table>
 
@@ -165,7 +165,7 @@ You can see <b>Table of Content</b> tree in the left pane to navigate content co
     <td>1. Click <b>Delete</b> icon beside the burger menu <br>2. Click <b>Yes</b> to delete the added content
       <br><b>Note:</b> You can alternatively delete content by clicking <b>Delete</b> in the burger menu drop-down
       </td>
-    <td><img src="pages/features-documentation/images/collection/collection_delete.png"></td>
+    <td><img src="features-documentation/images/collection/collection_delete.png"></td>
   </tr>
 </table>
 
@@ -179,12 +179,12 @@ You can see <b>Table of Content</b> tree in the left pane to navigate content co
   <tr>
     <td>1. Drag and drop the content to the desired position to rearrange the order of the content added to the textbook  
       </td>
-    <td><img src="pages/features-documentation/images/book/book_drag_content.png"></td>
+    <td><img src="features-documentation/images/book/book_drag_content.png"></td>
   </tr>
   <tr>
     <td>1. Click the upward arrow to collapse the table of contents. Click the same arrow to expand collapsed table of contents
      </td>
-    <td><img src="pages/features-documentation/images/book/book_toc.png"></td>
+    <td><img src="features-documentation/images/book/book_toc.png"></td>
   </tr>  
 </table>
 
@@ -200,7 +200,7 @@ You can see <b>Table of Content</b> tree in the left pane to navigate content co
       <br>1. Click <b>Save</b> on the header to save the book 
       <br>2. Click <b>Send for review</b> to send the created book for review. Before sending for review, you can share the content to a limited audience. To know more about Limited Sharing, refer <a href="features-documentation/limitedpublishnshare" target="_blank">Limited Publishing and Sharing</a>
     </td>
-    <td><img src="pages/features-documentation/images/book_sendforreview.png"></td>
+    <td><img src="features-documentation/images/book_sendforreview.png"></td>
   </tr>    
   </table>
   
@@ -216,6 +216,6 @@ You can see <b>Table of Content</b> tree in the left pane to navigate content co
       <br>1. Click on the <b>What's New</b> icon to view concise information about new product functionality 
       <br><b>Note</b>: The What's New icon is red before you view it for the first time. The icon turns grey after you view the information, until the next product version
     </td>
-    <td><img src="pages/features-documentation/images/book/book_whats_new1.png"></td>
+    <td><img src="features-documentation/images/book/book_whats_new1.png"></td>
   </tr>
   </table>
