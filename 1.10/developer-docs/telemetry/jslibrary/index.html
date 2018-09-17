@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2018-09-12 19:24:58 +0530">
+<meta name="last-modified" content="2018-09-17 10:31:29 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="601" />
+<meta name="buildNo" content="634" />
 <meta name="version" id="docsVersion" content="1.10" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?12092018"  />
+<link rel="stylesheet" href="/css/style.css?17092018"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?12092018"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?12092018"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?12092018"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?12092018"></script>
-<script type="text/javascript" src="/js/widgets-data.js?12092018"></script>
-<script type="text/javascript" src="/js/widgets.js?12092018"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?17092018"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?17092018"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?17092018"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?17092018"></script>
+<script type="text/javascript" src="/js/widgets-data.js?17092018"></script>
+<script type="text/javascript" src="/js/widgets.js?17092018"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -226,11 +226,37 @@ resetBase();
 							
 								
 								<a 
+									href="features-documentation/explore_sunbird/" 
+									
+									class="" 
+									>
+									Explore Sunbird
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="features-documentation/signup/" 
+									
+									class="" 
+									>
+									Sign Up
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
 									href="features-documentation/login/" 
 									
 									class="" 
 									>
-									Login
+									Sign In
 								</a>
 							
 						</li>
@@ -277,7 +303,7 @@ resetBase();
 										<li>
 											
 											<a  
-												href="features-documentation/user_type/" 
+												href="features-documentation/userrole/" 
 												
 												class="" 
 												>
@@ -1608,7 +1634,7 @@ resetBase();
     <p>Valid Authtoken and Key to make API calls</p>
   </li>
   <li>
-    <p>The <a href="developer-docs/telemetry/other_files/telemetry.min.js" target="_blank">telemetry.min.js</a> file</p>
+    <p>The <a href="https://github.com/project-sunbird/project-sunbird.github.io/blob/dev/pages/developer-docs/telemetry/other_files/telemetry.min.js" target="_blank">telemetry.min.js</a> file</p>
   </li>
 </ul>
 
@@ -1765,14 +1791,14 @@ resetBase();
   },
 
   "env": "ContentPlayer",
-  "channel": "in.ekstep",
+  "channel": "XXXX",
   "did": "20d63257084c2dca33f31a8f14d8e94c0d939de4",
   "authtoken": "XXXX",
   "uid": "anonymous",
   "sid": "85e8a2c8-bb8e-4666-a21b-c29ec590d740",
   "batchsize": 20,
   "mode": "play",
-  "host": "https://api.ekstep.in",
+  "host": "XXXX",
   "endpoint": "/v3/telemetry",  
   "tags": [],
   "cdata": []
@@ -1797,6 +1823,21 @@ var customDispatcher = {
 
 <h2 id="how-to-use-telemetry-js-library">How to use telemetry JS library</h2>
 
+<p>Download the telemetry-sdk npm module from <a href="https://www.npmjs.com/package/@project-sunbird/telemetry-sdk">here</a></p>
+
+<pre>
+npm i @project-sunbird/telemetry-sdk
+</pre>
+
+<p>
+  <strong>Example:</strong>
+</p>
+
+<pre>
+$t = require('@project-sunbird/telemetry-sdk');   
+$t.start(config, contentId, contentVer,data, options);
+</pre>
+
 <p>To use the telemetry JS libraries, add the following to your HTML/application. The file path is a relative path, for example; assets/js to the associated files within the html content.</p>
 
 <pre>
@@ -1815,7 +1856,7 @@ var customDispatcher = {
           config.authToken = token;
           let startEdata = {};
           let options = {};
-          EkTelemetry.start(config, "content_id, "contetn_ver", startEdata, options );
+          $t.start(config, "content_id, "contetn_ver", startEdata, options );
       }
   init()
   &lt;/script&gt;
@@ -2426,7 +2467,7 @@ let data = { // Required
     "type": "", // Required. app, session, editor, player, workflow, assessment
     "duration": "", // Required. Total duration from start to end in seconds
     "pageid": "", // Optional. Page/Stage id where the end has happened.
-    "summary": [{ "key": "value" }] // Optional. Summary of the actions done between start and end. For ex: "progress" for player session, "nodesModified" for collection editor
+    "summary": [{ "key": "value" }] // Optional. Summary of actions done between start and end. For ex: "progress" for player session, "nodesModified" for collection editor
 };
 </pre>
 
@@ -2441,35 +2482,35 @@ let data = { // Required
 </pre>
 
 <h3 id="resetcontext">ResetContext</h3>
-<p>Which is used to reset the current context value with new context  object.</p>
+<p>This is used to reset the current context value with new context object.</p>
 
 <pre>
- @param {context} Object    - If context is undefined then library will reset to previous event context value.
- Ektelemetry.resetContext(context) 
+ @param {context} Object    - If context is undefined then library is reset to previous event context value.
+ $t.resetContext(context) 
 </pre>
 
 <h3 id="resetobject">ResetObject</h3>
 <p>Which is used reset the current object value with new obj</p>
 
 <pre>
- @param {obj} Object      - If the Object is undefined then library will reset to previous event object value.
- Ektelemetry.resetObject(obj) 
+ @param {obj} Object      - If the Object is undefined then library is reset to previous event object value.
+ $t.resetObject(obj) 
 </pre>
 
 <h3 id="resetactor">ResetActor</h3>
 <p>Which is used reset the current actor value with new actor</p>
 
 <pre>
- @param {actor} Object    - If the actor is undefined then library will reset to previous event actor value.
- Ektelemetry.resetActor(actor) 
+ @param {actor} Object    - If the actor is undefined then library is reset to previous event actor value.
+ $t.resetActor(actor) 
 </pre>
 
 <h3 id="resettags">ResetTags</h3>
 <p>Which is used to reset the current tag’s value with new tag’s</p>
 
 <pre>
- @param {tags} Array      - If tags are undefined then library will reset to previous event tags value.
- Ektelemetry.resetTags(tags) 
+ @param {tags} Array      - If tags are undefined then library is reset to previous event tags value.
+ $t.resetTags(tags) 
 </pre>
 
 <h2 id="changelog">ChangeLog</h2>
