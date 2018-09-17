@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2018-09-14 17:51:15 +0530">
+<meta name="last-modified" content="2018-09-17 14:21:10 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="620" />
+<meta name="buildNo" content="664" />
 <meta name="version" id="docsVersion" content="1.9" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?14092018"  />
+<link rel="stylesheet" href="/css/style.css?17092018"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?14092018"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?14092018"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?14092018"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?14092018"></script>
-<script type="text/javascript" src="/js/widgets-data.js?14092018"></script>
-<script type="text/javascript" src="/js/widgets.js?14092018"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?17092018"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?17092018"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?17092018"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?17092018"></script>
+<script type="text/javascript" src="/js/widgets-data.js?17092018"></script>
+<script type="text/javascript" src="/js/widgets.js?17092018"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -1540,61 +1540,59 @@ resetBase();
 
 <h3 id="prerequisites">Prerequisites</h3>
 
-<ol>
+<p>1.An initialized server instance of Sunbird. Initialization includes creating an organization administrator (through Keycloak), creating a channel and associating a first organization with the channel.</p>
+
+<p>For details, refer to:</p>
+
+<ul>
   <li>
-    <p>An intialized Sunbird instance, an <a href="http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_organization/">organization</a> and a <a href="http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_user">user</a>.</p>
+    <p><a href="http://www.sunbird.org/developer-docs/installation/server_installation/">Server Installation</a></p>
   </li>
   <li>
-    <p>The <a href="http://www.sunbird.org">API Key for access</a> and basic <a href="http://www.sunbird.org/developer-docs/installation/server_installation/installation/#post_installation_configuration">authentication</a>. As a response, the access_token is generated which is used for <code>x-authenticated-user-token</code> header</p>
+    <p><a href="http://www.sunbird.org/apis/framework/#tag/Channel-APIs">Channel APIs</a></p>
   </li>
   <li>
-    <p>An API client to make API calls. For example use Postman #refer <a href="http://www.sunbird.org/apis/framework/#tag/usingpostman">Using Postman</a>#</p>
+    <p><a href="http://www.sunbird.org/developer-docs/initialization">First organization</a> associated with channel ID</p>
   </li>
-  <li>
-    <p>Access to the <a href="http://www.sunbird.org//apis/orgapi/#operation/Organisation%20Add%20User">Mapping User to Organization API</a></p>
-  </li>
-</ol>
+</ul>
+
+<p>2.The API Key for access and basic authentication</p>
+
+<p>3.An API client to make API calls. For example use Postman refer [Using Postman] (http://www.sunbird.org/apis/framework/#tag/usingpostman)</p>
+
+<p>4.Access to the <a href="http://www.sunbird.org//apis/orgapi/#operation/Organisation%20Add%20User">Mapping User to Organization API</a></p>
 
 <h3 id="taskflow">Taskflow</h3>
 
 <p>The sequence of tasks the organization administrator follows to create users include:</p>
 
-<ol>
-  <li>Specify values for the following parameters in the request body of the API</li>
-</ol>
+<p>1.Specify values for the following parameters in the request body of the API</p>
 
-<p>An organization can be created in a Sunbird instance using <a href="http://www.sunbird.org/apis/userapi/#tag/Orgs-APIs">ORG API</a>, it can be further associated with a <a href="http://www.sunbird.org/apis/orgapi/#operation/Organisation%20Add%20User">user</a>. Following is an example of request body for associating a user to an organization, the sample values provided in the request body are indicative:</p>
+<p>An organization can be created in a Sunbird instance using <a href="http://www.sunbird.org/apis/userapi/#tag/Orgs-APIs">ORG API</a>, it can be further associated with a user and channel. Following is an example of request body for associating a user to an organization, the sample values provided in the request body are indicative:</p>
 
-<h4 id="request-body-for-mapping-user-to-organization">Request Body for Mapping User to Organization</h4>
-
+<p>
+  <strong>Request Body</strong>
+</p>
 <pre>
-  <code>{
-    "request": {
+ "request": {
+    "id": "string",
     "organisationId": "0125231248111779848",
-    "provider": "string",
-    "roles": ["PUBLIC"],
-    "userId": "4eec2f70-b821-42b9-9694-8a08587715af",
-    "userName": "john1"
-    }    
-}
-</code>
+        "roles": ["PUBLIC"],
+    "userId": "d7cce198-a770-490c-9f35-f99cab4fbf05",
+    "userName": "juthikatest10s0ae"
+  }
 </pre>
 
-<h4 id="response-body">Response Body</h4>
+<p>
+  <strong>Response Body</strong>
+</p>
 
 <pre>
-  <code>{
-    "responseCode": "OK",
+ "responseCode": "OK",
     "result": {
         "response": "SUCCESS"
     }
-}
-</code>
 </pre>
-
-<ol>
-  <li>The user (John) is added to the organization (XYZ Corp)</li>
-</ol>
 
 <h3 id="concepts-covered">Concepts Covered</h3>
 
