@@ -54,8 +54,8 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
   </tr>
   <tr>
     <td>1. Click <b>New Child</b> on the left pane to add lesson unit or chapter
-      <br>2. On clicking child node, a heading is added to the Table of Contents pane. For details on child node, sibling node, refer <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a>
-      <br>3. Click <b>Add Resource</b> to add content to the headings. For details on adding resources, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
+      <br>2. On clicking child node, a heading is added to the Table of Contents pane. For details on child node, sibling node, refer <a href="features-documentation/treestructure_toc/" target="_blank">Exploring ToC Structure</a>
+      <br>3. Click <b>Add Resource</b> to add content to the headings. For details on adding resources, refer <a href="features-documentation/addingresources/" target="_blank">Adding Resources</a>
     </td>
     <td><img src="features-documentation/images/lessonplan/add_content.png"></td>
   </tr>
@@ -70,7 +70,7 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
   </tr>
   <tr>
     <td>1. Click the <b>Edit Details</b> link on the top left corner of the page
-      <br>2. Click the camera icon to add an image <br><b>Note</b>: For details, refer <a href="features-documentation/metadata_addingimages" target="_blank">Adding Image to Metadata</a> 
+      <br>2. Click the camera icon to add an image <br><b>Note</b>: For details, refer <a href="features-documentation/metadata_addingimages/" target="_blank">Adding Image to Metadata</a> 
       <br>3. Enter <b>Title</b>       
       <br>4. Enter <b>Description</b> for the lesson plan 
       <br>5. Enter <b>Keywords</b> 
@@ -93,7 +93,7 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
 You can see <b>Table of Content</b> tree in the left pane to navigate content compiled for a collection, textbook, course or lesson plan. You can manipulate the tree using either: 
 <br>&emsp;a) The burger menu associated with a tree node 
 <br>&emsp;b) Right-click options associated with a tree node, OR 
-<br>&emsp;c) Keyboard shortcuts <br>For details on manipulating the tree and adding content, refer <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a>
+<br>&emsp;c) Keyboard shortcuts <br>For details on manipulating the tree and adding content, refer <a href="features-documentation/treestructure_toc/" target="_blank">Exploring ToC Structure</a>
 
 ### Deleting Content 
 
@@ -139,7 +139,7 @@ Before the Lesson Plan is publihed, it must be reviewed. You can send it for rev
     <th>Screen</th>
   </tr>
   <tr>
-    <td>1. Click <b>Save</b> on the header to save the lesson <br>2. Click <b>Limited sharing</b> to publish the lesson to the limited audiences <br><b>Note</b>: Refer <a href="features-documentation/limitedpublishnshare" target="_blank">Limited Publishing and Sharing</a> to view and share all the contents created and ready for sharing. <br>3. Click <b>Send for review</b> to send the created lesson for review 
+    <td>1. Click <b>Save</b> on the header to save the lesson <br>2. Click <b>Limited sharing</b> to publish the lesson to the limited audiences <br><b>Note</b>: Refer <a href="features-documentation/limitedpublishnshare/" target="_blank">Limited Publishing and Sharing</a> to view and share all the contents created and ready for sharing. <br>3. Click <b>Send for review</b> to send the created lesson for review 
     </td>
     <td><img src="features-documentation/images/lessonplan/review.png"></td>
   </tr>    
