@@ -1,11 +1,11 @@
 var widgetsData = {  
    versions:[  
-       {  
-         "title":"1.8",
-         "branch":"1.8",
+      {  
+         "title":"1.10",
+         "branch":"1.10",
          "desc":"",
-         "releaseDate":"30th June",
-         "latest":false,
+         "releaseDate":"30th Aug",
+         "latest":true,
          "published":true
       },
       {  
@@ -17,11 +17,11 @@ var widgetsData = {
          "published":true
       },
       {  
-         "title":"1.10",
-         "branch":"1.10",
+         "title":"1.8",
+         "branch":"1.8",
          "desc":"",
-         "releaseDate":"30th Aug",
-         "latest":true,
+         "releaseDate":"30th June",
+         "latest":false,
          "published":true
       },
       {  
