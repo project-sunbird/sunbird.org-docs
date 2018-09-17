@@ -20,17 +20,17 @@ Sunbird identifies every tenant organization uniquely through a channel. When cr
 
 For details, refer to:
 
-* [Server Installation](http://www.sunbird.org/developer-docs/installation/server_installation/)
+* [Server Installation](developer-docs/installation/server_installation/)
 
-* [Channel APIs](http://www.sunbird.org/apis/framework/#tag/Channel-APIs)
+* [Channel APIs](apis/framework/#tag/Channel-APIs)
 
-* [First organization](http://www.sunbird.org/developer-docs/initialization) associated with channel ID
+* [First organization](developer-docs/initialization) associated with channel ID
 
 2.The API Key for access and basic authentication
 
-3.An API client to make API calls. For example use Postman refer [Using Postman] (http://www.sunbird.org/apis/framework/#tag/usingpostman)
+3.An API client to make API calls. For example use Postman refer [Using Postman] (apis/framework/#tag/usingpostman)
 
-4.Access to the [Create Organization API](http://www.sunbird.org/apis/userapi/#tag/Orgs-APIs)
+4.Access to the [Create Organization API](apis/userapi/#tag/Orgs-APIs)
 
 ### Taskflow
 
@@ -38,7 +38,7 @@ The sequence of tasks the organization administrator follows to create users inc
 
 1.Specify values for the following parameters in the request body of the API 
 
-An organization can be created in a Sunbird instance using ORG API, it can be further associated with a user and channel, refer [Mapping User to Organization](http://www.sunbird.org//apis/orgapi/#operation/Organisation%20Add%20User). 
+An organization can be created in a Sunbird instance using ORG API, it can be further associated with a user and channel, refer [Mapping User to Organization](/apis/orgapi/#operation/Organisation%20Add%20User). 
 Following is an example of request body for creating a user, the sample values provided in the request body are indicative:
 
 **Request Body**
@@ -92,8 +92,8 @@ Following is an example of request body for creating a user, the sample values p
 
 ### Additional Topics
 
-[Creating first organization](http://www.sunbird.org/developer-docs/initialization)
+[Creating first organization](developer-docs/initialization)
 
-[Creating user](http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_user)
+[Creating user](developer-docs/how-to-guide/how_to_create_user)
 
-[Map users to different business units within the organisation](http://www.sunbird.org/developer-docs/how-to-guide/hohow_to_create_org_add_user)
+[Map users to different business units within the organisation](developer-docs/how-to-guide/hohow_to_create_org_add_user)

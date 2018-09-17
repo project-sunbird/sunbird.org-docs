@@ -21,7 +21,7 @@ Organization administrators can use their registered credentials and add other o
   <tr>
     <td>1. You are logged in <br>2. You are currently on <strong>Profile</strong> page. You want to upload organizations <br>3. You have clicked on <b>Upload Organizations</b> <br><b>Note</b>: Ensure that the system administrator of your organization has created the required organization types on the portal. For details on how to create organization types, refer <a href="features-documentation/create_orgtype" target="_blank">Organization Type Creation</a>    
       </td>
-      <td><img src="pages/features-documentation/images/upldorg_prereqsite.png"></td>
+      <td><img src="features-documentation/images/upldorg_prereqsite.png"></td>
   </tr>
     </table>
 
@@ -53,29 +53,4 @@ Sl No| Column Name | Description | Valid Value | Column Type
 7.Click **UPLOAD ORGANIZATIONS CSV**. The explorer window is displayed<br/>
 8.Select the saved csv file and click **Open**<br/>
 9.On successful file upload, a process ID will be generated, else an error message is displayed<br/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
 

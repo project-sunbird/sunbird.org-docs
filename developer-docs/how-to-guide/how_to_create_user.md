@@ -20,17 +20,17 @@ Every user belongs to an organization and is identified within the organization 
 
 For details, refer to:
 
-* [Server Installation](http://www.sunbird.org/developer-docs/installation/server_installation/)
+* [Server Installation](developer-docs/installation/server_installation/)
 
-* [Channel APIs](http://www.sunbird.org/apis/framework/#tag/Channel-APIs)
+* [Channel APIs](apis/framework/#tag/Channel-APIs)
 
-* [First organization](http://www.sunbird.org/developer-docs/initialization) associated with channel ID
+* [First organization](developer-docs/initialization) associated with channel ID
 
 2.The API Key for access and basic authentication
   
-3.An API client to make API calls. For example use Postman refer [Using Postman] (http://www.sunbird.org/apis/framework/#tag/usingpostman)
+3.An API client to make API calls. For example use Postman refer [Using Postman] (apis/framework/#tag/usingpostman)
 
-4.Access to the [Create User API](http://www.sunbird.org/apis/userapi/#operation/Create%20User)
+4.Access to the [Create User API](apis/userapi/#operation/Create%20User)
 
 ### Taskflow
  
@@ -114,8 +114,8 @@ The sequence of tasks the organization administrator follows to create users inc
 
 ### Additional Topics
 
-[Creating first organization](http://www.sunbird.org/developer-docs/initialization)
+[Creating first organization](developer-docs/initialization)
 
-[Creating Organization](http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_organization)
+[Creating Organization](developer-docs/how-to-guide/how_to_create_organization)
 
-[Map users to different business units within the organisation](http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_org_add_user)
+[Map users to different business units within the organisation](developer-docs/how-to-guide/how_to_create_org_add_user)

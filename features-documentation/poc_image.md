@@ -16,7 +16,7 @@ allowSearch: true
 - **Vertical spread** 15% on the either side (top & bottom) of the image is left for writing Title/Caption and Notes respectively<br>
 3. The image is saved in the .svg format and zoom feature is enabled
 
-{% image src='pages/features-documentation/images/testimages/imagepocabc.svg' full center alt='Login' zoom %}
+{% image src='features-documentation/images/testimages/imagepocabc.svg' full center alt='Login' zoom %}
 
 ## Concept:2
 
@@ -34,7 +34,7 @@ allowSearch: true
        <tr>
          <td>1. You are logged in as the administrator<br>2. You are currently on <b>Home</b> page. You want to view, review and analyze content creation or consumption patterns<br>3. You have clicked  <b>Admin Dashboard</b> from the profile drop down 
         </td>
-        <td><img src="pages/features-documentation/images/admindashboard/prerequisites.png"></td>
+        <td><img src="features-documentation/images/admindashboard/prerequisites.png"></td>
       </tr>
       </table>
     </details>
@@ -50,7 +50,7 @@ allowSearch: true
   </tr>
   <tr>
     <td>1.Click <b>Select Organization</b> from the drop down, to select the organization for which you require the analytics</td>
-     <td><img src="pages/features-documentation/images/admindashboard/selectorg.png"></td>
+     <td><img src="features-documentation/images/admindashboard/selectorg.png"></td>
   </tr>
 </table>
     </details>
@@ -64,7 +64,7 @@ The concept of thumbnail is used here. The instruction scan be written in markdo
 <body>
 	<ol>
 		<li>
-			Enter your <b>Username</b> or <b>Email ID</b> or <b>Phone number</b> <br>2. Enter your <b>Password</b> <br>3. Click <b>Login</b>. Click thumbnail to view UI. <a href="pages/features-documentation/images/testimages/poc_image1.png"  target="_blank"><img src="thumbnail.png"/></a>
+			Enter your <b>Username</b> or <b>Email ID</b> or <b>Phone number</b> <br>2. Enter your <b>Password</b> <br>3. Click <b>Login</b>. Click thumbnail to view UI. <a href="features-documentation/images/testimages/poc_image1.png"  target="_blank"><img src="thumbnail.png"/></a>
 		</li>
 	</ol>
 </body>
