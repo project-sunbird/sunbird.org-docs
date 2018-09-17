@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: Administrator Role Function Matrix
 page_title: Administrator Role Function Matrix
 description: User Roles and Permission

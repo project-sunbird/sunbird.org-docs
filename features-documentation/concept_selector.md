@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: Concept Selector
 page_title: Concept Selector
 description: Selecting concepts for Books, Course, and Resources
@@ -25,6 +23,6 @@ The concept selector ensures that the content is synced with the concept tree an
     <br>6. Click <b>Done</b> to proceed
     <br>7. Click <b>Cancel</b> to exit
     </td> 
-    <td><img src="pages/features-documentation/images/concept_selector.png"></td>
+    <td><img src="features-documentation/images/concept_selector.png"></td>
   </tr>
   </table>

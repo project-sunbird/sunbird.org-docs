@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: features-documentation
 title: User Roles and Permissions
 page_title: User Roles and Permissions
 description: User Roles and Permission
