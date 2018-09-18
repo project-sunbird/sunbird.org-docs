@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/installation
 title: Installing Sunbird Portal
 page_title: Installing Sunbird Portal
 description: Installing Sunbird requires two primary software components, the Sunbird portal or web application, and the Sunbird services stack or the backend API interface.

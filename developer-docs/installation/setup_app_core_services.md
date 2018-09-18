@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/installation/
 title: Set up Application and Core services
 page_title: Set up Application and Core services
 description: Set up Application and Core services

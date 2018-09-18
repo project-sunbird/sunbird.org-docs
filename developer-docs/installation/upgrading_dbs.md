@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/installation/
 title: Upgrading the Cassandra Database
 page_title: Upgrading the Cassandra Database
 description: Upgrading Cassandra Database

@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/configuring_sunbird
 title: Configuration for Meta Forms
 page_title: Configuration for Meta Forms
 description: Different configurations for forms
@@ -14,15 +12,15 @@ An organization works in the domain of water conservation and works in multiple 
 
 ## Prerequisites
 As the organization administrator ensure the following:
-1. Install  the server instance of Sunbird. For details, refer to[ Server Installation ](http://www.sunbird.org/developer-docs/installation/server_installation/)
+1. Install  the server instance of Sunbird. For details, refer to[ Server Installation ](developer-docs/installation/server_installation/)
 
-2. Create a channel for your organization (XYZ corporation). For details, refer to[ Channel APIs](http://www.sunbird.org/apis/framework/#tag/Channel-APIs)
+2. Create a channel for your organization (XYZ corporation). For details, refer to[ Channel APIs](apis/framework/#tag/Channel-APIs)
 
 3. Register  your channel/ organization i.e, (XYZ corporation) with Ekstep. On registration, a unique **Channel ID** is assigned to your organization (XYZ corporation) channel ID is: 12300786
 
 4. Create users for your organization (XYZ corporation) either by: 
-   -  onboarding XYZ corporation users in bulk, refer to [Bulk upload service APIs](http://www.sunbird.org/apis/bulkupload/), or
-   -  creating the XYZ corporation  users individually, refer to [User APIs](http://www.sunbird.org/apis/userapi/)   
+   -  onboarding XYZ corporation users in bulk, refer to [Bulk upload service APIs](apis/bulkupload/), or
+   -  creating the XYZ corporation  users individually, refer to [User APIs](apis/userapi/)   
 
 **Note:**
 
@@ -34,7 +32,7 @@ An Organizational administrator requires to:
 
 * Have a User Token that authenticates the organization administrator for read-write access
 
-* Have access to [Form APIs](http://www.sunbird.org/apis/form/)
+* Have access to [Form APIs](apis/form/)
 
 ## Overview
 
@@ -48,7 +46,7 @@ The architecture of the Sunbird platform is logically divided into following mai
 
 Each of the component uses a metadata-driven development model to help the adopters to be more productive by allowing the flexibility to tailor these components based on their needs.The platform provides a mechanism where each of the forms in the components are configurable as they are metadata driven. This implies that the basic functionality of elements, such as, the forms, labels, fields, number of fields, types of fields etc. are defined as metadata in a database,instead of hard-coding them in a programming language. When any end user accesses a form on the portal or on mobile, it renders the metadata into the interface of user interface.
 
-To alter the configuration of each of the available metadata driven forms, Sunbird provides a set of [Form API](http://www.sunbird.org/apis/form/) endpoints. The administrator uses these APIs to programmatically manage, configure and customize each form.These APIs provide straightforward, powerful, and open ways to programmatically access the form data and provide the capabilities of configuring all the metadata available for forms. 
+To alter the configuration of each of the available metadata driven forms, Sunbird provides a set of [Form API](apis/form/) endpoints. The administrator uses these APIs to programmatically manage, configure and customize each form.These APIs provide straightforward, powerful, and open ways to programmatically access the form data and provide the capabilities of configuring all the metadata available for forms. 
 
 ## List of Metadata driven Forms  
 
@@ -210,9 +208,9 @@ The form configuration is a post installation task. Being a Sunbird adopter, you
 Follow the steps to configure the forms available:
 
 1. Ensure that all the prerequisites are met
-2. Get access to [Form API](http://www.sunbird.org/apis/form/)Resources
+2. Get access to [Form API](apis/form/)Resources
 3. Use an API client to perform the update form operation
-4. Use[Update Form API](http://www.sunbird.org/apis/form/#operation/FormUpdate) to configure the metadata fields on a form, ensure that you provide valid inputs to the configuration parameters in the header, request payload while calling the API.
+4. Use[Update Form API](apis/form/#operation/FormUpdate) to configure the metadata fields on a form, ensure that you provide valid inputs to the configuration parameters in the header, request payload while calling the API.
 
 **Configuration Parameters** 
 
@@ -221,7 +219,7 @@ The following are the header parameters for Update Form API endpoint:
 1. Authorization
 2. Content-Type
 
-For more information about the usage of header parameters refer to the [Update Form API](http://www.sunbird.org/apis/form/#operation/FormUpdate) reference document.  
+For more information about the usage of header parameters refer to the [Update Form API](apis/form/#operation/FormUpdate) reference document.  
 
 ## Sample payload for  Update Form API
 <pre>

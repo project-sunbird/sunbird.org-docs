@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/configuring_sunbird
 title: Configure Reviewer Checklist
 page_title: Configure Reviewer Checklist
 description: Technical document on configuring checklist for reviewer
