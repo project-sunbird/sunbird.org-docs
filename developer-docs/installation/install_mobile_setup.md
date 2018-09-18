@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/installation/
 title: Mobile App Installation
 page_title: Mobile app installation
 description: About mobile app

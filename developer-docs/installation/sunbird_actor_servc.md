@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/installation/
 title: Actor System
 page_title: Actor System
 description: Sunbird Akka Actor System enables concurrency, scalability

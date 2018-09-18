@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/server-installation/
 title: Prerequisites
 page_title: Server Installation Prerequisites
 description: Setting up Sunbird on a server
@@ -10,7 +8,7 @@ allowSearch: true
 
 ## Overview
 
-To install Sunbird you require system admninisrtation rights and must have hands on experience with Linux systems administration and Docker for running containerized services.
+To install Sunbird you require system administration rights and must have hands on experience with Linux systems administration and Docker for running containerized services.
 
 Sunbird has been tested on cloud hosted Linux servers (Azure & AWS). Sunbird will not function correctly if deployed on virtual machines or in-premise infrastructure, like rack mounted servers or blades. Sunbird has not been tested on any Microsoft® operating systems
 
@@ -18,7 +16,7 @@ This section explains the minimum prerequisites that must be ensured before inst
 
 ## API Key
 
-* Sunbird requires EkStep API keys to access the EkStep content repository. For details on how to get access the keys, refer <a href="http://www.sunbird.org/developer-docs/server_installation/ekstep_keys" target="_blank">Ekstep API Keys</a> to get the keys. If you are creating a test environment, get the QA API keys
+* Sunbird requires EkStep API keys to access the EkStep content repository. For details on how to get access the keys, refer <a href="developer-docs/server_installation/ekstep_keys" target="_blank">Ekstep API Keys</a> to get the keys. If you are creating a test environment, get the QA API keys
 * Use the key and secret to generate JWT.  Use the web based tool - http://jwtbuilder.jamiekurtz.com/. Note that when using this tool, the key in the EkStep Developer credentials should be set as the Issuer field and the secret in the Key field
 
 ## Domain Name
@@ -68,5 +66,5 @@ The following package(s) must be available on the machine from which Sunbird ins
 * curl or any application that can invoke REST API 
 
 ##### Metadata
-* orgName : A unique name to identify the logical top level structure of your Sunbird delpoyment, for more details refer <a href="https://http://www.sunbird.org/developer-docs/singlesignon/org_user_creation_sso/" target="_blank">Org Creation</a> 
+* orgName : A unique name to identify the logical top level structure of your Sunbird delpoyment, for more details refer <a href="developer-docs/singlesignon/org_user_creation_sso/" target="_blank">Org Creation</a> 
 * channel

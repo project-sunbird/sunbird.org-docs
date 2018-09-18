@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/server-installation/
 title: Installation
 page_title: Installation
 description: Prerequisites for setting up Sunbird on a server
