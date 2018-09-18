@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs
 title: Initialization Setup
 page_title: Initialization Setup
 description: Initialization Setup

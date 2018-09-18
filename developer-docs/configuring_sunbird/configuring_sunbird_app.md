@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/configuring_sunbird
 title: Configuring Sunbird App
 page_title:  Content Filtering
 description: How to configure sunbird app 
