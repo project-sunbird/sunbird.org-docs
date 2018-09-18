@@ -9,7 +9,7 @@ var widgetsData = {
          "published":false
       },
       {  
-         "title":"1.9.1",
+         "title":"1.9",
          "branch":"1.9",
          "desc":"",
          "releaseDate":"22nd Aug",
