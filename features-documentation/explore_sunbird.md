@@ -58,8 +58,8 @@ An anonymous user can explore Sunbird and access the content avilable in the rep
   <td>1.Select <b>Enter Dial Code</b> button to search a textbook. The popup is displayed to enter the Dial Code.
   <br>a.Enter the DIAL Code in <b>Enter DIAL Code here</b> text box
   <br><b>Note</b>:DIAL Code is the 6 digit alphanumeric code found under a QR code in your physical text book. 
-  <br>b.Click <b>Submit</b>
-  <td><img src="features-documentation/images/explore_sunbird/explore_sunbird_dial.png"></td>
+  <br>b.Click <b>Submit</b></td>
+  <td><img src="features-documentation/images/explore_sunbird/exploring_sunbird_dial.png"></td>
 	</tr>
 </table>
    
