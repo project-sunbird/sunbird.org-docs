@@ -1,6 +1,5 @@
 ---
-type: landing
-directory: apis
+layout: page
 title: API Reference Documentation
 page_title: API reference documentation
 description: API reference documentation
