@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/configuring_sunbird
 title: Configure OTP based SMS
 page_title: Configure OTP based SMS 
 description: How to set up the OTP for SMS
@@ -23,7 +21,7 @@ An OTP sent via SMS to the user's registered mobile number is one of the most se
   <td>
 1. Enter your <b>Username or email</b> and <b>Password</b><br>Click <b>Log in</b> to log into the Keycloak admin console
 </td>
-<td><img src="https://github.com/project-sunbird/project-sunbird.github.io/blob/dev/pages/developer-docs/configuring_sunbird/images/keycloak_login.png"></td>
+<td><img src="developer-docs/configuring_sunbird/images/keycloak_login.png"></td>
 </tr>
  
 <tr>
@@ -31,7 +29,7 @@ An OTP sent via SMS to the user's registered mobile number is one of the most se
 2. Click the <b>Realm Selector Dropdown</b> from the left corner of your screen and select appropriate realm <br>
 <b>Note:</b> The <b>Master</b> realm is selected by default.
 	</td>
-	<td><img src="https://github.com/project-sunbird/project-sunbird.github.io/blob/dev/pages/developer-docs/configuring_sunbird/images/realm_select.png"></td>
+	<td><img src="developer-docs/configuring_sunbird/images/realm_select.png"></td>
 	</tr>
 	
   <tr>

@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/installation/
 title: Customizing Assets
 page_title: Customizing Assets
 description: customize sunbird assets

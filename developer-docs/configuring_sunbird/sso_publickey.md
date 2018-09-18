@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/configuring_sunbird
 title: Configuration for SSO Public Key 
 page_title: Configuration for SSO Public Key 
 description: How to set up the SSO public key
@@ -27,7 +25,7 @@ To provide access to users and enable them to perform API operations, you need t
 1. Enter your <b>Username or email</b> and <b>Password</b><br>
 2. Click <b>Log in</b> to log into the Keycloak admin console
 </td>
-<td><img src="pages\developer-docs\configuring_sunbird\images\keycloak_login.png"></td>
+<td><img src="developer-docs\configuring_sunbird\images\keycloak_login.png"></td>
 </tr>
  
 <tr>
@@ -35,14 +33,14 @@ To provide access to users and enable them to perform API operations, you need t
 3. Click the <b>Realm Selector Dropdown</b> from the left corner of your screen and select appropriate realm <br>
 <b>Note:</b> The <b>Master</b> realm is selected by default.
 	</td>
-	<td><img src="pages\developer-docs\configuring_sunbird\images\realm_select.png"></td>
+	<td><img src="developer-docs\configuring_sunbird\images\realm_select.png"></td>
 	</tr>
 	
   <tr>
   <td> 
   4. Click on the <b>Keys tab</b> from the menu bar
   </td>
-  <td><img src="pages\developer-docs\configuring_sunbird\images\select_key_tab.png"></td>
+  <td><img src="developer-docs\configuring_sunbird\images\select_key_tab.png"></td>
   </tr>
   
   <tr>
@@ -51,7 +49,7 @@ To provide access to users and enable them to perform API operations, you need t
   <b>Note:</b> A text string is displayed as a popup 
   </td>
   <td>
-  <img src="pages\developer-docs\configuring_sunbird\images\public_key_btn.png">
+  <img src="developer-docs\configuring_sunbird\images\public_key_btn.png">
   </td>
   </tr>
   
@@ -59,7 +57,7 @@ To provide access to users and enable them to perform API operations, you need t
   <td> 
 	  6.Copy the text string and paste it as a value for the <b>sunbird_sso_publickey</b> environment variable located inside the <b> https://github.com/project-sunbird/sunbird-lms-mw/blob/master/setup.md </b> file, while you are deploying Sunbird platform services 
   </td>
-  <td><img src="pages\developer-docs\configuring_sunbird\images\copy_token.png"></td>
+  <td><img src="developer-docs\configuring_sunbird\images\copy_token.png"></td>
   </tr>
   
 </table>

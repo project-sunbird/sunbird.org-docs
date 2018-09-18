@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/installation
 title: Simplified Server Installation 
 page_title: Simplified Server Installation 
 description: Instructions for Simplified Server Installation for Sunbird version 1.4 
@@ -13,7 +11,7 @@ allowSearch: true
 
 Sunbird version 1.4 onwards has a simplified installation procedure wherein all the fine-tuned configurations that were earlier manually configured, are automatically deployed. The entire installlation process takes approximately 45 minutes. 
 
-You could also choose to follow the detailed installation procedures provided at[Server Installation](http://www.sunbird.org/developer-docs/installation/server_installation/){:target="_blank"}.
+You could also choose to follow the detailed installation procedures provided at[Server Installation](developer-docs/installation/server_installation/){:target="_blank"}.
 
 ### Prerequisites
 
@@ -43,7 +41,7 @@ For example, Azure: sunbird-test.centralindia.cloudapp.azure.com. Check with the
 
 - Ensure the application server can access port 443 from the internet
 
-- Get the [Ekstep API keys](http://www.sunbird.org/developer-docs/telemetry/authtokengenerator_jslibrary/#how-to-generate-authorization-credentials){:target="_blank"}
+- Get the [Ekstep API keys](developer-docs/telemetry/authtokengenerator_jslibrary/#how-to-generate-authorization-credentials){:target="_blank"}
 
 ### Simplified Sunbird Installation Procedure
 
@@ -66,7 +64,7 @@ For example, Azure: sunbird-test.centralindia.cloudapp.azure.com. Check with the
 
     `./sunbird_install.sh`
 
-7. Open https://[ domain-name ]/auth and complete the [keycloak configuration](http://www.sunbird.org/developer-docs/installation/keycloak_realm_configuration).
+7. Open https://[ domain-name ]/auth and complete the [keycloak configuration](developer-docs/installation/keycloak_realm_configuration).
 
 8. Copy the value of the `jwt token for player` from **~/jwt_token.txt** file present in your home directory.
 
