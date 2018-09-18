@@ -10,8 +10,8 @@
 <meta name="msapplication-TileColor" content="#65d3f7">
 <meta name="msapplication-TileImage" content="/img/favicon/mstile-150x150.png">
 
-<title>Create User</title>
-<meta name="description" content="Create a new user in Sunbird instance"/>
+<title>Installation</title>
+<meta name="description" content="installation"/>
 
 <meta http-equiv="cache-control" content="max-age=0" />
 <meta http-equiv="cache-control" content="no-cache" />
@@ -1553,14 +1553,14 @@ resetBase();
 </div>
 
 <script>
-	$("a[href$='developer-docs/how-to-guide/how_to_create_user/']").addClass("sidebar-link-selected");
+	$("a[href$='developer-docs/server-installation/']").addClass("sidebar-link-selected");
 </script>
 
       </div>
     </nav>
     <div class="content">
       <div class="inner__content header" id="heading">
-        <h1>Create User </h1>
+        <h1>Installation </h1>
       </div>
 
       <div id="main-content" class="inner__content">
@@ -1570,7 +1570,7 @@ resetBase();
 				  <i class="fa fa-book" aria-hidden="true"></i> <i>Contribution Guidelines</i>
 			  </a> &nbsp;&nbsp;-->
 			  
-			 <a target="_blank"  title="Edit this page"class="" href="https://github.com/project-sunbird/sunbird.org-docs/edit/master/developer-docs/how-to-guide/how_to_create_user.md">
+			 <a target="_blank"  title="Edit this page"class="" href="https://github.com/project-sunbird/sunbird.org-docs/edit/master/developer-docs/server-installation/index.md">
 				  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
 			  </a> 
 			  | 
@@ -1581,175 +1581,18 @@ resetBase();
 			  </span>
 			</p>
 			<div class="widgetLatestVersionNotification"></div>
-          <div id="toc-container">
-  <table class="toc" id="toc">
-    <tbody>
-      <tr>
-        <td>
-          <div id="toctitle">
-            <h2>Contents</h2>
-            <span class="toctoggle">[<a id="toctogglelink" class="internal" href="#">hide</a>]</span>
-          </div>
-          <ul>
-            <li class="toc_level-1 toc_section-1">
-              <a href="#scenario"><span class="tocnumber">1 .</span> <span class="toctext">Scenario</span></a>
-              <ul>
-                <li class="toc_level-2 toc_section-2">
-                  <a href="#prerequisites"><span class="tocnumber">1.1 .</span> <span class="toctext">Prerequisites</span></a>
-                </li>
-                <li class="toc_level-2 toc_section-3">
-                  <a href="#taskflow"><span class="tocnumber">1.2 .</span> <span class="toctext">Taskflow</span></a>
-                </li>
-                <li class="toc_level-2 toc_section-4">
-                  <a href="#concepts-covered"><span class="tocnumber">1.3 .</span> <span class="toctext">Concepts covered</span></a>
-                </li>
-                <li class="toc_level-2 toc_section-5">
-                  <a href="#additional-topics"><span class="tocnumber">1.4 .</span> <span class="toctext">Additional Topics</span></a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div><h2 id="scenario">Scenario</h2>
-
-<p>A company, XYZ Corp, is a global conglomerate with over ten thousand employees, spread across 5 locations. Employee training and enablement is one of the core values of the organization. To ensure that employees are regularly trained and upskilled, XYZ Corp has decided to use Sunbird for its learning and training solution. To give employees access to the learning platform, the organization’s administrator needs to create and add user details.</p>
-
-<p>Every user belongs to an organization and is identified within the organization through a unique user ID. Sunbird, uniquely identifies every tenant organization through a channel. Hence, when creating a user, its not enough to only add user details and assign a user ID. To enable users, the user ID has to be associated with an organization and channel. Since a user also plays a role within an organization, the user gets fully enabled only after the user ID is associated to a role. For example, John is a manager in XYZ corporation with multiple roles, who can create, review and take courses. He is also an administrator in the system, in which capacity he can add users and assign permissions to them.</p>
-
-<h3 id="prerequisites">Prerequisites</h3>
-
-<ol>
-  <li>
-    <p>An intialized Sunbird instance</p>
-  </li>
-  <li>
-    <p>The <a href="http://www.sunbird.org">API Key for access</a> and basic authentication</p>
-  </li>
-  <li>
-    <p>An API client to make API calls. For example use Postman refer <a href="http://www.sunbird.org/apis/framework/#tag/usingpostman">Using Postman</a></p>
-  </li>
-  <li>
-    <p>Access to the <a href="http://www.sunbird.org/apis/userapi/#operation/Create%20User">Create User API</a></p>
-  </li>
-</ol>
-
-<h3 id="taskflow">Taskflow</h3>
-
-<p>The sequence of tasks the organization administrator follows to create users include:</p>
-
-<ol>
-  <li>Specify values for the parameters in the request body of the API. Following is an example of request body for creating a user, the sample values provided in the request body are indicative:</li>
-</ol>
-
-<h4 id="request-body-for-creating-a-user">Request Body for Creating a User</h4>
-
-<pre>
-  <code>"request": {
-    "email": "john@xyzcorp.com",
-    "firstName": "John", 
-    "lastName": "Pal",
-    "password": "password123",
-    "avatar": "john.png",
-    "language":  ["English"],
-    "phone": "987654321", 
-    "phoneVerified": true,
-    "subject": [ "string" ],
-    "channel": "a1234567b890c",
-    "userName": "john1"
-    "education": [
-        {
-            "degree": "BA",
-        "yearOfPassing": 1934,
-        "courseName": "Bachelor of Arts",
-        "boardOrUniversity": "ABC University",
-        "address": 
-            {
-            "addType": "Permanent",
-            "addressLine1": "#34, ASDF Apartments",
-            "addressLine2": "ERTY Lane",
-            "city": "Bangalore",
-            "state": "Karnataka",
-            "zipCode": "560089"
-            },
-        }
-        ],
-    "jobProfile": [
-        {
-        "jobName": "Manager",
-        "role": "L3",
-        "joiningDate": "2013-12-01",
-        "orgName": "XYZ Corp",
-        "address": 
-            {
-            "addType": "Organization",
-            "addressLine1": "#34, QWETY Bldg",
-            "addressLine2": "ERTY Lane",
-            "city": "Bangalore",
-            "state": "Karnataka",
-            "zipCode": "560089"
-            }
-        }
-    ],
-}
-</code>
-</pre>
-
-<h4 id="response-body">Response Body</h4>
-
-<pre>
-  <code>"responseCode": "OK",
-    "result": {
-        "response": "SUCCESS",
-        "accessToken": null,
-        "userId": "4eec2f70-b821-42b9-9694-8a08587715af"
-    }
-</code>
-</pre>
-
-<ol>
-  <li>
-    <p>Save the created user ID</p>
-  </li>
-  <li>
-    <p>The user (John Pal), with is created under the XYZ organization</p>
-  </li>
-</ol>
-
-<h3 id="concepts-covered">Concepts covered</h3>
-
-<p><strong>Users</strong>: Individuals who can sign in and access the Sunbird portal.</p>
-
-<p><strong>Organization</strong>: An Organization is an institute or a body of individuals.</p>
-
-<p><strong>Channel</strong>: A unique identifier associated with the tenant organization</p>
-
-<h3 id="additional-topics">Additional Topics</h3>
-
-<p>
-  <a href="http://www.sunbird.org/developer-docs/initialization">Creating first organization</a>
-</p>
-
-<p>
-  <a href="http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_organization">Creating Organization</a>
-</p>
-
-<p>
-  <a href="http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_org_add_user">Map users to different business units within the organisation</a>
-</p>
+          <p>This section details the procedure for installing Sunbird on your server. To install Sunbird you require system administration rights and must have hands on experience with Linux systems administration and Docker for running containerized services.</p>
 
           
           <hr />
           
           <p class="edit-para text-right">
-			<a target="_blank" href="https://github.com/project-sunbird/sunbird.org-docs/edit/master/developer-docs/how-to-guide/how_to_create_user.md" title="Fix this page">
+			<a target="_blank" href="https://github.com/project-sunbird/sunbird.org-docs/edit/master/developer-docs/server-installation/index.md" title="Fix this page">
 				<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a> |
 			<a target="_blank" href="https://github.com/project-sunbird/sunbird.org-docs/issues" title="Report issue">
 				<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Report</a>
 		  </p>
-		  <a href="developer-docs/how-to-guide/how_to_create_user/#heading" class="scrollup"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
+		  <a href="developer-docs/server-installation/#heading" class="scrollup"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
           
       </div>
     </div>
@@ -1803,7 +1646,7 @@ resetBase();
 	});
 	$('#toc a').each(function(){
 		var url = this.href.replace(baseURL.href, "");
-		this.href = 'developer-docs/how-to-guide/how_to_create_user/' + url;
+		this.href = 'developer-docs/server-installation/' + url;
     })
 	$(".zoomcover").click(function(){
 		if (!$(this).hasClass("fullscreen")){
