@@ -227,7 +227,7 @@ It will be installed along with other npm packages.
 
   4. Add one device to the system.
 
-  5. Lastly, run the command- `$ ionic cordova run android`
+  5. Finally, run the command- `$ ionic cordova run android`
 
 The application is installed on your device.
 
