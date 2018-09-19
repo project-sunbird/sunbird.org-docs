@@ -78,7 +78,3 @@ The configuration parameters are explained in the following table:
    |**trampoline_secret**|The Trampoline secret for Keycloak. The secret must be a minimum of 8 characters   |no|
    |**vault_postgres_exporter_password**| postgres vault exporter password |no|  
    |**vault_proxy_prometheus_admin_creds**| prometheus admin password |no|    
-
-
-
-

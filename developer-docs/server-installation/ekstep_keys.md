@@ -65,3 +65,4 @@ Authtoken can be generated using the bash script also, for more details refer bl
     <td><img src="developer-docs/installation/images/telemetry_service7.png"></td>
   </tr>
 </table>
+
