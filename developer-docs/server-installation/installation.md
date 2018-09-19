@@ -30,7 +30,7 @@ The installtion script runs through the following steps
 
 ### Getting Authentication Certificate
 
-Get the public key from keycloak <b>http://<dns_name or IP>/auth -> Administration console -> realm settings -> keys -> public keys</b>  (click on public keys) and set it for `sunbird_sso_publickey` parameter in `config` file.
+Get the public key from keycloak <b>http://< dns_name or IP>/auth -> Administration console -> realm settings -> keys -> public keys</b>  (click on public keys) and set it for `sunbird_sso_publickey` parameter in `config` file.
 
 ### Installing Core Services
 
@@ -49,7 +49,7 @@ After completion of Sunbird installation and before it can be used, an API token
 
 ### Setup
 
-<br>1. **Create user access token**  (x-authenticated-user-token)
+1. **Create user access token**  (x-authenticated-user-token)
 
     curl -X POST {host_name}    /auth/realms/sunbird/protocol/openid-connect/token \
     -H 'cache-control: no-cache' \
@@ -63,7 +63,7 @@ The curl command’s response will contain a field called “access token” whi
    - {dns_name} - Domain or the IP address of your application server_installation
    - {password} - Password of the `user-manager` user. The one you have provided for `sso_password` parameter in the `config` file above
 
-<br>2. **Create root organization** - To create a root organization you should execute the following cURL: 
+2. **Create root organization** - To create a root organization you should execute the following cURL: 
 
   curl -X POST  
   {dns_name}/api/org/v1/create \
@@ -85,7 +85,7 @@ The curl command’s response will contain a field called “access token” whi
 >  - If ~/jwt_token_player.txt file missing then rerun `./sunbird_install.sh -s apis` to recreate it
 
 
-<br>3. Update `sunbird_default_channel` in the `config` file with **Your Channel Name}** 
+3. Update `sunbird_default_channel` in the `config` file with **Your Channel Name}** 
 
     ./sunbird_install.sh -s core
 
@@ -134,4 +134,4 @@ The Sunbird installation script `./sunbird_install.sh` is a wrapper shell script
 * `deploy-core.sh` - Deploys the core services player, content, actor and learner service as docker services. The content, actor and learner service together form the LMS backend. 
 
 
-Signing up on Sunbird is a seamless process. Once you have successfully installed Sunbird on your server, you can create sing up credentials on the portal. For details on signing up on Sunbird, refer <a href="http://www.sunbird.org/features-documentation/signup/" target="_blank">Sign Up on Sunbird</a>
+Signing up on Sunbird is a seamless process. Once you have successfully installed Sunbird on your server, you can create sign up credentials on the portal. For details on signing up on Sunbird, refer <a href="http://www.sunbird.org/features-documentation/signup/" target="_blank">Sign Up on Sunbird</a>

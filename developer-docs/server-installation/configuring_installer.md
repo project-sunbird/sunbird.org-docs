@@ -12,22 +12,14 @@ To install Sunbird choose one docker swarm manager as the installation server an
 ## Getting the Installer
 
 * Clone the installer repository from github.com
-
-
     git clone https://github.com/project-sunbird/sunbird-devops.git
     cd sunbird-devops
     git checkout tags/release-1.9
     cd deploy
 
-##### Description of commands:
-* git clone: To clone the repository on your local
-* cd sunbird-devops: To change the directory to "sunbird-devops" folder
-* git checkout {branch name}: To change from the current branch to tags/release branch
-* cd deploy: To change the directory to deploy folder. You can further run your git commands here
-
 ## Configuring the Installer
 
-* Update the configuration parameters in the `config` file. The config file is a YAML file.
+* Update the configuration parameters in the **sunbird-devops/deploy/config** file. The config file is a YAML file.
 
 The configuration parameters are explained in the following table: 
 
@@ -36,8 +28,8 @@ The configuration parameters are explained in the following table:
    |**ansible_private_key_path** | The path of the private SSH key file for the ssh_ansible_user. Ansible uses this file to SSH into all servers in this Sunbird setup        |YES|
    |**app_address_space**         | The application server address space. For example, 10.3.0.0/24   | YES |
    |**backup_storage_key**| The storage key of the Elasticsearch backup |YES|
-   |**badger_admin_email**| The email ID of the badger administrator |YES| 
-   |**badger_admin_password**| The password for the badger administrator |YES| 
+   |**badger_admin_email**| The email ID of the Badgr administrator |YES| 
+   |**badger_admin_password**| The password for the Badgr administrator |YES| 
    |**cassandra_host**|The IP address of the Cassandra database.| NO |
    |**cert_path**| Path to the .cert file in the SSL certificate for nginx. This variable is not mandatory, if the value is set to http| NO |
    |**database_host**|The private IP address of the database server | NO |
