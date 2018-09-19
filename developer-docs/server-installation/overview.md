@@ -33,7 +33,7 @@ The following table lists the services that are set up and run as part of instal
 <tr>
 </table> 
 
-> [1] Recommended that Postgre slave is run on a seperate server when in production
+> [1] Recommended that Postgres slave is run on a seperate server when in production
 
 ### Supported application versions
 
