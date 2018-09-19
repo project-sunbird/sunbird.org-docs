@@ -9,28 +9,29 @@ allowSearch: true
 
 ## Scenario
 
-XYZ Corp, is a global conglomerate with over ten thousand employees, spread across 7 locations. Employee training and enablement is one of the core values of the organization. 
-The organization has many content and course creators, who use multiple source to ensure that employees are trained and upskilled. Before they opt for Sunbird platform, they already had many other existing contents with them. They can still upload the existing content to Sunbird platform to make it accessible to their current employers.
-
-## Prerequisite
+XYZ Corp, is a global conglomerate with over ten thousand employees, spread across 7 locations. Employee training and enablement is one of the core values of the organization. Before the organization opted to use the Sunbird platform, they had a legacy system that employees accessed to train and upskill themselves. 
+The legacy system has a large repository of content artifacts. These artifacts have to be uploaded into Sunbird so that employees can access them.
+The organization also creates content artifacts and courses using multiple resources on an ongoing basis. Content and course creators also need to upload all such new content into Sunbird.  
+ 
+## Prerequisites
 
 * Content creation access
 
-* You must have the content with unique object Id
+* Content artifacts with a unique object ID
 
 ## Intended Audience
 
-<b>Content Creator</b>: Users who can create, manage, and upload content
+* **Content Creator**: Users who have permissions to create, manage, and upload content artifacts
 
-<b> Content Reviewer</b>: Users who can review and publish the content
+* **Content Reviewer**: Users who have permissions to review and publish content artifacts
 
->Note: Reviewers cannot do any change in content. They can only review the content and send the review comments to the content creators for further changes or else; they can publish the content staightaway if there is no need to send any review comments.
+> Note: Reviewers cannot change any content. They can only send review comments to content creators for modifications or publish the content artifact directly, if no modifications are required.
 
 ## Overview
 
-Sunbird enables its adopter (users) to create, store, upload and consume  a wide variety of content. Users with content creation right can create and upload content on Sunbird.
+Sunbird enables users who have the appropriate permissions to create, store, upload and consume various types of content. Users with content creation right can create and upload content on Sunbird.
 
-Currently, Sunbird platform supports the following content formats:
+Currently, the Sunbird platform supports the following content formats:
 
 * Text (.pdf)
 
@@ -44,7 +45,7 @@ Currently, Sunbird platform supports the following content formats:
 
 * H5P
 
-It also supports the following formats for its resource library:
+It also supports the following formats for in its resource library:
 
 * Audio (.mp3)
 
@@ -52,7 +53,9 @@ It also supports the following formats for its resource library:
 
 * URLs for YouTube videos and other files
 
-* Videos (.mp4) Later, there will be support for other file formats.
+* Videos (.mp4) 
+
+> Note: More file formats will be supported in future versions of Sunbird. 
 
 Maximum file size supported on the platform:
 
@@ -88,15 +91,23 @@ Maximum file size supported on the platform:
 </table>
 
 
-You should create content object with below mandatory metadata fields before uploading the content:
+Every content artifact must be tagged with the following metadata before it is uploaded on Sunbird:
 
 - ContentType
 
 - Mime Type
 
-The uploaded content get validated through these metadata.
+The uploaded content is validated through these metadata.
 
-You can even upload video content created by other users, provided you have the required permissions. The videos should adhere to prescribed guidelines about file formats and size.
+You can upload video content created by others, if:
+
+* you have the required permissions from the original creator
+
+* it adheres to prescribed content guidelines
+
+* it is the accepted file format
+
+* it is within the prescribed size 
 
 ### Taskflow
 
