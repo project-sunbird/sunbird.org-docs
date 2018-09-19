@@ -16,7 +16,7 @@ This section explains the minimum prerequisites that must be ensured before inst
 
 ## API Key
 
-* Sunbird requires EkStep API keys to access the EkStep content repository. For details on how to get access the keys, refer [Ekstep API Keys](http://www.sunbird.org/developer-docs/server_installation/ekstep_keys) to get the keys. If you are creating a test environment, get the QA API keys
+* Sunbird requires EkStep API keys to access the EkStep content repository. For details on how to get access the keys, refer [Ekstep API Keys](server_installation/ekstep_keys) to get the keys. If you are creating a test environment, get the QA API keys
 <Use the key and secret to generate JWT.  For example: a [web based tool](http://jwtbuilder.jamiekurtz.com/). 
 > Note: that when using the tool, the key in the EkStep Developer credentials should be set as the Issuer field and the secret in the Key field>
 
