@@ -2,6 +2,7 @@
 title: Configuring the Installer
 page_title: Configuring the Installer
 description: Prerequisites for setting up Sunbird on a server
+keywords: configuration, configure, installer, 
 allowSearch: true
 ---
 
@@ -11,7 +12,7 @@ To install Sunbird choose one docker swarm manager as the installation server an
 
 ## Getting the Installer
 
-* Clone the installer repository from github.com
+* Clone the installer repository from github.com using the following commands:
     git clone https://github.com/project-sunbird/sunbird-devops.git
     cd sunbird-devops
     git checkout tags/release-1.9
