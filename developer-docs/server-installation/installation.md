@@ -42,7 +42,7 @@ To deploy the core services with the authentication certificate, execute:
 > Note:
 >  - Running the installer script with `-s <stage name>` runs only that stage of the installation.
 > 
->  - To know more about the script `sunbird_install.sh` [refer](developer-docs/installation/server_installation/#sunbird-install-script) to the section [below](developer-docs/installation/server_installation/#sunbird-install-script">below)
+>  - To know more about the script `sunbird_install.sh` refer to the section [Sunbird Install Script](developer-docs/installation/server_installation/#sunbird-install-script")
 
 
 ## Configuring Parameters Post Installation 
@@ -105,7 +105,7 @@ On executing the script, a file `logs/postInstallationLogs.log` is created
 
 ## Sunbird Install Script 
 
-The Sunbird installation script `./sunbird_install.sh` is a wrapper shell script that invokes other scripts or Ansible playbooks. It fetches docker images from the Sunbird DockerHub repository. For details on the 
+The Sunbird installation script `./sunbird_install.sh` is a wrapper shell script that invokes other scripts or Ansible playbooks. It fetches docker images from the Sunbird DockerHub repository. For details on the scripts and Ansible playbooks invoked, refer to [Additional Information](developer-docs/installation/server_installation/additionalinformation.md)
 
 
 Signing up on Sunbird is a seamless process. Once you have successfully installed Sunbird on your server, you can create sign up credentials on the portal. For details on signing up on Sunbird, refer <a href="http://www.sunbird.org/features-documentation/signup/" target="_blank">Sign Up on Sunbird</a>
