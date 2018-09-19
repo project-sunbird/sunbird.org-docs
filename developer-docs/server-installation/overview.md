@@ -1,7 +1,8 @@
 ---
-title: Overview
-page_title: Overview
-description: Setting up Sunbird server
+title: Server Installation
+page_title: Server Installation
+description: Infrastructure Design
+keywords: infrastructure, design, infrastructure components
 allowSearch: true
 ---
  
