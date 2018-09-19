@@ -2,14 +2,15 @@
 title: Uploading Content on Sunbird Portal
 page_title: Uploading and Publishing Content 
 description: Uploading and Publishing Existing Content
-keywords: uploading content, existing content, training meterial
+keywords: uploading content, existing content, training material
 published: true
 allowSearch: true
 ---
 
 ## Scenario
 
-A company, XYZ Corp, is a global conglomerate with over ten thousand employees, spread across 7 locations. Employee training and enablement is one of the core values of the organization. Content and course creators are creating content using various source to ensure that employees are trained and upskilled. Before they opt for Sunbird platform, they already had many other existing contents with them. They can still upload the existing content to Sunbird platform to make it accessible to their current employers.
+XYZ Corp, is a global conglomerate with over ten thousand employees, spread across 7 locations. Employee training and enablement is one of the core values of the organization. 
+The organization has many content and course creators, who use multiple source to ensure that employees are trained and upskilled. Before they opt for Sunbird platform, they already had many other existing contents with them. They can still upload the existing content to Sunbird platform to make it accessible to their current employers.
 
 ## Prerequisite
 
