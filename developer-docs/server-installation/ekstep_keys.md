@@ -2,14 +2,15 @@
 title: Prerequisites
 page_title: Server Installation Prerequisites
 description: Setting up Sunbird on a server
+keywords: authtoken, key, secret, generate, procedure, regenerate, JWT, requesting access, API access, API credentials, token, generate token, regenerate token
 allowSearch: true
 ---
 
 ## Methods
 
-This section details the procedure to generate the AuthToken and secret key that is required to access any APIs
+This section details the procedure to generate the AuthToken and secret key that is required to access any API
 
-### Generate new AuthToken
+### Generate New AuthToken
 
   generate: function(key, secret){}
 
