@@ -147,7 +147,7 @@ The following is a list of ports that must be open:
    
      **Note:** The badger service does not work without an Azure storage account name and key.
 
-8. Get the public key from keycloak <b>http://<dns_name or IP>/auth -> Administration console -> realm settings -> keys -> public keys</b>  (click on public keys) and set it for `sunbird_sso_publickey` parameter in `config` file. Now, execute the command `./sunbird_install.sh -s core` to redeploy the core services 
+8. Get the public key from keycloak <b>http://< dns_name or IP>/auth -> Administration console -> realm settings -> keys -> public keys</b>  (click on public keys) and set it for `sunbird_sso_publickey` parameter in `config` file. Now, execute the command `./sunbird_install.sh -s core` to redeploy the core services 
 
       
       **Note:**
