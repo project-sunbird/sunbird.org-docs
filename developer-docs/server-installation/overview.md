@@ -31,12 +31,12 @@ The following table lists the services that are set up and run as part of instal
   <tr><td>Badgr</td></tr>
   <tr><td rowspan=4> Database</td><td rowspan=4>2 core</td><td rowspan=4>7 GB</td><td rowspan=4>1</td><td rowspan=4>3</td><td rowspan=4>Any</td><td>Elastic Search </td>
   </tr>
-  <tr><td>Postgre Master </td></tr>
-  <tr><td>Postgre Slave<sup>[1]</sup></td></tr> 
+  <tr><td>Postgres Master </td></tr>
+  <tr><td>Postgres Slave<sup>[1]</sup></td></tr> 
   <tr><td>Cassandra</td></tr>
 </table> 
 
-> [1] Recommended that Postgres slave runs on a seperate server when in production
+> [1] Recommended that Postgres slave runs on a separate server when in production
 
 ### Supported application versions
 
