@@ -9,8 +9,8 @@ allowSearch: true
 
 ## Scenario
 
-XYZ Corp, is a global conglomerate with over ten thousand employees, spread across 7 locations. Employee training and enablement is one of the core values of the organization. Before the organization opted to use the Sunbird platform, they had a legacy system that employees accessed to train and upskill themselves. 
-The legacy system has a large repository of content artifacts. These artifacts have to be uploaded into Sunbird so that employees can access them.
+XYZ Corp, is a global conglomerate with over ten thousand employees, spread across 7 locations. Employee training and enablement is one of the core values of the organization. Before the organization opted to use the Sunbird platform, employees accessed another legacy system that to train and upskill themselves. 
+The legacy system has a large repository of content artifacts. These artifacts have to be uploaded into Sunbird so that employees can access them, even through Sunbird.
 The organization also creates content artifacts and courses using multiple resources on an ongoing basis. Content and course creators also need to upload all such new content into Sunbird.  
  
 ## Prerequisites
@@ -29,11 +29,15 @@ The organization also creates content artifacts and courses using multiple resou
 
 ## Overview
 
-Sunbird enables users who have the appropriate permissions to create, store, upload and consume various types of content. Users with content creation right can create and upload content on Sunbird.
+Sunbird allows you to assign users with roles that have appropriate permissions to create, store, upload or consume content. Users with content creation rights can create and upload content on Sunbird.
 
 Currently, the Sunbird platform supports the following content formats:
 
 * Text (.pdf)
+
+* Audio (.mp3)
+
+* Images (.jpeg, .png)
 
 * Video (.mp4, .webm, YouTube URLs)
 
@@ -45,77 +49,32 @@ Currently, the Sunbird platform supports the following content formats:
 
 * H5P
 
-It also supports the following formats for in its resource library:
-
-* Audio (.mp3)
-
-* Images (.jpeg, .png)
-
-* URLs for YouTube videos and other files
-
-* Videos (.mp4) 
-
-> Note: More file formats will be supported in future versions of Sunbird. 
-
-Maximum file size supported on the platform:
-
-<table>
-  <tr>
-    <td>Content/ File Type</td>
-    <td>Maximum File Size</td>
-  </tr>
-  <tr>
-    <td>Book,Course,Collection,Lesson Plan</td>
-    <td>250 MB</td>
-  </tr>
-  <tr>
-    <td>HTML (as zip files)</td>
-    <td>50 MB</td>
-  </tr>
-  <tr>
-    <td>EPUB</td>
-    <td>50 MB</td>
-  </tr>
-  <tr>
-    <td>H5P</td>
-    <td>50 MB</td>
-  </tr>
-  <tr>
-    <td>Video (.mp4, webm)</td>
-    <td>50 MB</td>
-  </tr>
-  <tr>
-    <td>.pdf</td>
-    <td>50 MB</td>
-  </tr>
-</table>
+> Note: More file formats will be supported in future versions of Sunbird. Currently you can upload files with a maximum file size of 50MB per file. 
 
 
-Every content artifact must be tagged with the following metadata before it is uploaded on Sunbird:
+Sunbird validates every content artifact that is uploaded using metadata. Hence, it is mandatory to tag each file with the following metadata before it is uploaded:
 
-- ContentType
+- Content Type
 
-- Mime Type
+- Mime Type 
 
-The uploaded content is validated through these metadata.
 
-You can upload video content created by others, if:
+You can upload video content owned by others, if:
 
 * you have the required permissions from the original creator
 
 * it adheres to prescribed content guidelines
 
-* it is the accepted file format
+* it is in the accepted file format
 
-* it is within the prescribed size 
+* it is within the prescribed size limit
 
-### Taskflow
+## Taskflow
 
-To complete this scenario, you need to create the content with appropriate metadata & ownership information, upload the existing content artifact, and publish the meterial for public usage.
+To upload new or existing content (that is not created using Sunbird's inbuilt content editor) on to Sunbird, use the **Upload Content API**. Before you upload the content, ensure that it is appropriately tagged with metadata and ownership information. 
 
-You can upload existing content on the Sunbird platform using Upload Content API.
 
-#### Uploading Content Using API
+## Uploading Content Using API
 
 This API is associated with uploading content on the Sunbird Platform .
 
