@@ -71,7 +71,11 @@ The maximum file size supported for upload is 50 MB
     <th style="width:65%;">Screen</th>
  </tr>
  <tr>
-    <td>1. Enter topic name or keyword in the search bar to search for content within the uploaded file. For example, if the file is a textbook and you want to view a particular chapter in the book. <br>2. View settings of the uploaded file is displayed on the right <br>3. Click the <strong>profile</strong> icon to change the profile type of the child/children who will be accessing the content on Sunbird <br>4. Click <strong>upload</strong> icon to upload other content <br>5. Click <strong>download</strong> icon to download content <br>6. Click <strong>Send for Review</strong> to send content for review <br>7. Click <strong>Save</strong> to save content
+    <td>1. Enter topic name or keyword in the search bar to search for content within the uploaded file. For example, if the file is a textbook and you want to view a particular chapter in the book. 
+ <br>2. View settings of the uploaded file is displayed on the right 
+ <br>3. Click the <strong>profile</strong> icon to change the profile type of the child/children who will be accessing the content on Sunbird <br>4. Click <strong>upload</strong> icon to upload other content 
+ <br>5. Click <strong>download</strong> icon to download content 
+ <br>6. Click <strong>Send for Review</strong> to send content for review <br>7. Click <strong>Save</strong> to save content
        </td>
       <td><img src="features-documentation/images/upload_contentpreview.png"></td>
   </tr>
