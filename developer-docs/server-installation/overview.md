@@ -23,27 +23,26 @@ The following table lists the services that are set up and run as part of instal
     <th style="width:35%;", colspan = 3>Suggested Servers per Environment</th>
     <th style="width:20%;">Services</th>
   </tr>
-  <tr><td></td><td>CPU</td> <td>Memory</td><td>Development</td><td>Production </td><td>Maximum</td><td></td>
-</tr>
-<tr><td rowspan=4> Application</td><td rowspan=4>2 core</td><td rowspan=4>7 GB</td><td rowspan=4>1</td><td rowspan=4>3</td><td rowspan=4>Any</td><td> Docker Swarn Manager</td>
-<tr><td>Docker Swarn Agent</td></tr>
-<tr><td>Keycloak</td></tr> 
-<tr><td>Badgr</td></tr>
-<tr><td rowspan=4> Database</td><td rowspan=4>2 core</td><td rowspan=4>7 GB</td><td rowspan=4>1</td><td rowspan=4>3</td><td rowspan=4>Any</td><td>Elastic Search </td>
-</tr>
-<tr><td>Postgre Master </td></tr>
-<tr><td>Postgre Slave<sup>[1]</sup></td></tr> 
-<tr><td>Cassandra</td></tr> 
-<tr>
+  <tr><td></td><td>CPU</td> <td>Memory</td><td>Development</td><td>Production</td><td>Maximum</td><td></td>
+  </tr>
+  <tr><td rowspan=4> Application</td><td rowspan=4>2 core</td><td rowspan=4>7 GB</td><td rowspan=4>1</td><td rowspan=4>3</td><td rowspan=4>Any</td><td> Docker Swarn Manager</td>
+  <tr><td>Docker Swarn Agent</td></tr>
+  <tr><td>Keycloak</td></tr> 
+  <tr><td>Badgr</td></tr>
+  <tr><td rowspan=4> Database</td><td rowspan=4>2 core</td><td rowspan=4>7 GB</td><td rowspan=4>1</td><td rowspan=4>3</td><td rowspan=4>Any</td><td>Elastic Search </td>
+  </tr>
+  <tr><td>Postgre Master </td></tr>
+  <tr><td>Postgre Slave<sup>[1]</sup></td></tr> 
+  <tr><td>Cassandra</td></tr>
 </table> 
 
-> [1] Recommended that Postgres slave is run on a seperate server when in production
+> [1] Recommended that Postgres slave runs on a seperate server when in production
 
 ### Supported application versions
 
-  | Application |Version|
-  |:-----      |:--------|
-  |Docker | 17.06, 18.03|
-  |Elasticsearch        | 5.4 |
-  |Postgres | 9.5 |
-  |Cassandra            | 3.9 |
+Application |Version
+:----- |:--------
+Docker | 17.06, 18.03
+Elasticsearch | 5.4 
+Postgres | 9.5 
+Cassandra | 3.9 
