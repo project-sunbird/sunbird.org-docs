@@ -49,7 +49,7 @@ Currently, the Sunbird platform supports the following content formats:
 
 * H5P
 
-> Note: More file formats will be supported in future versions of Sunbird. Currently you can upload files with a maximum file size of 50MB per file. 
+> Note: Currently, you can upload files with a maximum file size of 50MB per file. More file formats will be supported in future versions of Sunbird. 
 
 
 Sunbird validates every content artifact that is uploaded using metadata. Hence, it is mandatory to tag each file with the following metadata before it is uploaded:
@@ -76,15 +76,15 @@ To upload new or existing content (that is not created using Sunbird's inbuilt c
 
 ## Uploading Content Using API
 
-This API is associated with uploading content on the Sunbird Platform .
+This API is associated with uploading content on the Sunbird Platform.
 
-* The <b>_/upload/{content_ID}</b> endpoint executes "Upload Content" request based on the content metadata validation with the uploaded file.
+* The **_/upload/{content_ID}** endpoint executes the **Upload Content** request based on validated content metadata associated with the uploaded file
 
-* You need to provide a valid content ID value in {Content Id} field of API URL. 
+* Specify a valid value in the **{Content Id}** field of API URL 
 
-* It is a must to provide values for the required parameters
+* Specify values for all the mandatory form data parameters
 
-**Path  Parameter:**
+**Path Parameters:**
 
 <table>
   <tr>
@@ -105,7 +105,7 @@ This API is associated with uploading content on the Sunbird Platform .
 </table>
 
 
-**Form data Parameter:**
+**Form Data Parameters:**
 
 <table>
   <tr>
