@@ -1,7 +1,7 @@
 ---
 title:  OpenSaber Integration
 page_title: OpenSaber Integration
-description: Procedure document on how to integrate opensaber with to Sunbird 
+description: Procedure document on how to integrate OpenSaber with Sunbird 
 published: true
 allowSearch: true
 ---
