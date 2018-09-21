@@ -1,9 +1,10 @@
-        ---
+---
 title: Configuring the Installer
 page_title: Configuring the Installer
 description: Prerequisites for setting up Sunbird on a server
 keywords: configuration, configure, installer, 
 allowSearch: true
+published: true
 ---
 
 ## Installation Procedure
