@@ -118,7 +118,7 @@ This API is associated with uploading content on the Sunbird Platform.
   <tr>
     <td>file</td>
     <td>String</td>
-    <td>Content file path that you want to upload</td>
+    <td> The name of the content file that you want to upload</td>
     <td>sample.pdf</td>
     <td>Yes</td>
   </tr>
@@ -138,14 +138,14 @@ This API is associated with uploading content on the Sunbird Platform.
   <tr>
     <td>Content-Type</td>
     <td>String</td>
-    <td>The Content Type entity is the media type of the resource.Possible media types can be: Multipart/form-data</td>
-    <td>multipart/form-data</td>
+    <td>The content type entity is the media type of the resource. Possible media types are multipart or form-data</td>
+    <td>multipart, form-data</td>
     <td>Yes</td>
   </tr>
   <tr>
     <td>X-Authenticated-Userid</td>
     <td>String</td>
-    <td>Represents the registered User ID to execute the API.</td>
+    <td>Represents the registered User ID authorized to execute the API.</td>
     <td>userName</td>
     <td>Yes</td>
   </tr>
@@ -281,7 +281,7 @@ Response Body for Publish Content API
 }
 
 
->Note: Reviewer has the right to publish content. Use id of one of the selected reviewers as publisher user id.
+>Note: Reviewer has the right to publish content. Use ID of any selected reviewer as the publisher user ID.
 
 
 
