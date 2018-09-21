@@ -43,15 +43,15 @@ The following sections provide you with the sequence to set up the Sunbird porta
 
 ### Set Up the Sunbird Application 
 
-1.To set up the Sunbird application **release 1.8** , get the [code](https://github.com/project-sunbird/sunbird-portal.git){:target="_blank"} from the sunbird-portal Git repository. 
+1. To set up the Sunbird application **release 1.9** , get the [code](https://github.com/project-sunbird/sunbird-portal.git){:target="_blank"} from the sunbird-portal Git repository. 
 
-2.Clone the repository to your local system using the command:
+2. Clone the repository to your local system using the command:
     
    **git clone https://github.com/project-sunbird/sunbird-portal.git**
 
 **Note**: Stable versions of the sunbird portal code are available via tags for each release. The master branch contains the latest stable release. To get the latest stable release of Sunbird, [click here](https://github.com/project-sunbird/sunbird-portal/){:target="_blank"}.
 
-3.After executing the **git clone** command, run the following set of commands in the console:
+3. After executing the **git clone** command, run the following set of commands in the console:
 
 <pre>
    $ cd {PROJECT-FOLDER}/src/app
@@ -62,7 +62,7 @@ The following sections provide you with the sequence to set up the Sunbird porta
 
 ***Note***: Ensure that you use node version 8.11.2 or above. 
 
-4.Set the following environment variables when you are prompted to:
+4. Set the following environment variables when you are prompted to:
 
 <pre>
 sunbird_environment=local 
@@ -80,9 +80,9 @@ Configure your Sunbird portal instance to use a cloud instance of the Sunbird se
 
 To edit the application configuration file:
 
-1.Open the **{PROJECT-FOLDER}/src/app/helpers/environmentVariablesHelper.js**  file in any available text editor. 
+1. Open the **{PROJECT-FOLDER}/src/app/helpers/environmentVariablesHelper.js**  file in any available text editor. 
 
-2.Set the values for the following parameters:
+2. Set the values for the following parameters:
 <pre>
     module.exports = {
         
@@ -123,24 +123,24 @@ H) CONTENT CHANNEL FILTER  TYPE
 
 ## Run the Application
 
-1.Before you run the application, install **nodemon**. To do so, use the following command:
+1. Before you run the application, install **nodemon**. To do so, use the following command:
 
 `npm install -g nodemon`
 
-2.After verifying the availability of nodemon, run the application by executing the following commands:
+2. After verifying the availability of nodemon, run the application by executing the following commands:
 
 <pre>
 $ cd {PROJECT-FOLDER}/src/app
 $ node server.js
 </pre>
     
-3.Open a new terminal window
+3. Open a new terminal window
 <pre>
 $ cd {PROJECT-FOLDER}/src/app/client
 $ nodemon
 </pre>
 
-4.Open **http://localhost:3000** in the browser
+4. Open **http://localhost:3000** in the browser
  
 ## Use the Application  
 
@@ -152,7 +152,7 @@ After successfully installing Sunbird, use demo user IDs to explore and test dif
  
 The following is the list of the demo user IDs per user role:
 
- User Role |	User ID
+User Role |	User ID
  ---------|----------
 Org Admin| adopterorgadmin@adopter
 Content Creator| adoptercreator@adopter 

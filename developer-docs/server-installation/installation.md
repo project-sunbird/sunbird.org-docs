@@ -26,6 +26,9 @@ The installtion script runs through the following steps
 |proxy|Deploys and configures Nginx|
 |keycloak| Deploys and configures Keycloak |
 |badger|Deploys the badger service|
+|core|Deploys all core services|
+|systeminit|Initializes the system by creating first organisation and admin user|
+
 
 > Note: The badger service does not work without an Azure storage account name 
 
@@ -46,6 +49,7 @@ To deploy the core services with the authentication certificate, execute:
 
 
 ## Configuring Parameters Post Installation 
+
 After Sunbird is installed and before it can be used, you need to create an API token and a root organization. The API key is used in the REST API commands to authenticate that API calls are made by an authorized user
 
 ### Setup
@@ -98,15 +102,17 @@ Use the following curl commands to create a root organization:
 
 ## Validating the Installed Services
 
-Run the script `./sunbird_install.sh -s posttest` to validate all the successfully installed services
+1. Run the script `./sunbird_install.sh -s posttest` to validate all the successfully installed services
 
 On executing the script, a file `logs/postInstallationLogs.log` is created 
 
+2. Open **https://[domain-name]** and login with the configured login id/password to access sunbird portal. The format of the login ID is `sunbird_init_admin_user_username@sunbird_init_custodian_tenant_channel`
 
 ## Sunbird Install Script 
 
 The Sunbird installation script `./sunbird_install.sh` is a wrapper shell script that invokes other scripts or Ansible playbooks. It fetches docker images from the Sunbird DockerHub repository. For details on the scripts and Ansible playbooks invoked, refer to [Additional Information](developer-docs/installation/server_installation/additional_info.md)
 
+* `system-init.sh` - Initializes the system by creating the first organisation and first user with admin role of the sunbird platform
 
 Signing up on Sunbird is a seamless process. Once you have successfully installed Sunbird on your server, you can create sign up credentials on the portal. For details on signing up on Sunbird, refer <a href="http://www.sunbird.org/features-documentation/signup/" target="_blank">Sign Up on Sunbird</a>
 

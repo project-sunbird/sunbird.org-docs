@@ -31,7 +31,7 @@ The maximum file size supported for upload is 50 MB
     <th style="width:65%;">Screen</th>
  </tr>
  <tr>
-    <td>1. You are logged in <br>2. You are currently in your <strong>Profile</strong> page <br>3. Click <strong>Upload Content</strong>
+    <td>1. You are logged in <br>2. You are currently in your <b>Profile</b> page <br>3. Click <b>Upload Content</b>
        </td>
       <td><img src="features-documentation/images/upload_workspace.png"></td>
   </tr>
@@ -44,7 +44,10 @@ The maximum file size supported for upload is 50 MB
     <th style="width:65%;">Screen</th>
  </tr>
  <tr>
-    <td>1. Enter <b>URL</b> of the Youtube video or the external website URL <br>2. Click <strong>Browse</strong> to select the desired file for upload from your local storage. You can alternatively <strong>Drag & Drop</strong> files from your local <br>3. Click <strong>Upload</strong> to upload the selected content <br> </td>
+    <td>1. Enter <b>URL</b> of the Youtube video or the external website URL or path of the pdf file 
+ <b>Note</b>: The PDF supports only noto-sans fonts of different languages while rendering on the mobile application. Refer supported <a href="https://fonts.google.com/specimen/Noto+Sans" target="_blank">Font Types</a> 
+
+ <br>2. Click <b>Browse</b> to select the desired file for upload from your local storage. You can alternatively <b>Drag & Drop</b> files from your local <br>3. Click <b>Upload</b> to upload the selected content <br> </td>
       <td><img src="features-documentation/images/upload_upldcontent.png"></td>
   </tr>
   </table>
@@ -56,7 +59,7 @@ The maximum file size supported for upload is 50 MB
     <th style="width:65%;">Screen</th>
  </tr>
  <tr>
-    <td>1. On clicking browse, file window is displayed <br>2. Select the file and click <strong>Open</strong> 
+    <td>1. On clicking browse, file window is displayed <br>2. Select the file and click <b>Open</b> 
        </td>
       <td><img src="features-documentation/images/upload_selectimage.png"></td>
   </tr>
@@ -73,9 +76,9 @@ The maximum file size supported for upload is 50 MB
  <tr>
     <td>1. Enter topic name or keyword in the search bar to search for content within the uploaded file. For example, if the file is a textbook and you want to view a particular chapter in the book. 
  <br>2. View settings of the uploaded file is displayed on the right 
- <br>3. Click the <strong>profile</strong> icon to change the profile type of the child/children who will be accessing the content on Sunbird <br>4. Click <strong>upload</strong> icon to upload other content 
- <br>5. Click <strong>download</strong> icon to download content 
- <br>6. Click <strong>Send for Review</strong> to send content for review <br>7. Click <strong>Save</strong> to save content
+ <br>3. Click the <b>profile</b> icon to change the profile type of the child/children who will be accessing the content on Sunbird <br>4. Click <b>upload</b> icon to upload other content 
+ <br>5. Click <b>download</b> icon to download content 
+ <br>6. Click <b>Send for Review</b> to send content for review <br>7. Click <b>Save</b> to save content
        </td>
       <td><img src="features-documentation/images/upload_contentpreview.png"></td>
   </tr>
@@ -89,16 +92,19 @@ The maximum file size supported for upload is 50 MB
     <th style="width:65%;">Screen</th>
  </tr>
  <tr>
-   <td>On clicking the <b>Profile</b> icon in the content editor, settings as available in the mobile application are displayed<br> 1. Click <strong>Refresh</strong> to replay content <br>2. Click <strong>Profile</strong> to change the profile of the user <br>3. Click <strong>Music</strong> to turn sound on/off
-        </td>
-      <td><img src="features-documentation/images/upload_playerview.png"></td>
+   <td>On clicking the <b>Profile</b> icon in the content editor, settings as available in the mobile application are displayed
+   <br> 1. Click <b>Refresh</b> to replay content 
+   <br>2. Click <b>Profile</b> to change the profile of the user 
+   <br>3. Click <b>Music</b> to turn sound on/off
+   </td>
+   <td><img src="features-documentation/images/upload_playerview.png"></td>
   </tr>
   </table>
   
 ### Adding Details
 
 Before the file is uploaded on the portal, details should be updated.
-  <table>
+  <table> 
   <tr>
     <th style="width:35%;">Step</th>
     <th style="width:65%;">Screen</th>
@@ -112,7 +118,8 @@ Before the file is uploaded on the portal, details should be updated.
      &emsp; e) <b>Concepts</b>
      &emsp; f) <b>Resource Type</b>
      &emsp; g) <b>Audience</b>
-     5. Enter <b>Attributions</b>, if any <br><b>Note:</b> Keywords help search engines find content associated with it during search <br>6. Click <b>Image</b> icon to upload image. For details on adding image, refer  <a href="features-documentation/metadata_addingimages" target="_blank">Adding Image to Metadata</a> <br>7. Click <b>Save</b>
+     5. Enter <b>Attributions</b>, if any <br><b>Note:</b> Keywords help search engines find content associated with it during search 
+     <br>6. Click <b>Image</b> icon to upload image. For details on adding image, refer  <a href="features-documentation/metadata_addingimages" target="_blank">Adding Image to Metadata</a> <br>7. Click <b>Save</b>
         </td>
       <td><img src="features-documentation/images/upload_metadata.png"></td>
   </tr>
