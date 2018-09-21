@@ -10,11 +10,11 @@ allowSearch: true
 ---
 ## Introduction
 
-The Sunbird Mobile app provides mobility to the feature-rich learning platform. It provides flexibility to learners to learn anywhere, anytime and even without an internet connection.
+The Sunbird Mobile app provides mobility to its feature-rich learning platform. It provides learners with the flexibility to learn anywhere, anytime and even without an internet connection.
 
 ## Prerequisites
 
-Ensure you have installed the following to set up Sunbird mobile app:
+Install the following to set up the Sunbird mobile app:
 
 * NPM Version - 3.5.2
 * Node JS Version - above 6
@@ -22,9 +22,10 @@ Ensure you have installed the following to set up Sunbird mobile app:
 * Ionic Version - 3.20.0
 
 ## Build APK from Git Repository
-Sunbird mobile app can be built from the main source code which lies at [project-sunbird](https://github.com/project-sunbird)/[sunbird-mobile](https://github.com/project-sunbird/sunbird-mobile).
 
-Sample properties file is kept inside the buildConfig folder. You must renamed the <b>buildConfig folder</b> to <b>sunbird.properties</b> and provide appropriate values for the following parameter:
+The Sunbird mobile app can be built from the main source code available in [project-sunbird](https://github.com/project-sunbird)/[sunbird-mobile](https://github.com/project-sunbird/sunbird-mobile).
+
+The sample properties file is available in the buildConfig folder. Rename the **buildConfig folder** to **sunbird.properties** and provide appropriate values for the following parameters:
 
 **app_id**
 
@@ -53,13 +54,6 @@ Replace redirect base url <b>REDIRECT_BASE_URL</b> and all other base urls with 
 Generate <b>Key</b> and <b>Secret</b> for mobile_app user using the JWT token of the mobile_admin user. The JWT token for mobile_admin user must be printed on the application
 
 **Server folder:**
-
-<<<<<< HEAD
-Cloned-sunbird-devops-repo in /sunbird-devops/deploy/logs/apis.log.
-Use the below API to generate the key and secret for the mobile app:
-<<<<<<< HEAD 
-Cloned-sunbird-devops-repo in /sunbird-devops/deploy/logs/apis.log.
-<<<<<< 558454d80b192104cdc6610c49594e56f054778d
 
 Execute the listed API to generate the key and secret for the mobile app:
 
