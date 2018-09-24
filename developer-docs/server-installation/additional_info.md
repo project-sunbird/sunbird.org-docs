@@ -7,7 +7,7 @@ allowSearch: true
 published: true
 ---
 
-Sunbird Install Script 
+## Sunbird Install Script 
 
 The Sunbird installation script `./sunbird_install.sh` is a wrapper shell script that invokes other scripts or Ansible playbooks. It fetches all the docker images from the Sunbird DockerHub repository. 
 
