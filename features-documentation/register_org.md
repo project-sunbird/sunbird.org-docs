@@ -32,7 +32,7 @@ Organization administrators can use their registered credentials and add other o
  2.Download the csv file for reference<br/>
  3.You can add or upload details of up to 1000 organizations at a time in one csv file<br/>
  4.Enter each organization's name in a separate row<br/>
- 5.Descriptions and valid values for each columns are as listed below:<br/>
+ 5.Descriptions and valid values for each column are as per the following list:<br/>
  
 Sl No| Column Name | Description | Valid Value | Column Type
 -----|-------------|-------------|-------------|-------------
@@ -46,8 +46,8 @@ Sl No| Column Name | Description | Valid Value | Column Type
 8 | orgCode | Organization's unique code, if any |Alphanumeric |Optional
 9 | orgType | Organization Type |Org types predefined by the system administrator |Optional
 10 |preferredLanguage | Language preferences for the organization, if any  |English, Gujarati, Hindi, Kannada, Marathi, Punjabi, Tamil, Telugu |Optional
-11 |contactDetail | Organization’s contact detail |Enter details within curly brackets in double quotes. Separate each detail with a comma, and detail name and corresponding value with a colon(:) <br>For example;"address":"Vizianagaram","phone":"8088407418","fax":"abc@gmail.com" |Optional
-12 | locationId | An ID which identifies an announcement topic for a particular organisation |Alphanumeric |Optional
+11 |contactDetail | Organization’s contact details |Enter details within curly brackets in double quotes. Separate each detail with a comma, and detail name and corresponding value with a colon(:) <br>For example;"address":"Vizianagaram","phone":"8088407418","fax":"abc@gmail.com" |Optional
+12 | locationId | An identifier identifies an announcement topic for a particular organisation |Alphanumeric |Optional
 13 | locationCode | Comma separated list of location codes | Enter a valid code inside double qoutes which should be related to that specific loctaion For example: "BLR" for Bangalore, "AP" for  Andhra Pradesh |Optional
 
 
