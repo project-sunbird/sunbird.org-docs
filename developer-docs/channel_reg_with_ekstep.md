@@ -33,7 +33,6 @@ In the mentioned processes, the following set of APIs(s) are used:
 
 1.	[Channel registration](apis/framework/#operation/ChannelV1CreatePost)  
 
-
 2.	[List Channels](apis/framework/#operation/ChannelV1ListPost) 
 
  
