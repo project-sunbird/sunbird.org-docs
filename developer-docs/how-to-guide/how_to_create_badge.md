@@ -10,7 +10,7 @@ allowSearch: true
 ---
 ## Scenario
 
-As a part of employee development and training program, the Acme Corp., needs to create and administer a course. On successful completion of the course, the course administrator would like to certify these trainees so that it is easy to know who are the employees who have completed this course. 
+As a part of employee development and training program, the XYZ Corp., needs to create and administer a course. On successful completion of the course, the course administrator would like to certify these trainees so that it is easy to know who are the employees who have completed this course. 
 
 To help with this, Sunbird provides the ability to create and award badges. The admin can create specific badges for each course and then award it to the employees who completes the course. The admin can also create an entity called a Badge Issuer who awards the badges. Once the badge is awarded to an employee, the badge is displayed on that employee's profile page.
 This document explains the procedure of creating and awarding badges.
@@ -36,7 +36,7 @@ To issue badges, a badge issuer must be created. It is up to the organization ad
 
 #### Create Issuer API
 
-The [Create Issuer API](http://www.sunbird.org/apis/badgingframeworkapi/#operation/CreatePost) is used to create this issuer. They decide that Badges will be issued by an entity called Acme Corp Certifications. An email address and a URL are needed for this entity. The Acme Corp Training department URL and email address can be used for the badge issuer
+The [Create Issuer API](http://www.sunbird.org/apis/badgingframeworkapi/#operation/CreatePost) is used to create this issuer. They decide that Badges will be issued by an entity called XYZ Corp Certifications. An email address and a URL are needed for this entity. The XYZ Corp Training department URL and email address can be used for the badge issuer
 
 Following is an example of request body for creating a issuer, the sample values provided in the request body are indicative:
 
@@ -65,7 +65,7 @@ On successful execution of the issuer creation API, an issuerId is generated and
       "issuerId": "issuerslug-174",
       "image": null,
       "createdDate": "2018-08-07T08:46:44.193012Z",
-      "issuerUrl: "https://abc.org.in/mitra",
+      "issuerUrl: "https://xyz.org.in/mitra",
       "issuerIdUrl: "http://localhost:8000/public/issuers/issuerslug-174",
       "name": "Badge Issuer",
       "description": "Issue all badges",
@@ -107,25 +107,25 @@ Parameter that are submitted through form application/x-www-form-urlencoded, mul
 
 ##### Response Body**
 
-  {
-    "responseCode": "OK"
-    "result": {
-      "badgeId": "badgeslug-66",
-      "criteria": "http://localhost:8000/public/badges/badgeslug-66/criteria",
-      "roles": ["BADGE_ISSUER"],
-      "description": "Badge Issuer",
-      "type": "user",
-      "rootOrgId": "0124758459210711040",
-      "issuerId": "issuerslug-174",
-      "createdDate": "2018-08-07T08:47:32.431314Z",
-      "recipientCount": 0,
-      "subtype": "certificate",
-      "issuerIdUrl": "http://localhost:8000/public/issuers/issuerslug-174",
-      "name": "Padma",
-      "badgeIdUrl": "http://localhost:8000/public/badges/badgeslug-66”
-      }
-    }
-  }  
+	  {
+	    "responseCode": "OK"
+	    "result": {
+	      "badgeId": "badgeslug-66",
+	      "criteria": "http://localhost:8000/public/badges/badgeslug-66/criteria",
+	      "roles": ["BADGE_ISSUER"],
+	      "description": "Badge Issuer",
+	      "type": "user",
+	      "rootOrgId": "0124758459210711040",
+	      "issuerId": "issuerslug-174",
+	      "createdDate": "2018-08-07T08:47:32.431314Z",
+	      "recipientCount": 0,
+	      "subtype": "certificate",
+	      "issuerIdUrl": "http://localhost:8000/public/issuers/issuerslug-174",
+	      "name": "Padma",
+	      "badgeIdUrl": "http://localhost:8000/public/badges/badgeslug-66”
+	      }
+	    }
+	  }  
 
 1. Save the created <pre> badgeId</pre>
 
@@ -152,22 +152,22 @@ Following is an example of request body for awarding the badge, the sample value
 
 ##### Response Body
 
-  {
-    "responseCode": "OK",
-    "result": {
-      "assertionDate": "2018-08-17T05:16:00.047850",
-      "assertionImageUrl": "https://ntpstaging.blob.core.windows.net/badgr/uploads/badges/ca19a8e0f7c067fe6429f2a91ac5defe.png",
-      "badgeId": "badgeslug-66",
-      "assertionIdUrl": "http://localhost:8000/public/assertions/9cddb166-eed1-4291-9545-c57a2199f49e",
-      "revoked": false,
-      "issuerId": "issuerslug-",
-      "createdDate": "2018-08-17T05:16:00.071368Z",
-      "assertionId": "9cddb166-eed1-4291-9545-c57a2199f49e",
-      "issuerIdUrl": "http://localhost:8000/public/issuers/issuerslug-174",
-      "recipient": {
+	  {
+	    "responseCode": "OK",
+	    "result": {
+	      "assertionDate": "2018-08-17T05:16:00.047850",
+	      "assertionImageUrl": "https://ntpstaging.blob.core.windows.net/badgr/uploads/badges/ca19a8e0f7c067fe6429f2a91ac5defe.png",
+	      "badgeId": "badgeslug-66",
+	      "assertionIdUrl": "http://localhost:8000/public/assertions/9cddb166-eed1-4291-9545-c57a2199f49e",
+	      "revoked": false,
+	      "issuerId": "issuerslug-",
+	      "createdDate": "2018-08-17T05:16:00.071368Z",
+	      "assertionId": "9cddb166-eed1-4291-9545-c57a2199f49e",
+	      "issuerIdUrl": "http://localhost:8000/public/issuers/issuerslug-174",
+	      "recipient": {
+			  }
 		  }
 	  }
-  }
 
 ### Concepts covered
 
