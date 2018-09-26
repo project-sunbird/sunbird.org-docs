@@ -8,7 +8,7 @@ allowSearch: true
 ---
 ## Overview
 
- Couse creator can create courses on Sunbird by compiling content to it. They can create each unit of course content and then compile a course using the newly created content and the already existing content as well.
+ A Course Creator can create courses on Sunbird by compiling content to it. They can create each unit of course content and then compile a course using the newly created content and the already existing content as well.
 
 ## Prerequisites
 
