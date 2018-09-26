@@ -168,7 +168,7 @@ This API is associated with uploading content on the Sunbird Platform.
 
 #### Response Body (Upload Content API)
 
-   {
+    {
    
        "id": "xyz.learning.content.upload",
        
@@ -200,7 +200,7 @@ This API is associated with uploading content on the Sunbird Platform.
 
        }
 
-   }
+    }
 
 For the youtube content or file url, pass it as file Url in <b>Upload API</b> or set the artifact Url of the content using  [Update Content API**](http://www.sunbird.org/apis/content/#operation/Update%20Content)
 
@@ -208,9 +208,9 @@ After uploading the content, publish the content using **[Publish Content API**]
 
 #### Request Body (Publish Content API)
 
- {
+    {
 
-   "request": {
+     "request": {
 
      "content": {
 
@@ -233,31 +233,31 @@ After uploading the content, publish the content using **[Publish Content API**]
 
        ]
 
+      }
+
      }
 
-   }
-
- }
+    }
 
 #### Response Body (Publish Content API)
 
- {
+   {
 
-   "result": {
+     "result": {
 
      "node_id": "string",
 
      "versionKey": "string"
 
-   },
+    },
 
-   "id": ""xyz.learning.content.publish",
+    "id": ""xyz.learning.content.publish",
 
-   "ver": "3.0",
+    "ver": "3.0",
 
-   "ts": "2018-09-14T10:44:43ZZ",
+    "ts": "2018-09-14T10:44:43ZZ",
 
-   "params": {
+    "params": {
 
      "resmsgid": "d3415c1a-94c6-4dc7-9c28-3e0dac767ee3",
 
@@ -269,14 +269,14 @@ After uploading the content, publish the content using **[Publish Content API**]
 
      "errmsg": "null"
 
-   },
+     },
 
-   "responseCode": "OK",<br> "result":{
-     "publishStatus": "Publish Operation for Content Id 'do_2125903396473978881177' Started Successfully!",<br>
-     "node_id": "do_2125903396473978881177"<br>
-   }<br>
+     "responseCode": "OK",<br> "result":{
+       "publishStatus": "Publish Operation for Content Id 'do_2125903396473978881177' Started Successfully!",<br>
+       "node_id": "do_2125903396473978881177"<br>
+     }<br>
 
- }
+   }
 
 
 >Note: Reviewer has the right to publish content. Use the ID of any approved reviewer as the publisher user ID.
