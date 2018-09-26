@@ -74,7 +74,7 @@ You can upload video content owned by others, if:
 To upload new or existing content (that is not created using Sunbird's inbuilt content editor) on to Sunbird, use the **Upload Content API**. Before you upload the content, ensure that it is appropriately tagged with metadata and ownership information. 
 
 
-## Uploading Content Using API
+### Uploading Content Using API
 
 This API is associated with uploading content on the Sunbird Platform.
 
@@ -166,11 +166,11 @@ This API is associated with uploading content on the Sunbird Platform.
 </table>
 
 
-Following is an example of  <b>response body</b> for <b>uploading content API</b>:
+#### Response Body (Upload Content API)
 
 {
 
-    "id": "ekstep.learning.content.upload",
+    "id": "xyz.learning.content.upload",
 
     "ver": "3.0",
 
@@ -194,7 +194,7 @@ Following is an example of  <b>response body</b> for <b>uploading content API</b
 
     "result": {
 
-        "content_url": "https://ekstep-public-prod.s3-ap-south-1.amazonaws.com/content/do_112534095400542340156583/artifact/highq_153614492126723.pdf",
+        "content_url": "https://xyz-public-prod.s3-ap-south-1.amazonaws.com/content/do_112534095400542340156583/artifact/highq_153614492126723.pdf",
 
         "node_id": "do_112534095400542340156583",
 
@@ -204,11 +204,11 @@ Following is an example of  <b>response body</b> for <b>uploading content API</b
 
 }
 
-For the youtube content or file url, pass it as fileUrl in <b>Upload API</b> or set the artifact Url of the content using  [Update Content API**](http://www.sunbird.org/apis/content/#operation/Update%20Content)
+For the youtube content or file url, pass it as file Url in <b>Upload API</b> or set the artifact Url of the content using  [Update Content API**](http://www.sunbird.org/apis/content/#operation/Update%20Content)
 
-After you uploading the content, publish the content using **[Publish Content API**](http://www.sunbird.org/apis/content/#operation/Publish%20Content). 
+After uploading the content, publish the content using **[Publish Content API**](http://www.sunbird.org/apis/content/#operation/Publish%20Content). 
 
-Request Body for Publish Content API
+#### Request Body (Publish Content API)
 
 {
 
@@ -241,7 +241,7 @@ Request Body for Publish Content API
 
 }
 
-Response Body for Publish Content API
+#### Response Body (Publish Content API)
 
 {
 
@@ -253,7 +253,7 @@ Response Body for Publish Content API
 
   },
 
-  "id": ""ekstep.learning.content.publish",
+  "id": ""xyz.learning.content.publish",
 
   "ver": "3.0",
 
@@ -281,7 +281,7 @@ Response Body for Publish Content API
 }
 
 
->Note: Reviewer has the right to publish content. Use ID of any selected reviewer as the publisher user ID.
+>Note: Reviewer has the right to publish content. Use the ID of any approved reviewer as the publisher user ID.
 
 
 
