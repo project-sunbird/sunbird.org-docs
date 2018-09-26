@@ -241,7 +241,7 @@ After uploading the content, publish the content using **[Publish Content API**]
 
 #### Response Body (Publish Content API)
 
-   {
+    {
 
      "result": {
 
@@ -276,7 +276,7 @@ After uploading the content, publish the content using **[Publish Content API**]
        "node_id": "do_2125903396473978881177"<br>
      }<br>
 
-   }
+    }
 
 
 >Note: Reviewer has the right to publish content. Use the ID of any approved reviewer as the publisher user ID.
