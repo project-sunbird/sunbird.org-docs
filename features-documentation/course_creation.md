@@ -131,7 +131,7 @@ The Table of Contents tree seen in the left pane is used to navigate content com
     <td><img src="features-documentation/images/book/book_drag_content.png"></td>
   </tr>
   <tr>
-    <td>2. Click the upward arrow to collapse the table of contents. Click the same arrow to expand or collape the table of contents. <br><b>Note:</b> You can edit or update the title of units in the course from the navigation hierarchy
+    <td>2. Click the upward arrow to collapse the table of contents. Click the same arrow to expand or collapse the table of contents. <br><b>Note:</b> You can edit or update the title of units in the course from the navigation hierarchy
     </td>
     <td><img src="features-documentation/images/book/book_toc.png"></td>
   </tr>  
