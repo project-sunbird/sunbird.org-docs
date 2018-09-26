@@ -39,10 +39,10 @@ The following table lists the services that are set up and run as part of instal
     <td rowspan="4">1</td>
     <td rowspan="4">3</td>
     <td rowspan="4">Any</td>
-    <td>Docker Swarn Manager</td>
+    <td>Docker Swarm Manager</td>
   </tr>
   <tr>
-    <td>Docker Swarn Agent</td>
+    <td>Docker Swarm Agent</td>
   </tr>
   <tr>
     <td>Keycloak</td>
