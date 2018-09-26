@@ -10,21 +10,21 @@ allowSearch: true
 ---
 ## Scenario
 
-The global knowledge model that is devoid of curricular leanings is Taxonomy and the curricular knowledge model as an extension of the taxonomy called as the Framework. It is important to understand that the taxonomy and framework both describe the same domain, and framework extends the knowledge model of a taxonomy. An intent of creating a framework is to enable organizations to organize their content in a structure which is easily discoverable and browsed by its users. Its main objective is to ensure that content creators have an easy interface to tag content (generate metadata) appropriately such that when a user search for content, they get relevant results. The separation of the taxonomy from its extension in the form of framework(s) provides experts and pedagogues the power and flexibility to model and tag the content. The framework consists of categories and terms within a specific domain.
+Before we get into details of how to create a new framework in Sunbird, its important to explain the concepts and differences between a **Taxonomy** and **Framework**. Both a taxonomy and framework describe the same domain. A taxonomy is an arrangement or division according to a predtermined system, while a framework is the resultant catalog that gives freedom for discussion, analysis and information retrieval. The framework extends the knowledge model of a taxonomy. The intent of creating a framework is to enable organizations organize their content in a structure which is easily discoverable. Within Sunbird, the main objective of the framework is to ensure that content creators have an easy interface to tag content with relevant metadata. Appropriate metadata allows user to search for content and get relevant results. Separating the taxonomy from its extension, in the form of framework(s) provides experts and pedagogues the power and flexibility to model and tag content. The framework consists of categories and terms within a specific domain.
 
-Sunbird enables seamless access and discoverability of content through a taxonomy of the framework. An organization can use existing framework categories (concepts) and terms (specifications) and further link them to their own framework.
+Sunbird enables seamless access and discoverability of content through a framework. An organization can use existing framework categories (concepts) and terms (specifications) and further link them to their own framework.
 
-Let us consider an example of an organization, Neerdhara, which works in the domain of water conservation and works with multiple NGOs, village panchayats, and district administration authorities in multiple states of India. They now need to create the framework for water management.  Framework will have relevant terms associated with the categories specific to the domain. The following example depicts the categories and terms specifically used for water management framework:
+Let us consider an example of an organization, ABC, which works in the domain of water conservation and works with multiple NGOs, village panchayats, and district administration authorities in multiple states of India. They now need to create the framework for water management.  Their framework will have relevant terms associated with the categories specific to the domain. The following example depicts the categories and terms specifically used for the water management framework:
 
-Framework Name | Categories | Terms
----------------|------------|-------
-Neerdhara      |Resources   |Ground Water, Spring, Surface Water
-               |Governance  |Ground water, Spring, Surface water
-               |Measurement & Mapping| Ground Water, Spring, Surface Water
-               |Funds       |
-               |Management  | Ground water, Spring, Surface water
+| Framework Name | Categories            | Terms                               |
+|----------------|-----------------------|-------------------------------------|
+| ABC            | Resources             | Ground Water, Spring, Surface Water |
+|                | Governance            | Ground Water, Spring, Surface Water |
+|                | Measurement & Mapping | Ground Water, Spring, Surface Water |
+|                | Funds                 | State, Central, Global              |
+|                | Management            | Ground Water, Spring, Surface Water |
 
-Neerdhara, may choose a predefined category and associate it to their own framework. The categories in the framework has terms associated with it. These terms are relevant to the created framework and can be created by the organization. 
+ABC, may choose a predefined category and associate it to their own framework. The categories in the framework has terms associated with it. These terms are relevant to the created framework and can be created by the organization. 
 
 While creating a new framework, the framework creator needs to set up a new framework and align it to the categories and terms. A category can have terms either in sequential list or in hierarchical structure. Terms can be associated with other terms across categories. As a result, it is possible to select a term in the first category and hence restrict the set of available terms for the next category and so on. The organizations that are adopting Sunbird can link the categories and also change the labels but cannot override or add a new categories on their own. However, the Sunbird instance will have the following categories in its predefined frameworks:
 
