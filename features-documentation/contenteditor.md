@@ -505,35 +505,22 @@ the shape <br>b) Use the <b>Transparency</b> slider to modify the transparency l
  </table>
    
 ### Adding Video
+
 <table>
   <tr>
     <th style="width:35%;">Step</th>
     <th style="width:65%;">Screen</th>
   </tr>  
   <tr>
-    <td>1. To add video, click the <b>Add Video</b> icon on the toolbar</td>
-    <td><img src="features-documentation/images/contenteditor.png"></td>
-  </tr> 
-  <tr>
-    <td><b>Adding Video Details</b> <br>Currently, the content editor supports only direct video links from publicly shared videos. To do so: <br>1. Paste the video URL <br>2. Click <b>Go</b> <br>3. The preview is displayed in the preview pane <br>4. Click <b>Add to Lesson</b>
-    </td>
+    <td>1. To add video, click the <b>Add Video</b> icon on the toolbar. 
+    The Video editor page is displayed
+    <br>The content editor supports video links from 
+    <br>&emsp; publicly shared videos 
+    <br>&emsp; from Google Drive 
+    <br>&emsp; URL of an MP4 video from online content. To do so, refer <a href="features-documentation/video_add" target="_blank">Adding Video</a></td>
     <td><img src="features-documentation/images/contenteditor/addvideo.png"></td>
   </tr>
-  </table>
-  
-  **Configuring Video Details**
-
-  <table>
-  <tr>
-    <th style="width:35%;">Step</th>
-    <th style="width:65%;">Screen</th>
-  </tr>  
-  <tr>
-    <td>1. Click the copy icon to copy the video to another slide <br>2. Click the delete icon to delete the video <br>3. Click the arrange icon to determine the appearance of the video <br>4. Enable Autoplay to play the video automatically on the app <br>5. Enable or disable the option <b>Mute Audio</b> to mute or unmute audio
-    </td>
-    <td><img src="features-documentation/images/contenteditor/videodetail.png"></td>
-  </tr>
-  </table>
+</table>
 
 ### Adding Math Function
 

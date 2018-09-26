@@ -43,7 +43,7 @@ The following sections provide you with the sequence to set up the Sunbird porta
 
 ### Set Up the Sunbird Application 
 
-1. To set up the Sunbird application **release 1.9** , get the [code](https://github.com/project-sunbird/sunbird-portal.git){:target="_blank"} from the sunbird-portal Git repository. 
+1. To set up the Sunbird application **release 1.10** , get the [code](https://github.com/project-sunbird/sunbird-portal.git){:target="_blank"} from the sunbird-portal Git repository. 
 
 2. Clone the repository to your local system using the command:
     
@@ -83,43 +83,43 @@ To edit the application configuration file:
 1. Open the **{PROJECT-FOLDER}/src/app/helpers/environmentVariablesHelper.js**  file in any available text editor. 
 
 2. Set the values for the following parameters:
-<pre>
-    module.exports = {
-        
-A) LEARNER_URL   
-   LEARNER_URL: env.sunbird_learner_player_url || 'https://staging.open-sunbird.org/api/',                    
-      
-B) CONTENT_URL
-   CONTENT_URL: env.sunbird_content_player_url || 'https://staging.open-sunbird.org/api/',                   
-        
-C) CONTENT_PROXY  
-   CONTENT_PROXY_URL: env.sunbird_content_proxy_url || 'https://staging.open-sunbird.org',                    
-   PORTAL_REALM: env.sunbird_portal_realm || 'sunbird',
-        
-D) PORTAL_AUTH_SERVER_URL
-   PORTAL_AUTH_SERVER_URL: env.sunbird_portal_auth_server_url || 'https://staging.open-sunbird.org/auth',     
-   PORTAL_AUTH_SERVER_CLIENT: env.sunbird_portal_auth_server_client || "portal",
-   ...
-   PORTAL_PORT: env.sunbird_port || 3000,
-        	
-E) PORTAL_API_AUTH_TOKEN     
-   PORTAL_API_AUTH_TOKEN: env.sunbird_api_auth_token || 'E-mail to: info@sunbird.org' to get Auth-Token 
-   ...
-        
-F) PORTAL_ECHO_API_URL
-   PORTAL_ECHO_API_URL: env.sunbird_echo_api_url || '',                                                       
-   ...
-	
-G) ANDROID_APP_URL
-   ANDROID_APP_URL: env.sunbird_android_app_url || 'http://www.sunbird.org'   
 
-H) CONTENT CHANNEL FILTER  TYPE
-   CONTENT_CHANNEL_FILTER_TYPE: env.sunbird_content_channel_filter_type || 'all',
-   Set the value to 'self', to get content that belongs to the current user's channel, 
-   and set the value to 'all' to get content from all channels
-   ...
-   		}
-</pre>   
+        module.exports = {
+                
+        A) LEARNER_URL   
+        LEARNER_URL: env.sunbird_learner_player_url || 'https://staging.open-sunbird.org/api/',                    
+            
+        B) CONTENT_URL
+        CONTENT_URL: env.sunbird_content_player_url || 'https://staging.open-sunbird.org/api/',                   
+                
+        C) CONTENT_PROXY  
+        CONTENT_PROXY_URL: env.sunbird_content_proxy_url || 'https://staging.open-sunbird.org',                    
+        PORTAL_REALM: env.sunbird_portal_realm || 'sunbird',
+                
+        D) PORTAL_AUTH_SERVER_URL
+        PORTAL_AUTH_SERVER_URL: env.sunbird_portal_auth_server_url || 'https://staging.open-sunbird.org/auth',     
+        PORTAL_AUTH_SERVER_CLIENT: env.sunbird_portal_auth_server_client || "portal",
+        ...
+        PORTAL_PORT: env.sunbird_port || 3000,
+                    
+        E) PORTAL_API_AUTH_TOKEN     
+        PORTAL_API_AUTH_TOKEN: env.sunbird_api_auth_token || 'E-mail to: info@sunbird.org' to get Auth-Token 
+        ...
+                
+        F) PORTAL_ECHO_API_URL
+        PORTAL_ECHO_API_URL: env.sunbird_echo_api_url || '',                                                       
+        ...
+            
+        G) ANDROID_APP_URL
+        ANDROID_APP_URL: env.sunbird_android_app_url || 'http://www.sunbird.org'   
+
+        H) CONTENT CHANNEL FILTER  TYPE
+        CONTENT_CHANNEL_FILTER_TYPE: env.sunbird_content_channel_filter_type || 'all',
+        Set the value to 'self', to get content that belongs to the current user's channel, 
+        and set the value to 'all' to get content from all channels
+        ...
+                }
+   
 
 ## Run the Application
 
