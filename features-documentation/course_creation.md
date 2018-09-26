@@ -8,7 +8,7 @@ allowSearch: true
 ---
 ## Overview
 
-On Sunbird, you can compile a course by adding content to it. You can create each unit of course content and then compile them or compile a course using existing content in the portal.
+ Couse creator can create courses on Sunbird by compiling content to it. They can create each unit of course content and then compile a course using the newly created content and the already existing content as well.
 
 ## Prerequisites
 
@@ -101,7 +101,7 @@ The Table of Contents tree seen in the left pane is used to navigate content com
 <br>&emsp;a) The burger menu associated with a tree node 
 <br>&emsp;b) Right-click options associated with a tree node, **OR**
 <br>&emsp;c) Keyboard shortcuts 
-<br>For details on manipulating the tree and adding content, refer <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a>
+<br>For details on manipulating the tree and adding content, refer to the <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a> page.
 
 ### Deleting Content 
 
@@ -131,7 +131,7 @@ The Table of Contents tree seen in the left pane is used to navigate content com
     <td><img src="features-documentation/images/book/book_drag_content.png"></td>
   </tr>
   <tr>
-    <td>1. Click the upward arrow to collapse the table of contents. Click the same arrow to expand collapsed table of contents. <br><b>Note:</b> You can edit or update the title of units in the course from the navigation hierarchy
+    <td>2. Click the upward arrow to collapse the table of contents. Click the same arrow to expand or collape the table of contents. <br><b>Note:</b> You can edit or update the title of units in the course from the navigation hierarchy
     </td>
     <td><img src="features-documentation/images/book/book_toc.png"></td>
   </tr>  
