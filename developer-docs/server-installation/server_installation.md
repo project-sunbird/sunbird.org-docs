@@ -18,10 +18,10 @@ The following table lists the services that are set up and run as part of instal
 
 <table>
   <tr>
-    <th style="width:20%;">Server Type</th>
-    <th style="width:25%", colspan="2">Basic Requirements</th>
-    <th style="width:35%", colspan="3">Suggested Servers per Environment</th>
-    <th style="width:20%;">Services</th>
+    <th style="width:20%">Server Type</th>
+    <th style="width:25%" colspan="2">Basic Requirements</th>
+    <th style="width:35%" colspan="3">Suggested Servers per Environment</th>
+    <th style="width:20%">Services</th>
   </tr>
   <tr>
     <td></td>
