@@ -8,7 +8,7 @@ allowSearch: true
 ---
 ## Overview
 
-Collection is a compilation of content.	A collection can be compiled on Sunbird using the various learning resources available on the portal or by creating content on the in-built content editor and later collating them as a collection. Related or unrelated content can be compiled together. 
+The collection is a compilation of content.	You can compile a  collection on Sunbird using the various learning resources available on the portal or by creating content on the in-built content editor and later collating them as a collection.You are allowed to compile related or unrelated content together.
 
 ## Prerequisites
 <table>
@@ -17,10 +17,9 @@ Collection is a compilation of content.	A collection can be compiled on Sunbird 
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-    <td>1. You are logged in 
-      <br>2. You are currently on <b>My Workspace</b> 
-      <br>3. You have selected <b>Create</b> 
-      <br>4. You have clicked on <b>Collection</b> tile
+    <td>1. Log in to Sunbird portal using your content creation credential.
+      <br>2. Navigate to <b>My Workspace</b> 
+      <br>3. Clivk the <b>Collection</b> tile
        </td>
       <td><img src="features-documentation/images/collection/collection_workspace.png"></td>
   </tr>
@@ -102,7 +101,7 @@ The Table of Contents tree seen in the left pane is used to navigate content com
 <br>&emsp;a) The burger menu associated with a tree node 
 <br>&emsp;b) Right-click options associated with a tree node, **OR** 
 <br>&emsp;c) Keyboard shortcuts 
-<br>For details on manipulating the tree and adding content, refer <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a>
+<br>For details on manipulating the tree and adding content, refer to the <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a> page.
   
 ### Deleting Content 
 
@@ -129,7 +128,7 @@ The Table of Contents tree seen in the left pane is used to navigate content com
     <td><img src="features-documentation/images/collection/collection_drag_content.png"></td>
   </tr>
   <tr>
-    <td>1. Click the upward arrow to collapse the table of contents. Click the same arrow to expand collapsed table of contents <br><b>Note</b>: You can edit or update the title of content in the collection from the navigation hierarchy
+    <td>1. Click the upward arrow to collapse the table of contents. Click the same arrow to expand or collapse the table of contents <br><b>Note</b>: You can edit or update the title of content in the collection from the navigation hierarchy
      </td>
     <td><img src="features-documentation/images/collection/collection_toc.png"></td>
   </tr>  
@@ -143,10 +142,10 @@ The Table of Contents tree seen in the left pane is used to navigate content com
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-    <td>A collection must be reviewed before it is published <br>1. Click <b>Save</b> on the header to save the collection <br>2. Click <b>Send for review</b> to send the created collection for review <br>Before sending for review, you can share the content to a limited audience. To know more, refer <a href="features-documentation/limitedpublishnshare" target="_blank">Limited Publishing and Sharing</a>
+    <td>A reviewer must verify the content in a collection before  publishing the collection<br>1. Click <b>Save</b> on the header to save the collection <br>2. Click <b>Send for review</b> to send the created collection for review <br>Before sending for review, you can share the content with a limited audience using the <b>limited share</b> option. To know more, refer <a href="features-documentation/limitedpublishnshare" target="_blank">Limited Publishing and Sharing</a>
     </td>
     <td><img src="features-documentation/images/collection/collection_sendforreview.png"></td>
-  </tr>    
+  </tr>
   </table>
   
 ## Exploring What's New
@@ -159,7 +158,7 @@ The Table of Contents tree seen in the left pane is used to navigate content com
   <tr>
     <td>The What’s New feature informs you of the product features added or enhanced since the last product release 
       <br>1. Click on the <b>What's New</b> icon to view concise information about new product functionality 
-      <br><b>Note</b>: The What's New icon is red before you view it for the first time. The icon turns grey after you view the information, until the next product version
+      <br><b>Note</b>: The What's New icon is red before you view it for the first time. The icon turns grey after you view the information, until the next product version is generated.
     </td>
     <td><img src="features-documentation/images/book/book_whats_new1.png"></td>
   </tr>
