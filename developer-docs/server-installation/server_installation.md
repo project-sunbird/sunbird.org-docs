@@ -19,18 +19,17 @@ The following table lists the services that are set up and run as part of instal
 <table>
   <tr>
     <th style="width:20%;">Server Type</th>
-    <th style="width:25%;", colspan = 2>Basic Requirements</th>
-    <th style="width:35%;", colspan = 3>Suggested Servers per Environment</th>
+    <th style="width:25%;", colspan="2">Basic Requirements</th>
+    <th style="width:35%;", colspan="3">Suggested Servers per Environment</th>
     <th style="width:20%;">Services</th>
   </tr>
   <tr><td></td><td>CPU</td> <td>Memory</td><td>Development</td><td>Production</td><td>Maximum</td><td></td>
   </tr>
-  <tr><td rowspan=4> Application</td><td rowspan=4>2 core</td><td rowspan=4>7 GB</td><td rowspan=4>1</td><td rowspan=4>3</td><td rowspan=4>Any</td><td> Docker Swarn Manager</td>
+  <tr><td rowspan="4"> Application</td><td rowspan="4">2 core</td><td rowspan="4">7 GB</td><td rowspan="4">1</td><td rowspan="4">3</td><td rowspan="4">Any</td><td> Docker Swarn Manager</td></tr>
   <tr><td>Docker Swarn Agent</td></tr>
   <tr><td>Keycloak</td></tr> 
   <tr><td>Badgr</td></tr>
-  <tr><td rowspan=4> Database</td><td rowspan=4>2 core</td><td rowspan=4>7 GB</td><td rowspan=4>1</td><td rowspan=4>3</td><td rowspan=4>Any</td><td>Elastic Search </td>
-  </tr>
+  <tr><td rowspan="4"> Database</td><td rowspan="4">2 core</td><td rowspan="4">7 GB</td><td rowspan="4">1</td><td rowspan="4">3</td><td rowspan="4">Any</td><td>Elastic Search </td></tr>
   <tr><td>Postgres Master </td></tr>
   <tr><td>Postgres Slave<sup>[1]</sup></td></tr> 
   <tr><td>Cassandra</td></tr>
