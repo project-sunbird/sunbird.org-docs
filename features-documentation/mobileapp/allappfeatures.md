@@ -7,19 +7,19 @@ allowSearch: true
 ---
 ## Overview
 
-You can download the sample version of the Sunbird Mobile App to explore its out-of-box functionality and features. The app is used to consume content maintained by an organization using a mobile device. In case of Sunbird's sample mobile app, the content available is maintained in the Sunbird repository. The app has the following features: 
+You can download the sample version of the Sunbird Mobile App to explore its out-of-box functionality and features. You can consume content created and maintained by your organization by using the app on your mobile device. In case of Sunbird mobile app, the content available is maintained and kept in the Sunbird repository.<br> The app has the following features:
 
 * Sign in with registered credentials
 * Use the app as a Guest or anonymous user
 * Consume content in Online or Offline mode
 * Search content from the content repository, when Online
-* Search content downloaded on mobile device, when offline
+* Search content downloaded on a mobile device, when offline
 * Scan a QR code or enter the DIAL code from textbooks to access associated content
 * Download content from the repository, when Online
 * Enroll for available courses
 * Take up assigned courses
 * Browse and view resources from the content library
-* Create and update user profile
+* Create and update a user profile
 * Share content with other users
 * View and rate the content 
 
@@ -44,7 +44,7 @@ As a Sunbird app user, you must set the display language for your app.To select 
 </tr>
  <tr>
  <td>Note:
-If you click the <b>Continue</b> button without selecting a language, a message <b>Please select a language</b> is displayed 
+If you click the <b>Continue</b> button without selecting a language, a message "<b>Please select a language</b>" is displayed 
 </td>
   <td><img src="features-documentation/images/mobileapp/languagenote.png"></td>
 </tr>
@@ -78,7 +78,7 @@ When there is any new version release of Sunbird app, users are notified of the 
  </tr>
  <tr>
   <td>Using the browser on your mobile device, tap this <a href="http://github.com/project-sunbird/sunbird-android/releases" target="_blank">URL</a> or type https://github.com/project-sunbird/sunbird-android/releases
-  <br>1. Tap on <b>sunbird staging.apk</b> link to get the latest mobile build. 
+  <br>1. Tap on <b>sunbird staging.apk</b> link to get the latest build for Sunbird mobile app.
   <br>2. Tap <b>Download</b> to download the app. You are redirected to the installation screen. 
   <br>3. Tap <b>Install</b> to install the app</td>
    <td><img src="features-documentation/images/mobileapp/download.png"></td>
@@ -100,7 +100,7 @@ The Sign In feature allows authorized users to access content using the app. Usi
     <th style="width:65%;">Screen</th>
  </tr>
  <tr>
-  <td>1. Tap <b>Sign In</b> on the landing screen. You are redirected to the <b>Login</b> screen <br>2. Login using either: registered <b>Username</b>, <b>Email ID</b> or <b>Phone number</b> <br>3. Enter <b>Password</b> <br>4. Tap <b>Login</b> <br><b>Note:</b> You can also use the app without providing any credentials. For details, refer to <a href="features-documentation/mobileapp/allappfeatures/#browse-as-guest"> Browse as Guest</a>
+  <td>1. Tap <b>Sign In</b> on the landing screen. You are redirected to the <b>Login</b> screen <br>2. Log in using either: registered <b>Username</b>, <b>Email ID</b> or <b>Phone number</b> <br>3. Enter <b>Password</b> <br>4. Tap <b>Login</b> <br><b>Note:</b> You can also use the app without providing any credentials. For details, refer to <a href="features-documentation/mobileapp/allappfeatures/#browse-as-guest"> Browse as Guest</a>
   </td>
   <td><img src="features-documentation/images/mobileapp/login.png"></td>
   </tr>
@@ -112,7 +112,7 @@ For details on recovering password refer [Recovering Password](features-document
 
 ## Exploring Sunbird Mobile App Features
 
-After signing in as a registered or guest user, the <b>Home</b> screen is displayed. The task bar at the bottom of the screen is available at all times. It contains icons for all the app features. Tap the required icon to navigate to the relevant feature and its associated screens. 
+After signing in as a registered or guest user, the <b>Home</b> screen is displayed. The taskbar at the bottom of the screen is available at all times. It contains icons for all the app features. Tap the required icon to navigate to the relevant feature and its associated screens. 
 
 ### Home 
 
@@ -124,7 +124,7 @@ The Home screen of the mobile app is the user's landing page. It can be customiz
     <th style="width:65%;">Screen</th>
  </tr>
  <tr>
-  <td>1. All courses that you are enrolled for or that are assigned to you are shown in the <b>To Do</b> section. Swipe to view them or tap <b>View all</b> <br>2.Tap <b>Resume</b> to take up the a course <br>3. Tap <b>View all</b> in the <b>Announcements</b> section to view your announcements <br>4. Tap the <b>QR Code</b> icon to scan QR codes printed in physical textbooks <br>5. Tap <b>Search</b> icon. You are redirected to the next screen <br>6. Type keywords or DIAL codes using your mobile keypad to search content <br>7. Tap <b>Home</b> to return to the home screen from any other screen</td>
+  <td>1. All courses that you are enrolled for or that are assigned to you are shown in the <b>To Do</b> section. Swipe to view them or tap <b>View all</b> <br>2.Tap <b>Resume</b> to take up the courses <br>3. Tap <b>View all</b> in the <b>Announcements</b> section to see your announcements <br>4. Tap the <b>QR Code</b> icon to scan QR codes printed in physical textbooks <br>5. Tap <b>Search</b> icon. You are redirected to the next screen <br>6. Type keywords or DIAL codes using your mobile keypad to search content <br>7. Tap <b>Home</b> to return to the home screen from any other screen</td>
   <td><img src="features-documentation/images/mobileapp/home.png"></td>
   </tr>
 </table>
@@ -139,7 +139,7 @@ The <b>Courses</b> screen lists current courses, courses in progress, latest cou
     <th style="width:65%;">Screen</th>
  </tr>
  <tr>
-   <td> <br>1. Tap the <b> Courses</b> icon on the task bar <br>2. Swipe the associated course category to browse courses in that category. Courses are categorized as: <br>a) Courses In Progress <br>b) Latest Courses <br>c) Popular Courses <br><br>3. Tap the <b>Search</b> icon and enter keywords to search for relevant courses <br>4. Tap the <b>Filter</b> icon to apply filters on your library content. The sample app has the following filters: <b>Board</b>, <b>Subject</b> and <b>Medium</b> <br>5. Tap <b>Apply</b> to apply the filter <br>6. Tap <b>Cancel</b> to exit the screen</td>
+   <td> <br>1. Tap the <b> Courses</b> icon on the taskbar <br>2. Swipe the associated course category to browse courses in that category. Courses are categorized as: <br>a) Courses In Progress <br>b) Latest Courses <br>c) Popular Courses <br><br>3. Tap the <b>Search</b> icon and enter keywords to search for relevant courses <br>4. Tap the <b>Filter</b> icon to apply filters on your library content. The sample app has the following filters: <b>Board</b>, <b>Subject</b> and <b>Medium</b> <br>5. Tap <b>Apply</b> to set the filter <br>6. Tap <b>Cancel</b> to exit the screen</td>
    <td><img src="features-documentation/images/mobileapp/course1.png"></td>
   </tr>
   <tr>
@@ -160,7 +160,7 @@ The <b>Courses</b> screen lists current courses, courses in progress, latest cou
 
 All content resources that you have saved on your device or popular artifacts from the portal are maintained in a library. 
 
-**Note:** The application only diplays and plays resources which are availble in the Sunbird repository. The application does not support content from other external sources
+**Note:** The application only diplays and plays resources which are availble in the Sunbird repository. 
 
 <table>
   <tr>
@@ -168,7 +168,7 @@ All content resources that you have saved on your device or popular artifacts fr
     <th style="width:65%;">Screen</th>
  </tr> 
  <tr>
-  <td>1. Tap the <b>Library</b> icon to view all the resources in your library <br>2. Tap the <b>Search</b> icon and enter keywords to search for relevant content resources <br>3. Tap the <b>Filter</b> icon to apply filters on your library content. The sample app has the following filters: <b>Board</b>, <b>Grade</b>, <b>Subject</b>, <b>Medium</b> and <b>Content Type</b> <br>4. Tap <b>Apply</b> to apply the filter <br>5. Tap <b>Cancel</b> to exit the screen
+  <td>1. Tap the <b>Library</b> icon to view all the resources in your library <br>2. Tap the <b>Search</b> icon and enter keywords to search for relevant content resources <br>3. Tap the <b>Filter</b> icon to apply filters on your library content. The sample app has the following filters: <b>Board</b>, <b>Grade</b>, <b>Subject</b>, <b>Medium</b>, and <b>Content Type</b> <br>4. Tap <b>Apply</b> to apply the filter <br>5. Tap <b>Cancel</b> to exit the screen
   </td> 
   <td><img src="features-documentation/images/mobileapp/library1.png"></td> 
  </tr>
@@ -178,7 +178,7 @@ All content resources that you have saved on your device or popular artifacts fr
   <td><img src="features-documentation/images/mobileapp/library2.png"></td> 
  </tr>
  <tr>
-  <td>1. Tap <b>Open</b> to open any content types viz, textbook, collection, stories, worksheets etc <br>2. In the sample app you can view details of the content in <b>About</b> section for: <br>a) Grade <br>b) Subject <br>c) Medium <br>3. View <b>Author</b> detail which is displayed in the content card
+  <td>1. Tap <b>Open</b> to open any content types viz, textbook, collection, stories, worksheets <br>2. In the sample app you can view details of the content in <b>About</b> section for: <br>a) Grade <br>b) Subject <br>c) Medium <br>3. View <b>Author</b> detail that is displayed in the content card
   </td>
   <td><img src="features-documentation/images/mobileapp/library5.png"></td>
   </tr>
@@ -192,7 +192,7 @@ All content resources that you have saved on your device or popular artifacts fr
  </tr>
  <tr>
  <td><b>Switching Users and Content from Canvas</b> 
- <br><br>1. Tap to open a content from the list <br>2. Tap <b>Arrow</b> icon to view and play a content from the collections 
+ <br><br>1. Tap to open content from the list <br>2. Tap <b>Arrow</b> icon to view and play content from the collections 
  </td>
  <td><img src="features-documentation/images/mobileapp/collection.png"></td>
  </tr>
@@ -213,7 +213,7 @@ All content resources that you have saved on your device or popular artifacts fr
  </tr>
  <tr>
  <td><b>Sharing, Reporting and Deleting Content</b>
- <br><br>1. Tap <b>Share</b> icon to share the content as link or file through different channels. Download the content to share as file <br>2. Tap on the <b>Menu</b> icon to Delete or Report content <br><br><b>Note:</b> <br>1. You can select reasons to report content viz., <li> Inappropriate content</li> <li> Copyright violation</li> <li> Data privacy violation </li> <li> Other reason </li> <br>2. The share, report and delete features is common to content linked to QR and DIAL codes
+ <br><br>1. Tap <b>Share</b> icon to share the content as link or file through different channels. Download the content to share that as a file  <br>2. Tap on the <b>Menu</b> icon to Delete or Report content <br><br><b>Note:</b> <br>1. You can select reasons to report content viz., <li> Inappropriate content</li> <li> Copyright violation</li> <li> Data privacy violation </li> <li> Other reason </li> <br>2. The share, report and delete features are common across the content that are linked to QR and DIAL codes
  </td>
  <td><img src="features-documentation/images/mobileapp/sharereportdelete.png"></td>
  </tr>
@@ -283,7 +283,7 @@ You can add and update all your profile details on the Profile tab
     </tr>
 <tr>
 <td><b>Sharing User/Group Details</b>
-<br><br>Details of users or groups created can be shared with other users <br>1. Tap <b>Share</b> icon. The Share details screen is displayed 
+<br><br>You can share the details of users or groups with other users <br>1. Tap <b>Share</b> icon. The Share details screen is displayed 
     <br>2. You can either select:
     <br>&emsp;a) <b>Only Groups</b>, or
     <br>&emsp;b) <b>Only Users</b>, or
@@ -306,7 +306,7 @@ You can add and update all your profile details on the Profile tab
  </tr>
  <tr>
  <td><b>Editing Application Settings</b> 
- <br><br>1. Tap the <b>Menu</b> icon in the Profile <br>2. Tap <b>Settings</b> to view and edit following app settings: 
+ <br><br>1. Tap the <b>Menu</b> icon in the Profile <br>2. Tap <b>Settings</b> to view and edit the following app settings: 
  <br>&emsp;a) Language Settings 
  <br>&emsp;b) Data Sync 
  <br>&emsp;c) Support
@@ -328,7 +328,7 @@ You can add and update all your profile details on the Profile tab
 <td><img src="features-documentation/images/mobileapp/support.png"></td>
 </tr>
 <tr>
-<td><b>Sharing Sunbird App and About the App Details</b> 
+<td><b>Sharing the Sunbird App and About the App Details</b> 
 <br><br>1. Tap <b>Share</b> to share the app through various channels <br>2. Tap <b>About the app</b> to view the details: <br>a) Device ID <br>b) App Version
 </td>
 <td><img src="features-documentation/images/mobileapp/aboutandshare.png"></td>
@@ -356,11 +356,11 @@ The app allows you to scan printed QR codes
  </tr>
  <tr>
   <td>1. View the content linked to the QR code 
-  <br>2. You can <b>Download</b> content 
+  <br>2. You can <b>Download</b> the content 
   <br>3. Use the <b>Menu</b> to <b>Delete</b> or <b>Report</b> content 
   <br><b>Note:</b> You can select reasons to report content from following available options: <li>Inappropriate content</li> <li>Copyright violation</li> <li>Data privacy violation</li> <li>Other reason</li> 
   <br>4. Use the <b>Share</b> icon to share the content <b>As Link</b> or <b>As File</b>
-  **Note:** You can scan QR Codes from any screen (except from the Profile screen) as a registered or guest user.
+  **Note:** You can scan QR Codes from any screen (except the Profile screen) as a registered or guest user.
   </td>
   <td><img src="features-documentation/images/mobileapp/scan2.png"></td>
  </tr>
@@ -368,7 +368,7 @@ The app allows you to scan printed QR codes
 
 ## Browse as Guest
 
-You can use the **Browse as Guest** feature to browse the Subird Mobile App without signing in. 
+You can use the **Browse as Guest** feature to browse the Sunbird Mobile App without signing in. 
 
 <table>
   <tr>
@@ -378,14 +378,14 @@ You can use the **Browse as Guest** feature to browse the Subird Mobile App with
   <tr>
   <td>1. Tap <b>Browse as Guest</b> 
   <br>2. Select your guest mode as <b>Teacher</b> or <b>Student</b> 
-  <br>3. Tap <b>Continue</b> You are redirected to the <b>Library</b> screen
+  <br>3. Tap <b>Continue</b><br> You are redirected to the <b>Library</b> screen
   </td>
   <td><img src="features-documentation/images/mobileapp/guestmode1.png"></td> 
   </tr>
   <tr>
   <td><b>Getting Relevant Content</b>
   <br><b>Note</b>: The user can choose to ignore this section and continue to browse content
-  <br> 1. To get relevant content, tap the categories mentioned in the top section of the screen for example; <b>Select Board</b> 
+  <br> 1. To get relevant content, tap the categories mentioned in the top part of the screen for example; <b>Select Board</b> 
   <br>2. Select the appropriate option from the list displayed for the category 
   <br>3. Tap <b>Save</b> to save your selection 
   <br>4. Tap <b>Cancel</b> to exit screen 
