@@ -25,12 +25,11 @@ The following table lists the services that are set up and run as part of instal
   </tr>
   <tr><td></td><td>CPU</td> <td>Memory</td><td>Development</td><td>Production</td><td>Maximum</td><td></td>
   </tr>
-  <tr><td rowspan=4> Application</td><td rowspan=4>2 core</td><td rowspan=4>7 GB</td><td rowspan=4>1</td><td rowspan=4>3</td><td rowspan=4>Any</td><td> Docker Swarn Manager</td>
+  <tr><td rowspan = 4> Application</td><td rowspan = 4>2 core</td><td rowspan = 4>7 GB</td><td rowspan = 4>1</td><td rowspan = 4>3</td><td rowspan = 4>Any</td><td> Docker Swarn Manager</td></tr>
   <tr><td>Docker Swarn Agent</td></tr>
   <tr><td>Keycloak</td></tr> 
   <tr><td>Badgr</td></tr>
-  <tr><td rowspan=4> Database</td><td rowspan=4>2 core</td><td rowspan=4>7 GB</td><td rowspan=4>1</td><td rowspan=4>3</td><td rowspan=4>Any</td><td>Elastic Search </td>
-  </tr>
+  <tr><td rowspan = 4> Database</td><td rowspan=4>2 core</td><td rowspan = 4>7 GB</td><td rowspan=4>1</td><td rowspan = 4>3</td><td rowspan = 4>Any</td><td>Elastic Search </td></tr>
   <tr><td>Postgres Master </td></tr>
   <tr><td>Postgres Slave<sup>[1]</sup></td></tr> 
   <tr><td>Cassandra</td></tr>
