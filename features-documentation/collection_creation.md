@@ -19,7 +19,7 @@ The collection is a compilation of content.	You can compile a  collection on Sun
   <tr>
     <td>1. Log in to Sunbird portal using your content creation credential.
       <br>2. Navigate to <b>My Workspace</b> 
-      <br>3. Clivk the <b>Collection</b> tile
+      <br>3. Click the <b>Collection</b> tile
        </td>
       <td><img src="features-documentation/images/collection/collection_workspace.png"></td>
   </tr>
