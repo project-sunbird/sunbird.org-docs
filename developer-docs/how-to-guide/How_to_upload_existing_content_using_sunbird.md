@@ -168,41 +168,41 @@ This API is associated with uploading content on the Sunbird Platform.
 
 #### Response Body (Upload Content API)
 
-{
+ {
 
-    "id": "xyz.learning.content.upload",
+     "id": "xyz.learning.content.upload",
 
-    "ver": "3.0",
+     "ver": "3.0",
 
-    "ts": "2018-09-05T10:55:22ZZ",
+     "ts": "2018-09-05T10:55:22ZZ",
 
-    "params": {
+     "params": {
 
-        "resmsgid": "d6dui5d1-60u8-4a79-23f9-78796195c2h7",
+         "resmsgid": "d6dui5d1-60u8-4a79-23f9-78796195c2h7",
 
-        "msgid": null,
+         "msgid": null,
 
-        "err": null,
+         "err": null,
 
-        "status": "successful",
+         "status": "successful",
 
-        "errmsg": null
+         "errmsg": null
 
-    },
+     },
 
-    "responseCode": "OK",
+     "responseCode": "OK",
 
-    "result": {
+     "result": {
 
-        "content_url": "https://xyz-public-prod.s3-ap-south-1.amazonaws.com/content/do_112534095400542340156583/artifact/highq_153614492126723.pdf",
+         "content_url": "https://xyz-public-prod.s3-ap-south-1.amazonaws.com/content/do_112534095400542340156583/artifact/highq_153614492126723.pdf",
 
-        "node_id": "do_112534095400542340156583",
+         "node_id": "do_112534095400542340156583",
 
-        "versionKey": "153614492126723"
+         "versionKey": "153614492126723"
 
-    }
+     }
 
-}
+ }
 
 For the youtube content or file url, pass it as file Url in <b>Upload API</b> or set the artifact Url of the content using  [Update Content API**](http://www.sunbird.org/apis/content/#operation/Update%20Content)
 
@@ -210,75 +210,75 @@ After uploading the content, publish the content using **[Publish Content API**]
 
 #### Request Body (Publish Content API)
 
-{
+ {
 
-  "request": {
+   "request": {
 
-    "content": {
+     "content": {
 
-      "lastPublishedBy": "sunbird",
+       "lastPublishedBy": "sunbird",
 
-      "publishChecklist": [
-          "No Hate speech, Abuse, Violence,Profanity"
-          "No Vulgarity",
-          "No Discrimination or Defamation",
-          "Is suitable for children",
-          "Appropriate Title, Description",
-          "Correct Board, Grade, Subject, Medium",
-          "Appropriate tags such as Resource Type, Concepts",
-          "Relevant Keywords",
-          "Content plays correctly",
-          "Can see the content clearly on Desktop and App",
-          "Audio (if any) is clear and easy to understand",
-          "No Spelling mistakes in the text",
-          "Language is simple to understand"
+       "publishChecklist": [
+           "No Hate speech, Abuse, Violence,Profanity"
+           "No Vulgarity",
+           "No Discrimination or Defamation",
+           "Is suitable for children",
+           "Appropriate Title, Description",
+           "Correct Board, Grade, Subject, Medium",
+           "Appropriate tags such as Resource Type, Concepts",
+           "Relevant Keywords",
+           "Content plays correctly",
+           "Can see the content clearly on Desktop and App",
+           "Audio (if any) is clear and easy to understand",
+           "No Spelling mistakes in the text",
+           "Language is simple to understand"
 
-      ]
+       ]
 
-    }
+     }
 
-  }
+   }
 
-}
+ }
 
 #### Response Body (Publish Content API)
 
-{
+ {
 
-  "result": {
+   "result": {
 
-    "node_id": "string",
+     "node_id": "string",
 
-    "versionKey": "string"
+     "versionKey": "string"
 
-  },
+   },
 
-  "id": ""xyz.learning.content.publish",
+   "id": ""xyz.learning.content.publish",
 
-  "ver": "3.0",
+   "ver": "3.0",
 
-  "ts": "2018-09-14T10:44:43ZZ",
+   "ts": "2018-09-14T10:44:43ZZ",
 
-  "params": {
+   "params": {
 
-    "resmsgid": "d3415c1a-94c6-4dc7-9c28-3e0dac767ee3",
+     "resmsgid": "d3415c1a-94c6-4dc7-9c28-3e0dac767ee3",
 
-    "msgid": "null",
+     "msgid": "null",
 
-    "err": "null",
+     "err": "null",
 
-    "status": "string",
+     "status": "string",
 
-    "errmsg": "null"
+     "errmsg": "null"
 
-  },
+   },
 
-  "responseCode": "OK",<br> "result":{
-    "publishStatus": "Publish Operation for Content Id 'do_2125903396473978881177' Started Successfully!",<br>
-    "node_id": "do_2125903396473978881177"<br>
-  }<br>
+   "responseCode": "OK",<br> "result":{
+     "publishStatus": "Publish Operation for Content Id 'do_2125903396473978881177' Started Successfully!",<br>
+     "node_id": "do_2125903396473978881177"<br>
+   }<br>
 
-}
+ }
 
 
 >Note: Reviewer has the right to publish content. Use the ID of any approved reviewer as the publisher user ID.
