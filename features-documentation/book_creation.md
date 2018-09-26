@@ -8,7 +8,7 @@ allowSearch: true
 ---
 ## Overview
 
-Book is a collection of content units.	On Sunbird, books can be compiled or curated from school books or any book that conform to syllabi of state or central boards or any recognized institution or publication, in the said medium of instruction and language. Books may also be compiled separately without adhering to any syllabus, but forming a logical unit of content pieces for the given subject matter. 
+A book is a collection of content units.	On Sunbird, books can be compiled or curated from school text books or any book that conforms to the standards of state or central boards, any recognized institution or publication, in the said medium of instruction and language. Books may also be compiled separately without adhering to any syllabus, but forming a logical unit of content pieces for the given subject matter. 
 
 ## Prerequisites
 <table>
@@ -74,7 +74,7 @@ You can add various elements in the book like units or chapters, heading details
     <br>2. Click the camera icon to add an image <br><b>Note</b>: For details, refer <a href="features-documentation/metadata_addingimages" target="_blank">Adding Image to Metadata</a> 
       <br>3. Enter <b>Title</b> of the book 
       <br>4. Enter <b>Description</b> of the book 
-      <br>5. Enter <b>Keywords</b>. Keywords are ideas and topics that define content. Keywords aid in searching for content 
+      <br>5. Enter <b>Keywords</b>. Keywords define content. You can associate any number of words with a content artifact. Keywords aid in searching for content 
       <br>6. Select the following from their respective drop-down lists: 
       <br>&emsp;a) <b>Curriculum</b> 
       <br>&emsp;b) <b>Class</b> 
