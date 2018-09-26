@@ -168,41 +168,27 @@ This API is associated with uploading content on the Sunbird Platform.
 
 #### Response Body (Upload Content API)
 
- {
+   {
+       "id": "xyz.learning.content.upload",
+       "ver": "3.0",
+       "ts": "2018-09-05T10:55:22ZZ",
+       "params": {
+           "resmsgid": "d6dui5d1-60u8-4a79-23f9-78796195c2h7",
+           "msgid": null,
+           "err": null,
+           "status": "successful",
+           "errmsg": null
+       },
+       "responseCode": "OK",
+       "result": {
+           "content_url": "https://xyz-public-prod.s3-ap-south-1.amazonaws.com/content/do_112534095400542340156583/artifact/highq_153614492126723.pdf",
 
-     "id": "xyz.learning.content.upload",
+           "node_id": "do_112534095400542340156583",
+           "versionKey": "153614492126723"
 
-     "ver": "3.0",
+       }
 
-     "ts": "2018-09-05T10:55:22ZZ",
-
-     "params": {
-
-         "resmsgid": "d6dui5d1-60u8-4a79-23f9-78796195c2h7",
-
-         "msgid": null,
-
-         "err": null,
-
-         "status": "successful",
-
-         "errmsg": null
-
-     },
-
-     "responseCode": "OK",
-
-     "result": {
-
-         "content_url": "https://xyz-public-prod.s3-ap-south-1.amazonaws.com/content/do_112534095400542340156583/artifact/highq_153614492126723.pdf",
-
-         "node_id": "do_112534095400542340156583",
-
-         "versionKey": "153614492126723"
-
-     }
-
- }
+   }
 
 For the youtube content or file url, pass it as file Url in <b>Upload API</b> or set the artifact Url of the content using  [Update Content API**](http://www.sunbird.org/apis/content/#operation/Update%20Content)
 
