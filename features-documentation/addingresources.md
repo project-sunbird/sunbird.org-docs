@@ -14,7 +14,7 @@ On Sunbird, Resources refers to the available stock of content. The various cate
 - Teach
 - Test 
 
-Content an book creators can add resources from the existing list or create new resources. For details on creating resources, refer <a href="features-documentation/resource_creation" target="_blank">Creating Resources</a>. Only published resources can be selected and added while creating content. Resources can be added to a Book, Collection, Course or Lesson Plan. 
+Content and book creators can add resources from the existing list or create new resources. For details on creating resources, refer <a href="features-documentation/resource_creation" target="_blank">Creating Resources</a>. Only published resources can be selected and added while creating content. Resources can be added to a Book, Collection, Course or Lesson Plan. 
 
 ## Adding Resources to Units or Chapters
 
