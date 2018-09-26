@@ -2,13 +2,13 @@
 title: Creation and Curation of Books
 page_title: Creation and Curation of Books
 description: Details on how to create a book and add content to books
-keywords: 'books, create books, compile books, add story to book, add worksheets'
+keywords: 'books, create books, generate content, compile books, add story to book, add worksheets'
 published: true
 allowSearch: true
 ---
 ## Overview
 
-A book is a collection of content units.	On Sunbird, books can be compiled or curated from school text books or any book that conforms to the standards of state or central boards, any recognized institution or publication, in the said medium of instruction and language. Books may also be compiled separately without adhering to any syllabus, but forming a logical unit of content pieces for the given subject matter. 
+A book is a collection of content units. On Sunbird, books can be compiled or curated from school text books or any book that conforms to the standards of state or central boards, any recognized institution, organisation or publication, in the said medium of instruction and language. Books may also be compiled separately without adhering to any syllabus, but forming a logical unit of content pieces for the given subject matter. 
 
 ## Prerequisites
 <table>
@@ -81,6 +81,8 @@ You can add various elements in the book like units or chapters, heading details
       <br>&emsp;c) <b>Subject</b> 
       <br>&emsp;d) <b>Medium</b> 
       <br>&emsp;e) <b>Year</b> 
+      <br> Based on the selected <b> Class </b>, the drop-down values for other drop-down menu get updated.<br>
+      Related content framework gets selected from the backend based on the selected class; that is how the drop-down values get updated accordingly.
       <br>7. Select <b>Topic</b>
       <br><b>Note</b>: For details, refer <a href="features-documentation/topic_tree" target="_blank">Adding Topics</a>
       <br>8. Enter <b>Publisher</b> details 
@@ -88,7 +90,8 @@ You can add various elements in the book like units or chapters, heading details
       <br>10. Select <b>Audience</b> 
       <br>11. Enter the <b>DIAL Code</b> 
       <br>12. Click <b>Save</b> on the header to save the details
-      <br>13. Click <b>Cancel</b> to go back to the previous screen
+      <br>13. Click <b>Cancel</b> to go back to the previous screen<br>
+      Note: When metadata is updated while creating content, the displayed content suggestions in the left panel also gets updated accordingly.
     </td>
     <td><img src="features-documentation/images/book/book_metadata1.png"></td>
   </tr>

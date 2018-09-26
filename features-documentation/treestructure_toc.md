@@ -2,13 +2,13 @@
 title: Exploring TOC Structure
 page_title: Exploring TOC Structure
 description: Details on how to add resource, edit and delete nodes in the TOC pane of the content editor
-keywords: 'add child, add sibling, parent node, adding content, adding resource, node definition, node exploration'
+keywords: 'add child, add sibling, parent node, node metadata, adding content, adding resource, node definition, node exploration'
 published: true
 allowSearch: true
 ---
 ## Introduction
 
-The Table of Contents (TOC) is a tree structure that is a relational hierarchy with three nodes: 
+The Table of Contents (TOC) is a tree structure which is a relational hierarchy with three nodes: 
 
 **Title Node:** The highest node in the TOC pane that represents the entire compilation. Typically, this is the name of the Textbook, Course, Collection or Lesson Plan.
 
@@ -35,7 +35,7 @@ Activity in Chapter 2 | Child Node  | My Fun Corner
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-    <td>1. You are logged in <br>2. You are currently on <b>My Workspace</b> page <br>3. You have clicked on any one of the following: <br>&emsp;a)<b>Book</b> <br>&emsp;b)<b>Course</b> <br>&emsp;c)<b>Collection</b> <br>&emsp;d)<b>Lesson Plan</b> <br> <b>Note:</b> The images used to explain the node structure in this section correspond to adding nodes in collection. This is used for reference purpose. Screens vary slightly for each content type, viz., book, collection, course, lesson plan
+    <td>1. Log in to Sunbird portal using your credential <br>2. Navigate to <b>My Workspace</b> page <br>3. Click any one of the following: <br>&emsp;a)<b>Book</b> <br>&emsp;b)<b>Course</b> <br>&emsp;c)<b>Collection</b> <br>&emsp;d)<b>Lesson Plan</b> <br> <b>Note:</b> The images used to explain the node structure in this section correspond to adding nodes in collection. This is used for reference purpose. Screens vary slightly for each content type, viz., book, collection, course, lesson plan
     </td>
     <td><img src="features-documentation/images/toc_workspce.png"></td>
   </tr>
@@ -76,7 +76,7 @@ On clicking <b> New Sibling</b> or <b>New Child</b>, the metadata is displayed o
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-    <td>1. Enter <b>Content Title</b> <br>2. Enter <b>Description</b> <br>3. Enter <b>Keywords</b> <br>4. Click <b>Save</b> to save the metadata <br>5. Click <b>Image</b> icon to add image to the metadata. For details on the metadata, refer <a href="features-documentation/metadata_addingimages" target="_blank">Adding Image to Metadata</a>
+    <td>1. Enter <b>Content Title</b> <br>2. Enter <b>Description</b> <br>3. Enter <b>Keywords</b> <br>4. Click <b>Save</b> to save the metadata <br>5. Click <b>Image</b> icon to add image to the metadata. For details on the metadata, refer to the <a href="features-documentation/metadata_addingimages" target="_blank">Adding Image to Metadata</a> page.<br>Note: When metadata is updated while creating content, the displayed content suggestions in the left panel also gets updated accordingly.
     </td>
     <td><img src="features-documentation/images/addchild_metadata2.png"></td>
   </tr>
