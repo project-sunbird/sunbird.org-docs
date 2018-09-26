@@ -105,7 +105,7 @@ Parameter that are submitted through form application/x-www-form-urlencoded, mul
 	images : C:\Users\Pictures\badge_logo.png
 
 
-#### Response Body**
+#### Response Body
 
 	  {
 	    "responseCode": "OK"
