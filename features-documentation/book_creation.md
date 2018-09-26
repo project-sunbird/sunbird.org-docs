@@ -17,7 +17,7 @@ Book is a collection of content units.	On Sunbird, books can be compiled or cura
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-    <td>1. log in to Sunbird <br>2. Navigate to <b>My Workspace</b>  
+    <td>1. Log in to Sunbird <br>2. Navigate to <b>My Workspace</b>  
       <br>3. To create a book, click the <b>Book</b> tile
        </td>
       <td><img src="features-documentation/images/book/book_workspace.png"></td>
