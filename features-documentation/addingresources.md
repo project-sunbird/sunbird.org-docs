@@ -31,7 +31,7 @@ Content and book creators can add resources from the existing list or create new
      <br>c. Click <b>Add Resources</b> button in the action pane, OR
      <br>d. Click <b>Add</b> on the resource card on the left pane 
      <br><b>Note:</b> This option is exclusive for Book Creators
-     <br>e. Use the keyboard shortcut <b>Ctrl+Alt+A</b> <br> For more details on keyboard shortcuts, refer to the <a href="features-documentation/keyboardshortcuts" target="_blank">Keyboard Shortcuts</a> page.
+     <br>e. Use the keyboard shortcut <b>Ctrl+Alt+A</b> <br> For more details on keyboard shortcuts, refer <a href="features-documentation/keyboardshortcuts" target="_blank">Keyboard Shortcuts</a> 
     </td>
     <td><img src="features-documentation/images/add_resources.png"></td>
   </tr>
