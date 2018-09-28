@@ -36,3 +36,5 @@ The Sunbird installation script `./sunbird_install.sh` is a wrapper shell script
 * `deploy-badger.sh` - Deploys the badger service as docker service.
 
 * `deploy-core.sh` - Deploys the core services player, content, actor and learner service as docker services. The content, actor and learner service together form the LMS backend.
+
+* `system-init.sh` - Initializes the system by creating the first organisation and first user with admin role of the sunbird platform
