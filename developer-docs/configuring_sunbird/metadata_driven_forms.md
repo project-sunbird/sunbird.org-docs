@@ -70,6 +70,7 @@ The following table provides a detailed list of all the available metadata drive
 | **Collection Review** | This form is displayed on clicking `send for review` in collection editor | content | collection | review | editor |  
 | **Question Save** | This form is displayed on clicking `create question` in content editor | content | questions | question-meta-save | editor |
 | **Question Search** | This form is displayed on clicking `search questions` in content editor | content | questions | question-filter-view | editor |
+| **Ownership Type** | This form is used to add `ownership type` in content editors | content | all | ownership | editor |
 
 ### Supported Input & Data Types 
 
