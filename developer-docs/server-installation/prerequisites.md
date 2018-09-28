@@ -36,9 +36,10 @@ This section gives you information on the minimum hardware, software and space r
 ### Cloud Servers
 
 * Supported Providers: Sunbird has been tested for AWS and Azure. You may be able to use Google Compute Platform or similar cloud infrastructure
-* A general purpose server with 7 GB RAM on Azure, running Ubuntu server 16.04 LTS
-* A general purpose server with 8 GB RAM on AWS, running Ubuntu server 16.04 LTS
-* You can scale the infrastructure by adding servers. Sunbird is designed to scale horizontally
+  * On Azure, a general purpose server with 7 GB RAM, running Ubuntu server 16.04 LTS
+  * On AWS, a general purpose server with 8 GB RAM, running Ubuntu server 16.04 LTS
+* You can scale out your infrastructure by adding servers. Sunbird is designed to scale horizontally.
+* You can also scale up your infrastructure and deploy the docker containers to a swarm running on a larger host.
 * The scripts do not work on virtual machines created using VMware or VirtualBox 
 
 ### Cloud Blob Storage
