@@ -8,7 +8,7 @@ published: true
 allowSearch: true
 ---
 <div class="VersionNotification">
-    Attention: The Developer installation instructions have known issues. To continue with installing Sunbird, please use the [Server Installation](http://developer-docs/installation/server_installation) documentation.
+    Attention: The Developer installation instructions have known issues. To continue installing Sunbird, use the [Server Installation](http://developer-docs/installation/server_installation) documentation.
 </div>
 
 ## Overview
