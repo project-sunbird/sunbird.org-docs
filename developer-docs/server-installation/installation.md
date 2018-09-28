@@ -7,16 +7,18 @@ allowSearch: true
 ---
 
 ## Installation
-This section details the procedures to install auxilliary services and to validate the installation
+
+This section details the procedures to install Sunbird's core and auxilliary services and to validate the installation. Once the installation is validated, you can sign-up to begin using Sunbird.
+
 
 ### Installing Auxilliary Services
 
-Run the installation script 
+Begin by installing the auxilliary services. To complete this step, run the installation script 
 
-    cd (path to top level folder of folder where the installer is located)
+    cd <path/to/sunbird-devops/deploy>
     ./sunbird_install.sh
 
-The installtion script runs through the following steps
+The installtion script will run through the following steps
 
 |Stage name|Description| 
 |:-------|:--------|
@@ -29,93 +31,49 @@ The installtion script runs through the following steps
 |core|Deploys all core services|
 |systeminit|Initializes the system by creating first organisation and admin user|
 
-
 > Note: The badger service does not work without an Azure storage account name 
 
-### Getting Authentication Certificate
 
-Get the public key from keycloak <b>http://< dns_name or IP>/auth -> Administration console -> realm settings -> keys -> public keys</b>  (click on public keys) and set it for `sunbird_sso_publickey` parameter in `config` file.
+### Configuring the authentication service certificate
+
+* Log into Keycloak as the admin user
+  * You can access keycloak via `http://{dns_name}/auth` where `{dns_name}` is the same as the configured value
+  * Refer to the config file to get the Keycloak admin credentials
+* Once logged in, navigate to: *Administration console -> Realm Settings -> Keys -> Public keys*
+* Click on the RSA public key which will present you a pop-up containing the value
+* Copy this key and and set it for `sunbird_sso_publickey` parameter in the `config` file.
+
 
 ### Installing Core Services
 
-To deploy the core services with the authentication certificate, execute:
+Continue the installation to deploy the core services with the configured authentication certificate:
 
     ./sunbird_install.sh -s core
      
 > Note:
->  - Running the installer script with `-s <stage name>` runs only that stage of the installation.
+>   * Running the installer script with `-s <stage name>` runs only that stage of the installation.
 > 
->  - To know more about the script `sunbird_install.sh` refer to the section [Sunbird Install Script](developer-docs/installation/server_installation/#sunbird-install-script")
+>   * To know more about the script `sunbird_install.sh` refer to the section [Sunbird Install Script](developer-docs/installation/server_installation/#sunbird-install-script")
 
 
-## Configuring Parameters Post Installation 
+## Validating the installed services
 
-After Sunbird is installed and before it can be used, you need to create an API token and a root organization. The API key is used in the REST API commands to authenticate that API calls are made by an authorized user
+1. Run the script `./sunbird_install.sh -s posttest` to validate all the successfully installed services. On executing the script, a file `logs/postInstallationLogs.log` is created
 
-### Setup
-
-1. **Create user access token** 
-
-Use the following curl commands to generate the x-authenticated-user-token:
-
-> Note: Replace the values in { } braces with values pertinent to your Sunbird environment
-   
->  - {host_name} - The Domain or IP address of your application server_installation
->  - {password} - Password of the **user-manager** user. This password is the same as the one you have entered for the **sso_password** parameter in the **sunbird-devops/deploy/config** file 
-
-    curl -X POST {host_name}    /auth/realms/sunbird/protocol/openid-connect/token \
-    -H 'cache-control: no-cache' \
-    -H 'content-type: application/x-www-form-urlencoded' \
-    -d 'client_id=admin-cli&username={user-manager}&password={password}&grant_type=password'
-
-The curl command’s response contains a field **access token** that is followed by a long string. The string is the x-authenticated-user token required to make API calls.
+1. Open `https://{dns-name}/` and login with the configured root admin login ID/password to access the Sunbird portal. 
+  * `{dns-name}` is the value which you configured when installing Sunbird
+  * The login ID is `sunbird_init_admin_user_username@sunbird_init_custodian_tenant_channel`
 
 
-2. **Create root organization** 
+## Post-Install sign-up
 
-Use the following curl commands to create a root organization: 
+Once the install is validated, you can create new user accounts by signing-up. Sign-up is a seamless process -- you can sign-up via the portal. For details on signing up on Sunbird, refer to <a href="http://www.sunbird.org/features-documentation/signup/" target="_blank">Sign-up on Sunbird</a>
 
-      curl -X POST  
-      {dns_name}/api/org/v1/create \
-      -H 'Cache-Control: no-cache' \
-      -H 'Content-Type: application/json' \
-      -H 'accept: application/json' \
-      -H 'authorization: Bearer {jwt token from ~/jwt_token_player.txt}' \
-      -H 'x-authenticated-user-token: {user x-authenticated-user-token}' \
-      -d '{
-      "request":{
-      "orgName": "{Your Organization Name}",
-      "description": "{Your organization description}",
-      "isRootOrg":true,
-      "channel":"{Your Channel Name}"
-            }
-         }'
+1. Open `https://{dns-name}/` and sign-up (where `{dns-name}` is the value which you configured when installing Sunbird)
 
-> Note: The channel name should be unique across Sunbird instances using the EkStep content repository
->  - If the **jwt_token_player.txt** file is missing, rerun `./sunbird_install.sh -s apis` to recreate it
+1. Choose your own loginID and password. The format for the loginID is `username@channelName`
 
-
-3. Update the value of the **sunbird_default_channel** in the **sunbird-devops/deploy/config** file with your Channel Name 
-
-    ./sunbird_install.sh -s core
-
-
-## Validating the Installed Services
-
-1. Run the script `./sunbird_install.sh -s posttest` to validate all the successfully installed services
-
-On executing the script, a file `logs/postInstallationLogs.log` is created 
-
-2. Open **https://[domain-name]** and login with the configured login id/password to access sunbird portal. The format of the login ID is `sunbird_init_admin_user_username@sunbird_init_custodian_tenant_channel`
 
 ## Sunbird Install Script 
 
 The Sunbird installation script `./sunbird_install.sh` is a wrapper shell script that invokes other scripts or Ansible playbooks. It fetches docker images from the Sunbird DockerHub repository. For details on the scripts and Ansible playbooks invoked, refer to [Additional Information](developer-docs/installation/server_installation/additional_info.md)
-
-* `system-init.sh` - Initializes the system by creating the first organisation and first user with admin role of the sunbird platform
-
-Signing up on Sunbird is a seamless process. Once you have successfully installed Sunbird on your server, you can create sign up credentials on the portal. For details on signing up on Sunbird, refer <a href="http://www.sunbird.org/features-documentation/signup/" target="_blank">Sign Up on Sunbird</a>
-
-1. Open `https://[domain-name]/` and sign up  
-
-2. Choose your own user name and password. The format for the user name to log in is **username@channelName**
