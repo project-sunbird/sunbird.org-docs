@@ -15,8 +15,8 @@ This section details the procedures to install Sunbird's core and auxilliary ser
 
 Begin by installing the auxilliary services. To complete this step, run the installation script 
 
-    cd <path/to/sunbird-devops/deploy>
-    ./sunbird_install.sh
+    $ cd <path/to/sunbird-devops/deploy>
+    $ ./sunbird_install.sh
 
 The installtion script will run through the following steps
 
@@ -53,7 +53,7 @@ Continue the installation to deploy the core services with the configured authen
 > Note:
 >   * Running the installer script with `-s <stage name>` runs only that stage of the installation.
 > 
->   * To know more about the script `sunbird_install.sh` refer to the section [Sunbird Install Script](developer-docs/installation/server_installation/#sunbird-install-script")
+>   * To know more about the script `sunbird_install.sh` refer to the section [Sunbird Install Script](developer-docs/server-installation/running_the_installer/#sunbird-install-script")
 
 
 ## Validating the installed services
