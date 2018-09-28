@@ -1,12 +1,12 @@
 ---
-title: Installation
-page_title: Installation
+title: Running the Installer
+page_title: Running the Installer
 description: Procedure to install Sunbird on server
 keywords: install, server installation, install and validate, installation scripts, scripts, 
 allowSearch: true
 ---
 
-## Installation
+## Running the Installer
 
 This section details the procedures to install Sunbird's core and auxilliary services and to validate the installation. Once the installation is validated, you can sign-up to begin using Sunbird.
 
