@@ -3,172 +3,160 @@ type: landing
 directory: developer-docs/installation
 title: Developer Installation
 page_title: Developer Installation
-description: Installing  the Sunbird portal or web application
+description: Installing the Sunbird portal or web application
 published: true
 allowSearch: true
 ---
-<div class="VersionNotification">
-    Attention: The Developer installation instructions have known issues. To continue installing Sunbird, use the [Server Installation](http://developer-docs/installation/server_installation) documentation.
-</div>
+
 
 ## Overview
 
-This page provides information for you to install, setup, configure, run and use a Sunbird instance on your laptop or desktop. The objective of such an installation is to demo and test the Sunbird application. It is not advised to use the instance for a production environment. Follow the instructions provided on this page to ensure an optimal installation experience. Before installing Sunbird on your laptop or desktop, ensure that the you have the necessary resources and compliant target systems. 
+This page provides information for you to install & run a Sunbird instance on your laptop or desktop. The intent is to give you a look and feel of some of the features of Sunbird, be able to tweak around with the front-end code. This developer installation of Sunbird application and the cloud APIs used therein, are not for intended for production purposes.
+
+>The Sunbird developer installation can be best viewed via the Google Chrome browser. Although, other browsers may be used, but some pages might not render correctly.
+
+Before installing Sunbird on your laptop or desktop, ensure that the you have the necessary resources and compliant target systems.
+
+## Intended Audience
+
+The intended audience of this document is a person who is familiar with installing, configuring & deploying open-source software and has some systems administration experience.
+
+## Prerequisites
+
+1. **Software dependencies**
+   * [node](https://nodejs.org/en/download/) - install the latest release of 8.11.2 LTS series
+   * [nodemon](https://www.npmjs.com/package/nodemon)
+   * [git](https://git-scm.com/downloads)
+   * gulp - This needs to be installed via npm which gets installed when nodejs is installed.
+
+
+1. **API Keys**
+   * The Sunbird developer instance is powered by cloud hosted Sunbird APIs, which require an API key. To get this key, send an email to info@sunbird.org . In the subject mention "Request for SUNBIRD STAGING API Key". In the body of the email, mention a few words about yourself and for what purpose are you interested in Sunbird - like whether it's for evaluation or you just want to tinker around with it etc. The typical response time will be 2-3 business days (India Time).
+
 
 ## System Requirements
 
 To install Sunbird, ensure that your laptop or desktop has the following minimum system requirements:
 
-- Operating System: Windows 7 and above, or 4.2 Mac OS X 10.0 and above/Linux  
-- RAM: >1.5GB
-- CPU: 2 cores, >2 GHz
+- Operating System: Windows 7 and above, or 4.2 Mac OS X 10.0 and above or Linux
+- RAM: > 1.5GB
+- CPU: 2 cores (> 2 GHz/core)
 
 ## Sunbird Components
 Installing Sunbird requires two primary software components:
-
 - Sunbird portal or web application
-- Sunbird services stack or the backend API interface
+- Sunbird services stack or the back-end API interface
 
-## Sunbird Portal Setup
+## Set Up the Sunbird Application
 
-The following sections provide you with the sequence to set up the Sunbird portal instance successfully 
+These instructions will install the v1.9 version of the Sunbird application. Code examples, shown here are Linux based and should not differ when executed on WINDOWS(r). If there is any impediment using WINDOWS(r) commandline shell or PowerShell, then you might want to try using Cygwin(r) to perform the Sunbird developer install.
 
-### Prerequisites
+1. Launch a commandline terminal.
 
-1.**Software dependencies**
-	
-   * [Node](https://nodejs.org/en/download/){:target="_blank"} - install the latest release of 8.11.2 LTS series
-   * [nodemon](https://www.npmjs.com/package/nodemon){:target="_blank"} - install nodemon
+1. Ensure that the system PATH variable points to the folders where git, node, nodemon and gulp are located. If for some reason you are unable to find an executable by the name of node, then try nodejs instead.
 
-2.**API Keys**
+1. Change directory into the folder which you've designated as the top level folder of the Sunbird application.
 
-   * To get an API key, send an email to: info@sunbird.org
+1. Clone the Sunbird portal github repository
 
-**Note:** These installation instructions use cloud hosted Sunbird APIs, which require an API key.
+        git clone https://github.com/project-sunbird/sunbird-portal.git
 
-### Set Up the Sunbird Application 
+1. Checkout the files tagged with v1.9
 
-1.To set up the Sunbird application **release 1.9** , get the [code](https://github.com/project-sunbird/sunbird-portal.git){:target="_blank"} from the sunbird-portal Git repository. 
+        cd sunbird-portal
+        git checkout tags/v1.9 -b 1.9
 
-2.Clone the repository to your local system using the command:
-    
-   **git clone https://github.com/project-sunbird/sunbird-portal.git**
 
-**Note**: Stable versions of the sunbird portal code are available via tags for each release. The master branch contains the latest stable release. To get the latest stable release of Sunbird, [click here](https://github.com/project-sunbird/sunbird-portal/){:target="_blank"}.
+1. Build the nodejs packages that are required by the Sunbird application.
 
-3.After executing the **git clone** command, run the following set of commands in the console:
+        cd sunbird-portal/src/app
+        npm install
+        cd sunbird-portal/src/app/client
+        npm install
+        cd ..
 
-<pre>
-   $ cd {PROJECT-FOLDER}/src/app
-   $ npm install
-   $ cd {PROJECT-FOLDER}/src/app/client
-   $ npm install
-</pre>
 
-***Note***: Ensure that you use node version 8.11.2 or above. 
+1. Populate these environment variables
 
-4.Set the following environment variables when you are prompted to:
+        +---------------------------+---------+-----------+
+        | Environment Variable Name |  Value  | Data Type |
+        |---------------------------|---------|-----------|
+        |  sunbird_environment      | local   |   string  |
+        |  sunbird_instance         | sunbird |   string  |
+        |  sunbird_default_channel  | sunbird |   string  |
+        |  sunbird_default_tenant   | sunbird |   string  |
+        +---------------------------+---------+-----------+
 
-<pre>
-sunbird_environment=local 
-sunbird_instance=sunbird
-sunbird_default_tenant=sunbird
-</pre>
 
 ## Configure the Service Stack
 
-The Sunbird portal application is powered by a set of service APIs. These API(s) run in a distributed environment when Sunbird is  deployed to production. For the sake of simplicity and ease of debugging, you can run these service API(s) locally on a single server.
+Edit the file sunbird-portal/src/helpers/environmentVariablesHelper.js and ensure that the following tokens are set to the values as indicated. Enclose all string values within double quotation marks.
 
-Configure your Sunbird portal instance to use a cloud instance of the Sunbird service API(s) hosted by Sunbird, and are used for testing and demonstration purposes. 
+|            Token            |                   Value                          | Data Type |
+|-----------------------------|--------------------------------------------------|-----------|
+| DEFAULT_CHANNEL             | sunbird                                          | string    |
+| LEARNER_URL                 | https://staging.open-sunbird.org/api/            |  string   |
+| CONTENT_URL                 | https://staging.open-sunbird.org/api/            |  string   |
+| CONTENT_PROXY_URL           | https://staging.open-sunbird.org                 |  string   |
+| PORTAL_REALM                | sunbird                                          |  string   |
+| PORTAL_AUTH_SERVER_URL      | https://staging.open-sunbird.org/auth            |  string   |
+| PORTAL_AUTH_SERVER_CLIENT   | portal                                           |  string   |
+| PORTAL_PORT                 | 3000                                             |  number   |
+| PORTAL_API_AUTH_TOKEN       | (The API key you received from info@sunbird.org) |  string   |
+| PORTAL_ECHO_API_URL         | (empty string)                                   |  string   |
+| ANDROID_APP_URL             | http://www.sunbird.org                           |  string   |
+| CONTENT_CHANNEL_FILTER_TYPE | all &#124; self                                  |  string   |
+| LEARNER_URL                 | https://staging.open-sunbird.org/api/            |  string   |
+| TELEMETRY_SERVICE_LOCAL_URL | https://staging.open-sunbird.org/api/data/       |  string   |
 
-***Note***: The cloud instance of the API(s) are not for production use.
-
-To edit the application configuration file:
-
-1.Open the **{PROJECT-FOLDER}/src/app/helpers/environmentVariablesHelper.js**  file in any available text editor. 
-
-2.Set the values for the following parameters:
-<pre>
-    module.exports = {
-        
-A) LEARNER_URL   
-   LEARNER_URL: env.sunbird_learner_player_url || 'https://staging.open-sunbird.org/api/',                    
-      
-B) CONTENT_URL
-   CONTENT_URL: env.sunbird_content_player_url || 'https://staging.open-sunbird.org/api/',                   
-        
-C) CONTENT_PROXY  
-   CONTENT_PROXY_URL: env.sunbird_content_proxy_url || 'https://staging.open-sunbird.org',                    
-   PORTAL_REALM: env.sunbird_portal_realm || 'sunbird',
-        
-D) PORTAL_AUTH_SERVER_URL
-   PORTAL_AUTH_SERVER_URL: env.sunbird_portal_auth_server_url || 'https://staging.open-sunbird.org/auth',     
-   PORTAL_AUTH_SERVER_CLIENT: env.sunbird_portal_auth_server_client || "portal",
-   ...
-   PORTAL_PORT: env.sunbird_port || 3000,
-        	
-E) PORTAL_API_AUTH_TOKEN     
-   PORTAL_API_AUTH_TOKEN: env.sunbird_api_auth_token || 'E-mail to: info@sunbird.org' to get Auth-Token 
-   ...
-        
-F) PORTAL_ECHO_API_URL
-   PORTAL_ECHO_API_URL: env.sunbird_echo_api_url || '',                                                       
-   ...
-	
-G) ANDROID_APP_URL
-   ANDROID_APP_URL: env.sunbird_android_app_url || 'http://www.sunbird.org'   
-
-H) CONTENT CHANNEL FILTER  TYPE
-   CONTENT_CHANNEL_FILTER_TYPE: env.sunbird_content_channel_filter_type || 'all',
-   Set the value to 'self', to get content that belongs to the current user's channel, 
-   and set the value to 'all' to get content from all channels
-   ...
-   		}
-</pre>   
 
 ## Run the Application
 
-1.Before you run the application, install **nodemon**. To do so, use the following command:
+1. Download the content editors
+        gulp download:editors
 
-`npm install -g nodemon`
+1. Update the Sunbird application with the modified config file values.
 
-2.After verifying the availability of nodemon, run the application by executing the following commands:
+        cd sunbird-portal/src/app/client
+        nodemon
+Wait till you see something like this, before going to the next step.
 
-<pre>
-$ cd {PROJECT-FOLDER}/src/app
-$ node server.js
-</pre>
-    
-3.Open a new terminal window
-<pre>
-$ cd {PROJECT-FOLDER}/src/app/client
-$ nodemon
-</pre>
+        [nodemon] clean exit - waiting for changes before restart
 
-4.Open **http://localhost:3000** in the browser
- 
-## Use the Application  
+1. Open another commmandline window and run the application server.
 
-After successfully installing Sunbird, use demo user IDs to explore and test different workflows.
+    Populate these environment variables (again)
+        +---------------------------+---------+-----------+
+        | Environment Variable Name |  Value  | Data Type |
+        |---------------------------|---------|-----------|
+        |  sunbird_environment      | local   |   string  |
+        |  sunbird_instance         | sunbird |   string  |
+        |  sunbird_default_channel  | sunbird |   string  |
+        |  sunbird_default_tenant   | sunbird |   string  |
+        +---------------------------+---------+-----------+
 
-* For each user role, you require a separate demo user ID and its respective password
+            cd sunbird-portal/src/app
+            node server.js
 
-* Any user can be assigned one or more user role. The role rules that apply depend on the demo user ID and password that is used to sign in 
- 
-The following is the list of the demo user IDs per user role:
 
- User Role |	User ID
- ---------|----------
-Org Admin| adopterorgadmin@adopter
-Content Creator| adoptercreator@adopter 
-Content Reviewer| adopterreviewer@adopter
-Book Creator| adopterbookcreator@adopter 
-Book Reviewer| adopterbookreviewer@adopter
-Flag Reviewer| adopterflagreviewer@adopter
-Course Mentor| adoptercoursementor@adopter
+    The initialization of these environmental variables can take place in a common place - like in the .bashrc file on Linux.
 
-**Note:** 
+1. Launch the Google Chrome browser and navigate to
 
-* To get the password for each demo user ID, send an email to info@sunbird.org
+        http://localhost:3000
 
-* For information on user roles, refer to [Types of Users](features-documentation/userrole){:target="_blank"}
+## Login into the Sunbird portal
+
+After successfully installing Sunbird, use any of the following user IDs to explore Sunbird's workflows. Each user ID corresponds to a specific role.
+
+| User ID | Role | Password |
+|---|---|---|
+| adopterorgadmin@adopter | Org administrator | password |
+| adoptercreator@adopter | Content creator  | password |
+| adopterreviewer@adopter | Content reviewer | password |
+| adopterbookcreator@adopter | Boook creator | password |
+| adopterbookreviewer@adopter | Book reviewer | password |
+| adopterflagreviewer@adopter | Flag reviewer | password |
+| adoptercoursementor@adopter | Course mentor | password |
+
+* For information on user roles, refer to [Types of Users](pages/features-documentation/userrole)
