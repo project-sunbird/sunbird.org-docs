@@ -17,7 +17,7 @@ This page provides information for you to install & run a Sunbird instance on yo
 
 Before installing Sunbird on your laptop or desktop, ensure that the you have the necessary resources and compliant target systems.
 
-> Developer installation is only for the web application and cannot be installed on mobile application
+>Sunbird developer installation is possible only for the web. It cannot be installed on the mobile. 
 
 
 ## Intended Audience
