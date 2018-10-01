@@ -8,24 +8,26 @@ published: true
 allowSearch: true
 ---
 Attention: The Developer installation instructions have known issues. To continue installing Sunbird, use the [Server Installation](http://developer-docs/installation/server_installation)documentation.
-Overview
+## Overview
 This page provides information for you to install, setup, configure, run and use a Sunbird instance on your laptop or desktop. The objective of such an installation is to demo and test the Sunbird application. It is not advised to use the instance for a production environment. Follow the instructions provided on this page to ensure an optimal installation experience. Before installing Sunbird on your laptop or desktop, ensure that the you have the necessary resources and compliant target systems.
 
-System Requirements
+## System Requirements
 To install Sunbird, ensure that your laptop or desktop has the following minimum system requirements:
 
-Operating System: Windows 7 and above, or 4.2 Mac OS X 10.0 and above/Linux
-RAM: >1.5GB
-CPU: 2 cores, >2 GHz
-Sunbird Components
+- Operating System: Windows 7 and above, or 4.2 Mac OS X 10.0 and above/Linux
+- RAM: >1.5GB
+- CPU: 2 cores, >2 GHz
+
+## Sunbird Components
 Installing Sunbird requires two primary software components:
 
-Sunbird portal or web application
-Sunbird services stack or the backend API interface
-Sunbird Portal Setup
+- Sunbird portal or web application
+- Sunbird services stack or the backend API interface
+
+## Sunbird Portal Setup
 The following sections provide you with the sequence to set up the Sunbird portal instance successfully
 
-Prerequisites
+## Prerequisites
 1.Software dependencies
 
 Node{:target="_blank"} - install the latest release of 8.11.2 LTS series
@@ -33,36 +35,37 @@ nodemon{:target="_blank"} - install nodemon
 2.API Keys
 
 To get an API key, send an email to: info@sunbird.org
-Note: These installation instructions use cloud hosted Sunbird APIs, which require an API key.
+>Note: These installation instructions use cloud hosted Sunbird APIs, which require an API key.
 
 Set Up the Sunbird Application
 1.To set up the Sunbird application release 1.9 , get the code{:target="_blank"} from the sunbird-portal Git repository.
 
 2.Clone the repository to your local system using the command:
 
-git clone https://github.com/project-sunbird/sunbird-portal.git
+	git clone https://github.com/project-sunbird/sunbird-portal.git
 
-Note: Stable versions of the sunbird portal code are available via tags for each release. The master branch contains the latest stable release. To get the latest stable release of Sunbird, click here{:target="_blank"}.
+>Note: Stable versions of the sunbird portal code are available via tags for each release. The master branch contains the latest stable release. To get the latest stable release of Sunbird, click here{:target="_blank"}.
 
 3.After executing the git clone command, run the following set of commands in the console:
 
-   $ cd {PROJECT-FOLDER}/src/app
-   $ npm install
-   $ cd {PROJECT-FOLDER}/src/app/client
-   $ npm install
-Note: Ensure that you use node version 8.11.2 or above.
+   	$ cd {PROJECT-FOLDER}/src/app
+   	$ npm install
+   	$ cd {PROJECT-FOLDER}/src/app/client
+   	$ npm install
+>Note: Ensure that you use node version 8.11.2 or above.
 
 4.Set the following environment variables when you are prompted to:
 
-sunbird_environment=local 
-sunbird_instance=sunbird
-sunbird_default_tenant=sunbird
-Configure the Service Stack
+- sunbird_environment=local 
+- sunbird_instance=sunbird
+- sunbird_default_tenant=sunbird
+
+## Configure the Service Stack
 The Sunbird portal application is powered by a set of service APIs. These API(s) run in a distributed environment when Sunbird is deployed to production. For the sake of simplicity and ease of debugging, you can run these service API(s) locally on a single server.
 
 Configure your Sunbird portal instance to use a cloud instance of the Sunbird service API(s) hosted by Sunbird, and are used for testing and demonstration purposes.
 
-Note: The cloud instance of the API(s) are not for production use.
+>Note: The cloud instance of the API(s) are not for production use.
 
 To edit the application configuration file:
 
@@ -105,22 +108,22 @@ H) CONTENT CHANNEL FILTER  TYPE
    and set the value to 'all' to get content from all channels
    ...
    		}
-Run the Application
+## Run the Application
 1.Before you run the application, install nodemon. To do so, use the following command:
 
-npm install -g nodemon
+	npm install -g nodemon
 
 2.After verifying the availability of nodemon, run the application by executing the following commands:
 
-$ cd {PROJECT-FOLDER}/src/app
-$ node server.js
+	$ cd {PROJECT-FOLDER}/src/app
+	$ node server.js
 3.Open a new terminal window
 
-$ cd {PROJECT-FOLDER}/src/app/client
-$ nodemon
+	$ cd {PROJECT-FOLDER}/src/app/client
+	$ nodemon
 4.Open http://localhost:3000 in the browser
 
-Use the Application
+## Use the Application
 After successfully installing Sunbird, use demo user IDs to explore and test different workflows.
 
 For each user role, you require a separate demo user ID and its respective password
@@ -129,16 +132,16 @@ Any user can be assigned one or more user role. The role rules that apply depend
 
 The following is the list of the demo user IDs per user role:
 
-User Role	User ID
-Org Admin	adopterorgadmin@adopter
-Content Creator	adoptercreator@adopter
-Content Reviewer	adopterreviewer@adopter
-Book Creator	adopterbookcreator@adopter
-Book Reviewer	adopterbookreviewer@adopter
-Flag Reviewer	adopterflagreviewer@adopter
-Course Mentor	adoptercoursementor@adopter
-Note:
-
-To get the password for each demo user ID, send an email to info@sunbird.org
+--------------------------------
+|User Role	|User ID
+--------------------------------
+|Org Admin|	adopterorgadmin@adopter
+|Content Creator|	adoptercreator@adopter
+|Content Reviewer|	adopterreviewer@adopter
+|Book Creator|	adopterbookcreator@adopter
+|Book Reviewer|	adopterbookreviewer@adopter
+|Flag Reviewer|	adopterflagreviewer@adopter
+|Course Mentor	adoptercoursementor@adopter
+>Note: To get the password for each demo user ID, send an email to info@sunbird.org
 
 For information on user roles, refer to Types of Users{:target="_blank"}
