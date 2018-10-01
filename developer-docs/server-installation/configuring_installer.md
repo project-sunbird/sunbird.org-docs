@@ -9,11 +9,13 @@ published: true
 
 ## Installation Procedure
 
-To install Sunbird choose one docker swarm manager as the installation server and execute the instructions explained in this section. In a two server setup, execute the following steps from the server designated to run the application server
+To install Sunbird, **choose one docker swarm manager as the installation server**, SSH to that server and execute the instructions explained in this section.
+
+> In a two server setup, execute the following steps from the server designated to run the application server
 
 ## Getting the Installer
 
-* Clone the installer repository from github.com using the following commands:
+* Clone the installer repository from github.com and checkout the release branch using the following commands:
 
         git clone https://github.com/project-sunbird/sunbird-devops.git
         cd sunbird-devops
@@ -22,7 +24,9 @@ To install Sunbird choose one docker swarm manager as the installation server an
 
 ## Configuring the Installer
 
-You can update the configuration parameters in the **sunbird-devops/deploy/config** file. The config file is a YAML file.
+You can update the configuration parameters in the `sunbird-devops/deploy/config` file. The config file is a YAML file. 
+
+> **Note**: If you are running a two-server installation, you only need to fill in the BASIC section of the config file and can leave the advanced section as is.
 
 The configuration parameters are explained in the following table: 
 

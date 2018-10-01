@@ -8,19 +8,10 @@ allowSearch: true
 ---
 ## Scenario
 
-As a part of employee development and training program, the XYZ Corporation, needs to create and administer a content or a course. On successful completion of the course, the course administrator would like to certify these trainees so that it is easy to know who are the employees who have completed this course. 
+XYZ Corporation is a global conglomerate which works in the domain of education and collaborates with different institutions, NGOs and academicians, in multiple regions of the world. The organization has adopted Sunbird and aims at creating content for all its stakeholders in order to cater to the evolving training needs and amplify learning opportunities. The organization allows all its stakeholders to access to the existing content assets and at the same time allows each of the stakeholder to create their own content. 
 
-Content in sunbird can be of different types:
+On successful completion of the course, the course administrator would like to certify these trainees so that it is easy to know who are the employees who have completed this course. 
 
-1. Courses 
-2. Collections
-
-
-Sunbird provides the ability to create and award badges. The admin can create specific badges for each course and then award it to the employees who completes the course. The admin can also create an entity called a Badge Issuer who awards the badges. Once the badge is awarded to an employee, the badge is displayed on that employee's profile page.
-This document explains the procedure of creating and awarding badges.
-
-Acme Corporation is a global conglomerate which works in the domain of education and collaborates with different institutions, NGOs and academicians, in multiple regions of the world. Acme Corp has adopted Sunbird and aims at creating content for all its stakeholders in order to cater to the evolving training needs and amplify learning opportunities. The organization allows all its stakeholders to access to the existing content assets and at the same time allows each of the stakeholder to create their own content. While this example shows how you can create a content using APIs.
- 
 ## Prerequisites
 
 1. The [API Key for access](http://www.sunbird.org/apis/) and basic authentication
@@ -31,15 +22,20 @@ Acme Corporation is a global conglomerate which works in the domain of education
 
 ## Taskflow
 
-The sequence of tasks the organization needs to follow to complete the process of content creation:
+Content in sunbird can be of different types:
+
+1. Courses 
+2. Collections
+
+The sequence of tasks the organization needs to follow to complete the process of course creation:
 
 1. Creating Resources using [Create Content API](http://docs.sunbird.org/latest/apis/content/#operation/Create%20Content)
-2. Uploading content using [Upload Content API](http://docs.sunbird.org/latest/apis/content/#operation/Upload%20Content)
-3. Creating collections using [Create Course API](http://docs.sunbird.org/latest/apis/courseprogressapi/#tag/Course-Progress-API) 
+
+1. Path for creating the Framework: <pre>{{host}}/content/v1/create</pre>
 
 #### Request Body for creating a resource type content (Sample data)
 
-	URL : POST /content/v3/create
+	URL : 
 
 #### Request Body 
 	{
@@ -64,6 +60,10 @@ The sequence of tasks the organization needs to follow to complete the process o
 		"versionKey": "1534165214869"
 		}
 	}
+
+1. Uploading content using [Upload Content API](http://docs.sunbird.org/latest/apis/content/#operation/Upload%20Content)
+
+1. Creating collections using [Create Course API](http://docs.sunbird.org/latest/apis/courseprogressapi/#tag/Course-Progress-API) 
 
 Uploading a resource type content
 
