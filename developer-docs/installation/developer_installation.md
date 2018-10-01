@@ -135,7 +135,6 @@ Any user can be assigned one or more user role. The role rules that apply depend
 
 The following is the list of the demo user IDs per user role:
 
- +--------------+--------+
 |User Role	|User ID |
 |---------------|--------|
 |Org Admin |	adopterorgadmin@adopter|
