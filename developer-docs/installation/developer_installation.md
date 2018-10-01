@@ -35,25 +35,28 @@ The intended audience of this document is a person who is familiar with installi
    * The Sunbird developer instance is powered by cloud hosted Sunbird APIs, which require an API key. To get an API key, please submit an [API Key Request](https://goo.gl/forms/2tRDfLlbJ2IgjWgA2). In the form, please add a few words about your team and what brings you you to Sunbird. Please excuse us, it may occasionally take a couple of business days (India time) to send you the API key.
 
 
-## System Requirements
+## System requirements
 
 To install Sunbird, ensure that your laptop or desktop has the following minimum system requirements:
 
-- Operating System: Windows 7 and above, or 4.2 Mac OS X 10.0 and above or Linux
+- Operating System: Ubuntu Linux 16.04 or later, Mac OS X 10.0 and above, or Windows 7 and above
 - RAM: > 1.5GB
 - CPU: 2 cores (> 2 GHz/core)
 
 
-## Sunbird Components
+## Components installed
 
 Installing Sunbird requires two primary software components:
-- Sunbird portal or web application
-- Sunbird services stack or the back-end API interface
+- Portal or web application
+- Services stack or the backend API interface
+
+In this version, we'll install the portal web application and use the cloud-hosted services stack
+
 
 ## Test the dependency versions
 
 
-## Set Up the Sunbird Application
+## Set up the Application
 
 These instructions will install the v1.9 version of the Sunbird application. Code examples, shown here are Linux based (should not differ when executed on Windows(r)). If there is any impediment using Windows(r) commandline shell or PowerShell, then you might want to try using Cygwin to perform the Sunbird developer install.
 
@@ -92,7 +95,7 @@ These instructions will install the v1.9 version of the Sunbird application. Cod
         +---------------------------+---------+-----------+
 
 
-## Configure the Service Stack
+## Configuring the services stack
 
 Edit the file `sunbird-portal/src/helpers/environmentVariablesHelper.js` and ensure that the following tokens are set to the values as indicated. Enclose all string values within double quotation marks.
 
