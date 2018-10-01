@@ -37,7 +37,7 @@ While creating a new framework, the framework creator needs to set up a new fram
     
 A user can select one or more category amongst the defined category. 
  
-For example, for the organization ABC organiztion the framework name is ABC and code as ndf1; the category selected is **Subject** and the label is modified as **Resources** which defines the various water resources and contains the terms as Ground Water, Spring, Surface Water and so on. 
+For example, for the organization ABC organization the framework name is ABC and code as abc1; the category selected is **Subject** and the label is modified as **Resources** which defines the various water resources and contains the terms as Ground Water, Spring, Surface Water and so on. 
 
 ### Prerequisites
 
@@ -76,7 +76,7 @@ To retrieve the channels for the request parameter, use [List Channel API](http:
             "name": "ABC",
             "code": "abc",
             "description": "Framework for ABC Management",
-            "translations": {"hi":"एनडीएफ-अनुवाद","ta":"NDF மொழிபெயர்ப்பு"},
+            "translations": {"hi":"ABC-अनुवाद","ta":"ABC மொழிபெயர்ப்பு"},
             "type": "TPD",
             }
         }
@@ -115,7 +115,7 @@ Type: defines the type of content
 
 The sample values provided in the request body are indicative. The API describes the procedure to change the label(resources) of an existing category(subject):
 
-2. Path for creating category: `{{host}}/framework/v1/category/create?framework=ndf1`
+2. Path for creating category: `{{host}}/framework/v1/category/create?framework=abc1`
 
 ##### Request Body to Rename Categories
 
@@ -145,7 +145,7 @@ The sample values provided in the request body are indicative. The API describes
 1. Use the [Add Term API](http://www.sunbird.org/apis/framework/#operation/FrameworkV1TermCreatePost), to create a new term in the category.
 The categories can be retrieved and listed using [Fetch API](http://www.sunbird.org/apis/framework/#operation/FrameworkV1CategoryReadClassGet). The sample values provided in the request body are indicative.
 
-2. Path for creating category: `{{host}}/framework/v1/term/create?framework=ndf1&category=subject`
+2. Path for creating category: `{{host}}/framework/v1/term/create?framework=abc1&category=subject`
 
 ##### Request Body to Add Terms 
 
