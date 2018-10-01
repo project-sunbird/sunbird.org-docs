@@ -147,4 +147,4 @@ The following is the list of the demo user IDs per user role:
 
 >Note: To get the password for each demo user ID, send an email to info@sunbird.org
 
-For information on user roles, refer to Types of Users{:target="_blank"}
+For information on user roles, refer to **Types of Users**
