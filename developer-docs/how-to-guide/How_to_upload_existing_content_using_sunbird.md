@@ -230,7 +230,6 @@ After uploading the content, publish the content using **[Publish Content API**]
            "Audio (if any) is clear and easy to understand",
            "No Spelling mistakes in the text",
            "Language is simple to understand"
-
        ]
 
       }
@@ -279,7 +278,17 @@ After uploading the content, publish the content using **[Publish Content API**]
     }
 
 
+
+
 >Note: Reviewer has the right to publish content. Use the ID of any approved reviewer as the publisher user ID.
+
+<b>Response Code </b>:<br>
+
+<b>200 SUCCESS</b>: The upload content operation is successful!
+
+<b>400 'BAD REQUEST</b>: The upload content operation failed. It indicates you may have missed input for some mandatory parameter.
+
+<b>500 'INTERNAL SERVER ERROR</b>: We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem stil persists, contact us at info@sunbird.org.
 
 
 
