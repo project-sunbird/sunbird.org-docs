@@ -137,13 +137,14 @@ The following is the list of the demo user IDs per user role:
 
 |User Role	|User ID |
 |---------------|--------|
-|Org Admin |	adopterorgadmin@adopter|
-|Content Creator|	adoptercreator@adopter|
-|Content Reviewer|	adopterreviewer@adopter|
+|Org Admin | adopterorgadmin@adopter|
+|Content Creator| adoptercreator@adopter|
+|Content Reviewer| adopterreviewer@adopter|
 |Book Creator|	adopterbookcreator@adopter|
 |Book Reviewer|	adopterbookreviewer@adopter|
 |Flag Reviewer|	adopterflagreviewer@adopter|
-|Course Mentor	adoptercoursementor@adopter|
+|Course Mentor|	adoptercoursementor@adopter|
+
 >Note: To get the password for each demo user ID, send an email to info@sunbird.org
 
 For information on user roles, refer to Types of Users{:target="_blank"}
