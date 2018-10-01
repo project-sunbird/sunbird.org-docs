@@ -113,6 +113,7 @@ Edit the file sunbird-portal/src/helpers/environmentVariablesHelper.js and ensur
 ## Run the Application
 
 1. Download the content editors
+
         gulp download:editors
 
 1. Update the Sunbird application with the modified config file values.
