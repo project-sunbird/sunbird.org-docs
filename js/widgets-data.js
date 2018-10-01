@@ -6,7 +6,7 @@ var widgetsData = {
          "desc":"",
          "releaseDate":"12th Sept",
          "latest":false,
-         "published":false
+         "published":true
       },
       {  
          "title":"1.9",
