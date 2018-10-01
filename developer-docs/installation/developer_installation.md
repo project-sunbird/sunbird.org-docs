@@ -11,7 +11,7 @@ allowSearch: true
 
 ## Overview
 
-This page provides information for you to install & run a Sunbird instance on your laptop or desktop. The intent is to give you a look and feel of some of the features of Sunbird, be able to tweak around with the front-end code. This developer installation of Sunbird application and the cloud APIs used therein, are not for intended for production purposes.
+This page provides information for you to install and run a Sunbird instance on your laptop or desktop. The intent is to give you a look and feel of some of the features of Sunbird, be able to tweak around with the front-end code. This developer installation of Sunbird application and the cloud APIs used therein, are not for intended for production purposes.
 
 >The Sunbird developer installation can be best viewed via the Google Chrome browser. Although, other browsers may be used, but some pages might not render correctly.
 
@@ -27,17 +27,16 @@ The intended audience of this document is a person who is familiar with installi
 
 ## Prerequisites
 
-1. **Software dependencies**: please install the following software dependencies
-   * [node](https://nodejs.org/en/download/) - install the latest release of 8.11.2 LTS series
-   * [nodemon](https://www.npmjs.com/package/nodemon) - 
-   * [git](https://git-scm.com/downloads) - 
-   * gulp - This needs to be installed via npm which gets installed when nodejs is installed
+1. **Software**: Install the following software: 
+   * [node](https://nodejs.org/en/download/) - install the latest release version 8.11.2 LTS series
+   * [nodemon](https://www.npmjs.com/package/nodemon)  
+   * [git](https://git-scm.com/downloads)  
+   * gulp - Install gulp via npm, which gets installed when nodejs is installed
 
 1. **API Keys**
-   * The Sunbird developer instance is powered by cloud hosted Sunbird APIs, which require an API key. To get an API key, please submit an [API Key Request](https://goo.gl/forms/2tRDfLlbJ2IgjWgA2). In the form, please add a few words about your team and what brings you you to Sunbird. Please excuse us, it may occasionally take a couple of business days (India time) to send you the API key.
+   * The Sunbird developer instance is powered by cloud hosted Sunbird APIs, which require an API key. To get an API key, please submit an [API Key Request](https://goo.gl/forms/2tRDfLlbJ2IgjWgA2). In the form, give some information about your team and what brings you to Sunbird. It may occasionally take up to a couple of business days (India time) to send you the API key. We regret the inconvenience caused due to such delays. 
 
-
-## System requirements
+## System Requirements
 
 To install Sunbird, ensure that your laptop or desktop has the following minimum system requirements:
 
@@ -46,21 +45,21 @@ To install Sunbird, ensure that your laptop or desktop has the following minimum
 - CPU: 2 cores (> 2 GHz/core)
 
 
-## Components installed
+## Components Installed
 
-Installing Sunbird requires two primary software components:
+Sunbird installation has two primary software components:
 - Portal or web application
 - Services stack or the backend API interface
 
-In this version, we'll install the portal web application and use the cloud-hosted services stack
+This version installs the portal web application and uses the cloud-hosted services stack
 
 
-## Test the dependency versions
+## Test the Dependency Versions
 
 
 ## Set up the Application
 
-These instructions will install the v1.9 version of the Sunbird application. Code examples, shown here are Linux based (should not differ when executed on Windows(r)). If there is any impediment using Windows(r) commandline shell or PowerShell, then you might want to try using Cygwin to perform the Sunbird developer install.
+These instructions install Sunbird version 1.9. Code examples, provided are Linux based. However, they should not differ when executed on Windows(r). If you face any problems using the Windows(r) commandline shell or PowerShell then try using Cygwin to install Sunbird on your desktop or laptop.
 
 1. Launch a commandline terminal.
 
@@ -97,7 +96,7 @@ These instructions will install the v1.9 version of the Sunbird application. Cod
         +---------------------------+---------+-----------+
 
 
-## Configuring the services stack
+## Configuring the Services Stack
 
 Edit the file `sunbird-portal/src/helpers/environmentVariablesHelper.js` and ensure that the following tokens are set to the values as indicated. Enclose all string values within double quotation marks.
 
