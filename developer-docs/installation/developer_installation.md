@@ -23,7 +23,7 @@ The intended audience of this document is a person who is familiar with installi
 
 1. **Software**: Install the following software: 
    * [node](https://nodejs.org/en/download/) - install the latest release version 8.11.2 LTS series
-   * [nodemon](https://www.npmjs.com/package/nodemon) - Lastest version  
+   * [nodemon](https://www.npmjs.com/package/nodemon) - Latest version  
    * [git](https://git-scm.com/downloads) - Latest version  
    * gulp - Install gulp via npm, which gets installed when nodejs is installed
 
