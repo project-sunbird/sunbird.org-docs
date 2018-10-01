@@ -25,7 +25,7 @@ var widgetsData = {
          "published":true
       },
       {  
-         "title":"1.10",
+         "title":"1.11",
          "branch":"master",
          "desc":"",
          "releaseDate":"30th July",
