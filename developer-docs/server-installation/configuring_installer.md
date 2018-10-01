@@ -2,75 +2,87 @@
 title: Configuring the Installer
 page_title: Configuring the Installer
 description: Prerequisites for setting up Sunbird on a server
+keywords: configuration, configure, installer, 
 allowSearch: true
+published: true
 ---
 
 ## Installation Procedure
 
-To install Sunbird choose one docker swarm manager as the installation server and execute the instructions explained in this section. In a two server setup, execute the following steps from the server designated to run the application server
+To install Sunbird, **choose one docker swarm manager as the installation server**, SSH to that server and execute the instructions explained in this section.
+
+> In a two server setup, execute the following steps from the server designated to run the application server
 
 ## Getting the Installer
 
-* Clone the installer repository from github.com
-    git clone https://github.com/project-sunbird/sunbird-devops.git
-    cd sunbird-devops
-    git checkout tags/release-1.9
-    cd deploy
+* Clone the installer repository from github.com and checkout the release branch using the following commands:
+
+        git clone https://github.com/project-sunbird/sunbird-devops.git
+        cd sunbird-devops
+        git checkout tags/release-1.9
+        cd deploy
 
 ## Configuring the Installer
 
-* Update the configuration parameters in the **sunbird-devops/deploy/config** file. The config file is a YAML file.
+You can update the configuration parameters in the `sunbird-devops/deploy/config` file. The config file is a YAML file. 
+
+> **Note**: If you are running a two-server installation, you only need to fill in the BASIC section of the config file and can leave the advanced section as is.
 
 The configuration parameters are explained in the following table: 
 
-   | Variable Name | Description   | Mandatory|
-   |-------------- |---------------|----------|
-   |**ansible_private_key_path** | The path of the private SSH key file for the ssh_ansible_user. Ansible uses this file to SSH into all servers in this Sunbird setup        |YES|
-   |**app_address_space**         | The application server address space. For example, 10.3.0.0/24   | YES |
-   |**backup_storage_key**| The storage key of the Elasticsearch backup |YES|
-   |**badger_admin_email**| The email ID of the Badgr administrator |YES| 
-   |**badger_admin_password**| The password for the Badgr administrator |YES| 
-   |**cassandra_host**|The IP address of the Cassandra database.| NO |
-   |**cert_path**| Path to the .cert file in the SSL certificate for nginx. This variable is not mandatory, if the value is set to http| NO |
-   |**database_host**|The private IP address of the database server | NO |
-   |**database_password**       |  The common password for all the databases | NO |
-   |**dns_name**    | The domain name or IP address of your installation. Provide the IP address, if want to access Sunbird over a network or if you do not have a domain name.     |YES|
-   |**ekstep_api_base_url**| The base URL for all EkStep APIs. The URL for non production environment is: https://qa.ekstep.in/api and production is: https://api.ekstep.in |YES|
-   |**ekstep_api_key**|The JWT token generated using Authtoken and secret |YES|
-   |**ekstep_proxy_base_url**|The proxy URL for EkStep. The URL for non production environment is: https://qa.ekstep.in  and production: https://community.ekstep.in |YES|
-   |**elasticsearch_host**       |A comma-separated (,) list of Elasticsearch database IP addresses. |No|
-   |**env**    | The name of identifying the environment into which Sunbird is deployed. For example; development, test, staging, production, etc. |YES|
-   |**grafana_admin_password**| Password for Grafana dashboard |NO|   
-   |**implementation_name** | Name of your Sunbird implementation|YES|   
-   |**keycloak_admin_password** |The Keycloak admin console password. The default admin username is **admin**  |YES|
-   |**keycloak_host** | A comma-separated (,) list of Keycloak IP addresses    |NO|
-   |**key_path** | Path to .key file  in the SSL certificate for nginx. This variable is not mandatory, if the value of **proto** is set to http |NO|
-   |**mail_server_host**| The mail server host used to send alerts |NO|   
-   |**mail_server_port**| The port at which the mail server listens to |NO |  
-   |**mail_server_password**| Password of the account permitted to send Sunbird email alerts |NO| 
-   |**mail_server_username**| Username of the account permitted to send Sunbird email alerts |NO| 
-   |**monitor_alerts_slack_channel**| List of SLACK channels which would like to receive Sunbird alert emails |NO| 
-   |**monitor_alerts_slack_url**| SLACK application webhook URL  |NO| 
-   |**postgres_master_host**| The IP address of the Postgres master database   |NO|
-   |**postgres_slave_host**| The IP address of the Postgres slave database. If you do not need a slave node, specify the IP address of the master |NO| 
-   |**proto**| The web protocol to be used. This is either http or https. Use http if the value of the **dns_name** variable is an IP address or if you have a domain but do not want SSL for trials | YES|
-   |**proxy_prometheus**| Setting up Prometheus Proxy |NO| 
-   |**ssh_ansible_user**  | The SSH user name that has sudo access to all servers.      |YESYES|
-   |<a href="developer-docs/configuring_sunbird/sso_publickey" target="_blank">**sso_password</a> |The password for the keycloak SSO user. The default user is **user-manager**. You can change it from the Keycloak GUI|yes|
-   |**swarm_manager_host** |A comma-separated (,) list of the IP addresses of swarm managers |no|
-   |**swarm_node_host** | A comma-separated (,) list of swarm node IP addresses |no| 
-   |**sunbird_azure_storage_account**  | The Azure storage account for the badger service     |YES|
-   |**sunbird_azure_storage_key**  | The Azure storage key for the badger service    |YES|
-   |**sunbird_default_channel**| channel name with which you are creating the organization |YES| 
-   |**sunbird_image_storage_url**| The Azure image url for the badger service |YES|
-   |**sunbird_installation_email**| The Sunbird installation email ID |no|
-   |**sunbird_telemetry_pdata_id**| The Sunbird telemetry pdata ID, for example <br> {env}.{implimentation_name}.learning.service |no| 
-   | **sudo_passwd**       |In case passwordless SSH has not been enabled, this will be the plaintext password of the user account which will log into all other servers in the Sunbird setup|NO|  
-   |**sunbird_sso_publickey**| For creation of User, http://< dns_name >/auth -> realm settings -> keys -> public keys (click on public keys) and paste the value |YES|  
-   |**trampoline_secret**|The Trampoline secret for Keycloak. The secret must be a minimum of 8 characters   |no|
-   |**vault_postgres_exporter_password**| postgres vault exporter password |no|  
-   |**vault_proxy_prometheus_admin_creds**| prometheus admin password |no|    
-
-
-
-
+| Variable Name | Description   | Mandatory|
+|:--------|:-------------------------|----------|
+|ansible_private_key_path|	The path of the private SSH key file for the ssh_ansible_user. Ansible uses this file to SSH to the servers|	 Yes|
+|app_address_space	|The application server address space. For example, 10.3.0.0/24)|	 Yes|
+|backup_storage_key	|The storage key for the Elasticsearch backup|	 Yes|
+|badger_admin_email	|The email ID of the Badgr administrator|	 Yes|
+|badger_admin_password|	The password for the Badgr administrator|	 Yes|
+|cassandra_host|	The IP address of the Cassandra database |	No|
+|cert_path	|Path to the .cert file in the SSL certificate for nginx. This variable is not mandatory, if the value of the protovariable is set to HTTP |	No|
+|database_host |	The private IP address of the DB server	| No|
+|database_password|	The common password for all the databases |	No |
+|dns_name|	The domain name or IP address of your installation. Provide the IP address, if want to access Sunbird over a network or if you do not have a domain name.	| Yes|
+|ekstep_api_base_url|	The base URL for all EkStep APIs. The URL for staging is: https://qa.ekstep.in/api and production is: https://api.ekstep.in	| Yes|
+|ekstep_api_key|	The JWT token generated by the key,secret produced from Ekstep	| Yes|
+|ekstep_proxy_base_url|	The proxy URL for EkStep. The URL for staging is: https://qa.ekstep.in and production: https://community.ekstep.in	| Yes|
+|elasticsearch_host|	A comma-separated (,) list of Elasticsearch database IP addresses.	| No|
+|env|	The environment name being deployed. For example; development, test, staging, production, and so on	| Yes|
+|grafana_admin_password|	The password for grafana dashboard	|No|
+|implementation_name|	Name of your sunbird implementation	 |Yes|
+|key_path|	Path to .key file in the SSL certificate for nginx. This variable is not mandatory, if the value of the proto variable is set to HTTP|	No|
+|keycloak_admin_password|	The Keycloak admin console password. The default admin username is admin. You can change it from the Keycloak GUI	| Yes|
+|keycloak_host|	A comma-separated (,) list of Keycloak IP addresses|	No|
+|mail_server_host|	The ID of the mail server host used to send alerts|	No|
+|mail_server_password|	The password of mail|	No|
+|mail_server_port|	The port used by mail server for alerting	| No|
+|mail_server_username|	 Username of the account permitted to send Sunbird email alerts	|No|
+|monitor_alerts_slack_channel|	List of SLACK channels which would like to receive Sunbird alert emails| No|
+|monitor_alerts_slack_url|	SLACK application webhook URL |	No|
+|postgres_master_host|	The IP address of the Postgres master database	|No|
+|postgres_slave_host|	The IP address of the Postgres slave database. If you do not need a slave node, specify the IP address of the master	|No|
+|proto|	The protocol to be used, either HTTP or HTTPS. Use HTTP if the value of the dns_name variable is an IP address or if you have a domain but do not want SSL for trials	| Yes|
+|proxy_prometheus|	Setting up Prometheus Proxy|	No|
+|ssh_ansible_user|	The SSH user name that has sudo access to all servers	|Yes|
+|sso_password|	The password for the keycloak SSO user. The default user is user-manager. You can change it from the Keycloak GUI	|Yes|
+|sudo_passwd |	If the ansible user has one value, the value should be specified here. The sudo password should be the same for all servers. Else, the parameter can be blank. In case passwordless SSH has not been enabled, this will be the plaintext password of the user account which will log into all other servers in the Sunbird setup	| No|
+|sunbird_azure_storage_account|	The Azure storage account for the badger service|	Yes|
+|sunbird_azure_storage_key	|The Azure storage key for the badger service	|Yes|
+|sunbird_default_channel|	Channel name with which you are creating the organization	|Yes
+|sunbird_image_storage_url|	The Azure image url for the badger service	|Yes
+|sunbird_init_admin_user_email|	The email of first sunbird admin user	|Yes
+|sunbird_init_admin_user_firstname|	The first name of first sunbird admin user|	Yes
+|sunbird_init_admin_user_lastname|	The last name of first sunbird admin user	|No
+|sunbird_init_admin_user_password|	The password of first sunbird admin user	|Yes
+|sunbird_init_admin_user_phone|	Contact number (without country code) of first sunbird admin user e.g. 9090909090	|Yes
+|sunbird_init_admin_user_username|	User name of first sunbird admin user|	Yes
+|sunbird_init_custodian_tenant_channel|	The channel value of first tenant organisation	|Yes
+|sunbird_init_custodian_tenant_description|	Description of first tenant organisation	|Yes
+|sunbird_init_custodian_tenant_name|	The name of first tenant organisation	|Yes
+|sunbird_installation_email|	The Sunbird installation email ID	|No
+|sunbird_sso_publickey|	For creation of User, http://< dns_name >/auth -> realm settings -> keys -> public keys (click on public keys) and paste the value	|Yes|
+|sunbird_telemetry_pdata_id|	The Sunbird telemetry pdata ID, for example {env}.{implimentation_name}.learning.service	|No|
+|swarm_manager_host|	A comma-separated (,) list of the IP addresses of swarm managers	|No|
+|swarm_node_host|	A comma-separated (,) list of swarm node IP addresses |	No|
+|trampoline_secret|	The trampoline secret for Keycloak. The secret must be a minimum of 8 characters	|No|
+|vault_postgres_exporter_password|	The postgres vault exporter password	|No|
+|vault_proxy_prometheus_admin_creds|	The prometheus admin password	|No|

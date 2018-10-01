@@ -2,7 +2,7 @@
 title: Developer Documentation 
 page_title: Developer Documentation
 description: Developer Documentation Overview
-keywords: 'Installation, pre requisite, extending sunbird'
+keywords: Installation, pre requisite, extending sunbird
 published: true
 allowSearch: true
 ---
@@ -20,4 +20,3 @@ The Developer documentation provides you with a complete set of guidelines which
    - Customize Sunbird
    - Extend Sunbird
    - Contribute to Sunbird
-

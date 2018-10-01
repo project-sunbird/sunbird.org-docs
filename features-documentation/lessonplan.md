@@ -17,10 +17,9 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-    <td>1. You are logged in 
-     <br>2. You are currently on <b>My Workspace</b>
-     <br>3. You have selected <b>Create</b> 
-     <br>4. You have clicked the <b>Lesson Plan</b> tile
+    <td>1. Log in to Sunbird portal
+     <br>2. Navigate to <b>My Workspace</b>
+     <br>4. Click the <b>Lesson Plan</b> tile
     </td>
     <td><img src="features-documentation/images/lessonplan/prerequisite.png"></td>
    </tr>
@@ -131,7 +130,7 @@ You can see <b>Table of Content</b> tree in the left pane to navigate content co
 
 ## Sending Lesson Plan for Review
 
-Before the Lesson Plan is publihed, it must be reviewed. You can send it for reviewing and publishing.
+Before the Lesson Plan is published, it must be reviewed. You can send it for reviewing and publishing.
 
 <table>
   <tr>
@@ -154,7 +153,7 @@ Before the Lesson Plan is publihed, it must be reviewed. You can send it for rev
   </tr>
   <tr>
     <td>The What’s New feature informs you of the product features added or enhanced since the last product release 
-      <br>1. Click on the <b>What's New</b> icon to view concise information about new product functionality 
+      <br>1. Click the <b>What's New</b> icon to view concise information about new product functionality 
       <br><b>Note</b>: The What's New icon is red before you view it for the first time. The icon turns grey after you view the information, until the next product version
     </td>
     <td><img src="features-documentation/images/book/book_whats_new1.png"></td>
