@@ -9,6 +9,7 @@ allowSearch: true
 ---
 <div class="VersionNotification">
  Attention: The Developer installation instructions have known issues. To continue installing Sunbird, use the [Server Installation](http://developer-docs/installation/server_installation) documentation.
+</div class="VersionNotification">
 
 ## Overview
 This page provides information for you to install, setup, configure, run and use a Sunbird instance on your laptop or desktop. The objective of such an installation is to demo and test the Sunbird application. It is not advised to use the instance for a production environment. Follow the instructions provided on this page to ensure an optimal installation experience. Before installing Sunbird on your laptop or desktop, ensure that the you have the necessary resources and compliant target systems.
