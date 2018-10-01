@@ -25,7 +25,7 @@ The intended audience of this document is a person who is familiar with installi
    * [node](https://nodejs.org/en/download/) - install the latest release version 8.11.2 LTS series
    * [nodemon](https://www.npmjs.com/package/nodemon) - Latest version  
    * [git](https://git-scm.com/downloads) - Latest version  
-   * gulp - Install gulp via npm, which gets installed when nodejs is installed
+   * [gulp](https://gulpjs.com/) - Install gulp via npm, which gets installed when nodejs is installed
 
 1. **API Keys**
    * The Sunbird developer instance is powered by cloud hosted Sunbird APIs, which require an API key. To get an API key, please submit an [API Key Request](https://goo.gl/forms/2tRDfLlbJ2IgjWgA2). In the form, give some information about your team and what brings you to Sunbird. It may occasionally take up to a couple of business days (India time) to send you the API key. We regret the inconvenience caused due to such delays. 
@@ -154,4 +154,4 @@ After successfully installing Sunbird, use any of the following user IDs, the pa
 | adopterflagreviewer@adopter | Flag reviewer |  
 | adoptercoursementor@adopter | Course mentor |  
 
-* For information on user roles, refer to [Types of Users](pages/features-documentation/userrole)
+* For information on user roles, refer to [Types of Users](features-documentation/userrole)
