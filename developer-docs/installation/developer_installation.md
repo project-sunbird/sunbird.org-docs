@@ -13,7 +13,7 @@ allowSearch: true
 This page provides information for you to install and run a Sunbird instance on your laptop or desktop. The intent is to give you a look and feel of some of the features of Sunbird, be able to tweak around with the front-end code. This developer installation of Sunbird application and the cloud APIs used therein, are not for intended for production purposes.
 
 >The Sunbird developer installation can be best viewed via the Google Chrome browser. Although, other browsers may be used, but some pages might not render correctly.
->Sunbird developer installation is intended for the web. It cannot be installed on the mobile and Single Sign On (SSO).  
+>Sunbird developer installation is intended for the web. It cannot be used on mobile devices and Single Sign On (SSO).  
 
 ## Intended Audience
 
