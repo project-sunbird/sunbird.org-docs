@@ -48,7 +48,7 @@ This version installs the portal web application and uses the cloud-hosted servi
 
 ## Set up the Application
 
-These instructions install Sunbird version 1.9. Code examples, provided are Linux based. However, they should not differ when executed on Windows<sup>(r)</sup>. If you face any problems using the Windows<sup>(r)</sup> commandline shell or PowerShell then try using Cygwin<sup>(r)</sup> to install Sunbird on your desktop or laptop.
+These instructions install Sunbird version 1.9. Code examples, provided are Linux based. However, they should not differ when executed on Windows<sup>(R)</sup>. If you face any problems using the Windows<sup>(R)</sup> commandline shell or PowerShell then try using Cygwin<sup>(R)</sup> to install Sunbird on your desktop or laptop.
 
 1. Launch a commandline terminal.
 
@@ -68,7 +68,7 @@ These instructions install Sunbird version 1.9. Code examples, provided are Linu
 
 1. Build the nodejs packages that are required by the Sunbird application
 
-        cd sunbird-portal/src/app
+        cd src/app
         gulp download:editors
         npm install
         cd client
@@ -110,9 +110,8 @@ Edit the file `sunbird-portal/src/helpers/environmentVariablesHelper.js` and ens
 
 ## Run the Application
 
-1. Update the Sunbird application with the modified config file values
+1. Update the Sunbird application with the modified config file values. Run the following command in the `sunbird-portal/src/app/client` folder
 
-        cd sunbird-portal/src/app/client
         nodemon
 
 Wait for the following message before proceeding to the next step 
@@ -134,7 +133,6 @@ Wait for the following message before proceeding to the next step
 
             cd sunbird-portal/src/app
             node server.js
-
 
 >The initialization of these environmental variables can take place in a common place - like in the .bashrc file on Linux.
 
