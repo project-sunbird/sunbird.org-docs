@@ -79,7 +79,7 @@ To retrieve the channels for the request parameter, use [List Channel API](http:
             "name": "ABC",
             "code": "abc",
             "description": "Framework for ABC Management",
-            "translations": {"hi":"एनडीएफ-अनुवाद","ta":"NDF மொழிபெயர்ப்பு"},
+            "translations": {"hi":"ABC-अनुवाद","ta":"ABC மொழிபெயர்ப்பு"},
             "type": "TPD",
             }
         }
