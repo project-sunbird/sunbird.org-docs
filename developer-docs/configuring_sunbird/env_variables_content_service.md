@@ -51,9 +51,3 @@ The following is a list of environment variables and their default values, as re
 |  37 | sunbird_data_service_api_key | Represents the proxy URL api key for the data service | | |
 |  38 | sunbird_language_service_api_base_url |  Represents the proxy URL to the language service | | https://qa.ekstep.in/api/language|
 |  39 | sunbird_language_service_api_key | Represents the proxy URL api key for the language service | | |
-
-
-
-
-
-
