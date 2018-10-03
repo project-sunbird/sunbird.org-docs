@@ -9,7 +9,7 @@ allowSearch: true
 
 ## Scenario
 
-Acme Corp, is a global conglomerate with over ten thousand employees, spread across 7 locations. Employee training and enablement is one of the core values of the organization. Before the organization opted to use the Sunbird platform, employees accessed another legacy system that to train and upskill themselves. 
+XYZ Corp, is a global conglomerate with over ten thousand employees, spread across 7 locations. Employee training and enablement is one of the core values of the organization. Before the organization opted to use the Sunbird platform, employees accessed another legacy system that to train and upskill themselves. 
 
 The legacy system has a large repository of content artifacts. These artifacts have to be uploaded into Sunbird so that employees can access them, even through Sunbird.
 
@@ -85,43 +85,16 @@ This API is associated with uploading content on the Sunbird Platform.
 
 #### Path Parameters ####
 
-<table>
-  <tr>
-    <td>Path Parameter</td>
-    <td>Parameter Type</td>
-    <td>Description</td>
-    <td>Sample Value</td>
-    <td>Is Mandatory</td>
-  </tr>
-  <tr>
-    <td>Content ID
-</td>
-    <td>String</td>
-    <td>Content ID of the Request URL</td>
-    <td>do_11258058227713638416</td>
-    <td>Yes</td>
-  </tr>
-</table>
+| Path Parameter | Parameter Type | Description                   | Sample Value            | Is Mandatory |
+|----------------|----------------|-------------------------------|-------------------------|--------------|
+| Content ID     | String         | Content ID of the Request URL | do_11258058227713638416 | Yes          |
 
 
 #### Form Data Parameters ####
 
-<table>
-  <tr>
-    <td>Form data Parameter</td>
-    <td>Parameter Type</td>
-    <td>Description</td>
-    <td>Sample Value</td>
-    <td>Is Mandatory</td>
-  </tr>
-  <tr>
-    <td>file</td>
-    <td>String</td>
-    <td> The name of the content file that you want to upload</td>
-    <td>sample.pdf</td>
-    <td>Yes</td>
-  </tr>
-</table>
+| Form Data Parameter | Parameter Type | Description                                          | Sample Value | Is Mandatory |
+|---------------------|----------------|------------------------------------------------------|--------------|--------------|
+| file                | String         | The name of the content file that you want to upload | sample.pdf   | Yes          |
 
 
 #### Response Body (Upload Content API)
