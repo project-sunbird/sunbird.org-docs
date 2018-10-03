@@ -76,44 +76,12 @@ This API is associated with uploading content on the Sunbird Platform.
 
 #### Header Parameter ####
 
-<table>
-  <tr>
-    <td>Header Parameter</td>
-    <td>Parameter Type</td>
-    <td>Description</td>
-    <td>Sample Value</td>
-    <td>Is Mandatory</td>
-  </tr>
-  <tr>
-    <td>Content-Type</td>
-    <td>String</td>
-    <td>The content type entity is the media type of the resource. Possible media types are multipart or form-data</td>
-    <td>multipart, form-data</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>X-Authenticated-Userid</td>
-    <td>String</td>
-    <td>Represents the registered User ID authorized to execute the API.</td>
-    <td>userName</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td> Authorization</td>
-    <td>String</td>
-    <td>To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received. </td>
-    <td>api_key</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>ts</td>
-    <td>String</td>
-    <td>Time Stamp at which upload request was sent.</td>
-    <td>2018-09-05T10:55:22Z</td>
-    <td>Yes</td>
-  </tr>
-</table>
-
+| Header Parameter       | Parameter Type | Description                                                                                                                                                                       | Sample Value         | Is Mandatory |
+|------------------------|----------------|-------------------------------------------|----------------------|---------------|
+| Content-Type           | String         | The content type entity is the media type of the resource. Possible media types are multipart or form-data                                                                        | multipart, form-data | Yes          |
+| X-Authenticated-Userid | String         | Represents the registered User ID authorized to execute the API.                                                                                                                  | userName             | Yes          |
+| Authorization          | String         | To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received. | api_key              | Yes          |
+| ts                     | String         | Time Stamp at which upload request was sent.                                                                                                                                      | 2018-09-05T10:55:22Z | Yes          |
 
 #### Path Parameters ####
 
