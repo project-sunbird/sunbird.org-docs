@@ -1,10 +1,16 @@
-How to Mark/badge a book as Official
+---
+title: Creation and Curation of Books
+page_title: Creation and Curation of Books
+description: Details on how to create a book and add content to books
+keywords: 'books, create books, generate content, compile books, add story to book, add worksheets'
+published: true
+allowSearch: true
+---
+## Scenario
 
-# Scenario
+XYZ Corp is a global conglomerate with over ten thousand employees, spread across 7 locations. The organization required to create content, book and segregate the content for a different purpose. They can do so using Sunbird portal, they can even mark/badge those books with a different tag such as official,  editor’s pick, recommended and so on as required. In that case, when the users of the organization log into Sunbird, they can view the badged book distinguishably. The badge name is visible beside those textbooks that are already badges by badge issuers. Here, we will describe the workflow of assigning a badge to a textbook.
 
-XYZ Corp is a global conglomerate with over ten thousand employees, spread across 7 locations. The organization required to create content, book and segregate the content for a different purpose. They can do so using Sunbird portal, they can even mark/badge those books with a different tag such as official,  editor’s pick, recommended and so on as required. In that case, when the users of the organization log into Sunbird, they can view the badged book distinguishably. The badge name is visible beside those textbooks that are already badges by badge issuers.Here, we will describe the workflow of assigning a badge to a textbook.
-
-# Overview
+## Overview
 
 Badges represent an award, a certificate, an endorsement or an authorization. As part of a learning platform, badging is an important concept that is highly useful for different users such as teachers, students, content and course creators, mentors, content authors and so on. It also plays a critical role in the curation of content and courses On Sunbird; there are two types of badges: 
 
@@ -14,7 +20,7 @@ Badges represent an award, a certificate, an endorsement or an authorization. As
 
 Here we are discussing Badging content or book. Once an organization create/compile, and upload books on Sunbird portal, They can even mark/badge those books with a different tag such as Official,  Editor’s pick, Recommended and so on. In that case, when the users of the organization log into Sunbird, they can view the badged book distinguishably. The badge name is visible beside those textbooks that are already badges by badge issuers.
 
-# Use case
+## Use case
 
 Badging content (book) provides the benefits such as content usage, content effectiveness, and content segregation.
 
@@ -22,166 +28,21 @@ Badging content (book) provides the benefits such as content usage, content effe
 
 2. Organizations can create content for specific use cases such as content for special needs, specific age groups and so on. Badging such content aids their discoverability.
 
-3.  Endorse books with badges such as popular, favorite, recommended to increase the effectiveness and usability
+3. Endorse books with badges such as popular, favorite, recommended to increase the effectiveness and usability
 
 This document describes prerequisite for badging a textbook and steps to badge a book.
 
-# Intended Audience
+## Intended Audience
 
 Badge issuer
 
-# Prerequisite
+## Prerequisite
 
- - Crete [ Badge class](http://www.sunbird.org/apis/badgingframeworkapi/#operation/BadgeCreatePost).
-
- - Assign the content badge issuer role
-
-##   Create Badge class
-
-This API is associated with creating a badge class.
-
-* **_/badge/create_** endpoint executes the Create Badge Class request based on parameters provided as metadata in the request body
-
-* It is mandatory to provide values for the required parameters
-
-* Mandatory fields cannot be null or empty
-
-**Create Badge class API**
-
-**FormData Parameters:**
-
-<table>
-  <tr>
-    <td>Parameter</td>
-    <td>Value type</td>
-    <td>Description</td>
-    <td>Mandatory/Optional</td>
-  </tr>
-  <tr>
-    <td>  issuerId
-
-</td>
-    <td>string</td>
-    <td>Please append a valid Issuer ID To the Request URL</td>
-    <td> Required
-</td>
-  </tr>
-  <tr>
-    <td> name
+ - [ Create](http://docs.sunbird.org/latest/apis/badgingframeworkapi/#operation/CreatePost) and assign the badge issuer role
+ - Crete [ Badge class](http://www.sunbird.org/apis/badgingframeworkapi/#operation/BadgeCreatePost)
 
 
-
-
-
-
-</td>
-    <td>string</td>
-    <td>The name of the badge/achievement</td>
-    <td>Required</td>
-  </tr>
-  <tr>
-    <td> description
-
-
-</td>
-    <td>string</td>
-    <td>A short description of the badge/achievement.</td>
-    <td>Required
-</td>
-  </tr>
-  <tr>
-    <td> criteria
-
-
-
-
-
-</td>
-    <td>string</td>
-    <td>It’s either a text string or a URL of a remotely hosted page describing the criteria for achievement</td>
-    <td>Required</td>
-  </tr>
-  <tr>
-    <td> rootOrgId
-
-
-
-</td>
-    <td>string </td>
-    <td>An ID which uniquely identifies the Root Organisation</td>
-    <td>Required</td>
-  </tr>
-  <tr>
-    <td> type
-
-
-</td>
-    <td>string </td>
-    <td>The Badge class type It can possibly be either of two (user | content)</td>
-    <td>Required</td>
-  </tr>
-  <tr>
-    <td> subtype
-
-
- </td>
-    <td>string</td>
-    <td>It represents the Badge Subtype (possible values: award, certificate, endorsement, authorization)</td>
-    <td>Optional</td>
-  </tr>
-  <tr>
-    <td>roles
-
-</td>
-    <td>string</td>
-    <td>Represents Single or multiple roles, possibly a JSON array of roles (e.g. "roleId1" or [ "roleId1", "roleId2" ], any valid role inside system)</td>
-    <td>Required</td>
-  </tr>
-  <tr>
-    <td> image
-
-</td>
-    <td>file </td>
-    <td>It is a graphic which represents the Badge</td>
-    <td>Required</td>
-  </tr>
-</table>
-
-
-**Header Parameters **
-
-<table>
-  <tr>
-    <td>Parameter
-
-</td>
-    <td>Value Type</td>
-    <td>Description</td>
-    <td>Mandatory/Optional</td>
-  </tr>
-  <tr>
-    <td>Authorization
-
-
-
-
-</td>
-    <td>string </td>
-    <td>You require authorization key  to use an API. Raise a request to the administrator for the authorization key. Menetion the received key here.</td>
-    <td>Required</td>
-  </tr>
-</table>
-
-
-**Response Code**
-
-**200 'SUCCESS**: The Create Badge Class operation is successful!'
-
-**400 BAD REQUEST**: Create Badge Class operation failed . The possible reason for failure is that you might have missed providing input for a mandatory API parameter.
-
-**500 INTERNAL SERVER ERROR**:  Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.
-
-## Create Issuer
+### Create Issuer
 
 This API is used to create a badge issuer entity
 
@@ -197,7 +58,7 @@ This API is used to create a badge issuer entity
 
 * It is a must to provide values for all mandatory parameters
 
-**API Parameters for Create Issuer **API
+<b>API Parameters for Create Issuer API</b>
 
 **FormData Parameters**
 
@@ -218,8 +79,6 @@ This API is used to create a badge issuer entity
   <tr>
     <td> description	
 
-
-
 </td>
     <td>string</td>
     <td>A short description of the badge issuing entity or organization</td>
@@ -234,7 +93,6 @@ This API is used to create a badge issuer entity
   </tr>
   <tr>
     <td> email	
-
 
 </td>
     <td>string</td>
@@ -264,20 +122,146 @@ This API is used to create a badge issuer entity
   <tr>
     <td>Authorization	</td>
     <td>String</td>
-    <td>You require authorization key  to use an API. Raise a request to the administrator for the authorization key. Menetion the received key here.
+    <td>You require authorization key to use an API. Raise a request to the administrator for the authorization key. Mention the received key here.
+Authorization value should come as follow in a header:
+"Bearer {{auth-key}}" 
 </td>
     <td>Mandatory</td>
   </tr>
 </table>
 
+### Create Badge class
 
-#  The task flow for assigning a badge to a textbook
+This API is associated with creating a badge class.
+
+* **_/badge/create_** endpoint executes the Create Badge Class request based on parameters provided as metadata in the request body
+
+* It is mandatory to provide values for the required parameters
+
+* Mandatory fields cannot be null or empty
+
+**Create Badge Class API**
+
+**Form Data Parameters:**
+
+<table>
+  <tr>
+    <td>Parameter</td>
+    <td>Value type</td>
+    <td>Description</td>
+    <td>Mandatory/Optional</td>
+  </tr>
+  <tr>
+    <td>  issuerId
+
+</td>
+    <td>string</td>
+    <td>Please append a valid Issuer ID To the Request URL</td>
+    <td> Required
+</td>
+  </tr>
+  <tr>
+    <td> name
+
+</td>
+    <td>string</td>
+    <td>The name of the badge/achievement</td>
+    <td>Required</td>
+  </tr>
+  <tr>
+    <td> description
+</td>
+    <td>string</td>
+    <td>A short description of the badge/achievement.</td>
+    <td>Required
+</td>
+  </tr>
+  <tr>
+    <td> criteria
+</td>
+    <td>string</td>
+    <td>It’s either a text string or a URL of a remotely hosted page describing the criteria for achievement</td>
+    <td>Required</td>
+  </tr>
+  <tr>
+    <td> rootOrgId
+</td>
+    <td>string </td>
+    <td>An ID which uniquely identifies the Root Organisation</td>
+    <td>Required</td>
+  </tr>
+  <tr>
+    <td> type
+
+</td>
+    <td>string </td>
+    <td>The Badge class type It can possibly be either of two (user | content)</td>
+    <td>Required</td>
+  </tr>
+  <tr>
+    <td> subtype
+
+ </td>
+    <td>string</td>
+    <td>It represents the Badge Subtype (possible values: award, certificate, endorsement, authorization)</td>
+    <td>Optional</td>
+  </tr>
+  <tr>
+    <td>roles
+
+</td>
+    <td>string</td>
+    <td>Represents Single or multiple roles, possibly a JSON array of roles (e.g. "roleId1" or [ "roleId1", "roleId2" ], any valid role inside system)</td>
+    <td>Required</td>
+  </tr>
+  <tr>
+    <td> image
+
+</td>
+    <td>file </td>
+    <td>It is a graphic which represents the Badge</td>
+    <td>Required</td>
+  </tr>
+</table>
+
+
+<b>Header Parameters</b>
+
+<table>
+  <tr>
+    <td>Parameter
+</td>
+    <td>Value Type</td>
+    <td>Description</td>
+    <td>Mandatory/Optional</td>
+  </tr>
+  <tr>
+    <td>Authorization
+</td>
+    <td>string </td>
+    <td>You require authorization key to use an API. Raise a request to the administrator for the authorization key. Mention the received key here.
+Authorization value should come as follow in a header:
+"Bearer {{auth-key}}" 
+</td>
+    <td>Required</td>
+  </tr>
+</table>
+
+**Response Code**
+
+**200 'SUCCESS**: The Create Badge Class operation is successful!'
+
+**400 BAD REQUEST**: Create Badge Class operation failed. The possible reason for failure is that you might have missed providing input for a mandatory API parameter.
+
+**500 INTERNAL SERVER ERROR**:  Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.
+
+## The task flow for Assigning a Badge to a Book
 
 You need to design and develop badging as a framework to make it extensible and support multiple use cases. Currently, you need to create badges on the platform only through the backend, by using API. Issuing of the Official badge to Textbooks can be performed through Sunbird user interface and API as well. After assigning a badge to a book, the badge is viewed on the portal beside the book.
 
 To complete this scenario, the admin creates badges and assign a badge issuer role. The badge issuer can assign the badge to book using APIs.
 
-**Assigning Badge to a Textbook ****Using API:**
+<b>Assigning Badge to a Textbook Using API</b>:
 
 This API is associated with badge assertion that means badging a textbook or user.
 
@@ -311,11 +295,10 @@ Header Parameters for Create Badge Assertion API
 </td>
     <td> String</td>
     <td>NA</td>
-    <td>You require authorization key  to use an API. Raise a request to the administrator for the authorization key. Menetion the received key here.</td>
+    <td>You require authorization key  to use an API. Raise a request to the administrator for the authorization key. Mention the received key here.</td>
     <td>Yes</td>
   </tr>
 </table>
-
 
 **Request Body Parameter for Create Badge Assertion API**
 
@@ -330,130 +313,127 @@ Header Parameters for Create Badge Assertion API
   <tr>
     <td>id</td>
     <td>String</td>
-    <td></td>
-    <td>Represents an unique API </td>
-    <td>Yes?</td>
+    <td>unique API ID</td>
+    <td>Represents a unique API </td>
+    <td>Yes</td>
   </tr>
   <tr>
     <td>ver</td>
     <td>String</td>
-    <td></td>
+    <td>1.9</td>
     <td>Represents the version of the API which is used for </td>
     <td>No</td>
   </tr>
   <tr>
     <td>ets</td>
     <td>Integer</td>
-    <td></td>
+    <td>2013/10/15 16:16:39
+</td>
     <td>Represents the EPOCH (UTC) timestamp in milliseconds since EPOCH</td>
     <td>No </td>
   </tr>
   <tr>
-    <td>params</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>No</td>
+    <td>RecipientType</td>
+    <td>String</td>
+    <td>Content</td>
+    <td>The type of receiving end</td>
+    <td>Yes</td>
+  </tr>
+   <tr>
+    <td>RecipientID</td>
+    <td>String</td>
+    <td>6fbd1dd5-418c-4cc8-899c-7e749992f10</td>
+    <td>Unique ID for the recipient. Valid userId or contentId</td>
+    <td>Yes</td>
+  </tr>
+   <tr>
+    <td>IssuerID</td>
+    <td>String</td>
+    <td>issuerlug</td>
+    <td>Unique ID for the badge issuer</td>
+    <td>Yes</td>
   </tr>
   <tr>
-    <td>request</td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>BadgeID</td>
+    <td>String</td>
+    <td>badgelug</td>
+    <td>Unique ID for a badge</td>
     <td>Yes</td>
   </tr>
 </table>
 
-
 **Request Body Sample**:
-
-{  "id": "string",  "ver": "string",  "ets": 0,  "params": {    "msgid": "string",    "did": "string"  },  "request": {    "recipientId": "6fbd1dd5-418c-4cc5-834b-7e7413192f10",    "recipientType": "content",    "evidence": "https://sunbirddev.blob.core.windows.net/user/uploads/badges/bfd203a3c494170dd7de199a97e05486.png",    "issuerId": "swarn",    "badgeId": "something"  }}
-
-The body refers to the format of the request. The body contains metadata about the creation of badge assertions. 
-
-Response Body Sample
-
+<pre><code>
 {
-
-  "id": "string",
-
-  "ver": "string",
-
-  "ets": 0,
-
+  "id": "unique API ID",
+  "ver": "1.9",
+  "ets": 2013/10/15 16:16:39,
   "params": {
-
-    "msgid": "string",
-
-    "resmsgid": "string",
-
-    "err": null,
-
-    "err_msg": null,
-
-    "err_detail": null,
-
-    "status": "success"
-
+    "msgid": "0995640c-901f-4097-87d3-150efea987518",
+    "did": "f8aa786ce134280b3868b5473d622a758e3d2b8a"
   },
+  "request": {
+    "recipientId": "6fgd1dh5-558c-4cg5-874b-7e7813192y10",
+    "recipientType": "content",
+    "evidence": "https://sunbirddev.blob.core.windows.net/user/uploads/badges/bfd103a3c494170dd7de199a97e5486.png",
 
-  "responseCode": "string",
-
-  "result": {
-
-    "assertionDate": "string",
-
-    "assertionImageUrl": "string",
-
-    "assertionIdUrl": "string",
-
-    "revoked": true,
-
-    "issuerId": "string",
-
-    "assertionId": "string",
-
-    "recipient": {
-
-      "type": "string",
-
-      "salt": "string",
-
-      "hashed": true,
-
-      "identity": "string"
-
-    },
-
-    "verify": {
-
-      "url": "string",
-
-      "type": "string"
-
-    },
-
-    "revocationReason": "string",
-
-    "recipientEmail": "string",
-
-    "createdDate": "string",
-
-    "issuerIdUrl": "string",
-
-    "badgeIdUrl": "string"
-
+    "issuerId": "issuerlug-55 ",
+    "badgeId": "badgeslug-102
   }
-
 }
+
+</code></pre>
+
+The body refers to the format of the request. The body contains metadata about the creation of badge assertions.
+
+<b>Response Body Sample</b>
+<pre><code>{
+    "id": "api.issuer.badge.assertion.create",
+    "ver": "v2",
+    "ts": "2017-10-03 09:48:55:798+0000",
+    "params": {
+        "resmsgid": null,
+        "msgid": "26495f1c-e86c-4046-a88d-53636f08ae17",
+        "err": null,
+        "status": "success",
+        "errmsg": null
+    },
+    "responseCode": "OK",
+    "result": {
+        "assertionDate": "2017-10-03T09:48:55.081559",
+        "assertionImageUrl": "https://sunbirdstaging.blob.windows.net/badgr/uploads/badges/c630b460be6188c596a87d58d938bf08.png",
+        "badgeId": "badgeslug-89",
+        "assertionIdUrl": "https://staging.open-sunbird.org/badging/public/assertions/f025836-aca2-4b34-ae94-740d495116f4",
+        "revoked": false,
+        "issuerId": "issuerslug-57",
+        "createdDate": "2018-10-03T09:48:54.217417Z",
+        "assertionId": "f0258836-aca2-4b24-ae94-740d495116f4",
+        "issuerIdUrl": "https://staging.open-sunbird.org/badging/public/issuers/issuerslug-58",
+        "recipient": {
+            "salt": "ea0bd0e3-b1e6-4aa7-a1baa-047d46eb8917",
+            "type": "email",
+            "hashed": true,
+            "identity": "sha256$76232f81f10f22480e537a3e6dd11e0f7ffa36ab7807903f574143d22fe8e61b"
+        },
+        "verify": {
+            "url": "https://staging.open-sunbird.org/badging/public/assertions/f0258836-aca2-4c24-ae94-730d495116ff4",
+            "type": "hosted"
+        },
+        "revocationReason": null,
+        "recipientEmail": "support-staging@open-sunbird.org",
+        "badgeIdUrl": "https://staging.open-sunbird.org/badging/public/badges/badgeslug-88"
+    }
+}
+
+</code></pre>
 
 For more information, refer to the [badge assertion](http://www.sunbird.org/apis/badgingframeworkapi/#operation/BadgeAssertionSearchPost) API doc.
 
-# Concepts Covered
+## Concepts Covered
 
 Badges
 
 Badges for content
 
-Textbook badge user
+Badge issuer
 
