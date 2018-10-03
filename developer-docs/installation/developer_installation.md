@@ -29,7 +29,9 @@ The intended audience of this document is a person who is familiar with installi
    * [gulp](https://gulpjs.com/) - Install **gulp** via npm, which gets installed when **nodejs** is installed
 
 1. **API Keys**
-The Sunbird developer instance is powered by cloud hosted Sunbird APIs, which require an API key. To get an API key, submit an [API Key Request](https://goo.gl/forms/2tRDfLlbJ2IgjWgA2). In the form, provide information about your team and what brings you to Sunbird. It may take up to a couple of business days (India time) to send you the API key. We regret the inconvenience caused due to such delays. 
+The Sunbird developer instance is powered by cloud hosted Sunbird APIs, which require an API key. To get an API key, submit an [API Key Request](https://goo.gl/forms/2tRDfLlbJ2IgjWgA2). In the form, provide information about your team and what brings you to Sunbird. 
+
+> It may take up to a couple of business days (IST) to send you the API key. We regret the inconvenience caused due to such delays. 
 
 ## System Requirements
 
@@ -93,7 +95,7 @@ These instructions install Sunbird version 1.9. The code examples provided here 
 |  sunbird_default_channel  | sunbird |   string  |
 |  sunbird_default_tenant   | sunbird |   string  |
 
-> The initialization of these environmental variables can take place in a common place like in your `.bashrc` or `.bash_profile`.
+> The initialization of these environmental variables can take place in a common place like in your **.bashrc** or **.bash_profile**
 
 2. Edit the file **sunbird-portal/src/helpers/environmentVariablesHelper.js** and ensure that the following tokens are set to the values indicated. Enclose all string values within double quotation marks.
 
