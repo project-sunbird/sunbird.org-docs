@@ -54,8 +54,8 @@ These instructions install Sunbird version 1.9. The code examples provided here 
 
 1. Launch a command-line terminal
 
-1. Ensure that the system `PATH` variable contains the paths where `git`, `node`, `nodemon` and `gulp` are located 
-> If you are unable to find an executable with the name `node`, check for `nodejs`
+1. Ensure that the system **PATH** variable contains the paths where **git**, **node**, **nodemon** and **gulp** are located 
+> If you are unable to find an executable with the name **node**, check for **nodejs**
 
 3. Change the directory into the folder that you have designated as the top level folder of the Sunbird application
 
@@ -95,7 +95,7 @@ These instructions install Sunbird version 1.9. The code examples provided here 
 
 > The initialization of these environmental variables can take place in a common place like in your `.bashrc` or `.bash_profile`.
 
-2. Edit the file `sunbird-portal/src/helpers/environmentVariablesHelper.js` and ensure that the following tokens are set to the values indicated. Enclose all string values within double quotation marks.
+2. Edit the file **sunbird-portal/src/helpers/environmentVariablesHelper.js** and ensure that the following tokens are set to the values indicated. Enclose all string values within double quotation marks.
 
 |            Token            |                   Value                              | Data Type |
 |-----------------------------|------------------------------------------------------|-----------|
@@ -116,7 +116,7 @@ These instructions install Sunbird version 1.9. The code examples provided here 
 
 ## Run the Application
 
-1. Update the Sunbird application with the modified configuration file values. Run the following command in the `sunbird-portal/src/app/client` folder:
+1. Update the Sunbird application with the modified configuration file values. Run the following command in the **sunbird-portal/src/app/client** folder:
 
     ```
     nodemon
