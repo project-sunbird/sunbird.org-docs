@@ -120,12 +120,12 @@ This API is associated with uploading content on the Sunbird Platform.
     }
     ```
 
-For the YouTube content or file url, pass it as a `fileUrl` in [Upload API]() or set the artifactUrl of the content using [Update Content API](http://www.sunbird.org/apis/content/#operation/Update%20Content)
+For the YouTube content or file url, pass it as a `fileUrl` in [Upload API](apis/content/#operation/Upload%20Content) or set the artifactUrl of the content using [Update Content API](apis/content/#operation/Update%20Content)
 
 
 ### Publishing Content using API #### 
 
-After uploading the content, publish the content using [Publish Content API](http://www.sunbird.org/apis/content/#operation/Publish%20Content). 
+After uploading the content, publish the content using [Publish Content API](apis/content/#operation/Publish%20Content). 
 
 #### Request Body
 
