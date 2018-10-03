@@ -164,4 +164,4 @@ After successfully installing Sunbird use any of the following user IDs, the pas
 | adopterflagreviewer@adopter | Flag reviewer     |  
 | adoptercoursementor@adopter | Course mentor     |  
 
-* For information on user roles, refer to [Types of Users](features-documentation/userrole)
+* For information on user roles, refer to [Types of Users](../features-documentation/userrole)
