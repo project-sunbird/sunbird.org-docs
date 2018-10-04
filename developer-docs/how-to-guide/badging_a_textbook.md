@@ -436,4 +436,3 @@ Badges
 Badges for content
 
 Badge issuer
-
