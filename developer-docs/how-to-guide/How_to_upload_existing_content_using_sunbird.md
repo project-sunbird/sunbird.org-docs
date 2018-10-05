@@ -155,24 +155,20 @@ After uploading the content, publish the content using [Publish Content API](api
     ```
     {
         "result": {
-            "node_id": "string",
-            "versionKey": "string",
+            "node_id": "do_2125903396473978881177",
+            "versionKey": "string"
         },
-        "id": ""xyz.learning.content.publish",
+        "id": "xyz.learning.content.publish",
         "ver": "3.0",
         "ts": "2018-09-14T10:44:43ZZ",
         "params": {
             "resmsgid": "d3415c1a-94c6-4dc7-9c28-3e0dac767ee3",
             "msgid": "null",
             "err": "null",
-            "status": "string",
+            "status": "Publish Operation for Content Id 'do_2789903396473978881177' Started Successfully!",
             "errmsg": "null"
         },
-        "responseCode": "OK",
-        "result":{
-            "publishStatus": "Publish Operation for Content Id 'do_2125903396473978881177' Started Successfully!",
-            "node_id": "do_2125903396473978881177"
-        }
+        "responseCode": {"OK"}
     }
     ```
 
