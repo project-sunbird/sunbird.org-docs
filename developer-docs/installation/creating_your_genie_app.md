@@ -1,3 +1,9 @@
+---
+title: Check Installation
+page_title: Check Installation
+description: About Installation
+allowSearch: true
+---
 ## Overview
 
 ### Introduction 

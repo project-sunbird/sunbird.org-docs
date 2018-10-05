@@ -39,7 +39,7 @@ The configuration is as follows:
 **NOTE:** **sunbird_actor_system_name** value is the actor system name.
 
    - To run normal actor system on a machine, set the value to **RemoteMiddlewareActorSystem**
-   - To run background actors on the same  machine, set the value to **BackGroundRemoteMiddlewareActorSystem** this property is used when you need to run an actor remotely.
+   - To run background actors on the same  machine, set the value to **BackGroundRemoteMiddlewareActorSystem** this property is used         when you need to run an actor remotely.
 
 ## Use cases of running Actor system
 
