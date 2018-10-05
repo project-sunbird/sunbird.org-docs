@@ -135,18 +135,14 @@ After uploading the content, publish the content using [Publish Content API](api
             "content": {
                 "lastPublishedBy": "sunbird",
                 "publishChecklist": [
-                    "No Hate speech, Abuse, Violence, Profanity"
+                    "No copyright or trademark infringements",
+                    "Is Original",
+                    "No Hate speech, Abuse, Violence, Profanity",
                     "No Vulgarity",
                     "No Discrimination or Defamation",
-                    "Is suitable for children",
                     "Appropriate Title, Description",
-                    "Correct Board, Grade, Subject, Medium",
                     "Appropriate tags such as Resource Type, Concepts",
                     "Relevant Keywords",
-                    "Content plays correctly",
-                    "Can see the content clearly on Desktop and App",
-                    "Audio (if any) is clear and easy to understand",
-                    "No Spelling mistakes in the text",
                     "Language is simple to understand"
                 ]
             }
