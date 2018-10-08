@@ -20,6 +20,7 @@ The organization also creates content artifacts and courses using multiple resou
 
 * Content creation access
 * Content artifacts with a unique object ID
+* API Authorization Key
 
 
 ## Intended Audience
@@ -69,8 +70,10 @@ To upload new or existing content (that is not created using Sunbird's inbuilt c
 
 This API is associated with uploading content on the Sunbird Platform.
 
-* The `_/upload/{content_ID}` endpoint executes the **upload content** request based on validated content metadata associated with the uploaded file
-* Choose a valid unique value in the `contentId` field of API URL 
+* The [Upload Content API](http://docs.sunbird.org/latest/apis/content/#operation/Upload%20Content) endpoint executes the **upload content** request based on validated content metadata associated with the uploaded file
+> Sample URL: https://staging.open-sunbird.org/api/content/v1/upload/{Content_ID}
+
+* Get a valid unique value in the **contentId** field of API URL by making a [Create Content API](http://docs.sunbird.org/latest/apis/content/#operation/Create%20Content) request  
 * Specify values for all the mandatory form data parameters
 
 
@@ -78,9 +81,9 @@ This API is associated with uploading content on the Sunbird Platform.
 
 | Header Parameter       | Parameter Type | Description                                                                                                                                                                       | Sample Value         | Is Mandatory |
 |------------------------|----------------|-------------------------------------------|----------------------|---------------|
-| Content-Type           | String         | The content type entity is the media type of the resource. Possible media types are multipart or form-data                                                                        | multipart, form-data | Yes          |
-| X-Authenticated-Userid | String         | Represents the registered User ID authorized to execute the API.                                                                                                                  | userName             | Yes          |
-| Authorization          | String         | To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received. | api_key              | Yes          |
+| Content-Type           | String         | The content type entity is the media type of the resource. Possible media types are multipart or form-data                                                                        | form-data | Yes          |
+| X-Authenticated-Userid | String         | Represents the registered User ID authorized to execute the API.                                                                                                                  | swan@gmail.com             | Yes          |
+| Authorization          | String         | To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received. | a1234567H98085678zz234              | Yes          |
 | ts                     | String         | Time Stamp at which upload request was sent.                                                                                                                                      | 2018-09-05T10:55:22Z | Yes          |
 
 #### Path Parameters ####
