@@ -55,21 +55,20 @@ S No| Column Name | Description | Valid Value | Field Type
 3 |phone|User’s phone number |Ten digit mobile number |Optional 
 4 |email  |User’s verified email ID |Alphanumeric, standard email ID format <br>Note: You can provide (i) only the phone number, (ii) only email or (iii) both email and phone number|Mandatory
 5 |userName |Unique name assigned to the user by the organization |Alphanumeric |Mandatory
-6 |password |Unique/common password given by the organization  |Alphanumeric |Mandatory
-7 |provider |Channel ID shared with the system administrator|Alphanumeric <br>**Note:** Enter values in the **provider** column and the **phoneVerified** column or keep both columns blank |Conditional
-8 |phoneVerified  |Whether user’s phone number is verified   |TRUE, if phone number is provided <br>**Note:** Enter values in the **provider** column and the **phoneVerified** column or keep both columns blank |Conditional
-9| emailVerified |Whether user’s email ID is verified |TRUE, if email ID is provided | Optional
-10|roles| User’s role |Select one or more of the following roles:<br>CONTENT_CREATOR <br>CONTENT_REVIEWER <br>FLAG_REVIEWER <br>COURSE_MENTOR<br>BOOK_CREATOR<br>BOOK_REVIEWER<br>ORG_ADMIN<br>TEACHER_BADGE_ISSUER<br>BADGE_ISSUER<br> ANNOUNCEMENT_SENDER <br>PUBLIC | Optional
-11|position | User’s designation in the organization |Alphanumeric |Optional
-12| grade |Classes taught by the user | Select one or more of the following grades:<br> Class 1, Class 2, Class 3, Class 4,<br> Class 5, Class 6, Class 7,<br> Class 8, Class 9, Class 10, Kindergarten, Other | Optional
-13| location |User’s geographical location |Alphanumeric |Optional
-14| DOB |User’s date of birth |DD-MM-YYYY |Optional
-15| gender | User’s gender |Male, Female, Transgender | Optional
-16| language| User’s language preferences |Select one or more of the following language: <br>English, Gujarati, Hindi, <br>Kannada, Marathi, Punjabi, <br> Tamil, Telugu |Optional
-17|profileSummary |User’s professional profile summary, skills, certifications |Alphanumeric |Optional
-18|subject |Subjects taught by the user|Select one or more of the following subject:<br>Assamese, Bengali, English, <br>Hindi, Kannada, Malayalam,<br> Oriya, Punjabi, Tamil, <br>Telugu, Urdu, Biology, <br>Chemistry, Physics, Mathematics, <br>Environmental Studies, Geography, <br>History, Political Science, <br> Economics, Sanskrit, Gujarati,<br> Marathi, Nepali |Optional
-19|externalId |User’s identity in an external system <br>**Note **:Enter values in the externalid column and the externalIdType & externalIdprovider column or keep all three columns blank |Alphanumeric |Optional
-20| externalIds | An array of externalId represented as JSON string| Enter details within curly brackets in double quotes. Separate each detail with a comma, and, detail name and corresponding value with a colon (:). For example; [{"id":"someId","idType":"someIdType","provider":"someProvider",”operation":"ADD,EDIT,REMOVE”}] |Optional
+6 |provider |Channel ID shared with the system administrator|Alphanumeric <br>**Note:** Enter values in the **provider** column and the **phoneVerified** column or keep both columns blank |Conditional
+7 |phoneVerified  |Whether user’s phone number is verified   |TRUE, if phone number is provided <br>**Note:** Enter values in the **provider** column and the **phoneVerified** column or keep both columns blank |Conditional
+8| emailVerified |Whether user’s email ID is verified |TRUE, if email ID is provided | Optional
+9|roles| User’s role |Select one or more of the following roles:<br>CONTENT_CREATOR <br>CONTENT_REVIEWER <br>FLAG_REVIEWER <br>COURSE_MENTOR<br>BOOK_CREATOR<br>BOOK_REVIEWER<br>ORG_ADMIN<br>TEACHER_BADGE_ISSUER<br>BADGE_ISSUER<br> ANNOUNCEMENT_SENDER <br>PUBLIC | Optional
+10|position | User’s designation in the organization |Alphanumeric |Optional
+11| grade |Classes taught by the user | Select one or more of the following grades:<br> Class 1, Class 2, Class 3, Class 4,<br> Class 5, Class 6, Class 7,<br> Class 8, Class 9, Class 10, Kindergarten, Other | Optional
+12| location |User’s geographical location |Alphanumeric |Optional
+13| DOB |User’s date of birth |DD-MM-YYYY |Optional
+14| gender | User’s gender |Male, Female, Transgender | Optional
+15| language| User’s language preferences |Select one or more of the following language: <br>English, Gujarati, Hindi, <br>Kannada, Marathi, Punjabi, <br> Tamil, Telugu |Optional
+16|profileSummary |User’s professional profile summary, skills, certifications |Alphanumeric |Optional
+17|subject |Subjects taught by the user|Select one or more of the following subject:<br>Assamese, Bengali, English, <br>Hindi, Kannada, Malayalam,<br> Oriya, Punjabi, Tamil, <br>Telugu, Urdu, Biology, <br>Chemistry, Physics, Mathematics, <br>Environmental Studies, Geography, <br>History, Political Science, <br> Economics, Sanskrit, Gujarati,<br> Marathi, Nepali |Optional
+18|externalId |User’s identity in an external system <br>**Note **:Enter values in the externalid column and the externalIdType & externalIdprovider column or keep all three columns blank |Alphanumeric |Optional
+19| externalIds | An array of externalId represented as JSON string| Enter details within curly brackets in double quotes. Separate each detail with a comma, and, detail name and corresponding value with a colon (:). For example; [{"id":"someId","idType":"someIdType","provider":"someProvider",”operation":"ADD,EDIT,REMOVE”}] |Optional
 21|externalIdType |External ID types |<br>**Note**: Enter values in the externalId column and the externalIdType column or keep both column blank | Alphanumeric <br>Note: Ignore externalIdType, if userName is already provided|Conditional
 22| externalIdProvider |External ID provided by system administrator to users<br>**Note**: Enter values in the externalId column and the externalIdProvider column or keep both column blank |Alphanumeric<br>**Note**: Ignore externalIdProvider, if userName is already provided |Conditional
 
