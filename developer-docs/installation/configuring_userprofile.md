@@ -9,7 +9,7 @@ published: true
 
 ## Overview
 
-Since Sunbird release-1.11, user profile configurations are maintained in system_settings table in cassandra
+In Sunbird Release 1.11, user profile configuration is supported which is maintained in system_settings table in cassandra.
 
 ## Prerequisites
 
@@ -17,7 +17,7 @@ Since Sunbird release-1.11, user profile configurations are maintained in system
 
 ## Configuring User Profile 
 
-Cassandra migration version 1.25 will configure the following user profile configurations in system_settings table
+During cassandra migration for Release 1.11 (CQL file version 1.25) will configure the following user profile configuration in system_settings table.
 
 ```
 {
@@ -55,8 +55,8 @@ Cassandra migration version 1.25 will configure the following user profile confi
 }
 ```
 
-> fields - User data fields in Sunbird
-
-> publicFields - The visibility of these fields cannot be changed to private
-
-> privateFields - The visibility of these fields cannot be changed to public
+Property Name  | Field Type  | Description
+-------------- | ----------- | -----------
+fields         | List        | List of supported user profile fields
+publicFields   | List        | Visibility of these fields cannot be changed to private
+privateFields  | List        | Visibility of these fields cannot be changed to public
