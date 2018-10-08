@@ -9,7 +9,7 @@ published: true
 
 ## Overview
 
-Profile visibility settings are captured at user level in Sunbird. The users can control the visibility(public/private) of their own data fields, to other users. This is an optional job, which enables an adopter of Sunbird to reset the profile visibility settings of all users and enforce the global settings uniformly across all users.
+Profile visibility settings are captured at user level in Sunbird. The users can control the visibility (public / private) of their profile data fields, to other users. This is an optional job, which enables an adopter of Sunbird to reset the profile visibility settings of all users and enforce the global profile visibility settings uniformly across all users.
 
 ## Prerequisites
 
@@ -19,7 +19,8 @@ To run the migration script, ensure you have:
 2. A backup of sunbird keyspace in Cassandra DB.
 
 ## Configuration Parameters
-The following parameters needs to be passed as arguments for the user profile visibility reset job
+
+The following parameters needs to be passed as arguments for the user profile visibility reset job:
 
  S.No. | Parameter | Description | Example 
 -------|-----------|-------------|---------
@@ -34,16 +35,16 @@ The following parameters needs to be passed as arguments for the user profile vi
 
 To reset user profile visibility of all the users:
 
-1. Extract the archive file (sunbird-utils/cassandra-migration-etl/common/UserProfileVisibilityResetBin.zip) that contains the script to reset the profile visibility settings of all users
+1. Extract the archive file (sunbird-utils/cassandra-migration-etl/common/UserProfileVisibilityResetBin.zip) that contains the script to reset the profile visibility settings of all users.
 
-2. Run the following command to migrate the data
+2. Run the following command to migrate the data:
 <pre> 
 UserProfileVisibilityReset_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}"
 </pre>
 
-3. On successful execution of this job, the following query would return zero when executed in cassandra database
+3. On successful execution of this job, the following query would return zero when executed in cassandra database.
 
  - Query to fetch number of users with profile visibility value
      ```select count(profilevisibility) from user;```
      
-4. UserSync job needs to be run to sync the changes from cassandra to elastic search
+4. UserSync job needs to be run to sync the changes from cassandra to elastic search.
