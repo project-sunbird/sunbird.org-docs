@@ -3,7 +3,7 @@ type: landing
 directory: developer-docs/configuring_sunbird/
 title: Form Data migration
 page_title: Form Data migration
-description: Form Data migration
+description: Details on how to migrate form data on Sunbird
 published: ture
 allowSearch: true
 ---
@@ -20,7 +20,7 @@ To run the migration script, ensure you have:
 2. A backup of sunbird keyspace in Cassandra DB.
 
 ## Configuration Parameters
-The following parameters needs to be set as environment variable for the channel value migration job
+The following parameters needs to be set as environment variable for the form data migration job
 
  S.No. | Parameter | Description | Example 
 -------|-----------|-------------|---------
