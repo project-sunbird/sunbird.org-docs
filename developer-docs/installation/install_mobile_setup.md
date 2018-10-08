@@ -82,6 +82,7 @@ Instance admin of Sunbird adopters can configure various aspects of the Sunbird 
 | 12 | display_signin_footer_card_in_library_tab_for_student | Set the <b>display_signin_footer_card_in_library_tab_for_student</b>as <b>true</b> in sunbird.properties file | to show the sign-in footer in the profile tab for students | false
 | 13 | display_onboarding_card | set the display__onboarding_cards as true in sunbird.properties file | to display the guest/login page | false
 | 14 | display_framework_categories_in_profile | set the display_framework_categories_in_profile variable as true in sunbird.properties file | to display categories in the guest/login page | false
+| 15 | track_user_telemetry | set the track_user_telemetry variable as true in sunbird.properties file | to track telemetry which is missing from the device level and  generate more context of usage within the instance  | false
 
 <b>Packaging Framework and Form Data</b>
 Sunbird mobile app supports configuration of the app framework to enable offline usage of the app. To configure the app framework, adopter needs to package the channel for the respective framework. Details of the file naming convention and folder location are given below:
