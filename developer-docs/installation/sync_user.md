@@ -9,9 +9,8 @@ published: true
 
 ## Overview
 
-In Sunbird, all write operations are done in cassandra and read operations are done in elastic search.
-Post write operations in cassandra, the data is written into elastic search as well, asynchronously.
-In the event of any cassandra migration(UserProfileVisibilityReset, UserChannelMigration, etc..) affecting all users data, this job can be used to sync all users data from cassandra to elastic search.
+In Sunbird, all write operations are done in cassandra and read operations are done from elastic search. Post write operations in cassandra, the data is written into elastic search as well, asynchronously.
+In the event of any cassandra migration (e.g. UserProfileVisibilityReset, UserChannelMigration, etc.) affecting all users data, this job can be used to sync all users data from cassandra to elastic search.
 
 ## Prerequisites
 
@@ -41,11 +40,12 @@ The following parameters needs to be passed as arguments for the user sync job
 
 To sync the data of all the users from cassandra to elastic search:
 
-1. Extract the archive file (sunbird-utils/cassandra-migration-etl/common/UserSyncBin.zip) that contains the script to sync the users data
+1. Extract the archive file (sunbird-utils/cassandra-migration-etl/common/UserSyncBin.zip) that contains the script to sync the users data.
 
-2. Run the following command to sync all users data
+2. Run the following command to sync all users data.
+
 <pre> 
 UserSync_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_user_sync_api_endpoint="{sunbird_user_sync_api_endpoint}" --context_param sunbird_user_sync_api_key="{sunbird_user_sync_api_key}" --context_param sunbird_user_sync_block_size="{sunbird_user_sync_block_size}" --context_param sunbird_user_sync_sleep_time="{sunbird_user_sync_sleep_time}"
 </pre>
 
-3. On completion, success and failure logs would be generated and shown
+3. On completion, success and failure logs are generated and are available for reference.
