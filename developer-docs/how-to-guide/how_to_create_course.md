@@ -8,7 +8,7 @@ allowSearch: true
 ---
 ## Scenario
 
-XYZ Corporation is a global conglomerate which works in the domain of education and collaborates with different institutions, NGOs and academicians, in multiple regions of the world. The organization has adopted Sunbird and aims at creating content for all its stakeholders in order to cater to the evolving training needs and amplify learning opportunities. The organization allows all its stakeholders to access to the existing content assets and at the same time allows each of the stakeholder to create their own content. 
+XYZ Corporation, is a global conglomerate which works in the domain of education and collaborates with different institutions, NGOs and academicians, in multiple regions of the world. The organization has adopted Sunbird and aims at creating content for all its stakeholders in order to cater to the evolving training needs and amplify learning opportunities. The organization allows all its stakeholders to access to the existing content assets and at the same time allows each of the stakeholder to create their own content. 
 
 On successful completion of the course, the course administrator would like to certify these trainees so that it is easy to know who are the employees who have completed this course. 
 
@@ -22,54 +22,311 @@ On successful completion of the course, the course administrator would like to c
 
 ## Taskflow
 
-Content in sunbird can be of different types:
+The content on Sunbird can be created using [user interface](feature-documentation/) and through APIs. Content in sunbird can be of different types:
 
 1. Courses 
 2. Collections
+3. Resourses
+4. Lesson Plan
+5. Book
 
-The sequence of tasks the organization needs to follow to complete the process of course creation:
+This document essentially explains the process of creating content usig APIs. The sequence of tasks the organization needs to follow to complete the process of course creation through APIs:
 
-1. Creating Resources using [Create Content API](http://docs.sunbird.org/latest/apis/content/#operation/Create%20Content)
+1. Creating Course using [Create Content API](http://docs.sunbird.org/latest/apis/content/#operation/Create%20Content)
 
-1. Path for creating the Framework: <pre>{{host}}/content/v1/create</pre>
-
-#### Request Body for creating a resource type content (Sample data)
-
-	URL : 
+	- Path for creating a course: <pre>{{host}}/content/v1/create</pre>
 
 #### Request Body 
+	
 	{
-	"request": 
-		{
-		"content":
-			{
-			"name": "Resource1",
-			"code": "Resource1",
-			"mimeType": "application/pdf",
-			"contentType":"Resource"
+  	"request": {
+    	"content": {
+    		"name": "string",
+    		"code": "string",
+    		"os": [
+        	"string"
+      		],
+    	"minOsVersion": "string",
+    	"compatibilityLevel": 0,
+    	"minGenieVersion": "string",
+    	"minSupportedVersion": "string",
+    	"filter": "string",
+    	"variants": "string",
+    	"config": "string",
+    	"visibility": [
+    		"default",
+    		"parent"
+    		],
+    	"audience": [
+    		"Learner",
+    		"Instructor"
+    		],
+    	"posterImage": "string",
+    	"badgeAssertions": [
+    		{}
+    	],
+    	"mimeType": [
+        	"application/vnd.ekstep.ecml-archive",
+        	"application/vnd.ekstep.html-archive",
+        	"application/vnd.android.package-archive",
+        	"application/vnd.ekstep.content-archive",
+        	"application/vnd.ekstep.content-collection",
+        	"application/vnd.ekstep.plugin-archive",
+        	"application/vnd.ekstep.h5p-archive",
+        	"application/epub",
+        	"text/x-url",
+        	"video/x-youtube",
+        	"application/octet-stream",
+        	"application/msword",
+        	"application/pdf",
+        	"image/jpeg",
+        	"image/jpg",
+        	"image/png",
+        	"image/tiff",
+        	"image/bmp",
+        	"image/gif",
+        	"image/svg+xml",
+        	"video/avi",
+        	"video/mpeg",
+        	"video/quicktime",
+        	"video/3gpp",
+        	"video/mpeg",
+        	"video/mp4",
+        	"video/ogg",
+        	"video/webm",
+        	"audio/mp3",
+        	"audio/mp4",
+        	"audio/mpeg",
+        	"audio/ogg",
+        	"audio/webm",
+        	"audio/x-wav",
+       		"audio/wav"
+      		],
+    	"mediaType": [
+        	"content",
+        	"collection",
+        	"image",
+        	"video",
+        	"audio",
+        	"voice",
+        	"ecml",
+        	"document",
+        	"pdf",
+        	"text",
+        	"other"
+    		],
+    	"appIcon": "string",
+    	"grayScaleAppIcon": "string",
+    	"thumbnail": "string",
+    	"objects": "string",
+    	"organization": [
+    		"string"
+    		],
+      	"createdFor": [
+        	"string"
+      		],
+      	"developer": "string",
+      	"source": "string",
+      	"board": "string",
+      	"subject": "string",
+      	"medium": "string",
+      	"notes": "string",
+      	"pageNumber": "string",
+     	"publication": "string",
+      	"edition": "string",
+      	"publisher": "string",
+      	"author": "string",
+      	"owner": "string",
+      	"attributions": [
+        	"string"
+      		],
+      	"collaborators": [
+        	"string"
+      		],
+      	"voiceCredits": [
+        	"string"
+      		],
+      	"soundCredits": [
+        	"string"
+      		],
+      	"imageCredits": [
+        	"string"
+      		],
+      	"copyright": "string",
+     	"license": [
+        	"Against DRM license",
+        	"Creative Commons Attribution-NoDerivs (CC-BY-ND)",
+        	"Creative Commons Attribution (CC BY)",
+        	"Creative Commons Attribution-ShareAlike (CC BY-SA)",
+        	"Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)",
+        	"Creative Commons Zero (CC0)",
+        	"Free Art License",
+        	"Open Audio License",
+        	"Open Game License",
+        	"Standard YouTube License",
+        	"Other"
+      		],
+      	"forkable": true,
+      	"translatable": true,
+      	"ageGroup": [
+        	"<5",
+        	"5-6",
+        	"6-7",
+        	"7-8",
+        	"8-10",
+        	">10",
+        	"Other"
+      		],
+      	"gradeLevel": [
+        	"string"
+      		],
+      	"topic": [
+        	"string"
+      		],
+      	"interactivityLevel": [
+        	"Medium"
+      		],
+      	"contentType": [
+           	"CourseUnit",
+        	],
+      	"resourceType": [
+           	"Course"
+     		],
+      	"category": [
+        	"core",
+        	"learning",
+        	"literacy",
+        	"math",
+        	"science",
+        	"time",
+        	"wordnet",
+        	"game",
+        	"mcq",
+        	"mtf",
+        	"ftb",
+        	"library"
+      		],
+		"templateType": [
+			"story",
+			"worksheet",
+			"mcq",
+			"ftb",
+			"mtf",
+			"recognition",
+			"activity",
+			"widget",
+			"other"
+		],
+		"genre": [
+			"Picture Books",
+			"Chapter Books",
+			"Flash Cards",
+			"Serial Books",
+			"Alphabet Books",
+			"Folktales",
+			"Fiction",
+			"Non-Fiction",
+			"Poems/Rhymes",
+			"Plays",
+			"Comics",
+			"Words"
+		],
+		"theme": [
+			"History",
+			],
+		"keywords": [
+			"string"
+			],
+		"domain": [
+			"string"
+			],
+		"description": "string",
+		"instructions": "string",
+		"ownershipType": [
+			"string"
+			]
 			}
 		}
 	}
 
 #### Response Body 
+	
 	{
-	"responseCode": "OK",
-	"result": 
-		{
-		"node_id": "do_1125678814402068481125",
-		"versionKey": "1534165214869"
-		}
+	"result": {
+		"node_id": "string",
+		"versionKey": "string"
+		},
+	"id": "string",
+	"ver": "string",
+	"ts": "string",
+	"params": {
+		"resmsgid": "string",
+		"msgid": "string",
+		"err": "string",
+		"status": "string",
+		"errmsg": "string"
+		},
+	"responseCode": {}
 	}
 
-1. Uploading content using [Upload Content API](http://docs.sunbird.org/latest/apis/content/#operation/Upload%20Content)
+2. Uploading courses using [Upload Content API](http://docs.sunbird.org/latest/apis/content/#operation/Upload%20Content)
 
-1. Creating collections using [Create Course API](http://docs.sunbird.org/latest/apis/courseprogressapi/#tag/Course-Progress-API) 
+	- Path for uploading a course:<pre>{{host}}/upload/{Content_ID}</pre>   
+
+#### Request Body
+	
+	{
+	"result": {
+		"node_id": "string",
+		"versionKey": "string",
+		"content_url": "string"
+		},
+	"id": "string",
+	"ver": "string",
+	"ts": "string",
+	"params": {
+		"resmsgid": "string",
+		"msgid": "string",
+		"err": "string",
+		"status": "string",
+		"errmsg": "string"
+		},
+	"responseCode": {}
+	}
+
+#### Response Body
+
+	{
+	"request": {
+		"filters": {
+		"channel": "string",
+		"objectType": [
+			"string"
+		],
+		"contentType": [
+			"string"
+		],
+		"status": [
+			"string"
+		]
+		},
+		"sort_by": {
+		"createdOn": "string"
+		},
+		"fields": [
+		"string"
+		]
+	}
+	}
+
+3. Creating course using [Create Course API](http://docs.sunbird.org/latest/apis/courseprogressapi/#tag/Course-Progress-API) 
 
 Uploading a resource type content
+	- Path for uploading a course:<pre>{{host}}POST/content/v3/upload/{content_ID}</pre>   
 
 #### Request Body
 
-	URL: POST /content/v3/upload/{content_ID}
+	URL: 
 	Path Parameter
 	Path Parameter
 	Parameter Type
@@ -91,6 +348,7 @@ Uploading a resource type content
 	Yes
 
 #### Response Body
+	
 	{
 	"responseCode": "OK",
 	"result": 
@@ -98,88 +356,6 @@ Uploading a resource type content
 		"content_url": "https://ekstep-public-dev.s3-ap-south-1.amazonaws.com/content/do_1125678814402068481125/artifact/uploadcontent_1534165325742.zip",
 		"node_id": "do_1125678814402068481125",
 		"versionKey": "1534165326149"
-		}
-	}
-
-Sample request body for creating collection (example: Textbook, Course, Textbook unit etc)(Sample data)
-URL: POST /content/v3/create
-Request Payload::
-	{
-	"request": 
-		{
-		"content": 
-			{
-			"name": "TextBook1",
-			"code": "TextBook1",
-			"mimeType": "application/vnd.ekstep.content-collection",
-			"contentType":"TextBook"
-			}
-		}
-	}
-
-#### Response Body 
-	{
-	"responseCode": "OK",
-	"result": 
-		{
-		"node_id": "do_1125698099506380801185",
-		"versionKey": "1534400628740"
-		}
-	}
-
-Updating content collection hierarchy
-
-#### Request Body 
-
-URL: POST /content/v3/hierarchy/update
-Request Payload::
-	{
-	"request": 
-		{
-		"data": 
-			{
-				"nodesModified": 
-				{
-				"30b0cc0c-18dc-4462-9b2b-8390b90dd3acb": 
-					{
-					"isNew": true,
-					"root": false,
-					"metadata": {
-					"name": "TextBookUnit1",
-					"contentType": "TextBookUnit",
-					"mimeType": "application/vnd.ekstep.content-collection"
-					}
-				}
-			},
-		"hierarchy": 
-			{
-			"do_1125698099506380801185": 
-				{
-				"contentType": "TextBook",
-				"children": ["30b0cc0c-18dc-4462-9b2b-8390b90dd3acb"],
-				"root": true
-				},
-				"30b0cc0c-18dc-4462-9b2b-8390b90dd3acb":  
-				{
-				"name": "TextBookUnit1",
-				"contentType": "TextBookUnit",
-				"children": ["do_1125698076546416641184"],
-				"root": false
-				}
-			}
-		}
-	}
-
-#### Response Body 
-	{
-		"responseCode": "OK",
-		"result": 
-		{
-		"content_id": "do_1125698099506380801185",
-		"identifiers": 
-			{
-			"30b0cc0c-18dc-4462-9b2b-8390b90dd3acb": "do_1125698113874165761186"
-			}
 		}
 	}
 
