@@ -1,16 +1,16 @@
 ---
-title: Create Content
-page_title: Create Content
-description: Create a content for a user in Sunbird instance
+title: How to Create a Course
+page_title: How to Create a Course
+description: Create course for users in Sunbird instance
 keywords: create content, create course, content creator, course creator 
-published: true
-allowSearch: true
+published: false
+allowSearch: false
 ---
 ## Scenario
 
-XYZ Corporation, is a global conglomerate which works in the domain of education and collaborates with different institutions, NGOs and academicians, in multiple regions of the world. The organization has adopted Sunbird and aims at creating content for all its stakeholders in order to cater to the evolving training needs and amplify learning opportunities. The organization allows all its stakeholders to access to the existing content assets and at the same time allows each of the stakeholder to create their own content. 
+XYZ Corporation, is a global conglomerate that works in the domain of education and collaborates with different institutions, NGOs and academicians around the world. The organization has adopted Sunbird to cater to evolving training needs and amplify learning opportunities. The organization has provided open access to its existing content assets. The organization also offers certification courses to candidates. In order to offer such courses,   Multiple assets can be grouped together to offer a course.  
 
-On successful completion of the course, the course administrator would like to certify these trainees so that it is easy to know who are the employees who have completed this course. 
+On successful completion of the course, the course administrator would like to certify employees  so that it is easy to know who are the employees who have completed this course. 
 
 ## Prerequisites
 
@@ -30,7 +30,7 @@ The content on Sunbird can be created using [user interface](feature-documentati
 4. Lesson Plan
 5. Book
 
-This document essentially explains the process of creating content usig APIs. The sequence of tasks the organization needs to follow to complete the process of course creation through APIs:
+This document essentially explains the process of creating content using APIs. The sequence of tasks the organization needs to follow to complete the process of course creation through APIs:
 
 1. Creating Course using [Create Content API](http://docs.sunbird.org/latest/apis/content/#operation/Create%20Content)
 
