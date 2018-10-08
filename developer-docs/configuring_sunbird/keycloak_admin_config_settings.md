@@ -1,9 +1,7 @@
 ---
-type: landing
-directory: developer-docs/configuring_sunbird
-title: Keycloak configuration to generate link for user required action
-page_title: Keycloak configuration to generate link for user required action 
-description: Keycloak configuration to generate link for user required action
+title: Configure Keycloak to Generate Link for Required User Action
+page_title: Configure Keycloak to Generate Link for Required User Action 
+description: Configuration required in Keycloak to generate link for required user action for sign up
 published: false
 allowSearch: false
 keywords: SSO, single sign on, single signon, singlesignon, link, user required action, set password link , verify email link, Keycloak
