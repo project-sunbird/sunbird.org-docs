@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/configuring_sunbird/
 title: Form Data migration
 page_title: Form Data migration
 description: Details on how to migrate form data on Sunbird
@@ -10,7 +8,7 @@ allowSearch: true
 
 ## Overview
 
-Sunbird, from release version 1.11 onwards, started using  Extensibility framework. Form api's are provided as plugins using Ext-framework. Ext-framework creates new keyspace for each plugin and provides access to plugin for its own keyspace. Ext-framework restricts plugins from accessing tables form other keyspaces. As of release 1.10 form data are stored in ```sunbird``` keyspace in ```tenant_preference``` table.
+Sunbird's extensibility framework is available, from release version 1.11 onwards. Form APIs are provided as plugins using the extensibilityframework. The extensibility framework creates a new keyspace for each plugin and provides access to the plugin for its own keyspace. The extensibility framework restricts plugins from accessing tables of other keyspaces. As of Sunbird release version 1.10, form data is stored in the **sunbird** keyspace of the **tenant_preference** table.
 
 ## Prerequisites
 
