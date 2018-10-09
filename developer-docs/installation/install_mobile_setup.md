@@ -163,8 +163,8 @@ This is installed with other npm packages.
 
   5.Run the command- **$ ionic cordova run android**
   
-  ### Generation of multiple Sunbird apps
-  As a Sunbird instance owner, owner  should be able to generate multiple apps for multiple environments(dev/qa/production)
+### Generate Multiple Sunbird Apps
+As a Sunbird instance owner, owner  should be able to generate multiple apps for multiple environments(dev/qa/production)
 so that user can use all the apps simultaneously.
 For each app, user should be able to have different content stores (on the local device), fire telemetry from separate app identifiers and upload to playstore (if need be).
 #### Configuration
