@@ -58,7 +58,7 @@ This page elaborates the various user interface elements of the **Library**
 				<br>&emsp;d) <b>Medium</b>
 				<br>&emsp;e) <b>Content Types</b>
 				<br>&emsp;f) <b>Concepts</b>
-	<br>2. Click <b>Apply</b>. The search results are displayed <br>3. Click <b>Reset</b> to reset the filters  </td>
+	<br>2. Click <b>Apply</b>. The search results are displayed <br>3. Click <b>Reset</b> to reset the filters <br>4. Click <b>View All</b> to view all the content avalable under the <b>Library</b> tab</td>
     <td><img src="features-documentation/images/library/applying_filters.png"></td>
   </tr>
   </table>
