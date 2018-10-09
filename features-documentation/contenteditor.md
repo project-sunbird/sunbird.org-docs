@@ -574,3 +574,8 @@ All details associated with the resource must be updated before sending the reso
     <td><img src="features-documentation/images/contenteditor/publish_review.png"></td>
   </tr>
   </table>
+
+## Limitations
+
+  - The WYSIWYG editor works best only with [NotoSans fonts](https://fonts.google.com/specimen/Noto+Sans)
+  - The bullet point size remains the same even if the font size of text is altered
