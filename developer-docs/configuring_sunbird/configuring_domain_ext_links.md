@@ -7,27 +7,32 @@ published: true
 allowSearch: true
 ---
 ## Overview
-Sunbird platform allows adopters/users (content creator) to upload content from external sources. Using this option, users can upload content from the external sources to sunbird content library.They can upload external content from different websites such as youtube, Dailymotion and so on. This section explains the procedure of enabling a domain to host content from external sources. 
+
+The Sunbird platform allows you, if you have permissions to create content (Content Creator Role), to upload content from external sources to the Sunbird content library. You can upload content from external websites such as YouTube, Dailymotion, etc. This section explains the procedure to enable a Sunbird instance to host content from external sources. 
 
 ## Intended Audience
-Instance admin
+Instance administrator
 
 ## Prerequisite
-Ensure the following to enable a domain to host content from external links:
+Ensure the following to enable a Sunbird instance to host content from external domains:
 
 - You are logged in as the organization administrator
 - You have access to set the environment variables
 
 ## Points to Consider before Whitelisting a Domain
 
-<Will be taken care by legal team>
+There are legal considerations to be taken care of before whitelisting any domain on Sunbird. Such information will be updated soon. 
 
 ## Configuring the Domain
 
-To enable a Sunbird instance to host content from external source:<br>
+To enable a Sunbird instance to host content from external source:
 
-1.Set the "sunbird_extcont_whitelisted_domains" variable in player service to whitelist an external website. You can add that variable into config file and deploy.<br>As an example: To allow an instance to host content from an external source such as "wordpress.com", you need to configure the environmen variable in the below format:<br>
-SUNBIRD_EXTCONT_WHITELISTED_DOMAINS: env.sunbird_extcont_whitelisted_domains ||'wordpress.com'<br>
-2. On successful configuration of the external domain, it allows content creators of the organisation to upload content from external sources.<br>
-For more details on <b>how to upload external content</b> to Sunbird content library, refer to the [Upload Content to Sunbird](features-documentation/upload/) section.
+1. Set the **sunbird_extcont_whitelisted_domains** variable in the **Player Service** to whitelist an external website. You can add that variable into the config file.
 
+> Example: To allow an instance to host content from an external source such as **Wordpress**, configure the environment variable in the following format:
+
+    SUNBIRD_EXTCONT_WHITELISTED_DOMAINS: env.sunbird_extcont_whitelisted_domains ||'wordpress.com'
+
+On successful configuration of the external domain, content creators of the organisation to upload content from external sources.
+
+For details on **How to Upload External Content** to Sunbird content library, refer to the [Upload Content to Sunbird](features-documentation/upload/) 

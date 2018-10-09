@@ -10,7 +10,7 @@ allowSearch: true
 ---
 ## Prelude
 
-Before we get into details of how to create a new framework in Sunbird, its important to explain the concepts and differences between a **Taxonomy** and **Framework**. Both a taxonomy and framework describe the same domain. A taxonomy is an arrangement or division according to a predtermined system, while a framework is the resultant catalog that gives freedom for discussion, analysis and information retrieval. The framework extends the knowledge model of a taxonomy. The intent of creating a framework is to enable organizations organize their content in a structure which is easily discoverable. Within Sunbird, the main objective of the framework is to ensure that content creators have an easy interface to tag content with relevant metadata. Appropriate metadata allows user to search for content and get relevant results. Separating the taxonomy from its extension, in the form of framework(s) provides experts and pedagogues the power and flexibility to model and tag content. The framework consists of categories and terms within a specific domain.
+Before we get into details of how to create a new framework in Sunbird, its important to explain the concepts and differences between a **Taxonomy** and **Framework**. Both a taxonomy and framework describe the same domain. A taxonomy is an arrangement or division according to a predetermined system, while a framework is the resultant catalog that gives freedom for discussion, analysis and information retrieval. The framework extends the knowledge model of a taxonomy. The intent of creating a framework is to enable organizations organize their content in a structure which is easily discoverable. Within Sunbird, the main objective of the framework is to ensure that content creators have an easy interface to tag content with relevant metadata. Appropriate metadata allows user to search for content and get relevant results. Separating the taxonomy from its extension, in the form of framework(s) provides experts and pedagogues the power and flexibility to model and tag content. The framework consists of categories and terms within a specific domain.
 
 Sunbird enables seamless access and discoverability of content through a framework. An organization can use existing framework categories (concepts) and terms (specifications) and further link them to their own framework.
 
@@ -37,7 +37,7 @@ While creating a new framework, the framework creator needs to set up a new fram
     
 A user can select one or more category amongst the defined category. 
  
-For example, for the organization ABC organiztion the framework name is ABC and code as ndf1; the category selected is **Subject** and the label is modified as **Resources** which defines the various water resources and contains the terms as Ground Water, Spring, Surface Water and so on. 
+For example, for the organization ABC organization the framework name is ABC and code as abc1; the category selected is **Subject** and the label is modified as **Resources** which defines the various water resources and contains the terms as Ground Water, Spring, Surface Water and so on. 
 
 ### Prerequisites
 
@@ -74,9 +74,9 @@ To retrieve the channels for the request parameter, use [List Channel API](http:
     "request": {
         "framework": {
             "name": "ABC",
-            "code": "ndf",
-            "description": "Framework for ABC Organiztion Management",
-            "translations": {"hi":"एनडीएफ-अनुवाद","ta":"NDF மொழிபெயர்ப்பு"},
+            "code": "abc",
+            "description": "Framework for ABC Management",
+            "translations": {"hi":"ABC-अनुवाद","ta":"ABC மொழிபெயர்ப்பு"},
             "type": "TPD",
             }
         }
@@ -96,11 +96,11 @@ Type: defines the type of content
     "responseCode": "OK",
     "result": {
         "framework": {
-            "identifier": "ndf1",
-            "code": "ndf",
-            "translations": "{\"hi\":\"एनसीएफ-अनुवाद\",\"ta\":\"NCF மொழிபெயர்ப்பு\"}",
-            "name": "Neerdhara",
-            "description": "Framework for Neerdhara Management",
+            "identifier": "abc1",
+            "code": "abc",
+            "translations": "{\"hi\":\"ABC-अनुवाद\",\"ta\":\"ABC மொழிபெயர்ப்பு\"}",
+            "name": "ABC",
+            "description": "Framework for ABC Management",
             "type": "",
             "objectType": "Framework"
             }
@@ -115,7 +115,7 @@ Type: defines the type of content
 
 The sample values provided in the request body are indicative. The API describes the procedure to change the label(resources) of an existing category(subject):
 
-2. Path for creating category: `{{host}}/framework/v1/category/create?framework=ndf1`
+2. Path for creating category: `{{host}}/framework/v1/category/create?framework=abc1`
 
 ##### Request Body to Rename Categories
 
@@ -134,7 +134,7 @@ The sample values provided in the request body are indicative. The API describes
     {
         "responseCode": "OK",
         "result": {
-            "node_id": "ndf_subject",
+            "node_id": "abc_subject",
             "versionKey": "1535716551605"
             }
     }
@@ -145,7 +145,7 @@ The sample values provided in the request body are indicative. The API describes
 1. Use the [Add Term API](http://www.sunbird.org/apis/framework/#operation/FrameworkV1TermCreatePost), to create a new term in the category.
 The categories can be retrieved and listed using [Fetch API](http://www.sunbird.org/apis/framework/#operation/FrameworkV1CategoryReadClassGet). The sample values provided in the request body are indicative.
 
-2. Path for creating category: `{{host}}/framework/v1/term/create?framework=ndf1&category=subject`
+2. Path for creating category: `{{host}}/framework/v1/term/create?framework=abc1&category=subject`
 
 ##### Request Body to Add Terms 
 
@@ -172,8 +172,8 @@ The categories can be retrieved and listed using [Fetch API](http://www.sunbird.
     "responseCode": "OK",
     "result": {
         "node_id": [
-            "ndf1_subject_river",
-            "ndf1_subject_sea"
+            "abc1_subject_river",
+            "abc1_subject_sea"
             ]
         }
     }
