@@ -62,7 +62,7 @@ This page elaborates the various user interface elements of the **Library**
     <td><img src="features-documentation/images/library/applying_filters.png"></td>
   </tr>
   </table>
-   
+
 ### Sorting Content
 
 <table>
@@ -183,8 +183,27 @@ Sunbird houses a wide variety of content. Users with registered credentials can 
 	<td><img src="features-documentation/images/library_takenote.png"></td>
 	  </tr>
 	   <tr>
-	<td>2. Enter <b>Title</b> <br>3. Enter <b>Description</b> <br>4. You can format the description entered with the various formatting options available <br>5. Click <b>Clear</b> to clear the note <br>6. Click <b>Save</b> to save the note <br>7. Click <b>Close</b> icon to exit the page
+	<td>1. Enter <b>Title</b> <br>2. Enter <b>Description</b> <br>3. You can format the description entered with the various formatting options available <br>4. Click <b>Clear</b> to clear the note <br>5. Click <b>Save</b> to save the note <br>6. Click <b>Close</b> icon to exit the page
 	</td>
 	<td><img src="features-documentation/images/library_notescreen.png"></td>
 	</tr>
+  </table>
+
+ ### Downloading Content
+  <table>
+  You get a download option while playing PDF content. <br>
+  To download a PDF content:
+  <tr>
+    <th style="width:35%;">Step</th>
+    <th style="width:65%;">Screen</th>
+  </tr>
+  <tr>
+	  <td>1.Click on the Three dots Kebab icon
+	<br>2. Click the <b>Download</b> button or press <b>Ctrl+S</b> to download the PDF using a new tab.<br>
+  The PDF file gets downloaded on your the device.<br>
+
+  If there’s not enough space on your device to download and extract the PDF file, a pop-up message appears saying “Insufficient space on disk.” </td>
+    <td><img src="features-documentation/images/library/downloadcontent.png"></td>
+  </tr>
+  
   </table>
