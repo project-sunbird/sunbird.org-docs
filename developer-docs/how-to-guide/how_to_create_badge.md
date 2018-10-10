@@ -37,7 +37,7 @@ To issue badges, a badge issuer must be created. It is up to the organization ad
 
 ### Create Badge Issuer
 
-The [Create Issuer API](apis/badgingframeworkapi/#operation/CreatePost) is used to create the badge issuer. They decide that Badges will be issued by an entity called XYZ Corp Certifications. An email address and a URL are needed for this entity. The XYZ Corp Training department URL and email address can be used for the badge issuer
+The [Create Badge Issuer API](apis/badgingframeworkapi/#operation/CreatePost) is used to create the badge issuer. They decide that Badges will be issued by an entity called XYZ Corp Certifications. An email address and a URL are needed for this entity. The XYZ Corp Training department URL and email address can be used for the badge issuer
 
 Following is an example of request body for creating a issuer, the sample values provided in the request body are indicative:
 
@@ -50,11 +50,14 @@ Following is an example of request body for creating a issuer, the sample values
 	    	"url": "https://xyz.org.in/mitra",		  
 	    	"email":"aprtestthree@xyzcorp.com"		
 	   	}
-	}
+	  }
 
 **Name** assigned according to the role
+
 **Description** of the assigned role
+
 **URL** URL for the domain for which the badge needs to be created
+
 **Email** contains users email ID 
 
 On successful execution of the issuer creation API, an issuerId is generated and following parameters are returned in the response. 
@@ -72,16 +75,17 @@ On successful execution of the issuer creation API, an issuerId is generated and
 	    	"description": "Issue all badges",
 	    	"email": "aprtestthree@xyzcorp.com"
 	    }
-	}	
+	  }	
 
 1. Save the created **issuerId**
 
-2. The badge issuer is created, which is required to [Create Badge Class](how_to_create_badge#create-a-badge-class) and award badge to the user 
+2. The badge issuer is created, which is required to [Create Badge Class](/how_to_create_badge#create-badge-class) and award badge to the user 
 
-### Create a Badge Class
+### Create Badge Class
 
-Once the badge issuer has been created, the organization administrator can create new badge classes using the [Create Badge API](). It is recommended to create multiple badge classes, one for each type of accomplishment which is being recognised.
-**Note**: The badge class only needs to be created once for one type of badge. The same badge class can be awarded multiple times to different recipients. 
+Once the badge issuer has been created, the organization administrator can create new badge classes using the [Create Badge API](apis/badgingframeworkapi/#operation/BadgeCreatePost). It is recommended to create multiple badge classes, one for each type of accomplishment which is being recognised.
+
+>Note: The badge class only needs to be created once for one type of badge. The same badge class can be awarded multiple times to different recipients. 
 
 The organization administrator must:
 
@@ -89,7 +93,7 @@ The organization administrator must:
 
 2. Criteria for awarding the badge
 
-3. Use the issuerId received from the [Create Issuer API](http://www.sunbird.org/apis/badgingframeworkapi/#operation/ReadByIssuerIdGet) call to indicate which entity is awarding the badge
+3. Use the issuerId received from the [Create Issuer API](apis/badgingframeworkapi/#operation/CreatePost) call to indicate which entity is awarding the badge
 
 4. Choose an image to be associated with the badge. This image will be displayed on the profile page of all the people who receive the badge 
 
@@ -97,7 +101,7 @@ The following is an example of the request body for creating badge class, the sa
 
 #### Request Body
 
-Parameter that are submitted through form application/x-www-form-urlencoded, multipart, formdata, or both are usually used as the content type of the request 
+Parameter that are submitted through form ```application/x-www-form-urlencoded```, multipart, formdata, or both are usually used as the content type of the request 
 
 	issuerId:issuerslug-66
 	name: Padma
@@ -134,13 +138,15 @@ Parameter that are submitted through form application/x-www-form-urlencoded, mul
 
 1. Save the created ```badgeId```
 
-2. The badge ID created is required to [Award the badge](#awarding-the-badge) to a user
+2. The badge ID created is required to [Award the badge](/how_to_create_badge#awarding-the-badge) to a user
 
 ### Awarding the Badge
 
-Once the badge class is created, the org admin issues the badge to employees as they finish the course. The badge Assertion API is associated with fetching and listing the assertions of a badge. 
-Note: You would have saved the issuer ID received after creating the issuer and the badge ID received after creating the badge class. These IDs are required for awarding the badge.
-You will also need the userId of the person who will receive the badge. You can get the user id from the ...
+Once the badge class is created, the organization administrator issues the badge to employees as they finish the course. The badge Assertion API is associated with fetching and listing the assertions of a badge. 
+
+>Note: You would have saved the issuer ID received after creating the issuer and the badge ID received after creating the badge class. These IDs are required for awarding the badge.
+
+You will also need the userId of the person who will receive the badge. You can get the user ID after searching the user using [Search User API](apis/userapi/#operation/Search%20User)
 
 Following is an example of request body for awarding the badge, the sample values provided in the request body are indicative:
 
@@ -184,5 +190,4 @@ Following is an example of request body for awarding the badge, the sample value
 
 ## Additional Topics
 
-Once the portal is updated successfully, the organization administrator can assign a registered user as the badge issuer through user interface. For details on issuing the badge through the user interface refer 
-[Issuing Badges using User Interface](http://www.sunbird.org/features-documentation/badging_framework/content_badges/)
+Once the portal is updated successfully, the organization administrator can assign a registered user as the badge issuer through user interface. For details on issuing the badge through the user interface refer [Issuing Badges using User Interface](http://www.sunbird.org/features-documentation/badging_framework/content_badges/)
