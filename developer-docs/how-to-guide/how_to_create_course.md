@@ -8,29 +8,21 @@ allowSearch: false
 ---
 ## Scenario
 
-XYZ Corporation, is a global conglomerate that works in the domain of education and collaborates with different institutions, NGOs and academicians around the world. The organization has adopted Sunbird to cater to evolving training needs and amplify learning opportunities. The organization has provided open access to its existing content assets. The organization also offers certification courses to candidates. In order to offer such courses,   Multiple assets can be grouped together to offer a course.  
+XYZ Corporation, is a global conglomerate that works in the domain of education and collaborates with different institutions, NGOs and academicians around the world. The organization has adopted Sunbird to cater to evolving training needs and amplify learning opportunities. The organization has provided open access to its existing content assets and also offers certification courses to candidates. In order to offer such courses, organizations must create a curriculum, develop modules and add individual entities. Multiple assessments can be grouped together to offer a course. Each course material is comprised of well connected module to aid learning   
 
 On successful completion of the course, the course administrator would like to certify employees  so that it is easy to know who are the employees who have completed this course. 
 
 ## Prerequisites
 
-1. The [API Key for access](http://www.sunbird.org/apis/) and basic authentication
+1. The [API Key for access](developer-docs/generating_sunbird_api_keys/) and basic authentication
 
-2. An API client to make API calls. For example use Postman refer [Using Postman](http://www.sunbird.org/apis/framework/#tag/usingpostman)
+2. An API client to make API calls. For example use Postman refer [Using Postman](apis/framework/#tag/usingpostman)
 
-3. Access to the [Content API](http://docs.sunbird.org/latest/apis/content/)
+3. Access to the [Content API](apis/content/)
 
 ## Taskflow
 
-The content on Sunbird can be created using [user interface](feature-documentation/) and through APIs. Content in sunbird can be of different types:
-
-1. Courses 
-2. Collections
-3. Resourses
-4. Lesson Plan
-5. Book
-
-This document essentially explains the process of creating content using APIs. The sequence of tasks the organization needs to follow to complete the process of course creation through APIs:
+The content on Sunbird can be created using [user interface](feature-documentation/) and through APIs. This document essentially explains the process of creating a course using APIs. The sequence of tasks the organization needs to follow to complete the process of course creation through APIs:
 
 1. Creating Course using [Create Content API](http://docs.sunbird.org/latest/apis/content/#operation/Create%20Content)
 
@@ -74,7 +66,6 @@ This document essentially explains the process of creating content using APIs. T
         	"application/vnd.ekstep.plugin-archive",
         	"application/vnd.ekstep.h5p-archive",
         	"application/epub",
-        	"text/x-url",
         	"video/x-youtube",
         	"application/octet-stream",
         	"application/msword",
@@ -82,10 +73,6 @@ This document essentially explains the process of creating content using APIs. T
         	"image/jpeg",
         	"image/jpg",
         	"image/png",
-        	"image/tiff",
-        	"image/bmp",
-        	"image/gif",
-        	"image/svg+xml",
         	"video/avi",
         	"video/mpeg",
         	"video/quicktime",
@@ -94,8 +81,7 @@ This document essentially explains the process of creating content using APIs. T
         	"video/mp4",
         	"video/ogg",
         	"video/webm",
-        	"audio/mp3",
-        	"audio/mp4",
+         	"audio/mp4",
         	"audio/mpeg",
         	"audio/ogg",
         	"audio/webm",
@@ -104,17 +90,11 @@ This document essentially explains the process of creating content using APIs. T
       		],
     	"mediaType": [
         	"content",
-        	"collection",
         	"image",
         	"video",
-        	"audio",
-        	"voice",
-        	"ecml",
-        	"document",
-        	"pdf",
-        	"text",
-        	"other"
-    		],
+        	"ecml",       	
+			"document"
+            		],
     	"appIcon": "string",
     	"grayScaleAppIcon": "string",
     	"thumbnail": "string",
@@ -154,29 +134,15 @@ This document essentially explains the process of creating content using APIs. T
       		],
       	"copyright": "string",
      	"license": [
-        	"Against DRM license",
-        	"Creative Commons Attribution-NoDerivs (CC-BY-ND)",
-        	"Creative Commons Attribution (CC BY)",
-        	"Creative Commons Attribution-ShareAlike (CC BY-SA)",
-        	"Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)",
-        	"Creative Commons Zero (CC0)",
-        	"Free Art License",
         	"Open Audio License",
-        	"Open Game License",
         	"Standard YouTube License",
         	"Other"
       		],
       	"forkable": true,
       	"translatable": true,
       	"ageGroup": [
-        	"<5",
-        	"5-6",
-        	"6-7",
-        	"7-8",
-        	"8-10",
-        	">10",
-        	"Other"
-      		],
+           	">10"
+        	],
       	"gradeLevel": [
         	"string"
       		],
@@ -194,43 +160,16 @@ This document essentially explains the process of creating content using APIs. T
      		],
       	"category": [
         	"core",
-        	"learning",
-        	"literacy",
-        	"math",
-        	"science",
-        	"time",
-        	"wordnet",
-        	"game",
-        	"mcq",
-        	"mtf",
-        	"ftb",
-        	"library"
+  			"library"
       		],
 		"templateType": [
-			"story",
 			"worksheet",
-			"mcq",
-			"ftb",
-			"mtf",
-			"recognition",
 			"activity",
-			"widget",
-			"other"
-		],
+			],
 		"genre": [
-			"Picture Books",
 			"Chapter Books",
-			"Flash Cards",
-			"Serial Books",
-			"Alphabet Books",
-			"Folktales",
-			"Fiction",
-			"Non-Fiction",
-			"Poems/Rhymes",
-			"Plays",
-			"Comics",
-			"Words"
-		],
+			"Serial Books"
+			],
 		"theme": [
 			"History",
 			],
@@ -269,55 +208,7 @@ This document essentially explains the process of creating content using APIs. T
 	"responseCode": {}
 	}
 
-2. Uploading courses using [Upload Content API](http://docs.sunbird.org/latest/apis/content/#operation/Upload%20Content)
-
-	- Path for uploading a course:<pre>{{host}}/upload/{Content_ID}</pre>   
-
-#### Request Body
-	
-	{
-	"result": {
-		"node_id": "string",
-		"versionKey": "string",
-		"content_url": "string"
-		},
-	"id": "string",
-	"ver": "string",
-	"ts": "string",
-	"params": {
-		"resmsgid": "string",
-		"msgid": "string",
-		"err": "string",
-		"status": "string",
-		"errmsg": "string"
-		},
-	"responseCode": {}
-	}
-
-#### Response Body
-
-	{
-	"request": {
-		"filters": {
-		"channel": "string",
-		"objectType": [
-			"string"
-		],
-		"contentType": [
-			"string"
-		],
-		"status": [
-			"string"
-		]
-		},
-		"sort_by": {
-		"createdOn": "string"
-		},
-		"fields": [
-		"string"
-		]
-	}
-	}
+2. You can also create a course offline and upload using [Upload Content API](http://docs.sunbird.org/latest/apis/content/#operation/Upload%20Content), refer [How to upload content using API](How_to_upload_existing_content_using_sunbird)
 
 3. Creating course using [Create Course API](http://docs.sunbird.org/latest/apis/courseprogressapi/#tag/Course-Progress-API) 
 
