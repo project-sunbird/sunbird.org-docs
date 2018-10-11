@@ -46,23 +46,39 @@ Any registered user can take up a course on Sunbird. The guidelines to taking a 
     <br>6. All courses assigned to you appear in the <b>My Courses</b> tab 
     <br>7. Click <b>Resume</b> button, to start the course for the first time or continue from where you stopped, if you had started the course earlier
     <br>8. Other available courses appears under <b>Latest Courses</b> 
-    <br>9. Select <b>View All</b> to view all the courses
+    <br>9. Select <b>View All</b> to view all the courses. 
     </td>
     <td><img src="features-documentation/images/course/consumption_todo.png"></td>
   </tr>
-   <tr>
-    <td>1. The selected course opens in the <b>Courses</b> tab </td>
-  <td> </td>
+  </table>
+
+  ### Accessing Course
+  
+  Click on the **Course** tile, to view and open the selected course
+
+  <table>
+  <tr>
+    <th style="width:35%;">Step</th>
+    <th style="width:65%;">Screen</th>
   </tr>
-   <tr><td>2. See details about the course - its content, structure, your progress, etc. here <br>3. Click <b>(+)</b> icon, on the right pane, to add notes to your notebook. You can maintain separate notes for each course that you take <br>4. The progress of your course is displayed on the right side <br><b>Note:</b> Course materials can be in different content types, for example, pdf, video. In such cases: <br>&emsp;a) Click <b>Adobe PDF</b> icon, to read printable course material <br>&emsp;b) Click <b>Play</b> icon to view a video of the course material</td>
-      <td><img src="features-documentation/images/consumption_details.png"></td>
+  <tr>
+  <td>1. The selected course opens in the <b>Courses</b> tab </td>
+  </tr>
+  <tr><td>2. View details about the course such as content, structure, your progress and more 
+  <br>3. Click <b>(+)</b> icon, on the right pane, to add notes to your notebook. You can maintain separate notes for each course that you take
+  <br>4. The progress of your course is displayed on the right side
+  <br><b>Note:</b> Course materials can be in different content types, for example, pdf, video. In such cases: 
+  <br>&emsp;a) Click <b>Adobe PDF</b> icon, to read printable course material 
+  <br>&emsp;b) Click <b>Play</b> icon to view a video of the course material</td>
+  <td><img src="features-documentation/images/course/consumption_details.png"></td>
   </tr>
   </table>
   
 ### Inbuilt Content Player
   
-  On clicking on the course material links, the course content is diplayed in the inbuilt content player.
-  <table>
+On clicking on the course material links, the course content is diplayed in the inbuilt content player.
+
+<table>
   <tr>
     <th style="width:35%;">Step</th>
     <th style="width:65%;">Screen</th>
@@ -72,6 +88,8 @@ Any registered user can take up a course on Sunbird. The guidelines to taking a 
     <td><img src="features-documentation/images/course/consumption_contentplayer.png"></td>
   </tr>
   </table>
+  
+  #### Reviewing the Course
   <table>
   <tr>
     <th style="width:35%;">Step</th>
