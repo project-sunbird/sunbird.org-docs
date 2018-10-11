@@ -208,11 +208,10 @@ The content on Sunbird can be created using [user interface](feature-documentati
 	"responseCode": {}
 	}
 
-2. You can also create a course offline and upload using [Upload Content API](http://docs.sunbird.org/latest/apis/content/#operation/Upload%20Content), refer [How to upload content using API](How_to_upload_existing_content_using_sunbird)
+2. You can add resources to the course using [Udate Hierarchy API]()
 
-3. Creating course using [Create Course API](http://docs.sunbird.org/latest/apis/courseprogressapi/#tag/Course-Progress-API) 
 
-Uploading a resource type content
+Adding a resource type to course
 	- Path for uploading a course:<pre>{{host}}POST/content/v3/upload/{content_ID}</pre>   
 
 #### Request Body
