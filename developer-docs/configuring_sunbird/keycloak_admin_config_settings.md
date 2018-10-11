@@ -17,7 +17,7 @@ The verify email and set password link is sent to newly created users via email 
 
 This document explains the configuration required in Keycloak to generate links for the required action to be performed by a new user.
 
-## Environment variables configuration:
+## Configure Environment Variables
 
 Following environment variables need to be configured in Sunbird LMS service for generating required action links:
 - sunbird_sso_url
@@ -100,7 +100,7 @@ It is mandatory to configure a user with administrator role permissions to be ab
   </tr>
 </table>
 
-## Redirect URI configuration:
+## Configure Redirect URI 
 
 The redirect URI configuration is necessary to redirect user to Sunbird tenant specific home page after completing the required action.
 <table>
