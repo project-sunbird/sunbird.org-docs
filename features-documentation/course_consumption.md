@@ -52,7 +52,7 @@ Any registered user can take up a course on Sunbird. The guidelines to taking a 
   </tr>
   </table>
 
-  ### Accessing Course
+### Accessing Course
   
   Click on the **Course** tile, to view and open the selected course
 
