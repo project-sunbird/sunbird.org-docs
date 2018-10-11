@@ -8,7 +8,7 @@ allowSearch: false
 ---
 ## Scenario
 
-XYZ Corporation, is a global conglomerate that works in the domain of education and collaborates with different institutions, NGOs and academicians around the world. The organization has adopted Sunbird to cater to evolving training needs and amplify learning opportunities. The organization has provided open access to its existing content assets and also offers certification courses to candidates. In order to offer such courses, organizations must create a curriculum, develop modules and add individual entities. Multiple assessments can be grouped together to offer a course. Each course material is comprised of well connected module to aid learning   
+XYZ corporation, is a global conglomerate that works in the domain of education and collaborates with different institutions, NGOs and academicians around the world. The organization has adopted Sunbird to cater to evolving training needs and amplify learning opportunities. The organization has provided open access to its existing content assets and also offers certification courses to candidates. In order to offer such courses, organizations must create a curriculum, develop modules and add individual entities. Multiple assessments can be grouped together to offer a course. Each course material is comprised of well connected module to aid learning   
 
 On successful completion of the course, the course administrator would like to certify employees  so that it is easy to know who are the employees who have completed this course. 
 
@@ -31,174 +31,37 @@ The content on Sunbird can be created using [user interface](feature-documentati
 #### Request Body 
 	
 	{
-  	"request": {
-    	"content": {
-    		"name": "string",
-    		"code": "string",
-    		"os": [
-        	"string"
-      		],
-    	"minOsVersion": "string",
-    	"compatibilityLevel": 0,
-    	"minGenieVersion": "string",
-    	"minSupportedVersion": "string",
-    	"filter": "string",
-    	"variants": "string",
-    	"config": "string",
-    	"visibility": [
-    		"default",
-    		"parent"
-    		],
-    	"audience": [
-    		"Learner",
-    		"Instructor"
-    		],
-    	"posterImage": "string",
-    	"badgeAssertions": [
-    		{}
-    	],
-    	"mimeType": [
-        	"application/vnd.ekstep.ecml-archive",
-        	"application/vnd.ekstep.html-archive",
-        	"application/vnd.android.package-archive",
-        	"application/vnd.ekstep.content-archive",
-        	"application/vnd.ekstep.content-collection",
-        	"application/vnd.ekstep.plugin-archive",
-        	"application/vnd.ekstep.h5p-archive",
-        	"application/epub",
-        	"video/x-youtube",
-        	"application/octet-stream",
-        	"application/msword",
-        	"application/pdf",
-        	"image/jpeg",
-        	"image/jpg",
-        	"image/png",
-        	"video/avi",
-        	"video/mpeg",
-        	"video/quicktime",
-        	"video/3gpp",
-        	"video/mpeg",
-        	"video/mp4",
-        	"video/ogg",
-        	"video/webm",
-         	"audio/mp4",
-        	"audio/mpeg",
-        	"audio/ogg",
-        	"audio/webm",
-        	"audio/x-wav",
-       		"audio/wav"
-      		],
-    	"mediaType": [
-        	"content",
-        	"image",
-        	"video",
-        	"ecml",       	
-			"document"
-            		],
-    	"appIcon": "string",
-    	"grayScaleAppIcon": "string",
-    	"thumbnail": "string",
-    	"objects": "string",
-    	"organization": [
-    		"string"
-    		],
-      	"createdFor": [
-        	"string"
-      		],
-      	"developer": "string",
-      	"source": "string",
-      	"board": "string",
-      	"subject": "string",
-      	"medium": "string",
-      	"notes": "string",
-      	"pageNumber": "string",
-     	"publication": "string",
-      	"edition": "string",
-      	"publisher": "string",
-      	"author": "string",
-      	"owner": "string",
-      	"attributions": [
-        	"string"
-      		],
-      	"collaborators": [
-        	"string"
-      		],
-      	"voiceCredits": [
-        	"string"
-      		],
-      	"soundCredits": [
-        	"string"
-      		],
-      	"imageCredits": [
-        	"string"
-      		],
-      	"copyright": "string",
-     	"license": [
-        	"Open Audio License",
-        	"Standard YouTube License",
-        	"Other"
-      		],
-      	"forkable": true,
-      	"translatable": true,
-      	"ageGroup": [
-           	">10"
-        	],
-      	"gradeLevel": [
-        	"string"
-      		],
-      	"topic": [
-        	"string"
-      		],
-      	"interactivityLevel": [
-        	"Medium"
-      		],
-      	"contentType": [
-           	"CourseUnit",
-        	],
-      	"resourceType": [
-           	"Course"
-     		],
-      	"category": [
-        	"core",
-  			"library"
-      		],
-		"templateType": [
-			"worksheet",
-			"activity",
-			],
-		"genre": [
-			"Chapter Books",
-			"Serial Books"
-			],
-		"theme": [
-			"History",
-			],
-		"keywords": [
-			"string"
-			],
-		"domain": [
-			"string"
-			],
-		"description": "string",
-		"instructions": "string",
-		"ownershipType": [
-			"string"
-			]
-			}
-		}
+    "request":
+    	{
+        "content":
+        	{
+            "name": "Course",
+            "description": "Creating a sample course",
+            "creator": "Test",
+            "createdBy": "659b011a-06ec-4107-84ad-955e16b0a48a",
+            "organisation": ["XYZCorp"],
+            "createdFor": ["012567820191629312269"],
+            "contentType": "Course",
+            "framework": "xyz",
+            "mimeType": "application/vnd.ekstep.content-collection",
+            "resourceType": "Course"
+        	}
+    	}
 	}
 
 #### Response Body 
 	
 	{
-	"result": {
+	"result": 
+		{
 		"node_id": "string",
 		"versionKey": "string"
 		},
 	"id": "string",
 	"ver": "string",
 	"ts": "string",
-	"params": {
+	"params": 
+		{
 		"resmsgid": "string",
 		"msgid": "string",
 		"err": "string",
@@ -208,52 +71,17 @@ The content on Sunbird can be created using [user interface](feature-documentati
 	"responseCode": {}
 	}
 
-2. You can add resources to the course using [Udate Hierarchy API]()
-
-
-Adding a resource type to course
-	- Path for uploading a course:<pre>{{host}}POST/content/v3/upload/{content_ID}</pre>   
+2. You can add resources to the course using [Update Hierarchy API](apis/content/#operation/Hierarchy%20Update%20Content)
 
 #### Request Body
 
-	URL: 
-	Path Parameter
-	Path Parameter
-	Parameter Type
-	Description
-	Is Mandatory
-	Content ID
-	Resource
-	Content ID to Request URL
-	Yes
-
-	Form Parameter 
-	Form Data Parameter
-	Parameter Type
-	Description
-	Is Mandatory 
-	ID
-	uploadContent
-	Content package file which is being uploaded
-	Yes
+<To be added>
 
 #### Response Body
 	
-	{
-	"responseCode": "OK",
-	"result": 
-		{
-		"content_url": "https://ekstep-public-dev.s3-ap-south-1.amazonaws.com/content/do_1125678814402068481125/artifact/uploadcontent_1534165325742.zip",
-		"node_id": "do_1125678814402068481125",
-		"versionKey": "1534165326149"
-		}
-	}
+<To be added>
 
 ## Concepts covered
 
-**Content Creation**
+## Additional Topics 
 
-## Additional Topics
-
-Once the portal is updated successfully, the organization administrator can assign a registered user as the badge issuer through user interface. For details on issuing the badge through the user interface refer 
-[Issuing Badges using User Interface](http://www.sunbird.org/features-documentation/badging_framework/content_badges/)

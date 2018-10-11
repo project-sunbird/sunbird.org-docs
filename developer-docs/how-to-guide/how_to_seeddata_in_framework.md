@@ -8,7 +8,7 @@ allowSearch: false
 ---
 ## Scenario
 
-ABC organization with its vision of organizing and enabling seamless discoverability of the content decides to implement a framework. As in the process, a framework is already created which is empty. Subsequently, the users need to be able to assign group or categorise programs according to industry, condition, specialty and focus. This information will be used to track against our key condition growth goals, grant and other reporting, and for research and evaluation purposes 
+ABC organization, is a global conglomerate that works in the domain of education and collaborates with different institutions, NGOs and academicians around the world. The primary vision of organizing and enabling seamless discoverability of the content, they decide to implement a framework. As in the process, a framework is already created which is empty. Subsequently, the users must to be able to assign group or categorise programs according to industry, condition, specialty and focus. This information will be used to track against our key condition growth goals, grant and other reporting, and for research and evaluation purposes 
 * Content needs to be categorized. Lectures, case presentations, and supplemental documents need to be labeled so they can be added to categories related to label. 
 * New programs in existing topic areas should be able to easily find appropriate top-rated lectures to add to their sessions.
 
@@ -35,7 +35,7 @@ and  associating these terms and categories
 
 1. An intialized Sunbird instance with channel
 
-2. The [API Key for access](http://www.sunbird.org) and basic authentication
+2. The [API Key for access](developer-docs/generating_sunbird_api_keys/) and basic authentication
   
 3. ​Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
