@@ -11,11 +11,11 @@ A new user can be created in Sunbird in following two ways:
 - Self signup using Sunbird Portal where user can provide email, phone and password at the time of user creation
 - Bulk users creation by Organisation Admin where an initial password is not yet set
 
-Sunbird platform requires either verify email (in case of user created by self signup) or set password (in case of user created by bulk upload) action to be completed by a new user before being able to login into Sunbird.
+The Sunbird platform requires users to either verify email (when user is created by self sign up) or set password (when users are created by bulk upload) for the first time before they are able to log in to Sunbird.
 
-The verify email and set password link is sent to a new user via email and / or SMS. The generated link also consists of a redirect URI to which the user is redirected after completing the required action.
+The verify email and set password link is sent to newly created users via email and / or SMS. The generated link also consists of a redirect URI to which the user is redirected after completing the required action.
 
-This document explains the configuration required in Keycloak to generate link for required action to be performed by a new user.
+This document explains the configuration required in Keycloak to generate links for the required action to be performed by a new user.
 
 ## Environment variables configuration:
 
@@ -29,11 +29,11 @@ Following environment variables need to be configured in Sunbird LMS service for
 - sunbird_url_shortner_access_token
 - sunbird_keycloak_required_action_link_expiration_seconds
 
-For more information about above environment variables, please refer [Sunbird LMS Service Environment Variables](http://docs.sunbird.org/latest/developer-docs/configuring_sunbird/env_variables_lms/).
+> Note: For details on the environment variables, refer to [Sunbird LMS Service Environment Variables](http://docs.sunbird.org/latest/developer-docs/configuring_sunbird/env_variables_lms/).
 
-## Admin role configuration:
+## Configure Administrator Role 
 
-The admin role configuration is necessary to be able to generated the required action link in Keycloak.
+It is mandatory to configure a user with administrator role permissions to be able to generate the required action link in Keycloak.
 
 <table>
 <tr>
@@ -43,14 +43,14 @@ The admin role configuration is necessary to be able to generated the required a
   
 <tr>
   <td>
-1. Enter your <b>Username or email</b> and <b>Password</b>.<br>Click <b>Log in</b> to log into the Keycloak admin console.
+1. Enter your <b>Username or email</b> and <b>Password</b>.<br>Click <b>Log in</b>, to log into the Keycloak admin console.
 </td>
 <td><img src="https://github.com/project-sunbird/project-sunbird.github.io/blob/dev/pages/developer-docs/configuring_sunbird/images/keycloak_login.png"></td>
 </tr>
  
 <tr>
   <td> 
-2. Click the <b>Realm Selector Dropdown</b> from the left corner of your screen and select appropriate realm.<br>
+2. Click the <b>Realm Selector Dropdown</b> from the left corner of your screen and select the appropriate realm.<br>
 <b>Note:</b> The <b>Master</b> realm is selected by default.
     </td>
     <td><img src="https://github.com/project-sunbird/project-sunbird.github.io/blob/dev/pages/developer-docs/configuring_sunbird/images/realm_select.png"></td>
@@ -65,7 +65,7 @@ The admin role configuration is necessary to be able to generated the required a
   
   <tr>
   <td> 
-4. Go to <b>Realms Roles</b> tab, click <b>Add Role</b> if admin role is not there in realm roles table. If admin role is already there then proceed to step 5. 
+4. Go to <b>Realms Roles</b> tab, click <b>Add Role</b> if the administrator role is not available in the realm roles table. If the role is available, proceed to step 5. 
 </td>
 <td>
   <img src="https://github.com/project-sunbird/sunbird.org-docs/blob/master/developer-docs/configuring_sunbird/images/settings/add_admin_role.PNG">
@@ -94,7 +94,7 @@ The admin role configuration is necessary to be able to generated the required a
   
   <tr>
 <td> 
-8. Select <b>Client Roles</b> drop down and select the client to which user belongs to and assign admin role at the client level also.
+8. Select <b>Client Roles</b> from the drop down and select the client to which the user belongs and assign admin role at the client level.
   </td>
   <td><img src="https://github.com/project-sunbird/sunbird.org-docs/blob/master/developer-docs/configuring_sunbird/images/settings/admin_role_added.PNG"></td>
   </tr>
@@ -111,7 +111,7 @@ The redirect URI configuration is necessary to redirect user to Sunbird tenant s
   
 <tr>
   <td>
-1. Select <b>Clients</b> tab in left side panel.
+1. Select <b>Clients</b> tab in left panel.
 </td>
 <td><img src="https://github.com/project-sunbird/sunbird.org-docs/blob/master/developer-docs/configuring_sunbird/images/settings/client_list.PNG"></td>
 </tr>
@@ -125,7 +125,7 @@ The redirect URI configuration is necessary to redirect user to Sunbird tenant s
     
   <tr>
   <td> 
-3. Select <b>Settings</b> tab and click on <b>Implicit flow enabled </b> button. Once this button is enabled, you will get a screen to add Valid Redirect URIs.
+3. Select the <b>Settings</b> tab and click on <b>Implicit flow enabled </b> button. Once this button is enabled, you will get a screen to add Valid Redirect URIs.
   </td>
   <td><img src="https://github.com/project-sunbird/sunbird.org-docs/blob/master/developer-docs/configuring_sunbird/images/settings/in_settings_tab_%20enabl_implicit_%20flow_enabled.PNG"></td>
   </tr>
