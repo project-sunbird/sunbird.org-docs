@@ -56,8 +56,8 @@ $(function () {
 <script>
 $(".js-latestVersion-title").text(latestVersion[0].title);
 $(".js-latestVersion-releaseDate").text(latestVersion[0].releaseDate);
-$(".js-thisVersion-title").text(currentVersion);
-$(".js-version-releaseDate").text(currentVersionData[0].releaseDate);
+//$(".js-thisVersion-title").text(currentVersion);
+//$(".js-version-releaseDate").text(currentVersionData[0].releaseDate);
 
 currentUrl = window.location.pathname;
 $('#widgetVersionSwitcher select').val(currentVersion);
@@ -67,8 +67,12 @@ $('#widgetVersionSwitcher select').on('change', function () {
 	updatedUrl = updatedUrl.replace(currentVersion,switchVersion);
 	window.location = updatedUrl; 
 });
-if ((currentVersion == latestVersion[0].branch) || (currentVersion == 'master')){
+if (currentVersion == latestVersion[0].branch){
 	$('.widgetLatestVersionNotification').remove();
+};
+if (currentVersion == 'master'){
+	$('.widgetLatestVersionNotification').remove();
+	console.log(currentVersion,'This function works!!');
 };
 olderVersionsCount = $('ul#olderVersions li').length;
 if (olderVersionsCount<1){

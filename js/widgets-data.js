@@ -32,6 +32,5 @@ var widgetsData = {
          "latest":false,
          "published":true
       }
-      
    ]
 }
