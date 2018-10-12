@@ -8,7 +8,7 @@ currentVersion = $('#docsVersion').attr("content");
 currentVersionData = widgetsData.versions.filter(function(version){
 	return version.title == currentVersion;
 });
-
+console.log(currentVersionData);
 $(function(){
 	$("#templates").load("/js/templates.html"); 
 });
