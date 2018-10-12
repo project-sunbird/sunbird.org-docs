@@ -114,7 +114,7 @@ This page details how to create resources using the inbuilt content editor.
   
 ## Tool Bar
   
-Understanding the Tools of the Tool Bar
+While creating content, you can add shape, slide, rich text, image, audio files, video files, hotspot, scribblepad, question sets and activities using the tool bar. An alignment bar is displayed around any items that are added using the tool bar. You can drag, adjust, align and reshape the items using the bar.
 
 ### Adding Slide
   
