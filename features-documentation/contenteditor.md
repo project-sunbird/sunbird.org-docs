@@ -10,7 +10,7 @@ allowSearch: true
 
 Sunbird houses a wide variety of content. Users can can create content on Sunbird or upload content created offline. 
 
-**Note:** For details on uploading content that is created offine, refer <a href="features-documentation/upload" target="_blank">Uploading Content</a>
+**Note:** For details on uploading content that is created offline, refer to the <a href="features-documentation/upload" target="_blank">Uploading Content</a> page.
 
 A user with content creation rights can use Sunbird's inbuilt content editor to create **Resources** that are Sunbird's simplest or smallest unit of content.
 
@@ -24,7 +24,7 @@ You can create the following categories of resources on Sunbird:
 - Teach
 - Test 
 
-Each of these categories corresponds to a stage or intent of the learning process or methodology that is used by tutors to impart knowledge of the subject. For example, a tutor intends to educate learners of a concept through a game. When the tutor creates the game, the category of the resource (the game) is, **Play**. Similarly, if a tutor creates a story to enhance the reading skills of learners, the category of the resource (the story) is, **Read**. 
+Each of these categories corresponds to a stage or intent of the learning process or methodology that is used by tutors to impart knowledge of the subject. For example, a tutor intends to educate learners of a concept through a game. When the tutor creates the game, the category of the resource (the game) is **Play**. Similarly, if a tutor creates a story to enhance the reading skills of learners, the category of the resource (the story) is **Read**. 
 
 This page details how to create resources using the inbuilt content editor.
 
@@ -36,7 +36,7 @@ This page details how to create resources using the inbuilt content editor.
   </tr>
   <tr>
     <td>1. You are logged in <br>2. You are currently on <b>My Workspace</b> page <br>3. You want to create content
-      resources.You have clicked the <b>Resource</b> tile
+      resources. You have clicked the <b>Resource</b> tile
       </td>
       <td><img src="features-documentation/images/contenteditor/resource_prerequisite.png"></td>
   </tr>
@@ -64,7 +64,7 @@ This page details how to create resources using the inbuilt content editor.
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-    <td>1. <b>Tool Bar</b>: A collection of several tools available to create content resources <br> 2. <b>Preview</b>: A viewer that allows you see how content will display when published <br> 3. <b>Right Pane</b>: A collection of tabs that allow you to customize defaults for tools from the tool bar, add animation or interactive controls and view information about the slide <br> 4. <b>Working Area</b>: The slide that is currently being worked upon <br>5. <b>Slide Sorter</b>: Use this area to order your slides
+    <td>1. <b>Toolbar</b>: A collection of several tools available to create content resources <br> 2. <b>Preview</b>: A viewer that allows you to see how content will be displayed when published <br> 3. <b>Right Pane</b>: A collection of tabs that allow you to customize defaults for tools from the toolbar, add animation or interactive controls and view information about the slide <br> 4. <b>Working Area</b>: The slide that is currently being worked upon <br>5. <b>Slide Sorter</b>: Use this area to order your slides
     </td>
     <td><img src="features-documentation/images/contenteditor/contenteditor1.png"></td>
   </tr>
@@ -94,7 +94,7 @@ This page details how to create resources using the inbuilt content editor.
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-    <td>1. <b>Actions</b> enables you to add, modify or delete actions to animate objects on the slide. Ensure that you select a target object before you attach an action to it</td>
+    <td>1. <b>Action tab</b> enables you to add, modify or delete actions to animate objects on the slide. Ensure that you select a target object before you attach an action to it</td>
     <td><img src="features-documentation/images/contenteditor/rightpane2.png"></td>
   </tr>
   </table>
@@ -107,7 +107,7 @@ This page details how to create resources using the inbuilt content editor.
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-    <td>1. <b>Properties</b> enables you to view information that the editor automatically adds about the slide and the objects on the slide</td>
+    <td>1. <b>Properties tab </b> enables you to view information that the editor automatically adds about the slide and the objects on the slide</td>
     <td><img src="features-documentation/images/contenteditor/rightpane3.png"></td>
   </tr>
   </table>
@@ -210,7 +210,7 @@ page to reorder them
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-    <td>1. To set the speed of text enunciation, set the playback rate to <b>Normal, Slow or Slower</b> <br>2. Press the <b>Spacebar</b> button on your keyboard to space pauses and synchronize words of the sentence with the audio <br>3. Click <b>Add to Lesson</b> to add the audio file to the text displayed on screen 
+    <td>1. To set the speed of text enunciation, set the playback rate to <b>Normal, Slow or Slower</b> <br>2. Press the <b>Spacebar</b> button on your keyboard to space pauses and synchronize words of the sentence with the audio <br>3. Click <b>Add to Lesson</b> to add the audio file to the text displayed on a screen 
     </td>
     <td><img src="features-documentation/images/contenteditor/synctextwithaudio.png"></td>
   </tr>
@@ -262,7 +262,7 @@ words that already exist in the repository <br>1. To use this feature, select th
   </tr>
   <tr>
     <td><b>Language Transliteration Tool</b> <br>
-      1. Select the language from the drop down list <br>2. Click <b>Transliterate</b> <br>3. The original text is displayed in the textbox on the left and the transliterated text is displayed in the textbox on the right <br>4. Click <b>Add to Stage</b> to add the transliterated text to the slide</td>
+      1. Select the language from the drop-down list <br>2. Click <b>Transliterate</b> <br>3. The original text is displayed in the textbox on the left and the transliterated text is displayed in the text box on the right <br>4. Click <b>Add to Stage</b> to add the transliterated text to the slide</td>
     <td><img src="features-documentation/images/contenteditor/transliteration1.png"></td>
   </tr>
   </table>
@@ -275,18 +275,18 @@ words that already exist in the repository <br>1. To use this feature, select th
     <th style="width:65%;">Screen</th>
   </tr>  
   <tr>
-    <td>1. To add richtext, click the dropdown arrow <br>2. Click <b>Add Richtext</b>, to open <b>Richtext Editor</b>
+    <td>1. To add rich text, click the drop-down arrow <br>2. Click <b>Add Rich text</b>, to open <b>Rich text Editor</b>
     </td>
     <td><img src="features-documentation/images/contenteditor/richtext1.png"></td>
   </tr>
   <tr>
-    <td>1. Type text into the text box and use the richtext editor for customizing and styling the text. The richtext formatting feature allows you to modify:<br>
+    <td>1. Type text into the text box and use the rich text editor for customizing and styling the text. The rich text formatting feature allows you to modify:<br>
        <li> Pick <b>Font Formatting</b>: Bold, Italic, Strikethrough and Remove Format</li>
         <li><b>Paragraph Formatting</b>: Numbered list, Bulleted list</li>
       <li><b>Alignment</b>: Align text to the left, right, center or justify</li>
       <li><b>Paragraph Styling</b>: Normal, Heading 1,2...</li>
       <li><b>Font Size</b>: Pick the different size for the font</li>
-      <li><b>Color</b>: Change the color of your text and background</li> <br>2. Click <b>Add To Lesson</b> to add richtext styles <br>3. Click <b>Cancel</b> button, to cancel the text formatting <br>4. Click <b>Close</b> icon, to exit the page      
+      <li><b>Color</b>: Change the color of your text and background</li> <br>2. Click <b>Add To Lesson</b> to add rich text styles <br>3. Click <b>Cancel</b> button, to cancel the text formatting <br>4. Click the <b>Close</b> icon, to exit the page
     </td>
     <td><img src="features-documentation/images/contenteditor/richtext2.png"></td>
   </tr>
@@ -387,7 +387,7 @@ the shape <br>b) Use the <b>Transparency</b> slider to modify the transparency l
     <td>1. Click Choose File to browse and select a file from your local drive or open the explorer in a separate window and drag and drop the required file on the screen. <br><b>Note:</b> Supported file formats are: .mp3, .mp4 <br>2. Under <b>Copyright &
       License</b>, select if you want to: <br>a) Make it available to everyone <br>b) Not share with anyone <br>3. Add audio file details in the <b>Asset Caption</b> area <br>4. Click <b>Upload and Use</b> to upload the audio file
     </td>
-    <td><img src="features-documentation/images/contenteditor/uploaduse.png"></td>
+    <td><img src="features-documentation/images/contenteditor/uploaduseaudio.png"></td>
   </tr>
   </table>
   
@@ -427,7 +427,7 @@ the shape <br>b) Use the <b>Transparency</b> slider to modify the transparency l
     <th style="width:65%;">Screen</th>
   </tr>  
   <tr>
-    <td>The Scribblepad helps users take notes, if required, while viewing content <br>1. Click the <b>Add Scribblepad</b> icon on the toolbar <br>2. You can make modifications using the default options of the customize tab 
+    <td>The Scribblepad helps users take notes if required, while viewing content <br>1. Click the <b>Add Scribblepad</b> icon on the toolbar <br>2. You can make modifications using the default options of the customize tab 
     </td>
     <td><img src="features-documentation/images/contenteditor/scribblepad.png"></td>
   </tr>
@@ -442,7 +442,7 @@ the shape <br>b) Use the <b>Transparency</b> slider to modify the transparency l
   </tr>  
   <tr>
   <td>To add question set, click the <b>Add Question Set</b> icon on the toolbar. The question set browser page is displayed.
-  <br>To ensure that the content achieves the learning objective it is important to check and reaffirm the learner’s progress at different points in the study material. Adding questions and question sets is one method <br>1. Click the <b>Add Question Set</b> icon on the toolbar. For further information, refer <a href="features-documentation/questionset_create" target="_blank">Adding Question Set</a>
+  <br>To ensure that the content achieves the learning objective it is important to check and reaffirm the learner’s progress at different points in the study material. Adding questions and question sets are one method <br>1. Click the <b>Add Question Set</b> icon on the toolbar. For further information, refer <a href="features-documentation/questionset_create" target="_blank">Adding Question Set</a>
   </td>
   <td><img src="features-documentation/images/contenteditor/addquestionset.png"></td>
   </tr>
@@ -469,7 +469,7 @@ the shape <br>b) Use the <b>Transparency</b> slider to modify the transparency l
     <th style="width:65%;">Screen</th>
  </tr>  
  <tr>
-    <td>You can add activities by selecting activities from the list displayed in the activity browser <br>1. Filter the displayed list by selecting the: <br>a) Category <br>b) Concepts <br><b>Note:</b> You can choose to filter the list using more than one category and concept <br>2. Alternatively, you can search for activities by entering key words <br>3. Select the activity and click <b>ADD</b></td>
+    <td>You can add activities by selecting activities from the list displayed in the activity browser <br>1. Filter the displayed list by selecting the: <br>a) Category <br>b) Concepts <br><b>Note:</b> You can choose to filter the list using more than one category and concept <br>2. Alternatively, you can search for activities by entering keywords <br>3. Select the activity and click <b>ADD</b></td>
     <td><img src="features-documentation/images/contenteditor/activitybrowser.png"></td>
  </tr>
  </table>   
@@ -517,7 +517,7 @@ the shape <br>b) Use the <b>Transparency</b> slider to modify the transparency l
     <br>The content editor supports video links from 
     <br>&emsp; publicly shared videos 
     <br>&emsp; from Google Drive 
-    <br>&emsp; URL of an MP4 video from online content. To do so, refer <a href="features-documentation/video_add" target="_blank">Adding Video</a></td>
+    <br>&emsp; URL of an MP4 video from online content. To do so, refer to the <a href="features-documentation/video_add" target="_blank">Adding Video</a></td> page
     <td><img src="features-documentation/images/contenteditor/addvideo.png"></td>
   </tr>
 </table>
@@ -578,4 +578,4 @@ All details associated with the resource must be updated before sending the reso
 ## Limitations
 
   - The WYSIWYG editor works best only with [NotoSans fonts](https://fonts.google.com/specimen/Noto+Sans)
-  - The bullet point size remains the same even if the font size of text is altered
+  - The bullet point size remains the same even if the font size of the text is altered
