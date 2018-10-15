@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/how-to-guide
 title: Create Framework
 page_title: Create Framework
 description: Create a new framework in Sunbird instance
