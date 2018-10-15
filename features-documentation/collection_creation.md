@@ -47,14 +47,30 @@ The collection is a compilation of content.	You can compile a  collection on Sun
   </tr>
   <tr>
     <td>To add content to a collection, you can do one of the following actions: 
-      <br>1. Click <b>Add Resource</b> from the menu associated with the required node in the left navigation pane or right-click on the node name and select <b>Add Resource</b> 
-      <br>2. Click <b>Add Resource</b> on the right bottom of the page to add content to the unit or chapter. For details on adding resources, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
-      <br>3. Use the keyboard shortcut <b>Ctrl+Alt+A</b> <br> For more details on keyboard shortcuts, refer <a href="features-documentation/keyboardshortcuts" target="_blank">Keyboard Shortcuts</a>
+    <br>1. Click <b>Add Resource</b> from the menu associated with the required node in the left navigation pane or right-click on the node name and select <b>Add Resource</b> 
+    <br>2. Click <b>Add Resource</b> on the right bottom of the page to add content to the unit or chapter. For details on adding resources, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
+    <br>3. Use the keyboard shortcut <b>Ctrl+Alt+A</b> <br> For more details on keyboard shortcuts, refer <a href="features-documentation/keyboardshortcuts" target="_blank">Keyboard Shortcuts</a>
     </td>
-      <td><img src="features-documentation/images/collection/add_ressource1.png"></td>
+    <td><img src="features-documentation/images/collection/add_resource1.png"></td>
   </tr>
   </table>
-  
+
+### Viewing Contributor Details
+ 
+<table>
+  <tr>
+    <th style="width:35%;">Step</th>
+    <th style="width:65%;">Screen</th>
+  </tr>
+  <tr><td>1. Click <b>Add Resource</b> to add resource to the collection, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
+  <br>2. The resource is added to the collection
+  <br>3. The names of the resource owners appears under <b>Created with Contributions From</b> button
+  </td>
+  <td><img src="features-documentation/images/collection/contributors.png">
+  </td>
+  </tr>
+</table>
+
 ### Adding Collection Details
 <table>
   <tr>
@@ -62,7 +78,12 @@ The collection is a compilation of content.	You can compile a  collection on Sun
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-    <td>On clicking <b>Start Creating</b>, the metadata fields related to the collection are displayed: <br>1. Enter <b>Name</b> or title of the content<br>2. Enter <b>Description</b> <br>3. Enter <b>Keywords</b> <br><b>Note:</b> Keywords are ideas and topics that define content. Keywords aid in searching for content <br>4. Click <b>Save</b> on the header to save the details
+    <td>On clicking <b>Start Creating</b>, the metadata fields related to the collection are displayed: 
+    <br>1. Enter <b>Name</b> or title of the content
+    <br>2. Enter <b>Description</b> 
+    <br>3. Enter <b>Keywords</b> 
+    <br><b>Note:</b> Keywords are ideas and topics that define content. Keywords aid in searching for content 
+    <br>4. Click <b>Save</b> on the header to save the details
     </td>
     <td><img src="features-documentation/images/collection/collection_metadata.png"></td>
   </tr>
@@ -86,8 +107,9 @@ The collection is a compilation of content.	You can compile a  collection on Sun
       <br>&emsp;b) <b>Class</b> 
       <br>&emsp;c) <b>Subject</b> 
       <br>&emsp;d) <b>Medium</b> 
+      <br>&emsp;d) <b>Audience</b>
       <br>7. Enter <b>Attributions</b> 
-      <br>8. Select <b>Audience</b> 
+      <br>8. Select <b>Owner</b> 
       <br>9. Click <b>Save</b> on the header to save the details
       <br>10. Click <b>Cancel</b> to go back to the previous screen
     </td>

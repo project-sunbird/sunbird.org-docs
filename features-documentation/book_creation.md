@@ -116,8 +116,24 @@ You can add various elements in the book like units or chapters, heading details
        </td>
       <td><img src="features-documentation/images/book/heading_metadata.png"> </td>
   </tr>
-    </table>
+</table>
     
+### Viewing Contributor Details
+ 
+<table>
+  <tr>
+    <th style="width:35%;">Step</th>
+    <th style="width:65%;">Screen</th>
+  </tr>
+  <tr><td>1. Click <b>Add Resource</b> to add resource to the book, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
+  <br>2. The resource is added to the book
+  <br>3. The names of the resource owners appears under <b>Created with Contributions From</b> button
+  </td>
+  <td><img src="features-documentation/images/book/contributors.png">
+  </td>
+  </tr>
+</table>
+
 #### Linking or Unlinking DIAL Code
 
 <table>
