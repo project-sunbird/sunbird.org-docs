@@ -120,7 +120,7 @@ You can add various elements in the book like units or chapters, heading details
     
 ### Viewing Contributor Details
  
-<table>
+  <table>
   <tr>
     <th style="width:35%;">Step</th>
     <th style="width:65%;">Screen</th>
@@ -132,7 +132,7 @@ You can add various elements in the book like units or chapters, heading details
   <td><img src="features-documentation/images/book/contributors.png">
   </td>
   </tr>
-</table>
+  </table>
 
 #### Linking or Unlinking DIAL Code
 

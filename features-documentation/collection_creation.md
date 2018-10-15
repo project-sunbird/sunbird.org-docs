@@ -89,7 +89,7 @@ The collection is a compilation of content.	You can compile a  collection on Sun
   </tr>
   </table>
 
-### Adding or Editing Collection Details
+### Editing Collection Details
  
 <table>
   <tr>

@@ -51,11 +51,12 @@ allowSearch: true
         <br>2. On clicking child node, a heading is added to the <b>Table of Contents</b> pane 
         <br>3. Click <b>Add Resource</b> to add content. For details on adding resources, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
       </td>
-      <td><img src="features-documentation/images/add_content0.png"></td>
+      <td><img src="features-documentation/images/course/add_content.png"></td>
   </tr>
    </table>
    
-### Adding or Editing Course Details
+### Editing Course Details
+
 <table>
   <tr>
     <th style="width:35%;">Step</th>
@@ -68,16 +69,36 @@ allowSearch: true
       <br>4. Enter <b>Description</b> 
       <br>5. Enter <b>Keywords</b> 
       <br>6. Select the following from their respective drop-down lists: 
-      <br>&emsp;a) Board 
+      <br>&emsp;a) Curriculum 
       <br>&emsp;b) Class 
       <br>&emsp;c) Subject 
       <br>&emsp;d) Medium 
-      <br>7. Select <b>Audience</b> 
-      <br>8. Enter <b>Attributions</b> <br>9. Click <b>Save</b> to save the details <br>10. Click <b>Cancel</b> to exit the page
+      <br>7. Select <b>Topic</b>
+      <br>8. Select <b>Attributions</b>
+      <br>9. Select <b>Audience</b> 
+      <br>10. Select <b>Owner</b> 
+      <br>11. Click <b>Save</b> to save the details 
+      <br>12. Click <b>Cancel</b> to exit the page
     </td>
-    <td><img src="features-documentation/images/add_details.png"></td>
+    <td><img src="features-documentation/images/course/course_metadata.png"></td>
   </tr>
  </table>
+
+### Viewing Contributor Details
+ 
+ <table>
+  <tr>
+    <th style="width:35%;">Step</th>
+    <th style="width:65%;">Screen</th>
+  </tr>
+  <tr><td>1. Click <b>Add Resource</b> to add resource to the Course, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
+  <br>2. The resource is added to the Course
+  <br>3. The names of the resource owners appears under <b>Created with Contributions From</b> button
+  </td>
+  <td><img src="features-documentation/images/book/contributors.png">
+  </td>
+  </tr>
+ </table> 
  
 ### Heading Details
    <table>
@@ -91,7 +112,7 @@ allowSearch: true
     <br>3. Select the <b>Concepts</b> associated with the heading. Refer <a href="features-documentation/concept_selector" target="_blank">Concept Selector</a>
     <br>4. Enter <b>Keywords</b>
     </td>
-    <td><img src="features-documentation/images/add_content1.png"></td>
+    <td><img src="features-documentation/images/course/add_content1.png"></td>
   </tr>
   </table> 
   
@@ -101,7 +122,7 @@ The Table of Contents tree seen in the left pane is used to navigate content com
 <br>&emsp;a) The burger menu associated with a tree node 
 <br>&emsp;b) Right-click options associated with a tree node, **OR**
 <br>&emsp;c) Keyboard shortcuts 
-<br>For details on manipulating the tree and adding content, refer to the <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a> page.
+<br>For details on manipulating the tree and adding content, refer to the <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a> page
 
 ### Deleting Content 
 

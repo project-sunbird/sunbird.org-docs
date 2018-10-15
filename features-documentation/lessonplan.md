@@ -60,7 +60,7 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
   </tr>
   </table>
 
-### Adding Details
+### Editing Lesson Details
 
 <table>
   <tr>
@@ -86,6 +86,23 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
     <td><img src="features-documentation/images/lessonplan/edit_details.png"></td>
  </tr>
  </table>
+
+### Viewing Contributor Details
+ 
+  <table>
+  <tr>
+    <th style="width:35%;">Step</th>
+    <th style="width:65%;">Screen</th>
+  </tr>
+  <tr><td>1. Click <b>Add Resource</b> to add resource to the Lesson Plan, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
+  <br>2. The resource is added to the Lesson Plan
+  <br>3. The names of the resource owners appears under <b>Created with Contributions From</b> button
+  </td>
+  <td><img src="features-documentation/images/book/contributors.png">
+  </td>
+  </tr>
+  </table>
+
 
 ## Working with Table of Contents 
 
