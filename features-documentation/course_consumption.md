@@ -46,7 +46,7 @@ Any registered user can take up a course on Sunbird. The guidelines to taking a 
     <br>6. All courses assigned to you appear in the <b>My Courses</b> tab 
     <br>7. Click <b>Resume</b> button, to start the course for the first time or continue from where you stopped, if you had started the course earlier
     <br>8. Other available courses appears under <b>Latest Courses</b> 
-    <br>9. Select <b>View All</b> to view all the courses. 
+    <br>9. Select <b>View All</b> to view all the courses 
     </td>
     <td><img src="features-documentation/images/course/consumption_todo.png"></td>
   </tr>
@@ -89,7 +89,7 @@ On clicking on the course material links, the course content is diplayed in the 
   </tr>
   </table>
   
-  #### Reviewing the Course
+#### Reviewing the Course
   <table>
   <tr>
     <th style="width:35%;">Step</th>
