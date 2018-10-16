@@ -22,6 +22,8 @@ To install Sunbird, **choose one docker swarm manager as the installation server
         git checkout tags/release-1.9
         cd deploy
 
+> Note: Do not use 10.0.0.0 network subnet. The docker uses this subnet for internal communications and thus this may result in a clash with the host IPs.
+
 ## Configuring the Installer
 
 You can update the configuration parameters in the `sunbird-devops/deploy/config` file. The config file is a YAML file. 
