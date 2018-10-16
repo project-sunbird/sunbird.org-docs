@@ -40,7 +40,7 @@ Pass the following parameters as arguments for the user sync job:
 
 To sync user data from Cassandra to Elasticsearch:
 
-1. Extract the archive file (sunbird-utils/cassandra-migration-etl/common/UserSyncBin.zip) that contains the script to sync the users data.
+1. Extract the [archive file] (https://github.com/project-sunbird/sunbird-utils/tree/master/cassandra-migration-etl/common/UserSyncBin.zip) that contains the script to sync the users data.
 
 2. Run the following command to sync all users data.
 
