@@ -7,11 +7,10 @@ published: true
 allowSearch: true
 ---
 
-### Generate API key 
+## Generate API key 
 
-This document explains the procedure of generating API keys for consumer for Sunbird server installation
-
-1. ssh login to your server where sunbird admin util docker container is running. 
+This document explains the procedure to generate API keys for a user. It is mandatory to get the API keys for Sunbird server installation. 
+To begin the process of generating the API keys, ssh login to the server where the Sunbird admin util docker container is running. 
 
 ### Create Consumer
 
