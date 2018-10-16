@@ -217,7 +217,7 @@ You can see <b>Table of Content</b> tree in the left pane to navigate content co
       <br>1. Click <b>Save</b> on the header to save the book 
       <br>2. Click <b>Send for review</b> to send the created book for review. Before sending for review, you can share the content to a limited audience. To know more about Limited Sharing, refer <a href="features-documentation/limitedpublishnshare" target="_blank">Limited Publishing and Sharing</a>
     </td>
-    <td><img src="features-documentation/images/book_sendforreview.png"></td>
+    <td><img src="features-documentation/images/book/book_sendforreview.png"></td>
   </tr>    
   </table>
   

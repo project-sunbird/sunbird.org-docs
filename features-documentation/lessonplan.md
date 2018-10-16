@@ -98,7 +98,7 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
   <br>2. The resource is added to the Lesson Plan
   <br>3. The names of the resource owners appears under <b>Created with Contributions From</b> button
   </td>
-  <td><img src="features-documentation/images/book/contributors.png">
+  <td><img src="features-documentation/images/lessonplan/contributors.png">
   </td>
   </tr>
   </table>

@@ -95,7 +95,7 @@ allowSearch: true
   <br>2. The resource is added to the Course
   <br>3. The names of the resource owners appears under <b>Created with Contributions From</b> button
   </td>
-  <td><img src="features-documentation/images/book/contributors.png">
+  <td><img src="features-documentation/images/course/contributors.png">
   </td>
   </tr>
  </table> 
