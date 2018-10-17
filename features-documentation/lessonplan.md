@@ -44,23 +44,8 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
   <td><img src="features-documentation/images/lessonplan/create_lesson_plan.png"></td>
  </tr>
  </table>
-  
-### Adding Content to Lesson Plan 
-<table>
-  <tr>
-    <th style="width:35%;">Step</th>
-    <th style="width:65%;">Screen</th>
-  </tr>
-  <tr>
-    <td>1. Click <b>New Child</b> on the left pane to add lesson unit or chapter
-      <br>2. On clicking child node, a heading is added to the Table of Contents pane. For details on child node, sibling node, refer <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a>
-      <br>3. Click <b>Add Resource</b> to add content to the headings. For details on adding resources, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
-    </td>
-    <td><img src="features-documentation/images/lessonplan/add_content.png"></td>
-  </tr>
-  </table>
 
-### Adding Details
+### Editing Lesson Details
 
 <table>
   <tr>
@@ -86,6 +71,38 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
     <td><img src="features-documentation/images/lessonplan/edit_details.png"></td>
  </tr>
  </table>
+  
+### Adding Content to Lesson Plan 
+<table>
+  <tr>
+    <th style="width:35%;">Step</th>
+    <th style="width:65%;">Screen</th>
+  </tr>
+  <tr>
+    <td>1. Click <b>New Child</b> on the left pane to add lesson unit or chapter
+      <br>2. On clicking child node, a heading is added to the Table of Contents pane. For details on child node, sibling node, refer <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a>
+      <br>3. Click <b>Add Resource</b> to add content to the headings. For details on adding resources, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
+    </td>
+    <td><img src="features-documentation/images/lessonplan/add_content.png"></td>
+  </tr>
+  </table>
+
+### Viewing Contributor Details
+ 
+  <table>
+  <tr>
+    <th style="width:35%;">Step</th>
+    <th style="width:65%;">Screen</th>
+  </tr>
+  <tr><td>1. Click <b>Add Resource</b> to add resource to the Lesson Plan, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
+  <br>2. The resource is added to the Lesson Plan
+  <br>3. The names of the resource owners appears under <b>Created with Contributions From</b> button
+  </td>
+  <td><img src="features-documentation/images/lessonplan/contributors.png">
+  </td>
+  </tr>
+  </table>
+
 
 ## Working with Table of Contents 
 
