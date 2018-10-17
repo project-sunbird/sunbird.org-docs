@@ -46,23 +46,7 @@ A book is a collection of content units. On Sunbird, books can be compiled or cu
   </tr>
   </table>
   
-### Adding Content to Book
-
-You can add various elements in the book like units or chapters, heading details, DIAL codes, and resources. 
-<table>
-  <tr>
-    <th style="width:35%;">Step</th>
-    <th style="width:65%;">Screen</th>
-  </tr>
-  <tr><td>1. Click <b>New Child</b> node, on the left navigation pane to add chapter or unit
-    <br>2. A unit is added to the left pane and the corresponding heading details are displayed on the action pane. For details on child node, sibling node, refer <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a>
-    <br>
-    </td>
-    <td><img src="features-documentation/images/book/adding_child.png"> </td>
-  </tr>
- </table>
- 
-### Adding or Editing Book Details
+### Editing Book Details
  
 <table>
   <tr>
@@ -97,7 +81,26 @@ You can add various elements in the book like units or chapters, heading details
   </tr>
   </table>
 
-### Adding Book Details
+### Adding Content to Book
+
+You can add various elements in the book like units or chapters, heading details, DIAL codes, and resources
+
+<table>
+  <tr>
+    <th style="width:35%;">Step</th>
+    <th style="width:65%;">Screen</th>
+  </tr>
+  <tr><td>1. Click <b>New Child</b> node, on the left navigation pane to add chapter or unit
+    <br>2. A unit is added to the left pane and the corresponding heading details are displayed on the action pane. For details on child node, sibling node, refer <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a>
+    <br>
+    </td>
+    <td><img src="features-documentation/images/book/adding_child.png"> </td>
+  </tr>
+</table>
+ 
+### Adding Details to Book
+
+You can update the details of each [tree node](book_creation#working-with-table-of-contents) added in the table of content of the collection  
 
 <table>
   <tr>

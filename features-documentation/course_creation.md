@@ -8,7 +8,7 @@ allowSearch: true
 ---
 ## Overview
 
- A Course Creator can create courses on Sunbird by compiling content to it. They can create each unit of course content and then compile a course using the newly created content and the already existing content as well.
+A Course Creator can create courses on Sunbird by compiling content to it. They can create each unit of course content and then compile a course using the newly created content and the already existing content as well.
 
 ## Prerequisites
 
@@ -41,20 +41,6 @@ allowSearch: true
   </tr>
   </table>
 
-### Adding Content to Course
- <table>
-  <tr>
-    <th style="width:35%;">Step</th>
-    <th style="width:65%;">Screen</th>
-  </tr>
-  <tr><td>1. To add headings to course, click <b>New Child</b> node on the left navigation pane 
-        <br>2. On clicking child node, a heading is added to the <b>Table of Contents</b> pane 
-        <br>3. Click <b>Add Resource</b> to add content. For details on adding resources, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
-      </td>
-      <td><img src="features-documentation/images/course/add_content.png"></td>
-  </tr>
-   </table>
-   
 ### Editing Course Details
 
 <table>
@@ -83,6 +69,22 @@ allowSearch: true
     <td><img src="features-documentation/images/course/course_metadata.png"></td>
   </tr>
  </table>
+
+### Adding Content to Course
+
+<table>
+  <tr>
+    <th style="width:35%;">Step</th>
+    <th style="width:65%;">Screen</th>
+  </tr>
+  <tr><td>1. To add headings to course, click <b>New Child</b> node on the left navigation pane 
+        <br>2. On clicking child node, a heading is added to the <b>Table of Contents</b> pane 
+        <br>3. Click <b>Add Resource</b> to add content. For details on adding resources, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
+      </td>
+      <td><img src="features-documentation/images/course/add_content.png"></td>
+  </tr>
+   </table>
+   
 
 ### Viewing Contributor Details
  

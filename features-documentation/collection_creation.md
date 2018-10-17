@@ -11,6 +11,7 @@ allowSearch: true
 The collection is a compilation of content.	You can compile a  collection on Sunbird using the various learning resources available on the portal or by creating content on the in-built content editor and later collating them as a collection.You are allowed to compile related or unrelated content together.
 
 ## Prerequisites
+
 <table>
   <tr>
     <th style="width:35%;">Step</th>
@@ -26,66 +27,19 @@ The collection is a compilation of content.	You can compile a  collection on Sun
   </table>
   
 ## Creating Collection
- <table>
+
+<table>
   <tr>
     <th style="width:35%;">Step</th>
     <th style="width:65%;">Screen</th>
   </tr>
    <tr>
-     <td>1. Click the <b>Collection</b> tile <br>2. Enter <b>Name</b> and <b>Description</b> <br>3. Click <b>Start Creating</b> 
-      <br><br><b>Note</b>: These details can be filled later when updating the collection metadata
+     <td>1. Click the <b>Collection</b> tile 
+     <br>2. Enter <b>Name</b> and <b>Description</b> 
+     <br>3. Click <b>Start Creating</b> 
+      <br><br><b>Note</b>: These details can be filled later when updating the collection metadata, refer Editing Collection Details   
        </td>
       <td><img src="features-documentation/images/collection/collection_metadata1.png"></td>
-  </tr>
-  </table>
-  
-### Adding Content to Collection
-<table>
-  <tr>
-    <th style="width:35%;">Step</th>
-    <th style="width:65%;">Screen</th>
-  </tr>
-  <tr>
-    <td>To add content to a collection, you can do one of the following actions: 
-    <br>1. Click <b>Add Resource</b> from the menu associated with the required node in the left navigation pane or right-click on the node name and select <b>Add Resource</b> 
-    <br>2. Click <b>Add Resource</b> on the right bottom of the page to add content to the unit or chapter. For details on adding resources, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
-    <br>3. Use the keyboard shortcut <b>Ctrl+Alt+A</b> <br> For more details on keyboard shortcuts, refer <a href="features-documentation/keyboardshortcuts" target="_blank">Keyboard Shortcuts</a>
-    </td>
-    <td><img src="features-documentation/images/collection/add_resource1.png"></td>
-  </tr>
-  </table>
-
-### Viewing Contributor Details
- 
-<table>
-  <tr>
-    <th style="width:35%;">Step</th>
-    <th style="width:65%;">Screen</th>
-  </tr>
-  <tr><td>1. Click <b>Add Resource</b> to add resource to the collection, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
-  <br>2. The resource is added to the collection
-  <br>3. The names of the resource owners appears under <b>Created with Contributions From</b> button
-  </td>
-  <td><img src="features-documentation/images/collection/contributors.png">
-  </td>
-  </tr>
-</table>
-
-### Adding Collection Details
-<table>
-  <tr>
-    <th style="width:35%;">Step</th>
-    <th style="width:65%;">Screen</th>
-  </tr>
-  <tr>
-    <td>On clicking <b>Start Creating</b>, the metadata fields related to the collection are displayed: 
-    <br>1. Enter <b>Name</b> or title of the content
-    <br>2. Enter <b>Description</b> 
-    <br>3. Enter <b>Keywords</b> 
-    <br><b>Note:</b> Keywords are ideas and topics that define content. Keywords aid in searching for content 
-    <br>4. Click <b>Save</b> on the header to save the details
-    </td>
-    <td><img src="features-documentation/images/collection/collection_metadata.png"></td>
   </tr>
   </table>
 
@@ -116,14 +70,67 @@ The collection is a compilation of content.	You can compile a  collection on Sun
     <td><img src="features-documentation/images/collection/collection_editdetails.png"></td>
   </tr>
   </table>
-  
+
+### Adding Details to Collection ToC
+
+You can update the details of each [tree node](collection_creation#working-with-table-of-contents) added in the table of content of the collection  
+
+<table>
+  <tr>
+    <th style="width:35%;">Step</th>
+    <th style="width:65%;">Screen</th>
+  </tr>
+  <tr>
+    <td>1. Enter <b>Name</b> or title of the content
+    <br>2. Enter <b>Description</b> 
+    <br>3. Enter <b>Keywords</b> 
+    <br><b>Note:</b> Keywords are ideas and topics that define content. Keywords aid in searching for content 
+    <br>4. Click <b>Save</b> on the header to save the details
+    </td>
+    <td><img src="features-documentation/images/collection/collection_metadata.png"></td>
+  </tr>
+</table>
+    
+## Adding Content and Resources to Collection
+
+<table>
+  <tr>
+    <th style="width:35%;">Step</th>
+    <th style="width:65%;">Screen</th>
+  </tr>
+  <tr>
+    <td>To add content to a collection, you can do one of the following actions: 
+    <br>1. Click <b>Add Resource</b> from the menu associated with the required node in the left navigation pane or right-click on the node name and select <b>Add Resource</b> 
+    <br>2. Click <b>Add Resource</b> on the right bottom of the page to add content to the unit or chapter. For details on adding resources, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
+    <br>3. Use the keyboard shortcut <b>Ctrl+Alt+A</b> <br> For more details on keyboard shortcuts, refer <a href="features-documentation/keyboardshortcuts" target="_blank">Keyboard Shortcuts</a>
+    </td>
+    <td><img src="features-documentation/images/collection/add_resource1.png"></td>
+  </tr>
+</table>
+
+### Viewing Contributor Details
+ 
+<table>
+  <tr>
+    <th style="width:35%;">Step</th>
+    <th style="width:65%;">Screen</th>
+  </tr>
+  <tr><td>1. Click <b>Add Resource</b> to add resource to the collection, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
+  <br>2. The resource is added to the collection
+  <br>3. The names of the resource owners appears under <b>Created with Contributions From</b> button
+  </td>
+  <td><img src="features-documentation/images/collection/contributors.png">
+  </td>
+  </tr>
+</table>
+
 ## Working with Table of Contents 
 
 The Table of Contents tree seen in the left pane is used to navigate content compiled for a collection, textbook, course or lesson plan. You can manipulate the tree using either: 
 <br>&emsp;a) The burger menu associated with a tree node 
 <br>&emsp;b) Right-click options associated with a tree node, **OR** 
 <br>&emsp;c) Keyboard shortcuts 
-<br>For details on manipulating the tree and adding content, refer to the <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a> page.
+<br>For details on manipulating the tree and adding content, refer to the <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a> page
   
 ### Deleting Content 
 
@@ -168,7 +175,7 @@ The Table of Contents tree seen in the left pane is used to navigate content com
     </td>
     <td><img src="features-documentation/images/collection/collection_sendforreview.png"></td>
   </tr>
-  </table>
+</table>
   
 ## Exploring What's New
 
@@ -184,4 +191,4 @@ The Table of Contents tree seen in the left pane is used to navigate content com
     </td>
     <td><img src="features-documentation/images/book/book_whats_new1.png"></td>
   </tr>
-  </table>
+</table>
