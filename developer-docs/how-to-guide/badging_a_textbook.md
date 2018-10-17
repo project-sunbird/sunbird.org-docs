@@ -1,18 +1,18 @@
 ---
-title: Creation and Curation of Books
-page_title: Creation and Curation of Books
-description: Details on how to create a book and add content to books
-keywords: 'books, create books, generate content, compile books, add story to book, add worksheets'
+title: Awarding Badges to Books
+page_title: Awarding Badges to Books
+description: Details on how to award badges to books
+keywords: 'books, badge books, badge, content, compile books'
 published: true
 allowSearch: true
 ---
 ## Scenario
 
-XYZ Corp is a global conglomerate with over ten thousand employees, spread across 7 locations. The organization required to create content, book and segregate the content for a different purpose. They can do so using Sunbird portal, they can even mark/badge those books with a different tag such as official,  editor’s pick, recommended and so on as required. In that case, when the users of the organization log into Sunbird, they can view the badged book distinguishably. The badge name is visible beside those textbooks that are already badges by badge issuers. Here, we will describe the workflow of assigning a badge to a textbook.
+XYZ Corp is a global conglomerate with over ten thousand employees, spread across 7 locations. The organization creates content and compiles books from available content. The books serve different purposes and are for many topics. The organization would like to award a badge to the books. For example, a book is mandatory reading for all employees who are enrolled for a particular course. The course coordinator would like to mark this book with an 'Official' badge. Another book may not be mandatory reading, but is recommended reading. The course coordinator would like to mark this book with a 'Recommended' badge. The badge awarded is visible beside the respective book. 
 
 ## Overview
 
-Badges represent an award, a certificate, an endorsement or an authorization. As part of a learning platform, badging is an important concept that is highly useful for different users such as teachers, students, content and course creators, mentors, content authors and so on. It also plays a critical role in the curation of content and courses On Sunbird; there are two types of badges: 
+Badges represent an award, a certificate, an endorsement or an authorization. As part of a learning platform, badging is an important and useful concept for different types of users. For example, a book that is marked as 'Official' by the authorized body helps students understand that the contents of such a book are mandatory to pass the certification for the course; it is equally important to the course teacher to ensure that all the concepts required for the course are covered by them. Similarly, it is important from the perspective of the content creator to have a book created by him/her is endorsed as the official book for a course. There are two types of badges: 
 
 1. Badges for Content 
 
