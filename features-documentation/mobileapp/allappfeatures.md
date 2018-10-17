@@ -50,7 +50,7 @@ If you click the <b>Continue</b> button without selecting a language, a message 
  </table>
 
 ## Selecting a User Profile
-Sunbird mobile app displays curated content based on the user profile selected
+Sunbird mobile app displays curated content based on the user profile selected.
 <table>
   <tr>
     <th style="width:35%;">Step</th>
