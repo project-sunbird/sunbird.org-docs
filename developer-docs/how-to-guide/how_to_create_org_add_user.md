@@ -1,10 +1,8 @@
 ---
-type: landing
-directory: developer-docs/how-to-guide
 title: Associating Organization and User
 page_title: Associating Organization and User
 description: Create a new user in Sunbird instance
-keywords: create user, new user, create, user
+keywords: create user, new user, create, user, setup, Set Up Users, associating user accounts with my organization
 published: true
 allowSearch: true
 ---
