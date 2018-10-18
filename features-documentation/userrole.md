@@ -15,7 +15,7 @@ This section elaborates the various user types and their assocated responsibilit
 
 ### User Roles and Respective Responsibilities
 
-|  User Role    | Content Creation | Review, Reject , & Publish | Upload Content | Roles and Respective Responsibilites |
+|  User Role    | Content Creation | Review, Reject , & Publish | Upload Content | Other Action |
 |-------------------|---------------------|---------------------|-------------------------|-----------------|
 | An **Organisation Administrator (Org admin)** manages the overall functioning and upkeep of the  organisation, and also define and manages user roles and permissions |       No       |       No       |  No | ✔️   <a href="features-documentation/#adminrole_matrix"> read more</a>
 | A **System Administrator (Sys admin)** manages installation, configuration and operation of the system |       No       |       No       |  No | ✔️   <a href="features-documentation/#adminrole_matrix"> read more</a>
@@ -34,14 +34,14 @@ This section elaborates the various user types and their assocated responsibilit
 The User Interface (UI) differs for each Sunbird user role. The UI elements vary based on the rights assigned to users.
 
 |User Role |Profile|Workspace|To Do (Home Page)|Courses |Library|
-|-------------------|----------------|----------------|----------------|----------------------------|------------------------|
+|------------|----------------|------------|----------------|---------------|-------------|
 |Content Creator, Content Reviewer, Flag Reviewer & Course Mentor |✔️ |✔️ |✔️ |✔️  |✔️ |
 |Book Creator & Book Reviewer |✔️|✔️|✔️|✔️|✔️|
 |Teacher Badge Issuer |✔️|No|✔️|✔️|✔️|
 |Announcement Sender|✔️|No|No|No |No|
 |Public |✔️|No|✔️|✔️|✔️|
 
-### Roles and Respective Responsibilites
+### Other Actions
 
 <br>1. <b>Course Mentor</b>: The chief responsibilites of a course mentor are: <br>&emsp;a) Create, edit, and delete batches <br>&emsp;b) Add mentors and participants
 <br>2. <b>Teacher Badge Issuer</b>: Organization administrators create badges and assign users to issue this badge to teachers. A user with teacher badge issuer rights issues these created badges to eligible teachers
