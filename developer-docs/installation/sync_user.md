@@ -25,8 +25,8 @@ Pass the following parameters as arguments for the user sync job:
 
  S.No. | Parameter | Description | Example 
 -------|-----------|-------------|---------
-1 | sunbird_cassandra_server | The IP address of the Cassandra DB. This parameter is used to identify the server on which the Cassandra DB is installed.| 198.168.1.1
-2 | sunbird_cassandra_port | The port number of the Cassandra DB. This parameter is used to identify the port using which the data sync takes place. | 9042 
+1 | sunbird_cassandra_server | The IP address of the Cassandra DB. This parameter is used to identify the server on which the Cassandra DB runs. The system uses the details provided to connect to the database.| 198.168.1.1
+2 | sunbird_cassandra_port | The port number of the Cassandra DB. This parameter is used to identify the port on which the Cassandra DB runs.  The system uses the details provided to connect to the database.| 9042 
 3 | sunbird_cassandra_username* | The user name for the Cassandra DB. This parameter is used to authenticate the user accessing the DB. | abc@xyz.com 
 4 | sunbird_cassandra_password* | The password for the Cassandra DB. This parameter is used to authenticate the user accessing the DB.| password 
 5 | sunbird_user_sync_api_endpoint  | The user [Sync API endpoint] (http://docs.sunbird.org/latest/apis/datasyncapi/#tag/Data-Sync-API(s)) | {{domain}}/api/data/v1/index/sync 
