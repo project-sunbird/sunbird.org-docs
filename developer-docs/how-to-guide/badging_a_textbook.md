@@ -10,36 +10,34 @@ allowSearch: true
 
 XYZ Corp is a global conglomerate with over ten thousand employees, spread across 7 locations. The organization creates content and compiles books from available content. The books serve different purposes and are for many topics. The organization would like to award a badge to the books. For example, a book is mandatory reading for all employees who are enrolled for a particular course. The course coordinator would like to mark this book with an 'Official' badge. Another book may not be mandatory reading, but is recommended reading. The course coordinator would like to mark this book with a 'Recommended' badge. The badge awarded is visible beside the respective book. 
 
+## Prerequisite
+
+ - [ Create](http://docs.sunbird.org/latest/apis/badgingframeworkapi/#operation/CreatePost) and assign the badge issuer role
+ - Crete [ Badge class](http://www.sunbird.org/apis/badgingframeworkapi/#operation/BadgeCreatePost)
+
 ## Overview
 
-Badges represent an award, a certificate, an endorsement or an authorization. As part of a learning platform, badging is an important and useful concept for different types of users. For example, a book that is marked as 'Official' by the authorized body helps students understand that the contents of such a book are mandatory to pass the certification for the course; it is equally important to the course teacher to ensure that all the concepts required for the course are covered by them. Similarly, it is important from the perspective of the content creator to have a book created by him/her is endorsed as the official book for a course. There are two types of badges: 
+Badges represent an award, a certificate, an endorsement or an authorization. As part of a learning platform, badging is an important and useful concept for different types of users. For example, a book that is marked as 'Official' by the authorized body informs:
+
+* Students that the contents of the book are mandatory to gain the required certification
+
+* Course teachers that it is the prescribed curriculum 
+
+* The content creator that the to have a book or content created by him/her is endorsed by an authority, whereby adding to his/her professional standing
+
+There are two types of badges: 
 
 1. Badges for Content 
 
 2. Badges for People
 
-Here we are discussing Badging content or book. Once an organization create/compile, and upload books on Sunbird portal, They can even mark/badge those books with a different tag such as Official,  Editor’s pick, Recommended and so on. In that case, when the users of the organization log into Sunbird, they can view the badged book distinguishably. The badge name is visible beside those textbooks that are already badges by badge issuers.
-
-## Use case
-
-Badging content (book) provides the benefits such as content usage, content effectiveness, and content segregation.
-
-1. Organizations can create authorized content on Sunbird and mark them with appropriate badges such as Official. During search or navigation, badged content is displayed in the top results 
-
-2. Organizations can create content for specific use cases such as content for special needs, specific age groups and so on. Badging such content aids their discoverability.
-
-3. Endorse books with badges such as popular, favorite, recommended to increase the effectiveness and usability
-
-This document describes prerequisite for badging a textbook and steps to badge a book.
+Users with the role and permissions of a **Badge Issuer**  This page provides information about how to award badges to a book or content. 
 
 ## Intended Audience
 
 Badge issuer
 
-## Prerequisite
 
- - [ Create](http://docs.sunbird.org/latest/apis/badgingframeworkapi/#operation/CreatePost) and assign the badge issuer role
- - Crete [ Badge class](http://www.sunbird.org/apis/badgingframeworkapi/#operation/BadgeCreatePost)
 
 
 ### Create Issuer
