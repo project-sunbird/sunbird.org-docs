@@ -9,7 +9,7 @@ published: true
 
 ## Overview
 
-Sunbird Release 1.11, supports user profile configuration through the system_settings table in Cassandra.
+Sunbird Release 1.11, supports user profile configuration through the **system_settings** table in Cassandra.
 
 ## Prerequisites
 
