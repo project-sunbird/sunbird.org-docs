@@ -39,7 +39,7 @@ To download the release notes, click the download icon that corresponds to the r
         <th align="center">Download</th>
     </tr>
      <tr>
-        <td align="left">Release 1.10</td>
+        <td align="left">Release 1.11</td>
          <td>15/10/2018</td>
         <td align="center"><a href="release_notes/view_pdf/ver1-11/" target="_blank">
             <img src="release_notes/icons_used/viewicon.png" alt="View" style="width:25px;height:25px;border:0;">
