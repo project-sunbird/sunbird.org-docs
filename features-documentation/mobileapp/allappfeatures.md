@@ -28,8 +28,7 @@ You can download the sample version of the Sunbird Mobile App to explore its out
 The sample Sunbird Mobile App is available for users to test, experiment and understand the various features and functions of the application. To download the app go to the <a href="http://github.com/project-sunbird/sunbird-android/releases" target="_blank"> Sunbird Android Release</a>.
 
 ## Selecting Display Language for Sunbird Mobile APP
-
-As a Sunbird app user, you must set the display language for your app.To select a language of your choice for the app, open the app:
+As a Sunbird app user, you must set the display language for your app
 <table>
   <tr>
     <th style="width:35%;">Step</th>
@@ -49,7 +48,30 @@ If you click the <b>Continue</b> button without selecting a language, a message 
   <td><img src="features-documentation/images/mobileapp/languagenote.png"></td>
 </tr>
  </table>
- 
+
+## Selecting a User Profile
+Sunbird mobile app displays curated content based on the user profile selected.
+<table>
+  <tr>
+    <th style="width:35%;">Step</th>
+    <th style="width:65%;">Screen</th>
+ </tr>
+ <tr>
+ <td>To select the user profile<br>
+1. Select from the following list:<br>
+<br>&emsp;a)Student
+<br>&emsp;b)Teacher
+2. Click <b>Continue As Teacher/Student</b><br>
+3. Select the following from their respective drop-down menus:<br>
+<br>&emsp;a)Board
+<br>&emsp;b)Medium
+<br>&emsp;c)Class
+4. Click <b>Finish</b> to complete updating the profile       
+</td>
+  <td><img src="features-documentation/images/mobileapp/userprofile_update.png"></td>
+</tr>
+  </table>
+
 ## Upgrading Sunbird Mobile APP
 
 When there is any new version release of Sunbird app, users are notified of the release through a pop-up message in the app. For a better user expereince the user is adviced to update the app. Based on organizational requirements, administrators can configure a forced or an optional upgrade of the app and the users are notified of the same through a pop-up message.
