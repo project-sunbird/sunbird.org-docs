@@ -31,13 +31,16 @@ This page details the procedure of creating resources on Sunbird.
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-    <td>1. You are logged in <br>2. You are currently on <b>My Workspace</b> page <br>3. You want to create resources, you have clicked the <b>Resource</b> tile
+    <td>1. You are logged in 
+    <br>2. You are currently on <b>My Workspace</b> page 
+    <br>3. You want to create resources, you have clicked the <b>Resource</b> tile
       </td>
       <td><img src="features-documentation/images/resource/resource_prerequisite.png"></td>
   </tr>
   </table>
   
 ### Creating Resources
+
 <table>
   <tr>
     <th style="width:35%;">Step</th>
@@ -45,47 +48,45 @@ This page details the procedure of creating resources on Sunbird.
   </tr>  
   <tr>
     <td>1. Enter <b>Name</b> of the resource 
-      <br>2.Select the following from their respective dropdown menus: 
-      <br>&emsp;a) <b>Board</b>
-      <br>&emsp;b) <b>Grade</b> 
-      <br>&emsp;c) <b>Subject</b> 
-      <br>&emsp;d) <b>Medium</b> 
-      <br>&emsp;e) <b>Concept</b>. Refer <a href="features-documentation/concept_selector" target="_blank">Concept Selector</a>
-      <br>&emsp;f) <b>Resource Type</b>
-      <br>3. Click <b>Start Creating</b> 
+    <br>2. Click <b>Start Creating</b> 
       <br><b>Note</b>: These details can also be filled in later when updating the resource details before sending it for review
     </td>
     <td><img src="features-documentation/images/resource/resource_create.png"></td>
   </tr>
   </table>
-  
+
 ### Content Editor
+
 Sunbird provides an inbuilt content editor to create engaging and innovative content. For details on how to create resource using the content editor, refer <a href="features-documentation/contenteditor" target="_blank">Content Editor</a>
   
 ### Editing Resource Details
-Once the resource is created, using the content editor, all details pertaining to the resource must be updated before sending the resource for review.
+
 <table>
   <tr>
     <th style="width:35%;">Step</th>
     <th style="width:65%;">Screen</th>
-  </tr>  
+  </tr>
   <tr>
-    <td>1. Click <b>Edit Details</b> <br>2. Click the camera icon to add an image <br><b>Note</b>: For details, refer <a href="features-documentation/metadata_addingimages" target="_blank">Adding Image to Metadata</a> <br>3. Enter <b>Name</b> of the resource  <br>4. Enter <b>Description</b> of the resource 
-      <br>5. Enter <b>Keywords</b>. Keywords are ideas and topics that define content. Keywords aid in discovering content 
-      <br>6.Select the following from their respective dropdown menus: 
-      <br>&emsp;a) <b>Curriculum</b>
-      <br>&emsp;b) <b>Class</b> 
-      <br>&emsp;c) <b>Subject</b> 
-      <br>&emsp;d) <b>Medium</b> 
-      <br>&emsp;e) <b>Concept</b>. Refer <a href="features-documentation/concept_selector" target="_blank">Concept Selector</a> 
-      <br>&emsp;f) <b>Resource Type</b>
-      <br>&emsp;g) <b>Audience</b>  
-  <br>7. Enter <b>Attributions</b>, if any <br>8. Click <b>Save</b> to save all the details
+    <td>1. Click <b>Edit Details</b> to enter the course details 
+      <br>2. Click the camera icon to add an image <br><b>Note:</b> For details, refer <a href="features-documentation/metadata_addingimages" target="_blank">Adding Images to Metadata</a> 
+      <br>3. Enter <b>Title</b> of the course 
+      <br>4. Enter <b>Description</b> 
+      <br>5. Enter <b>Keywords</b> 
+      <br>6. Select the following from their respective drop-down lists: 
+      <br>&emsp;a) Curriculum 
+      <br>&emsp;b) Class 
+      <br>&emsp;c) Subject 
+      <br>&emsp;d) Medium 
+      <br>7. Select <b>Topic</b>
+      <br>8. Select <b>Attributions</b>
+      <br>9. Select <b>Audience</b> 
+      <br>10. Select <b>Owner</b> 
+      <br>11. Click <b>Save</b> to save the details 
+      <br>12. Click <b>Cancel</b> to exit the page
     </td>
     <td><img src="features-documentation/images/resource/resource_details.png"></td>
   </tr>
-  </table>
-
+ </table>
 
 ### Sending Resource for Review
 <table>
