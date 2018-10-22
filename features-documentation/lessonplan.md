@@ -54,7 +54,8 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
   </tr>
   <tr>
     <td>1. Click the <b>Edit Details</b> link on the top left corner of the page
-      <br>2. Click the camera icon to add an image <br><b>Note</b>: For details, refer <a href="features-documentation/metadata_addingimages" target="_blank">Adding Image to Metadata</a> 
+      <br>2. Click the camera icon to add an image 
+      <br><b>Note</b>: For details, refer <a href="features-documentation/metadata_addingimages" target="_blank">Adding Image to Metadata</a> 
       <br>3. Enter <b>Title</b>       
       <br>4. Enter <b>Description</b> for the lesson plan 
       <br>5. Enter <b>Keywords</b> 
@@ -63,10 +64,12 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
       <br>&emsp;b) <b>Class</b> 
       <br>&emsp;c) <b>Subject</b> 
       <br>&emsp;d) <b>Medium</b> 
-      <br>7. Enter <b>Attributions</b>
-      <br>8. Select <b>Audience</b>
-      <br>9. Click <b>Save</b> to collectively save all updates.  
-      <br>10. Click <b>Cancel</b> to exit the page 
+      <br>7. Select <b>Topic</b>
+      <br>8. Enter <b>Attributions</b>
+      <br>9. Select <b>Audience</b>  
+      <br>10. Select <b>Owner</b>
+      <br>11. Click <b>Save</b> to collectively save all updates
+      <br>12. Click <b>Cancel</b> to exit the page 
     </td>
     <td><img src="features-documentation/images/lessonplan/edit_details.png"></td>
  </tr>
