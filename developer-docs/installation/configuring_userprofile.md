@@ -19,6 +19,16 @@ When upgrading from any lower version of Sunbird to Sunbird version 1.11, the sy
 
 The CQL file version 1.25 holds the script to do the user profile configuration when the Cassandra database migration is done during Sunird version 1.11 upgrade. It does the following user profile configurations in the system_settings table.
 
+Property Name  | Field Type  | Description
+-------------- | ----------- | -----------
+fields         | List        | A list of supported user profile fields. The list of fields in the following sample code are indicative. You can choose the same set of fields for each block or choose to have a different set of fields. 
+publicFields   | List        | A list of fields that are publicly visible. The user cannot modify these fields to be privately visible. 
+privateFields  | List        | A list of fields that are privately visible.  The user cannot modify these fields to be publicly visible. 
+
+> **Note:** The list of fields in the following sample code are indicative. You can choose the same set of fields for each block or choose to have a different set of fields. 
+
+### Sample
+
 ```
 {
   "fields": [
@@ -55,8 +65,3 @@ The CQL file version 1.25 holds the script to do the user profile configuration 
 }
 ```
 
-Property Name  | Field Type  | Description
--------------- | ----------- | -----------
-fields         | List        | List of supported user profile fields. 
-publicFields   | List        | Visibility of these fields cannot be changed to private
-privateFields  | List        | Visibility of these fields cannot be changed to public
