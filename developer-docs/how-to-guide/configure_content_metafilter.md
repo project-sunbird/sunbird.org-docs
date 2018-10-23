@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: howto
 title: How do i configure filters for meta tags provided to content  
 page_title: How do I Configure Filters for Meta Tags provided to Content 
 description: Describes how to configure filters that are used for the metadata attributed to content 
@@ -11,7 +9,7 @@ allowSearch: true
 
 ## Overview
 
-Multiple tenants can share content from EkStep content repository using the Sunbird platform. In Sunbird, a tenant is a root organisation that shares a common access with specific privileges to the software instance. Root organizations can define their own frameworks and set preferences like default language and default search categories. Sunbird maps each root organization to a concept known as a channel. Sunbird allows an instance owner to change the default behavior to content meta based filtering for filtering content based on content meta attributes like channels, framework, contentType, mimeType and resourceType.
+Multiple tenants can share content from the EkStep content repository using the Sunbird platform. In Sunbird, a tenant is a root organisation that shares a common access with specific privileges to the software instance. Root organizations can define their own frameworks and set preferences like default language and default search categories. Sunbird maps each root organization to a concept known as a channel. Sunbird allows an instance owner to change the default behavior to content meta based filtering for filtering content based on content meta attributes like channels, framework, contentType, mimeType and resourceType.
   
 ### Prerequisites
 
