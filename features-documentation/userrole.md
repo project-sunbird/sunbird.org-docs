@@ -15,7 +15,7 @@ This section elaborates the various user types and their assocated responsibilit
 
 ### User Roles and Respective Responsibilities
 
-|  User Role    | Content Creation | Review, Reject , & Publish | Upload Content | Other Action |
+|  User Role    | Content Creation | Review, Reject , & Publish | Upload Content | Other Actions |
 |-------------------|---------------------|---------------------|-------------------------|-----------------|
 | An **Organisation Administrator (Org admin)** manages the overall functioning and upkeep of the  organisation, and also define and manages user roles and permissions |       No       |       No       |  No | ✔️   <a href="features-documentation/#adminrole_matrix"> read more</a>
 | A **System Administrator (Sys admin)** manages installation, configuration and operation of the system |       No       |       No       |  No | ✔️   <a href="features-documentation/#adminrole_matrix"> read more</a>
