@@ -189,7 +189,7 @@ Sunbird houses a wide variety of content. Users with registered credentials can 
 	</tr>
   </table>
 
- ### Downloading Content
+### Downloading Content
  
   <table>
   You see the download button while viewing PDF content. <br>
