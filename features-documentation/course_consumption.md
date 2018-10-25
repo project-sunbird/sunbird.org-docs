@@ -61,7 +61,7 @@ Any registered user can take up a course on Sunbird. The guidelines to taking a 
   
 ### Inbuilt Content Player
   
-  On clicking on the course material links, the course content is diplayed in the inbuilt content player.
+On clicking on the course material links, the course content is diplayed in the inbuilt content player.
   <table>
   <tr>
     <th style="width:35%;">Step</th>

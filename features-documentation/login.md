@@ -20,7 +20,7 @@ Sign in on Sunbird is a seamless process. Any organization, recognized education
     </tr>
     </table>
 
-## Logging to Sunbird Portal
+## Logging into Sunbird Portal
 
 <table>
   <tr>
@@ -42,7 +42,7 @@ Sign in on Sunbird is a seamless process. Any organization, recognized education
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-	  <td>1. Enter your <b>Username</b> or <b>Email</b> or <b>Phone number</b> <br>2. Click <b>Forgot Password?</b></td>
+	  <td>1. Click <b>Forgot Password?</b></td>
 	<td><img src="features-documentation/images/forgotpassword.png"></td>
     </tr>
     </table>
@@ -63,7 +63,7 @@ Sign in on Sunbird is a seamless process. Any organization, recognized education
     <td colspan="2"><img src="features-documentation/images/emaillink.png"></td>
   </tr>
   <tr>
-    <td>1. The <b>Login</b> page is displayed <br>2. Enter <b>Email ID</b> <br>3. Enter new <b>Password</b> of your choice <br>4. Click <b>Login</b></td>
+    <td>1. Enter the new password <br>2. Re-enter the same password to confirm <br>4. Click <b>Submit</b>. You are logged into the Sunbird portal</td>
     <td><img src="features-documentation/images/loginemail.png"></td>
   </tr>
   </table>

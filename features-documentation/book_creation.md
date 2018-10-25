@@ -46,23 +46,7 @@ A book is a collection of content units. On Sunbird, books can be compiled or cu
   </tr>
   </table>
   
-### Adding Content to Book
-
-You can add various elements in the book like units or chapters, heading details, DIAL codes, and resources. 
-<table>
-  <tr>
-    <th style="width:35%;">Step</th>
-    <th style="width:65%;">Screen</th>
-  </tr>
-  <tr><td>1. Click <b>New Child</b> node, on the left navigation pane to add chapter or unit
-    <br>2. A unit is added to the left pane and the corresponding heading details are displayed on the action pane. For details on child node, sibling node, refer <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a>
-    <br>
-    </td>
-    <td><img src="features-documentation/images/book/adding_child.png"> </td>
-  </tr>
- </table>
- 
-### Adding or Editing Book Details
+### Editing Book Details
  
 <table>
   <tr>
@@ -97,7 +81,26 @@ You can add various elements in the book like units or chapters, heading details
   </tr>
   </table>
 
-### Adding Book Details
+### Adding Content to Book
+
+You can add various elements in the book like units or chapters, heading details, DIAL codes, and resources
+
+<table>
+  <tr>
+    <th style="width:35%;">Step</th>
+    <th style="width:65%;">Screen</th>
+  </tr>
+  <tr><td>1. Click <b>New Child</b> node, on the left navigation pane to add chapter or unit
+    <br>2. A unit is added to the left pane and the corresponding heading details are displayed on the action pane. For details on child node, sibling node, refer <a href="features-documentation/treestructure_toc" target="_blank">Exploring ToC Structure</a>
+    <br>
+    </td>
+    <td><img src="features-documentation/images/book/adding_child.png"> </td>
+  </tr>
+</table>
+ 
+### Adding Details to Book
+
+You can update the details of each [tree node](book_creation#working-with-table-of-contents) added in the table of content of the collection  
 
 <table>
   <tr>
@@ -116,8 +119,24 @@ You can add various elements in the book like units or chapters, heading details
        </td>
       <td><img src="features-documentation/images/book/heading_metadata.png"> </td>
   </tr>
-    </table>
+</table>
     
+### Viewing Contributor Details
+ 
+  <table>
+  <tr>
+    <th style="width:35%;">Step</th>
+    <th style="width:65%;">Screen</th>
+  </tr>
+  <tr><td>1. Click <b>Add Resource</b> to add resource to the book, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
+  <br>2. The resource is added to the book
+  <br>3. The names of the resource owners appears under <b>Created with Contributions From</b> button
+  </td>
+  <td><img src="features-documentation/images/book/contributors.png">
+  </td>
+  </tr>
+  </table>
+
 #### Linking or Unlinking DIAL Code
 
 <table>
@@ -166,7 +185,7 @@ You can see <b>Table of Content</b> tree in the left pane to navigate content co
     <td>1. Click <b>Delete</b> icon beside the burger menu <br>2. Click <b>Yes</b> to delete the added content
       <br><b>Note:</b> You can alternatively delete content by clicking <b>Delete</b> in the burger menu drop-down
       </td>
-    <td><img src="features-documentation/images/collection/collection_delete.png"></td>
+    <td><img src="features-documentation/images/book/book_delete.png"></td>
   </tr>
 </table>
 
@@ -201,7 +220,7 @@ You can see <b>Table of Content</b> tree in the left pane to navigate content co
       <br>1. Click <b>Save</b> on the header to save the book 
       <br>2. Click <b>Send for review</b> to send the created book for review. Before sending for review, you can share the content to a limited audience. To know more about Limited Sharing, refer <a href="features-documentation/limitedpublishnshare" target="_blank">Limited Publishing and Sharing</a>
     </td>
-    <td><img src="features-documentation/images/book_sendforreview.png"></td>
+    <td><img src="features-documentation/images/book/book_sendforreview.png"></td>
   </tr>    
   </table>
   
