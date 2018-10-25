@@ -189,21 +189,21 @@ Sunbird houses a wide variety of content. Users with registered credentials can 
 	</tr>
   </table>
 
- ### Downloading Content
+### Downloading Content
+ 
   <table>
-  You get a download option while playing PDF content. <br>
+  You see the download button while viewing PDF content. <br>
   To download a PDF content:
   <tr>
     <th style="width:35%;">Step</th>
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-	  <td>1.Click on the Three dots Kebab icon
+	  <td>1.Click on the Kebab icon (...)
 	<br>2. Click the <b>Download</b> button or press <b>Ctrl+S</b> to download the PDF using a new tab.<br>
   The PDF file gets downloaded on your the device.<br>
 
   If there’s not enough space on your device to download and extract the PDF file, a pop-up message appears saying “Insufficient space on disk.” </td>
     <td><img src="features-documentation/images/library/downloadcontent.png"></td>
   </tr>
-  
   </table>
