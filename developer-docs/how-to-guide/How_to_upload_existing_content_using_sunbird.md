@@ -65,12 +65,11 @@ You can upload video content owned by others, if:
 
 To upload new or existing content (that is not created using Sunbird's inbuilt content editor) on to Sunbird, use the [Upload Content API](http://docs.sunbird.org/latest/apis/content/#operation/Upload%20Content). Before you upload the content, ensure that it is appropriately tagged with metadata and ownership information. 
 
-
 ### Uploading Content Using API
 
 * The [Upload Content API](http://docs.sunbird.org/latest/apis/content/#operation/Upload%20Content) endpoint executes the **Upload Content** request based on validated content metadata associated with the uploaded file
 
-> Sample URL: https://staging.open-sunbird.org/api/content/v1/upload/{Content_ID}
+> Sample URL: https://staging.open-sunbird.org/api/content/v1/upload/business_process.pdf
 
 * Get a valid unique value in the **contentId** field of API URL by making a [Create Content API](http://docs.sunbird.org/latest/apis/content/#operation/Create%20Content) request before making an **Upload Content** request. 
 
@@ -101,7 +100,7 @@ To upload new or existing content (that is not created using Sunbird's inbuilt c
 
 | Form Data Parameter | Parameter Type | Description                                          | Sample Value | Is Mandatory |
 |---------------------|----------------|------------------------------------------------------|--------------|--------------|
-| file                | String         | The name of the content file that you want to upload | sample.pdf   | Yes          |
+| file                | String         | The full path to the content file which you want to upload | business_process.pdf   | Yes          |
 
 
 
@@ -116,7 +115,7 @@ To upload new or existing content (that is not created using Sunbird's inbuilt c
 
 #### Request Body (Upload Content API)
 
-    -F file=@/home/user/Documents/sample.pdf
+    -F file=@/home/user/Documents/business_process.pdf
     
 #### Response Body (Upload Content API)
 
@@ -144,6 +143,8 @@ To upload new or existing content (that is not created using Sunbird's inbuilt c
 ### Publishing Content using API #### 
 
 After uploading the content, publish the content using the [Publish Content API](apis/content/#operation/Publish%20Content). 
+
+> Note: The publish checklist is configurable. The values in the sample request body are only indicative. 
 
 #### Request Body
 
