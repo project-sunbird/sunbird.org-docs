@@ -58,7 +58,7 @@ This page elaborates the various user interface elements of the **Library**
 				<br>&emsp;d) <b>Medium</b>
 				<br>&emsp;e) <b>Content Types</b>
 				<br>&emsp;f) <b>Concepts</b>
-	<br>2. Click <b>Apply</b>. The search results are displayed <br>3. Click <b>Reset</b> to reset the filters <br>4. Click <b>View All</b> to view all the content avalable under the <b>Library</b> tab</td>
+	<br>2. Click <b>Apply</b>. The search results are displayed <br>3. Click <b>Reset</b> to reset the filters <br>4. Click <b>View All</b> to view all the content available under the <b>Library</b> tab</td>
     <td><img src="features-documentation/images/library/applying_filters.png"></td>
   </tr>
   </table>
@@ -203,7 +203,7 @@ Sunbird houses a wide variety of content. Users with registered credentials can 
 	<br>2. Click the <b>Download</b> button or press <b>Ctrl+S</b> to download the PDF using a new tab.<br>
   The PDF file gets downloaded on your the device.<br>
 
-  If there’s not enough space on your device to download and extract the PDF file, a pop-up message appears saying “Insufficient space on disk.” </td>
+  If there is not enough space on your device to download and extract the PDF file, a pop-up message appears saying “Insufficient space on disk.” </td>
     <td><img src="features-documentation/images/library/downloadcontent.png"></td>
   </tr>
   </table>
