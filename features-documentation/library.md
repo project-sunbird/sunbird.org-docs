@@ -51,14 +51,14 @@ This page elaborates the various user interface elements of the **Library**
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-	  <td>1.Click <b>Filters</b>  <br>2. Select the following from their respective drop-down menus: 
-		  		<br>&emsp;a) <b>Board</b>
+	  <td>1.Click <b>Filters</b> and select the following from their respective drop-down menus: 
+		  	<br>&emsp;a) <b>Board</b>
 				<br>&emsp;b) <b>Grade</b>
 				<br>&emsp;c) <b>Subject</b>
 				<br>&emsp;d) <b>Medium</b>
 				<br>&emsp;e) <b>Content Types</b>
 				<br>&emsp;f) <b>Concepts</b>
-	<br>2. Click <b>Apply</b>. The search results are displayed <br>3. Click <b>Reset</b> to reset the filters <br>4. Click <b>View All</b> to view all the content avalable under the <b>Library</b> tab</td>
+	<br>2. Click <b>Apply</b>. The search results are displayed <br>3. Click <b>Reset</b> to reset the filters <br>4. Click <b>View All</b> to view all the content available under the <b>Library</b> tab</td>
     <td><img src="features-documentation/images/library/applying_filters.png"></td>
   </tr>
   </table>
@@ -71,7 +71,7 @@ This page elaborates the various user interface elements of the **Library**
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-   <td>1. Click the <b>Sort </b> drop-down icon <br>2.Sort content on the:  <br>&emsp;b) modified date, or <br>&emsp;b) created date
+   <td>1. Click the <b>Sort </b> drop-down icon <br>2. Sort content based on the:  <br>&emsp;b) modified date or <br>&emsp;b) created date
     </td>
 	<td><img src="features-documentation/images/library/sort_options.png"></td>
     </tr>
@@ -199,11 +199,11 @@ Sunbird houses a wide variety of content. Users with registered credentials can 
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-	  <td>1.Click on the Kebab icon (...)
+	  <td>1. Click on the Kebab icon (...)
 	<br>2. Click the <b>Download</b> button or press <b>Ctrl+S</b> to download the PDF using a new tab.<br>
   The PDF file gets downloaded on your the device.<br>
 
-  If there’s not enough space on your device to download and extract the PDF file, a pop-up message appears saying “Insufficient space on disk.” </td>
+  If there is not enough space on your device to download and extract the PDF file, a pop-up message appears saying “Insufficient space on disk.” </td>
     <td><img src="features-documentation/images/library/downloadcontent.png"></td>
   </tr>
   </table>
