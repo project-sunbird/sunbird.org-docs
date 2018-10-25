@@ -63,7 +63,7 @@ You can upload video content owned by others, if:
 
 ## Taskflow
 
-To upload new or existing content (that is not created using Sunbird's inbuilt content editor) on to Sunbird, use the [Upload Content API](http://docs.sunbird.org/latest/apis/content/#operation/Upload%20Content). Before you upload the content, ensure that it is appropriately tagged with metadata and ownership information. 
+To upload new or existing content (that is not created using Sunbird's inbuilt content editor) on to Sunbird, use the [Upload Content API](http://docs.sunbird.org/latest/apis/content/#operation/Upload%20Content). Before you upload the content, ensure that it is appropriately tagged with metadata and ownership information using tthe [Update Content API](http://docs.sunbird.org/latest/apis/content/#operation/Create%20Content).
 
 ### Uploading Content Using API
 
