@@ -1,0 +1,100 @@
+swagger: '2.0'
+info:
+  version: 'v3'
+  title: Analytics Channel DataExhaust API
+  description: 'Channel DataExhaust APIs exposed by analytics'
+  license:
+    name: MIT
+    url: http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT
+host: "diksha.gov.in"    
+securityDefinitions: {}
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /data/v3/dataset/get/{datasetID}:
+    get:
+      description: API to provide the channel based data.
+      operationId: ChannelExhaust
+      produces:
+      - application/json
+      parameters:
+      - in: header
+        name: Authorization
+        description: We have to pass **JWT_Token / API Key** here - Ex. **Bearer <jwt_token>**. This token represents the consumer_id of the user.
+        type: string
+        required: true
+      - in: header
+        name: X-Channel-ID
+        description: data will be filterd with the channel_id and it should be mapped with the consumer_id
+        type: string
+        required: true
+      - in: path
+        name: datasetID
+        description: "dataset_id is the type of data user wants to fetch.... Ex. 'raw', 'summary', 'metrics'"
+        required: true
+        type: string
+      - in: query
+        name: type
+        description: 'Type of summary events - Ex. device-summary, workflow-summary. default is **workflow-summary**'
+        type: string
+      - in: query
+        name: from
+        description: 'start date'
+        required: true
+        type: string
+      - in: query
+        name: to
+        description: 'end date. If this field is absent then it will it will be considered as current date'
+        required: false
+        type: string
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/dataExhaustResponse" 
+      security: []
+definitions:
+  ResponseParams:
+    title: Params
+    type: object
+    properties:
+      resmsgid:
+        type: string
+      status:
+        type: string
+    required:
+    - resmsgid
+    - status
+  dataExhaustResponse:
+    type: object
+    properties:
+      id:
+        type: string
+      ver:
+        type: string
+      ts:
+        type: string
+      params:
+        $ref: '#/definitions/ResponseParams'
+      responseCode:
+        type: string
+      result:
+        $ref: '#/definitions/dataExhaustResult'
+    required:
+    - id
+    - ver
+    - ts
+    - params
+    - responseCode
+    - result
+  dataExhaustResult:
+    type: object
+    properties:
+      telemetryURLs:
+        type: array
+        items:
+          type: string
+      expiresAt:
+        type: integer
