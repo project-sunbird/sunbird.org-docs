@@ -17,13 +17,11 @@ Sunbird enables seamless access and discoverability of content through a framewo
 ## Scenario
 Let us consider an example of an organization, ABC Organization, which works in the domain of water conservation and works with multiple NGOs, village panchayats, and district administration authorities in multiple states of India. They need to create the framework for the water management domain. Their framework will have terms associated with categories specific to the domain. The following example depicts the categories and terms specifically used for the water management framework:
 
-| Framework Name | Categories            | Terms                               |
-|----------------|-----------------------|-------------------------------------|
-| ABC            | Resources             | Ground Water, Spring, Surface Water |
-|                | Governance            | Ground Water, Spring, Surface Water |
-|                | Measurement & Mapping | Ground Water, Spring, Surface Water |
-|                | Funds                 | State, Central, Global              |
-|                | Management            | Ground Water, Spring, Surface Water |
+| Framework Name | Categories            | Terms              |
+|----------------|-----------------------|--------------------|
+| ABC            | Resources             | River, Spring, Sea |
+|                | Governance            | Local, State, Central |
+|                | Funds                 | State, Central, Global|
 
 ABC Organization, may choose a predefined category and associate it to their own framework. Each category in the framework has terms associated with it. These terms are relevant to the created framework and can be created by the organization. 
 
@@ -35,25 +33,25 @@ While creating a new framework, the framework creator needs to set up a new fram
     - Medium: language of the course 
     - Topic: detail of the concepts 
     
-A user can select one or more category amongst the defined category. 
+A user can select one or more category amongst the defined categories. 
  
 For example, for the organization ABC organization the framework name is ABC and code as abc1; the category selected is **Subject** and the label is modified as **Resources** which defines the various water resources and contains the terms as Ground Water, Spring, Surface Water and so on. 
 
 ### Prerequisites
 
-1.An intialized Sunbird instance with channel
+1. An intialized Sunbird instance with the channel 
 
-2.The [API Key for access](http://www.sunbird.org) and basic authentication
+2. The [API Key for access](../developer-docs/generating_sunbird_api_keys/) to required APIs and basic authentication
   
-3.Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
+3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
-4.Onboarding the following with access to the API
-    - Admin user     
-    - [Individual user](http://www.sunbird.org/apis/userapi/#operation/Create%20User)
-    - [Individual Organization](http://www.sunbird.org/apis/orgapi/#operation/Organisation%20Create) access 
-    - [Associated Users to organization](http://www.sunbird.org/apis/)
+4. Creation of the following entities with appropriate access permissions:
+   - Admin user (created using Keycloak) who has permissions to create an organization
+   - [Individual Organization](http://www.sunbird.org/apis/orgapi/#operation/Organisation%20Create)
+   - [Individual user](http://www.sunbird.org/apis/userapi/#operation/Create%20User) 
+   - [Mapping of created user/s to the organization](http://www.sunbird.org/apis/)
 
-5.Access to [Framework API](http://www.sunbird.org/apis/framework/)
+5. Access to [Framework API](http://www.sunbird.org/apis/framework/)
 
 ### Taskflow
  
