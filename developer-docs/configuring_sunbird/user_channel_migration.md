@@ -25,8 +25,8 @@ The following parameters needs to be passed as arguments for the channel value m
 2 | sunbird_cassandra_port | Cassandra DB Port Number | 9042 
 3 | sunbird_cassandra_username* | Cassandra DB User Name | username 
 4 | sunbird_cassandra_password* | Cassandra DB Password | password 
-5 | sunbird_cassandra_keyspace  | Cassandra DB Keyspace Name | demodb 
-6 | sunbird_channel_migration_log_file | Path to CSV file where migration logs are stored | \home\channel_migration_log.csv 
+5 | sunbird_cassandra_keyspace  | Cassandra DB Keyspace Name | Sunbird 
+6 | sunbird_channel_migration_log_file | Path to CSV file where migration logs are stored | /home/ops/channel_migration_log.csv
 
 > Note: If authentication is not required, pass `""` for parameters, username, and password
 

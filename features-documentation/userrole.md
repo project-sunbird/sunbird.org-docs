@@ -1,6 +1,6 @@
 ---
-title: Types of Users
-page_title: Types of Users
+title: User Roles
+page_title: User Roles
 description: User Roles and Permission
 keywords: 'Admin, System Admin, Org Admin, Instructor, Student, Roles, Permissions'
 published: true
