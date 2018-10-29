@@ -1,17 +1,21 @@
 <!-- Templates-->
 <script id="template-widgetOldVersions" type="text/x-handlebars-template">
-	<h2 id="olderVersionsHeading">Older Versions</h2>
-	<ul id="olderVersions">
-	{{#each versions}}
-		{{#unless this.latest}}
-		{{#if this.published}}
-			<li>
-				<a href="/{{this.branch}}/" >{{this.title}}</a>
-			</li>
-		{{/if}}	
-		{{/unless}}
-	{{/each}}
-	</ul>
+	<div id="toc" class="toc maintoc">
+		<div id="toctitle">
+			<h2 id="olderVersionsHeading">Older Versions</h2>
+		</div>
+		<ul id="olderVersions">
+		{{#each versions}}
+			{{#unless this.latest}}
+			{{#if this.published}}
+				<li>
+					<a href="/{{this.branch}}/" >{{this.title}}</a>
+				</li>
+			{{/if}}	
+			{{/unless}}
+		{{/each}}
+		</ul>
+	</div>
 </script>
 <script id="template-widgetVersionSwitcher" type="text/x-handlebars-template">
 	<select>
@@ -57,7 +61,7 @@ $(function () {
 $(".js-latestVersion-title").text(latestVersion[0].title);
 $(".js-latestVersion-releaseDate").text(latestVersion[0].releaseDate);
 $(".js-thisVersion-title").text(currentVersion);
-$(".js-version-releaseDate").text(currentVersionData[0].releaseDate);
+//$(".js-version-releaseDate").text(currentVersionData[0].releaseDate);
 
 currentUrl = window.location.pathname;
 $('#widgetVersionSwitcher select').val(currentVersion);
@@ -68,6 +72,9 @@ $('#widgetVersionSwitcher select').on('change', function () {
 	window.location = updatedUrl; 
 });
 if (currentVersion == latestVersion[0].branch){
+	$('.widgetLatestVersionNotification').remove();
+};
+if (currentVersion == 'master'){
 	$('.widgetLatestVersionNotification').remove();
 };
 olderVersionsCount = $('ul#olderVersions li').length;
