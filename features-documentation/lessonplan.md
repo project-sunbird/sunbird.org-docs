@@ -75,7 +75,7 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
  </tr>
  </table>
   
-### Adding Content to Lesson Plan 
+### Adding Content to Lesson  
 <table>
   <tr>
     <th style="width:35%;">Step</th>
@@ -92,7 +92,7 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
 
 ### Viewing Contributor Details
  
-  <table>
+<table>
   <tr>
     <th style="width:35%;">Step</th>
     <th style="width:65%;">Screen</th>
@@ -104,8 +104,7 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
   <td><img src="features-documentation/images/lessonplan/contributors.png">
   </td>
   </tr>
-  </table>
-
+</table>
 
 ## Working with Table of Contents 
 
