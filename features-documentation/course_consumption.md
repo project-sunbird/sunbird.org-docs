@@ -62,9 +62,8 @@ Any registered user can take up a course on Sunbird. The guidelines to taking a 
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-  <td>1. The selected course opens in the <b>Courses</b> tab </td>
-  </tr>
-  <tr><td>2. View details about the course such as content, structure, your progress and more 
+  <td>1. The selected course opens in the <b>Courses</b> tab 
+  <br>2. View details about the course such as content, structure, your progress and more 
   <br>3. Click <b>(+)</b> icon, on the right pane, to add notes to your notebook. You can maintain separate notes for each course that you take
   <br>4. The progress of your course is displayed on the right side
   <br><b>Note:</b> Course materials can be in different content types, for example, pdf, video. In such cases: 
@@ -76,7 +75,8 @@ Any registered user can take up a course on Sunbird. The guidelines to taking a 
   
 ### Inbuilt Content Player
   
-On clicking on the course material links, the course content is diplayed in the inbuilt content player.
+On clicking on the course material links, the course content is displayed in the inbuilt content player.
+
 <table>
   <tr>
     <th style="width:35%;">Step</th>

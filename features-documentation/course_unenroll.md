@@ -40,7 +40,7 @@ Users can unenroll from a course under the following conditions:
   <tr>
     <td>1. Click <b>Unenroll</b> to unenroll and withdraw from the course. A prompt screen is displayed
     <br>2. Click <b>Unenroll</b>. On successfully unerolling from the course, a confirmaion message is displayed 
-    <br>3. CLick <b>Cancel</b> to go back to the previous screen </td>
+    <br>3. Click <b>Cancel</b> to go back to the previous screen </td>
      <td><img src="features-documentation/images/course/unenroll2.png"></td>
   </tr>
 </table>
