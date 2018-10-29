@@ -5,8 +5,8 @@ var widgetsData = {
          "branch":"master",
          "desc":"",
          "releaseDate":"--",
-         "latest":true,
-         "published":true
+         "latest":false,
+         "published":false
       },
       {  
          "title":"1.10",
@@ -14,14 +14,14 @@ var widgetsData = {
          "desc":"",
          "releaseDate":"12th Sept",
          "latest":false,
-         "published":true
+         "published":false
       },
       {  
          "title":"1.9",
          "branch":"1.9",
          "desc":"",
          "releaseDate":"22nd Aug",
-         "latest":false,
+         "latest":true,
          "published":true
       },
       {  
