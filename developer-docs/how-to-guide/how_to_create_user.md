@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/how-to-guide
 title: Create User
 page_title: Create User
 description: Create a new user in Sunbird instance
@@ -32,7 +30,9 @@ The sequence of tasks the organization administrator follows to create users inc
 
 #### Request Body for Creating a User
 
-    "request": {
+    {
+        "request": 
+        {
         "email": "john@xyzcorp.com",
         "firstName": "John", 
         "lastName": "Pal",
@@ -45,54 +45,57 @@ The sequence of tasks the organization administrator follows to create users inc
         "channel": "a1234567b890c",
         "userName": "john1"
         "education": [
-            {
-                "degree": "BA",
-            "yearOfPassing": 1934,
-            "courseName": "Bachelor of Arts",
-            "boardOrUniversity": "ABC University",
-            "address": 
                 {
-                "addType": "Permanent",
-                "addressLine1": "#34, ASDF Apartments",
-                "addressLine2": "ERTY Lane",
-                "city": "Bangalore",
-                "state": "Karnataka",
-                "zipCode": "560089"
-                },
-            }
-            ],
+                    "degree": "BA",
+                    "yearOfPassing": 1934,
+                    "courseName": "Bachelor of Arts",
+                    "boardOrUniversity": "ABC University",
+                    "address": 
+                        {
+                        "addType": "Permanent",
+                        "addressLine1": "#34, ASDF Apartments",
+                        "addressLine2": "ERTY Lane",
+                        "city": "Bangalore",
+                        "state": "Karnataka",
+                        "zipCode": "560089"
+                        },
+                    }
+                ],
         "jobProfile": [
             {
-            "jobName": "Manager",
-            "role": "L3",
-            "joiningDate": "2013-12-01",
-            "orgName": "XYZ Corp",
-            "address": 
-                {
-                "addType": "Organization",
-                "addressLine1": "#34, QWETY Bldg",
-                "addressLine2": "ERTY Lane",
-                "city": "Bangalore",
-                "state": "Karnataka",
-                "zipCode": "560089"
+                "jobName": "Manager",
+                "role": "L3",
+                "joiningDate": "2013-12-01",
+                "orgName": "XYZ Corp",
+                "address": 
+                    {
+                    "addType": "Organization",
+                    "addressLine1": "#34, QWETY Bldg",
+                    "addressLine2": "ERTY Lane",
+                    "city": "Bangalore",
+                    "state": "Karnataka",
+                    "zipCode": "560089"
+                    }
                 }
-            }
-        ],
+            ],
+        }
     }
 
 
 #### Response Body 
 
-    "responseCode": "OK",
+    {
+        "responseCode": "OK",
         "result": {
             "response": "SUCCESS",
             "accessToken": null,
             "userId": "4eec2f70-b821-42b9-9694-8a08587715af"
         }
+    }
 
 2. Save the created user ID
 
-3. The user (John Pal), with is created under the XYZ organization
+3. The user **John Pal**, with is created under the XYZ organization
 
 ### Concepts covered
 
@@ -108,4 +111,4 @@ The sequence of tasks the organization administrator follows to create users inc
 
 [Creating Organization](http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_organization)
 
-[Map users to different business units within the organisation](http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_org_add_user)
+[Map users to different business units within the organization](http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_org_add_user)

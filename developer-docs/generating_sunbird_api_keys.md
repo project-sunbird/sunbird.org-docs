@@ -12,6 +12,7 @@ allowSearch: true
 This document explains the procedure to generate API keys for a user. It is mandatory to get the API keys for Sunbird server installation. 
 To begin the process of generating the API keys, ssh login to the server where the Sunbird admin util docker container is running. 
 
+
 ### Create Consumer
 
 ```POST http://localhost:4000/v1/consumer/create```
