@@ -1,138 +1,125 @@
 swagger: '2.0'
 info:
   description: >-
-    Data exhaust API resource refers to the data generated as trails or information byproducts resulting from all user activities.
-      - These resources are used to improve online processes based on
-      the behaviors of users 
-      - Also these resources are used to minimize required actions and find areas to optimize, improve or change outright 
-      - Data exhaust also helps in data mining analytics
-  title: Data Exhaust API(s)
-  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
-  contact:
-    email: info@sunbird.org
-  version: "1.0"
-host: staging.open-sunbird.org
-basePath: /api/data/v1/dataset/request/
-securityDefinitions:
-  bearer:
-      type: apiKey  # arbitrary name for the security scheme
-      in: header # The secrity scheme parameter is in "header"
-      name: Authorization # name of the header, query parameter or cookie
-  userToken:
-      type: apiKey  # arbitrary name for the security scheme
-      in: header # The secrity scheme parameter is in "header"
-      name: x-authenticated-user-token # name of the header, query parameter or cookie
+    Set of internal apis available to interact with the data exhaust. It covers
+    the security and registeration aspects.
+  title: Analytics Filtered DataExhaust API
+  version: v3
+host: "diksha.gov.in"
 schemes:
   - https
 paths:
-   /submit:
+  /data/v3/dataset/request/submit:
     post:
       description: >-
-        This API is used to submit the data request to get the exhaust data 
-          - The response of the request initiates with the creation of a data file
-          - This data file can be downloaded and used for analytics etc.
+        Data exhaust API is used to submit a job to create a data file that can
+        be downloaded once the job is complete. request_id is returned by the
+        API that is used to retrieve status periodically.
       operationId: Submit Data Request
       produces:
         - application/json
       tags:
-        - Data Exhaust API(s)
+        - dataExhaust
       parameters:
+        - name: X-Channel-ID
+          in: header
+          description: data will be filterd with the channel_id and it should be mapped with the consumer_id
+          type: string
+          required: true
         - name: Authorization
           in: header
-          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+          description: We have to pass **JWT_Token / API Key** here - Ex. **Bearer <jwt_token>**. This token represents the consumer_id of the user.
           required: true
           type: string
         - name: Body
           in: body
-          description: >-
-            The body refers to the format of the request.
-              - The body contains metadata about the data request to be sent
           required: true
           x-is-map: false
           schema:
             $ref: '#/definitions/dataRequestBody'
       responses:
         '200':
-          description: 'SUCCESS. The **Submit Data Request** operation was successful!'
+          description: successful operation
           schema:
             $ref: '#/definitions/dataExhaustResponse'
-        '400':
-          description:  'BAD REQUEST,**Submit Data Request** operation failed !The possible reason for failure is that you may have missed providing input for a mandatory parameter' 
-          schema:  
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
       security: []
-   /list/{client_key}:
+  '/data/v3/dataset/request/list/{clientKey}':
     get:
       description: >-
-        This API is used to list the status messages and other data  related activities that are specific to a channel
-          - the format of the url is  **/request/list/{your channel ID}**
-          - {...} represents a variable value which is your channel ID, append a valid channel ID to the request URL 
+        This API will take the client_key and return the respose with job status
+        message and any other detail specific to clientKey.
       operationId: List Requests
       produces:
         - application/json
       tags:
-        - Data Exhaust API(s)
+        - dataExhaust
       parameters:
+        - name: X-Channel-ID
+          in: header
+          description: data will be filterd with the channel_id and it should be mapped with the consumer_id
+          type: string
+          required: true      
+        - name: Authorization
+          in: header
+          description: We have to pass **JWT_Token / API Key** here - Ex. **Bearer <jwt_token>**. This token represents the consumer_id of the user.
+          required: true
+          type: string          
         - in: path
-          name: client_key
-          description: 'Unique key/ID of the requester. In case of partners, the value can be partner_key'
+          name: clientKey
+          description: Client id given when the job execution request made. (Mandatory)
           required: true
           type: string
         - in: query
           name: limit
-          description: 'Represents the limit of result entries, default limit is set to 100' 
-          required: false
+          description: Result jobs limit. Default limit is 100. (Optional)
+          required: true
           type: string
       responses:
         '200':
-          description: 'SUCCESS. The **list status** operation was successful!'
+          description: successful operation
           schema:
             $ref: '#/definitions/JobListResponse'
-        '400':
-          description:  'BAD REQUEST,**list status** operation failed !The possible reason for failure is that you may have missed providing input for a mandatory parameter' 
-          schema:  
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
       security: []
-   /read/{client_key}/{request_ID}:
+  '/data/v3/dataset/request/read/{clientKey}/{requestId}':
     get:
       description: >-
-        This API is used to fetch and view the current status of the data that gets generated by user interaction and activities. - the format of the url is  **/read/{channel_ID}/{requestId}**
-          - {...} represents a variable value which is your channel ID and the request ID, append a valid channel ID, Request ID to the request URL 
+        This API will take the client_key , request id and return the respose
+        with job status, message, and an other details specific to the job
+        (data). This API is used to retrieve the latest status of the job
+        including output
       operationId: Get Request Details
       produces:
         - application/json
       tags:
-        - Data Exhaust API(s)
+        - dataExhaust
       parameters:
+        - name: Authorization
+          in: header
+          description: We have to pass **JWT_Token / API Key** here - Ex. **Bearer <jwt_token>**. This token represents the consumer_id of the user.
+          required: true
+          type: string      
+        - name: X-Channel-ID
+          in: header
+          description: data will be filterd with the channel_id and it should be mapped with the consumer_id
+          type: string
+          required: true      
         - in: path
-          name: client_key
-          description: 'Unique key/ID of the requester. In case of partners, the value can be partner_key'
+          name: clientKey
+          description: client ID given when the job execution request made. (Mandatory)
           required: true
           type: string
         - in: path
-          name: request_ID
+          name: requestId
           description: >-
-            Request ID provided in the response when the job execution request is made.
+            Request ID provided in the response when the job execution request
+            made.
           required: true
           type: string
       responses:
         '200':
-          description: 'SUCCESS. The **fetch current status** operation was successful!'
+          description: successful operation
           schema:
             $ref: '#/definitions/JobInfoResponse'
-        '400':
-          description:  'BAD REQUEST,**fetch current status** operation failed !The possible reason for failure is that you may have missed providing input for a mandatory parameter' 
-          schema:  
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
       security: []
 definitions:
   dataRequestBody:
@@ -167,26 +154,33 @@ definitions:
     properties:
       dt_job_submitted:
         type: integer
+        format: int64
         description: DateTime when the job is submitted
       dt_job_processing:
         type: integer
+        format: int32
         description: DateTime when the job is picked up for processing
       dt_job_completed:
         type: integer
+        format: int32
         description: DateTime when the job is complete
       input_events:
         type: integer
+        format: int32
         description: Total input events processed
       output_events:
         type: integer
+        format: int32
         description: Total output events produced
       latency:
         type: integer
+        format: int32
         description: >-
           Latency in seconds from the time the job is submitted before picked up
           for processing
       execution_time:
         type: integer
+        format: int32
         description: Total time taken for processing excluding latency
   dataExhaustResponse:
     type: object
@@ -214,7 +208,7 @@ definitions:
       client_key:
         type: string
         x-go-name: Client_Key
-        description: Unique ID of the requestor. In partner case the partner id
+        description: uniqueID of the requestor. In partner case the partner id
     required:
       - client_key
   DataExhaustRequest:
@@ -224,8 +218,7 @@ definitions:
       dataset_id:
         x-go-name: dataset_id
         type: string
-        description: To identify the dataset to fetch the data. 
-        # `Valid values for dataset_id are`: `eks-consumption-raw, eks-consumption-summary, eks-consumption-metrics, eks-creation-raw, eks-creation-summary, eks-creation-metrics`
+        description: To identify the dataset to fetch the data
       filter:
         $ref: '#/definitions/DataExhaustFilter'
       output_format:
@@ -240,10 +233,10 @@ definitions:
     properties:
       start_date:
         type: string
-        description: Start date of the data exhaust in YYYY-MM-DD format
+        description: Start date of the data exhaust
       end_date:
         type: string
-        description: End date of the data exhaust in YYYY-MM-DD format
+        description: End date of the data exhaust
       app_id:
         type: string
         description: Filter by app_id. (Optional)
@@ -254,7 +247,7 @@ definitions:
         type: array
         items:
           type: string
-          description: List of events to filter and return. Event name should be in all upper case. Any event from the telemetry event specification as on Sunbird.org website.(Optional)
+          description: List of events to filter and return.(Optional)
       tags:
         type: array
         items:
@@ -292,7 +285,7 @@ definitions:
       responseCode:
         type: string
       result:
-        $ref: '#/definitions/JobResult'
+        $ref: '#/definitions/dataExhaustResult'
   ResponseParams:
     title: Params
     type: object
@@ -306,8 +299,12 @@ definitions:
     properties:
       job_stats:
         $ref: '#/definitions/DataExhaustJobStats'
+      attempts:
+        type: integer
+        format: int32
       last_updated:
         type: integer
+        format: int32
       status:
         type: string
       request_id:
