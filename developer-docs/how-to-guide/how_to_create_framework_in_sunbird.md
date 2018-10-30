@@ -5,8 +5,8 @@ title: Create Framework
 page_title: Create Framework
 description: Create a new framework in Sunbird instance
 keywords: create framework, new framework, create, framework
-published: true
-allowSearch: true
+published: false
+allowSearch: false
 ---
 ## Scenario
 
