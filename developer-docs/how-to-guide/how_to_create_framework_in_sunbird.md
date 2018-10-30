@@ -33,9 +33,9 @@ While creating a new framework, the framework creator needs to set up a new fram
 - Topic: Details of the concept
 ```
 
-Any adopter wants to create a new category, which does not belong to the categories available in the Sunbird predefined category list, you must communicate with [Sunbird Team](info@sunbird.org). A user can select one or more category amongst the defined categories and can rename it. 
+Send a mail to [Sunbird Team](info@sunbird.org), if you want to create a new master category that is not part of Sunbird's predefined category list. You can however select and rename an existing category
  
-For example, for the organization ABC organization the framework name is ABC and code as abc1; the category **Resources** is to be added within the organization. **Resources** defines the various water resources and contains the terms as River, Spring, Sea and so on. 
+For example, for ABC organization the framework name is ABC and code is abc1. The category **Subject** is renamed to **Resources**. The **Resources** category defines the various water resources and has the terms as River, Spring, Sea and so on. 
 
 ## Prerequisites
 
@@ -185,7 +185,7 @@ Status: The depict the category with **Live** status
 
 Identifier: The name of the existing category 
 
-Code: A user defined value that is used as the category identifier
+Code: A defined value that is used as the category identifier. Currently, 5 codes are supported as board, gradelevel, subject, medium, and topic.  
 
 Status: Depicts the status of the Category 
 
@@ -196,8 +196,9 @@ Status: Depicts the status of the Category
 > 
 > The Sunbird team sends the attributes of the created category   
 
+### Configuring Category for the Instance
 
-#### Creating Category for the Instance
+The ABC organization with the framework **ABC** and code as abc1; the category selected is Subject and the label is modified as **Resources** which defines the various water resources and contains the terms as River, Spring, Sea.
 
 1. Use the [Add Category API](http://www.sunbird.org/apis/framework/#operation/FrameworkV1CreatePost), to create a new category in the framework. 
 
@@ -209,7 +210,7 @@ The sample values provided in the request body are indicative. The API describes
     {
     "request": {
     "category": {
-        "code": "resource",
+        "code": "subject",
         "name": "Resource",
         "description": "string",
         }
@@ -222,7 +223,6 @@ Code: A user defined value that is used as the category identifier
 Name: The name of the category 
 
 Description: Short introduction of the category
-
 
 ##### Response Body for creating Category
     {
