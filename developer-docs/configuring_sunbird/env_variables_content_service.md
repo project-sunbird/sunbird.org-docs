@@ -18,9 +18,9 @@ The following is a list of environment variables and their default values, as re
 |  6 | sunbird_content_provider_api_key | Represents the API Key used to authorize the content provider | Used to authorize the content provider  |  |
 |  7 | sunbird_environment | Represents the instance environment | Used to identify the environment to which to send telemetry data with proper pdata. It is also used for other related purposes |  |
 |  8 | sunbird_instance | Represents the name of the instance<br/> This should be the same as the value in the player/learner-service | Used to set the name of the instance |  |
-|  9 | sunbird_cassandra_urls | Represents the urls of Cassandra instance | Used to connect to cassandra db  | 127.0.0.1:9042 |
-|  10 | sunbird_cassandra_consistency_level | Represents the minimum number of Cassandra nodes that must acknowledge a read or write operation before the operation can be considered successful | Used to mantain the data consistency of multi node cassandra | one |
-|  11 | sunbird_cassandra_replication_strategy | Represents data replication of cassandra | Used to replicate the cassandra data set | '{"class":"SimpleStrategy","replication_factor":1}' |
+|  9 | sunbird_cassandra_urls | Represents the urls of Cassandra instance | Used to connect to Cassandra db  | 127.0.0.1:9042 |
+|  10 | sunbird_cassandra_consistency_level | Represents the minimum number of Cassandra nodes that must acknowledge a read or write operation before the operation can be considered successful | Used to mantain the data consistency of multi node Cassandra | one |
+|  11 | sunbird_cassandra_replication_strategy | Represents data replication of cassandra | Used to replicate the Cassandra data set | '{"class":"SimpleStrategy","replication_factor":1}' |
 |  12 | sunbird_keycloak_auth_server_url | The URL of the Keycloak auth service to connect the Sunbird Content service | Used to connect the Keycloak server | https://staging.open-sunbird.org/auth |
 |  13 | sunbird_keycloak_realm | Represents the keycloak realm value | Used to update the realm value of Keycloak, per installation | Sunbird |
 |  14 | sunbird_keycloak_client_id | Represents the client ID in Keycloak  | Used to update the client ID in Keycloak | portal |
