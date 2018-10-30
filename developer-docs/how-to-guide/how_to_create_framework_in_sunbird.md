@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/how-to-guide
 title: Create Framework
 page_title: Create Framework
 description: Create a new framework in Sunbird instance
@@ -27,15 +25,17 @@ ABC Organization, may choose a predefined category and associate it to their own
 
 While creating a new framework, the framework creator needs to set up a new framework and align it to the categories and terms. A category can have terms either in sequential list or in hierarchical structure. Terms can be associated with other terms across categories. As a result, it is possible to select a term in the first category and hence restrict the set of available terms for the next category and so on. The organizations that are adopting Sunbird can link the categories and also change the labels but cannot override or add a new categories on their own. However, the Sunbird instance has the following categories in its predefined frameworks:
 
-    - Subject: classification of stream specific values
-    - Curriculum: certifying body/stream government or private organization
-    - Grade Level: maturity level for knowledge  
-    - Medium: language of the course 
-    - Topic: detail of the concepts 
-    
-Any adopter wants to create a new category, which does not belong to the categories available in the Sunbird predefined category list, they must communicate with [Sunbird Team](info)  A user can select one or more category amongst the defined categories and can rename . 
+```
+- Subject: Classification of stream specific values
+- Curriculum: Certifying body/stream government or private organization
+- Grade Level: Maturity level for knowledge  
+- Medium: Language of the course 
+- Topic: Details of the concept
+```
+
+Any adopter wants to create a new category, which does not belong to the categories available in the Sunbird predefined category list, you must communicate with [Sunbird Team](info@sunbird.org). A user can select one or more category amongst the defined categories and can rename it. 
  
-For example, for the organization ABC organization the framework name is ABC and code as abc1; the category selected is **Subject** and the label is modified as **Resources** which defines the various water resources and contains the terms as Ground Water, Spring, Surface Water and so on. 
+For example, for the organization ABC organization the framework name is ABC and code as abc1; the category **Resources** is to be added within the organization. **Resources** defines the various water resources and contains the terms as River, Spring, Sea and so on. 
 
 ## Prerequisites
 
@@ -49,7 +49,7 @@ For example, for the organization ABC organization the framework name is ABC and
    - Admin user (created using Keycloak) who has permissions to create an organization
    - [Individual Organization](../apis/orgapi/#operation/Organisation%20Create)
    - [Individual user](../apis/userapi/#operation/Create%20User) 
-   - [Mapping of created user/s to the organization](http://www.sunbird.org/apis/)
+   - [Mapping of created user(s) to the organization](../apis/orgapi/#operation/Organisation%20Add%20User)
 
 5. Access to [Framework API](../apis/framework/)
 
@@ -57,19 +57,18 @@ For example, for the organization ABC organization the framework name is ABC and
  
 The sequence of tasks the organization administrator follows to create a framework includes:
 
-### Create Framework
+### Creating Framework
 
 1. Use the [Create Framework API](../apis/framework/#operation/FrameworkV1CreatePost), to create a new framework. Specify values for the parameters in the request body of the API. 
-Following is an example of request body for creating a framework, the sample values provided in the request body are indicative:
 
 2. Path for creating the Framework: ```{{host}}/framework/v1/create```
 
-**Host**: The URL of the instance
+>**Host**: The URL of the installed Sunbird instance
+
+Following is an example of request body for creating a framework, the sample values provided in the request body are indicative:
+To retrieve the channels for the request parameter, use [List Channel API](../apis/framework/#operation/ChannelV1ListPost) 
 
 ##### Request Body to Create Framework
-
-To retrieve the channels for the request parameter, use [List Channel API](../apis/framework/#operation/ChannelV1ListPost)  
-    
     {
     "request": {
         "framework": {
@@ -95,7 +94,6 @@ Translations: Enables framework in different languages
 Type: Non mandatory field that defines the type of framework and permissible values K-12, TPD, Agri, Others
 
 ##### Response Body to Create Framework
-
     {
     "responseCode": "OK",
     "result": {
@@ -106,7 +104,6 @@ Type: Non mandatory field that defines the type of framework and permissible val
             "name": "ABC",
             "description": "Framework for ABC Management",
             "type": "Others",
-            "objectType": "Framework"
             }
         }
     }
@@ -123,18 +120,15 @@ Name: Name of the organization
 
 Description: Describes the framework
 
-Type: defines the type of content
+Type: Defines the type of content
 
-Object Type: 
-
-#### Validating a Category
+### Validating a Category
 
 1. Use [Search Category API](../apis/framework/#operation/FrameworkV1CategorySearchPost) to fetch the list of the available master categories.
 
 Path for searching the category: ```{{host}}/framework/v1/category/master/search```
 
-##### Request Body for Searching master Categories
-
+##### Request Body for Searching Master Categories
     {
         "request": {
             "search":{
@@ -147,8 +141,7 @@ Path for searching the category: ```{{host}}/framework/v1/category/master/search
 
 Status: The depict the category with **Live** status
 
-##### Response Body for Searching master Categories
-
+##### Response Body for Searching Master Categories
     {
     "responseCode": "OK",
     "result": {
@@ -194,6 +187,8 @@ Identifier: The name of the existing category
 
 Code: A user defined value that is used as the category identifier
 
+Status: Depicts the status of the Category 
+
 > Note: If you need to add a master category that doesnot exist in the master list of the existing category, you must send a request to [Sunbird Team](mailto:info@sunbird.org?subject=Request for new Category). The request must have following values:
 >   - Name of the category 
 >   - Description 
@@ -211,7 +206,6 @@ Code: A user defined value that is used as the category identifier
 The sample values provided in the request body are indicative. The API describes the procedure to change the label(resources) of an existing category(subject):
 
 ##### Request Body for creating Category
-
     {
     "request": {
     "category": {
@@ -227,11 +221,10 @@ Code: A user defined value that is used as the category identifier
 
 Name: The name of the category 
 
-Description: Describes the category
+Description: Short introduction of the category
 
 
 ##### Response Body for creating Category
-
     {
         "responseCode": "OK",
         "result": {
@@ -242,11 +235,11 @@ Description: Describes the category
 
 **Description of Parameters**
 
-Node ID: The name of the framework as provided by the organization
+Node_ID: The name of the framework as provided by the organization
 
-Version Key: Identifies the version of changed object 
+VersionKey: Identifies the version of changed Category 
 
-#### Create a Term
+### Creating a Term
 
 1. Use the [Add Term API](http://www.sunbird.org/apis/framework/#operation/FrameworkV1TermCreatePost), to create a new term in the category.
 The categories can be retrieved and listed using [Fetch API](http://www.sunbird.org/apis/framework/#operation/FrameworkV1CategoryReadClassGet). The sample values provided in the request body are indicative.
@@ -311,5 +304,3 @@ How do I extend or customize a framework in Sunbird
 How do I seed a framework in Sunbird
 
 How do I associate framework to categories and categories to a terms in Sunbird
-
-How to use Postman
