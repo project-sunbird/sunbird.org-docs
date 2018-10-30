@@ -189,7 +189,7 @@ Code: A defined value that is used as the category identifier. Currently, 5 code
 
 Status: Depicts the status of the Category 
 
-> Note: If you need to add a master category that doesnot exist in the master list of the existing category, you must send a request to [Sunbird Team](mailto:info@sunbird.org?subject=Request for new Category). The request must have following values:
+> Note: If you need to add a master category that doesnot exist in the master list of the existing category, you must send a request to <a href="mailto:info@sunbird.org?subject=New Category Request">Sunbird Team</a>. The request must have following values:
 >   - Name of the category 
 >   - Description 
 >   - Data type of the category is string (contain Alphanumeric values and )
