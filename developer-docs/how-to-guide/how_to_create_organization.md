@@ -5,8 +5,8 @@ title: Create Organization
 page_title: Create Organization
 description: creating a new organization in sunbird instance
 keywords: create organization, new organization in sunbird, organization, create
-published: true
-allowSearch: true
+published: false
+allowSearch: false
 ---
 ## Scenario
 

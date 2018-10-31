@@ -5,8 +5,8 @@ title: Associating Organization and User
 page_title: Associating Organization and User
 description: Create a new user in Sunbird instance
 keywords: create user, new user, create, user
-published: true
-allowSearch: true
+published: false
+allowSearch: false
 ---
 ## Scenario
 
