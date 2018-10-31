@@ -26,7 +26,7 @@ Ensure that you have Python installed on the Cassandra machine
 1. SSH to the database server where you want to take a backup
 2. Run the command `git clone https://github.com/project-sunbird/sunbird-devops`
 3. `cd sunbird-devops`
-4. Checkout the latest release tag `git checkout tags/release-1.10 -b release-1.10`
+4. Checkout the latest release tag `git checkout tags/release-1.10.1 -b release-1.10.1`
 5. `cd deploy`
 
 ### Backup Cassandra
@@ -119,7 +119,7 @@ Example: `./restore_elasticsearch.sh snapshot_25_10_2018062400`
 
    1. Take a backup of your exisiting `config` file
    2. Pull the latest code of `project-sunbird/sunbird-devops` from its master branch
-   3. Checkout the latest release tag `git checkout tags/release-1.9 -b release-1.9`
+   3. Checkout the latest release tag `git checkout tags/release-1.10.1 -b release-1.10.1`
    4. It is recommended to take a full backup of all the databases before updating the schema 
    5. Follow the steps [here](developer-docs/upgrading/#backup-the-databases) to take the backup 
    7. Update the `config` file if required.
