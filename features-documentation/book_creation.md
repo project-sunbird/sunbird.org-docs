@@ -17,7 +17,7 @@ A book is a collection of content units. On Sunbird, books can be compiled or cu
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-    <td>1. Log in to Sunbird <br>2. Navigate to <b>My Workspace</b>  
+    <td>1. Log in to Sunbird <br>2. Navigate to <b>My Workspace</b>
       <br>3. To create a book, click the <b>Book</b> tile
        </td>
       <td><img src="features-documentation/images/book/book_workspace.png"></td>
@@ -100,7 +100,7 @@ You can add various elements in the book like units or chapters, heading details
  
 ### Adding Details to Book
 
-You can update the details of each [tree node](book_creation#working-with-table-of-contents) added in the table of content of the collection  
+You can update the details of each [tree node](book_creation#working-with-table-of-contents) added in the table of content of the collection
 
 <table>
   <tr>
@@ -109,7 +109,7 @@ You can update the details of each [tree node](book_creation#working-with-table-
   </tr>
   <tr>
       <td>To start adding heading details in a unit or chapter 
-      <br>1. Enter <b>Name</b>. This is the chapter/unit name as in the physical textbook  
+      <br>1. Enter <b>Name</b>. This is the chapter/unit name as in the physical textbook 
       <br>2. Enter <b>Description</b> 
       <br>3. Select the <b>Concepts</b> associated with the heading. Refer <a href="features-documentation/concept_selector" target="_blank">Concept Selector</a>
       <br>4. Enter <b>Keywords</b> 
@@ -123,8 +123,8 @@ You can update the details of each [tree node](book_creation#working-with-table-
 
 #### Using DIAL Code 
 
-DIAL code is the physical representation of a six digit unique identifer assigned to a textbook or its section. The DIAL code associated with the book or content enhances the discoverability of the content or the book. QR code is the pictorial representation of the DIAL code. You can use the DIAL code instead of scanning the QR code evry time you search for the content. 
-Each time the DIAL code is used it generates the telemetry data. This telemetry data is used to analyze the relevance and usage of the content (consumption reports)
+DIAL code is the physical representation of a six digit unique identifer assigned to a textbook or its section. The DIAL code associated with the book or content enhances the discoverability of the content or the book. QR code is the pictorial representation of the DIAL code. You can use the DIAL code instead of scanning the QR code every time you search for the content. 
+Each time the DIAL code is used it generates the [telemetry data](../developer-doc/telemetry/consuming_telemetry#dial-code-consumption-workflow-for-mobile-app). This telemetry data is used to analyze the relevance and usage of the content (consumption reports)
 
 ### Viewing Contributor Details
  
