@@ -103,11 +103,9 @@ To take a backup of Elastic Search databases:
 
  4. Elasticsearch backup includes the following databases: 
 		
-	a) searchindex      - Stores the user, org , course, batch data
-	
-	b) sunbirdplugin    - Stores the plugin related data (object API)
-	
-	c) sunbirddataaudit - Stores the user & organization audit history data
+- **searchindex**      - Stores the user, org , course, batch data
+- **sunbirdplugin**    - Stores the plugin related data (object API)
+- **sunbirddataaudit** - Stores the user & organization audit history data
 
 ### Restore ElasticSearch
 
