@@ -68,10 +68,10 @@ Instance admin of Sunbird adopters can configure various aspects of the Sunbird 
 
 | S No. | Variable Name | Description | Purpose | Default Value
 |-------|---------------|--------------|--------|--------------
-| 1 | appId | the app id in sunbird-mobile/config.xml with implementation specific application ID | To change the app ID | appId: "org.sunbird.app"
-| 2 | app name | navigate to sunbird-mobile/config.xml and enter the required app name | To change the app name | 
-| 3 | app logo | navigate to sunbird-mobile/resources/android/icon and sunbird-mobile/resources/android/splash. In all the mipmap and drawable folders, replace ic_launcher.png image with your desired logo. The logo name should exactly match the text **drawable-ldpi-icon.png** | To change the app logo |
-| 4 | app | Set the configuration variable inside the <b>sunbird-mobile repo</b> inside <b>buildConfig</b> folder | | 
+| 1 | dev_app_id/staging_app_id/production_app_id | The app ID in the **sunbird-mobile/buildConfig/sunbird.properties** file with the implementation-specific application ID | To change the app ID | appId: "org.sunbird.app"
+| 2 | app name | Navigate to the **sunbird-mobile/config.xml** file and enter the required app name. | To change the app name | 
+| 3 | app logo | Navigate to **sunbird-mobile/resources/android/icon** and **sunbird-mobile/resources/android/splash**. Replace the **ic_launcher.png** image with your desired logo in all the mipmap and drawable folders. The logo name should be **drawable-ldpi-icon.png** | To change the app logo |
+| 4 | app | Set the configuration variable in the **sunbird-mobile repo** file in the **buildConfig** folder | | 
 | 5|  app version code | Version code for the app release | To customize the end points in the app | Replace redirect base url REDIRECT_BASE_URL and all other base urls with your respective domain name in sunbird.properties |
 | 6 | deep link schema | This plugin handles deeplinks on iOS and Android for both custom URL scheme links and Universal App Links. Deep link schema can be changed from sunbird.properties | Change the "dev_deeplink_base_url = dev.open-sunbird.org" to the required name
 | 7 | display_onboarding_page | set the configuration variable inside the <b>sunbird-mobile repo</b> inside <b>buildConfig</b> folder | to display the onboarding page | false
@@ -163,3 +163,13 @@ This is installed with other npm packages.
   4.Add one device to the system
 
   5.Run the command- **$ ionic cordova run android**
+  
+### Generate Multiple Sunbird Apps
+As a Sunbird instance owner, owner  should be able to generate multiple apps for multiple environments(dev/qa/production)
+so that user can use all the apps simultaneously.
+For each app, user should be able to have different content stores (on the local device), fire telemetry from separate app identifiers and upload to playstore (if need be).
+#### Configuration
+Instance admin of Sunbird adopters can configure the appId in the following way to acheive the functionality
+* dev_app_id = org.sample.app.dev
+* staging_app_id = org.sample.app.staging
+* production_app_id = org.sample.app

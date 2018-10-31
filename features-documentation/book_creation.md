@@ -190,7 +190,7 @@ You can see <b>Table of Content</b> tree in the left pane to navigate content co
     <td>1. Click <b>Delete</b> icon beside the burger menu <br>2. Click <b>Yes</b> to delete the added content
       <br><b>Note:</b> You can alternatively delete content by clicking <b>Delete</b> in the burger menu drop-down
       </td>
-    <td><img src="features-documentation/images/collection/collection_delete.png"></td>
+    <td><img src="features-documentation/images/book/book_delete.png"></td>
   </tr>
 </table>
 

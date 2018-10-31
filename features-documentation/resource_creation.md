@@ -78,11 +78,12 @@ Sunbird provides an inbuilt content editor to create engaging and innovative con
       <br>&emsp;c) Subject 
       <br>&emsp;d) Medium 
       <br>7. Select <b>Topic</b>
-      <br>8. Select <b>Attributions</b>
-      <br>9. Select <b>Audience</b> 
-      <br>10. Select <b>Owner</b> 
-      <br>11. Click <b>Save</b> to save the details 
-      <br>12. Click <b>Cancel</b> to exit the page
+      <br>8. Select <b>Resource Type</b>
+      <br>9. Select <b>Attributions</b>
+      <br>10. Select <b>Audience</b> 
+      <br>11. Select <b>Owner</b> 
+      <br>12. Click <b>Save</b> to save the details 
+      <br>13. Click <b>Cancel</b> to exit the page
     </td>
     <td><img src="features-documentation/images/resource/resource_details.png"></td>
   </tr>
