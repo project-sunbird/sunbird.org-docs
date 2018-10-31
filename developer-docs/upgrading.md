@@ -29,11 +29,12 @@ Ensure that you have Python installed on the Cassandra machine
 4. Checkout the latest release tag `git checkout tags/release-1.10.1 -b release-1.10.1`
 5. `cd deploy`
 
+
 ### Backup Cassandra
 
 Ensure that the prerequisites are met. To backup the Cassandra database: 
    
-1. Run the following script to take the backup: `./cassandra_backup.py
+1. Run the following script to take the backup: `./cassandra_backup.py`
 	
 2. This will create a *.tar.gz* extension backup file in the the current working directory. 
 		
@@ -43,7 +44,8 @@ a) portal         -  Stores the session data
 b) dialcodes      -  Stores the energized text book details
 c) sunbirdplugin  -  Stores the custom or plugin data(used in announcement feature (Object API)
 d) sunbird	  -  Stores the organization ,user, course, batch, badger etc.
-		
+
+
 ### Restore Cassandra
 
 Ensure that the prerequisites are met. To restore the Cassandra database: 
@@ -56,6 +58,7 @@ Ensure that the prerequisites are met. To restore the Cassandra database:
 `./cassandra_restore.py --host <cassandra_host_ip_address> <cassandra_backup_dir_path>` 
 
 Example: `./cassandra_restore.py --host 10.10.10.10 cassandra_backup`
+
 
 ### Backup Postgres
 
@@ -85,6 +88,7 @@ Example: `./restore_postgres.sh postgresql_backup_UTC-2018-10-25-05-14-53.txt`
 
 **Note** Remember to keep the backups safe in another directory as /tmp will be cleared peridoically by the operating system. If /tmp/postgresql-backup is removed by the operating system, ensure you create this directory and place the backup file in it before restore operation.
 
+
 ### Backup Elastic Search 
 
 To take a backup of Elastic Search databases: 
@@ -105,6 +109,7 @@ a) searchindex      - Stores the user, org , course, batch data
 b) sunbirdplugin    - Stores the plugin related data (object API)
 c) sunbirddataaudit - Stores the user & organization audit history data
 
+
 ### Restore Elastic Search
 
 To restore the Elastic Search databases, follow these steps: 
@@ -114,6 +119,7 @@ To restore the Elastic Search databases, follow these steps:
 Example: `./restore_elasticsearch.sh snapshot_25_10_2018062400`
 
 **Note:** Snapshot name can be found at `/etc/elasticsearch/backup` in the `index-*` files.
+
 
 ## Upgrading Sunbird Services 
 
