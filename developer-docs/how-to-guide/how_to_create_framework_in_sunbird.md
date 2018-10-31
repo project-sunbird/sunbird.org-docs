@@ -130,7 +130,7 @@ Type: Defines the type of content
 
 1. Use [Search Category API](../apis/framework/#operation/FrameworkV1CategorySearchPost) to fetch the list of the available master categories.
 
-Path for searching the category: `{{host}}/framework/v1/category/master/search`
+Path for searching the category: `{{host}}/action/framework/v1/category/master/search`
 
 ##### Request Body for Searching Master Categories
     {
@@ -206,7 +206,7 @@ The ABC organization with the framework **ABC** and code as abc1; the category s
 
 1. Use the [Add Category API](http://www.sunbird.org/apis/framework/#operation/FrameworkV1CreatePost), to create a new category in the framework. 
 
-2. Path for adding the category: `{{host}}api/framework/v1/category/create?framework=abc1`
+2. Path for adding the category: `{{host}}/action/api/framework/v1/category/create?framework=abc1`
 where `abc1` is the framework identifier
 
 The sample values provided in the request body are indicative. The API describes the procedure to change the label(resources) of an existing category(subject):
@@ -240,7 +240,7 @@ Description: Short introduction of the category
 
 **Description of Parameters**
 
-Node_ID: The name of the framework as provided by the organization
+Node_ID: Identifier of the framework category
 
 VersionKey: Identifies the version of changed Category 
 

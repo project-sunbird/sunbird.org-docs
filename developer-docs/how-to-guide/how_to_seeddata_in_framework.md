@@ -68,8 +68,8 @@ The order of terms within a category is defined using the sequence relation betw
 The following values ensure that the term is tagged to right category 
 
 - Value: Value of the term
-- Label: Display label of the term
-- Translations: Display label of the term in different languages
+- Label: Display name of the term
+- Translations: Displays label of the term in different languages
 - Tag: Vocabulary tag associated with the term
 - Index: Index position of the term
 - Children: List of terms that are sub-elements of the current term
@@ -83,9 +83,9 @@ To add a category in the framework perform the following steps:
 1. Retrieve the channels required for the request parameter of the category, using [List Channel API](../apis/framework/#operation/ChannelV1ListPost)
 
 2. Add a category in the framework by following these steps: 
-    - Use [Search Category API](../apis/framework/#operation/FrameworkV1CategorySearchPost) to fetch the list of the available master categories. Path for searching the category: `{{host}}/framework/v1/category/master/search`. refer [Validating a Category](../developer-docs/how-to-guide/how_to_create_framework_in_sunbird#validating-a-category)
+    - Use [Search Category API](../apis/framework/#operation/FrameworkV1CategorySearchPost) to fetch the list of the available master categories. Path for searching the category: `{{host}}/action/framework/v1/category/master/search`. refer [Validating a Category](../developer-docs/how-to-guide/how_to_create_framework_in_sunbird#validating-a-category)
 
-    - Create a new category by using [Add Category API](http://docs.sunbird.org/latest/apis/framework/#operation/FrameworkV1CategoryCreate), ensure to provide the appropriate value for **code** parameter in the request body. The code parameter inherits the master category schema. Path for adding a category: `{{host}}api/framework/v1/category/create?framework=abc1`. Refer [Configuring a Category for the Instance](../developer-docs/how-to-guide/how_to_create_framework_in_sunbird#configuring-category-for-the-instance). 
+    - Create a new category by using [Add Category API](http://docs.sunbird.org/latest/apis/framework/#operation/FrameworkV1CategoryCreate), ensure to provide the appropriate value for **code** parameter in the request body. The code parameter inherits the master category schema. Path for adding a category: `{{host}}/action/api/framework/v1/category/create?framework=abc1`. Refer [Configuring a Category for the Instance](../developer-docs/how-to-guide/how_to_create_framework_in_sunbird#configuring-category-for-the-instance). 
 
 3. Also, provide the appropriate values for the request body parameters in the payload. Other operation that you can perform on the categories under a framework are as follows: 
 
