@@ -21,27 +21,6 @@ Upgrading to the latest version of Sunbird allows you to avail benefits of:
 
 Ensure that you have Python installed on the Cassandra machine
 
-## Upgrading Sunbird Services 
-
-   1. Take a backup of your exisiting `config` file
-   2. Pull the latest code of `project-sunbird/sunbird-devops` from its master branch
-   3. Checkout the latest release tag `git checkout tags/release-1.9 -b release-1.9`
-   4. It is recommended to take a full backup of all the databases before updating the schema 
-   5. Follow the steps [here](developer-docs/upgrading/#backup-the-databases) to take the backup 
-   7. Update the `config` file if required.
-   6. Run these commands:  
-   	`./sunbird_install.sh -s config`  
-	`./sunbird_install.sh -s dbs`  
-	`./sunbird_install.sh -s apis`  
-	`./sunbird_install.sh -s proxy`  
-	`./sunbird_install.sh -s core`  
-
-**Note:** 
-
-   - Executing the command deploys the tagged version of Sunbird services and also updates the schema in the databases
-
-   - The latest image versions of all the services are updated in the master branch. To get a hotfix image of any Sunbird service, update the minor version in the `sunbird-devops/deploy/deploy-core.sh` file and re-run the `sunbird-devops/deploy/deploy-core.sh` script.
-
 ## Backup the Databases
 
 1. SSH to the database server where you want to take a backup
@@ -75,7 +54,8 @@ Ensure that the prerequisites are met. To restore the Cassandra database:
 1. Copy the Cassandra backup snapshot to the instance where you want to restore.
 2. Extract the *.tar.gz* backup file using the following command: `tar -xvzf my_backup.tar.gz`
 3. This will create a directory named `cassandra_backup`.
-4. Run the following script to restore the backup:  
+4. Run `cqlsh -f 'cassandra_backup/db_schema.cql'`. This will restore all the schemas.
+5. Run the following script to restore the backup:  
 `./cassandra_restore.py --host <cassandra_host_ip_address> <cassandra_backup_dir_path>` 
 
 Example: `./cassandra_restore.py --host 10.10.10.10 /home/ubuntu/`
@@ -137,3 +117,25 @@ To restore the Elastic Search databases, follow these steps:
 Example: `./restore_elasticsearch.sh snapshot_25_10_2018062400`
 
 **Note:** Snapshot name can be found at `/etc/elasticsearch/backup` in the `index-*` files.
+
+
+## Upgrading Sunbird Services 
+
+   1. Take a backup of your exisiting `config` file
+   2. Pull the latest code of `project-sunbird/sunbird-devops` from its master branch
+   3. Checkout the latest release tag `git checkout tags/release-1.9 -b release-1.9`
+   4. It is recommended to take a full backup of all the databases before updating the schema 
+   5. Follow the steps [here](developer-docs/upgrading/#backup-the-databases) to take the backup 
+   7. Update the `config` file if required.
+   6. Run these commands:  
+   	`./sunbird_install.sh -s config`  
+	`./sunbird_install.sh -s dbs`  
+	`./sunbird_install.sh -s apis`  
+	`./sunbird_install.sh -s proxy`  
+	`./sunbird_install.sh -s core`  
+
+**Note:** 
+
+   - Executing the command deploys the tagged version of Sunbird services and also updates the schema in the databases
+
+   - The latest image versions of all the services are updated in the master branch. To get a hotfix image of any Sunbird service, update the minor version in the `sunbird-devops/deploy/deploy-core.sh` file and re-run the `sunbird-devops/deploy/deploy-core.sh` script.
