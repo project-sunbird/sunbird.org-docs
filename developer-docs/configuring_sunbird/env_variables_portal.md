@@ -41,3 +41,6 @@ This document provides a list of environment variables and their default values 
 |  29 | sunbird_portal_user_upload_ref_link | URL of the user upload instruction document | Used to get the instruction about user upload | http://www.sunbird.org/features-documentation/register_user | Sunbird Portal |
 |  30 | config_service_enabled | To enable/disable the fetching of configuration details from config service | Used to enable/disable the fetching of configuration details | false | Sunbird Portal |
 |  31 | config_refresh_interval | Represents the interval in minutes to refresh the fetching of configurations | Used to set the interval of time within which configurations are refreshed | 1440 | Sunbird Portal |
+|  32 | sunbird_cassandra_urls | Represents the urls of Cassandra instance | Used to connect to cassandra db  | 127.0.0.1:9042 |  Sunbird Portal |
+|  33 | sunbird_cassandra_consistency_level | Represents the minimum number of Cassandra nodes that must acknowledge a read or write operation before the operation can be considered successful | Used to mantain the data consistency of multi node cassandra | one |  Sunbird Portal |
+|  34 | sunbird_cassandra_replication_strategy | Represents data replication of cassandra | Used to replicate the cassandra data set | '{"class":"SimpleStrategy","replication_factor":1}' |  Sunbird Portal |
