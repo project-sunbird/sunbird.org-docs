@@ -27,7 +27,7 @@ Ensure that you have Python installed on the Cassandra machine
    2. Pull the latest code of `project-sunbird/sunbird-devops` from its master branch
    3. Checkout the latest release tag `git checkout tags/release-1.9 -b release-1.9`
    4. It is recommended to take a full backup of all the databases before updating the schema 
-   5. Follow the steps [here](#backup-the-databases) to take the backup 
+   5. Follow the steps [here](developer-docs/upgrading/#backup-the-databases) to take the backup 
    7. Update the `config` file if required.
    6. Run these commands:  
    	`./sunbird_install.sh -s config`  
