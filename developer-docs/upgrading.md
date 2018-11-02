@@ -85,15 +85,15 @@ To restore the Postgres database:
 
 **Example:** `./restore_postgres.sh postgresql_backup_UTC-2018-10-25-05-14-53.txt`
 
-> **Note** Remember to keep the backups safe in another directory as the temporary folder - **/tmp** - will be cleared periodically by the operating system. If **/tmp/postgresql-backup** is removed by the operating system, ensure you create another backup directory and place the backup file in it before restore operation.
+> **Note:** Remember to keep the backups safe in another directory as the temporary folder **- /tmp** - will be cleared periodically by the operating system. If **/tmp/postgresql-backup** is removed by the operating system, ensure you create **/tmp/postgresql-backup** directory and place the backup file in it before restore operation. 
 
 ### Backup Elastic Search 
 
 To take a backup of Elastic Search databases: 
 
-1. Run the following script to take the backup: `./backup_elasticsearch.sh`
-2. Note down the snapshot name as it will be required if you need to perform restore.
-3. Snapshot name will be displayed in screen after backup operation. Example: `"snapshot":"snapshot_31_10_2018061552"`
+1.Run the following script to take the backup: `./backup_elasticsearch.sh`
+2.Note down the snapshot name as it will be required if you need to perform restore.
+3.Snapshot name will be displayed in screen after backup operation. Example: `"snapshot":"snapshot_31_10_2018061552"`
 
 > **Note:** 
 > - Executing the command creates the backup file at **/etc/elasticsearch/backup**.
@@ -101,7 +101,7 @@ To take a backup of Elastic Search databases:
 > - If you encounter *repository_exception*, restart the elasticsearch service and run the backup script.
 > - To restart the elasticsearch service, run the following command: `sudo systemctl restart es-1_elasticsearch.service`
 
- 4. Elasticsearch backup includes the following databases: 
+ 4.Elasticsearch backup includes the following databases: 
 		
 	a) searchindex      - Stores the user, org , course, batch data
 	
