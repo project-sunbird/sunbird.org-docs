@@ -26,7 +26,7 @@ This section details **Standard Telemetry Workflows** for different access chann
 
 ### Mobile App Workflow
 
-````
+```
         START(type: "app")
             ...| --> app events such as IMPRESSION, FEEDBACK, etc may happen
             START(type: "session")
@@ -51,22 +51,22 @@ This section details **Standard Telemetry Workflows** for different access chann
             END(type: "session")
             ...| --> app events such as APP_UPDATE, FEEDBACK, etc may happen
         END(type: "app")
-````
+```
 
 ### Web Portal Workflow
 
-````
+```
         AUDIT (object: user) --> (Optional if a user is created for the first time)
         START(type: "session") --> User session starts
             ...
             | --> IMPRESSION - For the pages that the user visits
             | --> INTERACT - For the interactions on the page
             // there is no explicit logout/timeout
-````
+```
 
 ### Content Editor Workflow
 
-````
+```
         START (type: "session") - User logs in
             ...
             | --> IMPRESSION (Portal) - User visits content creation page (cdata session)
@@ -83,11 +83,11 @@ This section details **Standard Telemetry Workflows** for different access chann
                 | --> INTERACT (Editor) - User clicks on submit to review
                 | --> AUDIT (object: Content, state: "Review", prevstate: "Draft") - Platform sends the content to review state
             | --> END (type: "editor", mode: "content") - User closes the editor and goes back to portal
-````
+```
     
 ### Backend-services Workflow
 
-````
+```
             AUDIT (object: Service, state: "Ready") --> State transition to READY
             ...| --> ACCESS events for API requests
             ACCESS
@@ -95,11 +95,11 @@ This section details **Standard Telemetry Workflows** for different access chann
                 ...
             METRICS --> Health/business metrics (e.g. number of jobs executed)
             AUDIT (object: Service, state: "Stopped") --> State transition to STOPPED
-````
+```
 
-### DIAL Code Consumption Workflow for Mobile App
+### DIAL Code Consumption Workflow 
 
-<pre>
+```
 START (pageid: "qr-code-scanner") -User starts the scanner
        | --> INTERACT (subType: "qr-code-scan-success") - Scan is successfull
        | --> SEARCH (Platform) - Dialcode is searched
@@ -114,4 +114,5 @@ START (pageid: "qr-code-scanner") -User starts the scanner
        .
        | --> INTERACT
 END (pageid: "qr-code-scanner") - User exits the dial search page
-</pre>
+```
+
