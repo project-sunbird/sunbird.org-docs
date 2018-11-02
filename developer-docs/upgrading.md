@@ -26,7 +26,7 @@ Ensure that you have Python installed on the Cassandra machine
 1. SSH to the database server where you want to take a backup
 2. Run the command `git clone https://github.com/project-sunbird/sunbird-devops`
 3. `cd sunbird-devops`
-4. Checkout the latest release tag `git checkout tags/release-1.9 -b release-1.9`
+4. Checkout the latest release tag `git checkout tags/release-1.10.1 -b release-1.10.1`
 5. `cd deploy`
 
 ### Backup Cassandra
@@ -34,17 +34,15 @@ Ensure that you have Python installed on the Cassandra machine
 Ensure that the prerequisites are met. To backup the Cassandra database: 
    
 1. Run the following script to take the backup:  
-`./cassandra_backup.py -t <backup_dir_path> <cassandra_data_dir_path> <snapshotname>` 
+`./cassandra_backup.py` 
 	
-2. This will create a *.tar.gz* extension backup file in the the **backup_dir_path**. 
+2. This will create a *.tar.gz* extension backup file in the current working directory. 
 
-**Example:** `./cassandra_backup.py -t /home/ubuntu /var/lib/cassandra/data my_backup`
-		
 > **Note:** Executing the command creates snapshots of all the keyspaces such as:  
 > - **portal**         -  Stores the session data
 > - **dialcodes**      -  Stores the energized text book details
 > - **sunbirdplugin**  -  Stores the custom or plugin data(used in announcement feature (Object API)
-> - **sunbird**	  -  Stores the organization ,user, course, batch, badger etc.
+> - **sunbird**	  -  Stores the organization,user, course, batch, badger etc.
 		
 ### Restore Cassandra
 
@@ -53,11 +51,11 @@ Ensure that the prerequisites are met. To restore the Cassandra database:
 1. Copy the Cassandra backup snapshot to the instance where you want to restore.
 2. Extract the *.tar.gz* backup file using the following command: `tar -xvzf my_backup.tar.gz`
 3. This will create a directory named `cassandra_backup`.
-4. Run `cqlsh -f 'cassandra_backup/db_schema.cql'`. This will restore all the schemas.
+4. Run `cqlsh -f 'cassandra_backup/db_schema.cql'` to restore all the schemas.
 5. Run the following script to restore the backup:  
 `./cassandra_restore.py --host <cassandra_host_ip_address> <cassandra_backup_dir_path>` 
 
-**Example:** `./cassandra_restore.py --host 10.10.10.10 /home/ubuntu/`
+**Example:** `./cassandra_restore.py --host 10.10.10.10 cassandra_backup`
 
 ### Backup Postgres
 
@@ -92,13 +90,13 @@ To restore the Postgres database:
 To take a backup of Elastic Search databases: 
 
 1. Run the following script to take the backup: `./backup_elasticsearch.sh`
-2. Note down the snapshot name as it will be required if you need to perform restore.
-3. Snapshot name will be displayed in screen after backup operation. Example: `"snapshot":"snapshot_31_10_2018061552"`
+2. Note down the snapshot name as it will be required if you need to restore it.
+3. The snapshot name is displayed on the screen after taking the backup. **Example:** `"snapshot":"snapshot_31_10_2018061552"`
 
 > **Note:** 
 > - Executing the command creates the backup file at **/etc/elasticsearch/backup**.
-> - If you encounter *permission denied* error, run the script with sudo. 
-> - If you encounter *repository_exception*, restart the elasticsearch service and run the backup script.
+> - If you encounter a *permission denied* error, run the script with sudo. 
+> - If you encounter a *repository_exception*, restart the elasticsearch service and run the backup script.
 > - To restart the elasticsearch service, run the following command: `sudo systemctl restart es-1_elasticsearch.service`
 
  4. Elasticsearch backup includes the following databases: 
@@ -122,7 +120,7 @@ To restore the ElasticSearch databases:
 
    1. Take a backup of your exisiting **config** file
    2. Pull the latest code of `project-sunbird/sunbird-devops` from its master branch
-   3. Checkout the latest release tag `git checkout tags/release-1.9 -b release-1.9`
+   3. Checkout the latest release tag `git checkout tags/release-1.10.1 -b release-1.10.1`
    4. It is recommended to take a full backup of all the databases before updating the schema 
    5. Follow the steps mentioned in the [Backup the Databases](developer-docs/upgrading/#backup-the-databases) section to take a backup 
    7. Update the **config** file if required.
