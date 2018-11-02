@@ -91,17 +91,16 @@ To restore the Postgres database:
 
 To take a backup of Elastic Search databases: 
 
-1.Run the following script to take the backup: `./backup_elasticsearch.sh`
-2.Note down the snapshot name as it will be required if you need to perform restore.
-3.Snapshot name will be displayed in screen after backup operation. Example: `"snapshot":"snapshot_31_10_2018061552"`
-
+1. Run the following script to take the backup: `./backup_elasticsearch.sh`
+2. Note down the snapshot name as it will be required if you need to perform restore.
+3. The snapshot name is displayed on the screen after backup operation. Example: `"snapshot":"snapshot_31_10_2018061552"`
 > **Note:** 
 > - Executing the command creates the backup file at **/etc/elasticsearch/backup**.
 > - If you encounter *permission denied* error, run the script with sudo. 
 > - If you encounter *repository_exception*, restart the elasticsearch service and run the backup script.
 > - To restart the elasticsearch service, run the following command: `sudo systemctl restart es-1_elasticsearch.service`
 
- 4.Elasticsearch backup includes the following databases: 
+4. Elasticsearch backup includes the following databases: 
 		
 	a) searchindex      - Stores the user, org , course, batch data
 	
