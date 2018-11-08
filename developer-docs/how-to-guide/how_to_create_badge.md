@@ -320,7 +320,7 @@ curl -X POST \
         "recipientCount": 0,
         "subtype": "certificate",
         "issuerIdUrl": "http://somewhere.com/public/issuers/issuerslug-174",
-        "badgeIdUrl": "http://somewhere.com/public/badges/badgeslug-66”
+        "badgeIdUrl": "http://somewhere.com/public/badges/badgeslug-66"
     }
 }
 ``` 
