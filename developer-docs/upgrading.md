@@ -49,7 +49,7 @@ Ensure that the prerequisites are met. To backup the Cassandra database:
 Ensure that the prerequisites are met. To restore the Cassandra database: 
 
 1. Copy the Cassandra backup snapshot to the instance where you want to restore.
-2. Extract the *.tar.gz* backup file using the following command: `tar -xvzf my_backup.tar.gz`
+2. Extract the *.tar.gz* backup file using the following command: `tar -xvzf cassandra_backup-2018-10-25.tar.gz`
 3. This will create a directory named `cassandra_backup`.
 4. Run `cqlsh -f 'cassandra_backup/db_schema.cql'` to restore all the schemas.
 5. Run the following script to restore the backup:  
@@ -83,7 +83,7 @@ To restore the Postgres database:
 
 **Example:** `./restore_postgres.sh postgresql_backup_UTC-2018-10-25-05-14-53.txt`
 
-> **Note** Remember to keep the backups safe in another directory as the temporary folder - **/tmp** - will be cleared periodically by the operating system. If **/tmp/postgresql-backup** is removed by the operating system, ensure you create another backup directory and place the backup file in it before restore operation.
+> **Note** Remember to keep the backups safe in another directory as the temporary folder - **/tmp** - will be cleared periodically by the operating system. If **/tmp/postgresql-backup** is removed by the operating system, ensure you create **/tmp/postgresql-backup**  directory and place the backup file in it before restore operation.
 
 ### Backup Elastic Search 
 
