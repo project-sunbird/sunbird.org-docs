@@ -114,18 +114,22 @@ We will use these details to construct the request body for creating badge class
 
 The organisation administrator will execute a request with the following parameter values.
 
-Parameter that are submitted through form ```application/x-www-form-urlencoded```, multipart, formdata, or both are usually used as the content type of the request 
+Parameter that are submitted through with ```multipart/form-data``` as the content type of the request.
 
 ```
-issuerId: issuerslug-174
-name: Basic Alphabet Expert
-description: Awarded for expertise in using basic alphabet
-criteria: Recipient of this badge has successfully listed all the letters of the alphabet
-rootOrgId: 0124758459210711040
-type: user
-subtype: certificate
-roles: BADGE_ISSUER
-images : C:\Users\Pictures\badge_logo.png
+curl -X POST \
+  https://dev.open-sunbird.org/api/v1/issuer/badge/create \
+  -H 'Authorization: Bearer <your-api-auth-key>' \
+  -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' \
+  -F issuerId=issuerslug-174 \
+  -F 'name=Basic Alphabet Expert' \
+  -F 'description=Awarded for expertise in using basic alphabet' \
+  -F 'criteria=Recipient of this badge has successfully listed all the letters of the alphabet' \
+  -F rootOrgId=0124758459210711040 \
+  -F type=user \
+  -F subtype=certificate \
+  -F roles=BADGE_ISSUER \
+  -F image=@/Users/vinaya/Downloads/badgeClassLogo.png
 ```
 
 **Notes**
