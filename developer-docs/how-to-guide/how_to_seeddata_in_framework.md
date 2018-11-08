@@ -3,8 +3,8 @@ title: Seed Framework
 page_title: Seed a Framework
 description: Seed data in framework in Sunbird instance
 keywords: framework data, seed data in framework
-published: false
-allowSearch: false
+published: true
+allowSearch: true
 ---
 ## Scenario
 
