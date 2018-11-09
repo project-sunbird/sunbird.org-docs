@@ -17,11 +17,11 @@ Sunbird also provides the ability to badge content. While this example shows how
  
 ## Prerequisites
 You will to complete some prerequisite steps before you can create badges. You need to 
-1. Get an API Key for accessing[Sunbird APIs](http://www.sunbird.org/apis/). To create an API key, please refer to [How to generate a Sunbird API key]().
+1. Get an API Key for accessing[Sunbird APIs](/apis/). To create an API key, please refer to [How to generate a Sunbird API key]().
 
-2. Create users and organisations for those involved in the badge awarding process. This includes the badge recipient and the user who awards the badge. See [How to create users & organisations]() for details of how users and organisations are created and linked.
+2. Create users and organisations for those involved in the badge awarding process. This includes the badge recipient and the user who awards the badge. See [How to create organisations](how_to_create_organization/) & [users](how_to_create_user/) for details of how users and organisations are created and linked.
 
-3. Assign roles to specific users who can award badges. For details of role assignment see [How to assign roles]()
+3. Assign roles to specific users who can award badges. For details of role assignment see [How to assign roles](how_to_create_org_add_user/)
 
 
 ## Taskflow
