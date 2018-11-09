@@ -69,64 +69,18 @@ Following is an example of request body for creating the XYZ Corp Certifications
   </tr>
 </table>
 
-**Form Data Parameters**
-<table>
-  <tr>
-    <td>Parameter Name</td>
-    <td>Parameter Type</td>
-    <td>Description</td>
-    <td>Sample Value</td>
-    <td>Mandatory?</td>
-  </tr>
-  <tr>
-    <td>name</td>
-    <td>String</td>
-    <td>The name of the badge issuing entity or organisation</td>
-    <td>XYZ Corp Certifications</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>description</td>
-    <td>String</td>
-    <td>A short description of the badge issuer</td>
-    <td>XYZ Corp certifications agency which is authorised to issue all badges on behalf of XYZ Corp</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>url</td>
-    <td>String</td>
-    <td>Homepage URL of the badge issuer</td>
-    <td>https://intranet.xyzcorp.com/certifications</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>email</td>
-    <td>String</td>
-    <td>E-mail address of the badge issuer</td>
-    <td>certifications@xyzcorp.com</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>image</td>
-    <td>File</td>
-    <td>An image / logo representing the badge issuer</td>
-    <td>@/Users/someuser/xyz.png</td>
-    <td>No</td>
-  </tr>
-</table>
-
 #### cURL Request
 
-```javascript
+```
 curl -X POST \
-  https://dev.open-sunbird.org/api/badging/v1/issuer/create \
+  https://sunbird.xyzcorp.com/api/badging/v1/issuer/create \
   -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
-  -H 'content-type: multipart/form-data' \
+  -H 'Content-type: multipart/form-data' \
   -F 'name=XYZ Corp Certifications' \
   -F 'description=XYZ Corp certifications agency which is authorised to issue all badges on behalf of XYZ Corp' \
   -F url=https://intranet.xyzcorp.com/certifications \
   -F email=certifications@xyzcorp.com \
-  -F image=@/Users/someuser/xyz.png
+  -F image=@/Users/someuser/xyz_certifications_logo.png
 ```
 
 On successful execution of the issuer creation API, an `issuerId` is generated and following parameters are returned in the response. 
@@ -138,8 +92,8 @@ On successful execution of the issuer creation API, an `issuerId` is generated a
     "responseCode": "OK",
     "result": {
         "issuerId": "issuerslug-174",
-        "issuerIdUrl: "http://somewhere.com/public/issuers/issuerslug-174",
-        "image": "https://somewhere.com/badge/uploads/issuers/issuer_logo_cb9fe2a8-82d0-4201-bd40-23fbe985fdd4",
+        "issuerIdUrl: "http://sunbird.xyzcorp.com/public/issuers/issuerslug-174",
+        "image": "https://sunbird.xyzcorp.com/badge/uploads/issuers/issuer_logo_cb9fe2a8-82d0-4201-bd40-23fbe985fdd4",
         "createdDate": "2018-08-07T08:46:44.193012Z",
         "issuerUrl: "https://intranet.xyzcorp.com/certifications",
         "name": "XYZ Corp Certifications",
@@ -155,25 +109,33 @@ On successful execution of the issuer creation API, an `issuerId` is generated a
 
 ### Create Badge Class
 
-Once the badge issuer has been created, the organization administrator can create new badge classes using the [Create Badge Class API](apis/badgingframeworkapi/#operation/BadgeCreatePost). A BadgeClass represents a type of badge which can be awarded. The same badge class can be awarded multiple times to different recipients. Each time it is awarded, there will be a new Badge instance. 
+Once the issuer has been created, you can create new badge classes using the [Create Badge Class API](apis/badgingframeworkapi/#operation/BadgeCreatePost). A `BadgeClass` represents a type of badge to be awarded. The same class can be awarded multiple times to different recipients. Each time it is awarded, there will be a new instance. 
 
-It is recommended to create a new badge class for each type of accomplishment which is being recognised. The badge class only needs to be created once for one type of badge. It is not required to create all the badge classes at once. As new types of accomplishments are recognised, new badge classes can be created.
+It is recommended to create a new class for each type of accomplishment which is being recognised. The `BadgeClass` only needs to be created once for each type of badge. It is not required to create all the badge classes at once. As new types of accomplishments are recognised, new badge classes can be created.
 
 The organization administrator must:
 
-1. Decide  badge name 
+1. Decide badge name 
 
 1. Set the criteria for awarding the badge
 
 1. Choose roles in the system who are authorized to award instance of the badge class
 
-1. Specify the rootOrgId within which this badge class is defined.
-
-1. Use the issuerId received from the [Create Issuer API](apis/badgingframeworkapi/#operation/CreatePost) call to indicate which entity is awarding the badge
-
 1. Choose an image to be associated with the badge. This image will be displayed on the profile page of all the people who receive the badge 
 
-In our scenario, XYZ Corp Certifications decides that it will issue a badge called Basic Alphabet Expert to employees who complete their basic alphabet training. The criteria for awarding the badge is that the employee can list all the letters of the alphabet. This class of badges will be issued by the users who have the `BADGE_ISSUER` role. The graphic design unit at XYZ Corp has designed a cool emblem for this badge which is present on the administrator's computer.
+1. Specify the `rootOrgId` within which this badge class is defined.
+
+1. Use the `issuerId` received from the [Create Issuer API](apis/badgingframeworkapi/#operation/CreatePost) call to indicate which entity is awarding the badge
+
+
+In our scenario, 
+1. XYZ Corp Certifications decides that it will issue a badge called Basic Alphabet Expert, to employees who complete their basic alphabet training. 
+
+1. The criteria for awarding the badge is that the employee can list all the letters of the alphabet. 
+
+1. This class of badges will be issued by the users who have the `BADGE_ISSUER` role. 
+
+1. The graphic design unit at XYZ Corp has designed a cool emblem for this badge which is present on the administrator's computer.
 
 We will use these details to construct the request body for creating badge class.
 
@@ -203,89 +165,15 @@ We will use these details to construct the request body for creating badge class
   </tr>
 </table>
 
-**Form Data Parameters**
-<table>
-  <tr>
-    <td>Parameter Name</td>
-    <td>Parameter Type</td>
-    <td>Description</td>
-    <td>Sample Value</td>
-    <td>Mandatory?</td>
-  </tr>
-  <tr>
-    <td>issuerId</td>
-    <td>String</td>
-    <td>Valid issuer ID</td>
-    <td>issuerslug-174</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>name</td>
-    <td>String</td>
-    <td>The name of the badge or achievement</td>
-    <td>Basic Alphabet Expert</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>description</td>
-    <td>String</td>
-    <td>A short description of the badge</td>
-    <td>Awarded for expertise in using basic alphabet</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>criteria</td>
-    <td>String</td>
-    <td>Text or URL of a remotely hosted page describing the criteria for the badge or achievement</td>
-    <td>Recipient of this badge has successfully listed all the letters of the alphabet</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>rootOrgId</td>
-    <td>String</td>
-    <td>ID which uniquly identifies the root organisation</td>
-    <td>0124758459210711040</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>type</td>
-    <td>String</td>
-    <td>The badge type. It can possibly be either of user or content</td>
-    <td>user</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>subtype</td>
-    <td>String</td>
-    <td>The badge subtype. It can possibly be either award, certificate, endorsement or authorization</td>
-    <td>certificate</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>roles</td>
-    <td>String</td>
-    <td>Represents one or more roles. It can possibly a either a role string (e.g. BADGE_ISSUER) or array of multiple role strings (e.g. [ "BADGE_ISSUER" ].</td>
-    <td>BADGE_ISSUER</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>image</td>
-    <td>File</td>
-    <td>An image / logo representing the badge or achievement</td>
-    <td>@/Users/someuser/badge_logo.png</td>
-    <td>No</td>
-  </tr>
-</table>
-
 #### cURL Request
 
 The organisation administrator will execute a request with the following parameter values.
 
 ```
 curl -X POST \
-  https://dev.open-sunbird.org/api/v1/issuer/badge/create \
+  https://sunbird.xyzcorp.com/api/v1/issuer/badge/create \
   -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
-  -H 'content-type: multipart/form-data' \
+  -H 'Content-type: multipart/form-data' \
   -F issuerId=issuerslug-174 \
   -F 'name=Basic Alphabet Expert' \
   -F 'description=Awarded for expertise in using basic alphabet' \
@@ -294,7 +182,7 @@ curl -X POST \
   -F type=user \
   -F subtype=certificate \
   -F roles=BADGE_ISSUER \
-  -F image=@/Users/someuser/badge_logo.png
+  -F image=@/Users/someuser/basic_alpha_badge_logo.png
 ```
 
 **Notes**
@@ -309,7 +197,7 @@ curl -X POST \
     "responseCode": "OK"
     "result": {
         "badgeId": "badgeslug-66",
-        "criteria": "http://somewhere.com/public/badges/badgeslug-66/criteria",
+        "criteria": "http://sunbird.xyzcorp.com/public/badges/badgeslug-66/criteria",
         "roles": ["BADGE_ISSUER"],
         "name": "Basic Alphabet Expert",
         "description": "Awarded for expertise in using basic alphabet",
@@ -319,8 +207,8 @@ curl -X POST \
         "createdDate": "2018-08-07T08:47:32.431314Z",
         "recipientCount": 0,
         "subtype": "certificate",
-        "issuerIdUrl": "http://somewhere.com/public/issuers/issuerslug-174",
-        "badgeIdUrl": "http://somewhere.com/public/badges/badgeslug-66"
+        "issuerIdUrl": "http://sunbird.xyzcorp.com/public/issuers/issuerslug-174",
+        "badgeIdUrl": "http://sunbird.xyzcorp.com/public/badges/badgeslug-66"
     }
 }
 ``` 
@@ -363,52 +251,12 @@ You will also need the userId of the person who will receive the badge. You can 
   </tr>
 </table>
 
-**Request Body Parameters**
-
-<table>
-  <tr>
-    <td>Request Parameter</td>
-    <td>Parameter Type</td>
-    <td>Description</td>
-    <td>Sample Value</td>
-    <td>Mandatory?</td>
-  </tr>
-  <tr>
-    <td>issuerId</td>
-    <td>String</td>
-    <td>Valid issuer ID</td>
-    <td>issuerslug-174</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>badgeId</td>
-    <td>String</td>
-    <td>Valid badge ID</td>
-    <td>badgeslug-66</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>recipientId</td>
-    <td>String</td>
-    <td>Identifier (user or content ID based on recipient type) for the recipient</td>
-    <td>d0e8c059-e038-4baf-834f-c702764a4b58</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>recipientType</td>
-    <td>String</td>
-    <td>The badge type. It can possibly be either of user or content.</td>
-    <td>user</td>
-    <td>Yes</td>
-  </tr>
-</table>
-
 
 #### cURL Request
 
 ```javascript
 curl -X POST \
-  https://dev.open-sunbird.org/api/badging/v1/issuer/badge/assertion/create \
+  https://sunbird.xyzcorp.com/api/badging/v1/issuer/badge/assertion/create \
   -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
   -H 'Content-Type: application/json' \
   -d '  {
@@ -429,14 +277,14 @@ curl -X POST \
     "responseCode": "OK",
     "result": {
         "assertionDate": "2018-08-17T05:16:00.047850",
-        "assertionImageUrl": "https://somewhere.com/badge/uploads/badges/ca19a8e0f7c067fe6429f2a91ac5defe.png",
+        "assertionImageUrl": "https://sunbird.xyzcorp.com/badge/uploads/badges/ca19a8e0f7c067fe6429f2a91ac5defe.png",
         "badgeId": "badgeslug-66",
-        "assertionIdUrl": "http://somwhere.com/public/assertions/9cddb166-eed1-4291-9545-c57a2199f49e",
+        "assertionIdUrl": "http://sunbird.xyzcorp.com/public/assertions/9cddb166-eed1-4291-9545-c57a2199f49e",
         "revoked": false,
         "issuerId": "issuerslug-",
         "createdDate": "2018-08-17T05:16:00.071368Z",
         "assertionId": "9cddb166-eed1-4291-9545-c57a2199f49e",
-        "issuerIdUrl": "http://somewhere.com/public/issuers/issuerslug-174",
+        "issuerIdUrl": "http://sunbird.xyzcorp.com/public/issuers/issuerslug-174",
         "recipient": {
         }
     }
