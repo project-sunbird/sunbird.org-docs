@@ -45,29 +45,10 @@ Following is an example of request body for creating the XYZ Corp Certifications
 
 **Header Parameters**
 
-<table>
-  <tr>
-    <td>Header Parameter</td>
-    <td>Parameter Type</td>
-    <td>Description</td>
-    <td>Sample Value</td>
-    <td>Mandatory?</td>
-  </tr>
-  <tr>
-    <td>Content-Type</td>
-    <td>String</td>
-    <td>Type of the request data. Set as multipart/form-data.</td>
-    <td>multipart/form-data</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>Authorization</td>
-    <td>String</td>
-    <td>To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received.</td>
-    <td>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</td>
-    <td>Yes</td>
-  </tr>
-</table>
+|Header|Type|Description|Sample|Mandatory?|
+|-------------|------|--------------------------|-------------------|----|
+|Content-type |String|Mime type of the request  |multipart/form-data|Yes |
+|Authorization|String|Authorization key received|abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890|Yes|
 
 #### cURL Request
 
@@ -103,7 +84,7 @@ On successful execution of the issuer creation API, an `issuerId` is generated a
 }
 ```
 
-1. Save the created **issuerId**
+1. Save the created `issuerId`
 
 1. The badge issuer is created, which is required to [Create Badge Class](/how_to_create_badge#create-badge-class) and award badge to the user. 
 
@@ -141,29 +122,10 @@ We will use these details to construct the request body for creating badge class
 
 **Header Parameters**
 
-<table>
-  <tr>
-    <td>Header Parameter</td>
-    <td>Parameter Type</td>
-    <td>Description</td>
-    <td>Sample Value</td>
-    <td>Mandatory?</td>
-  </tr>
-  <tr>
-    <td>Content-Type</td>
-    <td>String</td>
-    <td>Type of the request data. Set as multipart/form-data.</td>
-    <td>multipart/form-data</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>Authorization</td>
-    <td>String</td>
-    <td>To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received.</td>
-    <td>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</td>
-    <td>Yes</td>
-  </tr>
-</table>
+|Header|Type|Description|Sample|Mandatory?|
+|-------------|------|--------------------------|-------------------|----|
+|Content-type |String|Mime type of the request  |multipart/form-data|Yes |
+|Authorization|String|Authorization key received|abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890|Yes|
 
 #### cURL Request
 
@@ -211,11 +173,9 @@ curl -X POST \
         "badgeIdUrl": "http://sunbird.xyzcorp.com/public/badges/badgeslug-66"
     }
 }
-``` 
+```
 
-1. Save the created ```badgeId```
-
-1. The badge ID created is required to [Award the badge](/how_to_create_badge#awarding-the-badge) to a user
+1. Save the created `badgeId`, it is required to [Award the badge](/how_to_create_badge#awarding-the-badge) to a user
 
 ### Awarding the Badge
 
@@ -223,38 +183,19 @@ Once the badge class is created, any user with the `BADGE_ISSUER` role reference
 
 > Note: You would have saved the issuer ID received after creating the issuer and the badge ID received after creating the badge class. These IDs are required for awarding the badge.
 
-You will also need the userId of the person who will receive the badge. You can get the user ID after searching for the user using [Search User API](apis/userapi/#operation/Search%20User). In our scenario, the user identified by `userId` `d0e8c059-e038-4baf-834f-c702764a4b58` has demonstrated listing the alphabet. The organisation admin now chooses to issue the badge to this user. The following is an example of request body for this task:
+You will also need the `userId` of the person who will receive the badge. You can get the `userId` after searching for the user using [Search User API](apis/userapi/#operation/Search%20User). In our scenario, the user identified by `userId: "d0e8c059-e038-4baf-834f-c702764a4b58"` has demonstrated listing the alphabet. The organisation admin now chooses to issue the badge to this user. The following is an example of request body for this task:
 
 **Header Parameters**
 
-<table>
-  <tr>
-    <td>Header Parameter</td>
-    <td>Parameter Type</td>
-    <td>Description</td>
-    <td>Sample Value</td>
-    <td>Mandatory?</td>
-  </tr>
-  <tr>
-    <td>Content-Type</td>
-    <td>String</td>
-    <td>Type of the request data. Set as application/json.</td>
-    <td>application/json</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>Authorization</td>
-    <td>String</td>
-    <td>To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received.</td>
-    <td>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</td>
-    <td>Yes</td>
-  </tr>
-</table>
+|Header|Type|Description|Sample|Mandatory?|
+|-------------|------|--------------------------|-------------------|----|
+|Content-type |String|Mime type of the request  |application/json   |Yes |
+|Authorization|String|Authorization key received|abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890|Yes|
 
 
 #### cURL Request
 
-```javascript
+```
 curl -X POST \
   https://sunbird.xyzcorp.com/api/badging/v1/issuer/badge/assertion/create \
   -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
