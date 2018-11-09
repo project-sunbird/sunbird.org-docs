@@ -8,7 +8,7 @@ allowSearch: true
 ---
 ## Scenario
 
-As a part of employee development and training program, the XYZ Corp., needs to create and administer a course. On successful completion of the course, the course administrator would like to certify these trainees so that it is easy to know who are the employees who have completed this course. 
+As a part of the employee development and training program, the XYZ Corp., needs to create and administer a course. At the end of the course, the course administrator would like to recognize the employees who have successfully completed this course. 
 
 To help with this, Sunbird provides the ability to create and award badges. The administrator can create specific badges for each course and then award it to the employees who completes the course. The administrator can also create an entity called a Badge Issuer who awards the badges. Once the badge is awarded to an employee, the badge is displayed on that employee's profile page.
 This document explains the procedure of creating and awarding badges.
