@@ -191,7 +191,7 @@ You will also need the `userId` of the person who will receive the badge. You ca
 |-------------|------|--------------------------|-------------------|----|
 |Content-type |String|Mime type of the request  |application/json   |Yes |
 |Authorization|String|Authorization key received|abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890|Yes|
-
+|X-Authenticated-User-Token|String|Unique token to authenticate user|eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2|Yes|
 
 #### cURL Request
 
