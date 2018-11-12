@@ -39,212 +39,24 @@ This document essentially explains the process of creating content using APIs. T
 #### Request Body 
 	
 	{
-  	"request": {
-    	"content": {
-    		"name": "string",
-    		"code": "string",
-    		"os": [
-        	"string"
-      		],
-    	"minOsVersion": "string",
-    	"compatibilityLevel": 0,
-    	"minGenieVersion": "string",
-    	"minSupportedVersion": "string",
-    	"filter": "string",
-    	"variants": "string",
-    	"config": "string",
-    	"visibility": [
-    		"default",
-    		"parent"
-    		],
-    	"audience": [
-    		"Learner",
-    		"Instructor"
-    		],
-    	"posterImage": "string",
-    	"badgeAssertions": [
-    		{}
-    	],
-    	"mimeType": [
-        	"application/vnd.ekstep.ecml-archive",
-        	"application/vnd.ekstep.html-archive",
-        	"application/vnd.android.package-archive",
-        	"application/vnd.ekstep.content-archive",
-        	"application/vnd.ekstep.content-collection",
-        	"application/vnd.ekstep.plugin-archive",
-        	"application/vnd.ekstep.h5p-archive",
-        	"application/epub",
-        	"text/x-url",
-        	"video/x-youtube",
-        	"application/octet-stream",
-        	"application/msword",
-        	"application/pdf",
-        	"image/jpeg",
-        	"image/jpg",
-        	"image/png",
-        	"image/tiff",
-        	"image/bmp",
-        	"image/gif",
-        	"image/svg+xml",
-        	"video/avi",
-        	"video/mpeg",
-        	"video/quicktime",
-        	"video/3gpp",
-        	"video/mpeg",
-        	"video/mp4",
-        	"video/ogg",
-        	"video/webm",
-        	"audio/mp3",
-        	"audio/mp4",
-        	"audio/mpeg",
-        	"audio/ogg",
-        	"audio/webm",
-        	"audio/x-wav",
-       		"audio/wav"
-      		],
-    	"mediaType": [
-        	"content",
-        	"collection",
-        	"image",
-        	"video",
-        	"audio",
-        	"voice",
-        	"ecml",
-        	"document",
-        	"pdf",
-        	"text",
-        	"other"
-    		],
-    	"appIcon": "string",
-    	"grayScaleAppIcon": "string",
-    	"thumbnail": "string",
-    	"objects": "string",
-    	"organization": [
-    		"string"
-    		],
-      	"createdFor": [
-        	"string"
-      		],
-      	"developer": "string",
-      	"source": "string",
-      	"board": "string",
-      	"subject": "string",
-      	"medium": "string",
-      	"notes": "string",
-      	"pageNumber": "string",
-     	"publication": "string",
-      	"edition": "string",
-      	"publisher": "string",
-      	"author": "string",
-      	"owner": "string",
-      	"attributions": [
-        	"string"
-      		],
-      	"collaborators": [
-        	"string"
-      		],
-      	"voiceCredits": [
-        	"string"
-      		],
-      	"soundCredits": [
-        	"string"
-      		],
-      	"imageCredits": [
-        	"string"
-      		],
-      	"copyright": "string",
-     	"license": [
-        	"Against DRM license",
-        	"Creative Commons Attribution-NoDerivs (CC-BY-ND)",
-        	"Creative Commons Attribution (CC BY)",
-        	"Creative Commons Attribution-ShareAlike (CC BY-SA)",
-        	"Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)",
-        	"Creative Commons Zero (CC0)",
-        	"Free Art License",
-        	"Open Audio License",
-        	"Open Game License",
-        	"Standard YouTube License",
-        	"Other"
-      		],
-      	"forkable": true,
-      	"translatable": true,
-      	"ageGroup": [
-        	"<5",
-        	"5-6",
-        	"6-7",
-        	"7-8",
-        	"8-10",
-        	">10",
-        	"Other"
-      		],
-      	"gradeLevel": [
-        	"string"
-      		],
-      	"topic": [
-        	"string"
-      		],
-      	"interactivityLevel": [
-        	"Medium"
-      		],
-      	"contentType": [
-           	"CourseUnit",
-        	],
-      	"resourceType": [
-           	"Course"
-     		],
-      	"category": [
-        	"core",
-        	"learning",
-        	"literacy",
-        	"math",
-        	"science",
-        	"time",
-        	"wordnet",
-        	"game",
-        	"mcq",
-        	"mtf",
-        	"ftb",
-        	"library"
-      		],
-		"templateType": [
-			"story",
-			"worksheet",
-			"mcq",
-			"ftb",
-			"mtf",
-			"recognition",
-			"activity",
-			"widget",
-			"other"
-		],
-		"genre": [
-			"Picture Books",
-			"Chapter Books",
-			"Flash Cards",
-			"Serial Books",
-			"Alphabet Books",
-			"Folktales",
-			"Fiction",
-			"Non-Fiction",
-			"Poems/Rhymes",
-			"Plays",
-			"Comics",
-			"Words"
-		],
-		"theme": [
-			"History",
+		"request": {
+			"content": {
+			"name": "test course for doc",
+			"description": "test course for doc",
+			"creator": "Creator01 user",
+			"createdBy": "159e93d1-da0c-4231-be94-e75b0c226d7c",
+			"organisation": [
+				"Consumption Org",
+				"ORG25"
 			],
-		"keywords": [
-			"string"
+			"createdFor": [
+				"01232002070124134414",
+				"012315809814749184151"
 			],
-		"domain": [
-			"string"
-			],
-		"description": "string",
-		"instructions": "string",
-		"ownershipType": [
-			"string"
-			]
+			"contentType": "Course",
+			"framework": "NCF",
+			"mimeType": "application/vnd.ekstep.content-collection",
+			"resourceType": "Course"
 			}
 		}
 	}
@@ -252,21 +64,21 @@ This document essentially explains the process of creating content using APIs. T
 #### Response Body 
 	
 	{
-	"result": {
-		"node_id": "string",
-		"versionKey": "string"
+		"id": "api.content.create",
+		"ver": "1.0",
+		"ts": "2018-11-12T15:09:39.006Z",
+		"params": {
+			"resmsgid": "f978e5e0-e68c-11e8-baf5-3dae6351f44e",
+			"msgid": "f9727d40-e68c-11e8-9d9c-9fb82598856b",
+			"status": "successful",
+			"err": null,
+			"errmsg": null
 		},
-	"id": "string",
-	"ver": "string",
-	"ts": "string",
-	"params": {
-		"resmsgid": "string",
-		"msgid": "string",
-		"err": "string",
-		"status": "string",
-		"errmsg": "string"
-		},
-	"responseCode": {}
+		"responseCode": "OK",
+		"result": {
+			"content_id": "do_112632353824178176130",
+			"versionKey": "1542035378927"
+		}
 	}
 
 2. Uploading courses using [Upload Content API](http://docs.sunbird.org/latest/apis/content/#operation/Upload%20Content)
