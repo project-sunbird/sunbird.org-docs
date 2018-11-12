@@ -124,7 +124,7 @@ You can update the details of each [tree node](book_creation#working-with-table-
 #### Using DIAL Code 
 
 DIAL code is the physical representation of a six digit unique identifer assigned to a textbook or its section. The DIAL code associated with the book or content enhances the discoverability of the content or the book. QR code is the pictorial representation of the DIAL code. You can use the DIAL code instead of scanning the QR code every time you search for the content. 
-Each time the DIAL code is used it generates the [telemetry data](../developer-doc/telemetry/consuming_telemetry#dial-code-consumption-workflow-for-mobile-app). This telemetry data is used to analyze the relevance and usage of the content (consumption reports)
+Each time the DIAL code is used it generates the [telemetry data](../developer-doc/telemetry/consuming_telemetry/#dial-code-consumption-workflow). This telemetry data is used to analyze the relevance and usage of the content (consumption reports)
 
 ### Viewing Contributor Details
  
