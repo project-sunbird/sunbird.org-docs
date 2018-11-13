@@ -41,13 +41,13 @@ This document essentially explains the process of creating content using APIs. T
 	{
 		"request": {
 			"content": {
-			"name": "test course for doc",
-			"description": "test course for doc",
+			"name": "training content",
+			"description": "training content for upskilling employees",
 			"creator": "Creator01 user",
 			"createdBy": "159e93d1-da0c-4231-be94-e75b0c226d7c",
 			"organisation": [
-				"Consumption Org",
-				"ORG25"
+				"XYZ Corporation",
+				"XYZ"
 			],
 			"createdFor": [
 				"01232002070124134414",
