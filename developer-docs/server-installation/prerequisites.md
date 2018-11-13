@@ -65,14 +65,14 @@ This section provides information on the user accounts, ports and utilities requ
 
 This user account and the ssh key will be used during the installation process by Ansible to login to the servers to install and configure the required software.
 
-### Sample steps to create a user account (where username = sunbird) that meets the above criteria. These steps have been verified on an Azure VM running Ubuntu 16.04 
+#### Sample steps to create a user account (where username = sunbird) that meets the above criteria. These steps have been verified on an Azure VM running Ubuntu 16.04 
 
-#### Setup an ssh key that can be used to ssh across the servers
+##### Setup an ssh key that can be used to ssh across the servers
 - SSH to any one of the cloud VMs using the SSH keys setup during VM creation. The VM that is dedicated for the app server is a good choice.
 - ssh-keygen //This command will create a private & public key in the path (you can provide a path of /home/yourcurrentuser/key). Leave the passphrase empty when prompted. The public key will be called key.pub and the other file(key) contains the private key.
 - Copy the output of running the following command - cat /home/yourcurrentuser/key.pub //This is the public key ~ COPIED_PUBLIC_KEY_STRING
 
-#### Setup a user with password less ssh & sudo access
+##### Setup a user with password less ssh & sudo access
 - SSH to the cloud VMs using the SSH keys setup during VM creation. This user will have sudo access and can create other users.
 - sudo adduser sunbird //This will add a linux user with a password
 - sudo usermod -aG sudo sunbird //Providing the newly created user with sudo access
