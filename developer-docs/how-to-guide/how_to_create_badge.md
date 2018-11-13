@@ -171,7 +171,7 @@ curl -X POST \
 }
 ```
 
-1. Save the created **badgeId**. It is required to [Award the badge](../how_to_create_badge#awarding-the-badge) to a user
+1. Save the created **badgeId**. It is required to [Award the badge](developer-docs/how-to-guide/how_to_create_badge#awarding-the-badge) to a user
 
 ### Awarding the Badge
 
