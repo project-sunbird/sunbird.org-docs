@@ -32,14 +32,14 @@ The following sections provide you with the sequence to setup the Sunbird Learne
 
 **Essentials For Setting Up Sunbird Learner Service**
 	
-   * [Cassandra](developer-docs/installation/lms_service/setup-cassandra) 
+   * [Cassandra](developer-docs/installation/lms_service/#setup-cassandra) 
    * [ElasticSearch](developer-docs/installation/lms_service/#setup-elasticsearch)
    * [Keycloak](developer-docs/installation/lms_service/#setup-keycloak)
    * [Enviroment Variables](developer-docs/installation/lms_service/#set-env)
    
 
 
-### Setup Cassandra<a name="developer-docs/installation/lms_service/setup-cassandra"></a>
+### Setup Cassandra<a name="setup-cassandra"></a>
 
 1. Install Cassandra database and start the server (Use Cassandra version 3.*)
 2. Clone the repository (sunbird-lms-mw)[https://github.com/project-sunbird/sunbird-lms-mw]
