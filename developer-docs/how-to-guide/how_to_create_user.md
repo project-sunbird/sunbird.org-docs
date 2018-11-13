@@ -1,111 +1,93 @@
 ---
 type: landing
 directory: developer-docs/how-to-guide
-title: Create User
-page_title: Create User
-description: Create a new user in Sunbird instance
-keywords: create user, new user, create, user, Create User Accounts 
+title: Create Users
+page_title: Create Users
+description: creating new users in an organization in a sunbird instance
+keywords: create users, new users in sunbird, users, create
 published: true
 allowSearch: true
 ---
+
 ## Scenario
 
-A company, XYZ Corp, is a global conglomerate with over ten thousand employees, spread across 5 locations. Employee training and enablement is one of the core values of the organization. To ensure that employees are regularly trained and upskilled, XYZ Corp has decided to use Sunbird for its learning and training solution. To give employees access to the learning platform, the organization's administrator needs to create and add user details. 
+A company, XYZ Corp, is a global conglomerate with over ten thousand employees, spread across 5 locations. Employee training and enablement is one of the core values of the organization. To ensure that employees are regularly trained and upskilled, XYZ Corp has decided to use Sunbird for its learning and training solution on 3 topics, namely Life Science, eCommerce and Archeology (Indian, Greek, Mayan). <br>
+Gita is the XYZ Corp's Sunbird adminstrator and has created the necessary structure (root organization called Archeology and sub-organizations - Indian Archeology, Mayan Archeology and Greek Archeology). She will now create user(s), within this root organization, who will eventually be assigned specific roles to perform, like write research articles, review them, publish them etc.
 
-Every user belongs to an organization and is identified within the organization through a unique user ID. Sunbird, uniquely identifies every tenant organization through a channel. Hence, when creating a user, its not enough to only add user details and assign a user ID. To enable users, the user ID has to be associated with an organization and channel. Since a user also plays a role within an organization, the user gets fully enabled only after the user ID is associated to a role. For example, John is a manager in XYZ corporation with multiple roles, who can create, review and take courses. He is also an administrator in the system, in which capacity he can add users and assign permissions to them.  
 
 ### Prerequisites
 
 1. An intialized Sunbird instance
-
-2. The [API Key for access](http://www.sunbird.org) and basic authentication
-  
-3. An API client to make API calls. For example use Postman refer [Using Postman](http://www.sunbird.org/apis/framework/#tag/usingpostman)
-
-4. Access to the [Create User API](http://www.sunbird.org/apis/userapi/#operation/Create%20User)
+1. Get an [API key]() to access Sunbird API. To create an API key, please refer to [How to generate a Sunbird API key]().
+1. Software that can make REST API calls, like curl or POSTMAN.
+1. The root organization should be already created and its **channel** readily available.
+1. The list of users who need to be populated into the organization alongwith their email addresses. In the absence of an email address, a phone number is a must.
 
 ### Taskflow
- 
-The sequence of tasks the organization administrator follows to create users include:
 
-1. Specify values for the parameters in the request body of the API. Following is an example of request body for creating a user, the sample values provided in the request body are indicative:
+For each user to be created, Gita will prepare the API request headers and body, as shown in the example below and invoke the API. Upon successful completion, she will note down the **userID** of each one respectively.
 
-#### Request Body for Creating a User
+**Request Header**
 
-    "request": {
-        "email": "john@xyzcorp.com",
-        "firstName": "John", 
-        "lastName": "Pal",
-        "password": "password123",
-        "avatar": "john.png",
-        "language":  ["English"],
-        "phone": "987654321", 
-        "phoneVerified": true,
-        "subject": [ "string" ],
-        "channel": "a1234567b890c",
-        "userName": "john1"
-        "education": [
-            {
-                "degree": "BA",
-            "yearOfPassing": 1934,
-            "courseName": "Bachelor of Arts",
-            "boardOrUniversity": "ABC University",
-            "address": 
-                {
-                "addType": "Permanent",
-                "addressLine1": "#34, ASDF Apartments",
-                "addressLine2": "ERTY Lane",
-                "city": "Bangalore",
-                "state": "Karnataka",
-                "zipCode": "560089"
-                },
-            }
-            ],
-        "jobProfile": [
-            {
-            "jobName": "Manager",
-            "role": "L3",
-            "joiningDate": "2013-12-01",
-            "orgName": "XYZ Corp",
-            "address": 
-                {
-                "addType": "Organization",
-                "addressLine1": "#34, QWETY Bldg",
-                "addressLine2": "ERTY Lane",
-                "city": "Bangalore",
-                "state": "Karnataka",
-                "zipCode": "560089"
-                }
-            }
-        ],
-    }
+|     Header    |          Type         | Description | Sample |
+|---------------|------------------------|-----------|--------|
+| Content-type | String | Mime type of the request | application/json |
+| Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
 
+**cURL Request**
 
-#### Response Body 
+```
+curl -X POST \
+  https://staging.open-sunbird.org/api/user/v1/create \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
+  -d '{
+    	"request":
+    	{
+		  "email": "writer01@xyzcorp.com",
+		  "firstName": "writer01",
+		  "userName": "writer01",
+		  "password": "writer12301",
+		  "channel": "xyzCorpLifeArcheologyChannel"
+    	}
+      }'
+```
 
+**Response Body**
+
+```
+{
+    "id": "api.user.create",
+    "ver": "v1",
+    "ts": "2018-11-12 16:25:43:292+0000",
+    "params": {
+        "resmsgid": null,
+        "msgid": "93cd9372-62aa-43dd-91a0-fe43db2c218b",
+        "err": null,
+        "status": "success",
+        "errmsg": null
+    },
     "responseCode": "OK",
-        "result": {
-            "response": "SUCCESS",
-            "accessToken": null,
-            "userId": "4eec2f70-b821-42b9-9694-8a08587715af"
-        }
+    "result": {
+        "response": "SUCCESS",
+        "userId": "bd25215d-663e-4c78-49ef-4c2331e814cd"
+    }
+}
+```
 
-2. Save the created user ID
+This concludes the topic of creating users in an organization, in a Sunbird instance.
+Typically, the next activity would be to assign roles to these users, within their organizations.
 
-3. The user (John Pal), with is created under the XYZ organization
 
-### Concepts covered
+### Concepts Covered
 
-**Users**: Individuals who can sign in and access the Sunbird portal.
+**User**: These are enities created within an organization, which can login into their Sunbird portal and perform tasks that are specifically assigned to them. More than one user can have the same name but not email ID. In the absence of an email ID, an organizationally unique phone number must be provided and in the request header and **phoneVerified** must be set to the boolean value **true**. <br>
+During user creation, if the **channel** is not provided, Sunbird will attempt to create that user in it's default organization, if one such exists. If that happens, then the user will have to be explicitly added to the required organization via the [Add a User to Organization]() API.
 
-**Organization**: An Organization is an institute or a body of individuals. 
+### Related Topics
 
-**Channel**: A unique identifier associated with the tenant organization
+[Add an external user into an organization]()
 
-### Additional Topics
+[Creating an organization and sub-organizations]()
 
-[Creating first organization](http://www.sunbird.org/developer-docs/initialization)
-
-[Creating Organization](http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_organization)
-
-[Map users to different business units within the organisation](http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_org_add_user)
+[Assign roles to users in an organizations]()
