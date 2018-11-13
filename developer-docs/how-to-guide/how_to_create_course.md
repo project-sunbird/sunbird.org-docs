@@ -3,8 +3,8 @@ title: How to Create a Course
 page_title: How to Create a Course
 description: Create course for users in Sunbird instance
 keywords: create content, create course, content creator, course creator 
-published: false
-allowSearch: false
+published: true
+allowSearch: true
 ---
 ## Scenario
 
