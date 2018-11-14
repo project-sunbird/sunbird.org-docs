@@ -52,6 +52,7 @@ Ubuntu 16.04 LTS (64 bit)
 
 ### Cloud Blob Storage
 * Sunbird requires an Azure Blob storage account. For details on creating an account, refer <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-create-storage-account" target="_blank">Azure storage account</a> 
+* Create a container by name dial in the storage account.
 * This account is used to store QR code images and achievement badges
 
 ## System Setup
