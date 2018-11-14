@@ -1,78 +1,281 @@
 ---
 type: landing
 directory: developer-docs/how-to-guide
-title: Associating Organization and User
-page_title: Associating Organization and User
-description: Create a new user in Sunbird instance
-keywords: create user, new user, create, user
+title: Associate User with Organization
+page_title: Associate User with Organization
+description: adding an user to an organization
+keywords: associate user with organization, associate
 published: true
 allowSearch: true
 ---
 ## Scenario
 
-A company, XYZ Corp, is a global conglomerate with over ten thousand employees, spread across 5 locations. Employee training and enablement is one of the core values of the organization. To ensure that employees are regularly trained and upskilled, XYZ Corp has decided to use Sunbird for its learning and training solution. To give employees access to the learning platform, the organization's administrator needs to create and add user details with the organization. 
+A company, XYZ Corp, is a global conglomerate with over ten thousand employees, spread across 5 locations. Employee training and enablement is one of the core values of the organization. To ensure that employees are regularly trained and upskilled, XYZ Corp has decided to use Sunbird for its learning and training solution on 3 topics, namely Life Science, eCommerce and Archeology (Indian, Greek, Mayan). <br>
+Maya joins XYZ Corp as an intern pursuing research Indian & Greek archeology. For the first 3 months, she will need access to scholarly articles on Indian archeology and the next 3 months access to articles on Greek archeology. She will not have the rights to publish any articles, only consume existing ones. XYZ Corp's Sunbird administrator, Gita, is tasked in ensuring Maya gets access to the relevant content during this six month period.
 
-Every user must belong to an organization and is identified within the organization through a unique user ID. To enable users, the user ID has to be associated with an organization and channel and subsequently assigned a role. For example, John is a manager in XYZ corporation, who can create, review and take courses. He is also an administrator in the system, in which capacity he can add users and assign permissions to them and associate them with the organization.
 
 ### Prerequisites
 
-1. An intialized Sunbird instance, an [organization](http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_organization/) and a [user](http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_user).
+1. An initialized Sunbird instance.
+1. Get an [API key]() to access Sunbird API. To create an API key, please refer to [How to generate a Sunbird API key]().
+1. Software that can make REST API calls, like curl or POSTMAN.
+1. The root organization and sub-organizations created and their **organsationId** and root organization's **channel** readily available.
+1. The user account created in the root-organization and **userId** readily available.
 
-2. The [API Key for access](http://www.sunbird.org) and basic [authentication](http://www.sunbird.org/developer-docs/installation/server_installation/installation/#post_installation_configuration). As a response, the access_token is generated which is used for `x-authenticated-user-token` header 
-  
-3. An API client to make API calls. For example use Postman #refer [Using Postman](http://www.sunbird.org/apis/framework/#tag/usingpostman)#
-
-4. Access to the [Mapping User to Organization API](http://www.sunbird.org//apis/orgapi/#operation/Organisation%20Add%20User)
 
 ### Taskflow
 
-The sequence of tasks the organization administrator follows to create users include:
+First, Gita will assign the role of content consumer, to Maya, in the sub-organization Indian Archeology. Gita
 
-1. Specify values for the following parameters in the request body of the API 
+**Request Headers**
 
-An organization can be created in a Sunbird instance using [ORG API](http://www.sunbird.org/apis/userapi/#tag/Orgs-APIs), it can be further associated with a [user](http://www.sunbird.org/apis/orgapi/#operation/Organisation%20Add%20User). Following is an example of request body for associating a user to an organization, the sample values provided in the request body are indicative:
+|     Header    |          Type         | Description | Sample |
+|---------------|------------------------|--------|-----------|
+| Content-type | String | Mime type of the request | application/json |
+| Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
+| x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
-#### Request Body for Mapping User to Organization
+**cURL Request**
 
-    {
-        "request": {
-        "organisationId": "0125231248111779848",
-        "provider": "string",
-        "roles": ["PUBLIC"],
-        "userId": "4eec2f70-b821-42b9-9694-8a08587715af",
-        "userName": "john1"
-        }    
+```
+curl -X POST \
+  https://staging.open-sunbird.org/api/org/v1/member/add \
+  -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
+  -H 'Content-Type: application/json' \
+  -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
+  -d '{
+	"request":
+	{
+		"organisationId": "01261942258536448016",
+		"userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449"
+	}
+}'
+```
+
+**Response Body**
+
+```
+{
+    "id": "api.org.member.add",
+    "ver": "v1",
+    "ts": "2018-11-13 15:18:17:253+0000",
+    "params": {
+        "resmsgid": null,
+        "msgid": "d6e68bc6-599f-48d1-b397-9ef8d3dfc2cc",
+        "err": null,
+        "status": "success",
+        "errmsg": null
+    },
+    "responseCode": "OK",
+    "result": {
+        "response": "SUCCESS"
     }
+}
+```
 
-#### Response Body
+Gita will assign the role of a content consumer, to Maya, in the sub-organization Indian Archeology.
 
-    {
-        "responseCode": "OK",
-        "result": {
-            "response": "SUCCESS"
-        }
+**Header Parameters**
+
+|     Header    |          Type         | Description | Sample |
+|---------------|------------------------|--------|-----------|
+| Content-type | String | Mime type of the request | application/json |
+| Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
+| x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
+
+
+**cURL Request**
+
+```
+curl -X POST \
+  https://staging.open-sunbird.org/api/user/v1/role/assign \
+  -H 'Authorization: Bearer \ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
+  -H 'Content-Type: application/json' \
+  -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
+  -d '{
+	"request":
+	{
+		"userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449",
+		"organisationId": "01261942258536448016",
+		"roles": ["PUBLIC"]
+	}
+}'
+```
+
+**Response Body**
+
+```
+{
+    "id": "api.user.assign.role",
+    "ver": "v1",
+    "ts": "2018-11-13 16:03:19:100+0000",
+    "params": {
+        "resmsgid": null,
+        "msgid": "1fa37108-03c8-490d-b646-61317d317b2e",
+        "err": null,
+        "status": "success",
+        "errmsg": null
+    },
+    "responseCode": "OK",
+    "result": {
+        "response": "SUCCESS"
     }
+}
+```
 
-2. The user (John) is added to the organization (XYZ Corp)
+After 3 months, Gita will revoke Maya's access to the the sub-organization - Indian Archeology.
+
+**Header Parameters**
+
+|     Header    |          Type         | Description | Sample |
+|---------------|------------------------|--------|-----------|
+| Content-type | String | Mime type of the request | application/json |
+| Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
+| x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
+
+**cURL Request**
+
+```
+curl -X POST \
+  https://staging.open-sunbird.org/api/org/v1/member/remove \
+  -H 'Authorization: Bearer \ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
+  -H 'Content-Type: application/json' \
+  -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
+  -d '{
+	"request":
+	{
+		"organisationId": "01261942258536448016",
+		"userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449"
+	}
+}'
+```
+
+**Response Body**
+
+```
+{
+    "id": "api.org.member.remove",
+    "ver": "v1",
+    "ts": "2018-11-13 16:09:58:761+0000",
+    "params": {
+        "resmsgid": null,
+        "msgid": "754aa3c1-0c85-42b9-83d7-3025ee3f16dd",
+        "err": null,
+        "status": "success",
+        "errmsg": null
+    },
+    "responseCode": "OK",
+    "result": {
+        "response": "SUCCESS"
+    }
+}
+```
+
+Gita associates Maya with sub-organization called Greek Archeology.
+
+**Header Parameters**
+
+|     Header    |          Type         | Description | Sample |
+|---------------|------------------------|--------|-----------|
+| Content-type | String | Mime type of the request | application/json |
+| Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
+| x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
+
+**cURL Request**
+
+```
+curl -X POST \
+  https://staging.open-sunbird.org/api/org/v1/member/add \
+  -H 'Authorization: Bearer \ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
+  -H 'Content-Type: application/json' \
+  -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
+  -d '{
+	"request":
+	{
+		"organisationId": "01261943599298150417",
+		"userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449"
+	}
+}'
+```
+
+**Response Body**
+
+```
+{
+    "id": "api.org.member.add",
+    "ver": "v1",
+    "ts": "2018-11-13 16:11:21:632+0000",
+    "params": {
+        "resmsgid": null,
+        "msgid": "b9a019cb-71cb-486e-a697-dd7ea4fdd8b4",
+        "err": null,
+        "status": "success",
+        "errmsg": null
+    },
+    "responseCode": "OK",
+    "result": {
+        "response": "SUCCESS"
+    }
+}
+```
+
+Again, after 3 more months, Gita revokes Maya's access to the sub-organization called Greek Architecture.
+
+**Header Parameters**
+
+|     Header    |          Type         | Description | Sample |
+|---------------|------------------------|--------|-----------|
+| Content-type | String | Mime type of the request | application/json |
+| Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
+| x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
+
+**cURL Request**
+
+```
+curl -X POST \
+  https://staging.open-sunbird.org/api/org/v1/member/remove \
+  -H 'Authorization: Bearer \ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
+  -H 'Content-Type: application/json' \
+  -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
+  -d '{
+	"request":
+	{
+		"organisationId": "01261943599298150417",
+		"userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449"
+	}
+}'
+```
+
+**Response Body**
+
+```
+{
+    "id": "api.org.member.remove",
+    "ver": "v1",
+    "ts": "2018-11-13 16:12:31:797+0000",
+    "params": {
+        "resmsgid": null,
+        "msgid": "c7b9740a-ab6f-4b97-954f-925c4ce0bbaa",
+        "err": null,
+        "status": "success",
+        "errmsg": null
+    },
+    "responseCode": "OK",
+    "result": {
+        "response": "SUCCESS"
+    }
+}
+```
+
+This concludes the topic of associating an user with an organization, in Sunbird.
 
 ### Concepts Covered
 
-**Users**: The individual who can sign in and access the Sunbird portal to perform a set of action that is assigned by the system administrator.
-
-**Organization**: Organizations can be an institute or a body of individuals. 
-
-**Channel**: Unique identification number associated with the user or an organization
-
-**Root Organization**: All users and sub-organization in an organisation are associated through the rootOrg
-
-**System Administrator**: A user who manages end-to-end system from creating an organization, administrators for the organizations, members within the organization, and assign roles to the members
+**Associate user and organization**: When an user is created in an organization, by default, the user does not get associated with any sub-organizations. An user can be associated with one or more sub-organizations, within the same organization. An user cannot be associated with more than one organization.
 
 
-### Additional Topics
+### Related Topics
 
-[Creating first organization](http://www.sunbird.org/developer-docs/initialization)
+[Creating an organization]()
 
-[Creating user](http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_user)
-
-[Create organization](http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_organization)
-
+[Assign roles to users in an organizations]()
