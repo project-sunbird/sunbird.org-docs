@@ -13,7 +13,7 @@ To install Sunbird, **choose the app server as the installation server**, SSH to
 
 > In a two server setup, execute the following steps from the server designated to run the application server
 
-## Getting the Installer
+## Getting the Installer (Please run this as the user that was setup for the install ~sunbird in our sample setup in pre-requisites
 
 * Clone the installer repository from github.com and checkout the release branch using the following commands:
 
