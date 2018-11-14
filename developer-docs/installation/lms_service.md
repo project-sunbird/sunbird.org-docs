@@ -38,18 +38,15 @@ The following sections provide you with the sequence to setup the Sunbird Learne
    * [Enviroment Variables](developer-docs/installation/lms_service/#set-env)
    
 
-
-### Setup Cassandra<a name="setup-cassandra"></a>
+### Setup Cassandra 
 
 1. Install Cassandra database and start the server (Use Cassandra version 3.*)
-2. Clone the repository (sunbird-lms-mw)[https://github.com/project-sunbird/sunbird-lms-mw]
-3. Goto sunbird-lms-mw/service/src/main/resources
-4. Run [cassandra.cql] file to create the required keyspaces, tables and indices
- use " source 'sunbird-lms-mw/service/src/main/resources/cassandra.cql' " in cqlsh terminal. 
- 
-5. Copy pageMgmt.csv and pageSection.csv to a temp folder on cassandra machine. (e.g.: /tmp/cql/pageMgmt.csv and /tmp/cql/pageSection.csv.)
-6. Execute the below commands in terminal .
-
+2. Clone the repository [sunbird-lms-mw](https://github.com/project-sunbird/sunbird-lms-mw)
+3. Go to `sunbird-lms-mw/service/src/main/resources`
+4. Run the **cassandra.cql** file to create the required keyspaces, tables and indices using the following command in cqlsh terminal
+```" source 'sunbird-lms-mw/service/src/main/resources/cassandra.cql' "```  
+5. Copy the files **pageMgmt.csv** and **pageSection.csv** to a temporary folder on the Cassandra machine. For example, **/tmp/cql/pageMgmt.csv and /tmp/cql/pageSection.csv**
+6. Execute the below commands in the terminal: 
 
 ``` 
 	   cqlsh -e "COPY sunbird.page_management(id, appmap,createdby ,createddate ,name ,organisationid ,portalmap ,updatedby ,updateddate ) FROM '/tmp/cql/pageMgmt.csv'"
@@ -58,12 +55,12 @@ The following sections provide you with the sequence to setup the Sunbird Learne
 
   7.Clone the repository (sunbird-utils)[https://github.com/project-sunbird/sunbird-utils] 
 
-  <pre>
+  ```
    $ cd {sunbird-utils folder}/cassandra-migration/
    $ mvn clean install -U -DskipTests
    $ mvn exec:java
-  </pre>
-  8. For verifing cassandra installation please use following command.
+  ```
+  8. To verify the Cassandra installation use following commands:
   
     -> Step 7 should be completed without any errors.
     -> use "select * from sunbird.user" in cqlsh terminal, it will return an empty table.
