@@ -68,6 +68,11 @@ The BASIC configuration parameters are explained in the following table:
 |sunbird_root_user_password|	The password of first sunbird admin user	|Yes
 |sunbird_root_user_email|	The email of first sunbird admin user	|Yes
 |sunbird_root_user_phone|	Contact number (without country code) of first sunbird admin user e.g. 9090909090	|Yes
+
+The Advanced configuration parameters are explained in the following table: 
+
+| Variable Name | Description   | Mandatory|
+|:--------|:-------------------------|----------|
 |cassandra_host|	The IP address of the Cassandra database |	No|
 |elasticsearch_host|	A comma-separated (,) list of Elasticsearch database IP addresses.	| No|
 |grafana_admin_password|	The password for grafana dashboard	|No|
