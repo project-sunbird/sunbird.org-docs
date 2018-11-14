@@ -52,7 +52,7 @@ Continue the installation to deploy the core services with the configured authen
 
 Create a default channel, root user by running
 
-    ./sunbird_install.sh -s ststeminit
+    ./sunbird_install.sh -s systeminit
 
 
 > Note:
