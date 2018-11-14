@@ -38,7 +38,7 @@ The following sections provide you with the sequence to setup the Sunbird Learne
    * [Enviroment Variables](developer-docs/installation/lms_service/#set-env)
    
 
-### Setup Cassandra 
+### Setup Cassandra <a name="setup-cassandra"></a>
 
 1. Install Cassandra database and start the server (Use Cassandra version 3.*)
 2. Clone the repository [sunbird-lms-mw](https://github.com/project-sunbird/sunbird-lms-mw)
