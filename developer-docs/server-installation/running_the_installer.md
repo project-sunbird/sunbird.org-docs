@@ -28,8 +28,6 @@ The installtion script will run through the following steps
 |proxy|Deploys and configures Nginx|
 |keycloak| Deploys and configures Keycloak |
 |badger|Deploys the badger service|
-|core|Deploys all core services|
-|systeminit|Initializes the system by creating first organisation and admin user|
 
 > Note: The badger service does not work without an Azure storage account name 
 
@@ -49,7 +47,14 @@ The installtion script will run through the following steps
 Continue the installation to deploy the core services with the configured authentication certificate:
 
     ./sunbird_install.sh -s core
-     
+
+### Create Default channel, root user for using sunbird
+
+Create a default channel, root user by running
+
+    ./sunbird_install.sh -s systeminit
+
+
 > Note:
 >   * Running the installer script with `-s <stage name>` runs only that stage of the installation.
 > 
@@ -69,7 +74,7 @@ Continue the installation to deploy the core services with the configured authen
 
 Once the install is validated, you can create new user accounts by signing-up. Sign-up is a seamless process -- you can sign-up via the portal. For details on signing up on Sunbird, refer to <a href="http://www.sunbird.org/features-documentation/signup/" target="_blank">Sign-up on Sunbird</a>
 
-1. Open `https://{dns-name}/` and sign-up (where `{dns-name}` is the value which you configured when installing Sunbird)
+1. Open `http(s)://{dns-name}/` and sign-up (where `{dns-name}` is the value which you configured when installing Sunbird)
 
 1. Choose your own loginID and password. The format for the loginID is `username@channelName`
 
