@@ -24,7 +24,7 @@ Before starting the installation process, complete these pre-requisites.
 ## Domain Name
 
 * It is recommended that you have a registered domain name through which you can access your Sunbird instance
-* If you do not have a domain name, you can configure Sunbird such that it can be accessed over an IP address. If you are accessing your Sunbird installation over an IP address, please use http rather than https during the installation  configuration.
+* If you do not have a domain name, you can configure Sunbird such that it can be accessed over an IP address. If you are accessing your Sunbird installation over an IP address, use http rather than https during the installation configuration.
 
 ## SSL Certificate
 
@@ -52,11 +52,10 @@ Ubuntu 16.04 LTS (64 bit)
 
 ### Cloud Blob Storage
 * Sunbird requires an Azure Blob storage account. For details on creating an account, refer <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-create-storage-account" target="_blank">Azure storage account</a> 
-* Create a container by name dial in the storage account.
+* Create a container named dial in the storage account
 * This account is used to store QR code images and achievement badges
 
 ## System Setup
-
 This section provides information on the user accounts, ports and utilities required to install Sunbird.
 
 ### Setting up user accounts on the servers
@@ -66,18 +65,18 @@ This section provides information on the user accounts, ports and utilities requ
 
 This user account and the ssh key will be used during the installation process by Ansible to login to the servers to install and configure the required software.
 
-#### Sample steps to create a user account (where username = sunbird) that meets the above criteria. These steps have been verified on an Azure VM running Ubuntu 16.04 
+#### Listed below is a sample on how to create a user account, with username as Sunbird, that meets the criteria mentioned in the Prerequisite section. These steps have been verified on an Azure VM running Ubuntu 16.04 
 
 ##### Setup an ssh key that can be used to ssh across the servers
-- SSH to any one of the cloud VMs using the SSH keys setup during VM creation. The VM that is dedicated for the app server is a good choice.
-- ssh-keygen //This command will create a private & public key in the path (you can provide a path of /home/yourcurrentuser/key). Leave the passphrase empty when prompted. The public key will be called key.pub and the other file(key) contains the private key.
+- SSH to any one of the cloud VMs using the SSH keys setup during VM creation. The VM that is dedicated for the app server is a good choice
+- ssh-keygen //This command will create a private & public key in the path (you can provide a path of /home/yourcurrentuser/key). Leave the passphrase empty when prompted. The public key will be called key.pub and the other file(key) contains the private key
 - Copy the output of running the following command - cat /home/yourcurrentuser/key.pub //This is the public key ~ COPIED_PUBLIC_KEY_STRING
 
 ##### Setup a user with password less ssh & sudo access
-- SSH to the cloud VMs using the SSH keys setup during VM creation. This user will have sudo access and can create other users.
-- sudo adduser sunbird //This will add a linux user with a password
+- SSH to the cloud VMs using the SSH keys setup during VM creation. This user has sudo access and can create other users
+- sudo adduser sunbird //This adds a linux user with a password
 - sudo usermod -aG sudo sunbird //Providing the newly created user with sudo access
-- sudo visudo //This would open the sudoers file in nano editor and so some familiarity with Nano will help
+- sudo visudo //This opens the sudoers file in nano editor and so some familiarity with Nano will help
 - Add the following entry as the last line in the sudoers file //This step is to allow the user to sudo without a  password.  
 sunbird     ALL=(ALL) NOPASSWD: ALL
 - Save the file //Ctrl + O to save, Ctrl + X to exit nano editor
@@ -101,8 +100,7 @@ The servers communicate with each other using TCP on the following ports. Ensure
 |swarm nodes|Postgres servers| 5432|TCP|
 |swarm nodes|Keycloak| 8080|TCP|
 
-> **Note:** If you set up more than one swarm agent node, you will need to configure a load balancer to spray the incoming requests to all the agent nodes. The domain name you setup earlier should route to the load balancer as well. All agent nodes in a swarm can route the request to the right service.
-
+> **Note:** If you set up more than one swarm agent node, configure a load balancer to spray the incoming requests to all the agent nodes. The domain name you setup earlier should route to the load balancer as well. All agent nodes in a swarm can route the request to the right service.
 
 ### Utilities
 Ensure that the following package(s) are available on the machine from which you install Sunbird:
