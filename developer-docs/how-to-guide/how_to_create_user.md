@@ -4,7 +4,7 @@ directory: developer-docs/how-to-guide
 title: Create User
 page_title: Create User
 description: Create a new user in Sunbird instance
-keywords: create user, new user, create, user
+keywords: create user, new user, create, user, Create User Accounts 
 published: true
 allowSearch: true
 ---

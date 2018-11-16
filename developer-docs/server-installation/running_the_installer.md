@@ -67,7 +67,7 @@ Continue the installation to deploy the core services with the configured authen
 
 ## Post-Install sign-up
 
-Once the install is validated, you can create new user accounts by signing-up. Sign-up is a seamless process -- you can sign-up via the portal. For details on signing up on Sunbird, refer to <a href="http://www.sunbird.org/features-documentation/signup/" target="_blank">Sign-up on Sunbird</a>
+Once the install is validated, you can create new user accounts by signing-up. Sign-up is a seamless process -- you can sign-up via the portal. For details on signing up on Sunbird, refer to [Sign-up on Sunbird](http://www.sunbird.org/features-documentation/signup/)
 
 1. Open `https://{dns-name}/` and sign-up (where `{dns-name}` is the value which you configured when installing Sunbird)
 

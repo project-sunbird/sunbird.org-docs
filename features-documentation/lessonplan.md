@@ -44,8 +44,38 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
   <td><img src="features-documentation/images/lessonplan/create_lesson_plan.png"></td>
  </tr>
  </table>
+
+### Editing Lesson Details
+
+<table>
+  <tr>
+    <th style="width:35%;">Step</th>
+    <th style="width:65%;">Screen</th>
+  </tr>
+  <tr>
+    <td>1. Click the <b>Edit Details</b> link on the top left corner of the page
+      <br>2. Click the camera icon to add an image 
+      <br><b>Note</b>: For details, refer <a href="features-documentation/metadata_addingimages" target="_blank">Adding Image to Metadata</a> 
+      <br>3. Enter <b>Title</b>       
+      <br>4. Enter <b>Description</b> for the lesson plan 
+      <br>5. Enter <b>Keywords</b> 
+      <br>6. Select the following from their respective drop-down lists: 
+      <br>&emsp;a) <b>Curriculum</b> 
+      <br>&emsp;b) <b>Class</b> 
+      <br>&emsp;c) <b>Subject</b> 
+      <br>&emsp;d) <b>Medium</b> 
+      <br>7. Select <b>Topic</b>
+      <br>8. Enter <b>Attributions</b>
+      <br>9. Select <b>Audience</b>  
+      <br>10. Select <b>Owner</b>
+      <br>11. Click <b>Save</b> to collectively save all updates
+      <br>12. Click <b>Cancel</b> to exit the page 
+    </td>
+    <td><img src="features-documentation/images/lessonplan/edit_details.png"></td>
+ </tr>
+ </table>
   
-### Adding Content to Lesson Plan 
+### Adding Content to Lesson  
 <table>
   <tr>
     <th style="width:35%;">Step</th>
@@ -60,32 +90,21 @@ Lesson plan is a structured outline of a given topic, unit, chapter to be taught
   </tr>
   </table>
 
-### Adding Details
-
+### Viewing Contributor Details
+ 
 <table>
   <tr>
     <th style="width:35%;">Step</th>
     <th style="width:65%;">Screen</th>
   </tr>
-  <tr>
-    <td>1. Click the <b>Edit Details</b> link on the top left corner of the page
-      <br>2. Click the camera icon to add an image <br><b>Note</b>: For details, refer <a href="features-documentation/metadata_addingimages" target="_blank">Adding Image to Metadata</a> 
-      <br>3. Enter <b>Title</b>       
-      <br>4. Enter <b>Description</b> for the lesson plan 
-      <br>5. Enter <b>Keywords</b> 
-      <br>6. Select the following from their respective drop-down lists: 
-      <br>&emsp;a) <b>Curriculum</b> 
-      <br>&emsp;b) <b>Class</b> 
-      <br>&emsp;c) <b>Subject</b> 
-      <br>&emsp;d) <b>Medium</b> 
-      <br>7. Enter <b>Attributions</b>
-      <br>8. Select <b>Audience</b>
-      <br>9. Click <b>Save</b> to collectively save all updates.  
-      <br>10. Click <b>Cancel</b> to exit the page 
-    </td>
-    <td><img src="features-documentation/images/lessonplan/edit_details.png"></td>
- </tr>
- </table>
+  <tr><td>1. Click <b>Add Resource</b> to add resource to the Lesson Plan, refer <a href="features-documentation/addingresources" target="_blank">Adding Resources</a>
+  <br>2. The resource is added to the Lesson Plan
+  <br>3. The names of the resource owners appears under <b>Created with Contributions From</b> button
+  </td>
+  <td><img src="features-documentation/images/lessonplan/contributors.png">
+  </td>
+  </tr>
+</table>
 
 ## Working with Table of Contents 
 
@@ -105,7 +124,7 @@ You can see <b>Table of Content</b> tree in the left pane to navigate content co
     <td>1. Click <b>Delete</b> icon beside the burger menu <br>2. Click <b>Yes</b> to delete the added content
       <br><b>Note</b>: You can alternatively delete content by clicking <b>Delete</b> in the burger menu drop-down
       </td>
-    <td><img src="features-documentation/images/book/book_unit_delete.png"></td>
+    <td><img src="features-documentation/images/book/book_delete.png"></td>
   </tr>
 </table>
 
