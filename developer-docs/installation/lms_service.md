@@ -40,7 +40,7 @@ The following sections provide you with the sequence to setup the Sunbird Learne
 
 ### Setup Cassandra <a name="setup-cassandra"></a>
 
-1. Install Cassandra database and start the server (Use Cassandra version 3.*)
+1. Install Cassandra database and start the server (Use Cassandra version 3.9)
 2. Clone the repository [sunbird-lms-mw](https://github.com/project-sunbird/sunbird-lms-mw)
 3. Use "git clone --recusive " command instead of only "git clone".
 4. Go to `"sunbird-lms-mw/service/src/main/resources"`.
