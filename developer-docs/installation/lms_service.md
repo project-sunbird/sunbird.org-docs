@@ -53,8 +53,7 @@ The following sections provide you with the sequence to setup the Sunbird Learne
 6. Copy the files **pageMgmt.csv** and **pageSection.csv** to a temporary folder on the Cassandra machine. For example, **/tmp/cql/pageMgmt.csv and /tmp/cql/pageSection.csv**
 7. Execute the below commands in the terminal: 
  
-
-	`cqlsh -e "COPY sunbird.page_management(id, appmap,createdby ,createddate ,name ,organisationid ,portalmap ,updatedby ,updateddate ) FROM '/tmp/cql/pageMgmt.csv'"`
+       `cqlsh -e "COPY sunbird.page_management(id, appmap,createdby ,createddate ,name ,organisationid ,portalmap ,updatedby ,updateddate ) FROM '/tmp/cql/pageMgmt.csv'"`
 
        `cqlsh -e "COPY sunbird.page_section(id, alt,createdby ,createddate ,description ,display ,imgurl ,name,searchquery , sectiondatatype ,status , updatedby ,updateddate) FROM '/tmp/cql/pageSection.csv'"`
 
