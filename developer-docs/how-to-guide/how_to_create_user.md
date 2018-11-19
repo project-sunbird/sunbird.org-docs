@@ -11,7 +11,7 @@ allowSearch: true
 
 ## Scenario
 
-A company, XYZ Corp, is a global conglomerate with over ten thousand employees, spread across 5 locations. Employee training and enablement is one of the core values of the organization. To ensure that employees are regularly trained and upskilled, XYZ Corp has decided to use Sunbird for its learning and training solution on 3 topics, namely Life Science, eCommerce and Archeology (Indian, Greek, Mayan). <br>
+A company, XYZ Corp, is a global conglomerate with over ten thousand employees, spread across 5 locations. Employee training and enablement is one of the core values of the organization. To ensure that employees are regularly trained and upskilled, XYZ Corp has decided to use Sunbird for its learning and training solution on 3 topics, namely Life Science, eCommerce and Archeology (Indian, Greek, Mayan). 
 Gita is the XYZ Corp's Sunbird adminstrator and has created the necessary structure (root organization called Archeology and sub-organizations - Indian Archeology, Mayan Archeology and Greek Archeology). She will now create user(s), within this root organization, who will eventually be assigned specific roles to perform, like write research articles, review them, publish them etc.
 
 
@@ -75,13 +75,12 @@ curl -X POST \
 }
 ```
 
-This concludes the topic of creating users in an organization, in a Sunbird instance.
-Typically, the next activity would be to assign roles to these users, within their organizations.
+This concludes the topic of creating users in an organization, in a Sunbird instance. Typically, the next activity would be to assign roles to these users, within their organizations.
 
 
 ### Concepts Covered
 
-**User**: These are enities created within an organization, which can login into their Sunbird portal and perform tasks that are specifically assigned to them. More than one user can have the same name but not email ID. In the absence of an email ID, an organizationally unique phone number must be provided and in the request header and **phoneVerified** must be set to the boolean value **true**. <br>
+**User**: These are entities created within an organization, who can login into their Sunbird portal and perform tasks that are specifically assigned to them. Users cannot have the same email ID. In the absence of an email ID, a unique phone number must be provided in the request header and **phoneVerified** must be set to the boolean value **true**. <br>
 During user creation, if the **channel** is not provided, Sunbird will attempt to create that user in it's default organization, if one such exists. If that happens, then the user will have to be explicitly added to the required organization via the [Add a User to Organization]() API.
 
 ### Related Topics
