@@ -130,24 +130,60 @@ The **telemetry sync** API allows applications to sync telemetry data.
 ```javascript
 X-Device-Id:{{Device ID of the mobile}}
 X-Channel-Id:{{channel id}}
-X-App-Id:prod.xyz.app
-Authorization:Bearer {{user_token}} 
+X-App-Id:{{app id}}
 ```
 
 **Request Body:**
 ```javascript
 {
-  "id": "api.telemetry",
+  "id": "ekstep.telemetry",
   "ver": "2.0",
-  "ts": "2017-10-04T10:54:28.916",
+  "ets": 1455031059061,
   "params": {
-    "did": telemtrysync.default_did",
-    "key": "13405d54-85b4-341b-da2f-eb6b9e546e",
-    "msgid": "uuidv1()",
-    "requesterId": "req.kauth.grant.access_token.content.sub"
+    "did": "e97987fa-c056-411d-hfkf-c23496093ujd",
+    "key": "57c176ca-1977-4785-af9e-d59d37214b0b",
+    "msgid": "7x87bc51-afbg-4344-88bc-a2a90df5fd76"
   },
   "events": [
-    {}
+    {
+      "tags": [
+        {
+          "partnerid": [
+            "org.ekstep.ep"
+          ]
+        },
+        {
+          "genie": [
+            "eptest"
+          ]
+        }
+      ],
+      "uid": "",
+      "sid": "",
+      "ts": "2017-04-06T10:44:38.929+0530",
+      "edata": {
+        "eks": {
+          "data": "sample_data",
+          "iv": "sample_iv",
+          "key": "sample_key",
+          "partnerid": "sample_partner_id",
+          "publickeyid": "public_key"
+        }
+      },
+      "did": "316955bd440567a9f3eeb8a6ed7dd3f98004d41b",
+      "ver": "2.0",
+      "type": "events",
+      "eid": "GE_PARTNER_DATA",
+      "@version": "1",
+      "gdata": {
+        "id": "genieservice.android",
+        "ver": "5.4.localqa-debug"
+      },
+      "ets": 1491479827198,
+      "uuid": "86190d23-5168-45f5-b29d-c55e120b8de6100",
+      "mid": "e39de153-8cd9-430a-a9ae-93212495cea2",
+      "key": ""
+    }
   ]
 }
 ```
