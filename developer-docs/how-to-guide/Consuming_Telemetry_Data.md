@@ -22,6 +22,7 @@ Telemetry events are broad, human-readable actions, that can be tracked as a str
 All events data is captured via a common event JSON structure. Depending on the event, edata element carries event specific data. All events have unique event codes (IDs).
 
 The complete data structure is as follows:
+
 ```javascript
 {
   //About the event

@@ -55,6 +55,8 @@ Sunbird provides a list of default forms. In the context of the scenario mention
 | **Question Save** | This form is displayed on clicking `create question` in content editor | content | questions | question-meta-save | editor |
 | **Question Search** | This form is displayed on clicking `search questions` in content editor | content | questions | question-filter-view | editor |
 | **Resource Search** | This form is displayed on clicking `View All` on `Resource Browser` in course editor| content | course | resource-filters | editor |
+| **Resource Search** | This form is displayed on clicking `View All` on `Resource Browser` in collection editor| content | collection | resource-filters | editor |
+
 
 ### Supported Input & Data Types 
 
@@ -211,7 +213,7 @@ For more information about the usage of header parameters refer to the [Update F
             "subType": "resource",
             "action": "save",
             "rootOrgId": "*",
-            "framework": "Framewrok for ABC Management",
+            "framework": "Framework for ABC Management",
             "data": {
                 "templateName": "defaultTemplate",
                 "action": "save",
@@ -235,7 +237,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "text",
                         "description": "Title of the content",
                         "editable": true,
-                        "index": 3,
+                        "index": 2,
                         "inputType": "text",
                         "label": "Title",
                         "name": "Title",
@@ -276,7 +278,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "text",
                         "description": "",
                         "editable": true,
-                        "index": 7,
+                        "index": 5,
                         "inputType": "select",
                         "label": "Resource",
                         "name": "Resource",
@@ -290,7 +292,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "text",
                         "description": "Language",
                         "editable": true,
-                        "index": 8,
+                        "index": 6,
                         "inputType": "select",
                         "label": "Language",
                         "name": "language",
@@ -304,7 +306,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "list",
                         "description": "Concepts being taught",
                         "editable": true,
-                        "index": 9,
+                        "index": 7,
                         "inputType": "conceptselector",
                         "label": "Concepts",
                         "name": "Concepts",
@@ -318,7 +320,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "list",
                         "description": "Choose a Topics",
                         "editable": true,
-                        "index": 10,
+                        "index": 8,
                         "inputType": "topicselector",
                         "label": "Topics",
                         "name": "Topic",
@@ -332,7 +334,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "text",
                         "description": "Resource Type",
                         "editable": true,
-                        "index": 11,
+                        "index": 9,
                         "inputType": "select",
                         "label": "Resource Type",
                         "name": "resourceType",
@@ -355,7 +357,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "list",
                         "description": "Attributions",
                         "editable": true,
-                        "index": 12,
+                        "index": 10,
                         "inputType": "text",
                         "label": "Attributions",
                         "name": "attribution",
@@ -369,7 +371,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "list",
                         "description": "Audience",
                         "editable": true,
-                        "index": 13,
+                        "index": 11,
                         "inputType": "select",
                         "label": "Audience",
                         "name": "Audience",
@@ -493,7 +495,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "renderingHints": {},
                         "required": false,
                         "visible": true,
-                        "index": 5
+                        "index": 4
                     },
                     {
                         "code": "myQuestions",
@@ -507,7 +509,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "renderingHints": {},
                         "required": false,
                         "visible": true,
-                        "index": 6
+                        "index": 5
                     }
                 ]
             }
@@ -518,5 +520,6 @@ For more information about the usage of header parameters refer to the [Update F
 ## Concepts Covered
 
 * Metadata driven forms
-* List of available metadata driven forms
 * Request payload for update metadata form
+* List of available metadata driven forms
+
