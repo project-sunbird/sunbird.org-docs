@@ -238,7 +238,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "text",
                         "description": "Title of the content",
                         "editable": true,
-                        "index": 3,
+                        "index": 2,
                         "inputType": "text",
                         "label": "Title",
                         "name": "Title",
@@ -279,7 +279,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "text",
                         "description": "",
                         "editable": true,
-                        "index": 7,
+                        "index": 5,
                         "inputType": "select",
                         "label": "Resource",
                         "name": "Resource",
@@ -293,7 +293,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "text",
                         "description": "Language",
                         "editable": true,
-                        "index": 8,
+                        "index": 6,
                         "inputType": "select",
                         "label": "Language",
                         "name": "language",
@@ -307,7 +307,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "list",
                         "description": "Concepts being taught",
                         "editable": true,
-                        "index": 9,
+                        "index": 7,
                         "inputType": "conceptselector",
                         "label": "Concepts",
                         "name": "Concepts",
@@ -321,7 +321,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "list",
                         "description": "Choose a Topics",
                         "editable": true,
-                        "index": 10,
+                        "index": 8,
                         "inputType": "topicselector",
                         "label": "Topics",
                         "name": "Topic",
@@ -335,7 +335,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "text",
                         "description": "Resource Type",
                         "editable": true,
-                        "index": 11,
+                        "index": 9,
                         "inputType": "select",
                         "label": "Resource Type",
                         "name": "resourceType",
@@ -358,7 +358,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "list",
                         "description": "Attributions",
                         "editable": true,
-                        "index": 12,
+                        "index": 10,
                         "inputType": "text",
                         "label": "Attributions",
                         "name": "attribution",
@@ -372,7 +372,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "list",
                         "description": "Audience",
                         "editable": true,
-                        "index": 13,
+                        "index": 11,
                         "inputType": "select",
                         "label": "Audience",
                         "name": "Audience",
@@ -496,7 +496,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "renderingHints": {},
                         "required": false,
                         "visible": true,
-                        "index": 5
+                        "index": 4
                     },
                     {
                         "code": "myQuestions",
@@ -510,7 +510,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "renderingHints": {},
                         "required": false,
                         "visible": true,
-                        "index": 6
+                        "index": 5
                     }
                 ]
             }
