@@ -11,28 +11,20 @@ keywords: Meta Data, Meta, form, API, Form API,
 An organization works in the domain of water conservation and works in multiple Indian states, with NGOs, village panchayats and other authorities. The organization would like to tailor different forms on Sunbird to match their requirements. They want to configure various available forms based on their terminology and needs. They intend to change the display labels, the fields, the types of fields etc. on the forms.   
 
 ## Prerequisites
-As the organization administrator ensure the following:
-1. Install  the server instance of Sunbird. For details, refer to[ Server Installation ](developer-docs/installation/server_installation/)
+Before configuring metaforms, ensure the following:
+1. Get an API Key to access [Sunbird APIs](/apis/). To create an API key, please refer to [How to generate a Sunbird API key]().
 
-2. Create a channel for your organization (XYZ corporation). For details, refer to[ Channel APIs](apis/framework/#tag/Channel-APIs)
+2. Software that can make rest API calls, like curl or POSTMAN
 
-3. Register  your channel/ organization i.e, (XYZ corporation) with Ekstep. On registration, a unique **Channel ID** is assigned to your organization (XYZ corporation) channel ID is: 12300786
+3. Install  the server instance of Sunbird. For details, refer to[ Server Installation ](developer-docs/installation/server_installation/)
 
-4. Create users for your organization (XYZ corporation) either by: 
-   -  onboarding XYZ corporation users in bulk, refer to [Bulk upload service APIs](apis/bulkupload/), or
-   -  creating the XYZ corporation  users individually, refer to [User APIs](apis/userapi/)   
+4. The root organization and sub-organizations created and their **organsationId** and root organization's **channel** readily available
 
-**Note:**
+5. The user account created in the root-organization and **userId** readily available
 
-An Organizational administrator requires to:
+6. A framework (for instance, framework titled Water Management) created. For details on creating a framework, refer [Creating Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird/)
 
-* Use an API client (for example Postman) to make Form API calls and perform various operations as mentioned in the Task-flow section
 
-* Have the API Key for access and basic authentication
-
-* Have a User Token that authenticates the organization administrator for read-write access
-
-* Have access to [Form APIs](apis/form/)
 
 ## Overview
 
@@ -50,22 +42,16 @@ To alter the configuration of each of the available metadata driven forms, Sunbi
 
 ## List of Metadata driven Forms  
 
-The following table provides a detailed list of all the available metadata driven forms on the Sunbird platform:
+Sunbird provides a list of default forms. In the context of the scenario mentioned, forms pertaining to the content types Resource and Course have to be configured. The primary usage of these forms is not just limited to adding meta information to the content, but metadata driven forms enable extensive searching capabilities, helps in onboarding in mobile app at the end user level and much more.  Each form supports certain input data types to build on the metadata.
 
-## Forms in Editor
 
 | Form | Description | Type | Subtype| Action| Component | 
 | --- | ------ |------| ------| ------| ------| 
-| **Book Save** | This form is displayed on clicking `edit details` in book editor | content | textbook | save | editor | |
-| **Book Review** | This form is displayed on clicking `send for review` in book editor | content | textbook | review | editor |
+|
 | **Resource Save** | This form is displayed on clicking `edit details` in content/generic editors | content | resource | save | editor |  
 | **Resource Review** | This form is displayed on clicking `send for review` in content/generic editors | content | resource | review | editor |
 | **Course Save** | This form is displayed on clicking `edit details` in course editor | content | course | save | editor |
 | **Course Review** | This form is displayed on clicking `send for review` in course editor | content | course | review | editor 
-| **Lesson Plan Save** | This form is displayed on clicking `edit details` in lesson plan editor | content | Lessonplan | save | editor |    
-| **Lesson Plan Review** |This form is displayed on clicking `send for review` in lesson plan editor | content | Lessonplan | review | editor |      
-| **Collection Save** | This form is displayed on clicking `edit details` in collection editor | content | collection | save | editor | 
-| **Collection Review** | This form is displayed on clicking `send for review` in collection editor | content | collection | review | editor |  
 | **Question Save** | This form is displayed on clicking `create question` in content editor | content | questions | question-meta-save | editor |
 | **Question Search** | This form is displayed on clicking `search questions` in content editor | content | questions | question-filter-view | editor |
 | **Resource Search** | This form is displayed on clicking `View All` on `Resource Browser` in book editor | content | textbook | resource-filters | editor |
@@ -105,16 +91,16 @@ The following table lists down the sample JSON structure with descriptions for e
 | visible | `boolean` | To make the field visible or hidden | None | Ex: true |
 | validation | `array` | Allows validation on any particular field of your form | None | Ex: [{ "type": "regex", "value": "[A-Z]","message": "Invalid Input" }] |
 
+All the available forms exist as a part of creation workflows, updation workflows, review workflows etc within the Sunbird.  
+
+
 ## Forms in Portal 
 
 **The following table lists down the available forms in  Sunbird Portal component:**
 
 | Form | Description | Type | Subtype| Action| Component | 
 | --- | --- |------| ------| ------| ------| 
-| **Book Create** | This form is displayed on clicking `Book` from your workspace | content | textbook | create | portal |
 | **Course Create** | This form is displayed on clicking `Course` from your workspace | content | course | create | portal |
-| **Collection Create** | This form is displayed on clicking `Collection` from your workspace | content | collection | create | portal |
-| **Lesson Plan Create** | This form is displayed on clicking `Lesson Plan` from your workspace | content | lesson | review | editor |
 | **Resource create** | This form is displayed on clicking `Resource` from your workspace | content | course | save | editor |
 | **Library Filters** | This form is displayed on clicking `filters` from your library | content | library | search | portal | 
 | **Course Filters** | This form is displayed on clicking `filters` from your course | content | course | search | portal |   
@@ -195,10 +181,6 @@ The following table lists down the sample JSON structure with descriptions for e
 | versionName | `string` | Represents the name of version | NA | v1.0.1|
 | type | `string` | Represents the type of the upgrade that is required | NA | optional, force|
 
-All the available forms exist as a part of creation workflows, updation workflows, review workflows etc within the Sunbird.  The primary usage of these forms is not just limited to adding meta information to the content, but metadata driven forms enable extensive searching capabilities, helps in onboarding in mobile app at the end user level and much more.  Each form supports certain input data types to build on the metadata.
-
-**Note:** Each of the form has a specific action associated to it, for example: create, update, save etc.
-
 ## Task Flow
 
 The form configuration is a post installation task. Being a Sunbird adopter, you can configure an existing form as well as create a new form.
@@ -221,7 +203,9 @@ The following are the header parameters for Update Form API endpoint:
 
 For more information about the usage of header parameters refer to the [Update Form API](apis/form/#operation/FormUpdate) reference document.  
 
-## Sample payload for  Update Form API
+> **Note**: The framework created in [Creating Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird/)
+
+## Sample payload for Update Form API
 <pre>
 {
   "request": {
@@ -230,7 +214,7 @@ For more information about the usage of header parameters refer to the [Update F
             "subType": "resource",
             "action": "save",
             "rootOrgId": "*",
-            "framework": "NCF",
+            "framework": "Framewrok for ABC Management",
             "data": {
                 "templateName": "defaultTemplate",
                 "action": "save",
@@ -254,13 +238,13 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "text",
                         "description": "Title of the content",
                         "editable": true,
-                        "index": 2,
+                        "index": 3,
                         "inputType": "text",
                         "label": "Title",
                         "name": "Title",
-                        "placeholder": "Enter Title For Book",
+                        "placeholder": "Brief title of the content",
                         "renderingHints": {},
-                        "required": true,
+                        "required": false,
                         "visible": true
                     },
                     {
@@ -272,7 +256,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "inputType": "textarea",
                         "label": "Description",
                         "name": "Description",
-                        "placeholder": "Brief description about the Book",
+                        "placeholder": "Brief description about the content",
                         "renderingHints": {},
                         "required": false,
                         "visible": true
@@ -286,35 +270,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "inputType": "keywordsuggestion",
                         "label": "keywords",
                         "name": "Keywords",
-                        "placeholder": "Enter Keywords",
-                        "required": false,
-                        "visible": true
-                    },
-                    {
-                        "code": "board",
-                        "dataType": "text",
-                        "description": "Curriculum",
-                        "editable": true,
-                        "index": 5,
-                        "inputType": "select",
-                        "label": "Curriculum",
-                        "name": "Curriculum",
-                        "placeholder": "Select Curriculum",
-                        "renderingHints": {},
-                        "required": false,
-                        "visible": true
-                    },
-                    {
-                        "code": "gradeLevel",
-                        "dataType": "list",
-                        "description": "Class",
-                        "editable": true,
-                        "index": 6,
-                        "inputType": "multiselect",
-                        "label": "Class",
-                        "name": "Class",
-                        "placeholder": "Select Class",
-                        "renderingHints": {},
+                        "placeholder": "Enter Keywords to aid better search results",
                         "required": false,
                         "visible": true
                     },
@@ -325,9 +281,9 @@ For more information about the usage of header parameters refer to the [Update F
                         "editable": true,
                         "index": 7,
                         "inputType": "select",
-                        "label": "Subject",
-                        "name": "Subject",
-                        "placeholder": "Select Subject",
+                        "label": "Resource",
+                        "name": "Resource",
+                        "placeholder": "Select type of water resources",
                         "renderingHints": {},
                         "required": false,
                         "visible": true
@@ -335,13 +291,13 @@ For more information about the usage of header parameters refer to the [Update F
                     {
                         "code": "medium",
                         "dataType": "text",
-                        "description": "",
+                        "description": "Language",
                         "editable": true,
                         "index": 8,
                         "inputType": "select",
-                        "label": "Medium",
-                        "name": "medium",
-                        "placeholder": "Select Medium",
+                        "label": "Language",
+                        "name": "language",
+                        "placeholder": "Select Language in which the content is created",
                         "renderingHints": {},
                         "required": false,
                         "visible": true
@@ -349,7 +305,7 @@ For more information about the usage of header parameters refer to the [Update F
                     {
                         "code": "concepts",
                         "dataType": "list",
-                        "description": "Choose a concept",
+                        "description": "Concepts being taught",
                         "editable": true,
                         "index": 9,
                         "inputType": "conceptselector",
@@ -414,13 +370,13 @@ For more information about the usage of header parameters refer to the [Update F
                     {
                         "code": "audience",
                         "dataType": "list",
-                        "description": "",
+                        "description": "Audience",
                         "editable": true,
                         "index": 13,
                         "inputType": "select",
                         "label": "Audience",
                         "name": "Audience",
-                        "placeholder": "Select Audience",
+                        "placeholder": "Select Audience for whom content is created",
                         "renderingHints": {},
                         "range": [
                             "Learner",
@@ -443,7 +399,7 @@ For more information about the usage of header parameters refer to the [Update F
     "subType": "resource",
     "action": "save",
     "rootOrgId": "*",
-    "framework": "NCF"
+    "framework": "Framework for ABC Management"
   }
 }
 </pre>
@@ -457,7 +413,7 @@ For more information about the usage of header parameters refer to the [Update F
     "subType": "questions",
     "action": "question-filter-view",
     "rootOrgId": "*",
-    "framework": "NCF",
+    "framework": "Framework for ABC Management",
     "data": {
                 "action": "question-filter-view",
                 "templateName": "filterMetaDataTemplate",
@@ -465,13 +421,13 @@ For more information about the usage of header parameters refer to the [Update F
                     {
                         "code": "searchText",
                         "dataType": "text",
-                        "description": " by question title",
+                        "description": "by question title",
                         "editable": true,
                         "inputType": "text",
                         "label": "Search",
                         "name": "Search",
                         "index": 0,
-                        "placeholder": "Search by question title",
+                        "placeholder": "Search for questions on water management",
                         "renderingHints": {},
                         "required": false,
                         "visible": true
@@ -518,26 +474,12 @@ For more information about the usage of header parameters refer to the [Update F
                         "inputType": "multiselect",
                         "label": "Question Type",
                         "name": "Question Type",
-                        "placeholder": "Question Type",
+                        "placeholder": "Select Question Type",
                         "range": [
                             "Multiple Choice Questions",
                             "Fill in the Blanks",
                             "Match the Following"
                         ],
-                        "renderingHints": {},
-                        "required": false,
-                        "visible": true
-                    },
-                    {
-                        "code": "gradeLevel",
-                        "dataType": "list",
-                        "description": "Class",
-                        "editable": true,
-                        "index": 4,
-                        "inputType": "multiselect",
-                        "label": "Grade Level",
-                        "name": "Class",
-                        "placeholder": "Select Class",
                         "renderingHints": {},
                         "required": false,
                         "visible": true
@@ -564,7 +506,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "inputType": "checkbox",
                         "label": "My Questions",
                         "name": "My Questions",
-                        "placeholder": "My Questions",
+                        "placeholder": "Whether the question is created by you",
                         "renderingHints": {},
                         "required": false,
                         "visible": true,
