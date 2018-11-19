@@ -214,7 +214,7 @@ For more information about the usage of header parameters refer to the [Update F
             "subType": "resource",
             "action": "save",
             "rootOrgId": "*",
-            "framework": "Framewrok for ABC Management",
+            "framework": "Framework for ABC Management",
             "data": {
                 "templateName": "defaultTemplate",
                 "action": "save",
