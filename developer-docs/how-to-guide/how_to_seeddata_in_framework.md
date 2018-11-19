@@ -24,12 +24,12 @@ With huge resource library and based on ABC organizations decision, they want to
 
 ABC, may choose a predefined category and associate it to their own framework. The categories in the framework has terms associated with it. These terms are relevant to the created framework and can be created by the organization. 
 
-After you create a framework, you need to seed it with the required data classified under different components such as:
+After you create a framework, it must be seeded with the required data classified under different components such as:
    - Categories
    - Terms  
-and  associating these terms and categories 
+Once the framework is successfully seeded, then it must be associating with terms and categories.
 
->Note: Recommending to ensure that there a preplanned classification of content and their associations, this ensures that the framework is usable across the system.
+>**Note**: It is recommended that there is a preplanned classification of content and their associations, this ensures that the framework is usable across the system.
 
 ### Prerequisites
 
@@ -37,7 +37,7 @@ and  associating these terms and categories
 
 2. The [API Key for access](developer-docs/generating_sunbird_api_keys/) and basic authentication
   
-3. ​Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
+3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
 4. Onboarding the following with access to the API
     - Admin user     
@@ -47,253 +47,171 @@ and  associating these terms and categories
 
 5. Access to [Framework API](http://www.sunbird.org/apis/framework/)
 
+6. Follow the steps as mentioned in [Using POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation) section to execute the Create Term API
+
 ### Taskflow
 
-In this context, the category objects forms the master of all categories and can be inherited by any framework.
-Each master list category has the list of all possible category values
-You can either choose to use the default values for a category of your framework or override them as per the framework context using the appropriate API
+In this context, the category objects forms the master of all categories and can be inherited by any framework. Each master list category has the list of all possible category values. You can either choose to use the default values for a category of your framework or override them as per the framework context using the appropriate API.
 
-For example, for ABC organization the framework name is ABC and code as abc1; the category selected is subject and change the label as Resource type which defines the various water resources and contains the terms as Rain water, lake, ponds and so on. 
+For example, for ABC organization the framework name is ABC and code as abc1; select the category as subject and change the label as Resource type which defines the various water resources and contains the terms as rain water, lake, ponds and so on. 
 
-While as, a term is created for each value of a category instance: 
-Terms are used to tag content and other platform objects. 
-The order of terms within a category is defined using the sequence relation between category instance and the term in the request payload of creating terms API 
+A term is created for each value of a category instance: 
+Terms are used to tag content and other platform objects. The order of terms within a category is defined using the sequence relation between category instance and the term in the request payload of creating term API. 
 
-The following values ensure that the term is tagged to right category 
+The following are the various properties associated with each term:
 
-- Value: value of the term
-- Label: display label of the term
-- Translations: display label of the term in multiple languages
-- Tag: vocabulary tag associated with the term
-- Index: index position of the term
-- Children: list of terms that are children of the current term
-- Associations: list of terms associated with the current term
+- name: name of the term
+- code: unique code of the term, which will be validated from master category
+- category: category of the term
+- translations: translations for the term in different languages
+- index: order of display of the term
+- description: description of the term
+
+Each term can have relationship with framework category and terms:
+
+- categories: list of framework category
+- parents: list of parent term
+- children: list of child terms
+- associations: list of terms associated from other the other category
 
 ### Adding Category
 
-To retrieve the channels for the request parameter, use [List Channel API](http://www.sunbird.org/apis/framework/#operation/ChannelV1ListPost)
-1. To add a category follow these steps: 
-Check for the existing categories, to do so use  Fetch Category API
+To add a category follow these steps: 
+1. Check for the existing categories, to do so use [Fetch Category API](http://docs.sunbird.org/latest/apis/framework/#operation/FrameworkV1CategoryReadClassGet)
 For your reference, the following is the list of default categories:
- - Curriculum
- - Class
- - Medium
- - Subject
- - Medium
- - Concept
- - Topic 
+ - class
+ - medium
+ - subject
+ - gradelevel
+ - topic 
 
 2. Create a new category by using [Create category API](http://docs.sunbird.org/latest/apis/framework/#operation/FrameworkV1CategoryCreate), ensure to provide the appropriate value for “code” parameter in the request payload. The code parameter inherits the master category schema. 
-Note: 
+>**Note**: 
 You can only create a new category using any of the available master list categories.
-If you want to create a new master category, send an email to support@sunbird.org      
+If you want to create a new master category, send an email to support@sunbird.org
 
-Following is an example of request body for creating a framework, the sample values provided in the request body are indicative:
+3. Provide the valid input for the query parameters **framework**. Append the parameter to the endpoint request URI while you are sending the API request
 
-3. Follow the steps mentioned in [Using POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation) section to execute the API
+4. Also, provide the appropriate values for the request body parameters in the payload
 
-4. Path for creating category in the Framework: ```{{host}}/framework/v1/category/create``` 
+#### Request Body for creating framework category:
 
-    {
-    "id": "string",
-    "ver": "string",
-    "ets": 0,
-    "params": {
-        "msgid": "string",
-        "did": "string"
-    },
-    "request": {
-        "category": {
-        "code": "string",
-        "name": "string",
-        "description": "string"
-        }
+`POST: /framework/v1/category/create?framework=abc1`
+```
+{
+   "request": {
+      "category":{
+          "name":"Resource",
+          "description":"Resource category of the framework",
+          "code":"subject",
+          "translations": "{\"en\":\"resource\"}"
+      }
     }
-    }
- 
-**Description of Parameters**
+}
+```      
 
-Name: depicts the name of the framework for the organization
-Code: is user defined value that is used as framework identifier 
-Description: is related to the framework
-Translations: enables framework in different languages 
-Type: defines the type of content
-
-
-#### Response Body 
-
-    {
-    "id": "string",
-    "ver": "string",
-    "ets": 0,
+`Response Body`
+```
+{
+    "id": "api.category.create",
+    "ver": "1.0",
+    "ts": "2018-11-19T11:00:57.914Z",
     "params": {
-        "msgid": "string",
-        "resmsgid": "string",
+        "resmsgid": "64b331a0-ebea-11e8-8676-f72d022164ed",
+        "msgid": "649b63e0-ebea-11e8-b107-49a5bcd087db",
+        "status": "successful",
         "err": null,
-        "err_msg": null,
-        "err_detail": null,
-        "status": "success"
-        },
-    "responseCode": "string",
-    "result": {
-        "node_id": "string",
-        "versionKey": "string"
-        }
-    }
-
-5. You can rename an existing category using following: 
-
-##### Request Body
-
-    {
-    "request": {
-        "category":{
-            "name":"resources",
-            "description":"Subject is changed to Resources",
-            "code":"subject"
-            }
-        }
-    }
-
-##### Response Body
-
-    {
+        "errmsg": null
+    },
     "responseCode": "OK",
     "result": {
-        "node_id": "abc_subject",
-        "versionKey": "1535716551605"
-        }
+        "node_id": "abc1_subject",
+        "versionKey": "1542625257776"
     }
+}
+```
+**Description of Parameters**
 
+Name: name of the category
+Code: unique code of the category. This gets validated from the mater category
+Description: Description of the category
+Translations: Depicts the transalation of the category in different language
 
-5. Provide the valid input for the query parameters **framework**. Append the parameter to the endpoint request URI while you are sending the API request
-
-6. Also, provide the appropriate values for the request body parameters in the payload Other operation that you can perform on the categories under a framework are as follows: 
+Other operation that you can perform on the categories under a framework are as follows: 
 
 [Fetch](apis/framework/#operation/FrameworkV1CategoryReadClassGet) 
 [Update](apis/framework/#operation/FrameworkV1CategoryUpdatePatch) 
 [Search](apis/framework/#operation/FrameworkV1CategorySearchPost) 
 
-Associating categories 
-It is necessary that each of the new category must be associated to any of the master categories, which can be done by providing appropriate values to the parameters in query string
-For any references regarding the parameter usage refer to the Framework API resources  
 
 ### Adding Terms
 
-1. To create a new term refer to [Create Term API](http://docs.sunbird.org/latest/apis/framework/#operation/FrameworkV1TermCreatePost)
+1. To create a new term refer to [Create Term API](http://docs.sunbird.org/latest/apis/framework/#operation/FrameworkV1TermCreatePost). Given below is an example of request body for creating terms
 
-Following is an example of request body for seeding data in a framework, the sample values provided in the request body are indicative:
+The categories can be retrieved and listed using [Fetch API](http://www.sunbird.org/apis/framework/#operation/FrameworkV1CategoryReadClassGet)
 
-2. Path for creating the Framework: <pre>{{host}}/framework/v1/term/create</pre>
-#### Create a Term
+2. Provide the valid input for the query parameters “framework” and “category”. Append these parameters to the endpoint request URL while you are sending the API request.
 
-1. Use the [Add Term API](http://www.sunbird.org/apis/framework/#operation/FrameworkV1TermCreatePost), to create a new term in the category.
-The categories can be retrieved and listed using [Fetch API](http://www.sunbird.org/apis/framework/#operation/FrameworkV1CategoryReadClassGet). The sample values provided in the request body are indicative.
+3. Provide the appropriate values for the request body parameters in the payload.
 
-2. Path for creating category: `{{host}}/framework/v1/term/create?framework=ndf1&category=subject`
+>**Note**: The sample values provided in the request body are indicative.
 
-##### Request Body for Adding Terms 
+##### Request Body for creating Terms 
 
-    {
+`POST: /framework/v1/term/create?framework=abc1&category=subject`
+```
+{
     "request": {
         "term": [
             {
-            "code": "river",
-            "name": "River",
-            "description":"Describes River"
+                "code": "river",
+                "name": "River",
+                "description":"Describes River",
+                "translations": "{\"en\":\"river\"}"
             },
             {
-            "code": "sea",
-            "name": "Sea",
-            "description":"Describes Sea"
+                "code": "sea",
+                "name": "Sea",
+                "description":"Describes Sea",
+                "translations": "{\"en\":\"sea\"}"
             }
-            ]
-        }
+        ]
     }
+}
 
-Actual:
-
-    {
-    "id": "string",
-    "ver": "string",
-    "ets": 0,
+```
+`Response Body`
+``` 
+{
+    "id": "api.term.create",
+    "ver": "1.0",
+    "ts": "2018-11-19T11:21:37.973Z",
     "params": {
-        "msgid": "string",
-        "did": "string"
-        },
-    "request": {
-        "term": {
-        "code": "string",
-        "name": "string",
-        "description": "string",
-        "category": "string",
-        "index": 0,
-        "categoryinstances": [
-            {}
-            ],
-        "parents": [
-            {}
-            ],
-        "associationswith": [
-            {}
-            ],
-        "children": [
-            {}
-            ],
-        "associations": [
-            {}
-            ]
-            }
-        }
-    }
-
-##### Response Body for Adding Terms
-
-    {
+        "resmsgid": "47d52e50-ebed-11e8-8676-f72d022164ed",
+        "msgid": "47ba5350-ebed-11e8-b107-49a5bcd087db",
+        "status": "successful",
+        "err": null,
+        "errmsg": null
+    },
     "responseCode": "OK",
     "result": {
         "node_id": [
             "abc1_subject_river",
             "abc1_subject_sea"
-            ]
-        }
+        ]
     }
-
-
-Actual:
-    {
-    "id": "string",
-    "ver": "string",
-    "ets": 0,
-    "params": {
-        "msgid": "string",
-        "resmsgid": "string",
-        "err": null,
-        "err_msg": null,
-        "err_detail": null,
-        "status": "success"
-        },
-    "responseCode": "string",
-    "result": {
-        "node_id": "string",
-        "versionKey": "string"
-        }
-    }
+}
+```
   
 
 **Description of Parameters**
 
-Name: depicts the name of the framework for the organization
-Code: is user defined value that is used as framework identifier 
-Description: is related to the framework
-Translations: enables framework in different languages 
-Type: defines the type of content
+Code: Unique value that is used for generating term identifier. 
+Description: Description of the term
+Name: Name of the terms
+Translations: Transalation of the category in different language
  
-2. Follow the steps as mentioned in [Using POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation) section to execute the Create Term API
-
-3. Provide the valid input for the query parameters “framework” and “Category”. Append these parameters to the endpoint request URI while you are sending the API request
-
-4. Also, provide the appropriate values for the request body parameters in the payload, other operations that can be performed on terms of a category within a  framework are as follows:
+Other operations that can be performed on terms of a category within a  framework are as follows:
 
 [Fetch](apis/framework/#operation/FrameworkV1TermReadClass2Get) 
 
@@ -310,8 +228,3 @@ Type: defines the type of content
 [How do I associate framework to categories and categories to a terms in Sunbird](http://www.sunbird.org/developer-docs)
 
 [How to use Postman](http://www.sunbird.org/developer-docs)
-Taxonomy
-
-Associating Categories 
-
-### Additional Topics
