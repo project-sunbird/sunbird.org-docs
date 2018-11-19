@@ -9,7 +9,7 @@ allowSearch: true
 
 ## Scenario
 
-As a part of the employee development and training program, the XYZ Corporation requires to create training material. The Learning and Develop department's admin would like to understand the effectiveness of the courses.  To meet this objective, the corporation must obtain telemetry data and analyze the data to understand the time spent by a user on a content.
+As a part of the employee development and training program, the XYZ Corporation needs to create training material. The Learning and Develop department's admin would like to effectiveness of the courses. To determine that, the admin needs to know how much time employees are spending on a content. For that, the corporation needs to get telemetry data and analyze the data to see the time consumption on a content.
 
 ## Overview
 
@@ -22,7 +22,6 @@ Telemetry events are broad, human-readable actions, that can be tracked as a str
 All events data is captured via a common event JSON structure. Depending on the event, edata element carries event specific data. All events have unique event codes (IDs).
 
 The complete data structure is as follows:
-
 ```javascript
 {
   //About the event
@@ -91,44 +90,40 @@ For more information for Telemetry event structure, please refer to the [Telemet
 
 ## Prerequisites
 
-* Obtain an API Key to access Sunbird APIs. The specific Channel Ids for which data exhaust API access is requested should be specified along with the API key request. To create an API key, please refer to How to generate a Sunbird API key
+* API key Authorisation
 
-* Instrumenting Your App for Telemetry and Analytics
+* Authorizing Channel ID / Authorizing user for channel
 
-* Telemetry service enabled
+* Instrumenting your App for Telemetry and Analytics
 
-* Partner/Content App must send Telemetry as per Using Telemetry SDK to record Telemetry
+* Telemetry service is enabled
+
+* Partner/Content App must send Telemetry as per Using Telemetry SDK to record Telemetry.
 
 ## Workflow
 
 The process of streaming and consuming telemetry data uses three core components:
+• Telemetry Policy File: Determines the kind of telemetry data to be generated, at a specified frequency.
 
-• Telemetry Policy File: Determines the kind of telemetry data to be generated, at a specified frequency
+• Telemetry Encoder: Encapsulates the generated data into the desired format and transfer tothe receiver.
 
-• Telemetry Encoder: Encapsulates the generated data into the desired format and transfer to the receiver
-
-• Telemetry Receiver: It is the remote management system that stores the telemetry data
+• Telemetry Receiver: It is the remote management system that stores the telemetry data.
 
 ### Pulling and extracting data using data exhaust API 
 
 Using Data exhaust API, you can get workflow summary or raw data generated as by product of user activities. Data exhaust also helps in data mining analytics.
 
-**Authentication**:<br>
+**Authorization**
 
-<b>API Endpoint</b>:<br>
-/data/v3/dataset/request/submit
+bearer
 
-**Bearer**
-Security scheme type: API Key<br>
+Security scheme type: API Key
 header parameter name: Authorization
 
-**X-Channel-ID**
-header parameter name: X-Channel-ID
-header paramter value: Channel ID for which data exhaust is requested for
+UserToken
 
-<b> Content Type</b>
-header parameter name: Content-Type
-header paramter value: application/json
+Security scheme type: API Key
+header parameter name: x-authenticated-user-token
 
 **Submit Data Request**
 
@@ -154,23 +149,28 @@ Authorization: Bearer {{api_key}}
 The body refers to the format of the request. It contains metadata about the data request to be sent
 ```javascript
 {
-  "id": "xyz.analytics.dataset.request.submit",
-  "ver": "1.0",
+  "id": "ekstep.data_exhaust_dataset_service",
+  "ver": ",1.0",
   "ts": "2015-08-04T17:36:36+05:30",",
   "params": {
     "msgid": "ff305d54-85b4-341b-da2f-eb6b9e5460fa",
     "client_key": "61d81wac-cc60-4f2f-9fe7-daef674af21a"
   },
   "request": {
-    "dataset_id": "eks-consumption-raw", //or "eks-consumption-summary"
+    "dataset_id": "fee305d64-85b4",
     "filter": {
       "start_date": "2016-01-01",
       "end_date": "2016-01-31",
+      "app_id": "284708449",
+      "channel": "664738553",
       "events": [
-        "START", "INTERACT"
+        "string"
+      ],
+      "tags": [
+        "string"
       ]
     },
-    "output_format": "json" //or "csv"
+    "output_format": "string"
   }
 }
 ```
@@ -199,41 +199,41 @@ Response body sample with indicative values:
         "expiresAt": 1542287137444
     }
 }
-``
+
+```
 Note:
 
-fromDate and toDate must be in YYYY-MM-DD format.
-toDate must be greater than or equal to fromDate and toDate must be less than today. 
+* fromDate and toDate must be in YYYY-MM-DD format.
+ **toDate** must be greater than or equal to** fromDate** and **toDate** must be less than today. 
 
 * Maximum one month’s (31 days) data could be downloaded in one API call.
 
-* The API key is required for accessing the data exhaust. 
+* The request.licensekey is required for accessing the data exhaust. 
 
-Response Code:
+**Responses Code:**
 
 In case of error, an appropriate error response is returned.
 
-400 BAD REQUEST: Submit Data Request operation failed! The possible reason for failure is that you may have missed providing input for a mandatory parameter
+400 BAD REQUEST,Submit Data Request operation failed! The possible reason for failure is that you may have missed providing input for a mandatory parameter
 
-500 INTERNAL SERVER ERROR: The error can be identified by browsing through the API server logs or contact the server admin to retrieve the API logs.
+500 INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem still persists, contact us at info@sunbird.org.
 
-403 FORBIDDEN: If the API Key does not have access to the Channel Id specified in the request, the request will be forbidden from accessing the data exhaust.
+ 
+**Extracting Data:**
 
-For e.g, the response body contains the following error message in case of FORBIDDEN error:
-Given X-Consumer-ID='9293548c-3a56-47dd-a9a3-24da3c821638' and X-Channel-ID='012222551180382207027' are not authorized
+Using the telemetry URL that you recieve as a resonpse body of data exhaust API, you can extract a file ( .gzip format) that contain telemetry log.
 
-Extracting Data:
+Paste a telemetry URL on a browser and enter, a .gzip file is downloaded on your local.
 
-Using the telemetry URL that you recieve as part of the the response body of data exhaust API, you can download and extract the file ( .gzip format) that contain telemetry log.
-
-* Store the extracted json file to server/cloud storage for subsequent analysis.
+Conver the file and store to server/cloud storage using json.
 
 ### Analyzing the Data
 
-Analyst can now retrive the data stored on the server/cloud storage and analyse the data based on the use case and scenario using some analytics tool as per your choice.
+Analyst can now retrive the data stored on the server/cloud storage and analysys the data based on the use case and scenario using some analytics portal.
 
-1. Analyst may apply certain filters based on the use case for analysis of the data.
-For example, to compute app session or portal session time, you can apply filtes as mentioned below: 
+1. Analyst must first apply filter for a content based on the content ID.
+
+<b>Filters to apply</b>:
 
 For App content sessions:
 
@@ -243,32 +243,22 @@ For Portal content sessions:
 
 "dimensions.pdata.id" = "prod.diksha.portal" & "dimensions.mode" = "play" & "dimensions.type" = "content"
 
-2. Another example: To calculate the overall time spent on a content, analyst should use time_spent parameter under the eks section in the edata field from the [workflow summary](https://github.com/ekstep/Common-Design/wiki/[Data-Product]-Workflow-Summarizer) data.
+2. To calculate theoverall time spent on a content, analyst must consider and calculate the parameters like edata  (eks, time spent) from the [workflow summary](https://github.com/ekstep/Common-Design/wiki/[Data-Product]-Workflow-Summarizer) data.
 ```javascript
-{
-  "edata": {
-    "eks": {
-      "start_time": Long, // Epoch Timestamp of start. Retrieved from first event.
-      "end_time": Long, // Epoch Timestamp of end. Retrieved from last event.
-      "time_spent": Double, // Total time spent in seconds excluding idle time.
-      "time_diff": Double, //  Diff between the last event and first event in seconds.
-      "interact_events_count": Long, // Count of interact events
-      "interact_events_per_min": Double, // Count of interact events per minute
-      "telemetry_version": String, //Version of the telemetry 1.0 or 2.0
-      "env_summary": [{
-        "env": String, // High level env within the app (content, domain, resources, community)
-        "time_spent": Double, // Time spent per env
-        "count": Long // count of times the environment has been visited
-      }]
-    }
-  }
-}
+"edata": {
+        "eks": {
+            "start_time": Long, // Epoch Timestamp of start. Retrieved from first event.
+            "end_time": Long, // Epoch Timestamp of end. Retrieved from last event.
+            "time_spent": Double, // Total time spent in seconds excluding idle time.
+            "time_diff": Double, //  Diff between the last event and first event in seconds.
+            "interact_events_count": Long, // Count of interact events
+            "interact_events_per_min": Double, // Count of interact events per minute
+            "telemetry_version": String, //Version of the telemetry 1.0 or 2.0
+            "env_summary": [{
+                "env": String, // High level env within the app (content, domain, resources, 
+
+                  community)
+                "time_spent": Double, // Time spent per env
+                "count": Long // count of times the environment has been visited
+            }],
 ```
-
-## Concept Covered
-- Telemetry Services<br>
-- Telemetry Events<br>
-- Data Exhaust API<br>
-- Data Storage<br>
-- Data Population
-
