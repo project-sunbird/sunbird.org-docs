@@ -521,5 +521,6 @@ For more information about the usage of header parameters refer to the [Update F
 ## Concepts Covered
 
 * Metadata driven forms
-* List of available metadata driven forms
 * Request payload for update metadata form
+* List of available metadata driven forms
+
