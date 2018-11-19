@@ -6,6 +6,7 @@ keywords: DIAL Code, QR Code, erb, Energized textbook, book
 published: true
 allowSearch: true
 ---
+
 ## Scenario
 
 An educational institution XYZ, with over three thousand students, is spread across three locations. XYZ institute has decided to use Sunbird for its digital learning solution to provide more scalable and effective education to its students. 
@@ -47,154 +48,99 @@ Ensure to complete the following before you link DIAL code to a book:
 
 a. [Create Publisher](http://www.sunbird.org/apis/dialapi/#operation/PublisherCreatePost)
 
-b. [Generate](http://docs.sunbird.org/latest/apis/dialapi/#operation/GeneratePost)[QR code](http://docs.sunbird.org/latest/apis/dialapi/#operation/GeneratePost)
+b. [Generate QR code](http://docs.sunbird.org/latest/apis/dialapi/#operation/GeneratePost)
 
 a. **Create Publisher**
 
  This API is associated with creating a publisher.
 
-* The /publisher/create endpoint executes the "Create Publisher" request based on parameters provided as metadata in the request body
+* The `dialcode/v1/publisher/create` endpoint executes the "Create Publisher" request based on parameters provided as metadata in the request body
 
 * Required fields cannot be left null or empty
 
 **Request Body for create publisher API**:
-```javascript
+```
 {
-
     "request": {
-
         "publisher": {
-
-            "identifier": "SKPUBLISHER",
-
+            "identifier": "skpublisher",
             "name": "SK Publisher"
-
         }
-
     }
-
 }
 ```
-<b>Response Body of Create Publisher API</b>:
-``` javascript
+**Response Body of Create Publisher API**:
+```
 {
-
    "id": "api.publisher.create",
-
    "ver": "1.0",
-
    "ts": "2018-10-04T07:12:47.729Z",
-
    "params": {
-
        "resmsgid": "e5b63e10-c7a4-11e8-bbd8-e58670bcc2b7",
-
        "msgid": "e51fca70-c7a4-11e8-ac7b-7b8f28c2d9c1",
-
        "status": "successful",
-
        "err": null,
-
        "errmsg": null
-
    },
-
    "responseCode": "OK",
-
    "result": {
-
-       "identifier": "SKPUBLISHER"
-
+       "identifier": "skpublisher"
    }
-
 }
 ```
-
 
 
 b. Generate QR Code
 
 This API is associated with generating DIAL code.
 
-* The _ /generate_ endpoint executes the "Generate DIAL code" request based on parameters provided as metadata in the request body to be replaced by appropriate Id
+* The `/dialcode/v1/generate` endpoint executes the "Generate DIAL code" request based on parameters provided as metadata in the request body to be replaced by appropriate Id
 
 * Required fields cannot be left null or empty
 
-Request Body of **Generate DIAL Code** API:
+** Request Body of Generate DIAL Code API ** :
 ``` javascript
 {
-
     "request": {
-
         "dialcodes": {
-
-            "count": 2000,
-
-            "publisher": "SKPUBLISHER"
-
+            "count": 2,
+            "publisher": "skpublisher"
         }
-
     }
-
 }
 ```
-Response Body of **Generate DIAL Code** API:
-``` javascript
+** Response Body of Generate DIAL Code API ** :
+```
 {
-
    "id": "api.dialcode.generate",
-
    "ver": "2.0",
-
    "ts": "2017-10-04T10:54:28.916",
-
    "params": {
-
        "resmsgid": "dcd64f40-c7c3-11e8-9bfa-fd2e5637008b",
-
        "msgid": "dc3af9a0-c6c3-11e8-9fb2-b710543e8512",
-
        "status": "successful",
-
        "err": null,
-
        "errmsg": null
-
    },
-
    "responseCode": "OK",
-
    "result": {
-
        "dialcodes": [
-
            "QP79LL",
-
            "WMHNYJ",
-
        ],
-
-       "count": 20,
-
-       "batchcode": "SKPUBLISHER.20181004T106427",
-
-       "publisher": "SKPUBLISHER"
-
+       "count": 2,
+       "batchcode": "skpublisher.20181004T106427",
+       "publisher": "skpublisher"
    }
-
 }
-
 ```
 
-To update the QR code, use the [Update DIAL Code ](http://docs.sunbird.org/latest/apis/dialapi/#operation/PublisherReadSunbirdGet)API.
-
-** **
 
 ### Link DIAL code to content using D.I.A.L API
 
 This API is associated with linking DIAL code to the content.
 
-* The **_/content/link_** endpoint executes the "Link DIAL code" request based on parameters provided as metadata in the request body.
+* The `/dialcode/v1/content/link` endpoint executes the "Link DIAL code" request based on parameters provided as metadata in the request body.
 
 * Required fields cannot be left null or empty.
 
@@ -255,19 +201,16 @@ Request Body Parameter
   </tr>
 </table>
 
+Link DIalcode API End point: `POST: /dialcode/v1/content/link`
 
 **Request Body** sample for linking D.I.A.L code API:
-``` javascript
+```
 {
   "request": {
     "content": [
       {
         "identifier": ["do_3010101011"],
         "dialcode": ["3R3DSS"]
-      },
-      {
-        "identifier": ["do_3010101012"],
-        "dialcode": ["ZRX6JJ"]
       }
     ]
   }
@@ -275,12 +218,8 @@ Request Body Parameter
 ```
 
 **Response Body** for linking D.I.A.L code API:
-
-``` javascript
+```
 {
-  "result": {
-    "node_id": "string"
-  },
   "id": "sunbird.content.dialcode.link",
   "ver": "3.0",
   "ts": "2018-09-18T09:15:01ZZ"		",
@@ -291,9 +230,12 @@ Request Body Parameter
     "status": "successful",
     "errmsg": "null"
   },
-  "responseCode": "OK”
-  "result": {}
- }
+  "responseCode": "OK”,
+  "result": {
+    "node_id": "do_3010101011",
+    "versionKey": "1542625257776"
+  }
+}
 ```
 The [Link D.I.A.L Code](http://www.sunbird.org/apis/dialapi/#operation/ContentLinkPost) (Digital Infrastructure for Augmented Learning) API resources are used for energizing the textbooks.
 
@@ -303,7 +245,7 @@ For more information, refer to [Content linking ](http://www.sunbird.org/apis/di
 
 <b>200 OK!</b> Successful operation."Link DIAL code" operation is successfully executed.
 
-**400 BAD REQUEST**. The "Link DIAL code" operation failed! The possible reason for failure is that you may have missed providing input for some mandatory parameter.
+**400 BAD REQUEST**. The "Link DIAL code" operation failed! The possible reason for failure is that you may have missed providing input for some mandatory parameter or providing wrong inputs for any of the required parameters.
 
 **500 INTERNAL SERVER ERROR**! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.
 
@@ -315,7 +257,7 @@ You can consume the content linked with DIAL code using mobile or website
 
 Scan the QR code using the Sunbird app installed on your mobile
 
-**To consume the content using Sunbird mobile app:**
+**To consume the content using Sunbird portal:**
 
 Go to [https://play.diksha.gov.in/dialpage/index.html](https://play.diksha.gov.in/dialpage/index.html)
 
