@@ -39,7 +39,7 @@ As required, a book creator can tag various pages and topics with D.I.A.L code i
 ## Taskflow
 
  **[Content linking to QR code](http://www.sunbird.org/apis/dialapi/#operation/ContentLinkPost)**: 
-As a book creator or author, you can create content and attached the QR code to the content. This can be done via AP and Sunbird User interface as well. This document describes how to link DIAL code to a book using APIs.
+As a book creator or author, you can create content and attached the QR code to the content. This can be done via API and Sunbird User interface as well. This document describes how to link DIAL code to a book using APIs.
 
 ### Steps to follow to link a DIAL code to a book
 
@@ -260,22 +260,18 @@ Request Body Parameter
 ``` javascript
 {
   "request": {
-
-    "content": {
-
-      "identifier": ["do_3010101010"]
-
-        ""
-      ],
-
-      "dialcode": ["A6GHY"]
-
-        ""
-      ]
-
-    }
-
+    "content": [
+      {
+        "identifier": ["do_3010101011"],
+        "dialcode": ["3R3DSS"]
+      },
+      {
+        "identifier": ["do_3010101012"],
+        "dialcode": ["ZRX6JJ"]
+      }
+    ]
   }
+}
 ```
 
 **Response Body** for linking D.I.A.L code API:

@@ -57,6 +57,7 @@ Sunbird provides a list of default forms. In the context of the scenario mention
 | **Resource Search** | This form is displayed on clicking `View All` on `Resource Browser` in course editor| content | course | resource-filters | editor |
 | **Resource Search** | This form is displayed on clicking `View All` on `Resource Browser` in collection editor| content | collection | resource-filters | editor |
 
+
 ### Supported Input & Data Types 
 
 The following table lists down the supported input types with corresponding data types in the Sunbird Editor component:
