@@ -34,7 +34,12 @@ For setting up the application, check out the [code](https://github.com/project-
     
     git clone https://github.com/project-sunbird/sunbird-portal.git
 
-> ***Note***: Stable versions of the sunbird portal are available via tags for each release, and the master branch contains latest stable release. For latest stable release [refer](https://github.com/project-sunbird/sunbird-portal/){:target="_blank"}
+> ***Note***: Stable versions of the sunbird portal are available via tags for each release, and the master branch contains latest stable release. For latest stable release [refer](https://github.com/project-sunbird/sunbird-portal/){:target="_blank"}. To get release 1.10 tagged code, use below command:
+
+<pre>
+git tag
+git checkout -b my-release-10 v1.10
+</pre>
 
 Once the git clone command is over, run the following set of commands:
    
