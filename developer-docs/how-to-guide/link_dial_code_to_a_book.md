@@ -8,7 +8,7 @@ allowSearch: true
 ---
 ## Scenario
 
-An educational institution XYZ, with over three thousand students, is spread across three locations. XYZ institute has decided to use Sunbird for its digital learning solution to provide more scalable and effective education to its students. 
+An educational institution XYZ, with over three thousand students, is spread across three locations. XYZ institute has decided to use Sunbird for its digital learning solution to provide more scalable and effective education to its students.
 
 An energized book carries a QR code (Or a QR Code with a DIAL code) on it. The students can scan the QR code using the Sunbird mobile app (Android 1.7.0 onwards) on their smartphone or other electronic devices like a laptop (using chrome browser) or a tablet.
 
@@ -41,7 +41,7 @@ As required, a book creator can tag various pages and topics with D.I.A.L code i
  **[Content linking to QR code](http://www.sunbird.org/apis/dialapi/#operation/ContentLinkPost)**: 
 As a book creator or author, you can create content and attached the QR code to the content. This can be done via API and Sunbird User interface as well. This document describes how to link DIAL code to a book using APIs.
 
-### Steps to follow to link a DIAL code to a book
+## Presteps to Follow to Before Linking a DIAL Code to a Book
 
 Ensure to complete the following before you link DIAL code to a book:
 
