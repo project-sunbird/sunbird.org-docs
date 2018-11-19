@@ -1,7 +1,7 @@
 ---
 title: Developer Installation
 page_title: Developer Installation
-description: Installing  the Sunbird portal or web application
+description: Installing Sunbird Components
 published: true
 allowSearch: true
 ---
@@ -19,20 +19,8 @@ To install Sunbird, ensure that your laptop or desktop has the following minimum
 - CPU: 2 cores, >2 GHz
 
 ## Sunbird Components
+
 Installing Sunbird requires two primary software components:
 
-- Sunbird portal or web application
-- Sunbird services stack or the backend API interface
-
-## Prerequisites
-
-1.**Software dependencies**
-    
-   * [Node](https://nodejs.org/en/download/){:target="_blank"} - install the latest release of 8.11.2 LTS series
-   * [nodemon](https://www.npmjs.com/package/nodemon){:target="_blank"} - install nodemon
-
-2.**API Keys**
-
-   * To get an API key, send an email to: info@sunbird.org
-
-**Note:** These installation instructions use cloud hosted Sunbird APIs, which require an API key.
+- Sunbird backend
+- Sunbird portal
