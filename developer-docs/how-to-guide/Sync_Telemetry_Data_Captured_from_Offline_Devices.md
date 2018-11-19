@@ -8,17 +8,13 @@ allowSearch: true
 ---
 ## Scenario
 
-An educational Institution, XYZ with over three thousand students spread across three locations. XYZ institute has decided to use Sunbird for its digital learning solution to provide more scalable and effective education to its students. As the institute mainly operates from the rural area, internet connectivity is poor at the institutes. 
+An educational Institution XYZ, with over three thousand students, is spread across three locations. XYZ institute has decided to use Sunbird for its digital learning solution to provide more scalable and effective education to its students. As the institute mainly operates from the rural area, internet connectivity is a challenge at most branches. 
 
-X is a student of the lives in an area where internet connection is poor but, he has access to smartphones, tablets and other handheld devices. And, the student uses the Sunbird mobile app frequently in offline mode to consume content created by his educational institute.
+X is a student who resides in an area where internet connection is poor but, he has access to smartphones, tablets and other handheld devices. The student uses the Sunbird mobile app frequently in offline mode to consume content created by his educational institute.
 
 The Admin of the institute wants to access the telemetry data of each students’ device for better decision making. The admin operates from the urban area and has full access to internet connection.  In that case, admin can ask the student X to share the telemetry data with him.
 
-Using Share Telemetry Student X can share the telemetry data as per his convenience with the admin via email or via any messaging apps like Whatsapp, messenger and so on.
-
-The admin now can sync the telemetry data with a server by using the shared telemetry file.
-
-The student, X can even sync the data to a server by himself by clicking **Sync Now** option when he comes online. 
+Using the Share Telemetry feature student X can share the telemetry data as per his convenience with the admin via email or via any messaging apps like Whatsapp, messenger and so on. The admin now can sync the telemetry data with a server by using the shared telemetry file. The student, X can even sync the data to a server by himself by clicking **Sync Now** option when he comes online. 
 
 ## Overview
 
@@ -97,33 +93,31 @@ For more information, please refer to the [Telemetry Specification](http://docs.
 
 ## Prerequisites
 
-* The offline user must share telemetry file of Sunbird app with admin.
+* The offline user must share telemetry file of Sunbird app with admin
 
-* Admin must download the shared file and open the file with Sunbird app installed on his or her device.
+* Admin must download the shared file and open the file with Sunbird app installed on his or her device
 
 **Sharing telemetry file:**
 
-To share the telemetry file, the offline user must follow the steps below:
+To share the telemetry file, the offline user must follow the steps listed:
 
-* Open the Sunbird app installed on the device.
+* Open the Sunbird app installed on the device
 
-* Navigate to **Profile**> **Setting**> **Data Sync.**
+* Navigate to **Profile**> **Setting**> **Data Sync**
 
-* Click **Share Telemetry** to share the file which contains telemetry data of the user’s Sunbird app.
+* Click **Share Telemetry** to share the file which contains telemetry data of the user’s Sunbird app
 
 **Using shared telemetry file:**
 
-To sync the telemetry data, the admin must use the shared telemetry file.
+To sync the telemetry data, the admin must use the shared telemetry file and follow the steps as listed below: 
 
-To perform the action, the admin** **must follow the steps below:
+* Download the shared telemetry
 
-* Download the shared telemetry.
+* Open the shared file with Sunbird app installed on the admin’s mobile
 
-* Open the shared file with Sunbird app installed on the admin’s mobile.
+* Click **Sync Now**
 
-* Click **Sync Now**.
-
-If the admin doesn’t click **Sync Now**, the file will be auto-synced after a certain interval of time.
+> **Note**: If the admin doesn’t click **Sync Now**, the file will be auto-synced after a certain interval of time
 
 ## Workflow
 
