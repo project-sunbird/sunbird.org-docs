@@ -41,7 +41,7 @@ For example, for the organization ABC organization the framework name is ABC and
 
 1.An intialized Sunbird instance with channel
 
-2.The [API Key for access](developer-docs/generating_sunbird_api_keys/) and basic authentication
+2.The [API Key for access](developer-docs/how-to-guide/generate_apikey/) and basic authentication
   
 3.Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
