@@ -25,7 +25,7 @@ Maya joins XYZ Corp as an intern pursuing research Indian & Greek archeology. Fo
 
 ### Taskflow
 
-First, Gita will assign the role of content consumer, to Maya, in the sub-organization Indian Archeology. Gita
+First, Gita will assign the role of content consumer, to Maya, in the sub-organization Indian Archeology. 
 
 **Request Headers**
 
@@ -62,56 +62,6 @@ curl -X POST \
     "params": {
         "resmsgid": null,
         "msgid": "d6e68bc6-599f-48d1-b397-9ef8d3dfc2cc",
-        "err": null,
-        "status": "success",
-        "errmsg": null
-    },
-    "responseCode": "OK",
-    "result": {
-        "response": "SUCCESS"
-    }
-}
-```
-
-Gita will assign the role of a content consumer, to Maya, in the sub-organization Indian Archeology.
-
-**Header Parameters**
-
-|     Header    |          Type         | Description | Sample |
-|---------------|------------------------|--------|-----------|
-| Content-type | String | Mime type of the request | application/json |
-| Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
-| x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
-
-
-**cURL Request**
-
-```
-curl -X POST \
-  https://staging.open-sunbird.org/api/user/v1/role/assign \
-  -H 'Authorization: Bearer \ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
-  -H 'Content-Type: application/json' \
-  -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
-  -d '{
-	"request":
-	{
-		"userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449",
-		"organisationId": "01261942258536448016",
-		"roles": ["PUBLIC"]
-	}
-}'
-```
-
-**Response Body**
-
-```
-{
-    "id": "api.user.assign.role",
-    "ver": "v1",
-    "ts": "2018-11-13 16:03:19:100+0000",
-    "params": {
-        "resmsgid": null,
-        "msgid": "1fa37108-03c8-490d-b646-61317d317b2e",
         "err": null,
         "status": "success",
         "errmsg": null
@@ -219,7 +169,7 @@ curl -X POST \
 }
 ```
 
-Again, after 3 more months, Gita revokes Maya's access to the sub-organization called Greek Architecture.
+After 3 more months, Gita revokes Maya's access to the sub-organization called Greek Architecture.
 
 **Header Parameters**
 
@@ -267,11 +217,11 @@ curl -X POST \
 }
 ```
 
-This concludes the topic of associating an user with an organization, in Sunbird.
+This concludes the topic of associating a user with an organization, in Sunbird.
 
 ### Concepts Covered
 
-**Associate user and organization**: When an user is created in an organization, by default, the user does not get associated with any sub-organizations. An user can be associated with one or more sub-organizations, within the same organization. An user cannot be associated with more than one organization.
+**Associate user and organization**: When a user is created in an organization, by default, the user does not get associated with any sub-organizations. A user can be associated with one or more sub-organizations, within the same organization. A user cannot be associated with more than one organization.
 
 
 ### Related Topics
