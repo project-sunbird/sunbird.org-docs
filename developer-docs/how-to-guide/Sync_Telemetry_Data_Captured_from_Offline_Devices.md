@@ -145,45 +145,45 @@ X-App-Id:{{app id}}
     "msgid": "7x87bc51-afbg-4344-88bc-a2a90df5fd76"
   },
   "events": [
-    {
-      "tags": [
-        {
-          "partnerid": [
-            "org.ekstep.ep"
-          ]
-        },
-        {
-          "genie": [
-            "eptest"
-          ]
-        }
-      ],
-      "uid": "",
-      "sid": "",
-      "ts": "2017-04-06T10:44:38.929+0530",
-      "edata": {
-        "eks": {
-          "data": "sample_data",
-          "iv": "sample_iv",
-          "key": "sample_key",
-          "partnerid": "sample_partner_id",
-          "publickeyid": "public_key"
-        }
-      },
-      "did": "316955bd440567a9f3eeb8a6ed7dd3f98004d41b",
-      "ver": "2.0",
-      "type": "events",
-      "eid": "GE_PARTNER_DATA",
-      "@version": "1",
-      "gdata": {
-        "id": "genieservice.android",
-        "ver": "5.4.localqa-debug"
-      },
-      "ets": 1491479827198,
-      "uuid": "86190d23-5168-45f5-b29d-c55e120b8de6100",
-      "mid": "e39de153-8cd9-430a-a9ae-93212495cea2",
-      "key": ""
-    }
+{
+  "actor": {
+    "id": "0cd56545-2564-438c-9604-620e46bfcf5f",
+    "type": "User"
+  },
+  "context": {
+    "cdata": [
+      
+    ],
+    "channel": "b00bc992ef25f1a9a8d63291e20efc8d",
+    "did": "0351212662af4957ac08138c1776c9798661f359",
+    "env": "user",
+    "pdata": {
+      "id": "staging.sunbird.app",
+      "pid": "sunbird.app",
+      "ver": "2.0.localstaging-debug"
+    },
+    "sid": "35c8d4ce-e0f7-4702-91b6-9e940b8fc161"
+  },
+  "edata": {
+    "id": "group-assesment-details",
+    "pageid": "group-assesment-details",
+    "subtype": "byuser-tab-clicked",
+    "type": "TOUCH"
+  },
+  "eid": "INTERACT",
+  "ets": 1535459220545,
+  "mid": "6092a4c3-a9c5-4790-af8d-16d3b08d37fd",
+  "object": {
+    "id": "",
+    "type": "",
+    "version": ""
+  },
+  "tags": [
+    
+  ],
+  "ver": "3.0",
+  "ts": "2018-08-28T12:27:00.545+0000"
+}
   ]
 }
 ```
