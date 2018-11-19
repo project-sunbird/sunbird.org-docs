@@ -24,12 +24,12 @@ With huge resource library and based on ABC organizations decision, they want to
 
 ABC, may choose a predefined category and associate it to their own framework. The categories in the framework has terms associated with it. These terms are relevant to the created framework and can be created by the organization. 
 
-After you create a framework, you need to seed it with the required data classified under different components such as:
+After you create a framework, it must be seeded with the required data classified under different components such as:
    - Categories
    - Terms  
-and  associating these terms and categories 
+Once the framework is successfully seeded, then it must be associating with terms and categories.
 
->Note: Recommending to ensure that there a preplanned classification of content and their associations, this ensures that the framework is usable across the system.
+>**Note**: It is recommended that there is a preplanned classification of content and their associations, this ensures that the framework is usable across the system.
 
 ### Prerequisites
 
@@ -37,7 +37,7 @@ and  associating these terms and categories
 
 2. The [API Key for access](developer-docs/generating_sunbird_api_keys/) and basic authentication
   
-3. ​Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
+3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
 4. Onboarding the following with access to the API
     - Admin user     
@@ -51,36 +51,33 @@ and  associating these terms and categories
 
 ### Taskflow
 
-In this context, the category objects forms the master of all categories and can be inherited by any framework.
-Each master list category has the list of all possible category values
-You can either choose to use the default values for a category of your framework or override them as per the framework context using the appropriate API
+In this context, the category objects forms the master of all categories and can be inherited by any framework. Each master list category has the list of all possible category values. You can either choose to use the default values for a category of your framework or override them as per the framework context using the appropriate API.
 
-For example, for ABC organization the framework name is ABC and code as abc1; the category selected is subject and change the label as Resource type which defines the various water resources and contains the terms as Rain water, lake, ponds and so on. 
+For example, for ABC organization the framework name is ABC and code as abc1; select the category as subject and change the label as Resource type which defines the various water resources and contains the terms as rain water, lake, ponds and so on. 
 
-While as, a term is created for each value of a category instance: 
-Terms are used to tag content and other platform objects. 
-The order of terms within a category is defined using the sequence relation between category instance and the term in the request payload of creating terms API 
+A term is created for each value of a category instance: 
+Terms are used to tag content and other platform objects. The order of terms within a category is defined using the sequence relation between category instance and the term in the request payload of creating term API. 
 
-The following are the various fields against each term:
+The following are the various properties associated with each term:
 
-- name: Name of the Term
-- code: Unique Code of the Term, which will be validated from master category
-- category: Category of the Term
-- translations: Translations for the term in diffenren language
-- index: Index position of the term
-- description: Description of the term
+- name: name of the term
+- code: unique code of the term, which will be validated from master category
+- category: category of the term
+- translations: translations for the term in different languages
+- index: order of display of the term
+- description: description of the term
 
 Each term can have relationship with framework category and terms:
 
-- categories: Explains list of framework category
-- parents: Explains list of parent term
-- children: Wxplains list of child terms
-- associations: Explains list of terms associated from other the other category
+- categories: list of framework category
+- parents: list of parent term
+- children: list of child terms
+- associations: list of terms associated from other the other category
 
 ### Adding Category
 
 To add a category follow these steps: 
-1. Check for the existing categories, to do so use  Fetch Category API
+1. Check for the existing categories, to do so use [Fetch Category API](http://docs.sunbird.org/latest/apis/framework/#operation/FrameworkV1CategoryReadClassGet)
 For your reference, the following is the list of default categories:
  - class
  - medium
@@ -89,13 +86,13 @@ For your reference, the following is the list of default categories:
  - topic 
 
 2. Create a new category by using [Create category API](http://docs.sunbird.org/latest/apis/framework/#operation/FrameworkV1CategoryCreate), ensure to provide the appropriate value for “code” parameter in the request payload. The code parameter inherits the master category schema. 
-Note: 
+>**Note**: 
 You can only create a new category using any of the available master list categories.
 If you want to create a new master category, send an email to support@sunbird.org
 
 3. Provide the valid input for the query parameters **framework**. Append the parameter to the endpoint request URI while you are sending the API request
 
-4. Also, provide the appropriate values for the request body parameters in the payload.
+4. Also, provide the appropriate values for the request body parameters in the payload
 
 #### Request Body for creating framework category:
 
@@ -135,10 +132,10 @@ If you want to create a new master category, send an email to support@sunbird.or
 ```
 **Description of Parameters**
 
-Name: depicts the name of the category
-Code: depicts the unique code of the category. It will get validated from the mater category
+Name: name of the category
+Code: unique code of the category. This gets validated from the mater category
 Description: Description of the category
-Translations: Dipicts the transalation of the category in different language
+Translations: Depicts the transalation of the category in different language
 
 Other operation that you can perform on the categories under a framework are as follows: 
 
@@ -149,13 +146,15 @@ Other operation that you can perform on the categories under a framework are as 
 
 ### Adding Terms
 
-1. To create a new term refer to [Create Term API](http://docs.sunbird.org/latest/apis/framework/#operation/FrameworkV1TermCreatePost). Below example of request body for creating terms is just indicative.
+1. To create a new term refer to [Create Term API](http://docs.sunbird.org/latest/apis/framework/#operation/FrameworkV1TermCreatePost). Given below is an example of request body for creating terms
 
-The categories can be retrieved and listed using [Fetch API](http://www.sunbird.org/apis/framework/#operation/FrameworkV1CategoryReadClassGet). The sample values provided in the request body are indicative.
+The categories can be retrieved and listed using [Fetch API](http://www.sunbird.org/apis/framework/#operation/FrameworkV1CategoryReadClassGet)
 
-2. Provide the valid input for the query parameters “framework” and “category”. Append these parameters to the endpoint request URI while you are sending the API request.
+2. Provide the valid input for the query parameters “framework” and “category”. Append these parameters to the endpoint request URL while you are sending the API request.
 
-3. Also, provide the appropriate values for the request body parameters in the payload.
+3. Provide the appropriate values for the request body parameters in the payload.
+
+>**Note**: The sample values provided in the request body are indicative.
 
 ##### Request Body for creating Terms 
 
