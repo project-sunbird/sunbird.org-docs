@@ -54,10 +54,7 @@ Sunbird provides a list of default forms. In the context of the scenario mention
 | **Course Review** | This form is displayed on clicking `send for review` in course editor | content | course | review | editor 
 | **Question Save** | This form is displayed on clicking `create question` in content editor | content | questions | question-meta-save | editor |
 | **Question Search** | This form is displayed on clicking `search questions` in content editor | content | questions | question-filter-view | editor |
-| **Resource Search** | This form is displayed on clicking `View All` on `Resource Browser` in book editor | content | textbook | resource-filters | editor |
 | **Resource Search** | This form is displayed on clicking `View All` on `Resource Browser` in course editor| content | course | resource-filters | editor |
-| **Resource Search** | This form is displayed on clicking `View All` on `Resource Browser` in  lesson plan editor| content | lessonplan | resource-filters | editor |
-| **Resource Search** | This form is displayed on clicking `View All` on `Resource Browser` in collection editor| content | collection | resource-filters | editor |
 
 ### Supported Input & Data Types 
 
