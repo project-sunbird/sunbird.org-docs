@@ -9,7 +9,7 @@ allowSearch: true
 
 ## Scenario
 
-As a part of the employee development and training program, the XYZ Corporation needs to create training material. The Learning and Develop department's admin would like to effectiveness of the courses. To determine that, the admin needs to know how much time employees are spending on a content. For that, the corporation needs to get telemetry data and analyze the data to see the time consumption on a content.
+As a part of the employee development and training program, the XYZ Corporation needs to create training material. The Learning and Develop department's admin would like to understand the effectiveness of the courses.  To meet this objective, the corporation must obtain telemetry data and analyze the data to understand the time spent by a user on a content.
 
 ## Overview
 
@@ -90,24 +90,24 @@ For more information for Telemetry event structure, please refer to the [Telemet
 
 ## Prerequisites
 
-* API key Authorisation
+* Get an API Key to access Sunbird APIs. To create an API key, please refer to How to generate a Sunbird API key
 
-* Authorizing Channel ID / Authorizing user for channel
+* The root organization and users created and their **organsationId** and root organization's **channel** readily available
 
 * Instrumenting Your App for Telemetry and Analytics
 
-* Telemetry service is enabled
+* Telemetry service enabled
 
-* Partner/Content App must send Telemetry as per Using Telemetry SDK to record Telemetry.
+* Partner/Content App must send Telemetry as per Using Telemetry SDK to record Telemetry
 
 ## Workflow
 
 The process of streaming and consuming telemetry data uses three core components:
-• Telemetry Policy File: Determines the kind of telemetry data to be generated, at a specified frequency.
+• Telemetry Policy File: Determines the kind of telemetry data to be generated, at a specified frequency
 
-• Telemetry Encoder: Encapsulates the generated data into the desired format and transfer tothe receiver.
+• Telemetry Encoder: Encapsulates the generated data into the desired format and transfer to the receiver
 
-• Telemetry Receiver: It is the remote management system that stores the telemetry data.
+• Telemetry Receiver: It is the remote management system that stores the telemetry data
 
 ### Pulling and extracting data using data exhaust API 
 
@@ -219,15 +219,15 @@ In case of error, an appropriate error response is returned.
  
 **Extracting Data:**
 
-Using the telemetry URL that you recieve as a resonpse body of data exhaust API, you can extract a file ( .gzip format) that contain telemetry log.
+* Using the telemetry URL that you recieve as a response body of data exhaust API, you can extract a file ( .gzip format) that contain telemetry log.
 
-Paste a telemetry URL on a browser and enter, a .gzip file is downloaded on your local.
+* Paste a telemetry URL on a browser and enter, a .gzip file is downloaded on your local.
 
-Conver the file and store to server/cloud storage using json.
+* Conver the file and store to server/cloud storage using json.
 
 ### Analyzing the Data
 
-Analyst can now retrive the data stored on the server/cloud storage and analysys the data based on the use case and scenario using some analytics portal.
+Analyst can now retrive the data stored on the server/cloud storage and analyse the data based on the use case and scenario using some analytics portal.
 
 1. Analyst must first apply filter for a content based on the content ID.
 
