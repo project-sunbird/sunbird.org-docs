@@ -9,7 +9,7 @@ allowSearch: true
 
 ## Scenario
 
-As a part of the employee development and training program, the XYZ Corporation needs to create training material. The Learning and Develop department's admin would like to understand the effectiveness of the courses.  To meet this objective, the corporation must obtain telemetry data and analyze the data to understand the time spent by a user on a content.
+As a part of the employee development and training program, the XYZ Corporation requires to create training material. The Learning and Develop department's admin would like to understand the effectiveness of the courses.  To meet this objective, the corporation must obtain telemetry data and analyze the data to understand the time spent by a user on a content.
 
 ## Overview
 
@@ -226,7 +226,7 @@ Extracting Data:
 
 Using the telemetry URL that you recieve as part of the the response body of data exhaust API, you can download and extract the file ( .gzip format) that contain telemetry log.
 
-* Store the file the extracted json file to server/cloud storage for subsequent analysis. 
+* Store the extracted json file to server/cloud storage for subsequent analysis.
 
 ### Analyzing the Data
 
@@ -264,3 +264,11 @@ For Portal content sessions:
   }
 }
 ```
+
+## Concept Covered
+- Telemetry Services<br>
+- Telemetry Events<br>
+- Data Exhaust API<br>
+- Data Storage<br>
+- Data Population
+

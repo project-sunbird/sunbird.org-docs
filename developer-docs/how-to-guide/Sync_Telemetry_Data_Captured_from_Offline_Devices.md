@@ -130,7 +130,7 @@ The **telemetry sync** API allows applications to sync telemetry data.
 ```javascript
 X-Device-Id:{{Device ID of the mobile}}
 X-Channel-Id:{{channel id}}
-X-App-Id:prod.xyz.app
+X-App-Id:{{app id}}
 Authorization:Bearer {{user_token}} 
 ```
 
@@ -147,7 +147,45 @@ Authorization:Bearer {{user_token}}
     "requesterId": "req.kauth.grant.access_token.content.sub"
   },
   "events": [
-    {}
+    {
+  "actor": {
+    "id": "0cd56545-2564-438c-9604-620e46bfcf5f",
+    "type": "User"
+  },
+  "context": {
+    "cdata": [
+      
+    ],
+    "channel": "b00bc992ef25f1a9a8d63291e20efc8d",
+    "did": "0351212662af4957ac08138c1776c9798661f359",
+    "env": "user",
+    "pdata": {
+      "id": "staging.sunbird.app",
+      "pid": "sunbird.app",
+      "ver": "2.0.localstaging-debug"
+    },
+    "sid": "35c8d4ce-e0f7-4702-91b6-9e940b8fc161"
+  },
+  "edata": {
+    "id": "group-assesment-details",
+    "pageid": "group-assesment-details",
+    "subtype": "byuser-tab-clicked",
+    "type": "TOUCH"
+  },
+  "eid": "INTERACT",
+  "ets": 1535459220545,
+  "mid": "6092a4c3-a9c5-4790-af8d-16d3b08d37fd",
+  "object": {
+    "id": "",
+    "type": "",
+    "version": ""
+  },
+  "tags": [
+    
+  ],
+  "ver": "3.0",
+  "ts": "2018-08-28T12:27:00.545+0000"
+}
   ]
 }
 ```
