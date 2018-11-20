@@ -27,6 +27,7 @@ A book creator can tag various pages and topics with D.I.A.L code as required. U
 
 * Get an API Key to access Sunbird APIs. To create an API key, please refer to [How to generate a Sunbird](developer docs/how-to-guide/generate_apikey) 
 
+
 * Software that can make REST API calls, like curl or POSTMAN
 
 * The root organization, sub-organizations and users created and users mapped to the organization and given appropriate rights and permisssions     

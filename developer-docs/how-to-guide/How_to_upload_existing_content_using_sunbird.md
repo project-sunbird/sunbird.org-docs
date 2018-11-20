@@ -15,8 +15,11 @@ The organization also creates content artifacts and courses using multiple resou
  
 ## Prerequisites
 
+* An intialized Sunbird instance with channel
+* The [API Key for access](developer-docs/how-to-guide/generate_apikey/) and 
+  basic authentication
+* Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 * Content creation access
-
 * Content artifacts with a unique object ID
 
 ## Intended Audience

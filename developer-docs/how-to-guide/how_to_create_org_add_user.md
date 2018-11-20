@@ -17,7 +17,7 @@ Maya joins XYZ Corp as an intern pursuing research Indian & Greek archeology. Fo
 ### Prerequisites
 
 1. An initialized Sunbird instance.
-1. Get an [API key]() to access Sunbird API. To create an API key, please refer to [How to generate a Sunbird API key]().
+1. Get an [API key](developer-docs/how-to-guide/generate_apikey/) to access Sunbird API. To create an API key, please refer to [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/).
 1. Software that can make REST API calls, like curl or POSTMAN.
 1. The root organization and sub-organizations created and their **organsationId** and root organization's **channel** readily available.
 1. The user account created in the root-organization and **userId** readily available.
