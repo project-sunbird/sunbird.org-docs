@@ -86,7 +86,7 @@ For more information for Telemetry event structure, please refer to the [Telemet
 
 ## Intended Audience
 
- Admin and analyst
+ Administrator and data analyst
 
 ## Prerequisites
 
@@ -94,11 +94,11 @@ For more information for Telemetry event structure, please refer to the [Telemet
 
 * Enable telemetry service:
 
-  1. The `telemetry.min.js` service file must be imported to app/portal. An object, `window: EkTelemetry` will be available as a result of importing the `telemetry.min.js` file. It enables the telemetry service to use.
+  1. The `telemetry.min.js` service file must be imported to app/portal. An object, `window: EkTelemetry` will be available as a result of importing the `telemetry.min.js` file. It enables the telemetry service to use
 
   2. Once the page is loaded, use the command:
   `window.EkTellemetryinitialise` 
-  It initiliase the telemetry service.
+  It initiliase the telemetry service
   
   3. Now, configure telemetry using the format:
   ```
@@ -236,19 +236,6 @@ toDate must be greater than or equal to fromDate and toDate must be less than to
 * Maximum one month’s (31 days) data could be downloaded in one API call.
 
 * The API key is required for accessing the data exhaust. 
-
-<b> Response Code </b>:
-
-In case of error, an appropriate error response is returned.
-
-400 BAD REQUEST: Submit Data Request operation failed! The possible reason for failure is that you may have missed providing input for a mandatory parameter
-
-500 INTERNAL SERVER ERROR: The error can be identified by browsing through the API server logs or contact the server admin to retrieve the API logs.
-
-403 FORBIDDEN: If the API Key does not have access to the Channel Id specified in the request, the request will be forbidden from accessing the data exhaust.
-
-For e.g, the response body contains the following error message in case of FORBIDDEN error:
-Given X-Consumer-ID='9293548c-3a56-47dd-a9a3-24da3c821638' and X-Channel-ID='012222551180382207027' are not authorized
 
 <b>Extracting Data</b>:
 
