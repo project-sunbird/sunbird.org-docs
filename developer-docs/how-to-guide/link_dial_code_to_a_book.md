@@ -24,9 +24,7 @@ As required, a book creator can tag various pages and topics with D.I.A.L code i
 
 ## Prerequisites
 
-* An initialised instance of Sunbird
-
-* Get an API Key to access Sunbird APIs. To create an API key, please refer to How to generate a Sunbird API keySunbird instance is installed and configured.
+* Get an [API Key to access](developer-docs/how-to-guide/generate_apikey/) Sunbird APIs. To create an API key, please refer to How to generate a Sunbird API keySunbird instance is installed and configured.
 
 * Software that can make REST API calls, like curl or POSTMAN
 

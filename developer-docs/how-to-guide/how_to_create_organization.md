@@ -20,7 +20,7 @@ John is a manager in XYZ corporation, who can create, review and take courses. H
 
 1. An intialized Sunbird instance
 
-2. The [API Key for access](http://www.sunbird.org) and basic authentication
+2. The [API Key for access](developer-docs/how-to-guide/generate_apikey/) and basic authentication
 
 3. An API client to make API calls. For example use Postman refer [Using Postman] (http://www.sunbird.org/apis/framework/#tag/usingpostman)
 
