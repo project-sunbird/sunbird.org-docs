@@ -24,6 +24,8 @@ With huge resource library and based on ABC organizations decision, they want to
 
 ABC, may choose a predefined category and associate it to their own framework. The categories in the framework has terms associated with it. These terms are relevant to the created framework and can be created by the organization. 
 
+{% image src='developer-docs/how-to-guide/images/seed_framework' full center alt='Relationship between Framework, Category, and Terms' zoom %} 
+
 After you create a framework, it must be seeded with the required data classified under different components such as:
    - Categories
    - Terms  
