@@ -31,43 +31,42 @@ Telemetry events are broad, human-readable actions, that can be tracked as a str
 All events data is captured via a common event JSON structure. Depending on the event, edata element carries event specific data. All events have unique event codes (IDs).
 
 The complete data structure is as follows:
-```javascript
-{
-  //** About the event**
-  "eid": , // Required.
-  "ets": , // Required. Epoch timestamp of event (time in milli-seconds. For ex: 1442816723)
-  "ver": , // Required. Version of the event data structure, currently "3.0"
-  "mid": , // Required. Unique message ID. Used for deduplication, replay and update indexes
 
-  //** Who did the event**
-  "actor": { // Required. Actor of the event.
-    "id": , // Required. Can be blank. Id of the actor. For ex: uid incase of an user
-    "type":  // Required. Can be blank. User, System etc.
-  },
+  {
+    //** About the event**
+    "eid": , // Required.
+    "ets": , // Required. Epoch timestamp of event (time in milli-seconds. For ex: 1442816723)
+    "ver": , // Required. Version of the event data structure, currently "3.0"
+    "mid": , // Required. Unique message ID. Used for deduplication, replay and update indexes
 
-  //** Context of the event**
-  "context": { // Required. Context in which the event has occured.
-    "channel": , // Required. Channel which has produced the event
-    "pdata": { // Optional. Producer of the event
-      "id": , // Required. unique id assigned to that component
-      "pid": , // Optional. In case the component is distributed, then which instance of that component
-      "ver":  // Optional. version number of the build
+    //** Who did the event**
+    "actor": { // Required. Actor of the event.
+      "id": , // Required. Can be blank. Id of the actor. For ex: uid incase of an user
+      "type":  // Required. Can be blank. User, System etc.
     },
-    "env": , // Required. Unique environment where the event has occured.
-    "sid": , // Optional. session id of the requestor stamped by portal
-    "did": , // Optional. uuid of the device, created during app installation
-    "cdata": [{ // Optional. correlation data
-      "type":"", // Required. Used to indicate action that is being correlated
-      "id": "" // Required. The correlation ID value
-    }],
-    "rollup": { // Optional. Context rollups
-      "l1": "",
-      "l2": "",
-      "l3": "",
-      "l4": ""
-    }
-  },
 
+    //** Context of the event**
+    "context": { // Required. Context in which the event has occured.
+      "channel": , // Required. Channel which has produced the event
+      "pdata": { // Optional. Producer of the event
+        "id": , // Required. unique id assigned to that component
+        "pid": , // Optional. In case the component is distributed, then which instance of that component
+        "ver":  // Optional. version number of the build
+      },
+      "env": , // Required. Unique environment where the event has occured.
+      "sid": , // Optional. session id of the requestor stamped by portal
+      "did": , // Optional. uuid of the device, created during app installation
+      "cdata": [{ // Optional. correlation data
+        "type":"", // Required. Used to indicate action that is being correlated
+        "id": "" // Required. The correlation ID value
+      }],
+      "rollup": { // Optional. Context rollups
+        "l1": "",
+        "l2": "",
+        "l3": "",
+        "l4": ""
+      }
+    },
   /**/ What is the target of the event**
   "object": { // Optional. Object which is the subject of the event.
     "id": , // Required. Id of the object. For ex: content id incase of content
@@ -80,14 +79,12 @@ The complete data structure is as follows:
       "l4": ""
     }
   },
-
   // **What is the event data**
-  "edata": {} // Required.
+    "edata": {} // Required.
 
-  // Tags
-  "tags": [""] // Optional. Encrypted dimension tags passed by respective channels
-}
-```
+    // Tags
+    "tags": [""] // Optional. Encrypted dimension tags passed by respective channels
+  }
 
 The level of data collected is a discrete decision of an organization or business. Analysis of this data offers insights into product and user behavior and usage patterns,driving business decisions and research outcomes. 
 
@@ -130,83 +127,83 @@ The **telemetry sync** API allows applications to sync telemetry data.
  <b>Request Method</b>: POST
 
 <b>Request Headers</b>:
-```javascript
-X-Device-Id:{{Device ID of the mobile}}
-X-Channel-Id:{{channel id}}
-X-App-Id:{{app id}}
-Authorization:Bearer {{user_token}} 
-```
+
+  javascript
+  X-Device-Id:{{Device ID of the mobile}}
+  X-Channel-Id:{{channel id}}
+  X-App-Id:{{app id}}
+  Authorization:Bearer {{user_token}} 
+
 
 **Request Body:**
-```javascript
-{
-  "id": "api.telemetry",
-  "ver": "2.0",
-  "ts": "2017-10-04T10:54:28.916",
-  "params": {
-    "did": telemtrysync.default_did",
-    "key": "13405d54-85b4-341b-da2f-eb6b9e546e",
-    "msgid": "uuidv1()",
-    "requesterId": "req.kauth.grant.access_token.content.sub"
-  },
-  "events": [
-    {
-  "actor": {
-    "id": "0cd56545-2564-438c-9604-620e46bfcf5f",
-    "type": "User"
-  },
-  "context": {
-    "cdata": [
-    ],
-    "channel": "b00bc992ef25f1a9a8d63291e20efc8d",
-    "did": "0351212662af4957ac08138c1776c9798661f359",
-    "env": "user",
-    "pdata": {
-      "id": "staging.sunbird.app",
-      "pid": "sunbird.app",
-      "ver": "2.0.localstaging-debug"
+
+  {
+    "id": "api.telemetry",
+    "ver": "2.0",
+    "ts": "2017-10-04T10:54:28.916",
+    "params": {
+      "did": telemtrysync.default_did",
+      "key": "13405d54-85b4-341b-da2f-eb6b9e546e",
+      "msgid": "uuidv1()",
+      "requesterId": "req.kauth.grant.access_token.content.sub"
     },
-    "sid": "35c8d4ce-e0f7-4702-91b6-9e940b8fc161"
-  },
-  "edata": {
-    "id": "group-assesment-details",
-    "pageid": "group-assesment-details",
-    "subtype": "byuser-tab-clicked",
-    "type": "TOUCH"
-  },
-  "eid": "INTERACT",
-  "ets": 1535459220545,
-  "mid": "6092a4c3-a9c5-4790-af8d-16d3b08d37fd",
-  "object": {
-    "id": "",
-    "type": "",
-    "version": ""
-  },
-  "tags": [  
-  ],
-  "ver": "3.0",
-  "ts": "2018-08-28T12:27:00.545+0000"
-}
-  ]
-}
-```
+    "events": [
+      {
+    "actor": {
+      "id": "0cd56545-2564-438c-9604-620e46bfcf5f",
+      "type": "User"
+    },
+    "context": {
+      "cdata": [
+      ],
+      "channel": "b00bc992ef25f1a9a8d63291e20efc8d",
+      "did": "0351212662af4957ac08138c1776c9798661f359",
+      "env": "user",
+      "pdata": {
+        "id": "staging.sunbird.app",
+        "pid": "sunbird.app",
+        "ver": "2.0.localstaging-debug"
+      },
+      "sid": "35c8d4ce-e0f7-4702-91b6-9e940b8fc161"
+    },
+    "edata": {
+      "id": "group-assesment-details",
+      "pageid": "group-assesment-details",
+      "subtype": "byuser-tab-clicked",
+      "type": "TOUCH"
+    },
+    "eid": "INTERACT",
+    "ets": 1535459220545,
+    "mid": "6092a4c3-a9c5-4790-af8d-16d3b08d37fd",
+    "object": {
+      "id": "",
+      "type": "",
+      "version": ""
+    },
+    "tags": [  
+    ],
+    "ver": "3.0",
+    "ts": "2018-08-28T12:27:00.545+0000"
+  }
+    ]
+  }
+
 **Response Body:**
 
 200: Telemetry Success response
-``` javascript
-{
-  "id": "api.telemetry",
-  "ts": "2017-10-04T10:54:28.916",
-  "ver": "1.0",
-  "params": {
-    "resmsgid": "eb1e9d98-b1c9-4db6-b044-e58d9c12fcb",
-    "msgid": "uuidv1()",
-    "status": "sucess",
-    "err": "string",
-    "errmsg": "string"
+
+  {
+    "id": "api.telemetry",
+    "ts": "2017-10-04T10:54:28.916",
+    "ver": "1.0",
+    "params": {
+      "resmsgid": "eb1e9d98-b1c9-4db6-b044-e58d9c12fcb",
+      "msgid": "uuidv1()",
+      "status": "sucess",
+      "err": "string",
+      "errmsg": "string"
+    }
   }
-}
-```
 
 **Response Code:**
 
