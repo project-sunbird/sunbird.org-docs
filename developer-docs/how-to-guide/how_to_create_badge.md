@@ -16,30 +16,30 @@ Sunbird also allows you to award badges to content. The following example shows 
  
 ## Prerequisites
 
-1. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](../developer-docs/how-to-guide/generate_apikey/)
+1. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
   
 2. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
-3. Create the organization and users associated with the badge awarding process. Ensure that you have created the specific badge recipient and the user who awards the badge. For details, refer to [How to create organisations](../developer-docs/how-to-guide/how_to_create_organization) and [How to create users](../developer-docs/how-to-guide/how_to_create_user).
+3. Create the organization and users associated with the badge awarding process. Ensure that you have created the specific badge recipient and the user who awards the badge. For details, refer to [How to create organisations](developer-docs/how-to-guide/how_to_create_organization) and [How to create users](developer-docs/how-to-guide/how_to_create_user).
 
-4. Assign the role, with permissions to award badges, to specific users. For details on role assignment, refer [How to assign roles](../features-documentation/admin_assigning_users/index.html)
+4. Assign the role, with permissions to award badges, to specific users. For details on role assignment, refer [How to assign roles](features-documentation/admin_assigning_users/index.html)
 
 ## Taskflow
 
 The sequence of tasks an administrator follows to create badges are:
 
-1. Creating the badge issuer entity using the [Create Badge Issuer API](../apis/badgingframeworkapi/#operation/CreatePost)
+1. Creating the badge issuer entity using the [Create Badge Issuer API](apis/badgingframeworkapi/#operation/CreatePost)
 
-1. Creating the badge description and metadata using the [Create Badge Class API](../apis/badgingframeworkapi/#operation/BadgeCreatePost)
+1. Creating the badge description and metadata using the [Create Badge Class API](apis/badgingframeworkapi/#operation/BadgeCreatePost)
 
-1. Award an instance of the badge using the [Badge Assertion API](../apis/badgingframeworkapi/#operation/BadgeAssertionCreatePost)
+1. Award an instance of the badge using the [Badge Assertion API](apis/badgingframeworkapi/#operation/BadgeAssertionCreatePost)
 
 To issue badges, you need to create a badge issuer. The organization administrator decides whether a single badge issuer issues all badges or multiple badge issuers create badges for different types of badges. In the following example, the organization administrator decides that a single issuer issues all badges. 
 
 
 ### Create Badge Issuer
 
-The [Create Badge Issuer API](../apis/badgingframeworkapi/#operation/CreatePost) is used to create the badge issuer. The organisation administration decides that badges will be issued by an entity called XYZ Corp Certifications. The email address for XYZ Corp Certifications is `certifications@xyzcorp.com` and the URL for the entity is `https://intranet.xyzcorp.com/certifications`. We will use these details when creating the badge issuer. 
+The [Create Badge Issuer API](apis/badgingframeworkapi/#operation/CreatePost) is used to create the badge issuer. The organisation administration decides that badges will be issued by an entity called XYZ Corp Certifications. The email address for XYZ Corp Certifications is `certifications@xyzcorp.com` and the URL for the entity is `https://intranet.xyzcorp.com/certifications`. We will use these details when creating the badge issuer. 
 
 Following is an example of request body for creating the XYZ Corp Certifications badge issuer entity, the sample values provided in the request body are based on the scenario:
 
@@ -86,7 +86,7 @@ On successful execution of the issuer creation API, an `issuerId` is generated a
 
 ### Create Badge Class
 
-Once the issuer has been created, you can create new badge classes using the [Create Badge Class API](../apis/badgingframeworkapi/#operation/BadgeCreatePost). A **BadgeClass** represents the type of badge to be awarded. The same class can be awarded multiple times to different recipients. Each time it is awarded, there will be a new instance. 
+Once the issuer has been created, you can create new badge classes using the [Create Badge Class API](apis/badgingframeworkapi/#operation/BadgeCreatePost). A **BadgeClass** represents the type of badge to be awarded. The same class can be awarded multiple times to different recipients. Each time it is awarded, there will be a new instance. 
 
 It is recommended to create a new class for each type of accomplishment which is being recognised. The **BadgeClass** needs to be created only once for each type of badge. It is not required to create all the badge classes at once. As new types of accomplishments are recognised, new badge classes can be created.
 
@@ -102,7 +102,7 @@ The organization administrator must:
 
 5. Specify the **rootOrgId** within which this badge class is defined
 
-6. Use the **issuerId** received from the [Create Issuer API](../apis/badgingframeworkapi/#operation/CreatePost) call to indicate which entity is awarding the badge
+6. Use the **issuerId** received from the [Create Issuer API](apis/badgingframeworkapi/#operation/CreatePost) call to indicate which entity is awarding the badge
 
 In our scenario, 
 1. XYZ Corp Certifications decides that it will issue a badge called **Basic Alphabet Expert**, to employees who complete their basic alphabet training
@@ -174,7 +174,7 @@ Once the badge class is created, any user with the **BADGE_ISSUER** role referen
 
 > **Note:** Save the **issuerId**, received after creating the issuer and the **badgeId**, received after creating the badge class. You require these IDs to award the badge.
 
-You will also need the **userId** of the person who receives the badge. You can get the **userId** after searching for the user using [Search User API](../apis/userapi/#operation/Search%20User). In our scenario, the user identified by `userId: "d0e8c059-e038-4baf-834f-c702764a4b58"` has demonstrated listing the alphabet. The organisation admin now chooses to issue the badge to this user. The following is an example of request body for this task:
+You will also need the **userId** of the person who receives the badge. You can get the **userId** after searching for the user using [Search User API](apis/userapi/#operation/Search%20User). In our scenario, the user identified by `userId: "d0e8c059-e038-4baf-834f-c702764a4b58"` has demonstrated listing the alphabet. The organisation admin now chooses to issue the badge to this user. The following is an example of request body for this task:
 
 **Header Parameters**
 
@@ -226,4 +226,4 @@ You will also need the **userId** of the person who receives the badge. You can 
 
 ## Additional Topics
 
-Once the badge class is registered successfully, the organization administrator can assign a registered user as the badge issuer through the user interface. For details on issuing the badge through the user interface refer [Issuing Badges using User Interface](../features-documentation/badging_framework/content_badges/)
+Once the badge class is registered successfully, the organization administrator can assign a registered user as the badge issuer through the user interface. For details on issuing the badge through the user interface refer [Issuing Badges using User Interface](features-documentation/badging_framework/content_badges/)

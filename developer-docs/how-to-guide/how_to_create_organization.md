@@ -18,7 +18,7 @@ John is a manager in XYZ corporation, who can create, review and take courses. H
 
 1. An intialized Sunbird instance
 
-2. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](../developer-docs/how-to-guide/generate_apikey/)
+2. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
 
 3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
@@ -26,7 +26,7 @@ John is a manager in XYZ corporation, who can create, review and take courses. H
 
 ### Taskflow
 
-An organization can be created in a Sunbird instance using ORG API, it can be further associated with a user and channel, refer [Mapping User to Organization](../apis/orgapi/#operation/Organisation%20Add%20User). The sequence of tasks the administrator follows to create organization include:
+An organization can be created in a Sunbird instance using ORG API, it can be further associated with a user and channel, refer [Mapping User to Organization](apis/orgapi/#operation/Organisation%20Add%20User). The sequence of tasks the administrator follows to create organization include:
 
 1. Specify values for the following parameters in the request body of the API. Following is an example of request body for creating a user, the sample values provided in the request body are indicative:
 
@@ -82,8 +82,8 @@ An organization can be created in a Sunbird instance using ORG API, it can be fu
 
 ### Additional Topics
 
-[Creating first organization](../developer-docs/initialization)
+[Creating first organization](developer-docs/initialization)
 
-[Creating user](../developer-docs/how-to-guide/how_to_create_user)
+[Creating user](developer-docs/how-to-guide/how_to_create_user)
 
-[Map users to the organisation](../developer-docs/how-to-guide/how_to_create_org_add_user/)
+[Map users to the organisation](developer-docs/how-to-guide/how_to_create_org_add_user)

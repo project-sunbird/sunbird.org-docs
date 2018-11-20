@@ -23,7 +23,7 @@ A book creator can tag various pages and topics with DIAL code as required. Usin
 
 ## Prerequisites
 
-1. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](../developer-docs/how-to-guide/generate_apikey/)
+1. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
   
 2. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
@@ -46,9 +46,9 @@ As a book creator or author, you can create content and associate the QR code an
 
 Ensure to complete the following before linking DIAL code to a book:
 
-a. [Create Publisher](../apis/dialapi/#operation/PublisherCreatePost)
+a. [Create Publisher](apis/dialapi/#operation/PublisherCreatePost)
 
-b. [Generate QR code](../apis/dialapi/#operation/GeneratePost)
+b. [Generate QR code](apis/dialapi/#operation/GeneratePost)
 
 a. **Create Publisher**
 

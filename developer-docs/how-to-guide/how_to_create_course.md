@@ -3,8 +3,8 @@ title: How to Create a Course
 page_title: How to Create a Course
 description: Create course for users in Sunbird instance
 keywords: create content, create course, content creator, course creator 
-published: false
-allowSearch: false
+published: true
+allowSearch: true
 ---
 ## Scenario
 
@@ -14,7 +14,7 @@ On successful completion of the course, the course administrator would like to c
 
 ## Prerequisites
 
-1. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](../developer-docs/how-to-guide/generate_apikey/)
+1. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
 
 2. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
