@@ -1,31 +1,29 @@
 ---
-title: Consuming Telemetry Data
-page_title: Consuming Telemetry Data
-description: Consuming Telemetry Data
-keywords: Telemetry, analytics, time consumtion, edata, workflow summary, raw data
+title: Creating Course	
+page_title: Creating Course
+description: Document on how to create course with course creation apis
+keywords: Course, course creation, adding content to course, using api to create course
 published: true
 allowSearch: true
 ---
 
 ## Scenario
 
-XYZ Corporation, is a global conglomerate that works in the domain of education and collaborates with different institutions, NGOs and academicians around the world. The organization has adopted Sunbird to cater to evolving training needs and amplify learning opportunities. The organization has provided open access to its existing content assets. The organization also offers certification courses to candidates. In order to offer such courses, Multiple assets can be grouped together to offer a course.
-
-On successful completion of the course, the course administrator would like to certify employees so that it is easy to know who are the employees who have completed this course.
+XYZ Corporation, is a global conglomerate that works in the domain of education and collaborates with different institutions, NGOs and academicians around the world. The organization has adopted Sunbird to cater to evolving training needs to amplify learning opportunities. The organization has provided open access to its existing content assets. The organization also offers certification courses to candidates. 
 
 ## Prerequisites
 
-1. The [API Key for access](developre-doc/how-to-guide/gevnerate-apikey) and basic authentication
+1. API Key to access Sunbird APIs. To create an API key refer to [How to generate a Sunbird API key](developer-doc/how-to-guide/generate_apikey)
 
-2. An API client to make API calls. For example use Postman refer [Using Postman](http://www.sunbird.org/apis/framework/#tag/usingpostman)
+2. An API client to make API calls. For instance curl or POSTMAN. For details on using postman refer [Using Postman](http://www.sunbird.org/apis/framework/#tag/usingpostman)
 
 3. Access to the [Content API](http://docs.sunbird.org/latest/apis/content/)
 
-4. Content should be created and available for the course
+4. Content should be created and available 
 
 ## Taskflow
 
-The content on Sunbird can be created using [user interface](http://docs.sunbird.org/latest/features-documentation/contenteditor/) and through APIs as well. Content in sunbird can be of different types:
+The content on Sunbird can be created using [Inbuilt Content Editor](http://docs.sunbird.org/latest/features-documentation/contenteditor/) as well as through APIs. Content in sunbird can be of different types:
 
 1. Courses
 
@@ -37,9 +35,9 @@ The content on Sunbird can be created using [user interface](http://docs.sunbird
 
 5. Book
 
-This document essentially explains the process of creating content using APIs. The sequence of tasks the organization needs to follow to complete the process of course creation through APIs:
+This document explains the process of creating content using APIs. The sequence of tasks the organization needs to follow to complete the process of course creation through APIs include:
 
-1. Creating Course using [Create Course ](http://docs.sunbird.org/latest/apis/content/#operation/Create%20Content)[API](http://docs.sunbird.org/latest/apis/content/#operation/Create%20Content)
+1. Creating Course using [Create Course](http://docs.sunbird.org/latest/apis/content/#operation/Create%20Content)[API](http://docs.sunbird.org/latest/apis/content/#operation/Create%20Content)
 
   Path for creating a course:
 
@@ -171,7 +169,7 @@ Course Creation
 
 ## Additional Topics
 
-Once the portal is updated successfully, the organization administrator can assign a registered user as the badge issuer through user interface. For details on issuing the badge through the user interface refer [Issuing Badges using User Interface](http://www.sunbird.org/features-documentation/badging_framework/content_badges/)
+Once the portal is updated successfully, the organization administrator can assign a registered user as the badge issuer to certify all the users who have undertaken and completed the course. For details on creating badges refer [Creating Badges](developer-docs/how-to guide/how_to_create_badge/)
 
 * © 2018 GitHub, Inc.
 
