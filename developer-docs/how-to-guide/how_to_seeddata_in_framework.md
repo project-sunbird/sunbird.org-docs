@@ -1,7 +1,7 @@
 ---
-title: Seed Framework
-page_title: Seed a Framework
-description: Seed data in framework in Sunbird instance
+title: Add Content to Framework
+page_title: Add Content to Framework
+description: Add content in framework in Sunbird instance
 keywords: framework data, seed data in framework
 published: true
 allowSearch: true
@@ -43,9 +43,9 @@ Once the framework is successfully seeded, then it must be associating with term
 
 4. Onboarding the following with access to the API
     - Admin user     
-    - [Individual User](http://www.sunbird.org/apis/userapi/#operation/Create%20User)
-    - [Individual Organization](http://www.sunbird.org/apis/orgapi/#operation/Organisation%20Create) access 
-    - [Associated Users to Organization](http://www.sunbird.org/apis/)
+    - [Individual User](apis/userapi/#operation/Create%20User)
+    - [Individual Organization](apis/orgapi/#operation/Organisation%20Create) access 
+    - [Map users to the organization](developer-docs/how-to-guide/how_to_create_org_add_user)
 
 5. Access to [Framework API](http://www.sunbird.org/apis/framework/)
 
@@ -88,9 +88,8 @@ For your reference, the following is the list of default categories:
  - topic 
 
 2. Create a new category by using [Create category API](http://docs.sunbird.org/latest/apis/framework/#operation/FrameworkV1CategoryCreate), ensure to provide the appropriate value for “code” parameter in the request payload. The code parameter inherits the master category schema. 
->**Note**: 
-You can only create a new category using any of the available master list categories.
-If you want to create a new master category, send an email to support@sunbird.org
+>**Note**: You can only create a new category using any of the available master list categories. 
+> If you want to create a new master category, send an email to support@sunbird.org
 
 3. Provide the valid input for the query parameters **framework**. Append the parameter to the endpoint request URI while you are sending the API request
 
@@ -98,40 +97,39 @@ If you want to create a new master category, send an email to support@sunbird.or
 
 #### Request Body for creating framework category:
 
-`POST: /framework/v1/category/create?framework=abc1`
-```
-{
-   "request": {
-      "category":{
-          "name":"Resource",
-          "description":"Resource category of the framework",
-          "code":"subject",
-          "translations": "{\"en\":\"resource\"}"
-      }
-    }
-}
-```      
+5. Path for creating framework : `POST: /framework/v1/category/create?framework=abc1`
 
-`Response Body`
-```
-{
-    "id": "api.category.create",
-    "ver": "1.0",
-    "ts": "2018-11-19T11:00:57.914Z",
-    "params": {
-        "resmsgid": "64b331a0-ebea-11e8-8676-f72d022164ed",
-        "msgid": "649b63e0-ebea-11e8-b107-49a5bcd087db",
-        "status": "successful",
-        "err": null,
-        "errmsg": null
-    },
-    "responseCode": "OK",
-    "result": {
-        "node_id": "abc1_subject",
-        "versionKey": "1542625257776"
+    {
+    "request": {
+        "category":{
+            "name":"Resource",
+            "description":"Resource category of the framework",
+            "code":"subject",
+            "translations": "{\"en\":\"resource\"}"
+        }
+        }
+    } 
+
+#### Response Body
+
+    {
+        "id": "api.category.create",
+        "ver": "1.0",
+        "ts": "2018-11-19T11:00:57.914Z",
+        "params": {
+            "resmsgid": "64b331a0-ebea-11e8-8676-f72d022164ed",
+            "msgid": "649b63e0-ebea-11e8-b107-49a5bcd087db",
+            "status": "successful",
+            "err": null,
+            "errmsg": null
+        },
+        "responseCode": "OK",
+        "result": {
+            "node_id": "abc1_subject",
+            "versionKey": "1542625257776"
+        }
     }
-}
-```
+
 **Description of Parameters**
 
 Name: name of the category
@@ -161,50 +159,48 @@ The categories can be retrieved and listed using [Fetch API](http://www.sunbird.
 ##### Request Body for creating Terms 
 
 `POST: /framework/v1/term/create?framework=abc1&category=subject`
-```
-{
-    "request": {
-        "term": [
-            {
-                "code": "river",
-                "name": "River",
-                "description":"Describes River",
-                "translations": "{\"en\":\"river\"}"
-            },
-            {
-                "code": "sea",
-                "name": "Sea",
-                "description":"Describes Sea",
-                "translations": "{\"en\":\"sea\"}"
-            }
-        ]
-    }
-}
 
-```
-`Response Body`
-``` 
-{
-    "id": "api.term.create",
-    "ver": "1.0",
-    "ts": "2018-11-19T11:21:37.973Z",
-    "params": {
-        "resmsgid": "47d52e50-ebed-11e8-8676-f72d022164ed",
-        "msgid": "47ba5350-ebed-11e8-b107-49a5bcd087db",
-        "status": "successful",
-        "err": null,
-        "errmsg": null
-    },
-    "responseCode": "OK",
-    "result": {
-        "node_id": [
-            "abc1_subject_river",
-            "abc1_subject_sea"
-        ]
+    {
+        "request": {
+            "term": [
+                {
+                    "code": "river",
+                    "name": "River",
+                    "description":"Describes River",
+                    "translations": "{\"en\":\"river\"}"
+                },
+                {
+                    "code": "sea",
+                    "name": "Sea",
+                    "description":"Describes Sea",
+                    "translations": "{\"en\":\"sea\"}"
+                }
+            ]
+        }
     }
-}
-```
-  
+
+
+#### Response Body 
+
+    {
+        "id": "api.term.create",
+        "ver": "1.0",
+        "ts": "2018-11-19T11:21:37.973Z",
+        "params": {
+            "resmsgid": "47d52e50-ebed-11e8-8676-f72d022164ed",
+            "msgid": "47ba5350-ebed-11e8-b107-49a5bcd087db",
+            "status": "successful",
+            "err": null,
+            "errmsg": null
+        },
+        "responseCode": "OK",
+        "result": {
+            "node_id": [
+                "abc1_subject_river",
+                "abc1_subject_sea"
+            ]
+        }
+    }  
 
 **Description of Parameters**
 
@@ -223,10 +219,6 @@ Other operations that can be performed on terms of a category within a  framewor
 
 ## Concepts Covered
 
-[How do I extend or customize a framework in Sunbird](http://www.sunbird.org/developer-docs)
+[How do I create a framework in Sunbird](developer-docs/how-to-guide/how_to_create_framework_in_sunbird)
 
-[How do I seed a framework in Sunbird](http://www.sunbird.org/developer-docs)
 
-[How do I associate framework to categories and categories to a terms in Sunbird](http://www.sunbird.org/developer-docs)
-
-[How to use Postman](http://www.sunbird.org/developer-docs)
