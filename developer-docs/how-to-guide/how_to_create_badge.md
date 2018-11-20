@@ -221,7 +221,9 @@ You will also need the **userId** of the person who receives the badge. You can 
 
 ## Concepts covered
 
-**Badges** > **User Badges**
+**Badges**
+
+**User Badges**
 
 
 ## Additional Topics
