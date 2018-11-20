@@ -1,7 +1,7 @@
 ---
-title: Configuration for Meta Forms
-page_title: Configuration for Meta Forms
-description: Different configurations for forms
+title: Configure Meta Forms
+page_title: Configure Meta Forms
+description: Different configurations for meta forms
 published: true
 allowsearch: true
 keywords: Meta Data, Meta, form, API, Form API,
@@ -12,19 +12,15 @@ An organization works in the domain of water conservation and works in multiple 
 
 ## Prerequisites
 
-1. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](../developer-docs/how-to-guide/generate_apikey/)
+1. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
 
 2. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
-3. Install the server instance of Sunbird. For details, refer to[ Server Installation ](developer-docs/installation/server_installation/)
+3. The root organization and sub-organizations created and their **organsationId** and root organization's **channel** readily available
 
-4. The root organization and sub-organizations created and their **organsationId** and root organization's **channel** readily available
+4. The user account created in the root-organization and **userId** readily available
 
-5. The user account created in the root-organization and **userId** readily available
-
-6. A framework (for instance, framework titled Water Management) created. For details on creating a framework, refer [Creating Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird/)
-
-
+5. A framework (for instance, framework titled Water Management) created. For details on creating a framework, refer [Creating Framework](/developer-docs/how-to-guide/how_to_create_framework_in_sunbird/)
 
 ## Overview
 
@@ -38,7 +34,7 @@ The architecture of the Sunbird platform is logically divided into following mai
 
 Each of the component uses a metadata-driven development model to help the adopters to be more productive by allowing the flexibility to tailor these components based on their needs.The platform provides a mechanism where each of the forms in the components are configurable as they are metadata driven. This implies that the basic functionality of elements, such as, the forms, labels, fields, number of fields, types of fields etc. are defined as metadata in a database,instead of hard-coding them in a programming language. When any end user accesses a form on the portal or on mobile, it renders the metadata into the interface of user interface.
 
-To alter the configuration of each of the available metadata driven forms, Sunbird provides a set of [Form API](apis/form/) endpoints. The administrator uses these APIs to programmatically manage, configure and customize each form.These APIs provide straightforward, powerful, and open ways to programmatically access the form data and provide the capabilities of configuring all the metadata available for forms. 
+To alter the configuration of each of the available metadata driven forms, Sunbird provides a set of [Form API](../apis/form/) endpoints. The administrator uses these APIs to programmatically manage, configure and customize each form.These APIs provide straightforward, powerful, and open ways to programmatically access the form data and provide the capabilities of configuring all the metadata available for forms. 
 
 ## List of Metadata driven Forms  
 
@@ -189,9 +185,9 @@ The form configuration is a post installation task. Being a Sunbird adopter, you
 Follow the steps to configure the forms available:
 
 1. Ensure that all the prerequisites are met
-2. Get access to [Form API](apis/form/)Resources
+2. Get access to [Form API](../apis/form/)Resources
 3. Use an API client to perform the update form operation
-4. Use[Update Form API](apis/form/#operation/FormUpdate) to configure the metadata fields on a form, ensure that you provide valid inputs to the configuration parameters in the header, request payload while calling the API.
+4. Use[Update Form API](../apis/form/#operation/FormUpdate) to configure the metadata fields on a form, ensure that you provide valid inputs to the configuration parameters in the header, request payload while calling the API.
 
 **Configuration Parameters** 
 
@@ -200,15 +196,15 @@ The following are the header parameters for Update Form API endpoint:
 1. Authorization
 2. Content-Type
 
-For more information about the usage of header parameters refer to the [Update Form API](apis/form/#operation/FormUpdate) reference document.  
+For more information about the usage of header parameters refer to the [Update Form API](../apis/form/#operation/FormUpdate) reference document.  
 
-> **Note**: The framework created in [Creating Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird/)
+> **Note**: For details on how to create a framework refer [Creating Framework](../developer-docs/how-to-guide/how_to_create_framework_in_sunbird/)
 
-## Sample payload for Update Form API
-<pre>
-{
-  "request": {
-            
+#### Request Body for Update Form API
+
+    {
+    "request": {
+                
             "type": "content",
             "subType": "resource",
             "action": "save",
@@ -347,7 +343,7 @@ For more information about the usage of header parameters refer to the [Update F
                             "Play",
                             "Read",
                             "Experiment"
-                        ],
+                            ],
                         "renderingHints": {},
                         "required": false,
                         "visible": true
@@ -380,40 +376,39 @@ For more information about the usage of header parameters refer to the [Update F
                         "range": [
                             "Learner",
                             "Instructor"
-                        ],
+                            ],
                         "required": false,
                         "visible": true
                     }
                 ]
             }
         }
-}
-</pre>
+    }
 
-## Sample Payload for Read Form API 
-<pre>
- {
-  "request": {
-    "type": "content",
-    "subType": "resource",
-    "action": "save",
-    "rootOrgId": "*",
-    "framework": "Framework for ABC Management"
-  }
-}
-</pre>
+## Request Body for Read Form API 
 
-## Sample Payload for Create form API  
-<pre>
-{
+    {
+    "request": {
+        "type": "content",
+        "subType": "resource",
+        "action": "save",
+        "rootOrgId": "*",
+        "framework": "Framework for ABC Management"
+        }
+    }
 
-  "request": {
-    "type": "content",
-    "subType": "questions",
-    "action": "question-filter-view",
-    "rootOrgId": "*",
-    "framework": "Framework for ABC Management",
-    "data": {
+## Request Body for Create form API  
+    
+    {
+    "request": 
+        {
+        "type": "content",
+        "subType": "questions",
+        "action": "question-filter-view",
+        "rootOrgId": "*",
+        "framework": "Framework for ABC Management",
+        "data": 
+                {
                 "action": "question-filter-view",
                 "templateName": "filterMetaDataTemplate",
                 "fields": [
@@ -513,13 +508,11 @@ For more information about the usage of header parameters refer to the [Update F
                     }
                 ]
             }
-  }
-}
-</pre>
+        }
+    }
 
 ## Concepts Covered
 
 * Metadata driven forms
 * Request payload for update metadata form
 * List of available metadata driven forms
-

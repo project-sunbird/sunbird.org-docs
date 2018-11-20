@@ -71,7 +71,6 @@ Following is an example of request body for creating a framework, the sample val
 ##### Request Body to Create Framework
 
 To retrieve the channels for the request parameter, use [List Channel API](../apis/framework/#operation/ChannelV1ListPost)  
-    
     {
     "request": {
         "framework": {

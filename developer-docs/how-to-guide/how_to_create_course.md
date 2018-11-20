@@ -14,9 +14,9 @@ On successful completion of the course, the course administrator would like to c
 
 ## Prerequisites
 
-1. The [API Key for access](developer-docs/generating_sunbird_api_keys/) and basic authentication
+1. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](../developer-docs/how-to-guide/generate_apikey/)
 
-2. An API client to make API calls. For example use Postman refer [Using Postman](apis/framework/#tag/usingpostman)
+2. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
 3. Access to the [Content API](apis/content/)
 
