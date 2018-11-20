@@ -1,6 +1,6 @@
 ---
-title: Uploading Content on Sunbird Portal
-page_title: Uploading Content on Sunbird Portal 
+title: Upload Content 
+page_title: Upload Content 
 description: Uploading and Publishing Existing Content
 keywords: uploading content, existing content, training material
 published: true
@@ -89,84 +89,24 @@ This API is associated with uploading content on the Sunbird Platform.
 
 **Path Parameters:**
 
-<table>
-  <tr>
-    <td>Path  Parameter</td>
-    <td>Parameter Type</td>
-    <td>Description</td>
-    <td>Sample Value</td>
-    <td>Is Mandatory</td>
-  </tr>
-  <tr>
-    <td>Content ID
-</td>
-    <td>String</td>
-    <td>Content ID of the Request URL</td>
-    <td>do_11258058227713638416</td>
-    <td>Yes</td>
-  </tr>
-</table>
-
+| Path  Parameter | Parameter Type|Description |Sample Value |Is Mandatory|
+|----------------|---------------|------------|-------------|------------|
+|Content ID      | String | Content ID of the Request URL | do_11258058227713638416 | Yes| 
 
 **Form Data Parameters:**
 
-<table>
-  <tr>
-    <td>Form data Parameter</td>
-    <td>Parameter Type</td>
-    <td>Description</td>
-    <td>Sample Value</td>
-    <td>Is Mandatory</td>
-  </tr>
-  <tr>
-    <td>file</td>
-    <td>String</td>
-    <td> The name of the content file that you want to upload</td>
-    <td>sample.pdf</td>
-    <td>Yes</td>
-  </tr>
-</table>
-
+| Path Parameter | Parameter Type|Description |Sample Value |Is Mandatory|
+|----------------|---------------|------------|-------------|------------|
+| file | String |The name of the content file that you want to upload | sample.pdf |Yes | 
 
 **Header Parameter**
 
-<table>
-  <tr>
-    <td>Header Parameter</td>
-    <td>Parameter Type</td>
-    <td>Description</td>
-    <td>Sample Value</td>
-    <td>Is Mandatory</td>
-  </tr>
-  <tr>
-    <td>Content-Type</td>
-    <td>String</td>
-    <td>The content type entity is the media type of the resource. Possible media types are multipart or form-data</td>
-    <td>multipart, form-data</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>X-Authenticated-Userid</td>
-    <td>String</td>
-    <td>Represents the registered User ID authorized to execute the API.</td>
-    <td>userName</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td> Authorization</td>
-    <td>String</td>
-    <td>To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received. </td>
-    <td>api_key</td>
-    <td>Yes</td>
-  </tr>
-  <tr>
-    <td>ts</td>
-    <td>String</td>
-    <td>Time Stamp at which upload request was sent.</td>
-    <td>2018-09-05T10:55:22Z</td>
-    <td>Yes</td>
-  </tr>
-</table>
+| Header Parameter | Parameter Type |Description |Sample Value |Is Mandatory|
+|----------------|---------------|------------|-------------|------------|
+| Content-Type | String | The content type entity is the media type of the resource. Possible media types are multipart or form-data | Multipart, form-data | Yes|
+| X-Authenticated-Userid | String | Represents the registered User ID authorized to execute the API | userName | Yes |
+| Authorization | String | To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received. | api_key | Yes | 
+| ts | String | Time Stamp at which upload request was sent | 2018-09-05T10:55:22Z |Yes |
 
 #### Request Body
 
@@ -249,65 +189,41 @@ After uploading the content, publish the content using **[Publish Content API**]
            "Audio (if any) is clear and easy to understand",
            "No Spelling mistakes in the text",
            "Language is simple to understand"
-       ]
-
+          ]
+        }
       }
-
-     }
-
     }
 
 #### Response Body (Publish Content API)
 
     {
-
-     "result": {
-
-     "node_id": "string",
-
-     "versionKey": "string"
-
-    },
-
+    "result": {
+    "node_id": "string",
+    "versionKey": "string"
+      },
     "id": ""xyz.learning.content.publish",
-
     "ver": "3.0",
-
     "ts": "2018-09-14T10:44:43ZZ",
-
     "params": {
-
-     "resmsgid": "d3415c1a-94c6-4dc7-9c28-3e0dac767ee3",
-
-     "msgid": "null",
-
-     "err": "null",
-
-     "status": "string",
-
-     "errmsg": "null"
-
-     },
-
-     "responseCode": "OK",<br> "result":{
-       "publishStatus": "Publish Operation for Content Id 'do_2125903396473978881177' Started Successfully!",<br>
-       "node_id": "do_2125903396473978881177"<br>
-     }<br>
-
+    "resmsgid": "d3415c1a-94c6-4dc7-9c28-3e0dac767ee3",
+    "msgid": "null",
+    "err": "null",
+    "status": "string",
+    "errmsg": "null"
+    },
+    "responseCode": "OK",<br> "result":
+    {
+      "publishStatus": "Publish Operation for Content Id 'do_2125903396473978881177' Started Successfully!",<br>
+      "node_id": "do_2125903396473978881177"<br>
     }
-
-
-
+  }
 
 >Note: Reviewer has the right to publish content. Use the ID of any approved reviewer as the publisher user ID.
 
-<b>Response Code </b>:<br>
+**Response Code**:
 
-<b>200 SUCCESS</b>: The upload content operation is successful!
+**200 SUCCESS**: The upload content operation is successful!
 
-<b>400 'BAD REQUEST</b>: The upload content operation failed. It indicates you may have missed input for some mandatory parameter.
+**400 'BAD REQUEST**: The upload content operation failed. It indicates you may have missed input for some mandatory parameter.
 
-<b>500 'INTERNAL SERVER ERROR</b>: We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem stil persists, contact us at info@sunbird.org.
-
-
-
+**500 'INTERNAL SERVER ERROR**: We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem stil persists, contact us at info@sunbird.org.
