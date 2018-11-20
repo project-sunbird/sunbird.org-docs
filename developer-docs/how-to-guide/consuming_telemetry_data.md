@@ -209,7 +209,7 @@ This API returns the dataset based on **fromDate** and **toDate**.
 
 Response body sample with indicative values:
 
-``` javascript
+``` 
 {
     "id": "org.xyz.analytics.telemetry",
     "ver": "1.0",
@@ -272,7 +272,8 @@ For Portal content sessions:
 "dimensions.pdata.id" = "prod.diksha.portal" & "dimensions.mode" = "play" & "dimensions.type" = "content"
 
 2. Another example: To calculate the overall time spent on a content, analyst should use time_spent parameter under the eks section in the edata field from the [workflow summary](https://github.com/ekstep/Common-Design/wiki/[Data-Product]-Workflow-Summarizer) data.
-```javascript
+
+```
 {
   "edata": {
     "eks": {
