@@ -16,9 +16,9 @@ Every user belongs to an organization and is identified within the organization 
 
 1. An intialized Sunbird instance
 
-2. The [API Key for access](developer-docs/how-to-guide/generate_apikey/) and basic authentication
+2. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](../developer-docs/how-to-guide/generate_apikey/)
   
-3. An API client to make API calls. For example use Postman refer [Using Postman](http://www.sunbird.org/apis/framework/#tag/usingpostman)
+3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
 4. Access to the [Create User API](http://www.sunbird.org/apis/userapi/#operation/Create%20User)
 
@@ -107,8 +107,6 @@ The sequence of tasks the organization administrator follows to create users inc
 
 ### Additional Topics
 
-[Creating first organization](http://www.sunbird.org/developer-docs/initialization)
+[Creating Organization](../developer-docs/how-to-guide/how_to_create_organization)
 
-[Creating Organization](http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_organization)
-
-[Map users to different business units within the organization](http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_org_add_user)
+[Map users to the organization](../developer-docs/how-to-guide/how_to_create_org_add_user)
