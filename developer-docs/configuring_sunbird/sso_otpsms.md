@@ -2,8 +2,8 @@
 title: Configure OTP based SMS
 page_title: Configure OTP based SMS 
 description: How to set up the OTP for SMS
-published: false
-allowSearch: false
+published: true
+allowSearch: true
 keywords: SSO, single sign on, single signon, singlesignon, sign in, SMS, sms, otp, OTP, Keycloak
 ---
 
