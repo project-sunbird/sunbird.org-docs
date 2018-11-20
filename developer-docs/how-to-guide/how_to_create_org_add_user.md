@@ -16,11 +16,15 @@ Maya joins XYZ Corp as an intern pursuing research Indian & Greek archeology. Fo
 
 ### Prerequisites
 
-1. An initialized Sunbird instance.
-1. Get an [API key](developer-docs/how-to-guide/generate_apikey/) to access Sunbird API. To create an API key, please refer to [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/).
-1. Software that can make REST API calls, like curl or POSTMAN.
-1. The root organization and sub-organizations created and their **organsationId** and root organization's **channel** readily available.
-1. The user account created in the root-organization and **userId** readily available.
+1. An initialized Sunbird instance
+
+2. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](../developer-docs/how-to-guide/generate_apikey/)
+
+3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
+
+4. The root organization and sub-organizations created and their **organsationId** and root organization's **channel** readily available
+
+5. The user account created in the root-organization and **userId** readily available.
 
 
 ### Taskflow
@@ -35,43 +39,40 @@ First, Gita will assign the role of content consumer, to Maya, in the sub-organi
 | Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
 | x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
-**cURL Request**
+#### cURL Request
 
-```
-curl -X POST \
-  https://staging.open-sunbird.org/api/org/v1/member/add \
-  -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
-  -H 'Content-Type: application/json' \
-  -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
-  -d '{
-	"request":
-	{
-		"organisationId": "01261942258536448016",
-		"userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449"
-	}
-}'
-```
+    curl -X POST \
+    https://staging.open-sunbird.org/api/org/v1/member/add \
+    -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
+    -H 'Content-Type: application/json' \
+    -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
+    -d '{
+        "request":
+        {
+            "organisationId": "01261942258536448016",
+            "userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449"
+        }
+    }'
 
-**Response Body**
+#### Response Body
 
-```
-{
-    "id": "api.org.member.add",
-    "ver": "v1",
-    "ts": "2018-11-13 15:18:17:253+0000",
-    "params": {
-        "resmsgid": null,
-        "msgid": "d6e68bc6-599f-48d1-b397-9ef8d3dfc2cc",
-        "err": null,
-        "status": "success",
-        "errmsg": null
-    },
-    "responseCode": "OK",
-    "result": {
-        "response": "SUCCESS"
+    {
+        "id": "api.org.member.add",
+        "ver": "v1",
+        "ts": "2018-11-13 15:18:17:253+0000",
+        "params": {
+            "resmsgid": null,
+            "msgid": "d6e68bc6-599f-48d1-b397-9ef8d3dfc2cc",
+            "err": null,
+            "status": "success",
+            "errmsg": null
+        },
+        "responseCode": "OK",
+        "result": {
+            "response": "SUCCESS"
+        }
     }
-}
-```
+
 
 After 3 months, Gita will revoke Maya's access to the the sub-organization - Indian Archeology.
 
@@ -83,43 +84,40 @@ After 3 months, Gita will revoke Maya's access to the the sub-organization - Ind
 | Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
 | x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
-**cURL Request**
+#### cURL Request
 
-```
-curl -X POST \
-  https://staging.open-sunbird.org/api/org/v1/member/remove \
-  -H 'Authorization: Bearer \ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
-  -H 'Content-Type: application/json' \
-  -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
-  -d '{
-	"request":
-	{
-		"organisationId": "01261942258536448016",
-		"userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449"
-	}
-}'
-```
+    curl -X POST \
+    https://staging.open-sunbird.org/api/org/v1/member/remove \
+    -H 'Authorization: Bearer \ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
+    -H 'Content-Type: application/json' \
+    -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
+    -d '{
+        "request":
+        {
+            "organisationId": "01261942258536448016",
+            "userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449"
+        }
+    }'
 
-**Response Body**
+#### Response Body
 
-```
-{
-    "id": "api.org.member.remove",
-    "ver": "v1",
-    "ts": "2018-11-13 16:09:58:761+0000",
-    "params": {
-        "resmsgid": null,
-        "msgid": "754aa3c1-0c85-42b9-83d7-3025ee3f16dd",
-        "err": null,
-        "status": "success",
-        "errmsg": null
-    },
-    "responseCode": "OK",
-    "result": {
-        "response": "SUCCESS"
+    {
+        "id": "api.org.member.remove",
+        "ver": "v1",
+        "ts": "2018-11-13 16:09:58:761+0000",
+        "params": {
+            "resmsgid": null,
+            "msgid": "754aa3c1-0c85-42b9-83d7-3025ee3f16dd",
+            "err": null,
+            "status": "success",
+            "errmsg": null
+        },
+        "responseCode": "OK",
+        "result": {
+            "response": "SUCCESS"
+        }
     }
-}
-```
+
 
 Gita associates Maya with sub-organization called Greek Archeology.
 
@@ -131,43 +129,39 @@ Gita associates Maya with sub-organization called Greek Archeology.
 | Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
 | x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
-**cURL Request**
+#### cURL Request
 
-```
-curl -X POST \
-  https://staging.open-sunbird.org/api/org/v1/member/add \
-  -H 'Authorization: Bearer \ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
-  -H 'Content-Type: application/json' \
-  -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
-  -d '{
-	"request":
-	{
-		"organisationId": "01261943599298150417",
-		"userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449"
-	}
-}'
-```
+    curl -X POST \
+    https://staging.open-sunbird.org/api/org/v1/member/add \
+    -H 'Authorization: Bearer \ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
+    -H 'Content-Type: application/json' \
+    -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
+    -d '{
+        "request":
+        {
+            "organisationId": "01261943599298150417",
+            "userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449"
+        }
+    }'
 
-**Response Body**
+#### Response Body
 
-```
-{
-    "id": "api.org.member.add",
-    "ver": "v1",
-    "ts": "2018-11-13 16:11:21:632+0000",
-    "params": {
-        "resmsgid": null,
-        "msgid": "b9a019cb-71cb-486e-a697-dd7ea4fdd8b4",
-        "err": null,
-        "status": "success",
-        "errmsg": null
-    },
-    "responseCode": "OK",
-    "result": {
-        "response": "SUCCESS"
+    {
+        "id": "api.org.member.add",
+        "ver": "v1",
+        "ts": "2018-11-13 16:11:21:632+0000",
+        "params": {
+            "resmsgid": null,
+            "msgid": "b9a019cb-71cb-486e-a697-dd7ea4fdd8b4",
+            "err": null,
+            "status": "success",
+            "errmsg": null
+        },
+        "responseCode": "OK",
+        "result": {
+            "response": "SUCCESS"
+        }
     }
-}
-```
 
 After 3 more months, Gita revokes Maya's access to the sub-organization called Greek Architecture.
 
@@ -179,43 +173,39 @@ After 3 more months, Gita revokes Maya's access to the sub-organization called G
 | Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
 | x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
-**cURL Request**
+#### cURL Request
 
-```
-curl -X POST \
-  https://staging.open-sunbird.org/api/org/v1/member/remove \
-  -H 'Authorization: Bearer \ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
-  -H 'Content-Type: application/json' \
-  -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
-  -d '{
-	"request":
-	{
-		"organisationId": "01261943599298150417",
-		"userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449"
-	}
-}'
-```
+    curl -X POST \
+    https://staging.open-sunbird.org/api/org/v1/member/remove \
+    -H 'Authorization: Bearer \ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
+    -H 'Content-Type: application/json' \
+    -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
+    -d '{
+        "request":
+        {
+            "organisationId": "01261943599298150417",
+            "userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449"
+        }
+    }'
 
-**Response Body**
+#### Response Body
 
-```
-{
-    "id": "api.org.member.remove",
-    "ver": "v1",
-    "ts": "2018-11-13 16:12:31:797+0000",
-    "params": {
-        "resmsgid": null,
-        "msgid": "c7b9740a-ab6f-4b97-954f-925c4ce0bbaa",
-        "err": null,
-        "status": "success",
-        "errmsg": null
-    },
-    "responseCode": "OK",
-    "result": {
-        "response": "SUCCESS"
+    {
+        "id": "api.org.member.remove",
+        "ver": "v1",
+        "ts": "2018-11-13 16:12:31:797+0000",
+        "params": {
+            "resmsgid": null,
+            "msgid": "c7b9740a-ab6f-4b97-954f-925c4ce0bbaa",
+            "err": null,
+            "status": "success",
+            "errmsg": null
+        },
+        "responseCode": "OK",
+        "result": {
+            "response": "SUCCESS"
+        }
     }
-}
-```
 
 This concludes the topic of associating a user with an organization, in Sunbird.
 
@@ -223,9 +213,8 @@ This concludes the topic of associating a user with an organization, in Sunbird.
 
 **Associate user and organization**: When a user is created in an organization, by default, the user does not get associated with any sub-organizations. A user can be associated with one or more sub-organizations, within the same organization. A user cannot be associated with more than one organization.
 
-
 ### Related Topics
 
-[Creating an organization]()
+[Creating an organization](../developer-docs/how-to-guide/how_to_create_organization)
 
-[Assign roles to users in an organizations]()
+[Creating Users](../developer-docs/how-to-guide/how_to_create_user)

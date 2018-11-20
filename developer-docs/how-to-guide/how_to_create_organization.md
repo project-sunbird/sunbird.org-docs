@@ -20,15 +20,15 @@ John is a manager in XYZ corporation, who can create, review and take courses. H
 
 1. An intialized Sunbird instance
 
-2. The [API Key for access](developer-docs/how-to-guide/generate_apikey/) and basic authentication
+2. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](../developer-docs/how-to-guide/generate_apikey/)
 
-3. An API client to make API calls. For example use Postman refer [Using Postman] (http://www.sunbird.org/apis/framework/#tag/usingpostman)
+3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
-4. Access to the [Create Organization API](http://www.sunbird.org/apis/userapi/#tag/Orgs-APIs)
+4. Access to the [Create Organization API](http://docs.sunbird.org/latest/apis/orgapi/#tag/Org-APIs)
 
 ### Taskflow
 
-An organization can be created in a Sunbird instance using ORG API, it can be further associated with a user and channel, refer [Mapping User to Organization](http://www.sunbird.org//apis/orgapi/#operation/Organisation%20Add%20User). The sequence of tasks the administrator follows to create organization include:
+An organization can be created in a Sunbird instance using ORG API, it can be further associated with a user and channel, refer [Mapping User to Organization](../apis/orgapi/#operation/Organisation%20Add%20User). The sequence of tasks the administrator follows to create organization include:
 
 1. Specify values for the following parameters in the request body of the API. Following is an example of request body for creating a user, the sample values provided in the request body are indicative:
 
@@ -65,7 +65,7 @@ An organization can be created in a Sunbird instance using ORG API, it can be fu
             } 
     }
    
-2. Save the created organization ID. The organization ID is utilized by [Mapping a user to an organization](http://www.sunbird.org/developer-docs/how-to-guide/associating_organization_and_user)  
+2. Save the created organization ID. The organization ID is utilized while [Mapping a user to an organization](http://www.sunbird.org/developer-docs/how-to-guide/associating_organization_and_user)  
 
 3. An organization is created in Sunbird
 
@@ -84,8 +84,8 @@ An organization can be created in a Sunbird instance using ORG API, it can be fu
 
 ### Additional Topics
 
-[Creating first organization](http://www.sunbird.org/developer-docs/initialization)
+[Creating first organization](../developer-docs/initialization)
 
-[Creating user](http://www.sunbird.org/developer-docs/how-to-guide/how_to_create_user)
+[Creating user](../developer-docs/how-to-guide/how_to_create_user)
 
-[Map users to different business units within the organisation](http://www.sunbird.org/developer-docs/how-to-guide/hohow_to_create_org_add_user)
+[Map users to the organisation](../developer-docs/how-to-guide/how_to_create_org_add_user/)
