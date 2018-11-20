@@ -1,6 +1,6 @@
 ---
 title: Uploading Content on Sunbird Portal
-page_title: Uploading and Publishing Content 
+page_title: Uploading Content on Sunbird Portal 
 description: Uploading and Publishing Existing Content
 keywords: uploading content, existing content, training material
 published: true
