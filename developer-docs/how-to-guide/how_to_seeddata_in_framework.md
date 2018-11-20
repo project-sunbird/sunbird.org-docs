@@ -219,7 +219,44 @@ Other operations that can be performed on terms of a category within a  framewor
 
 [Update](apis/framework/#operation/FrameworkV1TermReadClass2Get) 
 
-[Search](apis/framework/#operation/FrameworkV1TermSearchPost) 
+[Search](apis/framework/#operation/FrameworkV1TermSearchPost)
+
+### Publishing Framework
+
+1. Once framework is associated with its category and terms, it has to be published. Until it is published, the changes will not be reflecting in the framework get API call.
+
+2. Below is the publish framework API sample request and response. Framework has to be passed as query parameter. Request body should be blank.
+
+>**Note**: The sample values provided in the request body are indicative.
+
+##### Request Body for creating Terms 
+
+`POST: /framework/v1/publish/abc1`
+```
+{}
+
+```
+`Response Body`
+``` 
+{
+    "id": "api.framework.publish",
+    "ver": "1.0",
+    "ts": "2018-11-20T15:23:31.724Z",
+    "params": {
+        "resmsgid": "3d1d94c0-ecd8-11e8-8ee7-23985149ff3f",
+        "msgid": "3d1b23c0-ecd8-11e8-b9fd-f7a268445f06",
+        "status": "successful",
+        "err": null,
+        "errmsg": null
+    },
+    "responseCode": "OK",
+    "result": {
+        "publishStatus": "Publish Operation for Framework Id 'abc1' Started Successfully!"
+    }
+}
+```
+  
+Note: Once framework is published, all the changes will be reflecting into the framework get API.
 
 ## Concepts Covered
 
