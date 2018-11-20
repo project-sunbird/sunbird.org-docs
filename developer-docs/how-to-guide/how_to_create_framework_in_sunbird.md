@@ -75,7 +75,7 @@ To retrieve the channels for the request parameter, use [List Channel API](../ap
     "request": {
         "framework": {
             "name": "ABC",
-            "code": "abc",
+            "code": "abc1",
             "description": "Framework for ABC Management",
             "translations": {"hi":"ABC-अनुवाद","ta":"ABC மொழிபெயர்ப்பு"},
             "type": "TPD",
@@ -85,11 +85,11 @@ To retrieve the channels for the request parameter, use [List Channel API](../ap
 
 **Description of Parameters**
 
-Name: The name of the framework as provided by the organization
-Code: A user defined value that is used as the framework identifier 
-Description: Describes the framework
-Translations: Enables framework in different languages 
-Type: defines the type of content
+- Name: The name of the framework as provided by the organization
+- Code: A user defined value that is used as the framework identifier 
+- Description: Describes the framework
+- Translations: Enables framework in different languages 
+- Type: defines the type of content
 
 ##### Response Body to Create Framework
 
@@ -98,7 +98,7 @@ Type: defines the type of content
     "result": {
         "framework": {
             "identifier": "abc1",
-            "code": "abc",
+            "code": "abc1",
             "translations": "{\"hi\":\"ABC-अनुवाद\",\"ta\":\"ABC மொழிபெயர்ப்பு\"}",
             "name": "ABC",
             "description": "Framework for ABC Management",
@@ -108,7 +108,7 @@ Type: defines the type of content
         }
     }
 
-#### Rename Category
+#### Create Category
 
 1. Use the [Add Category API](../apis/framework/#operation/FrameworkV1CategoryCreatePost), to create a new category in the framework. 
 
