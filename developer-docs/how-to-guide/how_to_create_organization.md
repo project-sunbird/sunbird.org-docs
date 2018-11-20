@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/how-to-guide
 title: Create Organization
 page_title: Create Organization
 description: creating a new organization in sunbird instance
