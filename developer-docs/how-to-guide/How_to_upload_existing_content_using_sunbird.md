@@ -168,6 +168,22 @@ This API is associated with uploading content on the Sunbird Platform.
   </tr>
 </table>
 
+#### Request Body
+
+`key`: file
+`value`: file path (Ex: /Users/john/Documents/test.pdf)
+
+
+Note: Below is the sample cURL of the complete request.
+
+    curl -X POST \
+      https://xyz.org/api/content/v1/upload/<CONTENT_ID> \
+      -H 'Authorization: <AUTH_TOKEN>' \
+      -H 'X-Authenticated-User-Token: <USER_TOKEN>' \
+      -H 'cache-control: no-cache' \
+      -H 'content-type: multipart/form-data;' \
+      -F file=@/Users/john/Documents.pdf
+
 
 #### Response Body (Upload Content API)
 
