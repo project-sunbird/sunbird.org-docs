@@ -11,12 +11,12 @@ keywords: Meta Data, Meta, form, API, Form API,
 An organization works in the domain of water conservation and works in multiple Indian states, with NGOs, village panchayats and other authorities. The organization would like to tailor different forms on Sunbird to match their requirements. They want to configure various available forms based on their terminology and needs. They intend to change the display labels, the fields, the types of fields etc. on the forms.   
 
 ## Prerequisites
-Before configuring metaforms, ensure the following:
-1. Get an API Key to access [Sunbird APIs](/apis/). To create an API key, please refer to [How to generate a Sunbird API key]().
 
-2. Software that can make rest API calls, like curl or POSTMAN
+1. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](../developer-docs/how-to-guide/generate_apikey/)
 
-3. Install  the server instance of Sunbird. For details, refer to[ Server Installation ](developer-docs/installation/server_installation/)
+2. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
+
+3. Install the server instance of Sunbird. For details, refer to[ Server Installation ](developer-docs/installation/server_installation/)
 
 4. The root organization and sub-organizations created and their **organsationId** and root organization's **channel** readily available
 
