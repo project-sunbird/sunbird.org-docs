@@ -223,9 +223,9 @@ Other operations that can be performed on terms of a category within a  framewor
 
 ### Publishing Framework
 
-1. Once framework is associated with its category and terms, it has to be published. Until it is published, the changes will not be reflecting in the framework get API call.
+1. Once a framework is associated with its category and terms, it has to be published. Until it is published, the changes will not be available in the framework get API call.
 
-2. Below is the publish framework API sample request and response. Framework has to be passed as query parameter. Request body should be blank.
+2. Given below is the publish framework API sample request and response. Framework has to be passed as a query parameter and the request body should be blank.
 
 >**Note**: The sample values provided in the request body are indicative.
 
@@ -256,7 +256,7 @@ Other operations that can be performed on terms of a category within a  framewor
 }
 ```
   
-Note: Once framework is published, all the changes will be reflecting into the framework get API.
+Note: Once the framework is published, all the changes will be available in the framework get API.
 
 ## Concepts Covered
 
