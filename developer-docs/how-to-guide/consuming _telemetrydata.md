@@ -9,13 +9,13 @@ allowSearch: true
 
 ## Scenario
 
-As a part of the employee development and training program, the XYZ Corporation needs to create training material. The Learning and Develop department's admin would like to effectiveness of the courses. To determine that, the admin needs to know how much time employees are spending on a content. For that, the corporation needs to get telemetry data and analyze the data to see the time consumption on a content.
+As a part of the employee development and training program, the XYZ Corporation has to create training material. The Learning and Develop department's admin would like to effectiveness of the courses. To determine the effectiveness, the admin must have telemetry data and analyze the data to analyse the time consumption on each content.
 
 ## Overview
 
-Telemetry is an automated remote measurement and data collection process. It is used in all kinds of industries, from tracking spacecraft, tracking wildlife, medical monitoring, law enforcement, and so on. It enables you to answer many questions such as: Who did what, on what, and where, using what, about what?
+Telemetry is an automated remote measurement and data collection process. It is used in all kinds of industries, from tracking spacecraft, tracking wildlife, medical monitoring, law enforcement, and so on.
 
-**Telemetry event specifications.**
+**Telemetry Event Specifications**
 
 Telemetry events are broad, human-readable actions, that can be tracked as a string. Events are used to categorize telemetry data. They are the basic unit for analytics and help identify user navigation or flow. All events follow a common data structure, though the event data structure ("edata") differs for each event. 
 
@@ -42,12 +42,12 @@ The complete data structure is as follows:
     "pdata": { // Optional. Producer of the event
       "id": , // Required. unique id assigned to that component
       "pid": , // Optional. In case the component is distributed, then which instance of that component
-      "ver":  // Optional. version number of the build
+      "ver":  // Optional. Version number of the build
     },
-    "env": , // Required. A unique environment where the event has occurred.
-    "sid": , // Optional. session id of the requestor stamped by portal
-    "did": , // Optional. uuid of the device, created during app installation
-    "cdata": [{ // Optional. correlation data
+    "env": , // Required. A unique environment where the event has occurred
+    "sid": , // Optional. Session id of the requestor stamped by portal
+    "did": , // Optional. Uuid of the device created during app installation
+    "cdata": [{ // Optional. Correlation data
       "type":"", // Required. Used to indicate action that is being correlated
       "id": "" // Required. The correlation ID value
     }],
@@ -60,11 +60,11 @@ The complete data structure is as follows:
   },
 
   // What is the target of the event
-  "object": { // Optional. Object which is the subject of the event.
-    "id": , // Required. The id of the object. For eg: content id in case of content
-    "type": , // Required. Type of the object. For eg: "Content", "Community", "User" etc.
-    "ver": , // Optional. version of the object
-    "rollup": { // Optional. Rollups to be computed of the object. Only 4 levels are allowed.
+  "object": { // Optional. Object which is the subject of the event
+    "id": , // Required. The ID of the object. For eg: content id in case of content
+    "type": , // Required. Type of the object. For eg: "Content", "Community", "User" etc
+    "ver": , // Optional. Version of the object
+    "rollup": { // Optional. Rollups to be computed of the object. Only 4 levels are allowed
       "l1": "",
       "l2": "",
       "l3": "",
@@ -82,7 +82,7 @@ The complete data structure is as follows:
 
 The level of data collected is a discrete decision of an organization or business. Analysis of this data offers insights into product and user behavior and usage patterns, driving business decisions and research outcomes.
 
-For more information for Telemetry event structure, please refer to the [Telemetry Specification](http://docs.sunbird.org/latest/developer-docs/telemetry/specification/) page.
+For more information for telemetry event structure, please refer to the [Telemetry Specification](http://docs.sunbird.org/latest/developer-docs/telemetry/specification/) page.
 
 ## Intended Audience
 
@@ -90,24 +90,28 @@ For more information for Telemetry event structure, please refer to the [Telemet
 
 ## Prerequisites
 
-* API key Authorisation
+* Get an API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey)
 
-* Authorizing Channel ID / Authorizing user for channel
+* Software that can make rest API calls, like curl or POSTMAN
+
+* Install the server instance of Sunbird. For details, refer [Server Installation](developer-docs/server-installation)
+
+* The root organization and sub-organizations created and their organsationId and root organization’s channel readily available
 
 * Instrumenting your App for Telemetry and Analytics
 
-* Telemetry service is enabled
+* Enabling telemetry service 
 
-* Partner/Content App must send Telemetry as per Using Telemetry SDK to record Telemetry.
+* Partner/Content App must send telemetry using Telemetry SDK to record telemetry
 
 ## Workflow
 
 The process of streaming and consuming telemetry data uses three core components:
-• Telemetry Policy File: Determines the kind of telemetry data to be generated, at a specified frequency.
+• Telemetry Policy File: Determines the kind of telemetry data to be generated, at a specified frequency
 
-• Telemetry Encoder: Encapsulates the generated data into the desired format and transfer tothe receiver.
+• Telemetry Encoder: Encapsulates the generated data into the desired format and transfer tothe receiver
 
-• Telemetry Receiver: It is the remote management system that stores the telemetry data.
+• Telemetry Receiver: It is the remote management system that stores the telemetry data
 
 ### Pulling and extracting data using data exhaust API 
 
@@ -127,16 +131,14 @@ header parameter name: x-authenticated-user-token
 
 **Submit Data Request**
 
-This API is used to submit the data request to get the exhaust data
-The response of the request initiates with the creation of a data file
-This data file can be downloaded and used for analytics etc.
+This API is used to submit the data request to get the exhaust data. The response of the request initiates the creation of a data file. This data file can be downloaded and used for analytics etc.
 
 <b>Header Parameters</b>
 
 * Specify the authorization key that you have received from the administrator.
-Note: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
+Note: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received here.
 
-* Custom the header parameter as per the request.
+* Custom the header parameter as per the request
 
 X-Channel-ID: {{channel id}}
 
@@ -177,7 +179,7 @@ The body refers to the format of the request. It contains metadata about the dat
 
 **Response:**
 
-This API returns the dataset based on **fromDate** and **toDate**.
+This API returns the dataset based on **fromDate** and **toDate**
 
 Response body sample with indicative values:
 
@@ -221,7 +223,7 @@ In case of error, an appropriate error response is returned.
  
 **Extracting Data:**
 
-Using the telemetry URL that you recieve as a resonpse body of data exhaust API, you can extract a file ( .gzip format) that contain telemetry log.
+Using the telemetry URL that you recieve as a response body of data exhaust API, you can extract thefile ( .gzip format) that contains telemetry log
 
 Paste a telemetry URL on a browser and enter, a .gzip file is downloaded on your local.
 
@@ -243,7 +245,7 @@ For Portal content sessions:
 
 "dimensions.pdata.id" = "prod.diksha.portal" & "dimensions.mode" = "play" & "dimensions.type" = "content"
 
-2. To calculate theoverall time spent on a content, analyst must consider and calculate the parameters like edata  (eks, time spent) from the [workflow summary](https://github.com/ekstep/Common-Design/wiki/[Data-Product]-Workflow-Summarizer) data.
+2. To calculate the overall time spent on a content, analyst must consider and calculate the parameters like edata  (eks, time spent) from the [workflow summary](https://github.com/ekstep/Common-Design/wiki/[Data-Product]-Workflow-Summarizer) data.
 ```javascript
 "edata": {
         "eks": {
@@ -262,3 +264,10 @@ For Portal content sessions:
                 "count": Long // count of times the environment has been visited
             }],
 ```
+### Concepts Covered
+
+- Telemetry Services
+- Telemetry Events
+- Data Exhaust API
+- Data Storage
+- Data Population
