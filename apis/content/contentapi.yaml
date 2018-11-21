@@ -6,7 +6,7 @@ info:
   contact:
     email: info@sunbird.org
   description: >-
-      The Content API resources perform operations related to all Content_ on Sunbird Platform 
+      The Content API resources perform operations related to all _Content_ on Sunbird Platform
       
       - Each of the endpoints serve a different purpose. Each of these can be used based on requirements
       
@@ -806,11 +806,6 @@ paths:
         '200':
           description: >-
             SUCCESS. The **Search Content** operation was successful!
-          schema:
-            $ref: '#/definitions/ContentSearchResponse'
-        '206':
-          description: >-
-            SUCCESS. The **Search Content** operation was successful with partial content!
           schema:
             $ref: '#/definitions/ContentSearchResponse'
         '400':
@@ -1691,7 +1686,6 @@ paths:
             The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
             
             - JSON 
-            - XML data
           
             The body is the representation of the resource object for  updating the content.
           schema:
@@ -1703,8 +1697,6 @@ paths:
           description: >-
             The Content Type entity is the media type of the resource.Possible media types can be:- 
               - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
         - name: X-Authenticated-User-Token
           in: header
           required: true
@@ -1720,7 +1712,7 @@ paths:
           description: >-
             SUCCESS. The **Update Collaborators** operation was successful!
           schema:
-            $ref: '#/definitions/ContentCreateResponse'
+            $ref: '#/definitions/CommonSuccessResponse'
         '400':
           description: >-
             'BAD REQUEST. The **Update Collaborators** operation failed.'
@@ -2547,6 +2539,12 @@ definitions:
     allOf:
       - $ref: '#/definitions/ResultWithNodeId'
       - $ref: '#/definitions/ResponseHeader'
+  CommonSuccessResponse:
+    description: Common Content Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithNodeId'
+      - $ref: '#/definitions/ResponseHeader'
   ContentUploadResponse:
     description: Upload Content Response
     type: object
@@ -3045,25 +3043,17 @@ definitions:
     type: object
     properties:
       request:
-        $ref: '#/definitions/UpdateCollaboratorsContentObject'
+        properties:
+          content:
+            properties:
+              collaborators:
+                description: ''
+                type: array
+                items:
+                  type: string
+            required:
+              - collaborators
+        required:
+          - content
     required:
       - request
-  UpdateCollaboratorsContentObject:
-    title: Update Collaborators Content Object
-    type: object
-    properties:
-      content:
-        $ref: '#/definitions/CollaboratorsUpdateObject'
-    required:
-      - content
-  CollaboratorsUpdateObject:
-    title: Collaborators Update Object
-    type: object
-    properties:
-      collaborators:
-        description: ''
-        type: array
-        items:
-          type: string
-    required:
-      - collaborators
