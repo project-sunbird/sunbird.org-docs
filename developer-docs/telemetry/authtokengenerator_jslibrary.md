@@ -1,34 +1,12 @@
 ---
 type: landing
 directory: developer-docs/telemetry
-title: AuthToken Generator JS Library
-page_title: AuthToken generator JS library
-description: AuthToken generator JS library
+title: AuthToken Generatoration 
+page_title: AuthToken generatoration
+description: AuthToken generatoration
 published: true
 allowSearch: true
 ---
-## Methods
-
-The following API methods are provided by the AuthToken generator library
-
-### Generate new AuthToken
-
-<pre>
-generate: function(key, secret){}
-</pre> 
-
-Request Arguments:
-
-<pre>
-key- "key" of the JWT Credential For ex: '398e54e888da42f8d089je28c298o42b'
-secret- "secret" of the JWT Credential For ex: '07c6e2t1rb92987fnrd705jkk8582p9e'
-</pre>
-
-### Regenerate Expired AuthToken
-
-<pre>
-refresh: function(oldAuthToken) { }
-</pre>
 
 ## How to generate authorization credentials
 
@@ -72,3 +50,71 @@ This section details the procedure to generate the AuthToken and secret key that
     <td><img src="developer-docs/installation/images/telemetry_service7.png"></td>
   </tr>
 </table>
+
+## Generating JWT
+
+The key and secret issued in the above request can be used to create a JSON Web Token (JWT) for authorizing requests.
+Request
+
+The requests need to contain HS256 signed JSON Web Tokens (as specified in RFC 7519). Now that you have a credential, and since we want to sign it using HS256, the JWT should be crafted as follows (according to RFC 7519):
+First, the header must be:
+
+<pre>
+{
+    "typ": "JWT",
+    "alg": "HS256"
+}
+</pre>
+
+
+Secondly, the claims must contain the credential's key in the claim:
+
+<pre>
+{
+    "iss": "8f00bc9585904d95e51cc4a1" \\ "key" of the credential  shared above.
+}
+</pre>
+
+The remaining fields of the JWT can be filled based on the details of the request being sent. For example, for a request payload which accesses the content API, the claims created will look like
+
+<pre>
+{
+   "iss": "8f00bc9585904d95e51cc4a1", // the issuer of the claim or the "key"
+   "iat": "1442426231600", // epoch timestamp when JWT was created
+   "id": "org.sunbird.api.contentAPI", // target API
+   "qsh": "8063ff4ca1e41df0f6207d491cf6dad7c66ea797b4614b7", // hashed query string
+   "version": "1.0",  // version of the API
+   "params": { // contextual parameters from the API request
+      "did": "ff305d54-85b4-341b-da2f-eb6b9e5460fa", 
+      "msgid": "c3049b36249a3c9f8891cb1999777743c"
+   }
+}
+</pre>
+
+The generated JWT from the claims above will look like
+
+<pre>
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhMzZjMzA0OWIzNjI0OWEzYzlmODg5MWNiMTI3MjQzYyIsImlhdCI6IjE0NDI0MjYyMzE2MDAiLCJpZCI6Im9yZy5la3N0ZXAuYXBpLmRhdGFTZXQiLCJxc2giOiI4MDYzZmY0Y2ExZTQxZGYwZjYyMDdkNDkxY2Y2ZGFkN2M2NmVhNzk3YjQ2MTRiNyIsInZlcnNpb24iOiIxLjAiLCJwYXJhbXMiOnsiZGlkIjoiZmYzMDVkNTQtODViNC0zNDFiLWRhMmYtZWI2YjllNTQ2MGZhIiwibXNnaWQiOiJjMzA0OWIzNjI0OWEzYzlmODg5MWNiMTk5OTc3Nzc0M2MifX0.rww4BN-EfnAXKTRltQChYA3KM31GzyEF-YpYvIBzw1I
+</pre>
+
+Usually, the JWT will be created programmatically by your application. JWT libraries exist for all popular programming languages.
+
+However, you may also use the web-based tool - http://jwtbuilder.jamiekurtz.com/ to generate the JWT. Note that when using this tool, the key should be set as the iss field in the claims section of the payload and the secret obtained should be set as the Key field in the Signed JWT section. The Key will be used to generate a signed JWT.
+Response
+If auth fails, the response code will be 401 or 403 and will also have the error metadata in the response payload. A normal response will be a 200. For clients which need to be protocol agnostic, the response payload has error metadata to extract the error code and message, if any.
+
+<pre>
+{
+    "id": "", // unique API ID
+    "ver": "", // API version
+    "ets": "", // epoch timestamp 
+    "params": {
+        "resmsgid": "", // unique response message id (UUID)
+        "msgid": "", // message id of the request
+        "status": "", // status of request e.g: successful, failed etc
+        "err": "", // error code if any
+        "errmsg": "" // default English error message
+    },
+    // API specific JSON output goes here
+}
+</pre>
