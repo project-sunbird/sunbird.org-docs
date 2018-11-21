@@ -357,7 +357,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "inputType": "text",
                         "label": "Attributions",
                         "name": "attribution",
-                        "placeholder": "",
+                        "placeholder": "Credit to Contributors",
                         "renderingHints": {},
                         "required": false,
                         "visible": true
@@ -385,7 +385,30 @@ For more information about the usage of header parameters refer to the [Update F
         }
     }
 
-## Request Body for Read Form API 
+#### Response Body for Update Form API
+
+    {
+        "id": "api.form.update",
+        "params": {
+            "resmsgid": "afdb8678-954e-449e-8002-62fe20d7c7ba",
+            "msgid": "a872fc58-e956-4d83-a45e-6ec0d2385f5b",
+            "status": "successful"
+        },
+        "responseCode": "OK",
+        "result": {
+            "response": [
+                {
+                    "rootOrgId": "*",
+                    "key": "content.*.save.*",
+                    "status": "SUCCESS"
+                }
+            ]
+        },
+        "ts": "2018-11-21T05:42:23.218Z",
+        "ver": "1.0"
+    }
+
+#### Request Body for Read Form API 
 
     {
     "request": {
@@ -397,7 +420,205 @@ For more information about the usage of header parameters refer to the [Update F
         }
     }
 
-## Request Body for Create form API  
+#### Response Body for Read Form API 
+
+    {
+        "id": "api.form.read",
+        "params": {
+            "resmsgid": "72f0a558-9da3-4e29-83c8-874edbebff3b",
+            "msgid": "70063386-473b-494e-a1c9-86de30d447e1",
+            "status": "successful"
+        },
+        "responseCode": "OK",
+        "result": {
+            "form": {
+                "type": "content",
+                "subtype": "*",
+                "action": "save",
+                "component": "*",
+                "framework": "Framework for ABC Managemen",
+                "data": {
+                    "templateName": "defaultTemplate",
+                    "action": "save",
+                    "fields": [
+                    {
+                        "code": "appicon",
+                        "dataType": "url",
+                        "description": "App Icon",
+                        "editable": true,
+                        "index": 1,
+                        "inputType": "file",
+                        "label": "App Icon",
+                        "name": "App Icon",
+                        "placeholder": "App Icon",
+                        "renderingHints": {},
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "name",
+                        "dataType": "text",
+                        "description": "Title of the content",
+                        "editable": true,
+                        "index": 2,
+                        "inputType": "text",
+                        "label": "Title",
+                        "name": "Title",
+                        "placeholder": "Enter Title For Content",
+                        "renderingHints": {},
+                        "required": true,
+                        "visible": true
+                    },
+                    {
+                        "code": "description",
+                        "dataType": "text",
+                        "description": "Brief description",
+                        "editable": true,
+                        "index": 3,
+                        "inputType": "textarea",
+                        "label": "Description",
+                        "name": "Description",
+                        "placeholder": "Brief description about the Content",
+                        "renderingHints": {},
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "keywords",
+                        "dataType": "list",
+                        "description": "Keywords for the content",
+                        "editable": true,
+                        "index": 4,
+                        "inputType": "keywordsuggestion",
+                        "label": "keywords",
+                        "name": "Keywords",
+                        "placeholder": "Enter relevant Keywords",
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "subject",
+                        "dataType": "text",
+                        "description": "",
+                        "editable": true,
+                        "index": 5,
+                        "inputType": "select",
+                        "label": "Subject",
+                        "name": "Subject",
+                        "placeholder": "Select type of water resources",
+                        "renderingHints": {},
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "medium",
+                        "dataType": "text",
+                        "description": "",
+                        "editable": true,
+                        "index": 6,
+                        "inputType": "select",
+                        "label": "Medium",
+                        "name": "medium",
+                        "placeholder": "Select Language in which the content is created",
+                        "renderingHints": {},
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "concepts",
+                        "dataType": "list",
+                        "description": "Choose a concept",
+                        "editable": true,
+                        "index": 7,
+                        "inputType": "conceptselector",
+                        "label": "Concepts",
+                        "name": "Concepts",
+                        "placeholder": "Choose Concepts",
+                        "renderingHints": {},
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "topic",
+                        "dataType": "list",
+                        "description": "Choose a Topics",
+                        "editable": true,
+                        "index": 8,
+                        "inputType": "topicselector",
+                        "label": "Topics",
+                        "name": "Topic",
+                        "placeholder": "Choose Topics",
+                        "renderingHints": {},
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "resourceType",
+                        "dataType": "text",
+                        "description": "Resource Type",
+                        "editable": true,
+                        "index": 9,
+                        "inputType": "select",
+                        "label": "Resource Type",
+                        "name": "resourceType",
+                        "placeholder": "",
+                        "range": [
+                            "Teach",
+                            "Practice",
+                            "Learn",
+                            "Test",
+                            "Play",
+                            "Read",
+                            "Experiment"
+                        ],
+                        "renderingHints": {},
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "attributions",
+                        "dataType": "list",
+                        "description": "Attributions",
+                        "editable": true,
+                        "index": 10,
+                        "inputType": "text",
+                        "label": "Attributions",
+                        "name": "attribution",
+                        "placeholder": "Credit to Contributors",
+                        "renderingHints": {},
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "audience",
+                        "dataType": "list",
+                        "description": "",
+                        "editable": true,
+                        "index": 11,
+                        "inputType": "select",
+                        "label": "Audience",
+                        "name": "Audience",
+                        "placeholder": "Select Audience",
+                        "renderingHints": {},
+                        "range": [
+                            "Learner",
+                            "Instructor"
+                            ],
+                        "required": false,
+                        "visible": true
+                    }
+                ]
+            },
+            "created_on": "2018-11-21T05:40:04.175Z",
+            "last_modified_on": null,
+            "rootOrgId": "*"
+            }
+        },
+        "ts": "2018-11-21T05:40:57.971Z",
+        "ver": "1.0"
+    }
+
+#### Request Body for Create form API  
     
     {
     "request": 
@@ -510,6 +731,25 @@ For more information about the usage of header parameters refer to the [Update F
             }
         }
     }
+
+
+#### Response Body for Create form API
+
+    {
+        "id": "api.form.create",
+        "params": {
+            "resmsgid": "b90bb055-2d8d-4996-b501-a6e85f9c58dc",
+            "msgid": "a5f81996-34f7-43e5-9047-598c1d219443",
+            "status": "successful"
+        },
+        "responseCode": "OK",
+        "result": {
+            "created": "OK"
+        },
+        "ts": "2018-11-21T05:40:04.179Z",
+        "ver": "1.0"
+    }
+
 
 ## Concepts Covered
 
