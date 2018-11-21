@@ -8,7 +8,6 @@ allowSearch: true
 ---
 ## Scenario
 
-
 An educational Institution XYZ, with over three thousand students, is spread across three locations. XYZ institute has decided to use Sunbird for its digital learning solution to provide more scalable and effective education to its students. As the institute mainly operates from the rural area, internet connectivity is a challenge at most branches. 
 
 X is a student who resides in an area where internet connection is poor but, he has access to smartphones, tablets and other handheld devices. The student uses the Sunbird mobile app frequently in offline mode to consume content created by his educational institute.
