@@ -1717,12 +1717,12 @@ paths:
           description: >-
             'BAD REQUEST. The **Update Collaborators** operation failed.'
           schema:
-            $ref: '#/definitions/ContentCreateErrorResponse'
+            $ref: '#/definitions/CommonErrorResponse'
         '500':
           description: >-
             'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
-            $ref: '#/definitions/ContentCreateErrorResponse'
+            $ref: '#/definitions/CommonErrorResponse'
       security:
         - bearer: []
       x-unitTests:
@@ -2933,6 +2933,12 @@ definitions:
         description: Empty Result
   ContentCreateErrorResponse:
     title: Create Content Error Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/EmptyResult'
+      - $ref: '#/definitions/ResponseHeader'
+  CommonErrorResponse:
+    title: Common Error Response
     type: object
     allOf:
       - $ref: '#/definitions/EmptyResult'
