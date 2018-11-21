@@ -24,7 +24,7 @@ With huge resource library and based on ABC organizations decision, they want to
 
 ABC, may choose a predefined category and associate it to their own framework. The categories in the framework has terms associated with it. These terms are relevant to the created framework and can be created by the organization. 
 
-{% image src='developer-docs/how-to-guide/images/seed_framework' full center alt='Relationship between Framework, Category, and Terms' zoom %} 
+{% image src='developer-docs/how-to-guide/images/seed_framework.png' full center alt='Relationship between Framework, Category, and Terms' zoom %} 
 
 After you create a framework, it must be seeded with the required data classified under different components such as:
    - Categories
@@ -37,15 +37,19 @@ Once the framework is successfully seeded, then it must be associating with term
 
 1. An intialized Sunbird instance with channel
 
-2. The [API Key for access](developer-docs/how-to-guide/generate_apikey/) and basic authentication
+2. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
   
 3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
 4. Onboarding the following with access to the API
+
     - Admin user     
+
     - [Individual User](apis/userapi/#operation/Create%20User)
+
     - [Individual Organization](apis/orgapi/#operation/Organisation%20Create) access 
-    - [Map users to the organization](developer-docs/how-to-guide/how_to_create_org_add_user)
+
+    - [Map users to the organization](apis/orgapi/#operation/Organisation%20Add%20User)
 
 5. Access to [Framework API](http://www.sunbird.org/apis/framework/)
 
