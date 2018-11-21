@@ -122,9 +122,9 @@ To sync the telemetry data, the admin must use the shared telemetry file and fol
 
 The **telemetry sync** API allows applications to sync telemetry data.
 
- <b>Request URL</b>:   {{host}}/api/data/v1/telemetry
+<b>Request URL</b>: {{host}}/api/data/v1/telemetry
 
- <b>Request Method</b>: POST
+<b>Request Method</b>: POST
 
 <b>Request Headers</b>:
 
@@ -133,7 +133,6 @@ The **telemetry sync** API allows applications to sync telemetry data.
   X-Channel-Id:{{channel id}}
   X-App-Id:{{app id}}
   Authorization:Bearer {{user_token}} 
-
 
 **Request Body:**
 
@@ -218,4 +217,3 @@ The **telemetry sync** API allows applications to sync telemetry data.
 - Share telemetry file
 - Telemetry Events
 - Data Sync API
-
