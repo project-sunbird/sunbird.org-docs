@@ -1,9 +1,9 @@
 ---
 type: landing
 directory: developer-docs/telemetry
-title: AuthToken Generatoration 
-page_title: AuthToken generatoration
-description: AuthToken generatoration
+title: AuthToken Generation 
+page_title: AuthToken generation
+description: AuthToken generation
 published: true
 allowSearch: true
 ---
