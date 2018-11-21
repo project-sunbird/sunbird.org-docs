@@ -58,8 +58,16 @@ a. **Create Publisher**
 
 * Required fields cannot be left null or empty
 
-#### Request Body for create publisher API
+While providing values for the parameters in the request body of the API, it is essential to mention values as mentioned in the following table: 
 
+| Header Parameter | Sample Value|  Description  |Is Mandatory |  
+| ---------------- | ------------|---------------| ------------| 
+| X-Channel-Id|in.ekstep|It is a unique Id to identify the root organization to which the publisher has to be created|Yes|
+|Content-Type |Application/json Multipart/form-data Application/x-www-form-urlencoded|The media type of the resource|Yes|
+|Authorization |NA |All User APIs require authorization. Raise a request to the administrator for the authorization key. Mention the received key here |Yes|
+
+#### Request Body for create publisher API
+```
   {
       "request": {
           "publisher": {
@@ -68,9 +76,9 @@ a. **Create Publisher**
           }
       }
   }
-
+```
 #### Response Body of Create Publisher API
-
+```
   {
     "id": "api.publisher.create",
     "ver": "1.0",
@@ -87,7 +95,7 @@ a. **Create Publisher**
         "identifier": "skpublisher"
     }
   }
-
+```
 b. Generate QR Code
 
 This API is associated with generating DIAL code.
@@ -96,8 +104,16 @@ This API is associated with generating DIAL code.
 
 * Required fields cannot be left null or empty
 
+While providing values for the parameters in the request body of the API, it is essential to mention values as mentioned in the following table: 
+
+| Header Parameter | Sample Value|  Description  |Is Mandatory |  
+| ---------------- | ------------|---------------| ------------| 
+| X-Channel-Id|in.ekstep|It is a unique Id to identify the root organization to which the dialcodes have to be generated|Yes|
+|Content-Type |Application/json Multipart/form-data Application/x-www-form-urlencoded|The media type of the resource|Yes|
+|Authorization |NA |All User APIs require authorization. Raise a request to the administrator for the authorization key. Mention the received key here |Yes|
+
 #### Request Body of Generate DIAL Code API ** :
-  javascript
+```
   {
       "request": {
           "dialcodes": {
@@ -106,9 +122,9 @@ This API is associated with generating DIAL code.
           }
       }
   }
-
+```
 #### Response Body of Generate DIAL Code API
-
+```
   {
     "id": "api.dialcode.generate",
     "ver": "2.0",
@@ -131,7 +147,7 @@ This API is associated with generating DIAL code.
         "publisher": "skpublisher"
     }
   }
-
+```
 ### Link DIAL code to content using DIAL API
 
 This API is associated with linking DIAL code to the content.
@@ -146,7 +162,7 @@ While providing values for the parameters in the request body of the API, it is 
 
 | Header Parameter | Sample Value|  Description  |Is Mandatory |  
 | ---------------- | ------------|---------------| ------------| 
-| Channel-ID|in.ekstep|It is a unique Id to identify the root organization to which the user belongs|Yes|
+| X-Channel-Id|in.ekstep|It is a unique Id to identify the root organization to which the user belongs|Yes|
 |Content-Type |Application/json Multipart/form-data Application/x-www-form-urlencoded|The media type of the resource|Yes|
 |Authorization |NA |All User APIs require authorization. Raise a request to the administrator for the authorization key. Mention the received key here |Yes|
 
@@ -154,24 +170,23 @@ While providing values for the parameters in the request body of the API, it is 
 
 | Request Body Parameter| Sample Value|  Description  |Is Mandatory |  
 | ---------------- | ------------|---------------| ------------| 
-| content.identifier|["do_3010101010"] |List of content identifiers that are linked with dial codes | Yes|
-| content.dialcode | [“A6GHY”] | List of dial codes to which identifiers will be linked | Yes| 
+| content.identifier|"do_3010101010" |List of content identifiers that are linked with dial codes | Yes|
+| content.dialcode | “A6GHY” | List of dial codes to which identifiers will be linked | Yes| 
 
 Link DIAL code API End point: `POST: /dialcode/v1/content/link`
 
 #### Request Body for linking DIAL code API
-  
+``` 
   {
     "request": {
-      "content": [
+      "content":
         {
-          "identifier": ["do_3010101011"],
-          "dialcode": ["3R3DSS"]
+          "identifier": "do_3010101011",
+          "dialcode": "3R3DSS"
         }
-      ]
     }
   }
-
+```
 #### Response Body for linking DIAL code API
 
   {
