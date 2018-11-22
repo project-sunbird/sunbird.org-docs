@@ -116,7 +116,7 @@ In the response body, Gita inspects the value of all tokens called **code** to e
 #### Request Body
 
     curl -X POST \
-    https://sunbird.xyzcorp.com/api/channel/v1/list \
+    https://sunbird.xyzcorp.com/api/org/v1/create \
         -H 'Content-type: application/json' \
         -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
         -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
@@ -128,8 +128,8 @@ In the response body, Gita inspects the value of all tokens called **code** to e
             "channel": "xyzCorpArcheologyChannel",
             "preferredLanguage": "English, Dutch, Hindi, Cakchiquel",
             "homeUrl": "https://www.example.com/training/arch"
-    }
-    }
+        }
+    }'
 
 #### Response Body
 
@@ -181,7 +181,7 @@ Gita comes up with three identifiers for each sub-organization. These identifier
                 "preferredLanguage": "English, हिंदी",
                 "homeUrl": "https://www.example.com/training/arch"
             }
-        }
+        }'
 
 #### Response Body
 

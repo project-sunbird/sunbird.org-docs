@@ -53,7 +53,7 @@ For example, for the organization ABC organization the framework name is ABC and
 
     - [Individual Organization](apis/orgapi/#operation/Organisation%20Create) access 
 
-    - [Associated Users to organization](apis/orgapi/#operation/Organisation%20Add%20User)
+    - [Map users to the organization](apis/orgapi/#operation/Organisation%20Add%20User)
 
 5. Access to [Framework API](apis/framework/)
 
