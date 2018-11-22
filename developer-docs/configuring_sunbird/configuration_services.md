@@ -1,7 +1,7 @@
 ---
-title: Creating Announcements
-page_title: Creating Announcements 
-description: Enable organizations and users to configure and use the Announcement feature on Sunbird 
+title: Configuration Services
+page_title: Configuration Services
+description: Document on how to enable configuration services
 published: true
 allowSearch: true
 ---
