@@ -66,25 +66,31 @@ This section provides information on the user accounts, ports and utilities requ
 
 This user account and the ssh key will be used during the installation process by Ansible to login to the servers to install and configure the required software.
 
-#### Listed below is a sample on how to create a user account, with username as Sunbird, that meets the criteria mentioned in the Prerequisite section. These steps have been verified on an Azure VM running Ubuntu 16.04 
+#### Given below is an example of how to create a user by the name of sunbird and generate public & private keys and assign sudo rights. This example has been verified on an Azure VM running Ubuntu 16.04.
 
-##### Setup an ssh key that can be used to ssh across the servers
-- SSH to any one of the cloud VMs using the SSH keys setup during VM creation. The VM that is dedicated for the app server is a good choice
-- ssh-keygen //This command will create a private & public key in the path (you can provide a path of /home/yourcurrentuser/key). Leave the passphrase empty when prompted. The public key will be called key.pub and the other file(key) contains the private key
-- Copy the output of running the following command - cat /home/yourcurrentuser/key.pub //This is the public key ~ COPIED_PUBLIC_KEY_STRING
+##### Setup the user with password less ssh & sudo access on the designated app server VM (The installation script would be executed from this machine later)
+- SSH to the cloud VM designated as the application server using the SSH keys setup during VM creation.
+- Execute the steps mentioned in the Create user section below
+- su - sunbird //Switch to the user that was just created. You will be prompted for the password that was setup while creating the linux user
+- ssh-keygen //This command will create a private & public key (default folder is /home/sunbird/.ssh/). Leave the passphrase empty when prompted. The public key will be called id_rsa.pub and the other file(id_rsa) contains the private key
+- Copy the output of running the following command - cat /home/sunbird/.ssh/id_rsa.pub //This is the public key ~ COPIED_PUBLIC_KEY_STRING
 
-##### Setup a user with password less ssh & sudo access
-- SSH to the cloud VMs using the SSH keys setup during VM creation. This user has sudo access and can create other users
+##### Setup the user with password less ssh & sudo access on the other VMs
+- SSH to the other cloud VMs using the SSH key setup during VM creation. This user has sudo access and can create other users
+- Execute the steps mentioned in the Create user section below
+- su - sunbird //You will be prompted for the password that was setup while creating the linux user
+- mkdir -p /home/sunbird/.ssh
+- echo COPIED_PUBLIC_KEY_STRING >> /home/sunbird/.ssh/authorized_keys
+
+##### Create user (username is assumed as sunbird)
+These commands create a user and provides passwordless sudo access for this user
+
 - sudo adduser sunbird //This adds a linux user with a password
 - sudo usermod -aG sudo sunbird //Providing the newly created user with sudo access
 - sudo visudo //This opens the sudoers file in nano editor and so some familiarity with Nano will help
 - Add the following entry as the last line in the sudoers file //This step is to allow the user to sudo without a  password.  
 sunbird     ALL=(ALL) NOPASSWD: ALL
 - Save the file //Ctrl + O to save, Ctrl + X to exit nano editor
-- su - sunbird //You will be prompted for the password that was setup while creating the linux user
-- mkdir -p /home/sunbird/.ssh
-- echo COPIED_PUBLIC_KEY_STRING >> /home/sunbird/.ssh/authorized_keys
-The above steps to setup a user(sunbird) with passwordless SSH & sudo access have to be done on every VM (min 2 VMs as per the pre-requisites above) used for the installation.
 
 ### Ports
 The servers communicate with each other using TCP on the following ports. Ensure that the ports are mapped and open as per the table provided to avoid communication errors between the servers.   
