@@ -62,8 +62,8 @@ This configuration service should also support fallback among connected services
 
 ## API Reference
 
-<>
 Create config
+
 1. Path for () `PUT - /config/v1/refresh`
 
 #### Request Body for Object Structure
