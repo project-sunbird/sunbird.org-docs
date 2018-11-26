@@ -5,7 +5,6 @@ description: Details on content service avaialable on Sunbird
 published: true
 allowSearch: true
 ---
-## Content Service Setup
 
 ## Overview
 This Document is created to help the developers to set-up content service in local linux machine.
