@@ -61,8 +61,8 @@ To install Sunbird Content Service, ensure that your laptop or desktop has the f
    ``` "npm install **package-name**"  ```
    
   7. To run Content service use command :  ``` node app.js```
-
-##### Output in the console after starting content service will be
+  
+  8.  Output in the console after starting content service will be :
 
 ```
 Telemetry is initialized.
