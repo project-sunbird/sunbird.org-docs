@@ -10,7 +10,7 @@ allowSearch: true
 
 ## How to generate authorization credentials
 
-This section details the procedure to generate the AuthToken and secret key that is required to access any APIs and to configure the standalone telemetry JS library.
+This section details the procedure on how to generate the AuthToken and secret key that is required to access any APIs and to configure the standalone telemetry JS library.
 
 ### Process
 
@@ -54,7 +54,8 @@ This section details the procedure to generate the AuthToken and secret key that
 ## Generating JWT
 
 The key and secret issued in the above request can be used to create a JSON Web Token (JWT) for authorizing requests.
-Request
+
+**Request**
 
 The requests need to contain HS256 signed JSON Web Tokens (as specified in RFC 7519). Now that you have a credential, and since we want to sign it using HS256, the JWT should be crafted as follows (according to RFC 7519):
 First, the header must be:
