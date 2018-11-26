@@ -7,7 +7,7 @@ allowSearch: true
 ---
 
 ## Overview
-This Document is created to help the developers to set-up content service in local linux machine.
+This Document is created to help the developers to set-up content service in local linux machine. So Developer can access the content stored in the remote repositories.
 
 ## System Requirements
 
@@ -46,7 +46,7 @@ To install Sunbird Content Service, ensure that your laptop or desktop has the f
 ### Setup Instructions
 
     Clone the project from https://github.com/project-sunbird/sunbird-content-service .
-    Run "git clone --recursive  git@github.com:project-sunbird/sunbird-content-service.git"
+    Use "git clone --recursive  git@github.com:project-sunbird/sunbird-content-service.git"
     Change to src folder
     Run npm install
     If above step returns output  "npm WARN lifecycle content-service@1.11.1~preinstall: cannot run in wd content-service@1.11.1 
