@@ -45,17 +45,21 @@ To install Sunbird Content Service, ensure that your laptop or desktop has the f
 
 ### Setup Instructions
 
-    Clone the project from https://github.com/project-sunbird/sunbird-content-service .
-    Use "git clone --recursive  git@github.com:project-sunbird/sunbird-content-service.git"
-    Change to src folder
-    Run npm install
-    If above step returns output  "npm WARN lifecycle content-service@1.11.1~preinstall: cannot run in wd content-service@1.11.1 
-    npm install ./libs/sb-config-util && npm install ./libs/sb-http-util && npm install ./libs/sb_content_provider_util && npm install ./libs/sb_logger_util && npm install ./libs/sb_req_validator_util && npm install ./libs/response_util && 
+  1.  Clone the project from https://github.com/project-sunbird/sunbird-content-service .
+  2.  Use "git clone --recursive  git@github.com:project-sunbird/sunbird-content-service.gt".
+  3.  Change to src directory.
+  4.  Use "npm install " command for building up content service.
+  5.  If above step returns this output :  
+  
+   `npm WARN lifecycle content-service@1.11.1~preinstall: cannot run in wd content-service@1.11.1 
+     npm install ./libs/sb-config-util && npm install ./libs/sb-http-util && npm install ./libs/sb_content_provider_util && npm install    ./libs/sb_logger_util && npm install ./libs/sb_req_validator_util && npm install ./libs/response_util && 
     npm install ./libs/sb_api_interceptor && npm install ./libs/sb_cache_manager && npm install ./libs/sb_telemetry_util 
-    (wd=~/sunbird-content-service/src)" , Please install all above npm packages manually  .
-    Use "node app.js" to run.
-   
+    (wd=~/sunbird-content-service/src)" , Please install all above npm packages manually.`
     
+  6.  Please install all above npm packages manually by using command
+   ``` "npm install **package-name**"  ```
+   
+  7. To run Content service use command :  ``` node app.js```
 
 ##### Output will be 
 
