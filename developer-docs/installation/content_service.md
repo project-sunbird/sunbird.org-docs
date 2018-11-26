@@ -24,24 +24,25 @@ To install Sunbird Content Service, ensure that your laptop or desktop has the f
 3. [Install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
 ### Environment Variables:
-
-    sunbird_content_provider_api_base_url: content provider API base url. e.g.: https://qa.ekstep.in or https://api.ekstep.in
-    sunbird_content_provider_api_key: API key for the above content provider URL please refer http://docs.sunbird.org/latest/developer-docs/telemetry/authtokengenerator_jslibrary/#how-to-generate-authorization-credentials for api keys.
-    sunbird_content_plugin_base_url: Content plugin base url. e.g.: https://qa.ekstep.in or https://community.ekstep.in
-    sunbird_keycloak_auth_server_url: Sunbird keycloak auth server url e.g.: https://dev.open-sunbird.org/auth (string)
-    sunbird_keycloak_realm: Sunbird keycloak realm e.g.: sunbird (string)
-    sunbird_keycloak_client_id: Sunbird keycloak client id e.g: portal (string)
-    sunbird_keycloak_public: Sunbird keycloak public e.g.: true (boolean)
-    sunbird_cache_store: Sunbird cache store e.g.: memory (string)
-    sunbird_cache_ttl: Sunbird cachec time to live e.g.: 1800(number)
-    sunbird_image_storage_url
-    sunbird_azure_account_name
-    sunbird_azure_account_key
-    sunbird_dial_code_registry_url eg: staging.open-sunbird.org/dial/
-    sunbird_cassandra_ips e.g : 127.0.0.1,127.0.0.2
-    sunbird_cassandra_port e.g: 9042
-    sunbird_telemetry_sync_batch_size e.g: 20
-    sunbird_learner_service_local_base_url e.g: 'http://learner-service:9000'
+|                Variable                      |               Value                |
+| ---------------------------------------|:----------------------------------:|
+| sunbird_content_provider_api_base_url  | content provider API base url. e.g.: https://qa.ekstep.in or https://api.ekstep.in | 
+| sunbird_content_provider_api_key       |  API key for the above content provider URL please refer http://docs.sunbird.org/latest/developer-docs/telemetry/authtokengenerator_jslibrary/#how-to-generate-authorization-credentials for api keys. |
+|sunbird_content_plugin_base_url         |Content plugin base url. e.g.: https://qa.ekstep.in or https://community.ekstep.in |
+| sunbird_keycloak_auth_server_url       | Sunbird keycloak auth server url e.g.: https://dev.open-sunbird.org/auth (string) | 
+| sunbird_keycloak_realm                 |        Sunbird keycloak realm e.g.: sunbird (string)     |
+| sunbird_keycloak_client_id             |   Sunbird keycloak client id e.g: portal (string)      |
+| sunbird_keycloak_public                |     Sunbird keycloak public e.g.: true (boolean)  | 
+| sunbird_cache_store                    |   Sunbird cache store e.g.: memory (string)|
+| sunbird_cache_ttl                      |  Sunbird cachec time to live e.g.: 1800(number) |
+| sunbird_image_storage_url              |            Url to store images        | 
+| sunbird_azure_account_name              |              azure account name      |
+|    sunbird_azure_account_key           |              key to access the account     |
+| sunbird_dial_code_registry_url     |              eg: staging.open-sunbird.org/dial/ | 
+| sunbird_cassandra_ips                 | Ip addresses of the cassandra Databases eg: 127.0.0.1,127.0.0.2     | 
+| sunbird_cassandra_port                | Port no. on which cassandra service  is running    | 
+| sunbird_telemetry_sync_batch_size       | e.g: 20    | 
+| sunbird_learner_service_local_base_url      |  url of the leraner service e.g: 'http://learner-service:9000'    | 
 
 ### Setup Instructions
 
@@ -61,7 +62,7 @@ To install Sunbird Content Service, ensure that your laptop or desktop has the f
    
   7. To run Content service use command :  ``` node app.js```
 
-##### Output will be 
+##### Output in the console after starting content service will be
 
 ```
 Telemetry is initialized.
