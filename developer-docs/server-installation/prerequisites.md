@@ -74,6 +74,7 @@ This user account and the ssh key will be used during the installation process b
 - su - sunbird //Switch to the user that was just created. You will be prompted for the password that was setup while creating the linux user
 - ssh-keygen //This command will create a private & public key (default folder is /home/sunbird/.ssh/). Leave the passphrase empty when prompted. The public key will be called id_rsa.pub and the other file(id_rsa) contains the private key
 - Copy the output of running the following command - cat /home/sunbird/.ssh/id_rsa.pub //This is the public key ~ COPIED_PUBLIC_KEY_STRING
+- echo COPIED_PUBLIC_KEY_STRING >> /home/sunbird/.ssh/authorized_keys
 
 ##### Setup the user with password less ssh & sudo access on the other VMs
 - SSH to the other cloud VMs using the SSH key setup during VM creation. This user has sudo access and can create other users
