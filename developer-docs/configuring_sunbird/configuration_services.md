@@ -14,7 +14,7 @@ Updating an instance on Sunbird can happen in following way:
 3. Database update in the runtime
 4. Configuration Services that updates the database and the code instantly through APIs 
 
-The configuration services uses a centralized method and thereby reducing the overhead of managing multiple components. They can be used to update configuration of any service instantly without requiring a service redeployment.
+The system updates in Sunbird is catered using services configuration services. The configuration services uses a centralized method and thereby reducing the overhead of managing multiple components. They can be used to update configuration of any service instantly without requiring a service redeployment.
 
 This document details the procedures on how to manage the configuration services on Sunbird.
 
@@ -29,18 +29,18 @@ This document details the procedures on how to manage the configuration services
 
 ## Chain Management for Configuration Services
 
-The rules are defined to maintain the configuration services in a hierarchial structure to run properly.   
+A heirarchial structure is followed in the rules that are defined to maintain the configuration services to run properly. 
+The heirarchy is defined as:
 
 1. Instance: contains the configuration variables in a well defined format, for that particular instance of Sunbird and the associated tenants    
 2. Tenant: contains the configuration variables in a well defined format, for that tenant and its organizations
 3. Organization: contains the configuration variables in a well defined format for the organization
 
-The micro services needs configuration and the variables are the key-value pair that are unique values and needs to be grouped for ease of access. For example: the API_timeout is defined at all heirarchial level but contains different values for each level, in this case the configuration service has increased performance while changing the 
-
+Each level of heirarchy has defined microservices that needs configuration and contains the variables in the key-value pair that are unique. These key-value pairs are grouped for ease of access in different components of the instance. For example: the API_timeout is defined at all heirarchial level but contains different values for each level, in this case the configuration service has increased performance while changing the values of the variable. 
 
 ## Creating Configuration Services
 
-The initial or the default configurations are defined in HOCON format and is available with the <which, need link>code. The configuration is available in [environment variables]() *external file hosted on cloud or a separate GIT repository*. During bootstrapping, the configuration service *must* read a system configuration available through an environment variable and understand the source of rest of the configurations <example>. It should read <what> from the specified location, parse and store with the attached storage.
+The initial or the default configurations are defined in HOCON format and is available with the <*which*, need link> code. The configuration is available in [environment variables]() *external file hosted on cloud or a separate GIT repository*. During bootstrapping, the configuration service must read system configuration available through an environment variable and understand the source of rest of the configurations <need example>. It should read <what> from the specified location, parse and store with the attached storage.
 
 ## Updating Configuration Services
 
@@ -81,6 +81,7 @@ Create config
   }
 
 Get config by params
+
 1. Path for (): `POST - /config/v1/read`
 
 #### Request Body for Object Structure 
