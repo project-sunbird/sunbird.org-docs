@@ -37,72 +37,44 @@ Path for creating consumers: http://localhost:**4000**/v1/consumer/create
 
 * username= XYZ-Corp // Unique & unmodifiable name of the consumer 
 
-    javascript
+    ```javascript
     curl -X POST \
-
       http://localhost:4000/v1/consumer/create \
-
       -H 'Content-Type: application/json' \
-
       -d '{
-
       "id": "ekstep.api.am.adminutil.consumer.create",
-
       "ver": "1.0",
-
       "ets": 1489054878488,
-
       "params": {
-
         "msgid": ""
-
      }, 
-
      "request": {
-
         "username": "XYZ-Corp"
-
      }
-
     }'
+    ```
 
 #### Response
 
-    javascript
+```javascript
     {
-
     "id":"ekstep.api.am.adminutil.consumer.create",
-
     "ver":"1.0",
-
     "ets":1542611334837,
-
     "params":{
-
         "status":"successful",
-
         "err":null,
-
         "errmsg":null,
-
         "msgid":"",
-
         "resmsgid":"c06ece80-d65f-4ac1-af80-8aeb05fa4881"
-
         },
-
     "result":{
-
         "key":"07dcc362679d477ea0711d74132203e1",
-
         "secret":"8ba62750a63648059839e782a0424b4f",
-
         "username":"XYZ-Corp"
-
         }
-
     }
-
+```
 **Error codes**
 
 * INTERNAL_ERROR: Unknown/Unhandled error (equivalent HTTP 500)
@@ -133,22 +105,24 @@ The requests need to contain HS256 signed JSON Web Tokens (as specified in RFC 7
 
 **Header Parameters**:
 
-    javascript
+```javascript
     {
         "typ": "JWT",
         "alg": "HS256"
     }
+```
 
 #### Request Body 
 
-    javascript
+```javascript
     {
         "iss": "8f00bc9585904d95e51cc4a1" \\ "key" of the credential  shared above.
     }
+```
 
 The remaining fields of the JWT can be filled based on the details of the request being sent. For example, given below is the request body which accesses the content API:
 
-    javascript
+```javascript
     {
        "iss": "8f00bc9585904d95e51cc4a1", // the issuer of the claim or the "key"
        "iat": "1442426231600", // epoch timestamp when JWT was created
@@ -160,11 +134,12 @@ The remaining fields of the JWT can be filled based on the details of the reques
           "msgid": "c3049b36249a3c9f8891cb1999777743c"
        }
     }
-    
+```    
 The generated JWT from the request: 
 
-    javascript
+```javascript
     eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhMzZjMzA0OWIzNjI0OWEzYzlmODg5MWNiMTI3MjQzYyIsImlhdCI6IjE0NDI0MjYyMzE2MDAiLCJpZCI6Im9yZy5la3N0ZXAuYXBpLmRhdGFTZXQiLCJxc2giOiI4MDYzZmY0Y2ExZTQxZGYwZjYyMDdkNDkxY2Y2ZGFkN2M2NmVhNzk3YjQ2MTRiNyIsInZlcnNpb24iOiIxLjAiLCJwYXJhbXMiOnsiZGlkIjoiZmYzMDVkNTQtODViNC0zNDFiLWRhMmYtZWI2YjllNTQ2MGZhIiwibXNnaWQiOiJjMzA0OWIzNjI0OWEzYzlmODg5MWNiMTk5OTc3Nzc0M2MifX0.rww4BN-EfnAXKTRltQChYA3KM31GzyEF-YpYvIBzw1I
+```
 
 Usually, the JWT will be created programmatically by your application. JWT libraries exist for all popular programming languages. However, you may also use the web-based tool - [jwtbuilder](http://jwtbuilder.jamiekurtz.com/) to generate the JWT. Note that when using this tool, the **key** should be set as the **iss** field in the claims section of the payload and the **secret** obtained should be set as the **Key** field in the Signed JWT section. The Key will be used to generate a signed JWT.
 
@@ -172,7 +147,7 @@ Usually, the JWT will be created programmatically by your application. JWT libra
 
 If auth fails, the response code will be 401 or 403 and will also have the error metadata in the response body. A normal response will be a 200. For clients which need to be protocol agnostic, the response body has error metadata to extract the error code and message, if any.
 
-    javascript
+```javascript
     {
         "id": "", // unique API ID
         "ver": "", // API version
@@ -186,7 +161,7 @@ If auth fails, the response code will be 401 or 403 and will also have the error
         },
         // API specific JSON output goes here
     }
-
+```
 ### Adding Groups to Consumers
 
 Each API have whitelisted acl groups. Consumers who have access to these groups access particular APIs.
@@ -199,144 +174,83 @@ API’s and groups attached to APIs are documented [here](https://docs.google.co
 
 #### Request Body
 
-    javascript
+```javascript
     curl -X POST \
-
       http://localhost:4000/v1/consumer/XYZ-Corp/grant \
-
       -H 'Content-Type: application/json' \
-
       -d '{
-
       "id": "ekstep.api.am.adminutil.consumer.grant",
-
       "ver": "1.0",
-
       "ets": 1489054878488,
-
       "params": {
-
         "msgid": ""
-
      }, 
-
      "request": {
-
         "groups": ["contentUser", "contentAdmin"]
-
      }
-
     }'
-
-
+```
 #### Response Body
 
-    javascript
+```javascript
     {
-
     "id":"ekstep.api.am.adminutil.consumer.grant",
-
     "ver":"1.0",
-
     "ets":1542611633960,
-
     "params":{
-
         "status":"successful",
-
         "err":null,
-
         "errmsg":null,
-
         "msgid":"",
-
         "resmsgid":"5ac68867-502d-4e8b-bbc1-2c77fdc5a458"
-
     },
-
     "result":{
-
         "username":"XYZ-Corp",
-
         "groups":[
-
             "contentUser",
-
             "contentAdmin"
-
         ]
-
     }
-
     }
-
+```
 
 ### Getting Consumer Details**
 
 #### Request Body
 
-    javascript
+```javascript
     curl -X POST \
-
       http://localhost:4000/v1/consumer/XYZ-Corp/read \
-
-      -H 'Cache-Control: no-cache' \
-
       -H 'Content-Type: application/json' \
-
       -d '{
-
       "id": "ekstep.api.am.adminutil.consumer.read",
-
       "ver": "1.0",
-
       "ets": 1489054878488,
-
       "params": {
-
         "msgid": ""
-
      }
-
     }'
-
+```
 
 #### Response Body
-    javascript
+```javascript
     {
-
         "id": "ekstep.api.am.adminutil.consumer.read",
-
         "ver": "1.0",
-
         "ets": 1542609723572,
-
         "params": {
-
             "status": "successful",
-
             "err": null,
-
             "errmsg": null,
-
             "msgid": "",
-
             "resmsgid": "a1adcb76-cc02-46fb-8fcc-3737acf569de"
-
         },
-
         "result": {
-
             "username": "XYZ-Corp",
-
             "groups": [
-
                 "contentUser",
-
                 "contentAdmin"
-
             ]
-
         }
-
     }
+```
