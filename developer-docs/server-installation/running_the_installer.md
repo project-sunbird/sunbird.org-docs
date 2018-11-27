@@ -41,7 +41,7 @@ The installtion script will run through the following steps
 * Click on the RSA public key which will present you a pop-up containing the value
 * Copy this key and and set it for `sunbird_sso_publickey` parameter in the `config` file.
 
-> **Note**: Please note that the first launch of keycloak could take upto 3 mins and the webpage would show a header and a blank page body for this duration. Please wait until the main section renders the realm settings.  
+> **Note**: The first launch of keycloak could take upto 3 minutes and the webpage would show a header and a blank page body for this duration. Please wait until the main section renders the realm settings.  
 
 ### Installing Core Services
 
