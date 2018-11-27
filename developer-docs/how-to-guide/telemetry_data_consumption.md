@@ -22,7 +22,7 @@ Telemetry events are broad, human-readable actions, that can be tracked as a str
 All events data is captured via a common event JSON structure. Depending on the event, edata element carries event specific data. All events have unique event codes (IDs).
 
 The complete data structure is as follows:
-
+```
   {
     //About the event
     "eid": , // Required.
@@ -77,7 +77,7 @@ The complete data structure is as follows:
       // Tags
       "tags": [""] // Optional. Encrypted dimension tags passed by respective channels
     }
-
+```
 
 The level of data collected is a discrete decision of an organization or business. Analysis of this data offers insights into product and user behavior and usage patterns, driving business decisions and research outcomes.
 
@@ -89,13 +89,13 @@ For more information for Telemetry event structure, please refer to the [Telemet
 
 ## Prerequisites
 
-1. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
+- API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
 
-2. Enable telemetry service:
-  - The telemetry.min.js service file must be imported to app/portal. An object, window: EkTelemetry will be available as a result of importing the telemetry.min.js file. It enables the telemetry service to use.
-  - Once the page is loaded, use the command:window.EkTellemetryinitialise It initiliase the telemetry service.
-  - Now, configure telemetry using the format:
-
+-  Enable telemetry service:<br>
+  1. The telemetry.min.js service file must be imported to app/portal. An object, window: EkTelemetry will be available as a result of importing the telemetry.min.js file. It enables the telemetry service to use.
+  2. Once the page is loaded, use the command:window.EkTellemetryinitialise It initiliase the telemetry service.
+  3. Now, configure telemetry using the format:
+```
   { 
     pdata: 
     { 
@@ -119,7 +119,7 @@ For more information for Telemetry event structure, please refer to the [Telemet
     channel: 
     env: 
   }
-
+```
 * Obtain an API Key to access Sunbird APIs. The specific Channel Ids for which data exhaust API access is requested should be specified along with the API key request. To create an API key, please refer to How to generate a Sunbird API key
 
 * Instrumenting Your App for Telemetry and Analytics
@@ -149,16 +149,16 @@ Using Data exhaust API, you can get workflow summary or raw data generated as by
 /data/v3/dataset/request/submit
 
 **Bearer**
-Security scheme type: API Key<br>
-header parameter name: Authorization
+<br>Security scheme type: API Key
+<br>Header parameter name: Authorization
 
 **X-Channel-ID**
-header parameter name: X-Channel-ID
-header paramter value: Channel ID for which data exhaust is requested for
+<br>Header parameter name: X-Channel-ID
+<br>Header paramter value: Channel ID for which data exhaust is requested for
 
 **Content Type**
-header parameter name: Content-Type
-header paramter value: application/json
+<br>Header parameter name: Content-Type
+<br>Header paramter value: application/json
 
 **Submit Data Request**
 
@@ -173,16 +173,16 @@ Note: To make use of the API, you require authorization. Raise a request to the 
 
 * Custom the header parameter as per the request.
 
-X-Channel-ID: {{channel id}}
+<b>X-Channel-ID</b>: {{channel id}}
 
-Content-Type: application/json
+<b>Content-Type</b>: application/json
 
-Authorization: Bearer {{api_key}}
+<b>Authorization</b>: Bearer {{api_key}}
 
 **REQUEST BODY**
 
 The body refers to the format of the request. It contains metadata about the data request to be sent
-
+```
   {
     "id": "xyz.analytics.dataset.request.submit",
     "ver": "1.0",
@@ -203,14 +203,14 @@ The body refers to the format of the request. It contains metadata about the dat
       "output_format": "json" //or "csv"
     }
   }
-
-#### Response Body 
+```
+<b>Response Body</b>
 
 This API returns the dataset based on **fromDate** and **toDate**.
 
 Response body sample with indicative values:
 
-    
+ ```   
   {
     "id": "org.xyz.analytics.telemetry",
     "ver": "1.0",
@@ -228,10 +228,10 @@ Response body sample with indicative values:
       "expiresAt": 1542287137444
     }
   }
-
-> **Note**:
-> fromDate and toDate must be in YYYY-MM-DD format.
-> toDate must be greater than or equal to fromDate and toDate must be less than today. 
+```
+**Note**:
+* <b>fromDate</b> and toDate must be in YYYY-MM-DD format.
+<b>toDate</b> must be greater than or equal to <b>fromDate</b> and toDate must be less than today. 
 
 * Maximum one month’s (31 days) data could be downloaded in one API call.
 
@@ -239,7 +239,7 @@ Response body sample with indicative values:
 
 **Extracting Data**:
 
-Using the telemetry URL that you recieve as part of the the response body of data exhaust API, you can download and extract the file ( .gzip format) that contain telemetry log.
+* Using the telemetry URL that you recieve as part of the the response body of data exhaust API, you can download and extract the file ( .gzip format) that contain telemetry log.
 
 * Store the extracted json file to server/cloud storage for subsequent analysis.
 
@@ -258,8 +258,9 @@ For Portal content sessions:
 
 "dimensions.pdata.id" = "prod.diksha.portal" & "dimensions.mode" = "play" & "dimensions.type" = "content"
 
-2. Another example: To calculate the overall time spent on a content, analyst should use time_spent parameter under the eks section in the edata field from the [workflow summary](https://github.com/ekstep/Common-Design/wiki/[Data-Product]-Workflow-Summarizer) data.
+2. Another example: To calculate the overall time spent on a content, analyst should use <b>time_spent</b> parameter under the <b>eks</b> section in the edata field from the [workflow summary](https://github.com/ekstep/Common-Design/wiki/[Data-Product]-Workflow-Summarizer) data.
 
+```
   {
     "edata": {
     "eks": {
@@ -280,7 +281,7 @@ For Portal content sessions:
         }
       }
     }
-
+```
 ## Concept Covered
 
 - Telemetry Services
