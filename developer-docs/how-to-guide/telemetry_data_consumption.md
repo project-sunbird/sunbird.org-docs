@@ -9,7 +9,7 @@ allowSearch: true
 
 ## Scenario
 
-As a part of the employee development and training program, the XYZ Corporation needs to create training material. The Learning and Develop department's admin would like to understand the effectiveness of the courses.  To meet this objective, the corporation must obtain telemetry data and analyze the data to understand the time spent by a user on a content.
+XYZ coorporation is an organization dealing with develpoment and training programs.  As a part of the employee development and training program, the XYZ Corporation must create training material. The Learning and Develop department's admin would like to understand the effectiveness of the courses, so that they can constantly improvise their training material. To meet this objective, the corporation must obtain telemetry data and analyze the data to understand the time spent by a user on a content.
 
 ## Overview
 
@@ -22,7 +22,7 @@ Telemetry events are broad, human-readable actions, that can be tracked as a str
 All events data is captured via a common event JSON structure. Depending on the event, edata element carries event specific data. All events have unique event codes (IDs).
 
 The complete data structure is as follows:
-<<<<<<< HEAD
+
 ```
   {
     //About the event
@@ -57,7 +57,6 @@ The complete data structure is as follows:
           "l3": "",
           "l4": ""
         }
-=======
 
     {
       //About the event
@@ -69,7 +68,6 @@ The complete data structure is as follows:
       "actor": { // Required. Actor of the event.
         "id": , // Required. Can be blank. The id of the actor. For eg: u`id in case of an user
         "type":  // Required. Can be blank. User, System etc.
->>>>>>> 3201f6e252e2098db39ab172f6ea7d4867ec97b6
       },
 
       //Context of the event
@@ -108,20 +106,16 @@ The complete data structure is as follows:
           }
         },
 
-<<<<<<< HEAD
       // Tags
       "tags": [""] // Optional. Encrypted dimension tags passed by respective channels
     }
 ```
-=======
         // What is the event data
         "edata": {} // Required.
 
         // Tags
         "tags": [""] // Optional. Encrypted dimension tags passed by respective channels
       }
-
->>>>>>> 3201f6e252e2098db39ab172f6ea7d4867ec97b6
 
 The level of data collected is a discrete decision of an organization or business. Analysis of this data offers insights into product and user behavior and usage patterns, driving business decisions and research outcomes.
 
@@ -131,11 +125,11 @@ For more information for Telemetry event structure, please refer to the [Telemet
 
 - API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
 
-<<<<<<< HEAD
 -  Enable telemetry service:<br>
   1. The telemetry.min.js service file must be imported to app/portal. An object, window: EkTelemetry will be available as a result of importing the telemetry.min.js file. It enables the telemetry service to use.
   2. Once the page is loaded, use the command:window.EkTellemetryinitialise It initiliase the telemetry service.
   3. Now, configure telemetry using the format:
+  
 ```
   { 
     pdata: 
@@ -160,9 +154,7 @@ For more information for Telemetry event structure, please refer to the [Telemet
     channel: 
     env: 
   }
-```
-=======
-```
+
 { 
           pdata: 
           { 
@@ -188,7 +180,6 @@ For more information for Telemetry event structure, please refer to the [Telemet
 }
 ```
 
->>>>>>> 3201f6e252e2098db39ab172f6ea7d4867ec97b6
 * Obtain an API Key to access Sunbird APIs. The specific Channel Ids for which data exhaust API access is requested should be specified along with the API key request. To create an API key, please refer to How to generate a Sunbird API key
 
 * Instrumenting Your App for Telemetry and Analytics
@@ -251,7 +242,7 @@ Note: To make use of the API, you require authorization. Raise a request to the 
 **REQUEST BODY**
 
 The body refers to the format of the request. It contains metadata about the data request to be sent
-<<<<<<< HEAD
+
 ```
   {
     "id": "xyz.analytics.dataset.request.submit",
@@ -275,7 +266,6 @@ The body refers to the format of the request. It contains metadata about the dat
   }
 ```
 <b>Response Body</b>
-=======
 
     {
       "id": "xyz.analytics.dataset.request.submit",
@@ -299,12 +289,10 @@ The body refers to the format of the request. It contains metadata about the dat
     }
 
 #### Response Body 
->>>>>>> 3201f6e252e2098db39ab172f6ea7d4867ec97b6
 
 This API returns the dataset based on **fromDate** and **toDate**.
 
 Response body sample with indicative values:
-<<<<<<< HEAD
 
  ```   
   {
@@ -325,11 +313,10 @@ Response body sample with indicative values:
     }
   }
 ```
-**Note**:
-* <b>fromDate</b> and toDate must be in YYYY-MM-DD format.
-<b>toDate</b> must be greater than or equal to <b>fromDate</b> and toDate must be less than today. 
-=======
-    
+> **Note**:
+> <b>fromDate</b> and <b>toDate</b> must be in YYYY-MM-DD format
+> <b>toDate</b> must be greater than or equal to <b>fromDate</b> and toDate must be less than today
+   
     {
       "id": "org.xyz.analytics.telemetry",
       "ver": "1.0",
@@ -349,9 +336,8 @@ Response body sample with indicative values:
     }
 
 > **Note**:
-> fromDate and toDate must be in YYYY-MM-DD format.
-> toDate must be greater than or equal to fromDate and toDate must be less than today. 
->>>>>>> 3201f6e252e2098db39ab172f6ea7d4867ec97b6
+> fromDate and toDate must be in YYYY-MM-DD format
+> toDate must be greater than or equal to fromDate and toDate must be less than today
 
 * Maximum one month’s (31 days) data could be downloaded in one API call.
 
@@ -381,7 +367,6 @@ For Portal content sessions:
 2. Another example: To calculate the overall time spent on a content, analyst should use <b>time_spent</b> parameter under the <b>eks</b> section in the edata field from the [workflow summary](https://github.com/ekstep/Common-Design/wiki/[Data-Product]-Workflow-Summarizer) data.
 
 ```
-<<<<<<< HEAD
   {
     "edata": {
     "eks": {
@@ -402,8 +387,6 @@ For Portal content sessions:
         }
       }
     }
-```
-=======
 {
       "edata": {
       "eks": {
@@ -426,7 +409,6 @@ For Portal content sessions:
   }
   ```
 
->>>>>>> 3201f6e252e2098db39ab172f6ea7d4867ec97b6
 ## Concept Covered
 
 - Telemetry Services
