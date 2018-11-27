@@ -38,7 +38,7 @@ Path for creating consumers: http://localhost:**4000**/v1/consumer/create
 * username= XYZ-Corp // Unique & unmodifiable name of the consumer 
 
     ```javascript
-    curl -X POST \
+curl -X POST \
       http://localhost:4000/v1/consumer/create \
       -H 'Content-Type: application/json' \
       -d '{
@@ -51,13 +51,13 @@ Path for creating consumers: http://localhost:**4000**/v1/consumer/create
      "request": {
         "username": "XYZ-Corp"
      }
-    }'
+}'
     ```
 
 #### Response
 
 ```javascript
-    {
+{
     "id":"ekstep.api.am.adminutil.consumer.create",
     "ver":"1.0",
     "ets":1542611334837,
@@ -73,7 +73,7 @@ Path for creating consumers: http://localhost:**4000**/v1/consumer/create
         "secret":"8ba62750a63648059839e782a0424b4f",
         "username":"XYZ-Corp"
         }
-    }
+}
 ```
 **Error codes**
 
@@ -106,24 +106,24 @@ The requests need to contain HS256 signed JSON Web Tokens (as specified in RFC 7
 **Header Parameters**:
 
 ```javascript
-    {
+{
         "typ": "JWT",
         "alg": "HS256"
-    }
+}
 ```
 
 #### Request Body 
 
 ```javascript
-    {
+{
         "iss": "8f00bc9585904d95e51cc4a1" \\ "key" of the credential  shared above.
-    }
+}
 ```
 
 The remaining fields of the JWT can be filled based on the details of the request being sent. For example, given below is the request body which accesses the content API:
 
 ```javascript
-    {
+{
        "iss": "8f00bc9585904d95e51cc4a1", // the issuer of the claim or the "key"
        "iat": "1442426231600", // epoch timestamp when JWT was created
        "id": "org.sunbird.api.contentAPI", // target API
@@ -133,7 +133,7 @@ The remaining fields of the JWT can be filled based on the details of the reques
           "did": "ff305d54-85b4-341b-da2f-eb6b9e5460fa", 
           "msgid": "c3049b36249a3c9f8891cb1999777743c"
        }
-    }
+}
 ```    
 The generated JWT from the request: 
 
@@ -148,7 +148,7 @@ Usually, the JWT will be created programmatically by your application. JWT libra
 If auth fails, the response code will be 401 or 403 and will also have the error metadata in the response body. A normal response will be a 200. For clients which need to be protocol agnostic, the response body has error metadata to extract the error code and message, if any.
 
 ```javascript
-    {
+{
         "id": "", // unique API ID
         "ver": "", // API version
         "ets": "", // epoch timestamp 
@@ -160,7 +160,7 @@ If auth fails, the response code will be 401 or 403 and will also have the error
             "errmsg": "" // default English error message
         },
         // API specific JSON output goes here
-    }
+}
 ```
 ### Adding Groups to Consumers
 
@@ -175,7 +175,7 @@ API’s and groups attached to APIs are documented [here](https://docs.google.co
 #### Request Body
 
 ```javascript
-    curl -X POST \
+curl -X POST \
       http://localhost:4000/v1/consumer/XYZ-Corp/grant \
       -H 'Content-Type: application/json' \
       -d '{
@@ -188,12 +188,12 @@ API’s and groups attached to APIs are documented [here](https://docs.google.co
      "request": {
         "groups": ["contentUser", "contentAdmin"]
      }
-    }'
+}'
 ```
 #### Response Body
 
 ```javascript
-    {
+{
     "id":"ekstep.api.am.adminutil.consumer.grant",
     "ver":"1.0",
     "ets":1542611633960,
@@ -211,7 +211,7 @@ API’s and groups attached to APIs are documented [here](https://docs.google.co
             "contentAdmin"
         ]
     }
-    }
+}
 ```
 
 ### Getting Consumer Details**
@@ -219,7 +219,7 @@ API’s and groups attached to APIs are documented [here](https://docs.google.co
 #### Request Body
 
 ```javascript
-    curl -X POST \
+curl -X POST \
       http://localhost:4000/v1/consumer/XYZ-Corp/read \
       -H 'Content-Type: application/json' \
       -d '{
@@ -229,12 +229,12 @@ API’s and groups attached to APIs are documented [here](https://docs.google.co
       "params": {
         "msgid": ""
      }
-    }'
+}'
 ```
 
 #### Response Body
 ```javascript
-    {
+{
         "id": "ekstep.api.am.adminutil.consumer.read",
         "ver": "1.0",
         "ets": 1542609723572,
@@ -252,5 +252,5 @@ API’s and groups attached to APIs are documented [here](https://docs.google.co
                 "contentAdmin"
             ]
         }
-    }
+}
 ```
