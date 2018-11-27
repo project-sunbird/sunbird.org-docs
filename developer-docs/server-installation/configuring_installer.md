@@ -24,7 +24,7 @@ Run this as the user that was setup for the install ~sunbird in the sample setup
         cd deploy
 
 > **Note**: 
-- There will be a git warning message - you are in 'detached HEAD' and this can be safely ignored.
+- There will be a git warning message during the checkout step - you are in 'detached HEAD' and this message can be safely ignored.
 - Do not use 10.0.0.0 network subnet while creating your VMs. Docker uses this subnet for internal communications and thus this may result in a clash with the host IPs.
 
 ## Configuring the Installer
