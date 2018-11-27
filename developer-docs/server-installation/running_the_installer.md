@@ -70,7 +70,7 @@ Create the custodian tenant, channel & root user by running
   * `{dns-name}` is the value which you configured when installing Sunbird
   * The login ID is `sunbird_root_user_username@sunbird_custodian_tenant_channel`
 
-> **Note**: Please note that the posttest step could take upto 5 mins to complete  
+> **Note**: The posttest step could take upto 5 minutes to complete  
 
 ## Post-Install sign-up
 
