@@ -92,29 +92,31 @@ For more information for Telemetry event structure, please refer to the [Telemet
   - Once the page is loaded, use the command:window.EkTellemetryinitialise It initiliase the telemetry service.
   - Now, configure telemetry using the format:
 
-  { 
-      pdata: 
-      { 
-        "hostURL": window.location.origin, // "hostURL": "https://xyz.in", 
-        "telemetry": 
-        { 
-          "pdata": 
+```
+{ 
+          pdata: 
+          { 
+            "hostURL": window.location.origin, // "hostURL": "https://xyz.in", 
+            "telemetry": 
             { 
-            "id": window.location.origin.indexOf("xyz.in") >= 0 ? 
-            "prod.xyz.portal": "staging.xyz.portal", 
-            "ver": "1.10.1", "pid": 
-            "sunbird-portal" 
-          } 
-        } 
-      }, 
-      endpoint: endpoint, 
-      apislug: "/content", 
-      host: hostURL, 
-      uid: 'anonymous', 
-      sid: window.uuidv1(), 
-      channel: 
-      env: 
-  }
+              "pdata": 
+                { 
+                "id": window.location.origin.indexOf("xyz.in") >= 0 ? 
+                "prod.xyz.portal": "staging.xyz.portal", 
+                "ver": "1.10.1", "pid": 
+                "sunbird-portal" 
+              } 
+            } 
+          }, 
+          endpoint: endpoint, 
+          apislug: "/content", 
+          host: hostURL, 
+          uid: 'anonymous', 
+          sid: window.uuidv1(), 
+          channel: 
+          env: 
+}
+```
 
 * Obtain an API Key to access Sunbird APIs. The specific Channel Ids for which data exhaust API access is requested should be specified along with the API key request. To create an API key, please refer to How to generate a Sunbird API key
 
@@ -179,7 +181,7 @@ Authorization: Bearer {{api_key}}
 
 The body refers to the format of the request. It contains metadata about the data request to be sent
 
-  {
+    {
       "id": "xyz.analytics.dataset.request.submit",
       "ver": "1.0",
       "ts": "2015-08-04T17:36:36+05:30",",
@@ -197,8 +199,8 @@ The body refers to the format of the request. It contains metadata about the dat
           ]
         },
         "output_format": "json" //or "csv"
+     }
     }
-  }
 
 #### Response Body 
 
@@ -206,7 +208,7 @@ This API returns the dataset based on **fromDate** and **toDate**.
 
 Response body sample with indicative values:
     
-  {
+    {
       "id": "org.xyz.analytics.telemetry",
       "ver": "1.0",
       "ts": "2018-11-15T12:35:37.522+00:00",
@@ -221,8 +223,8 @@ Response body sample with indicative values:
         **"https://xyzproductionall.blob.core.windows.net/telemetry-data-store/channel/01235953112556064029750/raw/2018-10-01-1538393108525.json.gz"**
           ],
         "expiresAt": 1542287137444
+      }
     }
-  }
 
 > **Note**:
 > fromDate and toDate must be in YYYY-MM-DD format.
@@ -255,7 +257,8 @@ For Portal content sessions:
 
 2. Another example: To calculate the overall time spent on a content, analyst should use time_spent parameter under the eks section in the edata field from the [workflow summary](https://github.com/ekstep/Common-Design/wiki/[Data-Product]-Workflow-Summarizer) data.
 
-  {
+```
+{
       "edata": {
       "eks": {
         "start_time": Long, // Epoch Timestamp of start. Retrieved from first event.
@@ -272,9 +275,10 @@ For Portal content sessions:
             "count": Long // count of times the environment has been visited
               }
             ]
-        }
       }
     }
+  }
+  ```
 
 ## Concept Covered
 
