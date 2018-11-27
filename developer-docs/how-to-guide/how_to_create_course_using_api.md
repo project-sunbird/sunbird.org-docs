@@ -1,6 +1,6 @@
 ---
-title: Creating Course	
-page_title: Creating Course
+title: Create Course	
+page_title: Create Course
 description: Document on how to create course with course creation apis
 keywords: Course, course creation, adding content to course, using api to create course
 published: true
@@ -39,35 +39,32 @@ This document explains the process of creating content using APIs. The sequence 
 
 1. Creating Course using [Create Course](http://docs.sunbird.org/latest/apis/content/#operation/Create%20Content)[API](http://docs.sunbird.org/latest/apis/content/#operation/Create%20Content)
 
-  Path for creating a course:
+2. Path for creating a course:```{{host}}/course/v1/create```
 
-    * {{host}}/course/v1/create
+#### Request Body
+  
+    {
+    "request": {
+      "course": {
+      "name": "training course",
+      "description": "training content for upskilling employees",
+      "creator": "Creator01 user",
+      "createdBy": "159e93d1-da0c-4231-be94-e75b0c226d7c",
+      "organisation": [
+        "XYZ Corporation",
+        "XYZ"
+      ],
+      "createdFor": [
+        "01232002070124134414",
+        "012315809814749184151"
+      ],
+      "framework": "NCF",
+      "resourceType": "Course"
+      }
+    }
+  }
 
-  Request Body
-  ```
-  {
-	"request": {
-		"course": {
-		"name": "training course",
-		"description": "training content for upskilling employees",
-		"creator": "Creator01 user",
-		"createdBy": "159e93d1-da0c-4231-be94-e75b0c226d7c",
-		"organisation": [
-			"XYZ Corporation",
-			"XYZ"
-		],
-		"createdFor": [
-			"01232002070124134414",
-			"012315809814749184151"
-		],
-		"framework": "NCF",
-		"resourceType": "Course"
-		}
-	}
-}
-  ```
-
-### Response Body
+#### Response Body
 ```
 {
 "id": "api.course.create",

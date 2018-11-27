@@ -11,7 +11,7 @@ allowSearch: true
 ## Scenario
 
 A company, XYZ Corp, is a global conglomerate with over ten thousand employees, spread across 5 locations. Employee training and enablement is one of the core values of the organization. To ensure that employees are regularly trained and upskilled, XYZ Corp has decided to use Sunbird for its learning and training solution on 3 topics, namely Life Science, eCommerce and Archeology (Indian, Greek, Mayan). <br>
-Maya joins XYZ Corp as an intern pursuing research Indian & Greek archeology. For the first 3 months, she will need access to scholarly articles on Indian archeology and the next 3 months access to articles on Greek archeology. She will not have the rights to publish any articles, only consume existing ones. XYZ Corp's Sunbird administrator, Gita, is tasked in ensuring Maya gets access to the relevant content during this six month period.
+Maya joins XYZ Corp as an intern pursuing research Indian & Greek archeology. For the first 3 months, she needs access to scholarly articles on Indian archeology and the next 3 months access to articles on Greek archeology. She does not have the rights to publish any articles, only consume existing ones. XYZ Corp's Sunbird administrator, Gita, is tasked in ensuring Maya gets access to the relevant content during this six month period.
 
 
 ### Prerequisites
@@ -24,14 +24,13 @@ Maya joins XYZ Corp as an intern pursuing research Indian & Greek archeology. Fo
 
 4. The root organization and sub-organizations created and their **organsationId** and root organization's **channel** readily available
 
-5. The user account created in the root-organization and **userId** readily available.
-
+5. The user account created in the root-organization and **userId** readily available
 
 ### Taskflow
 
-First, Gita will assign the role of content consumer, to Maya, in the sub-organization Indian Archeology. 
+First, Gita assigns the role of content consumer, to Maya, in the sub-organization Indian Archeology. 
 
-**Request Headers**
+**Headers Parameter**
 
 |     Header    |          Type         | Description | Sample |
 |---------------|------------------------|--------|-----------|
@@ -39,7 +38,7 @@ First, Gita will assign the role of content consumer, to Maya, in the sub-organi
 | Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
 | x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
-#### cURL Request
+#### Request Body
 
     curl -X POST \
     https://staging.open-sunbird.org/api/org/v1/member/add \
@@ -52,7 +51,7 @@ First, Gita will assign the role of content consumer, to Maya, in the sub-organi
             "organisationId": "01261942258536448016",
             "userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449"
         }
-    }'
+    }
 
 #### Response Body
 
@@ -74,7 +73,7 @@ First, Gita will assign the role of content consumer, to Maya, in the sub-organi
     }
 
 
-After 3 months, Gita will revoke Maya's access to the the sub-organization - Indian Archeology.
+After 3 months, Gita revokes Maya's access to the the sub-organization - Indian Archeology.
 
 **Header Parameters**
 
@@ -129,7 +128,7 @@ Gita associates Maya with sub-organization called Greek Archeology.
 | Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
 | x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
-#### cURL Request
+#### Request Body
 
     curl -X POST \
     https://staging.open-sunbird.org/api/org/v1/member/add \
@@ -173,7 +172,7 @@ After 3 more months, Gita revokes Maya's access to the sub-organization called G
 | Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
 | x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
-#### cURL Request
+#### Request Body
 
     curl -X POST \
     https://staging.open-sunbird.org/api/org/v1/member/remove \
@@ -215,6 +214,6 @@ This concludes the topic of associating a user with an organization, in Sunbird.
 
 ### Related Topics
 
-[Creating an organization](../developer-docs/how-to-guide/how_to_create_organization)
+[Creating an organization](developer-docs/how-to-guide/how_to_create_organization)
 
-[Creating Users](../developer-docs/how-to-guide/how_to_create_user)
+[Creating Users](developer-docs/how-to-guide/how_to_create_user)

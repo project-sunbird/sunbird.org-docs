@@ -1,7 +1,7 @@
 ---
-title: Seed Framework
-page_title: Seed a Framework
-description: Seed data in framework in Sunbird instance
+title: Add Content to Framework
+page_title: Add Content to Framework
+description: Add content in framework in Sunbird instance
 keywords: framework data, seed data in framework
 published: true
 allowSearch: true
@@ -24,6 +24,8 @@ With huge resource library and based on ABC organizations decision, they want to
 
 ABC, may choose a predefined category and associate it to their own framework. The categories in the framework has terms associated with it. These terms are relevant to the created framework and can be created by the organization. 
 
+{% image src='developer-docs/how-to-guide/images/seed_framework.png' full center alt='Relationship between Framework, Category, and Terms' zoom %} 
+
 After you create a framework, it must be seeded with the required data classified under different components such as:
    - Categories
    - Terms  
@@ -35,15 +37,19 @@ Once the framework is successfully seeded, then it must be associating with term
 
 1. An intialized Sunbird instance with channel
 
-2. The [API Key for access](developer-docs/how-to-guide/generate_apikey/) and basic authentication
+2. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
   
 3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
 4. Onboarding the following with access to the API
+
     - Admin user     
-    - [Individual User](http://www.sunbird.org/apis/userapi/#operation/Create%20User)
-    - [Individual Organization](http://www.sunbird.org/apis/orgapi/#operation/Organisation%20Create) access 
-    - [Associated Users to Organization](http://www.sunbird.org/apis/)
+
+    - [Individual User](apis/userapi/#operation/Create%20User)
+
+    - [Individual Organization](apis/orgapi/#operation/Organisation%20Create) access 
+
+    - [Map users to the organization](apis/orgapi/#operation/Organisation%20Add%20User)
 
 5. Access to [Framework API](http://www.sunbird.org/apis/framework/)
 
@@ -86,9 +92,8 @@ For your reference, the following is the list of default categories:
  - topic 
 
 2. Create a new category by using [Create category API](http://docs.sunbird.org/latest/apis/framework/#operation/FrameworkV1CategoryCreate), ensure to provide the appropriate value for “code” parameter in the request payload. The code parameter inherits the master category schema. 
->**Note**: 
-You can only create a new category using any of the available master list categories.
-If you want to create a new master category, send an email to support@sunbird.org
+>**Note**: You can only create a new category using any of the available master list categories. 
+> If you want to create a new master category, send an email to support@sunbird.org
 
 3. Provide the valid input for the query parameters **framework**. Append the parameter to the endpoint request URI while you are sending the API request
 
@@ -96,40 +101,39 @@ If you want to create a new master category, send an email to support@sunbird.or
 
 #### Request Body for creating framework category:
 
-`POST: /framework/v1/category/create?framework=abc1`
-```
-{
-   "request": {
-      "category":{
-          "name":"Resource",
-          "description":"Resource category of the framework",
-          "code":"subject",
-          "translations": "{\"en\":\"resource\"}"
-      }
-    }
-}
-```      
+5. Path for creating framework : `POST: /framework/v1/category/create?framework=abc1`
 
-`Response Body`
-```
-{
-    "id": "api.category.create",
-    "ver": "1.0",
-    "ts": "2018-11-19T11:00:57.914Z",
-    "params": {
-        "resmsgid": "64b331a0-ebea-11e8-8676-f72d022164ed",
-        "msgid": "649b63e0-ebea-11e8-b107-49a5bcd087db",
-        "status": "successful",
-        "err": null,
-        "errmsg": null
-    },
-    "responseCode": "OK",
-    "result": {
-        "node_id": "abc1_subject",
-        "versionKey": "1542625257776"
+    {
+    "request": {
+        "category":{
+            "name":"Resource",
+            "description":"Resource category of the framework",
+            "code":"subject",
+            "translations": "{\"en\":\"resource\"}"
+        }
+        }
+    } 
+
+#### Response Body
+
+    {
+        "id": "api.category.create",
+        "ver": "1.0",
+        "ts": "2018-11-19T11:00:57.914Z",
+        "params": {
+            "resmsgid": "64b331a0-ebea-11e8-8676-f72d022164ed",
+            "msgid": "649b63e0-ebea-11e8-b107-49a5bcd087db",
+            "status": "successful",
+            "err": null,
+            "errmsg": null
+        },
+        "responseCode": "OK",
+        "result": {
+            "node_id": "abc1_subject",
+            "versionKey": "1542625257776"
+        }
     }
-}
-```
+
 **Description of Parameters**
 
 Name: name of the category
@@ -159,50 +163,48 @@ The categories can be retrieved and listed using [Fetch API](http://www.sunbird.
 ##### Request Body for creating Terms 
 
 `POST: /framework/v1/term/create?framework=abc1&category=subject`
-```
-{
-    "request": {
-        "term": [
-            {
-                "code": "river",
-                "name": "River",
-                "description":"Describes River",
-                "translations": "{\"en\":\"river\"}"
-            },
-            {
-                "code": "sea",
-                "name": "Sea",
-                "description":"Describes Sea",
-                "translations": "{\"en\":\"sea\"}"
-            }
-        ]
-    }
-}
 
-```
-`Response Body`
-``` 
-{
-    "id": "api.term.create",
-    "ver": "1.0",
-    "ts": "2018-11-19T11:21:37.973Z",
-    "params": {
-        "resmsgid": "47d52e50-ebed-11e8-8676-f72d022164ed",
-        "msgid": "47ba5350-ebed-11e8-b107-49a5bcd087db",
-        "status": "successful",
-        "err": null,
-        "errmsg": null
-    },
-    "responseCode": "OK",
-    "result": {
-        "node_id": [
-            "abc1_subject_river",
-            "abc1_subject_sea"
-        ]
+    {
+        "request": {
+            "term": [
+                {
+                    "code": "river",
+                    "name": "River",
+                    "description":"Describes River",
+                    "translations": "{\"en\":\"river\"}"
+                },
+                {
+                    "code": "sea",
+                    "name": "Sea",
+                    "description":"Describes Sea",
+                    "translations": "{\"en\":\"sea\"}"
+                }
+            ]
+        }
     }
-}
-```
-  
+
+
+#### Response Body 
+
+    {
+        "id": "api.term.create",
+        "ver": "1.0",
+        "ts": "2018-11-19T11:21:37.973Z",
+        "params": {
+            "resmsgid": "47d52e50-ebed-11e8-8676-f72d022164ed",
+            "msgid": "47ba5350-ebed-11e8-b107-49a5bcd087db",
+            "status": "successful",
+            "err": null,
+            "errmsg": null
+        },
+        "responseCode": "OK",
+        "result": {
+            "node_id": [
+                "abc1_subject_river",
+                "abc1_subject_sea"
+            ]
+        }
+    }  
 
 **Description of Parameters**
 
@@ -217,14 +219,47 @@ Other operations that can be performed on terms of a category within a  framewor
 
 [Update](apis/framework/#operation/FrameworkV1TermReadClass2Get) 
 
-[Search](apis/framework/#operation/FrameworkV1TermSearchPost) 
+[Search](apis/framework/#operation/FrameworkV1TermSearchPost)
+
+### Publishing Framework
+
+1. Once a framework is associated with its category and terms, it has to be published. Until it is published, the changes will not be available in the framework get API call.
+
+2. Given below is the publish framework API sample request and response. Framework has to be passed as a query parameter and the request body should be blank.
+
+>**Note**: The sample values provided in the request body are indicative.
+
+##### Request Body for creating Terms 
+
+`POST: /framework/v1/publish/abc1`
+```
+{}
+
+```
+`Response Body`
+``` 
+{
+    "id": "api.framework.publish",
+    "ver": "1.0",
+    "ts": "2018-11-20T15:23:31.724Z",
+    "params": {
+        "resmsgid": "3d1d94c0-ecd8-11e8-8ee7-23985149ff3f",
+        "msgid": "3d1b23c0-ecd8-11e8-b9fd-f7a268445f06",
+        "status": "successful",
+        "err": null,
+        "errmsg": null
+    },
+    "responseCode": "OK",
+    "result": {
+        "publishStatus": "Publish Operation for Framework Id 'abc1' Started Successfully!"
+    }
+}
+```
+  
+Note: Once the framework is published, all the changes will be available in the framework get API.
 
 ## Concepts Covered
 
-[How do I extend or customize a framework in Sunbird](http://www.sunbird.org/developer-docs)
+[How do I create a framework in Sunbird](developer-docs/how-to-guide/how_to_create_framework_in_sunbird)
 
-[How do I seed a framework in Sunbird](http://www.sunbird.org/developer-docs)
 
-[How do I associate framework to categories and categories to a terms in Sunbird](http://www.sunbird.org/developer-docs)
-
-[How to use Postman](http://www.sunbird.org/developer-docs)

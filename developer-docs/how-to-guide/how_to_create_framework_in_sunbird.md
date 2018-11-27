@@ -41,7 +41,7 @@ For example, for the organization ABC organization the framework name is ABC and
 
 1. An intialized Sunbird instance with channel
 
-2. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](../developer-docs/how-to-guide/generate_apikey/)
+2. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
   
 3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
@@ -49,13 +49,13 @@ For example, for the organization ABC organization the framework name is ABC and
 
     - Admin user     
 
-    - [Individual user](../apis/userapi/#operation/Create%20User)
+    - [Individual user](apis/userapi/#operation/Create%20User)
 
-    - [Individual Organization](../apis/orgapi/#operation/Organisation%20Create) access 
+    - [Individual Organization](apis/orgapi/#operation/Organisation%20Create) access 
 
-    - [Associated Users to organization](../apis/orgapi/#operation/Organisation%20Add%20User)
+    - [Map users to the organization](apis/orgapi/#operation/Organisation%20Add%20User)
 
-5. Access to [Framework API](../apis/framework/)
+5. Access to [Framework API](apis/framework/)
 
 ### Taskflow
  
@@ -70,13 +70,13 @@ Following is an example of request body for creating a framework, the sample val
 
 ##### Request Body to Create Framework
 
-To retrieve the channels for the request parameter, use [List Channel API](../apis/framework/#operation/ChannelV1ListPost)  
-    
+To retrieve the channels for the request parameter, use [List Channel API](apis/framework/#operation/ChannelV1ListPost)
+
     {
     "request": {
         "framework": {
             "name": "ABC",
-            "code": "abc",
+            "code": "abc1",
             "description": "Framework for ABC Management",
             "translations": {"hi":"ABC-अनुवाद","ta":"ABC மொழிபெயர்ப்பு"},
             "type": "TPD",
@@ -86,11 +86,11 @@ To retrieve the channels for the request parameter, use [List Channel API](../ap
 
 **Description of Parameters**
 
-Name: The name of the framework as provided by the organization
-Code: A user defined value that is used as the framework identifier 
-Description: Describes the framework
-Translations: Enables framework in different languages 
-Type: defines the type of content
+- Name: The name of the framework as provided by the organization
+- Code: A user defined value that is used as the framework identifier 
+- Description: Describes the framework
+- Translations: Enables framework in different languages 
+- Type: defines the type of content
 
 ##### Response Body to Create Framework
 
@@ -99,7 +99,7 @@ Type: defines the type of content
     "result": {
         "framework": {
             "identifier": "abc1",
-            "code": "abc",
+            "code": "abc1",
             "translations": "{\"hi\":\"ABC-अनुवाद\",\"ta\":\"ABC மொழிபெயர்ப்பு\"}",
             "name": "ABC",
             "description": "Framework for ABC Management",
@@ -109,9 +109,9 @@ Type: defines the type of content
         }
     }
 
-#### Rename Category
+#### Create Category
 
-1. Use the [Add Category API](../apis/framework/#operation/FrameworkV1CategoryCreatePost), to create a new category in the framework. 
+1. Use the [Add Category API](apis/framework/#operation/FrameworkV1CategoryCreatePost), to create a new category in the framework. 
 
 > Note: You must send a request to [Sunbird Team](info@sunbird.org) for creating new category. 
 
@@ -144,8 +144,8 @@ The sample values provided in the request body are indicative. The API describes
 
 #### Create a Term
 
-1. Use the [Add Term API](../apis/framework/#operation/FrameworkV1TermCreatePost), to create a new term in the category.
-The categories can be retrieved and listed using [Fetch API](../apis/framework/#operation/FrameworkV1CategoryReadClassGet). The sample values provided in the request body are indicative.
+1. Use the [Add Term API](apis/framework/#operation/FrameworkV1TermCreatePost), to create a new term in the category.
+The categories can be retrieved and listed using [Fetch API](apis/framework/#operation/FrameworkV1CategoryReadClassGet). The sample values provided in the request body are indicative.
 
 2. Path for creating category: `{{host}}/framework/v1/term/create?framework=abc1&category=subject`
 
@@ -186,4 +186,4 @@ The categories can be retrieved and listed using [Fetch API](../apis/framework/#
 
 ### Additional Topics
 
-How do I [seed a framework in Sunbird](../developer-docs/how-to-guide/how_to_seeddata_in_framework)
+How do I [seed a framework in Sunbird](developer-docs/how-to-guide/how_to_seeddata_in_framework)
