@@ -62,12 +62,12 @@ The BASIC configuration parameters are explained in the following table:
 |sunbird_azure_storage_account|	The Azure storage account name setup during the storage account creation |	Yes|
 |sunbird_azure_storage_key	|The Azure storage account key generated during the storage account creation |Yes|
 |sunbird_default_channel|	The name of the custodian (or default) tenant channel. This should have the same value as the sunbird_custodian_tenant_channel variable	|Yes
-|sunbird_custodian_tenant_name|	The name of first tenant organisation. This is used to bootstrap the installation and you can add more tenants by following the howto guides.	|Yes
-|sunbird_custodian_tenant_description|	Description of first tenant organisation	|Yes
-|sunbird_custodian_tenant_channel|	The channel value of first tenant organisation. This can be same as the implementation name	|Yes
-|sunbird_root_user_firstname|	First name of this Sunbird instance's administrator|	Yes
-|sunbird_root_user_lastname|	Last name of this Sunbird instance's administrator	|No
-|sunbird_root_user_username|	Username of this Sunbird instance's administrator|	Yes
+|sunbird_custodian_tenant_name|	The name of first tenant organisation. This is used to bootstrap the installation and you can add more tenants by following the howto guides. Please only use characters and underscore in the value of this field.	|Yes
+|sunbird_custodian_tenant_description|	Description of first tenant organisation. Please only use characters and underscore in the value of this field.	|Yes
+|sunbird_custodian_tenant_channel|	The channel value of first tenant organisation. This can be same as the implementation name. Please only use characters and underscore in the value of this field.	|Yes
+|sunbird_root_user_firstname|	First name of this Sunbird instance's administrator. Please only use characters in the value of this field.|	Yes
+|sunbird_root_user_lastname|	Last name of this Sunbird instance's administrator. Please only use characters in the value of this field.	|No
+|sunbird_root_user_username|	Username of this Sunbird instance's administrator. Please only use characters and underscore in the value of this field.	Yes
 |sunbird_root_user_password|	Password of this Sunbird instance's administrator	|Yes
 |sunbird_root_user_email|	Email of this Sunbird instance's administrator	|Yes
 |sunbird_root_user_phone|	Contact number (without country code) of this Sunbird instance's administrator e.g. 9090909090	|Yes
