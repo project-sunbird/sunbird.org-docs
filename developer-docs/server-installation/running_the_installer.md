@@ -41,6 +41,7 @@ The installtion script will run through the following steps
 * Click on the RSA public key which will present you a pop-up containing the value
 * Copy this key and and set it for `sunbird_sso_publickey` parameter in the `config` file.
 
+> **Note**: Please note that the first launch of keycloak could take upto 3 mins and the webpage would show a header and a blank page body for this duration. Please wait until the main section renders the realm settings.  
 
 ### Installing Core Services
 
@@ -48,9 +49,9 @@ Continue the installation to deploy the core services with the configured authen
 
     ./sunbird_install.sh -s core
 
-### Create Default channel, root user for using sunbird
+### Create Custodian tenant, channel & root user for using sunbird
 
-Create a default channel, root user by running
+Create the custodian tenant, channel & root user by running
 
     ./sunbird_install.sh -s systeminit
 
@@ -67,8 +68,9 @@ Create a default channel, root user by running
 
 1. Open `https://{dns-name}/` and login with the configured root admin login ID/password to access the Sunbird portal. 
   * `{dns-name}` is the value which you configured when installing Sunbird
-  * The login ID is `sunbird_init_admin_user_username@sunbird_init_custodian_tenant_channel`
+  * The login ID is `sunbird_root_user_username@sunbird_custodian_tenant_channel`
 
+> **Note**: Please note that the posttest step could take upto 5 mins to complete  
 
 ## Post-Install sign-up
 
