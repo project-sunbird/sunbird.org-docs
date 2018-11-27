@@ -71,29 +71,29 @@ Given below is an example of how to create a user with name, Sunbird, and genera
 ##### Setup the user with password less ssh & sudo access on the designated app server VM 
  
 - SSH to the cloud VM designated as the application server using the SSH keys setup during VM creation
-- Execute the steps mentioned in the <a href="developer-docs/server-installation/prerequisites#create-user" target="_blank">Create User section 
-- su - Sunbird //Switch to the user that was just created. You are prompted for the password that was setup while creating the linux user
-- ssh-keygen //This command creates a private & public key (default folder is /home/sunbird/.ssh/). Leave the passphrase empty when prompted. The public key is called id_rsa.pub and the other file(id_rsa) contains the private key
+- Create a user. Instructions on creating a user is explained in the later part of this section  
+- `su - sunbird` //Switch to the user that was just created. You are prompted for the password that was setup while creating the linux user
+- `ssh-keygen` //This command creates a private & public key (default folder is /home/sunbird/.ssh/). Leave the passphrase empty when prompted. The public key is called id_rsa.pub and the other file(id_rsa) contains the private key
 - Copy the output of running the following command - cat /home/sunbird/.ssh/id_rsa.pub //This is the public key ~ COPIED_PUBLIC_KEY_STRING
 - echo COPIED_PUBLIC_KEY_STRING >> /home/sunbird/.ssh/authorized_keys
 > **Note**: The installation script is later executed from this machine 
 
 ##### Setup the user with password less ssh & sudo access on the other VMs
 - SSH to the other cloud VMs using the SSH key setup during VM creation. This user has sudo access and can create other users
-- Execute the steps mentioned in the <a href="developer-docs/server-installation/prerequisites#create-user" target="_blank">Create User section 
-- su - sunbird //You are prompted for the password that was setup while creating the linux user
+- Create a user. Instructions on creating a user is explained in the later part of this section 
+- `su - sunbird` //You are prompted for the password that was setup while creating the linux user
 - mkdir -p /home/sunbird/.ssh
 - echo COPIED_PUBLIC_KEY_STRING >> /home/sunbird/.ssh/authorized_keys
 
 ##### Create user 
-These commands create a user and provides passwordless sudo access for this user. Username here is assumed as Sunbird
+These commands create a user and provides passwordless sudo access for this user. Username here is assumed as sunbird
 
-- sudo adduser sunbird //This adds a linux user with a password
-- sudo usermod -aG sudo sunbird //Providing the newly created user with sudo access
-- sudo visudo //This opens the sudoers file in nano editor. Hands-on familiarity with Nano would aid in the process
+- `sudo adduser sunbird` //This adds a linux user with a password
+- `sudo usermod` -aG sudo sunbird //Providing the newly created user with sudo access
+- `sudo visudo` //This opens the sudoers file in nano editor. Hands-on familiarity with Nano would aid in the process
 - Add the following entry as the last line in the sudoers file //This step is to allow the user to sudo without a  password 
 sunbird     ALL=(ALL) NOPASSWD: ALL
-- Save the file //Ctrl + O to save
+- Click Ctrl + O to save
 - Click Ctrl + X to exit nano editor
 
 ### Ports
