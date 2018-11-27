@@ -9,7 +9,7 @@ allowSearch: true
 
 ## Scenario
 
-As a part of the employee development and training program, the XYZ Corporation requires to create training material. The Learning and Develop department's admin would like to understand the effectiveness of the courses.  To meet this objective, the corporation must obtain telemetry data and analyze the data to understand the time spent by a user on a content.
+As a part of the employee development and training program, the XYZ Corporation needs to create training material. The Learning and Develop department's admin would like to understand the effectiveness of the courses.  To meet this objective, the corporation must obtain telemetry data and analyze the data to understand the time spent by a user on a content.
 
 ## Overview
 
