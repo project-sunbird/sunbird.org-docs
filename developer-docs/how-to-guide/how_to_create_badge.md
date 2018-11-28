@@ -127,7 +127,7 @@ We will use these details to construct the request body for creating badge class
 The organisation administrator will execute a request with the following parameter values.
 
     curl -X POST \
-    https://sunbird.xyzcorp.com/api/v1/issuer/badge/create \
+    https://sunbird.xyzcorp.com/badging/api/v1/issuer/badge/create \
     -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
     -H 'Content-type: multipart/form-data' \
     -F issuerId=issuerslug-174 \
