@@ -191,13 +191,13 @@ You will also need the **userId** of the person who receives the badge. You can 
     -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
     -H 'Content-Type: application/json' \
     -d '  {
-    "request": {
+      "request": {
         "recipientId": "d0e8c059-e038-4baf-834f-c702764a4b58",
         "recipientType": "user",
         "issuerId": "issuerslug-174",
         "badgeId": "badgeslug-66"
-    }
-    } 
+      }
+    }'
 
 #### Response Body
 
