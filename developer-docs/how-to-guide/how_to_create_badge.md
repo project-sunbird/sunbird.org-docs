@@ -66,7 +66,6 @@ On successful execution of the issuer creation API, an `issuerId` is generated a
 
 #### Response Body
 
-    javascript
     {
         "responseCode": "OK",
         "result": {
@@ -146,7 +145,6 @@ The organisation administrator will execute a request with the following paramet
 
 #### Response Body
 
-    javascript
     {
         "responseCode": "OK"
         "result": {
@@ -201,7 +199,6 @@ You will also need the **userId** of the person who receives the badge. You can 
 
 #### Response Body
 
-    javascript
     {
         "responseCode": "OK",
         "result": {
