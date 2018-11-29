@@ -177,8 +177,6 @@ The process of streaming and consuming telemetry data uses three core components
 * The data exhaust API allows filters on various fields 
 * The data exhaust api requests are run once a day and the data will be available the next day
 
-**Authentication**
-
 **API Endpoint**
 
   POST /data/v3/dataset/request/submit
@@ -344,8 +342,6 @@ Response body sample with indicative values:
 
 Using the Channel exhaust API, you can download raw telemetry data or other summary data generated from raw telemetry for a specific channel. The channel exhaust api requests are executed immediately and the download url to download data will be available for download.
 
-**Authentication**
-
 **API Endpoint**
 
   GET /data/v3/dataset/get/<datasetId>?type=wfs&from=2018-11-12&to=2018-11-14
@@ -381,7 +377,7 @@ Note: To make use of the API, you require authorization. Raise a request to the 
 
 <b>Authorization</b>: Bearer {{api_key}}
 
-#### Response Body 
+**Response Body**
 
 Response body sample with indicative values:
 
