@@ -93,6 +93,7 @@ user_external_identity (
     userid text
 )
 ```
+
 ## Usr External Identity
 
 ### Table Details
