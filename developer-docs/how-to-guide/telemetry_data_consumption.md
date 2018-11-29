@@ -9,7 +9,7 @@ allowSearch: true
 
 ## Scenario
 
-XYZ coorporation is an organization dealing with develpoment and training programs.  As a part of the employee development and training program, the XYZ Corporation must create training material. The Learning and Develop department's admin would like to understand the effectiveness of the courses, so that they can constantly improvise their training material. To meet this objective, the corporation must obtain telemetry data and analyze the data to understand the time spent by a user on a content.
+XYZ corporation is an organization dealing with development and training programs.  As a part of the employee development and training program, the XYZ Corporation must create training material. The Development and Training department's admin would like to understand the effectiveness of the courses, so that they can constantly improvise their training material. To meet this objective, the corporation must obtain telemetry data and analyze the data to understand the time spent by a user on a content.
 
 ## Overview
 
@@ -17,7 +17,7 @@ Telemetry is an automated remote measurement and data collection process. It is 
 
 **Telemetry event specifications.**
 
-Telemetry events are broad, human-readable actions, that can be tracked as a string. Events are used to categorize telemetry data. They are the basic unit for analytics and help identify user navigation or flow. All events follow a common data structure, though the event data structure ("edata") differs for each event. 
+Telemetry events are broad, human-readable actions, that can be tracked as a string. Events are used to categorize telemetry data. They are the basic unit for analytics and help identify user navigation or flow. All events follow a common data structure, though the event data structure e-data differs for each event. 
 
 All events data is captured via a common event JSON structure. Depending on the event, edata element carries event specific data. All events have unique event codes (IDs).
 
@@ -127,7 +127,7 @@ For more information for Telemetry event structure, please refer to the [Telemet
 
 -  Enable telemetry service:<br>
   1. The telemetry.min.js service file must be imported to app/portal. An object, window: EkTelemetry will be available as a result of importing the telemetry.min.js file. It enables the telemetry service 
-  2. Once the page is loaded, use the command:window.EkTellemetryinitialise. It initiliases the telemetry service
+  2. Once the page is loaded, use the command: ```window.EkTellemetryinitialise```. It initializes the telemetry service
   3. Configure telemetry using the format:
   
 ```
@@ -156,10 +156,10 @@ For more information for Telemetry event structure, please refer to the [Telemet
   }
 ```
 
-* Every API key has a consumerId associated with it. The consumerId must be mapped to specific channelIds for which the exhaust access must be granted. This is an authorization mechanism to restrict access of exhaust data of specific channels to a consumerId instead of a blanket access to all channels
+* Every API key has a consumerId associated with it. The consumerId must be mapped to specific channelId for which the exhaust access must be granted. This is an authorization mechanism to restrict access of exhaust data of specific channels to a consumerId instead of a blanket access to all channels
 * Instrumenting Your App for Telemetry and Analytics
 * Telemetry service enabled
-* Partner/Content App must send Telemetry as per Using Telemetry SDK to record Telemetry
+* Partner/Content App must send Telemetry as per **Using Telemetry SDK** to record telemetry
 
 ## Workflow
 
@@ -171,27 +171,29 @@ The process of streaming and consuming telemetry data uses three core components
 
 • Telemetry Receiver: It is the remote management system that stores the telemetry data
 
-### Pulling and extracting data using Data exhaust API 
+### Pulling and Extracting Data Using Data Exhaust API 
 
-Using Data exhaust API, you can download raw telemetry data or other summary data generated from raw telemetry. The data exhaust api allows filters on various fields on which the data exhaust can be filtered. The data exhaust api requests are run once a day and the data will be available the next day.
+* Using Data exhaust API, you can download raw telemetry data or other summary data generated from raw telemetry
+* The data exhaust API allows filters on various fields 
+* The data exhaust api requests are run once a day and the data will be available the next day
 
 **Authentication**
 
 **API Endpoint**
 
-POST /data/v3/dataset/request/submit
+  POST /data/v3/dataset/request/submit
 
 **Bearer**
-<br>Security scheme type: API Key
-<br>Header parameter name: Authorization
+  <br>Security scheme type: API Key
+  <br>Header parameter name: Authorization
 
 **X-Channel-ID**
-<br>Header parameter name: X-Channel-ID
-<br>Header paramter value: Channel ID for which data exhaust is requested for
+  <br>Header parameter name: X-Channel-ID
+  <br>Header paramter value: Channel ID for which data exhaust is requested for
 
 **Content Type**
-<br>Header parameter name: Content-Type
-<br>Header paramter value: application/json
+  <br>Header parameter name: Content-Type
+  <br>Header paramter value: application/json
 
 **Submit Data Request**
 
@@ -338,7 +340,7 @@ Response body sample with indicative values:
 
 * The API key is required for accessing the data exhaust. 
 
-### Pulling and extracting data using Channel exhaust API 
+### Pulling and Extracting Data Using Channel Exhaust API 
 
 Using the Channel exhaust API, you can download raw telemetry data or other summary data generated from raw telemetry for a specific channel. The channel exhaust api requests are executed immediately and the download url to download data will be available for download.
 
@@ -346,24 +348,24 @@ Using the Channel exhaust API, you can download raw telemetry data or other summ
 
 **API Endpoint**
 
-GET /data/v3/dataset/get/<datasetId>?type=wfs&from=2018-11-12&to=2018-11-14
+  GET /data/v3/dataset/get/<datasetId>?type=wfs&from=2018-11-12&to=2018-11-14
 
 **Bearer**
-<br>Security scheme type: API Key
-<br>Header parameter name: Authorization
+  <br>Security scheme type: API Key
+  <br>Header parameter name: Authorization
 
 **X-Channel-ID**
-<br>Header parameter name: X-Channel-ID
-<br>Header paramter value: Channel ID for which data exhaust is requested for
+  <br>Header parameter name: X-Channel-ID
+  <br>Header paramter value: Channel ID for which data exhaust is requested for
 
 **Content Type**
-<br>Header parameter name: Content-Type
-<br>Header paramter value: application/json
+  <br>Header parameter name: Content-Type
+  <br>Header paramter value: application/json
 
-**Channel exhaust Data Request**
+**Channel Exhaust Data Request**
 
 * This API is used to request data exhaust for a specific channel
-* The response of the data exhaust request has a signed url to download the exhaust data
+* The response of the data exhaust request has a signed URL to download the exhaust data
 * This data file will be available for download immediately
 
 **Header Parameters**
