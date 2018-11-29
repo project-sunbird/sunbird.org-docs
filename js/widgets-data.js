@@ -13,15 +13,15 @@ var widgetsData = {
          "branch":"1.10",
          "desc":"",
          "releaseDate":"12th Sept",
-         "latest":false,
-         "published":false
+         "latest":true,
+         "published":true
       },
       {  
          "title":"1.9",
          "branch":"1.9",
          "desc":"",
          "releaseDate":"22nd Aug",
-         "latest":true,
+         "latest":false,
          "published":true
       },
       {  
