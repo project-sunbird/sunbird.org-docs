@@ -311,10 +311,10 @@ Response body sample with indicative values:
 }
 ```
 > **Note**:
-> <b>start_date</b> and <b>end_date</b> must be in YYYY-MM-DD format
-> <b>dataset_id</b> can be either eks-consumption-raw or eks-consumption-summary
-> The fields on which filters can be applied are partner_id, group_user, content_id, tags, events, app_id, channel, user_id, device_id, metrics_type, mode
-> The signed url uses the Shared Access Signature url feature of the Azure blob storage. For more information, refer to https://docs.microsoft.com/en-us/azure/storage/common/storage-dotnet-shared-access-signature-part-1
+> * <b>start_date</b> and <b>end_date</b> must be in YYYY-MM-DD format
+> * <b>dataset_id</b> can be either eks-consumption-raw or eks-consumption-summary
+> * The fields on which filters can be applied are partner_id, group_user, content_id, tags, events, app_id, channel, user_id, device_id, metrics_type, mode
+> * The signed url uses the Shared Access Signature url feature of the Azure blob storage. For more information, refer to https://docs.microsoft.com/en-us/azure/storage/common/storage-dotnet-shared-access-signature-part-1
    
     {
       "id": "org.xyz.analytics.telemetry",
@@ -404,9 +404,9 @@ Response body sample with indicative values:
 ```
 
 > **Note**:
-> <b>datasetId</b> can be either raw or summary
-> <b>type</b> will be the type of the summary to download if the datasetId is summary. Default will be wfs (Workflow Summary)
-> <b>from</b> and <b>to</b> dates must be in YYYY-MM-DD format
+> * <b>datasetId</b> can be either raw or summary
+> * <b>type</b> will be the type of the summary to download if the datasetId is summary. Default will be wfs (Workflow Summary)
+> * <b>from</b> and <b>to</b> dates must be in YYYY-MM-DD format
 
 * The API allows you to download exhaust data for a maximum of one month date range.
 
