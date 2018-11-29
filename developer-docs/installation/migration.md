@@ -77,6 +77,8 @@ To migrate user external ID data:
 | 6 | lastupdatedon | The date on which the record was last updated|
 | 7 | userid | The User's identity within Sunbird|
 
+> **Note**: * The **user_external_identity** table is used from Sunbird release version 1.8
+
 ### Table Schema 
 
 ```
@@ -91,6 +93,7 @@ user_external_identity (
     userid text
 )
 ```
+## Usr External Identity
 
 ### Table Details
 
@@ -105,7 +108,6 @@ user_external_identity (
 
 >**Note:** 
 > * The combination of provider, idtype and externalid must be unique. The system uses this combination as a primary Key
-> * The **user_external_identity** table is used from Sunbird release version 1.8
 
 
 ### Table Schema 
