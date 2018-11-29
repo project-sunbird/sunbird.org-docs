@@ -61,7 +61,7 @@ To migrate user external ID data:
 
 ```UserExternalIdentityMigration_run.bat --context_param cassandra_server="{cassandra_server}" --context_param cassandra_port="{cassandra_port}" --context_param cassandra_keyspace="{keyspace_name}" --context_param sunbird_encryption_key="{encryption_key}" --context_param provider_idtype_mapping_file_path="{provider_idtype_mapping_file_path}"```
 
-3. Verify that the external IDs are updated in the **usr_external_identity** table with the desired ID type and provider using CQL query: `select * from usr_external_identity;`
+3. Verify that the external IDs are updated in the **usr_external_identity** table with the desired ID type and provider using SQL query: `select * from usr_external_identity;`
 
 
 ## User External Identity 
