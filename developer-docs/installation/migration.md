@@ -24,14 +24,14 @@ As part of Sunbird release version 1.8, the table holding user external ID data 
 To run the migration script:
 
 1.Define a mapping file that specifies the ID type for each unique external ID provider available in the **user_external_identity** table.
-    a.Get a list of all providers using CQL query: `select provider from user_external_identity`
-    b.Create a CSV file (mapping.csv) that maps each unique external ID to its associated ID type
-    For example;
-    ```
-    provider,idType
-    ka,kaIdType
-    ap,apIdType
-    ```
+
+a.Get a list of all providers using CQL query: `select provider from user_external_identity`    
+b.Create a CSV file (mapping.csv) that maps each unique external ID to its associated ID type. For example;
+ ```
+ provider,idType
+ ka,kaIdType
+ ap,apIdType
+ ```
 
 2. Before migrating any data, take a backup in Sunbird keyspace within the Cassandra DB.
 
@@ -54,22 +54,19 @@ To migrate user external ID data:
 2.Based on the OS, run the corresponding script to migrate the data
  
 - For Linux, run the following command:
-    ```
-    UserExternalIdentityMigration_run.sh --context_param cassandra_server="{cassandra_server}" --context_param cassandra_port="{cassandra_port}" --context_param cassandra_keyspace="{keyspace_name}" --context_param sunbird_encryption_key="{encryption_key}" --context_param provider_idtype_mapping_file_path="{provider_idtype_mapping_file_path}"
-    ```
+
+```UserExternalIdentityMigration_run.sh --context_param cassandra_server="{cassandra_server}" --context_param cassandra_port="{cassandra_port}" --context_param cassandra_keyspace="{keyspace_name}" --context_param sunbird_encryption_key="{encryption_key}" --context_param provider_idtype_mapping_file_path="{provider_idtype_mapping_file_path}"```
 
 - For Windows, run the following command:
 
-    ```
-    UserExternalIdentityMigration_run.bat --context_param cassandra_server="{cassandra_server}" --context_param cassandra_port="{cassandra_port}" --context_param cassandra_keyspace="{keyspace_name}" --context_param sunbird_encryption_key="{encryption_key}" --context_param provider_idtype_mapping_file_path="{provider_idtype_mapping_file_path}"
-    ```
+```UserExternalIdentityMigration_run.bat --context_param cassandra_server="{cassandra_server}" --context_param cassandra_port="{cassandra_port}" --context_param cassandra_keyspace="{keyspace_name}" --context_param sunbird_encryption_key="{encryption_key}" --context_param provider_idtype_mapping_file_path="{provider_idtype_mapping_file_path}"```
 
 3. Verify that the external IDs are updated in the **usr_external_identity** table with the desired ID type and provider using CQL query: `select * from usr_external_identity;`
 
 
-## user_external_identity Table Details
+## User External Identity 
 
-**Note** The **user_external_identity** table is used prior to Sunbird release version 1.8
+### Table Details  
 
 | S.No. | Field | Description |
 | 1 | id | Identity of the record. This is the primary key|
@@ -80,7 +77,7 @@ To migrate user external ID data:
 | 6 | lastupdatedon | The date on which the record was last updated|
 | 7 | userid | The User's identity within Sunbird|
 
-### user_external_identity Table Schema 
+### Table Schema 
 
 ```
 user_external_identity (
@@ -95,9 +92,7 @@ user_external_identity (
 )
 ```
 
-### usr_external_identity Table Details
-
-**Note** The **usr_external_identity** table is used from Sunbird release version 1.8
+### Table Details
 
 | S.No. | Field | Description |
 | 1 | provider | The provider of the external ID. This can be any organisation|
@@ -108,10 +103,12 @@ user_external_identity (
 | 6 | lastupdatedon | The date on which the record was last updated |
 | 7 | userid | The User's identity within Sunbird|
 
-**Note:** The combination of provider, idtype and externalid must be unique. The system uses this combination as a primary Key.
+>**Note:** 
+> * The combination of provider, idtype and externalid must be unique. The system uses this combination as a primary Key
+> * The **user_external_identity** table is used from Sunbird release version 1.8
 
 
-### usr_external_identity Table Schema 
+### Table Schema 
 
 ```
 usr_external_identity (
