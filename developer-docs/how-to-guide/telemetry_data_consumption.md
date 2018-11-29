@@ -126,9 +126,9 @@ For more information for Telemetry event structure, please refer to the [Telemet
 - API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
 
 -  Enable telemetry service:<br>
-  1. The telemetry.min.js service file must be imported to app/portal. An object, window: EkTelemetry will be available as a result of importing the telemetry.min.js file. It enables the telemetry service to use.
-  2. Once the page is loaded, use the command:window.EkTellemetryinitialise It initiliase the telemetry service.
-  3. Now, configure telemetry using the format:
+  1. The telemetry.min.js service file must be imported to app/portal. An object, window: EkTelemetry will be available as a result of importing the telemetry.min.js file. It enables the telemetry service 
+  2. Once the page is loaded, use the command:window.EkTellemetryinitialise. It initiliases the telemetry service
+  3. Configure telemetry using the format:
   
 ```
   { 
@@ -156,7 +156,7 @@ For more information for Telemetry event structure, please refer to the [Telemet
   }
 ```
 
-* Every API key has a consumerId associated with it. The consumerId needs to be mapped to specific channelIds for which the exhaust access needs to be granted. This is an authorization mechanism to restrict access of exhaust data of specific channels to a consumerId instead of a blanket access to all channels.
+* Every API key has a consumerId associated with it. The consumerId must be mapped to specific channelIds for which the exhaust access must be granted. This is an authorization mechanism to restrict access of exhaust data of specific channels to a consumerId instead of a blanket access to all channels
 * Instrumenting Your App for Telemetry and Analytics
 * Telemetry service enabled
 * Partner/Content App must send Telemetry as per Using Telemetry SDK to record Telemetry
@@ -195,16 +195,16 @@ POST /data/v3/dataset/request/submit
 
 **Submit Data Request**
 
-This API is used to submit the exhaust data request to a job manager which runs once a day.
-The response of the data exhaust request has a request_id to check for the status of the job.
-This data file will be available for download the next day.
+This API is used to submit the exhaust data request to a job manager which runs once a day
+The response of the data exhaust request has a request_id to check for the status of the job
+This data file will be available for download the next day
 
 **Header Parameters**
 
-* Specify the authorization key that you have received from the administrator.
-Note: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
+Specify the authorization key that you have received from the administrator
+> **Note**: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
 
-* Custom the header parameter as per the request.
+* Custom the header parameter as per the request
 
 <b>X-Channel-ID</b>: {{channel id}}
 
@@ -362,9 +362,9 @@ GET /data/v3/dataset/get/<datasetId>?type=wfs&from=2018-11-12&to=2018-11-14
 
 **Channel exhaust Data Request**
 
-This API is used to request data exhaust for a specific channel.
-The response of the data exhaust request has a signed url to download the exhaust data.
-This data file will be available for download immediately.
+* This API is used to request data exhaust for a specific channel
+* The response of the data exhaust request has a signed url to download the exhaust data
+* This data file will be available for download immediately
 
 **Header Parameters**
 
