@@ -83,7 +83,7 @@ Given below is an example of how to create a user with name, Sunbird, and genera
 - Create a user. Instructions on creating a user is explained in the later part of this section 
 - `su - sunbird`. You are prompted for the password that was setup while creating the linux user
 - mkdir -p /home/sunbird/.ssh
-- `echo COPIED_PUBLIC_KEY_STRING >> /home/sunbird/.ssh/authorized_keys`. COPIED_PUBLIC_KEY_STRING must be replaced by the public key generated while generating the user with passwordless ssh
+- `echo COPIED_PUBLIC_KEY_STRING >> /home/sunbird/.ssh/authorized_keys`. COPIED_PUBLIC_KEY_STRING must be replaced by the public key generated while generating the user with password less ssh
 
 ##### Create user 
 These commands create a user and provides passwordless sudo access for this user. Username here is assumed as sunbird
