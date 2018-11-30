@@ -27,10 +27,9 @@ The intended audience of this document is a person who is familiar with installi
 * [nodemon](https://www.npmjs.com/package/nodemon) - Latest version  
 * [git](https://git-scm.com/downloads) - Latest version
 
->>**Note**- On WINDOWS(R), perform the installation via the Git Bash shell. Performing the installation via native commandline terminal (cmd.exe) or PowerShell is not recommended. 
-
+        **Note**- On WINDOWS(R), perform the installation via the Git Bash shell. Performing the installation via native commandline terminal (cmd.exe) or PowerShell is not recommended. 
 * [gulp](https://gulpjs.com/) - Install **gulp** via npm, which gets installed when **nodejs** is installed
-* WINDOWS(R) users install @angular/cli thru npm, if not pre-installed.
+* WINDOWS<sup>(R)</sup> users install @angular/cli thru npm, if not pre-installed.
 
 
 1. **API Keys**
@@ -57,7 +56,7 @@ This version installs the portal web application and uses the cloud-hosted servi
 
 ## Set up the Application
 
-These instructions install Sunbird version 1.9. The code examples provided here are Linux based. However, they should not differ when executed on Windows<sup>(R)</sup>. If you face any problems using the Windows<sup>(R)</sup> command-line shell or PowerShell then try using Cygwin<sup>(R)</sup> to install Sunbird on your desktop or laptop.
+These instructions install Sunbird version 1.9. The code examples provided here are Linux based. However, they should not differ when executed on Windows<sup>(R)</sup>.
 
 1. Launch a command-line terminal
 
