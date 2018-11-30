@@ -28,6 +28,7 @@ The intended audience of this document is a person who is familiar with installi
 * [git](https://git-scm.com/downloads) - Latest version
 
         **Note**- On WINDOWS(R), perform the installation via the Git Bash shell. Performing the installation via native commandline terminal (cmd.exe) or PowerShell is not recommended. 
+        
 * [gulp](https://gulpjs.com/) - Install **gulp** via npm, which gets installed when **nodejs** is installed
 * WINDOWS<sup>(R)</sup> users install @angular/cli thru npm, if not pre-installed.
 
@@ -80,13 +81,13 @@ These instructions install Sunbird version 1.9. The code examples provided here 
     
 3. Build the nodejs packages that are required by the Sunbird application using the following commands:
 
-```
-cd src/app
-npm install
-gulp download:editors
-cd client
-npm install
-```
+    ```
+    cd src/app
+    npm install
+    gulp download:editors
+    cd client
+    npm install
+    ```
 
 ## Configuring the Environment & Services Stack
 
@@ -102,7 +103,11 @@ npm install
 > The initialization of these environmental variables can take place in a common place like in your **.bashrc** or **.bash_profile**
 
 
-2. Edit the file **sunbird-portal/src/app/helpers/environmentVariablesHelper.js** and ensure that the following tokens are set to the values indicated. Enclose all string values within double quotation marks.
+2. Edit the file **sunbird-portal/src/helpers/environmentVariablesHelper.js** and ensure 
+that the following tokens are set to the values indicated. Enclose all 
+string values within double quotation marks. Add any token, that is 
+mentioned in the table, but which is not present in the 
+environmentVariablesHelper.js file.
 
 |            Token            |                   Value                              | Data Type |
 |-----------------------------|------------------------------------------------------|-----------|
