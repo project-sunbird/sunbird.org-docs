@@ -25,8 +25,12 @@ The intended audience of this document is a person who is familiar with installi
 1. **Software**: Install the following software: 
    * [node](https://nodejs.org/download/release/v8.11.2/) - Install the release version 8.11.2 LTS
    * [nodemon](https://www.npmjs.com/package/nodemon) - Latest version  
-   * [git](https://git-scm.com/downloads) - Latest version  
+   * [git](https://git-scm.com/downloads) - Latest version, 
+
+>**Note**- On WINDOWS(R), perform the installation via the Git Bash shell. Performing the installation via native commandline terminal (cmd.exe) or PowerShell is not recommended. 
    * [gulp](https://gulpjs.com/) - Install **gulp** via npm, which gets installed when **nodejs** is installed
+   * WINDOWS(R) users install @angular/cli thru npm, if not pre-installed.
+
 
 1. **API Keys**
 The Sunbird developer instance is powered by cloud hosted Sunbird APIs, which require an API key. To get an API key, submit an [API Key Request](https://goo.gl/forms/2tRDfLlbJ2IgjWgA2). In the form, provide information about your team and what brings you to Sunbird. 
