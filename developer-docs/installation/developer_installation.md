@@ -81,11 +81,11 @@ These instructions install Sunbird version 1.9. The code examples provided here 
 3. Build the nodejs packages that are required by the Sunbird application using the following commands:
 
 ```
-    cd src/app
-    npm install
-    gulp download:editors
-    cd client
-    npm install
+cd src/app
+npm install
+gulp download:editors
+cd client
+npm install
 ```
 
 ## Configuring the Environment & Services Stack
