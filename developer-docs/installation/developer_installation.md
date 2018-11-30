@@ -23,7 +23,7 @@ The intended audience of this document is a person who is familiar with installi
 ## Prerequisites
 
 1. **Software**: Install the following software: 
-   * [node](https://nodejs.org/en/download/) - Install the latest release version 8.11.2 LTS series
+   * [node](https://nodejs.org/download/release/v8.11.2/) - Install the release version 8.11.2 LTS
    * [nodemon](https://www.npmjs.com/package/nodemon) - Latest version  
    * [git](https://git-scm.com/downloads) - Latest version  
    * [gulp](https://gulpjs.com/) - Install **gulp** via npm, which gets installed when **nodejs** is installed
@@ -76,13 +76,13 @@ These instructions install Sunbird version 1.9. The code examples provided here 
     
 3. Build the nodejs packages that are required by the Sunbird application using the following commands:
 
-    ```
+```
     cd src/app
-    gulp download:editors
     npm install
+    gulp download:editors
     cd client
     npm install
-    ```
+```
 
 ## Configuring the Environment & Services Stack
 
@@ -97,7 +97,8 @@ These instructions install Sunbird version 1.9. The code examples provided here 
 
 > The initialization of these environmental variables can take place in a common place like in your **.bashrc** or **.bash_profile**
 
-2. Edit the file **sunbird-portal/src/helpers/environmentVariablesHelper.js** and ensure that the following tokens are set to the values indicated. Enclose all string values within double quotation marks.
+
+2. Edit the file **sunbird-portal/src/app/helpers/environmentVariablesHelper.js** and ensure that the following tokens are set to the values indicated. Enclose all string values within double quotation marks.
 
 |            Token            |                   Value                              | Data Type |
 |-----------------------------|------------------------------------------------------|-----------|
