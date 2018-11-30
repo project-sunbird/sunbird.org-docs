@@ -66,7 +66,6 @@ On successful execution of the issuer creation API, an `issuerId` is generated a
 
 #### Response Body
 
-    javascript
     {
         "responseCode": "OK",
         "result": {
@@ -127,7 +126,7 @@ We will use these details to construct the request body for creating badge class
 The organisation administrator will execute a request with the following parameter values.
 
     curl -X POST \
-    https://sunbird.xyzcorp.com/api/v1/issuer/badge/create \
+    https://sunbird.xyzcorp.com/badging/api/v1/issuer/badge/create \
     -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
     -H 'Content-type: multipart/form-data' \
     -F issuerId=issuerslug-174 \
@@ -146,7 +145,6 @@ The organisation administrator will execute a request with the following paramet
 
 #### Response Body
 
-    javascript
     {
         "responseCode": "OK"
         "result": {
@@ -191,17 +189,16 @@ You will also need the **userId** of the person who receives the badge. You can 
     -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
     -H 'Content-Type: application/json' \
     -d '  {
-    "request": {
+      "request": {
         "recipientId": "d0e8c059-e038-4baf-834f-c702764a4b58",
         "recipientType": "user",
         "issuerId": "issuerslug-174",
         "badgeId": "badgeslug-66"
-    }
-    } 
+      }
+    }'
 
 #### Response Body
 
-    javascript
     {
         "responseCode": "OK",
         "result": {

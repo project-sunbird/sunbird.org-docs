@@ -1,6 +1,6 @@
 ---
-title: User channel migration
-page_title: User channel migration
+title: User Channel Migration
+page_title: User Channel Migration
 description: User channel migration
 published: true
 allowSearch: true

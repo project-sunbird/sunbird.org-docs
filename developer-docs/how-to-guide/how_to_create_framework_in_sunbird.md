@@ -119,7 +119,7 @@ The sample values provided in the request body are indicative. The API describes
 
 2. Path for creating category: `{{host}}/framework/v1/category/create?framework=abc1`
 
-##### Request Body to Rename Categories
+##### Request Body to Create Categories
 
     {
     "request": {
@@ -131,7 +131,7 @@ The sample values provided in the request body are indicative. The API describes
         }
     }
 
-##### Response Body to Rename Categories
+##### Response Body to Create Categories
 
     {
         "responseCode": "OK",
