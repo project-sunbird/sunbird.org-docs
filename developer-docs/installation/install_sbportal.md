@@ -21,44 +21,37 @@ To set up the Sunbird portal successfully, follow these steps sequentially:
 Check the following pre-requisites before installing and running the Sunbird-player application:
 
 1. **Software dependencies**
-	* [Node](https://nodejs.org/en/download/){:target="_blank"} - install the latest release of 8.x.x LTS series
+	* [Node](https://nodejs.org/en/download/){:target="_blank"} - install the latest release of 6.x.x LTS series
+	* [Bower](https://bower.io/#install-bower){:target="_blank"} - latest version of bower: `npm install -g bower`
+	* [Gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md){:target="_blank"}- 
+	  latest version of gulp: `npm install -g gulp-cli`
 
 2. **API Keys** 
 
 This installation guide will use a cloud hosted Sunbird APIs for which an API key is needed.
 
-- For getting an API key, send an email to: info@sunbird.org
+- For getting an API key,send an email to: info@sunbird.org
 
 ### Setup 
 For setting up the application, check out the [code](https://github.com/project-sunbird/sunbird-portal.git){:target="_blank"}. The code can be checked out via the command:
     
     git clone https://github.com/project-sunbird/sunbird-portal.git
 
-> ***Note***: Stable versions of the sunbird portal are available via tags for each release, and the master branch contains latest stable release. For latest stable release [refer](https://github.com/project-sunbird/sunbird-portal/){:target="_blank"}. To get release 1.10 tagged code, use below command:
-
-<pre>
-git tag
-git checkout -b my-release-10 v1.10
-</pre>
+> ***Note***: Stable versions of the sunbird portal are available via tags for each release, and the master branch contains latest stable release. For latest stable release [refer](https://github.com/project-sunbird/sunbird-portal/){:target="_blank"}
 
 Once the git clone command is over, run the following set of commands:
+
    
-    $ cd {PROJECT-FOLDER}/src/app
+    $ cd {PROJECT-FOLDER}/src
     $ npm install
-
-Set the following environment variables:
-
-<pre>
-sunbird_environment=local 
-sunbird_instance=sunbird
-sunbird_default_channel=sunbird
-</pre>
+    $ bower cache clean
+    $ bower install --force
 
 ### Configure Backend Service Stack
 
-The Sunbird portal application is powered by a set of Service APIs. These Service API(s) run in a distributed environment. For instance, deploying the Sunbird to production; but for the sake of simplicity and ease of debugging, you can also run these service API(s) locally on a single server.
+The Sunbird portal application is powered by a set of Service APIs. These Service API(s) run in a distributed environment.For instance, deploying the Sunbird to production; but for the sake of simplicity and ease of debugging, you can also run these service API(s) locally on a single server.
 
-For now, let us configure the Sunbird portal to use a cloud instance of the Sunbird Service API(s). These APIs are hosted by project Sunbird and are used for testing and demonstration purposes. 
+For now, let us configure the Sunbird portal to use a cloud instance of the Sunbird Service API(s).These APIs are hosted by project Sunbird and are used for testing and demonstration purposes. 
 
 > ***Note***: The cloud instance of the API(s) hosted by Project Sunbird are not for production usage.
 
@@ -96,36 +89,7 @@ Once the file is updated with appropriate values, then you can proceed with runn
 ## Run the Application
 
 Run the following commands in your console (CLI):
+    $ cd {PROJECT-FOLDER}/src/app
+    $ node server.js
 
-<pre>
-$ cd {PROJECT-FOLDER}/src/app
-$ node server.js
-</pre>
-
-After executing the commands, open `http://localhost:3000` in browser.
-
-## Use the Application  
-
-After successfully installing Sunbird, use demo user IDs to explore and test different workflows.
-
-* For each user role, you require a separate demo user ID and its respective password
-
-* Any user can be assigned one or more user role. The role rules that apply depend on the demo user ID and password that is used to sign in 
- 
-The following is the list of the demo user IDs per user role:
-
-User Role |	User ID
-----------|----------
-Org Admin | adopterorgadmin@adopter
-Content Creator | adoptercreator@adopter 
-Content Reviewer | adopterreviewer@adopter
-Book Creator | adopterbookcreator@adopter 
-Book Reviewer | adopterbookreviewer@adopter
-Flag Reviewer | adopterflagreviewer@adopter
-Course Mentor | adoptercoursementor@adopter
-
-**Note:** 
-
-* To get the password for each demo user ID, send an email to info@sunbird.org
-
-* For information on user roles, refer to [Types of Users](features-documentation/userrole){:target="_blank"}
+After executing the commands, open `http://localhost:3000` in browser

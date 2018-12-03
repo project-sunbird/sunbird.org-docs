@@ -65,7 +65,7 @@ The following environment variables are part of minimalistic required configurat
 | ekstep_api_base_url | Base URL of EkStep platform. EkStep platform base URL is used to invoke platform functionality (e.g. Content APIs). |
 | ekstep_authorization | API key to use for authentication with EkStep platform. |
 
-e.g.
+Example:
 ```
 export sunbird_cassandra_host=localhost
 export sunbird_cassandra_port=9042
