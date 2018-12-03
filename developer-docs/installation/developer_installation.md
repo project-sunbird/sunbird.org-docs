@@ -23,10 +23,15 @@ The intended audience of this document is a person who is familiar with installi
 ## Prerequisites
 
 1. **Software**: Install the following software: 
-   * [node](https://nodejs.org/en/download/) - Install the latest release version 8.11.2 LTS series
-   * [nodemon](https://www.npmjs.com/package/nodemon) - Latest version  
-   * [git](https://git-scm.com/downloads) - Latest version  
-   * [gulp](https://gulpjs.com/) - Install **gulp** via npm, which gets installed when **nodejs** is installed
+    * [node](https://nodejs.org/download/release/v8.11.2/) - Install the release version 8.11.2 LTS
+
+    * [nodemon](https://www.npmjs.com/package/nodemon) - Latest version  
+    
+    * [git](https://git-scm.com/downloads) - Latest version - On WINDOWS<sup>R</sup>, perform the installation via the Git Bash shell. Performing the installation via native commandline terminal (cmd.exe) or PowerShell is not recommended.
+    
+    * [gulp](https://gulpjs.com/) - Install **gulp** via npm, which gets installed when **nodejs** is installed
+    
+    * WINDOWS<sup>(R)</sup> users install @angular/cli thru npm
 
 1. **API Keys**
 The Sunbird developer instance is powered by cloud hosted Sunbird APIs, which require an API key. To get an API key, submit an [API Key Request](https://goo.gl/forms/2tRDfLlbJ2IgjWgA2). In the form, provide information about your team and what brings you to Sunbird. 
@@ -52,7 +57,7 @@ This version installs the portal web application and uses the cloud-hosted servi
 
 ## Set up the Application
 
-These instructions install Sunbird version 1.9. The code examples provided here are Linux based. However, they should not differ when executed on Windows<sup>(R)</sup>. If you face any problems using the Windows<sup>(R)</sup> command-line shell or PowerShell then try using Cygwin<sup>(R)</sup> to install Sunbird on your desktop or laptop.
+These instructions install Sunbird version 1.9. The code examples provided here are Linux based. However, they should not differ when executed on Windows<sup>(R)</sup>.
 
 1. Launch a command-line terminal
 
@@ -78,8 +83,8 @@ These instructions install Sunbird version 1.9. The code examples provided here 
 
     ```
     cd src/app
-    gulp download:editors
     npm install
+    gulp download:editors
     cd client
     npm install
     ```
@@ -97,7 +102,8 @@ These instructions install Sunbird version 1.9. The code examples provided here 
 
 > The initialization of these environmental variables can take place in a common place like in your **.bashrc** or **.bash_profile**
 
-2. Edit the file **sunbird-portal/src/helpers/environmentVariablesHelper.js** and ensure that the following tokens are set to the values indicated. Enclose all string values within double quotation marks.
+
+2. Edit the file **sunbird-portal/src/app/helpers/environmentVariablesHelper.js** and ensure that the following tokens are set to the values indicated. Enclose all string values within double quotation marks. Add any token, that is mentioned in the table, but which is not present in the environmentVariablesHelper.js file.
 
 |            Token            |                   Value                              | Data Type |
 |-----------------------------|------------------------------------------------------|-----------|
