@@ -1,7 +1,7 @@
 ---
-title: Configuration for Meta Forms
-page_title: Configuration for Meta Forms
-description: Different configurations for forms
+title: Configure Meta Forms
+page_title: Configure Meta Forms
+description: Different configurations for meta forms
 published: true
 allowsearch: true
 keywords: Meta Data, Meta, form, API, Form API,
@@ -11,28 +11,16 @@ keywords: Meta Data, Meta, form, API, Form API,
 An organization works in the domain of water conservation and works in multiple Indian states, with NGOs, village panchayats and other authorities. The organization would like to tailor different forms on Sunbird to match their requirements. They want to configure various available forms based on their terminology and needs. They intend to change the display labels, the fields, the types of fields etc. on the forms.   
 
 ## Prerequisites
-As the organization administrator ensure the following:
-1. Install  the server instance of Sunbird. For details, refer to[ Server Installation ](developer-docs/installation/server_installation/)
 
-2. Create a channel for your organization (XYZ corporation). For details, refer to[ Channel APIs](apis/framework/#tag/Channel-APIs)
+1. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
 
-3. Register  your channel/ organization i.e, (XYZ corporation) with Ekstep. On registration, a unique **Channel ID** is assigned to your organization (XYZ corporation) channel ID is: 12300786
+2. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
-4. Create users for your organization (XYZ corporation) either by: 
-   -  onboarding XYZ corporation users in bulk, refer to [Bulk upload service APIs](apis/bulkupload/), or
-   -  creating the XYZ corporation  users individually, refer to [User APIs](apis/userapi/)   
+3. The root organization and sub-organizations created and their **organsationId** and root organization's **channel** readily available
 
-**Note:**
+4. The user account created in the root-organization and **userId** readily available
 
-An Organizational administrator requires to:
-
-* Use an API client (for example Postman) to make Form API calls and perform various operations as mentioned in the Task-flow section
-
-* Have the API Key for access and basic authentication
-
-* Have a User Token that authenticates the organization administrator for read-write access
-
-* Have access to [Form APIs](apis/form/)
+5. A framework (for instance, framework titled Water Management) created. For details on creating a framework, refer [Creating Framework](/developer-docs/how-to-guide/how_to_create_framework_in_sunbird/)
 
 ## Overview
 
@@ -50,24 +38,21 @@ To alter the configuration of each of the available metadata driven forms, Sunbi
 
 ## List of Metadata driven Forms  
 
-The following table provides a detailed list of all the available metadata driven forms on the Sunbird platform:
+Sunbird provides a list of default forms. In the context of the scenario mentioned, forms pertaining to the content types Resource and Course have to be configured. The primary usage of these forms is not just limited to adding meta information to the content, but metadata driven forms enable extensive searching capabilities, helps in onboarding in mobile app at the end user level and much more.  Each form supports certain input data types to build on the metadata.
 
-## Forms in Editor
 
 | Form | Description | Type | Subtype| Action| Component | 
 | --- | ------ |------| ------| ------| ------| 
-| **Book Save** | This form is displayed on clicking `edit details` in book editor | content | textbook | save | editor | |
-| **Book Review** | This form is displayed on clicking `send for review` in book editor | content | textbook | review | editor |
+|
 | **Resource Save** | This form is displayed on clicking `edit details` in content/generic editors | content | resource | save | editor |  
 | **Resource Review** | This form is displayed on clicking `send for review` in content/generic editors | content | resource | review | editor |
 | **Course Save** | This form is displayed on clicking `edit details` in course editor | content | course | save | editor |
 | **Course Review** | This form is displayed on clicking `send for review` in course editor | content | course | review | editor 
-| **Lesson Plan Save** | This form is displayed on clicking `edit details` in lesson plan editor | content | Lessonplan | save | editor |    
-| **Lesson Plan Review** |This form is displayed on clicking `send for review` in lesson plan editor | content | Lessonplan | review | editor |      
-| **Collection Save** | This form is displayed on clicking `edit details` in collection editor | content | collection | save | editor | 
-| **Collection Review** | This form is displayed on clicking `send for review` in collection editor | content | collection | review | editor |  
 | **Question Save** | This form is displayed on clicking `create question` in content editor | content | questions | question-meta-save | editor |
 | **Question Search** | This form is displayed on clicking `search questions` in content editor | content | questions | question-filter-view | editor |
+| **Resource Search** | This form is displayed on clicking `View All` on `Resource Browser` in course editor| content | course | resource-filters | editor |
+| **Resource Search** | This form is displayed on clicking `View All` on `Resource Browser` in collection editor| content | collection | resource-filters | editor |
+
 
 ### Supported Input & Data Types 
 
@@ -101,16 +86,16 @@ The following table lists down the sample JSON structure with descriptions for e
 | visible | `boolean` | To make the field visible or hidden | None | Ex: true |
 | validation | `array` | Allows validation on any particular field of your form | None | Ex: [{ "type": "regex", "value": "[A-Z]","message": "Invalid Input" }] |
 
+All the available forms exist as a part of creation workflows, updation workflows, review workflows etc within the Sunbird.  
+
+
 ## Forms in Portal 
 
 **The following table lists down the available forms in  Sunbird Portal component:**
 
 | Form | Description | Type | Subtype| Action| Component | 
 | --- | --- |------| ------| ------| ------| 
-| **Book Create** | This form is displayed on clicking `Book` from your workspace | content | textbook | create | portal |
 | **Course Create** | This form is displayed on clicking `Course` from your workspace | content | course | create | portal |
-| **Collection Create** | This form is displayed on clicking `Collection` from your workspace | content | collection | create | portal |
-| **Lesson Plan Create** | This form is displayed on clicking `Lesson Plan` from your workspace | content | lesson | review | editor |
 | **Resource create** | This form is displayed on clicking `Resource` from your workspace | content | course | save | editor |
 | **Library Filters** | This form is displayed on clicking `filters` from your library | content | library | search | portal | 
 | **Course Filters** | This form is displayed on clicking `filters` from your course | content | course | search | portal |   
@@ -158,6 +143,8 @@ The following table lists down the sample JSON structure with descriptions for e
 | --- | --- |------| ------| ------| ------|
 | **Onboarding Details** | This form is used to save/update/read onboarding question details | user | instructor | onboarding | app
 | **Force/Optional Upgrade** | This form is used to save/update/read or force/optional app upgrade | app | install | upgrade | app
+| |**Filter config for Course filter** | This form is used to get filter for courses | pageAssemble | course | filter | app
+| |**Filter config for Library filter** | This form is used to filter for library | pageAssemble | library | filter | app
 
 ### Input & Data Types 
 
@@ -189,10 +176,6 @@ The following table lists down the sample JSON structure with descriptions for e
 | versionName | `string` | Represents the name of version | NA | v1.0.1|
 | type | `string` | Represents the type of the upgrade that is required | NA | optional, force|
 
-All the available forms exist as a part of creation workflows, updation workflows, review workflows etc within the Sunbird.  The primary usage of these forms is not just limited to adding meta information to the content, but metadata driven forms enable extensive searching capabilities, helps in onboarding in mobile app at the end user level and much more.  Each form supports certain input data types to build on the metadata.
-
-**Note:** Each of the form has a specific action associated to it, for example: create, update, save etc.
-
 ## Task Flow
 
 The form configuration is a post installation task. Being a Sunbird adopter, you can configure an existing form as well as create a new form.
@@ -215,16 +198,18 @@ The following are the header parameters for Update Form API endpoint:
 
 For more information about the usage of header parameters refer to the [Update Form API](apis/form/#operation/FormUpdate) reference document.  
 
-## Sample payload for  Update Form API
-<pre>
-{
-  "request": {
-            
+> **Note**: For details on how to create a framework refer [Creating Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird)
+
+#### Request Body for Update Form API
+
+    {
+    "request": {
+                
             "type": "content",
             "subType": "resource",
             "action": "save",
             "rootOrgId": "*",
-            "framework": "NCF",
+            "framework": "Framework for ABC Management",
             "data": {
                 "templateName": "defaultTemplate",
                 "action": "save",
@@ -252,9 +237,9 @@ For more information about the usage of header parameters refer to the [Update F
                         "inputType": "text",
                         "label": "Title",
                         "name": "Title",
-                        "placeholder": "Enter Title For Book",
+                        "placeholder": "Brief title of the content",
                         "renderingHints": {},
-                        "required": true,
+                        "required": false,
                         "visible": true
                     },
                     {
@@ -266,7 +251,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "inputType": "textarea",
                         "label": "Description",
                         "name": "Description",
-                        "placeholder": "Brief description about the Book",
+                        "placeholder": "Brief description about the content",
                         "renderingHints": {},
                         "required": false,
                         "visible": true
@@ -280,35 +265,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "inputType": "keywordsuggestion",
                         "label": "keywords",
                         "name": "Keywords",
-                        "placeholder": "Enter Keywords",
-                        "required": false,
-                        "visible": true
-                    },
-                    {
-                        "code": "board",
-                        "dataType": "text",
-                        "description": "Curriculum",
-                        "editable": true,
-                        "index": 5,
-                        "inputType": "select",
-                        "label": "Curriculum",
-                        "name": "Curriculum",
-                        "placeholder": "Select Curriculum",
-                        "renderingHints": {},
-                        "required": false,
-                        "visible": true
-                    },
-                    {
-                        "code": "gradeLevel",
-                        "dataType": "list",
-                        "description": "Class",
-                        "editable": true,
-                        "index": 6,
-                        "inputType": "multiselect",
-                        "label": "Class",
-                        "name": "Class",
-                        "placeholder": "Select Class",
-                        "renderingHints": {},
+                        "placeholder": "Enter Keywords to aid better search results",
                         "required": false,
                         "visible": true
                     },
@@ -317,11 +274,11 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "text",
                         "description": "",
                         "editable": true,
-                        "index": 7,
+                        "index": 5,
                         "inputType": "select",
-                        "label": "Subject",
-                        "name": "Subject",
-                        "placeholder": "Select Subject",
+                        "label": "Resource",
+                        "name": "Resource",
+                        "placeholder": "Select type of water resources",
                         "renderingHints": {},
                         "required": false,
                         "visible": true
@@ -329,13 +286,13 @@ For more information about the usage of header parameters refer to the [Update F
                     {
                         "code": "medium",
                         "dataType": "text",
-                        "description": "",
+                        "description": "Language",
                         "editable": true,
-                        "index": 8,
+                        "index": 6,
                         "inputType": "select",
-                        "label": "Medium",
-                        "name": "medium",
-                        "placeholder": "Select Medium",
+                        "label": "Language",
+                        "name": "language",
+                        "placeholder": "Select Language in which the content is created",
                         "renderingHints": {},
                         "required": false,
                         "visible": true
@@ -343,9 +300,9 @@ For more information about the usage of header parameters refer to the [Update F
                     {
                         "code": "concepts",
                         "dataType": "list",
-                        "description": "Choose a concept",
+                        "description": "Concepts being taught",
                         "editable": true,
-                        "index": 9,
+                        "index": 7,
                         "inputType": "conceptselector",
                         "label": "Concepts",
                         "name": "Concepts",
@@ -359,7 +316,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "list",
                         "description": "Choose a Topics",
                         "editable": true,
-                        "index": 10,
+                        "index": 8,
                         "inputType": "topicselector",
                         "label": "Topics",
                         "name": "Topic",
@@ -373,7 +330,234 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "text",
                         "description": "Resource Type",
                         "editable": true,
+                        "index": 9,
+                        "inputType": "select",
+                        "label": "Resource Type",
+                        "name": "resourceType",
+                        "placeholder": "",
+                        "range": [
+                            "Teach",
+                            "Practice",
+                            "Learn",
+                            "Test",
+                            "Play",
+                            "Read",
+                            "Experiment"
+                            ],
+                        "renderingHints": {},
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "attributions",
+                        "dataType": "list",
+                        "description": "Attributions",
+                        "editable": true,
+                        "index": 10,
+                        "inputType": "text",
+                        "label": "Attributions",
+                        "name": "attribution",
+                        "placeholder": "Credit to Contributors",
+                        "renderingHints": {},
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "audience",
+                        "dataType": "list",
+                        "description": "Audience",
+                        "editable": true,
                         "index": 11,
+                        "inputType": "select",
+                        "label": "Audience",
+                        "name": "Audience",
+                        "placeholder": "Select Audience for whom content is created",
+                        "renderingHints": {},
+                        "range": [
+                            "Learner",
+                            "Instructor"
+                            ],
+                        "required": false,
+                        "visible": true
+                    }
+                ]
+            }
+        }
+    }
+
+#### Response Body for Update Form API
+
+    {
+        "id": "api.form.update",
+        "params": {
+            "resmsgid": "afdb8678-954e-449e-8002-62fe20d7c7ba",
+            "msgid": "a872fc58-e956-4d83-a45e-6ec0d2385f5b",
+            "status": "successful"
+        },
+        "responseCode": "OK",
+        "result": {
+            "response": [
+                {
+                    "rootOrgId": "*",
+                    "key": "content.*.save.*",
+                    "status": "SUCCESS"
+                }
+            ]
+        },
+        "ts": "2018-11-21T05:42:23.218Z",
+        "ver": "1.0"
+    }
+
+#### Request Body for Read Form API 
+
+    {
+    "request": {
+        "type": "content",
+        "subType": "resource",
+        "action": "save",
+        "rootOrgId": "*",
+        "framework": "Framework for ABC Management"
+        }
+    }
+
+#### Response Body for Read Form API 
+
+    {
+        "id": "api.form.read",
+        "params": {
+            "resmsgid": "72f0a558-9da3-4e29-83c8-874edbebff3b",
+            "msgid": "70063386-473b-494e-a1c9-86de30d447e1",
+            "status": "successful"
+        },
+        "responseCode": "OK",
+        "result": {
+            "form": {
+                "type": "content",
+                "subtype": "*",
+                "action": "save",
+                "component": "*",
+                "framework": "Framework for ABC Managemen",
+                "data": {
+                    "templateName": "defaultTemplate",
+                    "action": "save",
+                    "fields": [
+                    {
+                        "code": "appicon",
+                        "dataType": "url",
+                        "description": "App Icon",
+                        "editable": true,
+                        "index": 1,
+                        "inputType": "file",
+                        "label": "App Icon",
+                        "name": "App Icon",
+                        "placeholder": "App Icon",
+                        "renderingHints": {},
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "name",
+                        "dataType": "text",
+                        "description": "Title of the content",
+                        "editable": true,
+                        "index": 2,
+                        "inputType": "text",
+                        "label": "Title",
+                        "name": "Title",
+                        "placeholder": "Enter Title For Content",
+                        "renderingHints": {},
+                        "required": true,
+                        "visible": true
+                    },
+                    {
+                        "code": "description",
+                        "dataType": "text",
+                        "description": "Brief description",
+                        "editable": true,
+                        "index": 3,
+                        "inputType": "textarea",
+                        "label": "Description",
+                        "name": "Description",
+                        "placeholder": "Brief description about the Content",
+                        "renderingHints": {},
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "keywords",
+                        "dataType": "list",
+                        "description": "Keywords for the content",
+                        "editable": true,
+                        "index": 4,
+                        "inputType": "keywordsuggestion",
+                        "label": "keywords",
+                        "name": "Keywords",
+                        "placeholder": "Enter relevant Keywords",
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "subject",
+                        "dataType": "text",
+                        "description": "",
+                        "editable": true,
+                        "index": 5,
+                        "inputType": "select",
+                        "label": "Subject",
+                        "name": "Subject",
+                        "placeholder": "Select type of water resources",
+                        "renderingHints": {},
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "medium",
+                        "dataType": "text",
+                        "description": "",
+                        "editable": true,
+                        "index": 6,
+                        "inputType": "select",
+                        "label": "Medium",
+                        "name": "medium",
+                        "placeholder": "Select Language in which the content is created",
+                        "renderingHints": {},
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "concepts",
+                        "dataType": "list",
+                        "description": "Choose a concept",
+                        "editable": true,
+                        "index": 7,
+                        "inputType": "conceptselector",
+                        "label": "Concepts",
+                        "name": "Concepts",
+                        "placeholder": "Choose Concepts",
+                        "renderingHints": {},
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "topic",
+                        "dataType": "list",
+                        "description": "Choose a Topics",
+                        "editable": true,
+                        "index": 8,
+                        "inputType": "topicselector",
+                        "label": "Topics",
+                        "name": "Topic",
+                        "placeholder": "Choose Topics",
+                        "renderingHints": {},
+                        "required": false,
+                        "visible": true
+                    },
+                    {
+                        "code": "resourceType",
+                        "dataType": "text",
+                        "description": "Resource Type",
+                        "editable": true,
+                        "index": 9,
                         "inputType": "select",
                         "label": "Resource Type",
                         "name": "resourceType",
@@ -396,11 +580,11 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "list",
                         "description": "Attributions",
                         "editable": true,
-                        "index": 12,
+                        "index": 10,
                         "inputType": "text",
                         "label": "Attributions",
                         "name": "attribution",
-                        "placeholder": "",
+                        "placeholder": "Credit to Contributors",
                         "renderingHints": {},
                         "required": false,
                         "visible": true
@@ -410,7 +594,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "dataType": "list",
                         "description": "",
                         "editable": true,
-                        "index": 13,
+                        "index": 11,
                         "inputType": "select",
                         "label": "Audience",
                         "name": "Audience",
@@ -419,53 +603,46 @@ For more information about the usage of header parameters refer to the [Update F
                         "range": [
                             "Learner",
                             "Instructor"
-                        ],
+                            ],
                         "required": false,
                         "visible": true
                     }
                 ]
+            },
+            "created_on": "2018-11-21T05:40:04.175Z",
+            "last_modified_on": null,
+            "rootOrgId": "*"
             }
-        }
-}
-</pre>
+        },
+        "ts": "2018-11-21T05:40:57.971Z",
+        "ver": "1.0"
+    }
 
-## Sample Payload for Read Form API 
-<pre>
- {
-  "request": {
-    "type": "content",
-    "subType": "resource",
-    "action": "save",
-    "rootOrgId": "*",
-    "framework": "NCF"
-  }
-}
-</pre>
-
-## Sample Payload for Create form API  
-<pre>
-{
-
-  "request": {
-    "type": "content",
-    "subType": "questions",
-    "action": "question-filter-view",
-    "rootOrgId": "*",
-    "framework": "NCF",
-    "data": {
+#### Request Body for Create form API  
+    
+    {
+    "request": 
+        {
+        "type": "content",
+        "subType": "questions",
+        "action": "question-filter-view",
+        "rootOrgId": "*",
+        "framework": "Framework for ABC Management",
+        "data": 
+                {
                 "action": "question-filter-view",
                 "templateName": "filterMetaDataTemplate",
                 "fields": [
                     {
                         "code": "searchText",
                         "dataType": "text",
-                        "description": " by question title",
+                        "description": "by question title",
                         "editable": true,
                         "inputType": "text",
                         "label": "Search",
                         "name": "Search",
                         "index": 0,
-                        "placeholder": "Search by question title",
+                        "placeholder": "Search for questions on water management",
                         "renderingHints": {},
                         "required": false,
                         "visible": true
@@ -512,26 +689,12 @@ For more information about the usage of header parameters refer to the [Update F
                         "inputType": "multiselect",
                         "label": "Question Type",
                         "name": "Question Type",
-                        "placeholder": "Question Type",
+                        "placeholder": "Select Question Type",
                         "range": [
                             "Multiple Choice Questions",
                             "Fill in the Blanks",
                             "Match the Following"
                         ],
-                        "renderingHints": {},
-                        "required": false,
-                        "visible": true
-                    },
-                    {
-                        "code": "gradeLevel",
-                        "dataType": "list",
-                        "description": "Class",
-                        "editable": true,
-                        "index": 4,
-                        "inputType": "multiselect",
-                        "label": "Grade Level",
-                        "name": "Class",
-                        "placeholder": "Select Class",
                         "renderingHints": {},
                         "required": false,
                         "visible": true
@@ -548,7 +711,7 @@ For more information about the usage of header parameters refer to the [Update F
                         "renderingHints": {},
                         "required": false,
                         "visible": true,
-                        "index": 5
+                        "index": 4
                     },
                     {
                         "code": "myQuestions",
@@ -558,20 +721,38 @@ For more information about the usage of header parameters refer to the [Update F
                         "inputType": "checkbox",
                         "label": "My Questions",
                         "name": "My Questions",
-                        "placeholder": "My Questions",
+                        "placeholder": "Whether the question is created by you",
                         "renderingHints": {},
                         "required": false,
                         "visible": true,
-                        "index": 6
+                        "index": 5
                     }
                 ]
             }
-  }
-}
-</pre>
+        }
+    }
+
+
+#### Response Body for Create form API
+
+    {
+        "id": "api.form.create",
+        "params": {
+            "resmsgid": "b90bb055-2d8d-4996-b501-a6e85f9c58dc",
+            "msgid": "a5f81996-34f7-43e5-9047-598c1d219443",
+            "status": "successful"
+        },
+        "responseCode": "OK",
+        "result": {
+            "created": "OK"
+        },
+        "ts": "2018-11-21T05:40:04.179Z",
+        "ver": "1.0"
+    }
+
 
 ## Concepts Covered
 
 * Metadata driven forms
-* List of available metadata driven forms
 * Request payload for update metadata form
+* List of available metadata driven forms

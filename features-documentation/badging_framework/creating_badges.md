@@ -33,7 +33,7 @@ Enter the following details in the request body of the Create Issuer Endpoint:
 |--------------------------------|---------------------|--------------|
 | **Name**       |         The name of the issuer         |      Mandatory     |     
 | **Description** |        A short description about the Issuer         |      Mandatory     |  
-| **URL** |  A fully-qualified URL of the Issuer's website or homepage  Mandatory |
+| **URL** |  A fully-qualified URL of the Issuer's website or homepage | Mandatory |
 | **Email** | A contact email of the Issuer | Mandatory |
 | **Image** | An image file that represents the Issuer, such as a logo of the issuing organization, or image of the person | Optional |
 

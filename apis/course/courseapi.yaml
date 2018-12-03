@@ -1,0 +1,1563 @@
+﻿swagger: '2.0'
+info:
+  version: '1.0'
+  title: Sunbird Course API(s)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  contact:
+    email: info@sunbird.org
+  description: >-
+      The Content API resources perform operations related to all the Course on the Sunbird Platform. 
+      
+      - Each of the endpoints serve a different purpose, so which one to use depends on what you want to do
+      
+host: staging.open-sunbird.org
+basePath: /api/course/v1
+securityDefinitions:
+  bearer:
+      type: apiKey  # arbitrary name for the security scheme
+      in: header # The secrity scheme parameter is in "header"
+      name: Authorization # name of the header, query parameter or cookie
+  userToken:
+      type: apiKey  # arbitrary name for the security scheme
+      in: header # The secrity scheme parameter is in "header"
+      name: x-authenticated-user-token # name of the header, query parameter or cookie
+schemes:
+  - https
+consumes:
+  - application/json
+  - multipart/form-data
+  - application/x-www-form-urlencoded
+produces:
+  - application/json
+paths:
+  /create:
+    post:
+      description: >-
+       This API is associated with creating Course on the Sunbird Platform 
+          - **_/create/_** endpoint executes the "Create Course" request based on parameters provided as metadata in the request body
+          - It is a must to provide values for the required parameters 
+      summary: Create Course
+      tags:
+        - Course APIs
+      operationId: Create Course
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: >-
+           'The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
+            
+            - JSON 
+            - XML data
+          
+           The body is the representation of the resource object for creating content (an array of parameters which describes the content)
+          schema:
+            required: 
+              - "request"
+            properties: 
+              request: 
+                required: 
+                  - "course"
+                properties: 
+                  course: 
+                    required: 
+                      - "name"
+                      - "description"
+                      - "creator"
+                      - "createdBy"
+                      - "organisation"
+                      - "createdFor"
+                      - "framework"
+                      - "resourceType"
+                    properties: 
+                      name: 
+                        type: "string"
+                      description: 
+                        type: "string"
+                      creator: 
+                        type: "string"
+                      createdBy: 
+                        type: "string"
+                      organisation: 
+                        type: "array"
+                        items: 
+                          type: "string"
+                      createdFor: 
+                        type: "array"
+                        items: 
+                          type: "string"
+                      framework: 
+                        type: "string"
+                      resourceType: 
+                        type: "string"
+                    type: "object"
+                type: "object"
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource. The media types can be:
+              - Application/json
+        - name: x-authenticated-user-token
+          in: header
+          required: true
+          type: string
+          description: 'Represents the authorized user token to execute the API' 
+        - name: x-channel-id
+          in: header
+          required: true
+          type: string
+          description: 'Represents channel ID of organization'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Create Course** operation was successful!
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Create Course** operation failed. You may have missed input for a mandatory parameter'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            url: /course/v1/create
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              X-Channel-id: channel
+              Authorization: 'Bearer {{api_key}}'
+            body: |-
+            request:
+              course:
+                name: training course
+                description: Training content for upskilling employees
+                creator: Creator01 user
+                createdBy: 159e93d1-da0c-4231-be94-e75b0c226d7c
+                organisation:
+                  - XYZ Corporation
+                  - XYZ
+                createdFor:
+                  - '01232002070124134414'
+                  - 012315809814749184151
+                framework: NCF
+                resourceType: Course
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Create Course
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /hierarchy/update:
+    patch:
+      description: >-
+       This API is associated with updating hierarchy of the Course on the Sunbird Platform
+          - **_/hierarchy/update_** endpoint executes the "Update Course" request based on parameters provided as metadata in the request body.
+          - It is a must to provide values for the required parameters
+      summary: Course Hierarchy Update 
+      tags:
+        - Course APIs
+      operationId: Course Hierarchy Update
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: >-
+           The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload
+            
+            - JSON 
+            - XML data
+          
+          The body is the representation of the resource object for updating the course hierarchy.
+          schema:
+            $ref: '#/definitions/UpdateHierarchyContentRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource. The media types can be:
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+        - name: x-authenticated-user-token
+          in: header
+          required: true
+          type: string
+          description: 'The Registered User ID to execute the API.' 
+        - name: x-channel-id
+          in: header
+          required: true
+          type: string
+          description: 'Represents a physical location (e.g: state) uniquely to which the user belongs'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Update Hierarchy Content** operation was successful!
+          schema:
+            $ref: '#/definitions/ContentUpdateHierarchyResponse'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Update Hierarchy Content** operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            url: /content/v1/create
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              X-Channel-id: channel
+              Authorization: 'Bearer {{api_key}}'
+            body: |-
+              {
+                "request": {
+                  "content": {
+                    "visibility": "Default",
+                    "status": "Draft",
+                    "contentType": "Resource",
+                    "code": "test_cwp_3",
+                    "osId": "org.ekstep.quiz.app",
+                    "languageCode": "hi",
+                    "name": "Test Content",
+                    "description": "Test Content",
+                    "language": [
+                      "Hindi"
+                    ],
+                    "createdFor": [
+                      "012297427021119488540"
+                    ],
+                    "createdBy": "89cf1a7e-dfd3-46c9-a428-d37e9a2bc001",
+                    "mimeType": "application/vnd.ekstep.ecml-archive"
+                  }
+                }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Create Content
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+definitions:
+  CreateContentRequest:
+    title: Create Content Request
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentCreateContentObject'
+    required:
+      - request
+  ContentCreateContentObject:
+    title: Content Create Content Object
+    type: object
+    properties:
+      content:
+        $ref: '#/definitions/ContentCreateObject'
+    required:
+      - content
+  ContentCreateObject:
+    title: ContentCreateObject
+    type: object
+    properties:
+      name:
+        description: 'Represents the name of the content'
+        type: string
+      code:
+        description: 'Represents the unique code for the content'
+        type: string
+      os:
+        description: 'Supported Operating Systems'
+        type: array
+        items:
+          type: string
+      minOsVersion:
+        description: 'Minimimum Supported OS Version'
+        type: string
+      compatibilityLevel:
+        description: 'It is the integer value being used by Client (mobile) for the Compatibility information of Content.'
+        type: number
+      minGenieVersion:
+        description: 'Minimum Supported mobile Version'
+        type: string
+      minSupportedVersion:
+        description: 'Minimum Supported Version of this content'
+        type: string
+      filter:
+        description: 'Filter Criteria (JSON)'
+        type: string
+      variants:
+        description: ''
+        type: string
+      config:
+        description: ''
+        type: string
+      visibility:
+        description: 'Visibility'
+        type: string
+        example:
+          - default
+          - parent
+      audience:
+        description: 'The target audience of the Content'
+        type: string
+        example:
+          - Learner
+          - Instructor
+      posterImage:
+        description: ''
+        type: string
+      badgeAssertions:
+        description: 'List of Badges'
+        type: array
+        items:
+          type: object
+      mimeType:
+        description: 'Content mime type'
+        type: string
+        example:
+          - application/vnd.ekstep.ecml-archive
+          - application/vnd.ekstep.html-archive
+          - application/vnd.android.package-archive
+          - application/vnd.ekstep.content-archive
+          - application/vnd.ekstep.content-collection
+          - application/vnd.ekstep.plugin-archive
+          - application/vnd.ekstep.h5p-archive
+          - application/epub
+          - text/x-url
+          - video/x-youtube
+          - application/octet-stream
+          - application/msword
+          - application/pdf
+          - image/jpeg
+          - image/jpg
+          - image/png
+          - image/tiff
+          - image/bmp
+          - image/gif
+          - image/svg+xml
+          - video/avi
+          - video/mpeg
+          - video/quicktime
+          - video/3gpp
+          - video/mpeg
+          - video/mp4
+          - video/ogg
+          - video/webm
+          - audio/mp3
+          - audio/mp4
+          - audio/mpeg
+          - audio/ogg
+          - audio/webm
+          - audio/x-wav
+          - audio/wav
+      mediaType:
+        description: 'Content media type'
+        type: string
+        example:
+          - content
+          - collection
+          - image
+          - video
+          - audio
+          - voice
+          - ecml
+          - document
+          - pdf
+          - text
+          - other  
+      appIcon:
+        description: ''
+        type: string
+      grayScaleAppIcon:
+        description: ''
+        type: string
+      thumbnail:
+        description: ''
+        type: string
+      objects:
+        description: 'Objects Used in the Content'
+        type: string  
+      organization:
+        description: 'Org names (partner names)'
+        type: array
+        items:
+          type: string
+      createdFor:
+        description: 'partner IDs'
+        type: array
+        items:
+          type: string
+      developer:
+        description: 'Content Developer'
+        type: string
+      source:
+        description: 'Source of the content'
+        type: string
+      board:
+        description: 'Education Board (Like MP Board, NCERT, etc)'
+        type: string
+      subject:
+        description: 'Subject of the Content to use to teach'
+        type: string
+      medium:
+        description: 'Medium of instruction'
+        type: string
+      notes:
+        description: 'Notes for the instructor'
+        type: string
+      pageNumber:
+        description: 'Page number of Textbook which the Content belongs'
+        type: string
+      publication:
+        description: 'Name of the Publication House'
+        type: string
+      edition:
+        description: 'Edition Information of the Content'
+        type: string
+      publisher:
+        description: 'Publisher of the content (e.g. Pratham Books)'
+        type: string
+      author:
+        description: 'Content Author'
+        type: string
+      owner:
+        description: 'Content Owner'
+        type: string
+      attributions:
+        description: 'Attributions/Credits'
+        type: array
+        items:
+          type: string
+      collaborators:
+        description: 'Collaborators'
+        type: array
+        items:
+          type: string
+      voiceCredits:
+        description: 'Voice Credits'
+        type: array
+        items:
+          type: string
+      soundCredits:
+        description: 'Audio and background scores by'
+        type: array
+        items:
+          type: string
+      imageCredits:
+        description: 'Images created by'
+        type: array
+        items:
+          type: string
+      copyright:
+        description: 'Copyright'
+        type: string
+      license:
+        description: 'License'
+        type: string
+        example:
+          - Against DRM license
+          - Creative Commons Attribution-NoDerivs (CC-BY-ND)
+          - Creative Commons Attribution (CC BY)
+          - Creative Commons Attribution-ShareAlike (CC BY-SA)
+          - Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
+          - Creative Commons Zero (CC0)
+          - Free Art License
+          - Open Audio License
+          - Open Game License
+          - Standard YouTube License
+          - Other
+      forkable:
+        description: 'Forkable'
+        type: boolean
+      translatable:
+        description: 'Translatable'
+        type: boolean
+      ageGroup:
+        description: 'Suggested Age Group'
+        type: string
+        example:
+          - '<5'
+          - '5-6'
+          - '6-7'
+          - '7-8'
+          - '8-10'
+          - '>10'
+          - 'Other'
+      gradeLevel:
+        description: 'Grade Level'
+        type: array
+        items:
+          type: string
+      topic:
+        description: 'Topic of the content'
+        type: array
+        items:
+          type: string
+      interactivityLevel:
+        description: 'Interactivity Level'
+        type: string
+        example:
+          - High
+          - Medium
+          - Low
+      contentType:
+        description: 'Content Type'
+        type: string
+        example:
+          - Resource
+          - Collection
+          - TextBook
+          - LessonPlan
+          - Course
+          - Template
+          - Asset
+          - Plugin
+          - LessonPlanUnit
+          - CourseUnit
+          - TextBookUnit
+      resourceType:
+        description: 'Resource Type'
+        type: string
+        example:
+          - Read
+          - Learn
+          - Teach
+          - Play
+          - Test
+          - Practice
+          - Experiment
+          - Collection
+          - Book
+          - Lesson Plan
+          - Course
+      category:
+        description: 'Category'
+        type: string
+        example:
+          - core
+          - learning
+          - literacy
+          - math
+          - science
+          - time
+          - wordnet
+          - game
+          - mcq
+          - mtf
+          - ftb
+          - library
+      templateType:
+        description: 'Template Type'
+        type: string
+        example:
+          - story
+          - worksheet
+          - mcq
+          - ftb
+          - mtf
+          - recognition
+          - activity
+          - widget
+          - other
+      genre:
+        description: 'Genre'
+        type: string
+        example:
+          - Picture Books
+          - Chapter Books
+          - Flash Cards
+          - Serial Books
+          - Alphabet Books
+          - Folktales
+          - Fiction
+          - Non-Fiction
+          - Poems/Rhymes
+          - Plays
+          - Comics
+          - Words
+      theme:
+        description: 'Theme'
+        type: string
+        example:
+          - History
+          - Adventure
+          - Mystery
+          - Science
+          - Nature
+          - Art
+          - Music
+          - Funny
+          - Family
+          - Life Skills
+          - Scary
+          - School Stories
+          - Holidays
+          - Hobby
+          - Geography
+          - Rural
+          - Urban
+      keywords:
+        description: 'Keywords'
+        type: array
+        items:
+          type: string
+      domain:
+        description: 'Domain'
+        type: array
+        items:
+          type: string
+      description:
+        description: 'Description'
+        type: string
+      instructions:
+        description: 'Instructions'
+        type: string
+      ownershipType:
+        description: 'Field for explaining Ownership type. There can be two possible value createdBy/createdFor. Default value is createdBy.'
+        type: array
+        items:
+          type: string
+    required:
+      - code
+      - name
+      - mimeType
+  UpdateContentRequest:
+    title: Update ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentUpdateContentObject'
+    required:
+      - request
+  ContentUpdateContentObject:
+    title: ContentUpdateContentObject
+    type: object
+    properties:
+      content:
+        $ref: '#/definitions/ContentUpdateObject'
+    required:
+      - content
+  ContentUpdateObject:
+    title: ContentUpdateObject
+    type: object
+    properties:
+      versionKey:
+        description: ''
+        type: string
+      name:
+        description: ''
+        type: string
+      code:
+        description: ''
+        type: string
+      visibility:
+        description: ''
+        type: string
+        example:
+          - default/parent
+      contentType:
+        description: ''
+        type: string
+        example:
+          - Resource
+          - Collection
+          - TextBook
+          - LessonPlan
+          - Course
+          - Template
+          - Asset
+          - Plugin
+          - LessonPlanUnit
+          - CourseUnit
+          - TextBookUnit
+      description:
+        description: ''
+        type: string
+      mimeType:
+        description: ''
+        type: string
+        example:
+          - application/vnd.ekstep.ecml-archive
+          - application/vnd.ekstep.html-archive
+          - application/vnd.android.package-archive
+          - application/vnd.ekstep.content-archive
+          - application/vnd.ekstep.content-collection
+          - application/vnd.ekstep.plugin-archive
+          - application/vnd.ekstep.h5p-archive
+          - application/epub
+          - text/x-url
+          - video/x-youtube
+          - application/octet-stream
+          - application/msword
+          - application/pdf
+          - image/jpeg
+          - image/jpg
+          - image/png
+          - image/tiff
+          - image/bmp
+          - image/gif
+          - image/svg+xml
+          - video/avi
+          - video/mpeg
+          - video/quicktime
+          - video/3gpp
+          - video/mpeg
+          - video/mp4
+          - video/ogg
+          - video/webm
+          - audio/mp3
+          - audio/mp4
+          - audio/mpeg
+          - audio/ogg
+          - audio/webm
+          - audio/x-wav
+          - audio/wav
+      mediaType:
+        description: ''
+        type: string
+        example:
+          - content
+          - collection
+          - image
+          - video
+          - audio
+          - voice
+          - ecml
+          - document
+          - pdf
+          - text
+          - other
+      ownershipType:
+        description: 'Field for explaining Ownership type. There can be two possible values createdBy/createdFor. Default value is createdBy.'
+        type: array
+        items:
+          type: string
+    required:
+      - versionKey
+  PublishContentRequest:
+    title: Publish ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentPublishContentObject'
+    required:
+      - request
+  ContentPublishContentObject:
+    title: ContentPublishContentObject
+    type: object
+    properties:
+      content:
+        $ref: '#/definitions/ContentPublishObject'
+    required:
+      - content
+  ContentPublishObject:
+    title: ContentPublishObject
+    type: object
+    properties:
+      lastPublishedBy:
+        description: ''
+        type: string
+      publishChecklist:
+        description: 'List of checklist mandatory for publishing the content.'
+        type: array
+        items:
+          type: string
+    required:
+      - lastPublishedBy
+  RetireContentRequest:
+    title: Retire ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentRetireObject'
+    required:
+      - request
+  ContentRetireObject:
+    title: ContentRetireObject
+    type: object
+  ReviewContentRequest:
+    title: Review ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentReviewObject'
+    required:
+      - request
+  ContentReviewObject:
+    title: ContentReviewObject
+    type: object
+  SearchContentRequest:
+    title: Search ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentSearchContentObject'
+    required:
+      - request
+  ContentSearchContentObject:
+    title: ContentSearchContentObject
+    type: object
+    properties:
+      filters:
+        $ref: '#/definitions/ContentSearchObject'
+      sort_by:
+        $ref: '#/definitions/SortBy'
+      fields:
+        description: ''
+        type: array
+        items:
+          type: string
+    required:
+      - filters
+      - sort_by
+      - fields
+  ContentSearchObject:
+    title: ContentSearchObject
+    type: object
+    properties:
+      channel:
+        description: ''
+        type: string
+      objectType:
+        description: ''
+        type: array
+        items:
+          type: string
+      contentType:
+        description: ''
+        type: array
+        items:
+          type: string
+      status:
+        description: ''
+        type: array
+        items:
+          type: string
+    required:
+      - channel
+      - objectType
+      - contentType
+      - status
+  SortBy:
+    title: SortBy
+    type: object
+    properties:
+      createdOn:
+        description: ''
+        type: string
+    required:
+      - createdOn
+  FlagContentRequest:
+    title: Flag ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentFlagContentRequest'
+    required:
+      - request
+  ContentFlagContentRequest:
+    title: ContentFlagContentRequest
+    type: object
+    properties:
+      content:
+        $ref: '#/definitions/ContentFlagObject'
+    required:
+      - content
+  ContentFlagObject:
+    title: ContentFlagObject
+    type: object
+    properties:
+      flaggedBy:
+        description: ''
+        type: string
+      flagReasons:
+        description: ''
+        type: array
+        items:
+          type: string
+      versionKey:
+        description: ''
+        type: string
+    required:
+      - flaggedBy
+      - flagReasons
+      - versionKey
+  FlagAcceptContentRequest:
+    title: Publish ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentFlagAcceptObject'
+    required:
+      - request
+  ContentFlagAcceptObject:
+    title: ContentFlagAcceptObject
+    type: object
+    properties:
+      versionKey:
+        description: ''
+        type: string
+    required:
+      - versionKey
+  FlagRejectContentRequest:
+    title: Publish ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentFlagRejectObject'
+    required:
+      - request
+  ContentFlagRejectObject:
+    title: ContentFlagRejectObject
+    type: object
+  RejectContentRequest:
+    title: Reject ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentRejectObject'
+    required:
+      - request
+  ContentRejectObject:
+    title: ContentRejectObject
+    type: object
+    properties:
+      content:
+        $ref: '#/definitions/ContentRejectObjectRequest'
+  ContentRejectObjectRequest:
+    title: ContentRejectObjectRequest
+    type: object
+    properties:
+      rejectReasons:
+        type: array
+        description: 'List of reject Reasons'
+        items:
+          type: string
+      rejectComment:
+        type: string
+        description: 'Reject comments'
+  UpdateHierarchyContentRequest:
+    title: Update Hierarchy Content Request
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentUpdateHierarchyContentObject'
+    required:
+      - request
+  ContentUpdateHierarchyContentObject:
+    title: Content Update Hierarchy Object
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ContentUpdateHierarchyObject'
+    required:
+      - data
+  ContentUpdateHierarchyObject:
+    title: Content Update Hierarchy Object
+    type: object
+    properties:
+      nodesModified:
+        $ref: '#/definitions/ContentNodesModified'
+      hierarchy:
+        $ref: '#/definitions/ContentHierarchy'
+    required:
+      - NodesModified
+      - hierarchy
+  ContentNodesModified:
+    title: Content Update Hierarchy Object
+    type: object
+    properties:
+      dummyNode:
+        $ref: '#/definitions/ContentDummyNode'
+    required:
+      - dummyNode
+  ContentDummyNode:
+    title: Content Metadata
+    type: object
+    properties:
+      isNew:
+        type: boolean
+        description: Whether the content is new or existing
+      root:
+        type: boolean
+        description: Whether the content is root node
+      metadata:
+        $ref: '#/definitions/ContentUpdateObject'
+    required:
+      - metadata
+  ContentHierarchy:
+    title: Content Hierarchy
+    type: object
+    properties:
+      dummyNode:
+        $ref: '#/definitions/DummyNodeHierarchy'
+    required:
+      - dummyNode
+  DummyNodeHierarchy:
+    title: Dummy Node Hierarchy
+    type: object
+    properties:
+      name:
+        type: string
+        description: Represents the name of the content
+      contentType:
+        type: string
+        description: Represents the content type of the content
+      root:
+        type: boolean
+        description: Represents that the content is at root level in a hierarchial content tree
+      children:
+        type: array
+        description: Represents the children node of the content tree
+        items:
+          type: string
+  ContentCreateResponse:
+    description: Create Content Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithNodeId'
+      - $ref: '#/definitions/ResponseHeader'
+  ContentUploadResponse:
+    description: Upload Content Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithNodeIdAndUrl'
+      - $ref: '#/definitions/ResponseHeader'
+  ContentSearchResponse:
+    description: Create Content Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithContentList'
+      - $ref: '#/definitions/ResponseHeader'
+  ContentUpdateHierarchyResponse:
+    description: Create Content Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultUpdateHierarchy'
+      - $ref: '#/definitions/ResponseHeader'
+  ResultUpdateHierarchy:
+    title: Result - Content Update Hierarchy
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/ResultUpdateHierarchyMap'
+    required:
+      - result
+  ResultUpdateHierarchyMap:
+    title: Result - Content Update Hierarchy
+    type: object
+    properties:
+      content_id:
+        type: string
+        description: Parent content Id
+      identifiers:
+        $ref: '#/definitions/NewContentMap'
+  NewContentMap:
+    title: Newly created content
+    type: object
+    properties:
+      dummyNode:
+        type: string
+        description: Dummy Node Id
+  ResultWithNodeId:
+    title: Result Containing Node Id
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/NodeId'
+  ResultWithNodeIdAndUrl:
+    title: Result Containing Node Id
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/NodeIdAndUrl'
+  ResultWithContentList:
+    title: Result Containing Node Id
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/ContentList'
+  NodeId:
+    title: Node Id
+    type: object
+    properties:
+      course_id:
+        type: string
+        description: Node Identifier
+      versionKey:
+        type: string
+        description: Represents the content version key
+  NodeIdAndUrl:
+    title: Node Id
+    type: object
+    properties:
+      node_id:
+        type: string
+        description: Node Identifier
+      versionKey:
+        type: string
+        description: Content version key
+      content_url:
+        type: string
+        description: Content URL link
+  ContentList:
+    title: Content List
+    type: object
+    properties:
+      count:
+        type: number
+        description: Represents the number of times the content is searched for
+      content:
+        type: array
+        description: Content object list
+        items:
+          type: object
+  ContentGetResponse:
+    description: Get Content Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithContent'
+      - $ref: '#/definitions/ResponseHeader'
+  ResultWithContent:
+    title: Result Containing Content Object
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/ContentObject'
+  ContentObject:
+    title: Result Containing Content Object
+    type: object
+    properties:
+      content:
+        $ref: '#/definitions/ContentProperties'
+  ContentProperties:
+    title: Node Id
+    type: object
+    properties:
+      identifier:
+        type: string
+        description: It represents the Node 
+      name:
+        type: string
+        description: It is the name given to a node
+      code:
+        type: string
+        description: Represents the Node associated with other specific node
+      keywords:
+        type: array
+        items:
+          type: string
+        description: It represents the Keywords associated with a node
+      downloadUrl:
+        type: string
+        description: Represents the S3 URL of the Ecar, which can be used for downloading the Ecar
+      channel:
+        type: string
+        description: Represents the channel with which the content is associated
+      description:
+        type: string
+        description: It denotes the description of content
+      language:
+        type: string
+        description: Represents the language of the content
+      variants:
+        type: object
+        description: Represents the content variants based on medium of language 
+      mimeType:
+        type: string
+        description: Represents the mimetype of the content
+      idealScreenSize:
+        type: string
+        description: Represents the ideal screen size of content
+      createdOn:
+        type: string
+        description: Represents the content creation date 
+      collections:
+        type: array
+        items:
+          type: object
+        description: Represents the collections that are associated with content
+      children:
+        type: array
+        items:
+          type: object
+        description: Represents the children (nodes) associated with the content
+      appId:
+        type: string
+        description: Represents the associated application Id
+      contentDisposition:
+        type: string
+        description: Represents how the content is placed or arranged, especially in relation to other content
+      contentEncoding:
+        type: string
+        description: Represents the format of content encoding
+      lastUpdatedOn:
+        type: string
+        description: Represents the date on which content was last updated
+      mimeTypesCount:
+        type: string
+        description: Represents the count of  mimetypes in associated contents
+      contentType:
+        type: string
+        description: Represents the type of content
+      lastUpdatedBy:
+        type: string
+        description: Represents the user who updated the content previously
+      audience:
+        type: array
+        items:
+          type: string
+        description: Represents the audience of the content
+      toc_url:
+        type: string
+        description: Represents the S3 URL of the table of contents of a content file
+      visibility:
+        type: string
+        description: Represents the visibility mode of the content
+      os:
+        type: string
+        description: Represents the type of Operating system
+      contentTypesCount:
+        type: string
+        description: Represents the count of different content types within the associated content
+      childNodes:
+        type: array
+        items:
+          type: string
+        description: Lists the child nodes asociated with content
+      consumerId:
+        type: string
+        description: Represents the unique ID for consumers
+      mediaType:
+        type: string
+        description: Represents the MediaType of the content
+      osId:
+        type: string
+        description: Represents the Operating system Identifier
+      lastPublishedBy:
+        type: string
+        description: Represents the date on which content was last published
+      pkgVersion:
+        type: string
+        description: Represents the version of content package usually the last built package 
+      versionKey:
+        type: string
+        description: Represents the version number that was generated after last update
+      tags:
+        type: array
+        items:
+          type: string
+        description: Denotes the tags that are associated with the content
+      prevState:
+        type: string
+        description: Represents the previous state of the content
+      idealScreenDensity:
+        type: string
+        description: Represents the Ideal Screen density
+      s3Key:
+        type: string
+        description: Represents the S3 relative path of Ecar file
+      framework:
+        type: string
+        description: Represents which framework was used to create the content
+      size:
+        type: integer
+        description: Represents the size of the content
+      lastPublishedOn:
+        type: string
+        description: Represents the date on which the content was last published
+      leafNodesCount:
+        type: integer
+        description: Represents the total number of leaf nodes against the collection content
+      compatibilityLevel:
+        type: integer
+        description: Represents the compatibility Level 
+      publisher:
+        type: string
+        description: Represents who is the publisher of the content
+      usedByContent:
+        type: array
+        items:
+          type: string
+        description: Represents the user who used the content last time 
+      resourceType:
+        type: string
+        description: Represents the type of the content
+      status:
+        type: string
+        description: Represents the status of the content
+      license:
+        type: string
+        description: Represents the youtube licence value 
+      previewUrl:
+        type: string
+        description: Represents the preview Url link
+      artifactUrl:
+        type: string
+        description: Represents the artifact Url link
+      languageCode:
+        type: string
+        description: Represents the language Code
+      lastSubmittedOn:
+        type: string
+        description: Represents the date for last Submitted On
+      flagReasons:
+        type: array
+        description: Represents the reasons for flagging
+        items:
+          type: string
+      flaggedBy:
+        type: array
+        description: Represents the flaggedBy user
+        items:
+          type: string
+      badgesList:
+        type: object
+        description: Represents the flaggedBy user
+      downloads:
+        type: number
+        description: Represents the flaggedBy user
+      pragma:
+        type: array
+        description: Represents the pragma
+        items:
+          type: string
+      subject:
+        type: string
+        description: Represents the subject of the content
+      medium:
+        type: string
+        description: Represents the medium of the content
+      topic:
+        type: array
+        description: Represents the topic of the content
+        items:
+          type: string
+      board:
+        description: Represents the board of the content
+        type: string
+      ownershipType:
+        description: 'Field for explaining Ownership type. There can be two possible value createdBy/createdFor. Default value is createdBy.'
+        type: array
+        items:
+          type: string
+  ContentHierarchyGetResponse:
+    title: Get Content Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithContentHierarchyResponse'
+      - $ref: '#/definitions/ResponseHeader'
+  ResultWithContentHierarchyResponse:
+    title: Result Containing Content Object
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/ContentHierarchyResponseObject'
+  ContentHierarchyResponseObject:
+    title: Response Hierarchy Content Object
+    type: object
+    properties:
+      content:
+        $ref: '#/definitions/ContentProperties'
+  ResponseHeader:
+    title: ResponseHeader
+    type: object
+    properties:
+      id:
+        type: string
+        description: Represents the unique API Identifier
+      ver:
+        type: string
+        description: Represents the API version information
+      ts:
+        type: string
+        description: Represents the API execution span
+      params:
+        $ref: '#/definitions/ResponseParams'
+      responseCode:
+        type: object
+        description: 'Represents the API response code'
+  ResponseParams:
+    title: Response Parameter
+    type: object
+    properties:
+      resmsgid:
+        type: string
+        description: ID represents the response uniquely
+      msgid:
+        type: string
+        description: Represents the unique ID of the response message
+      err:
+        type: string
+        description: Represents the Error Code in case the execution fails
+      status:
+        type: string
+        description: Represents the Response status when an API is called
+      errmsg:
+        type: string
+        description: Represents the text that is part of response status
+  EmptyResult:
+    title: Empty Result
+    type: object
+    properties:
+      result:
+        type: object
+        description: Empty Result
+  ContentCreateErrorResponse:
+    title: Create Content Error Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/EmptyResult'
+      - $ref: '#/definitions/ResponseHeader'
+  CopyContentRequestBody:
+    title: CopyContentRequest
+    example:
+      request:
+        content:
+          description: Akshara Kannada
+          code: org.ekstep.feb22.story.test03.copy
+          createdBy: 
+          createdFor:
+          - 0123673542904299520
+          - 0123673689120112640
+          creator: 
+          organization:
+          - Sunbird
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentCopyRequest'
+    required:
+    - request
+  ContentCopyRequest:
+    title: ContentCopyRequest
+    example:
+      content:
+        description: Akshara Kannada
+        code: org.ekstep.feb22.story.test03.copy
+        createdBy: 
+        createdFor:
+        - ORG_001
+        creator: Sun
+        organization:
+        - Sunbird
+    type: object
+    properties:
+      content:
+        $ref: '#/definitions/CopyContent'
+    required:
+    - content
+  CopyContent:
+    title: CopyContent
+    example:
+      description: Akshara Kannada
+      code: org.ekstep.feb22.story.test03.copy
+      createdBy: 159e93d1-da0c-4231-be94-e75b0c226d7c
+      createdFor:
+      - ORG_001
+      creator: Sun
+      organization:
+      - Sunbird
+    type: object
+    properties:
+      description:
+        description: ''
+        example: Akshara Kannada
+        type: string
+      code:
+        description: ''
+        example: org.ekstep.feb22.story.test03.copy
+        type: string
+      createdBy:
+        description: ''
+        example: 
+        type: string
+      createdFor:
+        description: ''
+        example:
+        type: array
+        items:
+          type: string
+      creator:
+        description: ''
+        example: 
+        type: string
+      organization:
+        description: ''
+        example:
+        - Sunbird
+        type: array
+        items:
+          type: string
+    required:
+    - createdBy
+    - createdFor
+    - organization
+  ContentCopySuccessResponse:  
+    description: Copy Content Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResponseHeader'
+      - $ref: '#/definitions/ResultWithCopyContentId'
+  ResultWithCopyContentId:
+    title: Content Id
+    type: object
+    properties:
+        result:
+          type: object
+          description: result
+          properties:
+            sourceId:
+              type: string
+              example: 'copiedId'

@@ -2,8 +2,8 @@
 title: Configure OTP based SMS
 page_title: Configure OTP based SMS 
 description: How to set up the OTP for SMS
-published: false
-allowSearch: false
+published: true
+allowSearch: true
 keywords: SSO, single sign on, single signon, singlesignon, sign in, SMS, sms, otp, OTP, Keycloak
 ---
 
@@ -36,7 +36,7 @@ An OTP sent via SMS to the user's registered mobile number is one of the most se
   <td> 
 3. Go to <b>Configure </b> section, select <b>Authentication</b> .
   </td>
-  <td><img src="img/Selectauthenticationsection.png"></td>
+  <td><img src="https://github.com/manzarul/project-sunbird.github.io/blob/dev/img/Selectauthenticationsection.png"></td>
   </tr>
   
   <tr>
@@ -44,7 +44,7 @@ An OTP sent via SMS to the user's registered mobile number is one of the most se
 	  4. Go to <b>Flows </b> tab, select <b>Reset Credentials With SMS OTP</b> from the drop-down.
 </td>
 <td>
-  <img src="img/selectflows.png">
+  <img src="https://github.com/manzarul/project-sunbird.github.io/blob/dev/img/selectflows.png">
   </td>
   </tr>
 
@@ -52,14 +52,14 @@ An OTP sent via SMS to the user's registered mobile number is one of the most se
 <td> 
 	5.Select <b>Actions</b> as <i>Config </i> for <b> SMS Authentication (Reset credentials with SMS OTP) </b>.
   </td>
-  <td><img src="img/selectconfig.png"></td>
+  <td><img src="https://github.com/manzarul/project-sunbird.github.io/blob/dev/img/selectconfig.png"></td>
   </tr>
 
 <tr>
 <td> 
 	6.Change the text for <b> Template of text to send to the user </b> with the actual text of the message to be sent to users while sending the OTP SMS.
   </td>
-  <td><img src="img/changesmsotp.png"></td>
+  <td><img src="https://github.com/manzarul/project-sunbird.github.io/blob/dev/img/changesmsotp.png"></td>
   </tr>
   
 </table>

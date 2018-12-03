@@ -8,90 +8,218 @@ allowSearch: true
 ---
 ## Scenario
 
-A company, XYZ Corp, is a global conglomerate with over ten thousand employees, spread across 5 locations. Employee training and enablement is one of the core values of the organization. To ensure that employees are regularly trained and upskilled, XYZ Corp has decided to use Sunbird for its learning and training solution. To give employees access to the learning platform, the organization's administrator needs to create an organization. 
+A company, XYZ Corp, is a global conglomerate with over ten thousand employees, spread across 5 locations. Employee training and enablement is one of the core values of the organization. To ensure that employees are regularly trained and upskilled, XYZ Corp has decided to use Sunbird for its learning and training solution on 3 topics, namely Life Science, eCommerce and Archeology (Indian, Greek, Mayan). Gita is the XYZ Corp's Sunbird adminstrator and is tasked with setting this up in XYZCorp's Sunbird instance.
 
-Sunbird identifies every tenant organization uniquely through a channel. When creating an organization, in addition, to organization details, Organization ID must be assigned. The organization ID has to be associated with an organization and a channel. For example, John is a manager in XYZ corporation, who can create, review and take courses. He is also an administrator in the system, in which capacity he can add users and assign permissions to them. 
 
 ### Prerequisites
 
-1.An initialized server instance of Sunbird. Initialization includes creating an org admin user (through Keycloak), creating a channel and associating a first organization with the channel.
+1. An intialized Sunbird instance with channel
 
-For details, refer to:
+2. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
+  
+3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
-* [Server Installation](developer-docs/installation/server_installation/)
-
-* [Channel APIs](apis/framework/#tag/Channel-APIs)
-
-* [First organization](developer-docs/initialization/) associated with channel ID
-
-2.The API Key for access and basic authentication
-
-3.An API client to make API calls. For example use Postman refer [Using Postman](apis/framework/#tag/usingpostman)
-
-4.Access to the [Create Organization API](apis/userapi/#tag/Orgs-APIs)
+4. Access to [Organization API](apis/orgapi/#tag/Org-APIs)
 
 ### Taskflow
 
-The sequence of tasks the organization administrator follows to create users include:
+Gita identifies the request API headers and body fields relevant for her task. She creates three root organizations, one for each training topic. She creates three sub-organizations for each sub-topic, under the root organization Archeology. Gita comes up with three distinct alphanumeric strings that is used as value of **channel**, for each of the root organization. Then Gita lists all existing **channel** identifiers to ensure they are not in use in XYZCorp's Sunbird instance.
 
-1.Specify values for the following parameters in the request body of the API 
+**Header Parameters**
 
-An organization can be created in a Sunbird instance using ORG API, it can be further associated with a user and channel, refer [Mapping User to Organization](apis/orgapi/#operation/Organisation%20Add%20User). 
-Following is an example of request body for creating a user, the sample values provided in the request body are indicative:
+|     Header    |          Type          | Description                | Sample           |
+|---------------|------------------------|----------------------------|------------------|
+| Content-type  | String                 | Mime type of the request   | application/json |
+| Authorization | String                 | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
 
-**Request Body**
 
-<pre>
-"request":{
-      "orgName":"ORG JP_1",
-      "description":"Dev Default Org",
-      "imgUrl":"N/A",
-      "channel":"channel -12571w1sja",
-      "preferredLanguage":"English",
-      "homeUrl":"N/A",
-      "orgCode":"orgCode123sd",
-      "isRootOrg":true,
-      "provider":"1231rwsadk",
-      "externalId":"exts12w7k",
-          "address":{
-          "city":"Bangalore",
-          "state":"KA",
-          "country":"INDIA",
-          "zipCode":"566666"
-      }
-</pre> 
+#### Request Body
 
-**Response Body**
+    curl -X POST \
+    https://sunbird.xyzcorp.com/api/channel/v1/list \
+        -H 'Content-type: application/json' \
+        -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
 
-<pre>
- "responseCode": "OK",
- "result": {
-       "organisationId": "012567820191629312269",
-       "response": "SUCCESS"
+#### Response Body
+
+> Example output contains 800+ channels. Partial response body shown for brevity.
+
+    {
+        "id": "api.channel.list",
+        "ver": "1.0",
+        "ts": "2018-10-31T03:32:00.875Z",
+        "params": {
+            "resmsgid": "871ffbb0-dcbd-11e8-af3b-63285e87d510",
+            "msgid": "86f62c90-dcbd-11e8-8e5d-e72c97a8e618",
+            "status": "successful",
+            "err": null,
+            "errmsg": null
+        },
+        "responseCode": "OK",
+        "result": {
+            "channels": [
+                {
+                    "identifier": "channel",
+                    "code": "channel",
+                    "framewor  (or channel IDks": [],
+                    "consumerId": "9d8a6562-ac2d-4c10-b5fa-34dfb327aeb1",
+                    "channel": "in.example",
+                    "description": "",
+                    "createdOn": "2018-10-20T06:20:50.861+0000",
+                    "versionKey": "1513750850861",
+                    "appId": "example_portal",
+                    "name": "My Channel",
+                    "lastUpdatedOn": "2018-12-20T06:20:50.861+0000",
+                    "categories": [],
+                    "defaultFramework": "NCF",
+                    "status": "Live"
+                },
+                {
+                .
+                .
+                .
+                .
+                {
+                    "owner": "xyz.corp",
+                    "identifier": "megalithic",
+                    "code": "megalithic",
+                    "consumerId": "dc62def7-ecfd-3959-ab2f-d98251ed83e2",
+                    "channel": "hyper.channel",
+                    "description": "Organization structure",
+                    "type": "Education",
+                    "createdOn": "2017-09-07T05:04:18.751+0000",
+                    "versionKey": "2873475457420",
+                    },
+                    "appId": "staging.xyz.corp",
+                    "name": "The XCorp",
+                    "lastUpdatedOn": "2018-09-07T05:04:43.807+0000",
+                    "categories": [],
+                    "status": "Live"
+                }
+            ],
+            "count": 808
+        }
     }
-</pre>
 
-2.Save the created organization ID
 
-3.An organization is created in Sunbird
+In the response body, Gita inspects the value of all tokens called **code** to ensure that the **channel** identifiers name she's decided upon, does not already exist. She creates the three root organizations, one for each of the topics. The API request parameters and invocation is depicted in the following example:
+
+**Header Parameters**
+
+|     Header    |          Type         | Description | Sample |
+|---------------|------------------------|------|------------|
+| Content-type | String | Mime type of the request | application/json |
+| Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
+| x-authenticated-user-token | String | A token that identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
+
+
+#### Request Body
+
+    curl -X POST \
+    https://sunbird.xyzcorp.com/api/org/v1/create \
+        -H 'Content-type: application/json' \
+        -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
+        -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
+        -d '{
+            "request": {
+            "orgName": "Archeology",
+            "description": "Study of really old stuff.",
+            "isRootOrg": true,
+            "channel": "xyzCorpArcheologyChannel",
+            "preferredLanguage": "English, Dutch, Hindi, Cakchiquel",
+            "homeUrl": "https://www.example.com/training/arch"
+        }
+    }'
+
+#### Response Body
+
+    {
+    "id": "api.org.create",
+    "params":
+    {
+        "err": null,
+        "errmsg": null,
+        "msgid": "56e36e85-abca-42bc-9fcd-e8a50c78a316",
+        "resmsgid": null,
+        "status": "success"
+    },
+    "responseCode": "OK",
+    "result":
+    {
+        "organisationId": "04584469560898483465",
+        "response": "SUCCESS"
+    },
+    "ts": "2018-10-30 08:24:29:856+0000",
+    "ver": "v1"
+    }
+
+Gita comes up with three identifiers for each sub-organization. These identifiers are unique across the organization Archeology and are used as the value of **externalID** in the request body. She also make a note of the **organisationId** of the Archeology root organization, which is used as the value of **provider** in the request body. Gita provides appropriate values in the request body and invoke the organization create API, for all three topics (Life Science, eCommerce, Archeology). Upon each successful outcome, she makes a note of the value of **organisationId** of each sub-organization respectively. The API request parameters and invocation are depicted in the following example:
+
+**Header Parameters**
+
+|     Header    |          Type         | Description | Sample |
+|---------------|------------------------|------------|--------|
+| Content-type | String | Mime type of the request | application/json |
+| Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
+| x-authenticated-user-token | String | A token that identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
+
+#### Request Body
+
+    curl -X POST \
+    https://sunbird.xyzcorp.com/api/org/v1/create \
+    -H 'Content-type: application/json' \
+    -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
+    -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
+        -d '{
+            "request":
+            {
+                "orgName": "Indian Archeology",
+                "description": "Study of ancient tea leaves in Rabdentse, Sikkim",
+                "isRootOrg": false,
+                "provider": "xyzCorpArcheologyChannel",
+                "externalID": "xyzCorpArcheologyIndian",
+                "preferredLanguage": "English, हिंदी",
+                "homeUrl": "https://www.example.com/training/arch"
+            }
+        }'
+
+#### Response Body
+
+    {
+        "id": "api.org.create",
+        "ver": "v1",
+        "ts": "2018-11-12 15:52:10:333+0000",
+        "params": {
+            "resmsgid": null,
+            "msgid": "f0f94391-b6e9-4f25-8317-fd70c2fcbae1",
+            "err": null,
+            "status": "success",
+            "errmsg": null
+        },
+        "responseCode": "OK",
+        "result": {
+            "organisationId": "05986338210410082051",
+            "response": "SUCCESS"
+        }
+    }
+
+On sucessfully creating an organization, the next step is to create users and assign roles to the users within the newly created organization and sub-organizations.
 
 ### Concepts Covered
 
-**Users**: The individual who can sign in and access the Sunbird portal to perform a set of action that is assigned by the system administrator.
+**Organization**: It is an conceptual representation of a collection, like institute or a body of individuals.
 
-**Organization**: Organizations can be an institute or a body of individuals. 
+**Channel**: Unique identification number associated with a root organization. No two channels can be the same, across any Sunbird instance.
 
-**Channel**: Unique identification number associated with the user or an organization
+**Root Organization**: A tenant in any Sunbird instance. Multiple root organizations can co-exist in a Sunbird instance.
 
-**Root Organization**: All users and sub-organization in an organisation are associated through the rootOrg
+**Sub Organization**: A subordinate level organizations inside a root organization.
 
-**System Administrator**: A user who manages end-to-end system from creating an organization, administrators for the organizations, members within the organization, and assign roles to the members
-
-
-### Additional Topics
+### Related Topics
 
 [Creating first organization](developer-docs/initialization/)
 
 [Creating user](developer-docs/how-to-guide/how_to_create_user/)
 
-[Map users to different business units within the organisation](developer-docs/how-to-guide/hohow_to_create_org_add_user/)
+[Map users to the organization](developer-docs/how-to-guide/how_to_create_org_add_user/)
+

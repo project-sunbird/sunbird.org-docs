@@ -1,4 +1,6 @@
 ---
+type: landing
+directory: developer-docs/telemetry
 title: Consuming Telemetry Data
 page_title: Consuming Telemetry Data
 description: Consuming Telemetry Data
