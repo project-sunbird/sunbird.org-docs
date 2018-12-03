@@ -103,11 +103,7 @@ These instructions install Sunbird version 1.9. The code examples provided here 
 > The initialization of these environmental variables can take place in a common place like in your **.bashrc** or **.bash_profile**
 
 
-2. Edit the file **sunbird-portal/src/app/helpers/environmentVariablesHelper.js** and ensure 
-that the following tokens are set to the values indicated. Enclose all 
-string values within double quotation marks. Add any token, that is 
-mentioned in the table, but which is not present in the 
-environmentVariablesHelper.js file.
+2. Edit the file **sunbird-portal/src/app/helpers/environmentVariablesHelper.js** and ensure that the following tokens are set to the values indicated. Enclose all string values within double quotation marks. Add any token, that is mentioned in the table, but which is not present in the environmentVariablesHelper.js file.
 
 |            Token            |                   Value                              | Data Type |
 |-----------------------------|------------------------------------------------------|-----------|
