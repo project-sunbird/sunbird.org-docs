@@ -2,8 +2,8 @@
 title: Configuration Services
 page_title: Configuration Services
 description: Document on how to enable configuration services
-published: true
-allowSearch: true
+published: false
+allowSearch: false
 ---
 ## Overview
 To address the overhead of managing configurations of various services, Sunbird provides the option of a central configuration service. The configuration services can be used to update configuration of any service on the anytime without requiring a service redeployment. 
