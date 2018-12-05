@@ -9,16 +9,15 @@ allowSearch: true
 ## Sunbird Portal Setup
 
 To set up the Sunbird portal successfully, follow these steps sequentially:
+ 
+1. Setup 
+2. Configure Sunbird Backend
+3. Edit the Application Config
+4. Run the Application
 
-1. Pre-requisites 
-2. Setup 
-3. Configure Sunbird Backend
-4. Edit the Application Config
-5. Run the Application
+### Prerequisites
 
-### Pre-requisites
-
-Check the following pre-requisites before installing and running the Sunbird-player application:
+Ensure the following prerequisites are met before installing and running Sunbird player application:
 
 1. **Software dependencies**
 	* [Node](https://nodejs.org/en/download/){:target="_blank"} - install the latest release of 6.x.x LTS series
@@ -28,9 +27,7 @@ Check the following pre-requisites before installing and running the Sunbird-pla
 
 2. **API Keys** 
 
-This installation guide will use a cloud hosted Sunbird APIs for which an API key is needed.
-
-- For getting an API key,send an email to: info@sunbird.org
+This installation guide uses cloud hosted Sunbird APIs for which an API key is required. For getting an API key,send an email to: info@sunbird.org
 
 ### Setup 
 For setting up the application, check out the [code](https://github.com/project-sunbird/sunbird-portal.git){:target="_blank"}. The code can be checked out via the command:
@@ -40,7 +37,6 @@ For setting up the application, check out the [code](https://github.com/project-
 > **Note**: Stable versions of the sunbird portal are available via tags for each release, and the master branch contains latest stable release. For latest stable release [refer](https://github.com/project-sunbird/sunbird-portal/){:target="_blank"}
 
 Once the git clone command is over, run the following set of commands:
-
    
     $ cd {PROJECT-FOLDER}/src
     $ npm install
@@ -49,11 +45,11 @@ Once the git clone command is over, run the following set of commands:
 
 ### Configure Backend Service Stack
 
-The Sunbird portal application is powered by a set of Service APIs. These Service API(s) run in a distributed environment.For instance, deploying the Sunbird to production; but for the sake of simplicity and ease of debugging, you can also run these service API(s) locally on a single server.
+The Sunbird portal application is powered by a set of Service APIs. These Service API(s) run in a distributed environment. For instance, deploying Sunbird to production; but for the sake of simplicity and ease of debugging, you can also run these service API(s) locally on a single server.
 
-For now, let us configure the Sunbird portal to use a cloud instance of the Sunbird Service API(s).These APIs are hosted by project Sunbird and are used for testing and demonstration purposes. 
+For now, let us configure Sunbird portal to use a cloud instance of the Sunbird Service API(s).These APIs are hosted by project Sunbird and are used for testing and demonstration purposes. 
 
-> ***Note***: The cloud instance of the API(s) hosted by Project Sunbird are not for production usage.
+> **Note**: The cloud instance of the API(s) hosted by Project Sunbird are not for production usage.
 
 ### Edit the Application Config
 
