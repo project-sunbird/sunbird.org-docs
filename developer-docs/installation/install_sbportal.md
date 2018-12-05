@@ -19,7 +19,7 @@ To set up the Sunbird portal successfully, follow these steps sequentially:
 
 Ensure the following prerequisites are met before installing and running Sunbird player application:
 
-1. **Software dependencies**
+1. **Software Dependencies**
 	* [Node](https://nodejs.org/en/download/){:target="_blank"} - install the latest release of 6.x.x LTS series
 	* [Bower](https://bower.io/#install-bower){:target="_blank"} - latest version of bower: `npm install -g bower`
 	* [Gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md){:target="_blank"}- 
