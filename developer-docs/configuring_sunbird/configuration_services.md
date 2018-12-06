@@ -2,8 +2,8 @@
 title: Configuration Services
 page_title: Configuration Services
 description: Document on how to enable configuration services
-published: true
-allowSearch: true
+published: false
+allowSearch: false
 ---
 ## Overview
 To address the overhead of managing configurations of various services, Sunbird provides the option of a central configuration service. The configuration services can be used to update configuration of any service on the anytime without requiring a service redeployment. 
@@ -24,7 +24,7 @@ This document details the procedures on how to manage the configuration services
 ## Prerequisites
 
 1. An intialized Sunbird instance with channel with hierarchial structure
-2. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](http://qa.docs.sunbird.org/1.10/developer-docs/how-to-guide/generate_apikey/)
+2. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
 3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
 ## Chain Management for Configuration Services

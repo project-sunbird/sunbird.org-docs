@@ -62,6 +62,7 @@ These instructions install Sunbird version 1.10.1. The code examples provided he
 1. Ensure that the system **PATH** variable contains the paths where **git**, **node**, **nodemon** and **gulp** are located 
 > If you are unable to find an executable with the name **node**, check for **nodejs**
 
+<<<<<<< HEAD
 3. Change the directory into the folder that you have designated as the top level folder of the Sunbird application
 
 3. Clone the Sunbird portal github repository using the following command:
@@ -86,9 +87,20 @@ These instructions install Sunbird version 1.10.1. The code examples provided he
     cd client
     npm install
     ```
+=======
+> **Note**: Stable versions of the sunbird portal are available via tags for each release, and the master branch contains latest stable release. For latest stable release [refer](https://github.com/project-sunbird/sunbird-portal/){:target="_blank"}
+
+Once the git clone command is over, run the following set of commands:
+   
+    $ cd {PROJECT-FOLDER}/src
+    $ npm install
+    $ bower cache clean
+    $ bower install --force
+>>>>>>> f35bd3cd586d3f5e4fe93900b2eee582973d7c15
 
 ## Configuring the Environment & Services Stack
 
+<<<<<<< HEAD
 1. Configure the following system environment variables in the terminal which you have opened
 
 | Environment Variable      |  Value  | Data Type |
@@ -99,6 +111,13 @@ These instructions install Sunbird version 1.10.1. The code examples provided he
 |  sunbird_default_tenant   | sunbird |   string  |
 
 > The initialization of these environmental variables can take place in a common place like in your **.bashrc** or **.bash_profile**
+=======
+The Sunbird portal application is powered by a set of Service APIs. These Service API(s) run in a distributed environment. For instance, deploying Sunbird to production; but for the sake of simplicity and ease of debugging, you can also run these service API(s) locally on a single server.
+
+For now, let us configure Sunbird portal to use a cloud instance of the Sunbird Service API(s).These APIs are hosted by project Sunbird and are used for testing and demonstration purposes. 
+
+> **Note**: The cloud instance of the API(s) hosted by Project Sunbird are not for production usage.
+>>>>>>> f35bd3cd586d3f5e4fe93900b2eee582973d7c15
 
 
 2. Edit the file **sunbird-portal/src/app/helpers/environmentVariablesHelper.js** and ensure that the following tokens are set to the values indicated. Enclose all string values within double quotation marks. Add any token, that is mentioned in the table, but which is not present in the environmentVariablesHelper.js file.
