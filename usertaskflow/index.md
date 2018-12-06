@@ -29,7 +29,7 @@ It is an opensource platform which is robust, scalable, extensible, flexible and
                     <li><a href="usertaskflow/how_do_i_create_lessonplan/" target="_blank">How Do I Create Lessonplan</a></li>
                     <li><a href="usertaskflow/how_do_i_create_collection/" target="_blank">How Do I Create Collection</a></li>
                     <li><a href="usertaskflow/how_do_i_uploadcontent/" target="_blank">How Do I Upload Content</a></li>
-                    <li><a href="usertaskflow/how_do_i_delete_content/" target="_blank">How Do I Upload Content</a></li>
+                    <li><a href="usertaskflow/how_do_i_delete_content/" target="_blank">How Do I Delete Content</a></li>
                     <li><a href="usertaskflow/how_do_i_add_metadata/" target="_blank">How Do I Add Metadata</a></li>
                     <li><a href="usertaskflow/how_do_i_add_resource/" target="_blank">How Do I Add Resource</a></li>
                     <li><a href="usertaskflow/limited_sharing/" target="_blank">How Do I Do Share Content with Limited Audience</a></li>
