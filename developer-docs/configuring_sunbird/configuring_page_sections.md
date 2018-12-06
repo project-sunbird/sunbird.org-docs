@@ -19,7 +19,8 @@ A page can consist of zero or more page sections. As such, to create a page firs
 Use [Create Page Section API](http://docs.sunbird.org/latest/apis/pagesapi/#operation/SectionCreatePost) to create a new page section along with the search query to fetch the required contents (e.g. contents with an ongoing or upcoming open batch, contents with a badge etc.).
 
 ## Example 1: Create 'Open for enrollment' page section
-Sample request for creating 'Open for enrollment' page section using Create Page Section API is given below.
+Sample request for creating 'Open for enrollment' page section using Create Page Section API is given below. This page section fetches contents with one or more ongoing / upcoming open batches. Note that in below query the open batch count is installation name (e.g. Sunbird_Dev) specific. Format of this attribute is ```c_{sunbird_installation}_open_batch_count```. Likewise the attribute for private batch count is ```c_{sunbird_installation}_private_batch_count```. LMS environment variable ```sunbird_installation``` is used in the mentioned attribute names.
+
 ```
 {
     "request": {
@@ -50,7 +51,7 @@ Sample request for creating 'Open for enrollment' page section using Create Page
 }
 ```
 ## Example 2: Create 'Featured content' page section
-Sample request for creating 'Featured content' page section using Create Page Section API is given below. It fetches contents with specified content type and badge ID.
+Sample request for creating 'Featured content' page section using Create Page Section API is given below. This page section fetches contents with specified content type and badge ID.
 ```
 {
     "request": {
