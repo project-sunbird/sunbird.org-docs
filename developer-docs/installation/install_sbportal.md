@@ -12,7 +12,6 @@ This page provides information for you to install and run a Sunbird instance on 
 
 > The Sunbird developer installation can be best viewed via the Google Chrome browser. Although, other browsers may be used, but some pages might not render correctly.
 
-<<<<<<< HEAD
 > Sunbird developer installation is intended for the web. It cannot be used on mobile devices and Single Sign On (SSO).  
 
 ## Intended Audience
@@ -37,26 +36,6 @@ The Sunbird developer instance is powered by cloud hosted Sunbird APIs, which re
 
 > It may take up to a couple of business days (IST) to send you the API key. We regret the inconvenience caused due to such delays. 
 
-=======
-## Prerequisites
-
-1. **Software**: Install the following software: 
-    * [node](https://nodejs.org/download/release/v8.11.2/) - Install the release version 8.11.2 LTS
-
-    * [nodemon](https://www.npmjs.com/package/nodemon) - Latest version  
-    
-    * [git](https://git-scm.com/downloads) - Latest version - On WINDOWS<sup>R</sup>, perform the installation via the Git Bash shell. Performing the installation via native commandline terminal (cmd.exe) or PowerShell is not recommended.
-    
-    * [gulp](https://gulpjs.com/) - Install **gulp** via npm, which gets installed when **nodejs** is installed
-    
-    * WINDOWS<sup>(R)</sup> users install @angular/cli thru npm
-
-1. **API Keys**
-The Sunbird developer instance is powered by cloud hosted Sunbird APIs, which require an API key. To get an API key, submit an [API Key Request](https://goo.gl/forms/2tRDfLlbJ2IgjWgA2). In the form, provide information about your team and what brings you to Sunbird. 
-
-> It may take up to a couple of business days (IST) to send you the API key. We regret the inconvenience caused due to such delays. 
-
->>>>>>> 87372d24568f57161a8aae9a6a6506c0c5acd09e
 ## System Requirements
 
 To install Sunbird, ensure that your laptop or desktop has the following minimum system requirements:
@@ -76,7 +55,7 @@ This version installs the portal web application and uses the cloud-hosted servi
 
 ## Set up the Application
 
-These instructions install Sunbird version 1.10. The code examples provided here are Linux based. However, they should not differ when executed on Windows<sup>(R)</sup>.
+These instructions install Sunbird version 1.10.1. The code examples provided here are Linux based. However, they should not differ when executed on Windows<sup>(R)</sup>.
 
 1. Launch a command-line terminal
 
@@ -91,11 +70,11 @@ These instructions install Sunbird version 1.10. The code examples provided here
     git clone https://github.com/project-sunbird/sunbird-portal.git
     ```
     
-3. Checkout the files tagged with version 1.10 using the following commands:
+3. Checkout the files tagged with version 1.10.1 using the following commands:
 
     ```
     cd sunbird-portal
-    git checkout tags/v1.10 -b 1.10
+    git checkout tags/v1.10.1 -b 1.10.1
     ```
     
 3. Build the nodejs packages that are required by the Sunbird application using the following commands:
