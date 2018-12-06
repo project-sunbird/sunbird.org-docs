@@ -96,7 +96,7 @@ The following sections provide you with the sequence to setup the Sunbird Learne
 
 ### Set Environment Variables<a name="set-env"></a>
 
-1. To set configuration variables refer this [link](http://docs.sunbird.org/latest/developer-docs/configuring_sunbird/env_variables_lms/).
+1. To set configuration variables refer this [link](developer-docs/configuring_sunbird/env_variables_lms/).
  
 
 ## Build & Run Sunbird Learner Service
