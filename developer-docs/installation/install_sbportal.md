@@ -55,7 +55,7 @@ This version installs the portal web application and uses the cloud-hosted servi
 
 ## Set up the Application
 
-These instructions install Sunbird version 1.9. The code examples provided here are Linux based. However, they should not differ when executed on Windows<sup>(R)</sup>.
+These instructions install Sunbird version 1.10. The code examples provided here are Linux based. However, they should not differ when executed on Windows<sup>(R)</sup>.
 
 1. Launch a command-line terminal
 
@@ -70,11 +70,11 @@ These instructions install Sunbird version 1.9. The code examples provided here 
     git clone https://github.com/project-sunbird/sunbird-portal.git
     ```
     
-3. Checkout the files tagged with version 1.9 using the following commands:
+3. Checkout the files tagged with version 1.10 using the following commands:
 
     ```
     cd sunbird-portal
-    git checkout tags/v1.9 -b 1.9
+    git checkout tags/v1.10 -b 1.10
     ```
     
 3. Build the nodejs packages that are required by the Sunbird application using the following commands:
