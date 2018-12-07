@@ -961,6 +961,183 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
+  /reserve:
+    post:
+      description:  >-
+         This API is creates dial codes with process id and links with contents.
+          -  The **_/reserve_** endpoint executes the "Reserve DIAL code" request based on parameters provided as metadata in the request body
+          - Required fields cannot be left null or empty
+      summary: Reserve DIAL code
+      tags:
+      - DIAL APIs
+      operationId: ReservePost
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: >-
+            The body refers to the format of the request.
+              - The body contains metadata about the request for Generating DIAL code.
+        schema:
+          $ref: '#/definitions/GenerateReserveDialcoderequest'
+      - name: X-Channel-ID
+        in: header
+        required: true
+        type: string
+        description: 'It the Unique Id to identify the root organization to which the user belongs'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+           The Content Type entity is the media type of the resource.
+            Possible media types can be:- 
+              - Application/json
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'All User APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
+      - name: X-Authenticated-User-Token
+        in: header
+        required: true
+        type: string
+        description: 'Represents the authorized User ID to execute the API'
+      responses:
+        '200':
+          description: 'OK ! Successful operation."Generate DIAL code" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '207':
+          description: 'PARTIAL_SUCCESS ! Dial code is generated without process id'
+        '400':
+          description: 'BAD REQUEST. The "Generate DIAL code" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+      security:
+      - bearer: []
+      x-unitTests:
+      - request:
+          method: POST
+          uri: /generate
+          headers:
+            Content-Type: application/json
+            X-Channel-ID: sunbird
+            Authorization: Bearer {{api_key}}
+          body: >-
+            {
+              "request": {
+                "dialcodes": {
+                  "count": 1,
+                  "publisher": "Sunbird"
+                }
+              }
+            }
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: NONE
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers: {}
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Generate dialcode
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /release:
+    patch:
+      description:  >-
+         This API is removes the reserved dial code linked with a content.
+          -  The **_/release_** endpoint executes the "Release DIAL code" request based on parameters provided as metadata in the request body
+          - Required fields cannot be left null or empty
+      summary: Release DIAL code
+      tags:
+      - DIAL APIs
+      operationId: ReleasePost
+      produces:
+      - application/json
+      parameters:
+      - name: X-Channel-ID
+        in: header
+        required: true
+        type: string
+        description: 'It the Unique Id to identify the root organization to which the user belongs'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+           The Content Type entity is the media type of the resource.
+            Possible media types can be:- 
+              - Application/json
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'All User APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
+      - name: X-Authenticated-User-Token
+        in: header
+        required: true
+        type: string
+        description: 'Represents the authorized User ID to execute the API'
+      responses:
+        '200':
+          description: 'OK ! Successful operation."Generate DIAL code" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: 'BAD REQUEST. The "Generate DIAL code" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+      security:
+      - bearer: []
+      x-unitTests:
+      - request:
+          method: POST
+          uri: /generate
+          headers:
+            Content-Type: application/json
+            X-Channel-ID: sunbird
+            Authorization: Bearer {{api_key}}
+          body: >-
+            {
+              "request": {
+                "dialcodes": {
+                  "count": 1,
+                  "publisher": "Sunbird"
+                }
+              }
+            }
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: NONE
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers: {}
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Generate dialcode
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+
+
+
+
+
 definitions:
   GenerateDialcoderequest:
     title: Generate dialcodeRequest
@@ -1371,3 +1548,36 @@ definitions:
     allOf:
       - $ref: '#/definitions/EmptyResult'
       - $ref: '#/definitions/ResponseHeader'
+  GenerateReserveDialcoderequest:
+    title: Generate dialreservecodeRequest
+    type: object
+    properties:
+      request:
+        properties:
+          dialcodes:
+            properties:
+              count:
+                description: ''
+                example: 1
+                type: integer
+                format: int32
+              publisher:
+                description: 'Represents the entity who  who owns the DIAL code'
+                example: Sunbird
+                type: string
+              qrCodeSpec:
+                properties:
+                  errCorrectionLevel:
+                    description: ''
+                    example: "H"
+                    type: string
+                required:
+                  - errCorrectionLevel
+            required:
+              - count
+              - publisher
+              - qrCodeSpec
+        required:
+          - dialcodes
+    required:
+      - request
