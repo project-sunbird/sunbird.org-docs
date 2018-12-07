@@ -6,15 +6,16 @@ published: true
 allowSearch: true
 ---
 
-## Sunbird Portal Setup
+## Overview
 
-To set up the Sunbird portal successfully, follow these steps sequentially:
+The Sunbird portal application is powered by a set of Service APIs. These Service API(s) run in a distributed environment. This section explains the procedure to install and configure Sunbird portal web application that uses the cloud-hosted Sunbird backend services stack the Sunbird Service API(s).These APIs are hosted by project Sunbird and are used for testing and demonstration purposes. 
 
-1. Pre-requisites 
-2. Setup 
-3. Configure Sunbird Backend
-4. Edit the Application Config
-5. Run the Application
+> The cloud instance of the API(s) hosted by Project Sunbird are not for production usage.
+> The Sunbird developer installation can be best viewed via the Google Chrome browser. Although, other browsers may be used, but some pages might not render correctly.
+
+## Intended Audience
+
+The intended audience of this document is a person who is familiar with installing, configuring, and deploying nodejs based open-source software.
 
 ## Prerequisites
 
@@ -34,48 +35,32 @@ The Sunbird developer instance is powered by cloud hosted Sunbird APIs, which re
 
 > It may take up to a couple of business days (IST) to send you the API key. We regret the inconvenience caused due to such delays. 
 
-## System Requirements
-
-To install Sunbird, ensure that your laptop or desktop has the following minimum system requirements:
-
-- Operating System: Ubuntu Linux 16.04 or later, Mac OS X 10.0 and above, or Windows 7 and above
-- RAM: > 1.5GB
-- CPU: 2 cores (> 2 GHz/core)
-
-## Components Installed
-
-The Sunbird installation has two primary software components:
-- Portal or web application
-- Services stack or the backend API interface
-
-This version installs the portal web application and uses the cloud-hosted services stack
-
-
 ## Set up the Application
 
-These instructions install Sunbird version 1.10. The code examples provided here are Linux based. However, they should not differ when executed on Windows<sup>(R)</sup>.
+These instructions install Sunbird version 1.10.1. The code examples provided here are Linux based. However, they should not differ when executed on Windows<sup>(R)</sup>.
 
 1. Launch a command-line terminal
 
-1. Ensure that the system **PATH** variable contains the paths where **git**, **node**, **nodemon** and **gulp** are located 
+2. Ensure that the system **PATH** variable contains the paths where **git**, **node**, **nodemon** and **gulp** are located 
+
 > If you are unable to find an executable with the name **node**, check for **nodejs**
 
 3. Change the directory into the folder that you have designated as the top level folder of the Sunbird application
 
-3. Clone the Sunbird portal github repository using the following command:
+4. Clone the Sunbird portal github repository using the following command:
 
     ```
     git clone https://github.com/project-sunbird/sunbird-portal.git
     ```
     
-3. Checkout the files tagged with version 1.10.1 using the following commands:
+5. Checkout the files tagged with version 1.10.1 using the following commands:
 
     ```
     cd sunbird-portal
     git checkout tags/v1.10.1 -b 1.10.1
     ```
     
-3. Build the nodejs packages that are required by the Sunbird application using the following commands:
+6. Build the nodejs packages that are required by the Sunbird application using the following commands:
 
     ```
     cd src/app
@@ -85,7 +70,7 @@ These instructions install Sunbird version 1.10. The code examples provided here
     npm install
     ```
 
-## Configuring the Environment & Services Stack
+## Configuring the Environment and Services Stack
 
 1. Configure the following system environment variables in the terminal which you have opened
 
@@ -126,13 +111,13 @@ These instructions install Sunbird version 1.10. The code examples provided here
     nodemon
     ```
     
-1. Wait for the following message before proceeding to the next step 
+2. Wait for the following message before proceeding to the next step 
 
     ```
     [nodemon] clean exit - waiting for changes before restart
     ```
     
-1. Open a new commmand-line window and run the application server and populate the following system environment variables once again
+3. Open a new commmand-line window and run the application server and populate the following system environment variables once again
 
 | Environment Variable Name |  Value  | Data Type |
 |---------------------------|---------|-----------|
@@ -148,7 +133,7 @@ These instructions install Sunbird version 1.10. The code examples provided here
     node server.js
     ```
     
-4. Launch the Google Chrome browser and navigate to
+5. Launch the Google Chrome browser and navigate to
 
     ```
     http://localhost:3000
