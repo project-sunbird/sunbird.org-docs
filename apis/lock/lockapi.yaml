@@ -1,0 +1,450 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Sunbird Lock API(s)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  contact:
+    email: info@sunbird.org
+  description: >-
+      The Lock API's help to lock, unlock, refresh and see the list of locks available for any resource(eg - Content) in Sunbird Platform
+      
+      - Each of the endpoints serve a different purpose. Each of these can be used based on requirements
+host: staging.open-sunbird.org
+basePath: /api/lock/v1
+securityDefinitions:
+  bearer:
+      type: apiKey  # arbitrary name for the security scheme
+      in: header # The secrity scheme parameter is in "header"
+      name: Authorization # name of the header, query parameter or cookie
+  userToken:
+      type: apiKey  # arbitrary name for the security scheme
+      in: header # The secrity scheme parameter is in "header"
+      name: x-authenticated-user-token # name of the header, query parameter or cookie
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /create:
+    post:
+      description: >-
+       This API is associated with creating lock on the Sunbird Platform.
+          - **_/create/_** endpoint executes the "Create lock" request based on parameters provided as metadata in the request body.
+          - It is a must to provide values for the required parameters 
+      summary: Create Lock
+      tags:
+        - Lock APIs
+      operationId: Create Lock
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: >-
+           'The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
+            - JSON 
+          
+           The body is the representation of the resource object for creating lock
+          schema:
+            $ref: '#/definitions/CreateLockRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource. Possible media types can be:- 
+              - Application/json
+        - name: x-authenticated-user-token
+          in: header
+          required: true
+          type: string
+          description: 'Represents the authorized User token to execute the API.' 
+        - name: x-device-id
+          in: header
+          required: true
+          type: string
+          description: 'Represents the device id from which the request has been made'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Lock Resource** operation was successful!
+        '400':
+          description: >-
+            'BAD REQUEST. The **Lock Resource** operation failed. You may have missed input for a mandatory parameter.'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /lock/v1/create
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              X-device-id: '{{device_id}}'
+              Authorization: 'Bearer {{api_key}}'
+            body: |-
+              {
+                "request": {
+                    "resourceId" : "do_1126470639332474881307",
+                    "resourceType" : "Content",
+                    "resourceInfo" : "{'ownershipType':['createdBy'],'code':'org.sunbird.gDaWM6','channel':'in.ekstep','description':'Test Content h5p email test','language':['English'],'mimeType':'application/vnd.ekstep.h5p-archive','idealScreenSize':'normal','createdOn':'2018-11-23T05:49:00.883+0000','appId':'ekstep_portal','contentDisposition':'inline','contentEncoding':'gzip','lastUpdatedOn':'2018-11-23T05:49:00.883+0000','contentType':'Resource','identifier':'do_1126398639381135361117','audience':['Learner'],'visibility':'Default','os':['All'],'consumerId':'72e54829-6402-4cf0-888e-9b30733c1b88','mediaType':'content','osId':'org.ekstep.quiz.app','languageCode':'en','versionKey':'1542952140883','idealScreenDensity':'hdpi','framework':'NCF','createdBy':'159e93d1-da0c-4231-be94-e75b0c226d7c','compatibilityLevel':1,'name':'h5p','status':'Draft'}",
+                    "createdBy" : "159e93d1-da0c-4231-be94-e75b0c226d7c",
+                    "creatorInfo" : "{\"name\" : \"Sourav Dey\",\"id\" : \"159e93d1-da0c-4231-be94-e75b0c226d7c\"}"
+                }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Create Lock
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /refresh:
+    patch:
+      description: >-
+       This API is associated with refresh lock on the Sunbird Platform which extends the epiry time of the lock.
+          - **_/refresh/_** endpoint executes the "Refresh lock" request based on parameters provided as metadata in the request body.
+          - It is a must to provide values for the required parameters 
+      summary: Refresh Lock
+      tags:
+        - Lock APIs
+      operationId: Refresh Lock
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: >-
+           'The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
+            - JSON 
+          
+           The body is the representation of the resource object for refreshing lock
+          schema:
+            $ref: '#/definitions/CommonRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource. Possible media types can be:- 
+              - Application/json
+        - name: x-authenticated-user-token
+          in: header
+          required: true
+          type: string
+          description: 'Represents the authorized User token to execute the API.' 
+        - name: x-device-id
+          in: header
+          required: true
+          type: string
+          description: 'Represents the device id from which the request has been made'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Refresh Resource** operation was successful!
+        '400':
+          description: >-
+            'BAD REQUEST. The **Refresh Resource** operation failed. You may have missed input for a mandatory parameter.'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /lock/v1/refresh
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              X-device-id: '{{device_id}}'
+              Authorization: 'Bearer {{api_key}}'
+            body: |-
+              {
+                "request": {
+                    "resourceId" : "do_112520348360294400156",
+                    "resourceType" : "Content"
+                }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Refresh Lock
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /retire:
+    delete:
+      description: >-
+       This API is associated with deleting lock on the Sunbird Platform which removes the lock for a resource.
+          - **_/retire/_** endpoint executes the "Retire lock" request based on parameters provided as metadata in the request body.
+          - It is a must to provide values for the required parameters 
+      summary: Retire Lock
+      tags:
+        - Lock APIs
+      operationId: Retire Lock
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: >-
+           'The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
+            - JSON 
+          
+           The body is the representation of the resource object for retiring lock
+          schema:
+            $ref: '#/definitions/CommonRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource. Possible media types can be:- 
+              - Application/json
+        - name: x-authenticated-user-token
+          in: header
+          required: true
+          type: string
+          description: 'Represents the authorized User token to execute the API.' 
+        - name: x-device-id
+          in: header
+          required: true
+          type: string
+          description: 'Represents the device id from which the request has been made'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Retire Resource** operation was successful!
+        '400':
+          description: >-
+            'BAD REQUEST. The **Retire Resource** operation failed. You may have missed input for a mandatory parameter.'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /lock/v1/retire
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              X-device-id: '{{device_id}}'
+              Authorization: 'Bearer {{api_key}}'
+            body: |-
+              {
+                "request": {
+                    "resourceId" : "do_112520348360294400156",
+                    "resourceType" : "Content"
+                }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Retire Lock
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /list:
+    post:
+      description: >-
+       This API is associated with deleting lock on the Sunbird Platform which removes the lock for a resource.
+          - **_/list/_** endpoint executes the "List lock" request based on parameters provided as metadata in the request body.
+          - It is a must to provide values for the required parameters 
+      summary: List Lock
+      tags:
+        - Lock APIs
+      operationId: List Lock
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: >-
+           'The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
+            - JSON 
+          
+           The body is the representation of the resource object for listing lock. Here the body is optional. If you dont pass it, all the locked resource list will come.
+          schema:
+            $ref: '#/definitions/LockListRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource. Possible media types can be:- 
+              - Application/json
+        - name: x-device-id
+          in: header
+          required: true
+          type: string
+          description: 'Represents the device id from which the request has been made'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **List Resource** operation was successful!
+        '400':
+          description: >-
+            'BAD REQUEST. The **List Resource** operation failed. You may have missed input for a mandatory parameter.'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /lock/v1/list
+            headers:
+              Content-Type: application/json
+              X-device-id: '{{device_id}}'
+              Authorization: 'Bearer {{api_key}}'
+            body: |-
+              {
+                "request": {
+                    "filters" : {
+                      "resourceId" :["do_1126470639332474881307"]
+                    }
+                }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: List Lock
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+definitions:
+  CreateLockRequest:
+    title: Create Lock Request
+    type: object
+    properties:
+      request:
+        properties:
+          resourceId:
+            description: ''
+            type: string
+            example: 'do_1126470639332474881307'
+          resourceType:
+            description: ''
+            type: string
+            example: 'Content'
+          resourceInfo:
+            description: ''
+            type: string
+            example: '{"ownershipType":["createdBy"],"code":"org.sunbird.gDaWM6","channel":"in.ekstep"}'
+          createdBy:
+            description: ''
+            type: string
+            example: '159e93d1-da0c-4231-be94-e75b0c226d7c'
+          creatorInfo:
+            description: ''
+            type: string
+            example: '{\"name\" : \"Sourav Dey\",\"id\" : \"159e93d1-da0c-4231-be94-e75b0c226d7c\"}'
+        required:
+          - resourceId
+          - resourceType
+          - resourceInfo
+          - createdBy
+          - creatorInfo
+    required:
+      - request
+  CommonRequest:
+    title: Common Request
+    type: object
+    properties:
+      request:
+        properties:
+          resourceId:
+            description: ''
+            type: string
+            example: 'do_1126470639332474881307'
+          resourceType:
+            description: ''
+            type: string
+            example: 'Content'
+        required:
+          - resourceId
+          - resourceType
+    required:
+      - request
+  LockListRequest:
+    title: Lock List Request
+    type: object
+    properties:
+      request:
+        properties:
+          filters:
+            properties:
+              resourceId:
+                description: ''
+                type: array
+                items:
+                  type: string
