@@ -42,6 +42,7 @@ These instructions install Sunbird version 1.10.1. The code examples provided he
 1. Launch a command-line terminal
 
 2. Ensure that the system **PATH** variable contains the paths where **git**, **node**, **nodemon** and **gulp** are located 
+
 > If you are unable to find an executable with the name **node**, check for **nodejs**
 
 3. Change the directory into the folder that you have designated as the top level folder of the Sunbird application
@@ -69,7 +70,7 @@ These instructions install Sunbird version 1.10.1. The code examples provided he
     npm install
     ```
 
-## Configuring the Environment & Services Stack
+## Configuring the Environment and Services Stack
 
 1. Configure the following system environment variables in the terminal which you have opened
 
