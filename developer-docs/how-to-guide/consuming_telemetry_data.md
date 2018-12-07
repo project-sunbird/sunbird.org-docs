@@ -8,7 +8,7 @@ allowSearch: true
 ---
 ## Scenario
 
-As a part of the employee development and training program, the XYZ Corporation requires to create training material. The Learning and Develop department's admin would like to understand the effectiveness of the courses.  To meet this objective,the corporation must obtain telemetry data and analyze the data to understand the time spent by a user on a content.
+As a part of the employee development and training program,the XYZ Corporation requires to create training material. The Learning and Develop department's admin would like to understand the effectiveness of the courses.  To meet this objective,the corporation must obtain telemetry data and analyze the data to understand the time spent by a user on a content.
 
 ## Overview
 
@@ -82,7 +82,7 @@ The complete data structure is as follows:
 
 The level of data collected is a discrete decision of an organization or business. Analysis of this data offers insights into product and user behavior and usage patterns, driving business decisions and research outcomes.
 
-For more information for Telemetry event structure, please refer to the [Telemetry Specification](http://docs.sunbird.org/latest/developer-docs/telemetry/specification/) page.
+For more information for Telemetry event structure, please refer to the [Telemetry Specification](developer-docs/telemetry/specification/) page.
 
 ## Intended Audience
 
@@ -273,7 +273,7 @@ For Portal content sessions:
 
 "dimensions.pdata.id" = "prod.diksha.portal" & "dimensions.mode" = "play" & "dimensions.type" = "content"
 
-2. Another example: To calculate the overall time spent on a content, analyst should use time_spent parameter under the eks section in the edata field from the [workflow summary](https://github.com/ekstep/Common-Design/wiki/[Data-Product]-Workflow-Summarizer) data.
+2. Another example: To calculate the overall time spent on a content, analyst should use time_spent parameter under the eks section in the edata field from the [workflow summary](developer-docs/telemetry/specification/) data.
 
 ```
 {
