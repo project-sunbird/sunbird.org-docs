@@ -8,14 +8,9 @@ allowSearch: true
 
 ## Overview
 
-The Sunbird portal application is powered by a set of Service APIs. These Service API(s) run in a distributed environment. For instance, deploying Sunbird to production; but for the sake of simplicity and ease of debugging, you can also run these service API(s) locally on a single server.
-
-For now, let us install and configure Sunbird portal web application that uses the cloud-hosted Sunbird backend services stack the Sunbird Service API(s).These APIs are hosted by project Sunbird and are used for testing and demonstration purposes. 
+The Sunbird portal application is powered by a set of Service APIs. These Service API(s) run in a distributed environment. This section explains the procedure to install and configure Sunbird portal web application that uses the cloud-hosted Sunbird backend services stack the Sunbird Service API(s).These APIs are hosted by project Sunbird and are used for testing and demonstration purposes. 
 
 > The cloud instance of the API(s) hosted by Project Sunbird are not for production usage.
-
-This purpose of this document is to assist you with the developer installation intended for the web. 
-   
 > The Sunbird developer installation can be best viewed via the Google Chrome browser. Although, other browsers may be used, but some pages might not render correctly.
 
 ## Intended Audience
