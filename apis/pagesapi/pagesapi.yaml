@@ -44,7 +44,9 @@ paths:
             The body refers to the format of the request.
               - The body contains metadata about the request for creating a page.
         schema:
-          $ref: '#/definitions/CreatePagerequest'
+            allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
+              - $ref: '#/definitions/CreatePagerequest'
       - name: Content-Type
         in: header
         required: true
@@ -86,35 +88,6 @@ paths:
             $ref: '#/definitions/ContentCreateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /create
-          headers:
-            Content-Type: application/json
-            X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-            ts: 2017-05-25 10:18:56:578+0530
-            Authorization: Bearer {{api-key}}
-            x-authenticated-user-token: '{{user-token}}'
-          body: "{\r\n\"id\":\"unique API ID\",\r\n\"ts\":\"2013/10/15 16:16:39\",\r\n\"params\": { },\r\n \"request\":{\r\n        \"name\":\"Resources\",\r\n        \"portalMap\":[\r\n           {\r\n            \"id\":\"01228383082462412826\",\r\n            \"index\":1,\r\n            \"group\":1\r\n            \r\n          },\r\n           {\r\n            \"id\":\"01228383384379392023\",\r\n             \"index\":1,\r\n            \"group\":2\r\n          }\r\n        ],\r\n        \"appMap\":[\r\n          {\r\n            \"id\":\"01228383082462412826\",\r\n             \"index\":1,\r\n            \"group\":1\r\n          },\r\n           {\r\n            \"id\":\"01228383384379392023\",\r\n             \"index\":1,\r\n            \"group\":2\r\n          }\r\n          ]\r\n        \r\n      }\r\n   }"
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: create page
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /section/list:
     get:
       description: >-
@@ -168,35 +141,8 @@ paths:
           schema:
             $ref: '#/definitions/ContentCreateErrorResponse'
         '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: GET
-          uri: /all/settings
-          headers:
-            Content-Type: application/json
-            X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-            ts: 2017-05-25 10:18:56:578+0530
-            Authorization: Bearer {{api-key}}
-            x-authenticated-user-token: '{{user-token}}'
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: get All Page Settings
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
+          description: >-
+           - INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.
   /read/{pageName}:
     parameters:
       - in: path
@@ -257,34 +203,6 @@ paths:
             $ref: '#/definitions/ContentCreateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: GET
-          uri: /Resource
-          headers:
-            Content-Type: application/json
-            X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-            ts: 2017-05-25 10:18:56:578+0530
-            Authorization: Bearer {{api-key}}
-            x-authenticated-user-token: '{{user-token}}'
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: get particular page Settings
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /section/create:
     post:
       description:  >-
@@ -305,7 +223,9 @@ paths:
             The body refers to the format of the request.
               - The body contains metadata about the request for creating geo location.
         schema:
-          $ref: '#/definitions/CreatePageSectionrequest'
+           allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
+              - $ref: '#/definitions/CreatePageSectionrequest'
       - name: Content-Type
         in: header
         required: true
@@ -347,62 +267,6 @@ paths:
             $ref: '#/definitions/ContentCreateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /section/create
-          headers:
-            Content-Type: application/json
-            X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-            ts: 2017-05-25 10:18:56:578+0530
-            Authorization: Bearer {{api-key}}
-            x-authenticated-user-token: '{{user-token}}'
-          body: >-
-            {
-
-            "id":"unique API ID",
-
-            "ts":"2013/10/15 16:16:39",
-
-            "params": { },
-
-            "request":{
-
-             "name":"Recommended TextBook",
-
-             "searchQuery":{"request": {
-
-                 "query":"",
-
-                 "filters":
-
-                 {"language":["English"],"contentType":["TextBook"]},"limit":10,"sort_by":{"lastUpdatedOn":"desc"}}},
-
-             "sectionDataType" :"course",
-
-             "display":{"name":{"en":"popular story","hi":"????????"}}
-
-                    }
-
-              }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: create page section
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /section/update:
     patch:
       description:  >-
@@ -465,68 +329,6 @@ paths:
             $ref: '#/definitions/ContentCreateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: PATCH
-          uri: /section/update
-          headers:
-            Content-Type: application/json
-            X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-            ts: 2017-05-25 10:18:56:578+0530
-            Authorization: Bearer {{api-key}}
-            x-authenticated-user-token: '{{user-token}}'
-          body: >-
-            {
-
-            "id":"unique API ID",
-
-            "ts":"2013/10/15 16:16:39",
-
-            "params": { },
-
-            "request":{
-
-              "id":"0122662435116892160",
-
-             "name":"Popular Course",
-
-             "searchQuery":{"request": { "query": "","filters":{"objectType": ["Content"],"mimeType": ["application/vnd.ekstep.html-archive"],"status": ["Draft", "Live"]},"offset": 0,"limit": 5 }},
-
-             "sectionDataType" :"course",
-
-             "display":{
-
-                    "name":{
-
-                            "en":"popular Course",
-
-                            "hi":"????????"
-
-                              }
-
-                      }
-
-                    }
-
-              }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: update page section info
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /section/read/{SectionId}:
     parameters:
       - in: path
@@ -543,7 +345,7 @@ paths:
       summary: Fetch Section Details by Id
       tags:
       - Page APIs
-      operationId: Section0122771215738306560Get
+      operationId: getSectionById
       produces:
       - application/json
       parameters:
@@ -588,34 +390,6 @@ paths:
             $ref: '#/definitions/ContentCreateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: GET
-          uri: /section/read/0122771215738306560
-          headers:
-            Content-Type: application/json
-            X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-            ts: 2017-05-25 10:18:56:578+0530
-            Authorization: Bearer {{api-key}}
-            x-authenticated-user-token: '{{user-token}}'
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: get section details by id
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /update:
     patch:
       description:  >-
@@ -625,7 +399,7 @@ paths:
       summary: Update Page Information
       tags:
       - Page APIs
-      operationId: UpdatePatch
+      operationId: UpdatePagetInfo
       produces:
       - application/json
       parameters:
@@ -678,35 +452,6 @@ paths:
             $ref: '#/definitions/ContentCreateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: PATCH
-          uri: /update
-          headers:
-            Content-Type: application/json
-            X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-            ts: 2017-05-25 10:18:56:578+0530
-            Authorization: Bearer {{api-key}}
-            x-authenticated-user-token: '{{user-token}}'
-          body: "{\r\n\"id\":\"unique API ID\",\r\n\"ts\":\"2013/10/15 16:16:39\",\r\n\"params\": { },\r\n \"request\":{\r\n        \"name\":\"Resourcessss\",\r\n        \"id\":\"01228394137835929612\",\r\n        \"portalMap\":[\r\n           {\r\n            \"id\":\"01228383082462412826\",\r\n            \"index\":1,\r\n            \"group\":1\r\n            \r\n          },\r\n           {\r\n            \"id\":\"01228383384379392023\",\r\n             \"index\":1,\r\n            \"group\":2\r\n          }\r\n        ],\r\n        \"appMap\":[\r\n          {\r\n            \"id\":\"01228383082462412826\",\r\n             \"index\":1,\r\n            \"group\":1\r\n          },\r\n           {\r\n            \"id\":\"01228383384379392023\",\r\n             \"index\":1,\r\n            \"group\":2\r\n          }\r\n          ]\r\n        \r\n      }\r\n   }"
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: update page info
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /assemble:
     post:
       description:  >-
@@ -716,10 +461,15 @@ paths:
       summary: Get Page Data 
       tags:
       - Page APIs
-      operationId: AssemblePost
+      operationId: AssemblePage
       produces:
       - application/json
       parameters:
+      - in : query
+        name: orgdetails
+        description: Extra data can be passed in query param with above mention key and comma separated value:Example ?orgdetails=email,name . Sunbird will take this query param and pass to content service as it is, and content service knows what need to be done.
+        type: string
+        required: false 
       - name: Body
         in: body
         required: true
@@ -727,7 +477,7 @@ paths:
             The body refers to the format of the request.
               - The body contains metadata about the request for Get Page data.
         schema:
-          $ref: '#/definitions/GetPageData~1Assemblerequest'
+          $ref: '#/definitions/Assemblerequest'
       - name: Content-Type
         in: header
         required: true
@@ -753,11 +503,6 @@ paths:
         required: true
         type: string
         description: 'All User APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
-      - name: x-authenticated-user-token
-        in: header
-        required: true
-        type: string
-        description: 'The token/key used to execute the API'
       responses:
         '200':
           description: 'OK ! Successful operation."Get Page Data" operation was successfully executed.'
@@ -769,75 +514,14 @@ paths:
             $ref: '#/definitions/ContentCreateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /assemble
-          headers:
-            Content-Type: application/json
-            X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-            ts: 2017-05-25 10:18:56:578+0530
-            Authorization: Bearer {{api-key}}
-            x-authenticated-user-token: '{{user-token}}'
-          body: "{\r\n\"id\":\"unique API ID\",\r\n\"ts\":\"2013/10/15 16:16:39\",\r\n\"params\": { },\r\n \"request\":{\r\n         \"source\":\"web\",\r\n         \"name\":\"page\",\r\n         \"filters\":{\r\n                 \"objectType\": [\"Content\"]\r\n                \r\n         }\r\n      }\r\n   }"
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: get page data / assemble
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
 definitions:
   CreatePagerequest:
     title: create pageRequest
-    example:
-      id: unique API ID
-      ts: 2013/10/15 16:16:39
-      params: {}
-      request:
-        name: Resources
-        organisationId: id of organisation, if you want to create page for your org only. if not pass then page will be created for all org.
-        portalMap:
-        - id: 01228383082462412826
-          index: 1
-          group: 1
-        - id: 01228383384379392023
-          index: 1
-          group: 2
-        appMap:
-        - id: 01228383082462412826
-          index: 1
-          group: 1
-        - id: 01228383384379392023
-          index: 1
-          group: 2
     type: object
     properties:
-      id:
-        description: ''
-        example: unique API ID
-        type: string
-      ts:
-        description: ''
-        example: 2013/10/15 16:16:39
-        type: string
-      params:
-        description: ''
-        example: {}
-        type: object
       request:
-        $ref: '#/definitions/Request'
+        allOf:
+         - $ref: '#/definitions/Request'
         example:
           name: Resources
           portalMap:
@@ -889,10 +573,10 @@ definitions:
       portalMap:
         description: ''
         example:
-        - id: 01228383082462412826
+        - id: 012283830824655555
           index: 1
           group: 1
-        - id: 01228383384379392023
+        - id: 01228383384372222
           index: 1
           group: 2
         type: array
@@ -901,10 +585,10 @@ definitions:
       appMap:
         description: ''
         example:
-        - id: 01228383082462412826
+        - id: 0122838308244444
           index: 1
           group: 1
-        - id: 01228383384379392023
+        - id: 01228383384374444444
           index: 1
           group: 2
         type: array
@@ -917,22 +601,22 @@ definitions:
   PortalMap:
     title: PortalMap
     example:
-      id: 01228383082462412826
+      id: 01228383082444444
       index: 1
       group: 1
     type: object
     properties:
       id:
-        description: ''
-        example: 01228383082462412826
+        description: 'Section identifier'
+        example: 01228380000000
         type: string
       index:
-        description: ''
+        description: 'if two section group value is same then index will decide section display order.'
         example: 1
         type: integer
         format: int32
       group:
-        description: ''
+        description: 'Position of section where you want to display.Example group 1 will come first then group 2 and so on..'
         example: 1
         type: integer
         format: int32
@@ -943,22 +627,22 @@ definitions:
   AppMap:
     title: AppMap
     example:
-      id: 01228383082462412826
+      id: 012283830824555555
       index: 1
       group: 1
     type: object
     properties:
       id:
         description: ''
-        example: 01228383082462412826
+        example: 012283830824444
         type: string
       index:
-        description: ''
+        description: 'if two section group value is same then index will decide section display order.'
         example: 1
         type: integer
         format: int32
       group:
-        description: ''
+        description: 'Position of section where you want to display.Example group 1 will come first then group 2 and so on..'
         example: 1
         type: integer
         format: int32
@@ -968,87 +652,18 @@ definitions:
     - group
   CreatePageSectionrequest:
     title: create page sectionRequest
-    example:
-      id: unique API ID
-      ts: 2013/10/15 16:16:39
-      params: {}
-      request:
-        name: Recommended TextBook
-        searchQuery:
-          request:
-            query: ''
-            filters:
-              language:
-              - English
-              contentType:
-              - TextBook
-            limit: 10
-            sort_by:
-              lastUpdatedOn: desc
-        sectionDataType: course
-        display:
-          name:
-            en: popular story
-            hi: ????????
     type: object
     properties:
-      id:
-        description: ''
-        example: unique API ID
-        type: string
-      ts:
-        description: ''
-        example: 2013/10/15 16:16:39
-        type: string
-      params:
-        description: ''
-        example: {}
-        type: object
       request:
-        $ref: '#/definitions/Request5'
-        example:
-          name: Recommended TextBook
-          searchQuery:
-            request:
-              query: ''
-              filters:
-                language:
-                - English
-                contentType:
-                - TextBook
-              limit: 10
-              sort_by:
-                lastUpdatedOn: desc
-          sectionDataType: course
-          display:
-            name:
-              en: popular story
-              hi: ????????
+        allOf:
+         - $ref: '#/definitions/RecommendedTextBook'
     required:
     - id
     - ts
     - params
     - request
-  Request5:
-    title: Request5
-    example:
-      name: Recommended TextBook
-      searchQuery:
-        request:
-          query: ''
-          filters:
-            language:
-            - English
-            contentType:
-            - TextBook
-          limit: 10
-          sort_by:
-            lastUpdatedOn: desc
-      sectionDataType: course
-      display:
-        name:
-          en: popular story
-          hi: ????????
+  RecommendedTextBook:
+    title: RecommendedTextBook
     type: object
     properties:
       name:
@@ -1056,7 +671,8 @@ definitions:
         example: Recommended TextBook
         type: string
       searchQuery:
-        $ref: '#/definitions/SearchQuery'
+        allOf:
+         - $ref: '#/definitions/SearchQuery'
         example:
           request:
             query: ''
@@ -1073,11 +689,12 @@ definitions:
         example: course
         type: string
       display:
-        $ref: '#/definitions/Display'
+        allOf:
+         - $ref: '#/definitions/Display'
         example:
           name:
             en: popular story
-            hi: ????????
+            hi: लोकप्रिय कहानी
     required:
     - name
     - searchQuery
@@ -1085,64 +702,31 @@ definitions:
     - display
   SearchQuery:
     title: SearchQuery
-    example:
-      request:
-        query: ''
-        filters:
-          language:
-          - English
-          contentType:
-          - TextBook
-        limit: 10
-        sort_by:
-          lastUpdatedOn: desc
     type: object
     properties:
       request:
-        $ref: '#/definitions/Request7'
-        example:
-          query: ''
-          filters:
-            language:
-            - English
-            contentType:
-            - TextBook
-          limit: 10
-          sort_by:
-            lastUpdatedOn: desc
+        allOf:
+         - $ref: '#/definitions/SearchQReq'
     required:
     - request
-  Request7:
-    title: Request7
-    example:
-      query: ''
-      filters:
-        language:
-        - English
-        contentType:
-        - TextBook
-      limit: 10
-      sort_by:
-        lastUpdatedOn: desc
+  SearchQReq:
+    title: SearchQReq
     type: object
     properties:
       query:
-        description: ''
+        description: 'Query is used for free text match.'
         type: string
       filters:
-        $ref: '#/definitions/Filters'
-        example:
-          language:
-          - English
-          contentType:
-          - TextBook
+        allOf:
+         - $ref: '#/definitions/Filters'
       limit:
-        description: ''
+        description: 'Data fetch limit'
         example: 10
         type: integer
         format: int32
       sort_by:
-        $ref: '#/definitions/SortBy'
+        allOf:
+         - $ref: '#/definitions/SortBy'
         example:
           lastUpdatedOn: desc
     required:
@@ -1193,30 +777,25 @@ definitions:
     example:
       name:
         en: popular story
-        hi: ????????
+        hi: लोकप्रिय कहानी
     type: object
     properties:
       name:
-        $ref: '#/definitions/Name'
-        example:
-          en: popular story
-          hi: ????????
+        allOf:
+         - $ref: '#/definitions/Name'
     required:
     - name
   Name:
     title: Name
-    example:
-      en: popular story
-      hi: ????????
     type: object
     properties:
       en:
-        description: ''
+        description: 'Name of section that need to be displayed in english'
         example: popular story
         type: string
       hi:
-        description: ''
-        example: ????????
+        description: 'Name of section that need to be displayed in Hindi'
+        example: लोकप्रिय कहानी
         type: string
     required:
     - en
@@ -1247,7 +826,7 @@ definitions:
         display:
           name:
             en: popular Course
-            hi: ????????
+            hi: लोकप्रिय कोर्स
     type: object
     properties:
       id:
@@ -1263,56 +842,14 @@ definitions:
         example: {}
         type: object
       request:
-        $ref: '#/definitions/Request13'
-        example:
-          id: 0122662435116892160
-          name: Popular Course
-          searchQuery:
-            request:
-              query: ''
-              filters:
-                objectType:
-                - Content
-                mimeType:
-                - application/vnd.ekstep.html-archive
-                status:
-                - Draft
-                - Live
-              offset: 0
-              limit: 5
-          sectionDataType: course
-          display:
-            name:
-              en: popular Course
-              hi: ????????
+        $ref: '#/definitions/CreatePageSectionReq'
     required:
     - id
     - ts
     - params
     - request
-  Request13:
-    title: Request13
-    example:
-      id: 0122662435116892160
-      name: Popular Course
-      searchQuery:
-        request:
-          query: ''
-          filters:
-            objectType:
-            - Content
-            mimeType:
-            - application/vnd.ekstep.html-archive
-            status:
-            - Draft
-            - Live
-          offset: 0
-          limit: 5
-      sectionDataType: course
-      display:
-        name:
-          en: popular Course
-          hi: ????????
+  CreatePageSectionReq:
+    title: CreatePageSectionReq
     type: object
     properties:
       id:
@@ -1324,174 +861,22 @@ definitions:
         example: Popular Course
         type: string
       searchQuery:
-        $ref: '#/definitions/SearchQuery14'
-        example:
-          request:
-            query: ''
-            filters:
-              objectType:
-              - Content
-              mimeType:
-              - application/vnd.ekstep.html-archive
-              status:
-              - Draft
-              - Live
-            offset: 0
-            limit: 5
+        $ref: '#/definitions/SearchQReq'
       sectionDataType:
         description: ''
         example: course
         type: string
       display:
-        $ref: '#/definitions/Display'
-        example:
-          name:
-            en: popular Course
-            hi: ????????
+        allOf:
+         - $ref: '#/definitions/Display'
     required:
     - id
     - name
     - searchQuery
     - sectionDataType
     - display
-  SearchQuery14:
-    title: SearchQuery14
-    example:
-      request:
-        query: ''
-        filters:
-          objectType:
-          - Content
-          mimeType:
-          - application/vnd.ekstep.html-archive
-          status:
-          - Draft
-          - Live
-        offset: 0
-        limit: 5
-    type: object
-    properties:
-      request:
-        $ref: '#/definitions/Request15'
-        example:
-          query: ''
-          filters:
-            objectType:
-            - Content
-            mimeType:
-            - application/vnd.ekstep.html-archive
-            status:
-            - Draft
-            - Live
-          offset: 0
-          limit: 5
-    required:
-    - request
-  Request15:
-    title: Request15
-    example:
-      query: ''
-      filters:
-        objectType:
-        - Content
-        mimeType:
-        - application/vnd.ekstep.html-archive
-        status:
-        - Draft
-        - Live
-      offset: 0
-      limit: 5
-    type: object
-    properties:
-      query:
-        description: ''
-        type: string
-      filters:
-        $ref: '#/definitions/Filters16'
-        example:
-          objectType:
-          - Content
-          mimeType:
-          - application/vnd.ekstep.html-archive
-          status:
-          - Draft
-          - Live
-      offset:
-        description: ''
-        example: 0
-        type: integer
-        format: int32
-      limit:
-        description: ''
-        example: 5
-        type: integer
-        format: int32
-    required:
-    - query
-    - filters
-    - offset
-    - limit
-  Filters16:
-    title: Filters16
-    example:
-      objectType:
-      - Content
-      mimeType:
-      - application/vnd.ekstep.html-archive
-      status:
-      - Draft
-      - Live
-    type: object
-    properties:
-      objectType:
-        description: ''
-        example:
-        - Content
-        type: array
-        items:
-          type: string
-      mimeType:
-        description: ''
-        example:
-        - application/vnd.ekstep.html-archive
-        type: array
-        items:
-          type: string
-      status:
-        description: ''
-        example:
-        - Draft
-        - Live
-        type: array
-        items:
-          type: string
-    required:
-    - objectType
-    - mimeType
-    - status
   UpdatePageInforequest:
     title: update page infoRequest
-    example:
-      id: unique API ID
-      ts: 2013/10/15 16:16:39
-      params: {}
-      request:
-        name: Resourcessss
-        id: 01228394137835929612
-        portalMap:
-        - id: 01228383082462412826
-          index: 1
-          group: 1
-        - id: 01228383384379392023
-          index: 1
-          group: 2
-        appMap:
-        - id: 01228383082462412826
-          index: 1
-          group: 1
-        - id: 01228383384379392023
-          index: 1
-          group: 2
     type: object
     properties:
       id:
@@ -1507,77 +892,41 @@ definitions:
         example: {}
         type: object
       request:
-        $ref: '#/definitions/Request20'
-        example:
-          name: Resourcessss
-          id: 01228394137835929612
-          portalMap:
-          - id: 01228383082462412826
-            index: 1
-            group: 1
-          - id: 01228383384379392023
-            index: 1
-            group: 2
-          appMap:
-          - id: 01228383082462412826
-            index: 1
-            group: 1
-          - id: 01228383384379392023
-            index: 1
-            group: 2
+        $ref: '#/definitions/UpdatePageReq'
     required:
     - id
     - ts
     - params
     - request
-  Request20:
-    title: Request20
-    example:
-      name: Resourcessss
-      id: 01228394137835929612
-      portalMap:
-      - id: 01228383082462412826
-        index: 1
-        group: 1
-      - id: 01228383384379392023
-        index: 1
-        group: 2
-      appMap:
-      - id: 01228383082462412826
-        index: 1
-        group: 1
-      - id: 01228383384379392023
-        index: 1
-        group: 2
+  UpdatePageReq:
+    title: Request structure for update page
     type: object
     properties:
       name:
-        description: ''
-        example: Resourcessss
+        description: 'name of the page'
         type: string
       id:
-        description: ''
-        example: 01228394137835929612
+        description: 'Page identifier,to identify the page'
         type: string
       portalMap:
-        description: ''
+        description: 'Map of list, contains all page section information, that need to be displayed inside portal'
         example:
-        - id: 01228383082462412826
+        - id: 012283830824444444
           index: 1
           group: 1
-        - id: 01228383384379392023
+        - id: 01228383384444444
           index: 1
           group: 2
         type: array
         items:
           $ref: '#/definitions/PortalMap'
       appMap:
-        description: ''
+        description: 'Map of list, contains all page section information, that need to be displayed inside portal'
         example:
-        - id: 01228383082462412826
+        - id: 0122838308246444444
           index: 1
           group: 1
-        - id: 01228383384379392023
+        - id: 0122838338437555555
           index: 1
           group: 2
         type: array
@@ -1588,19 +937,8 @@ definitions:
     - id
     - portalMap
     - appMap
-  GetPageData/Assemblerequest:
-    title: get page data / assembleRequest
-    example:
-      id: unique API ID
-      ts: 2013/10/15 16:16:39
-      params: {}
-      request:
-        source: web
-        name: page
-        organisationId: id of the organisation optional
-        filters:
-          objectType:
-          - Content
+  Assemblerequest:
+    title: Assemble page request data
     type: object
     properties:
       id:
@@ -1616,7 +954,8 @@ definitions:
         example: {}
         type: object
       request:
-        $ref: '#/definitions/Request24'
+        allOf:
+         - $ref: '#/definitions/AssemblePageRequest'
         example:
           source: web
           name: page
@@ -1628,8 +967,8 @@ definitions:
     - ts
     - params
     - request
-  Request24:
-    title: Request24
+  AssemblePageRequest:
+    title: AssemblePageRequest
     example:
       source: web
       name: page
@@ -1649,80 +988,26 @@ definitions:
       organisationId:
         description: 'if you pass the organisation id then system will try to match page name created by that organisation . if you have not created any page then don not pass organisationid key , you will get default creaetd page'
       filters:
-        $ref: '#/definitions/Filters25'
+        allOf:
+         - $ref: '#/definitions/Filters'
         example:
           objectType:
           - Content
     required:
     - source
     - name
-    
-  Filters25:
-    title: Filters25
-    example:
-      objectType:
-      - Content
-    type: object
-    properties:
-      objectType:
-        description: ''
-        example:
-        - Content
-        type: array
-        items:
-          type: string
-    required:
-    - objectType
-
   ResultWithNodeId:
     title: Result Containing Node Id
     type: object
     properties:
       result:
-        $ref: '#/definitions/NodeId'
+        $ref: '#/definitions/EmptyResult'
   ContentCreateResponse:
     description: Create Content Response
     type: object
     allOf:
-      - $ref: '#/definitions/ResultWithNodeId'
-      - $ref: '#/definitions/ResponseHeader'
-  ResponseHeader:
-    title: ResponseHeader
-    type: object
-    properties:
-      id:
-        type: string
-        description: API Identifier
-      ver:
-        type: string
-        description: API version information
-      ts:
-        type: string
-        description: API execution timespan
-      params:
-        $ref: '#/definitions/ResponseParams'
-      responseCode:
-        type: object
-        description: 'API response code '
-  ResponseParams:
-    title: Response Parameter
-    type: object
-    properties:
-      resmsgid:
-        type: string
-        description: Response Message Id
-      msgid:
-        type: string
-        description: Message Id
-      err:
-        type: string
-        description: Error Code
-      status:
-        type: string
-        description: Response Status
-      errmsg:
-        type: string
-        description: Error Message
+       - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+       - $ref: '#/definitions/ResultWithNodeId'
   EmptyResult:
     title: Empty Result
     type: object
@@ -1730,16 +1015,9 @@ definitions:
       result:
         type: object
         description: Empty Result
-  NodeId:
-    title: Node Id
-    type: object
-    properties:
-      node_id:
-        type: string
-        description: Node Identifier
   ContentCreateErrorResponse:
     title: Create Content Error Response
     type: object
     allOf:
-      - $ref: '#/definitions/EmptyResult'
-      - $ref: '#/definitions/ResponseHeader'
+       - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+       - $ref: '#/definitions/EmptyResult'

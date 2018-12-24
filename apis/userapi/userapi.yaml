@@ -160,6 +160,11 @@ paths:
       produces:
       - application/json
       parameters:
+      - in: query
+        name: fields
+        description: Extra data can be passed in query param with above mention key:Example ?fields=orgName. Sunbird will take this query param and then do the orgsearch internally and append orgName and rootOrgName inside user search response. 
+        type: string
+        required: false
       - name: request
         in: body
         required: true
@@ -1581,8 +1586,7 @@ paths:
         
           - The body payload comprises of metadata on adding skills for a user  
           - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
-         
-             - JSON 
+            - application/json
         schema:
           allOf:
               - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
@@ -1669,8 +1673,77 @@ paths:
         CollectParameters: false
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false      
- 
+        IsMultiContentStreaming: false 
+        
+ /user/v1/tnc/accept:
+    post:
+      description: >-
+       This API is used to accept terms and condition by user.
+          - The **_/user/v1/tnc/accept_** endpoint executes the "accept tnc api" request based on parameters provided as metadata in the request body
+          - It is mandatory to provide values for required parameters
+      summary: accept terms and condition
+      tags:
+      - User APIs
+      operationId: AcceptTnc
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: >-
+          - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
+             - application/json 
+        schema:
+          allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
+              - $ref: '#/definitions/AcceptTnc'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+           The Content Type entity is the media type of the resource
+            Possible media types can be:- 
+              - Application/json
+      - name: ts
+        in: header
+        required: true
+        type: string
+        description: >-
+          Timestamp is a sequence of characters or encoded information identifying when the add user skills API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second.
+      - name: X-msgid
+        in: header
+        required: true
+        type: string
+        description: 'This ID Uniquely identifies a request if the same API is executed multiple times'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      - name: x-authenticated-user-token
+        in: header
+        required: true
+        type: string
+        description: >- 
+          It is a unique token/key to authenticate the user each time an API is called. For further sessions this token is exchanged, not the username/password of the user
+      responses:
+        '200':
+          description: 'OK ! Successful operation."add user skills" operation was successfully executed.'
+          schema:
+             allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/successResponse'
+        '400':
+          description: 'BAD REQUEST. The "add user skills" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
  /data/v1/skills:
     get:
       description: >-
@@ -1730,7 +1803,72 @@ paths:
             'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
             $ref: '#/definitions/UserErrorResponse'
-            
+  
+ /user/v1/get:
+    get:
+      description: >-
+       This API will check user associated with key exist in sunbird or not.Incase user exist then it will provide user details in response. 
+       - The **_/user/v1/get/idType/idTypeValue_** endpoint executes the "get user by key" request based on parameters provided as metadata in the request body.
+          - It is mandatory to provide values for required parameters
+      summary: Get user by key
+      tags:
+      - User APIs
+      operationId: GetUserByKey
+      produces:
+      - application/json
+      parameters:
+      - name: idType
+        in : path 
+        required: true
+        type: string
+        description: 'allowed idType values {email,phone and loginId}'
+      -  name: idTypeValue
+         in: path 
+         required: true
+         type: string
+         description: 'allowed id type value will be based on idType,Incase of email value should be emailId, for phone value should be valid phone number.'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+           The Content Type entity is the media type of the resource.
+            Possible media types can be:- 
+              - Application/json
+      - name: ts
+        in: header
+        required: true
+        type: string
+        description: >
+          Timestamp is a sequence of characters or encoded information identifying when the list user skills API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second.
+      - name: X-msgid
+        in: header
+        required: true
+        type: string
+        description: 'This ID Uniquely identifies a request if the same API is called multiple times'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'OK ! Successful operation."User found with provided idtype and value" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/GetUserResponse'
+        '400':
+          description: 'BAD REQUEST. The "get user by key" operation failed ! The possible reason for failure is provided idType and idTypeValue validation failed. Ex: idType is phone but idTypeValue is not a valid phone number or provided idType is unknown.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+        '404':
+          description: 'RESOUCE NOT FOUND. The "get user by key" operation failed ! The possible reason for failure is, user not found with provider idType and idTypeValue'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'    
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'          
 definitions:
   CreateUserrequest:
     description: User object
@@ -1755,7 +1893,7 @@ definitions:
          - $ref: '#/definitions/UserReq'
 
   CreateUserSingleRespV2:
-   description: Represents the  hold single userObject request
+   description: Request body for user v2 creation
    type: object
    properties:
       request:
@@ -1816,7 +1954,8 @@ definitions:
    properties:
      skills:
       type: object
-      $ref: '#/definitions/Skills' 
+      allOf:
+       - $ref: '#/definitions/Skills' 
      
      
   Skills:
@@ -1887,7 +2026,8 @@ definitions:
             type: array
             items:
              type : object
-             $ref: "#/definitions/Education"
+             allOf:
+              - $ref: "#/definitions/Education"
           profileVisibility:
             type: object
             description: 'Represents the profile visibility, it is a map having key as any user attribute and the value can be public or private'
@@ -1895,13 +2035,15 @@ definitions:
             type: array
             items:
               type: object
-              $ref: "#/definitions/Address"
+              allOf:
+               - $ref: "#/definitions/Address"
             description: 'Represents the address, it contains list of address object'
           jobProfile:
             type: array
             items:
               type: object
-              $ref: "#/definitions/JobProfile"
+              allOf:
+               - $ref: "#/definitions/JobProfile"
           webPages:
             type: object
             properties:
@@ -1909,6 +2051,21 @@ definitions:
                 type: string
               url:
                 type: string
+          promptTnC:
+            type: boolean
+            description: 'Allow caller to decide terms and condition need to be displayed or not. if value is true means user need to accept terms and condition.'
+          tncAcceptedVersion:
+            type: string
+            description: 'Which Tnc verison user has accepted it.'
+          tncAcceptedOn:
+            type: string
+            description: 'Date and time on whcih user has accepted tnc'
+          tncLatestVersion:
+            type: string
+            description: 'Available latest version of tnc'
+          tncLatestVersionUrl:
+            type: string
+            description: 'Web url of tnc latest version'
     required:
       - firstName
       - password 
@@ -2088,7 +2245,12 @@ definitions:
     properties:
           email:
             type: string
-            description: 'Represents the email of the user'
+            description: >-
+             Either email or phone is required for user creation
+          emailVerified:
+            type: boolean
+            description: >- 
+             This key is required with value as true,if you are passing email key. 
           firstName:
             type: string
           lastName:
@@ -2097,26 +2259,20 @@ definitions:
             type: string
           organisationId:
             type: string
-          avatar:
-            type: string
           language:
             type: array
             items:
              type: string
              description: 'Represents the langauage that user is known to'
-          gender:
-            type: string
           phone:
             type: string
+            description: >- 
+             Either email or phone is required for user creation
           phoneVerified:
             type: boolean
             description: >-
               This key is required with value as true, if you pass the values for both phone and provider
               But while creating a user, either the email or phone is required
-          subject:
-            type: array
-            items:
-             type: string
           channel:
             type: string
             description: >-      
@@ -2146,9 +2302,6 @@ definitions:
              type : object
              allOf:
              - $ref: "#/definitions/Education"
-          profileVisibility:
-            type: object
-            description: 'Represents the profile visibility, it is a map having key as any user attribute and the value can be public or private'
           address: 
             type: array
             items:
@@ -2173,9 +2326,7 @@ definitions:
       - firstName
       - password 
       - email
-      - userName
       - phone
-      - channel
     
   User:
     type: object
@@ -2253,18 +2404,21 @@ definitions:
             description: 'Represents the current location of the  user'
           education:
             type: object
-            $ref: "#/definitions/Education"
+            allOf:
+             - $ref: "#/definitions/Education"
           profileVisibility:
             type: object
             description: >-
               Represents the value for profile visibility, the values can be a map having key as any user attribute also the value can be either public or private 
           address: 
             type: object
-            $ref: "#/definitions/Address"
+            allOf:
+             - $ref: "#/definitions/Address"
             description: it will contains list of address object.
           jobProfile:
               type: object
-              $ref: "#/definitions/JobProfile"
+              allOf:
+               - $ref: "#/definitions/JobProfile"
           webPages:
             type: object
             properties:
@@ -2695,6 +2849,18 @@ definitions:
       operation:
         type: string
         description : 'possible values are {ADD,EDIT,REMOVE}'
+  
+  AcceptTnc:
+    title: AcceptTnc
+    type: object
+    properties:
+      request:
+       type: object
+       properties:
+         version:
+          type: string
+    required:
+    - version
   ReadUserSkill:
     title: ReadUserSkill
     type: object
@@ -2796,6 +2962,9 @@ definitions:
     title: Framework details
     type: object
     properties:
+      id:
+       type: string
+       description : framework identifier
       gradeLevel:
        type: array
        description: List of grades whose content is of interest to user
@@ -2818,6 +2987,16 @@ definitions:
         type: string
 
     required:
+    - id
     - gradeLevel
     - medium
     - board
+  successResponse:
+   title: Success Response
+   type: object
+   properties:
+    result:
+     type: object
+     properties:
+      response:
+       type: string
