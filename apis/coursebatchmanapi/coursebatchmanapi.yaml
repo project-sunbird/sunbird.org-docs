@@ -60,24 +60,25 @@ paths:
               - Application/json
       - name: ts
         in: header
-        required: true
+        required: false
         type: string
-        description: 'The time stamp at which the **create batch** request was sent. '
+        description: 'Timestamp at which given API request is sent.'
       - name: X-msgid
         in: header
-        required: true
+        required: false
         type: string
-        description: 'It is a Unique ID that identifies the request incase the same API is executed multiple times.'
-      - name: x-authenticated-user-token
-        in: header
-        required: true
-        type: string
-        description: 'The alphanumeric string to access the API'
+        description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
       - name: Authorization
         in: header
         required: true
         type: string
-        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+      - name: X-Authenticated-User-Token
+        in: header
+        required: true
+        type: string
+        description: >-
+          Access token of registered user performing given API request.
       responses:
         '200':
           description: 'SUCCESS. The **create batch** operation was successful!'
@@ -132,24 +133,25 @@ paths:
               - Application/json
       - name: ts
         in: header
-        required: true
+        required: false
         type: string
-        description: 'The time stamp at which the **Fetch a batch** request was sent. '
+        description: 'Timestamp at which given API request is sent.'
       - name: X-msgid
         in: header
-        required: true
+        required: false
         type: string
-        description: 'It is a Unique ID which identifies the request incase the same API is executed multiple times.'
-      - name:  x-authenticated-user-token
-        in: header
-        required: true
-        type: string
-        description: 'The alphanumeric string for accessing the API'
+        description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
       - name: Authorization
         in: header
         required: true
         type: string
-        description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+      - name: X-Authenticated-User-Token
+        in: header
+        required: true
+        type: string
+        description: >-
+          Access token of registered user performing given API request.
       responses:
         '200':
           description: 'SUCCESS. The **Fetch a batch** operation was successful!'
@@ -281,7 +283,6 @@ paths:
          allOf:
              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
              - $ref: '#/definitions/CourseBatchSearchReq'
-      
       - name: Content-Type
         in: header
         required: true
@@ -291,24 +292,25 @@ paths:
               - Application/json
       - name: ts
         in: header
-        required: true
+        required: false
         type: string
-        description: 'The time stamp identifying when the **List the existing batches** request was sent. '
+        description: 'Timestamp at which given API request is sent.'
       - name: X-msgid
         in: header
-        required: true
+        required: false
         type: string
-        description: 'It is a Unique ID which identifies the request incase the same API is executed multiple times.'
-      - name:  x-authenticated-user-token
-        in: header
-        required: true
-        type: string
-        description: 'The alphanumeric string for accessing the API'
+        description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
       - name: Authorization
         in: header
         required: true
         type: string
-        description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+      - name: X-Authenticated-User-Token
+        in: header
+        required: true
+        type: string
+        description: >-
+          Access token of registered user performing given API request.
       responses:
         '200':
           description: 'SUCCESS. The **Lists the existing batches** operation was successful!'
@@ -780,7 +782,7 @@ definitions:
     type: object
     properties:
       createdFor:
-        description: 'organisation id for which batch are created.'
+        description: 'Organisation IDs for which batch is created.'
         type: array
         items:
           type: string
@@ -802,7 +804,6 @@ definitions:
     required:
     - id
     - startDate
-    
   EnrollBatchResponse:
     description: 'contains response for created batch'
     type: object
