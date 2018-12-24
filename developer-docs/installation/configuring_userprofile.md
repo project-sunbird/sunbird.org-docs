@@ -9,7 +9,7 @@ published: true
 
 ## Overview
 
-When upgrading from any lower version of Sunbird to Sunbird version 1.11, the system runs the Cassandra migration job. When the migration job is run, it automatically does the configuration for user profiles through the **system_settings** table in Cassandra. 
+User profile configuration is used to customise user functionality without requiring any code changes. 
 
 ## Prerequisites
 
@@ -17,13 +17,20 @@ When upgrading from any lower version of Sunbird to Sunbird version 1.11, the sy
 
 ## Configuring User Profile 
 
-The CQL file version 1.25 holds the script to do the user profile configuration when the Cassandra database migration is done during Sunird version 1.11 upgrade. It does the following user profile configurations in the system_settings table.
+The user profile configuration is specified in ```sunbird.system_settings``` Cassandra database table with 'userProfileConfig' field.
 
 Property Name  | Field Type  | Description
 -------------- | ----------- | -----------
 fields         | List        | A list of supported user profile fields. The list of fields in the following sample code are indicative. You can choose the same set of fields for each block or choose to have a different set of fields. 
 publicFields   | List        | A list of fields that are publicly visible. The user cannot modify these fields to be privately visible. 
 privateFields  | List        | A list of fields that are privately visible.  The user cannot modify these fields to be publicly visible. 
+csv.supportedColumns | Map | A map of supported User Bulk Upload input CSV column names to User API attribute names.
+csv.mandatoryColumns | List | A list of attribute names which defines the mandatory columns in User Bulk Upload input CSV.
+csv.outputColumns | Map | A map of User API attribute names to User Bulk Upload status output CSV column names.
+csv.outputColumnsOrder | List | A list of attribute names which specifies the order of columns in User Bulk Upload status output CSV.
+read.excludedFields | List | A list of attribute names which can be excluded from Get User by User ID API.
+framework.fields | List | A list of framework fields supported in User profile.
+framework.mandatoryFields | List | A list of mandatory framework fields in User profile.
 
 > **Note:** The list of fields in the following sample code are indicative. You can choose the same set of fields for each block or choose to have a different set of fields. 
 
@@ -31,37 +38,39 @@ privateFields  | List        | A list of fields that are privately visible.  The
 
 ```
 {
-  "fields": [
-    "firstName",
-    "lastName",
-    "profileSummary",
-    "avatar",
-    "countryCode",
-    "dob",
-    "email",
-    "gender",
-    "grade",
-    "language",
-    "location",
-    "phone",
-    "subject",
-    "userName",
-    "webPages",
-    "jobProfile",
-    "address",
-    "education",
-    "skills",
-    "badgeAssertions"
-  ],
-  "publicFields": [
-    "firstName",
-    "lastName",
-    "profileSummary"
-  ],
-  "privateFields": [
-    "email",
-    "phone"
-  ]
+    "fields": ["firstName", "lastName", "profileSummary", "avatar", "countryCode", "dob", "email", "gender", "grade", "language", "location", "phone", "subject", "userName", "webPages", "jobProfile", "address", "education", "skills", "badgeAssertions"],
+    "publicFields": ["firstName", "lastName", "profileSummary"],
+    "privateFields": ["email", "phone"],
+    "csv": {
+        "supportedColumns": {
+            "NAME": "firstName",
+            "MOBILE PHONE": "phone",
+            "EMAIL": "email",
+            "SCHOOL ID": "orgId",
+            "USER_TYPE": "userType",
+            "ROLES": "roles",
+            "USER ID": "userId",
+            "SCHOOL EXTERNAL ID": "orgExternalId"
+        },
+        "outputColumns": {
+            "userId": "USER ID",
+            "firstName": "NAME",
+            "phone": "MOBILE PHONE",
+            "email": "EMAIL",
+            "orgId": "SCHOOL ID",
+            "orgName": "SCHOOL NAME",
+            "userType": "USER_TYPE",
+            "orgExternalId": "SCHOOL EXTERNAL ID"
+        },
+        "outputColumnsOrder": ["userId", "firstName", "phone", "email", "organisationId", "orgName", "userType", "orgExternalId"],
+        "mandatoryColumns": ["firstName", "userType", "roles"]
+    },
+    "read": {
+        "excludedFields": ["userName", "avatar", "jobProfile", "address", "education", "webPages", "skills"]
+    },
+    "framework": {
+        "fields": ["board", "gradeLevel", "medium", "subject"],
+        "mandatoryFields": ["board", "gradeLevel", "medium"]
+    }
 }
 ```
-

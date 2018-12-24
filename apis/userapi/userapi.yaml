@@ -44,7 +44,6 @@ paths:
         description: >-
           - The body payload comprises of the metadata of the user being created     
           - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
-         
              - JSON 
          
         schema:
@@ -54,21 +53,12 @@ paths:
         required: true
         type: string
         description: >-
-            The Content Type entity is the media type of the resource.Possible media types can be:- 
-              - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
+            Type of the request data. Set as application/json.
       - name: ts
         in: header
-        required: true
+        required: false
         type: string
-        description: >-
-          Timestamp is a sequence of characters or encoded information identifying when the API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second
-      - name: Authorization
-        in: header
-        required: true
-        type: string
-        description: To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here
+        description: 'Timestamp at which given API request is sent.'
       responses:
         '200':
           description: 'OK ! Successful operation."Create User" operation was successfully executed.'
@@ -124,21 +114,12 @@ paths:
         required: true
         type: string
         description: >-
-            The Content Type entity is the media type of the resource.Possible media types can be:- 
-              - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
+            Type of the request data. Set as application/json.
       - name: ts
         in: header
-        required: true
+        required: false
         type: string
-        description: >-
-          Timestamp is a sequence of characters or encoded information identifying when the API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second
-      - name: Authorization
-        in: header
-        required: true
-        type: string
-        description: To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here
+        description: 'Timestamp at which given API request is sent.'
       responses:
         '200':
           description: 'OK ! Successful operation."Create User" operation was successfully executed.'
@@ -165,7 +146,7 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
- 
+
  /user/v1/search:
     post:
       description: >-
@@ -199,8 +180,6 @@ paths:
             The Content Type entity is the media type of the resource.
             Possible media types can be:- 
               - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
       - name: Authorization
         in: header
         required: true
@@ -379,12 +358,18 @@ paths:
     get:
       description: >-
         This API is used for searching a specific user, the user search is based on the unique ID of the user
-          - **_/v1/read/{User_ID}_** endpoint executes the "Get User profile" request
+          - **_/v1/read/{User_ID}_** endpoint executes the "Get User by User ID" request
           - It is mandatory to provide values for required parameters
+          - User can pass an optional query parameter 'fields'. The value is a comma separated list of fields whose information is required in response. e.g. fields=completeness,missingFields,topic,organisations,roles
+          - 'completeness' is to return profile completeness percentage.
+          - 'missingFields' is to return fields that are missing to achieve 100% profile completeness.
+          - 'topic' is to return list of topics that are used for announcements.
+          - 'organisations' is to return organisation and location details.
+          - 'roles' is to return list of roles with name and ID details.
       summary: Get User by User ID
       tags:
       - User APIs
-      operationId: Get User by Id
+      operationId: Get User by User ID
       produces:
       - application/json
       parameters:
@@ -393,40 +378,137 @@ paths:
         type: string
         required: true
         description: 'Please append a valid User Id To the Request URL and if user need any specific values like , profile completeness ,missingFields,topic Ex: ?Fields=completeness,missingFields,topic'
-      - name: x-authenticated-user-token
-        in: header
-        required: true
-        type: string
-        description: >- 
-          It a unique token/key to authenticate the user each time an API is called. For further sessions this token is exchanged, not the username/password of the user
       - name: Content-Type
         in: header
         required: true
         type: string
         description: >-
-            The Content Type entity is the media type of the resource.
-            Possible media types can be:- 
-              - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
+            Type of the request data. Set as application/json.
       - name: ts
         in: header
-        required: true
+        required: false
         type: string
-        description: >-
-          Timestamp is a sequence of characters or encoded information identifying when the search specific user API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second
+        description: 'Timestamp at which given API request is sent.'
+      - name: X-msgid
+        in: header
+        required: false
+        type: string
+        description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
       - name: Authorization
         in: header
         required: true
         type: string
-        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+      - name: X-Authenticated-User-Token
+        in: header
+        required: true
+        type: string
+        description: >-
+          Access token of registered user performing given API request.
       responses:
         '200':
-          description: 'OK ! Successful operation."Get User by Id" operation was successfully executed.'
+          description: 'OK ! Successful operation."Get User by User ID" operation was successfully executed.'
           schema:
             $ref: '#/definitions/CreateUserSingleResp'
         '400':
-          description: 'BAD REQUEST,"Get User by Id" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST,"Get User by User ID" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+        '404':
+          description: 'Resource not found'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+      security:
+      - bearer: []
+      x-unitTests:
+      - request:
+          method: GET
+          uri: /user/v1/read/{User_Id}
+          headers:
+            x-authenticated-user-token: '{{user_id}}'
+            Content-Type: application/json
+            ts: 2017-05-25 10:18:56:578+0530
+            Authorization: Bearer {{api_key}}
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: NONE
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers: {}
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Get User by User ID
+        x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+ /user/v2/read/{User_ID}:
+    get:
+      description: >-
+        This API is used for searching a specific user, the user search is based on the unique ID of the user
+          - **_/v2/read/{User_ID}_** endpoint executes the "Get User by User ID v2" request
+          - It is mandatory to provide values for required parameters
+          - User can pass an optional query parameter 'fields'. The value is a comma separated list of fields whose information is required in response. e.g. fields=completeness,missingFields,topic,organisations,roles
+          - 'completeness' is to return profile completeness percentage.
+          - 'missingFields' is to return fields that are missing to achieve 100% profile completeness.
+          - 'topic' is to return list of topics that are used for announcements.
+          - 'organisations' is to return organisation and location details.
+          - 'roles' is to return list of roles with name and ID details.
+          - Only necessary fields are returned in the response as per user profile configuration.
+      summary: Get User by User ID v2
+      tags:
+      - User APIs
+      operationId: Get User by User ID v2
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: User_ID
+        type: string
+        required: true
+        description: 'Please append a valid User Id To the Request URI and if user need any specific values like , profile completeness ,missingFields,topic Ex: ?Fields=completeness,missingFields,topic'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+            Type of the request data. Set as application/json.
+      - name: ts
+        in: header
+        required: false
+        type: string
+        description: 'Timestamp at which given API request is sent.'
+      - name: X-msgid
+        in: header
+        required: false
+        type: string
+        description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+      - name: X-Authenticated-User-Token
+        in: header
+        required: true
+        type: string
+        description: >-
+          Access token of registered user performing given API request.
+      responses:
+        '200':
+          description: 'OK ! Successful operation."Get User by User ID v2" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/GetUserResponse'
+        '400':
+          description: 'BAD REQUEST,"Get User by User ID v2" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
           schema:
             $ref: '#/definitions/UserErrorResponse'
         '404':
@@ -458,13 +540,14 @@ paths:
           headers: {}
         x-testShouldPass: true
         x-testEnabled: true
-        x-testName: Get User by Id
+        x-testName: Get User by User ID v2
         x-testDescription: ''
       x-operation-settings:
         CollectParameters: false
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false      
+        IsMultiContentStreaming: false
+
  /user/v1/update:
     patch:
       description:  >-
@@ -491,32 +574,33 @@ paths:
          allOf:
            - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
            - $ref: '#/definitions/UpdateUserRequest'
-      - name: x-authenticated-user-token
-        in: header
-        required: true
-        type: string
-        description: >- 
-          It is a unique token/key to authenticate the user each time an API is called. For further sessions this token is exchanged, not the username/password of the user
       - name: Content-Type
         in: header
         required: true
         type: string
         description: >-
-            The Content Type entity is the media type of the resource.Possible media types can be:- 
-              - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
+            Type of the request data. Set as application/json.
       - name: ts
         in: header
-        required: true
+        required: false
         type: string
-        description: >-
-          Timestamp is a sequence of characters or encoded information identifying when the update user API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second.
+        description: 'Timestamp at which given API request is sent.'
+      - name: X-msgid
+        in: header
+        required: false
+        type: string
+        description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
       - name: Authorization
         in: header
         required: true
         type: string
-        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+      - name: X-Authenticated-User-Token
+        in: header
+        required: true
+        type: string
+        description: >-
+          Access token of registered user performing given API request.
       responses:
         '200':
           description: 'OK ! Successful operation."Update User" operation was successfully executed.'
@@ -1660,20 +1744,25 @@ definitions:
     allOf:
        - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
        - $ref: '#/definitions/CreateUserSingleRespV2'
+
   CreateUserSingleResp:
    description: Represents the  hold single userObject request
    type: object
    properties:
       request:
        type: object
-       $ref: '#/definitions/UserReq'
+       allOf:
+         - $ref: '#/definitions/UserReq'
+
   CreateUserSingleRespV2:
    description: Represents the  hold single userObject request
    type: object
    properties:
       request:
        type: object
-       $ref: '#/definitions/UserReqV2'
+       allOf:
+         - $ref: '#/definitions/UserReqV2'
+
   RolesResponse:
    description: Represents the hold roles response
    type: array
@@ -1682,7 +1771,8 @@ definitions:
     properties:
      roles:
        type: object
-       $ref: '#/definitions/Role'
+       allOf:
+       - $ref: '#/definitions/Role'
   
   Role:
     description: Represents the request body for role
@@ -1825,6 +1915,173 @@ definitions:
       - email
       - userName
       - phone
+
+  GetUserResponse:
+    title: Get User by User ID response
+    type: object
+    properties:
+          email:
+            type: string
+            description: User Email ID
+          firstName:
+            type: string
+            description: User's first name
+          lastName:
+            type: string
+            description: User's last name
+          gender:
+            type: string
+            description: User's gender
+          phone:
+            type: string
+            description: User's phone number
+          phoneVerified:
+            type: boolean
+            description: >-
+              Either email or phone is required for user creation. This attribute is required with value as true in case phone is specified during user creation.
+          framework:
+            type: object
+            allOf:
+             - $ref: "#/definitions/frameworkData"
+          channel:
+            type: string
+            description: >-
+              'Represents the channel value received while creating a root organisation
+              - if you provide channel value, then you will get associated with that particular root organisation  
+              - if the channel is not provided in request body, the system reads the custodian channel from the system setting else reads it from the environment variable and uses it to associate the user with that root organisation
+              - if the channel value is not provided in either the request or the envronment variable, then user creation will fail.'
+          externalIds:
+            type: array
+            items:
+              type: object
+              allOf:
+                - $ref: "#/definitions/ExternalId"
+          profileSummary:
+            type: string
+          education:
+            type: array
+            items:
+             type : object
+             allOf:
+             - $ref: "#/definitions/Education"
+          profileVisibility:
+            type: object
+            description: 'Represents the profile visibility, it is a map having key as any user attribute and the value can be public or private'
+          address:
+            type: array
+            items:
+              type: object
+              allOf:
+              - $ref: "#/definitions/Address"
+            description: 'Represents the address, it contains list of address object'
+          jobProfile:
+            type: array
+            items:
+              type: object
+              allOf:
+              - $ref: "#/definitions/JobProfile"
+          webPages:
+            type: object
+            properties:
+              type:
+                type: string
+              url:
+                type: string
+          organisations:
+            type: array
+            items:
+              type: object
+              allOf:
+              - $ref: "#/definitions/organisation"
+          roleList:
+            type: array
+            items:
+              type: object
+              allOf:
+              - $ref: "#/definitions/roleList"
+    required:
+      - firstName
+      - password
+      - email
+      - userName
+      - phone
+
+  organisation:
+    title: Organisation details
+    type: object
+    properties:
+     organisationId:
+      type: string
+      description: Organisation ID
+     updatedBy:
+      type: string
+      description : Identifier of user who updated user and org mapping
+     addedBy:
+      type: string
+      description : Identifier of user who added user and org mapping
+     roles:
+      type: array
+      items:
+       type: string
+       description : List of assigned roles
+     userId:
+        type: string
+        description: User ID
+     isDeleted:
+        type: boolean
+        description : User status (active or inactive) within given organisation
+     hashTagId:
+        type: string
+        description : Same as organisation ID
+     id:
+        type: string
+        description: Same as organisation ID
+     orgjoindate:
+        type: string
+        description : Date and time when user joined the organisation
+     orgName:
+        type : string
+        description : Organisation name
+     description:
+        type: string
+        description : Organisation description
+     channel:
+        type: string
+        description: 'rootOrg channel value'
+     locationIds :
+        type: array
+        items:
+         type: string
+     locations:
+        type: array
+        items:
+         type: object
+         properties:
+          code:
+            type: string
+            description : Location code
+          name:
+            type: string
+            description: Name of location
+          id:
+            type: string
+            description : Location ID
+          type:
+            type: string
+            description : Location type. Supported location types are - state, district, block and cluster
+          parentId:
+            type: string
+            description: Parent location ID in case of district and block location types.
+  roleList:
+        type: object
+        properties:
+         id:
+          type: string
+          description : Role ID
+         name:
+          type: string
+          description : Name of role
+
   UserReqV2:
     title: User Object
     type: object
@@ -1887,7 +2144,8 @@ definitions:
             type: array
             items:
              type : object
-             $ref: "#/definitions/Education"
+             allOf:
+             - $ref: "#/definitions/Education"
           profileVisibility:
             type: object
             description: 'Represents the profile visibility, it is a map having key as any user attribute and the value can be public or private'
@@ -1895,13 +2153,15 @@ definitions:
             type: array
             items:
               type: object
-              $ref: "#/definitions/Address"
+              allOf:
+              - $ref: "#/definitions/Address"
             description: 'Represents the address, it contains list of address object'
           jobProfile:
             type: array
             items:
               type: object
-              $ref: "#/definitions/JobProfile"
+              allOf:
+              - $ref: "#/definitions/JobProfile"
           webPages:
             type: object
             properties:
@@ -2193,15 +2453,6 @@ definitions:
       firstName:
         description: 'Represents the First name of the user'
         type: string
-      lastName:
-        description: ' Represents the Last name of the user'
-        type: string
-      gender:
-        description: 'Represents the  Gender of the user,  Male|Female'
-        type: string
-      avatar:
-        description: 'Represents the profile picture of the user'
-        type: string
       dob:
         description: 'Represents the Data of Birth of the user'
         type: string
@@ -2209,11 +2460,6 @@ definitions:
         example: '2001-02-27'
       language:
         description: 'Represents the language of the user'
-        type: array
-        items:
-          type: string
-      subject:
-        description: 'Represents the array of the parameters'
         type: array
         items:
           type: string
@@ -2231,9 +2477,15 @@ definitions:
         type: array
         items:
           type: object
-          $ref: '#/definitions/ExternalIdUpdate'  
+          allOf:
+          - $ref: '#/definitions/ExternalIdUpdate'
+      framework:
+        description: Framework details
+        type: object
+        allOf:
+        - $ref: '#/definitions/frameworkData'
     required:
-    - userId    
+    - userId
   ResultStatus:
     type: object
     properties:
@@ -2258,9 +2510,10 @@ definitions:
            type: array
            items:
             type: object
-            $ref: '#/definitions/User'
+            allOf:
+            - $ref: '#/definitions/User'
   UserCreateResponse:
-    description: The response body of Create Content
+    description: The response body of create user
     type: object
     allOf:
       - $ref: '#/definitions/ResultWithEmptyBody'
@@ -2314,7 +2567,8 @@ definitions:
     type: object
     properties:
       request:
-        $ref: '#/definitions/ProfileVisibility'
+        allOf:
+        - $ref: '#/definitions/ProfileVisibility'
         example:
           userId: userid
           private:
@@ -2371,19 +2625,7 @@ definitions:
     required:
     - request
 
-  assignRoleExp:
-    title: assignRoleExp
-    example:
-      userId: userid
-      organisationId: The valid organisation ID
-      roles:
-      - CONTENT_CREATION
-      - PUBLIC
-      - CONTENT_CREATOR
-      - ANNOUNCEMENT_SENDER
-
   AssignRole:
-
     type: object
     properties:
       userId:
@@ -2393,7 +2635,6 @@ definitions:
         description: 'The unique ID of the organisation'
         type: string
       roles:
-
         description:
           The role assigned to a user. The role is directly replaced with saved roles, if any. Ensure that the request has a list of all the user roles. To remove all roles assigned to a user, pass an empty array
         example:
@@ -2550,3 +2791,33 @@ definitions:
           type: string
     required:
     - request
+
+  frameworkData:
+    title: Framework details
+    type: object
+    properties:
+      gradeLevel:
+       type: array
+       description: List of grades whose content is of interest to user
+       items:
+        type: string
+      subject:
+       type: array
+       description: List of subjects whose content is of interest to user
+       items:
+        type: string
+      medium:
+       type: array
+       description: List of mediums whose content is of interest to user
+       items:
+        type: string
+      board:
+       type: array
+       description: List of boards whose content is of interest to user
+       items:
+        type: string
+
+    required:
+    - gradeLevel
+    - medium
+    - board
