@@ -1967,15 +1967,24 @@ definitions:
     title: User Object
     type: object
     properties:
-          email:
-            type: string
-            description: 'Represents the email of the user'
           firstName:
             type: string
           lastName:
             type: string
           password:
             type: string
+          email:
+            type: string
+            description: Represents email of user. Either email or phone is mandatory for user creation. If email is provided then emailVerified attribute should be set to true. Likewise, if phone is provided then phoneVerified attribute should be set to true.
+          emailVerified:
+            type: boolean
+            description: Indicates verification status of user email. Only verified email is accepted.
+          phone:
+            type: string
+            description: Represents phone of user. Either email or phone is mandatory for user creation. If email is provided then emailVerified attribute should be set to true. Likewise, if phone is provided then phoneVerified attribute should be set to true.
+          phoneVerified:
+            type: boolean
+            description: Indicates verification status of user phone. Only verified phone is accepted.
           avatar:
             type: string
           language:
@@ -1985,13 +1994,6 @@ definitions:
              description: 'Represents the langauage that user is known to'
           gender:
             type: string
-          phone:
-            type: string
-          phoneVerified:
-            type: boolean
-            description: >-
-              This key is required with value as true, if you pass both the values for phone and provider
-              - But incases of create user either email or phone is required
           subject:
             type: array
             items:
@@ -2068,10 +2070,7 @@ definitions:
             description: 'Web url of tnc latest version'
     required:
       - firstName
-      - password 
-      - email
       - userName
-      - phone
 
   GetUserResponse:
     title: Get User by User ID response
@@ -2243,36 +2242,31 @@ definitions:
     title: User Object
     type: object
     properties:
-          email:
-            type: string
-            description: >-
-             Either email or phone is required for user creation
-          emailVerified:
-            type: boolean
-            description: >- 
-             This key is required with value as true,if you are passing email key. 
           firstName:
             type: string
           lastName:
             type: string
           password:
             type: string
-          organisationId:
+          email:
             type: string
+            description: Represents email of user. Either email or phone is mandatory for user creation. If email is provided then emailVerified attribute should be set to true. Likewise, if phone is provided then phoneVerified attribute should be set to true.
+          emailVerified:
+            type: boolean
+            description: Indicates verification status of user email. Only verified email is accepted.
+          phone:
+            type: string
+            description: Represents phone of user. Either email or phone is mandatory for user creation. If email is provided then emailVerified attribute should be set to true. Likewise, if phone is provided then phoneVerified attribute should be set to true.
+          phoneVerified:
+            type: boolean
+            description: Indicates verification status of user phone. Only verified phone is accepted.
           language:
             type: array
             items:
              type: string
              description: 'Represents the langauage that user is known to'
-          phone:
+		  organisationId:
             type: string
-            description: >- 
-             Either email or phone is required for user creation
-          phoneVerified:
-            type: boolean
-            description: >-
-              This key is required with value as true, if you pass the values for both phone and provider
-              But while creating a user, either the email or phone is required
           channel:
             type: string
             description: >-      
@@ -2324,9 +2318,6 @@ definitions:
                 type: string
     required:
       - firstName
-      - password 
-      - email
-      - phone
     
   User:
     type: object
