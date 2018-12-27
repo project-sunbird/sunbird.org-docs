@@ -3,7 +3,7 @@ info:
   version: '1.0'
   title: OTP API(s)
   description: >-
-    OTP (One time password) api enables user to generate OTP and verify generated OTP.
+    OTP (One time password) API enables user to generate OTP and verify the generated OTP.
 host: staging.open-sunbird.org
 basePath:  /api/otp/v1
 securityDefinitions:
@@ -15,21 +15,19 @@ schemes:
   - https
 consumes:
   - application/json
-  - multipart/form-data
-  - application/x-www-form-urlencoded
 produces:
   - application/json
 paths:
   /generate:
     post:
       description: >-
-       This API is associated with generating otp on Sunbird platform.
-          - The **_/otp/v1/generate_** endpoint executes the "generate otp" request based on parameters provided as metadata in the request body
+       This API is associated with generating OTP on Sunbird platform.
+          - The **_/otp/v1/generate_** endpoint executes the "Generate OTP" request based on parameters provided as metadata in the request body
           - Required fields cannot be left null or empty
-      summary: generate otp
+      summary: Generate OTP
       tags: 
       - OTP APIs
-      operationId: generateOtp
+      operationId: GenerateOTP
       produces:
       - application/json
       parameters:
@@ -38,65 +36,60 @@ paths:
         required: true
         description: >-
             The body refers to the format of the request.
-              - The body contains metadata about the request for generating otp.
+              - The body contains metadata about the request for generating OTP.
         schema:  
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
-             - $ref: '#/definitions/GenerateOtprequest'
+          $ref: '#/definitions/GenerateOTPRequest'
       - name: Content-Type
         in: header
         required: true
         type: string
         description: >-
-           The Content Type entity is the media type of the resource.
-            Allowed media type:- 
-              - Application/json
+           Type of the request data. Set as application/json.
       - name: ts
         in: header
         required: true
         type: string
-        description: 'Time Stamp at which creating user notes request was sent.'
+        description: 'Timestamp at which given API request is sent.'
       - name: X-msgid
         in: header
         required: true
         type: string
-        description: 'This Id Uniquely identifies a request if the same API is executed multiple times.'
+        description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
       - name: Authorization
         in: header
         required: true
         type: string
-        description: 'All OTP api require authorization key. Specify the authorization key received from the administrator when placing the request for use of the API.'
+        description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
       responses:
         '200':
-          description: 'OK ! Successful operation."OTP sent to user" operation was successfully executed.'
+          description: 'OK. Successful operation. The requested operation was successfully executed.'
           schema:  
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/SuccessResult'
+            $ref: '#/definitions/CommonSuccessResponse'
         '400':
-          description: 'BAD REQUEST. The "OTP generate" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter. OR you may have provided incorrect data.'
+          description: 'CLIENT_ERROR. The requested operation failed due to bad request from client. Possible reasons for failure:
+              -  Mandatory parameter is missing.
+              -  Email is invalid.
+              -  Please provide a valid phone number.
+              -  Invalid type. Valid values are: email, phone.'
           schema:  
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/OtpErrorResponse'
+            $ref: '#/definitions/CommonErrorResponse'
         '429':
-          description: 'BAD REQUEST. The "OTP generate" operation failed ! The possible reason for failure is that you have consumer your daily or hourly limits.'
+          description: 'TOO_MANY_REQUESTS. The requested operation failed. Possible reasons for failure:
+              - Your per hour/day rate limit has exceeded. You can retry after some time.'
           schema:  
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/OtpErrorResponse'    
+            $ref: '#/definitions/CommonErrorResponse'    
         '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+          description: 'INTERNAL SERVER ERROR. The requested operation failed due to a server error.'
   /verify:
     post:
       description: >-
        This API is associated with verifying otp send to user on Sunbird platform.
-          - The **_/otp/v1/verify_** endpoint executes the "verify otp" request based on parameters provided as metadata in the request body
+          - The **_/otp/v1/verify_** endpoint executes the "Verify OTP" request based on parameters provided as metadata in the request body
           - Required fields cannot be left null or empty
-      summary: verify otp
+      summary: Verify OTP
       tags: 
       - OTP APIs
-      operationId: verifyOtp
+      operationId: VerifyOTP
       produces:
       - application/json
       parameters:
@@ -105,110 +98,113 @@ paths:
         required: true
         description: >-
             The body refers to the format of the request.
-              - The body contains metadata about the request for verifying otp.
+              - The body contains metadata about the request for verifying OTP.
         schema:  
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
-             - $ref: '#/definitions/VerifyOtprequest'
+          $ref: '#/definitions/VerifyOTPrequest'
       - name: Content-Type
         in: header
         required: true
         type: string
         description: >-
-           The Content Type entity is the media type of the resource.
-            Allowed media type:- 
-              - Application/json
+           Type of the request data. Set as application/json.
       - name: ts
         in: header
         required: true
         type: string
-        description: 'Time Stamp at which creating user notes request was sent.'
+        description: 'Timestamp at which given API request is sent.'
       - name: X-msgid
         in: header
         required: true
         type: string
-        description: 'This Id Uniquely identifies a request if the same API is executed multiple times.'
+        description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
       - name: Authorization
         in: header
         required: true
         type: string
-        description: 'All OTP api require authorization key. Specify the authorization key received from the administrator when placing the request for use of the API.'
+        description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
       responses:
         '200':
-          description: 'OK ! Successful operation."OTP verified successfully" operation was successfully executed.'
+          description: 'OK. Successful operation. The requested operation was successfully executed.'
           schema:  
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/SuccessResult'
+             $ref: '#/definitions/CommonSuccessResponse'
         '400':
-          description: 'BAD REQUEST. The "OTP verification" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter. OR you may have provided incorrect data. OR your OTP has expired'
+          description: 'CLIENT_ERROR. The requested operation failed due to bad request from client. Possible reasons for failure:
+              -  Mandatory parameter is missing.
+              -  Email is invalid.
+              -  Please provide a valid phone number.
+              -  Invalid type. Valid values are: email, phone.
+              -  Invalid OTP.'
           schema:  
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/OtpErrorResponse'
+            $ref: '#/definitions/CommonErrorResponse'
         '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+          description: 'INTERNAL SERVER ERROR. The requested operation failed due to a server error.'
 definitions:
-  OtpErrorResponse:
-   title: 'OTP error response'
-   properties: 
-    result:
-     type: object
-    
-  SuccessResult:
-   title: 'Success response'
+  GenerateOTPRequest:
+    title: Request body for generate OTP API    
+    type: object
+    allOf:
+      - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
+    properties:
+      request:
+        properties:
+          type:
+            description: 'Type specifies the means used for delivering the generated OTP. Supported types are phone or email.'
+            type: string
+            example: phone or email
+          key:
+            description: 'Either valid 10 digit phone number or email corresponding to specified type. User will receive OTP via phone or email based on specified type.'
+            example: 2222222222 or someone@gmail.com
+            type: string
+        required:
+        - type
+        - key
+    required:
+    - request
+
+  VerifyOTPrequest:
+    title: Request body for verify OTP API    
+    type: object
+    allOf:
+      - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
+    properties:
+      request:
+        properties:
+          type:
+            description: 'Type specifies the means used for delivering the generated OTP. Supported types are phone or email.'
+            type: string
+            example: phone or email
+          key:
+            description: 'Either valid 10 digit phone number or email corresponding to specified type. User will receive OTP via phone or email based on specified type.'
+            example: 2222222222 or someone@gmail.com
+            type: string
+          otp:
+            description: 'Entered OTP to verify against generated OTP.'
+            type: string
+        required:
+        - key
+        - type 
+        - otp
+    required:
+    - request
+
+  CommonSuccessResponse:
+   title: 'Common API Success Response'
    type: object
+   allOf:
+    - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
    properties:
-    resutl:
+    result:
      type: object
      properties:
       response:
        type: string
-       description: 'response value as success.'
-  VerifyOtprequest:
-    title: Request body for otp verification    
-    type: object
-    properties:
-      request:
-        $ref: '#/definitions/OtpVerifyRequest'
-    required:
-    - request
-  OtpVerifyRequest:
-    title: Request to verify otp
-    type: object
-    properties:
-      key:
-        description: 'either valid phone number or email. User will get OTP based on provided key either email or phone.'
-        example: 9035004711 or manzarul07@gmail.com
-        type: string
-      type:
-        description: 'A valid type of corresponding key, possible type values (phone or email)'
-        type: string
-      otp:
-       description: 'OTP received on email or phone'
-    required:
-    - key
-    - type 
-    - otp
-  GenerateOtprequest:
-    title: Request body for generate otp    
-    type: object
-    properties:
-      request:
-        $ref: '#/definitions/OtpRequest'
-    required:
-    - request
-  OtpRequest:
-    title: Request to generate otp
-    type: object
-    properties:
-      key:
-        description: 'either valid phone number or email. User will get OTP based on provided key either email or phone.'
-        example: 9035004711 or manzarul07@gmail.com
-        type: string
-      type:
-        description: 'A valid type of corresponding key, possible type values (phone or email)'
-        type: string
-    required:
-    - key
-    - type
+       description: 'Success response value.'
+
+  CommonErrorResponse:
+   title: 'Common API Error Response'
+   type: object
+   allOf:
+    - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+   properties: 
+    result:
+     type: object
