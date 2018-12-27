@@ -47,7 +47,7 @@ paths:
              - JSON 
          
         schema:
-           $ref: '#/definitions/CreateUserrequest'
+           $ref: '#/definitions/CreateUserRequest'
       - name: Content-Type
         in: header
         required: true
@@ -307,7 +307,7 @@ paths:
         '200':
           description: 'OK ! Successful operation."Fetching User profile" operation was successfully executed.'
           schema:
-            $ref: '#/definitions/CreateUserSingleResp'
+            $ref: '#/definitions/GetUserResponse'
         '400':
           description: 'BAD REQUEST,"Fetching User profile" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
           schema:
@@ -409,7 +409,7 @@ paths:
         '200':
           description: 'OK ! Successful operation."Get User by User ID" operation was successfully executed.'
           schema:
-            $ref: '#/definitions/CreateUserSingleResp'
+            $ref: '#/definitions/GetUserResponse'
         '400':
           description: 'BAD REQUEST,"Get User by User ID" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
           schema:
@@ -1853,37 +1853,28 @@ paths:
           schema:
             $ref: '#/definitions/UserErrorResponse'          
 definitions:
-  CreateUserrequest:
-    description: User object
-    type: object
-    allOf:
-       - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
-       - $ref: '#/definitions/CreateUserSingleResp'
-  CreateUserRequestV2:
-    description: User object
-    type: object
-    allOf:
-       - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
-       - $ref: '#/definitions/CreateUserSingleRespV2'
-
-  CreateUserSingleResp:
+  CreateUserRequest:
+				   
    description: Represents the  hold single userObject request
    type: object
    properties:
       request:
        type: object
        allOf:
-         - $ref: '#/definitions/UserReq'
-
-  CreateUserSingleRespV2:
+         - $ref: '#/definitions/BasicUserDetails'
+         
+  CreateUserRequestV2:
    description: Request body for user v2 creation
    type: object
    properties:
       request:
        type: object
        allOf:
-         - $ref: '#/definitions/UserReqV2'
-
+         - $ref: '#/definitions/BasicUserDetails'
+       properties:
+           organisationId:
+             type: string
+      
   RolesResponse:
    description: Represents the hold roles response
    type: array
@@ -1946,207 +1937,9 @@ definitions:
     type: array
     items:
       type: string
-  UserReq:
-    title: User Object
-    type: object
-    properties:
-          firstName:
-            type: string
-          lastName:
-            type: string
-          password:
-            type: string
-          email:
-            type: string
-            description: Represents email of user. Either email or phone is mandatory for user creation. If email is provided then emailVerified attribute should be set to true. Likewise, if phone is provided then phoneVerified attribute should be set to true.
-          emailVerified:
-            type: boolean
-            description: Indicates verification status of user email. Only verified email is accepted.
-          phone:
-            type: string
-            description: Represents phone of user. Either email or phone is mandatory for user creation. If email is provided then emailVerified attribute should be set to true. Likewise, if phone is provided then phoneVerified attribute should be set to true.
-          phoneVerified:
-            type: boolean
-            description: Indicates verification status of user phone. Only verified phone is accepted.
-          avatar:
-            type: string
-          language:
-            type: array
-            items:
-             type: string
-             description: 'Represents the langauage that user is known to'
-          gender:
-            type: string
-          subject:
-            type: array
-            items:
-             type: string
-          channel:
-            type: string
-            description: >-      
-              'Represents the channel value received while creating a rootOrg
-              - if you provide channel value, then you will get associated with that particular root organization  
-              - if the channel is not provided in request body, the system reads the custodian channel from the system setting else reads it from the environment variable and uses it to associate the user with that root organization
-              - if the channel value is not provided in either the request or the envronment variables, then user creation will fail.'
-          externalIds:
-            type: array
-            items:
-              type: object
-              allOf:
-                - $ref: "#/definitions/ExternalId" 
-          profileSummary:
-            type: string
-          userName:
-            type: string
-          dob:
-            type: string
-            format: YYYY-MM-DD
-            example: '2001-02-27'
-          grade:
-            type: string
-          location:
-            type: string
-            description: 'Represents the current location of the  user'
-          education:
-            type: array
-            items:
-             type : object
-             allOf:
-              - $ref: "#/definitions/Education"
-          profileVisibility:
-            type: object
-            description: 'Represents the profile visibility, it is a map having key as any user attribute and the value can be public or private'
-          address: 
-            type: array
-            items:
-              type: object
-              allOf:
-               - $ref: "#/definitions/Address"
-            description: 'Represents the address, it contains list of address object'
-          jobProfile:
-            type: array
-            items:
-              type: object
-              allOf:
-               - $ref: "#/definitions/JobProfile"
-          webPages:
-            type: object
-            properties:
-              type:
-                type: string
-              url:
-                type: string
-          promptTnC:
-            type: boolean
-            description: 'Indicates whether terms and conditions are pending acceptance by user or not.'
-          tncAcceptedVersion:
-            type: string
-            description: 'Version of terms and conditions last accepted by user.'
-          tncAcceptedOn:
-            type: string
-            description: 'Date and time when terms and conditions is last accepted by user.'
-          tncLatestVersion:
-            type: string
-            description: 'Latest version of terms and conditions.'
-          tncLatestVersionUrl:
-            type: string
-            description: 'Web URL where latest version of terms and conditions is hosted.'
-    required:
-      - firstName
-      - userName
-
-  GetUserResponse:
-    title: Get User by User ID response
-    type: object
-    properties:
-          email:
-            type: string
-            description: User Email ID
-          firstName:
-            type: string
-            description: User's first name
-          lastName:
-            type: string
-            description: User's last name
-          gender:
-            type: string
-            description: User's gender
-          phone:
-            type: string
-            description: User's phone number
-          phoneVerified:
-            type: boolean
-            description: >-
-              Either email or phone is required for user creation. This attribute is required with value as true in case phone is specified during user creation.
-          framework:
-            type: object
-            allOf:
-             - $ref: "#/definitions/frameworkData"
-          channel:
-            type: string
-            description: >-
-              'Represents the channel value received while creating a root organisation
-              - if you provide channel value, then you will get associated with that particular root organisation  
-              - if the channel is not provided in request body, the system reads the custodian channel from the system setting else reads it from the environment variable and uses it to associate the user with that root organisation
-              - if the channel value is not provided in either the request or the envronment variable, then user creation will fail.'
-          externalIds:
-            type: array
-            items:
-              type: object
-              allOf:
-                - $ref: "#/definitions/ExternalId"
-          profileSummary:
-            type: string
-          education:
-            type: array
-            items:
-             type : object
-             allOf:
-             - $ref: "#/definitions/Education"
-          profileVisibility:
-            type: object
-            description: 'Represents the profile visibility, it is a map having key as any user attribute and the value can be public or private'
-          address:
-            type: array
-            items:
-              type: object
-              allOf:
-              - $ref: "#/definitions/Address"
-            description: 'Represents the address, it contains list of address object'
-          jobProfile:
-            type: array
-            items:
-              type: object
-              allOf:
-              - $ref: "#/definitions/JobProfile"
-          webPages:
-            type: object
-            properties:
-              type:
-                type: string
-              url:
-                type: string
-          organisations:
-            type: array
-            items:
-              type: object
-              allOf:
-              - $ref: "#/definitions/organisation"
-          roleList:
-            type: array
-            items:
-              type: object
-              allOf:
-              - $ref: "#/definitions/roleList"
-    required:
-      - firstName
-      - password
-      - email
-      - userName
-      - phone
-
+      
   organisation:
-    title: Organisation details
+							   
     type: object
     properties:
      organisationId:
@@ -2186,11 +1979,13 @@ definitions:
         description : Organisation description
      channel:
         type: string
-        description: 'rootOrg channel value'
+        description: Channel value of root organisation
      locationIds :
         type: array
         items:
+         description: List of location IDs
          type: string
+		 
      locations:
         type: array
         items:
@@ -2211,25 +2006,18 @@ definitions:
           parentId:
             type: string
             description: Parent location ID in case of district and block location types.
-  roleList:
-        type: object
-        properties:
-         id:
-          type: string
-          description : Role ID
-         name:
-          type: string
-          description : Name of role
-
-  UserReqV2:
-    title: User Object
+            
+  BasicUserDetails:
     type: object
     properties:
           firstName:
+            description: First name of user
             type: string
           lastName:
+            description: Last name of user
             type: string
           password:
+            description: Password of user
             type: string
           email:
             type: string
@@ -2248,12 +2036,9 @@ definitions:
             items:
              type: string
              description: 'Represents the language that is known to user'
-          organisationId:
-            type: string
           channel:
             type: string
-            description: >-      
-              'Represents the channel value received while creating a rootOrg'
+            description: Channel value of root organisation
           externalIds:
             type: array
             items:
@@ -2261,10 +2046,14 @@ definitions:
               allOf:
                 - $ref: "#/definitions/ExternalId" 
           profileSummary:
+            description: Summary about user details (e.g. education, experience etc.)
             type: string
+			
           userName:
+            description: Username
             type: string
           dob:
+            description: Date of birth
             type: string
             format: YYYY-MM-DD
             example: '2001-02-27'
@@ -2299,9 +2088,24 @@ definitions:
                 type: string
               url:
                 type: string
+          promptTnC:
+            type: boolean
+            description: 'Indicates whether terms and conditions are pending acceptance by user or not.'
+          tncAcceptedVersion:
+            type: string
+            description: 'Version of terms and conditions last accepted by user.'
+          tncAcceptedOn:
+            type: string
+            description: 'Date and time when terms and conditions is last accepted by user.'
+          tncLatestVersion:
+            type: string
+            description: 'Latest version of terms and conditions.'
+          tncLatestVersionUrl:
+            type: string
+            description: 'Web URL where latest version of terms and conditions is hosted.'
     required:
-      - firstName
-    
+      - firstName  
+	
   User:
     type: object
     properties:
@@ -2310,11 +2114,14 @@ definitions:
           email:
             type: string
             description: 'Represents the email of the user'
+          roles:
+            type: array
+            items: 
+             type: string
+             description: Represents the user roles that are independent to any org. 
           firstName:
             type: string
           lastName:
-            type: string
-          password:
             type: string
           avatar:
             type: string
@@ -2341,19 +2148,6 @@ definitions:
             type: array
             items:
              type: string
-          roles:
-            type: array
-            items: 
-             type: string
-             description: >- 
-              Represents the user roles that are independent to any org. 
-               **Note:** This API does not access the roles parameters, even if user passes the roles API(create or update ), these parameters are ignored  
-          provider:
-            type: string
-            description: 'Represents the value of provider, this can just be the name of an organisation or code of an organisation, it is used to identify an organisation'
-          externalId:
-            type: string
-            description: 'Represents a user identifier in some other system'
           channel:
             type : string
             description : >-
@@ -2367,6 +2161,7 @@ definitions:
           rootOrgId:
             type: string
             description: 'Represents the ID of the root organozation'
+          
           dob:
             type: string
             format: YYYY-MM-DD 
@@ -2380,6 +2175,7 @@ definitions:
             type: object
             allOf:
              - $ref: "#/definitions/Education"
+          
           profileVisibility:
             type: object
             description: >-
@@ -2400,13 +2196,7 @@ definitions:
                 type: string
               url:
                 type: string
-    required:
-      - firstName
-      - lastName
-      - password
-      - email
-      - userName
-      - phone
+	 
 
   Address:
     title: Address
@@ -2465,6 +2255,57 @@ definitions:
       - degree
       - name
       - boardOrUniversity
+  BasicUserOrganisationDetails:
+    title: User organisation association details
+    type: object
+    properties:
+      organisationId:
+        description: Organisation ID
+        type: string
+      updatedBy:
+        type: string      
+      roles:
+        description:
+          The role assigned to a user.
+        example:
+        - CONTENT_CREATION
+        - PUBLIC
+        - CONTENT_CREATOR
+        - ANNOUNCEMENT_SENDER
+        type: array
+        items:
+          type: string
+      addedByName:
+        type: string
+      addedBy:
+        type: string
+      approvedBy:
+        type: string
+      updatedDate:
+        type: string
+      userId:
+        description: User ID
+        type: string
+      approvaldate:
+        type: string
+      isDeleted:
+        description: User organisation association status
+        type: string
+      hashTagId:
+        type: string
+      isRejected:
+        type: boolean
+      id:
+        type: string
+      position:
+        type: string
+      isApproved:
+        type: boolean
+      orgJoinDate: 
+        description: Organisation joining date
+        type: string
+      orgLeftDate:
+        type: string
 
   JobProfile:
     title: JobProfile
@@ -2639,7 +2480,64 @@ definitions:
            items:
             type: object
             allOf:
-            - $ref: '#/definitions/User'
+              - $ref: '#/definitions/User'
+              - $ref: '#/definitions/SearchUserOrganisationDetails'
+            properties:
+              rootOrgName: 
+               type: string
+            
+            
+  GetUserResponse:
+     description: The response body of User details
+     type: object
+     properties:
+         result:
+           type: object
+           properties:
+            response:  
+             type: object
+             allOf:
+              - $ref: '#/definitions/User'
+              - $ref: "#/definitions/GetUserOrganisationDetails"
+              - $ref: '#/definitions/userRootDetails'
+        
+  SearchUserOrganisationDetails:
+    description: user org details
+    type: object
+    properties:
+      organisations:
+            type: array
+            items: 
+             type: object
+             allOf:
+              - $ref: "#/definitions/BasicUserOrganisationDetails"
+             properties:
+              orgName:
+               type: string
+              
+              
+  GetUserOrganisationDetails:
+    description: user org details
+    type: object
+    properties:
+      organisations:
+            type: array
+            items: 
+             type: object
+             allOf:
+              - $ref: "#/definitions/BasicUserOrganisationDetails"
+              
+              
+  userRootDetails:
+    description: Root org details
+    type: object
+    properties:
+      rootOrg:
+            type: object
+            allOf:
+              - $ref: "#/definitions/organisation"
+              
+            
   UserCreateResponse:
     description: The response body of create user
     type: object
@@ -2969,7 +2867,7 @@ definitions:
     - medium
     - board
 
-CommonSuccessResponse:
+  CommonSuccessResponse:
    title: Success Response
    type: object
    allOf: 
