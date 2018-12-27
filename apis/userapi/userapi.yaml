@@ -160,14 +160,6 @@ paths:
       produces:
       - application/json
       parameters:
-      - in: query
-        name: fields
-        description: >-
-        Additional fields can be returned in user search response using this query parameter. 
-        Presently, only orgName field is supported. 
-        When this field is specified, rootOrgName and orgName (for each organisation to which the user is associated) is returned in each user search result. 
-        type: string
-        required: false
       - name: request
         in: body
         required: true
@@ -1681,10 +1673,10 @@ paths:
  /user/v1/tnc/accept:
     post:
       description: >-
-       This API is used to accept terms and condition by user.
-          - The **_/user/v1/tnc/accept_** endpoint executes the "accept tnc api" request based on parameters provided as metadata in the request body
+       This API is used to mark user acceptance of terms and conditions.
+          - The **_/user/v1/tnc/accept_** endpoint executes the "Accept T&C Api" request based on parameters provided as metadata in the request body
           - It is mandatory to provide values for required parameters
-      summary: accept terms and condition
+      summary: Accept Terms and Conditions
       tags:
       - User APIs
       operationId: AcceptTnc
@@ -1695,56 +1687,47 @@ paths:
         in: body
         required: true
         description: >-
-          - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
-             - application/json 
+          - The body contains metadata about user's acceptance of given version of terms and conditions
         schema:
           allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
               - $ref: '#/definitions/AcceptTnc'
       - name: Content-Type
         in: header
         required: true
         type: string
+        description: >- 
+          'Type of the request data. Set as application/json.'
+      - name: X-Authenticated-User-Token
+        in: header
+        required: true
+        type: string
         description: >-
-           The Content Type entity is the media type of the resource
-            Possible media types can be:- 
-              - Application/json
+          Access token of registered user performing given API request.
       - name: ts
         in: header
-        required: true
+        required: false
         type: string
-        description: >-
-          Timestamp is a sequence of characters or encoded information identifying when the add user skills API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second.
+        description: 'Timestamp at which given API request is sent.'
       - name: X-msgid
         in: header
-        required: true
+        required: false
         type: string
-        description: 'This ID Uniquely identifies a request if the same API is executed multiple times'
-      - name: Authorization
-        in: header
-        required: true
-        type: string
-        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-      - name: x-authenticated-user-token
-        in: header
-        required: true
-        type: string
-        description: >- 
-          It is a unique token/key to authenticate the user each time an API is called. For further sessions this token is exchanged, not the username/password of the user
+        description: 'This ID uniquely identifies a request if the same API is executed multiple times.'    
+          
       responses:
         '200':
-          description: 'OK ! Successful operation."add user skills" operation was successfully executed.'
+          description: 'OK. Successful operation. The requested operation was successfully executed.'
           schema:
-             allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/successResponse'
+            $ref: '#/definitions/CommonSuccessResponse'
         '400':
-          description: 'BAD REQUEST. The "add user skills" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          description: >-
+           CLIENT_ERROR. The requested operation failed due to bad request from client. Possible reasons for failure: 
+            - Invalid value for parameter version
+            - Mandatory parameter version is missing.
           schema:
             $ref: '#/definitions/UserErrorResponse'
         '500':
-          description: >-
-            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          description: 'INTERNAL SERVER ERROR. The requested operation failed due to a server error. '
           schema:
             $ref: '#/definitions/UserErrorResponse'
  /data/v1/skills:
@@ -1810,66 +1793,63 @@ paths:
  /user/v1/get:
     get:
       description: >-
-       This API will check user associated with key exist in sunbird or not.Incase user exist then it will provide user details in response. 
-       - The **_/user/v1/get/idType/idTypeValue_** endpoint executes the "get user by key" request based on parameters provided as metadata in the request body.
+       This API will check if user associated with given keyType and keyValue exists in sunbird or not. Incase user exists then user details are returned in response. 
+       - The **_/user/v1/get/keyType/keyValue_** endpoint executes the "Get User by Key" request based on parameters provided as metadata in the request body.
           - It is mandatory to provide values for required parameters
-      summary: Get user by key
+      summary: Get User by Key
       tags:
       - User APIs
       operationId: GetUserByKey
       produces:
       - application/json
       parameters:
-      - name: idType
-        in : path 
-        required: true
-        type: string
-        description: 'allowed idType values {email,phone and loginId}'
-      -  name: idTypeValue
+       - name: Content-Type
+         in: header
+         required: true
+         type: string
+         description: >- 
+          'Type of the request data. Set as application/json.'
+       - name: ts
+         in: header
+         required: false
+         type: string
+         description: 'Timestamp at which given API request is sent.'
+       - name: X-msgid
+         in: header
+         required: false
+         type: string
+         description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
+        
+       - name: keyType
+         in : path 
+         required: true
+         type: string
+         description: 'Type of key for user lookup. Supported key type values are email, phone and loginId.'
+       - name: keyValue
          in: path 
          required: true
          type: string
-         description: 'allowed id type value will be based on idType,Incase of email value should be emailId, for phone value should be valid phone number.'
-      - name: Content-Type
-        in: header
-        required: true
-        type: string
-        description: >-
-           The Content Type entity is the media type of the resource.
-            Possible media types can be:- 
-              - Application/json
-      - name: ts
-        in: header
-        required: true
-        type: string
-        description: >
-          Timestamp is a sequence of characters or encoded information identifying when the list user skills API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second.
-      - name: X-msgid
-        in: header
-        required: true
-        type: string
-        description: 'This ID Uniquely identifies a request if the same API is called multiple times'
-      - name: Authorization
-        in: header
-        required: true
-        type: string
-        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+         description: 'User key value corresponding to specified type for lookup. Value is either email address, 10 digit phone number or login ID based on specified type.'
       responses:
         '200':
-          description: 'OK ! Successful operation."User found with provided idtype and value" operation was successfully executed.'
+          description: 'OK. Successful operation. The requested operation was successfully executed.'
           schema:
             $ref: '#/definitions/GetUserResponse'
         '400':
-          description: 'BAD REQUEST. The "get user by key" operation failed ! The possible reason for failure is provided idType and idTypeValue validation failed. Ex: idType is phone but idTypeValue is not a valid phone number or provided idType is unknown.'
+          description: >-
+           CLIENT_ERROR. The requested operation failed due to bad request from client. Possible reasons for failure: 
+            - Format Error
+            
           schema:
             $ref: '#/definitions/UserErrorResponse'
         '404':
-          description: 'RESOUCE NOT FOUND. The "get user by key" operation failed ! The possible reason for failure is, user not found with provider idType and idTypeValue'
-          schema:
-            $ref: '#/definitions/UserErrorResponse'    
+          description: >-
+           RESOUCE NOT FOUND. The requested operation failed due to resourse not found ! The possible reason for failure:
+           
+           - User not found
         '500':
           description: >-
-            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+            'INTERNAL SERVER ERROR. The requested operation failed due to a server error. '
           schema:
             $ref: '#/definitions/UserErrorResponse'          
 definitions:
@@ -2058,19 +2038,19 @@ definitions:
                 type: string
           promptTnC:
             type: boolean
-            description: 'Allow caller to decide terms and condition need to be displayed or not. if value is true means user need to accept terms and condition.'
+            description: 'Indicates whether terms and conditions are pending acceptance by user or not.'
           tncAcceptedVersion:
             type: string
-            description: 'Which Tnc verison user has accepted it.'
+            description: 'Version of terms and conditions last accepted by user.'
           tncAcceptedOn:
             type: string
-            description: 'Date and time on whcih user has accepted tnc'
+            description: 'Date and time when terms and conditions is last accepted by user.'
           tncLatestVersion:
             type: string
-            description: 'Available latest version of tnc'
+            description: 'Latest version of terms and conditions.'
           tncLatestVersionUrl:
             type: string
-            description: 'Web url of tnc latest version'
+            description: 'Web URL where latest version of terms and conditions is hosted.'
     required:
       - firstName
       - userName
@@ -2845,14 +2825,17 @@ definitions:
         description : 'possible values are {ADD,EDIT,REMOVE}'
   
   AcceptTnc:
-    title: AcceptTnc
+    title: Request body for accept Terms and Conditions API.
     type: object
+    allOf:
+       - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
     properties:
-      request:
+     request:
        type: object
        properties:
-         version:
-          type: string
+        version:
+            description: Version of Terms and Conditions
+            type: string
     required:
     - version
   ReadUserSkill:
@@ -2985,12 +2968,15 @@ definitions:
     - gradeLevel
     - medium
     - board
-  successResponse:
+
+CommonSuccessResponse:
    title: Success Response
    type: object
+   allOf: 
+    - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
    properties:
-    result:
-     type: object
-     properties:
-      response:
-       type: string
+    result: 
+      type: object
+      properties:
+        response:
+          type: string
