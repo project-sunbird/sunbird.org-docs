@@ -35,7 +35,7 @@ Define custodian organisation ID in Sunbird LMS using below cURL command.
 
 ```
 curl -X POST \
-  {{BaseURL}}/data/v1/system/settings/set \
+  {{sunbirdBaseURL}}/data/v1/system/settings/set \
   -H 'Authorization: Bearer {{api-key}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Authenticated-User-Token: {{user-token}}' \
@@ -52,7 +52,7 @@ Define custodian organisation channel in Sunbird LMS using below cURL command.
 
 ```
 curl -X POST \
-  {{BaseURL}}/data/v1/system/settings/set \
+  {{sunbirdBaseURL}}/data/v1/system/settings/set \
   -H 'Authorization: Bearer {{api-key}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Authenticated-User-Token: {{user-token}}' \
