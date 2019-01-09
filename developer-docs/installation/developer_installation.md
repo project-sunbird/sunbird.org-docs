@@ -22,6 +22,6 @@ To install Sunbird, ensure that your laptop or desktop has the following minimum
 
 The Sunbird installation has two primary software components:
 
-- [Sunbird Backend](/developer-docs/installation/install_sbbackend) or the service stack
-- [Sunbird Portal](/developer-docs/installation/install_sbportal) or web application
+- [Sunbird Backend](developer-docs/installation/install_sbbackend){:target="_blank"} or the service stack
+- [Sunbird Portal](developer-docs/installation/install_sbportal){:target="_blank"} or web application
 
