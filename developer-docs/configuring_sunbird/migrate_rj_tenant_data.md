@@ -47,7 +47,9 @@ S.No.  | Parameter | Description | Example
 
 ## Migration of data within cassandra
 
-1. Extract the [archive file](https://github.com/project-sunbird/sunbird-utils/tree/master/cassandra-migration-etl/common/tenant-migration.zip) that contains the script to sync the organisation's data.
+1. Extract the following files
+	[archive file](https://github.com/project-sunbird/sunbird-utils/tree/master/cassandra-migration-etl/custom/rajasthan-pilot/*.zip) that contains the script to modify the organisation's data.
+	[archive file](https://github.com/project-sunbird/sunbird-utils/tree/master/cassandra-migration-etl/common/Sync.zip) that contains the script to modify the organisation's data.
 
 > ## Important: 
 >It is recommended to take back-up of the cassandra database and run the scripts in dry run mode, to verify the final effect of migration.
@@ -55,46 +57,54 @@ S.No.  | Parameter | Description | Example
 2. Run the following command with dry_run = true to sync all users data from old tenant to new tenant.
 
 ````
-cd user_root_org_migration_run
-sh user_root_org_migration_run.sh --context_param dry_run="{boolean_value}" --context_param sunbird_cassandra_server="{cassandra-server-host}" --context_param sunbird_cassandra_port="{cassandra-server-port}" --context_param sunbird_cassandra_username="{Cassandra-username}" --context_param sunbird_cassandra_password="{Cassandra-user-password}"  --context_param sunbird_cassandra_keyspace="{sunbird-keyspace}"--context_param sunbird_output_file="{base_output_path}/user_migration.csv"
+cd RJPilotUserMigration
+sh RJPilotUserMigration_run.sh --context_param dry_run="{boolean_value}" --context_param sunbird_cassandra_server="{cassandra-server-host}" --context_param sunbird_cassandra_port="{cassandra-server-port}" --context_param sunbird_cassandra_username="{Cassandra-username}" --context_param sunbird_cassandra_password="{Cassandra-user-password}"  --context_param sunbird_cassandra_keyspace="{sunbird-keyspace}" --context_param sunbird_output_file="{base_output_path}/user_migration.csv"
 ````
 
-> Verify the output, which shows the data to be migrated. Once verified run above command with dry_run = false, or by skipping the parameter
+> Verify the output, which shows the data to be migrated. Once verified run above command with dry_run = false.
 
 3. Run the following command with dry_run = true to sync all user-org entries associated with old tenant to new tenant.
 
 ````
 
-cd ../user_org_root_org_migration_run
-sh user_org_root_org_migration_run.sh --context_param dry_run="{boolean_value}" --context_param sunbird_cassandra_server="{cassandra-server-host}" --context_param sunbird_cassandra_port="{cassandra-server-port}" --context_param sunbird_cassandra_username="{Cassandra-username}" --context_param sunbird_cassandra_password="{Cassandra-user-password}"  --context_param sunbird_cassandra_keyspace="{sunbird-keyspace}"--context_param sunbird_output_file="{base_output_path}/user_org_migration.csv"
+cd ../RJPilotUserOrgMigration
+sh RJPilotUserOrgMigration_run.sh --context_param dry_run="{boolean_value}" --context_param sunbird_cassandra_server="{cassandra-server-host}" --context_param sunbird_cassandra_port="{cassandra-server-port}" --context_param sunbird_cassandra_username="{Cassandra-username}" --context_param sunbird_cassandra_password="{Cassandra-user-password}"  --context_param sunbird_cassandra_keyspace="{sunbird-keyspace}" --context_param sunbird_output_file="{base_output_path}/user_org_migration.csv"
 ````
->Verify the output, which shows the data to be migrated. Once verified run above command with dry_run = false, or by skipping the parameter
+>Verify the output, which shows the data to be migrated. Once verified run above command with dry_run = false
 
 4.  Run the following command with dry_run = true to sync course-batch entries associated with old tenant to new tenant
 ````
-cd ../course_batch_root_org_migration_run
-sh course_batch_root_org_migration_run.sh --context_param dry_run="{boolean_value}" --context_param sunbird_cassandra_server="{cassandra-server-host}" --context_param sunbird_cassandra_port="{cassandra-server-port}" --context_param sunbird_cassandra_username="{Cassandra-username}" --context_param sunbird_cassandra_password="{Cassandra-user-password}"  --context_param sunbird_cassandra_keyspace="{sunbird-keyspace}"--context_param sunbird_output_file="{base_output_path}/course_batch_migration.csv" 
+cd ../RJPilotCourseBatchMigration
+sh RJPilotCourseBatchMigration_run.sh --context_param dry_run="{boolean_value}" --context_param sunbird_cassandra_server="{cassandra-server-host}" --context_param sunbird_cassandra_port="{cassandra-server-port}" --context_param sunbird_cassandra_username="{Cassandra-username}" --context_param sunbird_cassandra_password="{Cassandra-user-password}"  --context_param sunbird_cassandra_keyspace="{sunbird-keyspace}" --context_param sunbird_output_file="{base_output_path}/course_batch_migration.csv" 
 ````
 
-5. Run the following command to sync the user data from cassandra to ElasticSearch
-````
-cd ../Sync_job_run
-sh Sync_job_run.sh --context_param sunbird_cassandra_table="user"  --context_param sunbird_sync_api_endpoint="{app_base_url}/v1/data/sync" --context_param sunbird_sync_api_key="{api-key}" --context_param sunbird_sync_block_size={block-size} --context_param sunbird_sync_sleep_time={sleep-time} --context_param sunbird_sync_object_type=user --context_param sunbird_sync_id_file="{base_output_path}/user_migration.csv"
-````
-
-6. Run the following command to sync the course batch data from cassandra to ElasticSearch
+5. Run the following command to update the pilot root organisation status to inactive
 
 ````
-sh Sync_job_run.sh --context_param sunbird_cassandra_table="course_batch"  --context_param sunbird_sync_api_endpoint="{app_base_url}/v1/data/sync" --context_param sunbird_sync_api_key="{api-key}" --context_param sunbird_sync_block_size={block-size} --context_param sunbird_sync_sleep_time={sleep-time} --context_param sunbird_sync_object_type=batch --context_param sunbird_sync_id_file="{base_output_path}/course_batch_migration.csv"
+cd ../RJPilotOrgStatusMigration
+sh RJPilotOrgStatusMigration_run.sh --context_param --context_param sunbird_cassandra_server="{cassandra-server-host}" --context_param sunbird_cassandra_port="{cassandra-server-port}" --context_param sunbird_cassandra_username="{Cassandra-username}" --context_param sunbird_cassandra_password="{Cassandra-user-password}"  --context_param sunbird_cassandra_keyspace="{sunbird-keyspace}" --context_param sunbird_output_file="{base_output_path}/org_migration.csv"
 ````
 
 
-7. Run the following command to update the pilot root organisation status to inactive
+6. Run the following command to sync the user data from cassandra to ElasticSearch
+````
+cd ../Sync
+sh Sync_run.sh --context_param sunbird_cassandra_table="user"  --context_param sunbird_sync_api_endpoint="{app_base_url}/v1/data/sync" --context_param sunbird_sync_api_key="{api-key}" --context_param sunbird_sync_block_size={block-size} --context_param sunbird_sync_sleep_time={sleep-time} --context_param sunbird_sync_object_type="user" --context_param sunbird_sync_id_file="{base_output_path}/user_migration.csv"
+````
+
+7. Run the following command to sync the course batch data from cassandra to ElasticSearch
 
 ````
-sh change_org_status_run.sh --context_param --context_param sunbird_cassandra_server="{cassandra-server-host}" --context_param sunbird_cassandra_port="{cassandra-server-port}" --context_param sunbird_cassandra_username="{Cassandra-username}" --context_param sunbird_cassandra_password="{Cassandra-user-password}"  --context_param sunbird_cassandra_keyspace="{sunbird-keyspace}"--context_param status=0
+sh Sync_run.sh --context_param sunbird_cassandra_table="course_batch"  --context_param sunbird_sync_api_endpoint="{app_base_url}/v1/data/sync" --context_param sunbird_sync_api_key="{api-key}" --context_param sunbird_sync_block_size={block-size} --context_param sunbird_sync_sleep_time={sleep-time} --context_param sunbird_sync_object_type="batch" --context_param sunbird_sync_id_file="{base_output_path}/course_batch_migration.csv"
 ````
-8. Run the following command to migrate created content from one channel to another. This cql will against neo4j
+
+8. Run the following command to sync the organisation data from cassandra to ElasticSearch
+
+````
+sh Sync_run.sh --context_param sunbird_cassandra_table="organisation"  --context_param sunbird_sync_api_endpoint="{app_base_url}/v1/data/sync" --context_param sunbird_sync_api_key="{api-key}" --context_param sunbird_sync_block_size={block-size} --context_param sunbird_sync_sleep_time={sleep-time} --context_param sunbird_sync_object_type="organisation" --context_param sunbird_sync_id_file="{base_output_path}/org_migration.csv"
+````
+
+9. Run the following command to migrate created content from one channel to another. This cql will against neo4j
 ````
 MATCH (n:domain) WHERE n.channel ="0126741568685424647" SET n.channel = "0126741573767413761";
 MATCH (n:domain) WHERE n.createdFor = ["0126741568685424647"] SET n.createdFor = ["0126741573767413761"];
