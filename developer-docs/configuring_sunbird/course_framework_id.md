@@ -1,19 +1,17 @@
 ---
-title: Configuring Course Framework id into system settings
-page_title: Configuring Course Framework Id
-description: Technical document on configuring Course Framework Id
+title: Configuring Course Framework ID
+page_title: Configuring Course Framework ID
+description: Configuring Course Framework ID
 published: true
 allowSearch: true
 ---
 
 ## Overview
-Based on configuration, Course filtres will be populated  
+The purpose of this document is to explain how a System Administrator can configure Course Framework ID that allows an application to use a specific framework for creating courses.
 
-The purpose of this document is to explain how a Sunbird system administrator can configure framework id for course
+## Read Course Framework ID configuration
 
-## Read terms and conditions configuration
-
-Course Framework Id configuration can be read using below cURL commands.
+Course Framework ID configuration can be read using below cURL command.
 
 ```
 curl -X GET \
@@ -22,9 +20,9 @@ curl -X GET \
   -H 'Content-Type: application/json'
 ```
 
-## Define terms and conditions configuration
+## Define Course Framework ID configuration
 
-Define Course Framework Id configuration in Sunbird LMS using below cURL command.
+Define Course Framework ID configuration in Sunbird LMS using below cURL command.
 
 ```
 curl -X POST \
@@ -36,7 +34,7 @@ curl -X POST \
   "request": {
                 "id": "courseFrameworkId",
                 "field": "courseFrameworkId",
-                "value": "{{TPD}}"
+                "value": "{{courseFrameworkId}}"
             }
 }'
 ```
@@ -44,4 +42,4 @@ curl -X POST \
 
 SNo. | Parameter | Description | Example
 -------|-----------|-------------|---------
-1 | TPD | Framework id which will be used for course filter | 
+1 | courseFrameworkId | Framework ID to be used for course creation | TPD 
