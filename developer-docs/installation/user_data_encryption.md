@@ -17,7 +17,8 @@ To run this script, ensure you have:
 2. A backup of sunbird keyspace in Cassandra DB.
 
 ## Configuration parameters
-The following parameters needs to be passed as arguments for the identifying unencrypted users data job
+
+The following parameters needs to be passed as arguments for script to encrypt PII data of specified users.
 
  S.No. | Parameter | Description | Example 
 -------|-----------|-------------|---------
