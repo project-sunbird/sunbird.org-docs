@@ -1,46 +1,52 @@
 ---
-title: Identify unencrypted user 
-page_title: Identify unencrypted user
-description: Identify unencrypted user
+title: Identify users with unencrypted PII data 
+page_title: Identify users with unencrypted PII data
+description: Identify users with unencrypted PII data
 published: true
 allowSearch: true
 ---
 
 ## Overview
-Some of the user details is unencrypted in sunbird system, this job will identify those user and will create an csv file which contain the user ids of unencrypted user.
+Very old users of Sunbird may have some PII (Personally Identifiable Information) data that is unencrypted. 
+
+The purpose of this document is to describe usage of a script to identify such users with unencrypted PII data so that subsequently PII data of such users can be encrypted.
 
 ## Prerequisites
 
-To run the migration script, ensure you have:
+To run this script, ensure you have:
 
 1. Access to cassandra database
 2. A backup of sunbird keyspace in Cassandra DB.
 
 ## Configuration Parameters
+
 The following parameters needs to be passed as arguments for the identifying unencrypted users data job
 
  S.No. | Parameter | Description | Example 
 -------|-----------|-------------|---------
-1 | cassandra_server | Cassandra DB IP Address| 198.168.1.1
-2 | cassandra_port | Cassandra DB Port Number | 9042 
-3 | cassandra_keyspace  | Cassandra DB Keyspace Name | demodb 
-4 | user_id_csv_file_path | Path to CSV file where user ids are stored | \home\userids.csv
-
+1 | cassandra_server | The IP address of the Cassandra DB. This parameter is used to identify the server on which the Cassandra DB runs. The system uses the details provided to connect to the database.| 198.168.1.1
+2 | cassandra_port | The port number of the Cassandra DB. This parameter is used to identify the port on which the Cassandra DB runs.  The system uses the details provided to connect to the database.| 9042 
+3 | cassandra_keyspace  | Cassandra DB Keyspace Name | sunbird 
+4 | user_id_csv_file_path | Path to output CSV file where user IDs are stored | /home/user/userids.csv
 
 ## Script
 
 To identify unencrypted user data from cassandra:
 
-1. Extract the archive file (sunbird-utils/cassandra-migration-etl/common/IdentifyUnencryptedUserIdsBin.zip) that contains the script for identifying unencrypted user data.
+1. Extract the archive file IdentifyUnencryptedUserIdsBin.zip that contains the script for identifying unencrypted user data.
 
-2. Run the following command to identify unencrypted user data
-<pre> 
-IdentifyUnencryptedUserIds_run.sh --context_param cassandra_keyspace="{keyspace_name}" --context_param cassandra_port="{cassandra_port}" --context_param cassandra_server="{cassandra_server_ip}" --context_param user_id_csv_file_path="{user_id_csv_file_path}"
-</pre>
-3. On successful completion, the csv containing user ids is available in the configured file {user_id_csv_file_path}
+2. Run the following command to identify unencrypted user data.
 
-4. To cross-check whether it fetched only those user ids whose data is unecrypted run below query with the user ids in csv
+```
+cd IdentifyUnencryptedUserIds
+IdentifyUnencryptedUserIds_run.sh --context_param cassandra_server="{cassandra_server_ip}" --context_param cassandra_port="{cassandra_port}" --context_param cassandra_keyspace="{keyspace_name}" --context_param user_id_csv_file_path="{user_id_csv_file_path}"
+```
 
- - Query to fetch user 
-     ```select * from user where id = '{user-id}';```
+3. On successful completion, the CSV containing user IDs is available at the configured file path {user_id_csv_file_path}.
+
+4. To cross-check whether it fetched only those user IDs whose data is unencrypted run below CQL query with few user IDs in CSV file generated.
+
+ ```
+ select * from user where id = '{user-id}';
+ ```
  
