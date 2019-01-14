@@ -88,13 +88,6 @@ Verify user_org IDs in "course_batch_migration_output.csv".
 sh RJPilotCourseBatchMigration_run.sh --context_param dry_run="false" --context_param sunbird_cassandra_server="{cassandra-server-host}" --context_param sunbird_cassandra_port="{cassandra-server-port}" --context_param sunbird_cassandra_username="{cassandra-username}" --context_param sunbird_cassandra_password="{cassandra-user-password}"  --context_param sunbird_cassandra_keyspace="{sunbird-keyspace}" --context_param sunbird_output_file="{base_output_path}/course_batch_migration_output.csv" 
 ````
 
-4. Extract RJPilotOrgStatusMigrationBin.zip that contains the script to set organisation status for Rajasthan Pilot to inactive.
-
-```
-cd RJPilotOrgStatusMigration
-sh RJPilotOrgStatusMigration_run.sh --context_param --context_param sunbird_cassandra_server="{cassandra-server-host}" --context_param sunbird_cassandra_port="{cassandra-server-port}" --context_param sunbird_cassandra_username="{cassandra-username}" --context_param sunbird_cassandra_password="{cassandra-user-password}"  --context_param sunbird_cassandra_keyspace="{sunbird-keyspace}" --context_param sunbird_output_file="{base_output_path}/org_status_migration_output.csv"
-```
-
 ## Sync of migrated data from cassandra to elasticsearch
 
 ### Configuration parameters
@@ -121,12 +114,6 @@ sh Sync_run.sh --context_param sunbird_cassandra_table="user" --context_param su
 
 ````
 sh Sync_run.sh --context_param sunbird_cassandra_table="course_batch" --context_param sunbird_sync_api_endpoint="{api_base_url}/api/data/v1/index/sync" --context_param sunbird_sync_api_key="{api-key}" --context_param sunbird_sync_block_size="{block-size}" --context_param sunbird_sync_sleep_time="{sleep-time}" --context_param sunbird_sync_object_type="batch" --context_param sunbird_sync_id_file="{base_output_path}/course_batch_migration_output.csv"
-````
-
-3. Run following command to sync org data.
-
-````
-sh Sync_run.sh --context_param sunbird_cassandra_table="organisation" --context_param sunbird_sync_api_endpoint="{api_base_url}/api/data/v1/index/sync" --context_param sunbird_sync_api_key="{api-key}" --context_param sunbird_sync_block_size="{block-size}" --context_param sunbird_sync_sleep_time="{sleep-time}" --context_param sunbird_sync_object_type="org" --context_param sunbird_sync_id_file="{base_output_path}/org_status_migration_output.csv"
 ````
 
 ## Migration of data in Neo4j
