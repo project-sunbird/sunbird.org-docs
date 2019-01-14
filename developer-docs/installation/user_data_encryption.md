@@ -9,14 +9,14 @@ allowSearch: true
 ## Overview
 The purpose of this document is to describe usage of a script to encrypt PII data of specified users using Sunbird Encryption API.
 
-## Prerequisites
+## Pre-requisites
 
 To run this script, ensure you have:
 
 1. Access to cassandra database
 2. A backup of sunbird keyspace in Cassandra DB.
 
-## Configuration Parameters
+## Configuration parameters
 The following parameters needs to be passed as arguments for the identifying unencrypted users data job
 
  S.No. | Parameter | Description | Example 
@@ -26,9 +26,7 @@ The following parameters needs to be passed as arguments for the identifying une
 3 | authorization | Authorization key received from administrator for using Sunbird APIs. | Bearer ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
 4 | x_authenticated_user_token | Access token of registered user performing given API request. | ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
 
-## Script
-
-To identify unencrypted user data from cassandra:
+## Running the script
 
 1. Extract the archive file UserEncryptionBin.zip that contains the script for making Sunbird Encryption API call to encrypt user's PII data.
 
