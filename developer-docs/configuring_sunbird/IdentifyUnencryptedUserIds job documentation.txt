@@ -1,0 +1,46 @@
+---
+title: Organisation external identity migration
+page_title: Organisation external identity migration
+description: Organisation external identity migration
+published: true
+allowSearch: true
+---
+
+## Overview
+Sunbird, from its release version 1.13 onwards, captures the external id details of the organisations in a separate table(org_external_identity) in cassandra database. External Id details of organisations created before this release(which are captured in organisation table) has to populated in this new table to ensure data consistency. This migration job will take care of that activity.
+
+## Prerequisites
+
+To run the migration script, ensure you have:
+
+1. Access to cassandra database
+2. A backup of sunbird keyspace in Cassandra DB.
+
+## Configuration Parameters
+The following parameters needs to be passed as arguments for the identifying unencrypted users data job
+
+ S.No. | Parameter | Description | Example 
+-------|-----------|-------------|---------
+1 | cassandra_server | Cassandra DB IP Address| 198.168.1.1
+2 | cassandra_port | Cassandra DB Port Number | 9042 
+3 | cassandra_keyspace  | Cassandra DB Keyspace Name | demodb 
+4 | user_id_csv_file_path | Path to CSV file where user ids are stored | \home\userids.csv
+
+
+## Script
+
+To identify unencrypted user data from cassandra:
+
+1. Extract the archive file (sunbird-utils/cassandra-migration-etl/common/IdentifyUnencryptedUserIdsBin.zip) that contains the script for identifying unencrypted user data.
+
+2. Run the following command to identify unencrypted user data
+<pre> 
+IdentifyUnencryptedUserIds_run.sh --context_param cassandra_keyspace="{keyspace_name}" --context_param cassandra_port="{cassandra_port}" --context_param cassandra_server="{cassandra_server_ip}" --context_param user_id_csv_file_path="{user_id_csv_file_path}"
+</pre>
+3. On successful completion, the csv containing user ids is available in the configured file {user_id_csv_file_path}
+
+4. To cross-check whether it fetched only those user ids whose data is unecrypted run below query with the user ids in csv
+
+ - Query to fetch user 
+     ```select * from user where id = '{user-id}';```
+ 
