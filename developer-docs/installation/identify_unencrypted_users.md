@@ -11,14 +11,14 @@ Very old users of Sunbird may have some PII (Personally Identifiable Information
 
 The purpose of this document is to describe usage of a script to identify such users with unencrypted PII data so that subsequently PII data of such users can be encrypted.
 
-## Prerequisites
+## Pre-requisites
 
 To run this script, ensure you have:
 
 1. Access to cassandra database
 2. A backup of sunbird keyspace in Cassandra DB.
 
-## Configuration Parameters
+## Configuration parameters
 
 The following parameters needs to be passed as arguments for the identifying unencrypted users data job
 
@@ -29,7 +29,7 @@ The following parameters needs to be passed as arguments for the identifying une
 3 | cassandra_keyspace  | Cassandra DB Keyspace Name | sunbird 
 4 | user_id_csv_file_path | Path to output CSV file where user IDs are stored | /home/user/userids.csv
 
-## Script
+## Running the script
 
 To identify unencrypted user data from cassandra:
 
