@@ -20,7 +20,7 @@ To run this script, ensure you have:
 
 ## Configuration parameters
 
-The following parameters needs to be passed as arguments for the identifying unencrypted users data job
+The following parameters needs to be passed as arguments for script to identify users with unencrypted PII data.
 
  S.No. | Parameter | Description | Example 
 -------|-----------|-------------|---------
@@ -30,8 +30,6 @@ The following parameters needs to be passed as arguments for the identifying une
 4 | user_id_csv_file_path | Path to output CSV file where user IDs are stored | /home/user/userids.csv
 
 ## Running the script
-
-To identify unencrypted user data from cassandra:
 
 1. Extract the archive file IdentifyUnencryptedUserIdsBin.zip that contains the script for identifying unencrypted user data.
 
