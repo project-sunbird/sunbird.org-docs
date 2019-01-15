@@ -1,13 +1,13 @@
 ---
-title: User Email Case-Change Migration
-page_title: User Email Case-Change Migration
-description: User Email Case-Change Migration
+title: Migration script to convert user email to lowercase
+page_title: Migration script to convert user email to lowercase
+description: Migration script to convert user email to lowercase
 published: true
 allowSearch: true
 ---
 
 ## Overview
-Sunbird, from its release version 1.13 onwards, captures the email of the users in lower case. Email of the users onboarded prior to this release version might have upper case characters. To ensure data consistency across users, this migration to convert upper case characters to lower case, in email has to be done.
+Sunbird, from its release version 1.13 onwards, captures the email of the users in lower case. Email of the users onboarded prior to this release version might have upper case characters. To ensure data consistency across users, this migration to convert upper case characters to lower case in email has to be done.
 
 ## Prerequisites
 
@@ -42,27 +42,27 @@ The following parameters needs to be set in environment variables
 
 ## Migration Script
 
-1. Extract the archive file (sunbird-utils/cassandra-migration-etl/r1.14/UserEmailCaseChangeMigrationBin.zip)
+1. Extract the archive file UserEmailCaseChangeMigrationBin.zip.
 
-2. Navigate to UserEmailCaseChangeMigrationBin/UserEmailCaseChangeMigration/ which contains the script file - UserEmailCaseChangeMigration_run.sh
+2. Run the script using below commands (first with dry run option for verification purpose and later without out it perform actual migration).
 
-3. For dry-run, run the following command
-<pre> 
-UserEmailCaseChangeMigration_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_cassandra_keyspace="{sunbird_cassandra_keyspace}" --context_param sunbird_encryption_algorithm="{sunbird_encryption_algorithm}" --context_param sunbird_encryption_iteration_count="{sunbird_encryption_iteration_count}" --context_param dry_run=true
-</pre>
+(dry_run: true)
+``` 
+sh UserEmailCaseChangeMigration_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_cassandra_keyspace="{sunbird_cassandra_keyspace}" --context_param sunbird_encryption_algorithm="{sunbird_encryption_algorithm}" --context_param sunbird_encryption_iteration_count="{sunbird_encryption_iteration_count}" --context_param dry_run=true
+```
 
-4. For email case-change migration, run the following command
-<pre> 
-UserEmailCaseChangeMigration_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_cassandra_keyspace="{sunbird_cassandra_keyspace}" --context_param sunbird_encryption_algorithm="{sunbird_encryption_algorithm}" --context_param sunbird_encryption_iteration_count="{sunbird_encryption_iteration_count}" --context_param dry_run=false
-</pre>
+Verify the records identified to be updated.
 
-5. On completion of dry-run/migration, following logs will be generated and the logs path will be shown
+(dry_run: false)  
+``` 
+sh UserEmailCaseChangeMigration_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_cassandra_keyspace="{sunbird_cassandra_keyspace}" --context_param sunbird_encryption_algorithm="{sunbird_encryption_algorithm}" --context_param sunbird_encryption_iteration_count="{sunbird_encryption_iteration_count}" --context_param dry_run=false
+```
+
+3. The script generates the following logs.
 
  S.No. | Log File | Description | Example 
 -------|-----------|-------------|---------
 1 | emailsWithUpperCase_timestamp.csv | Email Ids available for case-change migration | emailsWithUpperCase_1546937413175.csv
-2 | toSync.csv | User Ids to be synced(This file will be generated only in migration) | toSync.csv 
+2 | toSync.csv | User Ids to be synced (This file will be generated only in migration) | toSync.csv 
 
-6. In case of migration, UserSync job has to be run for user ids captured in toSync.csv file to sync the migrated data from cassandra to elastic search
-
-7. Dry-run of the job can be run again to verify if any user's email still has upper case characters
+4. In case of migration, Sync job has to be run for user ids captured in toSync.csv file to sync the migrated data from cassandra to elastic search.
