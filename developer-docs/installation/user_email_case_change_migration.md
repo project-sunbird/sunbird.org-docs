@@ -25,9 +25,9 @@ The following parameters needs to be passed as arguments for the email case-chan
 2 | sunbird_cassandra_port | Cassandra DB Port Number | 9042 
 3 | sunbird_cassandra_username* | Cassandra DB User Name | username 
 4 | sunbird_cassandra_password* | Cassandra DB Password | password 
-5 | sunbird_cassandra_keyspace  | Cassandra DB Keyspace Name | demodb 
-6 | sunbird_encryption_algorithm  | Encryption Algorithm to encrypt email | DES/AES/RSA 
-7 | sunbird_encryption_iteration_count  | Encryption Iteration Count to encrypt email | 5 
+5 | sunbird_cassandra_keyspace  | Cassandra DB Keyspace Name | sunbird 
+6 | sunbird_encryption_algorithm  | Encryption Algorithm to encrypt email | AES 
+7 | sunbird_encryption_iteration_count  | Encryption Iteration Count to encrypt email | 3 
 8 | dry_run  | if enabled, only report generation and not actual migration happens | true 
 
 > Note: If authentication is not required, pass `""` for parameters, username, and password

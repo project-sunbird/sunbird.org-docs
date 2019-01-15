@@ -28,7 +28,7 @@ The following parameters needs to be passed as arguments for this script.
 4 | sunbird_cassandra_password* | Cassandra DB Password | password 
 5 | sunbird_cassandra_keyspace  | Cassandra DB Keyspace Name | sunbird 
 6 | sunbird_encryption_algorithm  | Encryption Algorithm to encrypt login ID | AES 
-7 | sunbird_encryption_iteration_count  | Encryption iteration count to encrypt login ID | 5 
+7 | sunbird_encryption_iteration_count  | Encryption iteration count to encrypt login ID | 3 
 8 | dry_run  | If enabled, only report is generated and actual data migration is skipped | true 
 
 > Note: If authentication is not required, pass `""` for parameters, username, and password
