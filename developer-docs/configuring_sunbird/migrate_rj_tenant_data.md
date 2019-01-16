@@ -121,6 +121,6 @@ sh Sync_run.sh --context_param sunbird_cassandra_table="course_batch" --context_
 1. Run the following CQL command to migrate created contents from one channel to another in Neo4j. Update channel IDs as required in the below CQL command.
 
 ````
-MATCH (n:domain) WHERE n.channel ="0126741568685424647" SET n.channel = "0126741573767413761";
-MATCH (n:domain) WHERE n.createdFor = ["0126741568685424647"] SET n.createdFor = ["0126741573767413761"];
+MATCH (n:domain) WHERE n.channel ="01241408242723225614" SET n.channel = "01246375399411712074";
+MATCH (n:domain) WHERE n.createdFor = ["01241408242723225614"] SET n.createdFor = ["01246375399411712074"];
 ````
