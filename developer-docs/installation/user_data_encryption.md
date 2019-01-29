@@ -24,7 +24,7 @@ The following parameters needs to be passed as arguments for script to encrypt P
 -------|-----------|-------------|---------
 1 | user_id_csv_file_path | Path to CSV file where user IDs are stored | /home/user/userids.csv 
 2 | encryption_service_api_url | Encryption API endpoint URL | {{host}}/api/data/v1/user/encrypt
-3 | authorization | Authorization key received from administrator for using Sunbird APIs. | Bearer ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
+3 | authorization | Authorization key received from administrator for using Sunbird APIs. | ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
 4 | x_authenticated_user_token | Access token of registered user performing given API request. | ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
 
 ## Running the script
