@@ -50,6 +50,9 @@ Sample request for creating 'Open for enrollment' page section using Create Page
     }
 }
 ```
+
+**Note**: From Release 1.14.0 Sprint 2 onwards, the above mentioned custom attributes for open batch count are always in lowercase to align with content attributes naming convention. As such, the above mentioned page section needs to be updated to use open batch count attribute name converted to lowercase e.g. c_sunbird_dev_open_batch_count (instead of c_Sunbird_Dev_open_batch_count). Use [Update Page Section API](http://docs.sunbird.org/latest/apis/pagesapi/#operation/SectionUpdatePatch) to update any such existing page section.
+
 ## Example 2: Create 'Featured content' page section
 Sample request for creating 'Featured content' page section using Create Page Section API is given below. This page section fetches contents with specified content type and badge ID.
 ```
@@ -114,52 +117,4 @@ Sample request for creating 'explore-course' page using Create Page API for both
         ]
     }
 }
-```
-
-## In release-1.14 sprint 2
- There is a small change in open for enrollment page section settings. variable ```sunbird_installation``` set to open for enrollment is converted to lower case. now each system need to update it.
-
- TO update this variable get the exisitng page scetion settings. as follow:
-```
-  URL:  {{BaseURL}}/api/data/v1/page/section/read/{{sectionId}}
-  Method: Get
-  Headers: 
-   Authorization : {{api-key}}
-   x-authenticated-user-token : {{user-token}}
-   
- ## once you got response then make update page section call by changing ```sunbird_installation```  value to lower case,
- if value is already in lower case then no need to update it.
-  URL : {{host}}/api/data/v1/page/section/update
-  Method: PATCH
-  
-  {
-    "request": {
-         "id":"{{sectionId}}",
-        "name": "Open for enrollment",
-        "sectionDataType": "content",
-        "display": {
-            "name": {
-                "en": "Open for enrollment"
-            }
-        },
-        "searchQuery": {
-            "request": {
-                "filters": {
-                    "contentType": ["Course"],
-                    "status": ["Live"],
-                    "objectType": ["Content"],
-                    "c_sunbird_dev_open_batch_count": {
-                        ">": "0"
-                    }
-                },
-                "sort_by": {
-                    "me_averageRating": "desc"
-                },
-                "limit": 10
-            }
-        }
-    }
-}
-
- For more details refer : http://docs.sunbird.org/latest/apis/pagesapi/#operation/SectionUpdatePatch
 ```
