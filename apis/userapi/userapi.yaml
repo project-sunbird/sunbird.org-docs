@@ -45,7 +45,6 @@ paths:
           - The body payload comprises of the metadata of the user being created     
           - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
              - JSON 
-         
         schema:
            $ref: '#/definitions/CreateUserrequest'
       - name: Content-Type
@@ -79,12 +78,39 @@ paths:
             $ref: '#/definitions/UserErrorResponse'
       security:
       - bearer: []
-      x-unitTests: []
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
+      x-unitTests: 
+      - example1:
+          description: 'example for user create workflow'
+          body: >-
+            {
+                "request": {
+                    "firstName": "combination of firstname and lastname",
+                    "email":"valid email id",
+                    "emailVerified":true,
+                    "password":"user password",
+                    "channel":"channel value of user rootOrg",
+                    "phone":"user valid phone number without country code, either email or phone is mandatory",
+                    "phoneVerified": true,
+                    "userName":"user name inside system,it's optional, if present in request then system won't generate it.Only uniqueness validation will happen with provided userName"
+                }
+            }
+      - example2:
+          description: 'example for user create workflow in case of SSO'
+          body: >-
+            {
+                "request": {
+                    "firstName": "combination of firstname and lastname",
+                    "channel":"channel value of user rootOrg",
+                    "phone":"user valid phone number without country code, either email or phone is mandatory",
+                    "phoneVerified": true,
+                    "orgExternalId" :'identity of an organisation'
+                    "externalIds": [{
+                       "id": "user external id",
+                       "provider": "user external id provider,in case of SSO provider value is same as channel",
+                       "idType": "user external id type value,in case of SSO it is same as channel value"
+                    }]
+                }
+            }      
  /user/v2/create:
     post:
       description: >-
@@ -140,12 +166,39 @@ paths:
             $ref: '#/definitions/UserErrorResponse'
       security:
       - bearer: []
-      x-unitTests: []
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
+      x-unitTests: 
+      - example1:
+          description: 'example for user create workflow'
+          body: >-
+            {
+                "request": {
+                    "firstName": "combination of firstname and lastname",
+                    "email":"valid email id",
+                    "emailVerified":true,
+                    "password":"user password",
+                    "channel":"channel value of user rootOrg",
+                    "phone":"user valid phone number without country code, either email or phone is mandatory",
+                    "phoneVerified": true,
+                    "userName":"user name inside system,it's optional, if present in request then system won't generate it.Only uniqueness validation will happen with provided userName"
+                }
+            }
+      - example2:
+          description: 'example for user create workflow in case of SSO'
+          body: >-
+            {
+                "request": {
+                    "firstName": "combination of firstname and lastname",
+                    "channel":"channel value of user rootOrg",
+                    "phone":"user valid phone number without country code, either email or phone is mandatory",
+                    "phoneVerified": true,
+                    "orgExternalId" :'identity of an organisation'
+                    "externalIds": [{
+                       "id": "user external id",
+                       "provider": "user external id provider,in case of SSO provider value is same as channel",
+                       "idType": "user external id type value,in case of SSO it is same as channel value"
+                    }]
+                }
+            }
 
  /user/v1/search:
     post:
@@ -354,11 +407,11 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
- /user/v1/read/{User_ID}:
+ /user/v1/read/{identifier}:
     get:
       description: >-
         This API is used for searching a specific user, the user search is based on the unique ID of the user
-          - **_/v1/read/{User_ID}_** endpoint executes the "Get User by User ID" request
+          - **_/v1/read/{identifier}_** endpoint executes the "Get User by identifier" request
           - It is mandatory to provide values for required parameters
           - User can pass an optional query parameter 'fields'. The value is a comma separated list of fields whose information is required in response. e.g. fields=completeness,missingFields,topic,organisations,roles
           - 'completeness' is to return profile completeness percentage.
@@ -366,18 +419,18 @@ paths:
           - 'topic' is to return list of topics that are used for announcements.
           - 'organisations' is to return organisation and location details.
           - 'roles' is to return list of roles with name and ID details.
-      summary: Get User by User ID
+      summary: Get User by identifier
       tags:
       - User APIs
-      operationId: Get User by User ID
+      operationId: Get User by identifier
       produces:
       - application/json
       parameters:
       - in: path
-        name: User_ID
+        name: identifier
         type: string
         required: true
-        description: 'Please append a valid User Id To the Request URL and if user need any specific values like , profile completeness ,missingFields,topic Ex: ?Fields=completeness,missingFields,topic'
+        description: 'Please append a valid User Id or user external id To the Request URL and if user need any specific values like , profile completeness ,missingFields,topic,organisations,locations Ex: ?Fields=completeness,missingFields,topic . if identifier refers user external id then query param should have like this: ?provider={providerValue}&idType={idTypeValue}'
       - name: Content-Type
         in: header
         required: true
@@ -426,35 +479,30 @@ paths:
       security:
       - bearer: []
       x-unitTests:
-      - request:
+      - example1:
           method: GET
-          uri: /user/v1/read/{User_Id}
+          uri: /user/v1/read/{externalId}?provider={providerValue}&idType={idtype value}
+          description: 'get user by external id, provider and idtype'
           headers:
-            x-authenticated-user-token: '{{user_id}}'
+            x-authenticated-user-token: '{{user token}}'
             Content-Type: application/json
             ts: 2017-05-25 10:18:56:578+0530
             Authorization: Bearer {{api_key}}
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Get User by User ID
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
- /user/v2/read/{User_ID}:
+      - example2:
+          method: GET
+          uri: /user/v1/read/{userId}?fields=completeness,missingFields,organisations,locations
+          description: 'get user by user id'
+          headers:
+            x-authenticated-user-token: '{{user token}}'
+            Content-Type: application/json
+            ts: 2017-05-25 10:18:56:578+0530
+            Authorization: Bearer {{api_key}}      
+       
+ /user/v2/read/{identifier}:
     get:
       description: >-
         This API is used for searching a specific user, the user search is based on the unique ID of the user
-          - **_/v2/read/{User_ID}_** endpoint executes the "Get User by User ID v2" request
+          - **_/v2/read/{identifier}_** endpoint executes the "Get User by identifier v2" request
           - It is mandatory to provide values for required parameters
           - User can pass an optional query parameter 'fields'. The value is a comma separated list of fields whose information is required in response. e.g. fields=completeness,missingFields,topic,organisations,roles
           - 'completeness' is to return profile completeness percentage.
@@ -463,18 +511,18 @@ paths:
           - 'organisations' is to return organisation and location details.
           - 'roles' is to return list of roles with name and ID details.
           - Only necessary fields are returned in the response as per user profile configuration.
-      summary: Get User by User ID v2
+      summary: Get User by identifier v2
       tags:
       - User APIs
-      operationId: Get User by User ID v2
+      operationId: Get User by identifier v2
       produces:
       - application/json
       parameters:
       - in: path
-        name: User_ID
+        name: identifier
         type: string
         required: true
-        description: 'Please append a valid User Id To the Request URI and if user need any specific values like , profile completeness ,missingFields,topic Ex: ?Fields=completeness,missingFields,topic'
+        description: 'Please append a valid User Id or user external id To the Request URL and if user need any specific values like , profile completeness ,missingFields,topic,organisations,locations Ex: ?Fields=completeness,missingFields,topic . if identifier refers user external id then query param should have like this: ?provider={providerValue}&idType={idTypeValue}'
       - name: Content-Type
         in: header
         required: true
@@ -523,30 +571,24 @@ paths:
       security:
       - bearer: []
       x-unitTests:
-      - request:
+      - example1:
           method: GET
-          uri: /user/v1/read/{User_Id}
+          uri: /user/v1/read/{externalId}?provider={providerValue}&idType={idtype value}
+          description: 'get user by external id, provider and idtype'
           headers:
-            x-authenticated-user-token: '{{user_id}}'
+            x-authenticated-user-token: '{{user token}}'
             Content-Type: application/json
             ts: 2017-05-25 10:18:56:578+0530
             Authorization: Bearer {{api_key}}
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Get User by User ID v2
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
+      - example2:
+          method: GET
+          uri: /user/v1/read/{userId}?fields=completeness,missingFields,organisations,locations
+          description: 'get user by user id'
+          headers:
+            x-authenticated-user-token: '{{user token}}'
+            Content-Type: application/json
+            ts: 2017-05-25 10:18:56:578+0530
+            Authorization: Bearer {{api_key}}
 
  /user/v1/update:
     patch:
@@ -1454,6 +1496,67 @@ paths:
             $ref: '#/definitions/UserErrorResponse'
       security:
       - bearer: []
+ /user/v1/tnc/accept:
+    post:
+      description: >-
+       This API is used to mark user acceptance of terms and conditions.
+          - The **_/user/v1/tnc/accept_** endpoint executes the "Accept T&C Api" request based on parameters provided as metadata in the request body
+          - It is mandatory to provide values for required parameters
+      summary: Accept Terms and Conditions
+      tags:
+      - User APIs
+      operationId: AcceptTnc
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: >-
+          - The body contains metadata about user's acceptance of given version of terms and conditions
+        schema:
+          allOf:
+              - $ref: '#/definitions/AcceptTnc'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >- 
+          'Type of the request data. Set as application/json.'
+      - name: X-Authenticated-User-Token
+        in: header
+        required: true
+        type: string
+        description: >-
+          Access token of registered user performing given API request.
+      - name: ts
+        in: header
+        required: false
+        type: string
+        description: 'Timestamp at which given API request is sent.'
+      - name: X-msgid
+        in: header
+        required: false
+        type: string
+        description: 'This ID uniquely identifies a request if the same API is executed multiple times.'    
+          
+      responses:
+        '200':
+          description: 'OK. Successful operation. The requested operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/CommonSuccessResponse'
+        '400':
+          description: >-
+           CLIENT_ERROR. The requested operation failed due to bad request from client. Possible reasons for failure: 
+            - Invalid value for parameter version
+            - Mandatory parameter version is missing.
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR. The requested operation failed due to a server error. '
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+      
  /user/v1/skill/add:
     post:
       description: >-
@@ -1730,6 +1833,69 @@ paths:
             'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
             $ref: '#/definitions/UserErrorResponse'
+  
+ /user/v1/get:
+    get:
+      description: >-
+       This API will check if user associated with given keyType and keyValue exists in sunbird or not. Incase user exists then user details are returned in response. 
+       - The **_/user/v1/get/keyType/keyValue_** endpoint executes the "Get User by Key" request based on parameters provided as metadata in the request body.
+          - It is mandatory to provide values for required parameters
+      summary: Get User by Key
+      tags:
+      - User APIs
+      operationId: GetUserByKey
+      produces:
+      - application/json
+      parameters:
+       - name: Content-Type
+         in: header
+         required: true
+         type: string
+         description: >- 
+          'Type of the request data. Set as application/json.'
+       - name: ts
+         in: header
+         required: false
+         type: string
+         description: 'Timestamp at which given API request is sent.'
+       - name: X-msgid
+         in: header
+         required: false
+         type: string
+         description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
+        
+       - name: keyType
+         in : path 
+         required: true
+         type: string
+         description: 'Type of key for user lookup. Supported key type values are email, phone and loginId.'
+       - name: keyValue
+         in: path 
+         required: true
+         type: string
+         description: 'User key value corresponding to specified type for lookup. Value is either email address, 10 digit phone number or login ID based on specified type.'
+      responses:
+        '200':
+          description: 'OK. Successful operation. The requested operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/GetUserResponse'
+        '400':
+          description: >-
+           CLIENT_ERROR. The requested operation failed due to bad request from client. Possible reasons for failure: 
+            - Format Error
+            
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+        '404':
+          description: >-
+           RESOUCE NOT FOUND. The requested operation failed due to resourse not found ! The possible reason for failure:
+           
+           - User not found
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. The requested operation failed due to a server error. '
+          schema:
+            $ref: '#/definitions/UserErrorResponse'          
             
 definitions:
   CreateUserrequest:
@@ -1762,7 +1928,20 @@ definitions:
        type: object
        allOf:
          - $ref: '#/definitions/UserReqV2'
-
+  AcceptTnc:
+    title: Request body for accept Terms and Conditions API.
+    type: object
+    allOf:
+       - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
+    properties:
+     request:
+       type: object
+       properties:
+        version:
+            description: Version of Terms and Conditions
+            type: string
+    required:
+    - version
   RolesResponse:
    description: Represents the hold roles response
    type: array
@@ -1816,7 +1995,8 @@ definitions:
    properties:
      skills:
       type: object
-      $ref: '#/definitions/Skills' 
+      allOf:
+       - $ref: '#/definitions/Skills' 
      
      
   Skills:
@@ -1883,11 +2063,18 @@ definitions:
           location:
             type: string
             description: 'Represents the current location of the  user'
+          userType:
+            type: string
+            description: 'user type value can be either TEACHER or OTHER'
+          orgExternalId:
+            type: string
+            description: 'organisation externalId,user will be associated with this organisation.Provided org externalId should belongs to same user rootOrg'
           education:
             type: array
             items:
              type : object
-             $ref: "#/definitions/Education"
+             allOf:
+              - $ref: "#/definitions/Education"
           profileVisibility:
             type: object
             description: 'Represents the profile visibility, it is a map having key as any user attribute and the value can be public or private'
@@ -1895,13 +2082,15 @@ definitions:
             type: array
             items:
               type: object
-              $ref: "#/definitions/Address"
+              allOf:
+                - $ref: "#/definitions/Address"
             description: 'Represents the address, it contains list of address object'
           jobProfile:
             type: array
             items:
               type: object
-              $ref: "#/definitions/JobProfile"
+              allOf:
+               - $ref: "#/definitions/JobProfile"
           webPages:
             type: object
             properties:
@@ -2137,6 +2326,12 @@ definitions:
             example: '2001-02-27'
           grade:
             type: string
+          userType:
+            type: string
+            description: 'Represent type of user in system,supported values TEACHER OR OTHER'
+          orgExternalId:
+            type: string
+            description: 'external identity of an organisation,provided org externalId should be part of user root org'
           location:
             type: string
             description: 'Represents the current location of the  user'
@@ -2173,9 +2368,10 @@ definitions:
       - firstName
       - password 
       - email
-      - userName
       - phone
       - channel
+      - phoneVerified
+      - emailVerified
     
   User:
     type: object
@@ -2634,6 +2830,11 @@ definitions:
       organisationId:
         description: 'The unique ID of the organisation'
         type: string
+      externalId:
+        description: 'external id of organisation'
+        type: string
+      provider:
+        description: 'provider is same as channle, so either you pass organisationId or you externalId and provider'
       roles:
         description:
           The role assigned to a user. The role is directly replaced with saved roles, if any. Ensure that the request has a list of all the user roles. To remove all roles assigned to a user, pass an empty array
@@ -2821,3 +3022,14 @@ definitions:
     - gradeLevel
     - medium
     - board
+  CommonSuccessResponse:
+   title: Success Response
+   type: object
+   allOf: 
+    - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+   properties:
+    result: 
+      type: object
+      properties:
+        response:
+          type: string
