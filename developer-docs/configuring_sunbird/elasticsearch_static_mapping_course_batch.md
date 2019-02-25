@@ -355,7 +355,7 @@ curl -X POST \
 Verify that the sync has happened successfully to the new index by using Learner Service List Course Batches API. The counts in Step 2 and Step 4 should match. 
 ```
 curl -X POST \
-  {{lms-base-url}}/api/course/v1/coursebatch/list \
+  {{lms-base-url}}/api/course/v1/batch/list \
   -H 'accept: application/json' \
   -H 'authorization: Bearer {{api-key}}' \
   -H 'content-type: application/json' \
