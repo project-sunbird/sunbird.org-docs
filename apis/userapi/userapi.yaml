@@ -1896,6 +1896,83 @@ paths:
             'INTERNAL SERVER ERROR. The requested operation failed due to a server error. '
           schema:
             $ref: '#/definitions/UserErrorResponse'          
+ /user/v1/type/list:
+    get:
+      description:  >-
+       This API is used to list the user types
+          - The **_/v1/type/list_** endpoint executes the "Get user type information" request based on parameters provided as metadata in the request body
+          - It is mandatory to provide values for required parameters
+      summary: Get User Type Information
+      tags: 
+      - User APIs
+      operationId: V1TypeReadGet
+      produces:
+      - application/json
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+           The Content Type entity is the media type of the resource
+            Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+      - name: ts
+        in: header
+        required: true
+        type: string
+        description: >-
+          Timestamp is a sequence of characters or encoded information identifying when the read user role API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second
+      - name: X-msgid
+        in: header
+        required: true
+        type: string
+        description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      - name: x-authenticated-user-token
+        in: header
+        required: true
+        type: string
+        description: >- 
+          It a unique token/key to authenticate the user each time an API is called. For corresponsing sessions, this token is exchanged, not the username/password of the user
+      responses:
+        '200':
+          description: 'OK ! Successful operation."Get user type" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/TypeResponse'
+        '400':
+          description: 'BAD REQUEST. The "Get user type" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+        '404':
+          description: 'Resource not found'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'    
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+      security:
+      - bearer: []
+      x-unitTests:
+      - request:
+          method: GET
+          uri: /v1/type/list
+          headers:
+            Content-Type: application/json
+            X-Consumer-ID: X-Consumer-ID
+            ts: 2017-05-25 10:18:56:578+0530
+            X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
+            Authorization: Bearer {{api-key}}
+            x-authenticated-user-token: '{{user-token}}'
+  
             
 definitions:
   CreateUserrequest:
@@ -1920,6 +1997,27 @@ definitions:
        allOf:
          - $ref: '#/definitions/UserReq'
 
+  TypeResponse:
+   description: Represents the hold roles response
+   type: array
+   items:
+    type: object
+    properties:
+     response:
+       type: string
+       allOf:
+        - $ref: '#/definitions/Type'
+  
+  Type:
+    description: Represents the request body for role
+    type: array
+    items:
+     type: object
+     properties:
+          name:
+            type: string
+          id:
+            type: string
   CreateUserSingleRespV2:
    description: Represents the  hold single userObject request
    type: object
