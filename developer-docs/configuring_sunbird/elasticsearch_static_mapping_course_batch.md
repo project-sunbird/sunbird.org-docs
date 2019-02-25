@@ -17,7 +17,7 @@ Update course batch mapping using below curl command.
 
 ```
 curl -X PUT \
-  http://{{es-host}}:9200/searchindex/batch/_mapping \
+  http://{{es-host}}:9200/searchindex/coursebatch/_mapping \
   -H 'content-type: application/json' \
   -d '{
   "dynamic": false,
@@ -355,7 +355,7 @@ curl -X POST \
 Verify that the sync has happened successfully to the new index by using Learner Service List Course Batches API. The counts in Step 2 and Step 4 should match. 
 ```
 curl -X POST \
-  {{lms-base-url}}/api/course/v1/batch/list \
+  {{lms-base-url}}/api/course/v1/coursebatch/list \
   -H 'accept: application/json' \
   -H 'authorization: Bearer {{api-key}}' \
   -H 'content-type: application/json' \
