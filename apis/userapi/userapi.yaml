@@ -1917,8 +1917,6 @@ paths:
            The Content Type entity is the media type of the resource
             Possible media types can be:- 
               - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
       - name: ts
         in: header
         required: true
@@ -1945,7 +1943,7 @@ paths:
         '200':
           description: 'OK ! Successful operation."Get user type" operation was successfully executed.'
           schema:
-            $ref: '#/definitions/TypeResponse'
+            $ref: '#/definitions/userTypeResponse'
         '400':
           description: 'BAD REQUEST. The "Get user type" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
           schema:
@@ -1998,18 +1996,23 @@ definitions:
          - $ref: '#/definitions/UserReq'
 
   TypeResponse:
-   description: Represents the hold roles response
-   type: array
-   items:
+    description: Represents the hold user types
     type: object
     properties:
      response:
-       type: string
-       allOf:
-        - $ref: '#/definitions/Type'
+       type: object
+       $ref: '#/definitions/Type'
+  
+  userTypeResponse:
+    description: user type result
+    type: object
+    properties:
+     result:
+       type: object 
+       $ref: '#/definitions/TypeResponse'
   
   Type:
-    description: Represents the request body for role
+    description: Represents the request body for user types
     type: array
     items:
      type: object
