@@ -9,8 +9,8 @@ published: true
 
 ## Overview
 
-In Sunbird, all write operations (transfer from data from CPU to a Memory Unit), are done in Cassandra and read operations (reading data from Memory Unit) are done through Elasticsearch. After write operations are completed in Cassandra, the data is written asynchronously into Elasticsearch.
-On running a  Cassandra migration all organisation data such as Organization External ID, Organization is affected. This document describes the script that can be run to sync organisation's data from Cassandra to Elasticsearch.
+In Sunbird, all transfers of data from CPU to a Memory Unit (all write operations) are done in Cassandra and all read operations (reading data from a Memory Unit) are done through Elasticsearch. Currently, after write operations are completed in Cassandra, the data is written asynchronously into Elasticsearch.
+On running a  Cassandra migration all organisation data such as Organization External ID, Organization are affected. This document describes the script that can be run to sync organisation's data from Cassandra to Elasticsearch.
 
 ## Prerequisites
 
@@ -40,9 +40,9 @@ Pass the following parameters as arguments for the organisation sync job:
 
 To sync organisation data from Cassandra to Elasticsearch:
 
-1. Extract the archive file (sunbird-utils/cassandra-migration-etl/r1.13/OrgSyncBin.zip) that contains the script to sync the organisation's data.
+1. Extract the archive file (sunbird-utils/cassandra-migration-etl/r1.13/OrgSyncBin.zip) that contains the script to sync the organisation's data
 
-2. Run the following command to sync all organisation's data.
+2. Run the following command to sync all organisation's data
 
 ````
 OrgSync_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_sync_api_endpoint="{sunbird_sync_api_endpoint}" --context_param sunbird_sync_api_key="{sunbird_sync_api_key}" --context_param sunbird_sync_block_size="{sunbird_sync_block_size}" --context_param sunbird_sync_sleep_time="{sunbird_sync_sleep_time}"
