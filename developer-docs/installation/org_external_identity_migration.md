@@ -7,7 +7,7 @@ allowSearch: true
 ---
 
 ## Overview
-Sunbird, from its release version 1.13 onwards, captures the external id details of the organisations in a separate table(org_external_identity) in cassandra database. External Id details of organisations created before this release(which are captured in organisation table) has to populated in this new table to ensure data consistency. This migration job will take care of that activity.
+Sunbird, from its release version 1.13 onwards captures the external ID details of organisations in a separate table(org_external_identity) in cassandra database. Running the migration script moves the external ID details of organisations created before this release(which were captured in organisation table) to the new table to ensure data consistency. 
 
 ## Prerequisites
 
@@ -40,9 +40,8 @@ To migrate external identity value for the organisations:
 <pre> 
 OrgExternalIdentityMigration_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_cassandra_keyspace="{sunbird_cassandra_keyspace}" --context_param sunbird_org_externalid_migration_log_file="{sunbird_org_externalid_migration_log_file}"
 </pre>
-3. On successful migration, the log is available in the configured file {sunbird_org_externalid_migration_log_file}
 
-4. To cross-check whether all external ids has been populated to the org_external_identity table, the following queries can be used
+On successful migration, the log is available in the configured file {sunbird_org_externalid_migration_log_file}. To cross-check whether all external ids has been populated to the org_external_identity table, the following queries can be used
 
  - Query to fetch number of organisations with external id
      ```select count(externalid) from organisation;```
