@@ -7,7 +7,7 @@ allowSearch: true
 ---
 
 ## Overview
-Sunbird, from its release version 1.13 onwards, captures the channel details of the tenant organization for all sub-organisations, in the channel column of organisation table in cassandra database. Sub-organisations created prior to this release version will not have channel values, and thus to ensure data consistency, this migration has to be done to set the channel value for all the existing sub-organisations based on their root organisation ID.
+Sunbird, from its release version 1.13 captures the channel details of the tenant organization for all sub-organisations. This data is captured in the channel column of the organisation table in cassandra database. Sub-organisations created prior to this release version will not have channel values. Thus to ensure data consistency this migration has to be done to set the channel value for all the existing sub-organisations based on their root organisation ID.
 
 ## Prerequisites
 
@@ -17,7 +17,7 @@ To run the migration script, ensure you have:
 2. A backup of sunbird keyspace in Cassandra DB.
 
 ## Configuration Parameters
-The following parameters needs to be passed as arguments for the channel value migration job
+The following parameters must be passed as arguments for the channel value migration job
 
  S.No. | Parameter | Description | Example 
 -------|-----------|-------------|---------
@@ -40,9 +40,8 @@ To migrate channel value for the organisations:
 <pre> 
 OrgMigrationUpdateChannel_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_cassandra_keyspace="{sunbird_cassandra_keyspace}" --context_param sunbird_org_channel_migration_log_file="{sunbird_org_channel_migration_log_file}"
 </pre>
-3. On successful migration, the log is available in the configured file {sunbird_org_channel_migration_log_file}
 
-4. To cross-check whether all organisations have channel value, the following queries can be used
+On successful migration, the log is available in the configured file {sunbird_org_channel_migration_log_file}. To cross-check whether all organisations have channel value, the following queries can be used
 
  - Query to fetch number of organisations
      ```select count(*) from organisation;```
