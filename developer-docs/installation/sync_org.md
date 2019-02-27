@@ -9,12 +9,12 @@ published: true
 
 ## Overview
 
-In Sunbird, all write operations are done in Cassandra and read operations are done from Elasticsearch. After write operations are completed in Cassandra, the data is written asynchronously into Elasticsearch as well.
-In case of Cassandra migration that affects all organisation's data (e.g. OrgExternalIdentityMigration, OrgChannelMigration, etc.), this job is used to sync all organisation's data from Cassandra to Elasticsearch.
+In Sunbird, all write operations (transfer from data from CPU to a Memory Unit), are done in Cassandra and read operations (reading data from Memory Unit) are done through Elasticsearch. After write operations are completed in Cassandra, the data is written asynchronously into Elasticsearch.
+On running a  Cassandra migration all organisation data such as Organization External ID, Organization is affected. This document describes the script that can be run to sync organisation's data from Cassandra to Elasticsearch.
 
 ## Prerequisites
 
-To sync organisation data, you need:
+To sync organisation data, ensure you have:
 
 1. Access to Cassandra database
 2. API Key to access the Sync API
@@ -47,4 +47,4 @@ To sync organisation data from Cassandra to Elasticsearch:
 ````
 OrgSync_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_sync_api_endpoint="{sunbird_sync_api_endpoint}" --context_param sunbird_sync_api_key="{sunbird_sync_api_key}" --context_param sunbird_sync_block_size="{sunbird_sync_block_size}" --context_param sunbird_sync_sleep_time="{sunbird_sync_sleep_time}"
 ````
-3. On completion, refer to the success and failure logs that are generated 
+On completion refer to the success and failure logs that are generated 
