@@ -17,7 +17,7 @@ Update course batch mapping using below curl command.
 
 ```
 curl -X PUT \
-  http://{{es-host}}:9200/searchindex/coursebatch/_mapping \
+  http://{{es-host}}:9200/searchindex/cbatch/_mapping \
   -H 'content-type: application/json' \
   -d '{
   "dynamic": false,
