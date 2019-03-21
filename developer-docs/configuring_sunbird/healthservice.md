@@ -12,7 +12,7 @@ Every service will have two health check end points.
 All other api will get 503 HTTP ERROR CODE. This behaviour can be turn ON/OFF using environment variable "sunbird_health_check_enable" (possible value are TRUE , FALSE).
 This api will be always called based on some time interval, on each call only global variable value will be reset. On failure of this api no need to restart docker container. Value will be reset only on next call for {service-url}/health , so make sure this api call will always happen with some time interval. 
 
-#2 {service-url}/service/health : This api will do health cehck of particular service only. Example if that service is not running then it will restart docker container.
+#2 {service-url}/service/health : This api will do health cehck of particular service only.If service is not running then caller should restart docker container.
 
 
 ## Prerequisites
