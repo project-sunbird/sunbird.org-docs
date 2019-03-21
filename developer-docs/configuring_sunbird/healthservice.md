@@ -1,30 +1,33 @@
 ---
-title: Configuration for health check api 
-page_title: Configuration for health api
-description: How to configure health check 
+title: Health Check API Configuration 
+page_title: Health Check API Configuration
+description: Health Check API Configuration
 published: true
 allowsearch: true
-keywords: health service,health api
+keywords: Health Check
 ---
 ## Overview
-Every service will have two health check end points. 
-#1 {service-url}/health : This api will do complete health check. So it will do health check of all dependent component and if any one component is not working as expected then it will set a global falg as false and after that it won't allow any other api to process further.
-All other api will get 503 HTTP ERROR CODE. This behaviour can be turn ON/OFF using environment variable "sunbird_health_check_enable" (possible value are TRUE , FALSE).
-This api will be always called based on some time interval, on each call only global variable value will be reset. On failure of this api no need to restart docker container. Value will be reset only on next call for {service-url}/health , so make sure this api call will always happen with some time interval. 
+A service can have two health check end points.
 
-#2 {service-url}/service/health : This api will do health cehck of particular service only.If service is not running then caller should restart docker container.
+#1 {service-url}/health : This API shall perform complete health check. This includes health check of all dependent components. 
 
+If any component is NOT working as expected then it will set overall health status (flag) as false and which would prevent other service APIs to return service unavailable (503) HTTP error. This behaviour can be enabled or disabled using environment variable "sunbird_health_check_enable" (possible value are true , false).
+
+This API needs to be called periodically so that the service is able to update the overall health status regularly. There is no need to restart the service container if its overall status is not healthy.
+
+#2 {service-url}/service/health : This API shall return health status of the service only (excluding any dependent components status). If this API does not return success then the service container should be restarted.
 
 ## Prerequisites
-Devops script required to run both api end point.
+Devops script required to run both API end points.
 
 ## Example: 
 
 ```
   Method: GET
-  URL: http://serverip:port/health 
-  Sceond api:
-  Method: GET
-  URL : http://serverIp:port/service/health 
+  URL: http://service-url:port/health 
 ```
 
+```
+  Method: GET
+  URL : http://service-url:port/service/health 
+```
