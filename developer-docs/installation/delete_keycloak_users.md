@@ -7,19 +7,20 @@ allowSearch: true
 ---
 
 ## Overview
-In Keycloak, earlier the users data were stored in plain format and was vulnerable, With new changes Keycloak would point to sunbird to get user details. Users stored in Keycloak are obsolete and hence needs to be deleted. This migration scripts loads all the user from cassandra, and make a delete user call to keycloak one after another skipping the admin users.
+In Keycloak, earlier the users data is stored in plain format and is vulnerable for misuse. From release 1.15.0 onwards, Keycloak is customised to use user details from Sunbird learner service. As such, users stored in Keycloak are obsolete and hence need to be deleted. This migration scripts loads all the users from Cassandra, and invokes Keycloak Delete User API call for each user by skipping specified admin users.
 
 ## Prerequisites
 
 To run the migration script, ensure you have:
 
-1. Access to cassandra database
-2. A csv file with all the admin user Ids (without any headers).
-3. Access to Keycloak admin user details. It can be achieved by running below query in keycloak postgres db, create a csv by copying all user Id, Please note that in case "Download ad csv" option is used, you should remove the double quotes from all userIds.
+1. Take a backup of PostgreSQL DB used by Keycloak
+2. Access to Cassandra DB
+3. A CSV file with all the admin user IDs (without any headers)
+To get list of admin user IDs, run below query in Keycloak PostgreSQL DB. Create a CSV by copying all user ID (without double quotes).
 
-	SELECT urm.user_id FROM keycloak_role kr, user_role_mapping urm WHERE kr.id=urm.role_id and kr.name='admin';
+SELECT DISTINCT urm.user_id FROM keycloak_role kr, user_role_mapping urm WHERE kr.id=urm.role_id and kr.name='admin';
 
-4. Please refer the [Documentation](https://project-sunbird.atlassian.net/wiki/spaces/SBDES/pages/1021673496/Keycloak+User+Storage+Federation+Deployment+steps) which requires to run sql queries before running this script.
+4. Ensure [Deployment Steps for Keycloak User Federation](https://project-sunbird.atlassian.net/wiki/spaces/SBDES/pages/1021673496/Deployment+Steps+for+Keycloak+User+Federation) are performed before running this script.
 
 ## Configuration Parameters
 The following parameters needs to be passed as arguments for the delete keycloak user migration job
@@ -37,8 +38,7 @@ The following parameters needs to be passed as arguments for the delete keycloak
 9 | sunbird_keycloak_client_id  | Keycloak client id | admin-cli
 10 | sunbird_keycloak_realms  | Keycloak realms | master
 11 | sunbird_admin_user_ids  | path to the admin user id csv | /home/user/adminUserIds.csv
-12 | dry_run  | if enabled, only report generation and not actual migration happens | true
- 
+12 | dry_run  | if enabled, only report generation and not actual migration happens | true 
 
 > Note: If authentication is not required, pass `""` for parameters, username, and password
 
