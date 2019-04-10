@@ -30,7 +30,7 @@ On Sunbird, once a course is created, the course administrator can add users to 
     <th style="width:65%;">Screen</th>
   </tr>
   <tr>
-    <td>1. Click <b>Search</b> icon or <b>Filter</b> icon,  to search or filter courses. Filter courses by: <br>&emsp;a) Curriculum br>&emsp;b) Medium <br>&emsp;c) Subjects  <br>2.You can also search for courses  in <b>Latest Courses</b> or <b>Popular Courses</b> section <br>3. Select any course <br>5. To search more courses in Latest or Popular Courses section, click left/right arrow icon <br>6. You can also select a course based on its rating 
+    <td>1. Click <b>Search</b> icon or <b>Filter</b> icon,  to search or filter courses. Filter courses by: <br>&emsp;a) Curriculum <br>&emsp;b) Medium <br>&emsp;c) Subjects  <br>2.You can also search for courses  in <b>Latest Courses</b> or <b>Popular Courses</b> section <br>3. Select any course <br>5. To search more courses in Latest or Popular Courses section, click left/right arrow icon <br>6. You can also select a course based on its rating 
          </td>
       <td><img src="features-documentation/images/batches_courses.png"></td>
   </tr>
