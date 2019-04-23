@@ -1,7 +1,7 @@
 ---
-title: Script to delete users stored in Keycloak
-page_title: Script to delete users stored in Keycloak
-description: Script to delete users stored in Keycloak
+title: Deleting Users from Keycloak
+page_title: Deleting Users from Keycloak
+description: Deleting Users from Keycloak
 published: true
 allowSearch: true
 ---
@@ -14,12 +14,8 @@ In Keycloak, earlier the users data were stored in plain format and was vulnerab
 To run the migration script, ensure you have:
 
 1. Access to cassandra database
-2. A csv file with all the admin user Ids (without any headers).
-3. Access to Keycloak admin user details. It can be achieved by running below query in keycloak postgres db, create a csv by copying all user Id, Please note that in case "Download ad csv" option is used, you should remove the double quotes from all userIds.
-
-	SELECT urm.user_id FROM keycloak_role kr, user_role_mapping urm WHERE kr.id=urm.role_id and kr.name='admin';
-
-4. Please refer the [Documentation](https://project-sunbird.atlassian.net/wiki/spaces/SBDES/pages/1021673496/Keycloak+User+Storage+Federation+Deployment+steps) which requires to run sql queries before running this script.
+2. Access to postgres db.
+3. Please refer the [Documentation](https://project-sunbird.atlassian.net/wiki/spaces/SBDES/pages/1021673496/Keycloak+User+Storage+Federation+Deployment+steps) which requires to run sql queries before running this script.
 
 ## Configuration Parameters
 The following parameters needs to be passed as arguments for the delete keycloak user migration job
@@ -36,8 +32,13 @@ The following parameters needs to be passed as arguments for the delete keycloak
 8 | sunbird_keycloak_base_url  | Keycloak base url | http://localhost:8080/auth
 9 | sunbird_keycloak_client_id  | Keycloak client id | admin-cli
 10 | sunbird_keycloak_realms  | Keycloak realms | master
-11 | sunbird_admin_user_ids  | path to the admin user id csv | /home/user/adminUserIds.csv
-12 | dry_run  | if enabled, only report generation and not actual migration happens | true
+11 | sunbird_postgres_server | Cassandra DB IP Address| 198.168.1.1
+12 | sunbird_postgres_port | Cassandra DB Port Number | 5432 
+13 | sunbird_postgres_username* | Cassandra DB User Name | username 
+14 | sunbird_postgres_password* | Cassandra DB Password | password 
+15 | sunbird_postgres_schema  | Cassandra DB Keyspace Name | public 
+16 | sunbird_postgres_database  | Cassandra DB Keyspace Name | keycloak
+17 | dry_run  | if enabled, only report generation and not actual migration happens | true
  
 
 > Note: If authentication is not required, pass `""` for parameters, username, and password
@@ -50,14 +51,14 @@ The following parameters needs to be passed as arguments for the delete keycloak
 
 (dry_run: true)
 ``` 
-sh DeleteKeycloakUser_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_cassandra_keyspace="{sunbird_cassandra_keyspace}" --context_param sunbird_keycloak_admin_username="{keycloak_admin_username}" --context_param sunbird_keycloak_admin_password="{keycloak_admin_password}" --context_param sunbird_keycloak_base_url="{keycloak_base_url}" --context_param sunbird_keycloak_client_id="{keycloak_client_id}" --context_param sunbird_keycloak_realms="{keycloak_realms}" --context_param sunbird_admin_user_ids="{admin_userIds_path}" --context_param dry_run=true
+sh DeleteKeycloakUser_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_cassandra_keyspace="{sunbird_cassandra_keyspace}" --context_param sunbird_keycloak_admin_username="{keycloak_admin_username}" --context_param sunbird_keycloak_admin_password="{keycloak_admin_password}" --context_param sunbird_keycloak_base_url="{keycloak_base_url}" --context_param sunbird_keycloak_client_id="{keycloak_client_id}" --context_param sunbird_keycloak_realms="{keycloak_realms}" --context_param sunbird_postgres_server="{sunbird_postgres_server}" --context_param sunbird_postgres_port="{sunbird_postgres_port}" --context_param sunbird_postgres_username="{sunbird_postgres_username}" --context_param sunbird_postgres_password="{sunbird_postgres_password}" --context_param sunbird_postgres_schema="{sunbird_postgres_schema}" --context_param sunbird_postgres_database="{sunbird_postgres_database}" --context_param dry_run=true
 ```
 
 Verify the records identified to be updated.
 
 (dry_run: false)  
 ``` 
-sh DeleteKeycloakUser_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_cassandra_keyspace="{sunbird_cassandra_keyspace}" --context_param sunbird_keycloak_admin_username="{keycloak_admin_username}" --context_param sunbird_keycloak_admin_password="{keycloak_admin_password}" --context_param sunbird_keycloak_base_url="{keycloak_base_url}" --context_param sunbird_keycloak_client_id="{keycloak_client_id}" --context_param sunbird_keycloak_realms="{keycloak_realms}" --context_param sunbird_admin_user_ids="{admin_userIds_path}" --context_param dry_run=false
+sh DeleteKeycloakUser_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_cassandra_keyspace="{sunbird_cassandra_keyspace}" --context_param sunbird_keycloak_admin_username="{keycloak_admin_username}" --context_param sunbird_keycloak_admin_password="{keycloak_admin_password}" --context_param sunbird_keycloak_base_url="{keycloak_base_url}" --context_param sunbird_keycloak_client_id="{keycloak_client_id}" --context_param sunbird_keycloak_realms="{keycloak_realms}" --context_param sunbird_postgres_server="{sunbird_postgres_server}" --context_param sunbird_postgres_port="{sunbird_postgres_port}" --context_param sunbird_postgres_username="{sunbird_postgres_username}" --context_param sunbird_postgres_password="{sunbird_postgres_password}" --context_param sunbird_postgres_schema="{sunbird_postgres_schema}" --context_param sunbird_postgres_database="{sunbird_postgres_database}" --context_param dry_run=false
 ```
 
 3. The script generates the following logs.
