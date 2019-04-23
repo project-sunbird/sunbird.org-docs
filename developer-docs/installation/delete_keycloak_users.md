@@ -33,12 +33,12 @@ The following parameters needs to be passed as arguments for the delete keycloak
 8 | sunbird_keycloak_base_url  | Keycloak base url | http://localhost:8080/auth
 9 | sunbird_keycloak_client_id  | Keycloak client id | admin-cli
 10 | sunbird_keycloak_realms  | Keycloak realms | master
-11 | sunbird_postgres_server | Cassandra DB IP Address| 198.168.1.1
-12 | sunbird_postgres_port | Cassandra DB Port Number | 5432 
-13 | sunbird_postgres_username* | Cassandra DB User Name | username 
-14 | sunbird_postgres_password* | Cassandra DB Password | password 
-15 | sunbird_postgres_schema  | Cassandra DB Keyspace Name | public 
-16 | sunbird_postgres_database  | Cassandra DB Keyspace Name | keycloak
+11 | sunbird_postgres_server | postgres DB IP Address| 198.168.1.1
+12 | sunbird_postgres_port | postgres DB Port Number | 5432 
+13 | sunbird_postgres_username* | postgres DB User Name | username 
+14 | sunbird_postgres_password* | postgres DB Password | password 
+15 | sunbird_postgres_schema  | postgres DB Keyspace Name | public 
+16 | sunbird_postgres_database  | postgres DB Keyspace Name | keycloak
 17 | dry_run  | if enabled, only report generation and not actual migration happens | true
 
 > Note: If authentication is not required, pass `""` for parameters, username, and password
