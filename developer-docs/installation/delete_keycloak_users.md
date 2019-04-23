@@ -7,15 +7,20 @@ allowSearch: true
 ---
 
 ## Overview
-In Keycloak, earlier the users data were stored in plain format and was vulnerable, With new changes Keycloak would point to sunbird to get user details. Users stored in Keycloak are obsolete and hence needs to be deleted. This migration scripts loads all the user from cassandra, and make a delete user call to keycloak one after another skipping the admin users.
+In Keycloak, earlier the users data is stored in plain format and is vulnerable for misuse. From release 1.15.0 onwards, Keycloak is customised to use user details from Sunbird learner service. As such, users stored in Keycloak are obsolete and hence need to be deleted. This migration scripts loads all the users from Cassandra, and invokes Keycloak Delete User API call for each user by skipping specified admin users.
 
 ## Prerequisites
 
 To run the migration script, ensure you have:
 
-1. Access to cassandra database
-2. Access to postgres db.
-3. Please refer the [Documentation](https://project-sunbird.atlassian.net/wiki/spaces/SBDES/pages/1021673496/Keycloak+User+Storage+Federation+Deployment+steps) which requires to run sql queries before running this script.
+1. Take a backup of PostgreSQL DB used by Keycloak
+2. Access to Cassandra DB
+3. A CSV file with all the admin user IDs (without any headers)
+To get list of admin user IDs, run below query in Keycloak PostgreSQL DB. Create a CSV by copying all user ID (without double quotes).
+
+SELECT DISTINCT urm.user_id FROM keycloak_role kr, user_role_mapping urm WHERE kr.id=urm.role_id and kr.name='admin';
+
+4. Ensure [Deployment Steps for Keycloak User Federation](https://project-sunbird.atlassian.net/wiki/spaces/SBDES/pages/1021673496/Deployment+Steps+for+Keycloak+User+Federation) are performed before running this script.
 
 ## Configuration Parameters
 The following parameters needs to be passed as arguments for the delete keycloak user migration job
@@ -39,7 +44,6 @@ The following parameters needs to be passed as arguments for the delete keycloak
 15 | sunbird_postgres_schema  | Cassandra DB Keyspace Name | public 
 16 | sunbird_postgres_database  | Cassandra DB Keyspace Name | keycloak
 17 | dry_run  | if enabled, only report generation and not actual migration happens | true
- 
 
 > Note: If authentication is not required, pass `""` for parameters, username, and password
 
@@ -68,3 +72,5 @@ sh DeleteKeycloakUser_run.sh --context_param sunbird_cassandra_server="{sunbird_
 1 | KeycloakDeleteUserSuccess_timestamp.csv | User Ids which were successfully deleted (This file will be generated only in migration) | KeycloakDeleteUserSuccess_1554113623396.csv
 2 | KeycloakDeleteUserFailue_timestamp.csv | User Ids for which deletion failed (This file will be generated only in migration) | KeycloakDeleteUserFailue_1554113623396.csv 
 3 | KeycloakUserNotFound.csv | UserIds which were not found in keycloak | KeycloakUserNotFound.csv
+
+> Note: Please note that the limit for user delete is set to 20000, Hence this etl job needs to run multiple time.
