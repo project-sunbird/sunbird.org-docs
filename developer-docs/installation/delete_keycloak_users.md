@@ -15,11 +15,7 @@ To run the migration script, ensure you have:
 
 1. Take a backup of PostgreSQL DB used by Keycloak
 2. Access to Cassandra DB
-3. A CSV file with all the admin user IDs (without any headers)
-To get list of admin user IDs, run below query in Keycloak PostgreSQL DB. Create a CSV by copying all user ID (without double quotes).
-
-SELECT DISTINCT urm.user_id FROM keycloak_role kr, user_role_mapping urm WHERE kr.id=urm.role_id and kr.name='admin';
-
+3. Access to postgres DB
 4. Ensure [Deployment Steps for Keycloak User Federation](https://project-sunbird.atlassian.net/wiki/spaces/SBDES/pages/1021673496/Deployment+Steps+for+Keycloak+User+Federation) are performed before running this script.
 
 ## Configuration Parameters
