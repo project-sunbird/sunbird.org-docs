@@ -46,10 +46,13 @@ Every API method has an associated event. The following API methods log details 
 * [End](developer-docs/telemetry/eventdetails/#end) - This method is used to capture closure after all the activities are completed
 
 ## V3.1 Event enhacement
-* [Assess ](developer-docs/telemetry/eventdetails/#access)- 
+* [Assess ](developer-docs/telemetry/eventdetails/#access)
   1. New field 'type'(edata.item.type) is added to edata.item object to indentify the type question
   2. Enhancement of 'resvalues' object to enrich object strucutre for all question types
-
+ 
+  Design discussion wiki page: 
+  https://project-sunbird.atlassian.net/wiki/spaces/SBDES/pages/1005715463/Design+-+Telemetry+ASSESS+Event+proposed+structural+change
+  
 ### Start
 
 This API is used to log telemetry when users view content or initiate game play 
