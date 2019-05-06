@@ -47,8 +47,8 @@ Every API method has an associated event. The following API methods log details 
 
 ## V3.1 Event enhacement
 * [Assess ](developer-docs/telemetry/eventdetails/#access)
-  1. New field 'type'(edata.item.type) is added to edata.item object to indentify the type question
-  2. Enhancement of 'resvalues' object to enrich object strucutre for all question types
+  1. New field 'type'(edata.item.type) is added to 'edata.item object' to indentify the type of question
+  2. Enhancement of 'resvalues' object to enrich object structure for all question types
  
   Design discussion wiki page: 
   https://project-sunbird.atlassian.net/wiki/spaces/SBDES/pages/1005715463/Design+-+Telemetry+ASSESS+Event+proposed+structural+change
@@ -153,7 +153,7 @@ data - Object //Required
 
 QUESTION = {
   "id": "", // unique assessment question id. its an required property.
-  "type": "", // uniques assessment question type. ex: mcq, ftb, mtf, sequence, reorder, vsa, sa etc..
+  "type": "", // unique assessment question type. ex: mcq, ftb, mtf, sequence, reorder, vsa, sa etc..
   "maxscore", // user defined score to this assessment/question.
   "exlength": , // expected time (decimal number) in seconds that ideally child should take
   "params": [ // Array of parameter tuples
