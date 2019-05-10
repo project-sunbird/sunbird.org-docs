@@ -19,7 +19,7 @@ The purpose of this document is to explain how a Sunbird system administrator ca
 
  ```
 curl -X GET \
-  {{sunbirdBaseURL}}/data/v1/system/settings/get/contentComingSoonMsg \
+  {{sunbirdBaseURL}}/api/data/v1/system/settings/get/contentComingSoonMsg \
   -H 'Authorization: Bearer {{api-key}}' \
   -H 'Content-Type: application/json'
 ```
@@ -30,7 +30,7 @@ curl -X GET \
 
  ```
 curl -X POST \
-  {{sunbirdBaseURL}}/data/v1/system/settings/set \
+  {{sunbirdBaseURL}}/api/data/v1/system/settings/set \
   -H 'Authorization: Bearer {{api-key}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Authenticated-User-Token: {{user-token}}' \

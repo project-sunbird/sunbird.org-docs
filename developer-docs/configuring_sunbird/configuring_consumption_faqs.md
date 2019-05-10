@@ -17,7 +17,7 @@ Based on configuration, users are can explore FAQs.
 
  ```
 curl -X GET \
-  {{sunbirdBaseURL}}/data/v1/system/settings/get/consumptionFaqs \
+  {{sunbirdBaseURL}}/api/data/v1/system/settings/get/consumptionFaqs \
   -H 'Authorization: Bearer {{api-key}}' \
   -H 'Content-Type: application/json'
 ```
@@ -28,7 +28,7 @@ curl -X GET \
 
  ```
 curl -X POST \
-  {{sunbirdBaseURL}}/data/v1/system/settings/set \
+  {{sunbirdBaseURL}}/api/data/v1/system/settings/set \
   -H 'Authorization: Bearer {{api-key}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Authenticated-User-Token: {{user-token}}' \
