@@ -23,4 +23,4 @@ If you plan to modify and contribute code to the Sunbird project, we recommend y
 
 ### Deploy Sunbird for your users
 
-If you plan to install Sunbird for your users, we recommend you follow the [Server Installation](developer-docs/installation/server_installation/){:target="_blank"} process.
+If you plan to install Sunbird for your users, we recommend you follow the [Server Installation](developer-docs/server_installation/){:target="_blank"} process.
