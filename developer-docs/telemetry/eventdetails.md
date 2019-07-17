@@ -87,6 +87,7 @@ data - Object //Required
     "type": String, //Required. Impression type (list, detail, view, edit, workflow, search)
 
     "subtype": String, //Optional. Additional subtype. "Paginate", "Scroll"
+    "duration": , // Optional. Time taken to render the page/stage in ms
 
     "pageid": String, //Required.  Unique page id
 
@@ -114,6 +115,7 @@ data - Object //Required
   "subtype": "", // Optional. Additional types for a global type. For ex: for an audio the type is LISTEN and thesubtype can be one of PLAY,PAUSE,STOP,RESUME,END
   "id": "", // Required. Resource (button, screen, page, etc) id on which the interaction happened - use systemidentifiers when reporting device events
   "pageid": "", // Optional. Stage or page id on which the event happened
+  "duration": , // Optional. Time taken to interact on object in seconds
   "extra": { // Optional. Extra attributes for an interaction
     "pos": [{"x":,"y":,"z":}], // Array of positional attributes. For ex: Drag and Drop has two positional attributes. One where the drag has started and the drop point
     "values": [], // Array of values, e.g. for timestamp of audio interactions
@@ -281,6 +283,8 @@ data - Object //Required
     "props": [""], // Updated properties
     "state": "", // Optional. Current state
     "prevstate": "" // Optional. Previous state
+     "duration":  // Optional. Duration or time taken in seconds to change from prevstate to current state. Should only be passed if the state has truly changed
+  }
   }
 }
 </pre>
