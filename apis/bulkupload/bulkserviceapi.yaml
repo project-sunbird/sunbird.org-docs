@@ -43,11 +43,6 @@ paths:
       consumes:
       - multipart/form-data
       parameters:
-      - name: organisationId
-        in: formData
-        required: true
-        type: string
-        description: 'This ID identifies an Organisation uniquely. The ID is provided when an organization is registered'
       - name: user
         in: formData
         required: true
@@ -55,42 +50,29 @@ paths:
         format: file
         description: >-
           This is a .csv file.
-            - Each line of the file is a data record, and each record consists of one or more fields, separated by commas.
+            - Each line of the file is a data record. Each record consists of one or more user fields, separated by commas. Each successfully created user is associated with root org of uploader (org admin).
             
-          The format of this file is as :
-            - firstName,
-            - lastName,
-            - phone,
-            - email,
-            - userName,
-            - password,
-            - phoneVerified, 
-            - emailVerified,
-            - roles,
-            - position,
-            - grade,
-            - location,
-            - dob,
-            - aadhaarNo,
-            - gender,
-            - language,
-            - profileSummary,
-            - subject,
-             
-             Omit (•) 
-              - (•) is used to enhance readibility here.
+          The CSV file format supported is mentioned below:
+            - NAME: Name of user
+            - MOBILE PHONE: Phone number. Either phone or email is mandatory.
+            - EMAIL: Email. Either phone or email is mandatory.
+            - SCHOOL ID: Organisation ID to which user must be associated.
+            - USER_TYPE: Type of user. Supported user types are 'teacher' or 'other'.
+            - ROLES: List of valid roles for assignment to user on association to an organisation.
+            - USER ID: User ID. Required only in case of user update.
+            - External ID: External ID of user. Either, school ID or external ID is mandatory for user association to organisation.
       - name: Authorization
         in: header
         required: true
         type: string
-        description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
-      - name: x-authenticated-user-token
+        description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+      - name: X-Authenticated-User-Token
         in: header
         required: true
         type: string
         description: >- 
-          It is a unique token/key to authenticate the user each time an API is called. For corresponding sessions this token is used, not your actual username/password
-      
+          Access token of registered user performing given API request.
+
       responses:
         '200':
           description: 'OK ! Successful operation."bulk upload user" operation was successfully executed.'
@@ -115,7 +97,7 @@ paths:
       description: >-
        This API is used for enrolling batches in bulk
           - The **_/batch/bulk/enrollment_** endpoint executes "bulk batch enrollment" request based on parameters provided as metadata in the request body.
-          - It is a must to provide values for all mandatory fields
+          - It mandatory to provide values for all mandatory fields
       summary: Upload Batches in Bulk
       tags:
       - Bulk Operation APIs
@@ -199,8 +181,6 @@ paths:
         description: >-
             The Content Type entity is the media type of the resource.Possible media types can be:- 
               - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
       - name: Authorization
         in: header
         required: true
@@ -250,6 +230,56 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
+
+  /data/v1/upload/statusDownloadLink/{processId}:
+    get:
+      description: >-
+       This API is used to get the upload status for a given request. For a completed upload request, it will provide a link to a file which has the upload status.
+          - The **_/upload/statusDownloadLink/{processId}_** endpoint executes "get upload status download link" request based on parameters provided as metadata in the request body.
+          - It is must to provide values for all mandatory fields
+      summary: Get Upload Status Download Link
+      tags:
+      - Bulk Operation APIs
+      operationId: getUploadStatusDownloadLink
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: processId
+        type: string
+        required: true
+        description: Valid bulk upload process ID
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+            Type of the request data. Set as application/json.
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+      - name: X-Authenticated-User-Token
+        in: header
+        required: true
+        type: string
+        description: >-
+          Access token of registered user performing given API request.
+
+      responses:
+        '200':
+          description: 'OK. Successful operation. The requested operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/GetStatusDownloadLinkSuccessResponse'
+        '400':
+          description: 'CLIENT_ERROR. The requested operation failed due to bad request from client. Possible reasons for failure:
+            Invalid process ID.'
+          schema:
+            $ref: '#/definitions/BulkUploadErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR. The requested operation failed due to a server error. '
+
   /org/v1/upload :
     post:
       description: >-
@@ -272,36 +302,27 @@ paths:
         format: file
         description: >-
           This is a .csv file.
-            - Each line of the file is a data record. Each record consists of one or more fields, separated by commas.
+            - Each line of the file is a data record. Each record consists of one or more organisation fields, separated by commas. Each successfully created organisation is associated with root org of uploader (org admin).
             
-          This format of this file is as :
-            - orgName,
-            - isRootOrg,
-            - channel,
-            - externalId,
-            - provider,
-            - description,
-            - homeUrl,
-            - orgCode,
-            - orgType,
-            - preferredLanguage,
-            - theme,
-            - contactDetail
-            
-            Omit (•) 
-             - (•) is used to enhance readibility here.
+          The CSV file format supported is mentioned below:
+            - SCHOOL NAME: Organisation name
+            - BLOCK CODE: Location code (block)
+            - SCHOOL ID: Organisation ID. Required only in case of organisation update.
+            - EXTERNAL ID: External ID of organisation
+            - STATUS: Status. Supported values are 'active' and 'inactive'.
+            - DESCRIPTION: Organisation description
       - name: Authorization
         in: header
         required: true
         type: string
-        description: 'All User APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
-      - name: x-authenticated-user-token
+        description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+      - name: X-Authenticated-User-Token
         in: header
         required: true
         type: string
         description: >- 
-          It is a unique token/key to authenticate the user each time an API is called. For corresponding sessions this token is used, not your actual username/password
-      
+          Access token of registered user performing given API request.
+
       responses:
         '200':
           description: 'OK ! Successful operation."bulk org upload " operation was successfully executed.'
@@ -491,6 +512,32 @@ definitions:
     allOf:
       - $ref: '#/definitions/EmptyResult'
       - $ref: '#/definitions/ResponseHeader'
+
+  GetStatusDownloadLinkSuccessResponse:
+      title: Get Status Download Link Success Response
+      allOf:
+        - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+        - type: object
+          properties:
+            result:
+              type: object
+              properties:
+                processId:
+                  type: string
+                  description: ID that uniquely identifies the bulk upload request.
+                objectType:
+                  type: string
+                  description: Type of object in bulk upload request. Supported types are user, organisation, location, batch enrollment
+                status:
+                  type: string
+                  description: Specifies current status of bulk upload request. Supported values are {"NOT STARTED", "IN PROGRESS" and "COMPLETED"}.
+                message:
+                  type: string
+                  description: Descriptive message for current status of bulk upload request.
+                signedUrl:
+                  description: 'ID of the newly created organisation'
+                  type: string
+
   EmptyResult:
     title: Empty Result
     type: object
