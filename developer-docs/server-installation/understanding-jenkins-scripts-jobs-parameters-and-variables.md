@@ -1,8 +1,8 @@
 ---
-title: Understanding Jenkins scripts, jobs, jobs parameters and variables
 page_title: Understanding Jenkins scripts, jobs, jobs parameters and variables
 description: Understanding Jenkins scripts, jobs, jobs parameters and variables
 keywords: Understanding Jenkins scripts, jobs, jobs parameters and variables
+published: true
 allowSearch: true
 --- 
 
