@@ -1,58 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>DevOps : Knowledge Platform</title>
-        <link rel="stylesheet" href="styles/site.css" type="text/css" />
-        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
+---
+title: Knowledge Platform
+page_title: Knowledge Platform
+description: Knowledge Platform
+keywords: Knowledge Platform
+allowSearch: true
+--- 
 
-    <body class="theme-default aui-theme-default">
-        <div id="page">
-            <div id="main" class="aui-page-panel">
-                <div id="main-header">
-                    <div id="breadcrumb-section">
-                        <ol id="breadcrumbs">
-                            <li class="first">
-                                <span><a href="index.html">DevOps</a></span>
-                            </li>
-                                                    <li>
-                                <span><a href="Sunbird-installation---Release-2.0.0_1058537560.html">Sunbird installation - Release 2.0.0</a></span>
-                            </li>
-                                                    <li>
-                                <span><a href="Running-Builds%2C-Artifact-Uploads-and-Deployments_1058930701.html">Running Builds, Artifact Uploads and Deployments</a></span>
-                            </li>
-                                                </ol>
+
+<div class="confluence-information-macro has-no-icon confluence-information-macro-information"><div class="confluence-information-macro-body"><p>Log in to the Jenkins and do the following</p></div></div><h2 id="KnowledgePlatform-Build">Build</h2><ul><li>Switch to <code>Build</code> folder and run all jobs. Provide the value for <strong>github_release_tag</strong> as per the details mentioned in this page - <a href="https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/1025376293/Current+Release+Tags+and+Jenkins+Jobs+Reference" data-linked-resource-id="1025376293" data-linked-resource-version="5" data-linked-resource-type="page">Current Release Tags and Jenkins Jobs Reference</a></li></ul><h2 style="" id="KnowledgePlatform-OpsAdministration">OpsAdministration</h2><ol><li style="">Bootstrap                                                                                                               # Creates Deployer User</li></ol><h2 id="KnowledgePlatform-Provision">Provision</h2><ul><li>Download neo4j enterprise 3.3.x version and keep it in your private repo under artifacts directory. The name of the file should be ending with neo4j*.tar.gz</li><li>Since the file size of neo4j will be larger than 100 MB, you need to use git lfs to store this artifact in your private repo. Refer this link to see for git lfs details - <a href="https://git-lfs.github.com/" class="external-link" rel="nofollow">https://git-lfs.github.com/</a></li><li>Switch to <code>Provision/&lt;env&gt;/KnowledgePlatform</code> and run jobs in following order<ol><li>Cassandra</li><li>CompositeSearch</li><li>Neo4j</li><li>Zookeeper</li><li>Kafka</li><li>Learning</li><li>Redis</li><li>Search</li></ol></li></ul><h2 id="KnowledgePlatform-Deploy"><span style="color: rgb(51,51,51);">Deploy</span></h2><ul><li>Switch to <span style="color: rgb(51,51,51);"><code>Deploy/dev/KnowledgePlatform</code> and run all jobs in the following order</span><ol><li><span style="color: rgb(51,51,51);">CassandraDbUpdate</span></li><li><span style="color: rgb(51,51,51);">Neo4j</span></li><li><span style="color: rgb(51,51,51);">StartNeo4jCluster</span></li><li><span style="color: rgb(51,51,51);">Learning</span></li><li><span style="color: rgb(51,51,51);">Search</span></li><li><span style="color: rgb(51,51,51);">Neo4jDefinitionUpdate</span></li><li><span style="color: rgb(51,51,51);">Neo4jElasticSearchSyncTool</span></li><li><span style="color: rgb(51,51,51);">KafkaSetup</span></li><li><span style="color: rgb(51,51,51);">Yarn<br/></span></li></ol></li></ul><h2 id="KnowledgePlatform-ManualRun-ContentretireAPI"><span style="color: rgb(51,51,51);">Manual Run - Content retire API</span></h2><ul><li><span style="color: rgb(51,51,51);">Login to the cassandra VM and run the below commands</span></li><li><strong>vi /etc/cassandra/cassandra.yaml</strong></li><li><span>Update the value as </span><strong>batch_size_fail_threshold_in_kb: 200</strong></li><li><strong>service cassandra restart</strong></li><li><strong>cd /tmp</strong></li><li><strong>wget <a href="https://sunbirdpublic.blob.core.windows.net/installation/script_data.csv" class="external-link" rel="nofollow">https://sunbirdpublic.blob.core.windows.net/installation/script_data.csv</a></strong></li><li>Run<span> </span><strong>cqlsh</strong></li><li><strong><strong style="text-align: left;">COPY dev_script_store.script_data FROM '/tmp/script_data.csv</strong><span style="color: rgb(34,34,34);">';          </span></strong><span style="color: rgb(34,34,34);">(</span><span style="color: rgb(34,34,34);">Here </span><strong>dev</strong><span style="color: rgb(34,34,34);"> will be you env name)</span></li><li><strong><span style="color: rgb(34,34,34);"><strong style="text-align: left;">SELECT COUNT(*) FROM dev_script_store.script_data ;                         </strong></span></strong><span style="color: rgb(34,34,34);"><span style="color: rgb(34,34,34);">(Output should be 324 rows)</span></span></li><li><span style="color: rgb(34,34,34);"><span style="color: rgb(34,34,34);">Login to learning VM and restart tomcat</span></span></li><li><strong>sudo service tomcat restart</strong></li><li>Now you should be able to delete contents from workspace, drafts, contents which are published etc.</li></ul>
                     </div>
-                    <h1 id="title-heading" class="pagetitle">
-                                                <span id="title-text">
-                            DevOps : Knowledge Platform
-                        </span>
-                    </h1>
-                </div>
-
-                <div id="content" class="view">
-                    <div class="page-metadata">
-                        
-        
-    
-        
-    
-        
-        
-            Created by <span class='author'> Keshav Prasad</span>, last modified on Jul 09, 2019
-                        </div>
-                    <div id="main-content" class="wiki-content group">
-                    <div class="confluence-information-macro has-no-icon confluence-information-macro-information"><div class="confluence-information-macro-body"><p>Log in to the Jenkins and do the following</p></div></div><h2 id="KnowledgePlatform-Build">Build</h2><ul><li>Switch to <code>Build</code> folder and run all jobs. Provide the value for <strong>github_release_tag</strong> as per the details mentioned in this page - <a href="https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/1025376293/Current+Release+Tags+and+Jenkins+Jobs+Reference" data-linked-resource-id="1025376293" data-linked-resource-version="5" data-linked-resource-type="page">Current Release Tags and Jenkins Jobs Reference</a></li></ul><h2 style="" id="KnowledgePlatform-OpsAdministration">OpsAdministration</h2><ol><li style="">Bootstrap                                                                                                               # Creates Deployer User</li></ol><h2 id="KnowledgePlatform-Provision">Provision</h2><ul><li>Download neo4j enterprise 3.3.x version and keep it in your private repo under artifacts directory. The name of the file should be ending with neo4j*.tar.gz</li><li>Since the file size of neo4j will be larger than 100 MB, you need to use git lfs to store this artifact in your private repo. Refer this link to see for git lfs details - <a href="https://git-lfs.github.com/" class="external-link" rel="nofollow">https://git-lfs.github.com/</a></li><li>Switch to <code>Provision/&lt;env&gt;/KnowledgePlatform</code> and run jobs in following order<ol><li>Cassandra</li><li>CompositeSearch</li><li>Neo4j</li><li>Zookeeper</li><li>Kafka</li><li>Learning</li><li>Redis</li><li>Search</li></ol></li></ul><h2 id="KnowledgePlatform-Deploy"><span style="color: rgb(51,51,51);">Deploy</span></h2><ul><li>Switch to <span style="color: rgb(51,51,51);"><code>Deploy/dev/KnowledgePlatform</code> and run all jobs in the following order</span><ol><li><span style="color: rgb(51,51,51);">CassandraDbUpdate</span></li><li><span style="color: rgb(51,51,51);">Neo4j</span></li><li><span style="color: rgb(51,51,51);">StartNeo4jCluster</span></li><li><span style="color: rgb(51,51,51);">Learning</span></li><li><span style="color: rgb(51,51,51);">Search</span></li><li><span style="color: rgb(51,51,51);">Neo4jDefinitionUpdate</span></li><li><span style="color: rgb(51,51,51);">Neo4jElasticSearchSyncTool</span></li><li><span style="color: rgb(51,51,51);">KafkaSetup</span></li><li><span style="color: rgb(51,51,51);">Yarn<br/></span></li></ol></li></ul><h2 id="KnowledgePlatform-ManualRun-ContentretireAPI"><span style="color: rgb(51,51,51);">Manual Run - Content retire API</span></h2><ul><li><span style="color: rgb(51,51,51);">Login to the cassandra VM and run the below commands</span></li><li><strong>vi /etc/cassandra/cassandra.yaml</strong></li><li><span>Update the value as </span><strong>batch_size_fail_threshold_in_kb: 200</strong></li><li><strong>service cassandra restart</strong></li><li><strong>cd /tmp</strong></li><li><strong>wget <a href="https://sunbirdpublic.blob.core.windows.net/installation/script_data.csv" class="external-link" rel="nofollow">https://sunbirdpublic.blob.core.windows.net/installation/script_data.csv</a></strong></li><li>Run<span> </span><strong>cqlsh</strong></li><li><strong><strong style="text-align: left;">COPY dev_script_store.script_data FROM '/tmp/script_data.csv</strong><span style="color: rgb(34,34,34);">';          </span></strong><span style="color: rgb(34,34,34);">(</span><span style="color: rgb(34,34,34);">Here </span><strong>dev</strong><span style="color: rgb(34,34,34);"> will be you env name)</span></li><li><strong><span style="color: rgb(34,34,34);"><strong style="text-align: left;">SELECT COUNT(*) FROM dev_script_store.script_data ;                         </strong></span></strong><span style="color: rgb(34,34,34);"><span style="color: rgb(34,34,34);">(Output should be 324 rows)</span></span></li><li><span style="color: rgb(34,34,34);"><span style="color: rgb(34,34,34);">Login to learning VM and restart tomcat</span></span></li><li><strong>sudo service tomcat restart</strong></li><li>Now you should be able to delete contents from workspace, drafts, contents which are published etc.</li></ul>
-                    </div>
-
-                    
-                                                      
-                </div>             </div> 
-            <div id="footer" role="contentinfo">
-                <section class="footer-body">
-                    <p>Document generated by Confluence on Jul 16, 2019 18:44</p>
-                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
-                </section>
-            </div>
-        </div>     </body>
-</html>
