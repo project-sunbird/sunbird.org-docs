@@ -143,8 +143,8 @@ All the available forms exist as a part of creation workflows, updation workflow
 | --- | --- |------| ------| ------| ------|
 | **Onboarding Details** | This form is used to save/update/read onboarding question details | user | instructor | onboarding | app
 | **Force/Optional Upgrade** | This form is used to save/update/read or force/optional app upgrade | app | install | upgrade | app
-| |**Filter config for Course filter** | This form is used to get filter for courses | pageAssemble | course | filter | app
-| |**Filter config for Library filter** | This form is used to filter for library | pageAssemble | library | filter | app
+|**Filter config for Course filter** | This form is used to get filter for courses | pageassemble | course | filter_v2 | app
+|**Filter config for Library filter** | This form is used to filter for library | pageAssemble | library | filter | app
 
 ### Input & Data Types 
 
