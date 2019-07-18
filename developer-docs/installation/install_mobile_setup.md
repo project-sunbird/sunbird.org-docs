@@ -51,7 +51,7 @@ Replace the producer id `PRODUCER_ID` for respective environments in sunbird.pro
 Replace `release_fabric_api_key` in `sunbird.properties` with your fabric API Key. Create an account in [fabric.io](https://get.fabric.io/) and register in the app to get the API key.
 
 ## Build APK from Git Repository
-Sunbird mobile app can be built from the main source code which is available at [project-sunbird](https://github.com/project-sunbird)/[sunbird-mobile](https://github.com/project-sunbird/sunbird-mobile).
+Sunbird mobile app can be built from the main source code which is available at [Sunbird-Ed](https://github.com/Sunbird-Ed)/[SunbirdEd-mobile](https://github.com/Sunbird-Ed/SunbirdEd-mobile).
 
 Sample properties file is located inside buildConfig folder. This has to be renamed to sunbird.properties and appropriate values should be provided.
 
@@ -68,10 +68,10 @@ Instance admin of Sunbird adopters can configure various aspects of the Sunbird 
 
 | S No. | Variable Name | Description | Purpose | Default Value
 |-------|---------------|--------------|--------|--------------
-| 1 | dev_app_id/staging_app_id/production_app_id | The app ID in the **sunbird-mobile/buildConfig/sunbird.properties** file with the implementation-specific application ID | To change the app ID | appId: "org.sunbird.app"
-| 2 | app name | Navigate to the **sunbird-mobile/config.xml** file and enter the required app name. | To change the app name | 
-| 3 | app logo | Navigate to **sunbird-mobile/resources/android/icon** and **sunbird-mobile/resources/android/splash**. Replace the **ic_launcher.png** image with your desired logo in all the mipmap and drawable folders. The logo name should be **drawable-ldpi-icon.png** | To change the app logo |
-| 4 | app | Set the configuration variable in the **sunbird-mobile repo** file in the **buildConfig** folder | | 
+| 1 | dev_app_id/staging_app_id/production_app_id | The app ID in the **SunbirdEd-mobile/buildConfig/sunbird.properties** file with the implementation-specific application ID | To change the app ID | appId: "org.sunbird.app"
+| 2 | app name | Navigate to the **SunbirdEd-mobile/config.xml** file and enter the required app name. | To change the app name | 
+| 3 | app logo | Navigate to **SunbirdEd-mobile/resources/android/icon** and **SunbirdEd-mobile/resources/android/splash**. Replace the **ic_launcher.png** image with your desired logo in all the mipmap and drawable folders. The logo name should be **drawable-ldpi-icon.png** | To change the app logo |
+| 4 | app | Set the configuration variable in the **SunbirdEd-mobile repo** file in the **buildConfig** folder | | 
 | 5|  app version code | Version code for the app release | To customize the end points in the app | Replace redirect base url REDIRECT_BASE_URL and all other base urls with your respective domain name in sunbird.properties |
 | 6 | deep link schema | This plugin handles deeplinks on iOS and Android for both custom URL scheme links and Universal App Links. Deep link schema can be changed from sunbird.properties | Change the "dev_deeplink_base_url = dev.open-sunbird.org" to the required name
 | 7 | display_onboarding_page | set the configuration variable inside the <b>sunbird-mobile repo</b> inside <b>buildConfig</b> folder | to display the onboarding page | false
@@ -83,6 +83,12 @@ Instance admin of Sunbird adopters can configure various aspects of the Sunbird 
 | 13 | display_onboarding_card | set the display__onboarding_cards as true in sunbird.properties file | to display the guest/login page | false
 | 14 | display_framework_categories_in_profile | set the display_framework_categories_in_profile variable as true in sunbird.properties file | to display categories in the guest/login page | false
 | 15 | track_user_telemetry | Variable used to track user telemetry.| Used to track telemetry that is missing at the device level so as to generate greater usage context within the instance. Set the variable as *true* in the **sunbird.properties** file to enable tracking.  | false
+| 16 | content_streaming_enabled | Variable used to enable content streaming.| Used to enable content streaming. Set the variable as *true* in the **sunbird.properties** file to enable content streaming.  | false
+| 17 | open_rapdiscovery_enabled | Variable used to enable OPENRAP discovery.| Used to enable OPENRAP discovery. Set the variable as *true* in the **sunbird.properties** file to enable OPENRAP discovery.  | false
+| 18 | display_onboarding_category_page | Variable used to enable onboarding category selection page.| Used to  onboarding category selection page in the onboarding process. Set the variable as *true* in the **sunbird.properties** file to enable onboarding category selection page.  | false
+| 19 | display_onboarding_scan_page | Variable used to enable onboarding scan page.| Used to enable onboarding scan page in the onboarding process. Set the variable as *true* in the **sunbird.properties** file to onboarding scan page.  | false
+| 20 | support_email | Variable used to set.| Used to set the support email id. Set the variable as *<valid_email_id>* in the **sunbird.properties** file to set support email id.  | <valid_email_id>
+| 21 | dev_custom_scheme/staging_custom_scheme/production_custom_scheme | Scheme used to redrirect chrome custom tab back to mobile app |  | "org.sunbird.app"
 
 <b>Packaging Framework and Form Data</b>
 Sunbird mobile app supports configuration of the app framework to enable offline usage of the app. To configure the app framework, adopter needs to package the channel for the respective framework. Details of the file naming convention and folder location are given below:
@@ -98,30 +104,11 @@ Sunbird mobile app supports configuration of the app framework to enable offline
 ## Installing Individual Plugins
 Sunbird is an open source, configurable, extendable, modular learning management platform architected for scale and designed to support multiple teaching and learning solutions supporting multiple languages and available for online and offline use. Various plugins are utilized to meet this objective. Adopters can choose and intall plugins to customize the application to suit their business needs. This ection details the procedure for installing inidividual plugins for the mobile application.
 
-- Clone the sunbird-mobile repo using the following command: 
+- Clone the SunbirdEd-mobile  repo using the following command: 
 
-	git clone [https://github.com/project-sunbird/sunbird-mobile.git](https://github.com/project-sunbird/sunbird-mobile.git).
-	go to project folder and run **npm i**
+	git clone [https://github.com/Sunbird-Ed/SunbirdEd-mobile.git](https://github.com/Sunbird-Ed/SunbirdEd-mobile.git).
+	go to project folder and run **./build.sh**
 	**run** ionic cordova platform add android**
-
-### Genie-sdk-wrapper
-This repository contains common services, and global UI pages required in an app. The services internally call to the cordova plugins. All the http and database related API goes through this npm module.
-
-To generate local node module:
-
-- Clone the sunbird-genie sdk wrapper repo using the following command: 
-
-	git clone [https://github.com/project-sunbird/genie-sdk-wrapper.gi*t](https://github.com/project-sunbird/genie-sdk-wrapper.git)
-	npm i
-	npm run build
-	npm pack path to this folder
-
-### Cordova-plugin-genie-sdk
-This is a cordova plugin for android. IT exposes some API’s that internally calls to the genie services.
-
-- Run the following command to install this plugin in Sunbird-mobile:
-
-    ionic cordova plugin add *[https://github.com/project-sunbird/cordova-plugin-genie-sdk.gi*t](https://github.com/project-sunbird/cordova-plugin-genie-sdk.git)
 
 ### Cordova-plugin-sunbirdsplash
 This plugin displays and hides a splash screen during application launch. To change the splash screen and splash image, go to sunbird-mobile/resources/android/splash and update the **drawable-ldpi-splash.png**
