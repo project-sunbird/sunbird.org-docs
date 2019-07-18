@@ -45,13 +45,13 @@ This document provides a list of environment variables and their default values 
 |  33 | sunbird_cassandra_consistency_level | Represents the minimum number of Cassandra nodes that must acknowledge a read or write operation before the operation can be considered successful | Used to mantain the data consistency of multi node cassandra | one |  Sunbird Portal |
 |  34 | sunbird_cassandra_replication_strategy | Represents data replication of cassandra | Used to replicate the cassandra data set | '{"class":"SimpleStrategy","replication_factor":1}' |  Sunbird Portal |
 |  35 | device_register_api | Device registry Api | This api is used to register/capture IP address/geo-location/device information | https://api.open-sunbird.org/v3/device/register/ | Sunbird Portal |
-|  36 | sunbird_azure_account_name | azure account name | used to login to account blob |  | Sunbird Portal |
-|  37 | sunbird_azure_account_key | azure account name | used to login to account blob | | Sunbird Portal |
-|  38 | sunbird_azure_report_container_name | container used to store report | container used to store report | reports | Sunbird Portal |
-|  39 | sunbird_response_cache_ttl | response cache time | api response will be cached with configured time in browser | 180 | Sunbird Portal |
-|  40 | sunbird_health_check_enable | helth check api to be enabled | if dependent service is down, api call will not be proxyed if value is set true | true | Sunbird Portal |
-|  41 | sunbird_cassandra_consistency_level | cassandra consistency level | used in cassandra configuration | one | Sunbird Portal |
-|  42 | sunbird_processing_kafka_host | processing kafka host | used to send kafka messages | | Sunbird Portal |
-|  43 | sunbird_sso_kafka_topic | kafka topic for sso | used to send kafka message in sso flow | | Sunbird Portal |
-|  44 | sunbird_portal_preview_cdn_url | content player cdn preview url | used in loading player from cdn | | Sunbird Portal |
+|  36 | sunbird_azure_account_name | Azure account name | Used to login to azure account |  | Sunbird Portal |
+|  37 | sunbird_azure_account_key | Azure account name | Used to login to azure account | | Sunbird Portal |
+|  38 | sunbird_azure_report_container_name | Container used to store reports | Used to store orgaanization reports | reports | Sunbird Portal |
+|  39 | sunbird_response_cache_ttl | Api response cache time | Api response will be cached with configured time in browser | 180 | Sunbird Portal |
+|  40 | sunbird_health_check_enable | To enable/disable helth check api | If dependent service is down, api call will not be proxyed if value is set to true | true | Sunbird Portal |
+|  41 | sunbird_cassandra_consistency_level | Cassandra consistency level | Used in cassandra configuration | one | Sunbird Portal |
+|  42 | sunbird_processing_kafka_host | Processing kafka host url | Used to send kafka messages to processing kafka | | Sunbird Portal |
+|  43 | sunbird_sso_kafka_topic | Kafka topic for sso | Used to send kafka message in sso flow | | Sunbird Portal |
+|  44 | sunbird_portal_preview_cdn_url | Content player cdn preview url | Used in loading content player from cdn | | Sunbird Portal |
 
