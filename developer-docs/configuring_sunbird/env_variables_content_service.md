@@ -54,5 +54,5 @@ The following is a list of environment variables and their default values, as re
 |  42 | sunbird_gzip_enable | This variable specifies that the API response should be ziped or not | | |
 |  43 | sunbird_cassandra_consistency_level | This variable gives the cassandra consistency level | | |
 |  44 | sunbird_cassandra_replication_strategy | This variable will specify the cassandra replication strategy | | |
-|  45 | sunbird_health_check_enable | This variable will specify that the health check of the dependant services to be checked or not | | |
-|  46 | sunbird_content_service_log_level | This variable will specify the log level of this service | | |
+|  45 | sunbird_health_check_enable | This variable will specify that the health check of the dependant services to be checked or not (ex: true/false)| | |
+|  46 | sunbird_content_service_log_level | This variable will specify the log level of this service (ex: info, debug, error, warn) | | |
