@@ -21,4 +21,4 @@ allowSearch: true
 
 ## Deploy
 
-<ul><li>Switch to <code>Deploy/dev/DataPipeline</code> and run all jobs in following order</span><ol><li> CassandraDbUpdate</span></li><li>KafkaSetup</span></li><li> AnalyticsApi</span></li><li> Secor</span></li><li> KafkaIndexer</span></li><li> SamzaTelemertySchemas</span></li><li> Yarn</span></li></ol>
+<ul><li>Switch to <code>Deploy/dev/DataPipeline</code> and run all jobs in following order</span><ol><li> CassandraDbUpdate</span></li><li>KafkaSetup</span></li><li> AnalyticsApi</span></li><li> DataProducts</span></li><li> Secor</span></li><li> KafkaIndexer</span></li><li> SamzaTelemertySchemas</span></li><li> Yarn</span></li></ol>
