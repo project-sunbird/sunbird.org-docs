@@ -1,4 +1,10 @@
-
+---
+title: Configurations Post Installation
+page_title: Configurations Post Installation
+description: Explains the configurations to be done post installation
+keywords: configuration, post installation
+allowSearch: true
+---
 
 
 # Post Installation Configuration
