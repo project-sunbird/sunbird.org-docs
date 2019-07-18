@@ -51,13 +51,8 @@ The following is a list of environment variables and their default values, as re
 |  39 | sunbird_language_service_api_base_url |  Represents the proxy URL to the language service | | https://qa.ekstep.in/api/language|
 |  40 | sunbird_language_service_api_key | Represents the proxy URL api key for the language service | | |
 |  41 | sunbird_portal_base_url | Used to construct the content link which will be sent in the email and also used to read the Form API | | https://staging.open-sunbird.org |
-
-
-
-
-
-
-
-
-
-
+|  42 | sunbird_gzip_enable | This variable specifies that the API response should be ziped or not | | |
+|  43 | sunbird_cassandra_consistency_level | This variable gives the cassandra consistency level | | |
+|  44 | sunbird_cassandra_replication_strategy | This variable will specify the cassandra replication strategy | | |
+|  45 | sunbird_health_check_enable | This variable will specify that the health check of the dependant services to be checked or not | | |
+|  46 | sunbird_content_service_log_level | This variable will specify the log level of this service | | |
