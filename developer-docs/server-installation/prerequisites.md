@@ -4,7 +4,6 @@ page_title: Prerequisites
 description: Prerequisites to set up Sunbird on a server
 keywords: prerequisites, set up, setup, server installation, cloud hosting, hosting, 
 allowSearch: true
-
 ---
 
 ## Overview

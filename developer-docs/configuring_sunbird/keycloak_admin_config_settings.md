@@ -2,8 +2,8 @@
 title: Configure Keycloak to Generate Link for Required User Action
 page_title: Configure Keycloak to Generate Link for Required User Action 
 description: Configuration required in Keycloak to generate link for required user action for sign up
-published: false
-allowSearch: false
+published: true
+allowSearch: true
 keywords: SSO, single sign on, single signon, singlesignon, link, user required action, set password link , verify email link, Keycloak
 ---
 ## Overview
