@@ -18,29 +18,28 @@ The Sunbird Mobile app provides mobility to its feature-rich learning platform. 
 <br>&emsp;b) Node JS Version -  6.+
 <br>&emsp;c) Cordova Version - 8.0.0
 <br>&emsp;d) Ionic Version - 3.20.0
-<br>2. Generate the key and secret for the mobile app user using the JWT token of the mobile admin user. The JWT token for mobile admin user will be printed on the application:
- *server folder /where-you-cloned-sunbird-devops-repo/sunbird-devops/deploy/logs/apis.log.*
+<br>2. Generate the key and secret for the mobile app user using the JWT token of the mobile admin user. Run the **OnboardConsumers** Jenkins Job and take the jwt token(**JWT token for mobile_admin**) from Jenkins Output.
 
 **Generating Secret:**
 Execute the listed API to generate the key and secret for the mobile app:
 
   curl -X POST \   <your-sunbird-base-url>/api/api-manager/v1/consumer/mobile_app/credential/register \
-       -H 'authorization: Bearer <mobile_admin_jwt_token_from_apis_log_file>' \
+       -H 'authorization: Bearer `<mobile_admin_jwt_token_from_jenkins_job_output>`' \
        -H 'content-type: application/json' \
        -d '{
        "request": {
-         "key": "<implementation-name>-mobile-app-<version-number>"
+         "key": "`<implementation-name>`-mobile-app-`<version-number>`"
        }
      }'
 
 **Response body:** 
 
-{"result":{"key":"<implementation-name>-mobile-app-<version-number>","secret":"<secret>"}} 
+{"result":{"key":"`<implementation-name>`-mobile-app-`<version-number>`","secret":"`<secret>`"}} 
 
 Use the  key and secret from the response given for MOBILE_APP_KEY and MOBILE_APP_SECRET configuration in respective environments in gradle.properties file. Example:
 
-**dev_mobile_app_key = "<implementation-name>-mobile-app-<version-number>"
-dev_mobile_app_secret = "<secret>"**
+**dev_mobile_app_key = "`<implementation-name>`-mobile-app-`<version-number>`"
+dev_mobile_app_secret = "`<secret>`"**
 
 **Producer Key**
 
@@ -112,8 +111,7 @@ Sunbird is an open source, configurable, extendable, modular learning management
 	go to project folder and run **./build.sh**
 	**run** ionic cordova platform add android**
 
-### Cordova-plugin-sunbirdsplash
-This plugin displays and hides a splash screen during application launch. To change the splash screen and splash image, go to SunbirdEd-mobile/resources/android/splash and update the **drawable-ldpi-splash.png**
+ To change the splash screen and splash image, go to SunbirdEd-mobile/resources/android/splash and update the **drawable-ldpi-splash.png**
 
 To update your required splash.png file and SunbirdEd-mobile/resources/android/icon update **drawable-ldpi-icon.png ** to your required **icon.png file ** in resource folder and  run **ionic cordova run android**. This generates the resource files for this platform and splash image and splash screen automatically changes and is added in config.xml file.
 
@@ -124,13 +122,6 @@ To update your required splash.png file and SunbirdEd-mobile/resources/android/i
     ionic Cordova plugin add [https://github.com/project-sunbird/cordova-plugin-sunbirdsplash.git](https://github.com/project-sunbird/cordova-plugin-sunbirdsplash.git)
 
 This is installed with other npm packages.
-
-### Cordova-plugin-geniecanvas
-On clicking on  course material links, the course content is displayed in the inbuilt content player. The genie canvas renders the display of course materials in the inbuilt player.
-
-- Run the following command to install this plugin in SunbirdEd-mobile:
-
-    ionic cordova plugin add [https://github.com/project-sunbird/cordova-plugin-geniecanvas.git](https://github.com/project-sunbird/cordova-plugin-geniecanvas.git)
 
 ### Cordova-plugin-qr-scanner
 This is a custom cordova plugin for the QR scanner.
