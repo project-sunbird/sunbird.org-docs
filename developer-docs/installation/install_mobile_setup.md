@@ -97,11 +97,11 @@ Sunbird mobile app supports configuration of the app framework to enable offline
 |-------|--------|-----------|-------------
 | 1 | buildConfig/data/framework | framework-<FRAMEWORK_IDENTIFIER>.json | To package the channel for the respective framework. Same framework must be listed in the channel's suggestedFramework list.
 | 2 | buildConfig/data/channel | channel-<CHANNEL_IDENTIFIER>.json | To package the channel. To support offline usage custodianOrgId channel must be included in the bundle.
-| 3 | buildConfig/data/form | config_content_filter.json | To specify supported contentTypes in the app.
-| 4 | buildConfig/data/form | pageassemble_course_filter.json | Page assemble filter for course.
-| 5 | buildConfig/data/form | pageassemble_library_filter.json | Page assemble filter for library.
+| 3 | buildConfig/data/form | pageassemble_course_filter.json | Page assemble filter for course.
+| 4 | buildConfig/data/form | pageassemble_library_filter.json | Page assemble filter for library.
 | 5 | buildConfig/data/system | system-setting-custodianOrgId.json | custodianOrgId channelid for the mobile app.
 | 6 | buildConfig/data/system | system-setting-courseFrameworkId.json | courseFrameworkId for the TPD workflow.
+| 7 | buildConfig/data/notificationconfig | local_notofocation_config.json | Configuration for local Notification setup in mobile.
 
 ## Installing Individual Plugins
 Sunbird is an open source, configurable, extendable, modular learning management platform architected for scale and designed to support multiple teaching and learning solutions supporting multiple languages and available for online and offline use. Various plugins are utilized to meet this objective. Adopters can choose and intall plugins to customize the application to suit their business needs. This ection details the procedure for installing inidividual plugins for the mobile application.
