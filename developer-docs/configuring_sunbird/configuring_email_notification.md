@@ -154,3 +154,4 @@ For example, if slug is "Sunbird" and action is "send for review", template name
 	}
 
 > Note: In the email templates, only predefined parameters can be dynamically replaced with content data while sending the email.
+> Please refer notification api doc for sending email notification
