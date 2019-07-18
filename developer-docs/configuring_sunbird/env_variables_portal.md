@@ -46,7 +46,7 @@ This document provides a list of environment variables and their default values 
 |  34 | sunbird_cassandra_replication_strategy | Represents data replication of cassandra | Used to replicate the cassandra data set | '{"class":"SimpleStrategy","replication_factor":1}' |  Sunbird Portal |
 |  35 | device_register_api | Device registry Api | This api is used to register/capture IP address/geo-location/device information | https://api.open-sunbird.org/v3/device/register/ | Sunbird Portal |
 |  36 | sunbird_azure_account_name | Azure account name | Used to login to azure account |  | Sunbird Portal |
-|  37 | sunbird_azure_account_key | Azure account name | Used to login to azure account | | Sunbird Portal |
+|  37 | sunbird_azure_account_key | Azure account key | Used to login to azure account | | Sunbird Portal |
 |  38 | sunbird_azure_report_container_name | Container used to store reports | Used to store orgaanization reports | reports | Sunbird Portal |
 |  39 | sunbird_response_cache_ttl | Api response cache time | Api response will be cached with configured time in browser | 180 | Sunbird Portal |
 |  40 | sunbird_health_check_enable | To enable/disable helth check api | If dependent service is down, api call will not be proxyed if value is set to true | true | Sunbird Portal |
