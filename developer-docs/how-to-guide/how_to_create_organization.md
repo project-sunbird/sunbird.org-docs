@@ -1,6 +1,4 @@
 ---
-type: landing
-directory: developer-docs/how-to-guide
 title: Create Organization
 page_title: Create Organization
 description: creating a new organization in sunbird instance
@@ -15,13 +13,17 @@ A company, XYZ Corp, is a global conglomerate with over ten thousand employees, 
 
 ### Prerequisites
 
-1. An intialized Sunbird instance
-1. Get an [API key]() to access Sunbird API. To create an API key, please refer to [How to generate a Sunbird API key]().
-1. Software that can make REST API calls, like curl or POSTMAN.
+1. An intialized Sunbird instance with channel
+
+2. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
+  
+3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
+
+4. Access to [Organization API](apis/orgapi/#tag/Org-APIs)
 
 ### Taskflow
 
-Gita will identify the request API headers and body fields relevant for her task. She will create three root organizations, one for each training topic. She will create three sub-organizations for each sub-topic, under the root organization Archeology. Gita will come up with three distinct alphanumeric strings that will be used as value of **channel**, for each of the root organization. Then Gita will list all existing **channel** identifiers, in XYZCorp's Sunbird instance, to check if the **channel** identifiers she has decided to use, are not already taken.
+Gita identifies the request API headers and body fields relevant for her task. She creates three root organizations, one for each training topic. She creates three sub-organizations for each sub-topic, under the root organization Archeology. Gita comes up with three distinct alphanumeric strings that is used as value of **channel**, for each of the root organization. Then Gita lists all existing **channel** identifiers to ensure they are not in use in XYZCorp's Sunbird instance.
 
 **Header Parameters**
 
@@ -31,80 +33,76 @@ Gita will identify the request API headers and body fields relevant for her task
 | Authorization | String                 | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
 
 
+#### Request Body
 
-**cURL Request**
+    curl -X POST \
+    https://sunbird.xyzcorp.com/api/channel/v1/list \
+        -H 'Content-type: application/json' \
+        -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
 
-```
-curl -X POST \
-  https://sunbird.xyzcorp.com/api/channel/v1/list \
-    -H 'Content-type: application/json' \
-    -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
-```
-
-**Response Body**
+#### Response Body
 
 > Example output contains 800+ channels. Partial response body shown for brevity.
 
-```
-{
-    "id": "api.channel.list",
-    "ver": "1.0",
-    "ts": "2018-10-31T03:32:00.875Z",
-    "params": {
-        "resmsgid": "871ffbb0-dcbd-11e8-af3b-63285e87d510",
-        "msgid": "86f62c90-dcbd-11e8-8e5d-e72c97a8e618",
-        "status": "successful",
-        "err": null,
-        "errmsg": null
-    },
-    "responseCode": "OK",
-    "result": {
-        "channels": [
-            {
-                "identifier": "channel",
-                "code": "channel",
-                "framewor  (or channel IDks": [],
-                "consumerId": "9d8a6562-ac2d-4c10-b5fa-34dfb327aeb1",
-                "channel": "in.example",
-                "description": "",
-                "createdOn": "2018-10-20T06:20:50.861+0000",
-                "versionKey": "1513750850861",
-                "appId": "example_portal",
-                "name": "My Channel",
-                "lastUpdatedOn": "2018-12-20T06:20:50.861+0000",
-                "categories": [],
-                "defaultFramework": "NCF",
-                "status": "Live"
-            },
-            {
-            .
-            .
-            .
-            .
-            {
-                "owner": "xyz.corp",
-                "identifier": "megalithic",
-                "code": "megalithic",
-                "consumerId": "dc62def7-ecfd-3959-ab2f-d98251ed83e2",
-                "channel": "hyper.channel",
-                "description": "Organization structure",
-                "type": "Education",
-                "createdOn": "2017-09-07T05:04:18.751+0000",
-                "versionKey": "2873475457420",
+    {
+        "id": "api.channel.list",
+        "ver": "1.0",
+        "ts": "2018-10-31T03:32:00.875Z",
+        "params": {
+            "resmsgid": "871ffbb0-dcbd-11e8-af3b-63285e87d510",
+            "msgid": "86f62c90-dcbd-11e8-8e5d-e72c97a8e618",
+            "status": "successful",
+            "err": null,
+            "errmsg": null
+        },
+        "responseCode": "OK",
+        "result": {
+            "channels": [
+                {
+                    "identifier": "channel",
+                    "code": "channel",
+                    "framewor  (or channel IDks": [],
+                    "consumerId": "9d8a6562-ac2d-4c10-b5fa-34dfb327aeb1",
+                    "channel": "in.example",
+                    "description": "",
+                    "createdOn": "2018-10-20T06:20:50.861+0000",
+                    "versionKey": "1513750850861",
+                    "appId": "example_portal",
+                    "name": "My Channel",
+                    "lastUpdatedOn": "2018-12-20T06:20:50.861+0000",
+                    "categories": [],
+                    "defaultFramework": "NCF",
+                    "status": "Live"
                 },
-                "appId": "staging.xyz.corp",
-                "name": "The XCorp",
-                "lastUpdatedOn": "2018-09-07T05:04:43.807+0000",
-                "categories": [],
-                "status": "Live"
-            }
-        ],
-        "count": 808
+                {
+                .
+                .
+                .
+                .
+                {
+                    "owner": "xyz.corp",
+                    "identifier": "megalithic",
+                    "code": "megalithic",
+                    "consumerId": "dc62def7-ecfd-3959-ab2f-d98251ed83e2",
+                    "channel": "hyper.channel",
+                    "description": "Organization structure",
+                    "type": "Education",
+                    "createdOn": "2017-09-07T05:04:18.751+0000",
+                    "versionKey": "2873475457420",
+                    },
+                    "appId": "staging.xyz.corp",
+                    "name": "The XCorp",
+                    "lastUpdatedOn": "2018-09-07T05:04:43.807+0000",
+                    "categories": [],
+                    "status": "Live"
+                }
+            ],
+            "count": 808
+        }
     }
-}
-```
 
-In the response body, Gita will inspect the value of all tokens called **code** to ensure that the **channel** identifiers name she's decided upon, does not already exist. She will then create the three root organizations, one for each of the topics. The API request parameters and invocation will look like the following example:
+
+In the response body, Gita inspects the value of all tokens called **code** to ensure that the **channel** identifiers name she's decided upon, does not already exist. She creates the three root organizations, one for each of the topics. The API request parameters and invocation is depicted in the following example:
 
 **Header Parameters**
 
@@ -115,51 +113,47 @@ In the response body, Gita will inspect the value of all tokens called **code** 
 | x-authenticated-user-token | String | A token that identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
 
-**cURL Request**
+#### Request Body
 
-```
-curl -X POST \
-  https://sunbird.xyzcorp.com/api/channel/v1/list \
-    -H 'Content-type: application/json' \
-    -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
-    -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
-    -d '{
-	      "request": {
-        "orgName": "Archeology",
-        "description": "Study of really old stuff.",
-        "isRootOrg": true,
-        "channel": "xyzCorpArcheologyChannel",
-        "preferredLanguage": "English, Dutch, Hindi, Cakchiquel",
-        "homeUrl": "https://www.example.com/training/arch"
-  }
-}'
-```
+    curl -X POST \
+    https://sunbird.xyzcorp.com/api/org/v1/create \
+        -H 'Content-type: application/json' \
+        -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
+        -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
+        -d '{
+            "request": {
+            "orgName": "Archeology",
+            "description": "Study of really old stuff.",
+            "isRootOrg": true,
+            "channel": "xyzCorpArcheologyChannel",
+            "preferredLanguage": "English, Dutch, Hindi, Cakchiquel",
+            "homeUrl": "https://www.example.com/training/arch"
+        }
+    }'
 
-**Response Body**
+#### Response Body
 
-```
-{
-  "id": "api.org.create",
-  "params":
-  {
-    "err": null,
-    "errmsg": null,
-    "msgid": "56e36e85-abca-42bc-9fcd-e8a50c78a316",
-    "resmsgid": null,
-    "status": "success"
-  },
-  "responseCode": "OK",
-  "result":
-  {
-    "organisationId": "04584469560898483465",
-    "response": "SUCCESS"
-  },
-  "ts": "2018-10-30 08:24:29:856+0000",
-  "ver": "v1"
-}
-```
+    {
+    "id": "api.org.create",
+    "params":
+    {
+        "err": null,
+        "errmsg": null,
+        "msgid": "56e36e85-abca-42bc-9fcd-e8a50c78a316",
+        "resmsgid": null,
+        "status": "success"
+    },
+    "responseCode": "OK",
+    "result":
+    {
+        "organisationId": "04584469560898483465",
+        "response": "SUCCESS"
+    },
+    "ts": "2018-10-30 08:24:29:856+0000",
+    "ver": "v1"
+    }
 
-Gita will come up with three identifiers for each sub-organization. These identifiers will be unique across the organization Archeology and will be used as the value of **externalID** in the request body. She will also make a note of the **organisationId** of the Archeology root organization, which will be used as the value of **provider** in the request body. Gita will provide appropriate values in the request body and invoke the organization create API, for all three topics (Life Science, eCommerce, Archeology). Upon each successful outcome, she will make a note of the value of **organisationId** of each sub-organization respectively. The API request parameters and invocation will look like the following example:
+Gita comes up with three identifiers for each sub-organization. These identifiers are unique across the organization Archeology and are used as the value of **externalID** in the request body. She also make a note of the **organisationId** of the Archeology root organization, which is used as the value of **provider** in the request body. Gita provides appropriate values in the request body and invoke the organization create API, for all three topics (Life Science, eCommerce, Archeology). Upon each successful outcome, she makes a note of the value of **organisationId** of each sub-organization respectively. The API request parameters and invocation are depicted in the following example:
 
 **Header Parameters**
 
@@ -169,53 +163,47 @@ Gita will come up with three identifiers for each sub-organization. These identi
 | Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
 | x-authenticated-user-token | String | A token that identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
-**cURL Request**
+#### Request Body
 
-```
-curl -X POST \
-  https://sunbird.xyzcorp.com/api/org/v1/create \
+    curl -X POST \
+    https://sunbird.xyzcorp.com/api/org/v1/create \
     -H 'Content-type: application/json' \
     -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
     -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
-    -d '{
-	      "request":
-          {
-            "orgName": "Indian Archeology",
-            "description": "Study of ancient tea leaves in Rabdentse, Sikkim",
-            "isRootOrg": false,
-            "provider": "xyzCorpArcheologyChannel",
-            "externalID": "xyzCorpArcheologyIndian",
-            "preferredLanguage": "English, हिंदी",
-            "homeUrl": "https://www.example.com/training/arch"
-          }
+        -d '{
+            "request":
+            {
+                "orgName": "Indian Archeology",
+                "description": "Study of ancient tea leaves in Rabdentse, Sikkim",
+                "isRootOrg": false,
+                "provider": "xyzCorpArcheologyChannel",
+                "externalID": "xyzCorpArcheologyIndian",
+                "preferredLanguage": "English, हिंदी",
+                "homeUrl": "https://www.example.com/training/arch"
+            }
         }'
-```
 
-**Response Body**
+#### Response Body
 
-```
-{
-    "id": "api.org.create",
-    "ver": "v1",
-    "ts": "2018-11-12 15:52:10:333+0000",
-    "params": {
-        "resmsgid": null,
-        "msgid": "f0f94391-b6e9-4f25-8317-fd70c2fcbae1",
-        "err": null,
-        "status": "success",
-        "errmsg": null
-    },
-    "responseCode": "OK",
-    "result": {
-        "organisationId": "05986338210410082051",
-        "response": "SUCCESS"
+    {
+        "id": "api.org.create",
+        "ver": "v1",
+        "ts": "2018-11-12 15:52:10:333+0000",
+        "params": {
+            "resmsgid": null,
+            "msgid": "f0f94391-b6e9-4f25-8317-fd70c2fcbae1",
+            "err": null,
+            "status": "success",
+            "errmsg": null
+        },
+        "responseCode": "OK",
+        "result": {
+            "organisationId": "05986338210410082051",
+            "response": "SUCCESS"
+        }
     }
-}
-```
 
-This concludes the topic of creating organizations in Sunbird.
-Typically, the next activity would be to create users and assign roles within the newly created organisations and sub-organizations.
-
+On sucessfully creating an organization, the next step is to create users and assign roles to the users within the newly created organization and sub-organizations.
 
 ### Concepts Covered
 
@@ -229,6 +217,9 @@ Typically, the next activity would be to create users and assign roles within th
 
 ### Related Topics
 
-[Adding users into an organization]()
+[Creating first organization](developer-docs/initialization/)
 
-[Assign roles to users in an organizations]()
+[Creating user](developer-docs/how-to-guide/how_to_create_user/)
+
+[Map users to the organization](developer-docs/how-to-guide/how_to_create_org_add_user/)
+
