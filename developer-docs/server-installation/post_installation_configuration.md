@@ -43,12 +43,14 @@ allowSearch: true
     }'
     </pre>
 
-      **Note:** Channel should be a unique name across Sunbird instances who are using the EkStep content repository
+ 3. **System setting**- Before using system , you need to set some value inside system setting. Use link ./configuring_sunbird/system_settings.md  to do that settings.
+
+ **Note:** Channel should be a unique name across Sunbird instances who are using the EkStep content repository
     
-3. Update `sunbird_default_channel` in the `config` file with **Your Channel Name}** (that was created in previous step) and re-run the command `./sunbird_install.sh -s core`
+4. Update `sunbird_default_channel` in the `config` file with **Your Channel Name}** (that was created in previous step) and re-run the command `./sunbird_install.sh -s core`
 
-4. Run `./sunbird_install.sh -s posttest`, to validate all the services for a successful installation. On executing the script, a file **postInstallationLogs.log** in the **logs** directory will be created 
+5. Run `./sunbird_install.sh -s posttest`, to validate all the services for a successful installation. On executing the script, a file **postInstallationLogs.log** in the **logs** directory will be created 
 
-5. Open **https://[domain-name]** and sign up  
+6. Open **https://[domain-name]** and sign up  
 
-6. You may choose your own user name and password. The format for the username while login is: username@channelName 
+7. You may choose your own user name and password. The format for the username while login is: username@channelName 
