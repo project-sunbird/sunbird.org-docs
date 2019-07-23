@@ -20,7 +20,7 @@ Default templates are stored in Sunbird middleware(learner service) and configur
 
 ## Customizing Email Templates
 
-### Adding Email Template to Cassandra DB**
+### Adding Email Template to Cassandra DB
 
 Sunbird LMS stores email templates in the table 'email_template' within 'sunbird' keyspace 
 
@@ -143,7 +143,9 @@ To configure email template:
 
 For example, if slug is "Sunbird" and action is "send for review", template name should be "sunbird_sendforReviewTemplate"
 
-** Sample Custom Template Configuration**
+
+**Sample Custom Template Configuration**
+
 
 	{
 		"request": {

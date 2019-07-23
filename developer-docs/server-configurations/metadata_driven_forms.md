@@ -15,7 +15,7 @@ An organization works in the domain of water conservation and works in multiple 
 As the organization administrator ensure the following:
 1. Install  the server instance of Sunbird. For details, refer to[ Server Installation ](developer-docs/installation/server_installation/)
 
-2. Create a channel for your organization (XYZ corporation). For details, refer to[ Channel APIs](apis/framework/#tag/Channel-APIs)
+2. Create a channel for your organization (XYZ corporation). For details, refer to [Channel APIs](apis/framework/#tag/Channel-APIs)
 
 3. Register  your channel/ organization i.e, (XYZ corporation) with Ekstep. On registration, a unique **Channel ID** is assigned to your organization (XYZ corporation) channel ID is: 12300786
 
