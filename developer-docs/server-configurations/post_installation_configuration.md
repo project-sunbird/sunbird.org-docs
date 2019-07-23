@@ -1,5 +1,6 @@
 ---
 title: Post Installation Configurations
+page_title: Post Installation Configurations
 description: Explains the configurations to be done post installation
 keywords: configuration, post installation
 allowSearch: true
@@ -43,7 +44,7 @@ The values in the { } braces should be replaced with your environment values
       }'`
 
 
-3. **Update System setting**- The Sunbird instances that are using the EkStep content repository must have a unique channel name in [system setting](./configuring_sunbird/system_settings.md)
+3. **Update System setting**- The Sunbird instances that are using the EkStep content repository must have a unique channel name in [system setting](./system_settings.md)
 
    
 4. Update **Channel Name** in `sunbird_default_channel` variable in the [config]() file. Run the following commands 
