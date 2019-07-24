@@ -6,7 +6,9 @@ published: true
 allowSearch: true
 ---
 
-The following is a list of environment variables and their default values, as required to run the Sunbird content service. The list also gives you an indication of the purpose of the variable. Modifying the variable value, allows you to change default behavior based on your need or purpose.
+## Overview
+
+The page contains the list of environment variables and their default values, as required to run the Sunbird content service. The list also provides indication of the purpose of the variable. Modifying the variable value, allows you to change default behavior based on your need or purpose.
  	 
 | S No. | Variable Name | Description| Purpose | Sample Value |
 |--|------|-----------------|-----------------|-------|-------|
@@ -18,7 +20,7 @@ The following is a list of environment variables and their default values, as re
 | 6 | sunbird_content_provider_api_key | Represents the API Key to authorize the content provider | To authorize the content provider | |
 | 7 | sunbird_environment | Represents the instance environment | To identify the environment to which to send telemetry data with proper pdata. It is also used for other related purposes | |
 | 8 | sunbird_instance | Represents the name of the instance<br/>This should be the same as the value in the player/learner-service | To set the name of the instance | |
-| 9 | sunbird_cassandra_urls | Represents the urls of Cassandra instance | To connect to Cassandra db | 127.0.0.1:9042 |
+| 9 | sunbird_cassandra_urls | Represents the URLs of Cassandra instance | To connect to Cassandra db | 127.0.0.1:9042 |
 | 10 | sunbird_cassandra_consistency_level | Represents the minimum number of Cassandra nodes that must acknowledge a read or write operation before the operation can be considered successful | To mantain the data consistency of multi node Cassandra | one |
 | 11 | sunbird_cassandra_replication_strategy | Represents data replication of cassandra | To replicate the Cassandra data set | '{"class":"SimpleStrategy","replication_factor":1}' |
 | 12 | sunbird_keycloak_auth_server_url | The URL of the Keycloak auth service to connect the Sunbird Content service | To connect the Keycloak server | https://staging.open-sunbird.org/auth |
@@ -39,20 +41,20 @@ The following is a list of environment variables and their default values, as re
 | 27 | sunbird_content_service_blacklisted_mimetype | Represents list of blacklisted mime types(comma seperated) | To blacklist mimetype while searching for content | video/x-youtube | 
 | 28 | sunbird_content_service_enable_logging | To enable or disable the content service logging | | True |
 | 29 | sunbird_content_repo_api_base_url | Represents the proxy URL to the content repository | | https://qa.ekstep.in/api |
-| 30 | sunbird_content_repo_api_key | Represents the proxy URL api key for the content repository | | |
+| 30 | sunbird_content_repo_api_key | Represents the proxy URL API key for the content repository | | |
 | 31 | sunbird_search_service_api_base_url | Represents the proxy URL to the search service| | https://qa.ekstep.in/api/search|
-| 32 | sunbird_search_service_api_key | Represents the proxy URL api key for the search service | | True |
+| 32 | sunbird_search_service_api_key | Represents the proxy URL API key for the search service | | True |
 | 33 | sunbird_dial_repo_api_base_url | Represents the proxy URL to the dial repository | | https://qa.ekstep.in/api |
-| 34 | sunbird_dial_repo_api_key | Represents the proxy URL api key for the dial repository | | |
+| 34 | sunbird_dial_repo_api_key | Represents the proxy URL API key for the dial repository | | |
 | 35 | sunbird_plugin_repo_api_base_url | Represents the proxy URL to the plugin repository for searching plugins | | https://qa.ekstep.in/api |
-| 36 | sunbird_plugin_repo_api_key | Represents the proxy URL api key to the plugin repository for searching plugins | | |
+| 36 | sunbird_plugin_repo_api_key | Represents the proxy URL API key to the plugin repository for searching plugins | | |
 | 37 | sunbird_data_service_api_base_url | Represents the proxy URL to the data service | | https://qa.ekstep.in/api |
-| 38 | sunbird_data_service_api_key | Represents the proxy URL api key for the data service | | |
+| 38 | sunbird_data_service_api_key | Represents the proxy URL API key for the data service | | |
 | 39 | sunbird_language_service_api_base_url | Represents the proxy URL to the language service | | https://qa.ekstep.in/api/language|
-| 40 | sunbird_language_service_api_key | Represents the proxy URL api key for the language service | | |
+| 40 | sunbird_language_service_api_key | Represents the proxy URL API key for the language service | | |
 | 41 | sunbird_portal_base_url | To construct the content link which will be sent in the email and also to read the Form API | | https://staging.open-sunbird.org |
-| 42 | sunbird_gzip_enable | This variable specifies that the API response should be ziped or not | | |
-| 43 | sunbird_cassandra_consistency_level | This variable gives the cassandra consistency level | | |
-| 44 | sunbird_cassandra_replication_strategy | This variable specifies the cassandra replication strategy | | |
-| 45 | sunbird_health_check_enable | This variable specifies that the health check of the dependant services to be checked or not (ex: true/false)| | |
-| 46 | sunbird_content_service_log_level | This variable specifies the log level of this service (ex: info, debug, error, warn)| | |
+| 42 | sunbird_gzip_enable | Specifies the API response is enabled or disabled for zipping | | |
+| 43 | sunbird_cassandra_consistency_level | Provides consistency level in cassandra| | |
+| 44 | sunbird_cassandra_replication_strategy | Specifies the cassandra replication strategy | | |
+| 45 | sunbird_health_check_enable | Specifies that the health check of the dependant services to be checked or not (ex: true/false)| | |
+| 46 | sunbird_content_service_log_level | Specifies the log level of this service (ex: info, debug, error, warn)| | |

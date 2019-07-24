@@ -8,7 +8,7 @@ allowSearch: true
 
 ## Overview
 
-Any content published on Sunbird undergoes a review to ensure that content published adheres to defined guidelines and standards set by the organization. Each organization can set standard guidelines based on their organizational ideologies. Sunbird provides the feature of notifying content creators about the status of their content sent for review. Any adopter can use this feature and configure email templates and notify content creators. 
+The content published on Sunbird undergoes review to ensure its adherance to defined guidelines and standards set by the organization. Each organization sets standard guidelines based on their organizational ideologies. Sunbird has the feature to notifying content creators about the status of their content which is sent for review. The adopter can use this feature and configure email templates and notify content creators. 
 
 The default email templates available on Sunbird are:
 
@@ -16,9 +16,10 @@ The default email templates available on Sunbird are:
 <br>&emsp;b. Request for changes - requestForChanges
 <br>&emsp;c. Publish - publish
 
-Default templates are stored in Sunbird middleware(learner service) and configuration for the template are stored as form config. The default templates can also be configured during installation using Form APIs
 
 ## Customizing Email Templates
+
+Default templates are stored in Sunbird middleware (learner service). The templates are configurable and are stored as form config. During the installation process, the default templates can be configured using Form APIs.
 
 ### Adding Email Template to Cassandra DB
 
@@ -34,7 +35,7 @@ Command to add an email template to Cassandra DB using CQL shell. Ensure that th
 
 ### Configuring using Form API**
 
-Sample template configuration for different content review workflows stored in form APIs:
+Sample template configuration for different content review workflows in form APIs:
 
 #### Send for review:
 
@@ -130,7 +131,8 @@ Some parameters are used to dynamically change the content information. It is re
 You can aslo create custom email templates which are channel/tenant specific. When customized templates are not present, the default template is used to send emails for different actions in review workflows.
 
 To configure email template:
-* Addnew email template configurations in Form API 
+
+* Add a new email template configurations in Form API 
 * Manually insert the new template in Casandra DB of Sunbird middleware service
 
 ### Creating Custom Templates
@@ -139,7 +141,7 @@ To configure email template:
 <br>&emsp;b. Store the template in Cassandra DB same as the configured Form API
 <br>&emsp;c. Add rootOrgId in form API request along with other fields which is the channel
 <br>&emsp;d. Placeholders should be present in their respective fields
-<br>&emsp;e. If the custom template is configured in form service, then custom template with the same name should also be added in learner service(Sunbird middleware). If not added,  Learner service displays an error
+<br>&emsp;e. If the custom template is configured in form service, then custom template with the same name should also be added in learner service(Sunbird middleware). If not added, Learner service displays an error
 
 For example, if slug is "Sunbird" and action is "send for review", template name should be "sunbird_sendforReviewTemplate"
 
@@ -169,4 +171,5 @@ For example, if slug is "Sunbird" and action is "send for review", template name
 
 > Note: In the email templates, only predefined parameters can be dynamically replaced with content data while sending the email.
 
-> Refer [Notification API](../apis/notificationapi/) for sending email notification
+
+Refer [Notification API](../apis/notificationapi/) for sending email notification

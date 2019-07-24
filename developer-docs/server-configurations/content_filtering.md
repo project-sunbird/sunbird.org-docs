@@ -64,7 +64,7 @@ Sunbird maps each root organization to a concept called a channel. Sunbird allow
 |S No. | Variable Name | Description | Purpose | Default Value | Path |Example |
 |------|-----------|---------------------|---------|---------------|------|-----|
 | 1 | sunbird_content_filter_framework_whitelist | Configures the framework whose content can be displayed in the portal. This is a comma-separated string ex: ”A,B,C” where A,B,C are different framework ID | Variable is used to whitelist the framework whose content should be displayed | &#60;blank&#62; | Content Service |NCF |
-| 2 | sunbird_content_filter_framework_blacklist | Configures the framework whose content should not be displayed in the portal this is a comma-separated string ex:”X,Y,Z”where X,Y,Z are framework ID| Variable is used to blacklist the framework whose content should not be displayed| &#60;blank&#62; |Content Service |NCFCOPY |
+| 2 | sunbird_content_filter_framework_blacklist | Configures the framework whose content should not be displayed in the portal. This is a comma-separated string ex:”X,Y,Z”where X,Y,Z are framework ID| Variable is used to blacklist the framework whose content should not be displayed| &#60;blank&#62; |Content Service |NCFCOPY |
 
 **Content Type** 
 
