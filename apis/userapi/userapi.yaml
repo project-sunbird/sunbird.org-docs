@@ -18,12 +18,6 @@ securityDefinitions:
     name: x-authenticated-user-token # name of the header, query parameter or cookie
 schemes:
   - https
-consumes:
-  - application/json
-  - multipart/form-data
-  - application/x-www-form-urlencoded
-produces:
-  - application/json
 paths:
   /user/v1/create:
     post:
@@ -35,6 +29,8 @@ paths:
       tags:
         - User APIs
       operationId: Create User
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -48,17 +44,27 @@ paths:
 
           schema:
             $ref: '#/definitions/CreateUserrequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            Type of the request data. Set as application/json.
         - name: ts
           in: header
           required: false
           type: string
           description: 'Timestamp at which given API request is sent.'
+        - name: X-msgid
+          in: header
+          required: false
+          type: string
+          description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        - name: x-authenticated-user-token
+          in: header
+          required: false
+          type: string
+          description: >-
+            It is a unique token/key to authenticate the user each time an API is called. For corresponding sessions this token is used, not your actual username/password
       responses:
         '200':
           description: 'OK ! Successful operation."Create User" operation was successfully executed.'
@@ -95,6 +101,8 @@ paths:
       tags:
         - User APIs
       operationId: V2 Create User
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -109,17 +117,28 @@ paths:
 
           schema:
             $ref: '#/definitions/CreateUserRequestV2'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            Type of the request data. Set as application/json.
+
         - name: ts
           in: header
           required: false
           type: string
           description: 'Timestamp at which given API request is sent.'
+        - name: X-msgid
+          in: header
+          required: false
+          type: string
+          description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        - name: x-authenticated-user-token
+          in: header
+          required: false
+          type: string
+          description: >-
+            It is a unique token/key to authenticate the user each time an API is called. For corresponding sessions this token is used, not your actual username/password
       responses:
         '200':
           description: 'OK ! Successful operation."Create User" operation was successfully executed.'
@@ -156,6 +175,8 @@ paths:
       tags:
         - User APIs
       operationId: Search User
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -171,14 +192,7 @@ paths:
               - The attributes must be passed inside the filters of the request payload
           schema:
             $ref: '#/definitions/SearchUserRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            The Content Type entity is the media type of the resource.
-            Possible media types can be:-
-              - Application/json
+
         - name: Authorization
           in: header
           required: true
@@ -196,6 +210,11 @@ paths:
           type: string
           description: >-
             Timestamp is a sequence of characters or encoded information identifying when the search user API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second.
+        - name: X-msgid
+          in: header
+          required: false
+          type: string
+          description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
       responses:
         '200':
           description: 'OK ! Successful operation."Search User" operation was successfully executed.'
@@ -260,6 +279,8 @@ paths:
       tags:
         - User APIs
       operationId: Get User by Login ID
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -281,21 +302,18 @@ paths:
           schema:
             allOf:
               - $ref: '#/definitions/GetUserByLoginIdRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description:  >-
-            The Content Type entity is the media type of the resource. Possible media types can be:-
-              - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
+
         - name: ts
           in: header
           required: true
           type: string
           description: >-
             Timestamp is a sequence of characters or encoded information identifying when the read user profile API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second
+        - name: X-msgid
+          in: header
+          required: false
+          type: string
+          description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
         - name: Authorization
           in: header
           required: true
@@ -368,6 +386,8 @@ paths:
       tags:
         - User APIs
       operationId: Get User by User ID
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -376,12 +396,7 @@ paths:
           type: string
           required: true
           description: 'Please append a valid User Id To the Request URL and if user need any specific values like , profile completeness ,missingFields,topic Ex: ?Fields=completeness,missingFields,topic'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            Type of the request data. Set as application/json.
+
         - name: ts
           in: header
           required: false
@@ -465,6 +480,8 @@ paths:
       tags:
         - User APIs
       operationId: Get User by User ID v2
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -473,12 +490,7 @@ paths:
           type: string
           required: true
           description: 'Please append a valid User Id To the Request URI and if user need any specific values like , profile completeness ,missingFields,topic Ex: ?Fields=completeness,missingFields,topic'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            Type of the request data. Set as application/json.
+
         - name: ts
           in: header
           required: false
@@ -555,6 +567,8 @@ paths:
       tags:
         - User APIs
       operationId: Update User
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -570,12 +584,7 @@ paths:
           schema:
             allOf:
               - $ref: '#/definitions/UpdateUserRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            Type of the request data. Set as application/json.
+
         - name: ts
           in: header
           required: false
@@ -637,6 +646,8 @@ paths:
       tags:
         - User APIs
       operationId: '{{host}}/user/v1/updatelogin'
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -651,16 +662,7 @@ paths:
                - JSON
           schema:
             $ref: '#/definitions/UpdateLoginRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            The Content Type entity is the media type of the resource.
-              Possible media types can be:-
-                - Application/json
-                - Multipart/form-data
-                - Application/x-www-form-urlencoded
+
         - name: ts
           in: header
           required: true
@@ -743,19 +745,12 @@ paths:
       tags:
         - User APIs
       operationId: V1RoleReadGet
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            The Content Type entity is the media type of the resource
-             Possible media types can be:-
-               - Application/json
-               - Multipart/form-data
-               - Application/x-www-form-urlencoded
+
         - name: ts
           in: header
           required: true
@@ -835,6 +830,8 @@ paths:
       tags:
         - User APIs
       operationId: V1UserProfileVisibilityPost
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -851,16 +848,7 @@ paths:
           schema:
             allOf:
               - $ref: '#/definitions/VisibilityRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            The Content Type entity is the media type of the resource.
-             Possible media types can be:-
-               - Application/json
-               - Multipart/form-data
-               - Application/x-www-form-urlencoded
+
         - name: ts
           in: header
           required: true
@@ -942,6 +930,8 @@ paths:
       tags:
         - User APIs
       operationId: userBlock
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -958,16 +948,7 @@ paths:
           schema:
             allOf:
               - $ref: '#/definitions/BlockUserReq'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            The Content Type entity is the media type of the resource.
-             Possible media types can be:-
-               - Application/json
-               - Multipart/form-data
-               - Application/x-www-form-urlencoded
+
         - name: ts
           in: header
           required: true
@@ -979,12 +960,6 @@ paths:
           required: true
           type: string
           description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
-
-        - name: Authorization
-          in: header
-          required: true
-          type: string
-          description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
         - name: x-authenticated-user-token
           in: header
           required: true
@@ -1048,6 +1023,8 @@ paths:
       tags:
         - User APIs
       operationId: make deleted user active
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -1063,16 +1040,7 @@ paths:
           schema:
             allOf:
               - $ref: '#/definitions/BlockUserReq'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            The Content Type entity is the media type of the resource.
-             Possible media types can be:-
-               - Application/json
-               - Multipart/form-data
-               - Application/x-www-form-urlencoded
+
         - name: ts
           in: header
           required: true
@@ -1155,6 +1123,8 @@ paths:
         - User APIs
       operationId: userV1RoleAssign
 
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -1169,12 +1139,7 @@ paths:
           schema:
             allOf:
               - $ref: '#/definitions/AssignRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            The Content-Type header specifies the media type of the resource. Set this to application/json.
+
         - name: ts
           in: header
           required: false
@@ -1225,6 +1190,8 @@ paths:
       tags:
         - User APIs
       operationId: EncryptGet
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -1236,16 +1203,7 @@ paths:
           schema:
             allOf:
               - $ref: '#/definitions/encryptRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            The Content Type entity is the media type of the resource
-             Possible media types can be:-
-               - Application/json
-               - Multipart/form-data
-               - Application/x-www-form-urlencoded
+
         - name: ts
           in: header
           required: true
@@ -1299,6 +1257,8 @@ paths:
       tags:
         - User APIs
       operationId: DecryptGet
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -1310,16 +1270,7 @@ paths:
           schema:
             allOf:
               - $ref: '#/definitions/decryptRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            The Content Type entity is the media type of the resource
-             Possible media types can be:-
-               - Application/json
-               - Multipart/form-data
-               - Application/x-www-form-urlencoded
+
         - name: ts
           in: header
           required: true
@@ -1373,6 +1324,8 @@ paths:
       tags:
         - User APIs
       operationId: UpdateUserSkills
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -1384,12 +1337,7 @@ paths:
           schema:
             allOf:
               - $ref: '#/definitions/UpdateUserSkillsRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            Type of the request data. Set as application/json.
+
         - name: ts
           in: header
           required: true
@@ -1451,6 +1399,8 @@ paths:
       tags:
         - User APIs
       operationId: AddUserSkillEndorsement
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -1462,12 +1412,7 @@ paths:
           schema:
             allOf:
               - $ref: '#/definitions/AddUserSkillEndorsementRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            Type of the request data. Set as application/json
+
         - name: ts
           in: header
           required: true
@@ -1534,6 +1479,8 @@ paths:
       tags:
         - User APIs
       operationId: UserV1SkillAddPost
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -1548,16 +1495,7 @@ paths:
           schema:
             allOf:
               - $ref: '#/definitions/AddSkillToUserRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            The Content Type entity is the media type of the resource
-             Possible media types can be:-
-               - Application/json
-               - Multipart/form-data
-               - Application/x-www-form-urlencoded
+
         - name: ts
           in: header
           required: true
@@ -1639,6 +1577,8 @@ paths:
       tags:
         - User APIs
       operationId: UserV1SkillRead
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -1654,16 +1594,7 @@ paths:
           schema:
             allOf:
               - $ref: '#/definitions/ReadUserSkill'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            The Content Type entity is the media type of the resource
-             Possible media types can be:-
-               - Application/json
-               - Multipart/form-data
-               - Application/x-www-form-urlencoded
+
         - name: ts
           in: header
           required: true
@@ -1747,19 +1678,12 @@ paths:
       tags:
         - User APIs
       operationId: DataV1SkillsGet
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            The Content Type entity is the media type of the resource.
-             Possible media types can be:-
-               - Application/json
-               - Multipart/form-data
-               - Application/x-www-form-urlencoded
+
         - name: ts
           in: header
           required: true
@@ -1803,6 +1727,7 @@ definitions:
     type: object
     allOf:
       - $ref: '#/definitions/CreateUserSingleResp'
+
   CreateUserRequestV2:
     description: User object
     type: object
