@@ -20,10 +20,6 @@ securityDefinitions:
     name: x-authenticated-user-token # name of the header, query parameter or cookie
 schemes:
   - https
-consumes:
-  - application/json
-produces:
-  - application/json
 paths:
   /create:
     post:
@@ -35,6 +31,8 @@ paths:
       operationId: Organisation Create
       produces:
         - application/json
+      consumes:
+        - application/json
       parameters:
         - name: Body
           in: body
@@ -43,12 +41,6 @@ paths:
             The body contains metadata about the new Organisation to be created.
           schema:
             $ref: "#/definitions/OrgCreateRequest"
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            Type of the request data. Set as application/json.
         - name: ts
           in: header
           required: false
@@ -102,6 +94,8 @@ paths:
       operationId: Organisation Get
       produces:
         - application/json
+      consumes:
+        - application/json
       parameters:
         - name: Body
           in: body
@@ -110,12 +104,6 @@ paths:
             The body contains metadata about the Organisation whose details are required to be viewed.
           schema:
             $ref: '#/definitions/OrgGetRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            Type of the request data. Set as application/json.
         - name: ts
           in: header
           required: false
@@ -165,6 +153,8 @@ paths:
       operationId: Organisation Search
       produces:
         - application/json
+      consumes:
+        - application/json
       parameters:
         - name: Body
           in: body
@@ -173,12 +163,6 @@ paths:
             The body contains metadata about filters that can be used in Organisation search.
           schema:
             $ref: '#/definitions/OrgSearchRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            Type of the request data. Set as application/json.
         - name: ts
           in: header
           required: false
@@ -233,6 +217,8 @@ paths:
       operationId: Organisation Update
       produces:
         - application/json
+      consumes:
+        - application/json
       parameters:
         - name: Body
           in: body
@@ -241,12 +227,6 @@ paths:
             The body contains metadata about an existing Organisation to be updated.
           schema:
             $ref: '#/definitions/OrgUpdateRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            Type of the request data. Set as application/json.
         - name: ts
           in: header
           required: false
@@ -296,6 +276,8 @@ paths:
       operationId: Organisation Status Update
       produces:
         - application/json
+      consumes:
+        - application/json
       parameters:
         - name: Body
           in: body
@@ -304,12 +286,6 @@ paths:
             The body contains metadata about an existing Organisation whose status is required to be updated.
           schema:
             $ref: '#/definitions/OrgStatusUpdateRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            Type of the request data. Set as application/json.
         - name: ts
           in: header
           required: false
@@ -358,6 +334,8 @@ paths:
       operationId: Organisation Type Create
       produces:
         - application/json
+      consumes:
+        - application/json
       parameters:
         - name: Body
           in: body
@@ -366,12 +344,6 @@ paths:
             The body contains metadata about the new Organisation Type to be created.
           schema:
             $ref: '#/definitions/OrgTypeCreateRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            Type of the request data. Set as application/json.
         - name: ts
           in: header
           required: false
@@ -418,13 +390,9 @@ paths:
       operationId: Organisation Type List
       produces:
         - application/json
+      consumes:
+        - application/json
       parameters:
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            Type of the request data. Set as application/json.
         - name: ts
           in: header
           required: false
@@ -467,6 +435,8 @@ paths:
       operationId: Organisation Type Update
       produces:
         - application/json
+      consumes:
+        - application/json
       parameters:
         - name: Body
           in: body
@@ -475,12 +445,6 @@ paths:
             The body contains metadata about an existing Organisation Type to be updated.
           schema:
             $ref: '#/definitions/OrgTypeUpdateRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            Type of the request data. Set as application/json.
         - name: ts
           in: header
           required: false
@@ -527,6 +491,8 @@ paths:
       operationId: Organisation Add User
       produces:
         - application/json
+      consumes:
+        - application/json
       parameters:
         - name: Body
           in: body
@@ -535,12 +501,6 @@ paths:
             The body contains metadata about adding a member to an existing Organisation.
           schema:
             $ref: '#/definitions/OrgAddUserRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            Type of the request data. Set as application/json.
         - name: ts
           in: header
           required: false
@@ -593,6 +553,8 @@ paths:
       operationId: Organisation Remove User
       produces:
         - application/json
+      consumes:
+        - application/json
       parameters:
         - name: Body
           in: body
@@ -601,12 +563,6 @@ paths:
             The body contains metadata about removing a user from an existing Organisation.
           schema:
             $ref: '#/definitions/OrgRemoveUserRequest'
-        - name: Content-Type
-          in: header
-          required: true
-          type: string
-          description: >-
-            Type of the request data. Set as application/json.
         - name: ts
           in: header
           required: false
@@ -683,7 +639,7 @@ definitions:
             type: object
             properties:
               channel:
-                description: 'Name identifying a tenant (e.g. APEKX). Channel is mandatory for a root organisation'
+                description: 'Name identifying a tenant (e.g. APEKX). Channel is mandatory for a root organisation if channel is not passed it will take custodian channel.'
                 type: string
               description:
                 description: 'Organisation description'
