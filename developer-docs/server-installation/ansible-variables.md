@@ -5,9 +5,11 @@ description: Ansible Variables
 keywords: ansible variables, variables
 allowSearch: true
 ---
-    
+## Overview
+
+
 > Note: 
->- If you want to run only Core services which will connect to Ekstep backend for other dependent services like Knowledge Platform and Data Pipeline, follow the below steps for Core module only**   **  
+>- If you want to run only Core services which will connect to Ekstep backend for other dependent services like Knowledge Platform and Data Pipeline, follow the below steps for Core module only.   
 >- Once you complete the below steps, go to this page to get details on extra variables that need to be added for Core service only to work - [Additional-variables-for-Core-service](AnsibleVariables-Updatingprivaterepowithhostsandvariables) 
     
     
