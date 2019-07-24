@@ -31,12 +31,12 @@ paths:
     get:
       description:  >-
        This API is associated with listing the system settings on the Sunbird Platform.
-          - The **_/list_** endpoint executes the "DataV1SystemSettingsListGet" request based on parameters provided as metadata in the request body
+          - The **_/list_** endpoint executes the "GetSystemSettingsList" request based on parameters provided as metadata in the request body
           - Required fields cannot be left null or empty
       summary: Lists out the system settings
       tags:
       - System Settings APIs
-      operationId: DataV1SystemSettingsListGet
+      operationId: GetSystemSettingsList
       produces:
       - application/json
       parameters:
@@ -48,8 +48,6 @@ paths:
            The Content Type entity is the media type of the resource.
             Possible media types can be:- 
               - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
       - name: ts
         in: header
         required: true
@@ -72,25 +70,25 @@ paths:
         description: 'All System-settings APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API'
       responses:
         '200':
-          description: 'OK ! Successful operation."list badges" operation was successfully executed.'
+          description: 'OK ! Successful operation."system settings list" operation was successfully executed.'
           schema:
-            $ref: '#/definitions/ContentCreateResponse'
+            $ref: '#/definitions/SystemSettingsListResponse'
         '400':
-          description: 'BAD REQUEST. The "list badges" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST. The "system settings list" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
           schema:
-            $ref: '#/definitions/ContentCreateErrorResponse'
+            $ref: '#/definitions/SystemSettingsErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
   /get/{System_Setting_Id}:
     get:
       description:  >-
        This API is associated with listing the system settings on the Sunbird Platform.
-          - The **_/get/{System_Setting_Id}_** endpoint executes the "DataV1SystemSettingsGetById" request based on parameters provided as metadata in the request body
+          - The **_/get/{System_Setting_Id}_** endpoint executes the "GetSystemSettingsById" request based on parameters provided as metadata in the request body
           - Required fields cannot be left null or empty
       summary: Gets the system settings based on the provided Id
       tags:
       - System Settings APIs
-      operationId: DataV1SystemSettingsGetById
+      operationId: GetSystemSettingsById
       produces:
       - application/json
       parameters:
@@ -107,8 +105,6 @@ paths:
            The Content Type entity is the media type of the resource.
             Possible media types can be:- 
               - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
       - name: ts
         in: header
         required: true
@@ -131,26 +127,28 @@ paths:
         description: 'All System-settings APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API'
       responses:
         '200':
-          description: 'OK ! Successful operation."list badges" operation was successfully executed.'
+          description: 'OK ! Successful operation."get system setiing" operation was successfully executed.'
           schema:
-            $ref: '#/definitions/ContentCreateResponse'
+            $ref: '#/definitions/GetSystemSettingsResponse'
         '400':
-          description: 'BAD REQUEST. The "list badges" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST. The "get system setiing" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
           schema:
-            $ref: '#/definitions/ContentCreateErrorResponse'
+            $ref: '#/definitions/SystemSettingsErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
   /set:
     post:
       description: >-
        This API is associated with changing the System settings values on the Sunbird Platform.
-          - The **_/system/settings/set** endpoint executes the "DataV1SystemSettingsSetPost" request based on parameters provided as metadata in the request body
+          - The **_/system/settings/set** endpoint executes the "SetSystemSettings" request based on parameters provided as metadata in the request body
           - Required fields cannot be left null or empty
       summary: Set value to system settings.
       tags:
       - System Settings APIs
-      operationId: DataV1SystemSettingsSetPost
+      operationId: SetSystemSettings
       produces:
+      - application/json
+      consumes:
       - application/json
       parameters:
       - name: Body
@@ -158,24 +156,14 @@ paths:
         required: true
         description: >-
             The body refers to the format of the request.
-              - The body contains metadata about the request for adding badges to user.
+              - The body contains metadata about the request for adding/replace system settings.
         schema:
           $ref: '#/definitions/SetSystemSettingsRequest'
-      - name: Content-Type
-        in: header
-        required: true
-        type: string
-        description: >-
-           The Content Type entity is the media type of the resource.
-            Possible media types can be:- 
-              - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
       - name: ts
         in: header
         required: true
         type: string
-        description: 'Time Stamp at which add badges request was sent'
+        description: 'Time Stamp at which set system settings request was sent'
       - name: X-msgid
         in: header
         required: true
@@ -193,13 +181,13 @@ paths:
         description: 'All System-settings APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API'
       responses:
         '200':
-          description: 'OK ! Successful operation."add badges" operation was successfully executed.'
+          description: 'OK ! Successful operation."set system setting" operation was successfully executed.'
           schema:
-            $ref: '#/definitions/ContentCreateResponse'
+            $ref: '#/definitions/SetSystemSettingsResponse'
         '400':
-          description: 'BAD REQUEST. The "add badges" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST. The "set system setting" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
           schema:
-            $ref: '#/definitions/ContentCreateErrorResponse'
+            $ref: '#/definitions/SystemSettingsErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
 definitions:
@@ -246,13 +234,37 @@ definitions:
     type: object
     properties:
       result:
-        $ref: '#/definitions/NodeId'
-  ContentCreateResponse:
-    description: Create Content Response
+        $ref: '#/definitions/ResponseNodeId'
+  ResultWithArrayNodeId:
+    title: Result Containing Node Id
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/ArrayResponseNodeId'
+  SystemSettingsListResponse:
+    description: System settings list Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithArrayNodeId'
+      - $ref: '#/definitions/ResponseHeader'
+  GetSystemSettingsResponse:
+    description: Get system settings Response
     type: object
     allOf:
       - $ref: '#/definitions/ResultWithNodeId'
       - $ref: '#/definitions/ResponseHeader'
+  SetSystemSettingsResponse:
+    description: Get system settings Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithResponseSuccess'
+      - $ref: '#/definitions/ResponseHeader'
+  ResultWithResponseSuccess:
+    title: Result containing response as success
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/SuccessResponseNodeId'
   ResponseHeader:
     title: ResponseHeader
     type: object
@@ -269,7 +281,7 @@ definitions:
       params:
         $ref: '#/definitions/ResponseParams'
       responseCode:
-        type: object
+        type: string
         description: 'API response code '
   ResponseParams:
     title: Response Parameter
@@ -297,15 +309,35 @@ definitions:
       result:
         type: object
         description: Empty Result
-  NodeId:
-    title: Node Id
+  ResponseNodeId:
+    title: Response Node Id
+    description: Response Node Identifier
     type: object
     properties:
-      node_id:
+      response:
+        type: object
+  SuccessResponseNodeId:
+    title: Success response Node Id
+    description: Success response Node Identifier
+    type: object
+    properties:
+      response:
+        description: SUCCESS as response
         type: string
-        description: Node Identifier
-  ContentCreateErrorResponse:
-    title: Create Content Error Response
+      id:
+        description: system setting id which is supplied in the request body
+        type: string
+  ArrayResponseNodeId:
+    title: Array Response Node Id
+    description: Array Response Node Identifier
+    type: object
+    properties:
+      response:
+        type: array
+        items:
+          type: object
+  SystemSettingsErrorResponse:
+    title: System Settings Error Response
     type: object
     allOf:
       - $ref: '#/definitions/EmptyResult'
