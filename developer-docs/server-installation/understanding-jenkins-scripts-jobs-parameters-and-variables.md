@@ -11,7 +11,8 @@ To effectively do the Jenkins setup, it is important to understand the various s
 
 ## Script Details
 
-The following scripts are used by Sunbird for the Jenkins setup.    
+The following scripts are used by Sunbird for the Jenkins setup.
+
 |**Script Name**| **Description**|
 |---------------|----------------|
 |jenkins-server-setup.sh|This script installs Jenkins and other packages like Maven, Ansible, Pip, etc.|
@@ -21,8 +22,9 @@ The following scripts are used by Sunbird for the Jenkins setup.
 ## Jenkins Setup Variables
 
 The following variables are used for Jenkins setup.
-|**Variable Name| **Description**|
-|---------------|----------------|
+
+|**Variable Name**| **Description**|
+|-----------------|----------------|
 |`ops_ssh_key`| The private key value used to create the VM. It is considered the master key used to can connect to the VM's.|
 |`deployer_ssh_key`| The new key generated on a local machine or any other machine. Ansible creates a new user on all the VM's during the bootstrap process. The user name is found in the common.yml file. After this user is created, Ansible uses this key for all Jenkins jobs. The private key content is copied into this file during the Jenkins setup. The public key will be sprayed to all VM's during the bootstrap process.|
 |`vault-pass`| The password to decrypt to files encrypted using Ansible-vault. The best practice is to encrypt the **secrets.yml** file using Ansible-vault and push it to the private github repo. When Ansible runs, it checks out this file and decrypts it using the vault-pass file. Even if the **secrets.yml** file is not encrypted, it is a must to enter a value in this file. If the file is empty, Ansible will throw an error even if there are no files to decrypt.
@@ -30,6 +32,7 @@ The following variables are used for Jenkins setup.
 ## Jenkins Environment Variables
 
 The following environment svariables are used for Jenkins setup.
+
 |**Variable Name| **Description**|
 |---------------|----------------|
 |hub_org|This is your docker username, docker organisation name.|
@@ -43,6 +46,7 @@ then Jenkins checks out the Jenkins file from the tag **release-2.0.0**. You can
 ## Parameter Details
 
 ### Build Jobs
+
 |**Parameter| **Description**|
 |---------------|-----------|
 |github_release_tag|Specify a tag name here if you want to build from a tag. Example - release-2.0.0. This will look for a tag named release-2.0.0 in the repository URL configured in the Jenkins job and checkout the code from this tag. This should not be confused with 
