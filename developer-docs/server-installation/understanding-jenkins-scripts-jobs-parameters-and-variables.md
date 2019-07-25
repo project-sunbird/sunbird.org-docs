@@ -15,9 +15,9 @@ The following scripts are used by Sunbird for the Jenkins setup.
 
 |**Script Name**| **Description**|
 |---------------|----------------|
-|jenkins-server-setup.sh|This script installs Jenkins and other packages like Maven, Ansible, Pip, etc.|
-|jenkins-plugins-setup.sh|This script downloads the m2 repo, if it does not exist and installs the plugins using Butler. The plugin list can be found in the **plugins.txt** file.|
-|jenkins-jobs-setup.sh|This script takes the **envOrder.txt** file as the input and creates the jobs directory in **/var/lib/jenkins**. The jobs directory in **sunbird-devops/deploy/jenkins** is the base for this script, and uses it to create the folder structure.
+| jenkins-server-setup.sh |This script installs Jenkins and other packages like Maven, Ansible, Pip, etc.|
+| jenkins-plugins-setup.sh |This script downloads the m2 repo, if it does not exist and installs the plugins using Butler. The plugin list can be found in the **plugins.txt** file.|
+| jenkins-jobs-setup.sh |This script takes the **envOrder.txt** file as the input and creates the jobs directory in **/var/lib/jenkins**. The jobs directory in **sunbird-devops/deploy/jenkins** is the base for this script, and uses it to create the folder structure.
 
 ## Jenkins Setup Variables
 
@@ -33,7 +33,7 @@ The following variables are used for Jenkins setup.
 
 The following environment svariables are used for Jenkins setup.
 
-|**Variable Name| **Description**|
+|**Variable Name**| **Description**|
 |---------------|----------------|
 |hub_org|This is your docker username, docker organisation name.|
 |private_repo_branch| The branch name in your private repo where the Ansible hosts, common.yml and secrets.yml files exist.
@@ -46,7 +46,7 @@ The following environment svariables are used for Jenkins setup.
 
 ### Build Jobs
 
-|**Parameter| **Description**|
+|**Parameter**| **Description**|
 |---------------|-----------|
 |github_release_tag|Specify a tag name here if you want to build from a tag. Example - release-2.0.0. This will look for a tag named release-2.0.0 in the repository URL configured in the Jenkins job and checkout the code from this tag. This should not be confused with 
 **public_repo_branch**. The **public_repo_branch** is used only to checkout the Jenkinsfile which has all the build logic. 
@@ -55,7 +55,7 @@ All build jobs create an artifact **metadata.json** that has details such as art
 
 ### ArtifactUpload Jobs
 
-|**Parameter| **Description**|
+|**Parameter**| **Description**|
 |---------------|----------------|
 |absolute_job_path| The path from where the **metadata.json** file is copied. The **metadata.json** file contains important information like name and version of artifact / docker image and the Jenkins slave on which it was built. It is not recommended to change this value. All jobs in Jenkins heavily rely on the **metadata.json** file to obtain the needed information and the path to this file is critical. For all ArtifactUpload jobs, the **metadata.json** file is copied from the build jobs.|
 |Image_tag| This is available for docker container jobs. This field may have a value or may be blank. By default when the ArtifactUpload job runs, it copies the image name and image tag from the **metadata.json** file and pushes it to the container registry specified in **hub_org**. As an example scenario, let us see when we need to provide the value in this field. Let's say the build job X with build number 1 completed and triggers the ArtifactUpload job. For some reason, the ArtifactUpload job fails and it could not push the image built by the build job X in build number 1. The build job X runs again after some new commits and triggers the ArtifactUpload job. This time the upload jobs pushes the image to **hub_org**. But the image build in build number 1 is not available in the docker hub as the upload failed. In this scenario, go to the build number 1 of job X and copy the image tag from metadata.json file. Paste the image tag value in this parameter of the upload job. This will push that specific version of the image to **hub_org**.|
