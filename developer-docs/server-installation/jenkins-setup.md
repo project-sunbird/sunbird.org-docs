@@ -125,5 +125,6 @@ Here **somekey.pem** is the key you used to login to the Jenkins server. Hencefo
 
 35. Restart the Jenkins server
 
-> **Note:** Open any of the config files from the **Deploy** directory and save it. Without this some of the parameters will not be visible. 
-After completing the Jenkins setup, follow instructions provided in the **Running Builds, Artifact Uploads and Deployment** page to create inventory, secrets and Ansible hosts in the private repository.
+> **Note:** 
+> Open any of the config files from the **Deploy** directory and save it. Without this some of the parameters will not be visible. 
+> After completing the Jenkins setup, follow instructions provided in the **Running Builds, Artifact Uploads and Deployment** page to create inventory, secrets and Ansible hosts in the private repository.        
