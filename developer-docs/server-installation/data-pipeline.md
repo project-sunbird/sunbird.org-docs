@@ -1,24 +1,46 @@
 ---
 title: Data Pipeline
 page_title: Data Pipeline
-description: data pipeline
+description: Explains how to create schemas for knowledge platform objects
 keywords: data, data pippeline, data sequence 
 allowSearch: true
---- 
-                   
+
+---
+
+Log into Jenkins and perform the following:
+
 ## Build
 
-<li style="list-style-type: none;"><ul><li>Switch to <code>Build</code><span> </span>folder and run all jobs. Provide the value for <strong>github_release_tag</strong><span> </span>as per the details mentioned in this page - <a style="text-decoration: none;" href="https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/1025376293/Current+Release+Tags+and+Jenkins+Jobs+Reference" rel="nofollow">Current Release Tags and Jenkins Jobs Reference</a></li></ul></li></ul>
+Switch to <code>Build</code><span> </span>folder and run all jobs. Provide the value for <strong>github_release_tag</strong><span> </span>as per the details mentioned on: <a style="text-decoration: none;" href="https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/1025376293/Current+Release+Tags+and+Jenkins+Jobs+Reference" rel="nofollow">Current Release Tags and Jenkins Jobs Reference</a>
 
+## DevOps Administration
 
-## OpsAdministration
-    
-    1. Bootstrap                    //# Creates Deployer User
-    
+| Operation Name | Function              |
+| -------------- | --------------------- |
+| Bootstrap      | Creates Deployer User |
+
 ## Provision
 
-<ul><li>Switch to <code>Provision/&lt;env&gt;/DataPipeline</code> and run all jobs<ol><li>AnalyticsApi</li><li>AnalyticsSecor</li><li>AnalyticsSpark</li><li>Influxdb</li><li>Kibana</li><li>Postgress</li><li>Yarn</li></ol></li></ul>
+Switch to <code>Provision/&lt;env&gt;/DataPipeline</code> and run all jobs
+
+1. AnalyticsApi
+2. AnalyticsSecor
+3. AnalyticsSpark
+4. Influxdb
+5. Kibana
+6. Postgress
+7. Yarn
 
 ## Deploy
 
-<ul><li>Switch to <code>Deploy/dev/DataPipeline</code> and run all jobs in following order</span><ol><li> CassandraDbUpdate</span></li><li>KafkaSetup</span></li><li> AnalyticsApi</span></li><li> DataProducts</span></li><li> Secor</span></li><li> KafkaIndexer</span></li><li> SamzaTelemertySchemas</span></li><li> Yarn</span></li></ol>
+Switch to <code>Deploy/dev/DataPipeline</code> and run all jobs in the following order:
+
+1. CassandraDbUpdate
+2. KafkaSetup
+3. AnalyticsApi
+4. DataProducts
+5. Secor
+6. KafkaIndexer
+7. SamzaTelemertySchemas
+8. Yarn
+

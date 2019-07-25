@@ -1,17 +1,20 @@
 ---
 title: Core Services
-page_title: Core Service
-description: Core Services
-keywords: core service, services
+page_title: Core Services
+description: Explains how to create schemas for knowledge platform objects
+keywords: core services, services
 allowSearch: true
---- 
 
+---
 
-PREREQUISITES
+Prerequisites
 
+1. Create a container in azure blob and make it public for content publish. This continer name must be the same as the variable **sunbird_content_azure_storage_container** which is specified in the common.yml of the core inventory.
+2. Switch to `Build` folder and run all jobs. Provide the value for **github_release_tag** according to the details mentioned in this page - [Current Release Tags and Jenkins Jobs Reference](https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/1025376293/Current+Release+Tags+and+Jenkins+Jobs+Reference)
 
-
-<h3 id="CoreServices-1.Createacontainerinazureblobandmakeitpublicforcontentpublish.Thiscontinernamewillbesameasthevariablesunbird_content_azure_storage_containerwhichisspecifiedinthecommon.ymlofCoreinventory.">1. Create a container in azure blob and make it public for content publish. This continer name will be same as the variable <strong>sunbird_content_azure_storage_container</strong> which is specified in the common.yml of Core inventory.</h3><h3 id="CoreServices-2.SwitchtoBuildfolderandrunalljobs.Providethevalueforgithub_release_tagasperthedetailsmentionedinthispage-CurrentReleaseTagsandJenkinsJobsReference">2. Switch to <code>Build</code><span> </span>folder and run all jobs. Provide the value for <strong>github_release_tag</strong><span> </span>as per the details mentioned in this page - <a style="text-decoration: none;" href="https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/1025376293/Current+Release+Tags+and+Jenkins+Jobs+Reference" rel="nofollow">Current Release Tags and Jenkins Jobs Reference</a></h3><p><br/></p><h3 id="CoreServices-RuntheBelowJobs"><strong>Run the Below Jobs</strong></h3><blockquote><h3 id="CoreServices-Belowstepsneedstobefollowedaspertheorder.">Below steps needs to be followed as per the order.</h3></blockquote><p><strong>OpsAdministration</strong>:</p><p>1. Bootstrap                                                                                                               # Creates Deployer User<br/>2. SwarmBootstrap                                                                                                    # Creates Swarm with manager and agent nodes</p><p><strong>Builds</strong>:</p><p>1. Adminutils                                                                                                              # Builds Adminutils container<br/>2. API MANAGER                                                                                                      # Builds API Manager Container<br/>3. API MANAGER Echo                                                                                             # Builds API Manager echo Container<br/>4. Badger                                                                                                                  # Builds Badger Container<br/>5. Cassandra                                                                                                            # Creates a jar for migration purpose<br/>6. Content                                                                                                                 # Builds Content Service Container<br/>
+  Run the Below Jobsid="CoreServices-Belowstepsneedstobefollowedaspertheorder."
+    
+Below steps needs to be followed as per the order.</h3></blockquote><p><strong>OpsAdministration</strong>:</p><p>1. Bootstrap                                                                                                               # Creates Deployer User<br/>2. SwarmBootstrap                                                                                                    # Creates Swarm with manager and agent nodes</p><p><strong>Builds</strong>:</p><p>1. Adminutils                                                                                                              # Builds Adminutils container<br/>2. API MANAGER                                                                                                      # Builds API Manager Container<br/>3. API MANAGER Echo                                                                                             # Builds API Manager echo Container<br/>4. Badger                                                                                                                  # Builds Badger Container<br/>5. Cassandra                                                                                                            # Creates a jar for migration purpose<br/>6. Content                                                                                                                 # Builds Content Service Container<br/>
 
 7. Learner                                                                                                                 # Builds Learner Service Container<br/>
 

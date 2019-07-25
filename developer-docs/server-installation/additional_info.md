@@ -27,4 +27,3 @@ keycloak_auth_server_url: &quot;{{proto}}://{{ proxy_server_name }}:8080/auth&qu
     # sunbird key after onboarding consumers</p><p>core_vault_kong__test_jwt:                                                                                           
 
     # sunbird key after onboarding consumers</p><p><br/></p><p><br/></p>
-        
