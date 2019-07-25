@@ -67,33 +67,33 @@ The instance administrator of any Sunbird adopter can customize the Sunbird mobi
 * Onboarding cards
 * Categories in the profile page 
 
-| S No. | Variable Name | Description | Purpose | Default Value
-|-------|---------------|--------------|--------|--------------
-| 1 | dev_app_id/staging_app_id/production_app_id | The app ID in the **sunbird-mobile/buildConfig/sunbird.properties** file with the implementation-specific application ID | To change the app ID | appId: "org.sunbird.app"
+| S No. | Variable Name | Description | Purpose | Default Value|
+|-------|---------------|--------------|--------|--------------|
+| 1 | dev_app_id/staging_app_id/production_app_id | The app ID in the **sunbird-mobile/buildConfig/sunbird.properties** file with the implementation-specific application ID | To change the app ID | appId: "org.sunbird.app"|
 | 2 | app name | Navigate to the **sunbird-mobile/config.xml** file and enter the required app name. | To change the app name | 
 | 3 | app logo | Navigate to **sunbird-mobile/resources/android/icon** and **sunbird-mobile/resources/android/splash**. Replace the **ic_launcher.png** image with your desired logo in all the mipmap and drawable folders. The logo name should be **drawable-ldpi-icon.png** | To change the app logo |
-| 4 | app | Set the configuration variable in the **sunbird-mobile repo** file in the **buildConfig** folder | | 
+| 4 | app | Set the configuration variable in the **sunbird-mobile repo** file in the **buildConfig** folder | |   |
 | 5|  app version code | Version code for the app release | To customize the end points in the app | Replace redirect base url REDIRECT_BASE_URL and all other base urls with your respective domain name in **sunbird.properties** |
-| 6 | deep link schema | This plugin handles deeplinks on iOS and Android for both custom URL scheme links and Universal App Links. Deep link schema can be changed from sunbird.properties | Change the "dev_deeplink_base_url = dev.open-sunbird.org" to the required name
-| 7 | display_onboarding_page | Set the configuration variable in the **sunbird-mobile repo** in the **buildConfig** folder | to display the onboarding page | false
-| 8 | display_signin_footer_card_in_course_tab_for_teacher | set the <b>display_signin_footer_card_in_course_tab_for_teacher</b>variable as <b>true</b> in sunbird.properties file | to show the sign-in footer in the course tab for teachers | false
-| 9 | display_signin_footer_card_in_library_tab_for_teacher | Set the <b>display_signin_footer_card_in_library_tab_for_teacher</b> variable <b>true</b> in sunbird.properties file | to show the sign-in footer in the library tab for teachers | false
-| 10 | display_signin_footer_card_in_profile_tab_for_teacher | Set the <b>display_signin_footer_card_in_profile_tab_for_teacher</b>as <b>true</b> in sunbird.properties file | to show the sign-in footer in the profile tab for teachers | false
-| 11 | display_signin_footer_card_in_profile_tab_for_student | Set the <b>display_signin_footer_card_in_profile_tab_for_student</b>as <b>true</b> in sunbird.properties file | to show the sign-in footer in the profile tab for students | false
-| 12 | display_signin_footer_card_in_library_tab_for_student | Set the <b>display_signin_footer_card_in_library_tab_for_student</b>as <b>true</b> in sunbird.properties file | to show the sign-in footer in the profile tab for students | false
-| 13 | display_onboarding_card | set the display__onboarding_cards as true in sunbird.properties file | to display the guest/login page | false
-| 14 | display_framework_categories_in_profile | set the display_framework_categories_in_profile variable as true in sunbird.properties file | to display categories in the guest/login page | false
-| 15 | track_user_telemetry | Variable used to track user telemetry.| Used to track telemetry that is missing at the device level so as to generate greater usage context within the instance. Set the variable as *true* in the **sunbird.properties** file to enable tracking.  | false
+| 6 | deep link schema | This plugin handles deeplinks on iOS and Android for both custom URL scheme links and Universal App Links. Deep link schema can be changed from sunbird.properties | Change the "dev_deeplink_base_url = dev.open-sunbird.org" to the required name|
+| 7 | display_onboarding_page | Set the configuration variable in the **sunbird-mobile repo** in the **buildConfig** folder | to display the onboarding page | false|
+| 8 | display_signin_footer_card_in_course_tab_for_teacher | set the <b>display_signin_footer_card_in_course_tab_for_teacher</b>variable as <b>true</b> in sunbird.properties file | to show the sign-in footer in the course tab for teachers | false|
+| 9 | display_signin_footer_card_in_library_tab_for_teacher | Set the <b>display_signin_footer_card_in_library_tab_for_teacher</b> variable <b>true</b> in sunbird.properties file | to show the sign-in footer in the library tab for teachers | false|
+| 10 | display_signin_footer_card_in_profile_tab_for_teacher | Set the <b>display_signin_footer_card_in_profile_tab_for_teacher</b>as <b>true</b> in sunbird.properties file | to show the sign-in footer in the profile tab for teachers | false|
+| 11 | display_signin_footer_card_in_profile_tab_for_student | Set the <b>display_signin_footer_card_in_profile_tab_for_student</b>as <b>true</b> in sunbird.properties file | to show the sign-in footer in the profile tab for students | false|
+| 12 | display_signin_footer_card_in_library_tab_for_student | Set the <b>display_signin_footer_card_in_library_tab_for_student</b>as <b>true</b> in sunbird.properties file | to show the sign-in footer in the profile tab for students | false|
+| 13 | display_onboarding_card | set the display__onboarding_cards as true in sunbird.properties file | to display the guest/login page | false|
+| 14 | display_framework_categories_in_profile | set the display_framework_categories_in_profile variable as true in sunbird.properties file | to display categories in the guest/login page | false|
+| 15 | track_user_telemetry | Variable used to track user telemetry.| Used to track telemetry that is missing at the device level so as to generate greater usage context within the instance. Set the variable as *true* in the **sunbird.properties** file to enable tracking.  | false|
 
 <b>Packaging Framework and Form Data</b>
 Sunbird mobile app supports configuration of the app framework to enable offline usage of the app. To configure the app framework, adopter needs to package the channel for the respective framework. Details of the file naming convention and folder location are given below:
 
-| S No. | Folder | File Name |  Purpose 
-|-------|--------|-----------|-------------
-| 1 | buildConfig/data/framework | framework-<FRAMEWORK_IDENTIFIER>.json | To package the channel for the respective framework. Same framework must be listed in the onboarding form API
-| 2 | buildConfig/data/channel | channel-<CHANNEL_IDENTIFIER>.json | To package the channel. Default framework must be same as the packaged framework for respective channel
-| 3 | buildConfig/data/form | syllabus.json | To onboard form API
-| 4 | buildConfig/data/form | pageassemble_course_filter.json | Page assemble filter for course
+| S No. | Folder | File Name |  Purpose |
+|-------|--------|-----------|-------------|
+| 1 | buildConfig/data/framework | framework-<FRAMEWORK_IDENTIFIER>.json | To package the channel for the respective framework. Same framework must be listed in the onboarding form API|
+| 2 | buildConfig/data/channel | channel-<CHANNEL_IDENTIFIER>.json | To package the channel. Default framework must be same as the packaged framework for respective channel|
+| 3 | buildConfig/data/form | syllabus.json | To onboard form API|
+| 4 | buildConfig/data/form | pageassemble_course_filter.json | Page assemble filter for course|
 | 5 | buildConfig/data/form | pageassemble_library_filter.json | Page assemble filter for library
 
 ## Installing Individual Plugins
