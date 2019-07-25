@@ -1,6 +1,6 @@
 ---
 type: landing
-directory: developer-docs/installation/
+directory: developer-docs/mobile-app-installation/
 title: Setting Up Mobile App
 page_title: Setting Up Mobile App
 description: Setting Up Mobile App
