@@ -347,7 +347,7 @@ To add/update object definitions, use the `Save Definition` API. You can fetch t
 You can also update Object Definitions using Jenkins job. The following is the Jenkins job file path:
 `jenkins/Deploy/dev/KnowledgePlatform/Neo4jDefinitionUpdate`
 
-Script path for Jenkins file:
+The script path for the Jenkins file:
 `pipelines/deploy/neo4j-definition-update/Jenkinsfile`
 
 This job reads the definition files of all the objects available in the [Knowledge Platform](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-2.0.0/docs/domain_model_v2/definitions) and updates all the definitions.
