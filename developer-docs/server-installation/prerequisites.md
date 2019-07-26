@@ -19,7 +19,7 @@ To efficiently handle Sunbird installation, you need to have:
 
 > **Note:** Sunbird is tested on cloud hosted Linux servers (Azure & AWS). Hence, it is recommended that you use Linux servers. Sunbird and its functionality is not tested on Microsoft® operating systems, or on in-premise infrastructure, like rack mounted servers. The Sunbird installer has a known issue on virtual machines such as those created by VirtualBox or VMWare. 
 
-## Provisioning for Servers 
+## Provisioning Servers 
 Before you start the installation process, ensure that you provision for servers to host applications and set up required accounts and repositories as per details provided.
 
 |Application |  Server      |Count|
@@ -30,8 +30,9 @@ Before you start the installation process, ensure that you provision for servers
 | Core    |2core 8G 60G HDD  |2 |
 |   |   Load Balancers   |  4 |
 
-2. Private GitHub repository to store Ansible hosts and secrets  
-3. Fully Qualified Domain Name(FQDN) with SSL  
-4. Azure Storage account   
+## Other Requirements
+1. Private GitHub repository to store Ansible hosts and secrets  
+2. Fully Qualified Domain Name(FQDN) with SSL  
+3. Azure Storage account   
 5. Docker hub account 
 
