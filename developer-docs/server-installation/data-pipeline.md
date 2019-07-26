@@ -1,17 +1,18 @@
 ---
 title: Data Pipeline
 page_title: Data Pipeline
-description: Explains how to create schemas for knowledge platform objects
-keywords: data, data pippeline, data sequence 
+description: Explains how to create schemas for Data Pipeline objects
+keywords: data, data pipeline, data sequence 
 allowSearch: true
 
 ---
 
-Log into Jenkins and perform the following:
+## Overview
+This page explains the jobs to be run to bring up the Data Pipeline services. In order to do so, log into Jenkins and execute the instructions as per the sequence provided on this page.
 
 ## Build
 
-Switch to <code>Build</code><span> </span>folder and run all jobs. Provide the value for <strong>github_release_tag</strong><span> </span>as per the details mentioned on: <a style="text-decoration: none;" href="https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/1025376293/Current+Release+Tags+and+Jenkins+Jobs+Reference" rel="nofollow">Current Release Tags and Jenkins Jobs Reference</a>
+Switch to the `Build` folder and run all jobs. For the value of the **github_release_tag**, refer to [Current Release Tags and Jenkins Jobs Reference](https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/1025376293/Current+Release+Tags+and+Jenkins+Jobs+Reference)
 
 ## DevOps Administration
 
@@ -21,7 +22,7 @@ Switch to <code>Build</code><span> </span>folder and run all jobs. Provide the
 
 ## Provision
 
-Switch to <code>Provision/&lt;env&gt;/DataPipeline</code> and run all jobs
+Switch to `Provision/<env>/DataPipeline` and run the jobs in the following sequence: 
 
 1. AnalyticsApi
 2. AnalyticsSecor
@@ -33,7 +34,7 @@ Switch to <code>Provision/&lt;env&gt;/DataPipeline</code> and run all jobs
 
 ## Deploy
 
-Switch to <code>Deploy/dev/DataPipeline</code> and run all jobs in the following order:
+Switch to `Deploy/dev/DataPipeline` and run the jobs in the following sequence:
 
 1. CassandraDbUpdate
 2. KafkaSetup
