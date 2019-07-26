@@ -7,6 +7,9 @@ allowSearch: true
 ---
 
 
+## Overview
+This page provides you with step-by-step instructions to set up the Jenkins server. This is the first step in the Sunbird installation process.
+
 ## Jenkins Setup
 
 1. SSH to the Jenkins server. Enter the following commands:
