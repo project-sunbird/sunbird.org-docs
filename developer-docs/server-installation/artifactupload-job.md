@@ -23,5 +23,5 @@ When creating an instance of Sunbird, you need to link the appropriate artifact 
 
 > **Note:** 
 > Having a copy stored in the Azure blob, gives you the option to rollback a version quicky. You can specify the version that you want to use, rather than rebuilding the service and then deploying it.
-> All ArtifactUpload jobs have a log rotation of 5. This means the last 5 artifcats are stored in Jenkins as a local copy. You can modify this number, if required. Doing so makes your local Jenkins your artifact store.
+> All artifact upload jobs have a log rotation of 5. This means the last 5 artifcats are stored in Jenkins as a local copy. You can modify this number, if required. Doing so makes your local Jenkins your artifact store.
                     
