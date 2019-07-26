@@ -7,25 +7,21 @@ allowSearch: true
 ---
 
 
-## Description
+## Overview
 
-Most of the database follow schema oriented structure. But neo4j support schema-less data structure. But for validating specific metadata for the specific data object we need schema.
-Knowledge Platform uses Graph Engine to communicate with neo4j. Graph Engine expects schema definition for each object type. It validates data object with the object definition during various CRUD operation.
+Most databases follow schema oriented structures. However, Neo4j supports schema-less data structure. The schema is required to validate specific metadata of specific data objects.
 
-When we set up the environment and start neo4j, we need to have definition objects available in neo4j. Without these object, Graph Engine will not be able to create any data object.
+The Knowledge Platform uses the Graph engine to communicate with Neo4j. The Graph engine expects schema definitions for each object type. It validates the data object with the object definition during various CRUD operations.
 
-### Process for setting up the definition object
+After setting up the environment and starting Neo4j, it is mandatory to have definition objects available in Neo4j. The Graph engine cannot create any data objects without these objects. 
 
-- Currently Knowledge Platform supports various types of objects.
-- As part of adding definition schema, all the definition object should be created in neo4j.
-- Knowledge Platform provides Save Definition API which will either add or update existing schema and Get Definition object API which will fetch definition object schema details.
-- There are various object types definition, which are available in [Knowledge Platform repository](https://github.com/project-sunbird/sunbird-learning-platform/tree/release-2.0.0/docs/domain_model_v2/definitions).
-- Ex: [content_definition.json](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-2.0.0/docs/domain_model_v2/definitions/content_definition.json), [framework_definition.json](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-2.0.0/docs/domain_model_v2/definitions/framework_definition.json)
-- These definitions can be on-boarded via calling API or via running Jenkins job.
+## Knowledge Platform and Definition Schema
 
-### Update Definition (using API):
-- Use Definition Save API, to add/update object definition. Definition can be fetched using Definition Get API.
-- Path for Save Definition: `/action/taxonomy/domain/definition/<Object Type>`
+The Knowledge Platform supports various types of objects. To add definition schema, all the definition objects must be created on Neo4j. The Knowledge Platform provides the `Save Definition` API that either adds or updates existing schema and the `Get Definition` object API that fetches definition object schema details. There are various object types of definition that are available in the [Knowledge Platform repository](https://github.com/project-sunbird/sunbird-learning-platform/tree/release-2.0.0/docs/domain_model_v2/definitions). For example, [content_definition.json](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-2.0.0/docs/domain_model_v2/definitions/content_definition.json), [framework_definition.json](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-2.0.0/docs/domain_model_v2/definitions/framework_definition.json).These definitions can be on-boarded using APIs or by running the Jenkins job.
+
+### Update Definition (using API)
+To add/update object definitions, use the `Save Definition` API. You can fetch the definitions using `Get Definition' API. The path for the Save Definition `/action/taxonomy/domain/definition/<Object Type>`
+
 
 #### Request Body to Save Object Definition (sample request body for Term):
 ```
@@ -341,7 +337,8 @@ When we set up the environment and start neo4j, we need to have definition objec
   ]
 }
 ```
-#### Response Body to Save Object Definition (sample request body for Term):
+#### Response Body to Save Object Definition (sample response body for Term):
+
 ```
 {
     "responseCode": "OK",
@@ -350,10 +347,13 @@ When we set up the environment and start neo4j, we need to have definition objec
 ```
 
 ### Update Definition (Using Jenkins Job):
-- Object Definition can also be updated using Jenkins job.
-- Below is the Jenkins job file path:
+
+You can also update Object Definitions using Jenkins job. The following is the Jenkins job file path:
 `jenkins/Deploy/dev/KnowledgePlatform/Neo4jDefinitionUpdate`
-- Script path for Jenkins file:
+
+The script path for the Jenkins file:
 `pipelines/deploy/neo4j-definition-update/Jenkinsfile`
-- It will read definition files of all the object available in [Knowledge Platform](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-2.0.0/docs/domain_model_v2/definitions) and update all the definition.
+
+This job reads the definition files of all the objects available in the [Knowledge Platform](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-2.0.0/docs/domain_model_v2/definitions) and updates all the definitions.
+
 
