@@ -10,7 +10,6 @@ allowSearch: true
 
 After completing the Sunbird installation, before you can start using it, you need to configure the following 
 
-* [Post Installation Configurations](./post_installation_configuration)
 * [Environmental Variables for Content Services](./env_variables_content_service)
     * [Import External Links](./configuring_domain_ext_links)
     * [Content Filtering](./content_filtering)
