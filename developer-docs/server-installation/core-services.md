@@ -1,41 +1,91 @@
 ---
 title: Core Services
 page_title: Core Services
-description: Explains how to create schemas for knowledge platform objects
+description: Explains how to create schemas for Core service objects
 keywords: core services, services
 allowSearch: true
 
 ---
+## Overview
+This page explains the jobs to be run to bring up the Core services. 
 
-Prerequisites
+## Prerequisites
 
-1. Create a container in azure blob and make it public for content publish. This continer name must be the same as the variable **sunbird_content_azure_storage_container** which is specified in the common.yml of the core inventory.
-2. Switch to `Build` folder and run all jobs. Provide the value for **github_release_tag** according to the details mentioned in this page - [Current Release Tags and Jenkins Jobs Reference](https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/1025376293/Current+Release+Tags+and+Jenkins+Jobs+Reference)
+1. Create a container in the Azure blob and make it public to publish content. The container name must be the same as the variable **sunbird_content_azure_storage_container** specified in the **common.yml** file present in the core inventory.
+2. Switch to the `Build` folder and run all jobs. Set the value for **github_release_tag** according to the details mentioned in this page - [Current Release Tags and Jenkins Jobs Reference](https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/1025376293/Current+Release+Tags+and+Jenkins+Jobs+Reference)
 
-  Run the Below Jobsid="CoreServices-Belowstepsneedstobefollowedaspertheorder."
+## Running the Jobs
     
-Below steps needs to be followed as per the order.</h3></blockquote><p><strong>OpsAdministration</strong>:</p><p>1. Bootstrap                                                                                                               # Creates Deployer User<br/>2. SwarmBootstrap                                                                                                    # Creates Swarm with manager and agent nodes</p><p><strong>Builds</strong>:</p><p>1. Adminutils                                                                                                              # Builds Adminutils container<br/>2. API MANAGER                                                                                                      # Builds API Manager Container<br/>3. API MANAGER Echo                                                                                             # Builds API Manager echo Container<br/>4. Badger                                                                                                                  # Builds Badger Container<br/>5. Cassandra                                                                                                            # Creates a jar for migration purpose<br/>6. Content                                                                                                                 # Builds Content Service Container<br/>
+> **Note:** Adhere to the following sequence when running the jobs.
 
-7. Learner                                                                                                                 # Builds Learner Service Container<br/>
+### DevOps Administration
 
-8. Player                                                                                                                   # Builds Player Service Container<br/>
+| Operation Name | Function |
+|--------------------|-----------| 
+| Bootstrap | Creates Deployer User | 
+| SwarmBootstrap | Creates Swarm with manager and agent nodes |
 
-9. Proxy                                                                                                                    # Builds Proxy container<br/>
+### Builds
 
-10. Telemetry                                                                                                           # Builds Telemetry container</p><p><strong>Artifacts</strong>:<br/>(Make Sure all Artifacts are uploaded)</p><p><strong>Provision</strong>:</p><p>1. (Deploy) ApplicationES                                                                                          # From Deploy Folder Deploy ApplicationES this will Provision Elasticsearch and create indices necessay for Sunbird Core</p><p>
-2. ESMapping (Under OpsAdministarion)                      # Creates ES indexes</p><p>2. Postgres                                                                                                                # Provisions Postgres</p><p>3. PostgresDbUpdate                                                                                                # Creates the databases, assign roles, create users</p><p><br/></p><p><strong>Deploy</strong>:</p><p>1. Adminutil                                                                                                               # Deploy Adminutil Container<br/>2. API Manager                                                                                                         # deploys API Manger Kong and API manager echo<br/>4. OnboardAPIS                                                                                                        # Onboards All API's to sunbird<br/>5. OnboardConsumers (Take the <strong>jwt token</strong> from Jenkins Output of <strong>api-management-test-user</strong> and update  <strong>core_vault_sunbird_api_auth_token</strong> if using KP and DP along with core) # Onboards New consumer to sunbird and generates API key specific to Consumer, <strong>Update this value with correponding api key of ekstep 'core_vault_ekstep_api_key'</strong> <br/>7. (Provision) Cassandra                                                                                           # Provisions Cassandra and create Keyspaces required for Sunbird Core<br/>8. Cassandra                                                                                                             # Does Migration if required<br/>6. (Provision) Keycloak                                                                                              # Provisions Keycloak by installing prerequisites like java and env vars of learner<br/>9. keycloak                                                                                                                 # Deploys keycloak service to VM<br/>10. Proxy                                                                                                                   # Deploys Proxy, Handles all routing within the swarm<br/>11. KeycloakRealm                                                                                                   # Creates Sunbird Realm, (After Creation of Realm configure keycloak by using Below Steps.)</p><h3 id="CoreServices-ConfigurationStepsRequiredinKeycloak"><strong>Configuration Steps Required in Keycloak</strong></h3><p>  a. Login to keycloak using username admin and password as given in private &quot;secrets.yml&quot; file. # Login to keycloak by using &lt;domainname&gt;/auth<br/>  b. Take the sso_public_key by navigating to: sunbird Realm &gt; Realm Settings &gt; keys &gt; click Public Key(copy the key and update core_vault_sso_public_key)<br/>  c. Create Admin Role in Sunbird realm: Roles &gt; Add Role &gt; add details in the form(Role Name: admin) &gt; save &gt; Enable Composite Roles &gt; Under Composite Roles &gt; Select (offline_access, uma_administration) and click add selected,  Permissions(enable Permissions).<br/>  d. Assign permissions to admin-cli client in Sunbird realm: clients &gt; admin-cli &gt; Settings &gt; Implicit Flow Enabled (ON) &gt; Root URL: <a href="https://dev.sunbird.cf" class="external-link" rel="nofollow">https://dev.sunbird.cf</a> (your Domain) &gt; Valid Redirect URIs: <a href="https://dev.sunbird.cf/*" class="external-link" rel="nofollow">https://dev.sunbird.cf/*</a> (Add another Link by clicking on &quot;+&quot;) &gt; Valid Redirect URIs: <a href="https://dev.sunbird.cf/" class="external-link" rel="nofollow">https://dev.sunbird.cf/</a> &gt; Base URL: / &gt; Admin URL: <a href="https://dev.sunbird.cf/*" class="external-link" rel="nofollow">https://dev.sunbird.cf/*</a> &gt; Save<br/>  e. In the Sunbird realm, Clients &gt; admin-cli &gt; Roles &gt; Add Role: Role Name: admin (Save)&gt; composite Roles (ON) &gt; Composite Roles &gt; Realm Roles &gt; add admin,offline_access,uma_authorization &gt; Permissions &gt; Permissions Enabled (ON)</p><p>  f. Creating keycloak federation (<a href="https://project-sunbird.atlassian.net/wiki/spaces/SBDES/pages/1021673496/Deployment+Steps+for+Keycloak+User+Federation" data-linked-resource-id="1021673496" data-linked-resource-version="15" data-linked-resource-type="page">Deployment Steps for Keycloak User Federation</a>)</p><p>
+| Build Name | Function |
+|--------------------|-----------| 
+| Adminutils | Builds the Adminutils container |
+| API MANAGER | Builds the API manager container | 
+| API MANAGER Echo | Builds the API manager echo container | 
+| Badger | Builds the badger container |
+| Cassandra | Creates a jar for migration |
+| Content | Builds the content service container | 
+| Learner | Builds the learner service container | 
+ | Player | Builds the player service container |
+ | Proxy | Builds the proxy container |  
+ | Telemetry | Builds the telemetry container |
 
-12. Player     // # Deploys Player service, used to display Frontend of App</p><p><strong>Note: </strong>This player deployment job will fail first time and Jenkins will ask for <strong>In process Approval Script. Click on the approval link in the deploy job page and provide explicit approval for new <span style="color: rgb(0,0,128);"><u>java.io.File java.lang.String</u></span> and <span style="color: rgb(0,0,128);"><u>method java.io.File</u><u> exists</u></span></strong><span style="color: rgb(0,0,0);">. Now re-run Player deployment.</span>
+### Artifacts  
+Ensure that all Artifacts are uploaded
 
-13. Learner                 //      # Deploys Learner Service, handles user management, helps in searching content<br/>
+### Provision
 
+| Operation Name | Function |
+|--------------------|-----------| 
+| (Deploy) ApplicationES | From the Deploy Folder, **Deploy ApplicationES** provisions for the Elasticsearch and creates indices necessay for Sunbird Core|
+| ESMapping (Under OpsAdministarion) | Creates Elasticsearch indexes |
+| Postgres | Provisions for Postgres |
+| PostgresDbUpdate | Creates the databases, assigns roles and creates users |
 
+### Deploy
 
-14. Content            //             # Deploys Content service, Helps in creation of content<br/>
+| Operation Name | Function |
+|--------------------|-----------| 
+| Adminutil | Deploys the Adminutil container | 
+| API Manager | Deploys the API manager Kong and API manager Echo | 
+| OnboardAPIS | Onboards all API's to Sunbird | 
+| OnboardConsumers 
+Update **core_vault_sunbird_api_auth_token** with the **jwt token** from the Jenkins output of **api-management-test-user** if you are using the Knowledge Platform and Data Pipeline along with core| Onboards new consumer to Sunbird and generates the consumer sprcific API key. Update this value with the corresponding API key of Ekstep 'core_vault_ekstep_api_key'. |   
+| (Provision) Cassandra | Provisions Cassandra and create keyspaces required for Sunbird Core | 
+| Cassandra | Does Migration if required | 
+| (Provision) Keycloak | Provisions Keycloak by installing prerequisites like java and environment variables of learner | 
+| Keycloak | Deploys Keycloak service to VM |  
+| Proxy | Deploys Proxy. Handles routing within the swarm |  
+| KeycloakRealm | Creates Sunbird Realm. After the Sunbird realm is created, configure Keycloak by using the steps mentioned in the **Keycloak Configuration** section. |
+| Player | Deploys the player service, used to display the App frontend. 
+> **Note: ** The player deployment job will fail for the first time. Jenkins prompts you for **In process Approval Script**. Click on the approval link in the deploy job page and provide explicit approval for new **java.io** file, **java.lang** string and **java.io** file. Run the Player deployment again.|
+| Learner | Deploys the Learner Service. Handles user management and helps to search content. |  
+| Content | Deploys the content service. Helps to create content. |  
+| Telemetry | Deploys the Telemetry service. Helps in sending telemetry to Kafka|
+| TelemetryLogstashDataPipeline | Deploys the logstash container that sends telemetry to Kafka|
+| TelemetryLogstash | Deploys the logstash container to send telemetry to Ekstep. Trigger this only when you want to send telemetry to Ekstep.|
 
+### Keycloak Configuration 
 
-15. Telemetry              //   # Deploys Telemetry Service, Helps in sending telemetry to kafka
+|Step | Action|
+|------|-------|
+|1 | Login to Keycloak using the user name **admin** and password as given in the private **secrets.yml** file. Or, login to keycloak using <domainname>/auth | 
+|2 | Navigate to **Sunbird Realm > Realm Settings > Keys. Click **Public Key**. Copy the key value that you see and update the variable **core_vault_sso_public_key**|  
+| 3 | Create the admin role in the Sunbird realm. Navigate to **Roles > Add Role** Add details in the form. Specify the role name as **admin**. Click **Save**. Navigate to **Enable Composite Roles**. Under **Composite Roles**, select **offline_access**, **uma_administration** and click **Add selected**. Navigate to **Permissions** and enable permissions.|  
+|4 | Assign permissions to the **admin-cli** client in the Sunbird realm. Navigate to **clients > admin-cli > Settings > Implicit Flow Enabled (ON) > Root URL: [https://dev.sunbird.cf](https://dev.sunbird.cf) (your Domain) > Valid Redirect URIs: [https://dev.sunbird.cf/*](https://dev.sunbird.cf/*)**.  Add another link by clicking **+**. Navigate to **Valid Redirect URIs: [https://dev.sunbird.cf/](https://dev.sunbird.cf/) > Base URL: / > Admin URL: [https://dev.sunbird.cf/*](https://dev.sunbird.cf/*)** and click **Save**.|  
+|5 | In the Sunbird realm, navigate to **Clients > admin-cli > Roles > Add Role**. Enter the role name as **admin** and click **Save**. Navigate to **Composite Roles** and switch the toggle to ON. Navigate to **Composite Roles > Realm Roles** and  add **admin**, **offline_access** and, **uma_authorization**. Navigate to **Permissions > Permissions Enabled** and switch the toggle to ON. |
+| 6 | Creating keycloak federation ([Deployment Steps for Keycloak User Federation](https://project-sunbird.atlassian.net/wiki/spaces/SBDES/pages/1021673496/Deployment+Steps+for+Keycloak+User+Federation))|
 
-16. TelemetryLogstashDataPipeline                // # Deploys logstash container, which sends telemetry to kafka</p><p>
+### Map Elasticsearch Index
 
-17. TelemetryLogstash                  //# Deploys logstash container for sending telemetry to ekstep [Trigger only when you want to send telemetry to ekstep]</p><h3 id="CoreServices-Createamappingforcbatchelasticsearchsearchindexindex"><strong>Create a mapping for cbatch elasticsearch searchindex index</strong></h3><ul><li>Follow this documentation and create mappings for cbatch searchindex index. [<a href="http://402.qa.docs.sunbird.org/master/developer-docs/configuring_sunbird/elasticsearch_static_mapping_course_batch/" class="external-link" rel="nofollow">http://402.qa.docs.sunbird.org/master/developer-docs/configuring_sunbird/elasticsearch_static_mapping_course_batch/</a>]</li></ul>
+> **Note:** Refer to [Elasticsearch Static Mapping for Course batch] (http://402.qa.docs.sunbird.org/master/developer-docs/configuring_sunbird/elasticsearch_static_mapping_course_batch/) to map the cbatch searchindex index. 
