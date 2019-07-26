@@ -14,8 +14,7 @@ low latency and high throughput, and scales up to millions of flows for all TCP 
 The Load Balancer distributes new inbound flows that arrive on its frontend to backend pool instances, as per rules and health probes that are set. This page provides details to set up the Agent Swarm, Keycloak Swarm, KP-LB services and the DP-LB services 
 
 ## Agent Swarm
-
-Do the following Agent-swarm setup: 
+To setup Agent Swarm, execute the following instructions for each of the mentioned fields: 
 - Frontend ip configuration - attach public ip
 - Backend pools - attach agent vm's or availability set of agent group
 - Health Probes/check - Configure path and port - 80 and 443 (both)
@@ -31,8 +30,7 @@ Do the following Agent-swarm setup:
 
 
 ## Keycloak Swarm
-
-Do the following Keycloak-swarm setup:
+To setup Keycloak Swarm, execute the following instructions for each of the mentioned fields: 
 - Frontend ip configuration - Internal ip by default
 - Backend pools - attach keycloak vm or availability set of keycloak group
 - Health Probes/check - Configure path and port - 8080
@@ -46,8 +44,7 @@ Do the following Keycloak-swarm setup:
 - backend-port: 8080
 
 ## KP-LB Services
-
-Do the following KP-LB services setup:
+To setup KP-LB services, execute the following instructions for each of the mentioned fields: 
 - Frontend ip configuration - Internal ip by default
 - Backend pools - attach vm's of learning and search or availability set for learning and search
 - Health Probes/check - Configure path and port - 8080 (for learning) and 9000 (for search)
@@ -71,8 +68,7 @@ Example: Frontend-port: 9000
 Backend-port: 9000
 
 ## DP-LB Services (Analytics Api)
-
-Do the following DP-LB services setup:
+To setup Agent Swarm, execute the following instructions for each of the mentioned fields: 
 - Frontend ip configuration - Internal ip by default
 - Backend pools - attach vm's of analytics-api or availability set for analytics-api group
 - Health Probes/check - Configure path and port - 9000
