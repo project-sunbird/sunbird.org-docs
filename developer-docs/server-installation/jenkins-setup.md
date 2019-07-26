@@ -20,29 +20,28 @@ allowSearch: true
         
 2. After running the `jenkins-server-setup.sh` script, open Jenkins in browser by typing **domain-name:8080 / public-ip:8080**
 
-3. Enter the initial password and follow the on-screen instructions. 
+3. Enter the initial password and follow the on-screen instructions
 
 4. Choose **Install suggested plugin** 
 
-5. Create an admin user. 
+5. Create an admin user 
 
-6. Choose the default Jenkins URL. You can either change this to your domain name or public IP. If in doubt, use the name displayed on screen, as it can be changed later if required, in the Jenkins configuration.
+6. Choose the default Jenkins URL. You can either change this to your domain name or public IP. If in doubt, use the name displayed on screen, as it can be changed later if required, in the Jenkins configuration
 
 7. Switch back to the terminal session on the Jenkins server. To do so, enter the following command:
 
 `sudo bash jenkins-plugins-setup.sh`
 - Enter the URL as localhost:8080
 - Enter the admin username and password
+   
+8. Go to **Manage Jenkins -> Manage Plugins -> Update Center -> Check status of plugin install**. If any plugins have not been installed, install them manually. To do so, go to the plugins section of Jenkins
 
-    
-8. Go to **Manage Jenkins -> Manage Plugins -> Update Center -> Check status of plugin install**. If any plugins have not been installed, install them manually. To do so, go to the plugins section of Jenkins.
-
-9. Switch back to the terminal session on the Jenkins server.
+9. Switch back to the terminal session on the Jenkins server
 ```
 cp envOrder.txt.sample envOrder.txt 
 vi envOrder.txt 
 ```
-10. Update the environment list as per your infrastructure in ascending order. For example if you have only dev and production, your **envOrder.txt**will look like:
+10. Update the environment list as per your infrastructure in ascending order. For example, if you have only dev and production, your **envOrder.txt**will look like:
 ```
 dev=0
 production=1 
@@ -50,7 +49,7 @@ production=1
  11. Run the `jenkins-jobs-setup.sh` script, using the command,`sudo bash jenkins-jobs-setup.sh`
 
  12. Follow the on-screen instructions. Enter **Yes** for all questions, when prompted for a choice. 
- > **Note** The options are case sensitive, the script displays the accepted options. 
+ > **Note** The options are case sensitive, the script displays the accepted options 
  
  13. After the script completes copying the job configurations, go to the browser and restart Jenkins using the command,
  `public-ip:8080/restart` OR `domain-name:8080/restart` 
@@ -59,11 +58,11 @@ production=1
  
  15. Select **Username with Password** 
  
- 16. Enter the username and password of the GitHub account where the private repository is hosted. 
+ 16. Enter the username and password of the GitHub account where the private repository is hosted
  
  17. Enter a unique long string for the ID field, for example,**private-repo-creds** 
  
- 18. Specify the description for the repository, for example,**private repo credentails**, and click **OK**. 
+ 18. Specify the description for the repository, for example,**private repo credentails**, and click **OK**
  
  19. Go to **http://(jenkins_domain)/configure** 
     
@@ -76,11 +75,11 @@ production=1
  |**ANSIBLE_FORCE_COLOR**|true| 
  |**ANSIBLE_HOST_KEY_CHECKING**|false| 
  |**ANSIBLE_STDOUT_CALLBACK**|debug| 
- |**hub_org**|docker hub organization / username eg: In sunbird/player image, sunbird is the hub_org| 
+ |**hub_org**|docker hub organization / username. Example: In sunbird/player image, sunbird is the hub_org| 
  |**private_repo_branch**|The branch name in the private repository which you would like to use. This branch has the inventory and secrets| 
- |**private_repo_credentials**|The unique string which you provided for ID field while entering the GitHub repo credentials. eg: **private-repo-creds**| 
- |**private_repo_url**|The GitHub URL to your private repo. To get the URL of your private repository, go to your private repository and click the **Clone** button. The https URL of your private repository is displayed. Currently, Sunbird supports only https URLs.| 
- |**public_repo_branch**|This is the branch or tag from where the Jenkins file is picked up. You can set this value as **refs/tags/release-1.14.0** if you want to build from tags or provide the value of the development branch, for example, release-1.15. This is not recommended since development branches are not stable.| 
+ |**private_repo_credentials**|The unique string which you provided for ID field while entering the GitHub repo credentials. Example: **private-repo-creds**| 
+ |**private_repo_url**|The GitHub URL to your private repo. To get the URL of your private repository, go to your private repository and click the **Clone** button. The https URL of your private repository is displayed. Currently, Sunbird supports only https URLs| 
+ |**public_repo_branch**|This is the branch or tag from where the Jenkins file is picked up. You can set this value as **refs/tags/release-1.14.0** if you want to build from tags or provide the value of the development branch, for example, release-1.15. This is not recommended since development branches are not stable| 
  |**override_private_branch**|true|
  |**override_public_branch**|true| 
  
@@ -115,16 +114,16 @@ Here **somekey.pem** is the key you used to login to the Jenkins server. Hencefo
 
 30. Copy the contents of the key you used to connect to the VM into the **ops_ssh_key** file 
 
-31. Create a new ssh key on your local machine or on any server. This key will be used for a different user, for example,**deployer**. The name is as per your liking. 
+31. Create a new ssh key on your local machine or on any server. This key will be used for a different user, for example,**deployer**. The name is as per your liking 
 
-32. Use the command `ssh-keygen -f deployer_ssh_key`. The passphrase for this user should be empty.
+32. Use the command `ssh-keygen -f deployer_ssh_key`. The passphrase for this user should be empty
 
 33. Copy the contents of the **deployer_ssh_key** into **/var/lib/jenkins/secrets/deployer_ssh_key**  
 
-34. If your private GitHub repository has Ansible encrypted files, then enter the decryption password in **/var/lib/jenkins/secrets/vault-pass**. If there are no encrypted files, then enter a random value like **12345** into the **vault-pass** file. This file cannot be empty. 
+34. If your private GitHub repository has Ansible encrypted files, then enter the decryption password in **/var/lib/jenkins/secrets/vault-pass**. If there are no encrypted files, then enter a random value like **12345** into the **vault-pass** file. This file cannot be empty
 
 35. Restart the Jenkins server
 
 > **Note:** 
-> Open any of the config files from the **Deploy** directory and save it. Without this some of the parameters will not be visible. 
-> After completing the Jenkins setup, follow instructions provided in the **Running Builds, Artifact Uploads and Deployment** page to create inventory, secrets and Ansible hosts in the private repository.        
+> Open any of the config files from the **Deploy** directory and save it. Without this, some of the parameters will not be visible 
+> After completing the Jenkins setup, follow instructions provided in the **Running Builds, Artifact Uploads and Deployment** page to create inventory, secrets and Ansible hosts in the private repository        
