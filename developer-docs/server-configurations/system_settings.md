@@ -17,7 +17,7 @@ This page explains how a System Administrator can configure some settings in the
  * Terms & Conditions page
  * FAQs for User Consumption 
  
- ### Parameters  
+ ### Configurable Parameters  
 |S No.| Parameter | Description | Example|
 |----|-----------|-------------|---------|
 |1 | custodianOrgChannel| set default channel into system. The self sign-up or Google sign up user are under this channel | sunbird|
