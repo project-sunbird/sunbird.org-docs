@@ -68,7 +68,7 @@ Example: Frontend-port: 9000
 Backend-port: 9000
 
 ## DP-LB Services (Analytics Api)
-To setup Agent Swarm, execute the following instructions for each of the mentioned fields: 
+To setup DP-LB services, execute the following instructions for each of the mentioned fields: 
 - Frontend ip configuration - Internal ip by default
 - Backend pools - attach vm's of analytics-api or availability set for analytics-api group
 - Health Probes/check - Configure path and port - 9000
