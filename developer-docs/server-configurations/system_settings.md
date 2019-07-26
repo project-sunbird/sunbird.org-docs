@@ -1,39 +1,48 @@
 ---
-title: Configuring System settings
-page_title: Configuring System settings
-description: Configuring System settings
+title: Configure System Settings
+page_title: Configure System Settings
+description: Describes how to configure system settings
 published: true
 allowSearch: true
 ---
 
 ## Overview
 
-The purpose of this document is to explain how a System Administrator can configure system setting for different purpose.
+This page explains how a System Administrator can configure some settings in the system for different purposes. The following can be configured differently:
 
- * Setting custodian channel and orgId 
- * setting default framework id
- * setting comming soon 
- * tnc config
- * consumption faq
+ * Custodian channel 
+ * Custodian Org ID 
+ * Default framework ID
+ * Content Comming Soon page 
+ * Terms & Conditions page
+ * FAQs for User Consumption 
+ 
+ ### Parameters  
+|S No.| Parameter | Description | Example|
+|----|-----------|-------------|---------|
+|1 | custodianOrgChannel| set default channel into system. The self sign-up or Google sign up user are under this channel | sunbird|
+|2 | custodianRootOrgId | set org id of custodianOrgChannel created earlier |  |
+|3 | contentComingSoonMsg| message for the rootOrgs whose content is being created or they don't have content yet |  |
+|4 | courseFrameworkId | framework ID for course creation, this framework needs to be created first | TPD |
+|5 | tncConfig | terms and condition page | |
+|6 | consumptionFaqs | public page url for consumption FAQ | |
 
+## Read Values that are Already Set
 
-## Read already set values
+Use the following curl command to check the value that is already set for a particular parameter. Replace the value in the {key} with the required ID. The key refers to the ID to be configured using the cURL command.
 
-command to verify which value is already set.{key} need to be replaced.
-Here key is refering id which we are using in set curl command.
-
-
+```
     curl -X GET \
       {{sunbirdBaseURL}}/data/v1/system/settings/get/{key} \
       -H 'Authorization: Bearer {{api-key}}' \
       -H 'Content-Type: application/json'
+```
 
+## Configure Custodian Channel 
 
-## Define custodian channel configuration
+Configure the Sunbird LMS custodian channel ID using the following cURL command.
 
-Define Custodian channel configuration in Sunbird LMS using below cURL command.
-
-
+```
     curl -X POST \
       {{sunbirdBaseURL}}/data/v1/system/settings/set \
       -H 'Authorization: Bearer {{api-key}}' \
@@ -46,12 +55,13 @@ Define Custodian channel configuration in Sunbird LMS using below cURL command.
                     "value": "{{custodianOrgChannelValue}}"
                 }
     }'
+```
 
+## Configure Custodian Org ID
 
-## Define custodian org id configuration
+Configure the Sunbird LMS custodian Org ID using the following cURL command. Use the Org ID for the custodian channel set earlier. The custodian channel ID and the custodian Org ID work as a pair.
 
-Define Custodian org id configuration in Sunbird LMS using below cURL command.Use org id for above set custodian channel
-
+```
     curl -X POST \
       {{sunbirdBaseURL}}/data/v1/system/settings/set \
       -H 'Authorization: Bearer {{api-key}}' \
@@ -64,13 +74,13 @@ Define Custodian org id configuration in Sunbird LMS using below cURL command.Us
                     "value": "{{custodianRootOrgIdValue}}"
                 }
     }'
+```
 
+## Confifure the Content Coming Soon page
 
-## Define content coming soon 
+Configure the message on the Content Coming Soon page using the following cURL command. This message is used by those root organizations that do not have any content, as on date.
 
-Define Content coming soon, this message will be defined for those rootOrg who won't have any content as of now.
-
-
+```
     curl -X POST \
       {{sunbirdBaseURL}}/data/v1/system/settings/set \
       -H 'Authorization: Bearer {{api-key}}' \
@@ -83,13 +93,13 @@ Define Content coming soon, this message will be defined for those rootOrg who w
                     "value": "[{\"rootOrgId\":\"{RootOrgId}\",\"value\":\"Org specific coming soon message\",\"translations\":\"{\\\"en\\\":\\\"Coming soon message\\\"}\"}\"}]"
                 }
     }'
+```
 
+## Configure Course Framework ID 
 
-## Define Course Framework ID configuration
+Configure the Sunbird LMS Course Framework ID using the following cURL command. Create the same framework in the Knowledge Platform sub system.
 
-Define Course Framework ID configuration in Sunbird LMS using below cURL command. Create same framework inside knowledge plateform.
-
-
+```
     curl -X POST \
       {{sunbirdBaseURL}}/data/v1/system/settings/set \
       -H 'Authorization: Bearer {{api-key}}' \
@@ -102,12 +112,13 @@ Define Course Framework ID configuration in Sunbird LMS using below cURL command
                     "value": "{{courseFrameworkId}}"
                 }
     }'
+```
 
+## Configure the Terms and Conditions page
 
-## Define TnC config page
+Configure the Sunbird LMS Terms and Conditions page configuration using the following cURL command.
 
-Define tnc configuration in Sunbird LMS using below cURL command.
-
+```
     curl -X POST \
       {{sunbirdBaseURL}}/data/v1/system/settings/set \
       -H 'Authorization: Bearer {{api-key}}' \
@@ -120,11 +131,11 @@ Define tnc configuration in Sunbird LMS using below cURL command.
                     "value": "{"latestVersion":"v1","v1":{"url":"{public url for config html page}"}}"
                 }
     }'
+```
 
+## Configure FAQs for User Consumption
 
-## Define consumption FAQs page
-
-Define consumptionFaqs configuration in Sunbird LMS using below cURL command.
+Confifure the Sunbird LMS FAQs for users using the following cURL command.
 
 
     curl -X POST \
@@ -141,12 +152,5 @@ Define consumptionFaqs configuration in Sunbird LMS using below cURL command.
     }'
 
 
-|S No.| Parameter | Description | Example|
-|----|-----------|-------------|---------|
-|1 | custodianOrgChannel| set default channel into system. The self sign-up or Google sign up user are under this channel | sunbird|
-|2 | custodianRootOrgId | set org id of custodianOrgChannel created earlier |  |
-|3 | contentComingSoonMsg| message for the rootOrgs whose content is being created or they don't have content yet |  |
-|4 | courseFrameworkId | framework ID for course creation, this framework needs to be created first | TPD |
-|5 | tncConfig | terms and condition page | |
-|6 | consumptionFaqs | public page url for consumption FAQ | |
+
 
