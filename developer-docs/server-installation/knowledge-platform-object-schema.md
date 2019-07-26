@@ -6,6 +6,7 @@ keywords: Knowledge Platform objects, schemas, definition
 allowSearch: true
 ---
 
+
 ## Overview
 
 Most databases follow schema oriented structures. However, Neo4j supports schema-less data structure. The schema is required to validate specific metadata of specific data objects.
@@ -20,6 +21,7 @@ The Knowledge Platform supports various types of objects. To add definition sche
 
 ### Update Definition (using API)
 To add/update object definitions, use the `Save Definition` API. You can fetch the definitions using `Get Definition' API. The path for the Save Definition `/action/taxonomy/domain/definition/<Object Type>`
+
 
 #### Request Body to Save Object Definition (sample request body for Term):
 ```
@@ -336,6 +338,7 @@ To add/update object definitions, use the `Save Definition` API. You can fetch t
 }
 ```
 #### Response Body to Save Object Definition (sample response body for Term):
+
 ```
 {
     "responseCode": "OK",
@@ -344,6 +347,7 @@ To add/update object definitions, use the `Save Definition` API. You can fetch t
 ```
 
 ### Update Definition (Using Jenkins Job):
+
 You can also update Object Definitions using Jenkins job. The following is the Jenkins job file path:
 `jenkins/Deploy/dev/KnowledgePlatform/Neo4jDefinitionUpdate`
 
@@ -351,4 +355,5 @@ The script path for the Jenkins file:
 `pipelines/deploy/neo4j-definition-update/Jenkinsfile`
 
 This job reads the definition files of all the objects available in the [Knowledge Platform](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-2.0.0/docs/domain_model_v2/definitions) and updates all the definitions.
+
 

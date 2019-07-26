@@ -10,7 +10,7 @@ info:
       - Each object entity has its own unique payload request parameters
       - Refer to the relevant documentation on Sunbird website for getting the exact object payload parameters 
 host: staging.open-sunbird.org
-basePath: /api/v1/object
+basePath: /api/data/v1/object
 securityDefinitions:
     bearer:
       type: apiKey  # arbitrary name for the security scheme
@@ -28,7 +28,7 @@ paths:
   /update:
     post:
       description: >-
-       This API is associated with updating an object  of an organisation on Sunbird platform.
+       This API is associated with updating announcement object on Sunbird platform.
           - The **_/update_** endpoint executes the "update object" request based on parameters provided as metadata in the request body
           - Required fields cannot be left null or empty'
       summary: Update Object
@@ -52,13 +52,11 @@ paths:
            The Content Type entity is the media type of the resource.
             Possible media types can be:- 
               - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
       - name: Authorization
         in: header
         required: true
         type: string
-        description: 'All User APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
+        description: 'All Object APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
       responses:
         '200':
           description: 'OK ! Successful operation."update object" operation was successfully executed.'
@@ -70,75 +68,10 @@ paths:
             $ref: '#/definitions/ContentCreateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /update
-          headers:
-            Content-Type: application/json
-            Authorization: Bearer {{api-key}}
-          body: >-
-            {
-
-              "id": "",
-
-                "ts": "",
-
-                "params": { },
-
-                "request":{
-
-                  "entityName":"announcement",
-
-                  "indexed":true,
-
-                  "payload" : {
-
-                    "id": "8e27cbf5-e299-43b0-bca7-8347f7e5abcf",
-
-                    "userid":"8e27cbf5-e299-43b0-bca7",
-
-                    "sourceid":"sourceId",
-
-                    "details":{
-
-                    "filename":"name"
-
-                  },
-
-                  "links":["asd","asdf"],
-
-                  "attachments":["kjaslkdlk"],
-
-                  "sentcount":1
-
-                  }
-
-                }
-
-            }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Update Object
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /create:
     post:
       description: >-
-       This API is associated with creating an object.
+       This API is associated with creating an announcement object.
           - The **_/create_** endpoint executes the "create object" request based on parameters provided as metadata in the request body
           - Required fields cannot be left null or empty'
       summary: Create Object
@@ -162,13 +95,11 @@ paths:
            The Content Type entity is the media type of the resource.
             Possible media types can be:- 
               - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
       - name: Authorization
         in: header
         required: true
         type: string
-        description: 'All User APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
+        description: 'All Object APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
       responses:
         '200':
           description: 'OK ! Successful operation."create an object" operation was successfully executed.'
@@ -180,71 +111,6 @@ paths:
             $ref: '#/definitions/ContentCreateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /create
-          headers:
-            Content-Type: application/json
-            Authorization: Bearer {{api-key}}
-          body: >-
-            {
-
-                "id": "",
-
-                "ts": "",
-
-                "params": { },
-
-                "request":{
-
-                    "entityName":"announcement",
-
-                    "indexed":true,
-
-                    "payload" : {
-
-                      "id": "8e27cbf5-e299-43b0-bca7-8347f7e5abcf",
-
-                        "userid":"8e27cbf5-e299-43b0-bca7",
-
-                        "sourceid":"sourceId",
-
-                        "details":{
-
-                      "filename":"name"
-
-                    },
-
-                    "links":["asd","asdf"],
-
-                    "attachments":["kjaslkdlk"],
-
-                    "sentcount":1
-
-                    }
-
-                }
-
-            }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Create Object
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /read/list:
     post:
       description: >-
@@ -272,13 +138,11 @@ paths:
            The Content Type entity is the media type of the resource.
             Possible media types can be:- 
               - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
       - name: Authorization
         in: header
         required: true
         type: string
-        description: 'All User APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
+        description: 'All Object APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
       responses:
         '200':
           description: 'OK ! Successful operation."list object" operation was successfully executed.'
@@ -290,47 +154,6 @@ paths:
             $ref: '#/definitions/ContentCreateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /read/list
-          headers:
-            Content-Type: application/json
-            Authorization: Bearer {{api-key}}
-          body: >-
-            {
-
-              "id": "",
-
-              "ts": "",
-
-              "params": { },
-
-              "request":{
-
-                  "entityName":"announcement"
-
-                }
-
-            }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: List Objects
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /read:
     post:
       description: >-
@@ -358,13 +181,11 @@ paths:
            The Content Type entity is the media type of the resource.
             Possible media types can be:- 
               - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
       - name: Authorization
         in: header
         required: true
         type: string
-        description: 'All User APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
+        description: 'All Object APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
       responses:
         '200':
           description: 'OK ! Successful operation."read object" operation was successfully executed.'
@@ -376,54 +197,12 @@ paths:
             $ref: '#/definitions/ContentCreateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /read
-          headers:
-            Content-Type: application/json
-            Authorization: Bearer {{api-key}}
-          body: >-
-            {
 
-              "id": "",
-
-              "ts": "",
-
-              "params": { },
-
-                "request":{
-
-                  "entityName":"announcement",
-
-                "id": "8e27cbf5-e299-43b0-bca7-8347f7e5abcf"
-
-                }
-
-            }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Read/Get Object
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /metrics:
     post:
       description: >-
-       This Metrics resources API offers the ability to retrieve statistics on objects, counter and availability of objects.
-          - The **_/metrics_** endpoint executes the "update object" request based on parameters provided as metadata in the request body
+       This Metrics resources API offers the ability to retrieve statistics on objects, counter and availability of objects.Here user can pass elasticsearch Query ,which will be executed for provided entityName.
+          - The **_/metrics_** endpoint executes the "metrics" request based on parameters provided as metadata in the request body
           - Required fields cannot be left null or empty'
       summary: Object Metrics
       operationId: MetricsPost
@@ -446,13 +225,11 @@ paths:
            The Content Type entity is the media type of the resource.
             Possible media types can be:- 
               - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
       - name: Authorization
         in: header
         required: true
         type: string
-        description: 'All User APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
+        description: 'All Object APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
       responses:
         '200':
           description: 'OK ! Successful operation."retrieving metrics" operation was successfully executed.'
@@ -464,96 +241,10 @@ paths:
             $ref: '#/definitions/ContentCreateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /metrics
-          headers:
-            Content-Type: application/json
-            Authorization: Bearer {{api-key}}
-          body: >-
-            {
-              "id": "",
-              "ts": "",
-              "params": {},
-              "request": {
-                "entityName": "announcement",
-                "rawQuery": {
-                  "from": 0,
-                  "size": 250,
-                  "query": {
-                    "bool": {
-                      "must": [
-                        {
-                          "term": {
-                            "batchId.raw": {
-                              "value": "jkwf6t3r083fp4h",
-                              "boost": 1
-                            }
-                          }
-                        }
-                      ],
-                      "disable_coord": false,
-                      "adjust_pure_negative": true,
-                      "boost": 1
-                    }
-                  },
-                  "_source": {
-                    "includes": [
-                      "userId",
-                      "progress",
-                      "enrolledDate",
-                      "batchId",
-                      "dateTime"
-                    ],
-                    "excludes": []
-                  },
-                  "aggs": {
-                    "status": {
-                      "terms": {
-                        "field": "status.raw",
-                        "include": [
-                          "1",
-                          "2",
-                          "review"
-                        ]
-                      },
-                      "aggs": {
-                        "updated_on": {
-                          "date_histogram": {
-                            "field": "lastUpdatedOn",
-                            "interval": "1d",
-                            "format": "yyyy-MM-dd"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Metrics API
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /delete:
     post:
       description: >-
-       This API is associated with deleting an object.
+       This API is associated with deleting an announcement object.
           - The **_/delete_** endpoint executes the "delete object" request based on parameters provided as metadata in the request body
           - Required fields cannot be left null or empty'
       summary: Delete Object
@@ -577,8 +268,6 @@ paths:
            The Content Type entity is the media type of the resource.
             Possible media types can be:- 
               - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
       - name: Authorization
         in: header
         required: true
@@ -595,56 +284,12 @@ paths:
             $ref: '#/definitions/ContentCreateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /delete
-          headers:
-            Content-Type: application/json
-            Authorization: Bearer {{api-key}}
-          body: >-
-            {
-
-              "id": "",
-
-              "ts": "",
-
-              "params": { },
-
-                "request":{
-
-                    "entityName":"announcement",
-
-                "indexed":"announcement",
-
-                "id": "8e27cbf5-e299-43b0-bca7-8347f7e5abcf"
-
-                }
-
-            }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Delete Object
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
+  
   /search:
     post:
       description: >-
-       This API is associated with searching an object
-          - The **_/search_** endpoint executes the "update object" request based on parameters provided as metadata in the request body
+       This API is associated with searching an announcement object
+          - The **_/search_** endpoint executes the "search object" request based on parameters provided as metadata in the request body
           - Required fields cannot be left null or empty'
       summary: Search Object
       operationId: SearchPost
@@ -673,7 +318,7 @@ paths:
         in: header
         required: true
         type: string
-        description: 'All User APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
+        description: 'All Object APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
       responses:
         '200':
           description: 'OK ! Successful operation."search object" operation was successfully executed.'
@@ -685,59 +330,7 @@ paths:
             $ref: '#/definitions/ContentCreateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /search
-          headers:
-            Content-Type: application/json
-            Authorization: Bearer {{api-key}}
-          body: >-
-            {
-
-              "id": "",
-
-              "ts": "",
-
-              "params": { },
-
-                "request":{
-
-                  "query": "ORG_TYPE",
-
-                  "entityName":"org_type",
-
-                "filters":{
-
-                  "id":"98765432110"
-
-                },
-
-                "offset": 0,
-
-                "limit": 5
-
-                }
-
-            }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Search Object
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
+     
 definitions:
   UpdateObjectrequest:
     title: Update ObjectRequest
@@ -773,22 +366,8 @@ definitions:
         example: {}
         type: object
       request:
-        $ref: '#/definitions/Request'
-        example:
-          entityName: announcement
-          indexed: true
-          payload:
-            id: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-            userid: {{userId}}
-            sourceid: sourceId
-            details:
-              filename: name
-            links:
-            - asd
-            - asdf
-            attachments:
-            - kjaslkdlk
-            sentcount: 1
+       allOf:
+         - $ref: '#/definitions/Request'
     required:
     - id
     - ts
@@ -822,7 +401,8 @@ definitions:
         example: true
         type: boolean
       payload:
-        $ref: '#/definitions/Payload'
+        allOf:
+         - $ref: '#/definitions/Payload'
         example:
           id: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
           userid: {{userId}}
@@ -868,7 +448,8 @@ definitions:
         example: sourceId
         type: string
       details:
-        $ref: '#/definitions/Details'
+        allOf:
+         - $ref: '#/definitions/Details'
         example:
           filename: name
       links:
@@ -945,7 +526,8 @@ definitions:
         example: {}
         type: object
       request:
-        $ref: '#/definitions/Request'
+        allOf:
+          - $ref: '#/definitions/Request'
         example:
           entityName: announcement
           indexed: true
@@ -987,7 +569,8 @@ definitions:
         example: {}
         type: object
       request:
-        $ref: '#/definitions/Request9'
+        allOf: 
+         - $ref: '#/definitions/Request9'
         example:
           entityName: announcement
     required:
@@ -1029,7 +612,8 @@ definitions:
         example: {}
         type: object
       request:
-        $ref: '#/definitions/Request11'
+        allOf:
+         - $ref: '#/definitions/Request11'
         example:
           entityName: announcement
           id: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
@@ -1112,7 +696,8 @@ definitions:
         example: {}
         type: object
       request:
-        $ref: '#/definitions/Request13'
+        allOf:
+         - $ref: '#/definitions/Request13'
         example:
           entityName: announcement
           rawQuery:
@@ -1201,7 +786,8 @@ definitions:
         example: announcement
         type: string
       rawQuery:
-        $ref: '#/definitions/RawQuery'
+        allOf:
+          - $ref: '#/definitions/RawQuery'
         example:
           from: 0
           size: 250
@@ -1290,7 +876,8 @@ definitions:
         type: integer
         format: int32
       query:
-        $ref: '#/definitions/Query'
+        allOf: 
+         - $ref: '#/definitions/Query'
         example:
           bool:
             must:
@@ -1302,7 +889,8 @@ definitions:
             adjust_pure_negative: true
             boost: 1
       _source:
-        $ref: '#/definitions/Source'
+        allOf:
+         - $ref: '#/definitions/Source'
         example:
           includes:
           - userId
@@ -1312,7 +900,8 @@ definitions:
           - dateTime
           excludes: []
       aggs:
-        $ref: '#/definitions/Aggs'
+        allOf:
+         - $ref: '#/definitions/Aggs'
         example:
           status:
             terms:
@@ -1348,7 +937,8 @@ definitions:
     type: object
     properties:
       bool:
-        $ref: '#/definitions/Bool'
+        allOf:   
+         - $ref: '#/definitions/Bool'
         example:
           must:
           - term:
@@ -1411,7 +1001,8 @@ definitions:
     type: object
     properties:
       term:
-        $ref: '#/definitions/Term'
+        allOf:
+         - $ref: '#/definitions/Term'
         example:
           batchId.raw:
             value: jkwf6t3r083fp4h
@@ -1427,7 +1018,8 @@ definitions:
     type: object
     properties:
       batchId.raw:
-        $ref: '#/definitions/BatchIdRaw'
+        allOf:
+         - $ref: '#/definitions/BatchIdRaw'
         example:
           value: jkwf6t3r083fp4h
           boost: 1
@@ -1503,7 +1095,8 @@ definitions:
     type: object
     properties:
       status:
-        $ref: '#/definitions/Status'
+        allOf:
+         - $ref: '#/definitions/Status'
         example:
           terms:
             field: status.raw
@@ -1537,7 +1130,8 @@ definitions:
     type: object
     properties:
       terms:
-        $ref: '#/definitions/Terms'
+        allOf:
+         - $ref: '#/definitions/Terms'
         example:
           field: status.raw
           include:
@@ -1545,7 +1139,8 @@ definitions:
           - 2
           - review
       aggs:
-        $ref: '#/definitions/Aggs24'
+        allOf:
+         - $ref: '#/definitions/Aggs24'
         example:
           updated_on:
             date_histogram:
@@ -1592,7 +1187,8 @@ definitions:
     type: object
     properties:
       updated_on:
-        $ref: '#/definitions/UpdatedOn'
+        allOf:
+          - $ref: '#/definitions/UpdatedOn'
         example:
           date_histogram:
             field: lastUpdatedOn
@@ -1610,7 +1206,8 @@ definitions:
     type: object
     properties:
       date_histogram:
-        $ref: '#/definitions/DateHistogram'
+        allOf:
+         - $ref: '#/definitions/DateHistogram'
         example:
           field: lastUpdatedOn
           interval: 1d
@@ -1664,7 +1261,8 @@ definitions:
         example: {}
         type: object
       request:
-        $ref: '#/definitions/Request28'
+        allOf:  
+         - $ref: '#/definitions/Request28'
         example:
           entityName: announcement
           indexed: announcement
@@ -1724,7 +1322,8 @@ definitions:
         example: {}
         type: object
       request:
-        $ref: '#/definitions/Request30'
+        allOf:
+         - $ref: '#/definitions/Request30'
         example:
           query: ORG_TYPE
           entityName: org_type
@@ -1757,7 +1356,8 @@ definitions:
         example: org_type
         type: string
       filters:
-        $ref: '#/definitions/Filters'
+        allOf:
+         - $ref: '#/definitions/Filters'
         example:
           id: 98765432110
       offset:
@@ -1846,12 +1446,12 @@ definitions:
         type: object
         description: Empty Result
   NodeId:
-    title: Node Id
+    title: identifier provided during object creation
     type: object
     properties:
-      node_id:
+      identifier:
         type: string
-        description: Node Identifier
+        description: Object Identifier
   ContentCreateErrorResponse:
     title: Create Content Error Response
     type: object
