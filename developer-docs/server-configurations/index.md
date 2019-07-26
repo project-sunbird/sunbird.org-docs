@@ -8,7 +8,7 @@ allowSearch: true
  
 ## Introduction
 
-After the Server Installation is completed there are some configurations needed for using the system. 
+After completing the Sunbird installation, before you can start using it, you need to configure the following 
 
 * [Post Installation Configurations](./post_installation_configuration)
 * [Environmental Variables for Content Services](./env_variables_content_service)
