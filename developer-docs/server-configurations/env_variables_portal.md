@@ -12,7 +12,7 @@ This page provides a list of environment variables with their default values, de
 ## Variable List
 
 | **S No** | **Variable Name** | **Description** | **Purpose** | **Default Value** |
-|----|------| ----------------------- | ---------------------- |---|------|
+|----------|-------------------| --------------- | ----------- |-------------------|
 | 1 | sunbird_portal_realm | Represents the Keycloak realm value | The realm value of Keycloak to update in each installation | sunbird |
 | 2 | sunbird_portal_auth_server_url | Represents the Keycloak authorization service URL | To connect to the Keycloak server | https://staging.open-sunbird.org/auth | 
 | 3 | sunbird_portal_auth_server_client | Represents the client ID of the Keycloak client | To update the client ID | portal | 
