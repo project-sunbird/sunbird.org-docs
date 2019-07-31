@@ -61,6 +61,6 @@ The page contains the list of environment variables, their descriptions, purpose
 | 45 | sunbird_health_check_enable | Specifies that the health check of the dependant services to be checked or not (ex: true/false)| | |
 | 46 | sunbird_content_service_log_level | Specifies the log level of this service (ex: info, debug, error, warn)| | |
 
-** Related Pages**
+**Related Pages**
 * [Import External Content](..\configuring_domain_ext_links.md)
 * [Content Filtering](..\content_filtering.md)
