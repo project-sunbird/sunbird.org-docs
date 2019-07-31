@@ -13,7 +13,7 @@ The page contains the list of environment variables, their descriptions, purpose
 ## Variable List
  	 
 | S No. | Variable Name | Description| Purpose | Sample Value |
-|--|------|-----------------|-----------------|-------|-------|
+|-------|---------------|------------|----------|-------------|
 | 1 | ekstep_telemetry_storage_toggle | Represents the toggle to turn the EkStep telemetry storage on or off | To turn the telemetry on or off | on |	
 | 2 | sunbird_extcont_whitelisted_domains | Represents the file that stores the whitelisted domains in a comma-separated format | To store the white listed domains| youtube.com.youtu.be |
 | 3 | sunbird_default_channel | Represents the default channel to generate telemetry, if nothing is sent from client headers. This is the same as specified in the learner service. It should be a valid root org | To ensure there is a channel for each telemetry event generated | |
