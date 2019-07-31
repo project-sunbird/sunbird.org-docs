@@ -99,8 +99,8 @@ The file formats that are supported in Sunbird are application/pdf, video/mp4, v
 
 
 |S No. | Variable Name | Description | Purpose | Default Value | Path | 
-|---|-----------|--------------------|---------|---------------|------|------- |
-| 1 | sunbird_content_service_channel_refresh_cron | Configures the cron job interval to update the channels regularly.E.g: “*/5****” this value updates the channel every 5 minutes | To set the cron scheduler | blank | Content Service | |
+|------|---------------|-------------|---------|---------------|------|
+| 1 | sunbird_content_service_channel_refresh_cron | Configures the cron job interval to update the channels regularly.E.g: */5* this value updates the channel every 5 minutes|To set the cron scheduler | blank | Content Service | 
 
 For details, refer to the [Configuration Variables page](Configuration variable page)
 
