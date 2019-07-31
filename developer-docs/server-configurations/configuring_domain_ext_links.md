@@ -9,7 +9,7 @@ allowSearch: true
 
 ## Overview
 
-The Sunbird platform allows you to create content (permissions of Content Creator role), to upload content from external sources to the Sunbird content library. You can upload content from external websites such as YouTube, Dailymotion, etc. This section explains the procedure to enable a Sunbird instance to host content from external sources.
+The Sunbird platform allows users with Content Creator role permissions to create content and upload content from external sources to the Sunbird content library. You can upload content from external websites such as YouTube, Dailymotion, etc. This section explains the procedure to enable a Sunbird instance to host content from external sources.
 
 ## Intended Audience
 
@@ -37,4 +37,4 @@ To enable a Sunbird instance to host content from external source:
 
 On successful configuration of the external domain, the content creators of the organization can upload content from external sources.
 
-For details on uploading Sunbird Content, refer **[How to Upload External Content](features-documentation/upload/)**.
+For details on uploading Sunbird Content, refer [How to Upload External Content](features-documentation/upload/).

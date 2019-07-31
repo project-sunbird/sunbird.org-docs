@@ -10,17 +10,15 @@ allowSearch: true
 
 Any content published on Sunbird undergoes a review to ensure that published content adheres to defined guidelines and standards set by the organization. Each organization can set guidelines based on their organization standards. Sunbird provides the feature of configuring review checklist. Any adopter can use this feature and configure checklists for the review process. A content reviewer on Sunbird can perform the following activities: 
 
-&emsp;a. Request changes in the content submitted for review
+a. Request changes in the content submitted for review
+b. Publish the content submitted for review
 
-&emsp;b. Publish the content submitted for review
+Currently, before a content piece is published, the reviewer validates the content with a pre-defined checklist. This checklist can be configured based on organization requirements. This page details the procedure on how to configure the review checklist. Configurations are supported at the following two levels:
 
-Currently, before a content is published, the reviewer validates the content with a pre-defined checklist. This checklist can be configured based on organization requirements. This page details the procedure on how to configure the review checklist. Configurations are supported at the following two levels:
+a. Instance level
+b. Channel level
 
-&emsp;a. Instance level
-
-&emsp;b. Channel level
-
-When configuration is done at a channel level, it overrides instance level configuration. 
+When configuration is done for the Channel, it overrides configurations done for the Instance. 
 
 > Note: Configurations are set internally, users can override default configuration to customize checklists for organizational requirements.
 
