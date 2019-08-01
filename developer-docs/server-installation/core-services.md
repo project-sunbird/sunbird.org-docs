@@ -84,8 +84,8 @@ Update **core_vault_sunbird_api_auth_token** with the **jwt token** from the Jen
 | 3 | Create the admin role in the Sunbird realm. Navigate to **Roles > Add Role** Add details in the form. Specify the role name as **admin**. Click **Save**. Navigate to **Enable Composite Roles**. Under **Composite Roles**, select **offline_access**, **uma_administration** and click **Add selected**. Navigate to **Permissions** and enable permissions.|  
 |4 | Assign permissions to the **admin-cli** client in the Sunbird realm. Navigate to **clients > admin-cli > Settings > Implicit Flow Enabled (ON) > Root URL: [https://dev.sunbird.cf](https://dev.sunbird.cf) (your Domain) > Valid Redirect URIs: [https://dev.sunbird.cf/*](https://dev.sunbird.cf/*)**.  Add another link by clicking **+**. Navigate to **Valid Redirect URIs: [https://dev.sunbird.cf/](https://dev.sunbird.cf/) > Base URL: / > Admin URL: [https://dev.sunbird.cf/*](https://dev.sunbird.cf/*)** and click **Save**.|  
 |5 | In the Sunbird realm, navigate to **Clients > admin-cli > Roles > Add Role**. Enter the role name as **admin** and click **Save**. Navigate to **Composite Roles** and switch the toggle to ON. Navigate to **Composite Roles > Realm Roles** and  add **admin**, **offline_access** and, **uma_authorization**. Navigate to **Permissions > Permissions Enabled** and switch the toggle to ON. |
-| 6 | Creating keycloak federation ([Deployment Steps for Keycloak User Federation](https://project-sunbird.atlassian.net/wiki/spaces/SBDES/pages/1021673496/Deployment+Steps+for+Keycloak+User+Federation))|
+| 6 | Creating keycloak federation [Deployment Steps for Keycloak User Federation](./keycloak_user_federation)|
 
 ### Map Elasticsearch Index
 
-> **Note:** Refer to [Elasticsearch Static Mapping for Course batch] (http://402.qa.docs.sunbird.org/master/developer-docs/configuring_sunbird/elasticsearch_static_mapping_course_batch/) to map the cbatch searchindex index. 
+> **Note:** Refer to [Elasticsearch Static Mapping for Course batch](../configuring_sunbird/elasticsearch_static_mapping_course_batch/) to map the cbatch searchindex index. 
