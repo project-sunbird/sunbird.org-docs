@@ -19,23 +19,23 @@ The default email templates available on Sunbird are:
 
 ## Customizing Email Templates
 
-Default templates are stored in Sunbird middleware (learner service). The templates are configurable and are stored as form config. During the installation process, the default templates can be configured using Form APIs.
+Default templates are stored in Sunbird middleware (learner service). The templates are configurable and are stored as form configurations. During the installation process, the default templates can be configured using Form APIs.
 
 ### Adding Email Template to Cassandra DB
 
-Sunbird LMS stores email templates in the table 'email_template' within 'sunbird' keyspace 
+Sunbird LMS stores email templates in the table **email_template** within the **sunbird** keyspace. 
 
-Command to view email templates currently available in Cassandra DB:
+The following command allows you to view email templates currently available in Cassandra DB:
 
-    SELECT * from sunbird.email_template;
+`SELECT * from sunbird.email_template;`
 
 Command to add an email template to Cassandra DB using CQL shell. Ensure that the template name is unique so that it doesnot override the existing template information in Cassandra DB:
 
     INSERT INTO sunbird.email_template(name, template) VALUES('myEmailTemplate', '<!doctype html><html> <head> <meta> <meta> <title></title> </head> <body> <table> <tr> <td>&nbsp;</td><td> <div class="content"> <span class="preheader"></span> <table class="main"> <tr> <td class="wrapper"> <table> <tr> <tr> <td> #if ($orgImageUrl) <p> <img src="$orgImageUrl" alt="logo" align="right" width="180" height="100"> </p>#end </td></tr><td> #if ($name) <p >Hi $name,</p>#end <p >$body</p></body></html>')
 
-### Configuring using Form API**
+### Configuring Using Form API
 
-Sample template configuration for different content review workflows in form APIs:
+The following are sample template configurations for different content review workflows in form APIs:
 
 #### Send for review:
 
@@ -110,21 +110,21 @@ Sample template configuration for different content review workflows in form API
 
 **Description of Paramaters**
 
-<br>&emsp;a. type: Type of form
-<br>&emsp;b. action: Workflow action, review, publish etc
-<br>&emsp;c. subType: Type of notification
-<br>&emsp;d. templateName: Template name used to store in Cassandra DB
-<br>&emsp;e. body: Body of the email
-<br>&emsp;f. subject: Subject line of email
-<br>&emsp;g. logo: Logo attached in the email, when the logo is not defined, the default logo is used
+a. **type:** Type of form
+b. **action:** Workflow action, review, publish etc 
+c. **subType:** Type of notification  
+d. **templateName:** Template name used to store in Cassandra DB  
+e. **body:** Body of the email  
+f. **subject:** Subject line of email  
+g. **logo:** Logo attached in the email, when the logo is not defined, the default logo is used
 
 Some parameters are used to dynamically change the content information. It is recommended that these parameters are retained in the request body:
 
-<br>&emsp;a. Content type
-<br>&emsp;b. Content title
-<br>&emsp;c. Content link
-<br>&emsp;d. Creator name
-<br>&emsp;e. Reviewer name
+a. Content type
+b. Content title
+c. Content link
+d. Creator name
+e. Reviewer name
 
 ## Custom Templates
 
@@ -137,14 +137,13 @@ To configure email template:
 
 ### Creating Custom Templates
 
-&emsp;a. Name the templates in the form API in "slug_workflowAction" format
-<br>&emsp;b. Store the template in Cassandra DB same as the configured Form API
-<br>&emsp;c. Add rootOrgId in form API request along with other fields which is the channel
-<br>&emsp;d. Placeholders should be present in their respective fields
-<br>&emsp;e. If the custom template is configured in form service, then custom template with the same name should also be added in learner service(Sunbird middleware). If not added, Learner service displays an error
+1. Name the templates in the form API in **slug_workflowAction** format
+2. Store the template in Cassandra DB, same as the configured Form API
+3. Add the **rootOrgId** in the form API request along with other fields, which is the channel
+4. All required fields should have placeholders
+5. If the custom template is configured in form service, then the custom template with the same name should also be added in learner service(Sunbird middleware). If not added, the Learner service displays an error
 
 For example, if slug is "Sunbird" and action is "send for review", template name should be "sunbird_sendforReviewTemplate"
-
 
 **Sample Custom Template Configuration**
 
