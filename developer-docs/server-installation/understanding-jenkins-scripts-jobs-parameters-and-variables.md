@@ -13,27 +13,27 @@ To effectively do the Jenkins setup, it is important to understand the various s
 
 The following scripts are used by Sunbird for the Jenkins setup.
 
-|**Script Name**| **Description**|
+|Script Name| Description|
 |---------------|----------------|
 | jenkins-server-setup.sh |This script installs Jenkins and other packages like Maven, Ansible, Pip, etc.|
-| jenkins-plugins-setup.sh |This script downloads the m2 repo, if it does not exist and installs the plugins using Butler. The plugin list can be found in the **plugins.txt** file.|
+| jenkins-plugins-setup.sh |This script downloads the m2 repo, if it does not exist and installs the plugins using Butler. The plugin list can be found in the plugins.txt file.|
 | jenkins-jobs-setup.sh |This script takes the **envOrder.txt** file as the input and creates the jobs directory in **/var/lib/jenkins**. The jobs directory in **sunbird-devops/deploy/jenkins** is the base for this script, and uses it to create the folder structure.
 
 ## Jenkins Setup Variables
 
 The following variables are used for Jenkins setup.
 
-|**Variable Name**| **Description**|
+|Variable Name| Description|
 |-----------------|----------------|
 |`ops_ssh_key`| The private key value used to create the VM. It is considered the master key used to can connect to the VM's.|
 |`deployer_ssh_key`| The new key generated on a local machine or any other machine. Ansible creates a new user on all the VM's during the bootstrap process. The user name is found in the common.yml file. After this user is created, Ansible uses this key for all Jenkins jobs. The private key content is copied into this file during the Jenkins setup. The public key will be sprayed to all VM's during the bootstrap process.|
-|`vault-pass`| The password to decrypt to files encrypted using Ansible-vault. The best practice is to encrypt the **secrets.yml** file using Ansible-vault and push it to the private github repo. When Ansible runs, it checks out this file and decrypts it using the vault-pass file. Even if the **secrets.yml** file is not encrypted, it is a must to enter a value in this file. If the file is empty, Ansible will throw an error even if there are no files to decrypt.
+|`vault-pass`| The password to decrypt to files encrypted using Ansible-vault. <br>The best practice is to encrypt the **secrets.yml** file using Ansible-vault and push it to the private github repo. When Ansible runs, it checks out this file and decrypts it using the vault-pass file. <br>Even if the **secrets.yml** file is not encrypted, it is a must to enter a value in this file. If the file is empty, Ansible will throw an error even if there are no files to decrypt.
 
 ## Jenkins Environment Variables
 
-The following environment svariables are used for Jenkins setup.
+The following environment variables are used for Jenkins setup.
 
-|**Variable Name**| **Description**|
+|Variable Name| Description|
 |---------------|----------------|
 |hub_org|This is your docker username, docker organisation name.|
 |private_repo_branch| The branch name in your private repo where the Ansible hosts, common.yml and secrets.yml files exist.
@@ -46,18 +46,17 @@ The following environment svariables are used for Jenkins setup.
 
 ### Build Jobs
 
-|**Parameter**| **Description**|
+|Parameter| Description|
 |---------------|-----------|
-|github_release_tag|Specify a tag name here if you want to build from a tag. Example - release-2.0.0. This will look for a tag named release-2.0.0 in the repository URL configured in the Jenkins job and checkout the code from this tag. This should not be confused with 
-**public_repo_branch**. The **public_repo_branch** is used only to checkout the Jenkinsfile which has all the build logic. 
+|github_release_tag|Specify a tag name here if you want to build from a tag. Example - release-2.0.0. This will look for a tag named release-2.0.0 in the repository URL configured in the Jenkins job and checkout the code from this tag. This should not be confused with **public_repo_branch**. The **public_repo_branch** is used only to checkout the Jenkinsfile which has all the build logic. 
 > **Note:** Even if the **public_repo_branch** is configured to a tag name, you need to provide a tag name in this parameter box when running the build. If this is empty, it will checkout code from the tag specified in **public_repo_branch** but it will not tag build artifact with the tag name. Instead it will tag it with commit hash which is undesirable when you want to build from tag.
-All build jobs create an artifact **metadata.json** that has details such as artifact / docker image name and version, and the Jenkins slave on which it was built.|
+All build jobs create an artifact **metadata.json** that has details such as artifact/docker image name and version, and the Jenkins slave on which it was built.|
 
 ### ArtifactUpload Jobs
 
-|**Parameter**| **Description**|
+|Parameter| Description|
 |---------------|----------------|
-|absolute_job_path| The path from where the **metadata.json** file is copied. The **metadata.json** file contains important information like name and version of artifact / docker image and the Jenkins slave on which it was built. It is not recommended to change this value. All jobs in Jenkins heavily rely on the **metadata.json** file to obtain the needed information and the path to this file is critical. For all ArtifactUpload jobs, the **metadata.json** file is copied from the build jobs.|
+|absolute_job_path| The path from where the **metadata.json** file is copied. The **metadata.json** file contains important information like name and version of artifact/docker image and the Jenkins slave on which it was built. It is not recommended to change this value. All jobs in Jenkins heavily rely on the **metadata.json** file to obtain the needed information and the path to this file is critical. For all ArtifactUpload jobs, the **metadata.json** file is copied from the build jobs.|
 |Image_tag| This is available for docker container jobs. This field may have a value or may be blank. By default when the ArtifactUpload job runs, it copies the image name and image tag from the **metadata.json** file and pushes it to the container registry specified in **hub_org**. As an example scenario, let us see when we need to provide the value in this field. Let's say the build job X with build number 1 completed and triggers the ArtifactUpload job. For some reason, the ArtifactUpload job fails and it could not push the image built by the build job X in build number 1. The build job X runs again after some new commits and triggers the ArtifactUpload job. This time the upload jobs pushes the image to **hub_org**. But the image build in build number 1 is not available in the docker hub as the upload failed. In this scenario, go to the build number 1 of job X and copy the image tag from metadata.json file. Paste the image tag value in this parameter of the upload job. This will push that specific version of the image to **hub_org**.|
 |build_number|This is same as the **image_tag** of docker builds, except that it is used for other type of jobs where zip / tar / jar type artifacts are created. This field is optional and may be blank. Apply the same scenario explained above to this field in order to understand the usage of this field. Since these are artifacts and not containers, you need to use the build job number to copy the artifact. Every new run of any job will clear the workspace but the artifacts are archived on the Jenkins master.|
 |artifact_source| For docker jobs, this parameter is default as **ArtifactRepo** and cannot be changed. All containers must be pushed to some hub so that it can be pulled from the hub during deployment.|
