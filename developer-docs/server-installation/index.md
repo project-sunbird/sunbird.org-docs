@@ -16,16 +16,17 @@ Sunbird software is containerized. The installation script uses the docker swarm
 
 All the stateless services in Sunbird - Portal, LMS Backend, API Gateway and Proxies - are run as docker containers inside the swarm. All stateful services consisting of Cassandra, PostgreSql, Elasticsearch and the OAuth service (Keycloak) are run on Virtual Machines (VMs) directly. 
 
-This document explains the procedure to set up Sunbird on your cloud infra. This installation has been tested with 10 VMs running the vanilla Ubuntu 16 image;
+This document explains the procedure to set up Sunbird on your cloud infra. This installation has been tested with:
 
-  - a Public IP
-  - with all ports opened
-  - key based ssh possible to the machines
+* 10 VMs running the vanilla Ubuntu 16 image;
+* a Public IP
+* with all ports opened
+* key based ssh possible to the machines
 
 ## Infrastructure Components
 
 Sunbird consists of 3 major subsystems
 
-  - Knowledge platform also knows as Learning platform (Taxonomy, Content and Content Management)
+  - Knowledge Platform also knows as Learning Platform (Taxonomy, Content and Content Management)
   - Data-pipeline (Creating insights from telemetry)
   - Core (User/Org, Courses, Badges, Content Studio)
