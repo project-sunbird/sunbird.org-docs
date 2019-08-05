@@ -6,48 +6,75 @@ keywords: ansible variables, variables, private GitHub repository, private repo
 allowSearch: true
 ---
 ## Overview
+
 Sunbird uses Ansible playbooks to manage its three major sub-systems (Knowledge Platform, Data Pipeline and Core Services), to ensure scalability, consistency and reliability of its IT environment. The Ansible variables help server setup, configuration management and automate deployment.   
 > Note: 
 >- To run only Core Services that will connect to the Ekstep backend for other dependent services (like the Knowledge Platform and Data Pipeline), do the setup mentioned on this page for the Core module only   
->- After completing the setup as mentioned on this page, refer to the [Additional-variables-for-Core-service](AnsibleVariables-Updatingprivaterepowithhostsandvariables) page for the extra variables required for only the Core Service   
+>- After completing the setup as mentioned on this page, refer to the [Additional variables for Core service](developer-docs/server-installation/additional_info) page for the extra variables required for only the Core Service   
     
 ## Updating the Private Repository with Hosts and Variables
 
 Use the following Git commands sequentially to clone and update your private GitHub repository: 
-1. `git clone` <a href="https://project-sunbird/sunbird-devops">https://github.com/project-sunbird/sunbird-devops</a>
-2. `cd sunbird-devops &amp;&amp; git checkout tags/release-2.0.0 -b release-2.0.0`
-3. `cp -rf sunbird-devops/private_repo`
-4. `cd private_repo`
-5. Create folders in the GitHub private repository
+1.`git clone` <a href="https://project-sunbird/sunbird-devops">https://github.com/project-sunbird/sunbird-devops</a>
+2.`cd sunbird-devops &amp;&amp; git checkout tags/release-2.0.0 -b release-2.0.0`
+3.`cp -rf sunbird-devops/private_repo`
+4.`cd private_repo`
+
+5.Create folders in the GitHub private repository
+
 > **Note** The following depicts the folder structure required in the private GitHub repository that contains Ansible hosts, secrets and variables.
-```
-~/Documents/projects/subird-devops/private_repo(DO-470 ✗) tree ansible ansible
-ansible
-└── inventory
-    └── dev
-        ├── Core
-           ├── common.yml
-           ├── hosts
-           └── secrets.yml
-        ├── DataPipeline
-           ├── common.yml
-           ├── hosts
-           └── secrets.yml
-        └── KnowledgePlatform
-           ├── common.yml
-           ├── hosts
-           └── secrets.yml
+
+      ~/Documents/projects/subird-devops/private_repo(DO-470 ✗) tree ansible ansible
+      ansible
+
+      └── inventory
+
+          └── dev
+
+              ├── Core
+
+                 ├── common.yml
+
+                 ├── hosts
+
+                 └── secrets.yml
+
+              ├── DataPipeline
+
+                 ├── common.yml
+
+                 ├── hosts
+
+                 └── secrets.yml
+
+              └── KnowledgePlatform
+
+                ├── common.yml
+
+                ├── hosts
+
+                └── secrets.yml
+
 
 5 directories, 9 files
-```
-6. `git init`
-7. `git add`
-8. `git commit -m "Creating private files"`
-9. `git remote add origin ~private repo url~`
-10. `git branch --set-upstream-to=origin/master master && git push --set-upstream origin master`
-11. Update the variables and push them to upstream
+
+6.`git init`
+
+7.`git add`
+
+8.`git commit -m "Creating private files"`
+
+9.`git remote add origin ~private repo url~`
+
+10.`git branch --set-upstream-to=origin/master master && git push --set-upstream origin master`
+
+11.Update the variables and push them to upstream
 
 ## Updating the Variables and Hosts
+
+1.`cd private_repo/ansible/inventory/dev/<module>/`
+
+2.update hosts **common.yml** and **secrets.yml**
 
 <table>
   <tr>
