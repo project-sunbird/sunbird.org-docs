@@ -16,8 +16,8 @@ The process of creating folders for Jenkins jobs is best explained using a scena
 Consider the scenario in which your current infrastructure consists of two environments - **dev** and **production**. In this scenario, the **envOrder.txt** file has an entry: 
 
 ```
-**dev=0**
-**production=1**
+dev=0
+production=1
 ```
 
 The general jobs workflow is **Build -> ArtifactUpload -> Deploy** 
@@ -30,9 +30,9 @@ Now, consider a new scenario in which there is an added environment named **pre-
 2. Hence, consider that the **envOrder.txt** file is updated as: 
 
 ```
-**dev=0**
-**pre-production=1** 
-**production=2**
+dev=0
+pre-production=1 
+**production=2
 ```
 3. On executing the  **jenkins-jobs-setup.sh** script, it first displays the old, existing folder structure and checks for confirmation on its correctness. 
 4. Since a new environment is getting added, specify the option as *n* in the confirmation dialogue box. 
