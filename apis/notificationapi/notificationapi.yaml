@@ -24,7 +24,7 @@ paths:
   '/user/v1/notification/email ':
     post:
       description: >-
-       This API is associated with notifying a user on the Sunbird Platform.
+       This API is associated with notifying a user on the Sunbird Platform.if request will contain mode attribute with value sms ,then user will be notify via sms.During sms notification you can pass list of phone number or list of phone number and userid both.
           - {{host}}/user/v1/notification/email , This is the format of the API URL for sending notifications. 
           - The **_/email/_** endpoint executes the notification request based on parameters provided as metadata in the request body.
           - It is mandatory to provide values for parameters marked with *. 
@@ -158,6 +158,9 @@ definitions:
         recipientEmails:
         - amit.kumar@tarento.com
         - amit1.kumar@tarento.com
+        mode: sms
+        recipientPhones:
+        - valid phone number without country code
         recipientUserIds:
         - valid userId
         recipentSearchQuery: {
@@ -188,11 +191,18 @@ definitions:
       body:
         description: 'Contents of mail body'
         type: string
+      mode:
+       description: 'supported value is sms, apart from sms all other values will be ignore.if value is sms then it will notify user via sms, and body will become sms text'
       downloadUrl:
         description: 'Download link of content'
         type: string
       recipientEmails:
         description: 'List of recipient mail ids'
+        type: array
+        items:
+          type: string
+      recipientPhones:
+        description: 'List of valid phone numbers without country code'
         type: array
         items:
           type: string
@@ -208,7 +218,6 @@ definitions:
           filters:
             type: object
     required:
-    - name
     - subject
     - body
     - downloadUrl

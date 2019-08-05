@@ -6,9 +6,10 @@ published: true
 allowSearch: true
 ---
 
-The following is a list of environment variables and their default values, as required to run the Sunbird LMS service. The list also gives you an indication of the purpose of the variable. Modifying the variable value, allows you to change default behavior based on your need or purpose.  
+## Overview
+The following is a list of environment variables and their default values, as required to run the Sunbird LMS service. The list also gives you an indication of the purpose of the variable. To change default behavior, modify the variable value as per your need or purpose.  
 
-
+## Variable List
 | S No. | Variable Name | Description| Purpose | Default Value |Path 
 |-------|---------------|------------|---------|---------------|------
 | 1     | sunbird_mail_server_from_email  | Represents the default communication email address | Used to send notifications to the users  | no default | Sunbird-LMS

@@ -6,66 +6,63 @@ keywords: Jenkins Tweaks
 allowSearch: true
 --- 
 
+## Overview
 
-## **Creating new folders for Jenkins jobs** 
+This page explains how to create and remove folders for Jenkins Jobs
 
-1. As an example, let us consider a scenario that your infrastructure currently consists of dev and production environment.
+## Creating Folders for Jenkins Jobs 
 
-2. In this scenario, the **envOrder.txt** file will have entry as <div class="table-wrap"><table class="wrapped confluenceTable"><colgroup><col/></colgroup><tbody><tr><td class="confluenceTd">**dev=0**
-**production=1**</td></tr></tbody></table></div> 
+The process of creating folders for Jenkins jobs is best explained using a scenario. 
+Consider the scenario in which your current infrastructure consists of two environments - **dev** and **production**. In this scenario, the **envOrder.txt** file has an entry: 
 
-3. The general jobs workflow is **Build -&gt; ArtifactUpload -&gt; Deploy** 
+```
+**dev=0**
+**production=1**
+```
 
-4. The build job will auto trigger the artifact upload job. The artifact upload job will auto trigger the deploy job. This is only for the first environment. In this scenario, the dev environment 
+The general jobs workflow is **Build -> ArtifactUpload -> Deploy** 
+The **Build** job automatically triggers the **ArtifactUpload** job which in turn automatically triggers the **Deploy** job. This workflow is executed only for the first environment, which in the example scenario is, the **dev** environment.  
+The **production** environment has deploy jobs that pick up artifacts from the **Deploy** directory of the **dev** environment. 
+The workflow remains the same irrespective of the number of directories in an environment.  The nth directory picks up artifacts from the n -1 directory. In case of the first directory, (in the example scenario, the dev directory) the deploy jobs pick up artifacts from ArtifactUpload job. 
 
-5. The production directory will have deploy jobs which will take artifacts from the deploy directory of dev. 
+Now, consider a new scenario in which there is an added environment named **pre-production**.  To add this environment and create jobs for this environment, do the following steps:
+1. Update the **envOrder.txt** file and re-run the **jenkins-jobs-setup.sh** script. 
+2. Hence, consider that the **envOrder.txt** file is updated as: 
 
-6. The flow is same for any number of folders, the nth folder will take artifacts from n -1 folder. In case of the first directory (dev in this case, the deploy jobs will take artifact from ArtifactUpload job) 
+```
+**dev=0**
+**pre-production=1** 
+**production=2**
+```
+3. On executing the  **jenkins-jobs-setup.sh** script, it first displays the old, existing folder structure and checks for confirmation on its correctness. 
+4. Since a new environment is getting added, specify the option as *n* in the confirmation dialogue box. 
+5. Update the **envOrder.txt**.  (This is already done in the previous steps) 
+6. Re-run the script and it displays the updated environment order that is added in the **envOrder.txt** file. 
+7. Specify *y* in the script's confirmation dialogue box and restart Jenkins after executing the script. 
+8. You can now see the new directory and jobs on Jenkins. 
+9. In this scenario, the production jobs are configured to pick artifacts from the pre-production directory, and pre-production jobs are configured to pick artifacts from the dev environment.    
 
-7. Now let us consider we added a new environment called pre-production. 
+Repeat the steps to add any new environment and create jobs in that environment.
+ 
+## Removing Folders for Jenkins Jobs  
 
-8. If we want to create jobs for this environment, we just update the **envOrder.txt** and re-run the **jenkins-jobs-setup.sh** script. 
+To purge an environment or if you no longer require Jenkins jobs for the environment, the process to update Jenkins jobs is quite simple. Follow the same steps as mentioned in **Creating New Folders for Jenkins Jobs**. However, instead of adding a new entry, remove the environment you don’t require from the **envOrder.txt** file and update the order number (0,1,2 etc) 
+Keeping the same scenario as in the **Creting New Folders for Jenkins Jobs** section:  
+**Before Purge** the file entry is as follows:
 
-9. Now let us consider we have updated our **envOrder.txt** file as 
+```
+dev=0 
+pre-production=1 
+production=2
+```  
+**After Purge** the file entry is as follows
 
-    <div class="table-wrap"><table class="wrapped confluenceTable"><colgroup><col/></colgroup><tbody><tr><td class="confluenceTd">**dev=0**
+````
+dev=0
+production=1
+```        
+1. Run the **jenkins-jobs-setup.sh** script as before and it updates the job configuration accordingly. 
+2. If required, manually remove the **pre-production** environment from the Jenkins UI. 
 
- **pre-production=1** **production=2**
-
-10. When we run the **jenkins-jobs-setup.sh** script, it will first display the old structure of folders which is existing and ask for a confirmation if this is correct or not. 
-
-11. Since we want to add a new environment, we need to tell the script that the old order is incorrect by specifying option as “n”. 
-
-12. Now the script will ask us to update the **envOrder.txt**, which we already did. 
-
-13. Re-run the script and it will display the updated environment order which we added in **envOrder.txt** 
-
-14. Provide confirmations to the script and restart Jenkins after executing the script. 
-
-15. You will be able to see the new directory and jobs now on Jenkins. 16. In this scenario, the production jobs will be configured to pick artifacts from pre-preoduction (earlier it was dev) and pre-preoduction job will be configured to pick artifacts from dev.    
-
-## Removing folders for Jenkins jobs  
-
-1. If you decide to purge some environment or no longer require Jenkins jobs for this environment, the process to update Jenkins jobs is quite simple. 
-
-2. Follow the same steps as mentioned in Creating new folders for Jenkins jobs 
-
-3. Instead of adding a new entry, just remove the environment you don’t require from the **envOrder.txt** file and update the order number (0,1,2 etc) 
-
-4. Example:  
-
-**Before Purge**
-
-        dev=0 
-        pre-production=1 
-        production=2
-    
-**After Purge**
-
-        dev=0
-        production=1
-        
-5. Run the **jenkins-jobs-setup.sh** script as before and it will update the job configuration accordingly. 
-
-6. Manually go and remove the pre-production directory from Jenkins UI, if required. 
-                
+Repeat the same steps to remove any environment. 
+                        
