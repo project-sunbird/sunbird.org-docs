@@ -13,7 +13,7 @@ Before you install Sunbird in a server environment, make sure that you have the 
 ### Recommended Permissions and Experience
 
 To efficiently handle Sunbird installation, you need to have:
-- System admninistrator permissions on Sunbird and all servers
+- System administrator permissions on Sunbird and all servers
 - Hands-on experience in administering Linux systems
 - Hands-on experience using Docker to run containerized services
 
