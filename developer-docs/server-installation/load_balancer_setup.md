@@ -48,9 +48,9 @@ To setup Keycloak Swarm, execute the following instructions for each of the ment
 - Ex: Frontend-port: 80
 - backend-port: 8080
 
-<img>
 
 ## Knowledge Platform 
+
 To setup KP-LB services, execute the following instructions for each of the mentioned fields: 
 - Frontend ip configuration - Internal ip by default
 - Backend pools - attach vm's of learning and search or availability set for learning and search
@@ -64,7 +64,6 @@ To setup KP-LB services, execute the following instructions for each of the ment
 - Frontend-port: 8080
 - Backend-port: 8080
 
-<img>
 
 - Name: searchhealth 
 - Protocol: http 
@@ -75,8 +74,6 @@ To setup KP-LB services, execute the following instructions for each of the ment
 - Load Balancing rules - Frontend-ip-config, Frontend-port, Backend-port, Backend-pool and health-probe
 Example: Frontend-port: 9000
 Backend-port: 9000
-
-<img>
 
 
 ## Data Pipeline
@@ -93,6 +90,4 @@ To setup DP-LB services, execute the following instructions for each of the ment
 - Unhealthy threshold: 2
 - Load Balancing rules - Frontend-ip-config,Frontend-port, backend-port, Backend-pool and health-probe
 Example: Frontend-port: 9000
-Backend-port: 9000
-
-<img>
+Backend-port: 9000  
