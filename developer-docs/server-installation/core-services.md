@@ -37,9 +37,9 @@ This page explains the jobs to be run to bring up the Core services.
 | Cassandra | Creates a jar for migration |
 | Content | Builds the content service container | 
 | Learner | Builds the learner service container | 
- | Player | Builds the player service container |
- | Proxy | Builds the proxy container |  
- | Telemetry | Builds the telemetry container |
+| Player | Builds the player service container |
+| Proxy | Builds the proxy container |  
+| Telemetry | Builds the telemetry container |
 
 ### Artifacts  
 Ensure that all Artifacts are uploaded
