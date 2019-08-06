@@ -79,7 +79,7 @@ Update **core_vault_sunbird_api_auth_token** with the **jwt token** from the Jen
 
 |Step | Action|
 |------|-------|
-|1 | Login to Keycloak using the user name **admin** and password as given in the private **secrets.yml** file. Or, login to keycloak using &#60;domainname&#62;/auth | 
+|1 | Login to Keycloak using the user name **admin** and password as given in the private **secrets.yml** file. Or, login to keycloak using &#60;localhost:8080&#62;/auth | 
 |2 | Navigate to **Sunbird Realm > Realm Settings > Keys. Click **Public Key**. Copy the key value that you see and update the variable **core_vault_sso_public_key**|  
 | 3 | Create the admin role in the Sunbird realm. Navigate to **Roles > Add Role** Add details in the form. Specify the role name as **admin**. Click **Save**. Navigate to **Enable Composite Roles**. Under **Composite Roles**, select **offline_access**, **uma_administration** and click **Add selected**. Navigate to **Permissions** and enable permissions.|  
 |4 | Assign permissions to the **admin-cli** client in the Sunbird realm. Navigate to **clients > admin-cli > Settings > Implicit Flow Enabled (ON) > Root URL: [https://dev.sunbird.cf](https://dev.sunbird.cf) (your Domain) > Valid Redirect URIs: [https://dev.sunbird.cf/*](https://dev.sunbird.cf/*)**.  Add another link by clicking **+**. Navigate to **Valid Redirect URIs: [https://dev.sunbird.cf/](https://dev.sunbird.cf/) > Base URL: / > Admin URL: [https://dev.sunbird.cf/*](https://dev.sunbird.cf/*)** and click **Save**.|  

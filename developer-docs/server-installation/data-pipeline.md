@@ -24,23 +24,23 @@ Switch to the `Build` folder and run all jobs. For the value of the **github_rel
 
 Switch to `Provision/<env>/DataPipeline` and run the jobs in the following sequence: 
 
-1.AnalyticsApi
-2.AnalyticsSecor
-3.AnalyticsSpark
-4.Influxdb
-5.Kibana
-6.Postgress
-7.Yarn
+1.AnalyticsApi  
+2.AnalyticsSecor  
+3.AnalyticsSpark  
+4.Influxdb  
+5.Kibana  
+6.Postgress  
+7.Yarn  
 
 ## Deploy
 
 Switch to `Deploy/dev/DataPipeline` and run the jobs in the following sequence:
 
-1.CassandraDbUpdate
-2.KafkaSetup
-3.AnalyticsApi
-4.DataProducts
-5.Secor
-6.KafkaIndexer
-7.SamzaTelemertySchemas
-8.Yarn
+1.CassandraDbUpdate  
+2.KafkaSetup  
+3.AnalyticsApi  
+4.DataProducts  
+5.Secor  
+6.KafkaIndexer  
+7.SamzaTelemertySchemas  
+8.Yarn  

@@ -13,12 +13,15 @@ low latency and high throughput, and scales up to millions of flows for all TCP 
 
 The Load Balancer distributes new inbound flows that arrive on its frontend to backend pool instances, as per rules and health probes that are set. This page provides details to set up the Agent Swarm, Keycloak Swarm, KP-LB services and the DP-LB services 
 
-## Agent Swarm
+## Swarm Nodes
+
 To setup Agent Swarm, execute the following instructions for each of the mentioned fields: 
+
 - Frontend ip configuration - attach public ip
 - Backend pools - attach agent vm's or availability set of agent group
 - Health Probes/check - Configure path and port - 80 and 443 (both)
-- EX: name: http 
+EX: name: http 
+
 - Protocol: TCP 
 - Port: 80 
 - Interval: 5 
@@ -30,8 +33,8 @@ To setup Agent Swarm, execute the following instructions for each of the mention
 
 > **Note:** Follow similar steps for port 443
 
+## Keycloak
 
-## Keycloak Swarm
 To setup Keycloak Swarm, execute the following instructions for each of the mentioned fields: 
 - Frontend ip configuration - Internal ip by default
 - Backend pools - attach keycloak vm or availability set of keycloak group
@@ -45,7 +48,9 @@ To setup Keycloak Swarm, execute the following instructions for each of the ment
 - Ex: Frontend-port: 80
 - backend-port: 8080
 
-## KP-LB Services
+<img>
+
+## Knowledge Platform 
 To setup KP-LB services, execute the following instructions for each of the mentioned fields: 
 - Frontend ip configuration - Internal ip by default
 - Backend pools - attach vm's of learning and search or availability set for learning and search
@@ -59,6 +64,8 @@ To setup KP-LB services, execute the following instructions for each of the ment
 - Frontend-port: 8080
 - Backend-port: 8080
 
+<img>
+
 - Name: searchhealth 
 - Protocol: http 
 - Port: 9000 
@@ -69,8 +76,13 @@ To setup KP-LB services, execute the following instructions for each of the ment
 Example: Frontend-port: 9000
 Backend-port: 9000
 
-## DP-LB Services (Analytics Api)
+<img>
+
+
+## Data Pipeline
+
 To setup DP-LB services, execute the following instructions for each of the mentioned fields: 
+
 - Frontend ip configuration - Internal ip by default
 - Backend pools - attach vm's of analytics-api or availability set for analytics-api group
 - Health Probes/check - Configure path and port - 9000
@@ -83,3 +95,4 @@ To setup DP-LB services, execute the following instructions for each of the ment
 Example: Frontend-port: 9000
 Backend-port: 9000
 
+<img>

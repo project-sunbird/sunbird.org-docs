@@ -35,4 +35,8 @@ Before you start the installation process, ensure that you provision for servers
 2. Fully Qualified Domain Name(FQDN) with SSL  
 3. Azure Storage account   
 5. Docker hub account 
+6. A Public IP
+7. List of ports to be open
+ 
+ <TBD>
 

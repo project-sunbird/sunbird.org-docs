@@ -8,16 +8,18 @@ allowSearch: true
 ## Overview
 
 Sunbird uses Ansible playbooks to manage its three major sub-systems (Knowledge Platform, Data Pipeline and Core Services), to ensure scalability, consistency and reliability of its IT environment. The Ansible variables help server setup, configuration management and automate deployment.   
-> Note: 
->- To run only Core Services that will connect to the Ekstep backend for other dependent services (like the Knowledge Platform and Data Pipeline), do the setup mentioned on this page for the Core module only   
->- After completing the setup as mentioned on this page, refer to the [Additional variables for Core service](developer-docs/server-installation/additional_info) page for the extra variables required for only the Core Service   
+
     
 ## Updating the Private Repository with Hosts and Variables
 
 Use the following Git commands sequentially to clone and update your private GitHub repository: 
+
 1.`git clone` <a href="https://project-sunbird/sunbird-devops">https://github.com/project-sunbird/sunbird-devops</a>
+
 2.`cd sunbird-devops &amp;&amp; git checkout tags/release-2.0.0 -b release-2.0.0`
+
 3.`cp -rf sunbird-devops/private_repo`
+
 4.`cd private_repo`
 
 5.Create folders in the GitHub private repository
