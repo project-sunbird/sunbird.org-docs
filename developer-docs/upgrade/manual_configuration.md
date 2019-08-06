@@ -8,6 +8,7 @@ keywords: Upgrade, Sunbird 2.0.0
 ---
 
 ## Overview
+
 With every new release of sunbird you will be able to experience new features, improved performance and bug squashes.
 In this document, we will cover detailed steps on how to upgrade Sunbird 1.14.0 to 2.0.0. A lot has changed from 1.14.0 to 2.0.0 with respect to backend configurations. Below are the highlights of the changes:
 
@@ -25,6 +26,6 @@ In this document, we will cover detailed steps on how to upgrade Sunbird 1.14.0 
 
 You can click on the links which will take you to the respective pages. This page will have details on how to run the respective step
 
-* Core Elasticsearch upgrade
-* Keycloak Configuration
-* ETL jobs to run for upgrading to release-2.0.0
+* [Core Elasticsearch upgrade](developer-docs/upgrade/core-elasticsearch_upgrade/)
+* [Keycloak Configuration](developer-docs/upgrade/keycloak_configuration/)
+* [ETL jobs to run for upgrading to release-2.0.0](developer-docs/upgrade/etl_jobs_for_sunbird_upgrade/)
