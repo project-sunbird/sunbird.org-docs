@@ -1,19 +1,19 @@
 var widgetsData = {  
-   versions:[  
+   versions:[
       {  
-         "title":"1.11",
-         "branch":"master",
+         "title":"2.0.0",
+         "branch":"2.0.0",
          "desc":"",
          "releaseDate":"--",
-         "latest":false,
-         "published":false
+         "latest":true,
+         "published":true
       },
       {  
          "title":"1.10",
          "branch":"1.10",
          "desc":"",
          "releaseDate":"12th Sept",
-         "latest":true,
+         "latest":false,
          "published":true
       },
       {  
