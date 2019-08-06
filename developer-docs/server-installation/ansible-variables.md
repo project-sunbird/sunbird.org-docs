@@ -14,63 +14,46 @@ Sunbird uses Ansible playbooks to manage its three major sub-systems (Knowledge 
 
 Use the following Git commands sequentially to clone and update your private GitHub repository: 
 
-1.`git clone` <a href="https://project-sunbird/sunbird-devops">https://github.com/project-sunbird/sunbird-devops</a>
+1. `git clone` <a href="https://project-sunbird/sunbird-devops">https://github.com/project-sunbird/sunbird-devops</a>
 
-2.`cd sunbird-devops &amp;&amp; git checkout tags/release-2.0.0 -b release-2.0.0`
+2. `cd sunbird-devops; git checkout tags/release-2.0.0 -b release-2.0.0`
 
-3.`cp -rf sunbird-devops/private_repo`
+3. `cp -rf sunbird-devops/private_repo /tmp/`
 
-4.`cd private_repo`
+4. `cd /tmp/private_repo`
 
-5.Create folders in the GitHub private repository
 
 > **Note** The following depicts the folder structure required in the private GitHub repository that contains Ansible hosts, secrets and variables.
+  
+```
+ansible
+└── inventory
+    └── dev
+        ├── Core
+        │   ├── common.yml
+        │   ├── hosts
+        │   └── secrets.yml
+        ├── DataPipeline
+        │   ├── common.yml
+        │   ├── hosts
+        │   └── secrets.yml
+        └── KnowledgePlatform
+            ├── common.yml
+            ├── hosts
+            └── secrets.yml
+```
 
-      ~/Documents/projects/subird-devops/private_repo(DO-470 ✗) tree ansible ansible
-      ansible
+5. `git init`
+   
+6. `git add`
+   
+7. `git commit -m "Creating private files"`
+   
+8. `git remote add origin ~private repo url~`
 
-      └── inventory
-
-          └── dev
-
-              ├── Core
-
-                 ├── common.yml
-
-                 ├── hosts
-
-                 └── secrets.yml
-
-              ├── DataPipeline
-
-                 ├── common.yml
-
-                 ├── hosts
-
-                 └── secrets.yml
-
-              └── KnowledgePlatform
-
-                ├── common.yml
-
-                ├── hosts
-
-                └── secrets.yml
-
-
-5 directories, 9 files
-
-6.`git init`
-
-7.`git add`
-
-8.`git commit -m "Creating private files"`
-
-9.`git remote add origin ~private repo url~`
-
-10.`git branch --set-upstream-to=origin/master master && git push --set-upstream origin master`
-
-11.Update the variables and push them to upstream
+9. `git branch --set-upstream-to=origin/master master && git push --set-upstream origin master`
+    
+10. Update the variables and push them to upstream
 
 ## Updating the Variables and Hosts
 

@@ -42,7 +42,7 @@ The following environment variables are used for Jenkins setup.
 |public_repo_branch|This is a unique variable. All the jobs in Jenkins are by default configured to checkout the Jenkinsfile from this variable as **${public_repo_branch}**. When a value like release-2.0.0 is provided to this variable, the Jenkins jobs checkout the Jenkins file from release-2.0.0 branch from the URL configured in the job. If this value is set to **refs/tags/release-2.0.0**, then Jenkins checks out the Jenkins file from the tag **release-2.0.0**. You can change this variable in Jenkins job configurations and specify a specific branch or tag name. This is useful when you want to run some jobs from a different branch or tag instead of the value mentioned in the variable.|
 |deploy-conf| The name of the library that is used in the Jenkinsfile. This file is used in the global pipeline libraries section. When the Jenkinsfile has this library name, it checks out a couple of common libraries from the URL configured in this section. The Jenkinsfile requires these libraries to run. To avoid writing the same code at multiple places, **common code** is placed in a separate branch and all the Jenkinsfile can use this common code by calling it as a function. If this name is changed, ensure the name in Jenkinsfile is also changed to the new library name|.
 
-## Parameter Details
+## Job Parameters
 
 ### Build Jobs
 

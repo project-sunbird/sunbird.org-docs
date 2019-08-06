@@ -31,7 +31,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 
 6.Choose the default Jenkins URL. You can either change this to your domain name or public IP. If in doubt, use the name displayed on screen, as it can be changed later if required, in the Jenkins configuration
 
-7.Switch back to the terminal session on the Jenkins server. To do so, enter the following command:
+7.Switch back to the terminal session on the Jenkins server. Enter the following command, which will install required plugins:
 
     `sudo bash jenkins-plugins-setup.sh`
 
@@ -43,7 +43,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 9.Switch back to the terminal session on the Jenkins server
     
     cp envOrder.txt.sample envOrder.txt 
-    vi envOrder.txt 
+    vi envOrder.txt  (Note: you can use :wq after editing the file to save and quit)
     
 
 10.Update the environment list as per your infrastructure in ascending order. For example, if you have only dev and production, your **envOrder.txt**will look like:
