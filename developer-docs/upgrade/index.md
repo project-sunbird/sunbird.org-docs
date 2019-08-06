@@ -9,8 +9,14 @@ keywords: Upgrade, Sunbird 2.0.0
 
 ## Overview
 
+This document describes upgrade process from Sunbird 1.14 to 2.0.0.
 
-* [Whats new in release-2.0.0 for Jenkins](developer-docs/upgrade/whats_new_in_jenkins)
+### Whats new in release-2.0.0
+
+* Added two new parameters - `private_repo` and `branch_or_tag` for all deploy and provision jobs
+* Added two new two environment variable - `override_private_branch` and `override_public_branch`
+* Overall color scheme changed from black to dim gray to keep the look subtle and non interfering
+* Jenkins plugin updates
 * [Jenkins Updates](developer-docs/upgrade/jenkins_updates)
 * [Ansible Variables Updates](developer-docs/upgrade/update_ansible_variables)
 * [Build and Deploy](developer-docs/upgrade/build_n_deploy)

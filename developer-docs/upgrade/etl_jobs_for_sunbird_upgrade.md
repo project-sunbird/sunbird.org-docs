@@ -13,7 +13,7 @@ keywords: Upgrade, Sunbird 2.0.0, etl jobs
 
 As part of release-2.0.0, we are masking user's email and phone number in cassandra DB. Please follow the below steps to perform this task
 
-Download the [file](https://github.com/project-sunbird/sunbird-utils/blob/release-2.0.0/cassandra-migration-etl/r1.15/maskEmailPhoneMigrationBin.zip) in the Core Cassandra (master machine in case of cluster)
+Download the [file](wget https://github.com/project-sunbird/sunbird-utils/blob/release-2.0.0/cassandra-migration-etl/r1.15/maskEmailPhoneMigrationBin.zip) in the Core Cassandra (master machine in case of cluster)
 
 Please refer to this document to [understand and run the script](https://github.com/project-sunbird/sunbird.org-docs/blob/b823b9b7e17758241095a869c221592bf11bb560/developer-docs/installation/mask_user_email_phone_migration.md)
 
