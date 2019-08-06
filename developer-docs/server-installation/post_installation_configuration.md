@@ -17,7 +17,7 @@ This page provides details on the configuration to be done, after you complete i
 To create a user access token use the following cURL command: 
 
    
-      `curl -X POST {dns_name}    /auth/realms/sunbird/protocol/openid-connect/token \
+      `curl -X POST {dns_name}/auth/realms/sunbird/protocol/openid-connect/token \
       -H 'cache-control: no-cache' \
       -H 'content-type: application/x-www-form-urlencoded' \
       -d 'client_id=admin-cli&username=user-manager&password={password}&grant_type=password'
@@ -47,7 +47,6 @@ To create a root organization use the following cURL commands:
       "isRootOrg":true,
       "channel":"{Your Channel Name}"
       }
-
       }'`
 
 Replace the values within { } braces with your environment values.
