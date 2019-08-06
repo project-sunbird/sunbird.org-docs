@@ -4,7 +4,7 @@ var widgetsData = {
          "title":"2.0.0",
          "branch":"2.0.0",
          "desc":"",
-         "releaseDate":"--",
+         "releaseDate":"6th Aug",
          "latest":true,
          "published":true
       },
