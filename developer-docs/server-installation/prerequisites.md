@@ -35,4 +35,14 @@ Before you start the installation process, ensure that you provision for servers
 2. Fully Qualified Domain Name(FQDN) with SSL  
 3. Azure Storage account   
 5. Docker hub account 
+6. A Public IP
+7. Security:
+- All ports must be open in internal networks (Azure-Vnet or AWS-VPC) for internal comumnication between the VMs
+- External ports must be open from the Proxy or load balancer, following ports should open to public
+   - 80 (0.0.0.0) inbound
+   - 443 (0.0.0.0) inbound
+- By default, all the outbound ports are allowed for public access from the VM. 
+
+
+
 
