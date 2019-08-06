@@ -13,40 +13,45 @@ Sunbird uses Keycloak as tool for identity management services. The default stor
 
 To summarize we need to resolve following problems, in order to implement such encryption.
 
-Within end-storage (database) user data such as mobile and e-mail need to be stored in encrypted format
+Within end-storage (database) user data such as mobile and e-mail need to be stored in encrypted format.
 
 We need to decrypt the data, while communicating with the end-user. For example, for sending email or sms - we need to be able to decrypt the data. 
 
 We need to eventually migrate all existing user data, and store it in encrypted format.
 
-> Note:  Take back up of keycloak database
+> Note: Take back up of Keycloak database
 
 Switch to postgres user and run 
 
     `pg_dump keyclaok` > `keycloak_backup.db`
 
 
-## Configuration Steps :
+## Configuration Steps:
 
-1.Login to admin console and click User Federation tab on left panel of the screen. As shown in fig.
+> Note: As of release-2.0.0 keycloak admin portal is disabled from public internet.
+
+You must tunnel the port in to the local machine via ssh tunnelling. 
+
+`ssh -L 8080:localhost:8080 ops@~keycloak-ip-address~`
+
+1.Login to admin console and navigate to User Federation tab on left panel of the screen as shown in the figure.
 
 <img src='developer-docs/server-installation/images/keycloak_user_federation.png'>
 
-2.Select cassandra-storage-provider from Add provider drop down on the screen , then you will be redirected to screen as shown 
+2.Select cassandra-storage-provider from Add provider drop down on the screen, then you will be redirected to screen as shown in the figure.
 
 <img src='developer-docs/server-installation/images/keycloak_user_storage_provider.png'>
 
-3.Click save button , It will generate one provider id as shown     
+3.Click the Save button. It will generate one provider id as shown in the figure.    
 
 <img src='developer-docs/server-installation/images/keycloak_cassandra_storage_provider.png'>
- 
 
 4.Copy the provider id and update the private repo inventory under Core/secrets.yml for the variable core_vault_sunbird_keycloak_user_federation_provider_id
 
-5.Run below SQL queries on Keycloak database after replacing values for placeholders {PROVIDER_ID} and {realm name} in below query templates. Value of placeholders {PROVIDER_ID} and {realm name} is based on environment variables core_sunbird_keycloak_user_federation_provider_id and keycloak_realm respectively.
+5.Run the below SQL queries on Keycloak database after replacing values for placeholders {PROVIDER_ID} and {realm name} in below query templates. Value of placeholders {PROVIDER_ID} and {realm name} is based on environment variables core_sunbird_keycloak_user_federation_provider_id and keycloak_realm respectively.
 
 
-These below are Postgres queries. So you need to login to postgres and run these queries on keycloak db. Below is the code to switch to keycloak DB
+These below are Postgres queries. So you need to login to postgres and run these queries on keycloak db. Below is the code to switch to keycloak DB.
 
         psql (9.5.17, server 9.5.16)
         Type "help" for help.
@@ -87,4 +92,4 @@ Example:
 
 
 
-This completes the Keycloak configurations. Next we will be running migration scripts for Cassandra and Keycloak
+This completes the Keycloak configurations. Next we will be running migration scripts for Cassandra and Keycloak.
