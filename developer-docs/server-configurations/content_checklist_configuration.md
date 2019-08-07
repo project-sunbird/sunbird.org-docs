@@ -1,6 +1,6 @@
 ---
-title: Configure Reviewer Checklist
-page_title: Configure Reviewer Checklist
+title: Reviewer Checklist
+page_title: Reviewer Checklist
 description: Technical document on configuring checklist for reviewer
 published: true
 allowSearch: true

@@ -11,7 +11,7 @@ This page explains the jobs to be run to bring up the Knowledge Platform service
 
 ## Build
 
-Switch to the `Build` folder and run all jobs. For the value of the **github_release_tag**, refer to [Current Release Tags and Jenkins Jobs Reference](/developer-docs/server-installation/current_release_tags_n_jenkins_jobs){target=_blank}
+Switch to the `Build` folder and run all jobs. For the value of the **github_release_tag**, refer to [Current Release Tags and Jenkins Jobs Reference](/developer-docs/server-installation/current_release_tags_n_jenkins_jobs){:target="_blank"}
 
 ## DevOps Administration
 
@@ -22,7 +22,7 @@ Switch to the `Build` folder and run all jobs. For the value of the **github_rel
 ## Provision
 
 *   Download **neo4j enterprise** version 3.3.x. Place it in the artifacts directory of your private repository. The file name should be **neo4j*.tar.gz**
-*   Since the neo4j file size is greater than 100 MB, use the Git large file storage function to store it in your private repository. For details, refer to  [Git Large File Storage](https://git-lfs.github.com/){target=_blank}
+*   Since the neo4j file size is greater than 100 MB, use the Git large file storage function to store it in your private repository. For details, refer to  [Git Large File Storage](https://git-lfs.github.com/){:target="_blank"}
 
 *   Switch to `Provision/<env>/KnowledgePlatform` and run the jobs in the following sequence:
     1. Cassandra
@@ -67,6 +67,6 @@ Login to the Cassandra VM and execute the following commands
 
 *   Now you should be able to delete contents from workspace, drafts, contents which are published etc.
                     
-Refer [How to Create Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird), [How to Create Schemas for Knowledge Platform Objects](developer-docs/server-installation/knowledge-platform-object-schema.html)
+Refer [How to Create Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird){:target="_blank"}, [How to Create Schemas for Knowledge Platform Objects](developer-docs/server-installation/knowledge-platform-object-schema.html){:target="_blank"}
 
 

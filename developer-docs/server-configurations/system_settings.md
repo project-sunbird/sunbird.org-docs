@@ -1,6 +1,6 @@
 ---
-title: Configure System Settings
-page_title: Configure System Settings
+title: System Settings
+page_title: System Settings
 description: Describes how to configure system settings
 published: true
 allowSearch: true
@@ -75,7 +75,7 @@ Configure the Sunbird LMS custodian Org ID using the following cURL command. Use
     }'
 
 
-## Confifure the Content Coming Soon page
+## Configure the Content Coming Soon Page
 
 Configure the message on the Content Coming Soon page using the following cURL command. This message is used by those root organizations that do not have any content, as on date.
 

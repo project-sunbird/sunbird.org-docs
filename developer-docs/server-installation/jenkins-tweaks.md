@@ -27,7 +27,8 @@ The workflow remains the same irrespective of the number of directories in an en
 
 Now, consider a new scenario in which there is an added environment named **pre-production**.  To add this environment and create jobs for this environment, do the following steps:
 
-1.Update the **envOrder.txt** file and re-run the **jenkins-jobs-setup.sh** script. 
+1.Update the **envOrder.txt** file and re-run the **jenkins-jobs-setup.sh** script.  
+
 2.Hence, consider that the **envOrder.txt** file is updated as: 
 
         dev=0
@@ -51,8 +52,10 @@ Repeat the steps to add any new environment and create jobs in that environment.
  
 ## Removing Folders for Jenkins Jobs  
 
-To purge an environment or if you no longer require Jenkins jobs for the environment, the process to update Jenkins jobs is quite simple. Follow the same steps as mentioned in **Creating New Folders for Jenkins Jobs**. However, instead of adding a new entry, remove the environment you don’t require from the **envOrder.txt** file and update the order number (0,1,2 etc) 
-Keeping the same scenario as in the **Creting New Folders for Jenkins Jobs** section:  
+To purge an environment or if you no longer require Jenkins jobs for the environment, the process to update Jenkins jobs is quite simple. Follow the same steps as mentioned in [Creating New Folders for Jenkins Jobs](#creating-folders-for-jenkins-jobs). However, instead of adding a new entry, remove the environment that is not required from the **envOrder.txt** file and update the order number (0,1,2 etc) 
+
+Keeping the same scenario as in the **Creating New Folders for Jenkins Jobs** section:  
+
 **Before Purge** the file entry is as follows:
 
 
@@ -67,7 +70,7 @@ Keeping the same scenario as in the **Creting New Folders for Jenkins Jobs** sec
     production=1
 
 
-1.Run the **jenkins-jobs-setup.sh** script as before and it updates the job configuration accordingly. 
-2.If required, manually remove the **pre-production** environment from the Jenkins UI. 
+1.Run the **jenkins-jobs-setup.sh** script as mentioned in above steps, this updates the job configuration accordingly. 
+2.You can also manually remove the **pre-production** environment from the Jenkins UI. 
 
 Repeat the same steps to remove any environment.              

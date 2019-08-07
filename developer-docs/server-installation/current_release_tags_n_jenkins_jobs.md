@@ -12,7 +12,7 @@ This page provides information on the release tags available for Sunbird install
 
 ## List of Current Release Tags
 
-> Note: The first tag against the repository name is the latest tag for that repository.
+> **Note**: The first tag against the repository name is the latest tag for that repository.
 
 
 | Repository                | Current Release Tag           | Jobs using the Repository |

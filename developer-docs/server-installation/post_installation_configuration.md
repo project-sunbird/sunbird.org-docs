@@ -53,9 +53,9 @@ Replace the values within { } braces with your environment values.
 
 ## Update System Setting
 
-The Sunbird instances that use the EkStep content repository must have a unique channel name in the [System Setting](developer-docs/server-configurations/system_settings)file.
+The Sunbird instances that use the EkStep content repository must have a unique channel name in the [System Setting](developer-docs/server-configurations/system_settings){:target="_blank"} file.
    
-1.Update the **Channel Name** in the `sunbird_default_channel` variable in the [config]() file. 
+1.Update the **Channel Name** in the `sunbird_default_channel` variable in the `config` file. 
 
 2.Run the following commands 
 

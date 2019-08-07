@@ -1,8 +1,6 @@
 ---
-type: landing
-directory: developer-docs/mobile-app-installation/
-title: Setting Up Mobile App
-page_title: Setting Up Mobile App
+title: Mobile App Setup
+page_title: Mobile App Setup
 description: Setting Up Mobile App
 keywords: Setup, Subird Mobile App, Install, Cofigure, set up,Build APK
 published: true
