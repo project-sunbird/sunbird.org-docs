@@ -11,12 +11,12 @@ keywords: Upgrade, Sunbird 2.0.0, Core, elasticsearch
 
 Core Elasticsearch has been upgraded from 5.x version to 6.x. This is done in order to remove overheads in maintaining two versions of elasticsearch for Core services and Knowledge Platform. With this upgrade, we will be able to use a single elasticsearch cluster for both Core services and Knowledge Platform thereby benefitting in cost and maintenance. 
 
-Follow the steps to upgrade core elastic search 
+Follow the steps to upgrade core Elasticsearch.
 
 
 ### Back up
 
-1.Take backup of Core elasticsearch indexes 
+1.Take backup of Core elasticsearch indexes.
 
 2.Switch to root user and ensure you have these values available in elasticsearch.yml file under `/etc/elasticsearch/your_node_name/elasticseach.yml`
 
@@ -39,15 +39,17 @@ Follow the steps to upgrade core elastic search
 
         sudo systemctl restart your_node_name_elasticsearch.service
 
+5.Create Azure repo and take the backup. Follow below steps:
+
         curl -XPUT http://localhost:9200/_snapshot/azurebackup -H 'Content-Type: application/json' -d '{ "type": "azure", "settings": { "container": "elasticsearch-snapshots", "base_path": "application_elasticsearch"} }'
 
         curl -XPUT http://localhost:9200/_snapshot/azurebackup/snapshot_back_name -H 'Content-Type: application/json' -d '{"include_global_state": false}'
 
+6.Verify your backup        
         Install jq
 
         sudo apt-get install jq
-
-5.Verify your backup was successful - curl http://localhost:9200/_snapshot/azurebackup/_all | jq
+         curl http://localhost:9200/_snapshot/azurebackup/_all | jq
 
 The above command will give you the snapshot name - "snapshot": "snapshot_1563878417" and "state": "SUCCESS"
 
@@ -55,23 +57,24 @@ Or you can use this command to check status -
 
         curl -XPUT http://localhost:9200/_snapshot/azurebackup/snapshot_back_name/_status | jq
 
-6.Login to azure and verify in the storage account that backup files are created. The container name will be elasticsearch-snapshots and blob name will be application_elasticsearch
+7.Login to azure and verify in the storage account that backup files are created. The container name will be elasticsearch-snapshots and blob name will be application_elasticsearch
 
 
 
 ### Restore
+Once backup is completed, restore the Elasticsearch indexes.
 
-7.Go to the Knowledge platform elasticsearch machine machine and restore the indexes which we took in previous step
+1.Go to the Knowledge platform elasticsearch machine and restore the indexes which we took in previous step
 
-8.Switch to root user and ensure you have these values available in elasticsearch.yml file under /etc/elasticsearch/your_node_name/elasticseach.yml
+2.Switch to root user and ensure you have these values available in elasticsearch.yml file under `/etc/elasticsearch/your_node_name/elasticseach.yml`
 
-        cloud.azure.storage.default.account:              // Your azure backup account name
+`cloud.azure.storage.default.account:  `    // Your azure backup account name
 
-        cloud.azure.storage.default.key:                  // Your azure backup account key
+`cloud.azure.storage.default.key:`          // Your azure backup account key
 
 Note: The account and key should be same as the one used for backup
 
-Install elastisearch azure plugin if its not already installed
+3.Install elastic search plugin in case it is not installed. 
 
         export ES_PATH_CONF=/etc/elasticsearch/your_node_name
 
@@ -79,15 +82,19 @@ Install elastisearch azure plugin if its not already installed
 
         bin/elasticsearch-plugin install repository-azure
 
-        Restart elasticsearch service 
+4.Restart elasticsearch service 
 
         sudo systemctl restart your_node_name_elasticsearch.service
 
+5.Run the below commands to begin restoration:
+
         curl -XPOST http://localhost:9200/_snapshot/azurebackup/snapshot_back_name/_restore
+
+6.Verify your restoration:
 
         curl -XPOST http://localhost:9200/_snapshot/azurebackup/snapshot_back_name/_status | jq
 
-The above command will give you the snapshot name - "snapshot": "snapshot_1563878417" and "state": "SUCCESS"
+The above command will give you the snapshot name - "snapshot": "snapshot_1563878417" and "state": "SUCCESS".
 
 The state of the indexes might take some time to turn in YELLOW state
 
@@ -107,6 +114,9 @@ For more information on what this job does, take a look at this reference Elasti
 ### Migration of core elasticsearch data from old index to new indices:
 
 Since mapping types are deprecated with the new version of elasticsearch, we will have to reindex our indexes to be compatible with the new ES. Below are the set of commands that need to be run on the Knowledge platform ES VM.
+
+{es-ip}: Elasticsearch ip
+{es-port}:Elasticsearch port
 
         curl -X POST http://{es-ip}:{es-port}/_reindex -H 'Content-Type: application/json' -d '{"source":{"index":"searchindex","type":"user"},"dest":{"index":"user","type":"_doc"}}'
         curl -X POST http://{es-ip}:{es-port}/_reindex -H 'Content-Type: application/json' -d '{"source":{"index":"searchindex","type":"org"},"dest":{"index":"org","type":"_doc"}}'
