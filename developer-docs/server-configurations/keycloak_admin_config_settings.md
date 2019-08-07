@@ -51,19 +51,19 @@ It is mandatory to configure a user with administrator role permissions to be ab
 <tr>
   <td> 
 1. Click the <b>Realm Selector dropdown</b> from the navigation pane and select the appropriate realm.<br>
-<b>Note:</b> The <b>Master</b> realm is selected by default.
+<b>Note:</b> The <b>Master</b> realm is selected by default
     </td>
     <td><img src="developer-docs/server-configurations/images/realm_select.png"></td>
     </tr>
   <tr>
   <td> 
-3. Go to the <b>Configure</b> section and select the <b>Roles</b> tab.
+3. Go to the <b>Configure</b> section and select the <b>Roles</b> tab
   </td>
   <td><img src="developer-docs/server-configurations/images/settings/roles_selector.PNG"></td>
   </tr>
   <tr>
   <td> 
-4. Go to the <b>Realms Roles</b> tab, click the <b>Add Role</b> button if the administrator role is not available in the Realm Roles table. If the role is available, then proceed to step 5. 
+4. Go to the <b>Realms Roles</b> tab, click the <b>Add Role</b> button if the administrator role is not available in the Realm Roles table. If the role is available, then proceed to step 5
 </td>
 <td>
   <img src="developer-docs/server-configurations/images/settings/add_admin_role.PNG">
@@ -71,25 +71,25 @@ It is mandatory to configure a user with administrator role permissions to be ab
   </tr>
  <tr>
   <td>
-5. Go to the <b>Users</b> tab under the <b>Manage</b> section and search the user in the <b>Lookup</b> tab.
+5. Go to the <b>Users</b> tab under the <b>Manage</b> section and search the user in the <b>Lookup</b> tab
   </td>
   <td><img src="developer-docs/server-configurations/images/settings/select_user_selector_and_search_for_ admin_user.png"></td>
   </tr>
 <tr>
 <td> 
-6. Click the <b>Role Mappings</b> tab.
+6. Click the <b>Role Mappings</b> tab
   </td>
   <td><img src="developer-docs/server-configurations/images/settings/user_role_mapping.PNG"></td>
   </tr>
   <tr>
 <td> 
-7. Assign the admin role at realm level.
+7. Assign the admin role at realm level
   </td>
   <td><img src="developer-docs/server-configurations/images/settings/add_admin_role_to_user.PNG"></td>
   </tr>  
   <tr>
 <td> 
-8. Select the client option from the <b>Client Roles</b> drop-down list to which the user belongs and assign admin role at the client level.
+8. Select the client option from the <b>Client Roles</b> drop-down list to which the user belongs and assign admin role at the client level
   </td>
   <td><img src="developer-docs/server-configurations/images/settings/admin_role_added.PNG"></td>
   </tr>
@@ -97,7 +97,7 @@ It is mandatory to configure a user with administrator role permissions to be ab
 
 ## Configure Redirect URI 
 
-The redirect URI configuration is necessary to redirect user to Sunbird tenant's specific home page after completing the required action steps.
+The redirect URI configuration is necessary to redirect user to Sunbird tenant's specific home page after completing the required action steps
 <table>
 <tr>
 <th style="width:35%;">Step</th>
@@ -106,31 +106,28 @@ The redirect URI configuration is necessary to redirect user to Sunbird tenant's
   
 <tr>
   <td>
-1. Go to the <b>Configure</b> section and select the <b>Clients</b> tab in the navigation pane.
+1. Go to the <b>Configure</b> section and select the <b>Clients</b> tab in the navigation pane
 </td>
 <td><img src="developer-docs/server-configurations/images/settings/client_list.PNG"></td>
 </tr> 
 <tr>
   <td> 
-2. Click the <b>client</b> corresponding to the user configured in step 8 of above section.<br>
+2. Click the <b>client</b> corresponding to the user configured in step 8 of above section
     </td>
     <td><img src="developer-docs/server-configurations/images/settings/select_user_client.PNG"></td>
     </tr>
     
   <tr>
   <td> 
-3. Select the <b>Settings</b> tab and click the <b>Implicit Flow Enabled </b> toggle button. Once this button is enabled, a Valid Redirect URIs text box is displayed.
+3. Select the <b>Settings</b> tab and click the <b>Implicit Flow Enabled </b> toggle button. Once this button is enabled, a Valid Redirect URIs text box is displayed
   </td>
-  <td><img src="developer-docs/server-configurations/images/settings/in_settings_tab_enabl_implicit_flow_enabled.png"></td>
+  <td><img src="developer-docs/server-configurations/images/settings/in_settings_tab_enabl_implicit_flow_enabled.PNG"></td>
   </tr>
-  
   <tr>
-  <td> 
-4. Enter values in the Root URL and Valid Redirect URIs text boxes.
+  <td> 4. Enter values in the Root URL and Valid Redirect URIs text boxes
 </td>
 <td>
   <img src="developer-docs/server-configurations/images/settings/config-url.PNG">
   </td>
   </tr>
- 
 </table>

@@ -19,13 +19,13 @@ To setup Agent Swarm, execute the following instructions for each of the mention
 
 - Frontend IP configuration - attach public IP
 - Backend pools - attach agent VM's or availability set of agent group
-- Health Probes/check - Configure path and port - 80 and 443 (both)
+- Health Probes/check - Configure path and port - 80 and 443 (both)  
 EX: name: http 
 - Protocol: TCP   
 - Port: 80  
 - Interval: 5  
 - Unhealthy threshold: 2  
-- Load Balancing rules - Frontend-ip-config, Frontend-port,backend-port, Backend-pool and health-probe  
+- Load Balancing rules - Frontend-ip-config, Frontend-port,backend-port, Backend-pool and health-probe    
 Ex: Frontend-port: 80
 - Backend-port: 80
 
@@ -37,13 +37,13 @@ Ex: Frontend-port: 80
 To setup Keycloak Swarm, execute the following instructions for each of the mentioned fields:  
 - Frontend IP configuration - Internal IP (default)
 - Backend pools - attach keycloak vm or availability set of keycloak group
-- Health Probes/check - Configure path and port - 8080
+- Health Probes/check - Configure path and port - 8080  
     Example: name: keycloakhealth 
 - Protocol: TCP 
 - Port: 8080 
 - Interval: 5 
 - Unhealthy threshold: 2
-- Load Balancing rules - Frontend-ip-config, Frontend-port, backend-port, Backend-pool and health-probe
+- Load Balancing rules - Frontend-ip-config, Frontend-port, backend-port, Backend-pool and health-probe  
     Example: Frontend-port: 80, Backend-port: 8080
 
 
@@ -52,7 +52,7 @@ To setup Keycloak Swarm, execute the following instructions for each of the ment
 To setup KP-LB services, execute the following instructions for each of the mentioned fields: 
 - Frontend IP configuration - Internal IP (default)
 - Backend pools - attach vm's of learning and search or availability set for learning and search
-- Health Probes/check - Configure path and port - 8080 (for learning) and 9000 (for search)
+- Health Probes/check - Configure path and port - 8080 (for learning) and 9000 (for search)  
     Example: name: learninghealth 
 - Protocol: http 
 - Port: 8080 
@@ -69,7 +69,7 @@ To setup KP-LB services, execute the following instructions for each of the ment
 - Path: /health 
 - Interval: 5 
 - Unhealthy threshold: 2
-- Load Balancing rules - Frontend-ip-config, Frontend-port, Backend-port, Backend-pool and health-probe
+- Load Balancing rules - Frontend-ip-config, Frontend-port, Backend-port, Backend-pool and health-probe  
     Example: Frontend-port: 9000, Backend-port: 9000
 
 
@@ -79,11 +79,11 @@ To setup DP-LB services, execute the following instructions for each of the ment
 
 - Frontend IP configuration - Internal IP (default)
 - Backend pools - attach VM's of analytics-api or availability set for analytics-api group
-- Health Probes/check - Configure path and port - 9000
+- Health Probes/check - Configure path and port - 9000  
     Example: name: analyticshealth 
 - Protocol: tcp 
 - Port: 9000 
 - Interval: 5 
 - Unhealthy threshold: 2
-- Load Balancing rules - Frontend-ip-config,Frontend-port, backend-port, Backend-pool and health-probe
+- Load Balancing rules - Frontend-ip-config,Frontend-port, backend-port, Backend-pool and health-probe  
 Example: Frontend-port: 9000, Backend-port: 9000  

@@ -31,19 +31,19 @@ Different configuration can be defined differently for the following content typ
 ## UI Display with Default Configurations
 The UI display, when there are no configurations set for the checklist, is as described:
 
-1. When requesting changes to content, an information message **Please detail the required changes in the comments** is displayed. Enter the comments here to enable the **Request Changes** button.
+1.When requesting changes to content, an information message **Please detail the required changes in the comments** is displayed. Enter the comments here to enable the **Request Changes** button.
 
-2. When publishing reviewed content, a confirmation message **Are you sure you want to publish?** is displayed. Click the **Publish** button to publish content.
+2.When publishing reviewed content, a confirmation message **Are you sure you want to publish?** is displayed. Click the **Publish** button to publish content.
 
 ## UI Display with Customized Configurations 
 
 The UI display, when configurations are set for the checklist, is as described:
 
-1. When requesting changes to content, the configured checklist is displayed with a comment box. The reviewer must select atleast one checkbox and provide comments in the comment box to enable **Request Changes** button.
+1.When requesting changes to content, the configured checklist is displayed with a comment box. The reviewer must select atleast one checkbox and provide comments in the comment box to enable **Request Changes** button.
 
-2. When publishing reviewed content, the configured checklist is displayed with a comment box. The reviewer must select atleast one checkbox to enable **Publish** button
+2.When publishing reviewed content, the configured checklist is displayed with a comment box. The reviewer must select atleast one checkbox to enable **Publish** button
 
-3. In case of any system failure while requesting changes to content or while publishing reviewed content, an error message **Something went wrong. Please try again later** is displayed
+3.In case of any system failure while requesting changes to content or while publishing reviewed content, an error message **Something went wrong. Please try again later** is displayed
 
 ## Configuring Review Checklist
 

@@ -7,17 +7,19 @@ published: true
 allowSearch: true
 ---
 
- ## Forms in Mobile App
+
+## Forms in Mobile App
 
  **The following table lists down the available forms in Mobile app component:**
 
- | Form | Description | Type | Subtype| Action| Component
+| Form | Description | Type | Subtype| Action| Component
 | --- | --- |------| ------| ------| ------|
 | **Force/Optional Upgrade** | This form is used to save/update/read or force/optional app upgrade | app | install | upgrade | app
 | **Filter config for Course filter** | This form is used to get filter for courses | pageAssemble | course | filter | app
 | **Filter config for Library filter** | This form is used to filter for library | pageAssemble | library | filter | app
 
- ### Input & Data Types 
+
+### Input & Data Types 
 
  **The following table lists down the supported input types with corresponding data types in Mobile app component:**
 
@@ -27,7 +29,8 @@ allowSearch: true
 | List | fields, range |
 | type | force, optional |
 
- ### JSON Structure definitions
+
+### JSON Structure definitions
 
  **The following table lists down the example JSON structure with descriptions for each form in the Mobile app component:**
 
