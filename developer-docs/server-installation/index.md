@@ -26,4 +26,4 @@ Sunbird consists of 3 major subsystems
 
   - Knowledge Platform also knows as Learning Platform (Taxonomy, Content and Content Management)
   - Data-pipeline (Creating insights from telemetry)
-  - Core (User/Org, Courses, Badges, Content Studio)
+  - Core (User, Organization, Courses, Badges, Content Studio)

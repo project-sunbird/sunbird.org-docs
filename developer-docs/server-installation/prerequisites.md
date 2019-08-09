@@ -22,27 +22,25 @@ To efficiently handle Sunbird installation, you need to have:
 ## Provisioning Servers 
 Before you start the installation process, ensure that you provision for servers to host applications and set up required accounts and repositories as per details provided.
 
-|Application |  Server      |Count|
-|------------|--------------|-----| 
-| Jenkins |4core 16G 250G HDD| 1|
-|LP       | 2core 8G 60G HDD | 2 |
-|DP       |2core 8G 60G HDD  | 5 |
-| Core    |2core 8G 60G HDD  |2 |
-|   |   Load Balancers   |  4 |
+|Application|  Server           |Count|
+|-----------|-------------------|-----| 
+| Jenkins   | 4core 16G 250G HDD| 1   |
+| LP        | 2core 8G 60G HDD  | 2   |
+| DP        | 2core 8G 60G HDD  | 5   |
+| Core      | 2core 8G 60G HDD  | 2   |
+|           | Load Balancers    | 4   |
 
 ## Other Requirements
-1. Private GitHub repository to store Ansible hosts and secrets  
-2. Fully Qualified Domain Name(FQDN) with SSL  
-3. Azure Storage account   
-5. Docker hub account 
-6. A Public IP
-7. Security:
+
+1.Private GitHub repository to store Ansible hosts and secrets  
+2.Fully Qualified Domain Name (FQDN) with SSL  
+3.Azure Storage account   
+5.Docker hub account   
+6.A Public IP  
+7.Security:  
 - All ports must be open in internal networks (Azure-Vnet or AWS-VPC) for internal comumnication between the VMs
 - External ports must be open from the Proxy or load balancer, following ports should open to public
    - 80 (0.0.0.0) inbound
    - 443 (0.0.0.0) inbound
 - By default, all the outbound ports are allowed for public access from the VM. 
-
-
-
 

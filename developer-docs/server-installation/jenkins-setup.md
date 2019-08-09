@@ -38,7 +38,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 - Enter the URL as localhost:8080
 - Enter the admin username and password
    
-8.Go to **Manage Jenkins -> Manage Plugins -> Update Center -> Check status of plugin install**. If any plugins have not been installed, install them manually. To do so, go to the plugins section of Jenkins
+8.Go to **Manage Jenkins** -> **Manage Plugins** -> **Update Center** -> **Check status of plugin install**. If any plugins have not been installed, install them manually. To do so, go to the plugins section of Jenkins
 
 9.Switch back to the terminal session on the Jenkins server
     
@@ -84,7 +84,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 |**private_repo_branch**|The branch name in the private repository which you would like to use. This branch has the inventory and secrets| 
 |**private_repo_credentials**|The unique string which you provided for ID field while entering the GitHub repo credentials. Example: **private-repo-creds**| 
 |**private_repo_url**|The GitHub URL to your private repo. To get the URL of your private repository, go to your private repository and click the **Clone** button. The https URL of your private repository is displayed. Currently, Sunbird supports only https URLs| 
-|**public_repo_branch**|This is the branch or tag from where the Jenkins file is picked up. You can set this value as **refs/tags/release-1.14.0** if you want to build from tags or provide the value of the development branch, for example, release-1.15. This is not recommended since development branches are not stable| 
+|**public_repo_branch**|This is the branch or tag from where the Jenkins file is picked up. You can set this value as **refs/tags/release-1.14.0** if you want to build from tags or provide the value of the development branch, for example, release-1.15. This is not recommended since development branches are not stable|
 |**override_private_branch**|true|
 |**override_public_branch**|true| 
  
@@ -98,13 +98,13 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 |**Source Code Management**|Git| 
 |**Project Repository**|https://github.com/project-sunbird/sunbird-devops.git| 
 
-23.Click **Save** and go to **Manage Jenkins -> Configure global security** 
+23.Click **Save** and go to **Manage Jenkins** -> **Configure global security** 
 
 24.Choose the **Markup Formatter** as **Safe HTML**
 
-25.Go to **Manage Jenkins -> Manager Nodes -> Click master -> Click Configure -> Provide labels**. Provide the label as `build-slave` 
+25.Go to **Manage Jenkins** -> **Manager Nodes** -> Click **master** -> Click **Configure** -> Provide **labels**. Provide the label as `build-slave` 
 
-26.Set the number of executors to a number. For example, if your system configuration is: RAM - 16 GB and CPU - 4 core, set the number as 15. Adjust this number based on your system configuration 
+26.Set the number of executors. For example, if your system configuration is: RAM - 16 GB and CPU - 4 core, set the number as 15. Adjust this number based on your system configuration 
 
 27.Restart Jenkins using the command `sudo service jenkins restart` 
 
@@ -122,9 +122,9 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
     Here `somekey.pem` is the key you used to login to the Jenkins server. Henceforth it will be named `ops_ssh_key` 
 
 
-30.Copy the contents of the key you used to connect to the VM into the `ops_ssh_key` file 
+30.Copy the contents of the key that is used to connect to the VM into the `ops_ssh_key` file 
 
-31.Create a new ssh key on your local machine or on any server. This key will be used for a different user, for example,**deployer**. The name is as per your liking 
+31.Create a new ssh key on local machine or on any server. This key will be used for a different user, for example,**deployer**. The name is as per your liking 
 
 32.Use the command `ssh-keygen -f deployer_ssh_key`. The passphrase for this user should be empty
 

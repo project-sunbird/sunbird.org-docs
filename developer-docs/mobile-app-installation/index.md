@@ -1,8 +1,6 @@
 ---
-type: landing
-directory: developer-docs/mobile-app-installation/
-title: Setting Up Mobile App
-page_title: Setting Up Mobile App
+title: Mobile App Setup
+page_title: Mobile App Setup
 description: Setting Up Mobile App
 keywords: Setup, Subird Mobile App, Install, Cofigure, set up,Build APK
 published: true
@@ -13,35 +11,36 @@ allowSearch: true
 The Sunbird Mobile app provides mobility to its feature-rich learning platform. It provides learners with the flexibility to learn anywhere, anytime.
 
 ## Prerequisites
-1. To set up Sunbird mobile app, ensure you have installed the following:
-  1. NPM Version - 3.5.2
-  2. Node JS Version - above 6  
-  3. Cordova Version - 8.0.0
-  4. Ionic Version - 3.20.0
+1.To set up Sunbird mobile app, ensure you have installed the following:
   
-2. Generate the key and secret for the mobile app user using the JWT token of the mobile admin user. The JWT token for mobile admin user is printed on the application:
+  - NPM Version - 3.5.2
+  - Node JS Version - above 6  
+  - Cordova Version - 8.0.0
+  - Ionic Version - 3.20.0
+  
+2.Generate the key and secret for the mobile app user using the JWT token of the mobile admin user. The JWT token for mobile admin user is printed on the application:
  *server folder /where-you-cloned-sunbird-devops-repo/sunbird-devops/deploy/logs/apis.log.*
 
 **Generating Secret:**
 Execute the listed API to generate the key and secret for the mobile app:
 
-  curl -X POST \   <your-sunbird-base-url>/api/api-manager/v1/consumer/mobile_app/credential/register \
-       -H 'authorization: Bearer <mobile_admin_jwt_token_from_apis_log_file>' \
+  curl -X POST \ &#60;your-sunbird-base-url&#62;/api/api-manager/v1/consumer/mobile_app/credential/register \
+       -H 'authorization: Bearer &#60;mobile_admin_jwt_token_from_apis_log_file&#62;' \
        -H 'content-type: application/json' \
        -d '{
        "request": {
-         "key": "<implementation-name>-mobile-app-<version-number>"
+         "key": "&#60;implementation-name&#62;-mobile-app-&#60;version-number&#62;"
        }
      }'
 
 **Response body:** 
 
-{"result":{"key":"<implementation-name>-mobile-app-<version-number>","secret":"<secret>"}} 
+    {"result":{"key":"&#60;implementation-name&#62;-mobile-app-&#60;version-number&#62;","secret":"&#60;secret&#62;"}} 
 
-Use the  key and secret from the response given for MOBILE_APP_KEY and MOBILE_APP_SECRET configuration in respective environments in gradle.properties file. Example:
+    Use the  key and secret from the response given for MOBILE_APP_KEY and MOBILE_APP_SECRET configuration in respective environments in gradle.properties file. Example:
 
-**dev_mobile_app_key = "<implementation-name>-mobile-app-<version-number>"
-dev_mobile_app_secret = "<secret>"**
+    dev_mobile_app_key = "&#60;implementation-name&#62;-mobile-app-&#60;version-number&#62;"
+    dev_mobile_app_secret = "&#60;secret&#62;"
 
 **Producer Key**
 
@@ -74,18 +73,18 @@ The instance administrator of any Sunbird adopter can customize the Sunbird mobi
 | 3 | app logo | Navigate to **sunbird-mobile/resources/android/icon** and **sunbird-mobile/resources/android/splash**. Replace the **ic_launcher.png** image with your desired logo in all the mipmap and drawable folders. The logo name should be **drawable-ldpi-icon.png** | To change the app logo |
 | 4 | app | Set the configuration variable in the **sunbird-mobile repo** file in the **buildConfig** folder | |   |
 | 5|  app version code | Version code for the app release | To customize the end points in the app | Replace redirect base url REDIRECT_BASE_URL and all other base urls with your respective domain name in **sunbird.properties** |
-| 6 | deep link schema | This plugin handles deeplinks on iOS and Android for both custom URL scheme links and Universal App Links. Deep link schema can be changed from sunbird.properties | Change the "dev_deeplink_base_url = dev.open-sunbird.org" to the required name|
+| 6 | deep link schema | This plugin handles deeplinks on iOS and Android for both custom URL scheme links and Universal App Links. Deep link schema can be changed from sunbird.properties | Change the "dev_deeplink_base_url = dev.open-sunbird.org" to the required name |
 | 7 | display_onboarding_page | Set the configuration variable in the **sunbird-mobile repo** in the **buildConfig** folder | to display the onboarding page | false|
-| 8 | display_signin_footer_card_in_course_tab_for_teacher | set the <b>display_signin_footer_card_in_course_tab_for_teacher</b>variable as <b>true</b> in sunbird.properties file | to show the sign-in footer in the course tab for teachers | false|
-| 9 | display_signin_footer_card_in_library_tab_for_teacher | Set the <b>display_signin_footer_card_in_library_tab_for_teacher</b> variable <b>true</b> in sunbird.properties file | to show the sign-in footer in the library tab for teachers | false|
-| 10 | display_signin_footer_card_in_profile_tab_for_teacher | Set the <b>display_signin_footer_card_in_profile_tab_for_teacher</b>as <b>true</b> in sunbird.properties file | to show the sign-in footer in the profile tab for teachers | false|
-| 11 | display_signin_footer_card_in_profile_tab_for_student | Set the <b>display_signin_footer_card_in_profile_tab_for_student</b>as <b>true</b> in sunbird.properties file | to show the sign-in footer in the profile tab for students | false|
-| 12 | display_signin_footer_card_in_library_tab_for_student | Set the <b>display_signin_footer_card_in_library_tab_for_student</b>as <b>true</b> in sunbird.properties file | to show the sign-in footer in the profile tab for students | false|
+| 8 | display_signin_footer_card_in_course_tab_for_teacher | set the **display_signin_footer_card_in_course_tab_for_teacher** variable as **true** in sunbird.properties file | to show the sign-in footer in the course tab for teachers | false|
+| 9 | display_signin_footer_card_in_library_tab_for_teacher | Set the **display_signin_footer_card_in_library_tab_for_teacher** variable **true** in sunbird.properties file | to show the sign-in footer in the library tab for teachers | false|
+| 10 | display_signin_footer_card_in_profile_tab_for_teacher | Set the **display_signin_footer_card_in_profile_tab_for_teacher** as **true** in sunbird.properties file | to show the sign-in footer in the profile tab for teachers | false|
+| 11 | display_signin_footer_card_in_profile_tab_for_student | Set the **display_signin_footer_card_in_profile_tab_for_student** as **true** in sunbird.properties file | to show the sign-in footer in the profile tab for students | false|
+| 12 | display_signin_footer_card_in_library_tab_for_student | Set the **display_signin_footer_card_in_library_tab_for_student** as **true** in sunbird.properties file | to show the sign-in footer in the profile tab for students | false|
 | 13 | display_onboarding_card | set the display__onboarding_cards as true in sunbird.properties file | to display the guest/login page | false|
 | 14 | display_framework_categories_in_profile | set the display_framework_categories_in_profile variable as true in sunbird.properties file | to display categories in the guest/login page | false|
 | 15 | track_user_telemetry | Variable used to track user telemetry.| Used to track telemetry that is missing at the device level so as to generate greater usage context within the instance. Set the variable as *true* in the **sunbird.properties** file to enable tracking.  | false|
 
-<b>Packaging Framework and Form Data</b>
+**Packaging Framework and Form Data**
 Sunbird mobile app supports configuration of the app framework to enable offline usage of the app. To configure the app framework, adopter needs to package the channel for the respective framework. Details of the file naming convention and folder location are given below:
 
 | S No. | Folder | File Name |  Purpose |

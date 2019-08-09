@@ -25,9 +25,9 @@ The following variables are used for Jenkins setup.
 
 |Variable Name| Description|
 |-----------------|----------------|
-|`ops_ssh_key`| The private key value used to create the VM. It is considered the master key used to can connect to the VM's.|
-|`deployer_ssh_key`| The new key generated on a local machine or any other machine. Ansible creates a new user on all the VM's during the bootstrap process. The user name is found in the common.yml file. After this user is created, Ansible uses this key for all Jenkins jobs. The private key content is copied into this file during the Jenkins setup. The public key will be sprayed to all VM's during the bootstrap process.|
-|`vault-pass`| The password to decrypt to files encrypted using Ansible-vault. <br>The best practice is to encrypt the **secrets.yml** file using Ansible-vault and push it to the private github repo. When Ansible runs, it checks out this file and decrypts it using the vault-pass file. <br>Even if the **secrets.yml** file is not encrypted, it is a must to enter a value in this file. If the file is empty, Ansible will throw an error even if there are no files to decrypt.|
+|ops_ssh_key| The private key value used to create the VM. It is considered the master key used to can connect to the VM's.|
+|deployer_ssh_key| The new key generated on a local machine or any other machine. Ansible creates a new user on all the VM's during the bootstrap process. The user name is found in the common.yml file. After this user is created, Ansible uses this key for all Jenkins jobs. The private key content is copied into this file during the Jenkins setup. The public key will be sprayed to all VM's during the bootstrap process.|
+|vault-pass| The password to decrypt to files encrypted using Ansible-vault. <br>The best practice is to encrypt the **secrets.yml** file using Ansible-vault and push it to the private github repo. When Ansible runs, it checks out this file and decrypts it using the vault-pass file. <br>Even if the **secrets.yml** file is not encrypted, it is a must to enter a value in this file. If the file is empty, Ansible will throw an error even if there are no files to decrypt.|
 
 ## Jenkins Environment Variables
 
@@ -52,7 +52,7 @@ The following environment variables are used for Jenkins setup.
 
 > **Note:** Even if the **public_repo_branch** is configured to a tag name, you need to provide a tag name in this parameter box when running the build. If this is empty, it will checkout code from the tag specified in **public_repo_branch** but it will not tag build artifact with the tag name. Instead it will tag it with commit hash which is undesirable when you want to build from tag. All build jobs create an artifact **metadata.json** that has details such as artifact/docker image name and version, and the Jenkins slave on which it was built.
 
-### ArtifactUpload Jobs
+### Artifact Upload Jobs
 
 |Parameter| Description|
 |---------------|----------------|
@@ -76,13 +76,13 @@ Every deploy folder has a summary job. This job consists of a **summary.txt** fi
 
 ### Artifact Pushes
 
-1. The default configuration uploads the artifacts (zip, jar, etc files) to Azure blob and the docker containers to the configured container registry.
-2. Docker container push mandatorily requires a hub account. But if you decide to not use Azure storage blob to store artifacts, then you can change the configuration in Jenkins jobs to disable to push to Azure blob.
-3. Go to the Jenkins ArtifactUpload jobs and Deploy jobs and change the order from ArtifactRepo JenkinsJob to JenkinsJob ArtifactRepo.
+1.The default configuration uploads the artifacts (zip, jar, etc files) to Azure blob and the docker containers to the configured container registry.
+2.Docker container push mandatorily requires a hub account. But if you decide to not use Azure storage blob to store artifacts, then you can change the configuration in Jenkins jobs to disable to push to Azure blob.
+3.Go to the Jenkins ArtifactUpload jobs and Deploy jobs and change the order from ArtifactRepo JenkinsJob to JenkinsJob ArtifactRepo.
 
 ## Log Rotation
    
-By default, the Jenkins configuration for log rotation for build jobs is set to 1 and for all other builds it is set to 5. However, you can change this value under **job configuration -> Discard old builds -> Advanced -> Max # of build artifacts to keep**.
+By default, the Jenkins configuration for log rotation for build jobs is set to 1 and for all other builds it is set to 5. However, you can change this value under **job configuration** -> **Discard old builds** -> **Advanced** -> **Max # of build artifacts to keep**.
 
-> **Note:** When the **jenkins-jobs-setup.sh** script is triggered, it overwrites these changes. You can run a simple find and replace using **Sublime** or any other editor to make the configuration changes as per your requirement. The find and replace needs to be run on the **config.xml** files. This can be done even before the **jenkins-jobs** script runs or later in the **/var/lib/jenkins/jobs** directory.
-Ensure you take a backup.
+> **Note**: When the **jenkins-jobs-setup.sh** script is triggered, it overwrites these changes. You can run a simple find and replace using any editor to make the configuration changes as per your requirement. The find and replace needs to be run on the **config.xml** files. This can be done even before the **jenkins-jobs** script runs or later in the **/var/lib/jenkins/jobs** directory.
+> Ensure you take a backup.
