@@ -13,11 +13,11 @@ To effectively do the Jenkins setup, it is important to understand the various s
 
 The following scripts are used by Sunbird for the Jenkins setup.
 
-|Script Name| Description|
-|---------------|----------------|
+| Script Name | Description |
+|----------------|----------------|
 | jenkins-server-setup.sh |This script installs Jenkins and other packages like Maven, Ansible, Pip, etc.|
 | jenkins-plugins-setup.sh |This script downloads the m2 repo, if it does not exist and installs the plugins using Butler. The plugin list can be found in the plugins.txt file.|
-| jenkins-jobs-setup.sh |This script takes the **envOrder.txt** file as the input and creates the jobs directory in **/var/lib/jenkins**. The jobs directory in **sunbird-devops/deploy/jenkins** is the base for this script, and uses it to create the folder structure.
+| jenkins-jobs-setup.sh |This script takes the **envOrder.txt** file as the input and creates the jobs directory in **/var/lib/jenkins**. The jobs directory in **sunbird-devops/deploy/jenkins** is the base for this script, and uses it to create the folder structure.|
 
 ## Jenkins Setup Variables
 
@@ -25,9 +25,9 @@ The following variables are used for Jenkins setup.
 
 |Variable Name| Description|
 |-----------------|----------------|
-|`ops_ssh_key`| The private key value used to create the VM. It is considered the master key used to can connect to the VM's.|
-|`deployer_ssh_key`| The new key generated on a local machine or any other machine. Ansible creates a new user on all the VM's during the bootstrap process. The user name is found in the common.yml file. After this user is created, Ansible uses this key for all Jenkins jobs. The private key content is copied into this file during the Jenkins setup. The public key will be sprayed to all VM's during the bootstrap process.|
-|`vault-pass`| The password to decrypt to files encrypted using Ansible-vault. <br>The best practice is to encrypt the **secrets.yml** file using Ansible-vault and push it to the private github repo. When Ansible runs, it checks out this file and decrypts it using the vault-pass file. <br>Even if the **secrets.yml** file is not encrypted, it is a must to enter a value in this file. If the file is empty, Ansible will throw an error even if there are no files to decrypt.
+|ops_ssh_key| The private key value used to create the VM. It is considered the master key used to can connect to the VM's.|
+|deployer_ssh_key| The new key generated on a local machine or any other machine. Ansible creates a new user on all the VM's during the bootstrap process. The user name is found in the common.yml file. After this user is created, Ansible uses this key for all Jenkins jobs. The private key content is copied into this file during the Jenkins setup. The public key will be sprayed to all VM's during the bootstrap process.|
+|vault-pass| The password to decrypt to files encrypted using Ansible-vault. <br>The best practice is to encrypt the **secrets.yml** file using Ansible-vault and push it to the private github repo. When Ansible runs, it checks out this file and decrypts it using the vault-pass file. <br>Even if the **secrets.yml** file is not encrypted, it is a must to enter a value in this file. If the file is empty, Ansible will throw an error even if there are no files to decrypt.|
 
 ## Jenkins Environment Variables
 
@@ -42,17 +42,17 @@ The following environment variables are used for Jenkins setup.
 |public_repo_branch|This is a unique variable. All the jobs in Jenkins are by default configured to checkout the Jenkinsfile from this variable as **${public_repo_branch}**. When a value like release-2.0.0 is provided to this variable, the Jenkins jobs checkout the Jenkins file from release-2.0.0 branch from the URL configured in the job. If this value is set to **refs/tags/release-2.0.0**, then Jenkins checks out the Jenkins file from the tag **release-2.0.0**. You can change this variable in Jenkins job configurations and specify a specific branch or tag name. This is useful when you want to run some jobs from a different branch or tag instead of the value mentioned in the variable.|
 |deploy-conf| The name of the library that is used in the Jenkinsfile. This file is used in the global pipeline libraries section. When the Jenkinsfile has this library name, it checks out a couple of common libraries from the URL configured in this section. The Jenkinsfile requires these libraries to run. To avoid writing the same code at multiple places, **common code** is placed in a separate branch and all the Jenkinsfile can use this common code by calling it as a function. If this name is changed, ensure the name in Jenkinsfile is also changed to the new library name|.
 
-## Parameter Details
+## Job Parameters
 
 ### Build Jobs
 
 |Parameter| Description|
 |---------------|-----------|
-|github_release_tag|Specify a tag name here if you want to build from a tag. Example - release-2.0.0. This will look for a tag named release-2.0.0 in the repository URL configured in the Jenkins job and checkout the code from this tag. This should not be confused with **public_repo_branch**. The **public_repo_branch** is used only to checkout the Jenkinsfile which has all the build logic. |
-> **Note:** Even if the **public_repo_branch** is configured to a tag name, you need to provide a tag name in this parameter box when running the build. If this is empty, it will checkout code from the tag specified in **public_repo_branch** but it will not tag build artifact with the tag name. Instead it will tag it with commit hash which is undesirable when you want to build from tag.
-All build jobs create an artifact **metadata.json** that has details such as artifact/docker image name and version, and the Jenkins slave on which it was built.|
+|github_release_tag | Specify a tag name here if you want to build from a tag. Example - release-2.0.0. This will look for a tag named release-2.0.0 in the repository URL configured in the Jenkins job and checkout the code from this tag. This should not be confused with **public_repo_branch**. The **public_repo_branch** is used only to checkout the Jenkinsfile which has all the build logic.|
 
-### ArtifactUpload Jobs
+> **Note:** Even if the **public_repo_branch** is configured to a tag name, you need to provide a tag name in this parameter box when running the build. If this is empty, it will checkout code from the tag specified in **public_repo_branch** but it will not tag build artifact with the tag name. Instead it will tag it with commit hash which is undesirable when you want to build from tag. All build jobs create an artifact **metadata.json** that has details such as artifact/docker image name and version, and the Jenkins slave on which it was built.
+
+### Artifact Upload Jobs
 
 |Parameter| Description|
 |---------------|----------------|
@@ -65,7 +65,7 @@ For other type of jobs, you can choose where you want to push the artifacts. You
 
 ### Deploy Jobs
 
-|**Parameter| **Description**|
+| Parameter|  Description |
 |---------------|----------------|
 |artifact_source| In deploy jobs, the artifact is downloaded or pulled from the option specified. This is the opposite of the behaviour in ArtifactUpload jobs.|
 |artifact_version|If you leave this value empty, by default it will take the version specified in the **metadata.json** file and deploy that version. In case you want to deploy some other version, you can provide the version value here.This is useful when you want to roll back to a previous version from current version.|
@@ -75,13 +75,14 @@ For other type of jobs, you can choose where you want to push the artifacts. You
 Every deploy folder has a summary job. This job consists of a **summary.txt** file that has details of all the versions currently deployed. You can use this file to see which version of the artifact is currently deployed in that environment.
 
 ### Artifact Pushes
-1. The default configuration uploads the artifacts (zip, jar, etc files) to Azure blob and the docker containers to the configured container registry.
-2. Docker container push mandatorily requires a hub account. But if you decide to not use Azure storage blob to store artifacts, then you can change the configuration in Jenkins jobs to disable to push to Azure blob.
-3. Go to the Jenkins ArtifactUpload jobs and Deploy jobs and change the order from ArtifactRepo JenkinsJob to JenkinsJob ArtifactRepo.
+
+1.The default configuration uploads the artifacts (zip, jar, etc files) to Azure blob and the docker containers to the configured container registry.
+2.Docker container push mandatorily requires a hub account. But if you decide to not use Azure storage blob to store artifacts, then you can change the configuration in Jenkins jobs to disable to push to Azure blob.
+3.Go to the Jenkins ArtifactUpload jobs and Deploy jobs and change the order from ArtifactRepo JenkinsJob to JenkinsJob ArtifactRepo.
 
 ## Log Rotation
    
-By default, the Jenkins configuration for log rotation for build jobs is set to 1 and for all other builds it is set to 5. However, you can change this value under **job configuration -> Discard old builds -> Advanced -> Max # of build artifacts to keep**.
+By default, the Jenkins configuration for log rotation for build jobs is set to 1 and for all other builds it is set to 5. However, you can change this value under **job configuration** -> **Discard old builds** -> **Advanced** -> **Max # of build artifacts to keep**.
 
-> **Note:** When the **jenkins-jobs-setup.sh** script is triggered, it overwrites these changes. You can run a simple find and replace using **Sublime** or any other editor to make the configuration changes as per your requirement. The find and replace needs to be run on the **config.xml** files. This can be done even before the **jenkins-jobs** script runs or later in the **/var/lib/jenkins/jobs** directory.
-Ensure you take a backup.
+> **Note**: When the **jenkins-jobs-setup.sh** script is triggered, it overwrites these changes. You can run a simple find and replace using any editor to make the configuration changes as per your requirement. The find and replace needs to be run on the **config.xml** files. This can be done even before the **jenkins-jobs** script runs or later in the **/var/lib/jenkins/jobs** directory.
+> Ensure you take a backup.

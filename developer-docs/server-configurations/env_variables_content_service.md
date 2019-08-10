@@ -62,5 +62,6 @@ The page contains the list of environment variables, their descriptions, purpose
 | 46 | sunbird_content_service_log_level | Specifies the log level of this service (ex: info, debug, error, warn)| | |
 
 **Related Pages**
-* [Import External Content](..\configuring_domain_ext_links.md)
-* [Content Filtering](..\content_filtering.md)
+
+* [Import External Content](developer-docs/server-configurations/configuring_domain_ext_links)
+* [Content Filtering](developer-docs/server-configurations/content_filtering)
