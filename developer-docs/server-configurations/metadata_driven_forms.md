@@ -1,7 +1,7 @@
 ---
-title: Configuration for Meta Forms
-page_title: Configuration for Meta Forms
-description: Different configurations for forms
+title: Metaforms
+page_title: Metaforms
+description: Different configurations for metaforms
 published: true
 allowsearch: true
 keywords: Meta Data, Meta, form, API, Form API,
@@ -13,14 +13,14 @@ An organization works in the domain of water conservation and works in multiple 
 
 ## Prerequisites
 As the organization administrator ensure the following:
-1. Install  the server instance of Sunbird. For details, refer to[ Server Installation ](developer-docs/installation/server_installation/)
+1.Install the server instance of Sunbird. For details, refer to [Server Installation](developer-docs/installation/server_installation)
 
-2. Create a channel for your organization (XYZ corporation). For details, refer to [Channel APIs](apis/framework/#tag/Channel-APIs)
+2.Create a channel for your organization (XYZ corporation). For details, refer to [Channel APIs](apis/framework/#tag/Channel-APIs)
 
-3. Register  your channel/ organization i.e, (XYZ corporation) with Ekstep. On registration, a unique **Channel ID** is assigned to your organization (XYZ corporation) channel ID is: 12300786
+3.Register  your channel/ organization i.e, (XYZ corporation) with Ekstep. On registration, a unique **Channel ID** is assigned to your organization (XYZ corporation) channel ID is: 12300786
 
-4. Create users for your organization (XYZ corporation) either by: 
-   -  onboarding XYZ corporation users in bulk, refer to [Bulk upload service APIs](apis/bulkupload/), or
+4.Create users for your organization (XYZ corporation) either by: 
+   -  onboarding XYZ corporation users in bulk, refer to [Bulk Upload Service APIs](apis/bulkupload/), or
    -  creating the XYZ corporation  users individually, refer to [User APIs](apis/userapi/)   
 
 > Note: An Organizational administrator requires to:
@@ -207,7 +207,7 @@ Follow the steps to configure the forms available:
 1. Ensure that all the prerequisites are met
 2. Get access to [Form API](apis/form/)Resources
 3. Use an API client to perform the update form operation
-4. Use[Update Form API](apis/form/#operation/FormUpdate) to configure the metadata fields on a form, ensure that you provide valid inputs to the configuration parameters in the header, request payload while calling the API.
+4. Use [Update Form API](apis/form/#operation/FormUpdate) to configure the metadata fields on a form, ensure that you provide valid inputs to the configuration parameters in the header, request payload while calling the API.
 
 **Configuration Parameters** 
 

@@ -111,19 +111,29 @@ The following are sample template configurations for different content review wo
 **Description of Paramaters**
 
 a. **type:** Type of form
+
 b. **action:** Workflow action, review, publish etc 
+
 c. **subType:** Type of notification  
+
 d. **templateName:** Template name used to store in Cassandra DB  
+
 e. **body:** Body of the email  
+
 f. **subject:** Subject line of email  
+
 g. **logo:** Logo attached in the email, when the logo is not defined, the default logo is used
 
 Some parameters are used to dynamically change the content information. It is recommended that these parameters are retained in the request body:
 
 a. Content type
+
 b. Content title
+
 c. Content link
+
 d. Creator name
+
 e. Reviewer name
 
 ## Custom Templates
@@ -137,11 +147,11 @@ To configure email template:
 
 ### Creating Custom Templates
 
-1. Name the templates in the form API in **slug_workflowAction** format
-2. Store the template in Cassandra DB, same as the configured Form API
-3. Add the **rootOrgId** in the form API request along with other fields, which is the channel
-4. All required fields should have placeholders
-5. If the custom template is configured in form service, then the custom template with the same name should also be added in learner service(Sunbird middleware). If not added, the Learner service displays an error
+1.Name the templates in the form API in **slug_workflowAction** format
+2.Store the template in Cassandra DB, same as the configured Form API
+3.Add the **rootOrgId** in the form API request along with other fields, which is the channel
+4.All required fields should have placeholders
+5.If the custom template is configured in form service, then the custom template with the same name should also be added in learner service(Sunbird middleware). If not added, the Learner service displays an error
 
 For example, if slug is "Sunbird" and action is "send for review", template name should be "sunbird_sendforReviewTemplate"
 
@@ -171,4 +181,4 @@ For example, if slug is "Sunbird" and action is "send for review", template name
 > Note: In the email templates, only predefined parameters can be dynamically replaced with content data while sending the email.
 
 
-Refer [Notification API](../apis/notificationapi/) for sending email notification
+Refer [Notification API](apis/notificationapi/) for sending email notification
