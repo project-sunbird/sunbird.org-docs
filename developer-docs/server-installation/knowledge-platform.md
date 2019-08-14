@@ -67,6 +67,6 @@ Login to the Cassandra VM and execute the following commands
 
 *   Now you should be able to delete contents from workspace, drafts, contents which are published etc.
                     
-Refer [How to Create Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird){:target="_blank"}, [How to Create Schemas for Knowledge Platform Objects](developer-docs/server-installation/knowledge-platform-object-schema.html){:target="_blank"}
+Refer [How to Create Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird){:target="_blank"}, [How to Create Schemas for Knowledge Platform Objects](developer-docs/server-installation/knowledge-platform-object-schema){:target="_blank"}
 
 
