@@ -52,7 +52,7 @@ Repeat the steps to add any new environment and create jobs in that environment.
  
 ## Removing Folders for Jenkins Jobs  
 
-To purge an environment or if you no longer require Jenkins jobs for the environment, the process to update Jenkins jobs is quite simple. Follow the same steps as mentioned in [Creating New Folders for Jenkins Jobs](#creating-folders-for-jenkins-jobs). However, instead of adding a new entry, remove the environment that is not required from the **envOrder.txt** file and update the order number (0,1,2 etc) 
+To purge an environment or if you no longer require Jenkins jobs for the environment, the process to update Jenkins jobs is quite simple. Follow the same steps as mentioned in **Creating New Folders for Jenkins Jobs** section. However, instead of adding a new entry, remove the environment that is not required from the **envOrder.txt** file and update the order number (0,1,2 etc) 
 
 Keeping the same scenario as in the **Creating New Folders for Jenkins Jobs** section:  
 
@@ -70,7 +70,7 @@ Keeping the same scenario as in the **Creating New Folders for Jenkins Jobs** se
     production=1
 
 
-1.Run the **jenkins-jobs-setup.sh** script as mentioned in above steps, this updates the job configuration accordingly. 
+1.Run the **jenkins-jobs-setup.sh** script as mentioned in above steps, this updates the job configuration accordingly.  
 2.You can also manually remove the **pre-production** environment from the Jenkins UI. 
 
 Repeat the same steps to remove any environment.              

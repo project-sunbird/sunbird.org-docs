@@ -1,8 +1,8 @@
 ---
-title: Mobile App Setup
-page_title: Mobile App Setup
-description: Setting Up Mobile App
-keywords: Setup, Subird Mobile App, Install, Cofigure, set up,Build APK
+title: Mobile App Installation  
+page_title: Mobile App Installation
+description: Setting Up and installing Mobile App
+keywords: Setup, Subird Mobile App, Install, Cofigure, set up, Build APK
 published: true
 allowSearch: true
 ---

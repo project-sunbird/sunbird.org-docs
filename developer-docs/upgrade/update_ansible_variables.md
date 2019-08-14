@@ -11,11 +11,13 @@ As part of every release, new ansible variables are introduced. It is mandatory 
 
 ## Steps to update variables
 
-1.git clone https://github.com/project-sunbird/sunbird-devops
-2.git checkout tags/release-1.14.0 -b release-1.14.0
-3.git checkout tags/release-2.0.0 -b release-2.0.0
-4.cd sunbird-devops/private_repo
-5.git diff release-1.14.0 ansible    OR git diff 6.--word-diff=porcelain release-1.14.0 ansible
+1.git clone https://github.com/project-sunbird/sunbird-devops  
+2.git checkout tags/release-1.14.0 -b release-1.14.0  
+3.git checkout tags/release-2.0.0 -b release-2.0.0  
+4.cd sunbird-devops/private_repo  
+5.git diff release-1.14.0 ansible  
+    OR 
+  git diff 6.--word-diff=porcelain release-1.14.0 ansible
 
 
 This will show the differences in variables between release-2.0.0 and release-1.14.0. If the line is in green, it means its newly added. If the line is in red, it means it has been removed.

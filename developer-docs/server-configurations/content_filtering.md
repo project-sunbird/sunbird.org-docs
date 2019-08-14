@@ -1,11 +1,12 @@
 ---
-title: Filtering Content
-page_title:  Filtering Content
+title: Content Filtering
+page_title:  Content Filtering
 description: How to setup content filtering based on channel
 keywords: content filter, channel, channel based filtering, content filtering, Framework filtering, resource based filtering, mimetype filter, filter
 published: True
 allowSearch: True
 ---
+
 ## Overview
 
 In Sunbird, a tenant is a root organization, that shares common access to the content repository with specific privileges to the software instance. Sunbird allows you to set up a hierarchy of organizations for every instance installed. After sucessfully installing Sunbird, the first step is to create the first root organization also called as the tenant organization, followed by creating a heirarchy of organizations under each of it. Root organizations can define their own framework and set preferences like default language and search categories. The content is categorized in Sunbird is using: 

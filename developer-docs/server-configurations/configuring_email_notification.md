@@ -1,6 +1,6 @@
 ---
-title: Configuring Email Notification
-page_title: Configuring Email Notification
+title: Email Notification Configuration
+page_title: Email Notification Configuration
 description: Technical document on configuring Sunbird Email Notification for Review workflow
 published: true
 allowSearch: true
