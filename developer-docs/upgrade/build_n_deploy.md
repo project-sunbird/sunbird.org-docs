@@ -1,7 +1,7 @@
 ---
 title: Build and Deploy
-page_title:  Build and Deploy
-description:  Build and Deploy
+page_title: Build and Deploy
+description: Build and Deploy
 published: true
 allowSearch: true
 keywords: Upgrade, Sunbird 2.0.0, Core, elasticsearch
