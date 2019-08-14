@@ -1,6 +1,6 @@
 ---
-title: Metaforms
-page_title: Metaforms
+title: Metaforms Configuration 
+page_title: Metaforms Configuration
 description: Different configurations for metaforms
 published: true
 allowsearch: true
