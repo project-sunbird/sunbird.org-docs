@@ -162,7 +162,7 @@ paths:
           
           The body is the representation of the resource object for updating a channel
         schema:
-          $ref: '#/definitions/ChannelCreateRequest'
+          $ref: '#/definitions/ChannelUpdateRequest'
       - name: Content-Type
         in: header
         required: true
@@ -238,59 +238,6 @@ paths:
             $ref: '#/definitions/ContentCreateResponse'
         '400':
           description: 'BAD REQUEST. The "list channels" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
-          schema:
-            $ref: '#/definitions/ContentCreateErrorResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-      - bearer: []
-  /channel/v1/search:
-    post:
-      description: >-
-       This API is associated with searching the channels
-          - The **_/channel/v1/search_** endpoint executes the "ChannelV1SearchPost" request based on parameters provided as metadata in the request body
-          - Required fields cannot be left null or empty 
-      summary: Search Channels 
-      tags:
-      - Channel APIs
-      operationId: ChannelV1SearchPost
-      produces:
-      - application/json
-      parameters:
-      - name: Body
-        in: body
-        required: true
-        description: >-
-         'The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
-            
-            - JSON 
-            - XML data
-            
-          The body is the representation of the resource object for searching a channel
-        schema:
-          $ref: '#/definitions/ChannelSearchRequest'
-      - name: Content-Type
-        in: header
-        required: true
-        type: string
-        description: >-
-           The Content Type entity is the media type of the resource
-            Possible media types can be:- 
-              - application/json
-              - multipart/form-data
-              - application/x-www-form-urlencoded
-      - name: Authorization
-        in: header
-        required: true
-        type: string
-        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-      responses:
-        '200':
-          description: 'OK ! Successful operation."search channels" operation was successfully executed.'
-          schema:
-            $ref: '#/definitions/ContentCreateResponse'
-        '400':
-          description: 'BAD REQUEST. The "search channels" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
           schema:
             $ref: '#/definitions/ContentCreateErrorResponse'
         '500':
@@ -1189,7 +1136,6 @@ definitions:
     description: This is the create framework request body
     type: object
     allOf:
-      - $ref: "https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest"
       - $ref: '#/definitions/RequestFrameworkCreate'
   RequestFrameworkCreate:
     description: Request body for create framework 
@@ -1220,16 +1166,10 @@ definitions:
               translations:
                 type: object
                 description: Represents the translation of framework name in different language
-              categories:
-                type: array
-                description: Represents the categories associated with the framework
-                items:
-                  type: object
   UpdateFrameworkRequest:
     description: Request body for update Framework
     type: object
     allOf:
-      - $ref: "https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest"
       - $ref: '#/definitions/RequestFrameworkUpdate'
   RequestFrameworkUpdate:
     description: Request body of update framework
@@ -1352,12 +1292,37 @@ definitions:
               description:
                 type: string
                 description: It is the description of the channel
+  RequestChannelUpdate:
+    description: Request body of update channel
+    properties:
+      request: 
+        type: object
+        properties:
+          channel:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Represents the name of the channel
+              description:
+                type: string
+                description: It is the description of the channel
+              framework:
+                description: 'Framework linked to the channel'
+                type: array
+                items:
+                  type: object
+              
   ChannelCreateRequest:
     description: Request body of the create channel 
     type: object
     allOf:
-      - $ref: "https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest"
       - $ref: '#/definitions/RequestChannelCreate'
+  ChannelUpdateRequest:
+    description: Request body of the create channel 
+    type: object
+    allOf:
+      - $ref: '#/definitions/RequestChannelUpdate'
   ResponseChannelCreate200:
     description: Response body of the create channel
     properties:
@@ -1440,14 +1405,16 @@ definitions:
       request:
         type: object
         properties:
-          channel:
+          search:
             type: object
+            properties:
+              status:
+                type: string
 
   ChannelSearchRequest:
     description: Channel create request
     type: object
     allOf:
-      - $ref: "https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest"
       - $ref: '#/definitions/RequestChannelSearch'
   FrameworkGet400Response:
     description: 'Framework get response for 400.'
@@ -1594,7 +1561,6 @@ definitions:
     description: Framework List request.
     type: object
     allOf:
-      - $ref: "https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest"
       - $ref: '#/definitions/RequestFrameworkList'
   FrameworkList400Response:
     description: 'Framework List response for 400.'
@@ -1635,7 +1601,6 @@ definitions:
     description: Framework copy request
     type: object
     allOf:
-      - $ref: "https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest"
       - $ref: '#/definitions/RequestFrameworkCopy'
   RequestFrameworkCopy:
     description: Request map of framework copy api
@@ -1683,7 +1648,6 @@ definitions:
     description: Category Instance create Request
     type: object
     allOf:
-      - $ref: "https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest"
       - $ref: '#/definitions/RequestCategoryInstanceCreate'
   RequestCategoryInstanceCreate:
     description: Request map of CategoryInstance Create api.
@@ -1706,6 +1670,12 @@ definitions:
               translations:
                 type: object
                 description: Represents the translation of category name in different language.
+              frameworks:
+                type: array
+                description: Frameworks with which category instance is associated
+                items:
+                  type: object
+      
   CategoryInstanceCreate400Response:
     description: 'CategoryInstance Create response for 400.'
     type: object
@@ -1785,6 +1755,11 @@ definitions:
         description: Channels with which category instance is associated
         items:
           type: object
+      terms:
+        type: array
+        description: Terms associated with category.
+        items:
+          type: object
       translations:
         type: object
         description: Represents the translation of category name in different language
@@ -1821,7 +1796,6 @@ definitions:
     description: CategoryInstance update request
     type: object
     allOf:
-      - $ref: "https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest"
       - $ref: '#/definitions/RequestCategoryInstanceUpdate'
   RequestCategoryInstanceUpdate:
     description: Request map of CategoryInstance update API
@@ -1846,6 +1820,11 @@ definitions:
               channels:
                 type: array
                 description: Channels with which Category Instance is associated
+                items:
+                  type: object
+              terms:
+                type: array
+                description: Terms associated with Category
                 items:
                   type: object
               translations:
@@ -1897,7 +1876,6 @@ definitions:
     description: CategoryInstance Search request.
     type: object
     allOf:
-      - $ref: "https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest"
       - $ref: '#/definitions/RequestCategoryInstanceSearch'
   CategoryInstanceSearch400Response:
     description: 'CategoryInstance Search response for 400.'
@@ -1938,7 +1916,6 @@ definitions:
     description: Framework Term create Request
     type: object
     allOf:
-      - $ref: "https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest"
       - $ref: '#/definitions/RequestFrameworkTermCreate'
   RequestFrameworkTermCreate:
     description: Request map of FrameworkTerm Create API
@@ -1958,13 +1935,10 @@ definitions:
               description:
                 description: ''
                 type: string
-              category:
-                description: ''
-                type: string
               index:
                 description: ''
                 type: number
-              categoryinstances:
+              categories:
                 type: array
                 description: ''
                 items:
@@ -2061,7 +2035,7 @@ definitions:
       status:
         type: string
         description: Represents the status of the Framework Term
-      categoryinstances:
+      categories:
         type: array
         description: Represents the category instances with which Framework Term is associated
         items:
@@ -2122,7 +2096,6 @@ definitions:
     description: Framework Term update request
     type: object
     allOf:
-      - $ref: "https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest"
       - $ref: '#/definitions/RequestFrameworkTermUpdate'
   RequestFrameworkTermUpdate:
     description: Request map of framework term update api.
@@ -2139,7 +2112,7 @@ definitions:
               description: 
                 type: string
                 description: Description of the framework term
-              categoryinstances:
+              categories:
                 type: array
                 description: Category instances with which framework term is associated
                 items:
@@ -2212,7 +2185,6 @@ definitions:
     description: FrameworkTerm Search request.
     type: object
     allOf:
-      - $ref: "https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest"
       - $ref: '#/definitions/RequestFrameworkTermSearch'
   FrameworkTermSearch400Response:
     description: 'FrameworkTerm Search response for 400.'
@@ -2253,7 +2225,6 @@ definitions:
     description: Request body of Copy Framework
     type: object
     allOf:
-      - $ref: "https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest"
       - $ref: '#/definitions/RequestFrameworkPublish'
   RequestFrameworkPublish:
     description: Request body of publish framework 

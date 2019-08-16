@@ -33,8 +33,6 @@ schemes:
   - https
 consumes:
   - application/json
-  - multipart/form-data
-  - application/x-www-form-urlencoded
 produces:
   - application/json
 paths:
@@ -442,7 +440,7 @@ definitions:
           id:
             type: string
             description: Represents the location ID in case the create request is successul
-          status:
+          response:
             type: string
             description: Represents the state of the request whether the API exaecution is successful or a failure
   LocationListResponse:
@@ -451,7 +449,8 @@ definitions:
     properties:
       result:
         type: object
-        $ref: '#/definitions/LocationList'
+        allOf:
+         - $ref: '#/definitions/LocationList'
   LocationList:
     title: Represents the list of locations
     properties:
@@ -459,14 +458,16 @@ definitions:
         type: array
         items:
           type: object
-          $ref: '#/definitions/LocationResponse'
+          allOf:
+           - $ref: '#/definitions/LocationResponse'
   LocationResponse:
     title: This is the response body of single Location object
     type: object
     properties:
       result:
         type: object
-        $ref: '#/definitions/Location'
+        allOf:
+         - $ref: '#/definitions/Location'
   Location:
     title: This is the data model for location object
     type: object
