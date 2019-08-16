@@ -1,0 +1,575 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Bulk Upload Service API(s)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  contact:
+    email: info@sunbird.org
+  description: >-
+    The  Bulk Upload resources perform operations related to uploads on the Sunbird Platform. The Bulk Upload API(s) operations include Uploads, Updations
+host: staging.open-sunbird.org
+basePath: /api
+securityDefinitions:
+  bearer:
+    type: apiKey  # arbitrary name for the security scheme
+    in: header # The secrity scheme parameter is in "header"
+    name: Authorization # name of the header, query parameter or cookie
+  userToken:
+    type: apiKey  # arbitrary name for the security scheme
+    in: header # The secrity scheme parameter is in "header"
+    name: x-authenticated-user-token # name of the header, query parameter or cookie
+schemes:
+  - https
+consumes:
+  - application/json
+  - multipart/form-data
+  - application/x-www-form-urlencoded
+produces:
+  - application/json
+paths:
+  /user/v1/upload:
+    post:
+      description: >-
+        This API is associated with upload users in bulk on the Sunbird Platform.
+           - The **_/bulk/user/upload_** endpoint executes " bulk upload user" request based on parameters provided as metadata in the request body.
+           - It is mandatory to provide values for parameters marked with *.
+           - Mandatory fields cannot be null or empty.
+      summary: Upload Users in Bulk
+      tags:
+        - Bulk Operation APIs
+      operationId: bulk upload user req1
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: user
+          in: formData
+          required: true
+          type: file
+          format: file
+          description: >-
+            This is a .csv file.
+              - Each line of the file is a data record. Each record consists of one or more user fields, separated by commas. Each successfully created user is associated with root org of uploader (org admin).
+
+            The CSV file format supported is mentioned below:
+              - NAME: Name of user(firstName)
+              - MOBILE PHONE: Phone number. Either phone or email is mandatory.
+              - EMAIL: Email. Either phone or email is mandatory.
+              - SCHOOL ID: Organisation ID to which user must be associated(orgId).
+              - USER_TYPE: Type of user. Supported user types are 'teacher' or 'other'.
+              - ROLES: List of valid roles for assignment to user on association to an organisation.roles must be in Capital letters
+              - USER ID: User ID. Required only in case of user update.
+              - External ID: External ID of user. Either, school ID or external ID is mandatory for user association to organisation.
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+        - name: X-Authenticated-User-Token
+          in: header
+          required: true
+          type: string
+          description: >-
+            Access token of registered user performing given API request.
+
+      responses:
+        '200':
+          description: 'OK ! Successful operation."bulk upload user" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/BulkUploadResponse'
+        '400':
+          description: 'BAD REQUEST. The "bulk upload user" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/BulkUploadErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+      security:
+        - bearer: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /course/v1/batch/bulk/enrollment:
+    post:
+      description: >-
+        This API is used for enrolling batches in bulk
+           - The **_/batch/bulk/enrollment_** endpoint executes "bulk batch enrollment" request based on parameters provided as metadata in the request body.
+           - It mandatory to provide values for all mandatory fields
+      summary: Upload Batches in Bulk
+      tags:
+        - Bulk Operation APIs
+      operationId: bulk batch enrollment req
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: batch
+          in: formData
+          required: true
+          type: file
+          format: file
+          description: >-
+            This is a .csv file.
+              - Each line of the file is a data record. Each record consists of one or more fields, separated by commas.
+             The format of this file is as :
+              - batchId,
+              - userIds,
+              Omit (•)
+               (•) is used to enhance readibility here.
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        - name: x-authenticated-user-token
+          in: header
+          required: true
+          type: string
+          description: >-
+            It is a unique token/key to authenticate the user each time an API is called. For corresponding sessions this token is used, not your actual username/password
+
+      responses:
+        '200':
+          description: 'OK ! Successful operation."bulk batch enrollment " operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/BulkUploadResponse'
+        '400':
+          description: 'BAD REQUEST. The "bulk batch enrollment" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/BulkUploadErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+      security:
+        - bearer: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /data/v1/upload/status/{processId}:
+    get:
+      description: >-
+        This API is used to check the upload status
+           - The **_/upload/status/{Job_ID}_** endpoint executes "get status" request based on parameters provided as metadata in the request body.
+           - It is must to provide values for all mandatory fields
+      summary: Check Upload Status
+      tags:
+        - Bulk Operation APIs
+      operationId: getStatus
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: processId
+          type: string
+          required: true
+          description: 'Please append a valid process id to the Request URL'
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: '**Accept** relates to content-Type such as **"MIME"**, Its used in response body for executing different multi purpose operations.Therefore, its important that the server is correctly set up, so that the MIME types transmitted are recognised and correct to determine what action to do when a resource is fetched.'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: >-
+            The Content Type entity is the media type of the resource.Possible media types can be:-
+              - Application/json
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require bearerorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        - name: x-authenticated-user-token
+          in: header
+          required: true
+          type: string
+          description: >-
+            It is a unique token/key to authenticate the user each time an API is called. For corresponding sessions this token is used, not your actual username/password
+
+      responses:
+        '200':
+          description: 'OK ! Successful operation." check upload status" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/BulkUploadStatusResponse'
+        '400':
+          description: 'BAD REQUEST. The "check upload status" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/BulkUploadErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /upload/status/{}
+            headers:
+              Accept: application/json
+              Content-Type: application/json
+              Authorization: Bearer
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: getStatus
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+
+  /data/v1/upload/statusDownloadLink/{processId}:
+    get:
+      description: >-
+        This API is used to get the upload status for a given request. For a completed upload request, it will provide a link to a file which has the upload status.
+           - The **_/upload/statusDownloadLink/{processId}_** endpoint executes "get upload status download link" request based on parameters provided as metadata in the request body.
+           - It is must to provide values for all mandatory fields
+      summary: Get Upload Status Download Link
+      tags:
+        - Bulk Operation APIs
+      operationId: getUploadStatusDownloadLink
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: processId
+          type: string
+          required: true
+          description: Valid bulk upload process ID
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: >-
+            Type of the request data. Set as application/json.
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+        - name: X-Authenticated-User-Token
+          in: header
+          required: true
+          type: string
+          description: >-
+            Access token of registered user performing given API request.
+
+      responses:
+        '200':
+          description: 'OK. Successful operation. The requested operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/GetStatusDownloadLinkSuccessResponse'
+        '400':
+          description: 'CLIENT_ERROR. The requested operation failed due to bad request from client. Possible reasons for failure:
+            Invalid process ID.'
+          schema:
+            $ref: '#/definitions/BulkUploadErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR. The requested operation failed due to a server error. '
+
+  /org/v1/upload :
+    post:
+      description: >-
+        This API is associated with bulk uploading organisations on the Sunbird Platform.
+           - The **_/org/upload_** endpoint executes "bulk org upload" request based on parameters provided as metadata in the request body.
+           - It is mandatory to provide values for required parameters
+      summary: Upload Organisations in Bulk
+      tags:
+        - Bulk Operation APIs
+      operationId: bulk org upload req
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: org
+          in: formData
+          required: true
+          type: file
+          format: file
+          description: >-
+            This is a .csv file.
+              - Each line of the file is a data record. Each record consists of one or more organisation fields, separated by commas. Each successfully created organisation is associated with root org of uploader (org admin).
+
+            The CSV file format supported is mentioned below:
+              - SCHOOL NAME: Organisation name(orgName)
+              - BLOCK CODE: Location code (locationCode)
+              - SCHOOL ID: Organisation ID. Required only in case of organisation update(organisationId).
+              - EXTERNAL ID: External ID of organisation(externalId)
+              - STATUS: Status. Supported values are 'active' and 'inactive'(status) mandatory param.
+              - DESCRIPTION: Organisation description(description)
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+        - name: X-Authenticated-User-Token
+          in: header
+          required: true
+          type: string
+          description: >-
+            Access token of registered user performing given API request.
+
+      responses:
+        '200':
+          description: 'OK ! Successful operation."bulk org upload " operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/BulkUploadResponse'
+        '400':
+          description: 'BAD REQUEST. The "bulk org upload " operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/BulkUploadErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+      security:
+        - bearer: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /data/v1/bulk/location/upload :
+    post:
+      summary: Upload Location Data in Bulk
+      description: >-
+        This API is used to create a background job for bulk upload of location data into the platform. The upload data is provided
+        in CSV format.
+      tags:
+        - Bulk Operation APIs
+      operationId: Location Data Bulk Upload Request
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: csvFile
+          in: formData
+          required: true
+          type: file
+          description: |-
+            CSV file which contains location data in following format:
+              - code: 'National level code for state'
+              - name: 'Name of entity e.g a state'
+              - parentCode: 'code of the parent'
+              - parentId : 'ID of the parent (In a hierarchy),    
+
+                - if there exists a parent node either parentCode and parentID is required (in case of a child node) 
+                - if it is highest (top) node in the hierarchy,then no parent details are required
+        - name: type
+          in:  formData
+          required: true
+          type: string
+          description: >-
+            Represents the information about the possible values of location types state, district, block, cluster 
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: >-
+            To make use of any Location API, you require authorization. Raise a
+            request to the administrator for the use of the API. You will
+            receive the authorization key. Specify the key received, here.
+        - name: x-authenticated-user-token
+          in: header
+          required: true
+          type: string
+          description: >-
+            It is a unique token/key to authenticate the user each time an API is called. For corresponding sessions this token is used, not your actual username/password
+
+      responses:
+        '200':
+          description: >-
+            OK. Successful operation. The data upload operation is accepted for
+            further processing.
+          schema:
+            $ref: '#/definitions/LocationDataBulkUploadCreateResponse'
+        '400':
+          description: >-
+            CLIENT_ERROR. The upload operation failed due to bad request from
+            client. Possible reasons for failure,
+            Mandatory parameter "csvFile" is missing.
+            Maximum upload file size x MB is exceeded.
+            CSV file content is improper.
+          schema:
+            $ref: '#/definitions/CommonErrorResponse'
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR. The upload operation failed due to a server
+            error.
+          schema:
+            $ref: '#/definitions/CommonErrorResponse'
+definitions:
+  BulkUploadStatusResponse:
+    description: Bulk upload status response
+    type: object
+    properties:
+      objectType:
+        type: string
+        description: Type of object in bulk upload request. Supported types are user, organisation, location, batch enrollment
+      processId:
+        type: string
+        description: ID that uniquely identifies the bulk upload request.
+      status:
+        type: string
+        description: Specifies current status of bulk upload request. Supported values are {"NOT STARTED", "IN PROGRESS" and "COMPLETED"}.
+      message:
+        type: string
+        description: Descriptive message for current status of bulk upload request.
+      successResult:
+        type: array
+        items:
+          type: object
+          description: Represents each row (e.g. user) in the bulk upload request CSV file that is successfully created or updated in Sunbird.
+          properties:
+            id:
+              type: string
+              description: Unique identifier for the entity
+            operation:
+              type: string
+              description : Indicates whether a create or update operation is performed
+      failureResult:
+        type: array
+        items:
+          type: object
+          description: Represents each row (e.g. user) in the bulk upload request CSV file that failed during creation or updation in Sunbird.
+          properties:
+            err_msg:
+              type: string
+              description: Represents the error message that occurred while processing given row.
+  BulkUploadResponse:
+    description: Bulk Upload Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithProcessId'
+      - $ref: '#/definitions/ResponseHeader'
+  ResultWithProcessId:
+    title: Result Containing upload process Id
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/ProcessId'
+  ResponseHeader:
+    title: ResponseHeader
+    type: object
+    properties:
+      id:
+        type: string
+        description: Represents the API uniquely
+      ver:
+        type: string
+        description: Represents the API version information
+      ts:
+        type: string
+        description: Represents the API execution timespan
+      params:
+        $ref: '#/definitions/ResponseParams'
+      responseCode:
+        type: object
+        description: 'API response code '
+  ProcessId:
+    title: processId
+    type: object
+    properties:
+      processId:
+        type: string
+        description: Process id of bulk upload request
+  ResponseParams:
+    title: Response Parameter
+    type: object
+    properties:
+      resmsgid:
+        type: string
+        description: Represesnts the response identifier of the message
+      msgid:
+        type: string
+        description: Represents a message uniquely
+      err:
+        type: string
+        description: Represents the Error Code
+      status:
+        type: string
+        description: Represents the response Status
+      errmsg:
+        type: string
+        description: Represents the Error Message
+  BulkUploadErrorResponse:
+    title: Bulk Upload Error Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/EmptyResult'
+      - $ref: '#/definitions/ResponseHeader'
+
+  GetStatusDownloadLinkSuccessResponse:
+    title: Get Status Download Link Success Response
+    allOf:
+      - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties:
+              processId:
+                type: string
+                description: ID that uniquely identifies the bulk upload request.
+              objectType:
+                type: string
+                description: Type of object in bulk upload request. Supported types are user, organisation, location, batch enrollment
+              status:
+                type: string
+                description: Specifies current status of bulk upload request. Supported values are {"NOT STARTED", "IN PROGRESS" and "COMPLETED"}.
+              message:
+                type: string
+                description: Descriptive message for current status of bulk upload request.
+              signedUrl:
+                description: 'ID of the newly created organisation'
+                type: string
+
+  EmptyResult:
+    title: Empty Result
+    type: object
+    properties:
+      result:
+        type: object
+        description: Empty Result
+  LocationDataBulkUploadCreateResponse:
+    title: Response body for successful location  bulk data upload
+    allOf:
+      - $ref: >-
+          https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse
+      - type: object
+        properties:
+          result:
+            type: object
+            properties:
+              processId:
+                description: >-
+                  ID which can be used to query status of a background process
+                  created by location data bulk upload API
+                type: string
+              response:
+                description: Response message for successful request
+                type: string
+  CommonErrorResponse:
+    title: Error response body for location bulk data upload API request
+    allOf:
+      - $ref: >-
+          https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse
+      - type: object
+        properties:
+          result:
+            description: Error message for failed location data bulk upload API request
+            type: object

@@ -1,0 +1,183 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Data Sync API(s)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  contact:
+    email: admin@open-sunbird.org
+  description: >-
+        The  Data synchronization API resources perform operations related to data on the Sunbird Platform. Data synchronization API(s) establish consistency among data from a source to a target data storage. The source data storage is Cassandra and the target storage is Elasticsearch
+host: staging.open-sunbird.org
+basePath: /api/data/v1/index/
+securityDefinitions:
+  bearer:
+      type: apiKey  # arbitrary name for the security scheme
+      in: header # The secrity scheme parameter is in "header"
+      name: Authorization # name of the header, query parameter or cookie
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /sync:
+    post:
+      description: >-
+       This API is associated with synchnorization of data on the Sunbird Platform.
+          - The format of the request URL is '{{host}}/data/v1/index/sync'
+          - The **_/sync/_** endpoint executes "data sync" request based on parameters provided as metadata in the request body.
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      summary: Syncs data
+      tags:
+      - Data Sync API(s)
+      operationId: 'dataSync'
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description:  >-
+            The body refers to the format of the request.
+              - The body contains metadata about synchronization of data.
+        schema:
+          $ref: '#/definitions/syncrequest'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+      - name: ts
+        in: header
+        required: true
+        type: string
+        description: 'Time Stamp at which **data sync** request was sent. '
+      - name: X-msgid
+        in: header
+        required: true
+        type: string
+        description: 'This Id Uniquely identifies a request if the same API is executed multiple times.'
+      - name: X-Device-ID
+        in: header
+        required: true
+        type: string
+        description: 'This Id Uniquely identifies the type of device (Mobile)(desktop) used to access Sunbird. ''The Registered User ID to execute the API.'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'All content APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
+      responses:
+        '200':
+          description: 'OK ! Successful operation."Data sync" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: 'BAD REQUEST,"Data sync" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+
+definitions:
+  syncrequest:
+    title: Data sync request
+    type: object
+    properties:
+      params:
+        description: ''
+        type: object
+      request:
+        $ref: '#/definitions/Request'
+    required:
+    - params
+    - request
+  Request:
+    title: Request
+    type: object
+    properties:
+      objectType:
+        description: 'Object type that we need to sync,possible object types are {user,organisation,batch,user_course}.Object will be sync from cassandra to elasticsearch'
+        type: string
+      objectIds:
+       description: 'provide list of those ids that need to be sync.This is optional, if not provided then it will sync all stored ids of provided object.incase if data volumn is huge, better to pass objectIds. '
+       type: array
+       items:
+          type: string
+    required:
+    - objectType
+  ContentCreateResponse:
+    description: Data sync response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithNodeId'
+      - $ref: '#/definitions/ResponseHeader'
+  ResultWithNodeId:
+    title: Result Containing Node Id
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/NodeId'
+  ResponseHeader:
+    title: ResponseHeader
+    type: object
+    properties:
+      id:
+        type: string
+        description: API Identifier
+      ver:
+        type: string
+        description: API version information
+      ts:
+        type: string
+        description: API execution timespan
+      params:
+        $ref: '#/definitions/ResponseParams'
+      responseCode:
+        type: object
+        description: 'API response code '
+  NodeId:
+    title: Node Id
+    type: object
+    properties:
+      node_id:
+        type: string
+        description: Node Identifier
+  ResponseParams:
+    title: Response Parameter
+    type: object
+    properties:
+      resmsgid:
+        type: string
+        description: Response Message Id
+      msgid:
+        type: string
+        description: Message Id
+      err:
+        type: string
+        description: Error Code
+      status:
+        type: string
+        description: Response Status
+      errmsg:
+        type: string
+        description: Error Message
+  ContentCreateErrorResponse:
+    title: Create Content Error Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/EmptyResult'
+      - $ref: '#/definitions/ResponseHeader'
+  EmptyResult:
+    title: Empty Result
+    type: object
+    properties:
+      result:
+        type: object
+        description: Empty Result
