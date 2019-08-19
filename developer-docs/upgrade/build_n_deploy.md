@@ -1,7 +1,7 @@
 ---
 title: Build and Deploy
-page_title:  Build and Deploy
-description:  Build and Deploy
+page_title: Build and Deploy
+description: Build and Deploy
 published: true
 allowSearch: true
 keywords: Upgrade, Sunbird 2.0.0, Core, elasticsearch
@@ -20,23 +20,23 @@ Order: Top down per column
 |Knowledge Platform Build |	Knowledge Platform Deploy |	DataPipeline Build | DataPipeline Deploy | Core Build | Core Deploy |
 |-------------------------|---------------------------|--------------------|---------------------|------------|------------|
 |                         | StopNeo4jCluster          |	                   | CassandraDbUpdate   | Cassandra | Cassandra |
-|                         | Neo4j	                  |                    | KafkaSetup     	 | Keycloak  | Keycloak  |
+|                         | Neo4j	              |                    | KafkaSetup     	 | Keycloak  | Keycloak  |
 |                         | StartNeo4jCluster	      |                    | KafkaIndexer    	 | Player    | Player    |
-|                         | KafkaSetup                | Secor     	       | Secor               | Learner   | Learner   |
-|                         | CassandraDbUpdate         |	Analytics          | AnalyticsAPI        | Content	 | Content   |
+|                         | KafkaSetup                | Secor              | Secor               | Learner   | Learner   |
+|                         | CassandraDbUpdate         |	Analytics          | AnalyticsAPI        | Content   | Content   |
 |                         |Neo4jDefinitionUpdate <br>(Run manual queries mentioned below after this job)| DataPipeline |	DataProducts |	Telemetry |	Telemetry |
-| KnowledgePlatform       |	Learning                 |                    | SamzaTelemetrySchemas | Proxy  |	Proxy  |
-|                         | Search	                 | Yarn               |	Yarn	     |                 |           |
-|                         | OnboardAPI               | Yarn	              | Yarn           |               |          |
-|                         | OnboardConsumers         |  SyncTool          | Neo4jElasticSearchSyncTool | | | Logging |
+| KnowledgePlatform       |	Learning              |                    | SamzaTelemetrySchemas | Proxy   |	Proxy    |
+|                         | Search	              | Yarn               |	Yarn	     |               |OnboardAPI |
+|  Yarn	                  | Yarn           |               |          |                         | OnboardConsumers    |
+|  SyncTool               | Neo4jElasticSearchSyncTool |                   |                    | Logging |
 
 
 ### Manual queries to be run for Neo4j
 
-        Login to neo4j machine and switch to learning user
-        Go to NEO4J_HOME/bin directory
+1.Login to neo4j machine and switch to learning user
+2.Go to NEO4J_HOME/bin directory
         Run ./cypher-shell
-        Execute the below queries
+3.Execute the below queries
 
         `match (n:domain) where n.IL_FUNC_OBJECT_TYPE in [“Content”, “ContentImage”] AND exists(n.medium) set n.medium = [n.medium];`
 
@@ -44,12 +44,12 @@ Order: Top down per column
 
         `match (n:domain{}) WHERE exists(n.sYS_INTERNAL_LAST_UPDATED_ON) remove n.sYS_INTERNAL_LAST_UPDATED_ON;`
  
-4. Ensure you provide the `github_release_tag` for Build jobs as per the tags mentioned in the sheet - [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs).
-5. Ensure all ArtificatUpload Jobs as successful.
-6. Deploy services which are mentioned in the table below. **IMPORTANT**: The order of deployment for jobs in deploy directory should be same as mentioned in the below table.
-7. If some build and deploy jobs are not relevant to your setup, you can skip them.
-8. Ensure you provide branch_or_tag as per the data mentoined in this sheet - [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs) under Jobs which use this repository column.
-9. Once all services are deployed, please perform the manaual configurations mentioned in this sheet - [Manual configurations](developer-docs/upgrade/manual_configuration)
+4.Ensure you provide the `github_release_tag` for Build jobs as per the tags mentioned in the sheet - [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs).
+5.Ensure all ArtificatUpload Jobs as successful.
+6.Deploy services which are mentioned in the table below. **IMPORTANT**: The order of deployment for jobs in deploy directory should be same as mentioned in the below table.
+7.If some build and deploy jobs are not relevant to your setup, you can skip them.
+8.Ensure you provide branch_or_tag as per the data mentoined in this sheet - [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs) under Jobs which use this repository column.
+9.Once all services are deployed, please perform the manaual configurations mentioned in this sheet - [Manual configurations](developer-docs/upgrade/manual_configuration)
 
 
 

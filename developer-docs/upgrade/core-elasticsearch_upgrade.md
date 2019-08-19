@@ -1,6 +1,6 @@
 ---
-title: Core Elasticsearch Upgrade
-page_title:  Core Elasticsearch Upgrade
+title: Core Elastic Search
+page_title: Core Elastic Search 
 description:  Core Elasticsearch Upgrade
 published: true
 allowSearch: true
@@ -12,7 +12,6 @@ keywords: Upgrade, Sunbird 2.0.0, Core, elasticsearch
 Core Elasticsearch has been upgraded from 5.x version to 6.x. This is done in order to remove overheads in maintaining two versions of elasticsearch for Core services and Knowledge Platform. With this upgrade, we will be able to use a single elasticsearch cluster for both Core services and Knowledge Platform thereby benefitting in cost and maintenance. 
 
 Follow the steps to upgrade core Elasticsearch.
-
 
 ### Back up
 
