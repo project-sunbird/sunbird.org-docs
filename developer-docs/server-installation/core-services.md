@@ -13,7 +13,7 @@ This page explains the jobs to be run to bring up the Core services.
 
 1.Create a container in the Azure blob and make it public to publish content. The container name must be the same as the variable **sunbird_content_azure_storage_container** specified in the **common.yml** file present in the core inventory.
 
-2.Switch to the `Build` folder and run all jobs. Set the value for **github_release_tag** according to the details mentioned in this page - [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs)
+2.Switch to the `Build` folder and run all jobs. Set the value for **github_release_tag** according to the details mentioned in this page - [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs){:target="_blank"}
 
 ## Running the Jobs
     
@@ -83,14 +83,14 @@ You must tunnel the port in to the local machine via ssh tunnelling.
 You can access keycloak via `localhost:8080`
 
 | Step | Action  |
-|------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1    | Login to Keycloak using the user name **admin** and password as given in the private **secrets.yml** file. Or, login to keycloak using &#60;localhost:8080&#62;/auth                                                                                                                                                         
-| 2    | Navigate to Sunbird Realm > Realm Settings > Keys. Click `Public Key`. Copy the key value that you see and update the variable core_vault_sso_public_key |
-| 3    | Create the admin role in the Sunbird realm. Navigate to Roles > Add Role > Add details in the form. Specify the role name as `admin`. Click **Save**. Navigate to **Enable Composite Roles**. Under **Composite Roles**, select **offline_access**, **uma_administration** and click **Add selected**. Navigate to **Permissions** and enable permissions.|
-| 4    | Assign permissions to the **admin-cli** client in the Sunbird realm. Navigate to **clients > admin-cli > Settings > Implicit Flow Enabled (ON) > Root URL: [https://dev.sunbird.cf](https://dev.sunbird.cf) (your Domain) > Valid Redirect URIs: [https://dev.sunbird.cf/*](https://dev.sunbird.cf/*)**.  Add another link by clicking **+**. Navigate to **Valid Redirect URIs: [https://dev.sunbird.cf/](https://dev.sunbird.cf/) > Base URL: / > Admin URL: [https://dev.sunbird.cf/*](https://dev.sunbird.cf/*)** and click **Save**. |
-| 5    | In the Sunbird realm, navigate to **Clients > admin-cli > Roles > Add Role**. Enter the role name as **admin** and click **Save**. Navigate to **Composite Roles** and switch the toggle to ON. Navigate to **Composite Roles > Realm Roles** and  add **admin**, **offline_access** and, **uma_authorization**. Navigate to **Permissions > Permissions Enabled** and switch the toggle to ON.|
-| 6    | Creating keycloak federation [Deployment Steps for Keycloak User Federation](developer-docs/server-installation/keycloak_user_federation) |
+|------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1 | Login to Keycloak using the user name **admin** and password as given in the private **secrets.yml** file. Or, login to keycloak using &#60;localhost:8080&#62;/auth |           
+| 2 | Navigate to Sunbird Realm > Realm Settings > Keys. Click `Public Key`. Copy the key value that you see and update the variable core_vault_sso_public_key |
+| 3 | Create the admin role in the Sunbird realm. Navigate to Roles > Add Role > Add details in the form. Specify the role name as `admin`. Click **Save**. Navigate to **Enable Composite Roles**. Under **Composite Roles**, select **offline_access**, **uma_administration** and click **Add selected**. Navigate to **Permissions** and enable permissions.|
+| 4 | Assign permissions to the **admin-cli** client in the Sunbird realm. Navigate to **clients** > **admin-cli** > **Settings** > **Implicit Flow Enabled (ON)** > **Root URL**: [https://dev.sunbird.cf](https://dev.sunbird.cf) (your Domain) > Valid Redirect URIs: [https://dev.sunbird.cf/*](https://dev.sunbird.cf/*).  Add another link by clicking **+**. Navigate to **Valid Redirect URIs**: [https://dev.sunbird.cf/](https://dev.sunbird.cf/) > Base URL: / > Admin URL: [https://dev.sunbird.cf/*](https://dev.sunbird.cf/*)** and click **Save**. |
+| 5 | In the Sunbird realm, navigate to **Clients** > **admin-cli** > **Roles** > **Add Role**. Enter the role name as **admin** and click **Save**. Navigate to **Composite Roles** and switch the toggle button to ON. Navigate to **Composite Roles > Realm Roles** and  add **admin**, **offline_access** and, **uma_authorization**. Navigate to **Permissions > Permissions Enabled** and switch the toggle to ON.|
+| 6 | Creating keycloak federation [Deployment Steps for Keycloak User Federation](developer-docs/server-installation/keycloak_user_federation) |
 
 ### Map Elasticsearch Index
 
-> **Note:** Refer to [Elasticsearch Static Mapping for Course batch](developer-docs/server-installation/elasticsearch_static_mapping_course_batch/) to map the cbatch searchindex index. 
+> **Note:** Refer to [Elasticsearch Static Mapping for Course batch](developer-docs/server-configurations/elasticsearch_static_mapping_course_batch) to map the cbatch search index. 

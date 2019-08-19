@@ -1,8 +1,8 @@
 ---
-title: Mobile App Setup
-page_title: Mobile App Setup
-description: Setting Up Mobile App
-keywords: Setup, Subird Mobile App, Install, Cofigure, set up,Build APK
+title: Mobile App Installation  
+page_title: Mobile App Installation
+description: Setting Up and installing Mobile App
+keywords: Setup, Subird Mobile App, Install, Cofigure, set up, Build APK
 published: true
 allowSearch: true
 ---
@@ -51,13 +51,14 @@ Replace the producer id `PRODUCER_ID` for respective environments in the **sunbi
 Replace `release_fabric_api_key` in `sunbird.properties` with your fabric API Key. Create an account in [fabric.io](https://get.fabric.io/) and register in the app to get the API key.
 
 ## Build APK from Git Repository
+
 Build the Sunbird mobile app from the main source code that is available at [project-sunbird](https://github.com/project-sunbird)/[sunbird-mobile](https://github.com/project-sunbird/sunbird-mobile).
 
 The sample properties file is in the **buildConfig** folder. Renamed it to **sunbird.properties** and provide the appropriate values in it.
 
 ### Customizing App Configuration
 
-The instance administrator of any Sunbird adopter can customize the Sunbird mobile app based on their organization's requirement. The administartor can configure the following aspects:
+The instance administrator of any Sunbird adopter can customize the Sunbird mobile app based on their organization's requirement. The administrator can configure the following aspects:
 
 * App name
 * App logo
@@ -80,7 +81,7 @@ The instance administrator of any Sunbird adopter can customize the Sunbird mobi
 | 10 | display_signin_footer_card_in_profile_tab_for_teacher | Set the **display_signin_footer_card_in_profile_tab_for_teacher** as **true** in sunbird.properties file | to show the sign-in footer in the profile tab for teachers | false|
 | 11 | display_signin_footer_card_in_profile_tab_for_student | Set the **display_signin_footer_card_in_profile_tab_for_student** as **true** in sunbird.properties file | to show the sign-in footer in the profile tab for students | false|
 | 12 | display_signin_footer_card_in_library_tab_for_student | Set the **display_signin_footer_card_in_library_tab_for_student** as **true** in sunbird.properties file | to show the sign-in footer in the profile tab for students | false|
-| 13 | display_onboarding_card | set the display__onboarding_cards as true in sunbird.properties file | to display the guest/login page | false|
+| 13 | display_onboarding_card | set the display_onboarding_cards as true in sunbird.properties file | to display the guest/login page | false|
 | 14 | display_framework_categories_in_profile | set the display_framework_categories_in_profile variable as true in sunbird.properties file | to display categories in the guest/login page | false|
 | 15 | track_user_telemetry | Variable used to track user telemetry.| Used to track telemetry that is missing at the device level so as to generate greater usage context within the instance. Set the variable as *true* in the **sunbird.properties** file to enable tracking.  | false|
 
@@ -96,7 +97,8 @@ Sunbird mobile app supports configuration of the app framework to enable offline
 | 5 | buildConfig/data/form | pageassemble_library_filter.json | Page assemble filter for library
 
 ## Installing Individual Plugins
-Sunbird is an open source, configurable, extendable, modular learning management platform architected for scale and designed to support multiple teaching and learning solutions supporting multiple languages and available for online and offline use. Various plugins are utilized to meet this objective. Adopters can choose and intall plugins to customize the application to suit their business needs. This ection details the procedure for installing inidividual plugins for the mobile application.
+
+Sunbird is an open source, configurable, extendable, modular learning management platform architected for scale and designed to support multiple teaching and learning solutions supporting multiple languages and available for online and offline use. Various plugins are utilized to meet this objective. Adopters can choose and intall plugins to customize the application to suit their business needs. This section details the procedure for installing individual plugins for the mobile application.
 
 - Clone the sunbird-mobile repo using the following commands: 
 ```
@@ -106,6 +108,7 @@ go to project folder and run **npm i**
 ```
 
 ### Genie-SDK-Wrapper
+
 This repository contains common services, and global UI pages required in an app. The services internally call to the cordova plugins. All the http and database related API goes through this npm module.
 
 To generate local node module:
@@ -160,7 +163,7 @@ This is installed with other npm packages.
 
 ### Installing the Mobile Application
 
-  1.Create a workspace  (i.e Folder Hierarchy ) and clone the Git repositories into this folder
+  1.Create a workspace (Folder Hierarchy) and clone the Git repositories into this folder
 
   2.Execute the instructions mentioned for each cloned repository
 
