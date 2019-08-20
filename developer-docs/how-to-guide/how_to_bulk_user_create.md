@@ -46,8 +46,10 @@ Gita is the XYZ Corp's Sunbird adminstrator and has created the necessary struct
 
 |     Header    |          Type         | Description | Sample |
 |---------------|------------------------|-----------|--------|
-| Content-type | String | Mime type of the request | application/json |
+| Content-type | String | Mime type of the request | multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW |
 | Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
+| x-authenticated-user-token | String | user-auth-token
+
 
 #### Request Body 
 
@@ -63,7 +65,7 @@ Gita is the XYZ Corp's Sunbird adminstrator and has created the necessary struct
 #### Response Body
 
     {
-        "id": "api.user.create",
+        "id": "api.user.upload",
         "ver": "v1",
         "ts": "2018-11-12 16:25:43:292+0000",
         "params": {
