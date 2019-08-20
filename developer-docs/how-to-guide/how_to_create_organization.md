@@ -18,8 +18,9 @@ A company, XYZ Corp, is a global conglomerate with over ten thousand employees, 
 2. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
   
 3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
+4. generating user token [How to generate x-authenticated-user-token] (developer-docs/how-to-guide/how_to_create_user_auth_token/)
 
-4. Access to [Organization API](apis/orgapi/#tag/Org-APIs)
+5. Access to [Organization API](apis/orgapi/#tag/Org-APIs)
 
 ### Taskflow
 
@@ -113,7 +114,7 @@ In the response body, Gita inspects the value of all tokens called **code** to e
 | x-authenticated-user-token | String | A token that identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
 
-#### Request Body
+#### Request Body : Root org creation
 
     curl -X POST \
     https://sunbird.xyzcorp.com/api/org/v1/create \
@@ -163,7 +164,7 @@ Gita comes up with three identifiers for each sub-organization. These identifier
 | Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
 | x-authenticated-user-token | String | A token that identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
-#### Request Body
+#### Request Body : Request for sub-org creation
 
     curl -X POST \
     https://sunbird.xyzcorp.com/api/org/v1/create \
@@ -176,10 +177,8 @@ Gita comes up with three identifiers for each sub-organization. These identifier
                 "orgName": "Indian Archeology",
                 "description": "Study of ancient tea leaves in Rabdentse, Sikkim",
                 "isRootOrg": false,
-                "provider": "xyzCorpArcheologyChannel",
-                "externalID": "xyzCorpArcheologyIndian",
-                "preferredLanguage": "English, हिंदी",
-                "homeUrl": "https://www.example.com/training/arch"
+                "channel" : "channel value of rootOrg"
+                
             }
         }'
 

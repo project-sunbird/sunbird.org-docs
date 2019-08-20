@@ -21,10 +21,11 @@ Maya joins XYZ Corp as an intern pursuing research Indian & Greek archeology. Fo
 2. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](../developer-docs/how-to-guide/generate_apikey/)
 
 3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
+4. generating user token [How to generate x-authenticated-user-token] (developer-docs/how-to-guide/how_to_create_user_auth_token/)
 
-4. The root organization and sub-organizations created and their **organsationId** and root organization's **channel** readily available
+5. The root organization and sub-organizations created and their **organsationId** and available
 
-5. The user account created in the root-organization and **userId** readily available
+6. The user account created in the root-organization and **userId** readily available
 
 ### Taskflow
 
@@ -38,7 +39,7 @@ First, Gita assigns the role of content consumer, to Maya, in the sub-organizati
 | Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
 | x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
-#### Request Body
+#### Request Body : User should not already associated with provided organisation. if user is already associated then this api will throw error. 
 
     curl -X POST \
     https://staging.open-sunbird.org/api/org/v1/member/add \
@@ -49,7 +50,8 @@ First, Gita assigns the role of content consumer, to Maya, in the sub-organizati
         "request":
         {
             "organisationId": "01261942258536448016",
-            "userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449"
+            "userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449",
+            "roles" : [] //optional   
         }
     }
 
@@ -71,6 +73,45 @@ First, Gita assigns the role of content consumer, to Maya, in the sub-organizati
             "response": "SUCCESS"
         }
     }
+
+
+#### Request Body : User is already associated with an organisation and we want to add/remove some for the associated roles. in this request whatever roles is passed ,will be applied to that user,means exisitng roles will be override.
+
+    curl -X POST \
+    https://staging.open-sunbird.org/api/org/v1/role/assign \
+    -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
+    -H 'Content-Type: application/json' \
+    -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
+    -d '{
+        "request":
+        {
+            "organisationId": "01261942258536448016",
+            "userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449",
+            "roles" : ["role1","role2"]    
+        }
+    }
+
+#### Response Body
+
+    {
+        "id": "api.org.role.assign",
+        "ver": "v1",
+        "ts": "2018-11-13 15:18:17:253+0000",
+        "params": {
+            "resmsgid": null,
+            "msgid": "d6e68bc6-599f-48d1-b397-9ef8d3dfc2cc",
+            "err": null,
+            "status": "success",
+            "errmsg": null
+        },
+        "responseCode": "OK",
+        "result": {
+            "response": "SUCCESS"
+        }
+    }
+
+
+
 
 
 After 3 months, Gita revokes Maya's access to the the sub-organization - Indian Archeology.
