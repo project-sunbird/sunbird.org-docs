@@ -192,7 +192,6 @@ paths:
               - The attributes must be passed inside the filters of the request payload
           schema:
             $ref: '#/definitions/SearchUserRequest'
-
         - name: Authorization
           in: header
           required: true
@@ -302,7 +301,6 @@ paths:
           schema:
             allOf:
               - $ref: '#/definitions/GetUserByLoginIdRequest'
-
         - name: ts
           in: header
           required: false
@@ -396,7 +394,6 @@ paths:
           type: string
           required: true
           description: 'Please append a valid User Id To the Request URL and if user need any specific values like , profile completeness ,missingFields,topic Ex: ?Fields=completeness,missingFields,topic'
-
         - name: ts
           in: header
           required: false
@@ -490,7 +487,6 @@ paths:
           type: string
           required: true
           description: 'Please append a valid User Id To the Request URI and if user need any specific values like , profile completeness ,missingFields,topic Ex: ?Fields=completeness,missingFields,topic'
-
         - name: ts
           in: header
           required: false
@@ -584,7 +580,6 @@ paths:
           schema:
             allOf:
               - $ref: '#/definitions/UpdateUserRequest'
-
         - name: ts
           in: header
           required: false
@@ -656,9 +651,7 @@ paths:
           required: true
           description: >-
             - The body payload comprises of the metadata about updating the users login time in the system
-
             - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
-
                - JSON
           schema:
             $ref: '#/definitions/UpdateLoginRequest'
@@ -674,7 +667,6 @@ paths:
           required: false
           type: string
           description: 'This Id Uniquely identifies a request if the same API is executed multiple times.'
-
         - name: x-authenticated-user-token
           in: header
           required: true
@@ -704,7 +696,6 @@ paths:
             'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
             $ref: '#/definitions/UserErrorResponse'
-
       security:
         - bearer: []
       x-unitTests:
@@ -745,21 +736,28 @@ paths:
       tags:
         - User APIs
       operationId: V1RoleReadGet
-      consumes:
-        - application/json
       produces:
         - application/json
       parameters:
-
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: >-
+            The Content Type entity is the media type of the resource
+             Possible media types can be:-
+               - Application/json
+               - Multipart/form-data
+               - Application/x-www-form-urlencoded
         - name: ts
           in: header
-          required: false
+          required: true
           type: string
           description: >-
             Timestamp is a sequence of characters or encoded information identifying when the read user role API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second
         - name: X-msgid
           in: header
-          required: false
+          required: true
           type: string
           description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
         - name: Authorization
@@ -847,20 +845,29 @@ paths:
 
           schema:
             allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
               - $ref: '#/definitions/VisibilityRequest'
-
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: >-
+            The Content Type entity is the media type of the resource.
+             Possible media types can be:-
+               - Application/json
+               - Multipart/form-data
+               - Application/x-www-form-urlencoded
         - name: ts
           in: header
-          required: false
+          required: true
           type: string
           description: >-
             Timestamp is a sequence of characters or encoded information identifying when the user profile visibility API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second
         - name: X-msgid
           in: header
-          required: false
+          required: true
           type: string
           description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
-
         - name: Authorization
           in: header
           required: true
@@ -930,8 +937,6 @@ paths:
       tags:
         - User APIs
       operationId: userBlock
-      consumes:
-        - application/json
       produces:
         - application/json
       parameters:
@@ -947,19 +952,35 @@ paths:
 
           schema:
             allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
               - $ref: '#/definitions/BlockUserReq'
-
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: >-
+            The Content Type entity is the media type of the resource.
+             Possible media types can be:-
+               - Application/json
+               - Multipart/form-data
+               - Application/x-www-form-urlencoded
         - name: ts
           in: header
-          required: false
+          required: true
           type: string
           description: >-
             Timestamp is a sequence of characters or encoded information identifying when the block user API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second
         - name: X-msgid
           in: header
-          required: false
+          required: true
           type: string
           description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
+
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
         - name: x-authenticated-user-token
           in: header
           required: true
@@ -1023,8 +1044,6 @@ paths:
       tags:
         - User APIs
       operationId: make deleted user active
-      consumes:
-        - application/json
       produces:
         - application/json
       parameters:
@@ -1039,20 +1058,29 @@ paths:
                - JSON
           schema:
             allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
               - $ref: '#/definitions/BlockUserReq'
-
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: >-
+            The Content Type entity is the media type of the resource.
+             Possible media types can be:-
+               - Application/json
+               - Multipart/form-data
+               - Application/x-www-form-urlencoded
         - name: ts
           in: header
-          required: false
+          required: true
           type: string
           description: >-
             Timestamp is a sequence of characters or encoded information identifying when the unblock API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second
         - name: X-msgid
           in: header
-          required: false
+          required: true
           type: string
           description: 'This ID uniquely identifies a request if the same API is called multiple times.'
-
         - name: Authorization
           in: header
           required: true
@@ -1117,14 +1145,10 @@ paths:
         This API is used to assign roles to a user. It can also be used to replace and remove already assigned user roles. If a user should not be assigned any role in the organization, pass the role paramater as an empty array.
            - The **_/v1/role/assign_** endpoint executes the "Assign roles to a user" request based on parameters provided as metadata in the request body
            - It is mandatory to provide values for required parameters
-
       summary: Assign Role to User
       tags:
         - User APIs
       operationId: userV1RoleAssign
-
-      consumes:
-        - application/json
       produces:
         - application/json
       parameters:
@@ -1138,8 +1162,14 @@ paths:
                - JSON
           schema:
             allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
               - $ref: '#/definitions/AssignRequest'
-
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: >-
+            The Content-Type header specifies the media type of the resource. Set this to application/json.
         - name: ts
           in: header
           required: false
@@ -1148,7 +1178,7 @@ paths:
             Timestamp is a sequence of characters or encoded information identifying when the assign role API call has occurred, usually it gives date and time of the call, mostly accurate to a small fraction of a second.
         - name: X-msgid
           in: header
-          required: false
+          required: true
           type: string
           description: 'This ID uniquely identifies a particular request of the same API which can be executed multiple times'
         - name: Authorization
@@ -1180,8 +1210,8 @@ paths:
             'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
             $ref: '#/definitions/UserErrorResponse'
-  /data/v1/user/encrypt:
-    post:
+  /user/v1/encrypt:
+    get:
       description: >-
         This API is used for securing the user information with an encryption scheme
            - The **_/v1/encrypt_** endpoint executes the "Encrypt User Information" request based on parameters provided as metadata in the request body.
@@ -1190,96 +1220,28 @@ paths:
       tags:
         - User APIs
       operationId: EncryptGet
-      consumes:
-        - application/json
       produces:
         - application/json
       parameters:
-        - name: request
-          in: body
+        - name: Content-Type
+          in: header
           required: true
+          type: string
           description: >-
-            - The body payload comprises of the user ids to encrypt
-          schema:
-            allOf:
-              - $ref: '#/definitions/encryptRequest'
-
+            The Content Type entity is the media type of the resource
+             Possible media types can be:-
+               - Application/json
+               - Multipart/form-data
+               - Application/x-www-form-urlencoded
         - name: ts
           in: header
-          required: false
+          required: true
           type: string
           description: >-
             Timestamp is a sequence of characters or encoded information identifying when the encrypt user API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second.
         - name: X-msgid
           in: header
-          required: false
-          type: string
-          description: 'This ID Uniquely identifies a request if the same API is executed multiple times'
-        - name: x-authenticated-user-token
-          in: header
           required: true
-          type: string
-          description: 'The token/key used to execute the API.'
-        - name: Authorization
-          in: header
-          required: true
-          type: string
-          description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-      responses:
-        '200':
-          description: 'OK ! Successful operation."Encrypt User Information" operation was successfully executed.'
-          schema:
-            $ref: '#/definitions/UserCreateResponse'
-        '400':
-          description: 'BAD REQUEST. The "Encrypt User Information" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
-          schema:
-            $ref: '#/definitions/UserErrorResponse'
-        '500':
-          description: >-
-            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
-          schema:
-            $ref: '#/definitions/UserErrorResponse'
-
-      security:
-        - bearer: []
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-  /data/v1/user/decrypt:
-    post:
-      description: >-
-        This API is used for securing the user information with an encryption scheme
-           - The **_/v1/decrypt_** endpoint executes the "decrypt User Information" request based on parameters provided as metadata in the request body.
-           - It is mandatory to provide values for required parameters
-      summary: Decrypt User Information
-      tags:
-        - User APIs
-      operationId: DecryptGet
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - name: request
-          in: body
-          required: true
-          description: >-
-            - The body payload comprises of the user ids to decrypt
-          schema:
-            allOf:
-              - $ref: '#/definitions/decryptRequest'
-
-        - name: ts
-          in: header
-          required: false
-          type: string
-          description: >-
-            Timestamp is a sequence of characters or encoded information identifying when the encrypt user API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second.
-        - name: X-msgid
-          in: header
-          required: false
           type: string
           description: 'This ID Uniquely identifies a request if the same API is executed multiple times'
         - name: x-authenticated-user-token
@@ -1324,8 +1286,6 @@ paths:
       tags:
         - User APIs
       operationId: UpdateUserSkills
-      consumes:
-        - application/json
       produces:
         - application/json
       parameters:
@@ -1336,17 +1296,23 @@ paths:
             - The body payload comprises of the metadata required for updating user skills
           schema:
             allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
               - $ref: '#/definitions/UpdateUserSkillsRequest'
-
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: >-
+            Type of the request data. Set as application/json.
         - name: ts
           in: header
-          required: false
+          required: true
           type: string
           description: >-
             Timestamp at which given API request is sent.
         - name: X-MsgId
           in: header
-          required: false
+          required: true
           type: string
           description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
         - name: Authorization
@@ -1411,17 +1377,23 @@ paths:
             - The body payload comprises of the metadata required for endorsing a skill of a user
           schema:
             allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
               - $ref: '#/definitions/AddUserSkillEndorsementRequest'
-
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: >-
+            Type of the request data. Set as application/json
         - name: ts
           in: header
-          required: false
+          required: true
           type: string
           description: >-
             Timestamp at which given API request is sent
         - name: X-MsgId
           in: header
-          required: false
+          required: true
           type: string
           description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
         - name: Authorization
@@ -1479,8 +1451,6 @@ paths:
       tags:
         - User APIs
       operationId: UserV1SkillAddPost
-      consumes:
-        - application/json
       produces:
         - application/json
       parameters:
@@ -1494,17 +1464,27 @@ paths:
                - JSON
           schema:
             allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
               - $ref: '#/definitions/AddSkillToUserRequest'
-
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: >-
+            The Content Type entity is the media type of the resource
+             Possible media types can be:-
+               - Application/json
+               - Multipart/form-data
+               - Application/x-www-form-urlencoded
         - name: ts
           in: header
-          required: false
+          required: true
           type: string
           description: >-
             Timestamp is a sequence of characters or encoded information identifying when the add user skills API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second
         - name: X-msgid
           in: header
-          required: false
+          required: true
           type: string
           description: 'This ID Uniquely identifies a request if the same API is executed multiple times'
         - name: Authorization
@@ -1577,8 +1557,6 @@ paths:
       tags:
         - User APIs
       operationId: UserV1SkillRead
-      consumes:
-        - application/json
       produces:
         - application/json
       parameters:
@@ -1593,17 +1571,27 @@ paths:
                - JSON
           schema:
             allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
               - $ref: '#/definitions/ReadUserSkill'
-
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: >-
+            The Content Type entity is the media type of the resource
+             Possible media types can be:-
+               - Application/json
+               - Multipart/form-data
+               - Application/x-www-form-urlencoded
         - name: ts
           in: header
-          required: false
+          required: true
           type: string
           description: >-
             Timestamp is a sequence of characters or encoded information identifying when the add user skills API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second.
         - name: X-msgid
           in: header
-          required: false
+          required: true
           type: string
           description: 'This ID Uniquely identifies a request if the same API is executed multiple times'
         - name: Authorization
@@ -1678,21 +1666,28 @@ paths:
       tags:
         - User APIs
       operationId: DataV1SkillsGet
-      consumes:
-        - application/json
       produces:
         - application/json
       parameters:
-
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: >-
+            The Content Type entity is the media type of the resource.
+             Possible media types can be:-
+               - Application/json
+               - Multipart/form-data
+               - Application/x-www-form-urlencoded
         - name: ts
           in: header
-          required: false
+          required: true
           type: string
           description: >
             Timestamp is a sequence of characters or encoded information identifying when the list user skills API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second.
         - name: X-msgid
           in: header
-          required: false
+          required: true
           type: string
           description: 'This ID Uniquely identifies a request if the same API is called multiple times'
         - name: x-authenticated-user-token
@@ -1720,143 +1715,63 @@ paths:
             'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
             $ref: '#/definitions/UserErrorResponse'
-  /user/v1/tnc/accept:
-    post:
-      description:  >-
-        This API is used to accept the terms & condition for a user
-           - The **_/v1/tnc/accept_** endpoint executes the "tnc accept user" request based on parameters provided as metadata in the request body.
-           - It is mandatory to provide values for required parameters
-      summary: t&C Accept
-      tags:
-        - User APIs
-      operationId: tncAccept
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - name: request
-          in: body
-          required: true
-          description: >-
-            - The body payload comprises of the metadata about tnc accept for a user request
-
-            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
-
-               - JSON
-
-          schema:
-            allOf:
-              - $ref: '#/definitions/tncAcceptReq'
-
-        - name: ts
-          in: header
-          required: false
-          type: string
-          description: >-
-            Timestamp is a sequence of characters or encoded information identifying when the tnc accept user API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second
-        - name: X-msgid
-          in: header
-          required: false
-          type: string
-          description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
-        - name: x-authenticated-user-token
-          in: header
-          required: true
-          type: string
-          description: >-
-            It is a unique token/key to authenticate the user each time an API is called. For corresponsing sessions, this token is exchanged, not the username/password of the user
-      responses:
-        '200':
-          description: 'OK ! Successful operation.user operation was successfully executed.'
-          schema:
-            $ref: '#/definitions/UserCreateResponse'
-        '400':
-          description: 'BAD REQUEST. The user  operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
-          schema:
-            $ref: '#/definitions/UserErrorResponse'
-        '404':
-          description: 'Resource not found, user operation failed ! The possible reason for failure is requested user id not found'
-          schema:
-            $ref: '#/definitions/UserErrorResponse'
-        '500':
-          description: >-
-            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
-          schema:
-            $ref: '#/definitions/UserErrorResponse'
-      security:
-        - bearer: []
-      x-unitTests:
-        - request:
-            method: POST
-            uri: /user/v1/block
-            headers:
-              Content-Type: application/json
-              X-Consumer-ID: X-Consumer-ID
-              ts: 2017-05-25 10:18:56:578+0530
-              X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-              Authorization: Bearer {{api-key}}
-              x-authenticated-user-token: '{{user-token}}'
-            body: "{\"request\":{\n  \"version\":\"userid\"}}"
-          expectedResponse:
-            x-allowExtraHeaders: true
-            x-bodyMatchMode: NONE
-            x-arrayOrderedMatching: false
-            x-arrayCheckCount: false
-            x-matchResponseSchema: true
-            headers: {}
-          x-testShouldPass: true
-          x-testEnabled: true
-          x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-  /user/v1/type/list:
-    get:
+ /private/user/v1/migrate:
+    patch:
       description: >-
-        This API is associated with listing all the user types
-           - The **_/user/v1/type/list_** endpoint executes the "list all user types" request based on parameters provided as metadata in the request body.
-           - It is mandatory to provide values for required parameters
-      summary: List all user types
+       This API is associated with moving user from custodian rootorg to non-custodian rootOrg. This private api , so call can be made from container to container only.
+          - The **_/private/user/v1/migrate_**.
+          - It is mandatory to provide values for required parameters
+      summary: Migrate user from custodian org to non-custodian
       tags:
-        - User APIs
-      operationId: UserTypeListGet
-      consumes:
-        - application/json
+      - User APIs
+      operationId: userTenantMigrate
       produces:
-        - application/json
+      - application/json
       parameters:
-        - name: ts
-          in: header
-          required: false
-          type: string
-          description: >
-            Timestamp is a sequence of characters or encoded information identifying when the list user type list API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second.
-        - name: X-msgid
-          in: header
-          required: false
-          type: string
-          description: 'This ID Uniquely identifies a request if the same API is called multiple times'
-        - name: x-authenticated-user-token
-          in: header
-          required: true
-          type: string
-          description: >-
-            It is a unique token/key to authenticate the user each time an API is called. For corresponsing sessions, this token is exchanged, not the username/password of the user
-        - name: Authorization
-          in: header
-          required: true
-          type: string
-          description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      - name: Body
+        in: body
+        required: true
+        description: >-
+          - The body payload comprises of metadata on user tenant migration  
+          - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
+             - JSON 
+        schema:
+          allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
+              - $ref: '#/definitions/UserTenantMigration'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+           The Content Type entity is the media type of the resource.
+            Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+      - name: ts
+        in: header
+        required: true
+        type: string
+        description: >
+          Timestamp is a sequence of characters or encoded information identifying when the list user skills API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second.
+      - name: X-msgid
+        in: header
+        required: true
+        type: string
+        description: 'This ID Uniquely identifies a request if the same API is called multiple times'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
       responses:
         '200':
-          description: 'OK ! Successful operation."list user types" operation was successfully executed.'
+          description: 'OK ! Successful operation."User migration" operation was successfully executed.'
           schema:
-            $ref: '#/definitions/userTypeResp'
+            $ref: '#/definitions/UserSuccessResponse'
         '400':
-          description: 'BAD REQUEST. The "list user types" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST. The "list user skills" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
           schema:
             $ref: '#/definitions/UserErrorResponse'
         '500':
@@ -1864,18 +1779,18 @@ paths:
             'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
             $ref: '#/definitions/UserErrorResponse'
-
 definitions:
   CreateUserrequest:
     description: User object
     type: object
     allOf:
+      - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
       - $ref: '#/definitions/CreateUserSingleResp'
-
   CreateUserRequestV2:
     description: User object
     type: object
     allOf:
+      - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
       - $ref: '#/definitions/CreateUserSingleRespV2'
 
   CreateUserSingleResp:
@@ -1941,16 +1856,6 @@ definitions:
             type: string
             description: userId
 
-  tncAcceptReq:
-    description: request body for tnc accept user request
-    type: object
-    properties:
-      request:
-        type: object
-        properties:
-          version:
-            type: string
-            description: t&c version
 
   SkillsResp:
     description: contains list of skills
@@ -1960,33 +1865,12 @@ definitions:
         type: object
         $ref: '#/definitions/Skills'
 
-  userTypeResp:
-    description: contains list of user type
-    type: object
-    properties:
-      response:
-        type: object
-        $ref: '#/definitions/userType'
-
-  userType:
-    description: contains user type details
-    type: array
-    items:
-      type: object
-      properties:
-        name:
-          type: string
-          description: user type
-        id:
-          type: string
-          description: user type id
 
   Skills:
     description: contains skills details
     type: array
     items:
       type: string
-
   UserReq:
     title: User Object
     type: object
@@ -1994,11 +1878,6 @@ definitions:
       email:
         type: string
         description: 'Represents the email of the user'
-      emailVerified:
-        type: boolean
-        description: >-
-          This key is required with value as true, if you pass the values for email
-          - But incases of create user either email or phone is required
       firstName:
         type: string
       lastName:
@@ -2047,9 +1926,7 @@ definitions:
         format: YYYY-MM-DD
         example: '2001-02-27'
       grade:
-        type: array
-        items:
-          type: string
+        type: string
       location:
         type: string
         description: 'Represents the current location of the  user'
@@ -2081,6 +1958,7 @@ definitions:
             type: string
     required:
       - firstName
+      - password
       - email
       - userName
       - phone
@@ -2310,9 +2188,7 @@ definitions:
         format: YYYY-MM-DD
         example: '2001-02-27'
       grade:
-        type: array
-        items:
-          type: string
+        type: string
       location:
         type: string
         description: 'Represents the current location of the  user'
@@ -2347,8 +2223,11 @@ definitions:
             type: string
     required:
       - firstName
+      - password
       - email
+      - userName
       - phone
+      - channel
 
   User:
     type: object
@@ -2420,9 +2299,7 @@ definitions:
         format: YYYY-MM-DD
         example: '2001-02-27'
       grade:
-        type: array
-        items:
-          type: string
+        type: string
       location:
         type: string
         description: 'Represents the current location of the  user'
@@ -2575,12 +2452,15 @@ definitions:
         query: >-
           Represents text search, if you want to enable free text search then pass the query as string
         filters:
-          description: 'Represents the value of user attribute, it can be either a string or an array, firstName:test  or firstName:["test","test1"] '
+          userAttribute:
+            - Represents the value of user attribute, it can be either a string or an array
+            - Ex: firstName:test  or firstName:["test","test1"]
         limit: 500
     type: object
     properties:
       request:
         allOf:
+          - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
           - $ref: '#/definitions/userSearch'
     required:
       - request
@@ -2600,7 +2480,18 @@ definitions:
   Filters:
     title: Filters
     type: object
-    description: 'Represents the user attributes'
+    properties:
+      userAttribute:
+        description: >-
+          Represents the user attributes. It can be any attribute of the user
+            - For single attribute, pass only the string
+            - To get response based on same key multiple value then pass values as an array that can be done inside the filter, you can pass multiple attributes with multiple values'
+        type: array
+        items:
+          type: string
+      $or:
+        type: object
+        description: this new attribute will support user search with or condition.
     required:
       - userAttribute
 
@@ -2699,8 +2590,9 @@ definitions:
 
   UpdateLoginRequest:
     example:
+      params: {}
       request:
-        userId: "123-456-7890"
+        userId: {userId}
     type: object
     properties:
       params:
@@ -2723,7 +2615,7 @@ definitions:
   VisibilityRequest:
     example:
       request:
-        userId: "123-456-7890"
+        userId: {userid}
         private:
           - gender
           - location
@@ -2736,7 +2628,7 @@ definitions:
         allOf:
           - $ref: '#/definitions/ProfileVisibility'
         example:
-          userId: userId
+          userId: userid
           private:
             - gender
             - location
@@ -2748,7 +2640,7 @@ definitions:
   ProfileVisibility:
     description: profile visibility request data
     example:
-      userId: userId
+      userId: userid
       private:
         - gender
         - location
@@ -2790,44 +2682,6 @@ definitions:
         $ref: '#/definitions/AssignRole'
     required:
       - request
-  encryptRequest:
-    title: 'encryptRequest'
-    type: object
-    properties:
-      request:
-        $ref: '#/definitions/encryptData'
-    required:
-      - request
-
-  encryptData:
-    type: object
-    properties:
-      userIds:
-        description: 'The IDs of the user'
-        type: array
-        items:
-          type: string
-    required:
-      - userIds
-  decryptRequest:
-    title: 'decryptRequest'
-    type: object
-    properties:
-      request:
-        $ref: '#/definitions/decryptData'
-    required:
-      - request
-
-  decryptData:
-    type: object
-    properties:
-      userIds:
-        description: 'The IDs of the user'
-        type: array
-        items:
-          type: string
-    required:
-      - userIds
 
   AssignRole:
     type: object
@@ -2883,9 +2737,6 @@ definitions:
       idType:
         type :  string
         description : 'The type of identity proof. For example, PAN card is an ID type whose provider is the central government.'
-      operation:
-        type :  string
-        description : 'Operation to performed, cane be either [add,edit,remove], If not defined then default is add.'
   ExternalIdUpdate:
     description : The user request to update the external ID in the profile
     type: object
@@ -2902,7 +2753,32 @@ definitions:
       operation:
         type: string
         description : 'possible values are {ADD,EDIT,REMOVE}'
-  ReadUserSkill:
+   UserTenantMigration:
+    title: UserTenantMigration
+    type: object
+    properties:
+      request:
+       type: object
+       properties:
+         channel:
+          type: string
+         orgExternalId:
+          type: string
+         userId:
+          type: string
+         orgId:
+          type: string
+         externalIds:
+            type: array
+            items:
+              type: object
+              allOf:
+                - $ref: "#/definitions/ExternalId" 
+    required:
+    - channel
+    - userId
+
+   ReadUserSkill:
     title: ReadUserSkill
     type: object
     properties:
@@ -3003,9 +2879,6 @@ definitions:
     title: Framework details
     type: object
     properties:
-      id:
-        type: string
-        description: Represents framework id.
       gradeLevel:
         type: array
         description: List of grades whose content is of interest to user
@@ -3028,7 +2901,6 @@ definitions:
           type: string
 
     required:
-      - id
       - gradeLevel
       - medium
       - board
