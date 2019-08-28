@@ -38,14 +38,14 @@ Switch to the `Build` folder and run all jobs. For the value of the **github_rel
 
 *   Switch to `Deploy/dev/KnowledgePlatform` and run the jobs in the following sequence:
 
-    1.CassandraDbUpdate
-    2.Neo4j
-    3.StartNeo4jCluster
-    4.Learning
-    5.Search
-    6.Neo4DefinitionUpdate
-    7.Neo4jElasticSearchSyncTool 
-    8.KafkaSetup 
+    1.CassandraDbUpdate   
+    2.Neo4j  
+    3.StartNeo4jCluster  
+    4.Learning  
+    5.Search  
+    6.Neo4DefinitionUpdate  
+    7.Neo4jElasticSearchSyncTool   
+    8.KafkaSetup  
     9.Yarn  
  
 
@@ -68,5 +68,3 @@ Login to the Cassandra VM and execute the following commands
 *   Now you should be able to delete contents from workspace, drafts, contents which are published etc.
                     
 Refer [How to Create Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird){:target="_blank"}, [How to Create Schemas for Knowledge Platform Objects](developer-docs/server-installation/knowledge-platform-object-schema){:target="_blank"}
-
-
