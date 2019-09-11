@@ -16,7 +16,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 
 ```
     - git clone [https://github.com/project-sunbird/sunbird-devops.git](https://github.com/project-sunbird/sunbird-devops.git) 
-    - cd sunbird-devops && git checkout tags/release-2.0.0 -b release-2.0.0
+    - cd sunbird-devops && git checkout tags/release-2.3.0 -b release-2.3.0
     - cd deploy/jenkins
     - sudo bash jenkins-server-setup.sh
  ```   
@@ -93,7 +93,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 |**Name**|**Value**| 
 |-------|--------| 
 |**Library Name**|deploy-conf| 
-|**Default version**|Tag name of the Jenkins shared library. This should be the same version of the release you are going to build and deploy. For example, if you decide to use tag release-2.0.0 as your base, the Jenkins shared library tag is release-2.0.0-shared-lib. When you upgrade to tag release-2.1.0, this value should get changed to release-2.1.0-shared-lib| 
+|**Default version**|Tag name of the Jenkins shared library. This should be the same version of the release you are going to build and deploy. For example, if you decide to use tag release-2.3.0 as your base, the Jenkins shared library tag is release-2.3.0-shared-lib. When you upgrade to tag will differ.
 |**Retrieval method**|Modern SCM| 
 |**Source Code Management**|Git| 
 |**Project Repository**|https://github.com/project-sunbird/sunbird-devops.git| 
