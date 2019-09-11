@@ -29,12 +29,9 @@ Switch to `Provision/<env>/DataPipeline` and run the jobs in the following seque
 3.AnalyticsSpark   
 4.Postgres 
 5.Yarn  
-6.Influxdb
-
-7.Zookeeper
-
-8.Kafka
-
+6.Influxdb  
+7.Zookeeper   
+8.Kafka    
 9.Redis
 
 ## Deploy
