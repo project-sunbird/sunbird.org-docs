@@ -48,23 +48,6 @@ Switch to the `Build` folder and run all jobs. For the value of the **github_rel
     8.KafkaSetup 
     9.Yarn  
  
-
-## Manual Run - Content Retire API 
-
-Login to the Cassandra VM and execute the following commands 
-
-        vi /etc/cassandra/cassandra.yaml
-        Update the value as  `batch_size_fail_threshold_in_kb: 200`
-        service cassandra restart
-        cd /tmp
-        wget [https://sunbirdpublic.blob.core.windows.net/installation/script_data.csv](https://sunbirdpublic.blob.core.windows.net/installation/script_data.csv)
-        Run cqlsh
-        COPY `dev_script_store.script_data` FROM `/tmp/script_data.csv`; Here  dev is your environment name 
-        SELECT COUNT(*) FROM `dev_script_store.script_data` ; The output should be 324 rows 
-        Login to learning VM and restart tomcat  
-        sudo service tomcat restart**
-
-
 *   Now you should be able to delete contents from workspace, drafts, contents which are published etc.
                     
 Refer [How to Create Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird){:target="_blank"}, [How to Create Schemas for Knowledge Platform Objects](developer-docs/server-installation/knowledge-platform-object-schema){:target="_blank"}
