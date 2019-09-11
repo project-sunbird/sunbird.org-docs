@@ -30,16 +30,17 @@ This page explains the jobs to be run to bring up the Core services.
 
 | Build Name | Function |
 |--------------------|-----------| 
-| Adminutils | Builds the Adminutils container |
-| API MANAGER | Builds the API manager container | 
-| API MANAGER Echo | Builds the API manager echo container | 
-| Badger | Builds the badger container |
+| Adminutils | Builds the Adminutils docker image |
+| API MANAGER | Builds the API manager docker image | 
+| API MANAGER Echo | Builds the API manager echo docker image | 
+| Badger | Builds the badger docker image |
 | Cassandra | Creates a jar for migration |
-| Content | Builds the content service container | 
-| Learner | Builds the learner service container | 
-| Player | Builds the player service container |
-| Proxy | Builds the proxy container |  
-| Telemetry | Builds the telemetry container |
+| Lms | Builds  the lms service docker image |
+| Content | Builds the content service docker image | 
+| Learner | Builds the learner service docker image | 
+| Player | Builds the player service docker image |
+| Proxy | Builds the proxy docker image |  
+| Telemetry | Builds the telemetry docker image |
 
 ### Artifacts  
 Ensure that all Artifacts are uploaded
@@ -52,6 +53,7 @@ Ensure that all Artifacts are uploaded
 | ESMapping (Under OpsAdministarion) | Creates Elasticsearch indexes |
 | Postgres | Provisions for Postgres |
 | PostgresDbUpdate | Creates the databases, assigns roles and creates users |
+| LogEsUpgrade6xx | Install elasticsearch 6.X |
 
 ### Deploy
 
@@ -69,15 +71,15 @@ Update **core_vault_sunbird_api_auth_token** with the **jwt token** from the Jen
 | Proxy | Deploys Proxy. Handles routing within the swarm |  
 | KeycloakRealm | Creates Sunbird Realm. After the Sunbird realm is created, configure Keycloak by using the steps mentioned in the **Keycloak Configuration** section. |
 | Player | Deploys the player service, used to display the App frontend. **Note**: The player deployment job will fail for the first time. Jenkins prompts you for **In process Approval Script**. Click on the approval link in the deploy job page and provide explicit approval for new **java.io** file, **java.lang** string and **java.io** file. Run the Player deployment again.|
-| Learner | Deploys the Learner Service. Handles user management and helps to search content. |  
+| Learner | Deploys the Learner Service. Handles user management and helps to search content. |
+| Lms | Deploys the Lms Service. It provides the APIs for lms functionality of Sunbird.|
 | Content | Deploys the content service. Helps to create content. |  
 | Telemetry | Deploys the Telemetry service. Helps in sending telemetry to Kafka|
-| TelemetryLogstashDataPipeline | Deploys the logstash container that sends telemetry to Kafka|
-| TelemetryLogstash | Deploys the logstash container to send telemetry to Ekstep. Trigger this only when you want to send telemetry to Ekstep.|
+
 
 ### Keycloak Configuration 
 
-> Note: As of release-2.0.0 keycloak admin portal is disabled from public internet. 
+> Note: From release-2.0.0 keycloak admin portal is disabled from public internet. 
 You must tunnel the port in to the local machine via ssh tunnelling.  
 `ssh -L 8080:localhost:8080 ops@~keycloak-ip-address~`  
 You can access keycloak via `localhost:8080`
