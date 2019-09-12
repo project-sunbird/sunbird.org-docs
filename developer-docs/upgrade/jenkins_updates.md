@@ -35,7 +35,7 @@ Follow the below steps to upgrade:
         sudo bash jenkins-jobs-setup.sh (to update the job configurations)
    
 4.Switch to jenkins user and run the below command to install NVM    
-     ```curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash```
+        ```curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash```
         
 5.Remove the variable github_release_tag from global environment variables in Jenkins (This was added in release 1.1.4 and now this must be removed)
 
