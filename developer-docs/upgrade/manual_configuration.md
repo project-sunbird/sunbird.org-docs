@@ -19,7 +19,9 @@ In this document, we will cover detailed steps on how to upgrade Sunbird 2.0.0 t
 
 
 
-1> Cassandra data migration from old keyspace to new keyspace
+
+
+1] Cassandra data migration from old keyspace to new keyspace
     
 There are some structural change in Course-batch table structure in cassandra for 2.3.0. Run the below commands
 on KP Cassandra machine.
@@ -56,7 +58,7 @@ ccesstime,lastcompletedtime,lastupdatedtime,progress,result,score,status,viewcou
 Once all the steps are done, you can delete the files which is saved with .csv format.
 
 
-2> Remove telemetry datapipeline logstash docker service.
+2] Remove telemetry datapipeline logstash docker service.
 
 From release-2.3.0 we are directly sending telemetry events from telemetry-service to ingest kafka topic. So telemetry datapipeline logstash docker service is not required anymore. Execute the below command on swarm manager to remove telemetry datapipeline logstash docker service.
 
