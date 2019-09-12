@@ -17,3 +17,7 @@ then go for build and deployment steps.
 Job Name: Job Path
 Analytics API: Provision/<env>/DataPipeline/AnalyticsAPI
 ---
+
+Attempt | #1 |
+--- | --- |
+Seconds | 301 |
