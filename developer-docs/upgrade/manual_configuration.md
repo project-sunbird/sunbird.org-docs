@@ -27,6 +27,7 @@ Export the data from existing cassandra keyspace to /home/ops/<name>.csv as ops 
 
 ```cqlsh -e "COPY sunbird.course_batch (courseid,id,createdby,createddate,createdfor,description,enddate,enrollmentenddate,enrollmenttype,m
 entors,name,startdate,status,updateddate) TO '<path_to_save_file>/sunbird_courses_course_batch.csv' WITH HEADER = TRUE;"```
+
  
 ```cqlsh -e "COPY sunbird.user_courses (batchid,userid,courseid,active,addedby,completedon,datetime,delta,enrolleddate,grade,lastreadconten
 tid,lastreadcontentstatus,status,progress) TO '<path_to_save_file>/sunbird_courses_user_courses.csv' WITH HEADER = TRUE;"```
