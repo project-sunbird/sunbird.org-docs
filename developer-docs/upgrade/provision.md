@@ -20,3 +20,6 @@ Job Name | Job Path |
 Analytics API| Provision/\<env\>/DataPipeline/AnalyticsAPI |
 LP Elasticsearch| Provision/\<env\>/KnowledgePlatform/CompositeSearch |
 LogEsUpgrade6xx| Provision/\<env\>/Core/LogEsUpgrade6xx |
+ESMapping| OpsAdministration/\<env\>/Core/ESMapping |
+
+**Note**: For ESMapping Job provide the parameter value for **branch_name** as **course-batch-refactoring**
