@@ -4,7 +4,7 @@ page_title: Build and Deploy
 description: Build and Deploy
 published: true
 allowSearch: true
-keywords: Upgrade, Sunbird 2.0.0, Core, elasticsearch
+keywords: Upgrade, Sunbird 2.3.0, Core, elasticsearch
 ---
 
 ## Overview
@@ -23,7 +23,8 @@ Order: Top down per column
 |                         | Neo4j	              |                    | KafkaSetup     	 | Keycloak  | Keycloak  |
 |                         | StartNeo4jCluster	      |                    | KafkaIndexer    	 | Player    | Player    |
 |                         | KafkaSetup                | Secor              | Secor               | Learner   | Learner   |
-|                         | CassandraDbUpdate         |	Analytics          | AnalyticsAPI        | Content   | Content   |
+|                         | CassandraDbUpdate         |	Analytics          | AnalyticsAPI        | Content | Content   |
+|                         |                           |                    |                     | Lms     | Lms         |
 |                         |Neo4jDefinitionUpdate <br>(Run manual queries mentioned below after this job)| DataPipeline |	DataProducts |	Telemetry |	Telemetry |
 | KnowledgePlatform       |	Learning              |                    | SamzaTelemetrySchemas | Proxy   |	Proxy    |
 |                         | Search	              | Yarn               |	Yarn	     |               |OnboardAPI |
