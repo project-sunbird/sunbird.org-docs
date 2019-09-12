@@ -13,7 +13,7 @@ keywords: Upgrade, Sunbird 2.3.0, Provision
 then go for build and deployment steps.
 2. Provision all the services mentioned in the table below.
 
-|                          Provision                        |
+
 |---------------|-------------------------------------------|
 |    Job Name   |                      Job Path             |
 |---------------|-------------------------------------------|
