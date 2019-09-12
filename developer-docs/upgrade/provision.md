@@ -17,6 +17,6 @@ then go for build and deployment steps.
 
 Job Name | Job Path |
 --- | --- |
-Analytics API| Provision/<env>/DataPipeline/AnalyticsAPI |
-LP Elasticsearch| Provision/<env>/KnowledgePlatform/CompositeSearch |
-LogEsUpgrade6xx| Provision/<env>/Core/LogEsUpgrade6xx |
+Analytics API| Provision/\<env\>/DataPipeline/AnalyticsAPI |
+LP Elasticsearch| Provision/\<env\>/KnowledgePlatform/CompositeSearch |
+LogEsUpgrade6xx| Provision/\<env\>/Core/LogEsUpgrade6xx |
