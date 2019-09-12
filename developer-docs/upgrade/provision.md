@@ -13,11 +13,10 @@ keywords: Upgrade, Sunbird 2.3.0, Provision
 then go for build and deployment steps.
 2. Provision all the services mentioned in the table below.
 
----
-Job Name: Job Path
-Analytics API: Provision/<env>/DataPipeline/AnalyticsAPI
----
+## Provision
 
-Attempt | #1 |
+Job Name | Job Path |
 --- | --- |
 Analytics API| Provision/<env>/DataPipeline/AnalyticsAPI |
+LP Elasticsearch| Provision/<env>/KnowledgePlatform/CompositeSearch |
+LogEsUpgrade6xx| Provision/<env>/Core/LogEsUpgrade6xx |
