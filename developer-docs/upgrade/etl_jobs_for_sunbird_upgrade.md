@@ -17,4 +17,4 @@ data.
 
 Job Name | Job Path |
 --- | --- |
-CassandraDecrypt |  Deploy/<\env\>/Core/CassandraDecrypt |
+CassandraDecrypt |  Deploy/\<env\>/Core/CassandraDecrypt |
