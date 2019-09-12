@@ -56,4 +56,8 @@ ccesstime,lastcompletedtime,lastupdatedtime,progress,result,score,status,viewcou
 
 Once all the steps are done, you can delete the files which is saved with .csv format.
 
+2. Remove telemetry datapipeline logstash docker service.
 
+From release-2.3.0 we are directly sending telemetry events from telemetry-service to ingest kafka topic. So telemetry datapipeline logstash docker service is not required anymore. Execute the below command on swarm manager to remove telemetry datapipeline logstash docker service.
+
+# sudo docker service rm telemetry-datapipeline-logstash
