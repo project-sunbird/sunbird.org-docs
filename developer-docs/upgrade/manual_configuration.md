@@ -4,28 +4,38 @@ page_title:  Manual Configuration
 description:  Manual Configuration
 published: true
 allowSearch: true
-keywords: Upgrade, Sunbird 2.0.0
+keywords: Upgrade, Sunbird 2.3.0
 ---
 
 ## Overview
 
 With every new release of sunbird you will be able to experience new features, improved performance and bug squashes.
-In this document, we will cover detailed steps on how to upgrade Sunbird 1.14.0 to 2.2.0. A lot has changed from 1.14.0 to 2.2.0 with respect to backend configurations. Below are the highlights of the changes:
+In this document, we will cover detailed steps on how to upgrade Sunbird 2.0.0 to 2.3.0. Below are the some manual changes which are required.
 
-## Upgrade Highlights
+## Manual configuration
+
+1. Cassandra data migration from old keyspace to new keyspace
+2. Remove telemetry datapipeline logstash
+
+
+1. Cassandra data migration from old keyspace to new keyspace
+    
+There are some structural change in Course-batch table structure in cassandra for 2.3.0. Run the below commands
+on KP Cassandra machine.
+
+Export the data from existing cassandra keyspace to /home/ops/<name>.csv as ops is readily available
+   ```cqlsh -e "COPY sunbird.course_batch (courseid,id,createdby,createddate,createdfor,description,enddate,enrollmentenddate,enrollmenttype,m
+entors,name,startdate,status,updateddate) TO '<path_to_save_file>/sunbird_courses_course_batch.csv' WITH HEADER = TRUE;"```
  
-* Core Elasticsearch upgraded
-* Core Elasticsearch 6.x creation of indices with mapping
-* Migration of core elasticsearch data from old indices to new indices
-* Keycloak configuration
-* Run maskEmailPhoneMigration ETL Job for Core Cassandra
-* Run UserSync ETL Job for Core Cassandra
-* Run ETL job to delete user from Keycloak postgres DB
-* Run course batch sync job
+   ```cqlsh -e "COPY sunbird.user_courses (batchid,userid,courseid,active,addedby,completedon,datetime,delta,enrolleddate,grade,lastreadconten
+tid,lastreadcontentstatus,status,progress) TO '<path_to_save_file>/sunbird_courses_user_courses.csv' WITH HEADER = TRUE;"```
+
+   ```cqlsh -e "COPY sunbird.content_consumption (contentid,userid,contentversion,batchid,courseid,completedcount,datetime,grade,lastaccesstim
+e,lastcompletedtime,lastupdatedtime,progress,result,score,status,viewcount) TO '<path_to_save_file>/sunbird_courses_content_consumption.csv' WITH 
+HEADER = TRUE;"```
 
 
-You can click on the links which will take you to the respective pages. This page will have details on how to run the respective step
 
-* [Core Elasticsearch upgrade](developer-docs/upgrade/core-elasticsearch_upgrade/){:target="_blank"}
-* [Keycloak Configuration](developer-docs/upgrade/keycloak_configuration/){:target="_blank"}
-* [ETL jobs to run for upgrading to release-2.0.0](developer-docs/upgrade/etl_jobs_for_sunbird_upgrade/){:target="_blank"}
+
+ 
+ 
