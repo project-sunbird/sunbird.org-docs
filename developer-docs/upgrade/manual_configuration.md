@@ -26,14 +26,16 @@ There are some structural change in Course-batch table structure in cassandra fo
 on KP Cassandra machine.
 
 ~~~
- cqlsh -e "COPY sunbird.user_courses (batchid,userid,courseid,active,addedby,completedon,datetime,delta,enrolleddate,grade,lastreadconten
+# cqlsh -e "COPY sunbird.user_courses (batchid,userid,courseid,active,addedby,completedon,datetime,delta,enrolleddate,grade,lastreadconten
 tid,lastreadcontentstatus,status,progress) TO '<path_to_save_file>/sunbird_courses_user_courses.csv' WITH HEADER = TRUE;"
 
-cqlsh -e "COPY sunbird.content_consumption (contentid,userid,contentversion,batchid,courseid,completedcount,datetime,grade,lastaccesstim
+
+# cqlsh -e "COPY sunbird.content_consumption (contentid,userid,contentversion,batchid,courseid,completedcount,datetime,grade,lastaccesstim
 e,lastcompletedtime,lastupdatedtime,progress,result,score,status,viewcount) TO '<path_to_save_file>/sunbird_courses_content_consumption.csv' WITH 
 HEADER = TRUE;"
 
-cqlsh -e "COPY sunbird.course_batch (courseid,id,createdby,createddate,createdfor,description,enddate,enrollmentenddate,enrollmenttype,mentors,name,startdate,status,updateddate) TO '<path_to_save_file>/sunbird_courses_course_batch.csv' WITH HEADER = TRUE;"
+
+# cqlsh -e "COPY sunbird.course_batch (courseid,id,createdby,createddate,createdfor,description,enddate,enrollmentenddate,enrollmenttype,mentors,name,startdate,status,updateddate) TO '<path_to_save_file>/sunbird_courses_course_batch.csv' WITH HEADER = TRUE;"
 
 
  
