@@ -412,6 +412,70 @@ paths:
             error.
           schema:
             $ref: '#/definitions/CommonErrorResponse'
+  /v2/bulk/user/upload:
+    post:
+      description: >-
+        This API is associated with upload users in bulk on the Sunbird Platform, State admin will be provided with the ability to upload a valid list of state users on the Sunbird Platform .
+        Users will be uploaded into a placeholder, called shadow DB. Now, each custodian org user identifier (email, phone) need to be matched with shadow db. Only if a match is found, then that user will be moved from custodian to state org.
+           - The **_/v2/bulk/user/upload_** endpoint executes " bulk upload user" request based on parameters provided as metadata in the request body.
+           - It is mandatory to provide values for parameters marked with *.
+           - Mandatory fields cannot be null or empty.
+      summary: Upload Users in Bulk
+      tags:
+        - Bulk Operation APIs
+      operationId: bulk upload user req
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: user
+          in: formData
+          required: true
+          type: file
+          format: file
+          description: >-
+            This is a .csv file.
+              - Each line of the file is a data record. Each record consists of one or more user fields, separated by commas. Each successfully created user is associated with root org of uploader (org admin).
+
+            The CSV file format supported is mentioned below:
+              - Name: Name of user as per state records (mandatory)
+              - Email: Email. Either phone or email is mandatory.
+              - Phone: Phone number. Either phone or email is mandatory.
+              - External Org ID: School ID as provided in Diksha .
+              - External User ID: State ID of the user (mandatory)
+              - Input Status (ACTIVE, INACTIVE): - Input record status as provided by state admin (mandatory)
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+        - name: X-Authenticated-User-Token
+          in: header
+          required: true
+          type: string
+          description: >-
+            Access token of registered user performing given API request.
+
+      responses:
+        '200':
+          description: 'OK ! Successful operation."bulk upload user" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/BulkUploadResponse'
+        '400':
+          description: 'BAD REQUEST. The "bulk upload user" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/BulkUploadErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+      security:
+        - bearer: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
 definitions:
   BulkUploadStatusResponse:
     description: Bulk upload status response
