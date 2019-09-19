@@ -1715,70 +1715,7 @@ paths:
             'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
             $ref: '#/definitions/UserErrorResponse'
- /private/user/v1/migrate:
-    patch:
-      description: >-
-       This API is associated with moving user from custodian rootorg to non-custodian rootOrg. This private api , so call can be made from container to container only.
-          - The **_/private/user/v1/migrate_**.
-          - It is mandatory to provide values for required parameters
-      summary: Migrate user from custodian org to non-custodian
-      tags:
-      - User APIs
-      operationId: userTenantMigrate
-      produces:
-      - application/json
-      parameters:
-      - name: Body
-        in: body
-        required: true
-        description: >-
-          - The body payload comprises of metadata on user tenant migration  
-          - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
-             - JSON 
-        schema:
-          allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
-              - $ref: '#/definitions/UserTenantMigration'
-      - name: Content-Type
-        in: header
-        required: true
-        type: string
-        description: >-
-           The Content Type entity is the media type of the resource.
-            Possible media types can be:- 
-              - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
-      - name: ts
-        in: header
-        required: true
-        type: string
-        description: >
-          Timestamp is a sequence of characters or encoded information identifying when the list user skills API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second.
-      - name: X-msgid
-        in: header
-        required: true
-        type: string
-        description: 'This ID Uniquely identifies a request if the same API is called multiple times'
-      - name: Authorization
-        in: header
-        required: true
-        type: string
-        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-      responses:
-        '200':
-          description: 'OK ! Successful operation."User migration" operation was successfully executed.'
-          schema:
-            $ref: '#/definitions/UserSuccessResponse'
-        '400':
-          description: 'BAD REQUEST. The "list user skills" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
-          schema:
-            $ref: '#/definitions/UserErrorResponse'
-        '500':
-          description: >-
-            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
-          schema:
-            $ref: '#/definitions/UserErrorResponse'
+
 definitions:
   CreateUserrequest:
     description: User object
@@ -2753,32 +2690,7 @@ definitions:
       operation:
         type: string
         description : 'possible values are {ADD,EDIT,REMOVE}'
-   UserTenantMigration:
-    title: UserTenantMigration
-    type: object
-    properties:
-      request:
-       type: object
-       properties:
-         channel:
-          type: string
-         orgExternalId:
-          type: string
-         userId:
-          type: string
-         orgId:
-          type: string
-         externalIds:
-            type: array
-            items:
-              type: object
-              allOf:
-                - $ref: "#/definitions/ExternalId" 
-    required:
-    - channel
-    - userId
-
-   ReadUserSkill:
+  ReadUserSkill:
     title: ReadUserSkill
     type: object
     properties:
