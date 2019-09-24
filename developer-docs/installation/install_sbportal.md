@@ -39,9 +39,9 @@ Check the following pre-requisites before installing and running the Sunbird-pla
 
 1. **Software dependencies**
 	* [Node](https://nodejs.org/en/download/){:target="_blank"} - install the latest release of 6.x.x LTS series
-	* [Bower](https://bower.io/#install-bower){:target="_blank"} - latest version of bower: `npm install -g bower`
 	* [Gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md){:target="_blank"}- 
 	  latest version of gulp: `npm install -g gulp-cli`
+	* [nodemon](https://www.npmjs.com/package/nodemon){:target="_blank"} - Latest version  of nodemon: `npm install -g nodemon`
 
 2. **API Keys** 
 
@@ -50,19 +50,34 @@ This installation guide will use a cloud hosted Sunbird APIs for which an API ke
 - For getting an API key,send an email to: info@sunbird.org
 
 ### Setup 
-For setting up the application, check out the [code](https://github.com/project-sunbird/sunbird-portal.git){:target="_blank"}. The code can be checked out via the command:
+For setting up the application, check out the [code](https://github.com/Sunbird-Ed/SunbirdEd-portal){:target="_blank"}. The code can be checked out via the command:
     
-    git clone https://github.com/project-sunbird/sunbird-portal.git
+    git clone https://github.com/Sunbird-Ed/SunbirdEd-portal
 
-> ***Note***: Stable versions of the sunbird portal are available via tags for each release, and the master branch contains latest stable release. For latest stable release [refer](https://github.com/project-sunbird/sunbird-portal/){:target="_blank"}
+> ***Note***: Stable versions of the sunbird portal are available via tags for each release, and the master branch contains latest stable release. For latest stable release [refer](https://github.com/Sunbird-Ed/SunbirdEd-portal){:target="_blank"}
 
 Once the git clone command is over, run the following set of commands:
 
    
-    $ cd {PROJECT-FOLDER}/src
+    $ cd {PROJECT-FOLDER}/src/app
     $ npm install
-    $ bower cache clean
-    $ bower install --force
+    $ gulp download:editors
+    $ cd {PROJECT-FOLDER}/src/app/client
+    $ npm install
+
+## Configuring the Environment and Services Stack
+
+1. Configure the following system environment variables in the terminal which you have opened
+
+| Environment Variable      |  Value  | Data Type |
+|---------------------------|---------|-----------|
+|  sunbird_environment      | local   |   string  |
+|  sunbird_instance         | sunbird |   string  |
+|  sunbird_default_channel  | sunbird |   string  |
+|  sunbird_default_tenant   | sunbird |   string  |
+
+> The initialization of these environmental variables can take place in a common place like in your **.bashrc** or **.bash_profile**
+
 
 ### Configure Backend Service Stack
 
@@ -105,8 +120,20 @@ Once the file is updated with appropriate values, then you can proceed with runn
  
 ## Run the Application
 
-Run the following commands in your console (CLI):
+1. Update the Sunbird application with the modified configuration file values. Run the following command in the **{PROJECT-FOLDER}/src/app/client** folder:
+
+    ```
+    nodemon
+    ```
+    
+2. Wait for the following message before proceeding to the next step 
+
+    ```
+    [nodemon] clean exit - waiting for changes before restart
+    ```
+
+3. Run the following commands in your console (CLI):
     $ cd {PROJECT-FOLDER}/src/app
     $ node server.js
 
-After executing the commands, open `http://localhost:3000` in browser.
+4. After executing the commands, open `http://localhost:3000` in browser.
