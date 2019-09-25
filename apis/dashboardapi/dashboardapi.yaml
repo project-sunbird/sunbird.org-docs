@@ -1,0 +1,96 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title:  Course Progress Download API
+  description: >-
+    The Course Progress Download API is used to download the status of the course and assessment as consumed by a user. 
+host: staging.open-sunbird.org
+basePath: /learner/dashboard/v1/progress/course/
+securityDefinitions:
+  bearer:
+      type: apiKey  # arbitrary name for the security scheme
+      in: header # The secrity scheme parameter is in "header"
+      name: Authorization # name of the header, query parameter or cookie
+  userToken:
+      type: apiKey  # arbitrary name for the security scheme
+      in: header # The secrity scheme parameter is in "header"
+      name: x-authenticated-user-token # name of the header, query parameter or cookie
+schemes:
+  - https
+produces:
+  - application/json
+paths:
+  /{batchId}/export:
+    get:
+      description: >-
+       This API is used to download the course and assessment CSV report.
+          - **_/{batchId}/export/_** endpoint downloads the report in a csv format.  
+          - Required fields cannot be left null or empty    
+      summary: Download Course and Assessment Report
+      tags:
+        - Course Progress and Assessment Download API
+      operationId: ProgressGet
+      produces:
+        - application/json
+      parameters:
+        - name: batchId
+          type: string
+          in: path
+          required: true
+          description: >-
+            'Unique identifier of the batch to get'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource. Possible media types are:- 
+              - Application/json
+        - name: X-Authenticated-User-Token
+          in: header
+          required: true
+          type: string
+          description: 'The registered user token/key to authenticate user and execute the API.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'SUCCESS.'
+          schema:
+            $ref: '#/definitions/GetAssessmentResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+definitions:
+  GetAssessmentResponse:
+    description: Get Assessment Download Response
+    type: object
+    allOf:
+      - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+      - $ref: '#/definitions/ResultStatus'
+  ResultStatus:
+    type: object
+    properties:
+      duration:
+        type: string
+        description: 'This represents the response time of the api'
+      reports:
+        type: object
+        properties:
+          assessmentReportUrl: 
+            type: string
+            description: 'Contains the Url for assessment report'
+          courseProgressReportUrl: 
+            type: string
+            description: 'Contains the Url for course progress report'
+      signedUrl:
+        type: string
+        description: 'Contains the signed Url for course report'
+  EmptyResult:
+    title: Empty Result
+    type: object
+    properties:
+      result:
+        type: object
