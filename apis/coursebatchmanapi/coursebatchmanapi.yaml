@@ -11,13 +11,13 @@ host: staging.open-sunbird.org
 basePath: /api/course/v1
 securityDefinitions:
   bearer:
-      type: apiKey  # arbitrary name for the security scheme
-      in: header # The secrity scheme parameter is in "header"
-      name: Authorization # name of the header, query parameter or cookie
+    type: apiKey  # arbitrary name for the security scheme
+    in: header # The security scheme parameter is in "header"
+    name: Authorization # name of the header, query parameter or cookie
   userToken:
-      type: apiKey  # arbitrary name for the security scheme
-      in: header # The secrity scheme parameter is in "header"
-      name: x-authenticated-user-token # name of the header, query parameter or cookie
+    type: apiKey  # arbitrary name for the security scheme
+    in: header # The security scheme parameter is in "header"
+    name: x-authenticated-user-token # name of the header, query parameter or cookie
 schemes:
   - https
 consumes:
@@ -27,7 +27,7 @@ consumes:
 produces:
   - application/json
 paths:
-/batch/create:
+  /batch/create:
     post:
       description: >-
         This API is associated with batch creation 
@@ -103,26 +103,25 @@ paths:
             allOf:
              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
              - $ref: '#/definitions/BatchCreateErrorResponse'
-    /batch/read/{Batch_ID}:
-      parameters:
-      - in: path
-        name: Batch_ID
-        type: string
-        required: true
-        description: 'Append a valid Batch ID To the Request URL'   
+  /batch/read/{Batch_ID}:
     get:
-        description: >-
+      description: >-
          This API is associated with fetching a particular batch on the Sunbird Platform.
           - {...}refers to a section of read/{Batch_Id} endpoint URL path that needs to be replaced by appropriate Id
           - The **_/batch/read/{Batch_Id}_** endpoint executes "Fetch a batch" request to fetch a particular batch.
           - It is a must to provide values for required parameters 
-    summary: Fetch a particular Batch
+      summary: Fetch a particular Batch
       tags:
       - Course Batch APIs
       operationId: getBatch
       produces:
       - application/json
       parameters:
+      - in: path
+        name: Batch_ID
+        type: string
+        required: true
+        description: 'Append a valid Batch ID To the Request URL'  
       - name: Content-Type
         in: header
         required: true
@@ -140,7 +139,7 @@ paths:
         required: true
         type: string
         description: 'It is a Unique ID which identifies the request incase the same API is executed multiple times.'
-      - name:  x-authenticated-user-token
+      - name: x-authenticated-user-token
         in: header
         required: true
         type: string
@@ -151,32 +150,31 @@ paths:
         type: string
         description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
       responses:
-         '200':
+        '200':
           description: 'SUCCESS. The **Fetch a batch** operation was successful!'
           schema:
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/SingleBatchResponseWrapper'
-
-         '400':
+            - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+            - $ref: '#/definitions/SingleBatchResponseWrapper'
+        '400':
           description:  'BAD REQUEST,**Fetch a batch** operation failed !The possible reason for failure is that you may have missed providing input for a mandatory parameter'
           schema:
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/BatchCreateErrorResponse'
+            - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+            - $ref: '#/definitions/BatchCreateErrorResponse'
         '404':
           description: 'RESOURCE NOT FOUND" operation failed ! The possible reason for failure is that BatchId is invalid.'
           schema:
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/BatchCreateErrorResponse'     
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/BatchCreateErrorResponse'     
         '500':
           description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/BatchCreateErrorResponse'
-    /batch/user/add/{Batch_Id}:  
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/BatchCreateErrorResponse'
+  /batch/user/add/{Batch_Id}:  
     parameters:
       - in: path
         name: Batch_Id
@@ -244,15 +242,15 @@ paths:
           description:  'BAD REQUEST,**dd user to a specific batch** operation failed !The possible reason for failure is that you may have missed providing input for a mandatory parameter'
           schema:
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/BatchCreateErrorResponse'
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/BatchCreateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/BatchCreateErrorResponse'
-    /batch/list:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/BatchCreateErrorResponse'
+  /batch/list:
     post:
       description: >-
         This API is associated with fetching and listing existing batches
@@ -320,15 +318,15 @@ paths:
           description: 'BAD REQUEST,**Lists the existing batches** operation failed !The possible reason for failure is that you may have missed providing input for a mandatory parameter'
           schema:
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/BatchCreateErrorResponse'
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/BatchCreateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/BatchCreateErrorResponse'
-    /batch/update:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/BatchCreateErrorResponse'
+  /batch/update:
     patch:
       description: >-
         This API is associated with updating a batch on the Sunbird Platform.
@@ -395,15 +393,15 @@ paths:
           description: 'BAD REQUEST,**Update a batch** operation failed !The possible reason for failure is that you may have missed providing input for a mandatory parameter' 
           schema:
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/BatchCreateErrorResponse'
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/BatchCreateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/BatchCreateErrorResponse'
-    /enrol:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/BatchCreateErrorResponse'
+  /enrol:
     post:
       description: >-
         This API is associated with enrollment of user for a particular open course batch. Users can enrol only for an open batch.
@@ -461,27 +459,27 @@ paths:
           description: 'SUCCESS. The **enroll to batch** operation was successful!'
           schema:
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/EnrollBatchResponse'
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/EnrollBatchResponse'
         '400':
           description:  'BAD REQUEST,**EnrollBatch** operation failed !The possible reason for failure is that you may have missed providing input for a mandatory parameter'       
           schema:  
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/BatchCreateErrorResponse'
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/BatchCreateErrorResponse'
         '404':
           description: 'RESOURCE NOT FOUND ! **EnrollBatch**operation failed ! The possible reason for failure is that either of provided batch Id,course Id, User Id is invalid.'
           schema:
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/BatchCreateErrorResponse'     
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/BatchCreateErrorResponse'     
         '500':
           description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/BatchCreateErrorResponse'
-    /unenrol:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/BatchCreateErrorResponse'
+  /unenrol:
     post:
       description: >-
         This API is associated with unenrollment of users from a particular course batch
@@ -539,26 +537,26 @@ paths:
           description: 'SUCCESS. The **unenroll from batch** operation was successful!'
           schema:
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/UnenrollBatchResponse'
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/UnenrollBatchResponse'
         '400':
           description:  'BAD REQUEST,**UnenrollBatch** operation failed !The possible reason for failure is that you may have missed providing input for a mandatory parameter'       
           schema:  
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/BatchCreateErrorResponse'
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/BatchCreateErrorResponse'
         '404':
           description: 'RESOURCE NOT FOUND ! **UnenrollBatch**operation failed ! The possible reason for failure is that either of provided batch Id,course Id, User Id is invalid.'
           schema:
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/BatchCreateErrorResponse'     
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/BatchCreateErrorResponse'     
         '500':
           description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
             allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/BatchCreateErrorResponse'    
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/BatchCreateErrorResponse'    
 definitions:
   AddUserToBatchResp:
    description: ''
