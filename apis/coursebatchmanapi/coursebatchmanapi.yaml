@@ -6,7 +6,7 @@ info:
   contact:
     email: info@sunbird.org
   description: >-
-        The Course Batch Management API allows you to manage course batches on the Sunbird platform. A batch is used to arrange courses for specific sets or groups.The basic operations for this API include Create, Update, Enrol, and List.
+        The Course Batch Management API allows you to manage course batches on the Sunbird platform. A batch is used to categorize courses for specific sets or groups.The basic operations for this API include Create, Update, Enrol, and List.
 host: staging.open-sunbird.org
 basePath: /api/course/v1
 securityDefinitions:
@@ -31,9 +31,9 @@ paths:
     post:
       description: >-
         This API is associated with batch creation 
-          - The Format of the resource URL is '{{host}}/v1/course/batch/create' 
+          - The format of the resource URL is '{{host}}/v1/course/batch/create' 
           - The **_/batch/create_** endpoint executes "create batch" request to create a new batch
-          - It is a must to provide values for required parameters  
+          - It is mandatory to provide values for required parameters  
       summary: Creates a Batch
       tags:
       - Course Batch APIs
@@ -45,7 +45,7 @@ paths:
         in: body
         required: true
         description: >-
-            The body refers to the format of the request.
+            The body refers to the format of the request
               - The body contains metadata about the new batch to be created.
         schema:
           allOf:
@@ -63,7 +63,7 @@ paths:
         required: true
         type: string
         description: 'The time stamp at which the **create batch** request was sent. '
-      - name: X-msgid
+      - name: X-msg
         in: header
         required: true
         type: string
@@ -86,19 +86,19 @@ paths:
              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
              - $ref: '#/definitions/CreateBatchResponse'
         '400':
-          description:  'BAD REQUEST,**create batch** operation failed !The possible reason for failure is that you may have missed providing input for a mandatory parameter' 
+          description:  'BAD REQUEST,**create batch** operation failed! The possible reason for failure is that you may have missed providing input for a mandatory parameter' 
           schema:  
             allOf:
              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
              - $ref: '#/definitions/BatchCreateErrorResponse'
         '404':
-          description: 'RESOURCE NOT FOUND ! **Create Batch**operation failed ! The possible reason for failure is that the provided course Id is invalid.'
+          description: 'RESOURCE NOT FOUND ! **Create Batch**operation failed ! The possible reason for failure is that the provided course ID is invalid.'
           schema:
             allOf:
              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
              - $ref: '#/definitions/BatchCreateErrorResponse'     
         '500':
-          description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org'
           schema:
             allOf:
              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
@@ -107,9 +107,9 @@ paths:
     get:
       description: >-
          This API is associated with fetching a particular batch on the Sunbird Platform.
-          - {...}refers to a section of read/{Batch_Id} endpoint URL path that needs to be replaced by appropriate Id
-          - The **_/batch/read/{Batch_Id}_** endpoint executes "Fetch a batch" request to fetch a particular batch.
-          - It is a must to provide values for required parameters 
+          - {...}refers to a section of read/{Batch_Id} endpoint URL path that needs to be replaced by appropriate ID
+          - The **_/batch/read/{Batch_Id}_** endpoint executes "Fetch a batch" request to fetch a particular batch
+          - It is mandatory to provide values for required parameters 
       summary: Fetch a particular Batch
       tags:
       - Course Batch APIs
@@ -118,7 +118,6 @@ paths:
       - application/json
       parameters:
       - in: path
-        name: Batch_ID
         type: string
         required: true
         description: 'Append a valid Batch ID To the Request URL'  
@@ -157,13 +156,13 @@ paths:
             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
             - $ref: '#/definitions/SingleBatchResponseWrapper'
         '400':
-          description:  'BAD REQUEST,**Fetch a batch** operation failed !The possible reason for failure is that you may have missed providing input for a mandatory parameter'
+          description:  'BAD REQUEST,**Fetch a batch** operation failed! The possible reason for failure is that you may have missed providing input for a mandatory parameter'
           schema:
             allOf:
             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
             - $ref: '#/definitions/BatchCreateErrorResponse'
         '404':
-          description: 'RESOURCE NOT FOUND" operation failed ! The possible reason for failure is that BatchId is invalid.'
+          description: 'RESOURCE NOT FOUND" operation failed ! The possible reason for failure is that Batch ID is invalid.'
           schema:
             allOf:
               - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
@@ -186,7 +185,7 @@ paths:
         This API is associated with addding a user  to a particular batch on the Sunbird Platform.
           - The format of the resource URL is '{{host}}/course/v1/batch/user/add/{Batch_Id}'
           - The **_/batch/user/add/{Batch_Id}_** endpoint executes "Add user to a batch" request to add a registered user to a specific batch.
-          - It is a must to provide values for required parameters 
+          - It is mandatory to provide values for required parameters 
       summary: Add User to a specific batch
       tags:
       - Course Batch APIs
@@ -198,7 +197,7 @@ paths:
         in: body
         required: true
         description: >-
-            The body refers to the format of the request.
+            The body refers to the format of the request
               - The body contains metadata about the user to be added to a specific batch
         schema:
           allOf:
@@ -255,8 +254,8 @@ paths:
       description: >-
         This API is associated with fetching and listing existing batches
           - The format of the resource URL is '{{host}}/course/v1/batch/search'
-          - The **_/batch/list_** endpoint executes "Lists the existing batches" request to fetch the existing batches.
-          - It is a must to provide values for required parameters 
+          - The **_/batch/list_** endpoint executes "Lists the existing batches" request to fetch the existing batches
+          - It is mandatory to provide values for required parameters 
       summary: Lists the existing batches
       tags:
       - Course Batch APIs 
@@ -266,14 +265,14 @@ paths:
       parameters:
       - in: query
         name: orgdetails
-        description: Extra data can be passed in query param with above mention key and comma separated value:Example ,?orgdetails=email,name . Sunbird will take this query param and pass to content service as it is, and content service knows what need to be done.
+        description: Extra data can be passed in query param with above mentioned key and comma separated value: Example ,?orgdetails=email,name . Sunbird will take this query param and pass to content service as it is, and content service knows what need to be done.
         type: string
         required: false 
       - name: Body
         in: body
         required: true
         description: >-
-            The body refers to the format of the request.
+            The body refers to the format of the request
               - The body contains metadata about the batches to be listed
         schema:
          allOf:
@@ -285,18 +284,18 @@ paths:
         required: true
         type: string
         description: >-
-            The Content Type entity is the media type of the resource.Possible media types can be:- 
+            The Content Type entity is the media type of the resource. Possible media types can be:- 
               - Application/json
       - name: ts
         in: header
         required: true
         type: string
-        description: 'The time stamp identifying when the **List the existing batches** request was sent. '
+        description: 'The time stamp identifying when the **List the existing batches** request was sent'
       - name: X-msgid
         in: header
         required: true
         type: string
-        description: 'It is a Unique ID which identifies the request incase the same API is executed multiple times.'
+        description: 'It is a Unique ID which identifies the request incase the same API is executed multiple times'
       - name:  x-authenticated-user-token
         in: header
         required: true
@@ -331,7 +330,7 @@ paths:
       description: >-
         This API is associated with updating a batch on the Sunbird Platform.
           - The **_/batch/update_** endpoint executes "Update a batch" request to update an existing batch.
-          - It is a must to provide values for required parameters 
+          - It is mandatory to provide values for required parameters 
       summary: Course Batch Update
       tags:
       - Course Batch APIs
@@ -343,8 +342,8 @@ paths:
         in: body
         required: true
         description: >-
-            The body refers to the format of the request.
-              - The body contains metadata about the batch to be updated.
+            The body refers to the format of the request
+              - The body contains metadata about the batch to be updated
         schema:
           allOf:
              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
@@ -360,7 +359,7 @@ paths:
         required: true
         type: string
         description: >-
-            The Content Type entity is the media type of the resource.Possible media types can be:- 
+            The Content Type entity is the media type of the resource. Possible media types can be:- 
               - Application/json
       - name: ts
         in: header
@@ -407,7 +406,7 @@ paths:
         This API is associated with enrollment of user for a particular open course batch. Users can enrol only for an open batch.
           - The Format of the resource URL is '{{host}}//course/v1/enrol' 
           - The **_/course/v1/enrol_** endpoint executes "enroll to given batch" request.
-          - It is a must to provide values for required parameters  
+          - It is mandatory to provide values for required parameters  
       summary: User self enrollment for open batch.
       tags:
       - Course Batch APIs
@@ -430,7 +429,7 @@ paths:
         required: true
         type: string
         description: >-
-            The Content Type entity is the media type of the resource.Possible media types can be:- 
+            The Content Type entity is the media type of the resource. Possible media types can be:- 
               - Application/json
               - Multipart/form-data
               - Application/x-www-form-urlencoded
@@ -468,7 +467,7 @@ paths:
               - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
               - $ref: '#/definitions/BatchCreateErrorResponse'
         '404':
-          description: 'RESOURCE NOT FOUND ! **EnrollBatch**operation failed ! The possible reason for failure is that either of provided batch Id,course Id, User Id is invalid.'
+          description: 'RESOURCE NOT FOUND ! **EnrollBatch**operation failed ! The possible reason for failure is that either the provided batch ID,course ID, or User ID is invalid.'
           schema:
             allOf:
               - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
@@ -485,7 +484,7 @@ paths:
         This API is associated with unenrollment of users from a particular course batch
           - The Format of the resource URL is '{{host}}/course/v1/unenrol' 
           - The **_/course/v1/unenrol_** endpoint executes "enroll to given batch" request.
-          - It is a must to provide values for required parameters  
+          - It is mandatory to provide values for required parameters  
       summary: Unenrolls a user from the batch
       tags:
       - Course Batch APIs
@@ -497,8 +496,8 @@ paths:
         in: body
         required: true
         description: >-
-            The body refers to the format of the request.
-              - The body contains metadata about the batch from which the user wants to unenroll.
+            The body refers to the format of the request
+              - The body contains metadata about the batch from which the user wants to unenroll
         schema:
           allOf:
              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
@@ -508,7 +507,7 @@ paths:
         required: true
         type: string
         description: >-
-            The Content Type entity is the media type of the resource.Possible media types can be:- 
+            The Content Type entity is the media type of the resource. Possible media types can be:- 
               - Application/json
               - Multipart/form-data
               - Application/x-www-form-urlencoded
@@ -546,7 +545,7 @@ paths:
               - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
               - $ref: '#/definitions/BatchCreateErrorResponse'
         '404':
-          description: 'RESOURCE NOT FOUND ! **UnenrollBatch**operation failed ! The possible reason for failure is that either of provided batch Id,course Id, User Id is invalid.'
+          description: 'RESOURCE NOT FOUND ! **UnenrollBatch**operation failed ! The possible reason for failure is that either the provided batch ID, course ID, or User ID is invalid'
           schema:
             allOf:
               - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
@@ -565,7 +564,7 @@ definitions:
     result:
      type: object
   AddUserToBatchReq:
-   description: 'request structure for add user to batch'
+   description: 'request structure to add user to batch'
    type: object
    properties:
     request:
@@ -591,7 +590,7 @@ definitions:
       request:
         $ref: '#/definitions/CreateBatchRequest'
   CreateBatchRequest:
-    description: request body for creating a batch from a course.
+    description: request body for creating a batch from a course
     type: object
     properties:
       courseId:
@@ -621,9 +620,9 @@ definitions:
         type: array
         items:
           type: string
-          description: 'list of user id who will take care of course'
+          description: 'list of user id who will manage the course'
     required:
-    - courseId
+    - courseID
     - name
     - description
     - enrollmentType
@@ -715,7 +714,7 @@ definitions:
         type: integer
         description : 'staus of the batch 0- not started, 1- started, 2- ended'
   CourseBatchSearchReq:
-   description: 'this will contains request structure for batch search'
+   description: 'this will contain request structure for batch search'
    type: object
    properties:
      request:
@@ -740,12 +739,12 @@ definitions:
     required:
     - request
   EnrollBatchReq:
-    description: request body for enrolling user to batch.
+    description: request body for enrolling the user to a batch
     type: object
     properties:
       courseId:
         type: string
-        description: 'content id for which user want to create a course'
+        description: 'content id for which the user wants to create a course'
       batchId:
         type: string
         description: 'name of the course'
@@ -757,18 +756,18 @@ definitions:
     - userId
     - batchId
   UnenrollBatchReq:
-    description: request body for unenrolling user to batch.
+    description: request body for unenrolling user to batch
     type: object
     properties:
       courseId:
         type: string
-        description: 'Course id for which user want to unenroll'
+        description: 'Course id for which the user wants to unenroll'
       batchId:
         type: string
-        description: 'identifier of the batch, from where user want to unenroll'
+        description: 'identifier of the batch, from where the user wants to unenroll'
       userId:
         type: string
-        description: 'Id of the user, who is going to unenrol from given course batch.'
+        description: 'Id of the user, who is going to unenrol from the given course batch.'
     required:
     - courseId
     - userId
@@ -778,7 +777,7 @@ definitions:
     type: object
     properties:
       createdFor:
-        description: 'organisation id for which batch are created.'
+        description: 'organisation id for which batches are created.'
         type: array
         items:
           type: string
@@ -786,7 +785,7 @@ definitions:
         description: 'batch start date'
         type: string    
       endDate:
-        description: 'batch end date can be updated if end date hasnt expired'
+        description: 'batch end date can be updated if end date has not expired'
         type: string
       description:
         description: ''
