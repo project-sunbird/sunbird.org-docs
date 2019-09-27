@@ -39,7 +39,7 @@ The organizations take a policy decision to allow or disallow registering single
 |                            |                  |                       | App Administrator          |                            |
 
 
-4.Run `sudo ./sunbird-install.sh -s apis`  
+4.Run OnboardAPI job for onboarding API's and OndboardConsumer job for onboarding consumers.
   
 **Note:** The **jwt_token.txt** file is in the location home directory of the administration server. This file contains the jwt tokens for all the services. 
 
