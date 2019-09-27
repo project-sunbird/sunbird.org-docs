@@ -1,0 +1,195 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Issue Certificate api
+  description: >-
+    This api is used for issuing course certificate.
+host: staging.open-sunbird.org
+basePath:  /api/course/batch/cert/v1
+securityDefinitions:
+  bearer:
+      type: apiKey  # arbitrary name for the security scheme
+      in: header # The security scheme parameter is in "header"
+      name: Authorization # name of the header, query parameter or cookie
+  userToken:
+      type: apiKey  # arbitrary name for the security scheme
+      in: header # The security scheme parameter is in "header"
+      name: x-authenticated-user-token # name of the header, query parameter or cookie
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /issue:
+    post:
+      description:  >-
+       This API is associated with issuing digitally certificate generation.
+          - The **_ /issue_** endpoint executes the "Certificate issue" request based on parameters provided as filter in the request body.
+          - Required fields cannot be left null or empty
+      summary: issuance of certificate
+      tags:
+      - Issue Certificate Api
+      operationId: GeneratePost
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: >-
+            The body refers to the format of the request.
+              - The body contains metadata about the request for issuing certificate.
+        schema:
+          allOf :
+            - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
+            - $ref: '#/definitions/IssueCertificateRequest'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+      - name: ts
+        in: header
+        required: true
+        type: string
+        description: 'The timestamp at which the **issue certificate** request was sent. '
+      - name: X-msgid
+        in: header
+        required: true
+        type: string
+        description: 'It is a Unique ID that identifies the request incase the same API is executed multiple times.'
+      - name: x-authenticated-user-token
+        in: header
+        required: true
+        type: string
+        description: 'The alphanumeric string to access the API'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'OK ! Successful operation."Certificate generation" operation was successfully executed.'
+          schema:
+            allOf:
+             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+             - $ref: '#/definitions/IssueCertificateResponse'
+        '400':
+          description: 'BAD REQUEST. The "Certificate generation" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/IssueCertificateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+definitions:
+  IssueCertificateRequest:
+    title: Issue certificate request
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/Request'
+    required:
+    - request
+  Request:
+    title: Request
+    type: object
+    properties:
+      courseId:
+        description: course identifier
+        type: string
+      batchId:
+        description: batch identifier
+        type: string
+      certificate:
+        description: name of the certificate to be issued
+        type: string
+      filters:
+        $ref: '#/definitions/UserCoursesFilter'
+    required:
+    - courseId
+    - batchId
+    - certificate
+  UserCoursesFilter:
+    title: Issue Certificate Filter
+    type: object
+    properties:
+      status:
+       description : 'user course status' 
+       type: string
+      completionPercentage:
+        description : 'progress percentage'
+        type: string
+  IssueCertificateResponse:
+    description: Issue certificate Response
+    type: object
+    properties:
+      result:
+        description: response details
+        type: object
+        properties:
+          courseId:
+            description: course identifier
+            type: string
+          batchId:
+            description: batch identifier
+            type: string
+          certificate:
+            description: name of the certificate to be issued
+            type: string
+          status:
+            description: certificate issue status
+            type: string
+  ResponseHeader:
+    title: ResponseHeader
+    type: object
+    properties:
+      id:
+        type: string
+        description: API Identifier
+      ver:
+        type: string
+        description: API version information
+      ts:
+        type: string
+        description: API execution timespan
+      params:
+        $ref: '#/definitions/ResponseParams'
+      responseCode:
+        type: object
+        description: 'API response code '
+  ResponseParams:
+    title: Response Parameter
+    type: object
+    properties:
+      resmsgid:
+        type: string
+        description: Represents the response Message ID
+      msgid:
+        type: string
+        description: Represents the error Message ID
+      err:
+        type: string
+        description: Represents the Error Code
+      status:
+        type: string
+        description: Response Status
+      errmsg:
+        type: string
+        description: Error Message
+  EmptyResult:
+    title: Empty Result
+    type: object
+    properties:
+      result:
+        type: object
+        description: Empty Result
+  IssueCertificateErrorResponse:
+    title: Create Content Error Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/EmptyResult'
+      - $ref: '#/definitions/ResponseHeader'
