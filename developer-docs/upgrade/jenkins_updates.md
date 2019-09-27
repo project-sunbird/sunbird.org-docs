@@ -50,7 +50,7 @@ Follow the below steps to upgrade:
 | override_private_branch |	true |
 | override_public_branch | true |
 
-9.Go to Manage Jenkins → Configure System → Global Pipeline Libraries → Change Default Version to `release-2.0.0-shared-lib`
+9.Go to Manage Jenkins → Configure System → Global Pipeline Libraries → Change Default Version to `release-2.3.0-shared-lib`
 
 10.Go to Manage Jenkins → Configure System → Update `public_repo_branch` to `refs/tags/release-2.3.0` or go to Manage Jenkins → Configure System → Update `private_repo_branch` to the branch name of your private repo branch in case you created a new branch for release-2.3.0 inventory updates  
 
