@@ -8,7 +8,7 @@ published: true
 
 ## Overview
 
-In Sunbird, all the user's login information is present both in keyclock's postgres and cassandra, this job d.this job is used to sync all user's data from Cassandra and elete the user details from the keyclock's postgres.
+In Sunbird, all the user's login information is present both in keyclock's postgres and cassandra, this job is used to sync all user's data from Cassandra and elete the user details from the keyclock's postgres.
 
 ## Prerequisites
 
