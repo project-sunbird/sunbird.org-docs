@@ -72,3 +72,12 @@ Sync_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}
 ````
 
 4. On completion, refer to the success and failure logs that are generated 
+
+5. When running the script for specified ids, give all the ids as below format in the csv file and no headers required.
+Example:
+3150aa06-333e-4d6d-8d81-3d8e14e7b245
+a354f4c4-a5a7-4eee-9b69-7305cc52a480
+bf1efbd7-4ad6-4e2f-925d-0a6095aeafb0
+54660e04-4d7c-4f12-b307-c5a7174b68d4
+3b87a8a1-0831-453c-8230-b5306daca44f
+b6de8b58-144e-49b2-a65a-835cf81ee700
