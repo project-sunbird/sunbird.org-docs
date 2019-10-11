@@ -48,13 +48,8 @@ To sync user data from Cassandra to Elasticsearch:
 2. Run the following command to sync **all users** data.
 
 ````
-Sync_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_user_sync_api_endpoint="{sunbird_user_sync_api_endpoint}" --context_param sunbird_user_sync_api_key="{sunbird_user_sync_api_key}" --context_param sunbird_user_sync_block_size="{sunbird_user_sync_block_size}" --context_param sunbird_user_sync_sleep_time="{sunbird_user_sync_sleep_time}" --context_param sunbird_cassandra_table="user" --context_param sunbird_sync_object_type="user"
+UserSync_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_user_sync_api_endpoint="{sunbird_user_sync_api_endpoint}" --context_param sunbird_user_sync_api_key="{sunbird_user_sync_api_key}" --context_param sunbird_user_sync_block_size="{sunbird_user_sync_block_size}" --context_param sunbird_user_sync_sleep_time="{sunbird_user_sync_sleep_time}" --context_param sunbird_cassandra_table="user" --context_param sunbird_sync_object_type="user"
 ````
+This job doesn't supports for specified users.
 
-3. Run the following command to sync **specific users** data.
-
-````
-Sync_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_user_sync_api_endpoint="{sunbird_user_sync_api_endpoint}" --context_param sunbird_user_sync_api_key="{sunbird_user_sync_api_key}" --context_param sunbird_user_sync_block_size="{sunbird_user_sync_block_size}" --context_param sunbird_user_sync_sleep_time="{sunbird_user_sync_sleep_time}" --context_param sunbird_cassandra_table="user" --context_param sunbird_sync_object_type="user" --context_param sunbird_sync_id_file="{sunbird_sync_id_file}"
-````
-
-4. On completion, refer to the success and failure logs that are generated 
+3. On completion, refer to the success and failure logs that are generated 
