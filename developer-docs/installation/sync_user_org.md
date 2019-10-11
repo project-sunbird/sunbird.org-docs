@@ -83,6 +83,8 @@ bf1efbd7-4ad6-4e2f-925d-0a6095aeafb0
 b6de8b58-144e-49b2-a65a-835cf81ee700
 
 6. Another way proposed for running failure Id's in the failure log is by running the script
+URL: https://DNS
+Bearer: Bearer value
 ````
 #!/bin/bash
 # Variables Section
