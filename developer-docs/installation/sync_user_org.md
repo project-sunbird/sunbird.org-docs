@@ -81,3 +81,32 @@ bf1efbd7-4ad6-4e2f-925d-0a6095aeafb0
 54660e04-4d7c-4f12-b307-c5a7174b68d4
 3b87a8a1-0831-453c-8230-b5306daca44f
 b6de8b58-144e-49b2-a65a-835cf81ee700
+
+6. Another way proposed for running failure Id's in the failure log is by running the script
+````
+#!/bin/bash
+# Variables Section
+variablescript=$1
+URL=""
+Bearer=""
+​
+if [ $# -ne 1 ];
+then
+    echo "Usage: syncFilename.sh logfile"
+    exit 0
+fi
+requests=$(cat ${variablescript} | grep "Request :" | cut -d " " -f3 | jq -c '.request.objectIds')
+​
+for ids in ${requests[@]};
+do
+    echo "Syncing for $ids"
+    command=$(echo "curl -X POST   $URL/api/data/v1/index/sync   -H 'Accept: */*'   -H 'Authorization: Bearer $Bearer'   -H 'Content-Type: application/json'   -H 'cache-control: no-cache'   -d '{\"request\":{\"objectType\":\"user\",\"objectIds\":$ids}}'")
+    echo $command | bash
+    sleep 5
+    echo -e "\n############################################################################################################\n"
+done
+````
+
+Run the script "bash fileName logFile" 
+fileName is the script file
+logFile is the failure log file name.
