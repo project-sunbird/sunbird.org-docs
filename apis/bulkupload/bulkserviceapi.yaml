@@ -416,7 +416,8 @@ paths:
     post:
       description: >-
         This API allows you to upload users in bulk on the Sunbird Platform. Using this API, State administrators will have the facility to upload a valid list of State users on the Sunbird Platform.
-        A list of valid users will be uploaded into a placeholder, called the Shadow DB. Now, each custodian org user identifier (email, phone) need to be matched with shadow db. Only if a match is found, then that user will be moved from custodian to state org.
+        The functionality for this is as follows:
+        The State administrator uploads a list of valid users into a Shadow DB which is a placeholder DB. Each custodian org user identifier (email, phone) is matched with the Shadow DB. Only if there is a match is found, then that user is moved from the custodian org to the State org.
            - The **_/v2/bulk/user/upload_** endpoint executes " bulk upload user" request based on parameters provided as metadata in the request body.
            - It is mandatory to provide values for parameters marked with *.
            - Mandatory fields cannot be null or empty.
@@ -436,9 +437,9 @@ paths:
           format: file
           description: >-
             This is a .csv file.
-              - Each line of the file is a data record. Each record consists of one or more user fields, separated by commas. Each successfully created user is associated with root org of uploader (org admin).
+            - Each line of the file is a data record. Each record consists of one or more user fields, separated by commas. Each successfully created user is associated with root org of the uploader (org admin).
 
-            The CSV file format supported is mentioned below:
+            The CSV file format supported is as follows:
               - Name: Name of user as per state records (mandatory)
               - Email: Email. Either phone or email is mandatory.
               - Phone: Phone number. Either phone or email is mandatory.
@@ -463,11 +464,11 @@ paths:
           schema:
             $ref: '#/definitions/BulkUploadResponse'
         '400':
-          description: 'BAD REQUEST. The "bulk upload user" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST. The "bulk upload user" operation failed. You may have missed providing input for a mandatory parameter.'
           schema:
             $ref: '#/definitions/BulkUploadErrorResponse'
         '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. If the problem persists, contact us. In the meantime, try refreshing.'
       security:
         - bearer: []
       x-unitTests: []
