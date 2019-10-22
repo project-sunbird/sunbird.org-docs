@@ -18,7 +18,7 @@ A company, XYZ Corp, is a global conglomerate with over ten thousand employees, 
 2. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](developer-docs/how-to-guide/generate_apikey/)
   
 3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
-4. generating user token [How to generate x-authenticated-user-token] (developer-docs/how-to-guide/how_to_create_user_auth_token/)
+4. Generated user token [How to generate x-authenticated-user-token] (developer-docs/how-to-guide/how_to_create_user_auth_token/)
 
 5. Access to [Organization API](apis/orgapi/#tag/Org-APIs)
 
@@ -103,7 +103,7 @@ Gita identifies the request API headers and body fields relevant for her task. S
     }
 
 
-In the response body, Gita inspects the value of all tokens called **code** to ensure that the **channel** identifiers name she's decided upon, does not already exist. She creates the three root organizations, one for each of the topics. The API request parameters and invocation is depicted in the following example:
+In the response body, Gita inspects the value of all tokens called **code** to ensure that the **channel** identifier name she's decided upon, does not already exist. She creates the three root organizations, one for each of the topics. The API request parameters and invocation is depicted in the following example:
 
 **Header Parameters**
 
