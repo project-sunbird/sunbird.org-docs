@@ -25,9 +25,10 @@ paths:
   /issue:
     post:
       description:  >-
-       This API is associated with issuing digitally certificate generation.
+       This API is associated with issuing digitally generated certificates.
           - The **_ /issue_** endpoint executes the "Certificate issue" request based on parameters provided as filter in the request body.
-          - Required fields cannot be left null or empty
+          - All fields marked with an * are mandatory
+          - Required fields cannot be null or empty
       summary: issuance of certificate
       tags:
       - Issue Certificate Api
@@ -39,8 +40,7 @@ paths:
         in: body
         required: true
         description: >-
-            The body refers to the format of the request.
-              - The body contains metadata about the request for issuing certificate.
+            The body refers to the format of the request. The body contains metadata about the request to issue the certificate.
         schema:
           allOf :
             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
@@ -50,8 +50,7 @@ paths:
         required: true
         type: string
         description: >-
-            The Content Type entity is the media type of the resource.Possible media types can be:- 
-              - Application/json
+            The Content Type entity is the media type of the resource.Possible media types can be Application/json
       - name: ts
         in: header
         required: true
@@ -61,7 +60,7 @@ paths:
         in: header
         required: true
         type: string
-        description: 'It is a Unique ID that identifies the request incase the same API is executed multiple times.'
+        description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
       - name: x-authenticated-user-token
         in: header
         required: true
@@ -74,17 +73,17 @@ paths:
         description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
       responses:
         '200':
-          description: 'OK ! Successful operation."Certificate generation" operation was successfully executed.'
+          description: 'OK ! Operation successful."Certificate generation" operation was executed successfully.'
           schema:
             allOf:
              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
              - $ref: '#/definitions/IssueCertificateResponse'
         '400':
-          description: 'BAD REQUEST. The "Certificate generation" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST. The "Certificate generation" operation failed. You may have missed providing input for a mandatory parameter.'
           schema:
             $ref: '#/definitions/IssueCertificateErrorResponse'
         '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'
 definitions:
   IssueCertificateRequest:
     title: Issue certificate request
@@ -99,13 +98,13 @@ definitions:
     type: object
     properties:
       courseId:
-        description: course identifier
+        description: Course identifier
         type: string
       batchId:
-        description: batch identifier
+        description: Batch identifier
         type: string
       certificate:
-        description: name of the certificate to be issued
+        description: Name of the certificate to be issued
         type: string
       filters:
         $ref: '#/definitions/UserCoursesFilter'
@@ -118,10 +117,10 @@ definitions:
     type: object
     properties:
       status:
-       description : 'user course status' 
+       description : 'User's course status' 
        type: string
       completionPercentage:
-        description : 'progress percentage'
+        description : 'Course progress percentage'
         type: string
   IssueCertificateResponse:
     description: Issue certificate Response
@@ -132,16 +131,16 @@ definitions:
         type: object
         properties:
           courseId:
-            description: course identifier
+            description: The course identifier
             type: string
           batchId:
-            description: batch identifier
+            description: The batch identifier
             type: string
           certificate:
-            description: name of the certificate to be issued
+            description: The name of the certificate to be issued
             type: string
           status:
-            description: certificate issue status
+            description: The certificate issue status
             type: string
   ResponseHeader:
     title: ResponseHeader
@@ -155,7 +154,7 @@ definitions:
         description: API version information
       ts:
         type: string
-        description: API execution timespan
+        description: API execution timestamp
       params:
         $ref: '#/definitions/ResponseParams'
       responseCode:
