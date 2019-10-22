@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2019-09-19 17:19:03 +0530">
+<meta name="last-modified" content="2019-10-22 17:31:31 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="1948" />
+<meta name="buildNo" content="2006" />
 <meta name="version" id="docsVersion" content="2.0.0" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?19092019"  />
+<link rel="stylesheet" href="/css/style.css?22102019"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?19092019"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?19092019"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?19092019"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?19092019"></script>
-<script type="text/javascript" src="/js/widgets-data.js?19092019"></script>
-<script type="text/javascript" src="/js/widgets.js?19092019"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?22102019"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?22102019"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?22102019"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?22102019"></script>
+<script type="text/javascript" src="/js/widgets-data.js?22102019"></script>
+<script type="text/javascript" src="/js/widgets.js?22102019"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -2280,10 +2280,13 @@ Maya joins XYZ Corp as an intern pursuing research Indian &amp; Greek archeology
     <p>Software that can make API calls like curl or <a href="https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation">POSTMAN</a></p>
   </li>
   <li>
-    <p>The root organization and sub-organizations created and their <strong>organsationId</strong> and root organization’s <strong>channel</strong> readily available</p>
+    <p>Generated user token [How to generate x-authenticated-user-token] (developer-docs/how-to-guide/how_to_create_user_auth_token/)</p>
   </li>
   <li>
-    <p>The user account created in the root-organization and <strong>userId</strong> readily available</p>
+    <p>The root organization and sub-organizations created and their <strong>organsationId</strong> are available</p>
+  </li>
+  <li>
+    <p>The user account created in the root-organization and the <strong>userId</strong> is readily available</p>
   </li>
 </ol>
 
@@ -2320,13 +2323,15 @@ Maya joins XYZ Corp as an intern pursuing research Indian &amp; Greek archeology
     <tr>
       <td>x-authenticated-user-token</td>
       <td>String</td>
-      <td>A token that id identifies that the caller is authorized to invoke this REST API</td>
+      <td>A token that identifies that the caller is authorized to invoke this REST API</td>
       <td>eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE</td>
     </tr>
   </tbody>
 </table>
 
 <h4 id="request-body">Request Body</h4>
+
+<p><strong>Note:</strong> The following request sample should be used when the user is not already associated with the provided organisation. If the user is already associated, then this API will return an error.</p>
 
 <pre>
   <code>curl -X POST \
@@ -2338,7 +2343,8 @@ https://staging.open-sunbird.org/api/org/v1/member/add \
     "request":
     {
         "organisationId": "01261942258536448016",
-        "userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449"
+        "userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449",
+        "roles" : [] //optional   
     }
 }
 </code>
@@ -2349,6 +2355,48 @@ https://staging.open-sunbird.org/api/org/v1/member/add \
 <pre>
   <code>{
     "id": "api.org.member.add",
+    "ver": "v1",
+    "ts": "2018-11-13 15:18:17:253+0000",
+    "params": {
+        "resmsgid": null,
+        "msgid": "d6e68bc6-599f-48d1-b397-9ef8d3dfc2cc",
+        "err": null,
+        "status": "success",
+        "errmsg": null
+    },
+    "responseCode": "OK",
+    "result": {
+        "response": "SUCCESS"
+    }
+}
+</code>
+</pre>
+
+<h4 id="request-body-1">Request Body</h4>
+<p><strong>Note:</strong> The following sample request should be used when the user is already associated with an organisation and the user’s associated roles need to be added or removed. The roles that are passed will be applied to the user. All exisitng roles of the user will be overridden.</p>
+
+<pre>
+  <code>curl -X POST \
+https://staging.open-sunbird.org/api/org/v1/role/assign \
+-H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
+-H 'Content-Type: application/json' \
+-H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
+-d '{
+    "request":
+    {
+        "organisationId": "01261942258536448016",
+        "userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449",
+        "roles" : ["role1","role2"]    
+    }
+}
+</code>
+</pre>
+
+<h4 id="response-body-1">Response Body</h4>
+
+<pre>
+  <code>{
+    "id": "api.org.role.assign",
     "ver": "v1",
     "ts": "2018-11-13 15:18:17:253+0000",
     "params": {
@@ -2391,19 +2439,19 @@ https://staging.open-sunbird.org/api/org/v1/member/add \
     <tr>
       <td>Authorization</td>
       <td>String</td>
-      <td>Authorization key received</td>
+      <td>The uthorization key received</td>
       <td>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</td>
     </tr>
     <tr>
       <td>x-authenticated-user-token</td>
       <td>String</td>
-      <td>A token that id identifies that the caller is authorized to invoke this REST API</td>
+      <td>A token that identifies that the caller is authorized to invoke this REST API</td>
       <td>eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE</td>
     </tr>
   </tbody>
 </table>
 
-<h4 id="curl-request">cURL Request</h4>
+<h4 id="request-body-2">Request Body</h4>
 
 <pre>
   <code>curl -X POST \
@@ -2421,7 +2469,7 @@ https://staging.open-sunbird.org/api/org/v1/member/remove \
 </code>
 </pre>
 
-<h4 id="response-body-1">Response Body</h4>
+<h4 id="response-body-2">Response Body</h4>
 
 <pre>
   <code>{
@@ -2474,13 +2522,13 @@ https://staging.open-sunbird.org/api/org/v1/member/remove \
     <tr>
       <td>x-authenticated-user-token</td>
       <td>String</td>
-      <td>A token that id identifies that the caller is authorized to invoke this REST API</td>
+      <td>A token that identifies that the caller is authorized to invoke this REST API</td>
       <td>eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE</td>
     </tr>
   </tbody>
 </table>
 
-<h4 id="request-body-1">Request Body</h4>
+<h4 id="request-body-3">Request Body</h4>
 
 <pre>
   <code>curl -X POST \
@@ -2498,7 +2546,7 @@ https://staging.open-sunbird.org/api/org/v1/member/add \
 </code>
 </pre>
 
-<h4 id="response-body-2">Response Body</h4>
+<h4 id="response-body-3">Response Body</h4>
 
 <pre>
   <code>{
@@ -2545,19 +2593,19 @@ https://staging.open-sunbird.org/api/org/v1/member/add \
     <tr>
       <td>Authorization</td>
       <td>String</td>
-      <td>Authorization key received</td>
+      <td>The authorization key received</td>
       <td>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</td>
     </tr>
     <tr>
       <td>x-authenticated-user-token</td>
       <td>String</td>
-      <td>A token that id identifies that the caller is authorized to invoke this REST API</td>
+      <td>A token that identifies that the caller is authorized to invoke this REST API</td>
       <td>eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE</td>
     </tr>
   </tbody>
 </table>
 
-<h4 id="request-body-2">Request Body</h4>
+<h4 id="request-body-4">Request Body</h4>
 
 <pre>
   <code>curl -X POST \
@@ -2575,7 +2623,7 @@ https://staging.open-sunbird.org/api/org/v1/member/remove \
 </code>
 </pre>
 
-<h4 id="response-body-3">Response Body</h4>
+<h4 id="response-body-4">Response Body</h4>
 
 <pre>
   <code>{
@@ -2601,7 +2649,7 @@ https://staging.open-sunbird.org/api/org/v1/member/remove \
 
 <h3 id="concepts-covered">Concepts Covered</h3>
 
-<p><strong>Associate user and organization</strong>: When a user is created in an organization, by default, the user does not get associated with any sub-organizations. A user can be associated with one or more sub-organizations, within the same organization. A user cannot be associated with more than one organization.</p>
+<p><strong>Associate user and organization</strong>: When a user is created in an organization, by default, the user does not get associated with any sub-organization. A user can be associated with one or more sub-organizations, within the same organization. A user cannot be associated with more than one organization.</p>
 
 <h3 id="related-topics">Related Topics</h3>
 
