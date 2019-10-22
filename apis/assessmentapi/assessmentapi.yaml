@@ -10,9 +10,9 @@ info:
         
         - The Assessment API resources provides the basic functionality to perform the operations like Creating, Reading,  Updating, deleting these assessment items.  
         
-        - The URL for Assessment Item API(s) is `item/v1`
+        - The URL for Assessment Item API(s) is `action/assessment/v3/items`
 host: staging.open-sunbird.org
-basePath: /api/org/v1
+basePath: /action/assessment/v3/items
 securityDefinitions:
   bearer:
       type: apiKey  # arbitrary name for the security scheme
@@ -97,265 +97,11 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /read/{AssessmentItem_ID}: 
-    get:
-      description: >-
-          This API is associated with  fetching a specific assessment Item.
-            - The endpoint for **Get an Assessment Item** is `/read/{AssessmentItem_ID}`
-            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-            
-      summary: Get an Assessment Item
-      tags:
-      - Assessment Item API(s)
-      operationId: ReadWingsD01Get
-      produces:
-      - application/json
-      parameters:
-      - in: path
-        name: AssessmentItem_ID
-        type: string
-        required: true
-        description: 'Please append a valid Assessment ID to the Request URL' 
-      - name: Content-Type
-        in: header
-        required: true
-        type: string
-        description: >-
-            The Content Type entity is the media type of the resource.Possible media types can be:- 
-              - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
-      - name: user-id
-        in: header
-        required: true
-        type: string
-        description: 'The Registered User ID to execute the API.'
-      - name: Authorization
-        in: header
-        required: true
-        type: string
-        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-      responses:
-        '200':
-          description: 'OK ! Successful operation."Read Assessment Item" operation was successfully executed.'
-          schema:
-            $ref: '#/definitions/ContentCreateResponse'
-        '400':
-          description: 'BAD REQUEST. The "Read Assessment Item" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
-          schema:
-            $ref: '#/definitions/ContentCreateErrorResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-          schema:
-            $ref: '#/definitions/ContentCreateErrorResponse'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: GET
-          uri: /read/wings.D.01
-          headers:
-            Content-Type: application/json
-            user-id: rayuluv
-            Authorization: Bearer {{api_key}}
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Question - Get
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-  /retire/{AssessmentItem_ID}:
-    delete:
-      description: >-
-          This API is associated with deleting an assessment Item.
-            - The endpoint for **Delete an Assessment Item** is `/retire/{AssessmentItem_ID}`
-            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-            
-      summary: Delete an Assessment Item
-      tags:
-      - Assessment Item API(s)
-      operationId: RetireQ1SUrduDelete
-      produces:
-      - application/json
-      parameters:
-      - in: path
-        name: AssessmentItem_ID
-        type: string
-        required: true
-        description: 'Please append a valid Assessment ID to the Request URL' 
-      - name: Content-Type
-        in: header
-        required: true
-        type: string
-        description: >-
-            The Content Type entity is the media type of the resource.Possible media types can be:- 
-              - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
-      - name: User_ID
-        in: header
-        required: true
-        type: string
-        description: 'Represents the authorized User ID to execute the API.'
-      - name: Authorization
-        in: header
-        required: true
-        type: string
-        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-      responses:
-        '200':
-          description: 'OK ! Successful operation."Delete Assessment Item" operation was successfully executed.'
-          schema:
-            $ref: '#/definitions/ContentCreateResponse'
-        '400':
-          description: 'BAD REQUEST. The "Delete Assessment Item" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
-          schema:
-            $ref: '#/definitions/ContentCreateErrorResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-          schema:
-            $ref: '#/definitions/ContentCreateErrorResponse'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: DELETE
-          uri: /retire/{Assessment_Id}
-          headers:
-            Content-Type: application/json
-            user-id: <>
-            Authorization: Bearer {{api_key}}
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Question - Delete
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-  /search:
-    post:
-      description:  >-
-          This API is associated with searching an assessment Item.
-            - The endpoint for **Search an Assessment Item** is `/search`
-            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-            
-      summary: Search an Assessment Item
-      tags:
-      - Assessment Item API(s)
-      operationId: SearchPost
-      produces:
-      - application/json
-      parameters:
-      - name: Body
-        in: body
-        required: true
-        description: >-
-         'The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
-            
-            - JSON 
-            - XML data
-          
-          The body is the representation of the resource object for
-          searching an Assessment item
-        schema:
-          $ref: '#/definitions/Questionsearchrequest'
-      - name: Content-Type
-        in: header
-        required: true
-        type: string
-        description: >-
-            The Content Type entity is the media type of the resource.Possible media types can be:- 
-              - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
-      - name: User_ID
-        in: header
-        required: true
-        type: string
-        description: 'The Registered User ID to execute the API.'
-      - name: Authorization
-        in: header
-        required: true
-        type: string
-        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-      responses:
-        '200':
-          description: 'OK ! Successful operation."Search Assessment Item" operation was successfully executed.'
-          schema:
-            $ref: '#/definitions/ContentCreateResponse'
-        '400':
-          description: 'BAD REQUEST. The "Search Assessment Item" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
-          schema:
-            $ref: '#/definitions/ContentCreateErrorResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-          schema:
-            $ref: '#/definitions/ContentCreateErrorResponse'
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /search
-          headers:
-            Content-Type: application/json
-            user-id: <>
-            Authorization: Bearer {{api_key}}
-          body: >-
-            {
-              "request": {
-                "metadata": {
-                    "filters": [
-                        {"property" : "template_id", "operator": "=", "value": "domain_3490"}
-                    ]
-                },
-                "sortOrder": [
-                    {"sortField": "code", "sortOrder": "ASC"}
-                ],
-                "startPosition": 0,
-                "resultSize": 10
-              }
-            }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Question - Search
-        x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /update/{AssessmentItem_ID}:
     patch:
       description:  >-
           This API is associated with updating an assessment Item.
-            - The endpoint for **Update an Assessment Item** is `/update/{AssessmentItem_ID}`
+            - The endpoint for **Update an Assessment Item** is `/update/{do_112875566089461760111}`
             - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
             
             
@@ -533,6 +279,261 @@ paths:
         x-testShouldPass: true
         x-testEnabled: true
         x-testName: Question - Update
+        x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+
+  /read/{AssessmentItem_ID}: 
+    get:
+      description: >-
+          This API is associated with  fetching a specific assessment Item.
+            - The endpoint for **Get an Assessment Item** is `/read/{do_112875566089461760111}`
+            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+            
+      summary: Get an Assessment Item
+      tags:
+      - Assessment Item API(s)
+      operationId: ReadWingsD01Get
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: AssessmentItem_ID
+        type: string
+        required: true
+        description: 'Please append a valid Assessment ID to the Request URL' 
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+      - name: user-id
+        in: header
+        required: true
+        type: string
+        description: 'The Registered User ID to execute the API.'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'OK ! Successful operation."Read Assessment Item" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: 'BAD REQUEST. The "Read Assessment Item" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+      - bearer: []
+      x-unitTests:
+      - request:
+          method: GET
+          uri: /read/wings.D.01
+          headers:
+            Content-Type: application/json
+            user-id: rayuluv
+            Authorization: Bearer {{api_key}}
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: NONE
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers: {}
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Question - Get
+        x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /retire/{AssessmentItem_ID}:
+    delete:
+      description: >-
+          This API is associated with deleting an assessment Item.
+            - The endpoint for **Delete an Assessment Item** is `/retire/{do_112875566089461760111}`
+            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+            
+      summary: Delete an Assessment Item
+      tags:
+      - Assessment Item API(s)
+      operationId: RetireQ1SUrduDelete
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: AssessmentItem_ID
+        type: string
+        required: true
+        description: 'Please append a valid Assessment ID to the Request URL' 
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+      - name: User_ID
+        in: header
+        required: true
+        type: string
+        description: 'Represents the authorized User ID to execute the API.'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'OK ! Successful operation."Delete Assessment Item" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: 'BAD REQUEST. The "Delete Assessment Item" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+      - bearer: []
+      x-unitTests:
+      - request:
+          method: DELETE
+          uri: /retire/{Assessment_Id}
+          headers:
+            Content-Type: application/json
+            user-id: <>
+            Authorization: Bearer {{api_key}}
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: NONE
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers: {}
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Question - Delete
+        x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /search:
+    post:
+      description:  >-
+          This API is associated with searching an assessment Item.
+            - The endpoint for **Search an Assessment Item** is `/search`
+            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+            
+      summary: Search an Assessment Item
+      tags:
+      - Assessment Item API(s)
+      operationId: SearchPost
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: >-
+         'The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
+            
+            - JSON 
+            - XML data
+          
+          The body is the representation of the resource object for
+          searching an Assessment item
+        schema:
+          $ref: '#/definitions/Questionsearchrequest'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+      - name: User_ID
+        in: header
+        required: true
+        type: string
+        description: 'The Registered User ID to execute the API.'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'OK ! Successful operation."Search Assessment Item" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: 'BAD REQUEST. The "Search Assessment Item" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+      - bearer: []
+      x-unitTests:
+      - request:
+          method: POST
+          uri: /search
+          headers:
+            Content-Type: application/json
+            user-id: <>
+            Authorization: Bearer {{api_key}}
+          body: >-
+            {
+              "request": {
+                "metadata": {
+                    "filters": [
+                        {"property" : "template_id", "operator": "=", "value": "domain_3490"}
+                    ]
+                },
+                "sortOrder": [
+                    {"sortField": "code", "sortOrder": "ASC"}
+                ],
+                "startPosition": 0,
+                "resultSize": 10
+              }
+            }
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: NONE
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers: {}
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Question - Search
         x-testDescription: ''
       x-operation-settings:
         CollectParameters: false
