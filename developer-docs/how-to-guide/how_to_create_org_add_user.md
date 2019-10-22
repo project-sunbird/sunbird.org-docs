@@ -21,11 +21,12 @@ Maya joins XYZ Corp as an intern pursuing research Indian & Greek archeology. Fo
 2. API Key to access Sunbird APIs. To create an API key refer [How to generate a Sunbird API key](../developer-docs/how-to-guide/generate_apikey/)
 
 3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
-4. generating user token [How to generate x-authenticated-user-token] (developer-docs/how-to-guide/how_to_create_user_auth_token/)
 
-5. The root organization and sub-organizations created and their **organsationId** and available
+4. Generated user token [How to generate x-authenticated-user-token] (developer-docs/how-to-guide/how_to_create_user_auth_token/)
 
-6. The user account created in the root-organization and **userId** readily available
+5. The root organization and sub-organizations created and their **organsationId** are available
+
+6. The user account created in the root-organization and the **userId** is readily available
 
 ### Taskflow
 
@@ -37,9 +38,11 @@ First, Gita assigns the role of content consumer, to Maya, in the sub-organizati
 |---------------|------------------------|--------|-----------|
 | Content-type | String | Mime type of the request | application/json |
 | Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
-| x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
+| x-authenticated-user-token | String | A token that identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
-#### Request Body : User should not already associated with provided organisation. if user is already associated then this api will throw error. 
+#### Request Body 
+
+**Note:** The following request sample should be used when the user is not already associated with the provided organisation. If the user is already associated, then this API will return an error. 
 
     curl -X POST \
     https://staging.open-sunbird.org/api/org/v1/member/add \
@@ -75,7 +78,8 @@ First, Gita assigns the role of content consumer, to Maya, in the sub-organizati
     }
 
 
-#### Request Body : User is already associated with an organisation and we want to add/remove some for the associated roles. in this request whatever roles is passed ,will be applied to that user,means exisitng roles will be override.
+#### Request Body 
+**Note:** The following sample request should be used when the user is already associated with an organisation and the user's associated roles need to be added or removed. The roles that are passed will be applied to the user. All exisitng roles of the user will be overridden.
 
     curl -X POST \
     https://staging.open-sunbird.org/api/org/v1/role/assign \
@@ -112,8 +116,6 @@ First, Gita assigns the role of content consumer, to Maya, in the sub-organizati
 
 
 
-
-
 After 3 months, Gita revokes Maya's access to the the sub-organization - Indian Archeology.
 
 **Header Parameters**
@@ -121,10 +123,10 @@ After 3 months, Gita revokes Maya's access to the the sub-organization - Indian 
 |     Header    |          Type         | Description | Sample |
 |---------------|------------------------|--------|-----------|
 | Content-type | String | Mime type of the request | application/json |
-| Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
-| x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
+| Authorization | String | The uthorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
+| x-authenticated-user-token | String | A token that identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
-#### cURL Request
+#### Request Body
 
     curl -X POST \
     https://staging.open-sunbird.org/api/org/v1/member/remove \
@@ -167,7 +169,7 @@ Gita associates Maya with sub-organization called Greek Archeology.
 |---------------|------------------------|--------|-----------|
 | Content-type | String | Mime type of the request | application/json |
 | Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
-| x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
+| x-authenticated-user-token | String | A token that identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
 #### Request Body
 
@@ -210,8 +212,8 @@ After 3 more months, Gita revokes Maya's access to the sub-organization called G
 |     Header    |          Type         | Description | Sample |
 |---------------|------------------------|--------|-----------|
 | Content-type | String | Mime type of the request | application/json |
-| Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
-| x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
+| Authorization | String | The authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
+| x-authenticated-user-token | String | A token that identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
 #### Request Body
 
@@ -251,7 +253,7 @@ This concludes the topic of associating a user with an organization, in Sunbird.
 
 ### Concepts Covered
 
-**Associate user and organization**: When a user is created in an organization, by default, the user does not get associated with any sub-organizations. A user can be associated with one or more sub-organizations, within the same organization. A user cannot be associated with more than one organization.
+**Associate user and organization**: When a user is created in an organization, by default, the user does not get associated with any sub-organization. A user can be associated with one or more sub-organizations, within the same organization. A user cannot be associated with more than one organization.
 
 ### Related Topics
 
