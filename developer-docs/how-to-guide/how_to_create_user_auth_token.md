@@ -8,11 +8,11 @@ allowSearch: true
 ---
 ## Scenario
 
-TO access sunbird api , caller need to provide 'x-authenticated-user-token' header value. Caller need to generate this token.
+TO access Sunbird APIs, a caller needs to provide **x-authenticated-user-token** header value. The caller needs to generate this token.
 
 ### Prerequisites
 
-1. keycloak server need to up and running
+1. The eycloak server needs to up and running
 
 
 
