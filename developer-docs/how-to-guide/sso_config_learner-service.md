@@ -8,19 +8,19 @@ allowSearch: true
 ---
 
 ## Scenario
-  As an adopter, i want to use sunbird.Sunbird is using SSO as auth system , so to integrate SSO with learner service we have to set following env variable inside learner-service.
+As an adopter, I want to use Sunbird. Sunbird uses SSO as auth system. To integrate SSO with the learner service, we have to set following environment variables in the learner-service.
 
-**Env list**
+### Environment Variable List
 
-|  env                  | Description    | Sample |
+|  Environment Variable | Description    | Sample |
 |-----------------------|----------------|-----------|
-| sunbird_sso_url       | url of keycloak| http://localhost:8080/auth/ |
-| sunbird_sso_realm     | keycloak realm name | master |
-| sunbird_sso_username  | keycloak realm admin user | admin
-| sunbird_sso_password  | keycloak realm admin password | admin
-| sunbird_sso_client_id | keycloak client under selected realm | admin-cli
-|sunbird_keycloak_user_federation_provider_id | required if we are using federated db inside keycloak | 872382fa-9161-48f0-99ad-7148abb34
-|sunbird_subdomain_keycloak_base_url | required if we want to merge two user account from custodian to state account 
+| sunbird_sso_url       | The URL of Keycloak| http://localhost:8080/auth/ |
+| sunbird_sso_realm     | The Keycloak realm name | master |
+| sunbird_sso_username  | The Keycloak realm admin user | admin
+| sunbird_sso_password  | The Keycloak realm admin password | admin
+| sunbird_sso_client_id | The Keycloak client for the selected realm | admin-cli
+|sunbird_keycloak_user_federation_provider_id | The identifier for the provider of the federated database. This is required if we use a federated DB in Keycloak | 872382fa-9161-48f0-99ad-7148abb34
+|sunbird_subdomain_keycloak_base_url | The URL of the Keycloak subdomain. This is required if we want to merge two user account from custodian to state account 
 
  
   
