@@ -4,14 +4,14 @@ page_title: Upgrading Sunbird
 description: Upgrading Sunbird
 published: true
 allowSearch: true
-keywords: Upgrade, Sunbird 2.0.0
+keywords: Upgrade, Sunbird 2.3.0
 ---
 
 ## Overview
 
-This document describes upgrade process from Sunbird 1.14 to 2.0.0.
+This document describes upgrade process from Sunbird 2.0.0 to 2.3.0.
 
-### Whats new in release-2.0.0
+### Whats new in release-2.3.0
 
 * Added two new parameters - `private_repo` and `branch_or_tag` for all deploy and provision jobs
 * Added two new two environment variable - `override_private_branch` and `override_public_branch`

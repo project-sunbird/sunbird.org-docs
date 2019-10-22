@@ -50,21 +50,3 @@ To create a root organization use the following cURL commands:
       }'`
 
 Replace the values within { } braces with your environment values.
-
-## Update System Setting
-
-The Sunbird instances that use the EkStep content repository must have a unique channel name in the [System Setting](developer-docs/server-configurations/system_settings){:target="_blank"} file.
-   
-1.Update the **Channel Name** in the `sunbird_default_channel` variable in the `config` file. 
-
-2.Run the following commands 
-
-      `./sunbird_install.sh -s core`
-
-      `./sunbird_install.sh -s posttest`    //Validates all the services.
-   
-3.After the sript is successfully executed, it creates the **postInstallationLogs.log** file in the **logs** directory. 
-
-4.Open **https://[domain-name]** and sign-up.
-
-5.You can choose your own user name and password. The format for the username is: username@channelName 
