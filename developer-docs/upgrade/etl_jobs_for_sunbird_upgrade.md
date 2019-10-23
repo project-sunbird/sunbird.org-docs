@@ -25,7 +25,7 @@ When you identify that there is a mismatch of data in your primary (Cassandra) d
 - All organization data
 - Specific user data
 - Specific organization data
-For details, refer to the [Sync User and Organization](developer-docs/installation/sync_user_org.md)document to understand and run the appropriate script. 
+For details, refer to the [Sync User and Organization](developer-docs/installation/sync_user.md)document to understand and run the appropriate script. 
 
 ### Delete Users from Keycloak DB
 
