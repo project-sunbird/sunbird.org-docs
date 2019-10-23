@@ -48,9 +48,9 @@ For each user to be created, Gita needs to prepare the API request headers and b
             {
             "email": "writer01@xyzcorp.com",
             "firstName": "writer01",
-            "userName": "writer01",
             "password": "writer12301",
-            "channel": "xyzCorpLifeArcheologyChannel"
+            "channel": "xyzCorpLifeArcheologyChannel",
+            "emailVerified": true
             }
         }'
 

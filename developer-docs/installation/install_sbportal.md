@@ -6,6 +6,8 @@ published: true
 allowSearch: true
 ---
 
+
+
 ## Pre-requisites
 
 Before you install Sunbird on your laptop, examine your environment and gather data to ensure an optimal installation experience.

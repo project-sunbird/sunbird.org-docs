@@ -32,6 +32,7 @@ Order: Top down per column
 |  SyncTool               | Neo4jElasticSearchSyncTool |                   |                    | Logging |
 
 
+
 Optional:
 
 You can run the Logging job if required which is located under Core → Deploy → Logging

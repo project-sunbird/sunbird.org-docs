@@ -22,9 +22,11 @@ Maya joins XYZ Corp as an intern pursuing research Indian & Greek archeology. Fo
 
 3. Software that can make API calls like curl or [POSTMAN](https://www.getpostman.com/docs/v6/postman/api_documentation/intro_to_api_documentation)
 
-4. The root organization and sub-organizations created and their **organsationId** and root organization's **channel** readily available
+4. Generated user token [How to generate x-authenticated-user-token] (developer-docs/how-to-guide/how_to_create_user_auth_token/)
 
-5. The user account created in the root-organization and **userId** readily available
+5. The root organization and sub-organizations created and their **organsationId** are available
+
+6. The user account created in the root-organization and the **userId** is readily available
 
 ### Taskflow
 
@@ -36,9 +38,11 @@ First, Gita assigns the role of content consumer, to Maya, in the sub-organizati
 |---------------|------------------------|--------|-----------|
 | Content-type | String | Mime type of the request | application/json |
 | Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
-| x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
+| x-authenticated-user-token | String | A token that identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
-#### Request Body
+#### Request Body 
+
+**Note:** The following request sample should be used when the user is not already associated with the provided organisation. If the user is already associated, then this API will return an error. 
 
     curl -X POST \
     https://staging.open-sunbird.org/api/org/v1/member/add \
@@ -49,7 +53,8 @@ First, Gita assigns the role of content consumer, to Maya, in the sub-organizati
         "request":
         {
             "organisationId": "01261942258536448016",
-            "userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449"
+            "userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449",
+            "roles" : [] //optional   
         }
     }
 
@@ -73,6 +78,44 @@ First, Gita assigns the role of content consumer, to Maya, in the sub-organizati
     }
 
 
+#### Request Body 
+**Note:** The following sample request should be used when the user is already associated with an organisation and the user's associated roles need to be added or removed. The roles that are passed will be applied to the user. All exisitng roles of the user will be overridden.
+
+    curl -X POST \
+    https://staging.open-sunbird.org/api/org/v1/role/assign \
+    -H 'Authorization: Bearer abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' \
+    -H 'Content-Type: application/json' \
+    -H 'x-authenticated-user-token: eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE' \
+    -d '{
+        "request":
+        {
+            "organisationId": "01261942258536448016",
+            "userId": "a04b9456-a7f8-4907-aeb1-b5d142d7a449",
+            "roles" : ["role1","role2"]    
+        }
+    }
+
+#### Response Body
+
+    {
+        "id": "api.org.role.assign",
+        "ver": "v1",
+        "ts": "2018-11-13 15:18:17:253+0000",
+        "params": {
+            "resmsgid": null,
+            "msgid": "d6e68bc6-599f-48d1-b397-9ef8d3dfc2cc",
+            "err": null,
+            "status": "success",
+            "errmsg": null
+        },
+        "responseCode": "OK",
+        "result": {
+            "response": "SUCCESS"
+        }
+    }
+
+
+
 After 3 months, Gita revokes Maya's access to the the sub-organization - Indian Archeology.
 
 **Header Parameters**
@@ -80,10 +123,10 @@ After 3 months, Gita revokes Maya's access to the the sub-organization - Indian 
 |     Header    |          Type         | Description | Sample |
 |---------------|------------------------|--------|-----------|
 | Content-type | String | Mime type of the request | application/json |
-| Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
-| x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
+| Authorization | String | The uthorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
+| x-authenticated-user-token | String | A token that identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
-#### cURL Request
+#### Request Body
 
     curl -X POST \
     https://staging.open-sunbird.org/api/org/v1/member/remove \
@@ -126,7 +169,7 @@ Gita associates Maya with sub-organization called Greek Archeology.
 |---------------|------------------------|--------|-----------|
 | Content-type | String | Mime type of the request | application/json |
 | Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
-| x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
+| x-authenticated-user-token | String | A token that identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
 #### Request Body
 
@@ -169,8 +212,8 @@ After 3 more months, Gita revokes Maya's access to the sub-organization called G
 |     Header    |          Type         | Description | Sample |
 |---------------|------------------------|--------|-----------|
 | Content-type | String | Mime type of the request | application/json |
-| Authorization | String | Authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
-| x-authenticated-user-token | String | A token that id identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
+| Authorization | String | The authorization key received | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 |
+| x-authenticated-user-token | String | A token that identifies that the caller is authorized to invoke this REST API | eyqtUZ.Y0RU965YATAb3ws4GcJzEWblQPzUVsefMx6QqO73WwEPFDPhG28uK2z6kTcjst4oqVLNY63tUPZphE5pWRjPYQEIOJK-JxRhJ0RsR6DmJCSb3kmS14n4l5FWQBEQ0AE |
 
 #### Request Body
 
@@ -210,7 +253,7 @@ This concludes the topic of associating a user with an organization, in Sunbird.
 
 ### Concepts Covered
 
-**Associate user and organization**: When a user is created in an organization, by default, the user does not get associated with any sub-organizations. A user can be associated with one or more sub-organizations, within the same organization. A user cannot be associated with more than one organization.
+**Associate user and organization**: When a user is created in an organization, by default, the user does not get associated with any sub-organization. A user can be associated with one or more sub-organizations, within the same organization. A user cannot be associated with more than one organization.
 
 ### Related Topics
 
