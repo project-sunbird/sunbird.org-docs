@@ -36,7 +36,7 @@ For details, refer to the [Delete Keycloak Users](/developer-docs/installation/d
 
 ### Sync Course Batches
 
-To sync course batches, refer to the [Elasticsearch Static Mapping for Course Batch](developer-docs/server-configurations/elasticsearch_static_mapping_course_batch.md) document and run the commans in only steps 3 and 4 complete the task.
+To sync course batches, refer to the [Elasticsearch Static Mapping for Course Batch](/developer-docs/server-configurations/elasticsearch_static_mapping_course_batch.md) document and run the commans in only steps 3 and 4 complete the task.
 
 
 ### User Course Sync
