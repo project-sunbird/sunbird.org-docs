@@ -7,8 +7,9 @@ allowSearch: true
 keywords: Upgrade, Sunbird 2.3.0, Core, elasticsearch
 ---
 
-**New load balancer setup for Swarm manager 
-(Optional - Refer the variable sunbird_swarm_manager_lb_ip in inventory for comments)**
+**New load balancer setup for Swarm manager **
+
+(Optional - Refer the variable sunbird_swarm_manager_lb_ip in inventory for comments)
 
 
 To setup LB for Swarm managers, execute the following instructions for each of the mentioned fields:
@@ -30,8 +31,12 @@ To setup LB for Swarm managers, execute the following instructions for each of t
        ->   content-service  - Frontend-port:5000 - Backend-port: 5000
        ->   learner-service  - Frontend-port:9000 - Backend-port: 9000
 
-**IMPORTANT**: 1.  Take a backup of all your databases by running backup jobs located under OpsAdministration → Core / KnowledgePlatform / DataPipeline → BackupJobs OR You can use VM Disk Snapshots from your cloud provider.
+**IMPORTANT**: 
+
+1.Take a backup of all your databases by running backup jobs located under OpsAdministration → Core / KnowledgePlatform / DataPipeline → BackupJobs OR You can use VM Disk Snapshots from your cloud provider.
+
 2. Once all the variables and Jenkins configurations are complete, you can start to build and deploy services.
+
 3. Build all the services mentioned in the table below.
 Here is the list of jobs that are required to be built and deployed for your reference.
 
