@@ -84,21 +84,13 @@ paths:
             $ref: '#/definitions/BulkUploadErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-        - bearer: []
-      x-unitTests: []
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /course/v1/batch/bulk/enrollment:
     post:
       description: >-
         This API is used for enrolling batches in bulk
            - The **_/batch/bulk/enrollment_** endpoint executes "bulk batch enrollment" request based on parameters provided as metadata in the request body.
            - It mandatory to provide values for all mandatory fields
-      summary: Upload Batches in Bulk
+      summary: Upload Batch Enrollments in Bulk
       tags:
         - Bulk Operation APIs
       operationId: bulk batch enrollment req
@@ -117,9 +109,7 @@ paths:
               - Each line of the file is a data record. Each record consists of one or more fields, separated by commas.
              The format of this file is as :
               - batchId,
-              - userIds,
-              Omit (•)
-               (•) is used to enhance readibility here.
+              - userIds
         - name: Authorization
           in: header
           required: true
@@ -143,14 +133,55 @@ paths:
             $ref: '#/definitions/BulkUploadErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-        - bearer: []
-      x-unitTests: []
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
+  /course/v1/batch/bulk/unenrollment:
+    post:
+      description: >-
+        This API is used for enrolling batches in bulk
+           - The **_/batch/bulk/unenrollment_** endpoint executes "bulk batch enrollment" request based on parameters provided as metadata in the request body.
+           - It mandatory to provide values for all mandatory fields
+      summary: Upload Batch Unenrollments in Bulk
+      tags:
+        - Bulk Operation APIs
+      operationId: bulk batch unenrollment req
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: batch
+          in: formData
+          required: true
+          type: file
+          format: file
+          description: >-
+            This is a .csv file.
+              - Each line of the file is a data record. Each record consists of one or more fields, separated by commas.
+             The format of this file is as :
+              - batchId,
+              - userIds
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        - name: x-authenticated-user-token
+          in: header
+          required: true
+          type: string
+          description: >-
+            It is a unique token/key to authenticate the user each time an API is called. For corresponding sessions this token is used, not your actual username/password
+
+      responses:
+        '200':
+          description: 'OK ! Successful operation."bulk batch enrollment " operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/BulkUploadResponse'
+        '400':
+          description: 'BAD REQUEST. The "bulk batch enrollment" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/BulkUploadErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
   /data/v1/upload/status/{processId}:
     get:
       description: >-
@@ -204,33 +235,6 @@ paths:
             $ref: '#/definitions/BulkUploadErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-        - bearer: []
-      x-unitTests:
-        - request:
-            method: GET
-            uri: /upload/status/{}
-            headers:
-              Accept: application/json
-              Content-Type: application/json
-              Authorization: Bearer
-          expectedResponse:
-            x-allowExtraHeaders: true
-            x-bodyMatchMode: NONE
-            x-arrayOrderedMatching: false
-            x-arrayCheckCount: false
-            x-matchResponseSchema: true
-            headers: {}
-          x-testShouldPass: true
-          x-testEnabled: true
-          x-testName: getStatus
-          x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-
   /data/v1/upload/statusDownloadLink/{processId}:
     get:
       description: >-
@@ -334,14 +338,6 @@ paths:
             $ref: '#/definitions/BulkUploadErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-      security:
-        - bearer: []
-      x-unitTests: []
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /data/v1/bulk/location/upload :
     post:
       summary: Upload Location Data in Bulk
