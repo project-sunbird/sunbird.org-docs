@@ -32,7 +32,7 @@ Ex: Frontend-port: 80
 
 > **Note:** Follow similar steps for port 443
 
-## Swarm Managers
+## Swarm Managers (Optional - Refer the variable sunbird_swarm_manager_lb_ip in inventory for comments)
 
 To setup LB for Swarm managers, execute the following instructions for each of the mentioned fields: 
 - Frontend IP configuration - Internal IP (default)
