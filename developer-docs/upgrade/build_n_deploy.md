@@ -7,7 +7,10 @@ allowSearch: true
 keywords: Upgrade, Sunbird 2.3.0, Core, elasticsearch
 ---
 
-**New load balancer setup for Swarm manager (Optional - Refer the variable sunbird_swarm_manager_lb_ip in inventory for comments)**
+**New load balancer setup for Swarm manager 
+(Optional - Refer the variable sunbird_swarm_manager_lb_ip in inventory for comments)**
+
+
 To setup LB for Swarm managers, execute the following instructions for each of the mentioned fields:
 - Frontend IP configuration - Internal IP (default)
 - Backend pools - attach swarm manager VM or availability set of swarm manager group
