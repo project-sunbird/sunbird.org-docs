@@ -38,7 +38,8 @@ This page explains the jobs to be run to bring up the Core services.
 | Lms | Builds  the lms service docker image |
 | Content | Builds the content service docker image | 
 | Learner | Builds the learner service docker image | 
-| Player | Builds the player service docker image |
+| Player | Builds the player service docker image. In the build job you have 3 parameters which point to plugins. Provide the values of your blob url where the zip files are uploaded.
+Example: sunbird_content_editor_artifact_url with value as https://sunbirddev.blob.core.windows.net/sunbird-content-dev/artefacts/editor/content-editor-iframe-2.4.0.zip |
 | Proxy | Builds the proxy docker image |  
 | Telemetry | Builds the telemetry docker image |
 

@@ -12,7 +12,9 @@ keywords: Upgrade, Sunbird 2.3.0, Core, elasticsearch
 
 **IMPORTANT**: 1.  Take a backup of all your databases by running backup jobs located under OpsAdministration → Core / KnowledgePlatform / DataPipeline → BackupJobs OR You can use VM Disk Snapshots from your cloud provider.
 2. Once all the variables and Jenkins configurations are complete, you can start to build and deploy services.
-3. Build all the services mentioned in the table below.
+3. Build and deploy plugins. Refer [this page](developer-docs/server-installation/plugins){:target="_blank"}
+4. After plugins build and deploy, provide the blob url of the plugins zip file in Player build. Refer Player build job on [this page](developer-docs/server-installation/artifactupload-job/core-services){:target="_blank"}
+5. Build all the services mentioned in the table below.
 Here is the list of jobs that are required to be built and deployed for your reference.
 
 Order: Top down per column
