@@ -7,7 +7,7 @@ allowSearch: true
 keywords: Upgrade, Sunbird 2.3.0, Core, elasticsearch
 ---
 
-**New load balancer setup for Swarm manager **
+**New load balancer setup for Swarm manager**
 
 (Optional - Refer the variable sunbird_swarm_manager_lb_ip in inventory for comments)
 
