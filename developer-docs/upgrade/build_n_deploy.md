@@ -33,7 +33,7 @@ To setup LB for Swarm managers, execute the following instructions for each of t
 
 **IMPORTANT**: 
 
-1.Take a backup of all your databases by running backup jobs located under OpsAdministration → Core / KnowledgePlatform / DataPipeline → BackupJobs OR You can use VM Disk Snapshots from your cloud provider.
+1. Take a backup of all your databases by running backup jobs located under OpsAdministration → Core / KnowledgePlatform / DataPipeline → BackupJobs OR You can use VM Disk Snapshots from your cloud provider.
 
 2. Once all the variables and Jenkins configurations are complete, you can start to build and deploy services.
 
