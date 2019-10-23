@@ -46,8 +46,8 @@ Switch to the `Build` folder and run all jobs. For the value of the **github_rel
     6.Neo4DefinitionUpdate  
     7.Neo4jElasticSearchSyncTool   
     8.KafkaSetup   
-    9.Yarn   
- 
-*   Now you should be able to delete contents from workspace, drafts, contents which are published etc.
-                    
+    9.Yarn  
+    10.CassandraTrigger
+
+
 Refer [How to Create Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird){:target="_blank"}, [How to Create Schemas for Knowledge Platform Objects](developer-docs/server-installation/knowledge-platform-object-schema){:target="_blank"}

@@ -19,20 +19,22 @@ Order: Top down per column
 
 |Knowledge Platform Build |	Knowledge Platform Deploy |	DataPipeline Build | DataPipeline Deploy | Core Build | Core Deploy |
 |-------------------------|---------------------------|--------------------|---------------------|------------|------------|
-|                         | StopNeo4jCluster          |	                   | CassandraDbUpdate   | Cassandra | Cassandra |
-|                         | Neo4j	              |                    | KafkaSetup     	 | Keycloak  | Keycloak  |
-|                         | StartNeo4jCluster	      |                    | KafkaIndexer    	 | Player    | Player    |
+|                         | Provison/CompositeSearch  |	                   | CassandraDbUpdate   | Cassandra | Cassandra |
+|                         | StopNeo4jCluster          |                    |                     |           | ApplicationElasticSearch |
+|                         | Neo4j	                    |                    | KafkaSetup     	   | Keycloak  | Keycloak  |
+|                         | StartNeo4jCluster	        |                    | KafkaIndexer    	   | Player    | Player    |
 |                         | KafkaSetup                | Secor              | Secor               | Learner   | Learner   |
-|                         | CassandraDbUpdate         |	Analytics          | AnalyticsAPI        | Content | Content   |
-|                         |                           |                    |                     | Lms     | Lms         |
-|                         |Neo4jDefinitionUpdate <br>(Run manual queries mentioned below after this job)| DataPipeline |	DataProducts |	Telemetry |	Telemetry |
-| KnowledgePlatform       |	Learning              |                    | SamzaTelemetrySchemas | Proxy   |	Proxy    |
-|                         | Search	              | Yarn               |	Yarn	     |               |OnboardAPI |
-|  Yarn	                  | Yarn           |               |          |                         | OnboardConsumers    |
-|  SyncTool               | Neo4jElasticSearchSyncTool |                   |                    | Logging |
+|                         | CassandraDbUpdate         |	Analytics          | AnalyticsAPI        | Content   | Content   |
+|                         |                           |                    |                     | Lms       | Lms       |
+|                         | Neo4jDefinitionUpdate     | DataPipeline       |	DataProducts       | Telemetry | Telemetry |
+| KnowledgePlatform       |	Learning                  |                    | SamzaTelemetrySchemas | Proxy   | Proxy     |
+|                         | Search	                  | Yarn               |	Yarn (Multiselect all options in the job parameter job_names_to_deploy)	             |           | OnboardAPI|
+|  Yarn	                  | Yarn                      |                    |                     |           | OnboardConsumers |
+|  SyncTool               | Neo4jElasticSearchSyncTool|                    |                     |           | OpsAdministration/Core/ESMapping (Provide value as all for job parameter indices_name)   |
+|                         |                           |                    |                     |           | Logging
 
 
 Optional:
 
 You can run the Logging job if required which is located under Core → Deploy → Logging
-The Logging jobs will provision Kibana and provide you access to container logs. But this will consume additional resources in your Swarm machines and we do not recommend to run this job if you have a single swarm machine.
+The Logging jobs will provision Kibana and provide you access to container logs. But this will consume additional resources in your Swarm machines and we do not recommend to run this job if you have a two node swarm cluster.

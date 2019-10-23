@@ -23,7 +23,7 @@ Follow the below steps to upgrade:
 1.Run the following commmands to set up the repository:
 
         git clone https://github.com/project-sunbird/sunbird-devops.git
-        cd sunbird-devops && git checkout tags/release-2.3.0 -b release-2.3.0
+        cd sunbird-devops && git checkout tags/release-2.4.0 -b release-2.4.0
         cd deploy/jenkins
 
 2.If there are changes in environment and you require additional folders for other environments, then update the **envOrder.txt** file with new environment order and run the script  
@@ -37,22 +37,22 @@ Follow the below steps to upgrade:
 4.Switch to jenkins user and run the below command to install NVM    
         ```curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash```
         
-5.Remove the variable github_release_tag from global environment variables in Jenkins (This was added in release 1.1.4 and now this must be removed)
+5.Remove the variable github_release_tag from global environment variable in Jenkins if not done (This was added in release 1.1.4 and now this must be removed)
 
 6.The script will show the list of differences between your current configuration and the new configuration. Take a deep look at these changes and when you are ready to update, provide the confirmation as YES 
 
 7.The script will overwrite the existing jobs (only those sunbird provides by default) and update the configurations with new changes of that release.
 
-8.Add the below two Jenkins environment variables under Mange Jenkins → Configure System
+8.Add the below two Jenkins environment variables under Mange Jenkins if not done → Configure System
 
 |Variable | Value |
 |----------|-------|
 | override_private_branch |	true |
 | override_public_branch | true |
 
-9.Go to Manage Jenkins → Configure System → Global Pipeline Libraries → Change Default Version to `release-2.3.0-shared-lib`
+9.Go to Manage Jenkins → Configure System → Global Pipeline Libraries → Change Default Version to `release-2.4.0-shared-lib`
 
-10.Go to Manage Jenkins → Configure System → Update `public_repo_branch` to `refs/tags/release-2.3.0` or go to Manage Jenkins → Configure System → Update `private_repo_branch` to the branch name of your private repo branch in case you created a new branch for release-2.3.0 inventory updates  
+10.Go to Manage Jenkins → Configure System → Update `public_repo_branch` to `refs/tags/release-2.4.0` or go to Manage Jenkins → Configure System → Update `private_repo_branch` to the branch name of your private repo branch in case you created a new branch for release-2.4.0 inventory updates  
 
 11.Restart your Jenkins and you are ready to go  
 

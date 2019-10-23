@@ -16,7 +16,7 @@ Use the following Git commands sequentially to clone and update your private Git
 
 1. `git clone` <a href="https://project-sunbird/sunbird-devops">https://github.com/project-sunbird/sunbird-devops</a>
 
-2. `cd sunbird-devops; git checkout tags/release-2.3.0 -b release-2.3.0`
+2. `cd sunbird-devops; git checkout tags/release-2.4.0 -b release-2.4.0`
 
 3. `cp -rf sunbird-devops/private_repo /tmp/`
 

@@ -50,7 +50,7 @@ Ensure that all Artifacts are uploaded
 | Operation Name | Function |
 |--------------------|-----------| 
 | (Deploy) ApplicationES | From the Deploy Folder, **Deploy ApplicationES** provisions for the Elasticsearch and creates indices necessay for Sunbird Core|
-| ESMapping (Under OpsAdministarion) | Creates Elasticsearch indexes |
+| ESMapping (Under OpsAdministarion. Provide value as all for job parameter indices_name) | Creates Elasticsearch indexes |
 | Postgres | Provisions for Postgres |
 | PostgresDbUpdate | Creates the databases, assigns roles and creates users |
 | LogEsUpgrade6xx | Install elasticsearch 6.X |
@@ -94,6 +94,3 @@ You can access keycloak via `localhost:8080`
 | 5 | In the Sunbird realm, navigate to **Clients** > **admin-cli** > **Roles** > **Add Role**. Enter the role name as **admin** and click **Save**. Navigate to **Composite Roles** and switch the toggle button to ON. Navigate to **Composite Roles > Realm Roles** and  add **admin**, **offline_access** and, **uma_authorization**. Navigate to **Permissions > Permissions Enabled** and switch the toggle to ON.|
 | 6 | Creating keycloak federation [Deployment Steps for Keycloak User Federation](developer-docs/server-installation/keycloak_user_federation) |
 
-### Map Elasticsearch Index
-
-> **Note:** Refer to [Elasticsearch Static Mapping for Course batch](developer-docs/server-configurations/elasticsearch_static_mapping_course_batch) to map the cbatch search index. 
