@@ -34,6 +34,8 @@ Ex: Frontend-port: 80
 
 ## Swarm Managers
 (Optional - Refer the variable sunbird_swarm_manager_lb_ip in inventory for comments)
+
+
 To setup LB for Swarm managers, execute the following instructions for each of the mentioned fields: 
 - Frontend IP configuration - Internal IP (default)
 - Backend pools - attach swarm manager VM or availability set of swarm manager group
