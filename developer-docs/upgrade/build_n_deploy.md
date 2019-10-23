@@ -44,17 +44,15 @@ Order: Top down per column
 
         `match (n:domain{}) WHERE exists(n.sYS_INTERNAL_LAST_UPDATED_ON) remove n.sYS_INTERNAL_LAST_UPDATED_ON;`
  
-4.Ensure you provide the `github_release_tag` for Build jobs as per the tags mentioned in the sheet - [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs).
-5.Ensure all ArtificatUpload Jobs as successful.
-6.Deploy services which are mentioned in the table below. **IMPORTANT**: The order of deployment for jobs in deploy directory should be same as mentioned in the below table.
-7.If some build and deploy jobs are not relevant to your setup, you can skip them.
-8.Ensure you provide branch_or_tag as per the data mentoined in this sheet - [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs) under Jobs which use this repository column.
-9.Once all services are deployed, please perform the manaual configurations mentioned in this sheet - [Manual configurations](developer-docs/upgrade/manual_configuration)
-
-
+4.Ensure you provide the `github_release_tag` for Build jobs as per the tags mentioned in the sheet - [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs). 
+5.Ensure all ArtificatUpload Jobs as successful.  
+6.Deploy services which are mentioned in the table below. **IMPORTANT**: The order of deployment for jobs in deploy directory should be same as mentioned in the below table.  
+7.If some build and deploy jobs are not relevant to your setup, you can skip them.  
+8.Ensure you provide branch_or_tag as per the data mentoined in this sheet - [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs) under Jobs which use this repository column.  
+9.Once all services are deployed, please perform the manaual configurations mentioned in this sheet - [Manual configurations](developer-docs/upgrade/manual_configuration)  
 
 
 Optional:
 
-You can run the Logging job if required which is located under Core → Deploy → Logging
+You can run the Logging job if required which is located under Core → Deploy → Logging  
 The Logging jobs will provision Kibana and provide you access to container logs. But this will consume additional resources in your Swarm machines and we do not recommend to run this job if you have a single swarm machine.
