@@ -10,8 +10,8 @@
 <meta name="msapplication-TileColor" content="#65d3f7">
 <meta name="msapplication-TileImage" content="/img/favicon/mstile-150x150.png">
 
-<title>Adding Topic</title>
-<meta name="description" content="About Adding Topic selector in the metatdata of book, course, collection, resource, and lesson plan"/>
+<title>Migration Script to Add User's Masked Email Address and Phone Number</title>
+<meta name="description" content="Migration script to add user's masked email address and phone"/>
 
 <meta http-equiv="cache-control" content="max-age=0" />
 <meta http-equiv="cache-control" content="no-cache" />
@@ -96,7 +96,7 @@ resetBase();
  
 	<div id="widgetVersionSwitcher"></div>
 	
-	<div class="sidebar-wrapper features-documentation"> 
+	<div class="sidebar-wrapper developer-docs"> 
 		
 			
 				
@@ -227,7 +227,7 @@ resetBase();
 			
 				
 				
-				<div class="active">
+				<div class="">
 					<a href="features-documentation/" >
 						<h4 class="sidebar-group-title">Product Features</h4>
 					</a>
@@ -945,7 +945,7 @@ resetBase();
 			
 				
 				
-				<div class="">
+				<div class="active">
 					<a href="developer-docs/" >
 						<h4 class="sidebar-group-title">Developer Documentation</h4>
 					</a>
@@ -2202,14 +2202,14 @@ resetBase();
 </div>
 
 <script>
-	$("a[href$='features-documentation/topic_tree/']").addClass("sidebar-link-selected");
+	$("a[href$='developer-docs/installation/mask_user_email_phone_migration/']").addClass("sidebar-link-selected");
 </script>
 
       </div>
     </nav>
     <div class="content">
       <div class="inner__content header" id="heading">
-        <h1>Adding Topic </h1>
+        <h1>Migration Script to Add User's Masked Email Address and Phone Number </h1>
       </div>
 
       <div id="main-content" class="inner__content">
@@ -2219,7 +2219,7 @@ resetBase();
 				  <i class="fa fa-book" aria-hidden="true"></i> <i>Contribution Guidelines</i>
 			  </a> &nbsp;&nbsp;-->
 			  
-			 <a target="_blank"  title="Edit this page"class="" href="https://github.com/project-sunbird/sunbird.org-docs/edit/2.0.0/features-documentation/topic_tree.md">
+			 <a target="_blank"  title="Edit this page"class="" href="https://github.com/project-sunbird/sunbird.org-docs/edit/2.0.0/developer-docs/installation/mask_user_email_phone_migration.md">
 				  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
 			  </a> 
 			  | 
@@ -2230,35 +2230,216 @@ resetBase();
 			  </span>
 			</p>
 			<div class="widgetLatestVersionNotification"></div>
-          <p>The topic selector ensures that the content is linked with the topics and extracts correct metadata. The list of the topics appears according to the board, grade, subject, and medium that you have selected.</p>
-<table>
-  <tr>
-    <th style="width:35%;">Step</th>
-    <th style="width:65%;">Screen</th>
-  </tr>  
-  <tr>
-    <td>1 Click <b>Topic</b>. The Topics page is displayed
-    <br />2. Search for a topic using the <b>Search</b> bar
-    <br />3. The <b>Topics</b> tab displays a complete list of available topics  
-    <br />4. Browse and select the topic(s) from the topic tree
-    <br />5. View the selected concepts in <b>Selected Topics</b> tab 
-    <br />6. Click <b>Done</b> to proceed
-    <br />7. Click <b>Cancel</b> to exit
-    </td> 
-    <td><img src="features-documentation/images/topic_selector.png" /></td>
-  </tr>
+          <div id="toc-container">
+  <table class="toc" id="toc">
+    <tbody>
+      <tr>
+        <td>
+          <div id="toctitle">
+            <h2>Contents</h2>
+            <span class="toctoggle">[<a id="toctogglelink" class="internal" href="#">hide</a>]</span>
+          </div>
+          <ul>
+            <li class="toc_level-1 toc_section-1">
+              <a href="#overview"><span class="tocnumber">1 .</span> <span class="toctext">Overview</span></a>
+            </li>
+            <li class="toc_level-1 toc_section-2">
+              <a href="#prerequisites"><span class="tocnumber">2 .</span> <span class="toctext">Prerequisites</span></a>
+            </li>
+            <li class="toc_level-1 toc_section-3">
+              <a href="#configuration-parameters"><span class="tocnumber">3 .</span> <span class="toctext">Configuration Parameters</span></a>
+            </li>
+            <li class="toc_level-1 toc_section-4">
+              <a href="#environment-variables"><span class="tocnumber">4 .</span> <span class="toctext">Environment Variables</span></a>
+            </li>
+            <li class="toc_level-1 toc_section-5">
+              <a href="#migration-script"><span class="tocnumber">5 .</span> <span class="toctext">Migration Script</span></a>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
   </table>
+</div><h2 id="overview">Overview</h2>
+<p>Sunbird, encryots and stores the user’s email address and phone number in Cassandra. However, it is also required that the user’s email address and phone number is added to the databse in a masked form. This migration script reads the encrypted email address or phone number, decrypts it and generates a masked form of the email address and phone number, which it in turn adds into two new columns as maskedemail and maskedphone for all existing users.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>To run the migration script, ensure you have:</p>
+
+<ol>
+  <li>Access to cassandra database</li>
+  <li>A backup of Sunbird keyspace in the Cassandra DB.</li>
+  <li>Added the columns <strong>maskedemail</strong> and <strong>maskedphone</strong> in the Cassandra script.</li>
+</ol>
+
+<h2 id="configuration-parameters">Configuration Parameters</h2>
+<p>The following parameters needs to be passed as arguments for the mask email phone migration job</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>S.No.</th>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>sunbird_cassandra_server</td>
+      <td>Cassandra DB IP Address</td>
+      <td>198.168.1.1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>sunbird_cassandra_port</td>
+      <td>Cassandra DB Port Number</td>
+      <td>9042</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>sunbird_cassandra_username*</td>
+      <td>Cassandra DB User Name</td>
+      <td>username</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>sunbird_cassandra_password*</td>
+      <td>Cassandra DB Password</td>
+      <td>password</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>sunbird_cassandra_keyspace</td>
+      <td>Cassandra DB Keyspace Name</td>
+      <td>sunbird</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>sunbird_encryption_algorithm</td>
+      <td>Encryption Algorithm to encrypt email</td>
+      <td>AES</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>sunbird_encryption_iteration_count</td>
+      <td>Encryption Iteration Count to encrypt email</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>dry_run</td>
+      <td>if enabled, only report generation and not actual migration happens</td>
+      <td>true</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>Note: If authentication is not required, pass <code>""</code> for parameters, username, and password</p>
+</blockquote>
+
+<h2 id="environment-variables">Environment Variables</h2>
+<p>Set the following environment variables:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>S.No.</th>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>sunbird_encryption_key</td>
+      <td>Encryption Key to encrypt email</td>
+      <td>Encryption Key</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>sunbird_cipher_key</td>
+      <td>Cipher Key to encrypt email</td>
+      <td>Cipher Key</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="migration-script">Migration Script</h2>
+
+<ol>
+  <li>
+    <p>Extract the archive file <strong>maskEmailPhoneMigrationBin.zip</strong>.</p>
+  </li>
+  <li>
+    <p>Run the script using the following commands</p>
+    <blockquote>
+      <p>Note: Perform a dry run first to verify that everything runs properly and then perform the actual migration.</p>
+    </blockquote>
+  </li>
+</ol>
+
+<p>(dry_run: true)</p>
+<pre>
+  <code>sh maskEmailPhoneMigration_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_cassandra_keyspace="{sunbird_cassandra_keyspace}" --context_param sunbird_encryption_algorithm="{sunbird_encryption_algorithm}" --context_param sunbird_encryption_iteration_count="{sunbird_encryption_iteration_count}" --context_param dry_run=true
+</code>
+</pre>
+
+<p>Verify the records identified to be updated.</p>
+
+<p>(dry_run: false)</p>
+<pre>
+  <code>sh maskEmailPhoneMigration_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_cassandra_keyspace="{sunbird_cassandra_keyspace}" --context_param sunbird_encryption_algorithm="{sunbird_encryption_algorithm}" --context_param sunbird_encryption_iteration_count="{sunbird_encryption_iteration_count}" --context_param dry_run=false
+</code>
+</pre>
+
+<ol>
+  <li>The script generates the following logs.</li>
+</ol>
+
+<table>
+  <thead>
+    <tr>
+      <th>S.No.</th>
+      <th>Log File</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>maskFailure.csv</td>
+      <td>Email Ids or phones which decryption and masking failed</td>
+      <td>maskFailure.csv</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>toSync.csv</td>
+      <td>User Ids to be synced (This file will be generated only in migration)</td>
+      <td>toSync.csv</td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li>In case of migration, the sync job has to be run for user IDs captured in toSync.csv file to sync the migrated data from Cassandra to Elasticsearch.</li>
+</ol>
 
           
           <hr />
           
           <p class="edit-para text-right">
-			<a target="_blank" href="https://github.com/project-sunbird/sunbird.org-docs/edit/2.0.0/features-documentation/topic_tree.md" title="Fix this page">
+			<a target="_blank" href="https://github.com/project-sunbird/sunbird.org-docs/edit/2.0.0/developer-docs/installation/mask_user_email_phone_migration.md" title="Fix this page">
 				<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a> |
 			<a target="_blank" href="https://github.com/project-sunbird/sunbird.org-docs/issues" title="Report issue">
 				<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Report</a>
 		  </p>
-		  <a href="features-documentation/topic_tree/#heading" class="scrollup"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
+		  <a href="developer-docs/installation/mask_user_email_phone_migration/#heading" class="scrollup"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
           
       </div>
     </div>
@@ -2312,7 +2493,7 @@ resetBase();
 	});
 	$('#toc a').each(function(){
 		var url = this.href.replace(baseURL.href, "");
-		this.href = 'features-documentation/topic_tree/' + url;
+		this.href = 'developer-docs/installation/mask_user_email_phone_migration/' + url;
     })
 	$(".zoomcover").click(function(){
 		if (!$(this).hasClass("fullscreen")){

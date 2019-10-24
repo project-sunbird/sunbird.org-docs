@@ -10,19 +10,19 @@
 <meta name="msapplication-TileColor" content="#65d3f7">
 <meta name="msapplication-TileImage" content="/img/favicon/mstile-150x150.png">
 
-<title>Elasticsearch static mapping for course batch</title>
-<meta name="description" content="Elasticsearch static mapping for course batch"/>
+<title>Static Mapping for Course Batches in Elasticsearch</title>
+<meta name="description" content="Static Mapping for Course Batches in Elasticsearch"/>
 
 <meta http-equiv="cache-control" content="max-age=0" />
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2019-10-23 19:34:38 +0530">
+<meta name="last-modified" content="2019-10-24 20:08:19 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="2052" />
+<meta name="buildNo" content="2074" />
 <meta name="version" id="docsVersion" content="2.0.0" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?23102019"  />
+<link rel="stylesheet" href="/css/style.css?24102019"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?23102019"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?23102019"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?23102019"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?23102019"></script>
-<script type="text/javascript" src="/js/widgets-data.js?23102019"></script>
-<script type="text/javascript" src="/js/widgets.js?23102019"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?24102019"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?24102019"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?24102019"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?24102019"></script>
+<script type="text/javascript" src="/js/widgets-data.js?24102019"></script>
+<script type="text/javascript" src="/js/widgets.js?24102019"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -2209,7 +2209,7 @@ resetBase();
     </nav>
     <div class="content">
       <div class="inner__content header" id="heading">
-        <h1>Elasticsearch static mapping for course batch </h1>
+        <h1>Static Mapping for Course Batches in Elasticsearch </h1>
       </div>
 
       <div id="main-content" class="inner__content">
@@ -2247,16 +2247,7 @@ resetBase();
               <a href="#prerequisites"><span class="tocnumber">2 .</span> <span class="toctext">Prerequisites</span></a>
             </li>
             <li class="toc_level-1 toc_section-3">
-              <a href="#step-1"><span class="tocnumber">3 .</span> <span class="toctext">Step 1:</span></a>
-            </li>
-            <li class="toc_level-1 toc_section-4">
-              <a href="#step-2"><span class="tocnumber">4 .</span> <span class="toctext">Step 2:</span></a>
-            </li>
-            <li class="toc_level-1 toc_section-5">
-              <a href="#step-3"><span class="tocnumber">5 .</span> <span class="toctext">Step 3:</span></a>
-            </li>
-            <li class="toc_level-1 toc_section-6">
-              <a href="#step-4"><span class="tocnumber">6 .</span> <span class="toctext">Step 4:</span></a>
+              <a href="#procedure"><span class="tocnumber">3 .</span> <span class="toctext">Procedure</span></a>
             </li>
           </ul>
         </td>
@@ -2264,13 +2255,15 @@ resetBase();
     </tbody>
   </table>
 </div><h2 id="overview">Overview</h2>
-<p>Existing coursebatch type Elasticsearch index is having dynamic mapping and it recently hit the default max limit (1000). As such, it is required to disable dynamic mapping and use static mapping which would index the necessary fields only.</p>
+<p>The existing coursebatch type Elasticsearch index has dynamic mapping. It hit the default max limit of 1000, that resulted in errors. It is hence recommended to disable dynamic mapping and use static mapping so that only the necessary fileds are indexed.</p>
 
 <h2 id="prerequisites">Prerequisites</h2>
 <p>Access to Elasticsearch and Cassandra instances.</p>
 
-<h2 id="step-1">Step 1:</h2>
-<p>Update course batch mapping using below curl command.</p>
+<h2 id="procedure">Procedure</h2>
+
+<p><strong>Step 1</strong>
+Update course batch mapping using below curl command.</p>
 
 <pre>
   <code>curl -X PUT \
@@ -2591,15 +2584,15 @@ resetBase();
 </code>
 </pre>
 
-<h2 id="step-2">Step 2:</h2>
-<p>Get total number of batches by running below CQL command.</p>
+<p><strong>Step 2</strong>
+Get the total number of batches by running below CQL command.</p>
 <pre>
   <code>select count(*) from sunbird.course_batch;
 </code>
 </pre>
 
-<h2 id="step-3">Step 3:</h2>
-<p>Perform sync of all course batches using Learner Service Sync API so that course batch data is reindexed as per latest mapping defined in Elasticsearch.</p>
+<p><strong>Step 3</strong>
+Sync all course batches using the Learner Service Sync API so that course batch data is reindexed as per the latest mapping defined in Elasticsearch.</p>
 
 <pre>
   <code>curl -X POST \
@@ -2611,8 +2604,8 @@ resetBase();
 </code>
 </pre>
 
-<h2 id="step-4">Step 4:</h2>
-<p>Verify that the sync has happened successfully to the new index by using Learner Service List Course Batches API. The counts in Step 2 and Step 4 should match.</p>
+<p><strong>Step 4</strong>
+Verify that the sync has happened successfully to the new index by using Learner Service List Course Batches API. The counts in Step 2 and Step 4 should match.</p>
 <pre>
   <code>curl -X POST \
   /api/course/v1/batch/list \
