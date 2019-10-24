@@ -3,7 +3,7 @@ layout: page
 title: API Reference Documentation
 page_title: API reference documentation
 description: API reference documentation
-keywords: API Documentation, API refeence, API,  
+keywords: API Documentation, API reference, API  
 published: true
 allowSearch: true
 ---
