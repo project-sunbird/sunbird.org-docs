@@ -1,7 +1,7 @@
 ---
-title: Migration script to add user's masked email and phone
-page_title: Migration script to add user's masked email and phone
-description: Migration script to add user's masked email and phone
+title: Migration Script to Add User's Masked Email Address and Phone Number
+page_title: Migration Script to Add User's Masked Email Address and Phone Number
+description: Migration script to add user's masked email address and phone
 published: true
 allowSearch: true
 keywords: migration script, making user email, masking user phone, masking
