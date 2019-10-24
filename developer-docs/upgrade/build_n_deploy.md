@@ -67,6 +67,10 @@ Order: Top down per column
 |  SyncTool               | Neo4jElasticSearchSyncTool |                   |                    | Logging |
 
 
+
 >Note: The following is optional:
 You can run the Logging job located under Core → Deploy → Logging  
 The Logging jobs provision Kibana and provide you access to the container logs. But, this consumes additional resources in your swarm machines and it is not recommended that you run this job if you have a single swarm machine.
+
+
+

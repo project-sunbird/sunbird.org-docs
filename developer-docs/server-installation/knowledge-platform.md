@@ -46,7 +46,7 @@ Switch to the `Build` folder and run all jobs. For the value of the **github_rel
     6.Neo4DefinitionUpdate  
     7.Neo4jElasticSearchSyncTool   
     8.KafkaSetup   
-    9.Yarn   
+    9.Yarn 
  
 *   Now you should be able to delete contents from workspace, drafts, contents which are published etc.
                     
