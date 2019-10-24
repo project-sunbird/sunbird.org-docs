@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2019-10-22 17:31:31 +0530">
+<meta name="last-modified" content="2019-10-23 19:34:38 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="2006" />
+<meta name="buildNo" content="2052" />
 <meta name="version" id="docsVersion" content="2.0.0" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?22102019"  />
+<link rel="stylesheet" href="/css/style.css?23102019"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?22102019"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?22102019"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?22102019"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?22102019"></script>
-<script type="text/javascript" src="/js/widgets-data.js?22102019"></script>
-<script type="text/javascript" src="/js/widgets.js?22102019"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?23102019"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?23102019"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?23102019"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?23102019"></script>
+<script type="text/javascript" src="/js/widgets-data.js?23102019"></script>
+<script type="text/javascript" src="/js/widgets.js?23102019"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -2244,19 +2244,22 @@ resetBase();
               <a href="#overview"><span class="tocnumber">1 .</span> <span class="toctext">Overview</span></a>
               <ul>
                 <li class="toc_level-2 toc_section-2">
-                  <a href="#cassandra-user-email-and-phone-number-masking"><span class="tocnumber">1.1 .</span> <span class="toctext">Cassandra User Email and Phone number masking:</span></a>
+                  <a href="#masking-user-email-and-phone-number-in-cassandra"><span class="tocnumber">1.1 .</span> <span class="toctext">Masking User Email and Phone Number in Cassandra</span></a>
                 </li>
                 <li class="toc_level-2 toc_section-3">
-                  <a href="#sync-user-data-from-cassandra-to-elasticsearch"><span class="tocnumber">1.2 .</span> <span class="toctext">Sync user data from Cassandra to Elasticsearch:</span></a>
+                  <a href="#sync-user-data-from-cassandra-to-elasticsearch"><span class="tocnumber">1.2 .</span> <span class="toctext">Sync User Data from Cassandra to Elasticsearch</span></a>
                 </li>
                 <li class="toc_level-2 toc_section-4">
-                  <a href="#delete-users-from-keycloak-db"><span class="tocnumber">1.3 .</span> <span class="toctext">Delete users from Keycloak DB</span></a>
+                  <a href="#sync-user-and-organization-data"><span class="tocnumber">1.3 .</span> <span class="toctext">Sync User and Organization Data</span></a>
                 </li>
                 <li class="toc_level-2 toc_section-5">
-                  <a href="#course-batch-sync"><span class="tocnumber">1.4 .</span> <span class="toctext">Course batch sync:</span></a>
+                  <a href="#delete-users-from-keycloak-db"><span class="tocnumber">1.4 .</span> <span class="toctext">Delete Users from Keycloak DB</span></a>
                 </li>
                 <li class="toc_level-2 toc_section-6">
-                  <a href="#user-course-sync"><span class="tocnumber">1.5 .</span> <span class="toctext">User course sync:</span></a>
+                  <a href="#sync-course-batches"><span class="tocnumber">1.5 .</span> <span class="toctext">Sync Course Batches</span></a>
+                </li>
+                <li class="toc_level-2 toc_section-7">
+                  <a href="#user-course-sync"><span class="tocnumber">1.6 .</span> <span class="toctext">User Course Sync</span></a>
                 </li>
               </ul>
             </li>
@@ -2267,31 +2270,45 @@ resetBase();
   </table>
 </div><h2 id="overview">Overview</h2>
 
-<h3 id="cassandra-user-email-and-phone-number-masking">Cassandra User Email and Phone number masking:</h3>
+<h3 id="masking-user-email-and-phone-number-in-cassandra">Masking User Email and Phone Number in Cassandra</h3>
 
-<p>As part of release-2.0.0, we are masking user’s email and phone number in cassandra DB. Please follow the below steps to perform this task</p>
+<p>As part of release-2.0.0, user’s email and phone number is masked in the Cassandra DB. To do this, download the <a href="https://github.com/project-sunbird/sunbird-utils/blob/release-2.0.0/cassandra-migration-etl/r1.15/maskEmailPhoneMigrationBin.zip">Mask Email Phone Migration</a> zip file into the Core Cassandra (master machine in case of cluster).</p>
 
-<p>Download the <a href="wget https://github.com/project-sunbird/sunbird-utils/blob/release-2.0.0/cassandra-migration-etl/r1.15/maskEmailPhoneMigrationBin.zip">file</a> in the Core Cassandra (master machine in case of cluster)</p>
+<p>For details, refer to the <a href="/developer-docs/installation/mask_user_email_phone_migration.md">Mask User Email Phone Migration</a> document to understand and run the script.</p>
 
-<p>Please refer to this document to <a href="https://github.com/project-sunbird/sunbird.org-docs/blob/b823b9b7e17758241095a869c221592bf11bb560/developer-docs/installation/mask_user_email_phone_migration.md">understand and run the script</a></p>
+<h3 id="sync-user-data-from-cassandra-to-elasticsearch">Sync User Data from Cassandra to Elasticsearch</h3>
+<p>When you manually add a new column in the user database or make any schema changes, you need to sync the user data from Cassandra to Elasticsearch. If all user data needs synching, follow the steps mentioned in the Sync User document.</p>
 
-<h3 id="sync-user-data-from-cassandra-to-elasticsearch">Sync user data from Cassandra to Elasticsearch:</h3>
+<blockquote>
+  <p>For details, refer to the <a href="/developer-docs/installation/sync_user.md">Sync User</a> document to understand and run the script.</p>
+</blockquote>
 
-<p>Please refer to this document to <a href="https://github.com/project-sunbird/sunbird.org-docs/blob/master/developer-docs/installation/sync_user.md">understand and run the script</a></p>
+<h3 id="sync-user-and-organization-data">Sync User and Organization Data</h3>
+<p>When you identify that there is a mismatch of data in your primary (Cassandra) database and your secondary database (Elasticsearch) you need to sync user and organization data. Follow the steps mentioned in the Sync User and Organization Data to sync either:</p>
+<ul>
+  <li>All user data</li>
+  <li>All organization data</li>
+  <li>Specific user data</li>
+  <li>Specific organization data</li>
+</ul>
 
-<h3 id="delete-users-from-keycloak-db">Delete users from Keycloak DB</h3>
+<blockquote>
+  <p>For details, refer to the <a href="/developer-docs/installation/sync_user.md">Sync User and Organization</a> document to understand and run the appropriate script.</p>
+</blockquote>
 
-<p>Download this <a href="https://github.com/project-sunbird/sunbird-utils/blob/release-2.0.0/cassandra-migration-etl/r1.15/DeleteKeycloakUserBin.zip">file</a> in the Core Cassandra (master machine in case of cluster)</p>
+<h3 id="delete-users-from-keycloak-db">Delete Users from Keycloak DB</h3>
 
-<p>Please refer to this document to <a href="https://github.com/project-sunbird/sunbird.org-docs/blob/b823b9b7e17758241095a869c221592bf11bb560/developer-docs/installation/delete_keycloak_users">understand and run the script</a></p>
+<p>Download the <a href="https://github.com/project-sunbird/sunbird-utils/blob/release-2.0.0/cassandra-migration-etl/r1.15/DeleteKeycloakUserBin.zip">Delete Key Cloak User</a> zip file into the Core Cassandra (master machine in case of cluster)</p>
 
-<h3 id="course-batch-sync">Course batch sync:</h3>
+<p>For details, refer to the <a href="/developer-docs/installation/delete_keycloak_users.md">Delete Keycloak Users</a> document to understand and run the script.</p>
 
-<p>Please refer to this <a href="https://github.com/manzarul/sunbird.org-docs/blob/e6caf3226dbe8173c93becf6679529ba850c3900/developer-docs/configuring_sunbird/elasticsearch_static_mapping_course_batch">document</a> to run the command (Only Step 3 and Step 4 needs to be run)</p>
+<h3 id="sync-course-batches">Sync Course Batches</h3>
 
-<h3 id="user-course-sync">User course sync:</h3>
+<p>To sync course batches, refer to the <a href="/developer-docs/server-configurations/elasticsearch_static_mapping_course_batch.md">Elasticsearch Static Mapping for Course Batch</a> document and run the commans in only steps 3 and 4 complete the task.</p>
 
-<p>Please run this command also after previous step</p>
+<h3 id="user-course-sync">User Course Sync</h3>
+
+<p>Run the following command after the syncing course batches to sync users to courses:</p>
 
 <pre>
   <code>curl -X POST \
