@@ -64,7 +64,7 @@ paths:
         in: header
         required: true
         type: string
-        description: 'The time stamp at which the **create batch** request was sent.
+        description: 'The time stamp at which the **create batch** request was sent.'
       - name: X-msg
         in: header
         required: true
@@ -400,6 +400,82 @@ paths:
             allOf:
               - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
               - $ref: '#/definitions/BatchCreateErrorResponse'
+  /batch/participants/list:
+    post:
+      description: >-
+        This API is associated with fetching participants for a training batch on the Sunbird Platform.
+          - The endpoint for **Course Batch participants list** is `/batch/participants/list`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      summary: Course Batch Participants List
+      tags:
+      - Course Batch APIs
+      operationId: Course Batch Fetch Participants
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: >-
+            The body refers to the format of the request.
+              - The body contains metadata about the batch to be updated.
+        schema:
+          allOf:
+             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+             - $ref: '#/definitions/BatchParticipantsRequest'
+      - name: Accept
+        in: header
+        required: true
+        type: string
+        description: Represents the media type(s) specified in the request body that are acceptable in the response body
+
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+      - name: ts
+        in: header
+        required: true
+        type: string
+        description: 'The time stamp identifying when the **fetch participants of batch** request was sent.'
+      - name: X-msgid
+        in: header
+        required: true
+        type: string
+        description: 'It is a Unique ID which identifies the request incase the same API is executed multiple times.'
+      - name:  x-authenticated-user-token
+        in: header
+        required: true
+        type: string
+        description: 'The alphanumeric string for accessing the API'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'SUCCESS. The **Fetch batch participants** operation was successful!'
+          schema:
+           allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/CreateEmptyParticipantsResponse'
+        '400':
+          description: 'BAD REQUEST,**Fetch batch participants** operation failed !The possible reason for failure is that you may have missed providing input for a mandatory parameter' 
+          schema:
+            allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/BatchCreateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/BatchCreateErrorResponse'
+
   /enrol:
     post:
       description: >-
@@ -824,3 +900,49 @@ definitions:
     properties:
       result:
         type: object
+  BatchParticipantsRequest:
+    title: Empty Result
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/BatchParticipantReq'
+    required:
+    - request
+  BatchParticipantReq:
+    title: Empty Result
+    type: object
+    properties:
+      batchId:
+        description: 'batch identifier for which participants are fetched'
+        type: string
+      active:
+        description: 'signifies active participants, default to true'
+        type: string
+    required:
+    - batchId
+  CreateEmptyParticipantsResponse:
+    title: Participants Response
+    type: object
+    properties:
+      result:
+        allOf:
+          - $ref: '#/definitions/EmptyBatchResult'
+  EmptyBatchResult:
+    title: Batch Participants Wrapper Response
+    type: object
+    properties:
+      batch:
+        allOf:
+          - $ref: '#/definitions/EmptyBatchParticipantsResult'
+  EmptyBatchParticipantsResult:
+    title: Batch Participants Response
+    type: object
+    properties:
+      count:
+        description: 'count of participants'
+        type: integer
+      participants:
+        description: 'participants user Ids'
+        type: array
+        items:
+          type: string
