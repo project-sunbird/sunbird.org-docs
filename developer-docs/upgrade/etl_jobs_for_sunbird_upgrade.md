@@ -13,7 +13,7 @@ keywords: Upgrade, Sunbird 2.0.0, etl jobs
 
 As part of release-2.0.0, user's email and phone number is masked in the Cassandra DB. To do this, download the [Mask Email Phone Migration](https://github.com/project-sunbird/sunbird-utils/blob/release-2.0.0/cassandra-migration-etl/r1.15/maskEmailPhoneMigrationBin.zip) zip file into the Core Cassandra (master machine in case of cluster).
 
-For details, refer to the [Migration Script to Add User's Masked Email Address and Phone Number](/developer-docs/installation/mask_user_email_phone_migration.md) document to understand and run the script.
+>For details, refer to the [Migration Script to Add User's Masked Email Address and Phone Number](/developer-docs/installation/mask_user_email_phone_migration.md) document to understand and run the script.
 
 ### Sync User Data from Cassandra to Elasticsearch
 When you manually add a new column in the user database or make any schema changes, you need to sync the user data from Cassandra to Elasticsearch. If all user data needs synching, follow the steps mentioned in the Sync User document. 
@@ -33,12 +33,12 @@ When you identify that there is a mismatch of data in your primary (Cassandra) d
 
 Download the [Delete Key Cloak User](https://github.com/project-sunbird/sunbird-utils/blob/release-2.0.0/cassandra-migration-etl/r1.15/DeleteKeycloakUserBin.zip) zip file into the Core Cassandra (master machine in case of cluster)
 
-For details, refer to the [Delete Keycloak Users](/developer-docs/installation/delete_keycloak_users.md) document to understand and run the script.
+>For details, refer to the [Delete Keycloak Users](/developer-docs/installation/delete_keycloak_users.md) document to understand and run the script.
 
 
 ### Sync Course Batches
 
-To sync course batches, refer to the [Elasticsearch Static Mapping for Course Batch](/developer-docs/server-configurations/elasticsearch_static_mapping_course_batch.md) document and run the commans in only steps 3 and 4 complete the task.
+To sync course batches, refer to the [Elasticsearch Static Mapping for Course Batch](/developer-docs/server-configurations/elasticsearch_static_mapping_course_batch.md) document and run the commands in only steps 3 and 4 complete the task.
 
 
 ### User Course Sync
