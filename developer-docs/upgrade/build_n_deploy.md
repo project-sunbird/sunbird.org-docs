@@ -7,9 +7,14 @@ allowSearch: true
 keywords: Upgrade, Sunbird 2.3.0, Core, elasticsearch
 ---
 
-**New load balancer setup for Swarm manager**
+**Overview**
 
-(Optional - Refer the variable sunbird_swarm_manager_lb_ip in inventory for comments)
+This page contains details on the jobs that are required to be run as part of the upgrade from release 2.0.0 to release 2.3.0. Use the below table to understand the various jobs that need to be executed in order to successfully complete the upgrade. 
+
+Also in this upgrade we have introduced a load balancer for swarm managers. This is optional though. In case you don't require a load balancer for swarm manager, then you can just update the value of the variable **sunbird_swarm_manager_lb_ip** to the swarm manager's IP in the private repository.
+
+
+**Load balancer setup for Swarm manager (Optional)**
 
 
 To setup LB for Swarm managers, execute the following instructions for each of the mentioned fields:
