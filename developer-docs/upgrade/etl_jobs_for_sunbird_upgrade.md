@@ -38,7 +38,7 @@ Download the [Delete Key Cloak User](https://github.com/project-sunbird/sunbird-
 
 ### Sync Course Batches
 
->To sync course batches, refer to the [Elasticsearch Static Mapping for Course Batch](/developer-docs/server-configurations/elasticsearch_static_mapping_course_batch.md) document and run the commands in only steps 3 and 4 complete the task.
+>To sync course batches, refer to the [Static Mapping for Course Batches in Elasticsearch](/developer-docs/server-configurations/elasticsearch_static_mapping_course_batch.md) document and run the commands in only steps 3 and 4 complete the task.
 
 
 ### User Course Sync
