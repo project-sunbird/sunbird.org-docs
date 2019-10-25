@@ -11,7 +11,7 @@ This page explains the jobs to be run to bring up the Knowledge Platform service
 
 ## Build
 
-Switch to the `Build` folder and run all jobs. For the value of the **github_release_tag**, refer to [Current Release Tags and Jenkins Jobs Reference](/developer-docs/server-installation/current_release_tags_n_jenkins_jobs.md){:target="_blank"}
+Switch to the `Build` folder and run all jobs. For the value of the **github_release_tag**, refer to [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs){:target="_blank"}
 
 ## DevOps Administration
 
