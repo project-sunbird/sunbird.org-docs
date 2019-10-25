@@ -9,8 +9,8 @@ published: true
 
 ## Overview
 
-In Sunbird, all write operations are done in Cassandra and read operations are done from Elasticsearch. After write operations are completed in Cassandra, the data is written asynchronously into Elasticsearch as well.
-In case of Cassandra migration that affects all users data (e.g. UserProfileVisibilityReset, UserChannelMigration, etc.), this job is used to sync all user's data from Cassandra to Elasticsearch.
+In Sunbird, all write operations are done in the Cassandra database and read operations are done from the Elasticsearch database. After the write operations are completed in Cassandra, the data is written asynchronously into Elasticsearch as well.
+In case of Cassandra migration affecting all user's data (e.g. UserProfileVisibilityReset, UserChannelMigration, etc.), the information provided on this page explains the job used to sync all user's data from Cassandra to Elasticsearch.
 
 ## Prerequisites
 
@@ -41,7 +41,7 @@ Pass the following parameters as arguments for the sync job:
 
 ## Syncing User Data
 
-To sync user data from Cassandra to Elasticsearch:
+Use the following steps to sync user data from Cassandra to Elasticsearch:
 
 1. Extract the [archive file](https://github.com/project-sunbird/sunbird-utils/tree/master/cassandra-migration-etl/common/UserSyncBin.zip) that contains the script to sync the user's data.
 
@@ -50,6 +50,6 @@ To sync user data from Cassandra to Elasticsearch:
 ````
 UserSync_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_server}" --context_param sunbird_cassandra_port="{sunbird_cassandra_port}" --context_param sunbird_cassandra_username="{sunbird_cassandra_username}" --context_param sunbird_cassandra_password="{sunbird_cassandra_password}" --context_param sunbird_user_sync_api_endpoint="{sunbird_user_sync_api_endpoint}" --context_param sunbird_user_sync_api_key="{sunbird_user_sync_api_key}" --context_param sunbird_user_sync_block_size="{sunbird_user_sync_block_size}" --context_param sunbird_user_sync_sleep_time="{sunbird_user_sync_sleep_time}" --context_param sunbird_cassandra_table="user" --context_param sunbird_sync_object_type="user"
 ````
-This job doesn't supports for specified users.
+This job does not support sync for specific users.
 
-3. On completion, refer to the success and failure logs that are generated 
+3. On completion, refer to the success and failure logs that are generated. 
