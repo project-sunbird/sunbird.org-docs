@@ -1,19 +1,23 @@
 ---
-title: Sync User/Organisation data
-page_title: Syncing User/Organisation data
-description: Details on how to sync user/organisation data
-keywords: Sync user, sync organisation
+title: Sync User and Organisation data
+page_title: Sync User and Organisation Data
+description: Details on how to sync user and organisation data between Cassandra and Elasticsearch
+keywords: Sync user, sync organisation, sync specific user data, sync specific organization data
 published: true
 ---
 
 ## Overview
 
 In Sunbird, all write operations are done in Cassandra and read operations are done from Elasticsearch. After write operations are completed in Cassandra, the data is written asynchronously into Elasticsearch as well.
-In case of Cassandra migration that affects all users data (e.g. UserProfileVisibilityReset, UserChannelMigration, etc.), this job is used to sync all user's data from Cassandra to Elasticsearch.
+In case of a mismatch of data between the Cassandra database and Elasticsearch, there needs to be a data sync. The information provided in this page to sync either:
+- All user data
+- All organization data
+- Specific user data
+- Specific organization data
 
 ## Prerequisites
 
-To sync user/organisation data, you need:
+To sync user or organisation data, you need:
 
 1. Access to Cassandra database
 2. API Key to access the Sync API
@@ -32,9 +36,9 @@ Pass the following parameters as arguments for the sync job:
 6 | sunbird_sync_api_key | The API Key to access the Sync API. | As23456789zws34567w234 
 7 | sunbird_sync_block_size | The number of user records to be synced per API call. | 20 
 8 | sunbird_sync_sleep_time | The time interval in milliseconds between API calls. | 10000
-9 | sunbird_sync_id_file | Path of csv file, with no headers, containing user ids to be synced | /home/userIds.csv
-10| sunbird_cassandra_table | Name of the table in cassandra to be synced to elastic search | user/organisation
-11| sunbird_sync_object_type | Type of the object to be synced to elastic search | user/organisation
+9 | sunbird_sync_id_file | Path of csv file, with no headers, containing user IDs that need to be synced | /home/userIds.csv
+10| sunbird_cassandra_table | Name of the table in Cassandra that needs to sync to Elasticsearch | user/organisation
+11| sunbird_sync_object_type | Type of the object to be synced to Elasticsearch | user/organisation
 12| dry_run  | if enabled, only report generation and not actual migration happens | true
 
 > Note: If you do not need to authenticate access to the API, pass `""` value for the **username** and **password** parameters.
