@@ -25,7 +25,7 @@ CassandraDecrypt |  Deploy/\<env\>/Core/CassandraDecrypt |
 
 When you manually add a new column in the user database or make any schema changes, you need to sync the user data from Cassandra to Elasticsearch. If all user data needs synching, follow the steps mentioned in the Sync User document. 
 
->For details, refer to the [Sync User](developer-docs/installation/sync_user){:target="_blank"} document to understand and run the script.
+>For details, refer to the [Sync User](developer-docs/installation/sync_user){:target="_blank"}document to understand and run the script.
 
 ### Sync User and Organization Data
 
