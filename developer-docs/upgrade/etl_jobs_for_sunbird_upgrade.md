@@ -18,3 +18,17 @@ data.
 Job Name | Job Path |
 --- | --- |
 CassandraDecrypt |  Deploy/\<env\>/Core/CassandraDecrypt |
+
+### Sync User Data from Cassandra to Elasticsearch
+When you manually add a new column in the user database or make any schema changes, you need to sync the user data from Cassandra to Elasticsearch. If all user data needs synching, follow the steps mentioned in the Sync User document. 
+
+>For details, refer to the [Sync User](/developer-docs/installation/sync_user.md) document to understand and run the script.
+
+### Sync User and Organization Data
+When you identify that there is a mismatch of data in your primary (Cassandra) database and your secondary database (Elasticsearch) you need to sync user and organization data. Follow the steps mentioned in the Sync User and Organization Data to sync either:
+- All user data
+- All organization data
+- Specific user data
+- Specific organization data
+
+>For details, refer to the [Sync User and Organization](/developer-docs/installation/sync_user.md) document to understand and run the appropriate script. 
