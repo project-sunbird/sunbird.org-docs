@@ -10,19 +10,19 @@
 <meta name="msapplication-TileColor" content="#65d3f7">
 <meta name="msapplication-TileImage" content="/img/favicon/mstile-150x150.png">
 
-<title>Syncing User/Organisation data</title>
-<meta name="description" content="Details on how to sync user/organisation data"/>
+<title>Sync User and Organisation Data</title>
+<meta name="description" content="Details on how to sync user and organisation data between Cassandra and Elasticsearch"/>
 
 <meta http-equiv="cache-control" content="max-age=0" />
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2019-10-23 13:00:09 +0530">
+<meta name="last-modified" content="2019-10-25 17:49:34 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="2035" />
+<meta name="buildNo" content="2090" />
 <meta name="version" id="docsVersion" content="2.2.0" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?23102019"  />
+<link rel="stylesheet" href="/css/style.css?25102019"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?23102019"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?23102019"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?23102019"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?23102019"></script>
-<script type="text/javascript" src="/js/widgets-data.js?23102019"></script>
-<script type="text/javascript" src="/js/widgets.js?23102019"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?25102019"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?25102019"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?25102019"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?25102019"></script>
+<script type="text/javascript" src="/js/widgets-data.js?25102019"></script>
+<script type="text/javascript" src="/js/widgets.js?25102019"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -2209,7 +2209,7 @@ resetBase();
     </nav>
     <div class="content">
       <div class="inner__content header" id="heading">
-        <h1>Sync User/Organisation data </h1>
+        <h1>Sync User and Organisation data </h1>
       </div>
 
       <div id="main-content" class="inner__content">
@@ -2260,11 +2260,17 @@ resetBase();
 </div><h2 id="overview">Overview</h2>
 
 <p>In Sunbird, all write operations are done in Cassandra and read operations are done from Elasticsearch. After write operations are completed in Cassandra, the data is written asynchronously into Elasticsearch as well.
-In case of Cassandra migration that affects all users data (e.g. UserProfileVisibilityReset, UserChannelMigration, etc.), this job is used to sync all user’s data from Cassandra to Elasticsearch.</p>
+In case of a mismatch of data between the Cassandra database and Elasticsearch, there needs to be a data sync. The information provided in this page to sync either:</p>
+<ul>
+  <li>All user data</li>
+  <li>All organization data</li>
+  <li>Specific user data</li>
+  <li>Specific organization data</li>
+</ul>
 
 <h2 id="prerequisites">Prerequisites</h2>
 
-<p>To sync user/organisation data, you need:</p>
+<p>To sync user or organisation data, you need:</p>
 
 <ol>
   <li>Access to Cassandra database</li>
@@ -2336,19 +2342,19 @@ In case of Cassandra migration that affects all users data (e.g. UserProfileVisi
     <tr>
       <td>9</td>
       <td>sunbird_sync_id_file</td>
-      <td>Path of csv file, with no headers, containing user ids to be synced</td>
+      <td>Path of csv file, with no headers, containing user IDs that need to be synced</td>
       <td>/home/userIds.csv</td>
     </tr>
     <tr>
       <td>10</td>
       <td>sunbird_cassandra_table</td>
-      <td>Name of the table in cassandra to be synced to elastic search</td>
+      <td>Name of the table in Cassandra that needs to sync to Elasticsearch</td>
       <td>user/organisation</td>
     </tr>
     <tr>
       <td>11</td>
       <td>sunbird_sync_object_type</td>
-      <td>Type of the object to be synced to elastic search</td>
+      <td>Type of the object to be synced to Elasticsearch</td>
       <td>user/organisation</td>
     </tr>
     <tr>
