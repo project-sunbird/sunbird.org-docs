@@ -8,7 +8,7 @@ keywords: migration script, making user email, masking user phone, masking
 ---
 
 ## Overview
-Sunbird, encryots and stores the user's email address and phone number in Cassandra. However, it is also required that the user's email address and phone number is added to the databse in a masked form. This migration script reads the encrypted email address or phone number, decrypts it and generates a masked form of the email address and phone number, which it in turn adds into two new columns as maskedemail and maskedphone for all existing users.
+Sunbird, encrypts and stores the user's email address and phone number in Cassandra. However, it is also required that the user's email address and phone number is added to the databse in a masked form. This migration script reads the encrypted email address or phone number, decrypts it and generates a masked form of the email address and phone number, which it in turn adds into two new columns as maskedemail and maskedphone for all existing users.
 
 ## Prerequisites
 
