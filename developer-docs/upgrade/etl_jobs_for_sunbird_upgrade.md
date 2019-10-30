@@ -9,7 +9,7 @@ keywords: Upgrade, Sunbird 2.3.0, etl jobs
 
 ## Overview
 
-This page provides you details of the ETL jobs that you can run to upgrade from a prior version of Sunbird to Sunbird version 2.0.0.
+This page provides you details of the ETL jobs that you can run to upgrade from a prior version of Sunbird to Sunbird version 2.3.0.
 
 ### Cassandra Decrypt
 
