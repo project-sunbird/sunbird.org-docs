@@ -53,4 +53,7 @@ UserSync_run.sh --context_param sunbird_cassandra_server="{sunbird_cassandra_ser
 This job does not support sync for specific users.
 
 3. On completion, refer to the success and failure logs that are generated. 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 41237d564a8982546692f6f0fd3b67fadbed9927

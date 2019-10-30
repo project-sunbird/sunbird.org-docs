@@ -1,18 +1,20 @@
 ---
-title: Elasticsearch static mapping for course batch
-page_title: Elasticsearch static mapping for course batch
-description: Elasticsearch static mapping for course batch
+title: Static Mapping for Course Batches in Elasticsearch 
+page_title: Static Mapping for Course Batches in Elasticsearch
+description: Static Mapping for Course Batches in Elasticsearch
 published: true
 allowsearch: true
 keywords: Elasticsearch, static mapping, course batch
 ---
 ## Overview
-Existing coursebatch type Elasticsearch index is having dynamic mapping and it recently hit the default max limit (1000). As such, it is required to disable dynamic mapping and use static mapping which would index the necessary fields only.
+The existing coursebatch type Elasticsearch index has dynamic mapping. It hit the default max limit of 1000, that resulted in errors. It is hence recommended to disable dynamic mapping and use static mapping so that only the necessary fileds are indexed. 
 
 ## Prerequisites
 Access to Elasticsearch and Cassandra instances. 
 
-## Step 1:
+## Procedure
+
+**Step 1**
 Update course batch mapping using below curl command.
 
 ```
@@ -333,14 +335,14 @@ curl -X PUT \
 }'
 ```
 
-## Step 2:
-Get total number of batches by running below CQL command.
+**Step 2**
+Get the total number of batches by running below CQL command.
 ```
 select count(*) from sunbird.course_batch;
 ```
 
-## Step 3:
-Perform sync of all course batches using Learner Service Sync API so that course batch data is reindexed as per latest mapping defined in Elasticsearch.
+**Step 3**
+Sync all course batches using the Learner Service Sync API so that course batch data is reindexed as per the latest mapping defined in Elasticsearch.
 
 ```
 curl -X POST \
@@ -351,7 +353,7 @@ curl -X POST \
   -d '{"request":{"objectType":"batch","objectIds":[]}}'
 ```
 
-## Step 4:
+**Step 4**
 Verify that the sync has happened successfully to the new index by using Learner Service List Course Batches API. The counts in Step 2 and Step 4 should match. 
 ```
 curl -X POST \
