@@ -7,9 +7,11 @@ allowsearch: true
 keywords: Elasticsearch, static mapping, course batch
 ---
 ## Overview
-The existing coursebatch type Elasticsearch index has dynamic mapping. It hit the default max limit of 1000, that resulted in errors. It is hence recommended to disable dynamic mapping and use static mapping so that only the necessary fileds are indexed. 
+
+The existing coursebatch type Elasticsearch index has dynamic mapping. It hit the default max limit of 1000, that resulted in errors. It is hence recommended to disable dynamic mapping and use static mapping so that only the necessary fields are indexed. 
 
 ## Prerequisites
+
 Access to Elasticsearch and Cassandra instances. 
 
 ## Procedure
