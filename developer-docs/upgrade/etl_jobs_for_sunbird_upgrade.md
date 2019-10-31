@@ -9,15 +9,15 @@ keywords: Upgrade, Sunbird 2.3.0, etl jobs
 
 ## Overview
 
+This page provides you details of the ETL jobs that you can run to upgrade from a prior version of Sunbird to Sunbird version 2.3.0.
+
 ### Cassandra Decrypt
 
-As part of release-2.0.0, we were encrypting all user external identity in cassandra, but since this is not private data
-from 2.3.0 we are storing it as plain text. For data which is already encrypted, below is the jenkins job to decrypt the 
-data.
+As part of release-2.3.0, we were encrypting all user external identity in cassandra, but since this is not private data from 2.3.0 we are storing it as plain text. For data which is already encrypted, below is the jenkins job to decrypt the data.
 
 Job Name | Job Path |
 --- | --- |
-CassandraDecrypt |  Deploy/\<env\>/Core/CassandraDecrypt |
+CassandraDecrypt |  Deploy/\&lt;env\&lt;/Core/CassandraDecrypt |
 
 ### Sync User Data from Cassandra to Elasticsearch
 

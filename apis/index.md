@@ -7,6 +7,7 @@ keywords: API Documentation, API reference, API
 published: true
 allowSearch: true
 ---
+
 Welcome to Sunbird API reference documentation!
 
 Sunbird APIs are:
@@ -27,6 +28,7 @@ They are categorized by resource type. Each resource type has one or more data r
             <li><a href="apis/content/" target="_blank">Content</a></li>
             <li><a href="apis/coursebatchmanapi/" target="_blank">Course Batch Management</a></li>
             <li><a href="apis/courseprogressapi/" target="_blank">Course Progress</a></li>
+            <li><a href="apis/issuecertificateapi/" target="_blank">Issue Certificate</a></li>
             <li><a href="apis/dialapi/" target="_blank">D.I.A.L </a></li>
             <li><a href="apis/framework/" target="_blank">Framework </a></li>
             <li><a href="apis/orgapi/" target="_blank">Organisation Management </a></li>

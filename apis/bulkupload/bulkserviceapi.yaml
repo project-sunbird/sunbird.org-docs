@@ -7,7 +7,6 @@ info:
     email: info@sunbird.org
   description: >-
     - The  Bulk Upload resources perform operations related to uploads on the Sunbird Platform. The Bulk Upload API(s) operations include Uploads, Updations.
-
     - The URL for Bulk Upload Service API(s) is `/api`
 host: staging.open-sunbird.org
 basePath: /api
@@ -35,7 +34,6 @@ paths:
         This API is associated with upload users in bulk on the Sunbird Platform.
            - The endpoint for **Upload Users in Bulk** is `/user/v1/upload`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-
       summary: Upload Users in Bulk
       tags:
         - Bulk Operation APIs
@@ -53,7 +51,6 @@ paths:
           description: >-
             This is a .csv file.
               - Each line of the file is a data record. Each record consists of one or more user fields, separated by commas. Each successfully created user is associated with root org of uploader (org admin).
-
             The CSV file format supported is mentioned below:
               - NAME: Name of user(firstName)
               - MOBILE PHONE: Phone number. Either phone or email is mandatory.
@@ -74,7 +71,6 @@ paths:
           type: string
           description: >-
             Access token of registered user performing given API request.
-
       responses:
         '200':
           description: 'OK ! Successful operation."bulk upload user" operation was successfully executed.'
@@ -86,13 +82,21 @@ paths:
             $ref: '#/definitions/BulkUploadErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+      security:
+        - bearer: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
   /course/v1/batch/bulk/enrollment:
     post:
       description: >-
         This API is used for enrolling batches in bulk
-           - The endpoint for **Upload Batch Enrollments in Bulk** is `/course/v1/batch/bulk/enrollment`
+           - The endpoint for **Upload Batches in Bulk is** `/course/v1/batch/bulk/enrollment`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      summary: Upload Batch Enrollments in Bulk
+      summary: Upload Batches in Bulk
       tags:
         - Bulk Operation APIs
       operationId: bulk batch enrollment req
@@ -111,7 +115,9 @@ paths:
               - Each line of the file is a data record. Each record consists of one or more fields, separated by commas.
              The format of this file is as :
               - batchId,
-              - userIds
+              - userIds,
+              Omit (•)
+               (•) is used to enhance readibility here.
         - name: Authorization
           in: header
           required: true
@@ -123,7 +129,6 @@ paths:
           type: string
           description: >-
             It is a unique token/key to authenticate the user each time an API is called. For corresponding sessions this token is used, not your actual username/password
-
       responses:
         '200':
           description: 'OK ! Successful operation."bulk batch enrollment " operation was successfully executed.'
@@ -135,62 +140,20 @@ paths:
             $ref: '#/definitions/BulkUploadErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
-  /course/v1/batch/bulk/unenrollment:
-    post:
-      description: >-
-        This API is used for enrolling batches in bulk
-           - The endpoint for **Upload Batch Unenrollments in Bulk** is `course/v1/batch/bulk/unenrollment`
-           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      summary: Upload Batch Unenrollments in Bulk
-      tags:
-        - Bulk Operation APIs
-      operationId: bulk batch unenrollment req
-      produces:
-        - application/json
-      consumes:
-        - multipart/form-data
-      parameters:
-        - name: batch
-          in: formData
-          required: true
-          type: file
-          format: file
-          description: >-
-            This is a .csv file.
-              - Each line of the file is a data record. Each record consists of one or more fields, separated by commas.
-             The format of this file is as :
-              - batchId,
-              - userIds
-        - name: Authorization
-          in: header
-          required: true
-          type: string
-          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-        - name: x-authenticated-user-token
-          in: header
-          required: true
-          type: string
-          description: >-
-            It is a unique token/key to authenticate the user each time an API is called. For corresponding sessions this token is used, not your actual username/password
-
-      responses:
-        '200':
-          description: 'OK ! Successful operation."bulk batch enrollment " operation was successfully executed.'
-          schema:
-            $ref: '#/definitions/BulkUploadResponse'
-        '400':
-          description: 'BAD REQUEST. The "bulk batch enrollment" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
-          schema:
-            $ref: '#/definitions/BulkUploadErrorResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+      security:
+        - bearer: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
   /data/v1/upload/status/{processId}:
     get:
       description: >-
         This API is used to check the upload status
            - The endpoint for **Check Upload Status** is `/data/v1/upload/status/{processId}`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-
       summary: Check Upload Status
       tags:
         - Bulk Operation APIs
@@ -226,7 +189,6 @@ paths:
           type: string
           description: >-
             It is a unique token/key to authenticate the user each time an API is called. For corresponding sessions this token is used, not your actual username/password
-
       responses:
         '200':
           description: 'OK ! Successful operation." check upload status" operation was successfully executed.'
@@ -238,13 +200,39 @@ paths:
             $ref: '#/definitions/BulkUploadErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /upload/status/{}
+            headers:
+              Accept: application/json
+              Content-Type: application/json
+              Authorization: Bearer
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: getStatus
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+
   /data/v1/upload/statusDownloadLink/{processId}:
     get:
       description: >-
         This API is used to get the upload status for a given request. For a completed upload request, it will provide a link to a file which has the upload status.
            - The endpoint for **Get Upload Status Download Link** is `/data/v1/upload/statusDownloadLink/{processId}`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-
       summary: Get Upload Status Download Link
       tags:
         - Bulk Operation APIs
@@ -274,7 +262,6 @@ paths:
           type: string
           description: >-
             Access token of registered user performing given API request.
-
       responses:
         '200':
           description: 'OK. Successful operation. The requested operation was successfully executed.'
@@ -294,7 +281,6 @@ paths:
         This API is associated with bulk uploading organisations on the Sunbird Platform.
            - The endpoint for **Upload Organisations in Bulk** is `/org/v1/upload`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-
       summary: Upload Organisations in Bulk
       tags:
         - Bulk Operation APIs
@@ -312,7 +298,6 @@ paths:
           description: >-
             This is a .csv file.
               - Each line of the file is a data record. Each record consists of one or more organisation fields, separated by commas. Each successfully created organisation is associated with root org of uploader (org admin).
-
             The CSV file format supported is mentioned below:
               - SCHOOL NAME: Organisation name(orgName)
               - BLOCK CODE: Location code (locationCode)
@@ -331,7 +316,6 @@ paths:
           type: string
           description: >-
             Access token of registered user performing given API request.
-
       responses:
         '200':
           description: 'OK ! Successful operation."bulk org upload " operation was successfully executed.'
@@ -343,6 +327,14 @@ paths:
             $ref: '#/definitions/BulkUploadErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+      security:
+        - bearer: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
   /data/v1/bulk/location/upload :
     post:
       
@@ -372,7 +364,6 @@ paths:
               - name: 'Name of entity e.g a state'
               - parentCode: 'code of the parent'
               - parentId : 'ID of the parent (In a hierarchy),    
-
                 - if there exists a parent node either parentCode and parentID is required (in case of a child node) 
                 - if it is highest (top) node in the hierarchy,then no parent details are required
         - name: type
@@ -395,7 +386,6 @@ paths:
           type: string
           description: >-
             It is a unique token/key to authenticate the user each time an API is called. For corresponding sessions this token is used, not your actual username/password
-
       responses:
         '200':
           description: >-
