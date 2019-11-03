@@ -34,7 +34,7 @@ This page explains the jobs to be run to bring up the Core services.
 | API MANAGER | Builds the API manager docker image | 
 | API MANAGER Echo | Builds the API manager echo docker image | 
 | Badger | Builds the badger docker image |
-| Cassandra | Creates a jar for migration |
+| Cassandra | Creates a jar for migration. Build this twice - There are two tags mentioned on the tags page for this. |
 | Lms | Builds  the lms service docker image |
 | Content | Builds the content service docker image | 
 | Learner | Builds the learner service docker image | 
@@ -50,7 +50,7 @@ Ensure that all Artifacts are uploaded
 | Operation Name | Function |
 |--------------------|-----------| 
 | (Deploy) ApplicationES | From the Deploy Folder, **Deploy ApplicationES** provisions for the Elasticsearch and creates indices necessay for Sunbird Core|
-| ESMapping (Under OpsAdministarion. Provide value as all for job parameter indices_name) | Creates Elasticsearch indexes |
+| ESMapping (Under OpsAdministarion. Provide value as *all* for job parameter indices_name) | Creates Elasticsearch indexes |
 | Postgres | Provisions for Postgres |
 | PostgresDbUpdate | Creates the databases, assigns roles and creates users |
 | LogEsUpgrade6xx | Install elasticsearch 6.X |
@@ -65,13 +65,13 @@ Ensure that all Artifacts are uploaded
 | OnboardConsumers 
 Update **core_vault_sunbird_api_auth_token** with the **jwt token** from the Jenkins output of **api-management-test-user** if you are using the Knowledge Platform and Data Pipeline along with core| Onboards new consumer to Sunbird and generates the consumer sprcific API key. Update this value with the corresponding API key of Ekstep 'core_vault_ekstep_api_key'. |   
 | (Provision) Cassandra | Provisions Cassandra and create keyspaces required for Sunbird Core | 
-| Cassandra | Does Migration if required | 
+| Cassandra | Does Migration if required. Deploy this twice by choosing different zip files using the build_number parameter. Esnure cassandra migration gives a success message on Jenkins console output (Not by looking at Red / Green status) | 
 | (Provision) Keycloak | Provisions Keycloak by installing prerequisites like java and environment variables of learner | 
-| Keycloak | Deploys Keycloak service to VM |  
 | Proxy | Deploys Proxy. Handles routing within the swarm |  
-| KeycloakRealm | Creates Sunbird Realm. After the Sunbird realm is created, configure Keycloak by using the steps mentioned in the **Keycloak Configuration** section. |
 | PlayerCDN | It is a optional job, CDN will increase the performance of web page and content to end user. Create cdn with storage account and update **sunbird_portal_cdn_url** variable and in jenkins job parameter **cdn_enable** set it to true. It will upload player static contents to CDN storage account | 
 | Player | Deploys the player service, used to display the App frontend. **Note**: The player deployment job will fail for the first time. Jenkins prompts you for **In process Approval Script**. Click on the approval link in the deploy job page and provide explicit approval for new **java.io** file, **java.lang** string and **java.io** file. Run the Player deployment again.|
+| Keycloak | Deploys Keycloak service to VM |  
+| KeycloakRealm | Creates Sunbird Realm. After the Sunbird realm is created, configure Keycloak by using the steps mentioned in the **Keycloak Configuration** section. |
 | Learner | Deploys the Learner Service. Handles user management and helps to search content. |
 | Lms | Deploys the Lms Service. It provides the APIs for lms functionality of Sunbird.|
 | Content | Deploys the content service. Helps to create content. |  
@@ -94,3 +94,26 @@ You can access keycloak via `localhost:8080`
 | 5 | In the Sunbird realm, navigate to **Clients** > **admin-cli** > **Roles** > **Add Role**. Enter the role name as **admin** and click **Save**. Navigate to **Composite Roles** and switch the toggle button to ON. Navigate to **Composite Roles > Realm Roles** and  add **admin**, **offline_access** and, **uma_authorization**. Navigate to **Permissions > Permissions Enabled** and switch the toggle to ON.|
 | 6 | Creating keycloak federation [Deployment Steps for Keycloak User Federation](developer-docs/server-installation/keycloak_user_federation) |
 
+
+**Note**
+If Cassandra migration fails, run the manaul query to set the corresponding verion to True for the failed migration.
+
+**Example:**
+
+`SELECT * from cassandra_migration_version;`
+
+Look for row which has success is False. The below is just an example -
+
+`1.74 |   180685665 |   cassandra |              4 |         null | 2019-09-17 13:58:52.401000+0000 |            136 | V1.74_cassandra.cql |   False |  CQL |           73`
+
+Run the update query for this row.
+
+`UPDATE cassandra_migration_version set success=True where version='1.74';`
+
+Verify all the columns are True for success column and rerun jenkins job after this
+
+Current migration version is 1.83. The output of jenkins job should be as below -
+
+`Migrating keyspace sunbird to version 1.83 - cassandra
+Successfully applied 3 migrations to keyspace sunbird (execution time 00:20.547s).
+Migration Completed at ==1571996508540`
