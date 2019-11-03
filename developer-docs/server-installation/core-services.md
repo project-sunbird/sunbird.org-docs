@@ -115,7 +115,5 @@ Verify all the columns are True for success column and rerun jenkins job after t
 Current migration version is 1.83. The output of jenkins job should be as below -
 
 `Migrating keyspace sunbird to version 1.83 - cassandra
-
 Successfully applied 3 migrations to keyspace sunbird (execution time 00:20.547s).
-
 Migration Completed at ==1571996508540`
