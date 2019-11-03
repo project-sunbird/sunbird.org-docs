@@ -45,7 +45,7 @@ ansible
 
 5. `git init`
    
-6. `git add`
+6. `git add .`
    
 7. `git commit -m "Creating private files"`
    
