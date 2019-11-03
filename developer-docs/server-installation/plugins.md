@@ -16,7 +16,7 @@ Switch to the `Build/Plugins` folder and run all jobs. Ensure all ArtifactUpload
 
 **Prerequisites before deployment**
 
-*Container Creation*
+**Container Creation**
 
 Create containers in Azure blob. Use the below command to create initial placeholder containers.
 
@@ -34,7 +34,7 @@ az storage blob upload-batch --destination *container_name/v3/preview* --source 
 3. The *container_name* container must be publicly accessible.
 
 
-*Base plugin upload*
+**Base plugin upload**
 
 Upload the intial set of plugins (base plugins) and upload it to your publicly accessible azure container. This must be same as the *container_name* used in the above steps.
 
@@ -53,3 +53,9 @@ Switch to `Deploy/<env>/DataPipeline` and run the jobs in the following sequence
 3.CollectionEditor  
 4.ContentEditor  
 5.GenericEditor  
+
+After the deployment, you will be able to get the URL's for editors zip file. The URL will be similar to this - https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/generic-editor-iframe-2.4.0.zip
+https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/collection-editor-iframe-2.4.0.zip
+https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/content-editor-iframe-2.4.0.zip
+
+You will need to use these 3 URL's when building Player.
