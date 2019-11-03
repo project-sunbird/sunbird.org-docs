@@ -66,13 +66,14 @@ Order: Top down per column
 |Knowledge Platform Build |	Knowledge Platform Deploy |	DataPipeline Build | DataPipeline Deploy | Core Build | Core Deploy |
 |-------------------------|---------------------------|--------------------|---------------------|------------|------------|
 |                         | Provison/CompositeSearch  |	                   | CassandraDbUpdate   | Cassandra | Cassandra |
-|                         | StopNeo4jCluster          |                    |                     |           | ApplicationElasticSearch |
-|                         | Neo4j	                    |                    | KafkaSetup     	   | Keycloak  | Keycloak  |
-|                         | StartNeo4jCluster	        |                    | KafkaIndexer    	   | Player    | Player    |
+|                         | StopNeo4jCluster          |                    |                     | CassandraTrigger | CassandraTrigger |
+|                         | Neo4j	                  |                    | KafkaSetup          | Keycloak  | Keycloak  |                         
+|                         |                           |                    |                     |           | ApplicationElasticSearch
+|                         | StartNeo4jCluster	      |                    | KafkaIndexer        | Player    | Player    |
 |                         | KafkaSetup                | Secor              | Secor               | Learner   | Learner   |
 |                         | CassandraDbUpdate         |	Analytics          | AnalyticsAPI        | Content   | Content   |
-|                         |                           |                    |                     | Lms       | Lms       |
-|                         | Neo4jDefinitionUpdate     | DataPipeline       |	DataProducts       | Telemetry | Telemetry |
+|                         | CassandraTrigger          |                    |                     | Lms       | Lms       |
+| CassandraTrigger        | Neo4jDefinitionUpdate     | DataPipeline       |	DataProducts       | Telemetry | Telemetry |
 | KnowledgePlatform       |	Learning                  |                    | SamzaTelemetrySchemas | Proxy   | Proxy     |
 |                         | Search	                  | Yarn               |	Yarn (Multiselect all options in the job parameter job_names_to_deploy)	             |           | OnboardAPI|
 |  Yarn	                  | Yarn                      |                    |                     |           | OnboardConsumers |
