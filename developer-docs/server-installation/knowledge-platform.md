@@ -21,8 +21,9 @@ Switch to the `Build` folder and run all jobs. For the value of the **github_rel
 
 ## Provision
 
-*   Download **neo4j enterprise** version 3.3.x. Place it in the artifacts directory of your private repository. The file name should be **neo4j*.tar.gz**.
-*   Since the neo4j file size is greater than 100 MB, use the Git large file storage function to store it in your private repository. For details, refer to  [Git Large File Storage](https://git-lfs.github.com/){:target="_blank"}
+*   Download **neo4j enterprise** version 3.3.x. The file should be uploaded to your azure storage account under root path. The file name should be **neo4j*.tar.gz**.
+
+The URL for this path will look like this - https://{{storage_account_name}}.blob.core.windows.net/{{container_name}}/neo4j-enterprise-3.3.9-unix.tar.gz
 
 *   Switch to `Provision/<env>/KnowledgePlatform` and run the jobs in the following sequence:   
     1.Cassandra   
