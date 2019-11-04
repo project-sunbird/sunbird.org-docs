@@ -20,13 +20,13 @@ Switch to the `Build/Plugins` folder and run all jobs. Ensure all ArtifactUpload
 
 Create containers in Azure blob. Use the below command to create initial placeholder containers.
 
-az storage blob upload-batch --destination *container_name/collection-editor* --source *some_folder* --account-name *account_name* --account-key *account_key*
+az storage blob upload-batch --destination *container_name/collection-editor* --source *some_folder* --account-name *storage_account_name* --account-key *account_key*
 
-az storage blob upload-batch --destination *container_name/generic-editor* --source *some_folder* --account-name *account_name* --account-key *account_key*
+az storage blob upload-batch --destination *container_name/generic-editor* --source *some_folder* --account-name *storage_account_name* --account-key *account_key*
 
-az storage blob upload-batch --destination *container_name/content-editor* --source *some_folder* --account-name *account_name* --account-key *account_key*
+az storage blob upload-batch --destination *container_name/content-editor* --source *some_folder* --account-name *storage_account_name* --account-key *account_key*
 
-az storage blob upload-batch --destination *container_name/v3/preview* --source *some_folder* --account-name *account_name* --account-key *account_key*
+az storage blob upload-batch --destination *container_name/v3/preview* --source *some_folder* --account-name *storage_account_name* --account-key *account_key*
 
 **NOTE**
 1. The above commands are just to create the directories in azure blob. The deployment script will always try to delte the folders first before deploying new contents, so if we don't have these folders in first run, deployment script will fail.
