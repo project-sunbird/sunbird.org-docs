@@ -66,9 +66,9 @@ Ensure that all Artifacts are uploaded
 | OnboardConsumers 
 Update **core_vault_sunbird_api_auth_token** and **core_vault_kong__test_jwt** with the **jwt token** from the Jenkins output of **api-management-test-user** if you are using the Knowledge Platform and Data Pipeline along with core| Onboards new consumer to Sunbird and generates the consumer specific API key. Update this value with the corresponding API key of Ekstep 'core_vault_ekstep_api_key'. |   
 | (Provision) Cassandra | Provisions Cassandra and create keyspaces required for Sunbird Core | 
-| Cassandra | Does Migration if required. Deploy this twice by choosing different zip files using the build_number parameter. Esnure cassandra migration gives a success message on Jenkins console output (Not by looking at Red / Green status) | 
+| Cassandra | Does migration if required. Deploy this twice by choosing different zip files using the build_number parameter. Ensure that you get a sucess message for the Cassandra migration on the Jenkins console output. Do not rely only on the red or green status indicator.| 
 | CassandraTrigger | Deploys trigger jars for Cassandra |  
-| (Provision) Keycloak | Provisions Keycloak by installing prerequisites like java and environment variables of learner | 
+| (Provision) Keycloak | Provisions Keycloak by installing prerequisites like Java and environment variables of learner | 
 | Proxy | Deploys Proxy. Handles routing within the swarm |  
 | PlayerCDN | It is a optional job, CDN will increase the performance of web page and content to end user. Create cdn with storage account and update **sunbird_portal_cdn_url** variable and in jenkins job parameter **cdn_enable** set it to true. It will upload player static contents to CDN storage account | 
 | Player | Deploys the player service, used to display the App frontend. **Note**: The player deployment job will fail for the first time. Jenkins prompts you for **In process Approval Script**. Click on the approval link in the deploy job page and provide explicit approval for new **java.io** file, **java.lang** string and **java.io** file. Run the Player deployment again.|
