@@ -17,7 +17,7 @@ As part of every release, new ansible variables are introduced. It is mandatory 
 4.cd sunbird-devops/private_repo  
 5.git diff release-2.3.0 ansible  
     OR 
-6.git diff 6.--word-diff=porcelain release-2.0.0 ansible
+6.git diff 6.--word-diff=porcelain release-2.3.0 ansible
 
 
 This will show the differences in variables between release-2.3.0 and release-2.4.0. If the line is in green, it means its newly added. If the line is in red, it means it has been removed.
