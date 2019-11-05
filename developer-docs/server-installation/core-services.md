@@ -97,25 +97,24 @@ You can access keycloak via `localhost:8080`
 | 6 | Creating keycloak federation [Deployment Steps for Keycloak User Federation](developer-docs/server-installation/keycloak_user_federation) |
 
 
-**Note**
-If Cassandra migration fails, run the manaul query to set the corresponding verion to True for the failed migration.
+>**Note**
+If the Cassandra migration fails, run the query manually to set the corresponding version for the failed migration to True .
 
 **Example:**
 
 `SELECT * from cassandra_migration_version;`
 
-Look for row which has success is False. The below is just an example -
+Check the rows for which the value in the success column is False. The following is an example -
 
 `1.74 |   180685665 |   cassandra |              4 |         null | 2019-09-17 13:58:52.401000+0000 |            136 | V1.74_cassandra.cql |   False |  CQL |           73`
 
-Run the update query for this row.
+Run the update query for this row. 
 
 `UPDATE cassandra_migration_version set success=True where version='1.74';`
 
-Verify all the columns are True for success column and rerun jenkins job after this
+Verify that all the values in the success column are True and run the Jenkins job again. 
+The current migration version is 1.83. The output of the Jenkins job should be as follows -
 
-Current migration version is 1.83. The output of jenkins job should be as below -
-
-`Migrating keyspace sunbird to version 1.83 - cassandra
+`Migrating keyspace Sunbird to version 1.83 - Cassandra
 Successfully applied 3 migrations to keyspace sunbird (execution time 00:20.547s).
 Migration Completed at ==1571996508540`
