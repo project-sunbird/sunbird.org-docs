@@ -64,7 +64,7 @@ Ensure that all Artifacts are uploaded
 | API Manager | Deploys the API manager Kong and API manager Echo | 
 | OnboardAPIS | Onboards all API's to Sunbird | 
 | OnboardConsumers 
-Update **core_vault_sunbird_api_auth_token** and **core_vault_kong__test_jwt** with the **jwt token** from the Jenkins output of **api-management-test-user** if you are using the Knowledge Platform and Data Pipeline along with core| Onboards new consumer to Sunbird and generates the consumer specific API key. Update this value with the corresponding API key of Ekstep 'core_vault_ekstep_api_key'. |   
+Update **core_vault_sunbird_api_auth_token** and **core_vault_kong__test_jwt**, **core_vault_ekstep_api_key** with the **jwt token** from the Jenkins output of **api-management-test-user** if you are using the Knowledge Platform and Data Pipeline along with core| Onboards new consumer to Sunbird and generates the consumer specific API key. |   
 | (Provision) Cassandra | Provisions Cassandra and create keyspaces required for Sunbird Core | 
 | Cassandra | Does migration if required. Deploy this twice by choosing different zip files using the build_number parameter. Ensure that you get a sucess message for the Cassandra migration on the Jenkins console output. Do not rely only on the red or green status indicator.| 
 | CassandraTrigger | Deploys trigger jars for Cassandra |  
