@@ -35,7 +35,8 @@ This page explains the jobs to be run to bring up the Core services.
 | API MANAGER Echo | Builds the API manager echo container | 
 | Badger | Builds the badger container |
 | Cassandra | Creates a jar for migration |
-| Content | Builds the content service container | 
+| Content | Builds the content service container |
+| Keycloak | Builds the Keycloak service container | 
 | Learner | Builds the learner service container | 
 | Player | Builds the player service container |
 | Proxy | Builds the proxy container |  
