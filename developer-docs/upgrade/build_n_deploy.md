@@ -82,4 +82,4 @@ Order: Top down per column
 
 We have also disabled Git LFS for private repository. So please uninstall git lfs from your private repository.
 
-To do so, clone your private repository and run ```git lfs uninstall``` and also remove the .gitattributes file
+To do so, clone your private repository and run ```git lfs uninstall``` and also remove the ```.gitattributes``` file
