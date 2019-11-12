@@ -72,6 +72,8 @@ To setup Keycloak Swarm, execute the following instructions for each of the ment
 
 ## Knowledge Platform 
 
+**Learning:**
+
 To setup KP-LB services, execute the following instructions for each of the mentioned fields: 
 - Frontend IP configuration - Internal IP (default)
 - Backend pools - attach vm's of learning and search or availability set for learning and search
@@ -85,6 +87,8 @@ To setup KP-LB services, execute the following instructions for each of the ment
 - Frontend-port: 8080
 - Backend-port: 8080
 
+
+**Search:**
 
 - Name: searchhealth 
 - Protocol: http 
