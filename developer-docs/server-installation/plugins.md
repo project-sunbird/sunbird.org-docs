@@ -21,13 +21,13 @@ Switch to the `Build/Plugins` folder and run all jobs. Ensure all ArtifactUpload
 Create containers in Azure blob. Use the following commands to create initial placeholder containers:
 
 ```
-az storage blob upload-batch --destination *container_name/collection-editor* --source *some_folder* --account-name *storage_account_name* --account-key *account_key*
+az storage blob upload-batch --destination container_name/collection-editor --source some_folder --account-name storage_account_name --account-key account_key
 
-az storage blob upload-batch --destination *container_name/generic-editor* --source *some_folder* --account-name *storage_account_name* --account-key *account_key*
+az storage blob upload-batch --destination container_name/generic-editor --source some_folder --account-name storage_account_name --account-key account_key
 
-az storage blob upload-batch --destination *container_name/content-editor* --source *some_folder* --account-name *storage_account_name* --account-key *account_key*
+az storage blob upload-batch --destination container_name/content-editor --source some_folder --account-name storage_account_name --account-key account_key
 
-az storage blob upload-batch --destination *container_name/v3/preview* --source *some_folder* --account-name *storage_account_name* --account-key *account_key*
+az storage blob upload-batch --destination container_name/v3/preview --source some_folder --account-name storage_account_name --account-key account_key
 ```
 
 > **Note:**
@@ -46,7 +46,7 @@ You can download the intial Plugins from [here](https://sunbirdpublic.blob.core.
 Unzip the contents and the directory **content-plugins** is available. Run the following command from the directory where the zip was extracted.
 
 ```
-az storage blob upload-batch --destination *container_name/content-plugins* --source *content-plugins* --account-name *account_name* --account-key *account_key*
+az storage blob upload-batch --destination container_name/content-plugins --source content-plugins --account-name account_name --account-key account_key
 ```
 
 ## Deploy
@@ -61,10 +61,10 @@ Switch to `Deploy/<env>/DataPipeline` and run the jobs in the following sequence
 
 After the deployment, you will be able to get the URL's for editors zip file. The URL will be similar to this - 
 
-*https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/generic-editor-iframe-2.4.0.zip*
+**https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/generic-editor-iframe-2.4.0.zip**
 
-*https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/collection-editor-iframe-2.4.0.zip*
+**https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/collection-editor-iframe-2.4.0.zip**
 
-*https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/content-editor-iframe-2.4.0.zip*
+**https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/content-editor-iframe-2.4.0.zip**
 
 You will need to use these 3 URL's when building Player.
