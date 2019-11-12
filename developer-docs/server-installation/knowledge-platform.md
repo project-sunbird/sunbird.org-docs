@@ -59,8 +59,8 @@ Login to the Cassandra VM and execute the following commands
         cd /tmp
         wget [https://sunbirdpublic.blob.core.windows.net/installation/script_data.csv](https://sunbirdpublic.blob.core.windows.net/installation/script_data.csv)
         Run cqlsh
-        COPY `dev_script_store.script_data` FROM `/tmp/script_data.csv`; Here  dev is your environment name 
-        SELECT COUNT(*) FROM `dev_script_store.script_data` ; The output should be 324 rows 
+        COPY dev_script_store.script_data FROM '/tmp/script_data.csv'; Here  dev is your environment name 
+        SELECT COUNT(*) FROM dev_script_store.script_data; The output should be 324 rows 
         Login to learning VM and restart tomcat  
         sudo service tomcat restart**
 
