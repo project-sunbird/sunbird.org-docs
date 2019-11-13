@@ -14,7 +14,7 @@ This page explains the jobs to be run to build and deploy plugins. In order to d
 
 Switch to the `Build/Plugins` folder and run all jobs. Ensure all ArtifactUpload jobs are sucessful after the build. For the value of the **github_release_tag**, refer to [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs){:target="_blank"}
 
-### Prerequisites before deployment
+### Prerequisites Before Deployment
 
 **Create Containers**
 
@@ -59,7 +59,7 @@ Switch to `Deploy/<env>/DataPipeline` and run the jobs in the following sequence
 4.ContentEditor  
 5.GenericEditor  
 
-After the deployment, you will be able to get the URL's for editors zip file. The URL will be similar to this - 
+After the plugins are deployed, you get URL's for the editors zip file. Sample URLs will be similar to the following:  
 
 **https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/generic-editor-iframe-2.4.0.zip**
 
