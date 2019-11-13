@@ -80,6 +80,5 @@ Order: Top down per column
 |  SyncTool               | Neo4jElasticSearchSyncTool|                    |                     |           | OpsAdministration/Core/ESMapping (Provide value as all for job parameter indices_name)   |
 
 
-We have also disabled Git LFS for private repository. So please uninstall git lfs from your private repository.
-
+> **Note:** We have disabled Git LFS for private repositories. Hence, uninstall git lfs from your private repository.
 To do so, clone your private repository and run ```git lfs uninstall``` and also remove the ```.gitattributes``` file
