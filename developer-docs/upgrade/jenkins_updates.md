@@ -37,7 +37,7 @@ Follow the below steps to upgrade:
 4.Switch to jenkins user and run the below command to install NVM    
         ```curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash```
         
-5.Remove the variable github_release_tag from global environment variable in Jenkins if not done (This was added in release 1.1.4 and now this must be removed)
+5.Remove the variable github_release_tag from global environment variable in Jenkins, if it is not done already (This was added in release 1.1.4 But, it must be removed now). 
 
 6.The script will show the list of differences between your current configuration and the new configuration. Take a deep look at these changes and when you are ready to update, provide the confirmation as YES 
 
