@@ -63,7 +63,7 @@ The following environment variables are used for Jenkins setup.
 |build_number|This is same as the **image_tag** of docker builds, except that it is used for other type of jobs where zip / tar / jar type artifacts are created. This field is optional and may be blank. Apply the same scenario explained above to this field in order to understand the usage of this field. Since these are artifacts and not containers, you need to use the build job number to copy the artifact. Every new run of any job will clear the workspace but the artifacts are archived on the Jenkins master.|
 |artifact_source| For docker jobs, this parameter is default as **ArtifactRepo** and cannot be changed. All containers must be pushed to some hub so that it can be pulled from the hub during deployment.|
 
-For other type of jobs, you can choose where you want to push the artifacts. You can either choose to push it to Azure blob or store it in Jenkins. Pushing to Azure blob also stores a copy in Jenkins but not vice versa. To push to Azure blob, ensure you have set up your Ansible hosts and **common.yml** and **secrets.yml** files. The default is to store in Jenkins job only.
+> **Note:** For other job types, you can choose to push the artifacts either to the Azure blob or store it in Jenkins. Pushing the jobs to the Azure blob also stores a copy in Jenkins but not vice versa. To push to Azure blob, ensure you have set up your Ansible hosts and **common.yml** and **secrets.yml** files. The default behaviour is to store in Jenkins job only.
 
 ### Deploy Jobs
 
