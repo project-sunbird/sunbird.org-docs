@@ -9,7 +9,7 @@ keywords: Upgrade, Sunbird 2.3.0
 
 ## Overview
 
-This document describes upgrade process from Sunbird 2.3.0 to 2.4.0.
+This document describes the upgrade process from Sunbird 2.3.0 to 2.4.0.
 
 ### Whats new in release-2.4.0
 
