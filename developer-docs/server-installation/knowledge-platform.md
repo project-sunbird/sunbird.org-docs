@@ -13,6 +13,8 @@ This page explains the jobs to be run to bring up the Knowledge Platform service
 
 Switch to the `Build` folder and run all jobs. For the value of the **github_release_tag**, refer to [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs){:target="_blank"}
 
+For KnowledgePlatform build, use the default profile_id which is "platform_services".
+
 ## DevOps Administration
 
 | Operation Name | Function              |
@@ -44,7 +46,7 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
     2.CassandraTrigger
     3.Neo4j   
     4.StartNeo4jCluster   
-    5.Learning   
+    5.Learning
     6.Search   
     7.Neo4DefinitionUpdate  
     8.Neo4jElasticSearchSyncTool   
