@@ -13,6 +13,8 @@ low latency and high throughput, and scales up to millions of flows for all TCP 
 
 The Load Balancer distributes new inbound flows that arrive on its frontend to backend pool instances, as per rules and health probes that are set. This page provides details to set up the Agent Swarm, Keycloak Swarm, KP-LB services and the DP-LB services.
 
+**Note:** The load balancers can be layer 4 or layer 7.
+
 ## Swarm Nodes
 
 To setup Agent Swarm, execute the following instructions for each of the mentioned fields: 
