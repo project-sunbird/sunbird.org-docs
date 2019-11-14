@@ -33,6 +33,7 @@ Switch to the `Build` folder and run all jobs. For the value of the **github_rel
     6.Learning   
     7.Redis   
     8.Search   
+    9. Yarn   
 
 ## Deploy
 
