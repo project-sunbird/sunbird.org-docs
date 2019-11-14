@@ -35,6 +35,7 @@ This page explains the jobs to be run to bring up the Core services.
 | API MANAGER Echo | Builds the API manager echo docker image | 
 | Badger | Builds the badger docker image |
 | Cassandra | Creates a jar for migration. Build this twice - There are two tags mentioned on the tags page for this. |
+| CassandraTrigger | Builds  the lms service docker image |
 | Lms | Builds  the lms service docker image |
 | Content | Builds the content service docker image | 
 | Learner | Builds the learner service docker image | 
@@ -63,10 +64,11 @@ Ensure that all Artifacts are uploaded
 | API Manager | Deploys the API manager Kong and API manager Echo | 
 | OnboardAPIS | Onboards all API's to Sunbird | 
 | OnboardConsumers 
-Update **core_vault_sunbird_api_auth_token** with the **jwt token** from the Jenkins output of **api-management-test-user** if you are using the Knowledge Platform and Data Pipeline along with core| Onboards new consumer to Sunbird and generates the consumer sprcific API key. Update this value with the corresponding API key of Ekstep 'core_vault_ekstep_api_key'. |   
+Update **core_vault_sunbird_api_auth_token**, **core_vault_kong__test_jwt** and **core_vault_ekstep_api_key** with the **jwt token** from the Jenkins output of **api-management-test-user** if you are using the Knowledge Platform and Data Pipeline along with core| Onboards new consumer to Sunbird and generates the consumer specific API key. |   
 | (Provision) Cassandra | Provisions Cassandra and create keyspaces required for Sunbird Core | 
-| Cassandra | Does Migration if required. Deploy this twice by choosing different zip files using the build_number parameter. Esnure cassandra migration gives a success message on Jenkins console output (Not by looking at Red / Green status) | 
-| (Provision) Keycloak | Provisions Keycloak by installing prerequisites like java and environment variables of learner | 
+| Cassandra | Does migration if required. Deploy this twice by choosing different zip files using the build_number parameter. Ensure that you get a sucess message for the Cassandra migration on the Jenkins console output. Do not rely only on the red or green status indicator.| 
+| CassandraTrigger | Deploys trigger jars for Cassandra |  
+| (Provision) Keycloak | Provisions Keycloak by installing prerequisites like Java and environment variables | 
 | Proxy | Deploys Proxy. Handles routing within the swarm |  
 | PlayerCDN | It is a optional job, CDN will increase the performance of web page and content to end user. Create cdn with storage account and update **sunbird_portal_cdn_url** variable and in jenkins job parameter **cdn_enable** set it to true. It will upload player static contents to CDN storage account | 
 | Player | Deploys the player service, used to display the App frontend. **Note**: The player deployment job will fail for the first time. Jenkins prompts you for **In process Approval Script**. Click on the approval link in the deploy job page and provide explicit approval for new **java.io** file, **java.lang** string and **java.io** file. Run the Player deployment again.|
@@ -95,25 +97,24 @@ You can access keycloak via `localhost:8080`
 | 6 | Creating keycloak federation [Deployment Steps for Keycloak User Federation](developer-docs/server-installation/keycloak_user_federation) |
 
 
-**Note**
-If Cassandra migration fails, run the manaul query to set the corresponding verion to True for the failed migration.
+>**Note**
+If the Cassandra migration fails, run the query manually to set the corresponding version for the failed migration to True .
 
 **Example:**
 
 `SELECT * from cassandra_migration_version;`
 
-Look for row which has success is False. The below is just an example -
+Check the rows for which the value in the success column is False. The following is an example -
 
 `1.74 |   180685665 |   cassandra |              4 |         null | 2019-09-17 13:58:52.401000+0000 |            136 | V1.74_cassandra.cql |   False |  CQL |           73`
 
-Run the update query for this row.
+Run the update query for this row. 
 
 `UPDATE cassandra_migration_version set success=True where version='1.74';`
 
-Verify all the columns are True for success column and rerun jenkins job after this
+Verify that all the values in the success column are True and run the Jenkins job again. 
+The current migration version is 1.83. The output of the Jenkins job should be as follows -
 
-Current migration version is 1.83. The output of jenkins job should be as below -
-
-`Migrating keyspace sunbird to version 1.83 - cassandra
+`Migrating keyspace Sunbird to version 1.83 - Cassandra
 Successfully applied 3 migrations to keyspace sunbird (execution time 00:20.547s).
 Migration Completed at ==1571996508540`

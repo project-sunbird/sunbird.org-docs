@@ -14,35 +14,40 @@ This page explains the jobs to be run to build and deploy plugins. In order to d
 
 Switch to the `Build/Plugins` folder and run all jobs. Ensure all ArtifactUpload jobs are sucessful after the build. For the value of the **github_release_tag**, refer to [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs){:target="_blank"}
 
-**Prerequisites before deployment**
+### Prerequisites Before Deployment
 
-**Container Creation**
+**Create Containers**
 
-Create containers in Azure blob. Use the below command to create initial placeholder containers.
+Create containers in Azure blob. Use the following commands to create initial placeholder containers:
 
-az storage blob upload-batch --destination *container_name/collection-editor* --source *some_folder* --account-name *account_name* --account-key *account_key*
+```
+az storage blob upload-batch --destination container_name/collection-editor --source some_folder --account-name storage_account_name --account-key account_key
 
-az storage blob upload-batch --destination *container_name/generic-editor* --source *some_folder* --account-name *account_name* --account-key *account_key*
+az storage blob upload-batch --destination container_name/generic-editor --source some_folder --account-name storage_account_name --account-key account_key
 
-az storage blob upload-batch --destination *container_name/content-editor* --source *some_folder* --account-name *account_name* --account-key *account_key*
+az storage blob upload-batch --destination container_name/content-editor --source some_folder --account-name storage_account_name --account-key account_key
 
-az storage blob upload-batch --destination *container_name/v3/preview* --source *some_folder* --account-name *account_name* --account-key *account_key*
+az storage blob upload-batch --destination container_name/v3/preview --source some_folder --account-name storage_account_name --account-key account_key
+```
 
-**NOTE**
-1. The above commands are just to create the directories in azure blob. The deployment script will always try to delte the folders first before deploying new contents, so if we don't have these folders in first run, deployment script will fail.
-2. You can upload any content in the blob for first run. Azure does not allow to create emtpy folders, so just add a file in a folder named *dummy*. The above command will create the directories.
-3. The *container_name* container must be publicly accessible.
+> **Note:**
+1. The commands only create the required directories in Azure blob. The deployment script always tries to delete the folders before deploying new contents. Hence, if these folders are not available during the first run, the deployment script fails.
+2. You can upload any content in the blob for the first run. Azure does not allow you to create emtpy folders. Hence, add a file in a folder named *dummy*. The commands mentioned create the required directories.
+3. The **container_name** container must be publicly accessible.
 
 
-**Base plugin upload**
+**Upload Base Plugin**
 
-Upload the intial set of plugins (base plugins) and upload it to your publicly accessible azure container. This must be same as the *container_name* used in the above steps.
+Upload the intial set of plugins (base plugins) to your publicly accessible Azure container. 
+> **Note:** The name of the Azure container must be same as the **container_name** mentioned in the section on creating containers.
 
-Download link - https://sunbirdpublic.blob.core.windows.net/installation/content-plugins.zip
+You can download the intial Plugins from [here](https://sunbirdpublic.blob.core.windows.net/installation/content-plugins.zip)
 
-Unzip the contents and you will be able to see a directory names *content-plugins* and run the below command from the directory where the zip was extracted.
+Unzip the contents and the directory **content-plugins** is available. Run the following command from the directory where the zip was extracted.
 
-az storage blob upload-batch --destination *container_name/content-plugins* --source *content-plugins* --account-name *account_name* --account-key *account_key*
+```
+az storage blob upload-batch --destination container_name/content-plugins --source content-plugins --account-name account_name --account-key account_key
+```
 
 ## Deploy
 
@@ -54,12 +59,12 @@ Switch to `Deploy/<env>/DataPipeline` and run the jobs in the following sequence
 4.ContentEditor  
 5.GenericEditor  
 
-After the deployment, you will be able to get the URL's for editors zip file. The URL will be similar to this - 
+After the plugins are deployed, you get URL's for the editors zip file. Sample URLs will be similar to the following:  
 
-*https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/generic-editor-iframe-2.4.0.zip*
+**https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/generic-editor-iframe-2.4.0.zip**
 
-*https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/collection-editor-iframe-2.4.0.zip*
+**https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/collection-editor-iframe-2.4.0.zip**
 
-*https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/content-editor-iframe-2.4.0.zip*
+**https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/content-editor-iframe-2.4.0.zip**
 
-You will need to use these 3 URL's when building Player.
+You will need to use these 3 URL's when building Player service.
