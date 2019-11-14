@@ -21,7 +21,7 @@ Switch to the `Build` folder and run all jobs. For the value of the **github_rel
 
 ## Provision
 
-*   Download **neo4j enterprise** version 3.3.x. The file should be uploaded to your azure storage account under root path. The file name should be **neo4j*.tar.gz**.
+*   Download **neo4j enterprise** version 3.3.x. The file should be uploaded to your azure storage account under root path. The file name should be **neo4j*.tar.gz**. This file should be uploaded to the container named in the variable {{artifacts_container}} of KnowledgePlatform's common.yml.
 
 The URL for this path will look like this - https://{{storage_account_name}}.blob.core.windows.net/{{container_name}}/neo4j-enterprise-3.3.9-unix.tar.gz
 
@@ -34,6 +34,7 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
     6.Learning   
     7.Redis   
     8.Search   
+    9. Yarn  
 
 ## Deploy
 
