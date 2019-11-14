@@ -67,4 +67,4 @@ After the plugins are deployed, you get URL's for the editors zip file. Sample U
 
 **https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/content-editor-iframe-2.4.0.zip**
 
-You will need to use these 3 URL's when building Player.
+You will need to use these 3 URL's when building Player service.
