@@ -81,8 +81,8 @@ Every deploy folder has a summary job. This job consists of a **summary.txt** fi
 ### Artifact Pushes
 
 1.The default configuration uploads the artifacts (zip, jar, etc files) to Azure blob and the docker containers to the configured container registry.
-2.It is mandatory to have a hub account to push the docker container. But if you decide to not use the Azure storage blob to store artifacts, then you can change the configuration in Jenkins jobs to disable to push to Azure blob.
-3.Go to the Jenkins ArtifactUpload jobs and Deploy jobs and change the order from ArtifactRepoJenkinsJob to JenkinsJob ArtifactRepo.
+2.It is mandatory to have a hub account to push the docker container.
+3. If you would not like to use the Azure storage to store artifacts, like zip files which get generated after a build, you can change the jenkins job configuration to not use Azure. To do this, go to the Jenkins ArtifactUpload jobs and change the order from [ArtifactRepo, JenkinsJob] to [JenkinsJob, ArtifactRepo].
 
 ## Log Rotation
    
