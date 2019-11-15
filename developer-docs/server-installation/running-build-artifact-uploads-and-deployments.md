@@ -17,4 +17,5 @@ Adhere to the following sequence to deploy the services:
 1. [Artifact Upload Jobs](developer-docs/server-installation/artifactupload-job/){:target="_blank"}
 2. [Knowledge Platform](developer-docs/server-installation/knowledge-platform){:target="_blank"}
 3. [DataPipeline](developer-docs/server-installation/data-pipeline){:target="_blank"}
-4. [Core Services](developer-docs/server-installation/core-services){:target="_blank"}
+4. [Plugins](developer-docs/server-installation/plugins){:target="_blank"}
+5. [Core Services](developer-docs/server-installation/artifactupload-job/core-services){:target="_blank"}

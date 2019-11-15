@@ -47,30 +47,38 @@ you can use the VM Disk snapshots from your cloud provider.
 
 2. Once all the variables and Jenkins configurations are complete, you can start to build and deploy the services.
 
-3. Build all the services mentioned in the table below.
-The following is a list of jobs that you require to build and deploy:
+**IMPORTANT**: 
+
+1. Take a backup of all your databases by running backup jobs located under OpsAdministration → Core / KnowledgePlatform / DataPipeline → BackupJobs OR You can use VM Disk Snapshots from your cloud provider.
+
+2. Once all the variables and Jenkins configurations are complete, you can start to build and deploy services.
+
+3. Build and deploy plugins. Refer [this page](developer-docs/server-installation/plugins){:target="_blank"}
+
+4. After plugins build and deploy, provide the blob url of the plugins zip file in Player build. Refer Player build job on [this page](developer-docs/server-installation/artifactupload-job/core-services){:target="_blank"}
+
+5. Build all the services mentioned in the table below. In case of Cassadnra migration (Core / Cassandra), the job needs to be build twice and deployed twice. Refer to the tags page to get the two tags. Also in case of errors in Cassadnra migration, refer to [this page](developer-docs/server-installation/artifactupload-job/core-services){:target="_blank"}
+
+Here is the list of jobs that are required to be built and deployed for your reference.
 
 Order: Top down per column
 
 |Knowledge Platform Build |	Knowledge Platform Deploy |	DataPipeline Build | DataPipeline Deploy | Core Build | Core Deploy |
 |-------------------------|---------------------------|--------------------|---------------------|------------|------------|
-|                         | StopNeo4jCluster          |	                   | CassandraDbUpdate   | Cassandra | Cassandra |
-|                         | Neo4j	              |                    | KafkaSetup     	 | Keycloak  | Keycloak  |
-|                         | StartNeo4jCluster	      |                    | KafkaIndexer    	 | Player    | Player    |
+|                         | Provison/CompositeSearch  |	                   | CassandraDbUpdate   | Cassandra | Cassandra |
+|                         | StopNeo4jCluster          |                    |                     | CassandraTrigger | CassandraTrigger |
+|                         | Neo4j	                  |                    | KafkaSetup          | Keycloak  | Keycloak  |                         
+|                         |                           |                    |                     |           | ApplicationElasticSearch
+|                         | StartNeo4jCluster	      |                    | KafkaIndexer        | Player    | Player    |
 |                         | KafkaSetup                | Secor              | Secor               | Learner   | Learner   |
-|                         | CassandraDbUpdate         |	Analytics          | AnalyticsAPI        | Content | Content   |
-|                         |                           |                    |                     | Lms     | Lms         |
-|                         |Neo4jDefinitionUpdate <br>(Run manual queries mentioned below after this job)| DataPipeline |	DataProducts |	Telemetry |	Telemetry |
-| KnowledgePlatform       |	Learning              |                    | SamzaTelemetrySchemas | Proxy   |	Proxy    |
-|                         | Search	              | Yarn               |	Yarn	     |               |OnboardAPI |
-|  Yarn	                  | Yarn           |               |          |                         | OnboardConsumers    |
-|  SyncTool               | Neo4jElasticSearchSyncTool |                   |                    | Logging |
+|                         | CassandraDbUpdate         |	Analytics          | AnalyticsAPI        | Content   | Content   |
+|                         | CassandraTrigger          |                    |                     | Lms       | Lms       |
+| CassandraTrigger        | Neo4jDefinitionUpdate     | DataPipeline       |	DataProducts       | Telemetry | Telemetry |
+| KnowledgePlatform       |	Learning                  |                    | SamzaTelemetrySchemas | Proxy   | Proxy     |
+|                         | Search	                  | Yarn               |	Yarn (Multiselect all options in the job parameter job_names_to_deploy)	             |           | OnboardAPI|
+|  Yarn	                  | Yarn                      |                    |                     |           | OnboardConsumers |
+|  SyncTool               | Neo4jElasticSearchSyncTool|                    |                     |           | OpsAdministration/Core/ESMapping (Provide value as all for job parameter indices_name)   |
 
 
-
->Note: The following is optional:
-You can run the Logging job located under Core → Deploy → Logging  
-The Logging jobs provision Kibana and provide you access to the container logs. But, this consumes additional resources in your swarm machines and it is not recommended that you run this job if you have a single swarm machine.
-
-
-
+> **Note:** We have disabled Git LFS for private repositories. Hence, uninstall git lfs from your private repository.
+To do so, clone your private repository and run ```git lfs uninstall``` and also remove the ```.gitattributes``` file

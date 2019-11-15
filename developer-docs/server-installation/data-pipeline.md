@@ -45,4 +45,4 @@ Switch to `Deploy/<env>/DataPipeline` and run the jobs in the following sequence
 5.Secor  
 6.KafkaIndexer  
 7.SamzaTelemertySchemas  
-8.Yarn  
+8.Yarn (Multi-select all options in the job parameter job_names_to_deploy) 

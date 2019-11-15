@@ -41,6 +41,8 @@ The following environment variables are used for Jenkins setup.
 |private_repo_credentials| The ID field value from Jenkins. After the username and password of the private repo are added in the Jenkins global credentials field, it displays an auto generated ID or the user can set a unique ID.|
 |public_repo_branch|This is a unique variable. All the jobs in Jenkins are by default configured to checkout the Jenkinsfile from this variable as **${public_repo_branch}**. When a value like release-2.0.0 is provided to this variable, the Jenkins jobs checkout the Jenkins file from release-2.0.0 branch from the URL configured in the job. If this value is set to **refs/tags/release-2.0.0**, then Jenkins checks out the Jenkins file from the tag **release-2.0.0**. You can change this variable in Jenkins job configurations and specify a specific branch or tag name. This is useful when you want to run some jobs from a different branch or tag instead of the value mentioned in the variable.|
 |deploy-conf| The name of the library that is used in the Jenkinsfile. This file is used in the global pipeline libraries section. When the Jenkinsfile has this library name, it checks out a couple of common libraries from the URL configured in this section. The Jenkinsfile requires these libraries to run. To avoid writing the same code at multiple places, **common code** is placed in a separate branch and all the Jenkinsfile can use this common code by calling it as a function. If this name is changed, ensure the name in Jenkinsfile is also changed to the new library name|.
+|override_public_branch|This variable is used to enable or disable the parameter private_branch in enkins jobs. If you set the value of this variable to true, it will give you an option to enter the private branch in case you want to use a different branch for certain jobs essentially overriding the global variable private_repo_branch.
+|override_private_branch|This variable is used to enable or disable the parameter branch_or_tag. If you set the value of this variable to true, it will give you an option to enter the tags for different repositories. This is useful when different repositories have different tags. Using this variable, you can override the global variable public_repo_branch.
 
 ## Job Parameters
 
@@ -61,7 +63,7 @@ The following environment variables are used for Jenkins setup.
 |build_number|This is same as the **image_tag** of docker builds, except that it is used for other type of jobs where zip / tar / jar type artifacts are created. This field is optional and may be blank. Apply the same scenario explained above to this field in order to understand the usage of this field. Since these are artifacts and not containers, you need to use the build job number to copy the artifact. Every new run of any job will clear the workspace but the artifacts are archived on the Jenkins master.|
 |artifact_source| For docker jobs, this parameter is default as **ArtifactRepo** and cannot be changed. All containers must be pushed to some hub so that it can be pulled from the hub during deployment.|
 
-For other type of jobs, you can choose where you want to push the artifacts. You can either choose to push it to Azure blob or store it in Jenkins. Pushing to Azure blob also stores a copy in Jenkins but not vice versa. To push to Azure blob, ensure you have set up your Ansible hosts and **common.yml** and **secrets.yml** files.
+> **Note:** For other job types, you can choose to push the artifacts either to the Azure blob or store it in Jenkins. Pushing the jobs to the Azure blob also stores a copy in Jenkins but not vice versa. To push to Azure blob, ensure you have set up your Ansible hosts and **common.yml** and **secrets.yml** files. The default behaviour is to store in Jenkins job only.
 
 ### Deploy Jobs
 
@@ -69,6 +71,8 @@ For other type of jobs, you can choose where you want to push the artifacts. You
 |---------------|----------------|
 |artifact_source| In deploy jobs, the artifact is downloaded or pulled from the option specified. This is the opposite of the behaviour in ArtifactUpload jobs.|
 |artifact_version|If you leave this value empty, by default it will take the version specified in the **metadata.json** file and deploy that version. In case you want to deploy some other version, you can provide the version value here.This is useful when you want to roll back to a previous version from current version.|
+|private_branch|In this parameter you can specify the private branch. Specifying a value in this parameter allows you to override the global value set in the global variable **private_repo_branch**, thus allowing you to check out the inventory and variables from the branch specified here. By default it shows the value which is in the global variable **private_repo_branch**. 
+|branch_or_tag|In this parameter you can specify the branch or tag of a repository. The public code like Ansible playbooks will be checked out from this branch or tag. Since each repository can have a different tag or branch, you need to specify this value. Refer to [Current Release Tags and Jenkins Jobs Reference](/developer-docs/server-installation/current_release_tags_n_jenkins_jobs){:target="_blank"} for details on the latest tags.
 
 ### Summary Jobs
 
@@ -77,8 +81,8 @@ Every deploy folder has a summary job. This job consists of a **summary.txt** fi
 ### Artifact Pushes
 
 1.The default configuration uploads the artifacts (zip, jar, etc files) to Azure blob and the docker containers to the configured container registry.
-2.Docker container push mandatorily requires a hub account. But if you decide to not use Azure storage blob to store artifacts, then you can change the configuration in Jenkins jobs to disable to push to Azure blob.
-3.Go to the Jenkins ArtifactUpload jobs and Deploy jobs and change the order from ArtifactRepo JenkinsJob to JenkinsJob ArtifactRepo.
+2.It is mandatory to have a hub account to push the docker container.
+3. If you would not like to use the Azure storage to store artifacts, like zip files which get generated after a build, you can change the jenkins job configuration to not use Azure. To do this, go to the Jenkins ArtifactUpload jobs and change the order from [ArtifactRepo, JenkinsJob] to [JenkinsJob, ArtifactRepo].
 
 ## Log Rotation
    
