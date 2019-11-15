@@ -46,7 +46,7 @@ var widgetsData = {
          "desc":"",
          "releaseDate":"22nd Aug 2018",
          "latest":false,
-         "published":true
+         "published":false
       },
       {  
          "title":"1.8",
@@ -54,7 +54,7 @@ var widgetsData = {
          "desc":"",
          "releaseDate":"6th July",
          "latest":false,
-         "published":true
+         "published":false
       }
    ]
 }
