@@ -39,7 +39,7 @@ This page explains the jobs to be run to bring up the Core services.
 | Lms | Builds  the lms service docker image |
 | Content | Builds the content service docker image | 
 | Learner | Builds the learner service docker image | 
-| Player | Builds the player service docker image. In the build job you have 3 parameters which point to plugins. Provide the values of your blob url where the zip files are uploaded. Refer to Plugins build page for more details. |
+| Player | Builds the player service docker image. In the build job you have 3 parameters which point to plugins. Provide the values of your blob url where the zip files are uploaded. For details refer [Plugins build page](developer-docs/server-installation/plugins){:target="_blank"} |
 | Proxy | Builds the proxy docker image |  
 | Telemetry | Builds the telemetry docker image |
 
