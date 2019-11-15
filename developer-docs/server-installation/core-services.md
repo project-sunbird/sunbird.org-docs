@@ -108,7 +108,7 @@ Check the rows for which the value in the success column is False. The following
 
 `1.74 |   180685665 |   cassandra |              4 |         null | 2019-09-17 13:58:52.401000+0000 |            136 | V1.74_cassandra.cql |   False |  CQL |           73`
 
-Run the update query for this row. 
+Run the update query for each row separately 
 
 `UPDATE cassandra_migration_version set success=True where version='1.74';`
 
