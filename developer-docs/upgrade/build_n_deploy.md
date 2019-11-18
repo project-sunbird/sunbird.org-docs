@@ -41,14 +41,6 @@ To setup the load balancer for swarm managers, execute the following instruction
 
 **IMPORTANT**: 
 
-1. Take a backup of all your databases by running backup jobs located under OpsAdministration → Core / KnowledgePlatform / DataPipeline → BackupJobs 
-OR 
-you can use the VM Disk snapshots from your cloud provider.
-
-2. Once all the variables and Jenkins configurations are complete, you can start to build and deploy the services.
-
-**IMPORTANT**: 
-
 1. Take a backup of all your databases by running backup jobs located under OpsAdministration → Core / KnowledgePlatform / DataPipeline → BackupJobs OR You can use VM Disk Snapshots from your cloud provider.
 
 2. Once all the variables and Jenkins configurations are complete, you can start to build and deploy services.
@@ -57,7 +49,7 @@ you can use the VM Disk snapshots from your cloud provider.
 
 4. After plugins build and deploy, provide the blob url of the plugins zip file in Player build. Refer Player build job on [this page](developer-docs/server-installation/artifactupload-job/core-services){:target="_blank"}
 
-5. Build all the services mentioned in the table below. In case of Cassadnra migration (Core / Cassandra), the job needs to be build twice and deployed twice. Refer to the tags page to get the two tags. Also in case of errors in Cassadnra migration, refer to [this page](developer-docs/server-installation/artifactupload-job/core-services){:target="_blank"}
+5. Build all the services mentioned in the table below. In case of Cassadnra migration (Core / Cassandra), the job needs to be build twice and deployed twice. Refer to the tags page to get the two tags. Also in case of errors in Cassadnra migration, refer to [this page](developer-docs/server-installation/core-services){:target="_blank"}
 
 Here is the list of jobs that are required to be built and deployed for your reference.
 
