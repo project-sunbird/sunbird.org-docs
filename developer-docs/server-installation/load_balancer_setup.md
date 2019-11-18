@@ -13,6 +13,8 @@ low latency and high throughput, and scales up to millions of flows for all TCP 
 
 The Load Balancer distributes new inbound flows that arrive on its frontend to backend pool instances, as per rules and health probes that are set. This page provides details to set up the Agent Swarm, Keycloak Swarm, KP-LB services and the DP-LB services.
 
+**Note:** The load balancers can be layer 4 or layer 7.
+
 ## Swarm Nodes
 
 To setup Agent Swarm, execute the following instructions for each of the mentioned fields: 
@@ -32,6 +34,29 @@ Ex: Frontend-port: 80
 
 > **Note:** Follow similar steps for port 443
 
+## Swarm Managers
+(Optional - Refer the variable sunbird_swarm_manager_lb_ip in inventory for comments)
+
+
+To setup LB for Swarm managers, execute the following instructions for each of the mentioned fields: 
+- Frontend IP configuration - Internal IP (default)
+- Backend pools - attach swarm manager VM or availability set of swarm manager group
+- Health Probes/check - Configure path and port   
+       ->   api-manager-kong - 8001 - /status    
+       ->   content-service  - 5000 - /health   
+       ->   learner-service  - 9000 - /health    
+- Protocol: HTTP
+- Port:    
+       ->   api-manager-kong - 8000   
+       ->   content-service  - 5000   
+       ->   learner-service  - 9000   
+- Interval: 5 
+- Unhealthy threshold: 2  
+- Load Balancing rules - Frontend-ip-config, Frontend-port, backend-port, Backend-pool and health-probe   
+       ->   api-manager-kong - Frontend-port:8000 - Backend-port: 8000    
+       ->   content-service  - Frontend-port:5000 - Backend-port: 5000    
+       ->   learner-service  - Frontend-port:9000 - Backend-port: 9000
+
 ## Keycloak
 
 To setup Keycloak Swarm, execute the following instructions for each of the mentioned fields:  
@@ -49,6 +74,8 @@ To setup Keycloak Swarm, execute the following instructions for each of the ment
 
 ## Knowledge Platform 
 
+**Learning:**
+
 To setup KP-LB services, execute the following instructions for each of the mentioned fields: 
 - Frontend IP configuration - Internal IP (default)
 - Backend pools - attach vm's of learning and search or availability set for learning and search
@@ -62,6 +89,8 @@ To setup KP-LB services, execute the following instructions for each of the ment
 - Frontend-port: 8080
 - Backend-port: 8080
 
+
+**Search:**
 
 - Name: searchhealth 
 - Protocol: http 

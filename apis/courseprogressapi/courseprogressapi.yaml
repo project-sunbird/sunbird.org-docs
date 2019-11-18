@@ -3,7 +3,10 @@ info:
   version: '1.0'
   title:  Course Progress API(s)
   description: >-
-    The Course Progress API resource is used to publish and update the status of the course as consumed by a user. The operations include the basic course status and the updated status. 
+     - The Course Progress API resource is used to publish and update the status of the course as consumed by a user. The operations include the basic course status and the updated status.  
+     
+     - The URL for Course Progress API is `/course/v1/user/content/state`.
+
 host: staging.open-sunbird.org
 basePath: /api/course/v1/user/content/state/
 securityDefinitions:
@@ -26,8 +29,9 @@ paths:
     post:
       description: >-
        This API is used for reading the current progress of the course (content)consumed by a user. For example, the user can view and check the progress of a specific course or course(s)consumed.
-          - **_/read/_** endpoint executes the "post course state" request based on parameters provided as metadata in the request body.     
-          - It is a must to provide values for all mandatory fields.
+          - The endpoint for **Read Course State** is `/read`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
       summary: Read Course State
       tags:
         - Course Progress API(s)
@@ -91,8 +95,9 @@ paths:
     patch:
       description: >-
        This API is used to update the Course(content) state as consumed by a user. For example, when the user resumes a course or courses after the point at which it was stopped, the status of the course is updated. 
-          - **_/update/_** endpoint executes the "Update Course State" request based on parameters provided as metadata in the request body.     
-          - It is a must to give values for all mandatory fields
+          - The endpoint for **Update Course State** is `/update`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          
       summary: Update Course State
       tags:
         - Course Progress API(s)
@@ -207,13 +212,17 @@ definitions:
         example: Sam123
         type: string
       contents:
-        description: 'The represents the array of the contents which comprises of various parameters related to the content'
+        description: 'This represents the array of the contents which comprises of various parameters related to the content'
         type: array
         items:
           $ref: '#/definitions/Content'
+      assessments:
+        description: 'This represents the array of the assessments which comprises of various parameters related to assessments'
+        type: array
+        items:
+          $ref: '#/definitions/Assessment'
     required:
       - userId
-      - contents
   Content:
     title: Content
     type: object
@@ -256,6 +265,40 @@ definitions:
       - batchId
       - status
       - courseId
+  Assessment:
+    title: Assessment
+    type: object
+    properties:
+      assessmentTs:
+        description: 'Assessment time in epoch'
+        example: 1567591211000
+        type: long
+      batchId:
+        description: 'This ID uniquely identifies a batch'
+        example: 01284169026368307244
+        type: string
+      courseId:
+        description: 'This ID uniquely identifies the course'
+        example: do_2128410273679114241112
+        type: string
+      userId:
+        description: 'This ID uniquely identifies a user'
+        example: d0d8a341-9637-484c-b871-0c27015af238
+        type: string
+      attemptId:
+        description: 'This ID uniquely identifies the attempt'
+        example: 90e1a0d12542806389a1a52aaf1fc622
+        type: string
+      contentId:
+        description: 'This ID uniquely identifies the content'
+        example: do_2128373396098744321673
+        type: string
+      events:
+        description: 'This will have the assess events of the telemetry'
+        example: []
+        type: array
+        items:
+          []
   GetContentResponse:
     description: Get Content Response
     type: object

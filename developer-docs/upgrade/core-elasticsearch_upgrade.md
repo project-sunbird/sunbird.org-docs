@@ -13,7 +13,7 @@ Core Elasticsearch has been upgraded from 5.x version to 6.x. This is done in or
 
 Follow the steps to upgrade core Elasticsearch.
 
-### Back up
+### Backup
 
 1.Take backup of Core elasticsearch indexes.
 
@@ -24,9 +24,9 @@ Follow the steps to upgrade core Elasticsearch.
 `cloud.azure.storage.default.key:`          // Your azure backup account key
 
 
-### Install elastisearch azure plugin 
+### Install Elastisearch Azure Plugin 
 
-3.Install elastic search plugin in case it is not installed. 
+3.Install Elasticsearch plugin in case it is not installed. 
 
         export ES_PATH_CONF=/etc/elasticsearch/your_node_name
 
@@ -34,11 +34,11 @@ Follow the steps to upgrade core Elasticsearch.
 
         bin/elasticsearch-plugin install repository-azure
 
-4.Restart elasticsearch service 
+4.Restart Elasticsearch service 
 
         sudo systemctl restart your_node_name_elasticsearch.service
 
-5.Create Azure repo and take the backup. Follow below steps:
+5.Create Azure repository and take the backup. Use the following steps:
 
         curl -XPUT http://localhost:9200/_snapshot/azurebackup -H 'Content-Type: application/json' -d '{ "type": "azure", "settings": { "container": "elasticsearch-snapshots", "base_path": "application_elasticsearch"} }'
 
@@ -73,7 +73,7 @@ Once backup is completed, restore the Elasticsearch indexes.
 
 Note: The account and key should be same as the one used for backup
 
-3.Install elastic search plugin in case it is not installed. 
+3.Install Elasticsearch plugin in case it is not installed. 
 
         export ES_PATH_CONF=/etc/elasticsearch/your_node_name
 
@@ -81,11 +81,11 @@ Note: The account and key should be same as the one used for backup
 
         bin/elasticsearch-plugin install repository-azure
 
-4.Restart elasticsearch service 
+4.Restart Elasticsearch service 
 
         sudo systemctl restart your_node_name_elasticsearch.service
 
-5.Run the below commands to begin restoration:
+5.Run the following commands to start restoration:
 
         curl -XPOST http://localhost:9200/_snapshot/azurebackup/snapshot_back_name/_restore
 
@@ -101,7 +101,7 @@ For more information on backup, restore and advanced configurations for the azur
 
 
 
-### ES Mapping
+### Elasticsearch Mapping
 
 Ensure your core inventory is updated with the IP of the new Elasticsearch cluster (Knowledge platform ES cluster)
 
@@ -110,7 +110,7 @@ Go to jenkins and run the job ESMapping located under **Deploy** â†’ **Core** â†
 For more information on what this job does, take a look at this reference Elasticsearch mapping update job steps.
 
 
-### Migration of core elasticsearch data from old index to new indices:
+### Migration of Core Elasticsearch Data from the Old Index to New Indices
 
 Since mapping types are deprecated with the new version of elasticsearch, we will have to reindex our indexes to be compatible with the new ES. Below are the set of commands that need to be run on the Knowledge platform ES VM.
 
@@ -129,6 +129,7 @@ Since mapping types are deprecated with the new version of elasticsearch, we wil
         curl -X POST http://{es-ip}:{es-port}/_reindex -H 'Content-Type: application/json' -d '{"source":{"index":"sunbirdplugin","type":"announcementtype"},"dest":{"index":"announcementtype","type":"_doc"}}'
         curl -X POST http://{es-ip}:{es-port}/_reindex -H 'Content-Type: application/json' -d '{"source":{"index":"sunbirdplugin","type":"metrics"},"dest":{"index":"metrics","type":"_doc"}}'
 
-For more information of mapping typee deprecation, please take a look at this reference - [Sunbird Elasticsearch migration to multi index](developer-docs/migration)
+For more information of mapping type deprecation, refer - [Sunbird Elasticsearch Migration to Multi-index](developer-docs/migration)
 
 This completes the first 3 steps of the upgrade related to Elasticsearch
+

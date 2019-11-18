@@ -16,11 +16,11 @@ Use the following Git commands sequentially to clone and update your private Git
 
 1. `git clone` <a href="https://project-sunbird/sunbird-devops">https://github.com/project-sunbird/sunbird-devops</a>
 
-2. `cd sunbird-devops; git checkout tags/release-2.0.0 -b release-2.0.0`
+2. `cd sunbird-devops; git checkout tags/release-2.4.0 -b release-2.4.0`
 
-3. `cp -rf sunbird-devops/private_repo /tmp/`
+3. Copy the directory `sunbird-devops/private_repo/ansible` to your private repo location
 
-4. `cd /tmp/private_repo`
+4. Update the files `common.yml`, `hosts`, `secrets.yml` under `Core`, `KnowledgePlatform` and `DataPipeline`. After updating, push them to your private repo branch. The structure under `ansible` directory is shown below.
 
 
 > **Note** The following depicts the folder structure required in the private GitHub repository that contains Ansible hosts, secrets and variables.
@@ -43,23 +43,7 @@ ansible
             └── secrets.yml
 ```
 
-5. `git init`
-   
-6. `git add`
-   
-7. `git commit -m "Creating private files"`
-   
-8. `git remote add origin ~private repo url~`
-
-9. `git branch --set-upstream-to=origin/master master && git push --set-upstream origin master`
-    
-10. Update the variables and push them to upstream
-
-## Updating the Variables and Hosts
-
-1.`cd private_repo/ansible/inventory/dev/<module>/`
-
-2.update hosts **common.yml** and **secrets.yml**
+**List of servers along with their ansible group name**
 
 <table>
   <tr>

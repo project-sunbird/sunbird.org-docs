@@ -4,42 +4,37 @@ page_title:  ETL Jobs for Sunbird Upgrades
 description:  ETL Jobs for Sunbird Upgrades
 published: true
 allowSearch: true
-keywords: Upgrade, Sunbird 2.0.0, etl jobs
+keywords: Upgrade, Sunbird 2.3.0, etl jobs
 ---
 
 ## Overview
 
-### Cassandra User Email and Phone number masking:
+### Cassandra Decrypt
 
-As part of release-2.0.0, we are masking user's email and phone number in cassandra DB. Please follow the below steps to perform this task
+As part of release-2.0.0, we were encrypting all user external identity in cassandra, but since this is not private data
+from 2.3.0 we are storing it as plain text. For data which is already encrypted, below is the jenkins job to decrypt the 
+data.
 
-Download the [file](wget https://github.com/project-sunbird/sunbird-utils/blob/release-2.0.0/cassandra-migration-etl/r1.15/maskEmailPhoneMigrationBin.zip) in the Core Cassandra (master machine in case of cluster)
+Job Name | Job Path |
+--- | --- |
+CassandraDecrypt |  Deploy/\<env\>/Core/CassandraDecrypt |
 
-Please refer to this document to [understand and run the script](https://github.com/project-sunbird/sunbird.org-docs/blob/b823b9b7e17758241095a869c221592bf11bb560/developer-docs/installation/mask_user_email_phone_migration.md)
+### Sync User Data from Cassandra to Elasticsearch
 
-### Sync user data from Cassandra to Elasticsearch:
+>This is an optional job
 
-Please refer to this document to [understand and run the script](https://github.com/project-sunbird/sunbird.org-docs/blob/master/developer-docs/installation/sync_user.md)
+When you manually add a new column in the user database or make any schema changes, you need to sync the user data from Cassandra to Elasticsearch. If all user data needs synching, follow the steps mentioned in the Sync User document. 
 
-### Delete users from Keycloak DB
+>For details, refer to the [Sync User](developer-docs/installation/sync_user){:target="_blank"} document to understand and run the script.
 
-Download this [file](https://github.com/project-sunbird/sunbird-utils/blob/release-2.0.0/cassandra-migration-etl/r1.15/DeleteKeycloakUserBin.zip) in the Core Cassandra (master machine in case of cluster)
+### Sync User and Organization Data
 
-Please refer to this document to [understand and run the script](https://github.com/project-sunbird/sunbird.org-docs/blob/b823b9b7e17758241095a869c221592bf11bb560/developer-docs/installation/delete_keycloak_users)
+>This is an optional job
 
+When you identify that there is a mismatch of data in your primary (Cassandra) database and your secondary database (Elasticsearch) you need to sync user and organization data. Follow the steps mentioned in the Sync User and Organization Data to sync either:
+- All user data
+- All organization data
+- Specific user data
+- Specific organization data
 
-### Course batch sync:
-
-Please refer to this [document](https://github.com/manzarul/sunbird.org-docs/blob/e6caf3226dbe8173c93becf6679529ba850c3900/developer-docs/configuring_sunbird/elasticsearch_static_mapping_course_batch) to run the command (Only Step 3 and Step 4 needs to be run)
-
-
-### User course sync:
-
-Please run this command also after previous step
-
-    curl -X POST \
-      {{lms-base-url}}/api/data/v1/index/sync \
-      -H 'accept: application/json' \
-      -H 'authorization: Bearer {{api-key}}' \
-      -H 'content-type: application/json' \
-      -d '{"request":{"objectType":"user_course","objectIds":[]}}'
+>For details, refer to the [Sync User and Organization](developer-docs/installation/sync_user_org){:target="_blank"} document to understand and run the appropriate script.  

@@ -26,15 +26,17 @@ Switch to `Provision/<env>/DataPipeline` and run the jobs in the following seque
 
 1.AnalyticsApi  
 2.AnalyticsSecor  
-3.AnalyticsSpark  
-4.Influxdb  
-5.Kibana  
-6.Postgress  
-7.Yarn  
+3.AnalyticsSpark   
+4.Postgres 
+5.Yarn  
+6.Influxdb  
+7.Zookeeper   
+8.Kafka    
+9.Redis
 
 ## Deploy
 
-Switch to `Deploy/dev/DataPipeline` and run the jobs in the following sequence:
+Switch to `Deploy/<env>/DataPipeline` and run the jobs in the following sequence:
 
 1.CassandraDbUpdate  
 2.KafkaSetup  
@@ -43,4 +45,4 @@ Switch to `Deploy/dev/DataPipeline` and run the jobs in the following sequence:
 5.Secor  
 6.KafkaIndexer  
 7.SamzaTelemertySchemas  
-8.Yarn  
+8.Yarn (Multi-select all options in the job parameter job_names_to_deploy) 
