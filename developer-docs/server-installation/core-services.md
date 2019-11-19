@@ -66,7 +66,7 @@ Ensure that all Artifacts are uploaded
 | OnboardConsumers 
 Update **core_vault_sunbird_api_auth_token**, **core_vault_kong__test_jwt** and **core_vault_ekstep_api_key** with the **jwt token** from the Jenkins output of **api-management-test-user** if you are using the Knowledge Platform and Data Pipeline along with core| Onboards new consumer to Sunbird and generates the consumer specific API key. |   
 | (Provision) Cassandra | Provisions Cassandra and create keyspaces required for Sunbird Core | 
-| Cassandra | Does migration if required. Deploy this thrice by choosing different zip files using the build_number parameter. Ensure that you get a sucess message for the Cassandra migration on the Jenkins console output. Do not rely only on the red or green status indicator on Jenkins job. See note at the bottom.| 
+| Cassandra | Does migration if required. Deploy this thrice by choosing different zip files using the build_number parameter. Ensure that you get a sucess message for the Cassandra migration on the Jenkins console output. Do not rely only on the red or green status indicator on Jenkins job | 
 | CassandraTrigger | Deploys trigger jars for Cassandra |  
 | (Provision) Keycloak | Provisions Keycloak by installing prerequisites like Java and environment variables | 
 | Proxy | Deploys Proxy. Handles routing within the swarm |  
