@@ -38,15 +38,15 @@ Order: Top down per column
 |                         | StopNeo4jCluster          |                    |                     | CassandraTrigger | CassandraTrigger |
 |                         | Neo4j	                  |                    | KafkaSetup          | Keycloak  | Keycloak  |                         
 |                         |                           |                    |                     |           | ApplicationElasticSearch
-|                         | StartNeo4jCluster	      |                    | KafkaIndexer        | Player    | Player    |
-|                         | KafkaSetup                | Secor              | Secor               | Learner   | Learner   |
-|                         | CassandraDbUpdate         |	Analytics          | AnalyticsAPI        | Content   | Content   |
-|                         | CassandraTrigger          |                    |                     | Lms       | Lms       |
-| CassandraTrigger        | Neo4jDefinitionUpdate     | DataPipeline       |	DataProducts       | Telemetry | Telemetry |
-| KnowledgePlatform       |	Learning                  |                    | SamzaTelemetrySchemas | Proxy   | Proxy     |
+|                         | StartNeo4jCluster	      |                    | KafkaIndexer        | Player    | OpsAdministration/Core/ESMapping (Provide value as `all` for job parameter indices_name)    |
+|                         | KafkaSetup                | Secor              | Secor               | Learner   | Player   |
+|                         | CassandraDbUpdate         |	Analytics          | AnalyticsAPI        | Content   | Learner   |
+|                         | CassandraTrigger          |                    |                     | Lms       | Content       |
+| CassandraTrigger        | Neo4jDefinitionUpdate     | DataPipeline       |	DataProducts       | Telemetry | Lms |
+| KnowledgePlatform       |	Learning                  |                    | SamzaTelemetrySchemas | Proxy   | Telemetry     |
 |                         | Search	                  | Yarn               |	Yarn (Multiselect all options in the job parameter job_names_to_deploy)	             |           | OnboardAPI|
-|  Yarn	                  | Yarn                      |                    |                     |           | OnboardConsumers |
-|  SyncTool               | Neo4jElasticSearchSyncTool|                    |                     |           | OpsAdministration/Core/ESMapping (Provide value as all for job parameter indices_name)   |
+|  Yarn	                  | Yarn                      |                    |                     |           | Proxy |
+|  SyncTool               | Neo4jElasticSearchSyncTool|                    |                     |           | OnboardConsumers   |
 
 
 **Note:** 
