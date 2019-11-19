@@ -14,29 +14,6 @@ This page details out the jobs required to be run as part of the upgrade from Su
 As part of this upgrade, you may choose to set up the load balancer for swarm managers. If you do not require a load balancer for swarm managers, only update the value of the variable **sunbird_swarm_manager_lb_ip** to the swarm manager's IP in the private repository.
 
 
-## Load Balancer Setup for Swarm Manager 
-
->This is optional setup for the Sunbird upgrade
-
-To setup the load balancer for swarm managers, execute the following instructions for each of the mentioned fields:
-- Frontend IP configuration - Internal IP (default)
-- Backend pools - Attach swarm manager VM or availability set of swarm manager group
-- Health Probes/check - Configure path and port
-       ->   api-manager-kong - 8001 - /status
-       ->   content-service  - 5000 - /health
-       ->   learner-service  - 9000 - /health
-- Protocol: HTTP
-- Port:
-       ->   api-manager-kong - 8000
-       ->   content-service  - 5000
-       ->   learner-service  - 9000
-- Interval: 5
-- Unhealthy threshold: 2
-- Load Balancing rules - Frontend-ip-config, Frontend-port, backend-port, Backend-pool and health-probe
-       ->   api-manager-kong - Frontend-port:8000 - Backend-port: 8000
-       ->   content-service  - Frontend-port:5000 - Backend-port: 5000
-       ->   learner-service  - Frontend-port:9000 - Backend-port: 9000
-
 ## Running the Builds 
 
 **IMPORTANT**: 
@@ -49,7 +26,7 @@ To setup the load balancer for swarm managers, execute the following instruction
 
 4. After plugins build and deploy, provide the blob url of the plugins zip file in Player build. Refer Player build job on [this page](developer-docs/server-installation/artifactupload-job/core-services){:target="_blank"}
 
-5. Build all the services mentioned in the table below. In case of Cassadnra migration (Core / Cassandra), the job needs to be build twice and deployed twice. Refer to the tags page to get the two tags. Also in case of errors in Cassadnra migration, refer to [this page](developer-docs/server-installation/core-services){:target="_blank"}
+5. Build all the services mentioned in the table below. In case of Cassandra migration (Core / Cassandra), the job needs to be built twice and deployed thrice. Refer to the tags page to get the two tags. Also in case of errors in Cassadnra migration, refer to [this page](developer-docs/server-installation/core-services){:target="_blank"}
 
 Here is the list of jobs that are required to be built and deployed for your reference.
 
@@ -72,5 +49,30 @@ Order: Top down per column
 |  SyncTool               | Neo4jElasticSearchSyncTool|                    |                     |           | OpsAdministration/Core/ESMapping (Provide value as all for job parameter indices_name)   |
 
 
-> **Note:** We have disabled Git LFS for private repositories. Hence, uninstall git lfs from your private repository.
+**Note:** 
+1. We have disabled Git LFS for private repositories. Hence, uninstall git lfs from your private repository.
 To do so, clone your private repository and run ```git lfs uninstall``` and also remove the ```.gitattributes``` file
+
+2. If the Cassandra migration fails, run the query manually to set the corresponding version for the failed migration to True 
+
+**Example:**
+
+`SELECT * from cassandra_migration_version;`
+
+Check the rows for which the value in the success column is False. The following is an example -
+
+`1.74 |   180685665 |   cassandra |              4 |         null | 2019-09-17 13:58:52.401000+0000 |            136 | V1.74_cassandra.cql |   False |  CQL |           73`
+
+Run the update query for each row separately 
+
+`UPDATE cassandra_migration_version set success=True where version='1.74';`
+
+Verify that all the values in the success column are True and rerun the Jenkins job again with same zip file and tag.
+
+Once this succeeds, use the second zip file and tag to deploy again.
+
+The current migration version is 1.83. The output of the Jenkins job should be as follows -
+
+`Migrating keyspace Sunbird to version 1.83 - Cassandra
+Successfully applied 3 migrations to keyspace sunbird (execution time 00:20.547s).
+Migration Completed at ==1571996508540`
