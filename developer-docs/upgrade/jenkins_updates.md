@@ -33,32 +33,20 @@ Follow the below steps to upgrade:
         sudo bash jenkins-server-setup.sh (to install if any new packages are required for jobs)
         sudo bash jenkins-plugins-setup.sh (to install any new plugins that are required for jobs)
         sudo bash jenkins-jobs-setup.sh (to update the job configurations)
-   
-4.Switch to jenkins user and run the below command to install NVM    
-        ```curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash```
-        
-5.Remove the variable github_release_tag from global environment variable in Jenkins, if it is not done already (This was added in release 1.1.4 But, it must be removed now). 
+           
+4.The script will show the list of differences between your current configuration and the new configuration. Take a deep look at these changes and when you are ready to update, provide the confirmation as YES 
 
-6.The script will show the list of differences between your current configuration and the new configuration. Take a deep look at these changes and when you are ready to update, provide the confirmation as YES 
+5.The script will overwrite the existing jobs (only those sunbird provides by default) and update the configurations with new changes of that release.
 
-7.The script will overwrite the existing jobs (only those sunbird provides by default) and update the configurations with new changes of that release.
+6.Go to Manage Jenkins → Configure System → Global Pipeline Libraries → Change Default Version to `release-2.4.0-shared-lib`
 
-8.Add the below two Jenkins environment variables under Mange Jenkins if not done → Configure System
+7.Go to Manage Jenkins → Configure System → Update `public_repo_branch` to `refs/tags/release-2.4.0` or go to Manage Jenkins → Configure System → Update `private_repo_branch` to the branch name of your private repo branch in case you created a new branch for release-2.4.0 inventory updates  
 
-|Variable | Value |
-|----------|-------|
-| override_private_branch |	true |
-| override_public_branch | true |
-
-9.Go to Manage Jenkins → Configure System → Global Pipeline Libraries → Change Default Version to `release-2.4.0-shared-lib`
-
-10.Go to Manage Jenkins → Configure System → Update `public_repo_branch` to `refs/tags/release-2.4.0` or go to Manage Jenkins → Configure System → Update `private_repo_branch` to the branch name of your private repo branch in case you created a new branch for release-2.4.0 inventory updates  
-
-11.Restart your Jenkins and you are ready to go  
+8.Restart your Jenkins and you are ready to go  
 
 **IMPORTANT**: Open one of the Deploy job and click on configure  
 
-12.Click **Save**  
+9.Click **Save**  
 
-13.You can take a look at what has changed in existing job and accordingly update your custom job manually so that the same changes are available in your custom jobs
+10.You can take a look at what has changed in existing job and accordingly update your custom job manually so that the same changes are available in your custom jobs
 
