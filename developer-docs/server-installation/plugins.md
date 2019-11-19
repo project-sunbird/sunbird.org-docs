@@ -51,7 +51,7 @@ az storage blob upload-batch --destination container_name/content-plugins --sour
 
 ## Deploy
 
-Switch to `Deploy/<env>/DataPipeline` and run the jobs in the following sequence:
+Switch to `Deploy/<env>/Plugins` in your jenkins machine and run the jobs in the following sequence:
 
 1.ContentPlugins  
 2.ContentPlayer  
@@ -61,10 +61,10 @@ Switch to `Deploy/<env>/DataPipeline` and run the jobs in the following sequence
 
 After the plugins are deployed, you get URL's for the editors zip file. Sample URLs will be similar to the following:  
 
-**https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/generic-editor-iframe-2.4.0.zip**
+**https://<azure_account_name>.blob.core.windows.net/<plugin_container_name>/artefacts/editor/generic-editor-iframe-2.4.0.zip**
 
-**https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/collection-editor-iframe-2.4.0.zip**
+**https://<azure_account_name>.blob.core.windows.net/<plugin_container_name>/artefacts/editor/collection-editor-iframe-2.4.0.zip**
 
-**https://{{azure_account_name}}.blob.core.windows.net/{{plugin_container_name}}/artefacts/editor/content-editor-iframe-2.4.0.zip**
+**https://<azure_account_name>.blob.core.windows.net/<plugin_container_name>/artefacts/editor/content-editor-iframe-2.4.0.zip**
 
 You will need to use these 3 URL's when building Player service.
