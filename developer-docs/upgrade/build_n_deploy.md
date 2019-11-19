@@ -38,7 +38,7 @@ Order: Top down per column
 |                         | StopNeo4jCluster          |                    |                     | CassandraTrigger | CassandraTrigger |
 |                         | Neo4j	                  |                    | KafkaSetup          | Keycloak  | Keycloak  |                         
 |                         |                           |                    |                     |           | ApplicationElasticSearch
-|                         | StartNeo4jCluster	      |                    | KafkaIndexer        | Player    | OpsAdministration/Core/ESMapping (Provide value as all for job parameter indices_name)    |
+|                         | StartNeo4jCluster	      |                    | KafkaIndexer        | Player    | OpsAdministration/Core/ESMapping (Provide value as `all` for job parameter indices_name)    |
 |                         | KafkaSetup                | Secor              | Secor               | Learner   | Player   |
 |                         | CassandraDbUpdate         |	Analytics          | AnalyticsAPI        | Content   | Learner   |
 |                         | CassandraTrigger          |                    |                     | Lms       | Content       |
