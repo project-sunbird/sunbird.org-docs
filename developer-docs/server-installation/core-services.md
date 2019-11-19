@@ -66,7 +66,7 @@ Ensure that all Artifacts are uploaded
 | OnboardConsumers 
 Update **core_vault_sunbird_api_auth_token**, **core_vault_kong__test_jwt** and **core_vault_ekstep_api_key** with the **jwt token** from the Jenkins output of **api-management-test-user** if you are using the Knowledge Platform and Data Pipeline along with core| Onboards new consumer to Sunbird and generates the consumer specific API key. |   
 | (Provision) Cassandra | Provisions Cassandra and create keyspaces required for Sunbird Core | 
-| Cassandra | Does migration if required. Deploy this twice by choosing different zip files using the build_number parameter. Ensure that you get a sucess message for the Cassandra migration on the Jenkins console output. Do not rely only on the red or green status indicator.| 
+| Cassandra | Does migration if required. Deploy this thrice by choosing different zip files using the build_number parameter. Ensure that you get a sucess message for the Cassandra migration on the Jenkins console output. Do not rely only on the red or green status indicator on Jenkins job | 
 | CassandraTrigger | Deploys trigger jars for Cassandra |  
 | (Provision) Keycloak | Provisions Keycloak by installing prerequisites like Java and environment variables | 
 | Proxy | Deploys Proxy. Handles routing within the swarm |  
@@ -97,8 +97,8 @@ You can access keycloak via `localhost:8080`
 | 6 | Creating keycloak federation [Deployment Steps for Keycloak User Federation](developer-docs/server-installation/keycloak_user_federation) |
 
 
->**Note**
-If the Cassandra migration fails, run the query manually to set the corresponding version for the failed migration to True .
+**Note**
+If the Cassandra migration fails, run the query manually to set the corresponding version for the failed migration to True
 
 **Example:**
 
@@ -112,7 +112,10 @@ Run the update query for each row separately
 
 `UPDATE cassandra_migration_version set success=True where version='1.74';`
 
-Verify that all the values in the success column are True and run the Jenkins job again. 
+Verify that all the values in the success column are True and rerun the Jenkins job again with same zip file and tag
+
+Once this succeeds, use the second zip file and tag to deploy again
+
 The current migration version is 1.83. The output of the Jenkins job should be as follows -
 
 `Migrating keyspace Sunbird to version 1.83 - Cassandra
