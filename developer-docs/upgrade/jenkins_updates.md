@@ -36,7 +36,7 @@ Follow the below steps to upgrade:
            
 4.The script will show the list of differences between your current configuration and the new configuration. Take a deep look at these changes and when you are ready to update, provide the confirmation as YES 
 
-5.The script will overwrite the existing jobs (only those sunbird provides by default) and update the configurations with new changes of that release.
+5.The script will overwrite the existing jobs (jobs provided by default by Sunbird) and update the configurations with new changes of that release
 
 6.Go to Manage Jenkins → Configure System → Global Pipeline Libraries → Change Default Version to `release-2.4.0-shared-lib`
 
