@@ -67,9 +67,9 @@ Run the update query for each row separately
 
 `UPDATE cassandra_migration_version set success=True where version='1.74';`
 
-Verify that all the values in the success column are True and rerun the Jenkins job again with same zip file and tag.
+Verify that all the values in the success column are True and rerun the Jenkins job again with same zip file and tag
 
-Once this succeeds, use the second zip file and tag to deploy again.
+Once this succeeds, use the second zip file and tag to deploy again
 
 The current migration version is 1.83. The output of the Jenkins job should be as follows -
 
