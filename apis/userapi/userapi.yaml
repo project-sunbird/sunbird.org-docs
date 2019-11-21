@@ -4,7 +4,7 @@ info:
   title: User Management  API(s)
   description: >-
     - The User Management API resources are used to manage individual users and their memberships, these resources allow you to add skills, block and unblock users, and encrypt user data.  
-    
+
     <b>Note:</b> These resources can be used as a part of scripts or programs to allow authorized administrators to manage the users.
 host: staging.open-sunbird.org
 basePath: /api/
@@ -1721,6 +1721,98 @@ paths:
             'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
             $ref: '#/definitions/UserErrorResponse'
+  /user/v1/migrate:
+    post:
+      description:  >-
+        This API is used to migrate user from custodian channel to non custodian channel
+      summary: Migrate user
+      tags:
+        - User APIs
+      operationId: migrateUser
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - name: request
+          in: body
+          required: true
+          description: >-
+            - The body payload comprises of the metadata about migrating a user request
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
+               - JSON
+          schema:
+            allOf:
+              - $ref: '#/definitions/MigrateUserReq'
+        - name: ts
+          in: header
+          required: true
+          type: string
+          description: >-
+            Timestamp is a sequence of characters or encoded information identifying when the block user API call occurred, usually it gives date and time of day, mostly accurate to a small fraction of a second
+        - name: X-msgid
+          in: header
+          required: true
+          type: string
+          description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
+
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        - name: x-authenticated-user-token
+          in: header
+          required: true
+          type: string
+          description: >-
+            It is a unique token/key to authenticate the user each time an API is called. For corresponsing sessions, this token is exchanged, not the username/password of the user.
+            it is mandatory to pass the auth token of same user whom we  want to migrate
+      responses:
+        '200':
+          description: 'OK ! Successful operation."user profile visibility" operation was successfully executed. either you have provided wrong userExtId'
+          schema:
+            $ref: '#/definitions/UserCreateResponse'
+        '400':
+          description: 'BAD REQUEST. The "user migration" operation failed ! The possible reason for failure is that you may provided incorect userId for migration.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /user/v1/migrate
+            headers:
+              Content-Type: application/json
+              X-Consumer-ID: X-Consumer-ID
+              ts: 2017-05-25 10:18:56:578+0530
+              X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
+              Authorization: Bearer {{api-key}}
+              x-authenticated-user-token: '{{user-token}}'
+            body: "{\"request\": {\"userId\": \"0371b2e0-b5ee-42bb-86c3-0a2e2a52c2e9\",\"userExtId\": \"bt402\",\"action\": \"accept\",\"channel\": \"s1\", \"feedId\":\"any_feed_id\"}}"
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+
+
 
 definitions:
   CreateUserrequest:
@@ -1799,6 +1891,28 @@ definitions:
             type: string
             description: userId
 
+  MigrateUserReq:
+    description: request body for migrating user
+    type: object
+    properties:
+      request:
+        type: object
+        properties:
+          userId:
+            type: string
+            description: userId of migrating user
+          action:
+            type: string
+            description: accept/reject only
+          feedId:
+            type: string
+            description: notificationId //optional
+          channel:
+            type: string
+            description: to which channel user wants to migrate
+          userExtId:
+            type: string
+            description: valid value of userExtId should be provided in order to get migrate.
 
   SkillsResp:
     description: contains list of skills
