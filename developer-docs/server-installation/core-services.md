@@ -64,13 +64,13 @@ Ensure that all Artifacts are uploaded
 | API Manager | Deploys the API manager Kong and API manager Echo | 
 | OnboardAPIS | Onboards all API's to Sunbird | 
 | OnboardConsumers 
-Update **core_vault_sunbird_api_auth_token**, **core_vault_kong__test_jwt** and **core_vault_ekstep_api_key** with the **jwt token** from the Jenkins output of **api-management-test-user** if you are using the Knowledge Platform and Data Pipeline along with core| Onboards new consumer to Sunbird and generates the consumer specific API key. |   
+Update **core_vault_sunbird_api_auth_token**, **core_vault_kong__test_jwt** and **core_vault_sunbird_ekstep_api_key** with the **jwt token** from the Jenkins output of **api-management-test-user** if you are using the Knowledge Platform and Data Pipeline along with core| Onboards new consumer to Sunbird and generates the consumer specific API key. |   
 | (Provision) Cassandra | Provisions Cassandra and create keyspaces required for Sunbird Core | 
 | Cassandra | Does migration if required. Deploy this thrice by choosing different zip files using the build_number parameter. Ensure that you get a sucess message for the Cassandra migration on the Jenkins console output. Do not rely only on the red or green status indicator on Jenkins job | 
 | CassandraTrigger | Deploys trigger jars for Cassandra |  
 | (Provision) Keycloak | Provisions Keycloak by installing prerequisites like Java and environment variables | 
 | Proxy | Deploys Proxy. Handles routing within the swarm |  
-| PlayerCDN | It is a optional job, CDN will increase the performance of web page and content to end user. Create cdn with storage account and update **sunbird_portal_cdn_url** variable and in jenkins job parameter **cdn_enable** set it to true. It will upload player static contents to CDN storage account | 
+| PlayerCDN | If you are not going to use CDN, just run this job with jenkins job parameter **cdn_enable** set it to false (default). CDN will increase the performance of web page and content to end user. Create cdn with storage account and update **sunbird_portal_cdn_url** variable. In jenkins job parameter **cdn_enable** set it to true. It will upload player static contents to CDN storage account. | 
 | Player | Deploys the player service, used to display the App frontend. **Note**: The player deployment job will fail for the first time. Jenkins prompts you for **In process Approval Script**. Click on the approval link in the deploy job page and provide explicit approval for new **java.io** file, **java.lang** string and **java.io** file. Run the Player deployment again.|
 | Keycloak | Deploys Keycloak service to VM |  
 | KeycloakRealm | Creates Sunbird Realm. After the Sunbird realm is created, configure Keycloak by using the steps mentioned in the **Keycloak Configuration** section. |
