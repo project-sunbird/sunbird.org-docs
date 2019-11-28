@@ -1,0 +1,270 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Certificate api
+  description: >-
+    This api is used for store download validate the course certificate.
+host: staging.open-sunbird.org
+basePath:  /api
+securityDefinitions:
+  bearer:
+    type: apiKey  # arbitrary name for the security scheme
+    in: header # The security scheme parameter is in "header"
+    name: Authorization # name of the header, query parameter or cookie
+  userToken:
+    type: apiKey  # arbitrary name for the security scheme
+    in: header # The security scheme parameter is in "header"
+    name: x-authenticated-user-token # name of the header, query parameter or cookie
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /certreg/v1/certs/download:
+    post:
+      description:  >-
+        This API is associated with downloading digitally generated certificates.
+           - The **_/certreg/v1/certs/download_** endpoint executes the "download certificate" request based on parameters provided in the request body.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
+      summary: downloading of certificate
+      tags:
+        - Download Certificate Api
+      operationId: download certificate
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: >-
+            The body refers to the format of the request. The body contains metadata about the request to download the certificate.
+          schema:
+            allOf :
+              - $ref: '#/definitions/CertificateDownloadRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: >-
+            The Content Type entity is the media type of the resource.Possible media types can be Application/json
+        - name: ts
+          in: header
+          required: true
+          type: string
+          description: 'The timestamp at which the **issue certificate** request was sent. '
+        - name: X-msgid
+          in: header
+          required: true
+          type: string
+          description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'OK ! Operation successful."Certificate download" operation was executed successfully.'
+          schema:
+            allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/CertificateDownloadResponse'
+        '400':
+          description: 'BAD REQUEST. The "Certificate generation" operation failed. You may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/IssueCertificateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'
+  /certreg/v1/certs/validate:
+    post:
+      description:  >-
+        This API is associated with validating digitally generated certificates.
+           - The **_/certreg/v1/certs/validate_** endpoint executes the "validate certificate" request based on parameters provided in the request body.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
+      summary: validation of certificate
+      tags:
+        - Validate Certificate Api
+      operationId: validate certificate
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: >-
+            The body refers to the format of the request. The body contains metadata about the request to validate the certificate.
+          schema:
+            allOf :
+              - $ref: '#/definitions/CertificateValidateRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: >-
+            The Content Type entity is the media type of the resource.Possible media types can be Application/json
+        - name: ts
+          in: header
+          required: true
+          type: string
+          description: 'The timestamp at which the **issue certificate** request was sent. '
+        - name: X-msgid
+          in: header
+          required: true
+          type: string
+          description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'OK ! Operation successful."Certificate generation" operation was executed successfully.'
+          schema:
+            allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/CertificateValidateResponse'
+        '400':
+          description: 'BAD REQUEST. The "Certificate generation" operation failed. You may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/IssueCertificateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'
+
+
+
+
+
+
+
+definitions:
+  CertificateDownloadRequest:
+    title: Certificate Download request
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/Request'
+    required:
+      - request
+
+  Request:
+    type: object
+    properties:
+      pdfUrl:
+        description: certificate pdf relative url
+        type: string
+    required:
+      - pdfUrl
+
+  CertificateDownloadResponse:
+    type: object
+    properties:
+      result:
+        properties:
+          signedUrl:
+            description: certificate pdf complete url
+            type: string
+
+  CertificateValidateRequest:
+    title: Certificate Validate request
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/validateRequest'
+    required:
+      - request
+  validateRequest:
+    type: object
+    properties:
+      certId:
+        description: certificate id
+        type: string
+      accessCode:
+        description: certificate accessCode
+        type: string
+    required:
+      - certId
+      - accessCode
+
+  UserCoursesFilter:
+    title: Issue Certificate Filter
+    type: object
+    properties:
+      status:
+        description : "User's course status"
+        type: string
+      completionPercentage:
+        description : 'Course progress percentage'
+        type: string
+
+  CertificateValidateResponse:
+    description: Certificate validate Response
+    type: object
+    properties:
+      result:
+        description: response details
+        type: object
+        properties:
+          pdf:
+            description: The pdf url of certificate
+            type: string
+          json:
+            description: The raw json data to generate the certificate
+            type: object
+          related:
+            description: The name of the certificate to be issued
+            type: object
+  ResponseHeader:
+    title: ResponseHeader
+    type: object
+    properties:
+      id:
+        type: string
+        description: API Identifier
+      ver:
+        type: string
+        description: API version information
+      ts:
+        type: string
+        description: API execution timestamp
+      params:
+        $ref: '#/definitions/ResponseParams'
+      responseCode:
+        type: object
+        description: 'API response code '
+  ResponseParams:
+    title: Response Parameter
+    type: object
+    properties:
+      resmsgid:
+        type: string
+        description: Represents the response Message ID
+      msgid:
+        type: string
+        description: Represents the error Message ID
+      err:
+        type: string
+        description: Represents the Error Code
+      status:
+        type: string
+        description: Response Status
+      errmsg:
+        type: string
+        description: Error Message
+  EmptyResult:
+    title: Empty Result
+    type: object
+    properties:
+      result:
+        type: object
+        description: Empty Result
+  IssueCertificateErrorResponse:
+    title: Create Content Error Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/EmptyResult'
+      - $ref: '#/definitions/ResponseHeader'
