@@ -89,13 +89,13 @@ paths:
   /user/v2/bulk/upload:
     post:
       description: >-
-        This API is associated with upload shadow users in bulk on the Sunbird Platform,shadow user are those who want to migrate from custodian org to non-custodian org.
-           - The endpoint for **Upload Users in Bulk** is `/user/v2/bulk/upload`
-           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+        This API is associated with uploading shadow user on the Sunbird Platform.Only org admin role can upload user. If any uploaded user identifier (email,phone) matched with custodian user then he/she will be eligible for migration , from custodian to state user.
+         - The endpoint for **Upload Users in Bulk** is `/user/v2/bulk/upload`
+         - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       summary: Upload Shadow Users in Bulk
       tags:
         - Bulk Operation APIs
-      operationId: bulk upload shadow user req1
+      operationId: bulk upload shadow user
       produces:
         - application/json
       consumes:
@@ -110,12 +110,12 @@ paths:
             This is a .csv file.
               - Each line of the file is a data record. Each record consists of one or more user fields, separated by commas. Each successfully created user is associated with root org of uploader (org admin)
             The CSV file format supported is mentioned below:
-              - NAME: Name of user(firstName)
+              - NAME: Name of user(firstName+lastName)
               - PHONE: Phone number. Either phone or email is mandatory.
               - EMAIL: Email. Either phone or email is mandatory.
               - Ext Org id: Organisation ID to which user must be associated(extOrgId).it is not mandatory attribute, if passed user will be assosiated to organisation(RootOrg and Sub-Org).if not then user will be only associated with the org admin root org
               - Input Status: it is mandatory attribute. this attribute will decide the status(active/inactive) in an organization.
-              - Ext User ID: External ID of user. Either, school ID or external ID is mandatory for user association to organisation.
+              - Ext User ID: External ID of user.External identity of user(Mandatory).
         - name: Authorization
           in: header
           required: true
@@ -130,7 +130,7 @@ paths:
 
       responses:
         '200':
-          description: 'OK ! Successful operation."bulk upload user" operation was successfully executed.'
+          description: 'OK ! Successful operation."bulk upload user" operation was successfully executed, with processId which can be used for further communication.'
           schema:
             $ref: '#/definitions/BulkUploadResponse'
         '400':
