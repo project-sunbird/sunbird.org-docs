@@ -37,4 +37,4 @@ This page provides information on the release tags available for Sunbird install
 | secor                     | secor-0.25 | Build/DataPipeline/Secor  |
 | sunbird-analytics         | release-2.5.0 | Build/DataPipeline/Analytics|
 | sunbird-learning-platform | release-2.5.0 | All jobs under Build/KnowledgePlatform, All jobs under ArtifactUpload/{{env}}/KnowledgePlatform, All jobs under Deploy/{{env}}/KnowledgePlatform, All jobs under OpsAdministration/{{env}}/KnowledgePlatform, All jobs under Provision/{{env}}/KnowledgePlatform |
-| shared-lib   | release-2.4.0-shared-lib | This will be set in Manage Jenkins -> Global Pipeline Libraries -> Default Version |
+| shared-lib   | release-2.5.0-shared-lib | This will be set in Manage Jenkins -> Global Pipeline Libraries -> Default Version |
