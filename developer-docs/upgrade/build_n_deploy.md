@@ -47,7 +47,7 @@ Order: Top down per column
 |                         |       | DataPipeline       |	DataProducts       |  | Lms |
 |        |	                  |                    |     |     |      |
 |                         | 	                  | Yarn               |	Yarn (Multiselect all options in the job parameter job_names_to_deploy)	             |           | OnboardAPI|
-|  	                  |                       |                    | AnalyticsGeoLocationDBSetup                    |           | Proxy |
+|  	                  |                       |                    | AnalyticsGeoLocationDBSetup                    |           |  |
 |                 |           |                    |                     |           | OnboardConsumers   |
 |                         |            |                    |               | EncService | EncService | 
 |                         |            |                    |               | Cert       | Cert |
