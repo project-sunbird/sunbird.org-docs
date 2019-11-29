@@ -40,6 +40,9 @@ This page explains the jobs to be run to bring up the Core services.
 | Content | Builds the content service docker image | 
 | Learner | Builds the learner service docker image | 
 | Player | Builds the player service docker image. In the build job you have 3 parameters which point to plugins. Provide the values of your blob url where the zip files are uploaded. For details refer [Plugins build page](developer-docs/server-installation/plugins){:target="_blank"} |
+| certTemplate | Builds the static templates reuired for cert service |
+| Cert | Builds cert service docker image |
+| EncService | Build the envservice docker image |
 | Proxy | Builds the proxy docker image |  
 | Telemetry | Builds the telemetry docker image |
 
@@ -76,7 +79,10 @@ Update **core_vault_sunbird_api_auth_token**, **core_vault_kong__test_jwt** and 
 | KeycloakRealm | Creates Sunbird Realm. After the Sunbird realm is created, configure Keycloak by using the steps mentioned in the **Keycloak Configuration** section. |
 | Learner | Deploys the Learner Service. Handles user management and helps to search content. |
 | Lms | Deploys the Lms Service. It provides the APIs for lms functionality of Sunbird.|
-| Content | Deploys the content service. Helps to create content. |  
+| Content | Deploys the content service. Helps to create content. | 
+| certTemplate | Uploads static certification template to storage |
+| EncService | Deploys the encryption service. Helps to generate the encryption keys |
+| Cert | Deploys the cert service. Helps to issue the certificates |
 | Telemetry | Deploys the Telemetry service. Helps in sending telemetry to Kafka|
 
 
