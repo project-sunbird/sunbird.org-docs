@@ -40,11 +40,11 @@ Order: Top down per column
 |  Yarn                   | Yarn          |                    |                     |  | certTemplate |
 | SyncTool                | Neo4jElasticSearchSyncTool(Please see below notes to choose jenkins job parameter)	                  |                    | KafkaSetup          | Keycloak  | Keycloak  |                         
 |                         |                           |                    |                     |           | ApplicationElasticSearch
-|                         | 	      |                    | KafkaIndexer        | Player    | OpsAdministration/Core/ESMapping (Provide value as `all` for job parameter indices_name)    |
+|                         | Neo4jDefinitionUpdate 	      |                    | KafkaIndexer        | Player    | OpsAdministration/Core/ESMapping (Provide value as `all` for job parameter indices_name)    |
 |                         |                 | Secor              | Secor               | Learner   | Player   |
 |                         |          |	Analytics          | AnalyticsAPI        | Content   | Learner   |
-|                         | CassandraTrigger          |                    | Provision/AnalyticsSpark  | Lms       | Content       |
-|         | Neo4jDefinitionUpdate     | DataPipeline       |	DataProducts       | Telemetry | Lms |
+|                         |              |                    | Provision/AnalyticsSpark  | Lms       | Content       |
+|                         |       | DataPipeline       |	DataProducts       | Telemetry | Lms |
 |        |	                  |                    | SamzaTelemetrySchemas | Proxy   | Telemetry     |
 |                         | 	                  | Yarn               |	Yarn (Multiselect all options in the job parameter job_names_to_deploy)	             |           | OnboardAPI|
 |  	                  |                       |                    | AnalyticsGeoLocationDBSetup                    |           | Proxy |
