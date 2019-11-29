@@ -34,21 +34,21 @@ Order: Top down per column
 
 |Knowledge Platform Build |	Knowledge Platform Deploy |	DataPipeline Build | DataPipeline Deploy | Core Build | Core Deploy |
 |-------------------------|---------------------------|--------------------|---------------------|------------|------------|
-|                         |                           |                    |                     |            | OnboardAPIs |
-|                         |                           |                    |                     |            | Provision/PostgresDbUpdate |
+| CassandraTrigger        | CassandraTrigger          |                    |                     |            | OnboardAPIs |
+| KnowledgePlatform       | Learning                  |                    |                     |            | Provision/PostgresDbUpdate |
 |                         | Provison/CompositeSearch  |	                   | CassandraDbUpdate   | Cassandra | Cassandra |
-|                         |           |                    |                     |  | certTemplate |
-|                         |	                  |                    | KafkaSetup          | Keycloak  | Keycloak  |                         
+|  Yarn                   | Yarn          |                    |                     |  | certTemplate |
+| SyncTool                | Neo4jElasticSearchSyncTool(Please see below notes to choose jenkins job parameter)	                  |                    | KafkaSetup          | Keycloak  | Keycloak  |                         
 |                         |                           |                    |                     |           | ApplicationElasticSearch
 |                         | 	      |                    | KafkaIndexer        | Player    | OpsAdministration/Core/ESMapping (Provide value as `all` for job parameter indices_name)    |
 |                         |                 | Secor              | Secor               | Learner   | Player   |
 |                         |          |	Analytics          | AnalyticsAPI        | Content   | Learner   |
 |                         | CassandraTrigger          |                    | Provision/AnalyticsSpark  | Lms       | Content       |
-| CassandraTrigger        | Neo4jDefinitionUpdate     | DataPipeline       |	DataProducts       | Telemetry | Lms |
-| KnowledgePlatform       |	Learning                  |                    | SamzaTelemetrySchemas | Proxy   | Telemetry     |
+|         | Neo4jDefinitionUpdate     | DataPipeline       |	DataProducts       | Telemetry | Lms |
+|        |	                  |                    | SamzaTelemetrySchemas | Proxy   | Telemetry     |
 |                         | 	                  | Yarn               |	Yarn (Multiselect all options in the job parameter job_names_to_deploy)	             |           | OnboardAPI|
-|  Yarn	                  | Yarn                      |                    | AnalyticsGeoLocationDBSetup                    |           | Proxy |
-|  SyncTool               | Neo4jElasticSearchSyncTool(Please see below for choosing parameter)|                    |                     |           | OnboardConsumers   |
+|  	                  |                       |                    | AnalyticsGeoLocationDBSetup                    |           | Proxy |
+|                 |           |                    |                     |           | OnboardConsumers   |
 |                         |            |                    |               | EncService | EncService | 
 |                         |            |                    |               | Cert       | Cert |
 
