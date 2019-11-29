@@ -34,45 +34,37 @@ Order: Top down per column
 
 |Knowledge Platform Build |	Knowledge Platform Deploy |	DataPipeline Build | DataPipeline Deploy | Core Build | Core Deploy |
 |-------------------------|---------------------------|--------------------|---------------------|------------|------------|
+|                         |                           |                    |                     |            | OnboardAPIs |
+|                         |                           |                    |                     |            | Provision/PostgresDbUpdate |
 |                         | Provison/CompositeSearch  |	                   | CassandraDbUpdate   | Cassandra | Cassandra |
-|                         | StopNeo4jCluster          |                    |                     | CassandraTrigger | CassandraTrigger |
-|                         | Neo4j	                  |                    | KafkaSetup          | Keycloak  | Keycloak  |                         
+|                         |           |                    |                     |  | certTemplate |
+|                         |	                  |                    | KafkaSetup          | Keycloak  | Keycloak  |                         
 |                         |                           |                    |                     |           | ApplicationElasticSearch
-|                         | StartNeo4jCluster	      |                    | KafkaIndexer        | Player    | OpsAdministration/Core/ESMapping (Provide value as `all` for job parameter indices_name)    |
-|                         | KafkaSetup                | Secor              | Secor               | Learner   | Player   |
-|                         | CassandraDbUpdate         |	Analytics          | AnalyticsAPI        | Content   | Learner   |
-|                         | CassandraTrigger          |                    |                     | Lms       | Content       |
+|                         | 	      |                    | KafkaIndexer        | Player    | OpsAdministration/Core/ESMapping (Provide value as `all` for job parameter indices_name)    |
+|                         |                 | Secor              | Secor               | Learner   | Player   |
+|                         |          |	Analytics          | AnalyticsAPI        | Content   | Learner   |
+|                         | CassandraTrigger          |                    | Provision/AnalyticsSpark  | Lms       | Content       |
 | CassandraTrigger        | Neo4jDefinitionUpdate     | DataPipeline       |	DataProducts       | Telemetry | Lms |
 | KnowledgePlatform       |	Learning                  |                    | SamzaTelemetrySchemas | Proxy   | Telemetry     |
-|                         | Search	                  | Yarn               |	Yarn (Multiselect all options in the job parameter job_names_to_deploy)	             |           | OnboardAPI|
-|  Yarn	                  | Yarn                      |                    |                     |           | Proxy |
-|  SyncTool               | Neo4jElasticSearchSyncTool|                    |                     |           | OnboardConsumers   |
+|                         | 	                  | Yarn               |	Yarn (Multiselect all options in the job parameter job_names_to_deploy)	             |           | OnboardAPI|
+|  Yarn	                  | Yarn                      |                    | AnalyticsGeoLocationDBSetup                    |           | Proxy |
+|  SyncTool               | Neo4jElasticSearchSyncTool(Please see below for choosing parameter)|                    |                     |           | OnboardConsumers   |
+|                         |            |                    |               | EncService | EncService | 
+|                         |            |                    |               | Cert       | Cert |
 
 
 **Note:** 
-1. We have disabled Git LFS for private repositories. Hence, uninstall git lfs from your private repository.
-To do so, clone your private repository and run ```git lfs uninstall``` and also remove the ```.gitattributes``` file
+1. Please refer the below notes to trigger **Neo4jElasticSearchSyncTool** job.
+**DialcodeRequired Migration Steps:**
+```
+**Step 1:** Get All Identifiers from Neo4j Which need to be migrated.
 
-2. If the Cassandra migration fails, run the query manually to set the corresponding version for the failed migration to True 
+Query: MATCH(n:domain) WHERE n.IL_FUNC_OBJECT_TYPE="Content" AND n.contentType IN ["TextBook","Course"] return n.IL_UNIQUE_ID;
 
-**Example:**
+**Step 2:** Run Jenkins job with below command.
 
-`SELECT * from cassandra_migration_version;`
+Command: migrate-dialcodeRequired --ids <comma_seperated_ids fetched from Step:1>
 
-Check the rows for which the value in the success column is False. The following is an example -
-
-`1.74 |   180685665 |   cassandra |              4 |         null | 2019-09-17 13:58:52.401000+0000 |            136 | V1.74_cassandra.cql |   False |  CQL |           73`
-
-Run the update query for each row separately 
-
-`UPDATE cassandra_migration_version set success=True where version='1.74';`
-
-Verify that all the values in the success column are True and rerun the Jenkins job again with same zip file and tag
-
-Once this succeeds, use the second zip file and tag to deploy again
-
-The current migration version is 1.83. The output of the Jenkins job should be as follows -
-
-`Migrating keyspace Sunbird to version 1.83 - Cassandra
-Successfully applied 3 migrations to keyspace sunbird (execution time 00:20.547s).
-Migration Completed at ==1571996508540`
+**e.g:** migrate-dialcodeRequired --ids do_123,do_234
+```
+   `
