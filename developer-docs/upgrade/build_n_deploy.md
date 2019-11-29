@@ -55,14 +55,14 @@ Order: Top down per column
 1. Please refer the below notes to trigger **Neo4jElasticSearchSyncTool** job.
 **DialcodeRequired Migration Steps:**
 ```
-**Step 1:** Get All Identifiers from Neo4j Which need to be migrated.
+Step 1: Get All Identifiers from Neo4j Which need to be migrated.
 
 Query: MATCH(n:domain) WHERE n.IL_FUNC_OBJECT_TYPE="Content" AND n.contentType IN ["TextBook","Course"] return n.IL_UNIQUE_ID;
 
-**Step 2:** Run Jenkins job with below command.
+Step 2: Run Jenkins job with below command.
 
 Command: migrate-dialcodeRequired --ids <comma_seperated_ids fetched from Step:1>
 
-**e.g:** migrate-dialcodeRequired --ids do_123,do_234
+e.g: migrate-dialcodeRequired --ids do_123,do_234
 ```
    `
