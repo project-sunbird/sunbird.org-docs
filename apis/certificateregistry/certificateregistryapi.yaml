@@ -54,7 +54,7 @@ paths:
           in: header
           required: true
           type: string
-          description: 'The timestamp at which the **issue certificate** request was sent. '
+          description: 'The timestamp at which the **downloading certificate** request was sent. '
         - name: X-msgid
           in: header
           required: true
@@ -110,7 +110,7 @@ paths:
           in: header
           required: true
           type: string
-          description: 'The timestamp at which the **issue certificate** request was sent. '
+          description: 'The timestamp at which the **validating certificate** request was sent. '
         - name: X-msgid
           in: header
           required: true
@@ -134,11 +134,62 @@ paths:
             $ref: '#/definitions/IssueCertificateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'
-
-
-
-
-
+  /certreg/v1/certs/add:
+    post:
+      description:  >-
+        This API is associated with depositing the  digitally generated certificates into certificate registry.
+           - The **_/certreg/v1/certs/add_** endpoint executes the "validate certificate" request based on parameters provided in the request body.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
+      summary: adding of certificate
+      tags:
+        - Add Certificate Api
+      operationId: add certificate
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: >-
+            The body refers to the format of the request. The body contains metadata about the request to add the certificate.
+          schema:
+            allOf :
+              - $ref: '#/definitions/CertificateAddRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: >-
+            The Content Type entity is the media type of the resource.Possible media types can be Application/json
+        - name: ts
+          in: header
+          required: true
+          type: string
+          description: 'The timestamp at which the **add certificate** request was sent. '
+        - name: X-msgid
+          in: header
+          required: true
+          type: string
+          description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'OK ! Operation successful."Certificate generation" operation was executed successfully.'
+          schema:
+            allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/CertificateAddResponse'
+        '400':
+          description: 'BAD REQUEST. The "Certificate generation" operation failed. You may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'
 
 
 definitions:
@@ -189,6 +240,54 @@ definitions:
     required:
       - certId
       - accessCode
+  CertificateAddRequest:
+    title: Certificate Add request
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/addRequest'
+    required:
+      - request
+
+  addRequest:
+    type: object
+    properties:
+      userId:
+        description: any identifier of reciepient(email,phone,userId, userExternalId)
+        type: string
+      recipientName:
+        description: recipient name
+        type: string
+      id:
+        description: certificate id which is generated while generating certificate
+        type: string
+      accessCode:
+        description: certificate accessCode  will be returned in response while generating certificate
+        type: string
+      recipientType:
+        description: can only be individual(for recipient) or entity(for organisation)
+        type: string
+        enum: [individual,entity]
+      pdfUrl:
+        description: relative pdf url
+        type: string
+      jsonData:
+        description: raw json data used while generating certificate
+        type: object
+      related:
+        type: object
+        description: Raw property bag to store some identifiable information about certificates. Intended to be used for reporting and search.
+        properties:
+          type:
+            type: string
+            enum: [course-completion,course-performance,offline-course,assessment]
+
+    required:
+      - id
+      - accessCode
+      - recipientType
+      - pdfUrl
+
 
   UserCoursesFilter:
     title: Issue Certificate Filter
@@ -218,6 +317,18 @@ definitions:
           related:
             description: The name of the certificate to be issued
             type: object
+  CertificateAddResponse:
+    description: Certificate validate Response
+    type: object
+    properties:
+      result:
+        description: response details
+        type: object
+        properties:
+          id:
+            description: The certificate id will be returned in response
+            type: string
+
   ResponseHeader:
     title: ResponseHeader
     type: object
@@ -255,6 +366,17 @@ definitions:
       errmsg:
         type: string
         description: Error Message
+
+  BadRequestResponse:
+    type: object
+    properties:
+      result:
+        type: object
+        properties:
+          message:
+            type: string
+            description: if id provided is already exists.
+
   EmptyResult:
     title: Empty Result
     type: object
