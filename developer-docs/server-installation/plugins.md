@@ -38,10 +38,10 @@ az storage blob upload-batch --destination container_name/v3/preview --source so
 
 **Upload Base Plugin**
 
-Upload the intial set of plugins (base plugins) to your publicly accessible Azure container. 
+Upload the initial set of plugins (base plugins) to your publicly accessible Azure container. 
 > **Note:** The name of the Azure container must be same as the **container_name** mentioned in the section on creating containers.
 
-You can download the intial Plugins from [here](https://sunbirdpublic.blob.core.windows.net/installation/content-plugins.zip)
+You can download the initial Plugins from [here](https://sunbirdpublic.blob.core.windows.net/installation/content-plugins.zip)
 
 Unzip the contents and the directory **content-plugins** is available. Run the following command from the directory where the zip was extracted.
 
