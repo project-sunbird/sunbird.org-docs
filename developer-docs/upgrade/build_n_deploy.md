@@ -44,8 +44,8 @@ Order: Top down per column
 |                         |                 | Secor              | Secor               | Learner   | Player   |
 |                         |          |	Analytics          | AnalyticsAPI        | Content   | Learner   |
 |                         |              |                    | Provision/AnalyticsSpark  | Lms       | Content       |
-|                         |       | DataPipeline       |	DataProducts       | Telemetry | Lms |
-|        |	                  |                    | SamzaTelemetrySchemas | Proxy   | Telemetry     |
+|                         |       | DataPipeline       |	DataProducts       |  | Lms |
+|        |	                  |                    |     |     |      |
 |                         | 	                  | Yarn               |	Yarn (Multiselect all options in the job parameter job_names_to_deploy)	             |           | OnboardAPI|
 |  	                  |                       |                    | AnalyticsGeoLocationDBSetup                    |           | Proxy |
 |                 |           |                    |                     |           | OnboardConsumers   |
