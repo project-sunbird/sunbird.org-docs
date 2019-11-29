@@ -46,7 +46,7 @@ Order: Top down per column
 |                         |              |                    | Provision/AnalyticsSpark  | Lms       | Content       |
 |                         |       | DataPipeline       |	DataProducts       |  | Lms |
 |        |	                  |                    |     |     |      |
-|                         | 	                  | Yarn               |	Yarn (Multiselect all options in the job parameter job_names_to_deploy)	             |           | OnboardAPI|
+|                         | 	                  | Yarn               |	Yarn (Multiselect all options in the job parameter job_names_to_deploy)	             |           | |
 |  	                  |                       |                    | AnalyticsGeoLocationDBSetup                    |           |  |
 |                 |           |                    |                     |           |     |
 |                         |            |                    |               | EncService | EncService | 
