@@ -22,13 +22,13 @@ As part of this upgrade, you may choose to set up the load balancer for swarm ma
 
 2. Once all the variables and Jenkins configurations are complete, you can start to build and deploy services.
 
-3. Build and deploy plugins. Refer [this page](developer-docs/server-installation/plugins){:target="_blank"}
+3. Build and deploy the plugins. For details, refer to the  [Plugins](developer-docs/server-installation/plugins){:target="_blank"} page
 
-4. After plugins build and deploy, provide the blob url of the plugins zip file in Player build. Refer Player build job on [this page](developer-docs/server-installation/artifactupload-job/core-services){:target="_blank"}
+4. After the plugins build and deploy, provide the blob url of the plugins zip file in the Player build. For details, refer to the Player build job on the [Core Services](developer-docs/server-installation/artifactupload-job/core-services){:target="_blank"} page.
 
-5. Build all the services mentioned in the table below. In case of Cassandra migration (Core / Cassandra), the job needs to be built twice and deployed thrice. Refer to the tags page to get the two tags. Also in case of errors in Cassadnra migration, refer to [this page](developer-docs/server-installation/core-services){:target="_blank"}
+5. Build all the services mentioned in the table below. In case of Cassandra migration (Core / Cassandra), the job needs to be built twice and deployed thrice. Refer to the tags page to get the two tags. In case of errors in Cassadnra migration, refer to the [Core Services](developer-docs/server-installation/core-services){:target="_blank"} page.
 
-Here is the list of jobs that are required to be built and deployed for your reference.
+The following is the list of jobs required to be built and deployed :
 
 Order: Top down per column
 
