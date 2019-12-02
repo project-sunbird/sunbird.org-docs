@@ -14,11 +14,12 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 
 1.SSH to the Jenkins server. Enter the following commands:
 
-```
+ ```
     - git clone [https://github.com/project-sunbird/sunbird-devops.git](https://github.com/project-sunbird/sunbird-devops.git) 
     - cd sunbird-devops && git checkout tags/release-2.5.0 -b release-2.5.0
     - cd deploy/jenkins
     - sudo bash jenkins-server-setup.sh
+
  ```   
         
 2.After running the `jenkins-server-setup.sh` script, open Jenkins in browser by typing **domain-name:8080 / public-ip:8080**
