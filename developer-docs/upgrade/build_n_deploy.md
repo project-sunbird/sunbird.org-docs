@@ -49,11 +49,11 @@ Order: Top down per column
 |  	                  |                       |                    | AnalyticsGeoLocationDBSetup | Cert           | Cert |
 
 
-**Note:** 
-1. Please refer the below notes to trigger **Neo4jElasticSearchSyncTool** job.
-**DialcodeRequired Migration Steps:**
+> **Note:** 
+1. Refer to the following notes to trigger the **Neo4jElasticSearchSyncTool** job.
+**Steps to migrate DialcodeRequired:**
 ```
-Step 1: Get All Identifiers from Neo4j Which need to be migrated.
+Step 1: Get all the identifiers from Neo4j that need to be migrated.
 
 Query: MATCH(n:domain) WHERE n.IL_FUNC_OBJECT_TYPE="Content" AND n.contentType IN ["TextBook","Course"] return n.IL_UNIQUE_ID;
 
