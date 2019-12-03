@@ -50,17 +50,29 @@ Order: Top down per column
 
 
 > **Note:** 
-1. Refer to the following notes to trigger the **Neo4jElasticSearchSyncTool** job.
+1. Refer to the following notes to trigger the **Neo4jElasticSearchSyncTool** jenkins job located under Deploy/KnowledgePlatform directory.
 **Steps to migrate DialcodeRequired:**
 ```
-Step 1: Get all the identifiers from Neo4j that need to be migrated.
+Step 1: Get all the identifiers from Neo4j that need to be migrated by running the below query on the neo4j VM.
 
 Query: MATCH(n:domain) WHERE n.IL_FUNC_OBJECT_TYPE="Content" AND n.contentType IN ["TextBook","Course"] return n.IL_UNIQUE_ID;
 
-Step 2: Run Jenkins job with below command.
+The above command will return do id's. Example - do_11277867981525811215
 
-Command: migrate-dialcodeRequired --ids <comma_seperated_ids fetched from Step:1>
+Step 2: Run Jenkins job with below jenkins parameters.
 
-e.g: migrate-dialcodeRequired --ids do_123,do_234
+command: migrate-dialcodeRequired
+parameters: --ids <comma_seperated_do_ids fetched from Step:1>
+
+Please refer to the below picure for reference
 ```
-   `
+
+Jenkins will not accept more than 50 do id's at once. So in case you have a large number of do id's, then you can follow the below approach for quicker execution. 
+1. Run the Jenkins job mentioned above with one or two do id's. This is to just copy the latest jar file into the neo4j machine.
+2. SSH into the neo4j machine and execute the below commands
+```
+sudo su learning
+cd /home/learning/sync_tool
+java -Dconfig.file=/home/learning/sync_tool/application.conf -jar sync-tool-0.0.1-SNAPSHOT.jar migrate-dialcodeRequired --ids do_112880563104456704117,do_112880563104456704118,do_112880563104456704119
+```
+In the command line you can specify any number of do id's. Thus if you have large number of do id's, we suggest you run it via the command line for faster execution rathen than running the Jenkins job multiple times in batches of 50 do id's.
