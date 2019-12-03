@@ -81,7 +81,7 @@ Update **core_vault_sunbird_api_auth_token**, **core_vault_kong__test_jwt** and 
 | Content | Deploys the content service. Helps to create content. | 
 | certTemplate | Uploads static certification template to storage |
 | EncService | Deploys the encryption service. Helps to generate the encryption keys |
-| Cert | Deploys the cert service. Helps to issue the certificates |
+| Cert | Deploys the certificate service. Helps to issue the certificates |
 | Telemetry | Deploys the Telemetry service. Helps in sending telemetry to Kafka|
 
 
