@@ -64,7 +64,7 @@ Step 2: Run Jenkins job with below jenkins parameters.
 command: migrate-dialcodeRequired
 parameters: --ids <comma_seperated_do_ids fetched from Step:1>
 
-Please refer to the below picure for reference
+Please refer to the below picture for reference
 ```
 
 Jenkins will not accept more than 50 do id's at once. So in case you have a large number of do id's, then you can follow the below approach for quicker execution. 
