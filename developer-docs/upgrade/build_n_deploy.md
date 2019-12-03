@@ -26,7 +26,7 @@ As part of this upgrade, you may choose to set up the load balancer for swarm ma
 
 4. After the plugins build and deploy, provide the blob url of the plugins zip file in the Player build. For details, refer to the Player build job on the [Core Services](developer-docs/server-installation/artifactupload-job/core-services){:target="_blank"} page.
 
-5. Build all the services mentioned in the table below. In case of Cassandra migration (Core / Cassandra), the job needs to be built twice and deployed thrice. Refer to the tags page to get the two tags. In case of errors in Cassadnra migration, refer to the [Core Services](developer-docs/server-installation/core-services){:target="_blank"} page.
+5. Build all the services mentioned in the table below. Refer to this page for details on tags to be used - Current Release Tags and Jenkins Jobs Reference{:target="_blank"}
 
 The following is the list of jobs required to be built and deployed :
 
