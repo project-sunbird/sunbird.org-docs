@@ -69,7 +69,7 @@ parameters: ```--ids <comma_seperated_do_ids fetched from Step:1>```
 
 For details, refer to the following  image:
 
-<img src="../images/elastic_search_tool.png">
+<img src="..//images/elastic_search_tool.png">
 
 
 Jenkins will not accept more than 50 do id's at once. So in case you have a large number of do id's, then you can follow the below approach for quicker execution. 
