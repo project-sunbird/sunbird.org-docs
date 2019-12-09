@@ -67,7 +67,8 @@ The command returns do IDs. Example - do_11277867981525811215
 command: ``` migrate-dialcodeRequired```
 parameters: ```--ids <comma_seperated_do_ids fetched from Step:1>```
 
-Refer to the following  picture for reference:
+For details, refer to the following  image:
+
 <img src="../images/elastic_search_tool.png">
 
 
