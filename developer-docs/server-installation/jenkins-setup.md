@@ -35,9 +35,6 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 7.Switch back to the terminal session on the Jenkins server. Enter the following command, which will install required plugins:
 
     `sudo bash jenkins-plugins-setup.sh`
-
-- Enter the URL as localhost:8080
-- Enter the admin username and password
    
 8.Go to **Manage Jenkins** -> **Manage Plugins** -> **Update Center** -> **Check status of plugin install**. If any plugins have not been installed, install them manually. To do so, go to the plugins section of Jenkins
 
