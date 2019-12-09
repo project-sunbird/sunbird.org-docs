@@ -6,7 +6,7 @@ info:
   contact:
     email: info@sunbird.org
   description: >-
-    - The  Bulk Upload resources perform operations related to uploads on the Sunbird Platform. The Bulk Upload API(s) operations include Uploads, Updations.
+    - The  Bulk Upload API resources perform operations related to uploads on the Sunbird Platform. The Bulk Upload API(s) operations include uploads and updates .
 
     - The URL for Bulk Upload Service API(s) is `/api`
 host: staging.open-sunbird.org
@@ -89,7 +89,7 @@ paths:
   /user/v2/bulk/upload:
     post:
       description: >-
-        This API is associated with uploading shadow user on the Sunbird Platform.Only org admin role can upload user. If any uploaded user identifier (email,phone) matched with custodian user then he/she will be eligible for migration , from custodian to state user.
+        This API allows you to upload users of an organization from a shadow (temporary) database to a permanent database on the Sunbird platform. Only the org administrator has permissions to upload users. A user becomes eligible for migration from the temporary database to the permanent database, if the user identifier (email,phone) of the temporary database matches the user identifier of the permananent database. 
          - The endpoint for **Upload Users in Bulk** is `/user/v2/bulk/upload`
          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       summary: Upload Shadow Users in Bulk
@@ -108,14 +108,14 @@ paths:
           format: file
           description: >-
             This is a .csv file.
-              - Each line of the file is a data record. Each record consists of one or more user fields, separated by commas. Each successfully created user is associated with root org of uploader (org admin)
-            The CSV file format supported is mentioned below:
+              - Each line of the file is a data record. Each record consists of one or more user fields, separated by commas. Each successfully created user is associated with the root organization of the org administrator.
+            The CSV file format supported is as follows:
               - NAME: Name of user(firstName+lastName)
               - PHONE: Phone number. Either phone or email is mandatory.
               - EMAIL: Email. Either phone or email is mandatory.
-              - Ext Org id: Organisation ID to which user must be associated(extOrgId).it is not mandatory attribute, if passed user will be assosiated to organisation(RootOrg and Sub-Org).if not then user will be only associated with the org admin root org
-              - Input Status: it is mandatory attribute. this attribute will decide the status(active/inactive) in an organization.
-              - Ext User ID: External ID of user.External identity of user(Mandatory).
+              - Ext Org id: The organisation ID to which the user must be associated(extOrgId). This is an optional field. If a value is is provided, the user is associated with that organisation, i.e. the sub-organization of the root organization. If not, the user is only associated to the root organization od the org administrator uploading the users.
+              - Input Status: This is a mandatory attribute. It indicates if the user is active or inactive in the organization.
+              - Ext User ID: This is a mandatory field. It is the ID provided by the root or sub-organization to users to uniquely identify them. 
         - name: Authorization
           in: header
           required: true
@@ -130,15 +130,15 @@ paths:
 
       responses:
         '200':
-          description: 'OK ! Successful operation."bulk upload user" operation was successfully executed, with processId which can be used for further communication.'
+          description: 'OK ! Successful operation. ** Bulk upload user** operation was successfully executed, with processId that can be used for further communication.'
           schema:
             $ref: '#/definitions/BulkUploadResponse'
         '400':
-          description: 'BAD REQUEST. The "bulk upload user" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST. The **Bulk upload user** operation failed. You may have missed input for a mandatory parameter.'
           schema:
             $ref: '#/definitions/BulkUploadErrorResponse'
         '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+          description: 'INTERNAL SERVER ERROR! Looks like something went wrong. We track these errors automatically. Try refreshing the page. If the problem persists,contact us at info@sunbird.org.'
   /course/v1/batch/bulk/enrollment:
     post:
       description: >-
