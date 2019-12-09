@@ -3,18 +3,18 @@ info:
   version: '1.0'
   title: Certificate api
   description: >-
-    This api is used for storing,downloading and validating the course certificate.
+    This API is used to store,download and validate the course certificate.
 host: staging.open-sunbird.org
 basePath:  /api
 securityDefinitions:
   bearer:
-    type: apiKey  # arbitrary name for the security scheme
+    type: apiKey  # An arbitrary name for the security scheme
     in: header # The security scheme parameter is in "header"
     name: Authorization # name of the header, query parameter or cookie
   userToken:
-    type: apiKey  # arbitrary name for the security scheme
+    type: apiKey  # An arbitrary name for the security scheme
     in: header # The security scheme parameter is in "header"
-    name: x-authenticated-user-token # name of the header, query parameter or cookie
+    name: x-authenticated-user-token # The name of the header, query parameter or cookie
 schemes:
   - https
 consumes:
@@ -25,13 +25,12 @@ paths:
   /certreg/v1/certs/download:
     post:
       description:  >-
-        This API is associated with downloading digitally generated certificates.
-           - The **_/certreg/v1/certs/download_** endpoint executes the "download certificate" request based on parameters provided in the request body.
+        This API allows you to download digitally generated certificates. The **_/certreg/v1/certs/download_** endpoint executes the **download certificate** request based on parameters provided in the request body.
            - All fields marked with an * are mandatory
-           - Required fields cannot be null or empty
-      summary: downloading of certificate
+           - The mandatory fields cannot be null or empty
+      summary: Downloading the certificate
       tags:
-        - Download Certificate Api
+        - Download Certificate API
       operationId: download certificate
       produces:
         - application/json
@@ -48,12 +47,12 @@ paths:
           in: header
           required: true
           type: string
-          description: 'The timestamp at which the **downloading certificate** request was sent. '
+          description: 'The timestamp at which the **download certificate** request was sent. '
         - name: X-msgid
           in: header
           required: true
           type: string
-          description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
+          description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
         - name: Authorization
           in: header
           required: true
@@ -67,21 +66,21 @@ paths:
               - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
               - $ref: '#/definitions/CertificateDownloadResponse'
         '400':
-          description: 'BAD REQUEST. The "Certificate generation" operation failed. You may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST. The "Certificate generation" operation failed. You may have missed input for a mandatory parameter.'
           schema:
             $ref: '#/definitions/IssueCertificateErrorResponse'
         '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact us at info.sunbird.org.'
   /certreg/v1/certs/validate:
     post:
       description:  >-
-        This API is associated with validating digitally generated certificates.
+        This API is allows you to validatedigitally generated certificates.
            - The **_/certreg/v1/certs/validate_** endpoint executes the "validate certificate" request based on parameters provided in the request body.
            - All fields marked with an * are mandatory
-           - Required fields cannot be null or empty
-      summary: validation of certificate
+           - Mandatory fields cannot be null or empty
+      summary: Certificate validation 
       tags:
-        - Validate Certificate Api
+        - Validate Certificate API
       operationId: validate certificate
       produces:
         - application/json
@@ -103,7 +102,7 @@ paths:
           in: header
           required: true
           type: string
-          description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
+          description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
         - name: Authorization
           in: header
           required: true
@@ -117,15 +116,15 @@ paths:
               - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
               - $ref: '#/definitions/CertificateValidateResponse'
         '400':
-          description: 'BAD REQUEST. The "Certificate validation" operation failed. You may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST. The "Certificate validation" operation failed. Input for a mandatory parameter may be missing.'
           schema:
             $ref: '#/definitions/IssueCertificateErrorResponse'
         '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact us at info@sunbird.org.'
   /certreg/v1/certs/verify:
     post:
       description:  >-
-        This API is associated with verifying digitally generated certificates.
+        This API allows you to verify digitally generated certificates.
            - The **_/certreg/v1/certs/verify** endpoint executes the "verify certificate" request based on parameters provided in the request body.
            - All fields marked with an * are mandatory
            - Required fields cannot be null or empty
@@ -153,7 +152,7 @@ paths:
           in: header
           required: true
           type: string
-          description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
+          description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
         - name: Authorization
           in: header
           required: true
@@ -167,22 +166,22 @@ paths:
               - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
               - $ref: '#/definitions/CertificateVerifyResponse'
         '400':
-          description: 'BAD REQUEST. The "Certificate validation" operation failed. You may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST. The "Certificate validation" operation failed. Input for a mandatory parameter may be missing.'
           schema:
             $ref: '#/definitions/IssueCertificateErrorResponse'
         '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact us at info@sunbird.org. '
 
   /certreg/v1/certs/add:
     post:
       description:  >-
-        This API is associated with depositing the  digitally generated certificates into certificate registry.
+        This API allows you to add the  digitally generated certificates into the certificate registry.
            - The **_/certreg/v1/certs/add_** endpoint executes the "validate certificate" request based on parameters provided in the request body.
            - All fields marked with an * are mandatory
-           - Required fields cannot be null or empty
+           - Mandatory fields cannot be null or empty
       summary: adding of certificate
       tags:
-        - Add Certificate Api
+        - Add Certificate API
       operationId: add certificate
       produces:
         - application/json
@@ -204,7 +203,7 @@ paths:
           in: header
           required: true
           type: string
-          description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
+          description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
         - name: Authorization
           in: header
           required: true
@@ -218,11 +217,11 @@ paths:
               - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
               - $ref: '#/definitions/CertificateAddResponse'
         '400':
-          description: 'BAD REQUEST. The "Certificate addition" operation failed. You may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST. The "Certificate addition" operation failed. Input for a mandatory parameter may be missing.'
           schema:
             $ref: '#/definitions/BadRequestResponse'
         '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact info@sunbird.org. '
 
 
 definitions:
@@ -239,7 +238,7 @@ definitions:
     type: object
     properties:
       pdfUrl:
-        description: certificate pdf relative url
+        description: The relative URL of the generated pdf certificate 
         type: string
     required:
       - pdfUrl
@@ -250,7 +249,7 @@ definitions:
       result:
         properties:
           signedUrl:
-            description: certificate pdf complete url
+            description: The complete URL of the certificate pdf file
             type: string
 
   CertificateValidateRequest:
@@ -273,13 +272,13 @@ definitions:
 
   verifyRequest:
     type: object
-    description: either data or id is required to verify the certificate
+    description: Either the data or ID of the certificate. This is required to verify the certificate
     properties:
       id:
-        description: certificate url as id
+        description: The certificate's URL to be used as the ID
         type: string
       data:
-        description: certificate raw data
+        description: The raw data of the certificate
         type: object
     required:
       - id
@@ -289,10 +288,10 @@ definitions:
     type: object
     properties:
       certId:
-        description: certificate id
+        description: The certificate ID
         type: string
       accessCode:
-        description: certificate accessCode
+        description: The certificate access code
         type: string
     required:
       - certId
@@ -311,30 +310,30 @@ definitions:
     type: object
     properties:
       userId:
-        description: any identifier of reciepient(email,phone,userId, userExternalId)
+        description: Specify either the email address,phone number,user ID, or User External ID, that uniquely identifies the reciepient
         type: string
       recipientName:
-        description: recipient name
+        description: The recipient's name
         type: string
       id:
-        description: certificate id which is generated while generating certificate
+        description: The certificate ID. This is an auto-generated identifier when the certificate is generated
         type: string
       accessCode:
-        description: certificate accessCode  will be returned in response while generating certificate
+        description: The certificate access code. This is returned in response when the certificate is generated
         type: string
       recipientType:
-        description: can only be individual(for recipient) or entity(for organisation)
+        description: The type of certificate recipient. This can only either be individual(for recipient) or entity(for organisation)
         type: string
         enum: [individual,entity]
       pdfUrl:
-        description: relative pdf url
+        description: The relative URL of the generated pdf file
         type: string
       jsonData:
-        description: raw json data used while generating certificate
+        description: The raw json data used to generate the certificate
         type: object
       related:
         type: object
-        description: Raw property bag to store some identifiable information about certificates. Intended to be used for reporting and search.
+        description: The raw property bag to store some identifiable information about certificates. This is intended to be used for reporting and search.
         properties:
           type:
             type: string
@@ -352,10 +351,10 @@ definitions:
     type: object
     properties:
       status:
-        description : "User's course status"
+        description : "The user's course status"
         type: string
       completionPercentage:
-        description : 'Course progress percentage'
+        description : 'The percentage of the course's progress'
         type: string
 
   CertificateValidateResponse:
@@ -363,11 +362,11 @@ definitions:
     type: object
     properties:
       result:
-        description: response details
+        description: The response details
         type: object
         properties:
           pdf:
-            description: The pdf url of certificate
+            description: The url of the pdf certificate
             type: string
           json:
             description: The raw json data to generate the certificate
@@ -376,33 +375,33 @@ definitions:
             description: The name of the certificate to be issued
             type: object
   CertificateVerifyResponse:
-    description: Certificate validate Response
+    description: Certificate verify response
     type: object
     properties:
       response:
-        description: response details
+        description: The response details
         type: object
         properties:
           pdf:
-            description: The pdf url of certificate
+            description: The url of the pdf certificate
             type: string
           json:
             description: The raw json data to generate the certificate
             type: object
           related:
-            description: The name of the certificate to be issued
+            description: The name of the certificate to be validated
             type: object
 
   CertificateAddResponse:
-    description: Certificate validate Response
+    description: Certificate add response
     type: object
     properties:
       result:
-        description: response details
+        description: The response details
         type: object
         properties:
           id:
-            description: The certificate id will be returned in response
+            description: The certificate ID is returned in response
             type: string
 
   ResponseHeader:
@@ -411,7 +410,7 @@ definitions:
     properties:
       id:
         type: string
-        description: API Identifier
+        description: The API Identifier
       ver:
         type: string
         description: API version information
@@ -451,7 +450,7 @@ definitions:
         properties:
           message:
             type: string
-            description: if id provided is already exists.
+            description: The message string. If the message ID is provided, the string is picked up from the existing .
 
   EmptyResult:
     title: Empty Result
