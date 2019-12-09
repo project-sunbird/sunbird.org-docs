@@ -122,6 +122,57 @@ paths:
             $ref: '#/definitions/IssueCertificateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'
+  /certreg/v1/certs/verify:
+    post:
+      description:  >-
+        This API is associated with verifying digitally generated certificates.
+           - The **_/certreg/v1/certs/verify** endpoint executes the "verify certificate" request based on parameters provided in the request body.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
+      summary: verify of certificate
+      tags:
+        - Verify Certificate Api
+      operationId: verify certificate
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: >-
+            The body refers to the format of the request. The body contains metadata about the request to validate the certificate.
+          schema:
+            allOf :
+              - $ref: '#/definitions/CertificateVerifyRequest'
+        - name: ts
+          in: header
+          required: true
+          type: string
+          description: 'The timestamp at which the **validating certificate** request was sent. '
+        - name: X-msgid
+          in: header
+          required: true
+          type: string
+          description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'OK ! Operation successful."Certificate Validation" operation was executed successfully.'
+          schema:
+            allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/CertificateVerifyResponse'
+        '400':
+          description: 'BAD REQUEST. The "Certificate validation" operation failed. You may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/IssueCertificateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'
+
   /certreg/v1/certs/add:
     post:
       description:  >-
@@ -210,6 +261,29 @@ definitions:
         $ref: '#/definitions/validateRequest'
     required:
       - request
+
+  CertificateVerifyRequest:
+    title: Certificate Verify request
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/verifyRequest'
+    required:
+      - request
+
+  verifyRequest:
+    type: object
+    description: either data or id is required to verify the certificate
+    properties:
+      id:
+        description: certificate url as id
+        type: string
+      data:
+        description: certificate raw data
+        type: object
+    required:
+      - id
+      - data
 
   validateRequest:
     type: object
@@ -301,6 +375,24 @@ definitions:
           related:
             description: The name of the certificate to be issued
             type: object
+  CertificateVerifyResponse:
+    description: Certificate validate Response
+    type: object
+    properties:
+      response:
+        description: response details
+        type: object
+        properties:
+          pdf:
+            description: The pdf url of certificate
+            type: string
+          json:
+            description: The raw json data to generate the certificate
+            type: object
+          related:
+            description: The name of the certificate to be issued
+            type: object
+
   CertificateAddResponse:
     description: Certificate validate Response
     type: object
