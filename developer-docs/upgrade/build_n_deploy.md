@@ -54,7 +54,7 @@ Refer to the following notes to trigger the **Neo4jElasticSearchSyncTool** jenki
 
 **Steps to migrate DialcodeRequired:**
 
-1. Run the following query on the neo4j VM to get all the identifiers from Neo4j that need to be migrated.
+1.Run the following query on the neo4j VM to get all the identifiers from Neo4j that need to be migrated.
 
 Query: 
 ```
@@ -62,22 +62,22 @@ MATCH(n:domain) WHERE n.IL_FUNC_OBJECT_TYPE="Content" AND n.contentType IN ["Tex
 ```
 The command returns do IDs. Example - do_11277867981525811215
 
-2. Run the Jenkins job with the following Jenkins parameters.
+2.Run the Jenkins job with the following Jenkins parameters.
 
 command: ``` migrate-dialcodeRequired```
 parameters: ```--ids <comma_seperated_do_ids fetched from Step:1>```
 
 For details, refer to the following  image:
 
-<img src="..//images/elastic_search_tool.png">
+<img src="../../images/elastic_search_tool.png">
 
 
-Jenkins will not accept more than 50 do id's at once. So in case you have a large number of do id's, then you can follow the below approach for quicker execution. 
-1. Run the Jenkins job mentioned above with one or two do id's. This is to just copy the latest jar file into the neo4j machine.
+Jenkins does not accept more than 50 DO ID's at a time. In case you have a large number of DO ID's, do the following to execute the job faster: 
+1. Run the Jenkins job mentioned above with one or two DO ID's. This copies the latest jar file into the neo4j machine.
 2. SSH into the neo4j machine and execute the below commands
 ```
 sudo su learning
 cd /home/learning/sync_tool
 java -Dconfig.file=/home/learning/sync_tool/application.conf -jar sync-tool-0.0.1-SNAPSHOT.jar migrate-dialcodeRequired --ids do_112880563104456704117,do_112880563104456704118,do_112880563104456704119
 ```
-In the command line you can specify any number of do id's. Thus if you have large number of do id's, we suggest you run it via the command line for faster execution rathen than running the Jenkins job multiple times in batches of 50 do id's.
+In the command line, specify any number of DO ID's. Thus, if you have large number of DO ID's, to execute the job faster, run the job using the command line, rather than running the Jenkins job multiple times in batches of 50 do id's.
