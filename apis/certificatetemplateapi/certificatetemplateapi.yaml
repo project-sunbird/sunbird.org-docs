@@ -1,0 +1,375 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Certificate Template api
+  description: >-
+    These apis are used for creating, updating and fetching certificate templates.
+host: staging.open-sunbird.org
+basePath:  /api/cert/v1
+securityDefinitions:
+  bearer:
+      type: apiKey  # arbitrary name for the security scheme
+      in: header # The security scheme parameter is in "header"
+      name: Authorization # name of the header, query parameter or cookie
+  userToken:
+      type: apiKey  # arbitrary name for the security scheme
+      in: header # The security scheme parameter is in "header"
+      name: x-authenticated-user-token # name of the header, query parameter or cookie
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /template/create:
+    post:
+      description:  >-
+       This API is registering certificate templates.
+          - The **_ /template/create_** endpoint creates a certificate template in the system.
+          - All fields marked with an * are mandatory
+          - Required fields cannot be null or empty
+      summary: create certificate template
+      tags:
+      - Certificate Template Api
+      operationId: CreateCertificateTemplate
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: >-
+            The body refers to the format of the request. The body contains metadata about the request to add the certificate template.
+        schema:
+          allOf :
+            - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
+            - $ref: '#/definitions/AddCertificateTemplateRequest'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+            The Content Type entity is the media type of the resource.Possible media types can be Application/json
+      - name: ts
+        in: header
+        required: true
+        type: string
+        description: 'The timestamp at which the **Create certificate template** request was sent. '
+      - name: X-msgid
+        in: header
+        required: true
+        type: string
+        description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
+      - name: x-authenticated-user-token
+        in: header
+        required: true
+        type: string
+        description: 'The alphanumeric string to access the API'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'OK ! Operation successful."Create Certificate template" operation was executed successfully.'
+          schema:
+            allOf:
+             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+             - $ref: '#/definitions/SuccessResponse'
+        '400':
+          description: 'BAD REQUEST. The "Add Certificate template" operation failed. You may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/AddCertificateTemplateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'
+  /template/update/{templateId}:
+    patch:
+      description:  >-
+       This API is associated with detaching certificate templates.
+          - The **_ /template/update_** endpoint updates the certificate template.
+          - All fields marked with an * are mandatory
+          - Required fields cannot be null or empty
+      summary: update the certificate template
+      tags:
+      - Certificate Template Api
+      operationId: UpdateCertificateTemplate
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: templateId
+        type: string
+        required: true
+        description: 'Append a valid template ID To the Request URL'
+      - name: Body
+        in: body
+        required: true
+        description: >-
+            The body refers to the format of the request. The body contains metadata about the request to remove certificate template.
+        schema:
+          allOf :
+            - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
+            - $ref: '#/definitions/UpdateCertificateTemplateRequest'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+            The Content Type entity is the media type of the resource.Possible media types can be Application/json
+      - name: ts
+        in: header
+        required: true
+        type: string
+        description: 'The timestamp at which the **update certificate template** request was sent. '
+      - name: X-msgid
+        in: header
+        required: true
+        type: string
+        description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
+      - name: x-authenticated-user-token
+        in: header
+        required: true
+        type: string
+        description: 'The alphanumeric string to access the API'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'OK ! Operation successful."Update Certificate template" operation was executed successfully.'
+          schema:
+            allOf:
+             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+             - $ref: '#/definitions/SuccessResponse'
+        '400':
+          description: 'BAD REQUEST. The "Update Certificate template" operation failed. You may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/UpdateCertificateTemplateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'          
+  /template/read/{templateId}:
+    get:
+      description:  >-
+       This API is associated with detaching certificate templates.
+          - The **_ /template/read_** endpoint fetches the certificate template.
+          - All fields marked with an * are mandatory
+          - Required fields cannot be null or empty
+      summary: read the certificate template
+      tags:
+      - Certificate Template Api
+      operationId: GetCertificateTemplate
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: templateId
+        type: string
+        required: true
+        description: 'Append a valid template ID To the Request URL'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+            The Content Type entity is the media type of the resource.Possible media types can be Application/json
+      - name: ts
+        in: header
+        required: true
+        type: string
+        description: 'The timestamp at which the **read certificate template** request was sent. '
+      - name: X-msgid
+        in: header
+        required: true
+        type: string
+        description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
+      - name: x-authenticated-user-token
+        in: header
+        required: true
+        type: string
+        description: 'The alphanumeric string to access the API'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'OK ! Operation successful."Read Certificate template" operation was executed successfully.'
+          schema:
+            allOf:
+             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+             - $ref: '#/definitions/GetCertificateTemplateResponse'
+        '400':
+          description: 'BAD REQUEST. The "Read Certificate template" operation failed. You may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/UpdateCertificateTemplateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'          
+definitions:
+  AddCertificateTemplateRequest:
+    title: AddCertificateTemplateRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/AddTemplateRequest'
+    required:
+    - request
+  AddTemplateRequest:
+    title: AddTemplateRequest
+    type: object
+    properties:
+      certificate:
+        description: certificate wrapper
+        type: object
+        properties:
+          template:
+            description: template detail
+            type: object
+            properties:
+              identifier:
+                description: pre-defined tempalte Id
+                type: string
+              name:
+                description: name for template
+                type: string
+              template:
+                description: url for the template zip
+                type: string
+              params:
+                description: parameters attached to the template
+                type: array
+                items:
+                  type: string
+    required:    
+    - certificate
+    - certificate.template.name
+  UpdateCertificateTemplateRequest:
+    title: UpdateCertificateTemplateRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/UpdateTemplateRequest'
+    required:
+    - request
+  UpdateTemplateRequest:
+    title: UpdateTemplateRequest
+    type: object
+    properties:
+      certificate:
+        description: certificate wrapper
+        type: object
+        properties:
+          template:
+            description: template detail
+            type: object
+            properties:
+              template:
+                description: url for the template zip
+                type: string
+              params:
+                description: parameters attached to the template
+                type: array
+                items:
+                  type: string
+    required:    
+    - certificate
+  GetCertificateTemplateResponse:
+    title: GetCertificateTemplateResponse
+    type: object
+    properties:
+      resule:
+        $ref: '#/definitions/GetTemplateResponse'
+    required:
+    - result
+  GetTemplateResponse:
+    title: GetTemplateResponse
+    type: object
+    properties:
+      certificate:
+        description: certificate wrapper
+        type: object
+        properties:
+          template:
+            description: template details
+            type: object
+            properties:
+              name:
+                description: name for template
+                type: string
+              template:
+                description: url for the template zip
+                type: string
+              params:
+                description: parameters attached to the template
+                type: array
+                items:
+                  type: string  
+  ResponseHeader:
+    title: ResponseHeader
+    type: object
+    properties:
+      id:
+        type: string
+        description: API Identifier
+      ver:
+        type: string
+        description: API version information
+      ts:
+        type: string
+        description: API execution timestamp
+      params:
+        $ref: '#/definitions/ResponseParams'
+      responseCode:
+        type: string
+        description: 'API response code '
+  ResponseParams:
+    title: Response Parameter
+    type: object
+    properties:
+      resmsgid:
+        type: string
+        description: Represents the response Message ID
+      msgid:
+        type: string
+        description: Represents the error Message ID
+      err:
+        type: string
+        description: Represents the Error Code
+      status:
+        type: string
+        description: Response Status
+      errmsg:
+        type: string
+        description: Error Message
+  EmptyResult:
+    title: Empty Result
+    type: object
+    properties:
+      result:
+        type: object
+        description: Empty Result
+  SuccessResponse:
+    description: 'contains success response'
+    type: object
+    properties:
+      result:
+       type: object
+       properties:
+        identifier: 
+          type: string
+  AddCertificateTemplateErrorResponse:
+    title: Add Certificate Template Error Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResponseHeader'
+      - $ref: '#/definitions/EmptyResult'
+  UpdateCertificateTemplateErrorResponse:
+    title: Update Certificate Template Error Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResponseHeader'
+      - $ref: '#/definitions/EmptyResult'
