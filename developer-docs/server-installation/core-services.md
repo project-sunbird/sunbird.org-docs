@@ -35,7 +35,7 @@ This page explains the jobs to be run to bring up the Core services.
 | API MANAGER Echo | Builds the API manager echo docker image | 
 | Badger | Builds the badger docker image |
 | Cassandra | Creates a jar for migration. Build this twice - There are two tags mentioned on the tags page for this. |
-| CassandraTrigger | Builds  the lms service docker image |
+| CassandraTrigger | Builds  the cassandra trigger jar file |
 | Lms | Builds  the lms service docker image |
 | Content | Builds the content service docker image | 
 | Learner | Builds the learner service docker image | 
