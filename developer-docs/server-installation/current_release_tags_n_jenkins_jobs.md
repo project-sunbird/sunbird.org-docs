@@ -32,7 +32,7 @@ This page provides information on the release tags available for Sunbird install
 | sunbird-telemetry-service | release-2.1.0 | Build/Core/Telemetry |
 | sunbird-course-service    | release-2.5.0 | Build/Core/Lms |
 | enc-service | release-1.1.1 | Build/Core/EncService |
-| cert-service | release-1.1.0 | Build/Core/Cert |
+| cert-service | release-1.1.1 | Build/Core/Cert |
 | sunbird-data-pipeline     | release-2.5.0| Build/DataPipeline/DataPipeline, All jobs under ArtifactUpload/{{env}}/DataPipeline, All jobs under Deploy/{{env}}/DataPipeline, All jobs under OpsAdministration/{{env}}/DataPipeline, All jobs under Provision/{{env}}/DataPipeline|
 | secor                     | secor-0.25 | Build/DataPipeline/Secor  |
 | sunbird-analytics         | release-2.5.0 | Build/DataPipeline/Analytics|
