@@ -60,17 +60,17 @@ paths:
         in: header
         required: true
         type: string
-        description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
+        description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
       - name: x-authenticated-user-token
         in: header
         required: true
         type: string
-        description: 'The alphanumeric string to access the API'
+        description: 'The access token of the registered user sending the given API request. This is an alphanumeric string.'
       - name: Authorization
         in: header
         required: true
         type: string
-        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received here.'
       responses:
         '200':
           description: 'OK ! Operation successful."Add Certificate template" operation was executed successfully.'
@@ -79,11 +79,11 @@ paths:
              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
              - $ref: '#/definitions/SuccessResponse'
         '400':
-          description: 'BAD REQUEST. The "Add Certificate template" operation failed. You may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST. The "Add Certificate template" operation failed. Input for a mandatory parameter may be missing.'
           schema:
             $ref: '#/definitions/AddCertificateTemplateErrorResponse'
         '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact info@sunbird.org.'
   /template/remove:
     patch:
       description:  >-
@@ -127,12 +127,12 @@ paths:
         in: header
         required: true
         type: string
-        description: 'The alphanumeric string to access the API'
+        description: 'The access token of the registered user sending the given API request. This is an alphanumeric string.'
       - name: Authorization
         in: header
         required: true
         type: string
-        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received here.'
       responses:
         '200':
           description: 'OK ! Operation successful."Remove Certificate template" operation was executed successfully.'
@@ -141,19 +141,19 @@ paths:
              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
              - $ref: '#/definitions/SuccessResponse'
         '400':
-          description: 'BAD REQUEST. The "Remove Certificate template" operation failed. You may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST. The "Remove Certificate template" operation failed. Input for a mandatory parameter may be missing.'
           schema:
             $ref: '#/definitions/RemoveCertificateTemplateErrorResponse'
         '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'          
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact info@sunbird.org.'          
   /issue:
     post:
       description:  >-
-       This API is associated with issuing digitally generated certificates.
+       This API allows you to issue digitally generated certificates.
           - The **_ /issue_** endpoint executes the "Certificate issue" request based on parameters provided as filter in the request body.
           - All fields marked with an * are mandatory
           - Required fields cannot be null or empty
-      summary: issuance of certificate
+      summary: Issue of certificate
       tags:
       - Issue Certificate Api
       operationId: GeneratePost
@@ -189,7 +189,7 @@ paths:
         in: header
         required: true
         type: string
-        description: 'The alphanumeric string to access the API'
+        description: 'The access token of the registered user sending the given API request. This is an alphanumeric string.'
       - name: Authorization
         in: header
         required: true
@@ -203,11 +203,11 @@ paths:
              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
              - $ref: '#/definitions/IssueCertificateResponse'
         '400':
-          description: 'BAD REQUEST. The "Certificate generation" operation failed. You may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST. The "Certificate generation" operation failed. Input for a mandatory parameter may be missing.'
           schema:
             $ref: '#/definitions/IssueCertificateErrorResponse'
         '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact info@sunbird.org.'
 definitions:
   AddCertificateTemplateRequest:
     title: AddCertificateTemplateRequest
@@ -230,10 +230,10 @@ definitions:
     type: object
     properties:
       courseId:
-        description: Course identifier
+        description: The course identifier
         type: string
       batchId:
-        description: Batch identifier
+        description: The batch identifier
         type: string
       template:
         $ref: '#/definitions/AddBatchTemplate'
@@ -246,10 +246,10 @@ definitions:
     type: object
     properties:
       identifier:
-        description: template identifier
+        description: The template identifier
         type: string
       criteria:
-        description: filter for template
+        description: The filter for the template
         type: object
         properties:
           enrollment:
@@ -259,36 +259,36 @@ definitions:
                 type: string
                 example: '2'
       signatoryList:
-        description: signatory list
+        description: The list of signatories 
         type: array
         items:
           type: object
           properties:
             name:
-              description: Signatory name
+              description: The signatory name
               type: string
             id:
-              description: Signatory id
+              description: The identifier for the signatory
               type: string
             designation:
-              description: Signatory Designation
+              description: The designation of the signatory
               type: string
               example: CEO
             image:
               description: Signatory id
               type: string  
       issuer:  
-        description: filter for template
+        description: The filter for the template
         type: object
         properties:
           name:
-            description: issuer name
+            description: The issuer name
             type: string
           url:
-            description: issuer url
+            description: The issuer URL
             type: string
           publicKey:
-            description: issuer public keys
+            description: The public keys
             type: array
             items:
               type: integer
@@ -318,10 +318,10 @@ definitions:
     type: object
     properties:
       courseId:
-        description: Course identifier
+        description: The course identifier
         type: string
       batchId:
-        description: Batch identifier
+        description: The batch identifier
         type: string
       template:
         $ref: '#/definitions/RemoveBatchTemplate'
@@ -334,7 +334,7 @@ definitions:
     type: object
     properties:
       templateId:
-        description: template identifier
+        description: The template identifier
         type: string
     required:
     - templateId
@@ -351,13 +351,13 @@ definitions:
     type: object
     properties:
       courseId:
-        description: Course identifier
+        description: The course identifier
         type: string
       batchId:
-        description: Batch identifier
+        description: The batch identifier
         type: string
       userIds:
-        description: optional User Ids
+        description: The optional User IDs
         type: array
         items:
           type: string
@@ -369,7 +369,7 @@ definitions:
     type: object
     properties:
       result:
-        description: response details
+        description: The response details
         type: object
         properties:
           courseId:
@@ -387,34 +387,34 @@ definitions:
     properties:
       id:
         type: string
-        description: API Identifier
+        description: The API Identifier
       ver:
         type: string
-        description: API version information
+        description: The API version information
       ts:
         type: string
-        description: API execution timestamp
+        description: The API execution timestamp
       params:
         $ref: '#/definitions/ResponseParams'
       responseCode:
         type: string
-        description: 'API response code '
+        description: 'The API response code '
   ResponseParams:
     title: Response Parameter
     type: object
     properties:
       resmsgid:
         type: string
-        description: Represents the response Message ID
+        description: Represents the response message ID
       msgid:
         type: string
-        description: Represents the error Message ID
+        description: Represents the error message ID
       err:
         type: string
-        description: Represents the Error Code
+        description: Represents the error code
       status:
         type: string
-        description: Response Status
+        description: The response status
       errmsg:
         type: string
         description: Error Message
@@ -432,7 +432,7 @@ definitions:
       - $ref: '#/definitions/ResponseHeader'
       - $ref: '#/definitions/EmptyResult'
   SuccessResponse:
-    description: 'contains success response'
+    description: 'Contains the success response'
     type: object
     properties:
       result:
@@ -442,13 +442,13 @@ definitions:
           type: string
           example: 'SUCCESS'
   AddCertificateTemplateErrorResponse:
-    title: Create Content Error Response
+    title: Create cerrtificate error response
     type: object
     allOf:
       - $ref: '#/definitions/ResponseHeader'
       - $ref: '#/definitions/EmptyResult'
   RemoveCertificateTemplateErrorResponse:
-    title: Create Content Error Response
+    title: Remove certificate error response
     type: object
     allOf:
       - $ref: '#/definitions/ResponseHeader'
