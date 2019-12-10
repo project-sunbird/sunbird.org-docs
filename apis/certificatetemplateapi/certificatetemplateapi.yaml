@@ -8,11 +8,11 @@ host: staging.open-sunbird.org
 basePath:  /api/cert/v1
 securityDefinitions:
   bearer:
-      type: apiKey  # arbitrary name for the security scheme
+      type: apiKey  # The arbitrary concatenated string value for the security scheme. This is provided to the user, when the user sends a request for the API key.
       in: header # The security scheme parameter is in "header"
       name: Authorization # name of the header, query parameter or cookie
   userToken:
-      type: apiKey  # arbitrary name for the security scheme
+      type: apiKey  # # The arbitrary concatenated string value for the security scheme. This is provided to the user, when the user sends a request for the API key.
       in: header # The security scheme parameter is in "header"
       name: x-authenticated-user-token # name of the header, query parameter or cookie
 schemes:
@@ -25,13 +25,13 @@ paths:
   /template/create:
     post:
       description:  >-
-       This API is registering certificate templates.
+       This API creates the certificate templates.
           - The **_ /template/create_** endpoint creates a certificate template in the system.
           - All fields marked with an * are mandatory
           - Required fields cannot be null or empty
-      summary: create certificate template
+      summary: Create certificate template
       tags:
-      - Certificate Template Api
+      - Certificate Template API
       operationId: CreateCertificateTemplate
       produces:
       - application/json
@@ -50,7 +50,7 @@ paths:
         required: true
         type: string
         description: >-
-            The Content Type entity is the media type of the resource.Possible media types can be Application/json
+            The content type entity is the media type of the resource. Possible media types can be Application/json
       - name: ts
         in: header
         required: true
@@ -60,12 +60,12 @@ paths:
         in: header
         required: true
         type: string
-        description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
+        description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
       - name: x-authenticated-user-token
         in: header
         required: true
         type: string
-        description: 'The alphanumeric string to access the API'
+        description: 'The access token of the registered user sending the given API request. This is an alphanumeric string.'
       - name: Authorization
         in: header
         required: true
@@ -73,17 +73,17 @@ paths:
         description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
       responses:
         '200':
-          description: 'OK ! Operation successful."Create Certificate template" operation was executed successfully.'
+          description: 'OK ! Operation successful. The **Create certificate template** operation was executed successfully.'
           schema:
             allOf:
              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
              - $ref: '#/definitions/SuccessResponse'
         '400':
-          description: 'BAD REQUEST. The "Add Certificate template" operation failed. You may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST. The "Create certificate template" operation failed. Input for a mandatory parameter may be missing.'
           schema:
             $ref: '#/definitions/AddCertificateTemplateErrorResponse'
         '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact info@sunbird.org.'
   /template/update/{templateId}:
     patch:
       description:  >-
@@ -93,7 +93,7 @@ paths:
           - Required fields cannot be null or empty
       summary: update the certificate template
       tags:
-      - Certificate Template Api
+      - Certificate Template API
       operationId: UpdateCertificateTemplate
       produces:
       - application/json
@@ -127,12 +127,12 @@ paths:
         in: header
         required: true
         type: string
-        description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
+        description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
       - name: x-authenticated-user-token
         in: header
         required: true
         type: string
-        description: 'The alphanumeric string to access the API'
+        description: 'The access token of the registered user sending the given API request. This is an alphanumeric string.'
       - name: Authorization
         in: header
         required: true
@@ -146,11 +146,11 @@ paths:
              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
              - $ref: '#/definitions/SuccessResponse'
         '400':
-          description: 'BAD REQUEST. The "Update Certificate template" operation failed. You may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST. The "Update Certificate template" operation failed. Input for a mandatory parameter may be missing.'
           schema:
             $ref: '#/definitions/UpdateCertificateTemplateErrorResponse'
         '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'          
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact info@sunbird.org.'          
   /template/read/{templateId}:
     get:
       description:  >-
@@ -185,12 +185,12 @@ paths:
         in: header
         required: true
         type: string
-        description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
+        description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
       - name: x-authenticated-user-token
         in: header
         required: true
         type: string
-        description: 'The alphanumeric string to access the API'
+        description: 'The access token of the registered user sending the given API request. This is an alphanumeric string.'
       - name: Authorization
         in: header
         required: true
@@ -204,11 +204,11 @@ paths:
              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
              - $ref: '#/definitions/GetCertificateTemplateResponse'
         '400':
-          description: 'BAD REQUEST. The "Read Certificate template" operation failed. You may have missed providing input for a mandatory parameter.'
+          description: 'BAD REQUEST. The "Read Certificate template" operation failed. Input for a mandatory parameter may be missing.'
           schema:
             $ref: '#/definitions/UpdateCertificateTemplateErrorResponse'
         '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically, but if the problem persists, contact us. In the meantime, try refreshing.'          
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact info@sunbird.org.'          
 definitions:
   AddCertificateTemplateRequest:
     title: AddCertificateTemplateRequest
@@ -227,20 +227,20 @@ definitions:
         type: object
         properties:
           template:
-            description: template detail
+            description: The template detail
             type: object
             properties:
               identifier:
-                description: pre-defined tempalte Id
+                description: Teh pre-defined tempalte ID
                 type: string
               name:
-                description: name for template
+                description: The name for the template
                 type: string
               template:
                 description: url for the template zip
                 type: string
               params:
-                description: parameters attached to the template
+                description: The parameters attached to the template
                 type: array
                 items:
                   type: string
@@ -332,19 +332,19 @@ definitions:
     properties:
       resmsgid:
         type: string
-        description: Represents the response Message ID
+        description: Represents the response message ID
       msgid:
         type: string
-        description: Represents the error Message ID
+        description: Represents the error message ID
       err:
         type: string
-        description: Represents the Error Code
+        description: Represents the error code
       status:
         type: string
-        description: Response Status
+        description: The response status
       errmsg:
         type: string
-        description: Error Message
+        description: The error message
   EmptyResult:
     title: Empty Result
     type: object
