@@ -99,7 +99,7 @@ You can access keycloak via `localhost:8080`
 | 3 | Creating keycloak federation [Deployment Steps for Keycloak User Federation](developer-docs/server-installation/keycloak_user_federation) |
 
 
-**Note**
+**Note:**
 If the Cassandra migration fails, run the query manually to set the corresponding version for the failed migration to True
 
 **Example:**
