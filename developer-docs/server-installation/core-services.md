@@ -34,7 +34,7 @@ This page explains the jobs to be run to bring up the Core services.
 | API MANAGER | Builds the API manager docker image | 
 | API MANAGER Echo | Builds the API manager echo docker image | 
 | Badger | Builds the badger docker image |
-| Cassandra | Creates a jar for migration. Build this twice - There are two tags mentioned on the tags page for this. |
+| Cassandra | Creates a jar for migration|
 | CassandraTrigger | Builds  the cassandra trigger jar file |
 | Lms | Builds  the lms service docker image |
 | Content | Builds the content service docker image | 
@@ -94,10 +94,12 @@ You can access keycloak via `localhost:8080`
 
 | Step | Action  |
 |------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1 | Creating keycloak federation [Deployment Steps for Keycloak User Federation](developer-docs/server-installation/keycloak_user_federation) |
+| 1 | Login to Keycloak using the user name **admin** and password as given in the private **secrets.yml** file. Or, login to keycloak using &#60;localhost:8080&#62;/auth |
+| 2 | Navigate to Sunbird Realm > Realm Settings > Keys. Click `Public Key`. Copy the key value that you see and update the variable core_vault_sso_public_key |
+| 3 | Creating keycloak federation [Deployment Steps for Keycloak User Federation](developer-docs/server-installation/keycloak_user_federation) |
 
 
-**Note**
+**Note:**
 If the Cassandra migration fails, run the query manually to set the corresponding version for the failed migration to True
 
 **Example:**
