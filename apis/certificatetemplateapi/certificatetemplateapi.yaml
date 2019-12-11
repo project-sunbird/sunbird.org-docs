@@ -206,7 +206,7 @@ paths:
         '400':
           description: 'BAD REQUEST. The "Read Certificate template" operation failed. Input for a mandatory parameter may be missing.'
           schema:
-            $ref: '#/definitions/UpdateCertificateTemplateErrorResponse'
+            $ref: '#/definitions/ReadCertificateTemplateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact info@sunbird.org.'          
 definitions:
@@ -366,7 +366,18 @@ definitions:
         properties:
           message:
             description: detail of the error message
-            example: 'template has invalid properties: [templateUrl]'          
+            example: 'template has invalid properties: [templateUrl]'
+  ReadErrorResponse:
+    title: Error Response
+    type: object
+    properties:
+      result:
+        type: object
+        description: Error Result
+        properties:
+          message:
+            description: detail of the error message
+            example: 'Cert template not found for the given identifier: template_011'
   SuccessResponse:
     description: 'contains success response'
     type: object
@@ -388,3 +399,9 @@ definitions:
     allOf:
       - $ref: '#/definitions/ResponseHeader'
       - $ref: '#/definitions/UpdateErrorResponse'
+  ReadCertificateTemplateErrorResponse:
+    title: Update Certificate Template Error Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResponseHeader'
+      - $ref: '#/definitions/ReadErrorResponse'
