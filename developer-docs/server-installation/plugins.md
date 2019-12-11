@@ -38,10 +38,10 @@ az storage blob upload-batch --destination container_name/v3/preview --source so
 
 **Upload Base Plugin**
 
-Upload the intial set of plugins (base plugins) to your publicly accessible Azure container. 
+Upload the initial set of plugins (base plugins) to your publicly accessible Azure container. 
 > **Note:** The name of the Azure container must be same as the **container_name** mentioned in the section on creating containers.
 
-You can download the intial Plugins from [here](https://sunbirdpublic.blob.core.windows.net/installation/content-plugins.zip)
+You can download the initial Plugins from [here](https://sunbirdpublic.blob.core.windows.net/installation/content-plugins.zip)
 
 Unzip the contents and the directory **content-plugins** is available. Run the following command from the directory where the zip was extracted.
 
@@ -61,10 +61,10 @@ Switch to `Deploy/<env>/Plugins` in your jenkins machine and run the jobs in the
 
 After the plugins are deployed, you get URL's for the editors zip file. Sample URLs will be similar to the following:  
 
-**https://<azure_account_name>.blob.core.windows.net/<plugin_container_name>/artefacts/editor/generic-editor-iframe-2.4.0.zip**
+**https://<azure_account_name>.blob.core.windows.net/<plugin_container_name>/artefacts/editor/generic-editor-iframe-2.5.0.zip**
 
-**https://<azure_account_name>.blob.core.windows.net/<plugin_container_name>/artefacts/editor/collection-editor-iframe-2.4.0.zip**
+**https://<azure_account_name>.blob.core.windows.net/<plugin_container_name>/artefacts/editor/collection-editor-iframe-2.5.0.zip**
 
-**https://<azure_account_name>.blob.core.windows.net/<plugin_container_name>/artefacts/editor/content-editor-iframe-2.4.0.zip**
+**https://<azure_account_name>.blob.core.windows.net/<plugin_container_name>/artefacts/editor/content-editor-iframe-2.5.0.zip**
 
 You will need to use these 3 URL's when building Player service.
