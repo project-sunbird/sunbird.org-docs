@@ -87,7 +87,7 @@ paths:
   /template/update/{templateId}:
     patch:
       description:  >-
-       This API is associated with detaching certificate templates.
+       This API updates the certificate templates.
           - The **_ /template/update_** endpoint updates the certificate template.
           - All fields marked with an * are mandatory
           - Required fields cannot be null or empty
@@ -107,7 +107,7 @@ paths:
         in: body
         required: true
         description: >-
-            The body refers to the format of the request. The body contains metadata about the request to remove certificate template.
+            The body refers to the format of the request. The body contains metadata about the request to update the certificate template.
         schema:
           allOf :
             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
@@ -154,7 +154,7 @@ paths:
   /template/read/{templateId}:
     get:
       description:  >-
-       This API is associated with detaching certificate templates.
+       This API fetches the certificate templates.
           - The **_ /template/read_** endpoint fetches the certificate template.
           - All fields marked with an * are mandatory
           - Required fields cannot be null or empty
@@ -223,11 +223,11 @@ definitions:
     type: object
     properties:
       certificate:
-        description: certificate wrapper
+        description: wrapper which holds the template details
         type: object
         properties:
           template:
-            description: The template detail
+            description: The template details
             type: object
             properties:
               identifier:
@@ -260,7 +260,7 @@ definitions:
     type: object
     properties:
       certificate:
-        description: certificate wrapper
+        description: wrapper which holds the template details
         type: object
         properties:
           template:
@@ -290,7 +290,7 @@ definitions:
     type: object
     properties:
       certificate:
-        description: certificate wrapper
+        description: wrapper which holds the template details
         type: object
         properties:
           template:
@@ -345,13 +345,28 @@ definitions:
       errmsg:
         type: string
         description: The error message
-  EmptyResult:
-    title: Empty Result
+  CreateErrorResponse:
+    title: Error Response
     type: object
     properties:
       result:
         type: object
-        description: Empty Result
+        description: Error Result
+        properties:
+          message:
+            description: detail of the error message
+            example: 'name or template missing in request.'
+  UpdateErrorResponse:
+    title: Error Response
+    type: object
+    properties:
+      result:
+        type: object
+        description: Error Result
+        properties:
+          message:
+            description: detail of the error message
+            example: 'template has invalid properties: [templateUrl]'          
   SuccessResponse:
     description: 'contains success response'
     type: object
@@ -366,10 +381,10 @@ definitions:
     type: object
     allOf:
       - $ref: '#/definitions/ResponseHeader'
-      - $ref: '#/definitions/EmptyResult'
+      - $ref: '#/definitions/CreateErrorResponse'
   UpdateCertificateTemplateErrorResponse:
     title: Update Certificate Template Error Response
     type: object
     allOf:
       - $ref: '#/definitions/ResponseHeader'
-      - $ref: '#/definitions/EmptyResult'
+      - $ref: '#/definitions/UpdateErrorResponse'
