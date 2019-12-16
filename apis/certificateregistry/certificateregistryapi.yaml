@@ -78,7 +78,7 @@ paths:
            - The **_/certreg/v1/certs/validate_** endpoint executes the "validate certificate" request based on parameters provided in the request body.
            - All fields marked with an * are mandatory
            - Mandatory fields cannot be null or empty
-      summary: Certificate validation 
+      summary: Certificate validation
       tags:
         - Validate Certificate API
       operationId: validate certificate
@@ -238,7 +238,7 @@ definitions:
     type: object
     properties:
       pdfUrl:
-        description: The relative URL of the generated pdf certificate 
+        description: The relative URL of the generated pdf certificate
         type: string
     required:
       - pdfUrl
@@ -309,8 +309,8 @@ definitions:
   addRequest:
     type: object
     properties:
-      userId:
-        description: Specify either the email address,phone number,user ID, or User External ID, that uniquely identifies the reciepient
+      recipientId:
+        description: Specify either the email address, phone number, user ID, or User External ID, that uniquely identifies the recipient
         type: string
       recipientName:
         description: The recipient's name
@@ -328,6 +328,15 @@ definitions:
       pdfUrl:
         description: The relative URL of the generated pdf file
         type: string
+      jsonUrl:
+        description: The relative json URL of the generated pdf file
+        type: string
+      revoked:
+        description: The user certificate is been revoked or not
+        type: boolean
+      reason:
+        description: The reason why user certificate is been revoked
+        type: string
       jsonData:
         description: The raw json data used to generate the certificate
         type: object
@@ -337,25 +346,12 @@ definitions:
         properties:
           type:
             type: string
-            enum: [course-completion,course-performance,offline-course,assessment,best-teacher,best-student,best-school]
 
     required:
       - id
       - accessCode
-      - recipientType
       - pdfUrl
 
-
-  UserCoursesFilter:
-    title: Issue Certificate Filter
-    type: object
-    properties:
-      status:
-        description : "The user's course status"
-        type: string
-      completionPercentage:
-        description : 'The percentage of the course's progress'
-        type: string
 
   CertificateValidateResponse:
     description: Certificate validate Response
