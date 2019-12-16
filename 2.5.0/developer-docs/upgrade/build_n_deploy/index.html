@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2019-11-15 18:27:36 +0530">
+<meta name="last-modified" content="2019-12-16 17:11:15 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="2223" />
+<meta name="buildNo" content="2346" />
 <meta name="version" id="docsVersion" content="2.5.0" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?15112019"  />
+<link rel="stylesheet" href="/css/style.css?16122019"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?15112019"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?15112019"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?15112019"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?15112019"></script>
-<script type="text/javascript" src="/js/widgets-data.js?15112019"></script>
-<script type="text/javascript" src="/js/widgets.js?15112019"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?16122019"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?16122019"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?16122019"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?16122019"></script>
+<script type="text/javascript" src="/js/widgets-data.js?16122019"></script>
+<script type="text/javascript" src="/js/widgets.js?16122019"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -1398,53 +1398,6 @@ resetBase();
 											</ul>
 										</li>
 										
-										<li>
-											
-											<a  
-												href="developer-docs/upgrade/manual_configuration/" 
-												
-												class="" 
-												>
-												Manual Configurations
-											</a>
-											<ul class="sidebar-group">
-												
-													<li>
-														
-														<a  
-															href="developer-docs/upgrade/core-elasticsearch_upgrade/" 
-															
-															class="" 
-															>
-															Core Elastic Search
-														</a>
-													</li>
-												
-													<li>
-														
-														<a  
-															href="developer-docs/upgrade/keycloak_configuration/" 
-															
-															class="" 
-															>
-															Keycloak Configuration
-														</a>
-													</li>
-												
-													<li>
-														
-														<a  
-															href="developer-docs/upgrade/etl_jobs_for_sunbird_upgrade/" 
-															
-															class="" 
-															>
-															ETL Jobs
-														</a>
-													</li>
-												
-											</ul>
-										</li>
-										
 									</ul>
 								</div>
 							
@@ -2255,10 +2208,7 @@ resetBase();
               <a href="#overview"><span class="tocnumber">1 .</span> <span class="toctext">Overview</span></a>
             </li>
             <li class="toc_level-1 toc_section-2">
-              <a href="#load-balancer-setup-for-swarm-manager"><span class="tocnumber">2 .</span> <span class="toctext">Load Balancer Setup for Swarm Manager</span></a>
-            </li>
-            <li class="toc_level-1 toc_section-3">
-              <a href="#running-the-builds"><span class="tocnumber">3 .</span> <span class="toctext">Running the Builds</span></a>
+              <a href="#running-the-builds"><span class="tocnumber">2 .</span> <span class="toctext">Running the Builds</span></a>
             </li>
           </ul>
         </td>
@@ -2267,51 +2217,11 @@ resetBase();
   </table>
 </div><h2 id="overview">Overview</h2>
 
-<p>This page details out the jobs required to be run as part of the upgrade from Sunbird release 2.0.0 to release 2.3.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade.</p>
+<p>This page details out the jobs required to be run as part of the upgrade from Sunbird release 2.4.0 to release 2.5.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade.</p>
 
 <p>As part of this upgrade, you may choose to set up the load balancer for swarm managers. If you do not require a load balancer for swarm managers, only update the value of the variable <strong>sunbird_swarm_manager_lb_ip</strong> to the swarm manager’s IP in the private repository.</p>
 
-<h2 id="load-balancer-setup-for-swarm-manager">Load Balancer Setup for Swarm Manager</h2>
-
-<blockquote>
-  <p>This is optional setup for the Sunbird upgrade</p>
-</blockquote>
-
-<p>To setup the load balancer for swarm managers, execute the following instructions for each of the mentioned fields:</p>
-<ul>
-  <li>Frontend IP configuration - Internal IP (default)</li>
-  <li>Backend pools - Attach swarm manager VM or availability set of swarm manager group</li>
-  <li>Health Probes/check - Configure path and port
-     -&gt;   api-manager-kong - 8001 - /status
-     -&gt;   content-service  - 5000 - /health
-     -&gt;   learner-service  - 9000 - /health</li>
-  <li>Protocol: HTTP</li>
-  <li>Port:
-     -&gt;   api-manager-kong - 8000
-     -&gt;   content-service  - 5000
-     -&gt;   learner-service  - 9000</li>
-  <li>Interval: 5</li>
-  <li>Unhealthy threshold: 2</li>
-  <li>Load Balancing rules - Frontend-ip-config, Frontend-port, backend-port, Backend-pool and health-probe
-     -&gt;   api-manager-kong - Frontend-port:8000 - Backend-port: 8000
-     -&gt;   content-service  - Frontend-port:5000 - Backend-port: 5000
-     -&gt;   learner-service  - Frontend-port:9000 - Backend-port: 9000</li>
-</ul>
-
 <h2 id="running-the-builds">Running the Builds</h2>
-
-<p><strong>IMPORTANT</strong>:</p>
-
-<ol>
-  <li>
-    <p>Take a backup of all your databases by running backup jobs located under OpsAdministration → Core / KnowledgePlatform / DataPipeline → BackupJobs 
-OR 
-you can use the VM Disk snapshots from your cloud provider.</p>
-  </li>
-  <li>
-    <p>Once all the variables and Jenkins configurations are complete, you can start to build and deploy the services.</p>
-  </li>
-</ol>
 
 <p><strong>IMPORTANT</strong>:</p>
 
@@ -2323,17 +2233,17 @@ you can use the VM Disk snapshots from your cloud provider.</p>
     <p>Once all the variables and Jenkins configurations are complete, you can start to build and deploy services.</p>
   </li>
   <li>
-    <p>Build and deploy plugins. Refer <a href="developer-docs/server-installation/plugins" target="_blank">this page</a></p>
+    <p>Build and deploy the plugins. For details, refer to the  <a href="developer-docs/server-installation/plugins" target="_blank">Plugins</a> page</p>
   </li>
   <li>
-    <p>After plugins build and deploy, provide the blob url of the plugins zip file in Player build. Refer Player build job on <a href="developer-docs/server-installation/artifactupload-job/core-services" target="_blank">this page</a></p>
+    <p>After the plugins build and deploy, provide the blob url of the plugins zip file in the Player build. For details, refer to the Player build job on the <a href="developer-docs/server-installation/artifactupload-job/core-services" target="_blank">Core Services</a> page.</p>
   </li>
   <li>
-    <p>Build all the services mentioned in the table below. In case of Cassadnra migration (Core / Cassandra), the job needs to be build twice and deployed twice. Refer to the tags page to get the two tags. Also in case of errors in Cassadnra migration, refer to <a href="developer-docs/server-installation/artifactupload-job/core-services" target="_blank">this page</a></p>
+    <p>Build all the services mentioned in the table below. Refer to this page for details on tags to be used - Current Release Tags and Jenkins Jobs Reference{:target=”_blank”}</p>
   </li>
 </ol>
 
-<p>Here is the list of jobs that are required to be built and deployed for your reference.</p>
+<p>The following is the list of jobs required to be built and deployed :</p>
 
 <p>Order: Top down per column</p>
 
@@ -2350,6 +2260,22 @@ you can use the VM Disk snapshots from your cloud provider.</p>
   </thead>
   <tbody>
     <tr>
+      <td>CassandraTrigger</td>
+      <td>CassandraTrigger</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>OnboardAPIs</td>
+    </tr>
+    <tr>
+      <td>KnowledgePlatform</td>
+      <td>Learning</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>Provision/PostgresDbUpdate</td>
+    </tr>
+    <tr>
       <td> </td>
       <td>Provison/CompositeSearch</td>
       <td> </td>
@@ -2358,16 +2284,16 @@ you can use the VM Disk snapshots from your cloud provider.</p>
       <td>Cassandra</td>
     </tr>
     <tr>
+      <td>Yarn</td>
+      <td>Yarn</td>
       <td> </td>
-      <td>StopNeo4jCluster</td>
       <td> </td>
       <td> </td>
-      <td>CassandraTrigger</td>
-      <td>CassandraTrigger</td>
+      <td>certTemplate</td>
     </tr>
     <tr>
-      <td> </td>
-      <td>Neo4j</td>
+      <td>SyncTool</td>
+      <td>Neo4jElasticSearchSyncTool(Please see below notes to choose jenkins job parameter)</td>
       <td> </td>
       <td>KafkaSetup</td>
       <td>Keycloak</td>
@@ -2383,83 +2309,138 @@ you can use the VM Disk snapshots from your cloud provider.</p>
     </tr>
     <tr>
       <td> </td>
-      <td>StartNeo4jCluster</td>
+      <td>Neo4jDefinitionUpdate</td>
       <td> </td>
       <td>KafkaIndexer</td>
       <td>Player</td>
+      <td>OpsAdministration/Core/ESMapping (Provide value as <code>all</code> for job parameter indices_name)</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Secor</td>
+      <td>Secor</td>
+      <td>Learner</td>
       <td>Player</td>
     </tr>
     <tr>
       <td> </td>
-      <td>KafkaSetup</td>
-      <td>Secor</td>
-      <td>Secor</td>
-      <td>Learner</td>
-      <td>Learner</td>
-    </tr>
-    <tr>
       <td> </td>
-      <td>CassandraDbUpdate</td>
       <td>Analytics</td>
       <td>AnalyticsAPI</td>
       <td>Content</td>
+      <td>Learner</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>Provision/AnalyticsSpark</td>
+      <td>Lms</td>
       <td>Content</td>
     </tr>
     <tr>
       <td> </td>
-      <td>CassandraTrigger</td>
       <td> </td>
-      <td> </td>
-      <td>Lms</td>
-      <td>Lms</td>
-    </tr>
-    <tr>
-      <td>CassandraTrigger</td>
-      <td>Neo4jDefinitionUpdate</td>
       <td>DataPipeline</td>
       <td>DataProducts</td>
-      <td>Telemetry</td>
-      <td>Telemetry</td>
-    </tr>
-    <tr>
-      <td>KnowledgePlatform</td>
-      <td>Learning</td>
       <td> </td>
-      <td>SamzaTelemetrySchemas</td>
-      <td>Proxy</td>
-      <td>Proxy</td>
+      <td>Lms</td>
     </tr>
     <tr>
       <td> </td>
-      <td>Search</td>
+      <td> </td>
       <td>Yarn</td>
       <td>Yarn (Multiselect all options in the job parameter job_names_to_deploy)</td>
-      <td> </td>
-      <td>OnboardAPI</td>
+      <td>EncService</td>
+      <td>EncService</td>
     </tr>
     <tr>
-      <td>Yarn</td>
-      <td>Yarn</td>
       <td> </td>
       <td> </td>
       <td> </td>
-      <td>OnboardConsumers</td>
-    </tr>
-    <tr>
-      <td>SyncTool</td>
-      <td>Neo4jElasticSearchSyncTool</td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td>OpsAdministration/Core/ESMapping (Provide value as all for job parameter indices_name)</td>
+      <td>AnalyticsGeoLocationDBSetup</td>
+      <td>Cert</td>
+      <td>Cert</td>
     </tr>
   </tbody>
 </table>
 
 <blockquote>
-  <p><strong>Note:</strong> We have disabled Git LFS for private repositories. Hence, uninstall git lfs from your private repository.
-To do so, clone your private repository and run <code>git lfs uninstall</code> and also remove the <code>.gitattributes</code> file</p>
+  <p><strong>Note:</strong> 
+Refer to the following notes to trigger the <strong>Neo4jElasticSearchSyncTool</strong> jenkins job located under Deploy/KnowledgePlatform directory.</p>
 </blockquote>
+
+<p>
+  <strong>Steps to migrate DialcodeRequired:</strong>
+</p>
+
+<p>1.Run the following query on the neo4j VM to get all the identifiers from Neo4j that need to be migrated.</p>
+
+<p>Query:</p>
+<pre>
+  <code>MATCH(n:domain) WHERE n.IL_FUNC_OBJECT_TYPE="Content" AND n.contentType IN ["TextBook","Course"] return n.IL_UNIQUE_ID;
+</code>
+</pre>
+<p>The command returns do IDs. Example - do_11277867981525811215</p>
+
+<p>2.Run the Jenkins job with the following Jenkins parameters.</p>
+
+<p>command: <code>migrate-dialcodeRequired</code>
+parameters: <code>--ids &lt;comma_seperated_do_ids fetched from Step:1&gt;</code></p>
+
+<p>For details, refer to the following  image:</p>
+
+<p>
+  <img src="../../images/elastic_search_tool.png" />
+</p>
+
+<p>Jenkins does not accept more than 50 DO ID’s at a time. In case you have a large number of DO ID’s, do the following to execute the job faster:</p>
+<ol>
+  <li>Run the Jenkins job mentioned above with one or two DO ID’s. This copies the latest jar file into the neo4j machine.</li>
+  <li>SSH into the neo4j machine and execute the below commands
+    <pre><code>sudo su learning
+cd /home/learning/sync_tool
+java -Dconfig.file=/home/learning/sync_tool/application.conf -jar sync-tool-0.0.1-SNAPSHOT.jar migrate-dialcodeRequired --ids do_112880563104456704117,do_112880563104456704118,do_112880563104456704119
+</code></pre>
+    <p>In the command line, specify any number of DO ID’s. Thus, if you have large number of DO ID’s, to execute the job faster, run the job using the command line, rather than running the Jenkins job multiple times in batches of 50 do id’s.</p>
+  </li>
+</ol>
+
+<p><strong>Note:</strong>
+If the Cassandra migration fails, run the query manually to set the corresponding version for the failed migration to True</p>
+
+<p>
+  <strong>Example:</strong>
+</p>
+
+<p>
+  <code>SELECT * from sunbird.cassandra_migration_version;</code>
+</p>
+
+<p>Check the rows for which the value in the success column is False. The following is an example -</p>
+
+<p>
+  <code>1.80 |   180685665 |   cassandra |              4 |         null | 2019-12-01 13:58:52.401000+0000 |            136 | V1.80_cassandra.cql |   False |  CQL |           80</code>
+</p>
+
+<p>Run the update query for each row separately</p>
+
+<p>
+  <code>update sunbird.cassandra_migration_version set success=True where version ='1.80';</code>
+</p>
+
+<p>Verify that all the values in the success column are True and rerun the Jenkins job again with same zip file and tag</p>
+
+<p>Once this succeeds, use the second zip file and tag to deploy again</p>
+
+<p>The current migration version is 1.88. The output of the Jenkins job should be as follows -</p>
+
+<p>
+  <code>Migrating keyspace Sunbird to version 1.88 - Cassandra
+Successfully applied 3 migrations to keyspace sunbird (execution time 00:20.547s).
+Migration Completed at ==1571996508540</code>
+</p>
 
           
           <hr />

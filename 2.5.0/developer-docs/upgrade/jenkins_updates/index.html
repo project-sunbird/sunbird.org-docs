@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2019-11-15 18:27:36 +0530">
+<meta name="last-modified" content="2019-12-16 17:11:15 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="2223" />
+<meta name="buildNo" content="2346" />
 <meta name="version" id="docsVersion" content="2.5.0" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?15112019"  />
+<link rel="stylesheet" href="/css/style.css?16122019"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?15112019"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?15112019"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?15112019"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?15112019"></script>
-<script type="text/javascript" src="/js/widgets-data.js?15112019"></script>
-<script type="text/javascript" src="/js/widgets.js?15112019"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?16122019"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?16122019"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?16122019"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?16122019"></script>
+<script type="text/javascript" src="/js/widgets-data.js?16122019"></script>
+<script type="text/javascript" src="/js/widgets.js?16122019"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -1398,53 +1398,6 @@ resetBase();
 											</ul>
 										</li>
 										
-										<li>
-											
-											<a  
-												href="developer-docs/upgrade/manual_configuration/" 
-												
-												class="" 
-												>
-												Manual Configurations
-											</a>
-											<ul class="sidebar-group">
-												
-													<li>
-														
-														<a  
-															href="developer-docs/upgrade/core-elasticsearch_upgrade/" 
-															
-															class="" 
-															>
-															Core Elastic Search
-														</a>
-													</li>
-												
-													<li>
-														
-														<a  
-															href="developer-docs/upgrade/keycloak_configuration/" 
-															
-															class="" 
-															>
-															Keycloak Configuration
-														</a>
-													</li>
-												
-													<li>
-														
-														<a  
-															href="developer-docs/upgrade/etl_jobs_for_sunbird_upgrade/" 
-															
-															class="" 
-															>
-															ETL Jobs
-														</a>
-													</li>
-												
-											</ul>
-										</li>
-										
 									</ul>
 								</div>
 							
@@ -2300,47 +2253,21 @@ resetBase();
 </code>
 </pre>
 
-<p>4.Switch to jenkins user and run the below command to install NVM  <br />
-        <code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash</code></p>
+<p>4.The script will show the list of differences between your current configuration and the new configuration. Take a deep look at these changes and when you are ready to update, provide the confirmation as YES</p>
 
-<p>5.Remove the variable github_release_tag from global environment variable in Jenkins, if it is not done already (This was added in release 1.1.4 But, it must be removed now).</p>
+<p>5.The script will overwrite the existing jobs (jobs provided by default by Sunbird) and update the configurations with new changes of that release</p>
 
-<p>6.The script will show the list of differences between your current configuration and the new configuration. Take a deep look at these changes and when you are ready to update, provide the confirmation as YES</p>
+<p>6.Go to Manage Jenkins → Configure System → Global Pipeline Libraries → Change Default Version to <code>release-2.4.0-shared-lib</code></p>
 
-<p>7.The script will overwrite the existing jobs (only those sunbird provides by default) and update the configurations with new changes of that release.</p>
+<p>7.Go to Manage Jenkins → Configure System → Update <code>public_repo_branch</code> to <code>refs/tags/release-2.4.0</code> or go to Manage Jenkins → Configure System → Update <code>private_repo_branch</code> to the branch name of your private repo branch in case you created a new branch for release-2.4.0 inventory updates</p>
 
-<p>8.Add the below two Jenkins environment variables under Mange Jenkins if not done → Configure System</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Variable</th>
-      <th>Value</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>override_private_branch</td>
-      <td>true</td>
-    </tr>
-    <tr>
-      <td>override_public_branch</td>
-      <td>true</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>9.Go to Manage Jenkins → Configure System → Global Pipeline Libraries → Change Default Version to <code>release-2.4.0-shared-lib</code></p>
-
-<p>10.Go to Manage Jenkins → Configure System → Update <code>public_repo_branch</code> to <code>refs/tags/release-2.4.0</code> or go to Manage Jenkins → Configure System → Update <code>private_repo_branch</code> to the branch name of your private repo branch in case you created a new branch for release-2.4.0 inventory updates</p>
-
-<p>11.Restart your Jenkins and you are ready to go</p>
+<p>8.Restart your Jenkins and you are ready to go</p>
 
 <p><strong>IMPORTANT</strong>: Open one of the Deploy job and click on configure</p>
 
-<p>12.Click <strong>Save</strong></p>
+<p>9.Click <strong>Save</strong></p>
 
-<p>13.You can take a look at what has changed in existing job and accordingly update your custom job manually so that the same changes are available in your custom jobs</p>
+<p>10.You can take a look at what has changed in existing job and accordingly update your custom job manually so that the same changes are available in your custom jobs</p>
 
 
           
