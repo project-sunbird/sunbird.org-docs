@@ -50,7 +50,7 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
     5.Learning
     6.Search   
     7.Neo4DefinitionUpdate  
-    8.Neo4jElasticSearchSyncTool   
+    8.Neo4jElasticSearchSyncTool(This job is to sync the content from neo4j to elasticsearch. No need to run this as part of installation.)   
     9.KafkaSetup   
     10.Yarn  
 
