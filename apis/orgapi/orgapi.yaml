@@ -713,6 +713,9 @@ definitions:
                           license:
                               description: 'This attribute will be used for rootOrg create/update time only. License attribute will be used for content creation time. User will be always part of one rootOrg, so during content creation time he/she can see what license value set by his/her rootOrg.'
                               type: string
+                          isSSOEnabled:
+                              description: 'This attribute is applicable for rootOrg only. If for any root org SSO is enabled then pass this attribute with value true. incase of disable pass this as false'
+                              type:  boolean
                           address:
                               $ref: '#/definitions/AddressCreateRequest'
                       required:
@@ -843,6 +846,9 @@ definitions:
             email:
                 description: 'Contact email of organisation'
                 type: string
+            isSSOEnabled:
+                description: "This is optional attribute and applicable for root org only. if attribute is present with value true then only it's indicate this rootOrg is using SSO, for all other cases SSO is disabled."
+                type: boolean
 
     OrgGetResponse:
         title: Organisation Get API response format
@@ -870,9 +876,6 @@ definitions:
                           address:
                               description: 'Address of organisation'
                               type: object
-                          channel:
-                              description: 'Name identifying a tenant (e.g. APEKX). Channel is mandatory for a root organisation'
-                              type: string
                           description:
                               description: 'Organisation description'
                               type: string
@@ -905,15 +908,15 @@ definitions:
                           orgTypeId:
                               description: 'ID of organisation type returned using Organisation Type Create API'
                               type: string
-                          rootOrgId:
-                              description: 'Root organisation ID'
-                              type: string
                           email:
                               description: 'Contact email of organisation'
                               type: string
                           license:
                               description: 'This attribute will be used for rootOrg create/update time only. License attribute will be used for content creation time. User will be always part of one rootOrg, so during content creation time he/she can see what license value set by his/her rootOrg.'
                               type: string    
+                          isSSOEnabled:
+                              description: 'This attribute is used for root org only. if any rootOrg is suing sso then they can update this attribute value as true'
+                              type: boolean
                       required:
                           - organisationId
 
