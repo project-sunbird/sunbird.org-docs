@@ -4,7 +4,7 @@ info:
   title: User Management  API(s)
   description: >-
     - The User Management API resources are used to manage individual users and their memberships, these resources allow you to add skills, block and unblock users, and encrypt user data.  
-    
+
     <b>Note:</b> These resources can be used as a part of scripts or programs to allow authorized administrators to manage the users.
 host: staging.open-sunbird.org
 basePath: /api/
@@ -104,6 +104,81 @@ paths:
       tags:
         - User APIs
       operationId: V2 Create User
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: request
+          in: body
+          required: true
+          description: >-
+            - The body payload comprises of the metadata of the user being created
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
+
+               - JSON
+
+          schema:
+            $ref: '#/definitions/CreateUserRequestV2'
+
+        - name: ts
+          in: header
+          required: false
+          type: string
+          description: 'Timestamp at which given API request is sent.'
+        - name: X-msgid
+          in: header
+          required: false
+          type: string
+          description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        - name: x-authenticated-user-token
+          in: header
+          required: false
+          type: string
+          description: >-
+            It is a unique token/key to authenticate the user each time an API is called. For corresponding sessions this token is used, not your actual username/password
+      responses:
+        '200':
+          description: 'OK ! Successful operation."Create User" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/UserCreateResponse'
+        '400':
+          description: 'BAD REQUEST. The "Create User" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+        '404':
+          description: 'RESOURSE NOT FOUND. The "Create User" operation failed ! The possible reason for failure is the requested resource is not available.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /user/v3/create:
+    post:
+      description: >-
+        This is an Enhanced API with good throughput, is used to create a user
+           - The endpoint for **Create User** is `/user/v2/create`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Create User
+      tags:
+        - User APIs
+      operationId: V3 Create User
       consumes:
         - application/json
       produces:
@@ -1721,6 +1796,135 @@ paths:
             'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
             $ref: '#/definitions/UserErrorResponse'
+  /user/v1/get/{idType}/{id}:
+    get:
+      description: >-
+        This API is used for searching a specific user, the user search is based on the unique ID type of the user
+          - The endpoint for **Get User by User ID** is `/user/v1/get/{idType}/{id}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - User can pass an optional query parameter 'fields'. The value is a comma separated list of fields whose information is required in response. e.g. fields=completeness,missingFields,topic,organisations,roles
+          - 'completeness' is to return profile completeness percentage.
+          - 'missingFields' is to return fields that are missing to achieve 100% profile completeness.
+          - 'topic' is to return list of topics that are used for announcements.
+          - 'organisations' is to return organisation and location details.
+          - 'roles' is to return list of roles with name and ID details.
+
+      summary: Get User by  ID Type
+      tags:
+        - User APIs
+      operationId: Get User by ID type
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: idType
+          type: string
+          required: true
+          description: 'idType can only be either email, phone or loginId'
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: 'id can only be values of email, phone or loginId'
+        - name: ts
+          in: header
+          required: false
+          type: string
+          description: 'Timestamp at which given API request is sent.'
+        - name: X-msgid
+          in: header
+          required: false
+          type: string
+          description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+        - name: X-Authenticated-User-Token
+          in: header
+          type: string
+          required: false
+          description: >-
+            if call with the auth token of same user will also give the user externalIds details in response.
+      responses:
+        '200':
+          description: 'OK ! Successful operation."Get User by ID Type" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/CreateUserSingleResp'
+        '400':
+          description: 'BAD REQUEST,"Get User by User ID Type" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+        '404':
+          description: 'Resource not found'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+      security:
+        - bearer: []
+  /user/v1/exists/{idType}/{id}:
+    get:
+      description: >-
+        This API is used for searching a specific user, the user search is based on the unique ID type of the user
+          - The endpoint for **Get User by User ID** is `/user/v1/exists/{idType}/{id}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - 'organisations' is to return organisation and location details.
+          - 'roles' is to return list of roles with name and ID details.
+
+      summary: Check User Exists by ID Type
+      tags:
+        - User APIs
+      operationId: check user exists
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: idType
+          type: string
+          required: true
+          description: 'idType can only be either email, or phone'
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: 'id can only be values of email or phone'
+        - name: ts
+          in: header
+          required: false
+          type: string
+          description: 'Timestamp at which given API request is sent.'
+        - name: X-msgid
+          in: header
+          required: false
+          type: string
+          description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+      responses:
+        '200':
+          description: 'OK ! Successful operation."will return true or false on the basis of user existence in system" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/ExistsUserResp'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+      security:
+        - bearer: []
+
 
 definitions:
   CreateUserrequest:
@@ -1745,6 +1949,15 @@ definitions:
         allOf:
           - $ref: '#/definitions/UserReq'
 
+  ExistsUserResp:
+    description: Represents the  hold single userObject request
+    type: object
+    properties:
+      request:
+        type: object
+        allOf:
+          - $ref: '#/definitions/UserExistsResp'
+
   CreateUserSingleRespV2:
     description: Represents the  hold single userObject request
     type: object
@@ -1764,9 +1977,9 @@ definitions:
           type: object
           $ref: '#/definitions/Role'
 
+
   Role:
     description: Represents the request body for role
-
     type: array
     items:
       type: object
@@ -1799,6 +2012,16 @@ definitions:
             type: string
             description: userId
 
+  UserExistsResp:
+    description: request body for block user
+    type: object
+    properties:
+      request:
+        type: object
+        properties:
+          isExists:
+            type: boolean
+            description: "true or false"
 
   SkillsResp:
     description: contains list of skills
