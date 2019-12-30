@@ -171,8 +171,8 @@ paths:
   /user/v3/create:
     post:
       description: >-
-        This is an Enhanced API with good throughput, is used to create a user
-           - The endpoint for **Create User** is `/user/v2/create`
+        This api is lightweight of v2. This api will create user with very minimum attribute (firstName, email/phone, password, emailVerified/phoneVerified). All user created by this endpoint will be linked with custodian org.
+           - The endpoint for **Create User** is `/user/v3/create`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
 
       summary: Create User
@@ -194,7 +194,7 @@ paths:
                - JSON
 
           schema:
-            $ref: '#/definitions/CreateUserRequestV2'
+            $ref: '#/definitions/CreateUserRequestV3'
 
         - name: ts
           in: header
@@ -1802,13 +1802,6 @@ paths:
         This API is used for searching a specific user, the user search is based on the unique ID type of the user
           - The endpoint for **Get User by User ID** is `/user/v1/get/{idType}/{id}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-          - User can pass an optional query parameter 'fields'. The value is a comma separated list of fields whose information is required in response. e.g. fields=completeness,missingFields,topic,organisations,roles
-          - 'completeness' is to return profile completeness percentage.
-          - 'missingFields' is to return fields that are missing to achieve 100% profile completeness.
-          - 'topic' is to return list of topics that are used for announcements.
-          - 'organisations' is to return organisation and location details.
-          - 'roles' is to return list of roles with name and ID details.
-
       summary: Get User by  ID Type
       tags:
         - User APIs
@@ -1875,8 +1868,6 @@ paths:
         This API is used for searching a specific user, the user search is based on the unique ID type of the user
           - The endpoint for **Get User by User ID** is `/user/v1/exists/{idType}/{id}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-          - 'organisations' is to return organisation and location details.
-          - 'roles' is to return list of roles with name and ID details.
 
       summary: Check User Exists by ID Type
       tags:
@@ -1922,6 +1913,10 @@ paths:
             'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
             $ref: '#/definitions/UserErrorResponse'
+        '400':
+          description: 'BAD REQUEST. The "list user skills" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
       security:
         - bearer: []
 
@@ -1939,6 +1934,12 @@ definitions:
     allOf:
       - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
       - $ref: '#/definitions/CreateUserSingleRespV2'
+  CreateUserRequestV3:
+    description: User object
+    type: object
+    allOf:
+      - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
+      - $ref: '#/definitions/CreateUserSingleRespV3'
 
   CreateUserSingleResp:
     description: Represents the  hold single userObject request
@@ -1966,6 +1967,15 @@ definitions:
         type: object
         allOf:
           - $ref: '#/definitions/UserReqV2'
+
+  CreateUserSingleRespV3:
+    description: Represents the  hold single userObject request
+    type: object
+    properties:
+      request:
+        type: object
+        allOf:
+          - $ref: '#/definitions/UserReqV3'
 
   RolesResponse:
     description: Represents the hold roles response
@@ -2394,7 +2404,34 @@ definitions:
       - userName
       - phone
       - channel
-
+  UserReqV3:
+    title: User Object
+    type: object
+    properties:
+      email:
+        type: string
+        description: 'Represents the email of the user'
+      emailVerified:
+        type: boolean
+        description: >-
+          This key is required with value as true, if you pass the values for email
+          - But incases of create user either email or phone is required
+      firstName:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      phoneVerified:
+        type: boolean
+        description: >-
+          This key is required with value as true, if you pass the values for both phone and provider
+          But while creating a user, either the email or phone is required
+    required:
+      - firstName
+      - password
+      - email
+      - phone
   User:
     type: object
     properties:
