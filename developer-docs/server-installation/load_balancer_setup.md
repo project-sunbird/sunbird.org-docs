@@ -43,17 +43,17 @@ To setup LB for Swarm managers, execute the following instructions for each of t
 - Backend pools - attach swarm manager VM or availability set of swarm manager group
 - Health Probes/check - Configure path and port   
        ->   api-manager-kong    - 8001 - /status    
-       ->   content-service     - 5000 - /health   
-       ->   learner-service     - 9000 - /health
-       ->   content-service-kp  - 9002 - /health
-       ->   cert-service        - 9011 - /health 
+       ->   content-service     - 5000 - /health 
+       ->   learner-service     - 9000 - /health  
+       ->   content-service-kp  - 9002 - /health  
+       ->   cert-service        - 9011 - /health   
        
 - Protocol: HTTP
 - Port:    
        ->   api-manager-kong   - 8000   
        ->   content-service    - 5000   
-       ->   learner-service    - 9000  
-       ->   content-service-kp - 9002
+       ->   learner-service    - 9000    
+       ->   content-service-kp - 9002  
        ->   cert-service       - 9011
        
 - Interval: 5 
@@ -61,8 +61,8 @@ To setup LB for Swarm managers, execute the following instructions for each of t
 - Load Balancing rules - Frontend-ip-config, Frontend-port, backend-port, Backend-pool and health-probe   
        ->   api-manager-kong   - Frontend-port:8000 - Backend-port: 8000    
        ->   content-service    - Frontend-port:5000 - Backend-port: 5000    
-       ->   learner-service    - Frontend-port:9000 - Backend-port: 9000 
-       ->   content-service-kp - Frontend-port:9002 - Backend-port: 9002
+       ->   learner-service    - Frontend-port:9000 - Backend-port: 9000  
+       ->   content-service-kp - Frontend-port:9002 - Backend-port: 9002  
        ->   cert-service       - Frontend-port:9011 - Backend-port: 9011 
        
 
