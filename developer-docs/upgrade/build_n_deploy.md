@@ -4,12 +4,12 @@ page_title: Build and Deploy
 description: Build and Deploy
 published: true
 allowSearch: true
-keywords: Upgrade, Sunbird 2.5.0, Core, elasticsearch
+keywords: Upgrade, Sunbird 2.6.0, Core, elasticsearch
 ---
 
 ## Overview
 
-This page details out the jobs required to be run as part of the upgrade from Sunbird release 2.4.0 to release 2.5.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. 
+This page details out the jobs required to be run as part of the upgrade from Sunbird release 2.5.0 to release 2.6.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. 
 
 As part of this upgrade, you may choose to set up the load balancer for swarm managers. If you do not require a load balancer for swarm managers, only update the value of the variable **sunbird_swarm_manager_lb_ip** to the swarm manager's IP in the private repository.
 
