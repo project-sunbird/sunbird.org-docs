@@ -37,7 +37,8 @@ This page explains the jobs to be run to bring up the Core services.
 | Cassandra | Creates a jar for migration|
 | CassandraTrigger | Builds  the cassandra trigger jar file |
 | Lms | Builds  the lms service docker image |
-| Content | Builds the content service docker image | 
+| Content | Builds the content service docker image |  
+| KnowledgeMW | Builds the knowledge-mw service docker image |  
 | Learner | Builds the learner service docker image | 
 | Player | Builds the player service docker image. In the build job you have 3 parameters which point to plugins. Provide the values of your blob url where the zip files are uploaded. For details refer [Plugins build page](developer-docs/server-installation/plugins){:target="_blank"} |
 | Cert | Builds cert service docker image |
@@ -78,6 +79,7 @@ Update **core_vault_sunbird_api_auth_token**, **core_vault_kong__test_jwt** and 
 | KeycloakRealm | Creates Sunbird Realm. After the Sunbird realm is created, configure Keycloak by using the steps mentioned in the **Keycloak Configuration** section. |
 | Learner | Deploys the Learner Service. Handles user management and helps to search content. |
 | Content | Deploys the content service. Helps to create content. |
+| KnowledgeMW | Deploys the knowledgemw service |  
 | Lms | Deploys the Lms Service. It provides the APIs for lms functionality of Sunbird.| 
 | certTemplate | Uploads static certification template to storage |
 | EncService | Deploys the encryption service. Helps to generate the encryption keys |
