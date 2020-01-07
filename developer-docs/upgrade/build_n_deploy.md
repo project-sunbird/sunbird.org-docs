@@ -36,9 +36,9 @@ Order: Top down per column
 |-------------------------|---------------------------|--------------------|---------------------|------------|------------|
 |      KnowledgePlatform  |      Learning             |                    |                     |            | OnboardAPIs |
 |                         |          Search           |                    |                     |            | Provision/PostgresDbUpdate |
-|                         | Provison/CompositeSearch  |	                   | CassandraDbUpdate   | Cassandra | Cassandra |
-|  Yarn                   | Yarn          |                    |                     |  | certTemplate |
-|                 | 	     Neo4jDefinitionUpdate             |                    | KafkaSetup          | Keycloak  | Keycloak  |                         
+|     Yarn                    | Yarn                 |	                   | CassandraDbUpdate   | Cassandra | Cassandra |
+|                    |    Neo4jDefinitionUpdate       |                    |                     |  | certTemplate |
+|                 | 	                 |                    | KafkaSetup          | Keycloak  | Keycloak  |                         
 |                         |                           |                    |                     |           | ApplicationElasticSearch
 |                         |  	      |                    | KafkaIndexer        | Player    | OpsAdministration/Core/ESMapping (Provide value as `all` for job parameter indices_name)    |
 |                         |                 | Secor              | Secor               | Learner   | Player   |
@@ -46,7 +46,8 @@ Order: Top down per column
 |                         |              |                    | Provision/AnalyticsSpark  | Lms       | Content       |
 |                         |       | DataPipeline       |	DataProducts       |  | Lms |
 |                         | 	                  | Yarn               |	Yarn (Multiselect all options in the job parameter job_names_to_deploy)	             | EncService           | EncService |
-|  	                  |                       |                    | AnalyticsGeoLocationDBSetup | Cert           | Cert |
+|  	                  |                       |                 | AnalyticsGeoLocationDBSetup | Cert           | Cert |  
+|  	                  |                       |                    |   | KnowledgeMW        | KnowledgeMW |  
 
 
 > **Note:** 
