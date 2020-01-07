@@ -34,13 +34,13 @@ Order: Top down per column
 
 |Knowledge Platform Build |	Knowledge Platform Deploy |	DataPipeline Build | DataPipeline Deploy | Core Build | Core Deploy |
 |-------------------------|---------------------------|--------------------|---------------------|------------|------------|
-| CassandraTrigger        | CassandraTrigger          |                    |                     |            | OnboardAPIs |
-| KnowledgePlatform       | Learning                  |                    |                     |            | Provision/PostgresDbUpdate |
+|      KnowledgePlatform  |      Learning             |                    |                     |            | OnboardAPIs |
+|                         |          Search           |                    |                     |            | Provision/PostgresDbUpdate |
 |                         | Provison/CompositeSearch  |	                   | CassandraDbUpdate   | Cassandra | Cassandra |
 |  Yarn                   | Yarn          |                    |                     |  | certTemplate |
-| SyncTool                | Neo4jElasticSearchSyncTool(Please see below notes to choose jenkins job parameter)	                  |                    | KafkaSetup          | Keycloak  | Keycloak  |                         
+|                 | 	     Neo4jDefinitionUpdate             |                    | KafkaSetup          | Keycloak  | Keycloak  |                         
 |                         |                           |                    |                     |           | ApplicationElasticSearch
-|                         | Neo4jDefinitionUpdate 	      |                    | KafkaIndexer        | Player    | OpsAdministration/Core/ESMapping (Provide value as `all` for job parameter indices_name)    |
+|                         |  	      |                    | KafkaIndexer        | Player    | OpsAdministration/Core/ESMapping (Provide value as `all` for job parameter indices_name)    |
 |                         |                 | Secor              | Secor               | Learner   | Player   |
 |                         |          |	Analytics          | AnalyticsAPI        | Content   | Learner   |
 |                         |              |                    | Provision/AnalyticsSpark  | Lms       | Content       |
