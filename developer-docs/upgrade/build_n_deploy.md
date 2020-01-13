@@ -79,7 +79,6 @@ bash -x create_license CC\ BY-SA\ 4.0 This\ license\ is\ Creative\ Commons\ Attr
 bash -x create_license CC\ BY\ 4.0 This\ is\ the\ standard\ license\ of\ any\ Youtube\ content https://creativecommons.org/licenses/by/4.0/legalcode
 bash -x create_license Standard\ YouTube\ License This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial-ShareAlike https://www.youtube.com/
 ```
-The command returns do IDs. Example - do_11277867981525811215
 
 2.Update all content with valid license .  
 
