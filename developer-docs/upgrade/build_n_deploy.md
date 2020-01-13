@@ -240,7 +240,7 @@ run the command to update content with valid license
 cat migration.txt | ./cypher-shell
 ```
 
-2.Run the above script from learning server to update the Channel-default license .  
+3.Run the above script from learning server to update the Channel-default license .  
 
 ```
 Copy below code and save file name as channel_license.sh
