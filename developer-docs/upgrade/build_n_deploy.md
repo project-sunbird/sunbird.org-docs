@@ -49,57 +49,231 @@ Order: Top down per column
 > **Note:** 
 Refer to the following notes to trigger the **Neo4jElasticSearchSyncTool** jenkins job located under Deploy/KnowledgePlatform directory.
 
-**Steps to migrate DialcodeRequired:**
+**Create License and update Channel default License set and Content License migration based on channel**
 
-1.Run the following query on the neo4j VM to get all the identifiers from Neo4j that need to be migrated.
-
-Query: 
+1.Run the following script on the swarm manager node VM to create License .
+ 
 ```
-MATCH(n:domain) WHERE n.IL_FUNC_OBJECT_TYPE="Content" AND n.contentType IN ["TextBook","Course"] return n.IL_UNIQUE_ID;
+Copy below code and save file name as create_license
+#!/bin/bash
+echo "License name: $1"
+echo "License descripition: $2"
+echo "License url: $3"
+curl -X POST \
+  http://localhost:9002/license/v3/create \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "request":{
+        "license":{
+            "name": "'$1'",
+            "description": "'$2'",
+            "url": "'$3'"
+        }
+    }
+}'
+
+Run these commands
+bash -x create_license CC\ BY-NC-SA\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial-ShareAlike https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+bash -x create_license CC\ BY-NC\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial  https://creativecommons.org/licenses/by-nc/4.0/legalcode
+bash -x create_license CC\ BY-SA\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-ShareAlike https://creativecommons.org/licenses/by-sa/4.0/legalcode
+bash -x create_license CC\ BY\ 4.0 This\ is\ the\ standard\ license\ of\ any\ Youtube\ content https://creativecommons.org/licenses/by/4.0/legalcode
+bash -x create_license Standard\ YouTube\ License This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial-ShareAlike https://www.youtube.com/
 ```
 The command returns do IDs. Example - do_11277867981525811215
 
-2.Run the Jenkins job with the following Jenkins parameters.
+2.Update all content with valid license .  
 
-command: ``` migrate-dialcodeRequired```
-parameters: ```--ids <comma_seperated_do_ids fetched from Step:1>```
-
-For details, refer to the following  image:
-
-<img src="../../images/elastic_search_tool.png">
-
-
-Jenkins does not accept more than 50 DO ID's at a time. In case you have a large number of DO ID's, do the following to execute the job faster: 
-1. Run the Jenkins job mentioned above with one or two DO ID's. This copies the latest jar file into the neo4j machine.
-2. SSH into the neo4j machine and execute the below commands
 ```
-sudo su learning
-cd /home/learning/sync_tool
-java -Dconfig.file=/home/learning/sync_tool/application.conf -jar sync-tool-0.0.1-SNAPSHOT.jar migrate-dialcodeRequired --ids do_112880563104456704117,do_112880563104456704118,do_112880563104456704119
+CREATE INDEX ON :domain(mimeType);
+CREATE INDEX ON :domain(license);
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.license='Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)' SET n.license='CC BY-NC 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.license='Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)' SET n.license='CC BY-NC 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.license='Creative Commons Attribution-ShareAlike (CC BY-SA)' SET n.license='CC BY-SA 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.license='Creative Commons Attribution-ShareAlike (CC BY-SA)' SET n.license='CC BY-SA 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/vnd.ekstep.ecml-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/vnd.ekstep.html-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/vnd.android.package-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/vnd.ekstep.content-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/vnd.ekstep.content-collection' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/vnd.ekstep.plugin-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/vnd.ekstep.h5p-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/epub' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='text/x-url' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/x-youtube' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/octet-stream' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/msword' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/pdf' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='image/jpeg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='image/jpg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='image/png' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='image/tiff' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='image/bmp' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='image/gif' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='image/svg+xml' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/avi' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/mpeg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/quicktime' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/3gpp' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/mpeg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/mp4' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/ogg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/webm' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='audio/mp3' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='audio/mp4' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='audio/mpeg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='audio/ogg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='audio/webm' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='audio/x-wav' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='audio/wav' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/vnd.ekstep.ecml-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/vnd.ekstep.html-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/vnd.android.package-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/vnd.ekstep.content-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/vnd.ekstep.content-collection' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/vnd.ekstep.plugin-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/vnd.ekstep.h5p-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/epub' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='text/x-url' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/x-youtube' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/octet-stream' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/msword' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/pdf' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='image/jpeg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='image/jpg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='image/png' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='image/tiff' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='image/bmp' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='image/gif' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='image/svg+xml' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/avi' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/mpeg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/quicktime' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/3gpp' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/mpeg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/mp4' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/ogg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/webm' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='audio/mp3' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='audio/mp4' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='audio/mpeg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='audio/ogg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='audio/webm' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='audio/x-wav' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='audio/wav' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.ecml-archive' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.html-archive' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/vnd.android.package-archive' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.content-archive' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.content-collection' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.plugin-archive' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.h5p-archive' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/epub' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='text/x-url' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/x-youtube' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/octet-stream' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/msword' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/pdf' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='image/jpeg' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='image/jpg' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='image/png' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='image/tiff' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='image/bmp' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='image/gif' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='image/svg+xml' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/avi' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/mpeg' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/quicktime' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/3gpp' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/mpeg' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/mp4' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/ogg' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/webm' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='audio/mp3' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='audio/mp4' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='audio/mpeg' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='audio/ogg' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='audio/webm' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='audio/x-wav' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='audio/wav' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.ecml-archive' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.html-archive' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/vnd.android.package-archive' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.content-archive' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.content-collection' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.plugin-archive' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.h5p-archive' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/epub' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='text/x-url' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/x-youtube' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/octet-stream' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/msword' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/pdf' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='image/jpeg' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='image/jpg' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='image/png' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='image/tiff' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='image/bmp' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='image/gif' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='image/svg+xml' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/avi' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/mpeg' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/quicktime' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/3gpp' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/mpeg' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/mp4' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/ogg' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/webm' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='audio/mp3' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='audio/mp4' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='audio/mpeg' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='audio/ogg' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='audio/webm' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='audio/x-wav' SET n.license='CC BY 4.0';
+match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='audio/wav' SET n.license='CC BY 4.0';
+match (n:domain{}) where n.IL_FUNC_OBJECT_TYPE in ['Content', 'ContentImage'] return n.license, count(n);
+DROP INDEX ON :domain(mimeType);
+DROP INDEX ON :domain(license);
 ```
-In the command line, specify any number of DO ID's. Thus, if you have large number of DO ID's, to execute the job faster, run the job using the command line, rather than running the Jenkins job multiple times in batches of 50 do id's.
+Copy above code and save it as migration.txt in neo4j server in tha path /home/learning/neo4j-learning/neo4j-enterprise-3.3.0/bin
 
-**Note:**
-If the Cassandra migration fails, run the query manually to set the corresponding version for the failed migration to True
+run the command to update content with valid license
+```
+cat migration.txt | ./cypher-shell
+```
 
-**Example:**
+2.Run the above script from learning server to update the Channel-default license .  
 
-`SELECT * from sunbird.cassandra_migration_version;`
+```
+Copy below code and save file name as channel_license.sh
+#!/bin/bash
+echo "Channel Id: $1"
+echo "Default License: $2"
+IFS=,
+curl -X PATCH \
+"http://localhost:8080/channel/v3/update/"$1 \
+-H 'Content-Type: application/json' \
+-d '{
+   "request": {
+      "channel": {
+        "defaultLicense":"'$2'"
+      }
+    }
+}'
 
-Check the rows for which the value in the success column is False. The following is an example -
+Run the Command
+./channel_license.sh <channle_Id> <license_name>
 
-`1.80 |   180685665 |   cassandra |              4 |         null | 2019-12-01 13:58:52.401000+0000 |            136 | V1.80_cassandra.cql |   False |  CQL |           80`
+license_name can be choosen from the list which was created in the 1st Step.
+```
 
-Run the update query for each row separately 
+4.Update content with channel specific default license, Run the below query in neo4j
 
-`update sunbird.cassandra_migration_version set success=True where version ='1.80';`
+```
+match (n:domain{}) WHERE n.IL_FUNC_OBJECT_TYPE IN ["Content", "ContentImage"] AND n.channel="<channel id>" AND n.license<>"Standard YouTube License" SET n.license="<channel defaultLicense>";
+```
 
-Verify that all the values in the success column are True and rerun the Jenkins job again with same zip file and tag
 
-Once this succeeds, use the second zip file and tag to deploy again
 
-The current migration version is 1.88. The output of the Jenkins job should be as follows -
 
-`Migrating keyspace Sunbird to version 1.88 - Cassandra
-Successfully applied 3 migrations to keyspace sunbird (execution time 00:20.547s).
-Migration Completed at ==1571996508540`
+
+
