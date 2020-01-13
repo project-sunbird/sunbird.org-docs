@@ -33,21 +33,17 @@ The following is the list of jobs required to be built and deployed :
 Order: Top down per column
 
 |Knowledge Platform Build |	Knowledge Platform Deploy |	DataPipeline Build | DataPipeline Deploy | Core Build | Core Deploy |
-|-------------------------|---------------------------|--------------------|---------------------|------------|------------|
-|      KnowledgePlatform  |      Learning             |                    |                     |            | OnboardAPIs |
-|                         |          Search           |                    |                     |            | Provision/PostgresDbUpdate |
-|     Yarn                    | Yarn                 |	                   | CassandraDbUpdate   | Cassandra | Cassandra |
-|                    |    Neo4jDefinitionUpdate       |                    |                     |  | certTemplate |
-|                 | 	                 |                    | KafkaSetup          | Keycloak  | Keycloak  |                         
-|                         |                           |                    |                     |           | ApplicationElasticSearch
-|                         |  	      |                    | KafkaIndexer        | Player    | OpsAdministration/Core/ESMapping (Provide value as `all` for job parameter indices_name)    |
-|                         |                 | Secor              | Secor               | Learner   | Player   |
-|                         |          |	Analytics          | AnalyticsAPI        | Content   | Learner   |
-|                         |              |                    | Provision/AnalyticsSpark  | Lms       | Content       |
-|                         |       | DataPipeline       |	DataProducts       |  | Lms |
-|                         | 	                  | Yarn               |	Yarn (Multiselect all options in the job parameter job_names_to_deploy)	             | EncService           | EncService |
-|  	                  |                       |                 | AnalyticsGeoLocationDBSetup | Cert           | Cert |  
-|  	                  |                       |                    |   | KnowledgeMW        | KnowledgeMW |  
+|-------------------------|---------------------------|--------------------|---------------------|------------|-------------|
+|      KnowledgePlatform  |      Learning             |                    | Provision/AnalyticsSpark |       | OnboardAPIs |
+|                         |      Search               |                    |  KafkaSetup         |            | OpsAdministration/Core/ESMapping (Provide value as `all` for job parameter indices_name)  |  
+|     Yarn                |          Yarn             |	    ApiModule      |  ApiModule          | Cassandra-migration | Cassandra-migration |
+|                         |    Neo4jDefinitionUpdate  |                    |  Secor              |            |    Keycloak |  
+|                         | 	                        |       Analytics    |   AnalyticsApi      |   Learner  |    Learner  |  
+|                         |                           |                    |   DataProducts      |    Lms     |    Lms      |  
+|  |   |  DataPipeline | Yarn (Multiselect all options in the job parameter job_names_to_deploy) | Content    |   Content   |
+|                         |                           |                    |                     | KnowledgeMW |  KnowledgeMW |  
+|                         |                           |	                   |                     |  Cert      |   Cert      |
+|                         |                           |                    |                     |  Player    |   Player    |  
 
 
 > **Note:** 
