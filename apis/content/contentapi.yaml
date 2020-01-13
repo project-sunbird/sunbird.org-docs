@@ -10,7 +10,9 @@ info:
       
       - Each of the endpoints serve a different purpose, so which one to use depends on what you want to do
       
-      - The operations include CRUD (Create, Update,Read and Delete) operations and other operations such as upload, publish.
+      - The operations include CRUD (Create, Update, Read and Delete) operations and other operations such as upload and publish. 
+
+      - The URL for Sunbird Content API(s) is `content/v1`
 host: staging.open-sunbird.org
 basePath: /api/content/v1
 securityDefinitions:
@@ -18,10 +20,6 @@ securityDefinitions:
       type: apiKey  # arbitrary name for the security scheme
       in: header # The secrity scheme parameter is in "header"
       name: Authorization # name of the header, query parameter or cookie
-  userToken:
-      type: apiKey  # arbitrary name for the security scheme
-      in: header # The secrity scheme parameter is in "header"
-      name: x-authenticated-user-token # name of the header, query parameter or cookie
 schemes:
   - https
 consumes:
@@ -34,9 +32,10 @@ paths:
   /create:
     post:
       description: >-
-       This API is associated with creating content on the Sunbird Platform .
-          - **_/create/_** endpoint executes the "Create Content" request based on parameters provided as metadata in the request body.
-          - It is a must to provide values for the required parameters 
+       This API is associated with creating content on the Sunbird Platform.
+          - The endpoint for **Create Content** is `/create`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
       summary: Create Content
       tags:
         - Content APIs
@@ -65,16 +64,16 @@ paths:
               - Application/json
               - Multipart/form-data
               - Application/x-www-form-urlencoded
-        - name: x-authenticated-user-token
-          in: header
-          required: true
-          type: string
-          description: 'Represents the authorized User ID to execute the API.' 
         - name: x-channel-id
           in: header
           required: true
           type: string
           description: 'Represents a physical location (e.g: state) uniquely to which the user belongs.'
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          type: string
+          description: 'Represents the authorized User ID to execute the API.'
         - name: Authorization
           in: header
           required: true
@@ -104,7 +103,6 @@ paths:
             uri: /content/v1/create
             headers:
               Content-Type: application/json
-              X-Authenticated-Userid: '{{user_id}}'
               X-Channel-id: channel
               Authorization: 'Bearer {{api_key}}'
             body: |-
@@ -149,10 +147,10 @@ paths:
   /update/{Content_ID}:
      patch:
       description: >-
-        This API is associated with updating content on the Sunbird Platform .
-          - **_/Update/{Content_ID}_** endpoint executes the "Update Content" request based on parameters provided as metadata in the request body.
-          - {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
-          - It is a must to provide values for the required parameters
+        This API is associated with updating content on the Sunbird Platform.
+          - The endpoint for **Update Content** is `/update/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
       summary: Update Content
       tags:
         - Content APIs
@@ -263,10 +261,10 @@ paths:
   /publish/{Content_ID}:
     post:
       description: >-
-        This API is associated with publishing content on the Sunbird Platform .
-          - **_/publish/{Content_ID}_** endpoint executes the "Publish Content" request based on parameters provided as metadata in the request body.
-          -  {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
-          - It is a must to provide values for the required parameters
+        This API is associated with publishing content on the Sunbird Platform.
+          - The endpoint for **Publish Content** is `/publish/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
       summary: Publish Content
       tags:
         - Content APIs
@@ -310,11 +308,6 @@ paths:
           required: true
           type: string
           description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-        - name: ts
-          in: header
-          required: true
-          type: string
-          description: 'Time Stamp at which **publish** request was sent. '
       responses:
         '200':
           description: >-
@@ -341,7 +334,6 @@ paths:
               Content-Type: application/json
               X-Authenticated-Userid: '{{user_id}}'
               Authorization: 'Bearer {{api_key}}'
-              ts: '2017-05-25 10:18:56:578+0530'
             body: |-
               {
                 "request": {
@@ -369,10 +361,10 @@ paths:
   /unlisted/publish/{Content_ID}:
     post:
       description: >-
-        This API is associated with publishing content on the Sunbird Platform .
-          - **_/publish/{Content_ID}_** endpoint executes the "Publish Content" request based on parameters provided as metadata in the request body.
-          -  {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
-          - It is a must to provide values for the required parameters
+        This API is associated with publishing content on the Sunbird Platform.
+          - The endpoint for **Privately Publish Content** is `/unlisted/publish/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
       summary: Privately Publish Content
       tags:
         - Content APIs
@@ -416,11 +408,6 @@ paths:
           required: true
           type: string
           description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-        - name: ts
-          in: header
-          required: true
-          type: string
-          description: 'Time Stamp at which **publish** request was sent. '
       responses:
         '200':
           description: >-
@@ -447,7 +434,6 @@ paths:
               Content-Type: application/json
               X-Authenticated-Userid: '{{user_id}}'
               Authorization: 'Bearer {{api_key}}'
-              ts: '2017-05-25 10:18:56:578+0530'
             body: |-
               {
                 "request": {
@@ -475,10 +461,10 @@ paths:
   /retire/{Content_ID}:
     delete:
       description: >-
-        This API is associated with publishing content on the Sunbird Platform .
-          - The **_/retire/{content_ID}_** endpoint executes  "Retire Content" request based on content Id to delete the specific content.'
-          - {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
-          - It is a must to provide values for the required parameters
+        This API is associated with publishing content on the Sunbird Platform.
+          - The endpoint for **Retire Content** is `/retire/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
       summary: Retire Content
       tags:
         - Content APIs
@@ -520,11 +506,6 @@ paths:
           required: true
           type: string
           description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-        - name: ts
-          in: header
-          required: true
-          type: string
-          description: 'Time Stamp at which **delete** request was sent.'
       responses:
         '200':
           description: >-
@@ -551,7 +532,6 @@ paths:
               Content-Type: application/json
               X-Authenticated-Userid: '{{user_id}}'
               Authorization: 'Bearer {{api_key}}'
-              ts: '2017-05-25 10:18:56:578+0530'
             body: |-
               {
                 "request": {
@@ -579,11 +559,10 @@ paths:
   /review/{Content_ID}:
     post:
       description: >-
-       >-
-       This API is associated with Submission of content for Review  on the Sunbird Platform .
-          - The**_/review/{content_ID}_** endpoint executes "Submit for Review" request based on parameters provided as metadata in the request body.
-          - {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
-          - It is a must to provide values for the required parameters
+        This API is associated with Submission of content for Review  on the Sunbird Platform.  
+          - The endpoint for **Submit for Review** is `/review/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
       summary: Submit for Review
       tags:
         - Content APIs
@@ -627,11 +606,6 @@ paths:
           required: true
           type: string
           description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-        - name: ts
-          in: header
-          required: true
-          type: string
-          description: 'Time Stamp at which **review** request was sent. '
       responses:
         '200':
           description: >-
@@ -658,7 +632,6 @@ paths:
               Content-Type: application/json
               X-Authenticated-Userid: '{{user_id}}'
               Authorization: 'Bearer {{api_key}}'
-              ts: '2017-05-25 10:18:56:578+0530'
             body: '{ }'
           expectedResponse:
             x-allowExtraHeaders: true
@@ -679,11 +652,10 @@ paths:
   /upload/{Content_ID}:
     post:
       description:  >-
-       This API is associated with uploading content on the Sunbird Platform .
-          - The**_/upload/{content_ID}** endpoint executes "Upload Content" request based on parameters provided as metadata in the request body.
-          - {...}refers to a section of upload endpoint URL path that needs to be replaced by appropriate ID.
-          - You need to provide a valid content ID value in {Content Id} field of API URL. For instance, consider a textbook ABC, the example content ID can be TB-XYZ-123 | TBXYZ123 etc 
-          - It is a must to provide values for the required parameters
+       This API is associated with uploading content on the Sunbird Platform.
+          - The endpoint for **Upload Content** is `/upload/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
       summary: Upload Content
       tags:
         - Content APIs
@@ -723,11 +695,6 @@ paths:
           required: true
           type: string
           description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-        - name: ts
-          in: header
-          required: true
-          type: string
-          description: Time Stamp at which **upload** request was sent.
       responses:
         '200':
           description: >-
@@ -755,11 +722,10 @@ paths:
   /search:
     post:
       description: >-
-        This API is associated with Searching content on the Sunbird Platform .
-          - The**_/search/_** endpoint executes "Search Content" request for fetching the contents as results for a particular search criterion.
-          - It is mandatory to provide values for parameters marked with *. 
-          - Mandatory fields cannot be null or empty.
-          - Filter can be applied on any [metadata](http://www.sunbird.org/apis/content/#operation/Create%20Content) of content. 
+        This API is associated with Searching content on the Sunbird Platform.
+          - The endpoint for **Search Content** is `/search`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
       summary: Search Content
       tags:
         - Content APIs
@@ -796,11 +762,6 @@ paths:
           required: true
           type: string
           description: 'Represents the registered User ID to execute the API.'
-        - name: ts
-          in: header
-          required: true
-          type: string
-          description: 'Time Stamp at which **Search** request was sent.'
       responses:
         '200':
           description: >-
@@ -827,7 +788,6 @@ paths:
               Content-Type: application/json
               Authorization: 'Bearer {{api_key}}'
               X-Authenticated-Userid: '{{user_id}}'
-              ts: '2017-05-25 10:18:56:578+0530'
             body: |-
               {
                   "request": {
@@ -855,11 +815,10 @@ paths:
   /flag/{Content_ID}:
     post:
       description: >-
-        This API is associated with setting Flag for content under review on the Sunbird Platform .
-          - The **_/flag/{content_ID}_** endpoint executes a request to set flagging status for content ,flag can either be set to "Accepted" or "Rejected".
-          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
-          - You need to provide a valid content ID value in {Content Id} field of API URL.
-          - It is a must to provide values for the required parameters
+        This API is associated with setting Flag for content under review on the Sunbird Platform.
+          - The endpoint for **Flag Content** is `/flag/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
       summary: Flag Content
       tags:
         - Content APIs
@@ -903,11 +862,6 @@ paths:
           required: true
           type: string
           description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-        - name: ts
-          in: header
-          required: true
-          type: string
-          description: 'Time Stamp at which **Flag content** request was sent.'
       responses:
         '200':
           description: >-
@@ -934,7 +888,6 @@ paths:
               Content-Type: application/json
               X-Authenticated-Userid: '{{user_id}}'
               Authorization: 'Bearer {{api_key}}'
-              ts: '2017-05-25 10:18:56:578+0530'
             body: |-
               {
                 "request": {
@@ -964,9 +917,10 @@ paths:
   /flag/accept/{Content_ID}:
     post:
       description: >-
-        This API is associated with setting Accept Flag for content under review process on the Sunbird Platform .
-          - The **_/flag/accept/_**endpoint executes request for flagging content under review to "Accept flag", if content is found appropriate.
-          - It is a must to provide values for the required parameters
+        This API is associated with setting Accept Flag for content under review process on the Sunbird Platform.
+          - The endpoint for **Accept Flag** is `/flag/accept/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
       summary: Accept Flag
       tags:
         - Content APIs
@@ -1010,11 +964,6 @@ paths:
           required: true
           type: string
           description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-        - name: ts
-          in: header
-          required: true
-          type: string
-          description: Time Stamp at which **Accept Flag** request was sent.
       responses:
         '200':
           description: >-
@@ -1041,7 +990,6 @@ paths:
               Content-Type: application/json
               X-Authenticated-Userid: '{{user_id}}'
               Authorization: 'Bearer {{api_key}}'
-              ts: '2017-05-25 10:18:56:578+0530'
             body: '{}'
           expectedResponse:
             x-allowExtraHeaders: true
@@ -1062,9 +1010,10 @@ paths:
   /flag/reject/{Content_ID}:
     post:
       description: >-
-        This API is associated with setting Reject Flag for content under review process on the Sunbird Platform .
-          - The **_/flag/reject/_**endpoint executes request for flagging content under review to "Reject flag", if content is found in-appropriate.
-          - It is a must to provide values for the required parameters
+        This API is associated with setting Reject Flag for content under review process on the Sunbird Platform.
+          - The endpoint for **Reject Flag** is `/flag/reject/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
       summary: Reject Flag
       tags:
         - Content APIs
@@ -1108,11 +1057,6 @@ paths:
           required: true
           type: string
           description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-        - name: ts
-          in: header
-          required: true
-          type: string
-          description: 'Time Stamp at which **Accept Flag** request was sent.'
       responses:
         '200':
           description: >-
@@ -1139,7 +1083,6 @@ paths:
               Content-Type: application/json
               X-Authenticated-Userid: '{{user_id}}'
               Authorization: 'Bearer {{api_key}}'
-              ts: '2017-05-25 10:18:56:578+0530'
             body: '{}'
           expectedResponse:
             x-allowExtraHeaders: true
@@ -1161,11 +1104,10 @@ paths:
     post:
       description: >-
         This API is associated with Rejecting rejecting content
-        under review after "Reject content flag" has been set on the Sunbird Platform .
-          - The **_/reject/{content_ID}_** endpoint executes request for rejecting content which is under review. 
-          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
-          - You need to provide a valid content ID value in {Content_ID} field of API URL.
-          - It is a must to provide values for the required parameters
+        under review after "Reject content flag" has been set on the Sunbird Platform.
+          - The endpoint for **Reject Content Review** is `/reject/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
       summary: Reject Content Review
       tags:
         - Content APIs
@@ -1209,11 +1151,6 @@ paths:
           required: true
           type: string
           description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-        - name: ts
-          in: header
-          required: true
-          type: string
-          description: Time Stamp at which **Content Reject** request was sent.
       responses:
         '200':
           description: >-
@@ -1240,7 +1177,6 @@ paths:
               Content-Type: application/json
               X-Authenticated-Userid: '{{user_id}}'
               Authorization: 'Bearer {{api_key}}'
-              ts: '2017-05-25 10:18:56:578+0530'
             body: '{}'
           expectedResponse:
             x-allowExtraHeaders: true
@@ -1261,11 +1197,10 @@ paths:
   /read/{Content_ID}:
     get:
       description: >-
-        This API is associated with viewing and reading out the content on the Sunbird Platform .
-          - The **_/read/{content_ID}_** endpoint executes request for fetching the contents to be viewed and read.
-          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
-          - You need to provide a valid content ID value in {Content_ID} field of API URL.
-          - It is a must to provide values for the required parameters
+        This API is associated with viewing and reading out the content on the Sunbird Platform.
+          - The endpoint for **Read Content** is `/read/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
       summary: Read Content
       tags:
         - Content APIs
@@ -1348,9 +1283,10 @@ paths:
   /hierarchy/update:
     post:
       description: >-
-       This API is associated with updating hierarchy content on the Sunbird Platform .
-          - **_/hierarchy/update_** endpoint executes the "Create Content" request based on parameters provided as metadata in the request body.
-          - It is a must to provide values for the required parameters
+       This API is associated with updating hierarchy content on the Sunbird Platform.
+          - The endpoint for **Hierarchy Update Content** is `/hierarchy/update`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
       summary: Hierarchy Update Content
       tags:
         - Content APIs
@@ -1463,11 +1399,10 @@ paths:
   /hierarchy/{Content_ID}:
     get:
       description: >-
-        This API is associated with fetching the content hierarchy using a specific content ID on the Sunbird Platform .
-          - The **_/hierarchy/{content_ID}_** endpoint executes request for fetching the contents to be viewed and read.
-          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
-          - You need to provide a valid content ID value in {Content_ID} field of API URL
-          - It is a must to provide values for the required parameters
+        This API is associated with fetching the content hierarchy using a specific content ID on the Sunbird Platform.
+          - The endpoint for **Get Content Hierarchy Object** is `/hierarchy/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
       summary: Get Content Hierarchy Object
       tags:
         - Content APIs
@@ -1550,9 +1485,10 @@ paths:
   /copy/{Content_ID}:
     post:
       description: >-
-       This API is associated with copying content on the Sunbird Platform .
-          - **_/copy/{Content_ID}_** endpoint executes the "Copy Content" request based on parameters provided as metadata in the request body.
-          - It is a must to provide values for the required parameters
+       This API is associated with copying content on the Sunbird Platform.
+          - The endpoint for **Copy Content** is `/copy/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
       summary: Copy Content
       tags:
         - Content APIs
@@ -1683,49 +1619,19 @@ definitions:
       code:
         description: 'Represents the unique code for the content'
         type: string
-      os:
-        description: 'Supported Operating Systems'
-        type: array
-        items:
-          type: string
-      minOsVersion:
-        description: 'Minimimum Supported OS Version'
-        type: string
-      compatibilityLevel:
-        description: 'It is the integer value being used by Client (mobile) for the Compatibility information of Content.'
-        type: number
-      minGenieVersion:
-        description: 'Minimum Supported mobile Version'
-        type: string
-      minSupportedVersion:
-        description: 'Minimum Supported Version of this content'
-        type: string
-      filter:
-        description: 'Filter Criteria (JSON)'
-        type: string
-      variants:
-        description: ''
-        type: string
-      config:
-        description: ''
-        type: string
-      visibility:
-        description: 'Visibility'
-        type: string
-        example:
-          - default
-          - parent
       audience:
         description: 'The target audience of the Content'
         type: string
         example:
           - Learner
           - Instructor
-      posterImage:
-        description: ''
-        type: string
       badgeAssertions:
-        description: 'List of Badges'
+        description: 'List of Badges assigned to the content'
+        type: array
+        items:
+          type: object
+      contentCredits:
+        description: 'List of Content Credits'
         type: array
         items:
           type: object
@@ -1784,93 +1690,56 @@ definitions:
           - text
           - other  
       appIcon:
-        description: ''
+        description: 'Url link for content icon'
         type: string
-      grayScaleAppIcon:
-        description: ''
-        type: string
-      thumbnail:
-        description: ''
-        type: string
-      objects:
-        description: 'Objects Used in the Content'
-        type: string  
-      organization:
-        description: 'Org names (partner names)'
-        type: array
-        items:
-          type: string
       createdFor:
-        description: 'partner IDs'
+        description: 'Content created for'
         type: array
         items:
           type: string
-      developer:
-        description: 'Content Developer'
-        type: string
-      source:
-        description: 'Source of the content'
-        type: string
       board:
         description: 'Education Board (Like MP Board, NCERT, etc)'
         type: string
       subject:
         description: 'Subject of the Content to use to teach'
-        type: string
+        type: array
+        items:
+          type: string
       medium:
-        description: 'Medium of instruction'
-        type: string
-      notes:
-        description: 'Notes for the instructor.'
-        type: string
-      pageNumber:
-        description: 'Page number of Textbook which the Content belongs to.'
-        type: string
-      publication:
-        description: 'Name of the Publication House.'
-        type: string
-      edition:
-        description: 'Edition Information of the Content.'
-        type: string
+        description: 'Medium of instruction. e.g: English, Hindi etc'
+        type: array
+        items:
+          type: string
       publisher:
         description: 'Publisher of the content (e.g. Pratham Books)'
         type: string
       author:
-        description: 'Content Author'
+        description: 'Author of the content.'
         type: string
       owner:
-        description: 'Content Owner'
+        description: 'Owner of the content.'
         type: string
       attributions:
-        description: 'Attributions/Credits'
+        description: 'Attributions/Credits given to the person'
         type: array
         items:
           type: string
       collaborators:
-        description: 'Collaborators'
+        description: 'List of Collaborators'
         type: array
         items:
           type: string
-      voiceCredits:
-        description: 'Voice Credits'
-        type: array
-        items:
-          type: string
-      soundCredits:
-        description: 'Audio and background scores by'
-        type: array
-        items:
-          type: string
-      imageCredits:
-        description: 'Images created by'
-        type: array
-        items:
-          type: string
+      creators:
+        description: 'List of primary contributors'
+        type: string
+      contributors:
+        description: 'List of secondary contributors'
+        type: string
       copyright:
-        description: 'Copyright'
+        description: 'Name of the person who owns the content'
         type: string
       license:
-        description: 'License'
+        description: 'License of the content'
         type: string
         example:
           - Against DRM license
@@ -1884,42 +1753,43 @@ definitions:
           - Open Game License
           - Standard YouTube License
           - Other
-      forkable:
-        description: 'Forkable'
-        type: boolean
-      translatable:
-        description: 'Translatable'
-        type: boolean
-      ageGroup:
-        description: 'Suggested Age Group'
+      language:
+        description: 'Languarge of the content'
         type: string
         example:
-          - '<5'
-          - '5-6'
-          - '6-7'
-          - '7-8'
-          - '8-10'
-          - '>10'
-          - 'Other'
+          - English
+          - Hindi
+          - Assamese
+          - Bengali
+          - Gujarati
+          - Kannada
+          - Malayalam
+          - Marathi
+          - Nepali
+          - Odia
+          - Punjabi
+          - Tamil
+          - Telugu
+          - Urdu
+          - Sanskrit
+          - Maithili
+          - Munda
+          - Santali
+          - Juang
+          - Ho
+          - Othe
       gradeLevel:
-        description: 'Grade Level'
+        description: 'Grade Level for which content is created'
         type: array
         items:
           type: string
       topic:
-        description: 'Topic of the content'
+        description: 'List of Topic'
         type: array
         items:
           type: string
-      interactivityLevel:
-        description: 'Interactivity Level'
-        type: string
-        example:
-          - High
-          - Medium
-          - Low
       contentType:
-        description: 'Content Type'
+        description: 'Content Type. e.g: TextBook, Resource, etc'
         type: string
         example:
           - Resource
@@ -1933,8 +1803,17 @@ definitions:
           - LessonPlanUnit
           - CourseUnit
           - TextBookUnit
+          - TeachingMethod
+          - PedagogyFlow
+          - FocusSpot
+          - LearningOutcomeDefinition
+          - PracticeQuestionSet
+          - CuriosityQuestionSet
+          - MarkingSchemeRubric
+          - ExplanationResource
+          - ExperientialResource
       resourceType:
-        description: 'Resource Type'
+        description: 'Resource Type. e.g: Learn, Teach, Play'
         type: string
         example:
           - Read
@@ -1948,90 +1827,57 @@ definitions:
           - Book
           - Lesson Plan
           - Course
-      category:
-        description: 'Category'
-        type: string
-        example:
-          - core
-          - learning
-          - literacy
-          - math
-          - science
-          - time
-          - wordnet
-          - game
-          - mcq
-          - mtf
-          - ftb
-          - library
-      templateType:
-        description: 'Template Type'
-        type: string
-        example:
-          - story
-          - worksheet
-          - mcq
-          - ftb
-          - mtf
-          - recognition
-          - activity
-          - widget
-          - other
-      genre:
-        description: 'Genre'
-        type: string
-        example:
-          - Picture Books
-          - Chapter Books
-          - Flash Cards
-          - Serial Books
-          - Alphabet Books
-          - Folktales
-          - Fiction
-          - Non-Fiction
-          - Poems/Rhymes
-          - Plays
-          - Comics
-          - Words
-      theme:
-        description: 'Theme'
-        type: string
-        example:
-          - History
-          - Adventure
-          - Mystery
-          - Science
-          - Nature
-          - Art
-          - Music
-          - Funny
-          - Family
-          - Life Skills
-          - Scary
-          - School Stories
-          - Holidays
-          - Hobby
-          - Geography
-          - Rural
-          - Urban
+          - Theory
+          - Worksheet
+          - Practical
       keywords:
-        description: 'Keywords'
-        type: array
-        items:
-          type: string
-      domain:
-        description: 'Domain'
+        description: 'Keywords for content'
         type: array
         items:
           type: string
       description:
-        description: 'Description'
+        description: 'Description for the content'
         type: string
-      instructions:
-        description: 'Instructions'
+      body:
+        description: 'Content body for content. Only for ECML content'
         type: string
+      editorState:
+        description: 'Editor State'
+        type: string
+      createdBy:
+        description: 'ID of the user who created Content'
+        type: string
+      creator:
+        description: 'Name of the user who created Content'
+        type: string
+      pragma:
+        description: 'Content pragma'
+        type: string
+        example:
+          - external
+          - ads
       ownershipType:
-        description: 'Field for explaining Ownership type. There can be two possible value createdBy/createdFor. Default value is createdBy.'
+        description: 'Ownership Type of the Content'
+        type: array
+        items:
+          type: string
+        example:
+          - createdBy
+          - createdFor
+      dialcodeRequired:
+        description: 'Is dialcode generation required or not'
+        type: string
+        example:
+          - Yes
+          - No
+      badgeAssociations:
+        description: 'List of Badge Associations'
+        type: object
+      framework:
+        description: 'Framework Id of Content'
+        type: string
+      organisation:
+        description: 'List of org names (partner names)'
         type: array
         items:
           type: string
@@ -2060,93 +1906,171 @@ definitions:
     type: object
     properties:
       versionKey:
-        description: ''
+        description: 'Version key of the content'
         type: string
       name:
-        description: ''
+        description: 'Represents the name of the content'
         type: string
-      code:
-        description: ''
-        type: string
-      visibility:
-        description: ''
+      audience:
+        description: 'The target audience of the Content'
         type: string
         example:
-          - default/parent
-      contentType:
-        description: ''
+          - Learner
+          - Instructor
+      badgeAssertions:
+        description: 'List of Badges assigned to the content'
+        type: array
+        items:
+          type: object
+      contentCredits:
+        description: 'List of Content Credits'
+        type: array
+        items:
+          type: object
+      appIcon:
+        description: 'Url link for content icon'
+        type: string
+      createdFor:
+        description: 'Content created for'
+        type: array
+        items:
+          type: string
+      board:
+        description: 'Education Board (Like MP Board, NCERT, etc)'
+        type: string
+      subject:
+        description: 'Subject of the Content to use to teach'
+        type: array
+        items:
+          type: string
+      medium:
+        description: 'Medium of instruction. e.g: English, Hindi etc'
+        type: array
+        items:
+          type: string
+      publisher:
+        description: 'Publisher of the content (e.g. Pratham Books)'
+        type: string
+      author:
+        description: 'Author of the content.'
+        type: string
+      owner:
+        description: 'Owner of the content.'
+        type: string
+      attributions:
+        description: 'Attributions/Credits given to the person'
+        type: array
+        items:
+          type: string
+      collaborators:
+        description: 'List of Collaborators'
+        type: array
+        items:
+          type: string
+      creators:
+        description: 'List of primary contributors'
+        type: string
+      contributors:
+        description: 'List of secondary contributors'
+        type: string
+      copyright:
+        description: 'Name of the person who owns the content'
+        type: string
+      license:
+        description: 'License of the content'
         type: string
         example:
-          - Resource
-          - Collection
-          - TextBook
-          - LessonPlan
-          - Course
-          - Template
-          - Asset
-          - Plugin
-          - LessonPlanUnit
-          - CourseUnit
-          - TextBookUnit
+          - Against DRM license
+          - Creative Commons Attribution-NoDerivs (CC-BY-ND)
+          - Creative Commons Attribution (CC BY)
+          - Creative Commons Attribution-ShareAlike (CC BY-SA)
+          - Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
+          - Creative Commons Zero (CC0)
+          - Free Art License
+          - Open Audio License
+          - Open Game License
+          - Standard YouTube License
+          - Other
+      language:
+        description: 'Languarge of the content'
+        type: string
+        example:
+          - English
+          - Hindi
+          - Assamese
+          - Bengali
+          - Gujarati
+          - Kannada
+          - Malayalam
+          - Marathi
+          - Nepali
+          - Odia
+          - Punjabi
+          - Tamil
+          - Telugu
+          - Urdu
+          - Sanskrit
+          - Maithili
+          - Munda
+          - Santali
+          - Juang
+          - Ho
+          - Othe
+      gradeLevel:
+        description: 'Grade Level for which content is created'
+        type: array
+        items:
+          type: string
+      topic:
+        description: 'List of Topic'
+        type: array
+        items:
+          type: string
+      keywords:
+        description: 'Keywords for content'
+        type: array
+        items:
+          type: string
       description:
-        description: ''
+        description: 'Description for the content'
         type: string
-      mimeType:
-        description: ''
+      body:
+        description: 'Content body for content. Only for ECML content'
         type: string
-        example:
-          - application/vnd.ekstep.ecml-archive
-          - application/vnd.ekstep.html-archive
-          - application/vnd.android.package-archive
-          - application/vnd.ekstep.content-archive
-          - application/vnd.ekstep.content-collection
-          - application/vnd.ekstep.plugin-archive
-          - application/vnd.ekstep.h5p-archive
-          - application/epub
-          - text/x-url
-          - video/x-youtube
-          - application/octet-stream
-          - application/msword
-          - application/pdf
-          - image/jpeg
-          - image/jpg
-          - image/png
-          - image/tiff
-          - image/bmp
-          - image/gif
-          - image/svg+xml
-          - video/avi
-          - video/mpeg
-          - video/quicktime
-          - video/3gpp
-          - video/mpeg
-          - video/mp4
-          - video/ogg
-          - video/webm
-          - audio/mp3
-          - audio/mp4
-          - audio/mpeg
-          - audio/ogg
-          - audio/webm
-          - audio/x-wav
-          - audio/wav
-      mediaType:
-        description: ''
+      editorState:
+        description: 'Editor State'
+        type: string
+      creator:
+        description: 'Name of the user who created Content'
+        type: string
+      pragma:
+        description: 'Content pragma'
         type: string
         example:
-          - content
-          - collection
-          - image
-          - video
-          - audio
-          - voice
-          - ecml
-          - document
-          - pdf
-          - text
-          - other
+          - external
+          - ads
       ownershipType:
-        description: 'Field for explaining Ownership type. There can be two possible value createdBy/createdFor. Default value is createdBy.'
+        description: 'Ownership Type of the Content'
+        type: array
+        items:
+          type: string
+        example:
+          - createdBy
+          - createdFor
+      dialcodeRequired:
+        description: 'Is dialcode generation required or not'
+        type: string
+        example:
+          - Yes
+          - No
+      badgeAssociations:
+        description: 'List of Badge Associations'
+        type: object
+      framework:
+        description: 'Framework Id of Content'
+        type: string
+      organisation:
+        description: 'List of org names (partner names)'
         type: array
         items:
           type: string
@@ -2180,6 +2104,9 @@ definitions:
         type: array
         items:
           type: string
+      publishComment:
+        description: 'Comment shared by publisher'
+        type: string
     required:
       - lastPublishedBy
   RetireContentRequest:
@@ -2396,9 +2323,15 @@ definitions:
       isNew:
         type: boolean
         description: Whether the content is new or existing
+        example:
+          - true
+          - false
       root:
         type: boolean
         description: Whether the content is root node
+        example:
+          - true
+          - false
       metadata:
         $ref: '#/definitions/ContentUpdateObject'
     required:
@@ -2584,9 +2517,6 @@ definitions:
       mimeType:
         type: string
         description: Represents the mimetype of the content
-      idealScreenSize:
-        type: string
-        description: Represents the ideal screen size of content
       createdOn:
         type: string
         description: Represents the content creation date 
@@ -2600,15 +2530,6 @@ definitions:
         items:
           type: object
         description: Represents the children (nodes) associated with the content
-      appId:
-        type: string
-        description: Represents the associated application Id
-      contentDisposition:
-        type: string
-        description: Represents how the content is placed or arranged, especially in relation to other content
-      contentEncoding:
-        type: string
-        description: Represents the format of content encoding
       lastUpdatedOn:
         type: string
         description: Represents the date on which content was last updated
@@ -2632,9 +2553,6 @@ definitions:
       visibility:
         type: string
         description: Represents the visibility mode of the content
-      os:
-        type: string
-        description: Represents the type of Operating system
       contentTypesCount:
         type: string
         description: Represents the count of different content types within the associated content
@@ -2643,15 +2561,9 @@ definitions:
         items:
           type: string
         description: Lists the child nodes asociated with content
-      consumerId:
-        type: string
-        description: Represents the unique ID for consumers
       mediaType:
         type: string
         description: Represents the MediaType of the content
-      osId:
-        type: string
-        description: Represents the Operating system Identifier
       lastPublishedBy:
         type: string
         description: Represents the date on which content was last published
@@ -2669,9 +2581,6 @@ definitions:
       prevState:
         type: string
         description: Represents the previous state of the content
-      idealScreenDensity:
-        type: string
-        description: Represents the Ideal Screen density
       s3Key:
         type: string
         description: Represents the S3 relative path of Ecar file
@@ -2693,11 +2602,6 @@ definitions:
       publisher:
         type: string
         description: Represents who is the publisher of the content
-      usedByContent:
-        type: array
-        items:
-          type: string
-        description: Represents the user whi used the content last time 
       resourceType:
         type: string
         description: Represents the type of the content
@@ -2713,9 +2617,6 @@ definitions:
       artifactUrl:
         type: string
         description: Represents the artifact Url link
-      languageCode:
-        type: string
-        description: Represents the language Code
       lastSubmittedOn:
         type: string
         description: Represents the date for last Submitted On
@@ -2729,23 +2630,21 @@ definitions:
         description: Represents the flaggedBy user
         items:
           type: string
-      badgesList:
-        type: object
-        description: Represents the flaggedBy user
-      downloads:
-        type: number
-        description: Represents the flaggedBy user
       pragma:
         type: array
         description: Represents the pragma
         items:
           type: string
       subject:
-        type: string
+        type: array
         description: Represents the subject of the content
+        items:
+          type: string
       medium:
-        type: string
+        type: array
         description: Represents the medium of the content
+        items:
+          type: string
       topic:
         type: array
         description: Represents the topic of the content
@@ -2756,6 +2655,37 @@ definitions:
         type: string
       ownershipType:
         description: 'Field for explaining Ownership type. There can be two possible value createdBy/createdFor. Default value is createdBy.'
+        type: array
+        items:
+          type: string
+      dialcodes:
+        type: array
+        description: 'List of dialcodes linked to the Content'
+        items:
+          type: string
+      origin:
+        type: string
+        description: 'Origin content'
+      originData:
+        type: object
+        description: 'Origin Content metadata'
+      totalQuestions:
+        type: number
+        description: 'Total No of Questions'
+      totalScore:
+        type: number
+        description: 'Total Score'
+      reservedDialcodes:
+        type: object
+        description: 'Reserved dialcodes for the content'
+      depth:
+        type: number
+        description: 'Depth for Collection Units'
+      totalCompressedSize:
+        type: number
+        description: 'Download File Size (in bytes)'
+      leafNodes:
+        description: 'List of leaf nodes to the collection'
         type: array
         items:
           type: string
@@ -2787,9 +2717,6 @@ definitions:
       ver:
         type: string
         description: Represents the API version information
-      ts:
-        type: string
-        description: Represents the API execution span
       params:
         $ref: '#/definitions/ResponseParams'
       responseCode:
@@ -2829,18 +2756,6 @@ definitions:
       - $ref: '#/definitions/ResponseHeader'
   CopyContentRequestBody:
     title: CopyContentRequest
-    example:
-      request:
-        content:
-          description: Akshara Kannada
-          code: org.ekstep.feb22.story.test03.copy
-          createdBy: 
-          createdFor:
-          - 0123673542904299520
-          - 0123673689120112640
-          creator: 
-          organization:
-          - Sunbird
     type: object
     properties:
       request:
@@ -2849,16 +2764,6 @@ definitions:
     - request
   ContentCopyRequest:
     title: ContentCopyRequest
-    example:
-      content:
-        description: Akshara Kannada
-        code: org.ekstep.feb22.story.test03.copy
-        createdBy: 
-        createdFor:
-        - ORG_001
-        creator: Sun
-        organization:
-        - Sunbird
     type: object
     properties:
       content:
@@ -2867,46 +2772,30 @@ definitions:
     - content
   CopyContent:
     title: CopyContent
-    example:
-      description: Akshara Kannada
-      code: org.ekstep.feb22.story.test03.copy
-      createdBy: 159e93d1-da0c-4231-be94-e75b0c226d7c
-      createdFor:
-      - ORG_001
-      creator: Sun
-      organization:
-      - Sunbird
     type: object
     properties:
       description:
-        description: ''
-        example: Akshara Kannada
-        type: string
-      code:
-        description: ''
-        example: org.ekstep.feb22.story.test03.copy
+        description: 'Description of the content'
         type: string
       createdBy:
-        description: ''
-        example: 
+        description: 'Copied Content created by'
         type: string
       createdFor:
-        description: ''
-        example:
+        description: 'Organisation id for which content is copied.'
         type: array
         items:
           type: string
       creator:
-        description: ''
-        example: 
+        description: 'Name of the content creator'
         type: string
       organization:
-        description: ''
-        example:
-        - Sunbird
+        description: 'Name of Organisation for which content is copied.'
         type: array
         items:
           type: string
+      framework:
+        description: 'framework id for which content is copied'
+        type: string
     required:
     - createdBy
     - createdFor

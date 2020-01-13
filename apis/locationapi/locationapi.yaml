@@ -10,6 +10,8 @@ info:
  
     On the basis of the data captured using this API resource, the location data helps in grouping the users based on the location attribute.
 
+    The URL for Location Management API(s) is `data/v1/location`
+
     **Note:** The parent location entity used as parent code parameter represents the physical location (X) of a large physical area, and incorporates locations of other smaller areas (Y). Similarly location entity (Y) may incorporate futher smaller areas(Z) in each location entity of (Y).   
        
        - You can say entity (X) is superset of location entities in (Y). The (Y) location entity is the superset of location entities in (Z). Also that (X), (Y) may have "n" number of "Y","Z" entities respectively.  
@@ -33,8 +35,6 @@ schemes:
   - https
 consumes:
   - application/json
-  - multipart/form-data
-  - application/x-www-form-urlencoded
 produces:
   - application/json
 paths:
@@ -43,9 +43,8 @@ paths:
       description:  >- 
         This API is used to create a physical location of a user or an organization, depending upon the usecase
           
-          - The **_/create_** endpoint executes the "Create location" request based on parameters provided as metadata in the request body
-          
-          - Required fields cannot be left null or empty
+          - The endpoint for **Create location** is `/create`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
            
       summary: Create location
       tags:
@@ -118,8 +117,8 @@ paths:
     patch:
       description: >-
         This API is associated with updating the location data of a user or organization, 
-        - **_/update/_** endpoint executes the request based on parameters provided as metadata in the request body.
-           - Required fields cannot be left null or empty
+           - The endpoint for **Update location** is `/update`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
            
         **Note:** 
           - It's not allowed to update of type of the location once it is created 
@@ -193,8 +192,8 @@ paths:
     post:
       description: >-
         This API is associated with fetching the location data of a user or organization based on the criterias specified in the request body.
-        - **_/search/_** endpoint executes the request based on parameters provided as metadata in the request body.
-           - Required fields cannot be left null or empty
+           - The endpoint for **Search location** is `/search`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       summary: Search Location 
       tags:
         - Location  API(s)
@@ -442,7 +441,7 @@ definitions:
           id:
             type: string
             description: Represents the location ID in case the create request is successul
-          status:
+          response:
             type: string
             description: Represents the state of the request whether the API exaecution is successful or a failure
   LocationListResponse:
@@ -451,7 +450,8 @@ definitions:
     properties:
       result:
         type: object
-        $ref: '#/definitions/LocationList'
+        allOf:
+         - $ref: '#/definitions/LocationList'
   LocationList:
     title: Represents the list of locations
     properties:
@@ -459,14 +459,16 @@ definitions:
         type: array
         items:
           type: object
-          $ref: '#/definitions/LocationResponse'
+          allOf:
+           - $ref: '#/definitions/LocationResponse'
   LocationResponse:
     title: This is the response body of single Location object
     type: object
     properties:
       result:
         type: object
-        $ref: '#/definitions/Location'
+        allOf:
+         - $ref: '#/definitions/Location'
   Location:
     title: This is the data model for location object
     type: object

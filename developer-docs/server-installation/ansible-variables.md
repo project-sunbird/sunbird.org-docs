@@ -1,31 +1,31 @@
 ---
-title: Ansible Variables
-page_title: Ansible Variables
-description: Ansible Variables
-keywords: ansible variables, variables
+title: Ansible Variables Setup
+page_title: Ansible Variables Setup
+description: Setting up the Ansible variables in the private GitHub repository
+keywords: ansible variables, variables, private GitHub repository, private repo
 allowSearch: true
 ---
-    
-> Note: 
->- If you want to run only Core services which will connect to Ekstep backend for other dependent services like Knowledge Platform and Data Pipeline, follow the below steps for Core module only**   **  
->- Once you complete the below steps, go to this page to get details on extra variables that need to be added for Core service only to work - [Additional-variables-for-Core-service](AnsibleVariables-Updatingprivaterepowithhostsandvariables) 
-    
-    
-## Updating private repo with hosts and variables
+## Overview
+
+Sunbird uses Ansible playbooks to manage its three major sub-systems (Knowledge Platform, Data Pipeline and Core Services), to ensure scalability, consistency and reliability of its IT environment. The Ansible variables help server setup, configuration management and automate deployment.   
 
     
-    git clone <a href="https://project-sunbird/sunbird-devops">https://github.com/project-sunbird/sunbird-devops</a>
-    cd sunbird-devops &amp;&amp; git checkout tags/release-2.0.0 -b release-2.0.0
-    cp -rf sunbird-devops/private_repo .
-    cd private_repo
+## Updating the Private Repository with Hosts and Variables
+
+Use the following Git commands sequentially to clone and update your private GitHub repository: 
+
+1. `git clone` <a href="https://project-sunbird/sunbird-devops">https://github.com/project-sunbird/sunbird-devops</a>
+
+2. `cd sunbird-devops; git checkout tags/release-2.5.0 -b release-2.5.0`
+
+3. Copy the directory `sunbird-devops/private_repo/ansible` to your private repo location
+
+4. Update the files `common.yml`, `hosts`, `secrets.yml` under `Core`, `KnowledgePlatform` and `DataPipeline`. After updating, push them to your private repo branch. The structure under `ansible` directory is shown below.
 
 
-Folder Structure for the private directory which contains ansible hosts secrets and variables.
-
-
-## Folder Structure
-
-Tree ansible
+> **Note** The following depicts the folder structure required in the private GitHub repository that contains Ansible hosts, secrets and variables.
+  
+```
 ansible
 └── inventory
     └── dev
@@ -41,19 +41,9 @@ ansible
             ├── common.yml
             ├── hosts
             └── secrets.yml
+```
 
-5 directories, 9 files
-
-    git init
-    git add
-    git commit -m "Creating private files"
-    git remote add origin ~private repo url~
-    git branch --set-upstream-to=origin/master master && git push --set-upstream origin master
-    update the variables and push it to upstream
-
-
-## Updating variables and hosts
-
+## List of Servers with their Ansible Group Name
 <table>
   <tr>
     <th style="width:25%">Module</th>
@@ -62,105 +52,95 @@ ansible
     <th style="width:25%">Ansible Group Name</th>
   </tr>
   <tr>
-    <td rowspan="7">Core</td>
-    <td></td>
-    <td>jenkins-master</td>
+    <td>Build and Deploy</td>
+    <td>Server-1 (Jenkins)</td>
+    <td>Jenkins Master</td>
     <td></td>
   </tr>
   <tr>
-    <td rowspan="2">Server-1 (swarm)</td>
-    <td>Manager</td>
-    <td>swarm-manager-1, swarm-agent-for-prometheus-1 swarm-agent-for-grafana-1, swarm-agent-for-alertmanager-1</td>
+    <td rowspan="3">Core</td>
+    <td rowspan="3">Server-2 (Docker)</td>
+    <td>Docker Manager and Worker</td>
+    <td>swarm-manager-1, swarm-agent-for-prometheus-1, swarm-agent-for-alertmanager-1, swarm-bootstrap-manager, swarm-node-1</td>
   </tr>
   <tr>
-    <td>log-es</td>
+    <td>Logs Elasticsearch</td>
     <td>log-es-1</td>
-  </tr>   
+  </tr>
   <tr>
-    <td rowspan="4">Server-2 (core-db)</td>
     <td>Keycloak</td>
     <td>keycloak-1</td>
-  </tr>  
-  <tr>
-    <td>cassandra-lms (core)</td>
-    <td>cassandra-1</td>
-  </tr>   
-  <tr>
-    <td>Postgress</td>
-    <td>postgresql-master-1, postgresql-slave-1</td>
-  </tr>   
-  <tr>
-    <td>es-lms-1</td>
-    <td>es-1</td>
-  </tr> 
-  <tr>
-    <td rowspan="7">Knowledge Platform</td>
-    <td rowspan="4">Server-3 (lp-db)</td>
-    <td>cassandra-lp-dp</td>
-    <td>lp-cassandra, dp-cassandra</td>
   </tr>
   <tr>
-    <td>kp-dp-es-1</td>
-    <td>composite-search-cluster,es-ps</td>
+    <td rowspan="4">Databases</td>
+    <td rowspan="4">Server-3 (DB's)</td>
+    <td>Cassandra</td>
+    <td>cassandra-1, lp-cassandra, dp-cassandra, core-cassandra, cassandra-node-1, cassandra-ps, cassandra</td>
   </tr>
   <tr>
-    <td>Postgress</td>
-    <td></td>
+    <td>Postgres</td>
+    <td>postgresql-master-1, postgresql-slave-1, postgres</td>
   </tr>
   <tr>
-    <td>neo4j</td>
+    <td>Application Elasticsearch</td>
+    <td>es-1, composite-search-cluster, es-ps, core-es-1</td>
+  </tr>
+  <tr>
+    <td>Neo4j</td>
     <td>learning-neo4j-node1</td>
   </tr>
   <tr>
-    <td rowspan="3">Server-4 (lp-db)</td>
-    <td>learning-1</td>
-    <td>learning1,logstash-ps</td>
+    <td rowspan="4">Knowledge Platform</td>
+    <td rowspan="4">Server-4 (KP Services and Kafka)</td>
+    <td>Learning</td>
+    <td>learning1, logstash-ps, learning</td>
   </tr>
   <tr>
-    <td>redis</td>
-    <td>redis1</td>
-  </tr><tr>
-    <td>search</td>
-    <td>search1</td>
+    <td>Redis</td>
+    <td>redis1, lp-redis, redis</td>
   </tr>
   <tr>
-    <td rowspan="7">Data Pipeline</td>
-    <td>Server 5 (spark)</td>
+    <td>Search</td>
+    <td>search1, search</td>
+  </tr>
+  <tr>
+    <td>Kafka</td>
+    <td>processing-cluster-kafka, processing-cluster-zookeepers, kafka-ps kafka-1</td>
+  </tr>
+  <tr>
+    <td rowspan="5">Data Pipeline</td>
+    <td rowspan="5">Server-5 (DP Services)</td>
+    <td>Spark</td>
     <td>spark</td>
-    <td>spark</td>
   </tr>
   <tr>
-    <td>Server 6 (yarn-RM)</td>
-    <td>yarn-rm </td>
-    <td>yarn-master,yarn-ps</td>
-  </tr>
-  <tr>
-    <td>Server 7 (yarn-slave)</td>
-    <td>yarn-slave</td>
-    <td>yarn-slave,yarn-ps</td>
-  </tr>
-  <tr>
-    <td rowspan="4">Server 8 (dp-services)</td>
-    <td>analytics-api</td>
+    <td>Analytics</td>
     <td>analytics-api, analytics-ps</td>
   </tr>
   <tr>
+    <td>Kafka Indexer</td>
     <td>kafka-indexer</td>
-    <td>kafka-indexer</td>
-  </tr>
-  <tr>
-    <td>secor</td>
-    <td>secor, secor-ps</td>
   </tr>
   <tr>
     <td>InfluxDB</td>
-    <td></td>
+    <td>influxdb</td>
   </tr>
   <tr>
-    <td>Common</td>
-    <td>Server 9 (kafka)</td>
-    <td>kafka (Kp, Dp. Core)</td>
-    <td>processing-cluster-kafka, processing-cluster-zookeepers, kafka-ps
-kafka-1</td>
+    <td>Secor</td>
+    <td>secor, secor-ps</td>
+  </tr>
+  <tr>
+    <td rowspan="2">Yarn</td>
+    <td>Server-6 (Yarn Master)</td>
+    <td>Yarn Master Slave 1</td>
+    <td>yarn-master, yarn-slave, yarn-ps</td>
+  </tr>
+  <tr>
+    <td>Server-7 (Yarn Slave)</td>
+    <td>Yarn Master Slave 2</td>
+    <td>yarn-master, yarn-slave, yarn-ps</td>
   </tr>
 </table>
+
+
+

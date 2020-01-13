@@ -6,10 +6,52 @@ keywords: Knowledge Platform
 allowSearch: true
 --- 
 
+## Overview
+This page explains the jobs to be run to bring up the Knowledge Platform services. In order to do so, log into Jenkins and execute the instructions as per the sequence provided on this page.
 
-<div class="confluence-information-macro has-no-icon confluence-information-macro-information"><div class="confluence-information-macro-body"><p>Log in to the Jenkins and do the following</p></div></div><h2 id="KnowledgePlatform-Build">Build</h2><ul><li>Switch to <code>Build</code> folder and run all jobs. Provide the value for <strong>github_release_tag</strong> as per the details mentioned in this page - <a href="https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/1025376293/Current+Release+Tags+and+Jenkins+Jobs+Reference" data-linked-resource-id="1025376293" data-linked-resource-version="5" data-linked-resource-type="page">Current Release Tags and Jenkins Jobs Reference</a></li></ul><h2 style="" id="KnowledgePlatform-OpsAdministration">OpsAdministration</h2><ol><li style="">Bootstrap                                                                                                               # Creates Deployer User</li></ol><h2 id="KnowledgePlatform-Provision">Provision</h2><ul><li>Download neo4j enterprise 3.3.x version and keep it in your private repo under artifacts directory. The name of the file should be ending with neo4j*.tar.gz</li><li>Since the file size of neo4j will be larger than 100 MB, you need to use git lfs to store this artifact in your private repo. Refer this link to see for git lfs details - <a href="https://git-lfs.github.com/" class="external-link" rel="nofollow">https://git-lfs.github.com/</a></li><li>Switch to <code>Provision/&lt;env&gt;/KnowledgePlatform</code> and run jobs in following order<ol><li>Cassandra</li><li>CompositeSearch</li><li>Neo4j</li><li>Zookeeper</li><li>Kafka</li><li>Learning</li><li>Redis</li><li>Search</li></ol></li></ul><h2 id="KnowledgePlatform-Deploy"><span style="color: rgb(51,51,51);">Deploy</span></h2><ul><li>Switch to <span style="color: rgb(51,51,51);"><code>Deploy/dev/KnowledgePlatform</code> and run all jobs in the following order</span><ol><li><span style="color: rgb(51,51,51);">CassandraDbUpdate</span></li><li><span style="color: rgb(51,51,51);">Neo4j</span></li><li><span style="color: rgb(51,51,51);">StartNeo4jCluster</span></li><li><span style="color: rgb(51,51,51);">Learning</span></li><li><span style="color: rgb(51,51,51);">Search</span></li><li><span style="color: rgb(51,51,51);">Neo4jDefinitionUpdate</span></li><li><span style="color: rgb(51,51,51);">Neo4jElasticSearchSyncTool</span></li><li><span style="color: rgb(51,51,51);">KafkaSetup</span></li><li><span style="color: rgb(51,51,51);">Yarn<br/></span></li></ol></li></ul><h2 id="KnowledgePlatform-ManualRun-ContentretireAPI"><span style="color: rgb(51,51,51);">Manual Run - Content retire API</span></h2><ul><li><span style="color: rgb(51,51,51);">Login to the cassandra VM and run the below commands</span></li><li><strong>vi /etc/cassandra/cassandra.yaml</strong></li><li><span>Update the value as </span><strong>batch_size_fail_threshold_in_kb: 200</strong></li><li><strong>service cassandra restart</strong></li><li><strong>cd /tmp</strong></li><li><strong>wget <a href="https://sunbirdpublic.blob.core.windows.net/installation/script_data.csv" class="external-link" rel="nofollow">https://sunbirdpublic.blob.core.windows.net/installation/script_data.csv</a></strong></li><li>Run<span> </span><strong>cqlsh</strong></li><li><strong><strong style="text-align: left;">COPY dev_script_store.script_data FROM '/tmp/script_data.csv</strong><span style="color: rgb(34,34,34);">';          </span></strong><span style="color: rgb(34,34,34);">(</span><span style="color: rgb(34,34,34);">Here </span><strong>dev</strong><span style="color: rgb(34,34,34);"> will be you env name)</span></li><li><strong><span style="color: rgb(34,34,34);"><strong style="text-align: left;">SELECT COUNT(*) FROM dev_script_store.script_data ;                         </strong></span></strong><span style="color: rgb(34,34,34);"><span style="color: rgb(34,34,34);">(Output should be 324 rows)</span></span></li><li><span style="color: rgb(34,34,34);"><span style="color: rgb(34,34,34);">Login to learning VM and restart tomcat</span></span></li><li><strong>sudo service tomcat restart</strong></li><li>Now you should be able to delete contents from workspace, drafts, contents which are published etc.</li></ul>
-                    
+## Build
 
-Refer [How to Create Framework](), [How to Create Schemas for Knowledge Platform Objects](./knowledge-platform-object-schema.html)
+Switch to the `Build` folder and run all jobs. For the value of the **github_release_tag**, refer to [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs){:target="_blank"}
+
+For KnowledgePlatform build, use the default profile_id which is "platform_services".
+
+## DevOps Administration
+
+| Operation Name | Function              |
+| -------------- | --------------------- |
+| Bootstrap      | Creates Deployer User |
+
+## Provision
+
+*   Download **neo4j enterprise** version 3.3.x. The file should be uploaded to your azure storage account under root path. The file name should be **neo4j*.tar.gz**. This file should be uploaded to the container named in the variable {{artifacts_container}} of KnowledgePlatform's common.yml.
+
+The URL for this path will look like this - https://{{storage_account_name}}.blob.core.windows.net/{{container_name}}/neo4j-enterprise-3.3.9-unix.tar.gz
+
+*   Switch to `Provision/<env>/KnowledgePlatform` and run the jobs in the following sequence:   
+    1.Cassandra   
+    2.CompositeSearch   
+    3.Neo4j   
+    4.Zookeeper   
+    5.Kafka   
+    6.Learning   
+    7.Redis   
+    8.Search   
+    9.Yarn   
+
+## Deploy
+
+*   Switch to `Deploy/dev/KnowledgePlatform` and run the jobs in the following sequence:
+
+    1.CassandraDbUpdate  
+    2.CassandraTrigger
+    3.Neo4j   
+    4.StartNeo4jCluster   
+    5.Learning
+    6.Search   
+    7.Neo4DefinitionUpdate  
+    8.Neo4jElasticSearchSyncTool   
+    9.KafkaSetup   
+    10.Yarn  
 
 
+Refer [How to Create Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird){:target="_blank"}, [How to Create Schemas for Knowledge Platform Objects](developer-docs/server-installation/knowledge-platform-object-schema){:target="_blank"}

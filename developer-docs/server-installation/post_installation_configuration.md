@@ -1,56 +1,52 @@
 ---
-title: Configurations Post Installation
-page_title: Configurations Post Installation
+title: Post Installation Configurations
+page_title: Post Installation Configurations
 description: Explains the configurations to be done post installation
 keywords: configuration, post installation
 allowSearch: true
 ---
 
 
-# Post Installation Configuration
+## Overview
 
-1. **Create user access token** - To create a user access token you should execute the following cURL: 
+This page provides details on the configuration to be done, after you complete installation of Sunbird. The configurations mentioned in this page are the basic requirements to do any other configuration as mentioned in the **Sever Configuration** section. Execute the configurations in the sequence mentioned on the page.    
 
-   <pre>
-   curl -X POST {dns_name}    /auth/realms/sunbird/protocol/openid-connect/token \
-   -H 'cache-control: no-cache' \
-   -H 'content-type: application/x-www-form-urlencoded' \
-   -d 'client_id=admin-cli&username=user-manager&password={password}&grant_type=password'
-   </pre>
 
-   <br>The values in the { } braces should be replaced with your environment values
+## Create User Access Token
+
+To create a user access token use the following cURL command: 
+
    
-   - {dns_name} - Domain or the IP address of your application server_installation
-   - {password} - Password of the `user-manager` user. The one you have provided for `sso_password` parameter in the `config` file above
+      `curl -X POST {dns_name}/auth/realms/sunbird/protocol/openid-connect/token \
+      -H 'cache-control: no-cache' \
+      -H 'content-type: application/x-www-form-urlencoded' \
+      -d 'client_id=admin-cli&username=user-manager&password={password}&grant_type=password'
 
-2. **Create root organization** - To create a root organization you should the following cURL: 
+      `
+Replace the values within { } braces with your environment values.
 
-   <pre>
-   curl -X POST  \
-   {dns_name}/api/org/v1/create \
-   -H 'Cache-Control: no-cache' \
-   -H 'Content-Type: application/json' \
-   -H 'accept: application/json' \
-   -H 'authorization: Bearer {jwt token from ~/jwt_token_player.txt}' \
-   -H 'x-authenticated-user-token: {access token created last step}' \
-   -d '{
-   "request":{
-     "orgName": "{Your Organization Name}",
-     "description": "{Your organization description}",
-     "isRootOrg":true,
-     "channel":"{Your Channel Name}"
-    }
-    }'
-    </pre>
+| **Variable Name**| **Description**|
+|------------------|----------------|
+|{dns_name} |Domain or the IP address of your application server installation|
+|{password} |Password of the `user-manager` user. The password is same as the value of the `sso_password` parameter in the Config file|
 
- 3. **System setting**- Before using system , you need to set some value inside system setting. Use link ./configuring_sunbird/system_settings.md  to do that settings.
+## Create root organization
+To create a root organization use the following cURL commands: 
 
- **Note:** Channel should be a unique name across Sunbird instances who are using the EkStep content repository
-    
-4. Update `sunbird_default_channel` in the `config` file with **Your Channel Name}** (that was created in previous step) and re-run the command `./sunbird_install.sh -s core`
+      `curl -X POST  \
+      {dns_name}/api/org/v1/create \
+      -H 'Cache-Control: no-cache' \
+      -H 'Content-Type: application/json' \
+      -H 'accept: application/json' \
+      -H 'authorization: Bearer {jwt token from ~/jwt_token_player.txt}' \
+      -H 'x-authenticated-user-token: {access token created last step}' \
+      -d '{
+      "request":{
+      "orgName": "{Your Organization Name}",
+      "description": "{Your organization description}",
+      "isRootOrg":true,
+      "channel":"{Your Channel Name}"
+      }
+      }'`
 
-5. Run `./sunbird_install.sh -s posttest`, to validate all the services for a successful installation. On executing the script, a file **postInstallationLogs.log** in the **logs** directory will be created 
-
-6. Open **https://[domain-name]** and sign up  
-
-7. You may choose your own user name and password. The format for the username while login is: username@channelName 
+Replace the values within { } braces with your environment values.
