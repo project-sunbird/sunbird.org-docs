@@ -61,7 +61,7 @@ ansible
     <td rowspan="3">Core</td>
     <td rowspan="3">Server-2 (Docker)</td>
     <td>Docker Manager and Worker</td>
-    <td>swarm-manager-1, swarm-agent-for-prometheus-1, swarm-agent-for-alertmanager-1, swarm-bootstrap-manager, swarm-node-1</td>
+    <td>swarm-manager-1, swarm-agent-for-prometheus-1, swarm-agent-for-alertmanager-1, swarm-dashboard-1, swarm-bootstrap-manager, swarm-node-1</td>
   </tr>
   <tr>
     <td>Logs Elasticsearch</td>
