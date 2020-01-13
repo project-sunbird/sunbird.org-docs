@@ -6,7 +6,7 @@ info:
   contact:
     email: info@sunbird.org
   description: >-
-    The Email resources provides the notification mechanism for all the users on Sunbird .The Resource notifies users officially about something on Sunbird.
+    The Email resources provides the notification mechanism for all the users on Sunbird. The Resource notifies users officially about something on Sunbird. 
 host: staging.open-sunbird.org
 basePath: /api
 securityDefinitions:
@@ -24,11 +24,9 @@ paths:
   '/user/v1/notification/email ':
     post:
       description: >-
-       This API is associated with notifying a user on the Sunbird Platform.
-          - {{host}}/user/v1/notification/email , This is the format of the API URL for sending notifications. 
-          - The **_/email/_** endpoint executes the notification request based on parameters provided as metadata in the request body.
-          - It is mandatory to provide values for parameters marked with *. 
-          - Mandatory fields cannot be null or empty.
+       This API is associated with notifying a user on the Sunbird Platform.if request will contain mode attribute with value sms ,then user will be notify via sms.During sms notification you can pass list of phone number or list of phone number and userid both.
+          - The endpoint for **Notifying Users** is `/user/v1/notification/email`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       summary: ' Notifiying Users'
       tags:
       - Notification APIs
@@ -66,10 +64,8 @@ paths:
     post:
       description: >-
        This API is associated with sending OTP to user on the Sunbird Platform.
-          - {{host}}/otp/v1/generate, This is the format of the API URL for sending notifications. 
-          - The endpoint executes the notification request based on parameters provided as metadata in the request body.
-          - It is mandatory to provide values for parameters marked with *. 
-          - Mandatory fields cannot be null or empty.
+          - The endpoint for **Generate OTP** is `otp/v1/generate`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       summary: 'Generate OTP'
       tags:
       - Notification APIs
@@ -108,10 +104,8 @@ paths:
     post:
       description: >-
        This API is associated with verifying OTP to user on the Sunbird Platform.
-          - {{host}}/otp/v1/verify, This is the format of the API URL for sending notifications. 
-          - The endpoint executes the notification request based on parameters provided as metadata in the request body.
-          - It is mandatory to provide values for parameters marked with *. 
-          - Mandatory fields cannot be null or empty.
+          - The endpoint for **Verifiy OTP** is `otp/v1/verify`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       summary: 'Verify OTP'
       tags:
       - Notification APIs
@@ -140,7 +134,10 @@ paths:
           schema:
             $ref: '#/definitions/ContentCreateResponse'
         '400':
-          description: 'BAD REQUEST. The "Notifying User" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          description: >-
+            BAD REQUEST. The "Notifying User" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter. 
+             - ERROR_INVALID_OTP In case of invalid OTP, phone or email passed for verification
+             - OTP_VERIFICATION_FAILED In case you have passed incorrect OTP and  haven't exhausted the maximum retries count.
           schema:
             $ref: '#/definitions/ContentCreateErrorResponse'
         '500':
@@ -158,6 +155,9 @@ definitions:
         recipientEmails:
         - amit.kumar@tarento.com
         - amit1.kumar@tarento.com
+        mode: sms
+        recipientPhones:
+        - valid phone number without country code
         recipientUserIds:
         - valid userId
         recipentSearchQuery: {
@@ -188,11 +188,18 @@ definitions:
       body:
         description: 'Contents of mail body'
         type: string
+      mode:
+       description: 'supported value is sms, apart from sms all other values will be ignore.if value is sms then it will notify user via sms, and body will become sms text'
       downloadUrl:
         description: 'Download link of content'
         type: string
       recipientEmails:
         description: 'List of recipient mail ids'
+        type: array
+        items:
+          type: string
+      recipientPhones:
+        description: 'List of valid phone numbers without country code'
         type: array
         items:
           type: string
@@ -208,7 +215,6 @@ definitions:
           filters:
             type: object
     required:
-    - name
     - subject
     - body
     - downloadUrl
