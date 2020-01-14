@@ -113,12 +113,3 @@ license_name can be choosen from the list which was created in the 1st Step.
 ```
 match (n:domain{}) WHERE n.IL_FUNC_OBJECT_TYPE IN ["Content", "ContentImage"] AND n.channel="<channel id>" AND n.license<>"Standard YouTube License" SET n.license="<channel defaultLicense>";
 ```
-
-**Clear Redis cache**
-
-Run the below command in LP redis server
-
-```
-cd /home/learning/redis-stable/src
-./redis-cli keys do_* | xargs ./redis-cli del
-```
