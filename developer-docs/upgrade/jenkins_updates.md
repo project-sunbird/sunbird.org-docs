@@ -4,7 +4,7 @@ page_title: Update Jenkins
 description: Update Jenkins 
 published: true
 allowSearch: true
-keywords: Upgrade, Sunbird 2.5.0, jenkins updates
+keywords: Upgrade, Sunbird 2.6.0, jenkins updates
 ---
 ## Overview
 
