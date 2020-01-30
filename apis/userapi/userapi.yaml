@@ -168,6 +168,81 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
+  /user/v1/signup:
+    post:
+      description: >-
+        This api is lightweight of v2. This api will create user with very minimum attribute (firstName, email/phone, password, emailVerified/phoneVerified). All user created by this endpoint will be linked with custodian org.
+           - The endpoint for **Create User** is `/user/v1/signup`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Create User
+      tags:
+        - User APIs
+      operationId: User SignUp
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: request
+          in: body
+          required: true
+          description: >-
+            - The body payload comprises of the metadata of the user being created
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
+
+               - JSON
+
+          schema:
+            $ref: '#/definitions/CreateUserRequestV3'
+
+        - name: ts
+          in: header
+          required: false
+          type: string
+          description: 'Timestamp at which given API request is sent.'
+        - name: X-msgid
+          in: header
+          required: false
+          type: string
+          description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        - name: x-authenticated-user-token
+          in: header
+          required: false
+          type: string
+          description: >-
+            It is a unique token/key to authenticate the user each time an API is called. For corresponding sessions this token is used, not your actual username/password
+      responses:
+        '200':
+          description: 'OK ! Successful operation."Create User" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/UserCreateResponse'
+        '400':
+          description: 'BAD REQUEST. The "Create User" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+        '404':
+          description: 'RESOURSE NOT FOUND. The "Create User" operation failed ! The possible reason for failure is the requested resource is not available.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
   /user/v1/search:
     post:
       description: >-
@@ -1721,6 +1796,43 @@ paths:
             'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
           schema:
             $ref: '#/definitions/UserErrorResponse'
+
+  /user/v1/get/{idType}/{id}:
+    get:
+      description: >-
+        This API is used for searching a specific user, the user search is based on the unique ID type of the user
+          - The endpoint for **Get User by User ID** is `/user/v1/get/{idType}/{id}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      summary: Get User by  ID Type
+      tags:
+        - User APIs
+      operationId: Get User by ID type
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: idType
+          type: string
+          required: true
+          description: 'idType can only be either email, phone or loginId'
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: 'id can only be values of email, phone or loginId'
+        - name: ts
+          in: header
+          required: false
+          type: string
+          description: 'Timestamp at which given API request is sent.'
+        - name: X-msgid
+          in: header
+          required: false
+          type: string
+          description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
+
   /user/v1/migrate:
     post:
       description:  >-
@@ -1754,10 +1866,31 @@ paths:
           type: string
           description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
 
+
         - name: Authorization
           in: header
           required: true
           type: string
+
+          description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+        - name: X-Authenticated-User-Token
+          in: header
+          type: string
+          required: false
+          description: >-
+            if call with the auth token of same user will also give the user externalIds details in response.
+      responses:
+        '200':
+          description: 'OK ! Successful operation."Get User by ID Type" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/CreateUserSingleResp'
+        '400':
+          description: 'BAD REQUEST,"Get User by User ID Type" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+        '404':
+          description: 'Resource not found'
+
           description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
         - name: x-authenticated-user-token
           in: header
@@ -1773,6 +1906,7 @@ paths:
             $ref: '#/definitions/UserCreateResponse'
         '400':
           description: 'BAD REQUEST. The "user migration" operation failed ! The possible reason for failure is that you may provided incorect userId for migration.'
+
           schema:
             $ref: '#/definitions/UserErrorResponse'
         '500':
@@ -1782,6 +1916,65 @@ paths:
             $ref: '#/definitions/UserErrorResponse'
       security:
         - bearer: []
+
+  /user/v1/exists/{idType}/{id}:
+    get:
+      description: >-
+        This API is used for searching a specific user, the user search is based on the unique ID type of the user
+          - The endpoint for **Get User by User ID** is `/user/v1/exists/{idType}/{id}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Check User Exists by ID Type
+      tags:
+        - User APIs
+      operationId: check user exists
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: idType
+          type: string
+          required: true
+          description: 'idType can only be either email, or phone'
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: 'id can only be values of email or phone'
+        - name: ts
+          in: header
+          required: false
+          type: string
+          description: 'Timestamp at which given API request is sent.'
+        - name: X-msgid
+          in: header
+          required: false
+          type: string
+          description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+      responses:
+        '200':
+          description: 'OK ! Successful operation."will return true or false on the basis of user existence in system" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/ExistsUserResp'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+        '400':
+          description: 'BAD REQUEST. The "list user skills" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/UserErrorResponse'
+      security:
+        - bearer: []
+=======
       x-unitTests:
         - request:
             method: POST
@@ -1812,6 +2005,7 @@ paths:
 
 
 
+
 definitions:
   CreateUserrequest:
     description: User object
@@ -1825,6 +2019,12 @@ definitions:
     allOf:
       - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
       - $ref: '#/definitions/CreateUserSingleRespV2'
+  CreateUserRequestV3:
+    description: User object
+    type: object
+    allOf:
+      - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
+      - $ref: '#/definitions/CreateUserSingleRespV3'
 
   CreateUserSingleResp:
     description: Represents the  hold single userObject request
@@ -1835,6 +2035,15 @@ definitions:
         allOf:
           - $ref: '#/definitions/UserReq'
 
+  ExistsUserResp:
+    description: Represents the  hold single userObject request
+    type: object
+    properties:
+      request:
+        type: object
+        allOf:
+          - $ref: '#/definitions/UserExistsResp'
+
   CreateUserSingleRespV2:
     description: Represents the  hold single userObject request
     type: object
@@ -1843,6 +2052,15 @@ definitions:
         type: object
         allOf:
           - $ref: '#/definitions/UserReqV2'
+
+  CreateUserSingleRespV3:
+    description: Represents the  hold single userObject request
+    type: object
+    properties:
+      request:
+        type: object
+        allOf:
+          - $ref: '#/definitions/UserReqV3'
 
   RolesResponse:
     description: Represents the hold roles response
@@ -1854,9 +2072,9 @@ definitions:
           type: object
           $ref: '#/definitions/Role'
 
+
   Role:
     description: Represents the request body for role
-
     type: array
     items:
       type: object
@@ -1889,13 +2107,23 @@ definitions:
             type: string
             description: userId
 
+
+  UserExistsResp:
+    description: request body for block user
+
   MigrateUserReq:
     description: The request body to migrate a user.
+
     type: object
     properties:
       request:
         type: object
         properties:
+
+          isExists:
+            type: boolean
+            description: "true or false"
+
           userId:
             type: string
             description: The identifier for the user that needs to be migrated to a new tenant.
@@ -1911,6 +2139,7 @@ definitions:
           userExtId:
             type: string
             description: The user's external identifier. This value should match the value provided at the time of bulk user upload.
+
 
   SkillsResp:
     description: The skill list
@@ -2283,7 +2512,34 @@ definitions:
       - userName
       - phone
       - channel
-
+  UserReqV3:
+    title: User Object
+    type: object
+    properties:
+      email:
+        type: string
+        description: 'Represents the email of the user'
+      emailVerified:
+        type: boolean
+        description: >-
+          This key is required with value as true, if you pass the values for email
+          - But incases of create user either email or phone is required
+      firstName:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      phoneVerified:
+        type: boolean
+        description: >-
+          This key is required with value as true, if you pass the values for both phone and provider
+          But while creating a user, either the email or phone is required
+    required:
+      - firstName
+      - password
+      - email
+      - phone
   User:
     type: object
     properties:
