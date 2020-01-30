@@ -16,7 +16,7 @@ Use the following Git commands sequentially to clone and update your private Git
 
 1. `git clone` <a href="https://project-sunbird/sunbird-devops">https://github.com/project-sunbird/sunbird-devops</a>
 
-2. `cd sunbird-devops; git checkout tags/release-2.5.0 -b release-2.5.0`
+2. `cd sunbird-devops; git checkout tags/release-2.6.0 -b release-2.6.0`
 
 3. Copy the directory `sunbird-devops/private_repo/ansible` to your private repo location
 
@@ -61,7 +61,7 @@ ansible
     <td rowspan="3">Core</td>
     <td rowspan="3">Server-2 (Docker)</td>
     <td>Docker Manager and Worker</td>
-    <td>swarm-manager-1, swarm-agent-for-prometheus-1, swarm-agent-for-alertmanager-1, swarm-bootstrap-manager, swarm-node-1</td>
+    <td>swarm-manager-1, swarm-agent-for-prometheus-1, swarm-agent-for-alertmanager-1, swarm-dashboard-1, swarm-bootstrap-manager, swarm-node-1</td>
   </tr>
   <tr>
     <td>Logs Elasticsearch</td>

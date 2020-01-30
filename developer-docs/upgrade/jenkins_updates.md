@@ -4,7 +4,7 @@ page_title: Update Jenkins
 description: Update Jenkins 
 published: true
 allowSearch: true
-keywords: Upgrade, Sunbird 2.3.0, jenkins updates
+keywords: Upgrade, Sunbird 2.6.0, jenkins updates
 ---
 ## Overview
 
@@ -23,7 +23,7 @@ Follow the below steps to upgrade:
 1.Run the following commmands to set up the repository:
 
         git clone https://github.com/project-sunbird/sunbird-devops.git
-        cd sunbird-devops && git checkout tags/release-2.4.0 -b release-2.4.0
+        cd sunbird-devops && git checkout tags/release-2.6.0 -b release-2.6.0
         cd deploy/jenkins
 
 2.If there are changes in environment and you require additional folders for other environments, then update the **envOrder.txt** file with new environment order and run the script  
@@ -38,9 +38,9 @@ Follow the below steps to upgrade:
 
 5.The script will overwrite the existing jobs (jobs provided by default by Sunbird) and update the configurations with new changes of that release
 
-6.Go to Manage Jenkins → Configure System → Global Pipeline Libraries → Change Default Version to `release-2.4.0-shared-lib`
+6.Go to Manage Jenkins → Configure System → Global Pipeline Libraries → Change Default Version to `release-2.6.0-shared-lib`
 
-7.Go to Manage Jenkins → Configure System → Update `public_repo_branch` to `refs/tags/release-2.4.0` or go to Manage Jenkins → Configure System → Update `private_repo_branch` to the branch name of your private repo branch in case you created a new branch for release-2.4.0 inventory updates  
+7.Go to Manage Jenkins → Configure System → Update `public_repo_branch` to `refs/tags/release-2.6.0` or go to Manage Jenkins → Configure System → Update `private_repo_branch` to the branch name of your private repo branch in case you created a new branch for release-2.6.0 inventory updates  
 
 8.Restart your Jenkins and you are ready to go  
 
