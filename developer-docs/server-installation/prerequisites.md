@@ -25,10 +25,12 @@ Before you start the installation process, ensure that you provision for servers
 |Application|  Server           |Count|
 |-----------|-------------------|-----| 
 | Jenkins   | 4core 16G 250G HDD| 1   |
-| LP        | 2core 8G 60G HDD  | 2   |
-| DP        | 2core 8G 60G HDD  | 5   |
-| Core      | 2core 8G 60G HDD  | 2   |
-|           | Load Balancers    | 4   |
+| LP        | 4core 16G 60G HDD  | 1   |
+| DP        | 4core 16G 60G HDD  | 1   |
+| Core      | 4core 16G 60G HDD  | 1   |
+| DB      | 4core 16G 60G HDD  | 1   |
+| Yarn      | 4core 16G 60G HDD  | 2   |
+| Load Balancers         |  -   | 5 (Optional)   |
 
 ## Other Requirements
 
