@@ -1,0 +1,2814 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Sunbird Content API(s)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  contact:
+    email: info@sunbird.org
+  description: >-
+      The Content API resources perform operations related to all the _Content_ on the Sunbird Platform. 
+      
+      - Each of the endpoints serve a different purpose, so which one to use depends on what you want to do
+      
+      - The operations include CRUD (Create, Update, Read and Delete) operations and other operations such as upload and publish. 
+
+      - The URL for Sunbird Content API(s) is `content/v1`
+host: staging.open-sunbird.org
+basePath: /api/content/v1
+securityDefinitions:
+  bearer:
+      type: apiKey  # arbitrary name for the security scheme
+      in: header # The secrity scheme parameter is in "header"
+      name: Authorization # name of the header, query parameter or cookie
+schemes:
+  - https
+consumes:
+  - application/json
+  - multipart/form-data
+  - application/x-www-form-urlencoded
+produces:
+  - application/json
+paths:
+  /create:
+    post:
+      description: >-
+       This API is associated with creating content on the Sunbird Platform.
+          - The endpoint for **Create Content** is `/create`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Create Content
+      tags:
+        - Content APIs
+      operationId: Create Content
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: >-
+           'The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
+            
+            - JSON 
+            - XML data
+          
+           The body is the representation of the resource object for creating content (an array of parameters which describes the content)
+          schema:
+            $ref: '#/definitions/CreateContentRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+        - name: x-channel-id
+          in: header
+          required: true
+          type: string
+          description: 'Represents a physical location (e.g: state) uniquely to which the user belongs.'
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          type: string
+          description: 'Represents the authorized User ID to execute the API.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Create Content** operation was successful!
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Create Content** operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /content/v1/create
+            headers:
+              Content-Type: application/json
+              X-Channel-id: channel
+              Authorization: 'Bearer {{api_key}}'
+            body: |-
+              {
+                "request": {
+                  "content": {
+                    "visibility": "Default",
+                    "status": "Draft",
+                    "contentType": "Resource",
+                    "code": "test_cwp_3",
+                    "osId": "org.ekstep.quiz.app",
+                    "languageCode": "hi",
+                    "name": "Test Content",
+                    "description": "Test Content",
+                    "language": [
+                      "Hindi"
+                    ],
+                    "createdFor": [
+                      "012297427021119488540"
+                    ],
+                    "createdBy": "89cf1a7e-dfd3-46c9-a428-d37e9a2bc001",
+                    "mimeType": "application/vnd.ekstep.ecml-archive"
+                  }
+                }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Create Content
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /update/{Content_ID}:
+     patch:
+      description: >-
+        This API is associated with updating content on the Sunbird Platform.
+          - The endpoint for **Update Content** is `/update/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Update Content
+      tags:
+        - Content APIs
+      operationId: Update Content
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: Content_ID
+          type: string
+          required: true
+          description: 'Please append a valid Content ID To the Request URL'   
+        - name: Body
+          in: body
+          required: true
+          description: >- 
+            The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
+            
+            - JSON 
+            - XML data
+          
+            The body is the representation of the resource object for  updating the content.
+          schema:
+            $ref: '#/definitions/UpdateContentRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          type: string
+          description: 'Represents the authorized User ID to execute the API.'
+        - name: X-Channel-id
+          in: header
+          required: true
+          type: string
+          description: 'Represents a physical location (e.g: state) uniquely to which the user belongs.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Update Content** operation was successful!
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Create Content** operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: PATCH
+            uri: /content/v1/update/{Content_Id}
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              X-Channel-id: channel
+              Authorization: 'Bearer {{api_key}}'
+            body: |-
+              {
+                "request": {
+                  "content": {
+                    "languageCode": "string",
+                    "name": "string",
+                    "description": "string",
+                    "language": [
+                      "Hindi"
+                    ],
+                    "createdFor": [
+                      "012297427021119488540"
+                    ]
+                  }
+                }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Update Content
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /publish/{Content_ID}:
+    post:
+      description: >-
+        This API is associated with publishing content on the Sunbird Platform.
+          - The endpoint for **Publish Content** is `/publish/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Publish Content
+      tags:
+        - Content APIs
+      operationId: Publish Content
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: Content_ID
+          type: string
+          required: true
+          description: 'Please append a valid Content ID To the Request URL'
+        - name: Body
+          in: body
+          required: true
+          description: >- 
+           'The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
+            
+            - JSON 
+            - XML data
+          
+           The body is the representation of the resource object for publishing the content 
+          schema:
+            $ref: '#/definitions/PublishContentRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          type: string
+          description: 'Represents the authorized User ID to execute the API.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Publish Content** operation was successful!
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Publish Content** operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /content/v1/publish/{Content_Id}
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              Authorization: 'Bearer {{api_key}}'
+            body: |-
+              {
+                "request": {
+                  "content": {
+                    "lastPublishedBy": "89cf1a7e-dfd3-46c9-a428-d37e9a2bc001"
+                  }
+                }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Publish Content
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /unlisted/publish/{Content_ID}:
+    post:
+      description: >-
+        This API is associated with publishing content on the Sunbird Platform.
+          - The endpoint for **Privately Publish Content** is `/unlisted/publish/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Privately Publish Content
+      tags:
+        - Content APIs
+      operationId: Unlisted Publish Content
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: Content_ID
+          type: string
+          required: true
+          description: 'Please append a valid Content ID To the Request URL'
+        - name: Body
+          in: body
+          required: true
+          description: >- 
+            The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
+            
+            - JSON 
+            - XML data
+          
+            The body is the representation of the resource object for publishing the (unlisted)content privately 
+          schema:
+            $ref: '#/definitions/PublishContentRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          type: string
+          description: 'Represents the authorized User ID to execute the API.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+           SUCCESS. The **Publish Content** operation was successful!
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Publish Content** operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /content/v1/publish/{Content_Id}
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              Authorization: 'Bearer {{api_key}}'
+            body: |-
+              {
+                "request": {
+                  "content": {
+                    "lastPublishedBy": "89cf1a7e-dfd3-46c9-a428-d37e9a2bc001"
+                  }
+                }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Publish Content
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /retire/{Content_ID}:
+    delete:
+      description: >-
+        This API is associated with publishing content on the Sunbird Platform.
+          - The endpoint for **Retire Content** is `/retire/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Retire Content
+      tags:
+        - Content APIs
+      operationId: Retire Content
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: Content_ID
+          type: string
+          required: true
+          description: 'Please append a valid Content Id To the Request URL'
+        - name: Body
+          in: body
+          required: true
+          description: >-
+           The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
+            
+            - JSON 
+            - XML data
+          
+            The body is the representation of the resource object for deleting content
+          schema:
+            $ref: '#/definitions/RetireContentRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          type: string
+          description: 'Represents the registered User ID to execute the API.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Delete Content** operation was successful!
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: >-
+            BAD REQUEST. The **Delete Content** operation failed. You may have missed input for a mandatory parameter.
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: DELETE
+            uri: /content/v1/retire/{Content_Id}
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              Authorization: 'Bearer {{api_key}}'
+            body: |-
+              {
+                "request": {
+                  "contentIds": [
+                    "do_3123180264398192642407"
+                  ]
+                }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Retire Content
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /review/{Content_ID}:
+    post:
+      description: >-
+        This API is associated with Submission of content for Review  on the Sunbird Platform.  
+          - The endpoint for **Submit for Review** is `/review/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Submit for Review
+      tags:
+        - Content APIs
+      operationId: Submit for Review
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: Content_ID
+          type: string
+          required: true
+          description: 'Please append a valid Content ID To the Request URL'  
+        - name: Body
+          in: body
+          required: true
+          description: >-
+            The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
+            
+            - JSON 
+            - XML data
+          
+            The body is the representation of the resource object for  sending content for review
+          schema:
+            $ref: '#/definitions/ReviewContentRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          type: string
+          description: 'Represents the registered User ID to execute the API.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Content Sent for Review** operation was successful!
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Content Sent for Review** operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /content/v1/review/{contentId}
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              Authorization: 'Bearer {{api_key}}'
+            body: '{ }'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Submit for Review
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /upload/{Content_ID}:
+    post:
+      description:  >-
+       This API is associated with uploading content on the Sunbird Platform.
+          - The endpoint for **Upload Content** is `/upload/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Upload Content
+      tags:
+        - Content APIs
+      operationId: Upload Content
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: path
+          name: Content_ID
+          type: string
+          required: true
+          description: 'Please append a valid Content ID To the Request URL'
+        - name: file
+          in: formData
+          required: true
+          type: file
+          format: file
+          description: 'Content package file which you intend to upload'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          type: string
+          description: 'Represents the registered User ID to execute the API.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Upload Content** operation was successful!
+          schema:
+            $ref: '#/definitions/ContentUploadResponse'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Upload Content** operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /search:
+    post:
+      description: >-
+        This API is associated with Searching content on the Sunbird Platform.
+          - The endpoint for **Search Content** is `/search`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Search Content
+      tags:
+        - Content APIs
+      operationId: Search Content
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description:  >-
+            The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
+            
+            - JSON 
+            - XML data
+          
+            The body is the representation of the resource object for searching the content.
+          schema:
+            $ref: '#/definitions/SearchContentRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          type: string
+          description: 'Represents the registered User ID to execute the API.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Search Content** operation was successful!
+          schema:
+            $ref: '#/definitions/ContentSearchResponse'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Search Content** operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /content/v1/search
+            headers:
+              Content-Type: application/json
+              Authorization: 'Bearer {{api_key}}'
+              X-Authenticated-Userid: '{{user_id}}'
+            body: |-
+              {
+                  "request": {
+                      "filters":{"metadata of content"}
+                      "sort_by": {"createdOn": "asc"},
+                      "fields": ["name", "contentType", "createdFor", "createdBy", "createdOn", "status", "mimeType", "channel", "lastUpdatedOn"]
+                  }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Search Content
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /flag/{Content_ID}:
+    post:
+      description: >-
+        This API is associated with setting Flag for content under review on the Sunbird Platform.
+          - The endpoint for **Flag Content** is `/flag/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Flag Content
+      tags:
+        - Content APIs
+      operationId: Flag Content
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: Content_ID
+          type: string
+          required: true
+          description: 'Please append a valid Content ID To the Request URL'
+        - name: Body
+          in: body
+          required: true
+          description: >-
+           The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
+            
+            - JSON 
+            - XML data
+          
+            The body is the representation of the resource object, that contains request for setting flag to "Accept" or "Reject" for any of the content that is in review process.
+          schema:
+            $ref: '#/definitions/FlagContentRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          type: string
+          description: 'Represents the authorized User ID to execute the API.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Flag Content** operation was successful!.
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Flag Content* operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /content/v1/flag/<contentId>
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              Authorization: 'Bearer {{api_key}}'
+            body: |-
+              {
+                "request": {
+                  "content": {
+                    "flaggedBy": "89cf1a7e-dfd3-46c9-a428-d37e9a2bc001",
+                    "flagReasons": ["Flag comment"],
+                    "flags": ["InAppropriate Content"]
+                  }
+                }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Flag Content
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /flag/accept/{Content_ID}:
+    post:
+      description: >-
+        This API is associated with setting Accept Flag for content under review process on the Sunbird Platform.
+          - The endpoint for **Accept Flag** is `/flag/accept/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Accept Flag
+      tags:
+        - Content APIs
+      operationId: Accept Flag
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: Content_ID
+          type: string
+          required: true
+          description: 'Please append a valid Content ID To the Request URL'
+        - name: Body
+          in: body
+          required: true
+          description: >-
+            The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:'
+            
+            - JSON 
+            - XML data
+          
+            The body is the representation of the resource object for setting the flag to "accept" for the content that is in review process.
+          schema:
+            $ref: '#/definitions/FlagAcceptContentRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          type: string
+          description: 'Represents the authorized User ID to execute the API.' 
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Accept Flag** operation was successful!
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: >- 
+            'BAD REQUEST. The **Accept Flag** operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /content/v1/flag/accept/<contentId>
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              Authorization: 'Bearer {{api_key}}'
+            body: '{}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Accept Flag
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /flag/reject/{Content_ID}:
+    post:
+      description: >-
+        This API is associated with setting Reject Flag for content under review process on the Sunbird Platform.
+          - The endpoint for **Reject Flag** is `/flag/reject/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Reject Flag
+      tags:
+        - Content APIs
+      operationId: Reject Flag
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: Content_ID
+          type: string
+          required: true
+          description: 'Please append a valid Content ID To the Request URL'
+        - name: Body
+          in: body
+          required: true
+          description: >-
+            The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload
+            
+            - JSON 
+            - XML data
+          
+            The body is the representation of the resource object for  setting the flag to "reject" for the content in review process.
+          schema:
+            $ref: '#/definitions/FlagRejectContentRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          type: string
+          description: 'Represents the authorized User ID to execute the API.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Reject Flag** operation was successful!
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Reject Flag** operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /content/v1/flag/reject/<contentId>
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              Authorization: 'Bearer {{api_key}}'
+            body: '{}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Reject Flag
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /reject/{Content_ID}:
+    post:
+      description: >-
+        This API is associated with Rejecting rejecting content
+        under review after "Reject content flag" has been set on the Sunbird Platform.
+          - The endpoint for **Reject Content Review** is `/reject/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Reject Content Review
+      tags:
+        - Content APIs
+      operationId: Reject Content Review
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: Content_ID
+          type: string
+          required: true
+          description: 'Please append a valid Content ID To the Request URL'
+        - name: Body
+          in: body
+          required: true
+          description:  >-
+            The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload
+            
+            - JSON 
+            - XML data
+          
+            The body is the representation of the resource object for rejecting the content after the review process.
+          schema:
+            $ref: '#/definitions/RejectContentRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          type: string
+          description: 'Represents the authorized User ID to execute the API.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Reject Content** operation was successful!
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Reject Content** operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /content/v1/reject/<contentId>
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              Authorization: 'Bearer {{api_key}}'
+            body: '{}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Reject Content Review
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /read/{Content_ID}:
+    get:
+      description: >-
+        This API is associated with viewing and reading out the content on the Sunbird Platform.
+          - The endpoint for **Read Content** is `/read/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Read Content
+      tags:
+        - Content APIs
+      operationId: Read Content
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: licenseDetails
+          type: string
+          description:  >-
+            This is used to fetch the details of the content's license. Below are the possible values to fetch
+              - name
+              - description
+              - url
+        - in: path
+          name: Content_ID
+          type: string
+          required: true
+          description: 'Please append a valid Content ID To the Request URL' 
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          type: string
+          description: 'Represents the authorized User ID to execute the API.'
+        - name: X-Channel-id
+          in: header
+          required: true
+          type: string
+          description:  'Represents a physical location (e.g: state) uniquely to which the user belongs.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Read Content** operation was successful!
+          schema:
+            $ref: '#/definitions/ContentGetResponse'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Read Content** operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /content/v1/read/<contentId>
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              X-Channel-id: channel
+              Authorization: 'Bearer {{api_key}}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Read Content
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /hierarchy/update:
+    post:
+      description: >-
+       This API is associated with updating hierarchy content on the Sunbird Platform.
+          - The endpoint for **Hierarchy Update Content** is `/hierarchy/update`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Hierarchy Update Content
+      tags:
+        - Content APIs
+      operationId: Hierarchy Update Content
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: >-
+            The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload
+            
+            - JSON 
+            - XML data
+          
+            The body is the representation of the resource object for updating the content hierarchy.
+          schema:
+            $ref: '#/definitions/UpdateHierarchyContentRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+        - name: x-authenticated-user-token
+          in: header
+          required: true
+          type: string
+          description: 'The Registered User ID to execute the API.' 
+        - name: x-channel-id
+          in: header
+          required: true
+          type: string
+          description: 'Represents a physical location (e.g: state) uniquely to which the user belongs.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Update Hierarchy Content** operation was successful!
+          schema:
+            $ref: '#/definitions/ContentUpdateHierarchyResponse'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Update Hierarchy Content** operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /content/v1/create
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              X-Channel-id: channel
+              Authorization: 'Bearer {{api_key}}'
+            body: |-
+              {
+                "request": {
+                  "content": {
+                    "visibility": "Default",
+                    "status": "Draft",
+                    "contentType": "Resource",
+                    "code": "test_cwp_3",
+                    "osId": "org.ekstep.quiz.app",
+                    "languageCode": "hi",
+                    "name": "Test Content",
+                    "description": "Test Content",
+                    "language": [
+                      "Hindi"
+                    ],
+                    "createdFor": [
+                      "012297427021119488540"
+                    ],
+                    "createdBy": "89cf1a7e-dfd3-46c9-a428-d37e9a2bc001",
+                    "mimeType": "application/vnd.ekstep.ecml-archive"
+                  }
+                }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Create Content
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /hierarchy/{Content_ID}:
+    get:
+      description: >-
+        This API is associated with fetching the content hierarchy using a specific content ID on the Sunbird Platform.
+          - The endpoint for **Get Content Hierarchy Object** is `/hierarchy/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Get Content Hierarchy Object
+      tags:
+        - Content APIs
+      operationId: Get Content Hierarchy
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: Content_ID
+          type: string
+          required: true
+          description: 'Please append a valid Content ID To the Request URL' 
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          type: string
+          description: 'Represents the authorized User ID to execute the API.'
+        - name: X-Channel-id
+          in: header
+          required: true
+          type: string
+          description:  'Represents a physical location (e.g: state) uniquely to which the user belongs.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Read Content Hierarchy** operation was successful!
+          schema:
+            $ref: '#/definitions/ContentHierarchyGetResponse'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Read Content Hierarchy** operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /content/v1/read/<contentId>
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              X-Channel-id: channel
+              Authorization: 'Bearer {{api_key}}'
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Read Content
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /copy/{Content_ID}:
+    post:
+      description: >-
+       This API is associated with copying content on the Sunbird Platform.
+          - The endpoint for **Copy Content** is `/copy/{Content_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+
+      summary: Copy Content
+      tags:
+        - Content APIs
+      operationId: Copy Content
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: Content_ID
+          type: string
+          required: true
+          description: 'Please append a valid Content ID To the Request URL' 
+        - name: Body
+          in: body
+          required: true
+          description: >-
+            The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload
+            
+            - JSON 
+            - XML data
+          
+            The body is the representation of the resource object for copying the content 
+          schema:
+             $ref: '#/definitions/CopyContentRequestBody' 
+            
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description:  >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+        - name: x-authenticated-user-token
+          in: header
+          required: true
+          type: string
+          description: 'The Registered User token to execute the API.' 
+        - name: x-channel-id
+          in: header
+          required: true
+          type: string
+          description: 'Represents a physical location (e.g: state) uniquely to which the user belongs.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Copy Content** operation was successful!
+          schema:
+            $ref: '#/definitions/ContentCopySuccessResponse'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Copy Content** operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+      security:
+        - bearer: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /content/v1/create
+            headers:
+              Content-Type: application/json
+              X-Authenticated-Userid: '{{user_id}}'
+              X-Channel-id: channel
+              Authorization: 'Bearer {{api_key}}'
+            body: |-
+              {
+                "request": {
+                    "content": {
+                        "description": "",
+                        "code": "",
+                        "createdBy": "",
+                        "createdFor": ["", "", ""],
+                        "creator": "",
+                        "organization": [""]
+                    }
+                }
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Create Content
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false      
+definitions:
+  CreateContentRequest:
+    title: Create ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentCreateContentObject'
+    required:
+      - request
+  ContentCreateContentObject:
+    title: ContentCreateContentObject
+    type: object
+    properties:
+      content:
+        $ref: '#/definitions/ContentCreateObject'
+    required:
+      - content
+  ContentCreateObject:
+    title: ContentCreateObject
+    type: object
+    properties:
+      name:
+        description: 'Represents the name of the content'
+        type: string
+      code:
+        description: 'Represents the unique code for the content'
+        type: string
+      audience:
+        description: 'The target audience of the Content'
+        type: string
+        example:
+          - Learner
+          - Instructor
+      badgeAssertions:
+        description: 'List of Badges assigned to the content'
+        type: array
+        items:
+          type: object
+      contentCredits:
+        description: 'List of Content Credits'
+        type: array
+        items:
+          type: object
+      mimeType:
+        description: 'Content mime type'
+        type: string
+        example:
+          - application/vnd.ekstep.ecml-archive
+          - application/vnd.ekstep.html-archive
+          - application/vnd.android.package-archive
+          - application/vnd.ekstep.content-archive
+          - application/vnd.ekstep.content-collection
+          - application/vnd.ekstep.plugin-archive
+          - application/vnd.ekstep.h5p-archive
+          - application/epub
+          - text/x-url
+          - video/x-youtube
+          - application/octet-stream
+          - application/msword
+          - application/pdf
+          - image/jpeg
+          - image/jpg
+          - image/png
+          - image/tiff
+          - image/bmp
+          - image/gif
+          - image/svg+xml
+          - video/avi
+          - video/mpeg
+          - video/quicktime
+          - video/3gpp
+          - video/mpeg
+          - video/mp4
+          - video/ogg
+          - video/webm
+          - audio/mp3
+          - audio/mp4
+          - audio/mpeg
+          - audio/ogg
+          - audio/webm
+          - audio/x-wav
+          - audio/wav
+      mediaType:
+        description: 'Content media type'
+        type: string
+        example:
+          - content
+          - collection
+          - image
+          - video
+          - audio
+          - voice
+          - ecml
+          - document
+          - pdf
+          - text
+          - other  
+      appIcon:
+        description: 'Url link for content icon'
+        type: string
+      createdFor:
+        description: 'Content created for'
+        type: array
+        items:
+          type: string
+      board:
+        description: 'Education Board (Like MP Board, NCERT, etc)'
+        type: string
+      subject:
+        description: 'Subject of the Content to use to teach'
+        type: array
+        items:
+          type: string
+      medium:
+        description: 'Medium of instruction. e.g: English, Hindi etc'
+        type: array
+        items:
+          type: string
+      publisher:
+        description: 'Publisher of the content (e.g. Pratham Books)'
+        type: string
+      author:
+        description: 'Author of the content.'
+        type: string
+      owner:
+        description: 'Owner of the content.'
+        type: string
+      attributions:
+        description: 'Attributions/Credits given to the person'
+        type: array
+        items:
+          type: string
+      collaborators:
+        description: 'List of Collaborators'
+        type: array
+        items:
+          type: string
+      creators:
+        description: 'List of primary contributors'
+        type: string
+      contributors:
+        description: 'List of secondary contributors'
+        type: string
+      copyright:
+        description: 'Name of the person who owns the content'
+        type: string
+      license:
+        description: 'License of the content'
+        type: string
+        example:
+          - CC BY 4.0
+          - CC BY-NC 4.0
+          - CC BY-SA 4.0
+          - CC BY-NC-SA 4.0
+          - Standard YouTube License
+      language:
+        description: 'Languarge of the content'
+        type: string
+        example:
+          - English
+          - Hindi
+          - Assamese
+          - Bengali
+          - Gujarati
+          - Kannada
+          - Malayalam
+          - Marathi
+          - Nepali
+          - Odia
+          - Punjabi
+          - Tamil
+          - Telugu
+          - Urdu
+          - Sanskrit
+          - Maithili
+          - Munda
+          - Santali
+          - Juang
+          - Ho
+          - Othe
+      gradeLevel:
+        description: 'Grade Level for which content is created'
+        type: array
+        items:
+          type: string
+      topic:
+        description: 'List of Topic'
+        type: array
+        items:
+          type: string
+      contentType:
+        description: 'Content Type. e.g: TextBook, Resource, etc'
+        type: string
+        example:
+          - Resource
+          - Collection
+          - TextBook
+          - LessonPlan
+          - Course
+          - Template
+          - Asset
+          - Plugin
+          - LessonPlanUnit
+          - CourseUnit
+          - TextBookUnit
+          - TeachingMethod
+          - PedagogyFlow
+          - FocusSpot
+          - LearningOutcomeDefinition
+          - PracticeQuestionSet
+          - CuriosityQuestionSet
+          - MarkingSchemeRubric
+          - ExplanationResource
+          - ExperientialResource
+      resourceType:
+        description: 'Resource Type. e.g: Learn, Teach, Play'
+        type: string
+        example:
+          - Read
+          - Learn
+          - Teach
+          - Play
+          - Test
+          - Practice
+          - Experiment
+          - Collection
+          - Book
+          - Lesson Plan
+          - Course
+          - Theory
+          - Worksheet
+          - Practical
+      keywords:
+        description: 'Keywords for content'
+        type: array
+        items:
+          type: string
+      description:
+        description: 'Description for the content'
+        type: string
+      body:
+        description: 'Content body for content. Only for ECML content'
+        type: string
+      editorState:
+        description: 'Editor State'
+        type: string
+      createdBy:
+        description: 'ID of the user who created Content'
+        type: string
+      creator:
+        description: 'Name of the user who created Content'
+        type: string
+      pragma:
+        description: 'Content pragma'
+        type: string
+        example:
+          - external
+          - ads
+      ownershipType:
+        description: 'Ownership Type of the Content'
+        type: array
+        items:
+          type: string
+        example:
+          - createdBy
+          - createdFor
+      dialcodeRequired:
+        description: 'Is dialcode generation required or not'
+        type: string
+        example:
+          - Yes
+          - No
+      badgeAssociations:
+        description: 'List of Badge Associations'
+        type: object
+      framework:
+        description: 'Framework Id of Content'
+        type: string
+      organisation:
+        description: 'List of org names (partner names)'
+        type: array
+        items:
+          type: string
+    required:
+      - code
+      - name
+      - mimeType
+  UpdateContentRequest:
+    title: Update ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentUpdateContentObject'
+    required:
+      - request
+  ContentUpdateContentObject:
+    title: ContentUpdateContentObject
+    type: object
+    properties:
+      content:
+        $ref: '#/definitions/ContentUpdateObject'
+    required:
+      - content
+  ContentUpdateObject:
+    title: ContentUpdateObject
+    type: object
+    properties:
+      versionKey:
+        description: 'Version key of the content'
+        type: string
+      name:
+        description: 'Represents the name of the content'
+        type: string
+      audience:
+        description: 'The target audience of the Content'
+        type: string
+        example:
+          - Learner
+          - Instructor
+      badgeAssertions:
+        description: 'List of Badges assigned to the content'
+        type: array
+        items:
+          type: object
+      contentCredits:
+        description: 'List of Content Credits'
+        type: array
+        items:
+          type: object
+      appIcon:
+        description: 'Url link for content icon'
+        type: string
+      createdFor:
+        description: 'Content created for'
+        type: array
+        items:
+          type: string
+      board:
+        description: 'Education Board (Like MP Board, NCERT, etc)'
+        type: string
+      subject:
+        description: 'Subject of the Content to use to teach'
+        type: array
+        items:
+          type: string
+      medium:
+        description: 'Medium of instruction. e.g: English, Hindi etc'
+        type: array
+        items:
+          type: string
+      publisher:
+        description: 'Publisher of the content (e.g. Pratham Books)'
+        type: string
+      author:
+        description: 'Author of the content.'
+        type: string
+      owner:
+        description: 'Owner of the content.'
+        type: string
+      attributions:
+        description: 'Attributions/Credits given to the person'
+        type: array
+        items:
+          type: string
+      collaborators:
+        description: 'List of Collaborators'
+        type: array
+        items:
+          type: string
+      creators:
+        description: 'List of primary contributors'
+        type: string
+      contributors:
+        description: 'List of secondary contributors'
+        type: string
+      copyright:
+        description: 'Name of the person who owns the content'
+        type: string
+      license:
+        description: 'License of the content'
+        type: string
+        example:
+          - CC BY 4.0
+          - CC BY-NC 4.0
+          - CC BY-SA 4.0
+          - CC BY-NC-SA 4.0
+      language:
+        description: 'Languarge of the content'
+        type: string
+        example:
+          - English
+          - Hindi
+          - Assamese
+          - Bengali
+          - Gujarati
+          - Kannada
+          - Malayalam
+          - Marathi
+          - Nepali
+          - Odia
+          - Punjabi
+          - Tamil
+          - Telugu
+          - Urdu
+          - Sanskrit
+          - Maithili
+          - Munda
+          - Santali
+          - Juang
+          - Ho
+          - Othe
+      gradeLevel:
+        description: 'Grade Level for which content is created'
+        type: array
+        items:
+          type: string
+      topic:
+        description: 'List of Topic'
+        type: array
+        items:
+          type: string
+      keywords:
+        description: 'Keywords for content'
+        type: array
+        items:
+          type: string
+      description:
+        description: 'Description for the content'
+        type: string
+      body:
+        description: 'Content body for content. Only for ECML content'
+        type: string
+      editorState:
+        description: 'Editor State'
+        type: string
+      creator:
+        description: 'Name of the user who created Content'
+        type: string
+      pragma:
+        description: 'Content pragma'
+        type: string
+        example:
+          - external
+          - ads
+      ownershipType:
+        description: 'Ownership Type of the Content'
+        type: array
+        items:
+          type: string
+        example:
+          - createdBy
+          - createdFor
+      dialcodeRequired:
+        description: 'Is dialcode generation required or not'
+        type: string
+        example:
+          - Yes
+          - No
+      badgeAssociations:
+        description: 'List of Badge Associations'
+        type: object
+      framework:
+        description: 'Framework Id of Content'
+        type: string
+      organisation:
+        description: 'List of org names (partner names)'
+        type: array
+        items:
+          type: string
+    required:
+      - versionKey
+  PublishContentRequest:
+    title: Publish ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentPublishContentObject'
+    required:
+      - request
+  ContentPublishContentObject:
+    title: ContentPublishContentObject
+    type: object
+    properties:
+      content:
+        $ref: '#/definitions/ContentPublishObject'
+    required:
+      - content
+  ContentPublishObject:
+    title: ContentPublishObject
+    type: object
+    properties:
+      lastPublishedBy:
+        description: ''
+        type: string
+      publishChecklist:
+        description: 'List of checklist mandatory for publishing the content.'
+        type: array
+        items:
+          type: string
+      publishComment:
+        description: 'Comment shared by publisher'
+        type: string
+    required:
+      - lastPublishedBy
+  RetireContentRequest:
+    title: Retire ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentRetireObject'
+    required:
+      - request
+  ContentRetireObject:
+    title: ContentRetireObject
+    type: object
+  ReviewContentRequest:
+    title: Review ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentReviewObject'
+    required:
+      - request
+  ContentReviewObject:
+    title: ContentReviewObject
+    type: object
+  SearchContentRequest:
+    title: Search ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentSearchContentObject'
+    required:
+      - request
+  ContentSearchContentObject:
+    title: ContentSearchContentObject
+    type: object
+    properties:
+      filters:
+        $ref: '#/definitions/ContentSearchObject'
+      sort_by:
+        $ref: '#/definitions/SortBy'
+      fields:
+        description: ''
+        type: array
+        items:
+          type: string
+    required:
+      - filters
+      - sort_by
+      - fields
+  ContentSearchObject:
+    title: ContentSearchObject
+    type: object
+    properties:
+      channel:
+        description: ''
+        type: string
+      objectType:
+        description: ''
+        type: array
+        items:
+          type: string
+      contentType:
+        description: ''
+        type: array
+        items:
+          type: string
+      status:
+        description: ''
+        type: array
+        items:
+          type: string
+    required:
+      - channel
+      - objectType
+      - contentType
+      - status
+  SortBy:
+    title: SortBy
+    type: object
+    properties:
+      createdOn:
+        description: ''
+        type: string
+    required:
+      - createdOn
+  FlagContentRequest:
+    title: Flag ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentFlagContentRequest'
+    required:
+      - request
+  ContentFlagContentRequest:
+    title: ContentFlagContentRequest
+    type: object
+    properties:
+      content:
+        $ref: '#/definitions/ContentFlagObject'
+    required:
+      - content
+  ContentFlagObject:
+    title: ContentFlagObject
+    type: object
+    properties:
+      flaggedBy:
+        description: ''
+        type: string
+      flagReasons:
+        description: ''
+        type: array
+        items:
+          type: string
+      versionKey:
+        description: ''
+        type: string
+    required:
+      - flaggedBy
+      - flagReasons
+      - versionKey
+  FlagAcceptContentRequest:
+    title: Publish ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentFlagAcceptObject'
+    required:
+      - request
+  ContentFlagAcceptObject:
+    title: ContentFlagAcceptObject
+    type: object
+    properties:
+      versionKey:
+        description: ''
+        type: string
+    required:
+      - versionKey
+  FlagRejectContentRequest:
+    title: Publish ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentFlagRejectObject'
+    required:
+      - request
+  ContentFlagRejectObject:
+    title: ContentFlagRejectObject
+    type: object
+  RejectContentRequest:
+    title: Reject ContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentRejectObject'
+    required:
+      - request
+  ContentRejectObject:
+    title: ContentRejectObject
+    type: object
+    properties:
+      content:
+        $ref: '#/definitions/ContentRejectObjectRequest'
+  ContentRejectObjectRequest:
+    title: ContentRejectObjectRequest
+    type: object
+    properties:
+      rejectReasons:
+        type: array
+        description: 'List of reject Reasons'
+        items:
+          type: string
+      rejectComment:
+        type: string
+        description: 'Reject comments'
+  UpdateHierarchyContentRequest:
+    title: Update Hierarchy Content Request
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentUpdateHierarchyContentObject'
+    required:
+      - request
+  ContentUpdateHierarchyContentObject:
+    title: Content Update Hierarchy Object
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ContentUpdateHierarchyObject'
+    required:
+      - data
+  ContentUpdateHierarchyObject:
+    title: Content Update Hierarchy Object
+    type: object
+    properties:
+      nodesModified:
+        $ref: '#/definitions/ContentNodesModified'
+      hierarchy:
+        $ref: '#/definitions/ContentHierarchy'
+    required:
+      - NodesModified
+      - hierarchy
+  ContentNodesModified:
+    title: Content Update Hierarchy Object
+    type: object
+    properties:
+      dummyNode:
+        $ref: '#/definitions/ContentDummyNode'
+    required:
+      - dummyNode
+  ContentDummyNode:
+    title: Content Metadata
+    type: object
+    properties:
+      isNew:
+        type: boolean
+        description: Whether the content is new or existing
+        example:
+          - true
+          - false
+      root:
+        type: boolean
+        description: Whether the content is root node
+        example:
+          - true
+          - false
+      metadata:
+        $ref: '#/definitions/ContentUpdateObject'
+    required:
+      - metadata
+  ContentHierarchy:
+    title: Content Hierarchy
+    type: object
+    properties:
+      dummyNode:
+        $ref: '#/definitions/DummyNodeHierarchy'
+    required:
+      - dummyNode
+  DummyNodeHierarchy:
+    title: Dummy Node Hierarchy
+    type: object
+    properties:
+      name:
+        type: string
+        description: Represents the name of the content
+      contentType:
+        type: string
+        description: Represents the content type of the content
+      root:
+        type: boolean
+        description: Represents that the content is at root level in a hierarchial content tree
+      children:
+        type: array
+        description: Represents the children node of the content tree
+        items:
+          type: string
+  ContentCreateResponse:
+    description: Create Content Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithNodeId'
+      - $ref: '#/definitions/ResponseHeader'
+  ContentUploadResponse:
+    description: Upload Content Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithNodeIdAndUrl'
+      - $ref: '#/definitions/ResponseHeader'
+  ContentSearchResponse:
+    description: Create Content Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithContentList'
+      - $ref: '#/definitions/ResponseHeader'
+  ContentUpdateHierarchyResponse:
+    description: Create Content Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultUpdateHierarchy'
+      - $ref: '#/definitions/ResponseHeader'
+  ResultUpdateHierarchy:
+    title: Result - Content Update Hierarchy
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/ResultUpdateHierarchyMap'
+    required:
+      - result
+  ResultUpdateHierarchyMap:
+    title: Result - Content Update Hierarchy
+    type: object
+    properties:
+      content_id:
+        type: string
+        description: Parent content id
+      identifiers:
+        $ref: '#/definitions/NewContentMap'
+  NewContentMap:
+    title: Newly created content
+    type: object
+    properties:
+      dummyNode:
+        type: string
+        description: Dummy Node Id
+  ResultWithNodeId:
+    title: Result Containing Node Id
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/NodeId'
+  ResultWithNodeIdAndUrl:
+    title: Result Containing Node Id
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/NodeIdAndUrl'
+  ResultWithContentList:
+    title: Result Containing Node Id
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/ContentList'
+  NodeId:
+    title: Node Id
+    type: object
+    properties:
+      node_id:
+        type: string
+        description: Node Identifier
+      versionKey:
+        type: string
+        description: Represents the content version key
+  NodeIdAndUrl:
+    title: Node Id
+    type: object
+    properties:
+      node_id:
+        type: string
+        description: Node Identifier
+      versionKey:
+        type: string
+        description: Content version key
+      content_url:
+        type: string
+        description: Content URL link
+  ContentList:
+    title: Content List
+    type: object
+    properties:
+      count:
+        type: number
+        description: Represents the number of times the content is searched
+      content:
+        type: array
+        description: Content object list
+        items:
+          type: object
+  ContentGetResponse:
+    description: Get Content Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithContent'
+      - $ref: '#/definitions/ResponseHeader'
+  ResultWithContent:
+    title: Result Containing Content Object
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/ContentObject'
+  ContentObject:
+    title: Result Containing Content Object
+    type: object
+    properties:
+      content:
+        $ref: '#/definitions/ContentProperties'
+  ContentProperties:
+    title: Node Id
+    type: object
+    properties:
+      identifier:
+        type: string
+        description: It represents the Node 
+      name:
+        type: string
+        description: It is the name given to a node
+      code:
+        type: string
+        description: Represents the Node associated with other specific node
+      keywords:
+        type: array
+        items:
+          type: string
+        description: It represents the Keywords associated with a node
+      downloadUrl:
+        type: string
+        description: Represents the S3 URL of the Ecar, which can be used for downloading the Ecar
+      channel:
+        type: string
+        description: Represents the channel with which the content is associated
+      description:
+        type: string
+        description: It denotes the description of content
+      language:
+        type: string
+        description: Represents the language of the content
+      variants:
+        type: object
+        description: Represents the content variants based on medium of language 
+      mimeType:
+        type: string
+        description: Represents the mimetype of the content
+      createdOn:
+        type: string
+        description: Represents the content creation date 
+      collections:
+        type: array
+        items:
+          type: object
+        description: Represents the collections that are associated with content
+      children:
+        type: array
+        items:
+          type: object
+        description: Represents the children (nodes) associated with the content
+      lastUpdatedOn:
+        type: string
+        description: Represents the date on which content was last updated
+      mimeTypesCount:
+        type: string
+        description: Represents the count of  mimetypes in associated contents
+      contentType:
+        type: string
+        description: Represents the type of content
+      lastUpdatedBy:
+        type: string
+        description: Represents the user who updated the content previously
+      audience:
+        type: array
+        items:
+          type: string
+        description: Represents the audience of the content
+      toc_url:
+        type: string
+        description: Represents the S3 URL of the table of contents of a content file
+      visibility:
+        type: string
+        description: Represents the visibility mode of the content
+      contentTypesCount:
+        type: string
+        description: Represents the count of different content types within the associated content
+      childNodes:
+        type: array
+        items:
+          type: string
+        description: Lists the child nodes asociated with content
+      mediaType:
+        type: string
+        description: Represents the MediaType of the content
+      lastPublishedBy:
+        type: string
+        description: Represents the date on which content was last published
+      pkgVersion:
+        type: string
+        description: Represents the version of content package usually the last built package 
+      versionKey:
+        type: string
+        description: Represents the version number that was generated after last update
+      tags:
+        type: array
+        items:
+          type: string
+        description: Denotes the tags that are associated with the content
+      prevState:
+        type: string
+        description: Represents the previous state of the content
+      s3Key:
+        type: string
+        description: Represents the S3 relative path of Ecar file
+      framework:
+        type: string
+        description: Represents which framework was used to create the content
+      size:
+        type: integer
+        description: Represents the size of the content
+      lastPublishedOn:
+        type: string
+        description: Represents the date on which the content was last published
+      leafNodesCount:
+        type: integer
+        description: Represents the total number of leaf nodes against the collection content
+      compatibilityLevel:
+        type: integer
+        description: Represents the compatibility Level 
+      publisher:
+        type: string
+        description: Represents who is the publisher of the content
+      resourceType:
+        type: string
+        description: Represents the type of the content
+      status:
+        type: string
+        description: Represents the status of the content
+      license:
+        type: string
+        description: Represents the youtube licence value 
+      previewUrl:
+        type: string
+        description: Represents the preview Url link
+      artifactUrl:
+        type: string
+        description: Represents the artifact Url link
+      lastSubmittedOn:
+        type: string
+        description: Represents the date for last Submitted On
+      flagReasons:
+        type: array
+        description: Represents the Reasons of the flag
+        items:
+          type: string
+      flaggedBy:
+        type: array
+        description: Represents the flaggedBy user
+        items:
+          type: string
+      pragma:
+        type: array
+        description: Represents the pragma
+        items:
+          type: string
+      subject:
+        type: array
+        description: Represents the subject of the content
+        items:
+          type: string
+      medium:
+        type: array
+        description: Represents the medium of the content
+        items:
+          type: string
+      topic:
+        type: array
+        description: Represents the topic of the content
+        items:
+          type: string
+      board:
+        description: Represents the board of the content
+        type: string
+      ownershipType:
+        description: 'Field for explaining Ownership type. There can be two possible value createdBy/createdFor. Default value is createdBy.'
+        type: array
+        items:
+          type: string
+      dialcodes:
+        type: array
+        description: 'List of dialcodes linked to the Content'
+        items:
+          type: string
+      origin:
+        type: string
+        description: 'Origin content'
+      originData:
+        type: object
+        description: 'Origin Content metadata'
+      totalQuestions:
+        type: number
+        description: 'Total No of Questions'
+      totalScore:
+        type: number
+        description: 'Total Score'
+      reservedDialcodes:
+        type: object
+        description: 'Reserved dialcodes for the content'
+      depth:
+        type: number
+        description: 'Depth for Collection Units'
+      totalCompressedSize:
+        type: number
+        description: 'Download File Size (in bytes)'
+      leafNodes:
+        description: 'List of leaf nodes to the collection'
+        type: array
+        items:
+          type: string
+  ContentHierarchyGetResponse:
+    title: Get Content Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithContentHierarchyResponse'
+      - $ref: '#/definitions/ResponseHeader'
+  ResultWithContentHierarchyResponse:
+    title: Result Containing Content Object
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/ContentHierarchyResponseObject'
+  ContentHierarchyResponseObject:
+    title: Response Hierarchy Content Object
+    type: object
+    properties:
+      content:
+        $ref: '#/definitions/ContentProperties'
+  ResponseHeader:
+    title: ResponseHeader
+    type: object
+    properties:
+      id:
+        type: string
+        description: Represents the unique API Identifier
+      ver:
+        type: string
+        description: Represents the API version information
+      params:
+        $ref: '#/definitions/ResponseParams'
+      responseCode:
+        type: object
+        description: 'Represents the API response code'
+  ResponseParams:
+    title: Response Parameter
+    type: object
+    properties:
+      resmsgid:
+        type: string
+        description: ID represents the response uniquely
+      msgid:
+        type: string
+        description: Represents the unique ID of the response message
+      err:
+        type: string
+        description: Represents the Error Code in case the execution fails
+      status:
+        type: string
+        description: Represents the Response status when an API is called
+      errmsg:
+        type: string
+        description: Represents the text that is part of response status
+  EmptyResult:
+    title: Empty Result
+    type: object
+    properties:
+      result:
+        type: object
+        description: Empty Result
+  ContentCreateErrorResponse:
+    title: Create Content Error Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/EmptyResult'
+      - $ref: '#/definitions/ResponseHeader'
+  CopyContentRequestBody:
+    title: CopyContentRequest
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/ContentCopyRequest'
+    required:
+    - request
+  ContentCopyRequest:
+    title: ContentCopyRequest
+    type: object
+    properties:
+      content:
+        $ref: '#/definitions/CopyContent'
+    required:
+    - content
+  CopyContent:
+    title: CopyContent
+    type: object
+    properties:
+      description:
+        description: 'Description of the content'
+        type: string
+      createdBy:
+        description: 'Copied Content created by'
+        type: string
+      createdFor:
+        description: 'Organisation id for which content is copied.'
+        type: array
+        items:
+          type: string
+      creator:
+        description: 'Name of the content creator'
+        type: string
+      organization:
+        description: 'Name of Organisation for which content is copied.'
+        type: array
+        items:
+          type: string
+      framework:
+        description: 'framework id for which content is copied'
+        type: string
+    required:
+    - createdBy
+    - createdFor
+    - organization
+  ContentCopySuccessResponse:  
+    description: Copy Content Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResponseHeader'
+      - $ref: '#/definitions/ResultWithCopyContentId'
+  ResultWithCopyContentId:
+    title: Content Id
+    type: object
+    properties:
+        result:
+          type: object
+          description: result
+          properties:
+            sourceId:
+              type: string
+              example: 'copiedId'
