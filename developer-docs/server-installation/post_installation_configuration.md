@@ -50,3 +50,66 @@ To create a root organization use the following cURL commands:
       }'`
 
 Replace the values within { } braces with your environment values.
+
+
+**Create License and update Channel default License set and Content License migration based on channel**
+
+1.Run the following script on the swarm manager node VM to create License .
+ 
+```
+Copy below code and save file name as create_license
+#!/bin/bash
+echo "License name: $1"
+echo "License descripition: $2"
+echo "License url: $3"
+curl -X POST \
+  http://localhost:9002/license/v3/create \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "request":{
+        "license":{
+            "name": "'$1'",
+            "description": "'$2'",
+            "url": "'$3'"
+        }
+    }
+}'
+
+Run these commands
+bash -x create_license CC\ BY-NC-SA\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial-ShareAlike https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+bash -x create_license CC\ BY-NC\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial  https://creativecommons.org/licenses/by-nc/4.0/legalcode
+bash -x create_license CC\ BY-SA\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-ShareAlike https://creativecommons.org/licenses/by-sa/4.0/legalcode
+bash -x create_license CC\ BY\ 4.0 This\ is\ the\ standard\ license\ of\ any\ Youtube\ content https://creativecommons.org/licenses/by/4.0/legalcode
+bash -x create_license Standard\ YouTube\ License This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial-ShareAlike https://www.youtube.com/
+```
+
+2.Run the above script from learning server to update the Channel-default license .  
+
+```
+Copy below code and save file name as channel_license.sh
+#!/bin/bash
+echo "Channel Id: $1"
+echo "Default License: $2"
+IFS=,
+curl -X PATCH \
+"http://localhost:8080/channel/v3/update/"$1 \
+-H 'Content-Type: application/json' \
+-d '{
+   "request": {
+      "channel": {
+        "defaultLicense":"'$2'"
+      }
+    }
+}'
+
+Run the Command
+./channel_license.sh <channle_Id> <license_name>
+
+license_name can be choosen from the list which was created in the 1st Step.
+```
+
+3.Update content with channel specific default license, Run the below query in neo4j
+
+```
+match (n:domain{}) WHERE n.IL_FUNC_OBJECT_TYPE IN ["Content", "ContentImage"] AND n.channel="<channel id>" AND n.license<>"Standard YouTube License" SET n.license="<channel defaultLicense>";
+```

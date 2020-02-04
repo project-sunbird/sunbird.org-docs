@@ -36,7 +36,7 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
     6.Learning   
     7.Redis   
     8.Search   
-    9. Yarn   
+    9.Yarn   
 
 ## Deploy
 
