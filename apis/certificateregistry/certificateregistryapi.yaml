@@ -171,7 +171,6 @@ paths:
             $ref: '#/definitions/IssueCertificateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact us at info@sunbird.org. '
-
   /certreg/v1/certs/add:
     post:
       description:  >-
@@ -222,6 +221,95 @@ paths:
             $ref: '#/definitions/BadRequestResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact info@sunbird.org. '
+  /certreg/v1/certs/read:
+    get:
+      description:  >-
+        This API allows you to Read digitally generated certificates. The **_/certreg/v1/certs/Read/{id}}_** endpoint executes the **Read certificate** request based on path parameters provided.
+           - All fields marked with an * are mandatory
+           - The mandatory fields cannot be null or empty
+      summary: Read the certificate
+      tags:
+        - Read Certificate API
+      operationId: Read certificate
+      produces:
+        - application/json
+      parameters:
+        - name: ts
+          in: header
+          type: string
+          description: 'The timestamp at which the **download certificate** request was sent. '
+        - name: X-msgid
+          in: header
+          type: string
+          description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'OK ! Operation successful."Certificate read" operation was executed successfully.'
+          schema:
+            allOf:
+              - $ref: '#/definitions/CertificateReadResponse'
+        '400':
+          description: 'BAD REQUEST. The "Certificate generation" operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/IssueCertificateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact us at info.sunbird.org.'
+  /certreg/v1/certs/search:
+    post:
+      description:  >-
+        This API allows you to search digitally generated certificates. The **_/certreg/v1/certs/search_** endpoint executes the **search certificate** request based on parameters provided in the request body.
+           - All fields marked with an * are mandatory
+           - The mandatory fields cannot be null or empty
+           - This API is wrapper of ElasticSearch, so the way search request is given to ElasticSearch is same will be given to search API inside request object.
+           - No validation is done by the system.
+      summary: Search the certificate
+      tags:
+        - Search Certificate API
+      operationId: Search certificate
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: >-
+            The body refers to the format of the request. The body contains metadata about the request to download the certificate.
+          schema:
+            allOf :
+              - $ref: '#/definitions/CertificateSearchRequest'
+        - name: ts
+          in: header
+          type: string
+          description: 'The timestamp at which the **download certificate** request was sent. '
+        - name: X-msgid
+          in: header
+          type: string
+          description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'OK ! Operation successful."Certificate download" operation was executed successfully.'
+          schema:
+            allOf:
+              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+              - $ref: '#/definitions/CertificateSearchResponse'
+        '400':
+          description: 'BAD REQUEST. The "Certificate generation" operation failed. You may have missed input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/IssueCertificateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact us at info.sunbird.org.'
+
+
 
 
 definitions:
@@ -233,6 +321,38 @@ definitions:
         $ref: '#/definitions/Request'
     required:
       - request
+
+
+  CertificateSearchRequest:
+    title: Certificate Download request
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/searchRequest'
+    required:
+      - request
+
+  searchRequest:
+    type: object
+    properties:
+      query:
+        description: The relative URL of the generated pdf certificate
+        type: object
+        properties:
+          match_phrase:
+            type: object
+            properties:
+              recipient.id:
+                type: string
+              related.type:
+                type: string
+              recipient.type:
+                type: string
+              id:
+                type: string
+    required:
+      - query
+
 
   Request:
     type: object
@@ -305,6 +425,33 @@ definitions:
         $ref: '#/definitions/addRequest'
     required:
       - request
+
+
+  CertificateReadResponse:
+    title: Certificate Add request
+    type: object
+    properties:
+      result:
+        type: object
+        properties:
+          response:
+            type: object
+            $ref: '#/definitions/addRequest'
+
+  CertificateSearchResponse:
+    title: Certificate Add request
+    type: object
+    properties:
+      result:
+        type: object
+        properties:
+          response:
+            type: object
+            properties:
+              hits:
+                type: array
+                items:
+                  $ref: '#/definitions/addRequest'
 
   addRequest:
     type: object
@@ -416,7 +563,7 @@ definitions:
       params:
         $ref: '#/definitions/ResponseParams'
       responseCode:
-        type: object
+        type: string
         description: 'API response code '
   ResponseParams:
     title: Response Parameter
@@ -455,6 +602,9 @@ definitions:
       result:
         type: object
         description: Empty Result
+        properties:
+          message:
+            type: string
   IssueCertificateErrorResponse:
     title: Create Content Error Response
     type: object
