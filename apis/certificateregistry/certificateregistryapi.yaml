@@ -253,12 +253,13 @@ paths:
           schema:
             allOf:
               - $ref: '#/definitions/CertificateReadResponse'
-        '400':
-          description: 'BAD REQUEST. The "Certificate generation" operation failed. You may have missed input for a mandatory parameter.'
+        '404':
+          description: 'RESOURCE NOT FOUND. The "Certificate read" operation failed. You may have provided invalid certificate id. '
           schema:
             $ref: '#/definitions/IssueCertificateErrorResponse'
         '500':
           description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact us at info.sunbird.org.'
+
   /certreg/v1/certs/search:
     post:
       description:  >-
@@ -297,13 +298,13 @@ paths:
           description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
       responses:
         '200':
-          description: 'OK ! Operation successful."Certificate download" operation was executed successfully.'
+          description: 'OK ! Operation successful."Certificate Search" operation was executed successfully.'
           schema:
             allOf:
               - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
               - $ref: '#/definitions/CertificateSearchResponse'
         '400':
-          description: 'BAD REQUEST. The "Certificate generation" operation failed. You may have missed input for a mandatory parameter.'
+          description: 'BAD REQUEST. The "Certificate Search" operation failed. You may have missed input for a mandatory parameter.'
           schema:
             $ref: '#/definitions/IssueCertificateErrorResponse'
         '500':
