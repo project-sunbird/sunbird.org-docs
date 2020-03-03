@@ -1,6 +1,6 @@
 ---
-title: Installing Sunbird Portal
-page_title: Installing Sunbird Portal
+title: Installing Sunbird Portal on Local Laptop or Desktop
+page_title: Installing Sunbird Portalon on Local Laptop or Desktop
 description: Installing Sunbird requires two primary software components, the Sunbird portal or web application, and the Sunbird services stack or the backend API interface.
 published: true
 allowSearch: true
@@ -9,17 +9,17 @@ allowSearch: true
 ## Pre-requisites
 
 Before you install Sunbird on your laptop, examine your environment and gather data to ensure an optimal installation experience.
-Review the following to determine that the environment has the necessary resources and compliant target systems to successfully install and run Sunbird.
+Review the following to ensure that the environment has the necessary resources and compliant target systems to successfully install and run Sunbird.
 
 ### System Requirements
 
-To install Sunbird, your laptop/PC should have at least the following minimum system requirements:
+To install Sunbird, your laptop or desktop must have the following minimum system requirements:
 
-- Operating System: Windows 7 and above/4.2 Mac OS X 10.0 and above/Linux  
+- Operating System: Windows 7 and above or 4.2 Mac OS or 10.0 and above/Linux  
 - RAM: >1.5GB
 - CPU: 2 cores, >2 GHz
 
-Installing Sunbird requires two primary software components:
+Sunbird has two primary software components:
 
 - Sunbird portal or web application
 - Sunbird services stack or the backend API interface. 
@@ -28,14 +28,14 @@ Installing Sunbird requires two primary software components:
 
 To set up the Sunbird portal successfully, follow these steps sequentially:
 
-1. Check for the prerequisites 
-2. Setup 
-3. Configure Backend Service Stack
-4. Edit the Application Config
-5. Run the Application
+1. Check the prerequisites 
+2. Follow setup instructions 
+3. Configure the backend service stack
+4. Edit the application config file
+5. Run the application
 
 ### Pre-requisites
-Check the following pre-requisites before installing and running the Sunbird-player application:
+Check for the following before installing and running the Sunbird-player application:
 
 1. **Software dependencies**
 	* [Node](https://nodejs.org/en/download/){:target="_blank"} - install the latest release of 6.x.x LTS series
