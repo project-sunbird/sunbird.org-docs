@@ -29,6 +29,7 @@ They are categorized by resource type. Each resource type has one or more data r
             <li><a href="apis/courseprogressapi/" target="_blank">Course Progress</a></li>
             <li><a href="apis/dialapi/" target="_blank">D.I.A.L </a></li>
             <li><a href="apis/framework/" target="_blank">Framework </a></li>
+            <li><a href="apis/issuecertificateapi/" target="_blank">Issue Certificate</a></li>
             <li><a href="apis/orgapi/" target="_blank">Organisation Management </a></li>
             <li><a href="apis/userapi/" target="_blank">User </a></li>
             <!--<li><a href="apis/badgesapi/" target="_blank">User Badges </a></li>-->
