@@ -40,11 +40,11 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
 
 ## Deploy
 
-*   Switch to `Deploy/dev/KnowledgePlatform` and run the jobs in the following sequence:
+*   Switch to `Deploy/dev/KnowledgePlatform` and run the jobs in the following sequence:  
 
     1.CassandraDbUpdate  
-    2.CassandraTrigger
-    3.Neo4j   
+    2.CassandraTrigger  
+    3.Neo4j  
     4.StartNeo4jCluster   
     5.Learning
     6.Search   
