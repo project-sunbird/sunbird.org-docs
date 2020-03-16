@@ -1,0 +1,211 @@
+swagger: '2.0'
+info:
+    version: '1.0'
+    title: Print-Service APIs
+    description: >-
+        - This API is used to convert html to pdf and store it on Azure.
+
+        - These APIs aren't onboarded yet but can be accessed by hitting respective container directely.
+
+schemes:
+    - http
+consumes:
+    - application/json
+produces:
+    - application/json
+paths:
+    /v1/print/pdf:
+        post:
+            description:  >-
+                This API allows you to generate pdf from *htmlTemplate zip url which should be public in nature.
+                   - All fields marked with an * are mandatory
+                   - Required fields cannot be null or empty
+                   - *htmlTemplate zip url should contains index.html and its related css and images files.
+            summary: generate pdf from HTML.
+            tags:
+                - pdf Generation Api
+            operationId: pdf Generate
+            produces:
+                - application/json
+            parameters:
+                - name: Body
+                  in: body
+                  required: true
+                  description: >-
+                      The body refers to the format of the request. The body contains metadata about the request to verify the certificate.
+                  schema:
+                      allOf :
+                          - $ref: '#/definitions/PdfGenerationRequest'
+                - name: ts
+                  in: header
+                  required: true
+                  type: string
+                  description: 'The timestamp at which the **verify certificate** request was sent. '
+            responses:
+                '200':
+                    description: 'OK ! Operation successful."Certificate Verify" operation was executed successfully.'
+                    schema:
+                        allOf:
+                            - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+                            - $ref: '#/definitions/PrintPdfResponse'
+                '400':
+                    description: 'BAD REQUEST. The "Certificate validation" operation failed. Input for a mandatory parameter may be missing.'
+                    schema:
+                        $ref: '#/definitions/PdfGenErrorResponse'
+                '500':
+                    description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact us at info@sunbird.org. '
+    /v1/print/preview/generate:
+        post:
+            description:  >-
+                This API allows you to get pdf from html link.
+                   - The **__/v1/print/preview/generate__** endpoint executes the "generate pdf" request based on **query** params provided in the request body.
+                   - All fields marked with an * are mandatory
+                   - Mandatory fields cannot be null or empty
+            summary: generating pdf
+            tags:
+                - Generate PDF API
+            operationId: genrate PDF
+            produces:
+                - application/json
+            parameters:
+                - in: query
+                  name: fileUrl
+                  type: string
+                  description: For example https://www.example.com, url of html which needs to be converted to pdf.
+                  required: true
+            responses:
+                '200':
+                    description: 'OK ! Operation successful."Certificate addition" operation was executed successfully.'
+                    schema:
+                        allOf:
+                            - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
+                            - $ref: '#/definitions/PrintPdfResponse'
+                '400':
+                    description: 'BAD REQUEST. The "Certificate addition" operation failed. Input for a mandatory parameter may be missing.'
+                    schema:
+                        $ref: '#/definitions/PdfGenErrorResponse'
+                '500':
+                    description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact info@sunbird.org. '
+
+
+definitions:
+
+    PdfGenerationRequest:
+        title: Certificate Verify request
+        type: object
+        properties:
+            request:
+                $ref: '#/definitions/genPdfRequest'
+        required:
+            - request
+
+    genPdfRequest:
+        type: object
+        description: htmlTemplate zip url should be provided always while making requests.
+        properties:
+            htmlTemplate:
+                description: The htmlTemplate zip url should contain index.html(with placeholders) and its related css & images file, which are required to generate certificate.
+                type: string
+            context:
+                description: This will contain the placeHolder and it's value which needs to be replaced in HTML.
+                type: object
+                example:
+                    recipientName: John Deo
+                    certificateName: ABC Certificate
+            storageParams:
+                type: object
+                description: this object will have the container name and path where its needs to be stored in cloud. it not provided it will stored at default location.
+                properties:
+                    path: {
+                        description: path inside container,
+                        type: string,
+                    }
+                    containerName: {
+                        description: name of container,
+                        type: string
+                    }
+                example:
+                    path: pathToFoler/
+                    containerName: nameOfContainer
+        required:
+            - htmlTemplate
+
+    PrintPdfResponse:
+        description: Certificate verify response
+        type: object
+        properties:
+            result:
+                description: The response details
+                type: object
+                properties:
+                    pdfUrl:
+                        description: The downloadable url of the pdf, public in nature
+                        type: string
+                    ttl:
+                        description: The time to live of URl, after ttl time pdf link will get expired.
+                        type: string
+
+    ResponseHeader:
+        title: ResponseHeader
+        type: object
+        properties:
+            id:
+                type: string
+                description: The API Identifier
+            ver:
+                type: string
+                description: API version information
+            ts:
+                type: string
+                description: API execution timestamp
+            params:
+                $ref: '#/definitions/ResponseParams'
+            responseCode:
+                type: string
+                description: 'API response code '
+    ResponseParams:
+        title: Response Parameter
+        type: object
+        properties:
+            resmsgid:
+                type: string
+                description: Represents the response Message ID
+            msgid:
+                type: string
+                description: Represents the error Message ID
+            err:
+                type: string
+                description: Represents the Error Code
+            status:
+                type: string
+                description: Response Status
+            errmsg:
+                type: string
+                description: Error Message
+
+    BadRequestResponse:
+        type: object
+        properties:
+            result:
+                type: object
+                properties:
+                    message:
+                        type: string
+                        description: The message string. If the message ID is provided, the string is picked up from the existing .
+
+    EmptyResult:
+        title: Empty Result
+        type: object
+        properties:
+            result:
+                type: object
+                description: Empty Result
+                properties:
+                    message:
+                        type: string
+    PdfGenErrorResponse:
+        title: Create Content Error Response
+        type: object
+        allOf:
+            - $ref: '#/definitions/EmptyResult'
+            - $ref: '#/definitions/ResponseHeader'
