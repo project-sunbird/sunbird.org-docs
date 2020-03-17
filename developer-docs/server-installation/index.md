@@ -16,7 +16,7 @@ Services like Portal, LMS Backend, API Gateway and Proxies etc., are run as dock
 
 This document explains the procedure to set up Sunbird on your cloud infra. This installation has been tested with:
 
-* 10 VMs running the vanilla Ubuntu 16 image;
+* 7 VMs running the vanilla Ubuntu 16 image;
 * a Public IP
 * key based ssh possible to the machines
 
