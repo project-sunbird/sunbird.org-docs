@@ -34,30 +34,30 @@ Switch to the `Build` folder and run all jobs. For the value of the **github_rel
 Switch to `Provision/<env>/DataPipeline` and run the jobs in the following sequence: 
 
 
-| Operation Name | Function              |
-| -------------- | --------------------- |
-| AnalyticsApi   | It install the dependecy to run the analytics API |
-| AnalyticsSecor | It install the dependecy to run the analytics Secor|
-| AnalyticsSpark | It install the dependecy to run the analytics Spark|
-| Postgres       | It install the Posgres Database|
-| Yarn           | It create the Yarn cluster |
-| Influxdb       | It install the Influxdb |
-| Zookeeper      | It install the Zookeeper |
-| Kafka          | It install the Kafka |
-| Redis          | It install the Redis database |
+| Operation Name | Function              | Description|
+| -------------- | --------------------- |-------------|
+| AnalyticsApi   | Provision the server to run the analytics-apiserver|Creates the analytics user,required folders and installs the dependencies|
+| AnalyticsSecor | Provision the server to run the secor jobs.|Creates the analytics user,required folders and installs the dependencies to run secorjobs|
+| AnalyticsSpark | Provision the server to run the dataproducts jobs| Creates the analyticsuser, required folders and installs the dependencies to run spark|
+| Postgres       | Provision the postgres database.|Installs the dependencies like java and install the postgres database|
+| Yarn           | Provision the Yarn cluster |Install the dependencies required to create the yarn cluster and creates the yarn cluster to run samza jobs|
+| Influxdb       | Provision the influxdb database| Install the dependencies like java and install the influxdb database|
+| Zookeeper      | Provision the zookeeper|Installs the dependencies and creates the zookeeper cluster.
+| Kafka          | Provision the kafka|Installs the dependencies and creates the kafka broker cluster.
+| Redis          | Provision the redis database. |Installs the dependencies like  java and install the redis database.
 
 ## Deploy
 
 Switch to `Deploy/<env>/DataPipeline` and run the jobs in the following sequence:
 
 
-| Operation Name | Function              |
-| -------------- | --------------------- |
-| CassandraDbUpdate| It creates the Cassandra keyspace and do the db update|
-| KafkaSetup       | It create the Kafka topic |
-| AnalyticsApi     | It deploy the analytics service api|
-| DataProducts     | It deploy the jar files relatd to the data product|
-| Secor            | It deploy and start the secor jobs to take the kafka topic backup |
-| KafkaIndexer     | It install the logstsh          |  |
-| SamzaTelemertySchemas|It copy the telemetry schema which requires for samza jobs  |
-| Yarn             | It deploy the Samza Jobs |
+| Operation Name | Function              | Description |
+| -------------- | --------------------- |-------------- |
+| CassandraDbUpdate| Updates the cassandra db.|It updates the required cassandra table schema|
+| KafkaSetup       | Creates the kafka topics. |The created topics being used by various applications| It handles all the datapipeline api requests and writes it to redis/filesystem/kafka
+| AnalyticsApi     | Deploy the anaytics api service.|It handles all the datapipeline api requests and writes it to redis/filesystem/kafka
+| DataProducts     | Depoys the dataproducts jars.|It computes the summary using batch jobs from raw telemetry.
+| Secor            | Depoys the secor jobs. | It takes the backup of kafka topics and store them in storage.
+| KafkaIndexer     | Installs the logstash. | It reads the kafka topic and send the pipeline metrics to influxdb. |
+| SamzaTelemertySchemas|Copies the telemetry samza jobs related schemas to yarn slaves| It copies the schema files- which will used for validating telemetry-data , to all the nodes in yarn |
+| Yarn             | Depoys the samza jobs in yarn cluster| It reads the messages from various kafka topics and does the logical transformation and update the event to kafka/redis/postgres|

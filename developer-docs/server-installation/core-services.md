@@ -51,41 +51,40 @@ Ensure that all Artifacts are uploaded
 
 ### Provision
 
-| Operation Name | Function |
-|--------------------|-----------| 
-| (Deploy) ApplicationES | From the Deploy Folder, **Deploy ApplicationES** provisions for the Elasticsearch and creates indices necessay for Sunbird Core|
-| ESMapping (Under OpsAdministarion. Provide value as *all* for job parameter indices_name) | Creates Elasticsearch indexes |
-| Postgres | Provisions for Postgres |
-| PostgresDbUpdate | Creates the databases, assigns roles and creates users |
-| LogEsUpgrade6xx | Install elasticsearch 6.X |
+| Operation Name | Function | Description |
+|--------------------|-----------|---------|
+| (Deploy) ApplicationES | From the Deploy Folder, **Deploy ApplicationES** provisions for the Elasticsearch and creates indices necessay for Sunbird Core| Provisions Elasticsearch 6.2.3 version used by core services |
+| ESMapping (Under OpsAdministarion. Provide value as *all* for job parameter indices_name) | Creates Elasticsearch indexes | Used to create specific index with its mapping or all indices which wil be used by our sunbird app |
+| Postgres | Provisions for Postgres | used to provision postgres instance |
+| PostgresDbUpdate | Creates the databases, assigns roles and creates users | used to create schema with DB's, Tables |
+| LogEsUpgrade6xx | Install elasticsearch 6.X | used to provision logger elasticsearch to store our application log data for visualisation using kibana |
 
 ### Deploy
 
-| Operation Name | Function |
-|--------------------|-----------| 
-| Adminutil | Deploys the Adminutil container | 
-| API Manager | Deploys the API manager Kong and API manager Echo | 
-| OnboardAPIS | Onboards all API's to Sunbird | 
-| OnboardConsumers 
+| Operation Name | Function | Description |
+|--------------------|-----------|--------- | 
+| Adminutil | Deploys the Adminutil container | used to create tokens for the sunbird devices | 
+| API Manager | Deploys the API manager Kong and API manager Echo | used to manage consumers and apis of sunbird |
+| OnboardAPIS | Onboards all API's to Sunbird | onboard sunbird api's |
+| OnboardConsumers | onboard sunbird consumers |onboard sunbird consumers |
 Update **core_vault_sunbird_api_auth_token**, **core_vault_kong__test_jwt** and **core_vault_sunbird_ekstep_api_key** with the **jwt token** from the Jenkins output of **api-management-test-user** if you are using the Knowledge Platform and Data Pipeline along with core| Onboards new consumer to Sunbird and generates the consumer specific API key. |   
-| (Provision) Cassandra | Provisions Cassandra and create keyspaces required for Sunbird Core | 
-| Cassandra | Does migration if required. Deploy this thrice by choosing different zip files using the build_number parameter. Ensure that you get a sucess message for the Cassandra migration on the Jenkins console output. Do not rely only on the red or green status indicator on Jenkins job | 
+| (Provision) Cassandra | Provisions Cassandra and create keyspaces required for Sunbird Core | provisions cassandra and creates kespaces and performs migration |
+| Cassandra | Does migration if required. Deploy this thrice by choosing different zip files using the build_number parameter. Ensure that you get a sucess message for the Cassandra migration on the Jenkins console output. Do not rely only on the red or green status indicator on Jenkins job | performs keyspace schema migration | 
 | CassandraTrigger | Deploys trigger jars for Cassandra |  
-| (Provision) Keycloak | Provisions Keycloak by installing prerequisites like Java and environment variables |  
-| PlayerCDN | If you do not want to use CDN, run this job with Jenkins job parameter **cdn_enable** set to false (default). CDN  increases the performance of the web page and content for the end user. Create CDN with the storage account and update the variable **sunbird_portal_cdn_url**. Set the Jenkins job parameter **cdn_enable** to true. This upload player static contents to CDN storage account. | 
-| Player | Deploys the player service, used to display the App frontend. **Note**: The player deployment job will fail for the first time. Jenkins prompts you for **In process Approval Script**. Click on the approval link in the deploy job page and provide explicit approval for new **java.io** file, **java.lang** string and **java.io** file. Run the Player deployment again.|
-| Proxy | Deploys Proxy. Handles routing within the swarm | 
-| Keycloak | Deploys Keycloak service to VM |  
-| KeycloakRealm | Creates Sunbird Realm. After the Sunbird realm is created, configure Keycloak by using the steps mentioned in the **Keycloak Configuration** section. |
-| Learner | Deploys the Learner Service. Handles user management and helps to search content. |
+| (Provision) Keycloak | Provisions Keycloak by installing prerequisites like Java and environment variables |  install dependencies for keycloak | 
+| PlayerCDN | If you do not want to use CDN, run this job with Jenkins job parameter **cdn_enable** set to false (default). CDN  increases the performance of the web page and content for the end user. Create CDN with the storage account and update the variable **sunbird_portal_cdn_url**. Set the Jenkins job parameter **cdn_enable** to true. This upload player static contents to CDN storage account. | uploads player cdn assets |
+| Player | deploys portal UI | UI for sunbird  |
+| Proxy | Deploys Proxy. Handles routing within the swarm | redirection and routing management |
+| Keycloak | Deploys Keycloak service to VM | centrallized user management for sunbird | 
+| KeycloakRealm | Creates Sunbird Realm. After the Sunbird realm is created, configure Keycloak by using the steps mentioned in the **Keycloak Configuration** section. | creates sunbird realm | user management |
+| Learner | Deploys the Learner Service. Handles user management and helps to search content. | user management |
 | Content | Deploys the content service. Helps to create content. |
 | KnowledgeMW | Deploys the knowledgemw service |  
 | Lms | Deploys the Lms Service. It provides the APIs for lms functionality of Sunbird.| 
-| certTemplate | Uploads static certification template to storage |
-| EncService | Deploys the encryption service. Helps to generate the encryption keys |
-| Cert | Deploys the certificate service. Helps to issue the certificates |
-| Telemetry | Deploys the Telemetry service. Helps in sending telemetry to Kafka|
-
+| certTemplate | deploys template required for signing certificate | used to create a sample template for generating certificates |
+| EncService | deploys enc service | used to encrypt and decrypt the keys used to generate certificate |
+| Cert | deploys cert services | used to issue certificates |
+| Telemetry | telemetry management service| used to aggregate and send telemetry data to kafka |
 
 ### Keycloak Configuration 
 

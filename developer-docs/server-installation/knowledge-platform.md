@@ -13,8 +13,8 @@ This page explains the jobs to be run to bring up the Knowledge Platform service
 
 Switch to the `Build` folder and run all jobs in the below sequence. For the value of the **github_release_tag**, refer to [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs){:target="_blank"}
 
- Operation Name    | Function              |
-| --------------   | --------------------- |
+ Operation Name    | Function              | Description |
+| --------------   | --------------------- | -----------------
 | CassandraTrigger | It generates the jar file for cassandraTrigger |
 | KnowledgePlatform| It generates the artifacts for knowledge Platform |
 | Neo4j            | It generates the Neo4j jar file|
@@ -40,33 +40,33 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
 
 *   Switch to `Provision/<env>/KnowledgePlatform` and run the jobs in the following sequence:   
     
-| Operation Name | Function              |
-| -------------- | --------------------- |
-| Cassandra      | It create the provision to install Cassandra|
-| CompositeSearch| It install the ElasticSearch |
-| Neo4j          | It install the Neo4j and Logstash|
+| Operation Name | Function              | Description |
+| -------------- | --------------------- |------------------
+| Cassandra      | It create the provision to install Cassandra| installs depencies like java and install cassandra 
+| CompositeSearch| It install the ElasticSearch | install dependencies for elasticsearch and start elasticsearch service |
+| Neo4j          | It install the Neo4j and Logstash| install neo4j and its dependencies
 | Zookeeper      | It install the Zookeeper |
 | Kafka          | It install the Kafka |
-| Learning       | It install the dependency to run the learning application |
-| Redis          | It install the Redis database |
-| Search         | It install the dependecy to run the search service and install the logstash |
-| Yarn           | It set up the Yarn cluster |
+| Learning       | It install the dependency to run the learning application | creates learning user and install dependencies(java, tomcat, logstash, ffmpeg,imagemagick) |
+| Redis          | It install the Redis database | download and install redis |
+| Search         | It install the dependecy to run the search service and install the logstash | install dependencies (jdk, logstash) and configure search service 
+| Yarn           | It set up the Yarn cluster | 
 
 ## Deploy
 
 *   Switch to `Deploy/dev/KnowledgePlatform` and run the jobs in the following sequence:
  
-| Operation Name      | Function              |
-| --------------      | --------------------- |
+| Operation Name      | Function              | Description |
+| --------------      | --------------------- |--------------|
 | CassandraTrigger    | It deploy the CassandraTrigger jar file and install the logstash |
-| CassandraDbUpdate   | It create the Cassandra keyspace and do the Db update|
-| Neo4j               | It deploy the Neo4j artifects |
-| StartNeo4jCluster   | It start the Neo4j |
+| CassandraDbUpdate   | It create the Cassandra keyspace and do the Db update| Update cassandra table Schema
+| Neo4j               | It deploy the Neo4j artifects |confogures logstash and neo4j, and start logstash process
+| StartNeo4jCluster   | It start the Neo4j | starts neo4j process
 | Learning            | It deploy the learning service artifects and start the learning service |
 | Search              | It deploy the search service artifects and start the search service |
 | Neo4DefinitionUpdate| It does the Neo4j defination update|
 | Neo4jElasticSearchSyncTool|It deploy the sync tool artifects and sync the content from Neo4j to ElasticSearch  |
-| KafkaSetup          | It create the Kafka Topics|
+| KafkaSetup          | It create the Kafka Topics| create kafka topics for LP |
 | Yarn                | It deploy the Samza jobs
 
 
