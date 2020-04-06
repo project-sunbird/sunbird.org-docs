@@ -13,13 +13,13 @@ This page explains the jobs to be run to bring up the Knowledge Platform service
 
 Switch to the `Build` folder and run all jobs in the below sequence. For the value of the **github_release_tag**, refer to [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs){:target="_blank"}
 
- Operation Name    | Function              | Description |
-| --------------   | --------------------- | -----------------
-| CassandraTrigger | It generates the jar file for cassandraTrigger |
-| KnowledgePlatform| It generates the artifacts for knowledge Platform |
-| Neo4j            | It generates the Neo4j jar file|
-| SyncTool         | It generates the SyncTool zip file |
-| Yarn             | It generates the artifects for Samza job |
+ Operation Name    | Function              |
+| --------------   | --------------------- | 
+| CassandraTrigger | Generate the jar file for cassandraTrigger |
+| KnowledgePlatform| Generate the artefacts for knowledge Platform |
+| Neo4j            | Generate the Neo4j jar file|
+| SyncTool         | Generate the SyncTool zip file |
+| Yarn             | Generate the artefacts for Samza job |
 
 
 
@@ -34,7 +34,7 @@ For KnowledgePlatform build, use the default profile_id which is "platform_servi
 
 ## Provision
 
-*   Download **neo4j enterprise** version 3.3.x. The file should be uploaded to your azure storage account under root path. The file name should be **neo4j*.tar.gz**. This file should be uploaded to the container named in the variable {{artifacts_container}} of KnowledgePlatform's common.yml.
+*   Download **neo4j enterprise** version 3.3.x. The file should be uploaded to your azure storage account under the root path. The file name should be **neo4j*.tar.gz**. This file should be uploaded to the container named in the variable {{artifacts_container}} of KnowledgePlatform's common.yml.
 
 The URL for this path will look like this - https://{{storage_account_name}}.blob.core.windows.net/{{container_name}}/neo4j-enterprise-3.3.0-unix.tar.gz
 
@@ -42,32 +42,32 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
     
 | Operation Name | Function              | Description |
 | -------------- | --------------------- |------------------
-| Cassandra      | It create the provision to install Cassandra| installs depencies like java and install cassandra 
-| CompositeSearch| It install the ElasticSearch | install dependencies for elasticsearch and start elasticsearch service |
-| Neo4j          | It install the Neo4j and Logstash| install neo4j and its dependencies
-| Zookeeper      | It install the Zookeeper |
-| Kafka          | It install the Kafka |
-| Learning       | It install the dependency to run the learning application | creates learning user and install dependencies(java, tomcat, logstash, ffmpeg,imagemagick) |
-| Redis          | It install the Redis database | download and install redis |
-| Search         | It install the dependecy to run the search service and install the logstash | install dependencies (jdk, logstash) and configure search service 
+| Cassandra      | It creates the provision to install Cassandra| installs dependencies like java and installs Cassandra 
+| CompositeSearch| It installs the ElasticSearch | Installs dependencies for elastic search and starts elastic search service |
+| Neo4j          | It installs the Neo4j and Logstash| Installs neo4j and its dependencies
+| Zookeeper      | It installs the Zookeeper | Zpookeeper installation
+| Kafka          | It installs the Kafka | Kafka installation
+| Learning       | It installs the dependency to run the learning application | Creates learning user and installs dependencies(java, tomcat, logstash, ffmpeg,imagemagick) |
+| Redis          | It installs the Redis database | Download and installs Redis |
+| Search         | It installs the dependency to run the search service and install the logstash | Install dependencies (JDK, logstash) and configure search service 
 | Yarn           | It set up the Yarn cluster | 
 
 ## Deploy
 
 *   Switch to `Deploy/dev/KnowledgePlatform` and run the jobs in the following sequence:
  
-| Operation Name      | Function              | Description |
-| --------------      | --------------------- |--------------|
-| CassandraTrigger    | It deploy the CassandraTrigger jar file and install the logstash |
-| CassandraDbUpdate   | It create the Cassandra keyspace and do the Db update| Update cassandra table Schema
-| Neo4j               | It deploy the Neo4j artifects |confogures logstash and neo4j, and start logstash process
-| StartNeo4jCluster   | It start the Neo4j | starts neo4j process
-| Learning            | It deploy the learning service artifects and start the learning service |
-| Search              | It deploy the search service artifects and start the search service |
-| Neo4DefinitionUpdate| It does the Neo4j defination update|
-| Neo4jElasticSearchSyncTool|It deploy the sync tool artifects and sync the content from Neo4j to ElasticSearch  |
-| KafkaSetup          | It create the Kafka Topics| create kafka topics for LP |
-| Yarn                | It deploy the Samza jobs
+| Operation Name      | Function              |
+| --------------      | --------------------- |
+| CassandraTrigger    | It deploys the CassandraTrigger jar file and installs the logstash |
+| CassandraDbUpdate   | It creates the Cassandra keyspace and do the Db update
+| Neo4j               | It deploys the Neo4j artefacts |confogures logstash and neo4j, and start logstash process
+| StartNeo4jCluster   | It starts the Neo4j | starts neo4j process
+| Learning            | It deploys the learning service artefacts and starts the learning service |
+| Search              | It deploys the search service artefacts and starts the search service |
+| Neo4DefinitionUpdate| It does the Neo4j definition update|
+| Neo4jElasticSearchSyncTool|It deploys the sync tool artefacts and syncs the content from Neo4j to ElasticSearch  |
+| KafkaSetup          | It creates the Kafka Topics| creates Kafka topics for LP |
+| Yarn                | It deploys the Samza jobs
 
 
 Refer [How to Create Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird){:target="_blank"}, [How to Create Schemas for Knowledge Platform Objects](developer-docs/server-installation/knowledge-platform-object-schema){:target="_blank"}
