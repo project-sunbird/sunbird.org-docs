@@ -54,10 +54,10 @@ Ensure that all Artifacts are uploaded
 | Operation Name | Function | Description |
 |--------------------|-----------|---------|
 | (Deploy) ApplicationES |  Provisions Elasticsearch 6.2.3 version used by core services | From the Deploy Folder, **Deploy ApplicationES** provisions for the Elasticsearch and creates indices necessary for Sunbird Core|
-| ESMapping (Under OpsAdministarion. Provide the value as *all* for job parameter indices_name) | Creates Elasticsearch indexes | Create the specific index with its mapping or all indices which will be used by our sunbird app |
+| ESMapping (Under OpsAdministarion. Provide the value as *all* for job parameter indices_name) | Creates Elasticsearch indexes | Creates the specific index with its mapping or all indices which will be used by our sunbird app |
 | Postgres | Provisions for Postgres | Provisions the Postgres instance |
 | PostgresDbUpdate | Creates the databases, assigns roles and creates users | Creates a schema with DB's, Tables |
-| LogEsUpgrade6xx | Installs elasticsearch 6.X | Provision logger elasticsearch to store our application log data for visualisation using kibana |
+| LogEsUpgrade6xx | Installs elasticsearch 6.X | Provisions logger elasticsearch to store our application log data for visualisation using kibana |
 
 ### Deploy
 
