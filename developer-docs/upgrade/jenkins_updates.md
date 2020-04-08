@@ -42,7 +42,7 @@ Follow the below steps to upgrade:
 
 7.Go to Manage Jenkins → Configure System → Update `public_repo_branch` to `refs/tags/release-2.6.0` or go to Manage Jenkins → Configure System → Update `private_repo_branch` to the branch name of your private repo branch in case you created a new branch for release-2.6.0 inventory updates  
 
-8.Restart your Jenkins and you are ready to go  
+8.Restart your Jenkins and continue  
 
 **IMPORTANT**: Open one of the Deploy job and click on configure  
 
