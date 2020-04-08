@@ -38,19 +38,19 @@ For KnowledgePlatform build, use the default profile_id which is "platform_servi
 
 The URL for this path will look like this - https://{{storage_account_name}}.blob.core.windows.net/{{container_name}}/neo4j-enterprise-3.3.0-unix.tar.gz
 
-*   Switch to `Provision/<env>/KnowledgePlatform` and run the jobs in the following sequence:   
+*   Switch to `Provision/<env>/KnowledgePlatform` and run the jobs in the following sequence:   
     
 | Operation Name | Function              | Description |
 | -------------- | --------------------- |------------------
-| Cassandra      | It creates the provision to install Cassandra| installs dependencies like java and installs Cassandra 
-| CompositeSearch| It installs the ElasticSearch | Installs dependencies for elastic search and starts elastic search service |
-| Neo4j          | It installs the Neo4j and Logstash| Installs neo4j and its dependencies
-| Zookeeper      | It installs the Zookeeper | Zpookeeper installation
-| Kafka          | It installs the Kafka | Kafka installation
-| Learning       | It installs the dependency to run the learning application | Creates learning user and installs dependencies(java, tomcat, logstash, ffmpeg,imagemagick) |
-| Redis          | It installs the Redis database | Download and installs Redis |
-| Search         | It installs the dependency to run the search service and install the logstash | Install dependencies (JDK, logstash) and configure search service 
-| Yarn           | It set up the Yarn cluster | 
+| Cassandra      | Provisions to install Cassandra| Installs dependencies like java and installs Cassandra |
+| CompositeSearch| Installs the ElasticSearch | Installs dependencies for elastic search and starts elastic search service |
+| Neo4j          | Installs the Neo4j and Logstash | Installs Neo4j and its dependencies |
+| Zookeeper      | Installs the Zookeeper | Zookeeper installation |
+| Kafka          | Installs the Kafka | Kafka installation |
+| Learning       | Installs the dependency to run the learning application | Creates learning user and installs dependencies(java, tomcat, logstash, ffmpeg,imagemagick) |
+| Redis          | Installs the Redis database | Download and installs Redis |
+| Search         | Installs the dependency to run the search service and install the logstash | Install dependencies (JDK, logstash) and configure search service 
+| Yarn           | Sets up the Yarn cluster | Setting up the yarn cluster   |
 
 ## Deploy
 
@@ -58,16 +58,16 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
  
 | Operation Name      | Function              |
 | --------------      | --------------------- |
-| CassandraTrigger    | It deploys the CassandraTrigger jar file and installs the logstash |
-| CassandraDbUpdate   | It creates the Cassandra keyspace and do the Db update
-| Neo4j               | It deploys the Neo4j artefacts |confogures logstash and neo4j, and start logstash process
-| StartNeo4jCluster   | It starts the Neo4j | starts neo4j process
-| Learning            | It deploys the learning service artefacts and starts the learning service |
-| Search              | It deploys the search service artefacts and starts the search service |
-| Neo4DefinitionUpdate| It does the Neo4j definition update|
-| Neo4jElasticSearchSyncTool|It deploys the sync tool artefacts and syncs the content from Neo4j to ElasticSearch  |
-| KafkaSetup          | It creates the Kafka Topics| creates Kafka topics for LP |
-| Yarn                | It deploys the Samza jobs
+| CassandraTrigger    | Deploys the CassandraTrigger jar file and installs the logstash |
+| CassandraDbUpdate   | Creates the Cassandra keyspace and do the Db update
+| Neo4j               | Deploys the Neo4j artefacts |confogures logstash and neo4j, and start logstash process
+| StartNeo4jCluster   | Starts the Neo4j | starts neo4j process
+| Learning            | Deploys the learning service artefacts and starts the learning service |
+| Search              | Deploys the search service artefacts and starts the search service |
+| Neo4DefinitionUpdate| Updates Neo4j definition |
+| Neo4jElasticSearchSyncTool| Deploys the sync tool artefacts and syncs the content from Neo4j to ElasticSearch  |
+| KafkaSetup          | Creates the Kafka Topics| creates Kafka topics for LP |
+| Yarn                | Deploys the Samza jobs |
 
 
 Refer [How to Create Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird){:target="_blank"}, [How to Create Schemas for Knowledge Platform Objects](developer-docs/server-installation/knowledge-platform-object-schema){:target="_blank"}
