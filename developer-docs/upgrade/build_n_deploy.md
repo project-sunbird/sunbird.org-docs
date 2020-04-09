@@ -4,12 +4,12 @@ page_title: Build and Deploy
 description: Build and Deploy
 published: true
 allowSearch: true
-keywords: Upgrade, Sunbird 2.6.0, Core, elasticsearch
+keywords: Upgrade, Sunbird 2.7.0, Core, elasticsearch
 ---
 
 ## Overview
 
-This page details out the jobs required to be run as part of the upgrade from Sunbird release 2.5.0 to release 2.6.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. 
+This page details out the jobs required to be run as part of the upgrade from Sunbird release 2.6.0 to release 2.7.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. 
 
 As part of this upgrade, you may choose to set up the load balancer for swarm managers. If you do not require a load balancer for swarm managers, only update the value of the variable **sunbird_swarm_manager_lb_ip** to the swarm manager's IP in the private repository.
 
@@ -26,28 +26,36 @@ As part of this upgrade, you may choose to set up the load balancer for swarm ma
 
 4. After the plugins build and deploy, provide the blob url of the plugins zip file in the Player build. For details, refer to the Player build job on the [Core Services](developer-docs/server-installation/artifactupload-job/core-services){:target="_blank"} page.
 
-5. Build all the services mentioned in the table below. Refer to this page for details on tags to be used - Current Release Tags and Jenkins Jobs Reference{:target="_blank"}
+5. Build all the services mentioned in the table below. Refer to [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs/index.html){:target="_blank"}
 
 The following is the list of jobs required to be built and deployed :
 
 Order: Top down per column
 
-|Knowledge Platform Build |	Knowledge Platform Deploy |	DataPipeline Build | DataPipeline Deploy | Core Build | Core Deploy |
-|-------------------------|---------------------------|--------------------|---------------------|------------|-------------|
-|      KnowledgePlatform  |      Learning             |                    | Provision/AnalyticsSpark |       | OnboardAPIs |
-|                         |      Search               |                    |  KafkaSetup         |            | OpsAdministration/Core/ESMapping (Provide value as `all` for job parameter indices_name)  |  
-|     Yarn                |          Yarn             |	    ApiModule      |  ApiModule          | Cassandra-migration | Cassandra-migration |
-|                         |    Neo4jDefinitionUpdate  |                    |  Secor              |            |    Keycloak |  
-|                         | 	                        |       Analytics    |   AnalyticsApi      |   Learner  |    Learner  |  
-|                         |                           |                    |   DataProducts      |    Lms     |    Lms      |  
-|  |   |  DataPipeline | Yarn (Multiselect all options in the job parameter job_names_to_deploy) | Content    |   Content   |
-|                         |                           |                    |                     | KnowledgeMW |  KnowledgeMW |  
-|                         |                           |	                   |                     |  Cert      |   Cert      |
-|                         |                           |                    |                     |  Player    |   Player    |  
+| Knowledge Platform Build | Knowledge Platform Deploy | DataPipeline Build | DataPipeline Deploy | Core Build  | Core Deploy                 |
+|--------------------------|---------------------------|--------------------|---------------------|-------------|-----------------------------|
+| KnowledgePlatform        | Search Service            | Analytics          | AnalyticsAPI        |             | cassandra                   |
+|                          | Learning                  |                    | Dataproducts        | Learner     | learner                     |
+|                          |                           |                    | KafkaIndexer        |             | cert\-registry              |
+| Yarn                     | Yarn                      |                    |                     | Cert        | cert                        |
+|                          | Neo4jDefinitionUpdate     | DataPipeline       | Yarn                | Lms         | lms                         |
+|                          |                           |                    | KafkaSetup          |             | print                       |
+|                          |                           |                    |                     |             | cassandra\-cql insert query |
+|                          |                           |                    |                     |             | content\-service            |
+|                          |                           |                    |                     |             | assessment\-service         |
+|                          |                           |                    |                     |             | Keycloak                    |
+|                          |                           |                    |                     | KnowledgeMW | knowledge\-mw\-service      |
+|                          |                           |                    |                     |             | LogEsUpgrade6xx             |
+|                          |                           |                    |                     |             | oauth                       |
+|                          |
+|                          |                           |                    |                     |             | oauth                       |
+|                          |
+|                          |                           |                    |                     |             | Proxy                       |
+|                          |                           |                    |                     |             | OnboardAPIs                 |
 
 
 > **Note:** 
-Refer to the following notes to trigger the **Neo4jElasticSearchSyncTool** jenkins job located under Deploy/KnowledgePlatform directory.
+Refer to the notes to trigger the **Neo4jElasticSearchSyncTool** jenkins job located under Deploy/KnowledgePlatform directory.
 
 **Create License and update Channel default License set and Content License migration based on channel**
 
@@ -279,6 +287,7 @@ Run the below command in LP redis server
 cd /home/learning/redis-stable/src
 ./redis-cli keys do_* | xargs ./redis-cli del
 ```
+
 
 
 
