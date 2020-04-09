@@ -13,7 +13,7 @@ This page explains the jobs to be run to bring up the Knowledge Platform service
 
 Switch to the `Build` folder and run all jobs in the below sequence. For the value of the **github_release_tag**, refer to [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs){:target="_blank"}
 
- Operation Name    | Function              |
+|Operation Name    | Function              |
 | --------------   | --------------------- | 
 | CassandraTrigger | Generate the jar file for cassandraTrigger |
 | KnowledgePlatform| Generate the artefacts for knowledge Platform |
@@ -59,14 +59,14 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
 | Operation Name      | Function              |
 | --------------      | --------------------- |
 | CassandraTrigger    | Deploys the CassandraTrigger jar file and installs the logstash |
-| CassandraDbUpdate   | Creates the Cassandra keyspace and do the Db update
-| Neo4j               | Deploys the Neo4j artefacts |confogures logstash and neo4j, and start logstash process
-| StartNeo4jCluster   | Starts the Neo4j | starts neo4j process
+| CassandraDbUpdate   | Creates the Cassandra keyspace and update|
+| Neo4j               | Deploys the Neo4j artefacts |
+| StartNeo4jCluster   | Starts the Neo4j process| 
 | Learning            | Deploys the learning service artefacts and starts the learning service |
 | Search              | Deploys the search service artefacts and starts the search service |
 | Neo4DefinitionUpdate| Updates Neo4j definition |
 | Neo4jElasticSearchSyncTool| Deploys the sync tool artefacts and syncs the content from Neo4j to ElasticSearch  |
-| KafkaSetup          | Creates the Kafka Topics| creates Kafka topics for LP |
+| KafkaSetup          | Creates the Kafka Topics| 
 | Yarn                | Deploys the Samza jobs |
 
 
