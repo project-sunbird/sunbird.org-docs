@@ -70,7 +70,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 19.Select the **Environment Variables** check box
  
 20.Click **Add** and enter the following Name, Value pairs: 
-
+ 
 |**Name**|**Value**| 
 |---|---| 
 |**ANSIBLE_FORCE_COLOR**|true| 
@@ -106,18 +106,15 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 
 27.Switch back to the terminal session on the Jenkins server using the following commands:
 
-
     sudo su jenkins  
     mkdir -p /var/lib/jenkins/secrets && cd /var/lib/jenkins/secrets  
     touch deployer_ssh_key ops_ssh_key vault-pass
     chmod 400 deployer_ssh_key ops_ssh_key vault-pass 
 
-
 28.The key used to login to the Jenkins server will henceforth be named `ops_ssh_key`. Example:
 
     ssh -i somekey.pem ubuntu@jenkins-server-ip
     Here `somekey.pem` is the key you used to login to the Jenkins server. Henceforth it will be named `ops_ssh_key` 
-
 
 29.Copy the contents of the key that is used to connect to the VM into the `ops_ssh_key` file 
 
@@ -130,6 +127,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 33.If your private GitHub repository has Ansible encrypted files, then enter the decryption password in `/var/lib/jenkins/secrets/vault-pass`. If there are no encrypted files, then enter a random value like **12345** into the `vault-pass` file. This file cannot be empty
 
 34.Restart the Jenkins server
+
 
 > Note: 
 > Open any of the config files from the **Deploy** directory and save it. Without this, some of the parameters will not be visible 
