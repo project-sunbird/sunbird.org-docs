@@ -19,9 +19,7 @@ Switch to the `Build` folder and run all jobs. For the value of the **github_rel
 | Operation Name | Function              |
 | -------------- | --------------------- |
 | Analytics      | Generates the artefacts for analytics API server|
-| ApiModule      |     |
 | DataPipeline   | Generates the samza jobs artifects|
-| ETLJobs        |     |
 | Secor          | Generates the artefacts for the secore service|
 
 ## DevOps Administration
