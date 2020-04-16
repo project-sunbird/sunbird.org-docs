@@ -26,7 +26,7 @@ As part of this upgrade, you may choose to set up the load balancer for swarm ma
 
 4. After the plugins build and deploy, provide the blob url of the plugins zip file in the Player build. For details, refer to the Player build job on the [Core Services](developer-docs/server-installation/artifactupload-job/core-services){:target="_blank"} page.
 
-5. Build all the services mentioned in the table below. Refer to this page for details on tags to be used - Current Release Tags and Jenkins Jobs Reference{:target="_blank"}
+5. Build all the services mentioned in the table below. Refer to [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs/index.html){:target="_blank"}
 
 The following is the list of jobs required to be built and deployed :
 
@@ -55,7 +55,7 @@ Order: Top down per column
 
 
 > **Note:** 
-Refer to the following notes to trigger the **Neo4jElasticSearchSyncTool** jenkins job located under Deploy/KnowledgePlatform directory.
+Refer to the notes to trigger the **Neo4jElasticSearchSyncTool** jenkins job located under Deploy/KnowledgePlatform directory.
 
 **Create License and update Channel default License set and Content License migration based on channel**
 
