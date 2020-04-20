@@ -17,7 +17,7 @@ data.
 
 Job Name | Job Path |
 --- | --- |
-CassandraDecrypt |  Deploy/\<env\>/Core/CassandraDecrypt |
+CassandraDecrypt |  Deploy/\&lt;env\&lt;/Core/CassandraDecrypt |
 
 ### Sync User Data from Cassandra to Elasticsearch
 
