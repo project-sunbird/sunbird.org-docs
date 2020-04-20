@@ -23,22 +23,22 @@ The Sunbird Mobile app provides mobility to its feature-rich learning platform. 
 Execute the listed API to generate the key and secret for the mobile app:
 
   curl -X POST \   &#60;your-sunbird-base-url&#62;/api/api-manager/v1/consumer/mobile_app/credential/register \
-       -H 'authorization: Bearer `&#60;mobile_admin_jwt_token_from_jenkins_job_output&#62;`' \
+       -H 'authorization: Bearer &#60;mobile_admin_jwt_token_from_jenkins_job_output&#62;' \
        -H 'content-type: application/json' \
        -d '{
        "request": {
-         "key": "`&#60;implementation-name&#62;`-mobile-app-`&#60;version-number&#62;`"
+         "key": "&#60;implementation-name&#62;-mobile-app- &#60;version-number&#62;"
        }
      }'
 
 **Response body:** 
 
-{"result":{"key":"`&#60;implementation-name&#62;`-mobile-app-`&#60;version-number&#62;`","secret":"`&#60;secret&#62;`"}} 
+{"result":{"key":"&#60;implementation-name&#62;-mobile-app-&#60;version-number&#62;","secret":"&#60;secret&#62;"}} 
 
 Use the  key and secret from the response given for MOBILE_APP_KEY and MOBILE_APP_SECRET configuration in respective environments in gradle.properties file. Example:
 
-**dev_mobile_app_key = "`&#60;implementation-name&#62;`-mobile-app-`&#60;version-number&#62;`"
-dev_mobile_app_secret = "`&#60;secret&#62;`"**
+**dev_mobile_app_key = "&#60;implementation-name&#62;-mobile-app-&#60;version-number&#62;"
+dev_mobile_app_secret = "&#60;secret&#62;"**
 
 **Producer Key**
 
