@@ -67,8 +67,8 @@ Instance admin of Sunbird adopters can configure various aspects of the Sunbird 
 | S No. | Variable Name | Description | Purpose | Default Value
 |-------|---------------|--------------|--------|--------------
 | 1 | dev_app_id/staging_app_id/production_app_id | The app ID in the **SunbirdEd-mobile/buildConfig/sunbird.properties** file with the implementation-specific application ID | To change the app ID | appId: "org.sunbird.app"
-| 2 | app name | Navigate to the **SunbirdEd-mobile/config.xml** file and enter the required app name. | To change the app name | 
-| 3 | app logo | Navigate to **SunbirdEd-mobile/resources/android/icon** and **SunbirdEd-mobile/resources/android/splash**. Replace the **ic_launcher.png** image with your desired logo in all the mipmap and drawable folders. The logo name should be **drawable-ldpi-icon.png** | To change the app logo |
+| 2 | app name | Navigate to the **SunbirdEd-mobile/config.xml** file and enter the required app name | To change the app name | 
+| 3 | app logo | Navigate to **SunbirdEd-mobile/resources/android/icon** and **SunbirdEd-mobile/resources/android/splash** | Replace the **ic_launcher.png** image with your desired logo in all the mipmap and drawable folders. The logo name should be **drawable-ldpi-icon.png** | To change the app logo 
 | 4 | app | Set the configuration variable in the **SunbirdEd-mobile repo** file in the **buildConfig** folder | | 
 | 5|  app version code | Version code for the app release | To customize the end points in the app | Replace redirect base url REDIRECT_BASE_URL and all other base urls with your respective domain name in sunbird.properties |
 | 6 | deep link schema | This plugin handles deeplinks on iOS and Android for both custom URL scheme links and Universal App Links. Deep link schema can be changed from sunbird.properties | Change the "dev_deeplink_base_url = dev.open-sunbird.org" to the required name
@@ -81,11 +81,11 @@ Instance admin of Sunbird adopters can configure various aspects of the Sunbird 
 | 13 | display_onboarding_card | set the display__onboarding_cards as true in sunbird.properties file | to display the guest/login page | false
 | 14 | display_framework_categories_in_profile | set the display_framework_categories_in_profile variable as true in sunbird.properties file | to display categories in the guest/login page | false
 | 15 | track_user_telemetry | Variable used to track user telemetry.| Used to track telemetry that is missing at the device level so as to generate greater usage context within the instance. Set the variable as *true* in the **sunbird.properties** file to enable tracking.  | false
-| 16 | content_streaming_enabled | Variable used to enable content streaming.| Used to enable content streaming. Set the variable as *true* in the **sunbird.properties** file to enable content streaming.  | false
-| 17 | open_rapdiscovery_enabled | Variable used to enable OPENRAP discovery.| Used to enable OPENRAP discovery. Set the variable as *true* in the **sunbird.properties** file to enable OPENRAP discovery.  | false
-| 18 | display_onboarding_category_page | Variable used to enable onboarding category selection page.| Used to  onboarding category selection page in the onboarding process. Set the variable as *true* in the **sunbird.properties** file to enable onboarding category selection page.  | false
-| 19 | display_onboarding_scan_page | Variable used to enable onboarding scan page.| Used to enable onboarding scan page in the onboarding process. Set the variable as *true* in the **sunbird.properties** file to onboarding scan page.  | false
-| 20 | support_email | Variable used to set.| Used to set the support email id. Set the variable as *&#60;valid_email_id&#62;* in the **sunbird.properties** file to set support email id.  | &#60;valid_email_id&#62;
+| 16 | content_streaming_enabled | Variable used to enable content streaming| Used to enable content streaming. Set the variable as *true* in the **sunbird.properties** file to enable content streaming | false
+| 17 | open_rapdiscovery_enabled | Variable used to enable OPENRAP discovery| Used to enable OPENRAP discovery. Set the variable as *true* in the **sunbird.properties** file to enable OPENRAP discovery | false
+| 18 | display_onboarding_category_page | Variable used to enable onboarding category selection page| Used to  onboarding category selection page in the onboarding process. Set the variable as *true* in the **sunbird.properties** file to enable onboarding category selection page.  | false
+| 19 | display_onboarding_scan_page | Variable used to enable onboarding scan page.| Used to enable onboarding scan page in the onboarding process. Set the variable as *true* in the **sunbird.properties** file to onboarding scan page | false
+| 20 | support_email | Variable used to set| Used to set the support email id. Set the variable as *&#60;valid_email_id&#62;* in the **sunbird.properties** file to set support email id | &#60;valid_email_id&#62;
 | 21 | dev_custom_scheme/staging_custom_scheme/production_custom_scheme | Scheme used to redrirect chrome custom tab back to mobile app |  | "org.sunbird.app"
 
 <b>Packaging Framework and Form Data</b>
@@ -93,13 +93,13 @@ Sunbird mobile app supports configuration of the app framework to enable offline
 
 | S No. | Folder | File Name |  Purpose 
 |-------|--------|-----------|-------------
-| 1 | buildConfig/data/framework | framework-&#60;FRAMEWORK_IDENTIFIER&#60;.json | To package the channel for the respective framework. Same framework must be listed in the channel's suggestedFramework list.
-| 2 | buildConfig/data/channel | channel-&#60;CHANNEL_IDENTIFIER&#62;.json | To package the channel. To support offline usage custodianOrgId channel must be included in the bundle.
-| 3 | buildConfig/data/form | pageassemble_course_filter.json | Page assemble filter for course.
-| 4 | buildConfig/data/form | pageassemble_library_filter.json | Page assemble filter for library.
-| 5 | buildConfig/data/system | &#60;system-setting-custodianOrgId&#62;.json | custodianOrgId channelid for the mobile app.
-| 6 | buildConfig/data/system | system-setting-courseFrameworkId.json | courseFrameworkId for the TPD workflow.
-| 7 | buildConfig/data/notificationconfig | local_notofocation_config.json | Configuration for local Notification setup in mobile.
+| 1 | buildConfig/data/framework | framework-&#60;FRAMEWORK_IDENTIFIER&#60;.json | To package the channel for the respective framework. Same framework must be listed in the channel's suggestedFramework list
+| 2 | buildConfig/data/channel | channel-&#60;CHANNEL_IDENTIFIER&#62;.json | To package the channel. To support offline usage custodianOrgId channel must be included in the bundle
+| 3 | buildConfig/data/form | pageassemble_course_filter.json | Page assemble filter for course
+| 4 | buildConfig/data/form | pageassemble_library_filter.json | Page assemble filter for library
+| 5 | buildConfig/data/system | &#60;system-setting-custodianOrgId&#62;.json | custodianOrgId channelid for the mobile app
+| 6 | buildConfig/data/system | system-setting-courseFrameworkId.json | courseFrameworkId for the TPD workflow
+| 7 | buildConfig/data/notificationconfig | local_notofocation_config.json | Configuration for local Notification setup in mobile
 
 ## Installing Individual Plugins
 Sunbird is an open source, configurable, extendable, modular learning management platform architected for scale and designed to support multiple teaching and learning solutions supporting multiple languages and available for online and offline use. Various plugins are utilized to meet this objective. Adopters can choose and intall plugins to customize the application to suit their business needs. This ection details the procedure for installing inidividual plugins for the mobile application.
