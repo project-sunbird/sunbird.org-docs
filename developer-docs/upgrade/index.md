@@ -11,7 +11,7 @@ keywords: Upgrade, Sunbird 2.5.0
 
 This document describes the upgrade process from Sunbird 2.4.0 to 2.5.0.
 
-### Whats new in release-2.4.0
+### Whats new in release-2.5.0
 
 * [Jenkins Updates](developer-docs/upgrade/jenkins_updates){:target="_blank"}
 * [Ansible Variables Updates](developer-docs/upgrade/update_ansible_variables){:target="_blank"}
