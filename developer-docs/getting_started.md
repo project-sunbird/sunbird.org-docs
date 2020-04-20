@@ -81,15 +81,10 @@ If you are looking to explore Sunbird and test its feature set, we recommend you
 
 **Note: Data created in the sandbox is erased after 24 hours**
 
-## Developer Installation
-
-For a comprehensive walk through to install Sunbird on your workstation, refer to [Developer Installation](developer-docs/installation/developer_installation/){:target="_blank"}
-
-
 ## Server Installation
 
-Please refer to the [Server Installation Steps](developer-docs/installation/server_installation/){:target="_blank"} if you want to host sunbird on your servers. Sunbird supports various deployment topologies and it can scale for thousands of users. 
+Please refer to the [Server Installation Steps](developer-docs/server-installation/){:target="_blank"} if you want to host sunbird on your servers. Sunbird supports various deployment topologies and it can scale for thousands of users. 
 
 ## Mobile App Installation
 
-To create a customized Sunbird mobile application for your hosted Sunbird, refer to [Mobile App Setup](developer-docs/installation/install_mobile_setup/){:target="_blank"}
+To create a customized Sunbird mobile application for your hosted Sunbird, refer to [Mobile App Setup](developer-docs/mobile-app-installation/){:target="_blank"}
