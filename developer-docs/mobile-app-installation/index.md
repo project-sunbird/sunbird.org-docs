@@ -22,23 +22,23 @@ The Sunbird Mobile app provides mobility to its feature-rich learning platform. 
 **Generating Secret:**
 Execute the listed API to generate the key and secret for the mobile app:
 
-  curl -X POST \   <your-sunbird-base-url>/api/api-manager/v1/consumer/mobile_app/credential/register \
-       -H 'authorization: Bearer `<mobile_admin_jwt_token_from_jenkins_job_output>`' \
+  curl -X POST \   &#60;your-sunbird-base-url&#62;/api/api-manager/v1/consumer/mobile_app/credential/register \
+       -H 'authorization: Bearer &#60;mobile_admin_jwt_token_from_jenkins_job_output&#62;' \
        -H 'content-type: application/json' \
        -d '{
        "request": {
-         "key": "`<implementation-name>`-mobile-app-`<version-number>`"
+         "key": "&#60;implementation-name&#62;-mobile-app- &#60;version-number&#62;"
        }
      }'
 
 **Response body:** 
 
-{"result":{"key":"`<implementation-name>`-mobile-app-`<version-number>`","secret":"`<secret>`"}} 
+{"result":{"key":"&#60;implementation-name&#62;-mobile-app-&#60;version-number&#62;","secret":"&#60;secret&#62;"}} 
 
 Use the  key and secret from the response given for MOBILE_APP_KEY and MOBILE_APP_SECRET configuration in respective environments in gradle.properties file. Example:
 
-**dev_mobile_app_key = "`<implementation-name>`-mobile-app-`<version-number>`"
-dev_mobile_app_secret = "`<secret>`"**
+**dev_mobile_app_key = "&#60;implementation-name&#62;-mobile-app-&#60;version-number&#62;"
+dev_mobile_app_secret = "&#60;secret&#62;"**
 
 **Producer Key**
 
@@ -85,7 +85,7 @@ Instance admin of Sunbird adopters can configure various aspects of the Sunbird 
 | 17 | open_rapdiscovery_enabled | Variable used to enable OPENRAP discovery.| Used to enable OPENRAP discovery. Set the variable as *true* in the **sunbird.properties** file to enable OPENRAP discovery.  | false
 | 18 | display_onboarding_category_page | Variable used to enable onboarding category selection page.| Used to  onboarding category selection page in the onboarding process. Set the variable as *true* in the **sunbird.properties** file to enable onboarding category selection page.  | false
 | 19 | display_onboarding_scan_page | Variable used to enable onboarding scan page.| Used to enable onboarding scan page in the onboarding process. Set the variable as *true* in the **sunbird.properties** file to onboarding scan page.  | false
-| 20 | support_email | Variable used to set.| Used to set the support email id. Set the variable as *<valid_email_id>* in the **sunbird.properties** file to set support email id.  | <valid_email_id>
+| 20 | support_email | Variable used to set.| Used to set the support email id. Set the variable as *&#60;valid_email_id&#62;* in the **sunbird.properties** file to set support email id.  | &#60;valid_email_id&#62;
 | 21 | dev_custom_scheme/staging_custom_scheme/production_custom_scheme | Scheme used to redrirect chrome custom tab back to mobile app |  | "org.sunbird.app"
 
 <b>Packaging Framework and Form Data</b>
@@ -93,11 +93,11 @@ Sunbird mobile app supports configuration of the app framework to enable offline
 
 | S No. | Folder | File Name |  Purpose 
 |-------|--------|-----------|-------------
-| 1 | buildConfig/data/framework | framework-<FRAMEWORK_IDENTIFIER>.json | To package the channel for the respective framework. Same framework must be listed in the channel's suggestedFramework list.
-| 2 | buildConfig/data/channel | channel-<CHANNEL_IDENTIFIER>.json | To package the channel. To support offline usage custodianOrgId channel must be included in the bundle.
+| 1 | buildConfig/data/framework | framework-&#60;FRAMEWORK_IDENTIFIER&#60;.json | To package the channel for the respective framework. Same framework must be listed in the channel's suggestedFramework list.
+| 2 | buildConfig/data/channel | channel-&#60;CHANNEL_IDENTIFIER&#62;.json | To package the channel. To support offline usage custodianOrgId channel must be included in the bundle.
 | 3 | buildConfig/data/form | pageassemble_course_filter.json | Page assemble filter for course.
 | 4 | buildConfig/data/form | pageassemble_library_filter.json | Page assemble filter for library.
-| 5 | buildConfig/data/system | system-setting-custodianOrgId.json | custodianOrgId channelid for the mobile app.
+| 5 | buildConfig/data/system | &#60;system-setting-custodianOrgId&#62;.json | custodianOrgId channelid for the mobile app.
 | 6 | buildConfig/data/system | system-setting-courseFrameworkId.json | courseFrameworkId for the TPD workflow.
 | 7 | buildConfig/data/notificationconfig | local_notofocation_config.json | Configuration for local Notification setup in mobile.
 
@@ -133,7 +133,7 @@ This is installed with other npm packages.
 
 ### Installing the Mobile Application
 
-  1.Create a workspace  (i.e Folder Hierarchy ) and clone the Git repositories into this folder
+  1.Create a workspace (Folder Hierarchy) and clone the Git repositories into this folder
 
   2.Execute the instructions mentioned for each cloned repository
 
