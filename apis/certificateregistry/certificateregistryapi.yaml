@@ -224,7 +224,7 @@ paths:
   /certreg/v1/certs/read:
     get:
       description:  >-
-        This API allows you to Read digitally generated certificates. The **_/certreg/v1/certs/Read/{id}}_** endpoint executes the **Read certificate** request based on path parameters provided.
+        This API allows you to ead digitally generated certificates. The **_/certreg/v1/certs/Read/{id}}_** endpoint executes the **Read certificate** request based on path parameters provided.
            - All fields marked with an * are mandatory
            - The mandatory fields cannot be null or empty
       summary: Read the certificate
@@ -249,16 +249,16 @@ paths:
           description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
       responses:
         '200':
-          description: 'OK ! Operation successful."Certificate read" operation was executed successfully.'
+          description: 'OK! Operation successful."Certificate read" operation was executed successfully.'
           schema:
             allOf:
               - $ref: '#/definitions/CertificateReadResponse'
         '404':
-          description: 'RESOURCE NOT FOUND. The "Certificate read" operation failed. You may have provided invalid certificate id. '
+          description: 'RESOURCE NOT FOUND. The "Certificate read" operation failed. You may have provided an invalid certificate ID. '
           schema:
             $ref: '#/definitions/IssueCertificateErrorResponse'
         '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact us at info.sunbird.org.'
+          description: 'INTERNAL SERVER ERROR! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact us at info.sunbird.org.'
 
   /certreg/v1/certs/search:
     post:
@@ -266,8 +266,8 @@ paths:
         This API allows you to search digitally generated certificates. The **_/certreg/v1/certs/search_** endpoint executes the **search certificate** request based on parameters provided in the request body.
            - All fields marked with an * are mandatory
            - The mandatory fields cannot be null or empty
-           - This API is wrapper of ElasticSearch, so the way search request is given to ElasticSearch is same will be given to search API inside request object.
-           - No validation is done by the system.
+           - This API is a wrapper for ElasticSearch. Hence, the manner in which the search request is sent to ElasticSearch, the same way it is sent to the search API inside the request object.
+           - The system does not validate the request. 
       summary: Search the certificate
       tags:
         - Search Certificate API
@@ -286,7 +286,7 @@ paths:
         - name: ts
           in: header
           type: string
-          description: 'The timestamp at which the **download certificate** request was sent. '
+          description: 'The timestamp at which the **search certificate** request was sent. '
         - name: X-msgid
           in: header
           type: string
@@ -298,7 +298,7 @@ paths:
           description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
       responses:
         '200':
-          description: 'OK ! Operation successful."Certificate Search" operation was executed successfully.'
+          description: 'OK! Operation successful."Certificate Search" operation was executed successfully.'
           schema:
             allOf:
               - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
@@ -325,7 +325,7 @@ definitions:
 
 
   CertificateSearchRequest:
-    title: Certificate Download request
+    title: Certificate Search request
     type: object
     properties:
       request:
@@ -393,7 +393,7 @@ definitions:
 
   verifyRequest:
     type: object
-    description: Either the data or ID of the certificate. This is required to verify the certificate
+    description: Contains ither the data or ID of the certificate. This is required to verify the certificate
     properties:
       id:
         description: The certificate's URL to be used as the ID
@@ -480,17 +480,17 @@ definitions:
         description: The relative json URL of the generated pdf file
         type: string
       revoked:
-        description: The user certificate is been revoked or not
+        description: Check to understand if the user certificate has been revoked 
         type: boolean
       reason:
-        description: The reason why user certificate is been revoked
+        description: The reason why the user certificate has been revoked
         type: string
       jsonData:
         description: The raw json data used to generate the certificate
         type: object
       related:
         type: object
-        description: The raw property bag to store some identifiable information about certificates. This is intended to be used for reporting and search.
+        description: The raw property bag to store identifiable information about certificates. This is used for reporting and search functions.
         properties:
           type:
             type: string
