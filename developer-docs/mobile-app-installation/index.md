@@ -1,6 +1,6 @@
 ---
-title: Mobile App Installation Set up  
-page_title: Mobile App Installation Set up
+title: Mobile App Installation and Setup  
+page_title: Mobile App Installation and Setup
 description: Setting Up and installing Mobile App
 keywords: Setup, Sunbird Mobile App, Install, Configure, set up, Build APK
 published: true
