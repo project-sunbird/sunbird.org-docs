@@ -52,8 +52,8 @@ Replace `release_fabric_api_key` in `sunbird.properties` with your fabric API Ke
 Sunbird mobile app can be built from the main source code which is available at  [SunbirdEd-mobile-app](https://github.com/Sunbird-Ed/SunbirdEd-mobile-app).
 
 * Clone the [SunbirdEd-mobile-app](https://github.com/Sunbird-Ed/SunbirdEd-mobile-app) repo
-* Customising App Configuration - sample.sunbird.properties file is located inside buildConfig folder. This has to be renamed to sunbird.properties and appropriate values should be provided.
-* Package the framework and form data
+* [Customising App Configuration](#customising-app-configuration) - sample.sunbird.properties file is located inside SunbirdEd-mobile-app > buildConfig folder. This has to be renamed to sunbird.properties and appropriate values should be provided.
+* [Package the framework and form data](#package-the-framework-and-form-data).
 * go to project folder and run **./build.sh**
 
 ### Customising App Configuration
@@ -92,7 +92,7 @@ Instance admin of Sunbird adopters can configure various aspects of the Sunbird 
 | 21 | support_email | Variable used to set| Used to set the support email id. Set the variable as *&#60;valid_email_id&#62;* in the **sunbird.properties** file to set support email id | &#60;valid_email_id&#62;
 | 22 | dev_custom_scheme/staging_custom_scheme/production_custom_scheme | Scheme used to redrirect chrome custom tab back to mobile app |  | "org.sunbird.app"
 
-<b>Packaging Framework and Form Data</b>
+###  Packaging Framework and Form Data
 Sunbird mobile app supports configuration of the app framework to enable offline usage of the app. To configure the app framework, adopter needs to package the channel for the respective framework. Details of the file naming convention and folder location are given below:
 
 | S No. | Folder | File Name |  Purpose 
