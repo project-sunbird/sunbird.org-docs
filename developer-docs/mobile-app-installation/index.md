@@ -1,5 +1,5 @@
 ---
-title: Mobile App Installation Set up  
+title: Mobile App Installation Setup  
 page_title: Mobile App Installation Set up
 description: Setting Up and installing Mobile App
 keywords: Setup, Sunbird Mobile App, Install, Configure, set up, Build APK
@@ -48,7 +48,7 @@ Replace the producer id `PRODUCER_ID` for respective environments in sunbird.pro
 
 Replace `release_fabric_api_key` in `sunbird.properties` with your fabric API Key. Create an account in [fabric.io](https://get.fabric.io/) and register in the app to get the API key.
 
-## Setup mobile app workspace from Git Repository
+## Set up mobile app workspace from Git Repository
 Sunbird mobile app can be built from the main source code which is available at  [SunbirdEd-mobile-app](https://github.com/Sunbird-Ed/SunbirdEd-mobile-app).
 
 * Clone the [SunbirdEd-mobile-app](https://github.com/Sunbird-Ed/SunbirdEd-mobile-app) repo
