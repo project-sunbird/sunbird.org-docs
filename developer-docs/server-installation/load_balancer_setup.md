@@ -21,15 +21,15 @@ To setup Agent Swarm, execute the following instructions for each of the mention
 
 - Frontend IP configuration - attach public IP
 - Backend pools - attach agent VM's or availability set of agent group
-- Health Probes/check - Configure path and port - 80 and 443 (both)  
+- Health Probes/check - Configure path and port - 31380 and 31390 (both)  
 EX: name: http 
 - Protocol: TCP   
-- Port: 80  
+- Port: 31380  
 - Interval: 5  
 - Unhealthy threshold: 2  
 - Load Balancing rules - Frontend-ip-config, Frontend-port,backend-port, Backend-pool and health-probe    
 Ex: Frontend-port: 80
-- Backend-port: 80
+- Backend-port: 31380
 
 
 > **Note:** Follow similar steps for port 443
