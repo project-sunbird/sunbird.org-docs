@@ -32,7 +32,7 @@ Ex: Frontend-port: 80
 - Backend-port: 31380
 
 
-> **Note:** Follow similar steps for port 443
+> **Note:** Follow similar steps for port 31390
 
 ## Swarm Managers
 (Optional - Refer the variable sunbird_swarm_manager_lb_ip in inventory for comments)
