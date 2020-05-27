@@ -80,7 +80,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 |**private_repo_branch**|The branch name in the private repository which you would like to use. This branch has the inventory and secrets| 
 |**private_repo_credentials**|The unique string which you provided for ID field while entering the GitHub repo credentials. Example: **private-repo-creds**| 
 |**private_repo_url**|The GitHub URL to your private repo. To get the URL of your private repository, go to your private repository and click the **Clone** button. The https URL of your private repository is displayed. Currently, Sunbird supports only https URLs| 
-|**public_repo_branch**|This is the branch or tag from where the Jenkins file is picked up. You can set this value as **refs/tags/release-2.8.0** if you want to build from tags or provide the value of the development branch, for example, release-2.8.0. This is not recommended since development branches are not stable|
+|**public_repo_branch**|This is the branch or tag to pick the Jenkins file. You can set this value as refs/tags/release-2.8.0 if you want to build from tags or provide the value of the development branch, for example, release-2.8.0. Changing this value is not recommended since development branches are not stable. |
 |**override_private_branch**|true|
 |**override_public_branch**|true| 
  
