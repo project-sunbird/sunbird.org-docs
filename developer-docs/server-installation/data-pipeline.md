@@ -33,17 +33,17 @@ Switch to the `Build` folder and run all jobs. For the value of the **github_rel
 Switch to `Provision/<env>/DataPipeline` and run the jobs in the following sequence: 
 
 
-| Operation Name | Function              | Description|
-| -------------- | --------------------- |-------------|
-| AnalyticsApi   | Provision the server to run the analytics-apiserver| Creates the analytics user required folders and installs the dependencies|
-| AnalyticsSecor | Provision the server to run the secor jobs | Creates the analytics user required folders and installs the dependencies to run secorjobs|
-| AnalyticsSpark | Provision the server to run the data products jobs| Creates the analyticsuser required folders and installs the dependencies to run spark|
-| Postgres       | Provision the Postgres database| Installs the dependencies like java and install the Postgres database|
-| Yarn           | Provision the Yarn cluster | Install the dependencies required to create the yarn cluster and creates the yarn cluster to run samza jobs|
-| Influxdb       | Provision the influxdb database| Install the dependencies like java and install the influxdb database|
-| Zookeeper      | Provision the zookeeper| Installs the dependencies and creates the zookeeper cluster
-| Kafka          | Provision the kafka| Installs the dependencies and creates the kafka broker cluster
-| Redis          | Provision the redis database | Installs the dependencies like java and install the redis database
+| Operation Name | Function              | Description| CURRENT RELEASE TAG|	
+| -------------- | --------------------- |-------------|------------------|
+| AnalyticsApi   | Provision the server to run the analytics-apiserver| Creates the analytics user required folders and installs the dependencies| release-2.8.0
+| AnalyticsSecor | Provision the server to run the secor jobs | Creates the analytics user required folders and installs the dependencies to run secorjobs| release-2.8.0
+| AnalyticsSpark | Provision the server to run the data products jobs| Creates the analyticsuser required folders and installs the dependencies to run spark| release-2.8.0
+| Postgres       | Provision the Postgres database| Installs the dependencies like java and install the Postgres database| release-2.8.0
+| Yarn           | Provision the Yarn cluster | Install the dependencies required to create the yarn cluster and creates the yarn cluster to run samza jobs| release-2.8.0
+| Influxdb       | Provision the influxdb database| Install the dependencies like java and install the influxdb database| release-2.8.0
+| Zookeeper      | Provision the zookeeper| Installs the dependencies and creates the zookeeper cluster | release-2.8.0
+| Kafka          | Provision the kafka| Installs the dependencies and creates the kafka broker cluster | release-2.8.0
+| Redis          | Provision the redis database | Installs the dependencies like java and install the redis database | release-2.8.0
 
 ## Deploy
 
