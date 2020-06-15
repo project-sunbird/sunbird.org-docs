@@ -1,12 +1,14 @@
 ---
-title: Elasticsearch static mapping for course batch
-page_title: Elasticsearch static mapping for course batch
-description: Elasticsearch static mapping for course batch
+title: Static Mapping for Course Batches in Elasticsearch
+page_title: Static Mapping for Course Batches in Elasticsearch
+description: Static Mapping for Course Batches in Elasticsearch
 published: true
 allowsearch: true
 keywords: Elasticsearch, static mapping, course batch
 ---
+
 ## Overview
+
 Existing coursebatch type Elasticsearch index is having dynamic mapping and it recently hit the default max limit (1000). As such, it is required to disable dynamic mapping and use static mapping which would index the necessary fields only.
 
 ## Prerequisites
