@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2020-06-09 14:48:05 +0530">
+<meta name="last-modified" content="2020-06-22 13:04:17 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="2539" />
+<meta name="buildNo" content="2547" />
 <meta name="version" id="docsVersion" content="2.8.0" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?09062020"  />
+<link rel="stylesheet" href="/css/style.css?22062020"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?09062020"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?09062020"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?09062020"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?09062020"></script>
-<script type="text/javascript" src="/js/widgets-data.js?09062020"></script>
-<script type="text/javascript" src="/js/widgets.js?09062020"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?22062020"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?22062020"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?22062020"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?22062020"></script>
+<script type="text/javascript" src="/js/widgets-data.js?22062020"></script>
+<script type="text/javascript" src="/js/widgets.js?22062020"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -2237,20 +2237,52 @@ resetBase();
     <tr>
       <th>Operation Name</th>
       <th>Function</th>
+      <th>Description</th>
+      <th>CURRENT RELEASE TAG</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Analytics</td>
-      <td>Generates the artefacts for analytics API server</td>
+      <td>AnalyticsCore</td>
+      <td>Builds the analytics framework</td>
+      <td>Creates analytics framework artifact</td>
+      <td>release-2.8.0</td>
     </tr>
     <tr>
-      <td>DataPipeline</td>
-      <td>Generates the samza jobs artifects</td>
+      <td>Analytics Service</td>
+      <td>Builds the analytics API service</td>
+      <td>Creates analytics API service artifact</td>
+      <td>release-2.8.0</td>
+    </tr>
+    <tr>
+      <td>Core Data Product</td>
+      <td>Builds analytics core data products</td>
+      <td>Creates analytics core data products artifact</td>
+      <td>release-2.8.0</td>
+    </tr>
+    <tr>
+      <td>Data pipeline</td>
+      <td>Builds all pipeline samza jobs</td>
+      <td>Creates tar ball for each pipeline samza jobs</td>
+      <td>release-2.8.0</td>
+    </tr>
+    <tr>
+      <td>DataReplay</td>
+      <td>Builds replay scripts</td>
+      <td>Creates zip file for replay python scripts</td>
+      <td>release-2.8.0</td>
+    </tr>
+    <tr>
+      <td>ETLJobs</td>
+      <td>Builds adhoc scripts which includes content snapshot druid indexer, dialcode redis indexer</td>
+      <td>Creates jar out of adhoc scripts</td>
+      <td>release-2.8.0</td>
     </tr>
     <tr>
       <td>Secor</td>
       <td>Generates the artefacts for the secore service</td>
+      <td>Artifects for secore service</td>
+      <td>secor-0.25</td>
     </tr>
   </tbody>
 </table>
@@ -2353,60 +2385,97 @@ resetBase();
       <th>Operation Name</th>
       <th>Function</th>
       <th>Description</th>
-      <th> </th>
+      <th>CURRENT RELEASE TAG</th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <td>AnalyticsCore</td>
+      <td>Deploys Analytics framework jars</td>
+      <td>Copies analytics framework artifact to spark server</td>
+      <td>release-2.8.0</td>
+    </tr>
+    <tr>
+      <td>AnalyticsPopulatePSQLConsumerChannelMapping</td>
+      <td>Deploying AnalyticsPopulatePSQLConsumerChannelMapping</td>
+      <td>Registers consumer against channel which is used to get telemetry data via data exhaust APIs</td>
+      <td>release-2.8.0</td>
+    </tr>
+    <tr>
+      <td>AnalyticsReplayJobs</td>
+      <td>To trigger data products execution on demand</td>
+      <td>Based on given parameter triggers data product execution</td>
+      <td>release-2.8.0</td>
+    </tr>
+    <tr>
+      <td>AnalyticsService</td>
+      <td>Deploy Analytics API service</td>
+      <td>Deploys latest artifact and starts API service</td>
+      <td>release-2.8.0</td>
+    </tr>
+    <tr>
+      <td>AnalyticsStartJobManager</td>
+      <td>To start job manager for data products execution on demand</td>
+      <td>Starts job manager process</td>
+      <td>release-2.8.0</td>
+    </tr>
+    <tr>
+      <td>AnalyticsSubmitJobs</td>
+      <td>To submit data products for execution via job manager</td>
+      <td>Submits job to a kafka topic which is consumed by job manager</td>
+      <td>release-2.8.0</td>
+    </tr>
+    <tr>
+      <td>ApiModule</td>
+      <td>Deploys Druid proxy API</td>
+      <td>Used to setup proxy for druid APIs to restrict huge queries</td>
+      <td>release-2.8.0</td>
+    </tr>
+    <tr>
       <td>CassandraDbUpdate</td>
       <td>Updates the cassandra DB</td>
       <td>Updates the required Cassandra table schema</td>
-      <td> </td>
+      <td>release-2.8.0</td>
     </tr>
     <tr>
-      <td>KafkaSetup</td>
-      <td>Creates Kafka topics</td>
-      <td>The created topics being used by various applications</td>
-      <td>Handles all the data pipeline api requests and writes it to redis/filesystem/kafka</td>
-    </tr>
-    <tr>
-      <td>AnalyticsApi</td>
-      <td>Deploys the analytics api service</td>
-      <td>Handles all the data pipeline api requests and writes it to redis/filesystem/kafka</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>DataProducts</td>
-      <td>Deploys the data products jars</td>
-      <td>Computes the summary using batch jobs from raw telemetry</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Secor</td>
-      <td>Deploys the secor jobs</td>
-      <td>Takes the backup of kafka topics and stores them in storage</td>
-      <td> </td>
+      <td>CoreDataProducts</td>
+      <td>Deploys core data products</td>
+      <td>Copies core data products artifact to spark server</td>
+      <td>release-2.8.0</td>
     </tr>
     <tr>
       <td>KafkaIndexer</td>
-      <td>Installs the logstash</td>
-      <td>Reads the Kafka topic and sends the pipeline metrics to influxdb</td>
-      <td> </td>
+      <td>Deploys logstash configurations and starts process</td>
+      <td>Used for pushing pipeline metrics to influxDB</td>
+      <td>release-2.8.0</td>
     </tr>
     <tr>
-      <td>SamzaTelemertySchemas</td>
-      <td>Copies the telemetry samza jobs related schemas to yarn slaves</td>
-      <td>Copies the schema files- which will be used for validating telemetry-data, to all the nodes in yarn</td>
-      <td> </td>
+      <td>KafkaSetup</td>
+      <td>Setup kafka for pipeline</td>
+      <td>Creates kafka topic and updates topic configurations</td>
+      <td>release-2.8.0</td>
+    </tr>
+    <tr>
+      <td>SamzaTelemetrySchemas</td>
+      <td>Deploys telemetry validation schema to yarn cluster</td>
+      <td>This schema is used in pipeline jobs for validating telemetry events</td>
+      <td>release-2.8.0</td>
+    </tr>
+    <tr>
+      <td>Secor</td>
+      <td>Deploys secor configurations and starts process</td>
+      <td>Secor processes are used to backup telemetry events from kafka topic to blob store</td>
+      <td>release-2.8.0</td>
     </tr>
     <tr>
       <td>Yarn</td>
-      <td>Deploys the samza jobs in yarn cluster</td>
-      <td>Reads the messages from various kafka topics and does the logical transformation and update the event to Kafka/redis/postgres</td>
-      <td> </td>
+      <td>Deploys all pipeline samza jobs to yarn cluster</td>
+      <td>Copies artifact and starts specified pipeline jobs on yarn cluster</td>
+      <td>release-2.8.0</td>
     </tr>
   </tbody>
 </table>
+
 
           
           <hr />
