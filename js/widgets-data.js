@@ -1,6 +1,14 @@
 var widgetsData = {  
    versions:[
-    {  
+     {  
+         "title":"2.8.0",
+         "branch":"2.8.0",
+         "desc":"",
+         "releaseDate":"1st March 2020",
+         "latest":true,
+         "published":true
+      },
+      {  
          "title":"2.7.0",
          "branch":"2.7.0",
          "desc":"",
