@@ -50,7 +50,7 @@ Before you start the installation process, ensure that you provision for servers
     <td rowspan="3">Core</td>
     <td rowspan="3">Server-2 (Docker)</td>
     <td>Docker Manager and Worker</td>
-    <td>swarm-manager-1, swarm-agent-for-prometheus-1, swarm-agent-for-alertmanager-1, swarm-bootstrap-manager, swarm-node-1</td>
+    <td>swarm-manager-1, swarm-agent-for-prometheus-1, swarm-agent-for-alertmanager-1, swarm-bootstrap-manager, swarm-node-1 , swarm-agent-dashboard-1, swarm-dashboard-1</td>
   </tr>
   <tr>
     <td>Logs Elasticsearch</td>
@@ -94,7 +94,7 @@ Before you start the installation process, ensure that you provision for servers
   </tr>
   <tr>
     <td>Kafka</td>
-    <td>processing-cluster-kafka, processing-cluster-zookeepers, kafka-ps kafka-1</td>
+    <td>processing-cluster-kafka, processing-cluster-zookeepers, kafka-ps, kafka-1</td>
   </tr>
   <tr>
     <td rowspan="5">Data Pipeline</td>
