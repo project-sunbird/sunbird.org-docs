@@ -1,0 +1,356 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Notification API(s)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  contact:
+    email: info@sunbird.org
+  description: >-
+    The Email resources provides the notification mechanism for all the users on Sunbird. The Resource notifies users officially about something on Sunbird. 
+host: staging.open-sunbird.org
+basePath: /api
+securityDefinitions:
+  bearer:
+      type: apiKey  # arbitrary name for the security scheme
+      in: header # The secrity scheme parameter is in "header"
+      name: Authorization # name of the header, query parameter or cookie
+  userToken:
+      type: apiKey  # arbitrary name for the security scheme
+      in: header # The secrity scheme parameter is in "header"
+      name: x-authenticated-user-token # name of the header, query parameter or cookie
+schemes:
+  - https
+paths:
+  '/user/v1/notification/email ':
+    post:
+      description: >-
+       This API is associated with notifying a user on the Sunbird Platform.if request will contain mode attribute with value sms ,then user will be notify via sms.During sms notification you can pass list of phone number or list of phone number and userid both.
+          - The endpoint for **Notifying Users** is `/user/v1/notification/email`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      summary: ' Notifiying Users'
+      tags:
+      - Notification APIs
+      operationId: '{{host}}/user/v1/notification/email '
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: >-
+            The body refers to the format of the request.
+              - The body contains metadata about the notification to be sent.
+        schema:
+          $ref: '#/definitions/emailRequest'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'OK ! Successful operation."Notifying User" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: 'BAD REQUEST. The "Notifying User" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+  '/otp/v1/generate':
+    post:
+      description: >-
+       This API is associated with sending OTP to user on the Sunbird Platform.
+          - The endpoint for **Generate OTP** is `otp/v1/generate`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      summary: 'Generate OTP'
+      tags:
+      - Notification APIs
+      operationId: '{{host}}/otp/v1/generate'
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: >-
+            The body refers to the format of the request.
+              - The body contains metadata about the notification to be sent.
+        schema:
+          $ref: '#/definitions/generateOtpRequest'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'OK ! Successful operation."Notifying User" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: 'BAD REQUEST. The "Notifying User" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+     
+  '/otp/v1/verify':
+    post:
+      description: >-
+       This API is associated with verifying OTP to user on the Sunbird Platform.
+          - The endpoint for **Verifiy OTP** is `otp/v1/verify`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      summary: 'Verify OTP'
+      tags:
+      - Notification APIs
+      operationId: '{{host}}/otp/v1/verify'
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: >-
+            The body refers to the format of the request.
+              - The body contains metadata about the notification to be sent.
+        schema:
+          $ref: '#/definitions/verifyOtpRequest'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      responses:
+        '200':
+          description: 'OK ! Successful operation."Notifying User" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/ContentCreateResponse'
+        '400':
+          description: 'BAD REQUEST. The "Notifying User" operation failed! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+     
+definitions:
+  emailRequest:
+    title: 'Request structure for sending email notification'
+    example:
+      request:
+        name: Amit
+        subject: test email
+        body: Hello Amit.
+        downloadUrl: https://www.google.com/
+        recipientEmails:
+        - amit.kumar@tarento.com
+        - amit1.kumar@tarento.com
+        mode: sms
+        recipientPhones:
+        - valid phone number without country code
+        recipientUserIds:
+        - valid userId
+        recipentSearchQuery: {
+          "filters":{
+           "channel":"nameof channel",
+           "rootOrgId" : "rootOrgIds",
+            "organisations.roles":["valid roles"]
+          }
+        }
+         
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/Request'
+    required:
+    - request
+  
+  Request:
+    title: Request
+    type: object
+    properties:
+      name:
+        description: 'Recipient name to whom mail is sending'
+        type: string
+      subject:
+        description: 'Subject of mail'
+        type: string
+      body:
+        description: 'Contents of mail body'
+        type: string
+      mode:
+       description: 'supported value is sms, apart from sms all other values will be ignore.if value is sms then it will notify user via sms, and body will become sms text'
+      downloadUrl:
+        description: 'Download link of content'
+        type: string
+      recipientEmails:
+        description: 'List of recipient mail ids'
+        type: array
+        items:
+          type: string
+      recipientPhones:
+        description: 'List of valid phone numbers without country code'
+        type: array
+        items:
+          type: string
+      recipientUserIds:
+        description: 'List of recipient user ids. With help of user ids system fetches user email to send mail.'
+        type: array
+        items:
+          type: string
+      recipientSearchQuery:
+        description: 'Filter query to find user based on some criteria, Example: send all users with particular rootOrgId and having certain roles. among recipientEmails,recipientUserIds,recipientSearchQuery any one is mandatory.'
+        type: object
+        properties:
+          filters:
+            type: object
+    required:
+    - subject
+    - body
+    - downloadUrl
+    - recipientEmails
+    - recipientUserIds
+  generateOtpRequest:
+    title: 'Request structure for sending OTP'
+    example:
+      request:
+        userId: 372175df-7f44-48df-8aa5-4t6228996b06s
+        key: amit@gmail.com
+        type: email
+         
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/genOtpRequest'
+    required:
+    - request
+  
+  genOtpRequest:
+    title: Request
+    type: object
+    properties:
+      userId:
+        description: 'Recipient name to whom mail is sending'
+        type: string
+      key:
+        description: 'Subject of mail'
+        type: string
+      type:
+        description: 'Contents of mail body'
+        type: string
+    required:
+    - key
+    - type
+  verifyOtpRequest:
+    title: 'Request structure for verifying OTP'
+    example:
+      request:
+        userId: 372175df-7f44-48df-8aa5-4t6228996b06s
+        key: amit@gmail.com
+        type: email
+        otp: '79562'
+         
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/verOtpRequest'
+    required:
+    - request
+  
+  verOtpRequest:
+    title: Request
+    type: object
+    properties:
+      userId:
+        description: 'Recipient name to whom mail is sending'
+        type: string
+      key:
+        description: 'Subject of mail'
+        type: string
+      type:
+        description: 'Contents of mail body'
+        type: string
+      otp:
+        description: 'OTP'
+        type: string
+    required:
+    - key
+    - type
+    - otp
+  
+  ContentCreateResponse:
+    description: Create Content Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithNodeId'
+      - $ref: '#/definitions/ResponseHeader'
+  ResultWithNodeId:
+    title: Result Body
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/SendNotificationMailResult'
+  ResponseHeader:
+    title: ResponseHeader
+    type: object
+    properties:
+      id:
+        type: string
+        description: API Identifier
+      ver:
+        type: string
+        description: API version information
+      ts:
+        type: string
+        description: API execution timespan
+      params:
+        $ref: '#/definitions/ResponseParams'
+      responseCode:
+        type: object
+        description: 'API response code '
+  SendNotificationMailResult:
+    title: Send Notification Result
+    type: object
+    properties:
+      response:
+        type: string
+        description: 'SUCCESS in case mail send successfully otherwise user id with reason of mailsending fail .'
+  ResponseParams:
+    title: Response Parameter
+    type: object
+    properties:
+      resmsgid:
+        type: string
+        description: Response Message Id
+      msgid:
+        type: string
+        description: Message Id
+      err:
+        type: string
+        description: Error Code
+      status:
+        type: string
+        description: Response Status
+      errmsg:
+        type: string
+        description: Error Message
+  ContentCreateErrorResponse:
+    title: Create Content Error Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/EmptyResult'
+      - $ref: '#/definitions/ResponseHeader'
+  EmptyResult:
+    title: Empty Result
+    type: object
+    properties:
+      result:
+        type: object
+        description: Empty Result
