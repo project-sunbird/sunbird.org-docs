@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2020-06-16 16:55:34 +0530">
+<meta name="last-modified" content="2020-07-17 16:01:22 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="2545" />
+<meta name="buildNo" content="2560" />
 <meta name="version" id="docsVersion" content="2.6.0" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?16062020"  />
+<link rel="stylesheet" href="/css/style.css?17072020"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?16062020"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?16062020"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?16062020"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?16062020"></script>
-<script type="text/javascript" src="/js/widgets-data.js?16062020"></script>
-<script type="text/javascript" src="/js/widgets.js?16062020"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?17072020"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?17072020"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?17072020"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?17072020"></script>
+<script type="text/javascript" src="/js/widgets-data.js?17072020"></script>
+<script type="text/javascript" src="/js/widgets.js?17072020"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -1316,6 +1316,38 @@ resetBase();
 								<div class="">
 									
 									<a 
+										href="developer-docs/developer-installation/" 
+										 
+										class="" 
+										> 
+										Developer Installation
+									</a>
+									<ul class="sidebar-group">
+										
+										<li>
+											
+											<a  
+												href="developer-docs/developer-installation/install_sbportal" 
+												
+												class="" 
+												>
+												Portal
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+									</ul>
+								</div>
+							
+						</li>
+					
+						<li>
+							
+								<div class="">
+									
+									<a 
 										href="developer-docs/mobile-app-installation/" 
 										 
 										class="" 
@@ -2225,11 +2257,35 @@ resetBase();
     </tbody>
   </table>
 </div><h2 id="overview">Overview</h2>
+
 <p>This page explains the jobs to be run to bring up the Data Pipeline services. In order to do so, log into Jenkins and execute the instructions as per the sequence provided on this page.</p>
 
 <h2 id="build">Build</h2>
 
 <p>Switch to the <code>Build</code> folder and run all jobs. For the value of the <strong>github_release_tag</strong>, refer to <a href="developer-docs/server-installation/current_release_tags_n_jenkins_jobs" target="_blank">Current Release Tags and Jenkins Jobs Reference</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operation Name</th>
+      <th>Function</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Analytics</td>
+      <td>Generates the artefacts for analytics API server</td>
+    </tr>
+    <tr>
+      <td>DataPipeline</td>
+      <td>Generates the samza jobs artifects</td>
+    </tr>
+    <tr>
+      <td>Secor</td>
+      <td>Generates the artefacts for the secore service</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="devops-administration">DevOps Administration</h2>
 
@@ -2252,28 +2308,127 @@ resetBase();
 
 <p>Switch to <code>Provision/&lt;env&gt;/DataPipeline</code> and run the jobs in the following sequence:</p>
 
-<p>1.AnalyticsApi<br />
-2.AnalyticsSecor<br />
-3.AnalyticsSpark <br />
-4.Postgres 
-5.Yarn<br />
-6.Influxdb<br />
-7.Zookeeper <br />
-8.Kafka  <br />
-9.Redis</p>
+<table>
+  <thead>
+    <tr>
+      <th>Operation Name</th>
+      <th>Function</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>AnalyticsApi</td>
+      <td>Provision the server to run the analytics-apiserver</td>
+      <td>Creates the analytics user required folders and installs the dependencies</td>
+    </tr>
+    <tr>
+      <td>AnalyticsSecor</td>
+      <td>Provision the server to run the secor jobs</td>
+      <td>Creates the analytics user required folders and installs the dependencies to run secorjobs</td>
+    </tr>
+    <tr>
+      <td>AnalyticsSpark</td>
+      <td>Provision the server to run the data products jobs</td>
+      <td>Creates the analyticsuser required folders and installs the dependencies to run spark</td>
+    </tr>
+    <tr>
+      <td>Postgres</td>
+      <td>Provision the Postgres database</td>
+      <td>Installs the dependencies like java and install the Postgres database</td>
+    </tr>
+    <tr>
+      <td>Yarn</td>
+      <td>Provision the Yarn cluster</td>
+      <td>Install the dependencies required to create the yarn cluster and creates the yarn cluster to run samza jobs</td>
+    </tr>
+    <tr>
+      <td>Influxdb</td>
+      <td>Provision the influxdb database</td>
+      <td>Install the dependencies like java and install the influxdb database</td>
+    </tr>
+    <tr>
+      <td>Zookeeper</td>
+      <td>Provision the zookeeper</td>
+      <td>Installs the dependencies and creates the zookeeper cluster</td>
+    </tr>
+    <tr>
+      <td>Kafka</td>
+      <td>Provision the kafka</td>
+      <td>Installs the dependencies and creates the kafka broker cluster</td>
+    </tr>
+    <tr>
+      <td>Redis</td>
+      <td>Provision the redis database</td>
+      <td>Installs the dependencies like java and install the redis database</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="deploy">Deploy</h2>
 
 <p>Switch to <code>Deploy/&lt;env&gt;/DataPipeline</code> and run the jobs in the following sequence:</p>
 
-<p>1.CassandraDbUpdate<br />
-2.KafkaSetup<br />
-3.AnalyticsApi<br />
-4.DataProducts<br />
-5.Secor<br />
-6.KafkaIndexer<br />
-7.SamzaTelemertySchemas<br />
-8.Yarn (Multi-select all options in the job parameter job_names_to_deploy)</p>
+<table>
+  <thead>
+    <tr>
+      <th>Operation Name</th>
+      <th>Function</th>
+      <th>Description</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CassandraDbUpdate</td>
+      <td>Updates the cassandra DB</td>
+      <td>Updates the required Cassandra table schema</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>KafkaSetup</td>
+      <td>Creates Kafka topics</td>
+      <td>The created topics being used by various applications</td>
+      <td>Handles all the data pipeline api requests and writes it to redis/filesystem/kafka</td>
+    </tr>
+    <tr>
+      <td>AnalyticsApi</td>
+      <td>Deploys the analytics api service</td>
+      <td>Handles all the data pipeline api requests and writes it to redis/filesystem/kafka</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>DataProducts</td>
+      <td>Deploys the data products jars</td>
+      <td>Computes the summary using batch jobs from raw telemetry</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Secor</td>
+      <td>Deploys the secor jobs</td>
+      <td>Takes the backup of kafka topics and stores them in storage</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>KafkaIndexer</td>
+      <td>Installs the logstash</td>
+      <td>Reads the Kafka topic and sends the pipeline metrics to influxdb</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>SamzaTelemertySchemas</td>
+      <td>Copies the telemetry samza jobs related schemas to yarn slaves</td>
+      <td>Copies the schema files- which will be used for validating telemetry-data, to all the nodes in yarn</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Yarn</td>
+      <td>Deploys the samza jobs in yarn cluster</td>
+      <td>Reads the messages from various kafka topics and does the logical transformation and update the event to Kafka/redis/postgres</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
 
           
           <hr />
