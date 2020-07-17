@@ -167,8 +167,8 @@ Each time the DIAL code is used it generates the telemetry data. This telemetry 
   <tr>
       <td>3. Click <b>Edit</b> to link or unlink the DIAL code
         <br>&emsp;a. Unlink the DIAL code from the book
-        <br>&emsp;b. Link the DIAL code to the book
-    </td>
+        <br>&emsp;b. Link the DIAL code to the book
+    </td>
       <td colspan="2"><img src="features-documentation/images/book/dial_code_un_link.png"></td> 
     </tr>
  </table>
