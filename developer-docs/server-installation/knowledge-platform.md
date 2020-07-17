@@ -68,4 +68,5 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
 | Yarn                | Deploys the Samza jobs | release-2.8.1
 
 
+
 Refer [How to Create Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird){:target="_blank"}, [How to Create Schemas for Knowledge Platform Objects](developer-docs/server-installation/knowledge-platform-object-schema){:target="_blank"}

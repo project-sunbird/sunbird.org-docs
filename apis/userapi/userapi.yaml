@@ -2,6 +2,9 @@ swagger: '2.0'
 info:
   version: '1.0'
   title: User Management  API(s)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  contact:
+    email: info@sunbird.org
   description: >-
     - The User Management API resources are used to manage individual users and their memberships, these resources allow you to add skills, block and unblock users, and encrypt user data.  
 
@@ -1832,6 +1835,26 @@ paths:
           required: false
           type: string
           description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
+      responses:
+              '200':
+                description: 'OK ! Successful operation."Get User by ID Type" operation was successfully executed.'
+                schema:
+                  $ref: '#/definitions/CreateUserSingleResp'
+              '400':
+                description: 'BAD REQUEST,"Get User by User ID Type" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+                schema:
+                  $ref: '#/definitions/UserErrorResponse'
+              '404':
+                description: 'Resource not found'
+                schema:
+                  $ref: '#/definitions/UserErrorResponse'
+              '500':
+                description: >-
+                  'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+                schema:
+                  $ref: '#/definitions/UserErrorResponse'
+      security:
+        - bearer: []
 
   /user/v1/migrate:
     post:
@@ -1873,25 +1896,6 @@ paths:
           type: string
 
           description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
-        - name: X-Authenticated-User-Token
-          in: header
-          type: string
-          required: false
-          description: >-
-            if call with the auth token of same user will also give the user externalIds details in response.
-      responses:
-        '200':
-          description: 'OK ! Successful operation."Get User by ID Type" operation was successfully executed.'
-          schema:
-            $ref: '#/definitions/CreateUserSingleResp'
-        '400':
-          description: 'BAD REQUEST,"Get User by User ID Type" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
-          schema:
-            $ref: '#/definitions/UserErrorResponse'
-        '404':
-          description: 'Resource not found'
-
-          description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
         - name: x-authenticated-user-token
           in: header
           required: true
@@ -1916,7 +1920,34 @@ paths:
             $ref: '#/definitions/UserErrorResponse'
       security:
         - bearer: []
-
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /user/v1/migrate
+            headers:
+              Content-Type: application/json
+              X-Consumer-ID: X-Consumer-ID
+              ts: 2017-05-25 10:18:56:578+0530
+              X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
+              Authorization: Bearer {{api-key}}
+              x-authenticated-user-token: '{{user-token}}'
+            body: "{\"request\": {\"userId\": \"0371b2e0-b5ee-42bb-86c3-0a2e2a52c2e9\",\"userExtId\": \"bt402\",\"action\": \"accept\",\"channel\": \"s1\", \"feedId\":\"any_feed_id\"}}"
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testDescription: ''
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  
   /user/v1/exists/{idType}/{id}:
     get:
       description: >-
@@ -1974,34 +2005,6 @@ paths:
             $ref: '#/definitions/UserErrorResponse'
       security:
         - bearer: []
-=======
-      x-unitTests:
-        - request:
-            method: POST
-            uri: /user/v1/migrate
-            headers:
-              Content-Type: application/json
-              X-Consumer-ID: X-Consumer-ID
-              ts: 2017-05-25 10:18:56:578+0530
-              X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-              Authorization: Bearer {{api-key}}
-              x-authenticated-user-token: '{{user-token}}'
-            body: "{\"request\": {\"userId\": \"0371b2e0-b5ee-42bb-86c3-0a2e2a52c2e9\",\"userExtId\": \"bt402\",\"action\": \"accept\",\"channel\": \"s1\", \"feedId\":\"any_feed_id\"}}"
-          expectedResponse:
-            x-allowExtraHeaders: true
-            x-bodyMatchMode: NONE
-            x-arrayOrderedMatching: false
-            x-arrayCheckCount: false
-            x-matchResponseSchema: true
-            headers: {}
-          x-testShouldPass: true
-          x-testEnabled: true
-          x-testDescription: ''
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
 
 
 
@@ -2221,13 +2224,13 @@ definitions:
           $ref: "#/definitions/Education"
       profileVisibility:
         type: object
-        description: 'Represents the user's profile visibility. It is a map that uses any user attribute as the key. The value of the field can be either public or private'
+        description: Represents the user's profile visibility. It is a map that uses any user attribute as the key. The value of the field can be either public or private
       address:
         type: array
         items:
           type: object
           $ref: "#/definitions/Address"
-        description: 'The user's address. It contains a list of address objects'
+        description: The user's address. It contains a list of address objects
       jobProfile:
         type: array
         items:
@@ -2297,7 +2300,7 @@ definitions:
             - $ref: "#/definitions/Education"
       profileVisibility:
         type: object
-        description: 'Represents the user's profile visibility. It is a map that uses any user attribute as the key. The value of the field can be either public or private'
+        description: Represents the user's profile visibility. It is a map that uses any user attribute as the key. The value of the field can be either public or private
       address:
         type: array
         items:
@@ -2484,7 +2487,7 @@ definitions:
             - $ref: "#/definitions/Education"
       profileVisibility:
         type: object
-        description: ' Represents the user's profile visibility. It is a map that uses any user attribute as the key. The value of the field can be either public or private'
+        description:  Represents the user's profile visibility. It is a map that uses any user attribute as the key. The value of the field can be either public or private
       address:
         type: array
         items:
@@ -2678,7 +2681,7 @@ definitions:
         description: ' The name of educational institution'
         type: string
       degree:
-        description: ' The name of user's highest qualification'
+        description:  The name of user's highest qualification
         type: string
       yearOfPassing:
         description: ' The year in which the user obtained the qualification in format YYYY'
@@ -2697,7 +2700,7 @@ definitions:
         type: number
         format: double
       grade:
-        description: 'The name of the user's grade'
+        description: The name of the user's grade
         type: string
     required:
       - degree
@@ -2823,12 +2826,12 @@ definitions:
         description: ' The first name of the user'
         type: string
       dob:
-        description: ' The user's Date of Birth'
+        description:  The user's Date of Birth
         type: string
         format: YYYY-MM-DD
         example: '2001-02-27'
       language:
-        description: ' The user's preferred language'
+        description:  The user's preferred language
         type: array
         items:
           type: string
@@ -2839,7 +2842,7 @@ definitions:
         description: 'The external ID type. externalId,externalIdType,externalIdProvider are the keys required if the user does not pass the userId'
         type: string
       externalIdProvider:
-        description: 'The name of the organization providing the user's external ID. externalId,externalIdType,externalIdProvider are the keys required if the user does not pass the userId'
+        description: The name of the organization providing the user's external ID. externalId,externalIdType,externalIdProvider are the keys required if the user does not pass the userId
         type: string
       externalIds:
         description: 'The details of external IDs and provider'
