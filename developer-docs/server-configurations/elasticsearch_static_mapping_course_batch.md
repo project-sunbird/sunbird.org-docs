@@ -1,7 +1,8 @@
 ---
-title: Elasticsearch static mapping for course batch
-page_title: Elasticsearch static mapping for course batch
-description: Elasticsearch static mapping for course batch
+
+title: Static Mapping for Course Batches in Elasticsearch 
+page_title: Static Mapping for Course Batches in Elasticsearch
+description: Static Mapping for Course Batches in Elasticsearch
 published: true
 allowsearch: true
 keywords: Elasticsearch, static mapping, course batch

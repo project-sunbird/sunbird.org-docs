@@ -20,4 +20,4 @@ To install Sunbird, ensure that your laptop or desktop has the following minimum
 
 ## Sunbird Components
 
-The Sunbird developer installation has [Sunbird Portal](developer-docs/installation/install_sbportal){:target="_blank"} or web application as primary software component
+The Sunbird developer installation has [Sunbird Portal](developer-docs/developer-installation/install_sbportal){:target="_blank"} or web application as primary software component
