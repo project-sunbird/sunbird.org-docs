@@ -4,7 +4,7 @@ var widgetsData = {
          "title":"2.8.0",
          "branch":"2.8.0",
          "desc":"",
-         "releaseDate":"1st March 2020",
+         "releaseDate":"21st May 2020",
          "latest":true,
          "published":true
       },
