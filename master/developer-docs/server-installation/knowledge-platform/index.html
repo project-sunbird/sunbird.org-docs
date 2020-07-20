@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2020-03-13 17:46:12 +0530">
+<meta name="last-modified" content="2020-07-20 14:55:55 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="2445" />
+<meta name="buildNo" content="2601" />
 <meta name="version" id="docsVersion" content="master" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?13032020"  />
+<link rel="stylesheet" href="/css/style.css?20072020"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?13032020"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?13032020"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?13032020"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?13032020"></script>
-<script type="text/javascript" src="/js/widgets-data.js?13032020"></script>
-<script type="text/javascript" src="/js/widgets.js?13032020"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?20072020"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?20072020"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?20072020"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?20072020"></script>
+<script type="text/javascript" src="/js/widgets-data.js?20072020"></script>
+<script type="text/javascript" src="/js/widgets.js?20072020"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -68,7 +68,7 @@ resetBase();
   <div class="container inner container-height docs">
     <header class="logo-container">
       <div class="logo">
-        <a href="http://www.sunbird.org" target="_blank">
+        <a href="https://www.sunbird.org" target="_blank">
           <img src="/img/sunbird-logo.png" alt="Sunbird" title="Sunbird">
         </a>
       </div>
@@ -1093,7 +1093,7 @@ resetBase();
 													<li>
 														
 														<a  
-															href="developer-docs/server-installation/plugin/" 
+															href="developer-docs/server-installation/plugins/" 
 															
 															class="" 
 															>
@@ -1302,6 +1302,38 @@ resetBase();
 															Keycloak Admin Configuration
 														</a>
 													</li>
+												
+											</ul>
+										</li>
+										
+									</ul>
+								</div>
+							
+						</li>
+					
+						<li>
+							
+								<div class="">
+									
+									<a 
+										href="developer-docs/developer-installation/" 
+										 
+										class="" 
+										> 
+										Developer Installation
+									</a>
+									<ul class="sidebar-group">
+										
+										<li>
+											
+											<a  
+												href="developer-docs/developer-installation/install_sbportal" 
+												
+												class="" 
+												>
+												Portal
+											</a>
+											<ul class="sidebar-group">
 												
 											</ul>
 										</li>
@@ -2229,7 +2261,44 @@ resetBase();
 
 <h2 id="build">Build</h2>
 
-<p>Switch to the <code>Build</code> folder and run all jobs. For the value of the <strong>github_release_tag</strong>, refer to <a href="developer-docs/server-installation/current_release_tags_n_jenkins_jobs" target="_blank">Current Release Tags and Jenkins Jobs Reference</a></p>
+<p>Switch to the <code>Build</code> folder and run all jobs in the below sequence. For the value of the <strong>github_release_tag</strong>, refer to <a href="developer-docs/server-installation/current_release_tags_n_jenkins_jobs" target="_blank">Current Release Tags and Jenkins Jobs Reference</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operation Name</th>
+      <th>Function</th>
+      <th>CURRENT RELEASE TAG</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CassandraTrigger</td>
+      <td>Generate the jar file for cassandraTrigger</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>KnowledgePlatform</td>
+      <td>Generate the artefacts for knowledge Platform</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>Neo4j</td>
+      <td>Generate the Neo4j jar file</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>SyncTool</td>
+      <td>Generate the SyncTool zip file</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>Yarn</td>
+      <td>Generate the artefacts for Samza job</td>
+      <td>release-2.8.1</td>
+    </tr>
+  </tbody>
+</table>
 
 <p>For KnowledgePlatform build, use the default profile_id which is “platform_services”.</p>
 
@@ -2253,42 +2322,138 @@ resetBase();
 <h2 id="provision">Provision</h2>
 
 <ul>
-  <li>Download <strong>neo4j enterprise</strong> version 3.3.x. The file should be uploaded to your azure storage account under root path. The file name should be <strong>neo4j*.tar.gz</strong>. This file should be uploaded to the container named in the variable  of KnowledgePlatform’s common.yml.</li>
+  <li>Download <strong>neo4j enterprise</strong> version 3.3.x. The file should be uploaded to your azure storage account under the root path. The file name should be <strong>neo4j*.tar.gz</strong>. This file should be uploaded to the container named in the variable  of KnowledgePlatform’s common.yml.</li>
 </ul>
 
-<p>The URL for this path will look like this - https://.blob.core.windows.net//neo4j-enterprise-3.3.9-unix.tar.gz</p>
+<p>The URL for this path will look like this - https://.blob.core.windows.net//neo4j-enterprise-3.3.0-unix.tar.gz</p>
 
 <ul>
-  <li>Switch to <code>Provision/&lt;env&gt;/KnowledgePlatform</code> and run the jobs in the following sequence: <br />
-1.Cassandra <br />
-2.CompositeSearch <br />
-3.Neo4j <br />
-4.Zookeeper <br />
-5.Kafka <br />
-6.Learning <br />
-7.Redis <br />
-8.Search <br />
-9.Yarn</li>
+  <li>Switch to <code>Provision/&lt;env&gt;/KnowledgePlatform</code> and run the jobs in the following sequence:</li>
 </ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operation Name</th>
+      <th>Function</th>
+      <th>Description</th>
+      <th>CURRENT RELEASE TAG</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Cassandra</td>
+      <td>Provisions to install Cassandra</td>
+      <td>Installs dependencies like java and installs Cassandra</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>CompositeSearch</td>
+      <td>Installs the ElasticSearch</td>
+      <td>Installs dependencies for elastic search and starts elastic search service</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>Neo4j</td>
+      <td>Installs the Neo4j and Logstash</td>
+      <td>Installs Neo4j and its dependencies</td>
+      <td>relesae-2.8.1</td>
+    </tr>
+    <tr>
+      <td>Kafka</td>
+      <td>Installs the Kafka</td>
+      <td>Kafka installation</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>Learning</td>
+      <td>Installs the dependency to run the learning application</td>
+      <td>Creates learning user and installs dependencies(java, tomcat, logstash, ffmpeg,imagemagick)</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>Redis</td>
+      <td>Installs the Redis database</td>
+      <td>Download and installs Redis</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>Search</td>
+      <td>Installs the dependency to run the search service and install the logstash</td>
+      <td>Install dependencies (JDK, logstash) and configure search service</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>Yarn</td>
+      <td>Sets up the Yarn cluster</td>
+      <td>Setting up the yarn cluster</td>
+      <td>release-2.8.1</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="deploy">Deploy</h2>
 
 <ul>
-  <li>
-    <p>Switch to <code>Deploy/dev/KnowledgePlatform</code> and run the jobs in the following sequence:</p>
-
-    <p>1.CassandraDbUpdate<br />
-2.CassandraTrigger
-3.Neo4j <br />
-4.StartNeo4jCluster <br />
-5.Learning
-6.Search <br />
-7.Neo4DefinitionUpdate<br />
-8.Neo4jElasticSearchSyncTool <br />
-9.KafkaSetup <br />
-10.Yarn</p>
-  </li>
+  <li>Switch to <code>Deploy/dev/KnowledgePlatform</code> and run the jobs in the following sequence:</li>
 </ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operation Name</th>
+      <th>Function</th>
+      <th>CURRENT RELEASE TAG</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CassandraTrigger</td>
+      <td>Deploys the CassandraTrigger jar file and installs the logstash</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>CassandraDbUpdate</td>
+      <td>Creates the Cassandra keyspace and update</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>Neo4j</td>
+      <td>Deploys the Neo4j artefacts</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>StartNeo4jCluster</td>
+      <td>Starts the Neo4j process</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>Learning</td>
+      <td>Deploys the learning service artefacts and starts the learning service</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>Search</td>
+      <td>Deploys the search service artefacts and starts the search service</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>Neo4DefinitionUpdate</td>
+      <td>Updates Neo4j definition</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>KafkaSetup</td>
+      <td>Creates the Kafka Topics</td>
+      <td>release-2.8.1</td>
+    </tr>
+    <tr>
+      <td>Yarn</td>
+      <td>Deploys the Samza jobs</td>
+      <td>release-2.8.1</td>
+    </tr>
+  </tbody>
+</table>
 
 <p>Refer <a href="developer-docs/how-to-guide/how_to_create_framework_in_sunbird" target="_blank">How to Create Framework</a>, <a href="developer-docs/server-installation/knowledge-platform-object-schema" target="_blank">How to Create Schemas for Knowledge Platform Objects</a></p>
 
