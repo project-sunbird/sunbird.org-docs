@@ -22,10 +22,6 @@ To create a Keycloak lms client follow the following steps:
 
 <img src='developer-docs/server-installation/images/keycloak_realm_setting.png'>
 
-2.Select the cassandra-storage-provider option from the Add provider drop-down list and the **Add user storage provider** page is displayed 
-
-<img src='developer-docs/server-installation/images/keycloak_user_storage_provider.png'>
-
 3.Go to Clients tab on left side of admin console 
 
 <img src='developer-docs/server-installation/images/keycloak_admin_console.png'>

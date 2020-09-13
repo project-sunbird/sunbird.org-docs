@@ -65,7 +65,7 @@ Ensure that all Artifacts are uploaded
 | Operation Name | Function | Description |  CURRENT RELEASE TAG |
 |------|------|---------------------------------| --------------|
 |BootstrapMinimal |creating the namespace for kubernetes orchestration | Creates namespace for the core service | release-3.1.0 
-|nginx-private-ingress |xxx | xxxx | release-3.1.0
+|nginx-private-ingress |xxxx | xxxx | release-3.1.0
 |Adminutil | Deploys the Adminutil container | Creates tokens for the sunbird devices | release-3.0.0
 | API Manager | Deploys the API manager Kong and API manager Echo | Manages consumers and APIs of sunbird | release-3.1.0
 | OnboardAPIS | Onboards all API's to Sunbird | onboards sunbird API's | release-3.1.0
@@ -87,7 +87,7 @@ Update **core_vault_sunbird_api_auth_token**, **core_vault_kong__test_jwt** and 
 | EncService | Deploys enc service | Encrypts and decrypt the keys to generate certificate | release-3.1.0
 | Cert | Deploys cert services | Issues certificates | release-3.1.0
 | Telemetry | Aggregates and send telemetry data to kafka | Telemetry management service| release-3.1.0
-|nginx-public-ingress |xxx | xxxx | release-3.1.0|
+|nginx-public-ingress |xxxx | xxxx | release-3.1.0|
 |BootstrapMinimal |creating the namespace for kubernetes orchestration | Creates namespace for the core service | release-3.1.0
 
 ### Keycloak Configuration 
