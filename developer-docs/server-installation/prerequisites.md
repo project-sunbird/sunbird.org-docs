@@ -15,7 +15,7 @@ Before you install Sunbird in a server environment, make sure that you have the 
 To efficiently handle Sunbird installation, you need to have:
 - System administrator permissions on Sunbird and all servers
 - Hands-on experience in administering Linux systems
-- Hands-on experience using Docker to run containerized services
+- Hands-on experience using Docker and Kubernetes to run containerized services
 
 > **Note:** Sunbird is tested on cloud hosted Linux servers (Azure & AWS). Hence, it is recommended that you use Linux servers. Sunbird and its functionality is not tested on Microsoft® operating systems, or on in-premise infrastructure, like rack mounted servers. The Sunbird installer has a known issue on virtual machines such as those created by VirtualBox or VMWare. 
 
@@ -23,13 +23,12 @@ To efficiently handle Sunbird installation, you need to have:
 Before you start the installation process, ensure that you provision for servers to host applications and set up required accounts and repositories as per details provided.
 
 |Application|  Server           |Count|
-|-----------|-------------------|-----| 
-| Jenkins   | 4core 16G 250G HDD| 1   |
-| LP        | 4core 16G 60G HDD  | 1   |
-| DP        | 4core 16G 60G HDD  | 1   |
-| Core      | 4core 16G 60G HDD  | 1   |
-| DB      | 4core 16G 60G HDD  | 1   |
-| Yarn      | 4core 16G 60G HDD  | 2   |
+|-----------|-------------------|-----|  
+|Jenkins    | 4core 16G 250G HDD | 1   |
+| KP        | 4core 16G 60G HDD | 1   |
+| DP        | 4core 16G 60G HDD | 1   |
+| DB        | 4core 16G 60G HDD   | 1   |
+| Yarn      | 4core 16G 60G HDD | 2   |
 | Load Balancers         |  -   | 5 (Optional)   |
 
 ## List of Servers with their Ansible Group Name
@@ -47,22 +46,8 @@ Before you start the installation process, ensure that you provision for servers
     <td></td>
   </tr>
   <tr>
-    <td rowspan="3">Core</td>
-    <td rowspan="3">Server-2 (Docker)</td>
-    <td>Docker Manager and Worker</td>
-    <td>swarm-manager-1, swarm-agent-for-prometheus-1, swarm-agent-for-alertmanager-1, swarm-bootstrap-manager, swarm-node-1 , swarm-agent-dashboard-1, swarm-dashboard-1</td>
-  </tr>
-  <tr>
-    <td>Logs Elasticsearch</td>
-    <td>log-es-1</td>
-  </tr>
-  <tr>
-    <td>Keycloak</td>
-    <td>keycloak-1</td>
-  </tr>
-  <tr>
     <td rowspan="4">Databases</td>
-    <td rowspan="4">Server-3 (DB's)</td>
+    <td rowspan="4">Server-2 (DB's)</td>
     <td>Cassandra</td>
     <td>cassandra-1, lp-cassandra, dp-cassandra, core-cassandra, cassandra-node-1, cassandra-ps, cassandra</td>
   </tr>
@@ -80,7 +65,7 @@ Before you start the installation process, ensure that you provision for servers
   </tr>
   <tr>
     <td rowspan="4">Knowledge Platform</td>
-    <td rowspan="4">Server-4 (KP Services and Kafka)</td>
+    <td rowspan="4">Server-3 (KP Services and Kafka)</td>
     <td>Learning</td>
     <td>learning1, logstash-ps, learning</td>
   </tr>
@@ -97,8 +82,8 @@ Before you start the installation process, ensure that you provision for servers
     <td>processing-cluster-kafka, processing-cluster-zookeepers, kafka-ps, kafka-1</td>
   </tr>
   <tr>
-    <td rowspan="5">Data Pipeline</td>
-    <td rowspan="5">Server-5 (DP Services)</td>
+    <td rowspan="8">Data Pipeline</td>
+    <td rowspan="8">Server-4 (DP Services)</td>
     <td>Spark</td>
     <td>spark</td>
   </tr>
@@ -115,17 +100,28 @@ Before you start the installation process, ensure that you provision for servers
     <td>influxdb</td>
   </tr>
   <tr>
+  <td>Docker Manager and Worker</td>
+    <td>swarm-manager-1, swarm-agent-for-prometheus-1, swarm-agent-for-alertmanager-1, swarm-bootstrap-manager, swarm-node-1 , swarm-agent-dashboard-1, swarm-dashboard-1</td>
+  </tr>
+  <tr>
+    <td>Keycloak</td>
+    <td>Keycloak</td>
+  </tr>
+  <tr>
+    <td>Logs Elasticsearch</td>
+    <td>log-es-1</td>
+  </tr>
     <td>Secor</td>
     <td>secor, secor-ps</td>
   </tr>
   <tr>
     <td rowspan="2">Yarn</td>
-    <td>Server-6 (Yarn Master)</td>
+    <td>Server-5 (Yarn Master)</td>
     <td>Yarn Master Slave 1</td>
     <td>yarn-master, yarn-slave, yarn-ps</td>
   </tr>
   <tr>
-    <td>Server-7 (Yarn Slave)</td>
+    <td>Server-6 (Yarn Slave)</td>
     <td>Yarn Master Slave 2</td>
     <td>yarn-master, yarn-slave, yarn-ps</td>
   </tr>
@@ -134,15 +130,16 @@ Before you start the installation process, ensure that you provision for servers
 
 ## Other Requirements
 
-1.Private GitHub repository to store Ansible hosts and secrets  
-2.Fully Qualified Domain Name (FQDN) with SSL  
-3.Azure Storage account   
+1.AKS cluster   
+2.Private GitHub repository to store Ansible hosts and secrets  
+3.Fully Qualified Domain Name (FQDN) with SSL  
+4.Azure Storage account   
 5.Docker hub account   
 6.A Public IP  
 7.Security:  
 - All ports must be open in internal networks (Azure-Vnet or AWS-VPC) for internal comumnication between the VMs
 - External ports must be open from the Proxy or load balancer, following ports should open to public
-   - 80 (0.0.0.0) inbound
-   - 443 (0.0.0.0) inbound
+   - 31380 (0.0.0.0) inbound
+   - 31390 (0.0.0.0) inbound
 - By default, all the outbound ports are allowed for public access from the VM. 
 
