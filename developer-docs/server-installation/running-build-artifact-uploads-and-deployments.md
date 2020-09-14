@@ -37,5 +37,5 @@ Adhere to the following sequence to deploy the services:
 4. [Core Services](developer-docs/server-installation/artifactupload-job/core-services){:target="_blank"}
 
 Do find the image for the same:
-<img src='developer-docs/server-installation/images/deployment_all.pdf'>
+<img src='developer-docs/server-installation/images/deployment_all_.png'>
 

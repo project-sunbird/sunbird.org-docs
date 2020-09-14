@@ -130,7 +130,7 @@ Before you start the installation process, ensure that you provision for servers
 
 ## Other Requirements
 
-1. k8s Cluster
+1.k8s Cluster  
 2.Private GitHub repository to store Ansible hosts and secrets  
 3.Fully Qualified Domain Name (FQDN) with SSL  
 4.Azure Storage account   
