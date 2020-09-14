@@ -130,7 +130,7 @@ Before you start the installation process, ensure that you provision for servers
 
 ## Other Requirements
 
-1.AKS cluster   
+1. k8s Cluster
 2.Private GitHub repository to store Ansible hosts and secrets  
 3.Fully Qualified Domain Name (FQDN) with SSL  
 4.Azure Storage account   
@@ -138,8 +138,5 @@ Before you start the installation process, ensure that you provision for servers
 6.A Public IP  
 7.Security:  
 - All ports must be open in internal networks (Azure-Vnet or AWS-VPC) for internal comumnication between the VMs
-- External ports must be open from the Proxy or load balancer, following ports should open to public
-   - 31380 (0.0.0.0) inbound
-   - 31390 (0.0.0.0) inbound
 - By default, all the outbound ports are allowed for public access from the VM. 
 

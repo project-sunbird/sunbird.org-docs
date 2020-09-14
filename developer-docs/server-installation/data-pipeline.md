@@ -18,13 +18,13 @@ Switch to the `Build` folder and run all jobs. For the value of the **github_rel
 
 | Operation Name | Function  |Description | CURRENT RELEASE TAG |
 | -------------- | --------- |------------|---------------------|
-|AdhocScript  | xxx | xxx|release-3.1.0 |
+|AdhocScript  | --- | ---|release-3.1.0 |
 | AnalyticsCore  | Builds the analytics framework|Creates analytics framework artifact|release-3.1.0
 | Analytics Service| Builds the analytics API service|Creates analytics API service artifact|release-3.1.0
-| Api module| xxx|xxxx|release-3.1.0
+| Api module| ---|---|release-3.1.0
 | Core Data Product| Builds analytics core data products| Creates analytics core data products artifact| release-3.1.0
 |Data pipeline| Builds all pipeline samza jobs| Creates tar ball for each pipeline samza jobs| release-3.1.0|
-|EdDataProducts| xxx|xxx| release-3.1.0|
+|EdDataProducts| ---|---| release-3.1.0|
 |ETLJobs | Builds adhoc scripts which includes content snapshot druid indexer, dialcode redis indexer| Creates jar out of adhoc scripts| release-3.1.0|
 
 
@@ -50,9 +50,9 @@ Switch to `Provision/<env>/DataPipeline` and run the jobs in the following seque
 | Zookeeper      | Provision the zookeeper| Installs the dependencies and creates the zookeeper cluster | release-3.1.0
 | Kafka          | Provision the kafka| Installs the dependencies and creates the kafka broker cluster | release-3.1.0
 | Redis          | Provision the redis database | Installs the dependencies like java and install the redis database | release-3.1.0
-| Kibana          | xxx | xxx| release-3.1.0
-| postgres-managed          | xxx | xxx | release-3.1.0|
-| TelemetrySearch          | xxx | xxx | release-3.1.0|
+| Kibana          | --- | ---| release-3.1.0
+| postgres-managed          | --- | ---| release-3.1.0|
+| TelemetrySearch          | --- | --- | release-3.1.0|
 
 
 
@@ -64,17 +64,17 @@ Switch to `Deploy/<env>/DataPipeline` and run the jobs in the following sequence
 
 | Operation Name | Function              | Description | CURRENT RELEASE TAG|
 | -------------- | --------------------- |-------------- |------------------|
-|AdhocScripts | xxx |xxx| release-3.1.0|
-|AnalyticsAPI | xxx |xxx| release-3.1.0|
+|AdhocScripts | --- |---| release-3.1.0|
+|AnalyticsAPI | Deploys the analytics api service |Handles all the data pipeline api requests and writes it to redis/filesystem/kafka| release-3.1.0|
 | AnalyticsCore | Deploys Analytics framework jars |Copies analytics framework artifact to spark server| release-3.1.0|
 | AnalyticsGeoLocationDBSetup | Deploys Analytics framework jars |Copies analytics framework artifact to spark server| release-3.1.0|
 | AnalyticsPopulatePSQLConsumerChannelMapping | Deploying AnalyticsPopulatePSQLConsumerChannelMapping |Registers consumer against channel which is used to get telemetry data via data exhaust APIs| release-3.1.0|
 | AnalyticsService | Deploy Analytics API service |Deploys latest artifact and starts API service| release-3.1.0|
 | ApiModule | Deploys Druid proxy API |Used to setup proxy for druid APIs to restrict huge queries | release-3.1.0|
 | CoreDataProducts | Deploys core data products  |Copies core data products artifact to spark server| release-3.1.0|
-| DataProducts | xxx  |xxx| release-3.1.0|
-| EdDataProducts | xxx  |xxx| release-3.1.0|
-| ETLUserCacheIndexer | xxx  |xxx| release-3.1.0|
+| DataProducts | --- |---| release-3.1.0|
+| EdDataProducts | ---  |---| release-3.1.0|
+| ETLUserCacheIndexer | ---  |---| release-3.1.0|
 | KafkaIndexer | Deploys logstash configurations and starts process  |Used for pushing pipeline metrics to influxDB| release-3.1.0|
 | KafkaSetup | Setup kafka for pipeline  |Creates kafka topic and updates topic configurations| release-3.1.0|
 | Yarn | Deploys all pipeline samza jobs to yarn cluster  |Copies artifact and starts specified pipeline jobs on yarn cluster| release-3.1.0|

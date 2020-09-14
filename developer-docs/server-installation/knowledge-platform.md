@@ -41,14 +41,12 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
     
 | Operation Name | Function              | Description | CURRENT RELEASE TAG |
 | -------------- | --------------------- |-------------|  -----------------
-| Cassandra      | Provisions to install Cassandra| Installs dependencies like java and installs Cassandra | release-3.1.4
 | CompositeSearch| Installs the ElasticSearch | Installs dependencies for elastic search and starts elastic search service | release-3.1.4
-| Neo4j          | Installs the Neo4j and Logstash | Installs Neo4j and its dependencies | relesae-3.1.4
+| Neo4j          | Installs the Neo4j and Logstash | Installs Neo4j and its dependencies | relesae-3.1.4|
+|zookeeper          | Installs the zookeper | zookeeper installation | release-3.1.4
 | Kafka          | Installs the Kafka | Kafka installation | release-3.1.4
 | Learning       | Installs the dependency to run the learning application | Creates learning user and installs dependencies(java, tomcat, logstash, ffmpeg,imagemagick) | release-3.1.4
 | Redis          | Installs the Redis database | Download and installs Redis | release-3.1.4
-| Search         | Installs the dependency to run the search service and install the logstash | Install dependencies (JDK, logstash) and configure search service |release-3.1.4 
-| Yarn           | Sets up the Yarn cluster | Setting up the yarn cluster   | release-3.1.3
 
 ## Deploy
 

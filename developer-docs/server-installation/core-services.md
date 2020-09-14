@@ -34,7 +34,6 @@ This page explains the jobs to be run to bring up the Core services.
 | API MANAGER Echo | API manager echo docker image | master
 | Badger | Badger docker image |
 | Cassandra | Jar for migration| release-3.1.0 |
-| CassandraTrigger | Cassandra trigger jar file | release-3.1.0
 | Lms | LMS service docker image | release-3.1.0
 | Content | Content service docker image | release-3.1.0
 | Search  | XXX |release-3.1.0 
@@ -54,17 +53,16 @@ Ensure that all Artifacts are uploaded
 
 | Operation Name | Function | Description | CURRENT RELEASE TAG |
 |--------------------|-----------|---------| ------------------- |
-| (Deploy) ApplicationES |  Provisions Elasticsearch 6.2.3 version used by core services | From the Deploy Folder, **Deploy ApplicationES** provisions for the Elasticsearch and creates indices necessary for Sunbird Core| release-3.1.0
+| (Deploy) ApplicationES ( Kubernetes folder) |  Provisions Elasticsearch 6.2.3 version used by core services | From the Deploy Folder, **Deploy ApplicationES** provisions for the Elasticsearch and creates indices necessary for Sunbird Core| release-3.1.0
 | ESMapping (Under OpsAdministarion. Provide the value as *all* for job parameter indices_name) | Creates Elasticsearch indexes | Creates the specific index with its mapping or all indices which will be used by our sunbird app | release-3.1.0
 | Postgres | Provisions for Postgres | Provisions the Postgres instance | release-3.1.0
 | PostgresDbUpdate | Creates the databases, assigns roles and creates users | Creates a schema with DB's, Tables | release-3.1.0
-| LogEsUpgrade6xx | Installs elasticsearch 6.X | Provisions logger elasticsearch to store our application log data for visualisation using kibana | release-3.1.0|
 
 ### Deploy
 
 | Operation Name | Function | Description |  CURRENT RELEASE TAG |
 |------|------|---------------------------------| --------------|
-|BootstrapMinimal |creating the namespace for kubernetes orchestration | Creates namespace for the core service | release-3.1.0 
+|BootstrapMinimal |creating the namespace for kubernetes orchestration and also Bootstrap minimal create docker registry secrets and nginx ssls also | Creates namespace for the core service | release-3.1.0 
 |nginx-private-ingress |xxxx | xxxx | release-3.1.0
 |Adminutil | Deploys the Adminutil container | Creates tokens for the sunbird devices | release-3.0.0
 | API Manager | Deploys the API manager Kong and API manager Echo | Manages consumers and APIs of sunbird | release-3.1.0
@@ -73,14 +71,13 @@ Ensure that all Artifacts are uploaded
 Update **core_vault_sunbird_api_auth_token**, **core_vault_kong__test_jwt** and **core_vault_sunbird_ekstep_api_key** with the **jwt token** from the Jenkins output of **api-management-test-user** if you are using the Knowledge Platform and Data Pipeline along with core| Generates user specific key |  Onboards new consumer to Sunbird and generates the consumer specific API key | 
 | (Provision) Cassandra |Provisions Cassandra and create keyspaces required for Sunbird Core | Provisions Cassandra and creates keyspaces and performs migration | release-3.1.0|
 | Cassandra | Performs keyspace schema migration | Performs migration if required. Deploy this thrice by choosing different zip files using the build_number parameter. Ensure that you get a success message for the Cassandra migration on the Jenkins console output. Do not rely only on the red or green status indicator on Jenkins job | release-3.1.0
-| CassandraTrigger | Jars for Cassandra | Deploys trigger jars for Cassandra | release-3.1.0|
 |(Provision) Keycloak | Install dependencies for keycloak | Provisions Keycloak by installing prerequisites like Java and environment variables | release-3.1.0
 | Keycloak | Deploys Keycloak service to VM | Centralized user management for sunbird | release-3.1.0
-| KeycloakRealm |  User management -Creates sunbird realm | Creates a Sunbird Realm. After the Sunbird realm is created, configure Keycloak by using the steps mentioned in the **Keycloak Configuration** section | release-3.1.0
+| KeycloakRealm(Core folder) |  User management -Creates sunbird realm | Creates a Sunbird Realm. After the Sunbird realm is created, configure Keycloak by using the steps mentioned in the **Keycloak Configuration** section | release-3.1.0
 | Player |  UI for sunbird  | Deploys portal UI | release-3.1.0
-| Learner | Deploys the Learner Service |  Handles user management and helps to search content | release-3.1.0
+| Learner | Deploys the Learner Service |  Handles user management and helps to search org | release-3.1.0
 | Content | Deploys content service | Helps to create content | release-3.1.0
-| Search              | Deploys the search service artefacts and starts the search service | release-3.1.0
+| Search              | Deploys the search service artefacts and starts the search service | |release-3.1.0
 | KnowledgeMW | Deploys knowledgemw service | Deploys the knowledgemw service | release-3.1.0
 | Lms | Deploys LMS Service | Provides the APIs for LMS functionality of Sunbird| release-3.1.0
 | certTemplate | Deploys template required for signing certificate | Creates a sample template for generating certificates | release-3.1.0
@@ -88,7 +85,7 @@ Update **core_vault_sunbird_api_auth_token**, **core_vault_kong__test_jwt** and 
 | Cert | Deploys cert services | Issues certificates | release-3.1.0
 | Telemetry | Aggregates and send telemetry data to kafka | Telemetry management service| release-3.1.0
 |nginx-public-ingress |xxxx | xxxx | release-3.1.0|
-|BootstrapMinimal |creating the namespace for kubernetes orchestration | Creates namespace for the core service | release-3.1.0
+|BootstrapMinimal |creating the namespace for kubernetes orchestration  and also Bootstrap minimal create docker registry secrets and nginx ssls also| Creates namespace for the core service | release-3.1.0
 
 ### Keycloak Configuration 
 

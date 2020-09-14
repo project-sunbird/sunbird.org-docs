@@ -15,57 +15,6 @@ The Load Balancer distributes new inbound flows that arrive on its frontend to b
 
 **Note:** The load balancers can be layer 4 or layer 7.
 
-## Swarm Nodes
-
-To setup Agent Swarm, execute the following instructions for each of the mentioned fields: 
-
-- Frontend IP configuration - attach public IP
-- Backend pools - attach agent VM's or availability set of agent group
-- Health Probes/check - Configure path and port - 31380 and 31390 (both)  
-EX: name: http 
-- Protocol: TCP   
-- Port: 31380  
-- Interval: 5  
-- Unhealthy threshold: 2  
-- Load Balancing rules - Frontend-ip-config, Frontend-port,backend-port, Backend-pool and health-probe    
-Ex: Frontend-port: 80
-- Backend-port: 31380
-
-
-> **Note:** Follow similar steps for port 31390
-
-## Swarm Managers
-(Optional - Refer the variable sunbird_swarm_manager_lb_ip in inventory for comments)
-
-
-To setup LB for Swarm managers, execute the following instructions for each of the mentioned fields: 
-- Frontend IP configuration - Internal IP (default)
-- Backend pools - attach swarm manager VM or availability set of swarm manager group
-- Health Probes/check - Configure path and port   
-       ->   api-manager-kong    - 8001 - /status    
-       ->   content-service     - 5000 - /health  
-       ->   learner-service     - 9000 - /health  
-       ->   content-service-kp  - 9002 - /health  
-       ->   cert-service        - 9011 - /health   
-       
-- Protocol: HTTP
-- Port:    
-       ->   api-manager-kong   - 8000   
-       ->   content-service    - 5000   
-       ->   learner-service    - 9000    
-       ->   content-service-kp - 9002  
-       ->   cert-service       - 9011
-       
-- Interval: 5 
-- Unhealthy threshold: 2  
-- Load Balancing rules - Frontend-ip-config, Frontend-port, backend-port, Backend-pool and health-probe   
-       ->   api-manager-kong   - Frontend-port:8000 - Backend-port: 8000    
-       ->   content-service    - Frontend-port:5000 - Backend-port: 5000    
-       ->   learner-service    - Frontend-port:9000 - Backend-port: 9000  
-       ->   content-service-kp - Frontend-port:9002 - Backend-port: 9002  
-       ->   cert-service       - Frontend-port:9011 - Backend-port: 9011 
-       
-
 ## Keycloak
 
 To setup Keycloak Swarm, execute the following instructions for each of the mentioned fields:  
