@@ -36,6 +36,6 @@ Adhere to the following sequence to deploy the services:
 3. [Plugins](developer-docs/server-installation/plugins){:target="_blank"}
 4. [Core Services](developer-docs/server-installation/artifactupload-job/core-services){:target="_blank"}
 
-Do find the image for the same:
-<img src='developer-docs/server-installation/images/deployment_all_.png'>
+Do find the below stracture for the same:
 
+<img src='developer-docs/server-installation/images/deployment_complete-sheet_all.png'>

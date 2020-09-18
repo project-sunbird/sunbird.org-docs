@@ -16,6 +16,7 @@ After you create or remove folders for jenkins job, create a Keycloak User Feder
 To create a Keycloak lms client follow the following steps:
 
 1.Login to admin console
+
 <img src='developer-docs/server-installation/images/keycloak_login_.png'>
 
 2.Select the Realm
@@ -27,6 +28,7 @@ To create a Keycloak lms client follow the following steps:
 <img src='developer-docs/server-installation/images/keycloak_admin_console.png'>
 
 4.Click create button on left hand side of screen
+
 <img src='developer-docs/server-installation/images/keycloak_admin_console.png'>
 
 5.Fill the given details eg: client id and root url and save
