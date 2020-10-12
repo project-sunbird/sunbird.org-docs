@@ -20,7 +20,7 @@ Switch to the `Build` folder and run all jobs. For the value of the **github_rel
 | -------------- | --------- |------------|---------------------|
 |AdhocScript  | --- | ---|release-3.1.0 |
 | AnalyticsCore  | Builds the analytics framework|Creates analytics framework artifact|release-3.1.0
-| Analytics Service| Builds the analytics API service|Creates analytics API service artifact|release-3.1.0
+| Analytics Service| Builds the analytics API service|Creates analytics API service artifact|release-3.0.0
 | Api module| ---|---|release-3.1.0
 | Core Data Product| Builds analytics core data products| Creates analytics core data products artifact| release-3.1.0
 |Data pipeline| Builds all pipeline samza jobs| Creates tar ball for each pipeline samza jobs| release-3.1.0|
