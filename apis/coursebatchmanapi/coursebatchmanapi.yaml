@@ -1,0 +1,1318 @@
+openapi: 3.0.1
+info:
+  title: Course Batch Management API(s)
+  description: "- The Course Batch Management API allows you to manage course batches\
+    \ on the Sunbird platform. A batch is used to arrange courses for specific sets\
+    \ or groups.The basic operations for this API include Create, Update, Enroll,\
+    \ List.  \n- The URL for Coure Batch Management API(s) is `/course/v1`."
+  termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
+  contact:
+    email: info@sunbird.org
+  version: "1.0"
+servers:
+- url: https://staging.open-sunbird.org/api/course/v1
+paths:
+  /batch/create:
+    post:
+      tags:
+      - Course Batch APIs
+      summary: Creates a Batch
+      description: "This API is associated with batch creation\n  - The endpoint for\
+        \ **Creates a Batch** is `/batch/create` \n  - The fields marked with an asterisk\
+        \ (*) are mandatory. They cannot be null or empty."
+      operationId: '{{host}}/course/v1/batch/create'
+      parameters:
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.Possible\
+          \ media types can be:- \n  - Application/json"
+        required: true
+        schema:
+          type: string
+      - name: ts
+        in: header
+        description: The time stamp at which the **create batch** request was sent.
+        required: true
+        schema:
+          type: string
+      - name: X-msg
+        in: header
+        description: It is a Unique ID that identifies the request incase the same
+          API is executed multiple times.
+        required: true
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: The alphanumeric string to access the API
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the new batch to be created.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiRequest'
+              - $ref: '#/components/schemas/SingleCreatebatchReq'
+          multipart/form-data:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiRequest'
+              - $ref: '#/components/schemas/SingleCreatebatchReq'
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiRequest'
+              - $ref: '#/components/schemas/SingleCreatebatchReq'
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **create batch** operation was successful!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  CreateBatchResponse:
+                    $ref: '#/components/schemas/CreateBatchResponse'
+        400:
+          description: BAD REQUEST,**create batch** operation failed !The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+        404:
+          description: RESOURCE NOT FOUND ! **Create Batch**operation failed ! The
+            possible reason for failure is that the provided course Id is invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+      x-codegen-request-body-name: Body
+  /batch/read/{Batch_ID}:
+    get:
+      tags:
+      - Course Batch APIs
+      summary: Fetch a particular Batch
+      description: |2-
+
+        This API is associated with fetching a particular batch on the Sunbird Platform.
+          - The endpoint for **Fetch a particular Batch** is `/batch/read/{Batch_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: getBatch
+      parameters:
+      - name: Batch_ID
+        in: path
+        description: Append a valid Batch ID To the Request URL
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.Possible\
+          \ media types can be:- \n  - Application/json"
+        required: true
+        schema:
+          type: string
+      - name: ts
+        in: header
+        description: 'The time stamp at which the **Fetch a batch** request was sent. '
+        required: true
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: It is a Unique ID which identifies the request incase the same
+          API is executed multiple times.
+        required: true
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: The alphanumeric string for accessing the API
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.'
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: SUCCESS. The **Fetch a batch** operation was successful!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  SingleBatchResponseWrapper:
+                    $ref: '#/components/schemas/SingleBatchResponseWrapper'
+        400:
+          description: BAD REQUEST,**Fetch a batch** operation failed !The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+        404:
+          description: RESOURCE NOT FOUND" operation failed ! The possible reason
+            for failure is that BatchId is invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+  /batch/user/add/{Batch_Id}:
+    post:
+      tags:
+      - Course Batch APIs
+      summary: Add User to a specific batch
+      description: |-
+        This API is associated with addding a user to a particular batch on the Sunbird Platform.
+          - The endpoint for **Add User to a specific batch** is `/batch/user/add/{Batch_Id}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: '{{host}}/course/v1/batch/user/add/{Batch_Id}'
+      parameters:
+      - name: Batch_Id
+        in: path
+        description: Append a valid Batch ID To the Request URL
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.Possible\
+          \ media types can be:- \n  - Application/json"
+        required: true
+        schema:
+          type: string
+      - name: ts
+        in: header
+        description: 'The time stamp at which the **Add a user to a specific batch**
+          request was sent. '
+        required: true
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: It is a Unique ID which identifies the request incase the same
+          API is executed multiple times.
+        required: true
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: The alphanumeric string for accessing the API
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the user to be added to a specific batch
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - $ref: '#/components/schemas/AddUserToBatchReq'
+          multipart/form-data:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - $ref: '#/components/schemas/AddUserToBatchReq'
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - $ref: '#/components/schemas/AddUserToBatchReq'
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **Add user to a specific batch** operation was
+            successful!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AddUserToBatchResp:
+                    $ref: '#/components/schemas/AddUserToBatchResp'
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+        400:
+          description: BAD REQUEST,**dd user to a specific batch** operation failed
+            !The possible reason for failure is that you may have missed providing
+            input for a mandatory parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+      x-codegen-request-body-name: Body
+  /batch/list:
+    post:
+      tags:
+      - Course Batch APIs
+      summary: Lists the existing batches
+      description: |-
+        This API is associated with fetching and listing existing batches
+          - The endpoint for **Lists the existing batches** is `/batch/list`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: '{{host}}/course/v1/batch/list'
+      parameters:
+      - name: orgdetails
+        in: query
+        description: Extra data can be passed in query param with above mention key
+          and comma separated value:Example ,?orgdetails=email,name . Sunbird will
+          take this query param and pass to content service as it is, and content
+          service knows what need to be done.
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.Possible\
+          \ media types can be:- \n  - Application/json"
+        required: true
+        schema:
+          type: string
+      - name: ts
+        in: header
+        description: 'The time stamp identifying when the **List the existing batches**
+          request was sent. '
+        required: true
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: It is a Unique ID which identifies the request incase the same
+          API is executed multiple times.
+        required: true
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: The alphanumeric string for accessing the API
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The body refers to the format of the request.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - $ref: '#/components/schemas/CourseBatchSearchReq'
+          multipart/form-data:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - $ref: '#/components/schemas/CourseBatchSearchReq'
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - $ref: '#/components/schemas/CourseBatchSearchReq'
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **Lists the existing batches** operation was successful!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  SearchBatchResponse:
+                    $ref: '#/components/schemas/SearchBatchResponse'
+        400:
+          description: BAD REQUEST,**Lists the existing batches** operation failed
+            !The possible reason for failure is that you may have missed providing
+            input for a mandatory parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+      x-codegen-request-body-name: Body
+  /batch/update:
+    patch:
+      tags:
+      - Course Batch APIs
+      summary: Course Batch Update
+      description: |-
+        This API is associated with updating a batch on the Sunbird Platform.
+          - The endpoint for **Course Batch Update** is `/batch/update`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: Course Batch Update
+      parameters:
+      - name: Accept
+        in: header
+        description: Represents the media type(s) specified in the request body that
+          are acceptable in the response body
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.Possible\
+          \ media types can be:- \n  - Application/json"
+        required: true
+        schema:
+          type: string
+      - name: ts
+        in: header
+        description: 'The time stamp identifying when the **update a batch** request
+          was sent. '
+        required: true
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: It is a Unique ID which identifies the request incase the same
+          API is executed multiple times.
+        required: true
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: The alphanumeric string for accessing the API
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the batch to be updated.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - $ref: '#/components/schemas/CourseBatchUpdaterequest'
+          multipart/form-data:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - $ref: '#/components/schemas/CourseBatchUpdaterequest'
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - $ref: '#/components/schemas/CourseBatchUpdaterequest'
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **Update a batch** operation was successful!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  CreateEmptyResponse:
+                    $ref: '#/components/schemas/CreateEmptyResponse'
+        400:
+          description: BAD REQUEST,**Update a batch** operation failed !The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+      x-codegen-request-body-name: Body
+  /batch/participants/list:
+    post:
+      tags:
+      - Course Batch APIs
+      summary: Course Batch Participants List
+      description: |-
+        This API is associated with fetching participants for a training batch on the Sunbird Platform.
+          - The endpoint for **Course Batch participants list** is `/batch/participants/list`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: Course Batch Fetch Participants
+      parameters:
+      - name: Accept
+        in: header
+        description: Represents the media type(s) specified in the request body that
+          are acceptable in the response body
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.Possible\
+          \ media types can be:- \n  - Application/json"
+        required: true
+        schema:
+          type: string
+      - name: ts
+        in: header
+        description: The time stamp identifying when the **fetch participants of batch**
+          request was sent.
+        required: true
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: It is a Unique ID which identifies the request incase the same
+          API is executed multiple times.
+        required: true
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: The alphanumeric string for accessing the API
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the batch to be updated.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - $ref: '#/components/schemas/BatchParticipantsRequest'
+          multipart/form-data:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - $ref: '#/components/schemas/BatchParticipantsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - $ref: '#/components/schemas/BatchParticipantsRequest'
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **Fetch batch participants** operation was successful!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  CreateEmptyParticipantsResponse:
+                    $ref: '#/components/schemas/CreateEmptyParticipantsResponse'
+        400:
+          description: BAD REQUEST,**Fetch batch participants** operation failed !The
+            possible reason for failure is that you may have missed providing input
+            for a mandatory parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+      x-codegen-request-body-name: Body
+  /enrol:
+    post:
+      tags:
+      - Course Batch APIs
+      summary: User self enrollment for open batch.
+      description: |-
+        This API is associated with enrollment of user for a particular open course batch. Users can enrol only for an open batch.
+          - The endpoint for **User self control enrollment for open batch** is `/enrol`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: '{{host}}/course/v1/enrol'
+      parameters:
+      - name: Content-Type
+        in: header
+        description: 'The Content Type entity is the media type of the resource.Possible
+          media types can be:- '
+        required: true
+        schema:
+          type: string
+      - name: ts
+        in: header
+        description: 'The time stamp identifying when the **Enroll to batch** request
+          was sent. '
+        required: true
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: It is a Unique ID which identifies the request incase the same
+          API is executed multiple times.
+        required: true
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: The alphanumeric string for accessing the API
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the batch that the user wants to enrol into.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiRequest'
+              - $ref: '#/components/schemas/EnrollBatchReq'
+          multipart/form-data:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiRequest'
+              - $ref: '#/components/schemas/EnrollBatchReq'
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiRequest'
+              - $ref: '#/components/schemas/EnrollBatchReq'
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **enroll to batch** operation was successful!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  EnrollBatchResponse:
+                    $ref: '#/components/schemas/EnrollBatchResponse'
+        400:
+          description: BAD REQUEST,**EnrollBatch** operation failed !The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+        404:
+          description: RESOURCE NOT FOUND ! **EnrollBatch**operation failed ! The
+            possible reason for failure is that either of provided batch Id,course
+            Id, User Id is invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+      x-codegen-request-body-name: Body
+  /unenrol:
+    post:
+      tags:
+      - Course Batch APIs
+      summary: Unenrolls a user from the batch
+      description: |-
+        This API is associated with unenrollment of users from a particular course batch
+          - The endpoint for **Unenrolls a user from the batch** is `/unenrol`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: '{{host}}/course/v1/unenrol'
+      parameters:
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.Possible\
+          \ media types can be:- \n  - Application/json\n  - Multipart/form-data\n\
+          \  - Application/x-www-form-urlencoded"
+        required: true
+        schema:
+          type: string
+      - name: ts
+        in: header
+        description: 'The time stamp identifying when the **unenroll from batch**
+          request was sent. '
+        required: true
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: It is a Unique ID which identifies the request incase the same
+          API is executed multiple times.
+        required: true
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: The alphanumeric string for accessing the API
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the batch from which the user wants to unenroll.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiRequest'
+              - $ref: '#/components/schemas/UnenrollBatchReq'
+          multipart/form-data:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiRequest'
+              - $ref: '#/components/schemas/UnenrollBatchReq'
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiRequest'
+              - $ref: '#/components/schemas/UnenrollBatchReq'
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **unenroll from batch** operation was successful!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  UnenrollBatchResponse:
+                    $ref: '#/components/schemas/UnenrollBatchResponse'
+        400:
+          description: BAD REQUEST,**UnenrollBatch** operation failed !The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+        404:
+          description: RESOURCE NOT FOUND ! **UnenrollBatch**operation failed ! The
+            possible reason for failure is that either of provided batch Id,course
+            Id, User Id is invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  BatchCreateErrorResponse:
+                    $ref: '#/components/schemas/BatchCreateErrorResponse'
+      x-codegen-request-body-name: Body
+components:
+  schemas:
+    AddUserToBatchResp:
+      type: object
+      properties:
+        result:
+          type: object
+          properties: {}
+      description: ""
+    AddUserToBatchReq:
+      type: object
+      properties:
+        request:
+          type: object
+          properties:
+            userIds:
+              type: array
+              items:
+                type: string
+                description: contains user ids.
+      description: request structure for add user to batch
+    SearchBatchResponse:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetBatchResponse'
+      description: ""
+    SingleCreatebatchReq:
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/CreateBatchRequest'
+      description: this will hold request data for single batch
+    CreateBatchRequest:
+      required:
+      - courseId
+      - description
+      - enrollmentType
+      - name
+      - startDate
+      type: object
+      properties:
+        courseId:
+          type: string
+          description: content id for which user want to create a course
+        name:
+          type: string
+          description: name of the course
+        description:
+          type: string
+          description: about courses
+        enrollmentType:
+          type: string
+          description: possible values are {invite-only and open}
+        startDate:
+          type: string
+          description: start data of the batch valid format is yyyy-mm-dd
+        endDate:
+          type: string
+          description: end data of batch valid format is yyyy-mm-dd
+        createdFor:
+          type: array
+          items:
+            type: string
+            description: this will hold list of organisations id.this is mandatory
+              in case of invite-only badge
+        mentors:
+          type: array
+          items:
+            type: string
+            description: list of user id who will take care of course
+      description: request body for creating a batch from a course.
+    CreateEmptyResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            response:
+              type: string
+      description: contains response for created batch
+    CreateBatchResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            response:
+              type: string
+            batchId:
+              type: string
+      description: contains response for created batch
+    SingleBatchResponseWrapper:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            response:
+              type: object
+              allOf:
+              - $ref: '#/definitions/GetBatchResponse'
+      description: ""
+    GetBatchResponse:
+      type: object
+      properties:
+        identifier:
+          type: string
+        createdFor:
+          type: array
+          items:
+            type: string
+        courseAdditionalInfo:
+          type: object
+          properties: {}
+        endDate:
+          type: string
+          description: date format is yyyy-MM-dd
+        countIncrementDate:
+          type: string
+        description:
+          type: string
+        countDecrementDate:
+          type: string
+        updatedDate:
+          type: string
+        participant:
+          type: object
+          properties: {}
+        countIncrementStatus:
+          type: boolean
+        createdDate:
+          type: string
+          description: date format is 2017-08-07 12:41:16:151+0530
+        createdBy:
+          type: string
+          description: By whom the batch is created
+        courseCreator:
+          type: string
+        mentors:
+          type: array
+          items:
+            type: string
+        countDecrementStatus:
+          type: boolean
+        name:
+          type: string
+        id:
+          type: string
+        enrollmentType:
+          type: string
+        courseId:
+          type: string
+        startDate:
+          type: string
+          description: format is yyyy-mm-dd
+        status:
+          type: integer
+          description: staus of the batch 0- not started, 1- started, 2- ended
+      description: contains response for single batch object
+    CourseBatchSearchReq:
+      type: object
+      properties:
+        request:
+          type: object
+          properties:
+            query:
+              type: string
+              description: any text, it will do free text search
+            filters:
+              type: object
+              properties:
+                objectType:
+                  type: string
+                  description: which object you need to search
+              description: here you can pass the attribute and values
+      description: this will contain request structure for batch search
+    CourseBatchUpdaterequest:
+      title: Course Batch UpdateRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/BatchUpdateReq'
+    EnrollBatchReq:
+      required:
+      - batchId
+      - courseId
+      - userId
+      type: object
+      properties:
+        courseId:
+          type: string
+          description: content id for which the user wants to create a course
+        batchId:
+          type: string
+          description: name of the course
+        userId:
+          type: string
+          description: about courses
+      description: request body for enrolling user to batch
+    UnenrollBatchReq:
+      required:
+      - batchId
+      - courseId
+      - userId
+      type: object
+      properties:
+        courseId:
+          type: string
+          description: Course id for which user want to unenroll
+        batchId:
+          type: string
+          description: identifier of the batch, from where user want to unenroll
+        userId:
+          type: string
+          description: Id of the user, who is going to unenrol from given course batch.
+      description: request body for unenrolling user to batch
+    BatchUpdateReq:
+      title: Batch update request
+      required:
+      - id
+      - startDate
+      type: object
+      properties:
+        createdFor:
+          type: array
+          description: organisation id for which batch are created.
+          items:
+            type: string
+        startDate:
+          type: string
+          description: batch start date
+        endDate:
+          type: string
+          description: batch end date can be updated if end date hasnt expired
+        description:
+          type: string
+          description: ""
+        name:
+          type: string
+          description: ""
+        id:
+          type: string
+          description: ""
+    EnrollBatchResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            response:
+              type: string
+      description: contains response for created batch
+    UnenrollBatchResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            response:
+              type: string
+      description: contains response for created batch
+    BatchCreateErrorResponse:
+      title: Create Content Error Response
+      allOf:
+      - $ref: '#/components/schemas/EmptyResult'
+    EmptyResult:
+      title: Empty Result
+      type: object
+      properties:
+        result:
+          type: object
+          properties: {}
+    BatchParticipantsRequest:
+      title: Empty Result
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/BatchParticipantReq'
+    BatchParticipantReq:
+      title: Empty Result
+      required:
+      - batchId
+      type: object
+      properties:
+        batchId:
+          type: string
+          description: batch identifier for which participants are fetched
+        active:
+          type: string
+          description: signifies active participants, default to true
+    CreateEmptyParticipantsResponse:
+      title: Participants Response
+      type: object
+      properties:
+        result:
+          type: object
+          allOf:
+          - $ref: '#/definitions/EmptyBatchResult'
+    EmptyBatchResult:
+      title: Batch Participants Wrapper Response
+      type: object
+      properties:
+        batch:
+          type: object
+          allOf:
+          - $ref: '#/definitions/EmptyBatchParticipantsResult'
+    EmptyBatchParticipantsResult:
+      title: Batch Participants Response
+      type: object
+      properties:
+        count:
+          type: integer
+          description: count of participants
+        participants:
+          type: array
+          description: participants user Ids
+          items:
+            type: string
+    ApiRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents an API uniquely
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the unique ID of the message being sent
+            did:
+              type: string
+              description: Represents the device UUID from which API is called
+    ApiResponse:
+      required:
+      - ets
+      - id
+      - params
+      - ver
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents the ID of the request which was made
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          required:
+          - msgid
+          - resmsgid
+          - status
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the ID of the message sent
+            resmsgid:
+              type: string
+              description: Represents the ID of the response message
+            status:
+              type: string
+              enum:
+              - success
+              - error
+        responseCode:
+          type: string
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+    userToken:
+      type: apiKey
+      name: x-authenticated-user-token
+      in: header
