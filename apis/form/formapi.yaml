@@ -1,393 +1,479 @@
-swagger: "2.0"
+openapi: 3.0.1
 info:
-  version: '1.0'
   title: Form API(s)
-  description: >-
+  description: |-
     - The Form APIs allow you to create and update metadata form fields based on type, subtype and action. Use the APIs to configure form fields as required for the specific form.
-    
     - The URL for Form API is `/data/v1/form/`.
-
-host: staging.open-sunbird.org
-basePath: /api/data/v1/form
-securityDefinitions:
-  bearer:
-      type: apiKey  # arbitrary name for the security scheme
-      in: header # The secrity scheme parameter is in "header"
-      name: Authorization # name of the header, query parameter or cookie
-  userToken:
-      type: apiKey  # arbitrary name for the security scheme
-      in: header # The secrity scheme parameter is in "header"
-      name: x-authenticated-user-token # name of the header, query parameter or cookie
-schemes:
-- http
-consumes:
-- application/json
-produces:
-- application/json
+  version: "1.0"
+servers:
+- url: http://staging.open-sunbird.org/api/data/v1/form
 paths:
   /create:
     post:
-      description: >- 
-        This API is used to create a form with default fields using meta data
-              
-          - The endpoint for **Create Form** is `/create`
-          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      tags:
+      - Form API(s)
       summary: Create Form
-      tags: 
-       - Form API(s)
+      description: "This API is used to create a form with default fields using meta\
+        \ data\n      \n  - The endpoint for **Create Form** is `/create`\n  - The\
+        \ fields marked with an asterisk (*) are mandatory. They cannot be null or\
+        \ empty."
       operationId: FormCreate
-      produces:
-      - application/json
       parameters:
-      - name: Body
-        in: body
-        required: true
-        description: >-
-            The body refers to the format of the request.
-              - The body contains metadata about the request for creating a form.
-        schema:
-          $ref: '#/definitions/formcreateRequest'
       - name: Authorization
         in: header
+        description: To make use of any User API, you require authorization. Raise
+          a request to the administrator for the use of the API. You will receive
+          the authorization key. Specify the key received, here.
         required: true
-        type: string
-        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        schema:
+          type: string
       - name: Content-Type
         in: header
+        description: "The Content Type entity is the media type of the resource.\n\
+          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
+          \   - Application/x-www-form-urlencoded"
         required: true
-        type: string
-        description: >-
-           The Content Type entity is the media type of the resource.
-            Possible media types can be:- 
-              - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the request for creating a form.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/formcreateRequest'
+        required: true
       responses:
-        '200':
-          description: 'SUCCESS. The "Create Form data" operation was successful!'
-          schema:
-            $ref: '#/definitions/createResponse'
-        '400':
-          description: 'BAD REQUEST. "Create Form data" operation failed. You may have missed input for a mandatory parameter.'
-          schema:
-            $ref: '#/definitions/FailedResponseHeader'
-        '500':
-          description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
-          schema:
-            $ref: '#/definitions/FailedResponseHeader'
+        200:
+          description: SUCCESS. The "Create Form data" operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createResponse'
+        400:
+          description: BAD REQUEST. "Create Form data" operation failed. You may have
+            missed input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedResponseHeader'
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedResponseHeader'
       security:
       - bearer: []
+      x-codegen-request-body-name: Body
   /update:
     post:
-      description: >-
+      tags:
+      - Form API(s)
+      summary: Update Form
+      description: |-
         This API is used to update the form metadata as per the requirement or choice
-        
+
           - The endpoint for **Update Form** is `/update`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      summary: Update Form
-      tags: 
-       - Form API(s)
       operationId: FormUpdate
-      produces:
-      - application/json
       parameters:
-      - name: Body
-        in: body
-        required: true
-        description: >-
-            The body refers to the format of the request.
-              - The body contains metadata about the request for updating a form.
-        schema:
-          $ref: '#/definitions/formcreateRequest'
       - name: Authorization
         in: header
+        description: To make use of any User API, you require authorization. Raise
+          a request to the administrator for the use of the API. You will receive
+          the authorization key. Specify the key received, here.
         required: true
-        type: string
-        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        schema:
+          type: string
       - name: Content-Type
         in: header
+        description: "The Content Type entity is the media type of the resource.\n\
+          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
+          \   - Application/x-www-form-urlencoded"
         required: true
-        type: string
-        description: >-
-           The Content Type entity is the media type of the resource.
-            Possible media types can be:- 
-              - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the request for updating a form.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/formcreateRequest'
+        required: true
       responses:
-        '200':
-          description: 'SUCCESS. The "Update Form" operation was successful!'
-          schema:
-              $ref: '#/definitions/createResponse'
-        '400':
-          description: 'BAD REQUEST. "Update Form" operation failed. You may have missed input for a mandatory parameter.'
-          schema:
-            $ref: '#/definitions/FailedResponseHeader'
-        '500':
-          description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
-          schema:
-            $ref: '#/definitions/FailedResponseHeader'
+        200:
+          description: SUCCESS. The "Update Form" operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createResponse'
+        400:
+          description: BAD REQUEST. "Update Form" operation failed. You may have missed
+            input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedResponseHeader'
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedResponseHeader'
       security:
       - bearer: []
+      x-codegen-request-body-name: Body
   /read:
     post:
-      description: >-
+      tags:
+      - Form API(s)
+      summary: Read Form
+      description: |-
         This API is used to view and read the form data and other fields of the form
-        
+
           - The endpoint for **Read Form** is `/read`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      summary: Read Form
-      tags: 
-       - Form API(s)
       operationId: FormRead
-      produces:
-      - application/json
       parameters:
-      - name: Body
-        in: body
-        required: true
-        description: >-
-            The body refers to the format of the request.
-              - The body contains metadata about the request for reading a form.
-        schema:
-          $ref: '#/definitions/formReadRequest'
       - name: Authorization
         in: header
+        description: To make use of any User API, you require authorization. Raise
+          a request to the administrator for the use of the API. You will receive
+          the authorization key. Specify the key received, here.
         required: true
-        type: string
-        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        schema:
+          type: string
       - name: Content-Type
         in: header
+        description: "The Content Type entity is the media type of the resource.\n\
+          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
+          \   - Application/x-www-form-urlencoded"
         required: true
-        type: string
-        description: >-
-           The Content Type entity is the media type of the resource.
-            Possible media types can be:- 
-              - Application/json
-              - Multipart/form-data
-              - Application/x-www-form-urlencoded
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the request for reading a form.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/formReadRequest'
+        required: true
       responses:
-        '200':
-          description: 'SUCCESS. The "Read Form data" operation was successful!'
-          schema:
-            $ref: '#/definitions/readResponse'
-        '400':
-          description: 'BAD REQUEST. "Read Form data" operation failed. You may have missed input for a mandatory parameter.'
-          schema:
-            $ref: '#/definitions/FailedResponseHeader'
-        '500':
-          description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
-          schema:
-            $ref: '#/definitions/FailedResponseHeader'
+        200:
+          description: SUCCESS. The "Read Form data" operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/readResponse'
+        400:
+          description: BAD REQUEST. "Read Form data" operation failed. You may have
+            missed input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedResponseHeader'
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailedResponseHeader'
       security:
       - bearer: []
-
-
-definitions:
-  readRequest:
-    title: Form read API request object
-    type: object
-    properties:
-      request:
-        required:
-        - type
-        - subType
-        - action
-        - framework
-        - rootOrgId
-        properties:
-          type: 
-            type: string
-          subType:
-            type: string
-          action:
-            type: string
-          framework:
-            type: string
-          rootOrgId:
-            type: string
-  formReadRequest:
-    title: The Read Form API request body
-    type: object
-    allOf:
-      - $ref: "https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest"
-      - $ref: "#/definitions/readRequest"
-  formcreateRequest:
-    title: The Create and Update form API request body
-    type: object
-    allOf:
-      - $ref: "https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest"
-      - $ref: "#/definitions/createRequest"
-  createRequest: 
-    title: Represents the request object of Create and Update Form request object
-    type: object
-    properties:
-      request:
-        required:
-        - type
-        - subType
-        - action
-        - framework
-        - rootOrgId
-        - data
-        properties:
-          type: 
-            type: string 
-          subType:
-            type: string 
-          action:
-            type: string 
-          framework:
-            type: string 
-          rootOrgId:
-            type: string
-          data:
-            $ref: '#/definitions/dataFields'         
-  readResponse:
-    title: The basic reponse object for read form 
-    type: object
-    allOf:
-      - $ref: "https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse"
-      - $ref: "#/definitions/readResult"
-  createResponse:
-    title: The response object for create and update form
-    type: object
-    allOf:
-      - $ref: "https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse"
-      - $ref: "#/definitions/createResult"
-  readResult:
-    title: The response object of read(Reading result) 
-    type: object
-    properties:
-      result:
-        properties:
-          form:
-            type: object
-            properties:
-              type: 
-                type: string 
-              subType:
-                type: string 
-              action:
-                type: string 
-              framework:
-                type: string 
-              rootOrgId:
-                type: string
-              data:
-                $ref: '#/definitions/dataFields'
-  createResult:
-    title: The response object of create and update (Result)
-    type: object
-    properties:
-      result:
-        properties:
-          response:
-            type: object
-            properties:
-              rootOrgId:
-                type: string
-              key:
-                type: string
-              status:
-                type: string
-  FailedResponseHeader:
-    title: Failure Response
-    type: object
-    properties:
-      id:
-        type: string
-        description: The unique identifier of the API 
-      ver:
-        type: string
-        description: The version information of the API
-      ts:
-        type: string
-        description: ETA for API execution
-      params:
-        $ref: '#/definitions/FailedResponseParams'
-      responseCode:
-        type: string
-        description: It is the response code that comes on execution of API 
-      result:
-        properties:
-          result:
-            type: string
-            description: result
-  FailedResponseParams:
-    title: Failed Response Parameter
-    type: object
-    properties:
-      resmsgid:
-        type: string
-        description: Unique ID that represents the Response 
-      msgid:
-        type: string
-        description: Unique ID that represents a response message
-      err:
-        type: string
-        description: Represents that error code if the request fails 
-      status:
-        type: string
-        description: Represents the response status after the exection of the API
-      errmsg:
-        type: string
-        description: Represents the error message after the execution of the API 
-  dataFields:
-    type: object
-    properties:
-      templateName:
-        type: string 
-      action: 
-        type: string 
-      fields: 
-        type: array
-        items:
-          type: object
+      x-codegen-request-body-name: Body
+components:
+  schemas:
+    readRequest:
+      title: Form read API request object
+      type: object
+      properties:
+        request:
           required:
-          - code
-          - dataType
-          - editable
-          - inputType
-          - label
-          - required
-          - visible
-          - index
-          - placeholder
-          properties:  
-            code:
+          - action
+          - framework
+          - rootOrgId
+          - subType
+          - type
+          type: object
+          properties:
+            type:
               type: string
-              description: Unique code to identify a form field
-            dataType:
+            subType:
               type: string
-              description: DataType of the form field
-            description:
+            action:
               type: string
-              description: Description about the form field
-            editable:
-              type: boolean
-              description: Based on this value form will be render in editable mode
-            inputType:
+            framework:
               type: string
-              description: Type of field (text, select) etc.
-            label:
+            rootOrgId:
               type: string
-              description: The display label of the field
-            name:
+    formReadRequest:
+      title: The Read Form API request body
+      allOf:
+      - $ref: '#/components/schemas/ApiRequest'
+      - $ref: '#/components/schemas/readRequest'
+    formcreateRequest:
+      title: The Create and Update form API request body
+      allOf:
+      - $ref: '#/components/schemas/ApiRequest'
+      - $ref: '#/components/schemas/createRequest'
+    createRequest:
+      title: Represents the request object of Create and Update Form request object
+      type: object
+      properties:
+        request:
+          required:
+          - action
+          - data
+          - framework
+          - rootOrgId
+          - subType
+          - type
+          type: object
+          properties:
+            type:
               type: string
-              description: Name of the field on the form
-            index:
-              type: integer
-              description: The position of a field on any form depends on this value
-            placeholder:
+            subType:
               type: string
-              description: It defines the location at which the form field can be placed
-            required:
-              type: boolean
-              description: It specifies that the form field is mandatory
-            visible:
-              type: boolean
-              description: Represents the visibility property that is used to set whether a field should be visible or not
-            renderingHints:
+            action:
+              type: string
+            framework:
+              type: string
+            rootOrgId:
+              type: string
+            data:
+              $ref: '#/components/schemas/dataFields'
+    readResponse:
+      title: The basic reponse object for read form
+      allOf:
+      - $ref: '#/components/schemas/ApiResponse'
+      - $ref: '#/components/schemas/readResult'
+    createResponse:
+      title: The response object for create and update form
+      allOf:
+      - $ref: '#/components/schemas/ApiResponse'
+      - $ref: '#/components/schemas/createResult'
+    readResult:
+      title: The response object of read(Reading result)
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            form:
               type: object
-              description: Quick tips on the rendering of the form
+              properties:
+                type:
+                  type: string
+                subType:
+                  type: string
+                action:
+                  type: string
+                framework:
+                  type: string
+                rootOrgId:
+                  type: string
+                data:
+                  $ref: '#/components/schemas/dataFields'
+    createResult:
+      title: The response object of create and update (Result)
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            response:
+              type: object
+              properties:
+                rootOrgId:
+                  type: string
+                key:
+                  type: string
+                status:
+                  type: string
+    FailedResponseHeader:
+      title: Failure Response
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the API
+        ver:
+          type: string
+          description: The version information of the API
+        ts:
+          type: string
+          description: ETA for API execution
+        params:
+          $ref: '#/components/schemas/FailedResponseParams'
+        responseCode:
+          type: string
+          description: It is the response code that comes on execution of API
+        result:
+          type: object
+          properties:
+            result:
+              type: string
+              description: result
+    FailedResponseParams:
+      title: Failed Response Parameter
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          description: Unique ID that represents the Response
+        msgid:
+          type: string
+          description: Unique ID that represents a response message
+        err:
+          type: string
+          description: Represents that error code if the request fails
+        status:
+          type: string
+          description: Represents the response status after the exection of the API
+        errmsg:
+          type: string
+          description: Represents the error message after the execution of the API
+    dataFields:
+      type: object
+      properties:
+        templateName:
+          type: string
+        action:
+          type: string
+        fields:
+          type: array
+          items:
+            required:
+            - code
+            - dataType
+            - editable
+            - index
+            - inputType
+            - label
+            - placeholder
+            - required
+            - visible
+            type: object
+            properties:
+              code:
+                type: string
+                description: Unique code to identify a form field
+              dataType:
+                type: string
+                description: DataType of the form field
+              description:
+                type: string
+                description: Description about the form field
+              editable:
+                type: boolean
+                description: Based on this value form will be render in editable mode
+              inputType:
+                type: string
+                description: Type of field (text, select) etc.
+              label:
+                type: string
+                description: The display label of the field
+              name:
+                type: string
+                description: Name of the field on the form
+              index:
+                type: integer
+                description: The position of a field on any form depends on this value
+              placeholder:
+                type: string
+                description: It defines the location at which the form field can be
+                  placed
+              required:
+                type: boolean
+                description: It specifies that the form field is mandatory
+              visible:
+                type: boolean
+                description: Represents the visibility property that is used to set
+                  whether a field should be visible or not
+              renderingHints:
+                type: object
+                properties: {}
+                description: Quick tips on the rendering of the form
+    ApiRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents an API uniquely
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the unique ID of the message being sent
+            did:
+              type: string
+              description: Represents the device UUID from which API is called
+    ApiResponse:
+      required:
+      - ets
+      - id
+      - params
+      - ver
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents the ID of the request which was made
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          required:
+          - msgid
+          - resmsgid
+          - status
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the ID of the message sent
+            resmsgid:
+              type: string
+              description: Represents the ID of the response message
+            status:
+              type: string
+              enum:
+              - success
+              - error
+        responseCode:
+          type: string
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+    userToken:
+      type: apiKey
+      name: x-authenticated-user-token
+      in: header

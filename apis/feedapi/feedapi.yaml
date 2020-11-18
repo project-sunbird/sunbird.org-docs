@@ -1,117 +1,187 @@
-swagger: '2.0'
+openapi: 3.0.1
 info:
-  version: '1.0'
   title: User Feed  API
-  description: >-
-    - The User Feed APIs  are used to store all alerts that could be presented to users. They also include alerts sent to users while migrating from one channel to another.
-host: staging.open-sunbird.org
-basePath: /api/
-securityDefinitions:
-  bearer:
-    type: apiKey  # The arbitrary concatenated string value for the security scheme. This is provided to the user, when the user sends a request for the API key.    
-    in: header # The security scheme parameter is in "header"
-    name: Authorization # The name of the header, query parameter or cookie
-  userToken:
-    type: apiKey  # The arbitrary concatenated string value for the security scheme. This is provided to the user, when the user sends a request for the API key. 
-    in: header # The secrity scheme parameter is in "header"
-    name: x-authenticated-user-token # The name of the header, query parameter or cookie
-schemes:
-  - https
+  description: '- The User Feed APIs  are used to store all alerts that could be presented
+    to users. They also include alerts sent to users while migrating from one channel
+    to another.'
+  version: "1.0"
+servers:
+- url: https://staging.open-sunbird.org/api/
 paths:
   /user/v1/feed/{User_ID}:
     get:
-      description: >-
-        This API gets all pending feeds for a user as identified by the User ID.
-
-      summary: Get user feed by User ID
       tags:
-        - User Feed APIs
+      - User Feed APIs
+      summary: Get user feed by User ID
+      description: This API gets all pending feeds for a user as identified by the
+        User ID.
       operationId: Get user by User ID
-      consumes:
-        - application/json
-      produces:
-        - application/json
       parameters:
-        - in: path
-          name: User_ID
+      - name: User_ID
+        in: path
+        description: Append a valid User ID To the Request URL.
+        required: true
+        schema:
           type: string
-          required: true
-          description: 'Append a valid User ID To the Request URL.'
-        - name: ts
-          in: header
-          required: false
+      - name: ts
+        in: header
+        description: Timestamp at which given API request is sent.
+        schema:
           type: string
-          description: 'Timestamp at which given API request is sent.'
-        - name: X-msgid
-          in: header
-          required: false
+      - name: X-msgid
+        in: header
+        description: This ID uniquely identifies a request, if the same API is executed
+          multiple times.
+        schema:
           type: string
-          description: 'This ID uniquely identifies a request, if the same API is executed multiple times.'
-        - name: Authorization
-          in: header
-          required: true
+      - name: Authorization
+        in: header
+        description: 'Specify the authorization key (format: Bearer api-key) as received
+          from the administrator while sending the  given API request.'
+        required: true
+        schema:
           type: string
-          description: 'Specify the authorization key (format: Bearer api-key) as received from the administrator while sending the  given API request.'
-        - name: X-Authenticated-User-Token
-          in: header
-          required: true
+      - name: X-Authenticated-User-Token
+        in: header
+        description: The access token of the registered user sending the given API
+          request.
+        required: true
+        schema:
           type: string
-          description: >-
-            The access token of the registered user sending the given API request.
       responses:
-        '200':
-          description: 'SUCCESS. The **Get User by User ID** operation was successful.'
-          schema:
-            $ref: '#/definitions/CreateUserSingleResp'
-        '400':
-          description: 'BAD REQUEST. The **Get User by User ID** operation failed. You may have missed input for a mandatory parameter.'
-          schema:
-            $ref: '#/definitions/UserErrorResponse'
-        '404':
-          description: 'Resource not found'
-          schema:
-            $ref: '#/definitions/UserErrorResponse'
-        '500':
-          description: >-
-            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
-          schema:
-            $ref: '#/definitions/UserErrorResponse'
+        200:
+          description: SUCCESS. The **Get User by User ID** operation was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserSingleResp'
+        400:
+          description: BAD REQUEST. The **Get User by User ID** operation failed.
+            You may have missed input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserErrorResponse'
+        404:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserErrorResponse'
+        500:
+          description: '''INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserErrorResponse'
       security:
-        - bearer: []
-
-definitions:
-  UnAuthorizedResponse:
-    allOf:
-      - $ref: '#/definitions/ResultWithEmptyBody'
-      - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-  ResultStatus:
-    type: object
-    properties:
-      status:
-        type: string
-        description: Success or Failure
-  EmptyResult:
-    type: object
-    properties:
-      result:
-        type: object
-        description: Empty Result
-  UserErrorResponse:
-    type: object
-    allOf:
-      - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-      - $ref: '#/definitions/EmptyResult'
-  ResultWithEmptyBody:
-    type: object
-    properties:
-      result:
-        $ref: '#/definitions/ResultStatus'
-  CreateUserSingleResp:
-    description: Represents the  hold single userObject request
-    type: object
-    properties:
-      request:
-        type: object
-        allOf:
-          - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
-
+      - bearer: []
+components:
+  schemas:
+    UnAuthorizedResponse:
+      allOf:
+      - $ref: '#/components/schemas/ResultWithEmptyBody'
+      - $ref: '#/components/schemas/ApiResponse'
+    ResultStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Success or Failure
+    EmptyResult:
+      type: object
+      properties:
+        result:
+          type: object
+          properties: {}
+          description: Empty Result
+    UserErrorResponse:
+      allOf:
+      - $ref: '#/components/schemas/ApiResponse'
+      - $ref: '#/components/schemas/EmptyResult'
+    ResultWithEmptyBody:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/ResultStatus'
+    CreateUserSingleResp:
+      type: object
+      properties:
+        request:
+          type: object
+          allOf:
+          - $ref: '#/definitions/ApiRequest'
+      description: Represents the  hold single userObject request
+    ApiResponse:
+      required:
+      - ets
+      - id
+      - params
+      - ver
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents the ID of the request which was made
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          required:
+          - msgid
+          - resmsgid
+          - status
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the ID of the message sent
+            resmsgid:
+              type: string
+              description: Represents the ID of the response message
+            status:
+              type: string
+              enum:
+              - success
+              - error
+        responseCode:
+          type: string
+    ApiRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents an API uniquely
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the unique ID of the message being sent
+            did:
+              type: string
+              description: Represents the device UUID from which API is called
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+    userToken:
+      type: apiKey
+      name: x-authenticated-user-token
+      in: header

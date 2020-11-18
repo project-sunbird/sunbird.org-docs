@@ -1,458 +1,582 @@
-swagger: '2.0'
+openapi: 3.0.1
 info:
-  version: '1.0'
   title: Course Batch Certificate api
-  description: >-
-    These APIs are used to attach and remove course batch certificate templates, and to issue certificates for course batch.
-host: staging.open-sunbird.org
-basePath:  /api/course/batch/cert/v1
-securityDefinitions:
-  bearer:
-      type: apiKey  # The arbitrary concatenated string value for the security scheme. This is provided to the user, when the user sends a request for the API key.
-      in: header # The security scheme parameter is in "header"
-      name: Authorization # name of the header, query parameter or cookie
-  userToken:
-      type: apiKey  # The arbitrary concatenated string value for the security scheme. This is provided to the user, when the user sends a request for the API key.
-      in: header # The security scheme parameter is in "header"
-      name: x-authenticated-user-token # name of the header, query parameter or cookie
-schemes:
-  - https
-consumes:
-  - application/json
-produces:
-  - application/json
+  description: These APIs are used to attach and remove course batch certificate templates,
+    and to issue certificates for course batch.
+  version: "1.0"
+servers:
+- url: https://staging.open-sunbird.org/api/course/batch/cert/v1
 paths:
   /template/add:
     patch:
-      description:  >-
-       This API allows you to attach certificate templates.
-          - On request, the **_ /template/add_** endpoint attaches a template to the course batch.
-          - All fields marked with an * are mandatory
-          - The mandatory fields cannot be null or empty
-      summary: Add certificate template to a course batch
       tags:
       - Certificate Template Api
+      summary: Add certificate template to a course batch
+      description: |-
+        This API allows you to attach certificate templates.
+           - On request, the **_ /template/add_** endpoint attaches a template to the course batch.
+           - All fields marked with an * are mandatory
+           - The mandatory fields cannot be null or empty
       operationId: AddCertificateTemplate
-      produces:
-      - application/json
       parameters:
-      - name: Body
-        in: body
-        required: true
-        description: >-
-            The body refers to the format of the request. The body contains metadata about the request to add the certificate template.
-        schema:
-          allOf :
-            - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
-            - $ref: '#/definitions/AddCertificateTemplateRequest'
       - name: Content-Type
         in: header
+        description: The Content Type entity is the media type of the resource.Possible
+          media types can be Application/json
         required: true
-        type: string
-        description: >-
-            The Content Type entity is the media type of the resource.Possible media types can be Application/json
+        schema:
+          type: string
       - name: ts
         in: header
+        description: 'The timestamp at which the **Add certificate template** request
+          was sent. '
         required: true
-        type: string
-        description: 'The timestamp at which the **Add certificate template** request was sent. '
+        schema:
+          type: string
       - name: X-msgid
         in: header
+        description: A unique ID that identifies the request, in case the same API
+          is executed multiple times.
         required: true
-        type: string
-        description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
+        schema:
+          type: string
       - name: x-authenticated-user-token
         in: header
+        description: The access token of the registered user sending the given API
+          request. This is an alphanumeric string.
         required: true
-        type: string
-        description: 'The access token of the registered user sending the given API request. This is an alphanumeric string.'
+        schema:
+          type: string
       - name: Authorization
         in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received here.
         required: true
-        type: string
-        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received here.'
+        schema:
+          type: string
+      requestBody:
+        description: The body refers to the format of the request. The body contains
+          metadata about the request to add the certificate template.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiRequest'
+              - $ref: '#/components/schemas/AddCertificateTemplateRequest'
+        required: true
       responses:
-        '200':
-          description: 'OK ! Operation successful."Add Certificate template" operation was executed successfully.'
-          schema:
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/SuccessResponse'
-        '400':
-          description: 'BAD REQUEST. The "Add Certificate template" operation failed. Input for a mandatory parameter may be missing.'
-          schema:
-            $ref: '#/definitions/AddCertificateTemplateErrorResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact info@sunbird.org.'
+        200:
+          description: OK ! Operation successful."Add Certificate template" operation
+            was executed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  SuccessResponse:
+                    $ref: '#/components/schemas/SuccessResponse'
+        400:
+          description: BAD REQUEST. The "Add Certificate template" operation failed.
+            Input for a mandatory parameter may be missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddCertificateTemplateErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org.
+          content: {}
+      x-codegen-request-body-name: Body
   /template/remove:
     patch:
-      description:  >-
-       This API is associated with detaching certificate templates.
-          - The **_ /template/remove_** endpoint detaches a template from the course batch.
-          - All fields marked with an * are mandatory
-          - Required fields cannot be null or empty
-      summary: remove certificate template from course batch
       tags:
       - Certificate Template Api
+      summary: remove certificate template from course batch
+      description: |-
+        This API is associated with detaching certificate templates.
+           - The **_ /template/remove_** endpoint detaches a template from the course batch.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
       operationId: RemoveCertificateTemplate
-      produces:
-      - application/json
       parameters:
-      - name: Body
-        in: body
-        required: true
-        description: >-
-            The body refers to the format of the request. The body contains metadata about the request to remove certificate template.
-        schema:
-          allOf :
-            - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
-            - $ref: '#/definitions/RemoveCertificateTemplateRequest'
       - name: Content-Type
         in: header
+        description: The Content Type entity is the media type of the resource.Possible
+          media types can be Application/json
         required: true
-        type: string
-        description: >-
-            The Content Type entity is the media type of the resource.Possible media types can be Application/json
+        schema:
+          type: string
       - name: ts
         in: header
+        description: 'The timestamp at which the **remove certificate template** request
+          was sent. '
         required: true
-        type: string
-        description: 'The timestamp at which the **remove certificate template** request was sent. '
+        schema:
+          type: string
       - name: X-msgid
         in: header
+        description: A unique ID that identifies the request in case the same API
+          is executed multiple times.
         required: true
-        type: string
-        description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
+        schema:
+          type: string
       - name: x-authenticated-user-token
         in: header
+        description: The access token of the registered user sending the given API
+          request. This is an alphanumeric string.
         required: true
-        type: string
-        description: 'The access token of the registered user sending the given API request. This is an alphanumeric string.'
+        schema:
+          type: string
       - name: Authorization
         in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received here.
         required: true
-        type: string
-        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received here.'
+        schema:
+          type: string
+      requestBody:
+        description: The body refers to the format of the request. The body contains
+          metadata about the request to remove certificate template.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiRequest'
+              - $ref: '#/components/schemas/RemoveCertificateTemplateRequest'
+        required: true
       responses:
-        '200':
-          description: 'OK ! Operation successful."Remove Certificate template" operation was executed successfully.'
-          schema:
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/SuccessResponse'
-        '400':
-          description: 'BAD REQUEST. The "Remove Certificate template" operation failed. Input for a mandatory parameter may be missing.'
-          schema:
-            $ref: '#/definitions/RemoveCertificateTemplateErrorResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact info@sunbird.org.'          
+        200:
+          description: OK ! Operation successful."Remove Certificate template" operation
+            was executed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  SuccessResponse:
+                    $ref: '#/components/schemas/SuccessResponse'
+        400:
+          description: BAD REQUEST. The "Remove Certificate template" operation failed.
+            Input for a mandatory parameter may be missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoveCertificateTemplateErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org.
+          content: {}
+      x-codegen-request-body-name: Body
   /issue:
     post:
-      description:  >-
-       This API allows you to issue digitally generated certificates.
-          - The **_ /issue_** endpoint executes the "Certificate issue" request based on parameters provided as filter in the request body.
-          - All fields marked with an * are mandatory
-          - Required fields cannot be null or empty
-      summary: Issue of certificate
       tags:
       - Issue Certificate Api
+      summary: Issue of certificate
+      description: |-
+        This API allows you to issue digitally generated certificates.
+           - The **_ /issue_** endpoint executes the "Certificate issue" request based on parameters provided as filter in the request body.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
       operationId: GeneratePost
-      produces:
-      - application/json
       parameters:
-      - name: Body
-        in: body
-        required: true
-        description: >-
-            The body refers to the format of the request. The body contains metadata about the request to issue the certificate.
-        schema:
-          allOf :
-            - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
-            - $ref: '#/definitions/IssueCertificateRequest'
       - name: Content-Type
         in: header
+        description: The Content Type entity is the media type of the resource.Possible
+          media types can be Application/json
         required: true
-        type: string
-        description: >-
-            The Content Type entity is the media type of the resource.Possible media types can be Application/json
+        schema:
+          type: string
       - name: ts
         in: header
+        description: 'The timestamp at which the **issue certificate** request was
+          sent. '
         required: true
-        type: string
-        description: 'The timestamp at which the **issue certificate** request was sent. '
+        schema:
+          type: string
       - name: X-msgid
         in: header
+        description: A unique ID that identifies the request in case the same API
+          is executed multiple times.
         required: true
-        type: string
-        description: 'A unique ID that identifies the request in case the same API is executed multiple times.'
+        schema:
+          type: string
       - name: x-authenticated-user-token
         in: header
+        description: The access token of the registered user sending the given API
+          request. This is an alphanumeric string.
         required: true
-        type: string
-        description: 'The access token of the registered user sending the given API request. This is an alphanumeric string.'
+        schema:
+          type: string
       - name: Authorization
         in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
         required: true
-        type: string
-        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        schema:
+          type: string
+      requestBody:
+        description: The body refers to the format of the request. The body contains
+          metadata about the request to issue the certificate.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiRequest'
+              - $ref: '#/components/schemas/IssueCertificateRequest'
+        required: true
       responses:
-        '200':
-          description: 'OK ! Operation successful."Certificate generation" operation was executed successfully.'
-          schema:
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/IssueCertificateResponse'
-        '400':
-          description: 'BAD REQUEST. The "Certificate generation" operation failed. Input for a mandatory parameter may be missing.'
-          schema:
-            $ref: '#/definitions/IssueCertificateErrorResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact info@sunbird.org.'
-definitions:
-  AddCertificateTemplateRequest:
-    title: AddCertificateTemplateRequest
-    type: object
-    properties:
-      request:
-        $ref: '#/definitions/AddCourseBatchTemplateRequest'
-    required:
-    - request
-  AddCourseBatchTemplateRequest:
-    title: AddCourseBatchTemplateRequest
-    type: object
-    properties:
-      batch:
-        $ref: '#/definitions/AddCourseBatchTemplate'
-    required:
-    - batch
-  AddCourseBatchTemplate:
-    title: AddCourseBatchTemplate
-    type: object
-    properties:
-      courseId:
-        description: The course identifier
-        type: string
-      batchId:
-        description: The batch identifier
-        type: string
-      template:
-        $ref: '#/definitions/AddBatchTemplate'
-    required:
-    - courseId
-    - batchId
-    - template
-  AddBatchTemplate:
-    title: AddBatchTemplate
-    type: object
-    properties:
-      identifier:
-        description: The template identifier
-        type: string
-      criteria:
-        description: The filter for the template
-        type: object
-        properties:
-          enrollment:
+        200:
+          description: OK ! Operation successful."Certificate generation" operation
+            was executed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  IssueCertificateResponse:
+                    $ref: '#/components/schemas/IssueCertificateResponse'
+        400:
+          description: BAD REQUEST. The "Certificate generation" operation failed.
+            Input for a mandatory parameter may be missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueCertificateErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org.
+          content: {}
+      x-codegen-request-body-name: Body
+components:
+  schemas:
+    AddCertificateTemplateRequest:
+      title: AddCertificateTemplateRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/AddCourseBatchTemplateRequest'
+    AddCourseBatchTemplateRequest:
+      title: AddCourseBatchTemplateRequest
+      required:
+      - batch
+      type: object
+      properties:
+        batch:
+          $ref: '#/components/schemas/AddCourseBatchTemplate'
+    AddCourseBatchTemplate:
+      title: AddCourseBatchTemplate
+      required:
+      - batchId
+      - courseId
+      - template
+      type: object
+      properties:
+        courseId:
+          type: string
+          description: The course identifier
+        batchId:
+          type: string
+          description: The batch identifier
+        template:
+          $ref: '#/components/schemas/AddBatchTemplate'
+    AddBatchTemplate:
+      title: AddBatchTemplate
+      required:
+      - criteria
+      - identifier
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: The template identifier
+        criteria:
+          type: object
+          properties:
+            enrollment:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: "2"
+          description: The filter for the template
+        signatoryList:
+          type: array
+          description: The list of signatories
+          items:
             type: object
             properties:
-              status: 
+              name:
                 type: string
-                example: '2'
-      signatoryList:
-        description: The list of signatories 
-        type: array
-        items:
+                description: The signatory name
+              id:
+                type: string
+                description: The identifier for the signatory
+              designation:
+                type: string
+                description: The designation of the signatory
+                example: CEO
+              image:
+                type: string
+                description: image of the signatory signature
+        issuer:
           type: object
           properties:
             name:
-              description: The signatory name
               type: string
-            id:
-              description: The identifier for the signatory
+              description: The issuer name
+            url:
               type: string
-            designation:
-              description: The designation of the signatory
-              type: string
-              example: CEO
-            image:
-              description: image of the signatory signature
-              type: string  
-      issuer:  
-        description: The filter for the template
-        type: object
-        properties:
-          name:
-            description: The issuer name
-            type: string
-          url:
-            description: The issuer URL
-            type: string
-          publicKey:
-            description: The public keys
-            type: array
-            items:
-              type: integer
-              format: int64
-            example: [7, 8]  
-    required:    
-    - identifier
-    - criteria
-  RemoveCertificateTemplateRequest:
-    title: RemoveCertificateTemplateRequest
-    type: object
-    properties:
-      request:
-        $ref: '#/definitions/RemoveCourseBatchTemplateRequest'
-    required:
-    - request
-  RemoveCourseBatchTemplateRequest:
-    title: RemoveCourseBatchTemplateRequest
-    type: object
-    properties:
-      batch:
-        $ref: '#/definitions/RemoveCourseBatchTemplate'
-    required:
-    - batch
-  RemoveCourseBatchTemplate:
-    title: RemoveCourseBatchTemplate
-    type: object
-    properties:
-      courseId:
-        description: The course identifier
-        type: string
-      batchId:
-        description: The batch identifier
-        type: string
-      template:
-        $ref: '#/definitions/RemoveBatchTemplate'
-    required:
-    - courseId
-    - batchId
-    - template
-  RemoveBatchTemplate:
-    title: RemoveBatchTemplate
-    type: object
-    properties:
-      templateId:
-        description: The template identifier
-        type: string
-    required:
-    - templateId
-  IssueCertificateRequest:
-    title: Issue certificate request
-    type: object
-    properties:
-      request:
-        $ref: '#/definitions/Request'
-    required:
-    - request
-  Request:
-    title: Request
-    type: object
-    properties:
-      courseId:
-        description: The course identifier
-        type: string
-      batchId:
-        description: The batch identifier
-        type: string
-      userIds:
-        description: The optional User IDs
-        type: array
-        items:
+              description: The issuer URL
+            publicKey:
+              type: array
+              description: The public keys
+              example:
+              - 7
+              - 8
+              items:
+                type: integer
+                format: int64
+          description: The filter for the template
+    RemoveCertificateTemplateRequest:
+      title: RemoveCertificateTemplateRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/RemoveCourseBatchTemplateRequest'
+    RemoveCourseBatchTemplateRequest:
+      title: RemoveCourseBatchTemplateRequest
+      required:
+      - batch
+      type: object
+      properties:
+        batch:
+          $ref: '#/components/schemas/RemoveCourseBatchTemplate'
+    RemoveCourseBatchTemplate:
+      title: RemoveCourseBatchTemplate
+      required:
+      - batchId
+      - courseId
+      - template
+      type: object
+      properties:
+        courseId:
           type: string
-    required:
-    - courseId
-    - batchId
-  IssueCertificateResponse:
-    description: Issue certificate Response
-    type: object
-    properties:
-      result:
-        description: The response details
-        type: object
-        properties:
-          courseId:
-            description: The course identifier
-            type: string
-          batchId:
-            description: The batch identifier
-            type: string
-          status:
-            description: The certificate issue status
-            type: string
-            example: 'Certificates issue action for Course Batch Id 0128821148183429120 submitted Successfully!'
-  ResponseHeader:
-    title: ResponseHeader
-    type: object
-    properties:
-      id:
-        type: string
-        description: The API Identifier
-      ver:
-        type: string
-        description: The API version information
-      ts:
-        type: string
-        description: The API execution timestamp
-      params:
-        $ref: '#/definitions/ResponseParams'
-      responseCode:
-        type: string
-        description: 'The API response code'
-        example: 'CLIENT_ERROR'
-  ResponseParams:
-    title: Response Parameter
-    type: object
-    properties:
-      resmsgid:
-        type: string
-        description: Represents the response message ID
-      msgid:
-        type: string
-        description: Represents the error message ID
-      err:
-        type: string
-        description: Represents the error code
-      status:
-        type: string
-        description: The response status
-      errmsg:
-        type: string
-        description: Error Message
-        example: 'No such batchId exists'
-  EmptyResult:
-    title: Empty Result
-    type: object
-    properties:
-      result:
-        type: object
-        description: Empty Result
-  IssueCertificateErrorResponse:
-    title: Create Content Error Response
-    type: object
-    allOf:
-      - $ref: '#/definitions/ResponseHeader'
-      - $ref: '#/definitions/EmptyResult'
-  SuccessResponse:
-    description: 'Contains the success response'
-    type: object
-    properties:
-      result:
-       type: object
-       properties:
-        response: 
+          description: The course identifier
+        batchId:
           type: string
-          example: 'SUCCESS'
-  AddCertificateTemplateErrorResponse:
-    title: Create cerrtificate error response
-    type: object
-    allOf:
-      - $ref: '#/definitions/ResponseHeader'
-      - $ref: '#/definitions/EmptyResult'
-  RemoveCertificateTemplateErrorResponse:
-    title: Remove certificate error response
-    type: object
-    allOf:
-      - $ref: '#/definitions/ResponseHeader'
-      - $ref: '#/definitions/EmptyResult'
+          description: The batch identifier
+        template:
+          $ref: '#/components/schemas/RemoveBatchTemplate'
+    RemoveBatchTemplate:
+      title: RemoveBatchTemplate
+      required:
+      - templateId
+      type: object
+      properties:
+        templateId:
+          type: string
+          description: The template identifier
+    IssueCertificateRequest:
+      title: Issue certificate request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/Request'
+    Request:
+      title: Request
+      required:
+      - batchId
+      - courseId
+      type: object
+      properties:
+        courseId:
+          type: string
+          description: The course identifier
+        batchId:
+          type: string
+          description: The batch identifier
+        userIds:
+          type: array
+          description: The optional User IDs
+          items:
+            type: string
+    IssueCertificateResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            courseId:
+              type: string
+              description: The course identifier
+            batchId:
+              type: string
+              description: The batch identifier
+            status:
+              type: string
+              description: The certificate issue status
+              example: Certificates issue action for Course Batch Id 0128821148183429120
+                submitted Successfully!
+          description: The response details
+      description: Issue certificate Response
+    ResponseHeader:
+      title: ResponseHeader
+      type: object
+      properties:
+        id:
+          type: string
+          description: The API Identifier
+        ver:
+          type: string
+          description: The API version information
+        ts:
+          type: string
+          description: The API execution timestamp
+        params:
+          $ref: '#/components/schemas/ResponseParams'
+        responseCode:
+          type: string
+          description: The API response code
+          example: CLIENT_ERROR
+    ResponseParams:
+      title: Response Parameter
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          description: Represents the response message ID
+        msgid:
+          type: string
+          description: Represents the error message ID
+        err:
+          type: string
+          description: Represents the error code
+        status:
+          type: string
+          description: The response status
+        errmsg:
+          type: string
+          description: Error Message
+          example: No such batchId exists
+    EmptyResult:
+      title: Empty Result
+      type: object
+      properties:
+        result:
+          type: object
+          properties: {}
+          description: Empty Result
+    IssueCertificateErrorResponse:
+      title: Create Content Error Response
+      allOf:
+      - $ref: '#/components/schemas/ResponseHeader'
+      - $ref: '#/components/schemas/EmptyResult'
+    SuccessResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            response:
+              type: string
+              example: SUCCESS
+      description: Contains the success response
+    AddCertificateTemplateErrorResponse:
+      title: Create cerrtificate error response
+      allOf:
+      - $ref: '#/components/schemas/ResponseHeader'
+      - $ref: '#/components/schemas/EmptyResult'
+    RemoveCertificateTemplateErrorResponse:
+      title: Remove certificate error response
+      allOf:
+      - $ref: '#/components/schemas/ResponseHeader'
+      - $ref: '#/components/schemas/EmptyResult'
+    ApiRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents an API uniquely
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the unique ID of the message being sent
+            did:
+              type: string
+              description: Represents the device UUID from which API is called
+    ApiResponse:
+      required:
+      - ets
+      - id
+      - params
+      - ver
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents the ID of the request which was made
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          required:
+          - msgid
+          - resmsgid
+          - status
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the ID of the message sent
+            resmsgid:
+              type: string
+              description: Represents the ID of the response message
+            status:
+              type: string
+              enum:
+              - success
+              - error
+        responseCode:
+          type: string
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+    userToken:
+      type: apiKey
+      name: x-authenticated-user-token
+      in: header
