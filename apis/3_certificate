@@ -1,0 +1,297 @@
+openapi: 3.0.1
+info:
+  title: Certificate api
+  description: This api is used for digital certificate assertion.
+  version: "1.0"
+servers:
+- url: https://staging.open-sunbird.org/api/certs/v1
+paths:
+  /generate:
+    post:
+      tags:
+      - Certificate Api
+      summary: certificate generation
+      description: |-
+        This API is associated with digitally certificate generation.
+           - The **_ /generate_** endpoint executes the "Certificate" request based on parameters provided as metadata in the request body to be replaced by appropriate Id
+           - Required fields cannot be left null or empty
+      operationId: GeneratePost
+      parameters:
+      - name: X-Channel-ID
+        in: header
+        description: It the Unique Id to identify the root organization to which the
+          user belongs
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.\n\
+          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
+          \   - Application/x-www-form-urlencoded"
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: All User APIs require authorization for use. Specify the authorization
+          key received from the administrator when placing the request for use of
+          the API.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the request for Generating DIAL code.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiRequest'
+              - $ref: '#/components/schemas/GenerateCertificateRequest'
+        required: true
+      responses:
+        200:
+          description: OK ! Successful operation."Certificate generation" operation
+            was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentCreateResponse'
+        400:
+          description: BAD REQUEST. The "Certificate generation" operation failed
+            ! The possible reason for failure is that you may have missed providing
+            input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentCreateErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel free
+            to contact us. In the meantime, try refreshing.
+          content: {}
+      x-codegen-request-body-name: Body
+components:
+  schemas:
+    GenerateCertificateRequest:
+      title: Generate certificate request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/Request'
+    Request:
+      title: Request
+      required:
+      - certificate
+      type: object
+      properties:
+        certificate:
+          $ref: '#/components/schemas/Certificate'
+    Certificate:
+      title: Certificate
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/courseRecipientData'
+        courseName:
+          type: string
+          description: name of the course
+        name:
+          type: string
+          description: name of certificate
+        description:
+          type: string
+          description: description of certificate
+        logo:
+          type: string
+          description: certificate logo
+        issuedDate:
+          type: string
+          description: certificate issue date
+        videoURL:
+          type: string
+          description: url of video
+        htmlTemplate:
+          type: string
+          description: url of html template
+        tag:
+          type: string
+          description: ""
+        issuer:
+          $ref: '#/components/schemas/issuerData'
+        signatoryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/signatory'
+        keys:
+          type: object
+          properties:
+            id:
+              type: string
+    courseRecipientData:
+      title: course recipient data
+      type: object
+      properties:
+        recipientName:
+          type: string
+          description: name of certiticate recipient
+        recipientEmail:
+          type: string
+          description: email of certificate recipient
+        recipientPhone:
+          type: string
+          description: phone number of recipient
+        recipientId:
+          type: string
+          description: identifier of recipient
+        validFrom:
+          type: string
+          description: certificate valid from date default is today
+        expiry:
+          type: string
+          description: certificate expiry date
+        oldId:
+          type: string
+          description: old user id , required if u want to regenerate certificate
+    issuerData:
+      title: issuer data
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of issuer
+        publicKey:
+          type: array
+          description: list of public key
+          items:
+            type: string
+        url:
+          type: string
+          description: issuer valid url
+    signatory:
+      title: signatory data
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of signatory
+        designation:
+          type: string
+          description: designation of signatory
+        id:
+          type: string
+          description: identifier
+    ResultWithNodeId:
+      title: certificate creation response
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/certificateResponse'
+    ContentCreateResponse:
+      description: Create Content Response
+      allOf:
+      - $ref: '#/components/schemas/ResultWithNodeId'
+      - $ref: '#/components/schemas/ResponseHeader'
+    ResponseHeader:
+      title: ResponseHeader
+      type: object
+      properties:
+        id:
+          type: string
+          description: API Identifier
+        ver:
+          type: string
+          description: API version information
+        ts:
+          type: string
+          description: API execution timespan
+        params:
+          $ref: '#/components/schemas/ResponseParams'
+        responseCode:
+          type: object
+          properties: {}
+          description: 'API response code '
+    ResponseParams:
+      title: Response Parameter
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          description: Represents the response Message ID
+        msgid:
+          type: string
+          description: Represents the error Message ID
+        err:
+          type: string
+          description: Represents the Error Code
+        status:
+          type: string
+          description: Response Status
+        errmsg:
+          type: string
+          description: Error Message
+    EmptyResult:
+      title: Empty Result
+      type: object
+      properties:
+        result:
+          type: object
+          properties: {}
+          description: Empty Result
+    certificateResponse:
+      title: Response of certificate creation
+      type: object
+      properties:
+        recipientId:
+          type: string
+          description: user id who got certificate
+        uuid:
+          type: string
+        json:
+          type: string
+          description: raw data of certificate in json format
+        pdfUrl:
+          type: string
+    ContentCreateErrorResponse:
+      title: Create Content Error Response
+      allOf:
+      - $ref: '#/components/schemas/EmptyResult'
+      - $ref: '#/components/schemas/ResponseHeader'
+    ApiRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents an API uniquely
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the unique ID of the message being sent
+            did:
+              type: string
+              description: Represents the device UUID from which API is called
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+    userToken:
+      type: apiKey
+      name: x-authenticated-user-token
+      in: header
