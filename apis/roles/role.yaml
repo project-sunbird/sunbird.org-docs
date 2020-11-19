@@ -1,1 +1,162 @@
-{"code":400,"message":"Input error: unable to convert input to com.fasterxml.jackson.databind.JsonNode"}
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Roles API(s)
+  description: >- 
+    The Role API is used to provide a list of available roles in system. It: 
+      - supports data storage and other related operations
+      - allows you to define your own repository inside Sunbird and use it to perform operations on data
+      - allows you to use an object in different contexts, depending on how it is implemented
+      - allows each object entity to have its own unique payload request parameters
+Refer to the relevant documentation on the Sunbird website to get the exact object payload parameters 
+host: staging.open-sunbird.org
+basePath: /api/data/v1/role
+securityDefinitions:
+    bearer:
+      type: apiKey  # arbitrary name for the security scheme
+      in: header # The security scheme parameter is in "header"
+      name: Authorization # name of the header, query parameter or cookie
+schemes:
+  - https
+consumes:
+  - application/json
+  - multipart/form-data
+  - application/x-www-form-urlencoded
+produces:
+  - application/json
+paths:
+  /read:
+    get:
+      description: >-
+       This API is associated with listing all roles.
+          - The **_/role/read_** endpoint executes the "list roles" request based on parameters provided as metadata in the request body
+          - Required fields cannot be left null or empty'
+      summary: role list
+      operationId: roleList
+      produces:
+      - application/json
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+           The Content Type entity is the media type of the resource.
+            Possible media types can be:- 
+              - Application/json
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'All roles APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.'
+      - name: X-authenticated-user-token
+        in: header
+        required: true
+        type: string
+        description: 'user jwt token required'  
+      responses:
+        '200':
+          description: 'OK ! Successful operation."list object" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/Roleresponse'
+        '400':
+          description: 'BAD REQUEST. The "list object" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/ContentCreateErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+        
+definitions:
+ 
+  response:
+    title: Response of role api
+    type: object
+    properties:
+      result:
+        type: object
+        properties:  
+         roles:
+           type: array
+           items:
+            $ref: '#/definitions/RoleList'
+  Roleresponse:
+    description: Response of role api
+    type: object
+    allOf:
+      - $ref: '#/definitions/response'
+      - $ref: '#/definitions/ResponseHeader'
+  ResponseHeader:
+    title: ResponseHeader
+    type: object
+    properties:
+      id:
+        type: string
+        description: API Identifier
+      ver:
+        type: string
+        description: API version information
+      ts:
+        type: string
+        description: API execution timespan
+      params:
+        $ref: '#/definitions/ResponseParams'
+      responseCode:
+        type: object
+        description: 'API response code '
+  ResponseParams:
+    title: Response Parameter
+    type: object
+    properties:
+      resmsgid:
+        type: string
+        description: Response Message Id
+      msgid:
+        type: string
+        description: Message Id
+      err:
+        type: string
+        description: Error Code
+      status:
+        type: string
+        description: Response Status
+      errmsg:
+        type: string
+        description: Error Message
+  EmptyResult:
+    title: Empty Result
+    type: object
+    properties:
+      result:
+        type: object
+        description: Empty Result
+  RoleList:
+    title: List of roles
+    type: object
+    properties:
+       name:
+        type: string
+        description: 'name of roles'
+       id:
+        type: string
+        description : 'role identifier'
+       actionGroups:
+        type: array
+        items:
+         type: object
+         properties:
+          name:
+           type: string
+          id: 
+           type: string
+          actions:
+           type: array
+           items:
+            type: string
+            description: 'list of apis available for this role group'
+        
+  ContentCreateErrorResponse:
+    title: Create Content Error Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/EmptyResult'
+      - $ref: '#/definitions/ResponseHeader'
