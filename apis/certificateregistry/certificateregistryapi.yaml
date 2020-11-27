@@ -1,19 +1,20 @@
 openapi: 3.0.1
 info:
   title: Certificate Registry API's
-  description: This API is used to store,download and validate the course certificate.
-               [TestCases](https://github.com/project-sunbird/certificate-registry/blob/master/service/test/controllers/CertificateControllerTest.java)
+  description: "This API is used to store,download and validate the course certificate.
+                [TestCases](https://github.com/project-sunbird/certificate-registry/blob/master/service/test/controllers/CertificateControllerTest.java) "
+                [PostManDoc](https://www.getpostman.com/collections/6a5a786f8a0cfce13d0f)
   version: "1.0"
 servers:
-- url: https://staging.open-sunbird.org/api
+  - url: https://staging.open-sunbird.org/api
 paths:
   /certreg/v1/certs/add:
     post:
       tags:
-      - Add Certificate
+       - Add Certificate
       summary: adding of certificate
       description: |-
-        This API allows you to add the  digitally generated certificates into the certificate registry.
+        This API allows you to add the digitally generated certificates into the certificate registry.
            - All fields marked with an * are mandatory
            - Mandatory fields cannot be null or empty
            - The request accepts id, accessCode , jsonData(the raw certificate json),related (courseId, batchId, type of the certificate, templateId(optional), pdfUrl) . If certificate should be reissused provide oldId
@@ -33,7 +34,6 @@ paths:
         style: simple
         schema:
           type: string
-          example: '{{Authorization}}'
       - name: Authorization
         in: header
         description: To make use of the API, you require authorization. Raise a request
@@ -42,6 +42,7 @@ paths:
         required: true
         schema:
           type: string
+          example: 'Bearer token'
       requestBody:
         description: The body refers to the format of the request. The body contains
           metadata about the request to add the certificate.
@@ -324,7 +325,7 @@ paths:
                     designation: CEO
                     image: https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg
                     '@context': https://staging.ntp.net.in/certs/v1/extensions/SignatoryExtension/context.json
-                  printUri: ''
+                  printUri: 'data:image/svg+xml,%3Csvg .....'
                   '@context': https://staging.ntp.net.in/certs/v1/context.json
                 jsonUrl: https://staging.ntp.net.in/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243.json
              b:
@@ -1704,7 +1705,7 @@ components:
               designation: CEO
               image: https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg
               '@context': https://staging.ntp.net.in/certs/v1/extensions/SignatoryExtension/context.json
-            printUri: ''
+            printUri: 'data:image/svg+xml,%3Csvg .....'
             '@context': https://staging.ntp.net.in/certs/v1/context.json
           jsonUrl: https://staging.ntp.net.in/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243.json
   securitySchemes:
