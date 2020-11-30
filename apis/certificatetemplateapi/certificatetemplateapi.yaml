@@ -16,6 +16,7 @@ paths:
            - The **_ /template/create_** endpoint creates a certificate template in the system.
            - All fields marked with an * are mandatory
            - Required fields cannot be null or empty
+           - Accepts certificate template name , template , description etc
       operationId: CreateCertificateTemplate
       parameters:
       - name: Content-Type
@@ -29,21 +30,14 @@ paths:
         in: header
         description: 'The timestamp at which the **Create certificate template** request
           was sent. '
-        required: true
+        required: false
         schema:
           type: string
       - name: X-msgid
         in: header
         description: A unique ID that identifies the request, in case the same API
           is executed multiple times.
-        required: true
-        schema:
-          type: string
-      - name: x-authenticated-user-token
-        in: header
-        description: The access token of the registered user sending the given API
-          request. This is an alphanumeric string.
-        required: true
+        required: false
         schema:
           type: string
       - name: Authorization
@@ -63,6 +57,29 @@ paths:
               allOf:
               - $ref: '#/components/schemas/ApiRequest'
               - $ref: '#/components/schemas/AddCertificateTemplateRequest'
+            examples:
+             a:
+              summary: Template Create Request
+              value:
+                request:
+                  certificate:
+                    template:
+                      identifier: template_01_pdf_stag
+                      name: Course completion pdf certificate staging
+                      template: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_stag/artifact/cbse-certificate.zip
+                      params:
+                      - issuer.name
+                      - issuer.url
+             b:
+              summary: Mandatory Param Missing Request
+              value:
+                request:
+                  certificate:
+                    template:
+                      identifier: template_01_pdf_stag
+                      params:
+                      - issuer.name
+                      - issuer.url
         required: true
       responses:
         200:
@@ -77,6 +94,14 @@ paths:
                     $ref: '#/components/schemas/ApiResponse'
                   SuccessResponse:
                     $ref: '#/components/schemas/SuccessResponse'
+              example:
+                id: 
+                ver: 
+                ts: 
+                params: 
+                responseCode: OK
+                result:
+                  identifier: templateId
         400:
           description: BAD REQUEST. The "Create certificate template" operation failed.
             Input for a mandatory parameter may be missing.
@@ -84,11 +109,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AddCertificateTemplateErrorResponse'
+              examples:
+                a: 
+                 summary: Mandatory Param Missing Response
+                 value:
+                  id: cert.v1.template.create
+                  ver: v1
+                  ts: 1606719505532
+                  responseCode: CLIENT_ERROR
+                  result:
+                    message: Request is empty.
+                b: 
+                 summary: Mandatory Param Name Missing Response
+                 value:
+                  id: cert.v1.template.create
+                  ver: v1
+                  ts: 1606719505532
+                  responseCode: CLIENT_ERROR
+                  result:
+                    message: name or template missing in request.
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong. These
             errors are tracked automatically. Try refreshing the page. If the problem
             persists, contact info@sunbird.org.
-          content: {}
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/500ServerError'
+              example:
+                id: cert.v1.template.create
+                ver: v1
+                ts: 1601451354559
+                params: 
+                  msgid: "string"
+                  status: "string"
+                  resmsgid: string
+                responseCode: SERVER_ERROR
+                result:
+                  message: Process failed,please try again later.
       x-codegen-request-body-name: Body
   /template/update/{templateId}:
     patch:
@@ -153,6 +212,15 @@ paths:
               allOf:
               - $ref: '#/components/schemas/ApiRequest'
               - $ref: '#/components/schemas/UpdateCertificateTemplateRequest'
+            example:
+              request:
+                certificate:
+                  template:
+                    name: Course completion pdf certificate staging
+                    template: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_stag/artifact/cbse-certificate.zip
+                    params:
+                    - issuer.name
+                    - issuer.url
         required: true
       responses:
         200:
@@ -167,6 +235,14 @@ paths:
                     $ref: '#/components/schemas/ApiResponse'
                   SuccessResponse:
                     $ref: '#/components/schemas/SuccessResponse'
+              example:
+                id: 
+                ver: 
+                ts: 
+                params: 
+                responseCode: OK
+                result:
+                  identifier: template_01_pdf_stag
         400:
           description: BAD REQUEST. The "Update Certificate template" operation failed.
             Input for a mandatory parameter may be missing.
@@ -178,7 +254,23 @@ paths:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong. These
             errors are tracked automatically. Try refreshing the page. If the problem
             persists, contact info@sunbird.org.
-          content: {}
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/500ServerError'
+              example:
+                id: cert.v1.template.update
+                ver: v1
+                ts: 1601451354559
+                params: 
+                  msgid: "string"
+                  status: "string"
+                  resmsgid: string
+                responseCode: SERVER_ERROR
+                result:
+                  message: Process failed,please try again later.
+          
       x-codegen-request-body-name: Body
   /template/read/{templateId}:
     get:
@@ -219,13 +311,6 @@ paths:
         required: true
         schema:
           type: string
-      - name: x-authenticated-user-token
-        in: header
-        description: The access token of the registered user sending the given API
-          request. This is an alphanumeric string.
-        required: true
-        schema:
-          type: string
       - name: Authorization
         in: header
         description: To make use of the API, you require authorization. Raise a request
@@ -247,6 +332,21 @@ paths:
                     $ref: '#/components/schemas/ApiResponse'
                   GetCertificateTemplateResponse:
                     $ref: '#/components/schemas/GetCertificateTemplateResponse'
+              example:
+                id: 
+                ver: 
+                ts: 
+                params: 
+                responseCode: OK
+                result:
+                  certificate:
+                    template:
+                      template: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_stag/artifact/cbse-certificate.zip
+                      identifier: template_01_pdf_stag
+                      name: ''
+                      params:
+                      - issuer.name
+                      - issuer.url
         400:
           description: BAD REQUEST. The "Read Certificate template" operation failed.
             Input for a mandatory parameter may be missing.
@@ -254,11 +354,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReadCertificateTemplateErrorResponse'
+              example:
+                id: 
+                ver: 
+                ts: 
+                params: 
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  message: 'Cert template not found for the given identifier: do_213149680075849728113'
+                   
+                 
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong. These
             errors are tracked automatically. Try refreshing the page. If the problem
             persists, contact info@sunbird.org.
-          content: {}
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/500ServerError'
+              example:
+                id: cert.v1.template.read
+                ver: v1
+                ts: 1601451354559
+                params: 
+                  msgid: "string"
+                  status: "string"
+                  resmsgid: string
+                responseCode: SERVER_ERROR
+                result:
+                  message: Process failed,please try again later.
 components:
   schemas:
     AddCertificateTemplateRequest:
@@ -451,7 +576,7 @@ components:
       - $ref: '#/components/schemas/ResponseHeader'
       - $ref: '#/components/schemas/UpdateErrorResponse'
     ReadCertificateTemplateErrorResponse:
-      title: Update Certificate Template Error Response
+      title: Certificate Template Error Response
       allOf:
       - $ref: '#/components/schemas/ResponseHeader'
       - $ref: '#/components/schemas/ReadErrorResponse'
@@ -517,6 +642,32 @@ components:
               - error
         responseCode:
           type: string
+    500ServerError:
+      title: 500ServerError
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          type: string
+        responseCode:
+          type: string
+        result:
+          type: object
+          properties:
+           message:
+            type: string
   securitySchemes:
     bearer:
       type: apiKey
