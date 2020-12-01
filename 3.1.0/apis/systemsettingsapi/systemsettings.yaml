@@ -1,0 +1,344 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: System Settings API(s)
+  description: >- 
+    The System settings API resources are used to provide system settings configurations when ever necessary in the application.
+  license:
+    name: GNU Affero General Public License v3.0
+    url: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+host: staging.open-sunbird.org
+basePath: /data/v1/system/settings
+securityDefinitions:
+  auth:
+      type: apiKey  # arbitrary name for the security scheme
+      in: header # The secrity scheme parameter is in "header"
+      name: Authorization # name of the header, query parameter or cookie
+  userToken:
+      type: apiKey  # arbitrary name for the security scheme
+      in: header # The secrity scheme parameter is in "header"
+      name: x-authenticated-user-token # name of the header, query parameter or cookie
+schemes:
+  - https
+consumes:
+  - application/json
+  - multipart/form-data
+  - application/x-www-form-urlencoded
+produces:
+  - application/json
+paths:
+  /list:
+    get:
+      description:  >-
+       This API is associated with listing the system settings on the Sunbird Platform.
+          - The **_/list_** endpoint executes the "GetSystemSettingsList" request based on parameters provided as metadata in the request body
+          - Required fields cannot be left null or empty
+      summary: Lists out the system settings
+      tags:
+      - System Settings APIs
+      operationId: GetSystemSettingsList
+      produces:
+      - application/json
+      parameters:
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+           The Content Type entity is the media type of the resource.
+            Possible media types can be:- 
+              - Application/json
+      - name: ts
+        in: header
+        required: true
+        type: string
+        description: 'Time Stamp at which **system settings list** request was sent'
+      - name: X-msgid
+        in: header
+        required: true
+        type: string
+        description: 'This Id Uniquely identifies a request if the same API is executed multiple times'
+      - name: x-authenticated-user-token
+        in: header
+        required: true
+        type: string
+        description: 'The token/key used to execute the API'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'All System-settings APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API'
+      responses:
+        '200':
+          description: 'OK ! Successful operation."system settings list" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/SystemSettingsListResponse'
+        '400':
+          description: 'BAD REQUEST. The "system settings list" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/SystemSettingsErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+  /get/{System_Setting_Id}:
+    get:
+      description:  >-
+       This API is associated with listing the system settings on the Sunbird Platform.
+          - The **_/get/{System_Setting_Id}_** endpoint executes the "GetSystemSettingsById" request based on parameters provided as metadata in the request body
+          - Required fields cannot be left null or empty
+      summary: Gets the system settings based on the provided Id
+      tags:
+      - System Settings APIs
+      operationId: GetSystemSettingsById
+      produces:
+      - application/json
+      parameters:
+      - name: System_Setting_Id
+        in: path
+        type: string
+        required: true
+        description: 'Please append a valid System_Setting_Id To the Request URL'
+      - name: Content-Type
+        in: header
+        required: true
+        type: string
+        description: >-
+           The Content Type entity is the media type of the resource.
+            Possible media types can be:- 
+              - Application/json
+      - name: ts
+        in: header
+        required: true
+        type: string
+        description: 'Time Stamp at which **get system settings** request was sent'
+      - name: X-msgid
+        in: header
+        required: true
+        type: string
+        description: 'This Id Uniquely identifies a request if the same API is executed multiple times'
+      - name: x-authenticated-user-token
+        in: header
+        required: true
+        type: string
+        description: 'The token/key used to execute the API'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'All System-settings APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API'
+      responses:
+        '200':
+          description: 'OK ! Successful operation."get system setiing" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/GetSystemSettingsResponse'
+        '400':
+          description: 'BAD REQUEST. The "get system setiing" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/SystemSettingsErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+  /set:
+    post:
+      description: >-
+       This API is associated with changing the System settings values on the Sunbird Platform.
+          - The **_/system/settings/set** endpoint executes the "SetSystemSettings" request based on parameters provided as metadata in the request body
+          - Required fields cannot be left null or empty
+      summary: Set value to system settings.
+      tags:
+      - System Settings APIs
+      operationId: SetSystemSettings
+      produces:
+      - application/json
+      consumes:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: >-
+            The body refers to the format of the request.
+              - The body contains metadata about the request for adding/replace system settings.
+        schema:
+          $ref: '#/definitions/SetSystemSettingsRequest'
+      - name: ts
+        in: header
+        required: true
+        type: string
+        description: 'Time Stamp at which set system settings request was sent'
+      - name: X-msgid
+        in: header
+        required: true
+        type: string
+        description: 'This Id Uniquely identifies a request if the same API is executed multiple times'
+      - name: x-authenticated-user-token
+        in: header
+        required: true
+        type: string
+        description: 'The token/key used to execute the API'
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: 'All System-settings APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API'
+      responses:
+        '200':
+          description: 'OK ! Successful operation."set system setting" operation was successfully executed.'
+          schema:
+            $ref: '#/definitions/SetSystemSettingsResponse'
+        '400':
+          description: 'BAD REQUEST. The "set system setting" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          schema:
+            $ref: '#/definitions/SystemSettingsErrorResponse'
+        '500':
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.'
+definitions:
+  SetSystemSettingsRequest:
+    title: Set value to system settings.
+    example:
+      request:
+        id: tncConfigtest,
+        field: tncConfigtest,
+        value: test
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/Request'
+    required:
+    - request
+  Request:
+    title: Request
+    example:
+      id: tncConfigtest,
+      field: tncConfigtest,
+      value: test
+    type: object
+    properties:
+      id:
+        description: ''
+        example: tncConfigtest
+        type: string
+      field:
+        description: ''
+        example: tncConfigtest
+        type: string
+      value:
+        description: ''
+        example: test
+        type: string
+    required:
+    - id
+    - field
+    - value
+
+  ResultWithNodeId:
+    title: Result Containing Node Id
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/ResponseNodeId'
+  ResultWithArrayNodeId:
+    title: Result Containing Node Id
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/ArrayResponseNodeId'
+  SystemSettingsListResponse:
+    description: System settings list Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithArrayNodeId'
+      - $ref: '#/definitions/ResponseHeader'
+  GetSystemSettingsResponse:
+    description: Get system settings Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithNodeId'
+      - $ref: '#/definitions/ResponseHeader'
+  SetSystemSettingsResponse:
+    description: Get system settings Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/ResultWithResponseSuccess'
+      - $ref: '#/definitions/ResponseHeader'
+  ResultWithResponseSuccess:
+    title: Result containing response as success
+    type: object
+    properties:
+      result:
+        $ref: '#/definitions/SuccessResponseNodeId'
+  ResponseHeader:
+    title: ResponseHeader
+    type: object
+    properties:
+      id:
+        type: string
+        description: API Identifier
+      ver:
+        type: string
+        description: API version information
+      ts:
+        type: string
+        description: API execution timespan
+      params:
+        $ref: '#/definitions/ResponseParams'
+      responseCode:
+        type: string
+        description: 'API response code '
+  ResponseParams:
+    title: Response Parameter
+    type: object
+    properties:
+      resmsgid:
+        type: string
+        description: Response Message Id
+      msgid:
+        type: string
+        description: Message Id
+      err:
+        type: string
+        description: Error Code
+      status:
+        type: string
+        description: Response Status
+      errmsg:
+        type: string
+        description: Error Message
+  EmptyResult:
+    title: Empty Result
+    type: object
+    properties:
+      result:
+        type: object
+        description: Empty Result
+  ResponseNodeId:
+    title: Response Node Id
+    description: Response Node Identifier
+    type: object
+    properties:
+      response:
+        type: object
+  SuccessResponseNodeId:
+    title: Success response Node Id
+    description: Success response Node Identifier
+    type: object
+    properties:
+      response:
+        description: SUCCESS as response
+        type: string
+      id:
+        description: system setting id which is supplied in the request body
+        type: string
+  ArrayResponseNodeId:
+    title: Array Response Node Id
+    description: Array Response Node Identifier
+    type: object
+    properties:
+      response:
+        type: array
+        items:
+          type: object
+  SystemSettingsErrorResponse:
+    title: System Settings Error Response
+    type: object
+    allOf:
+      - $ref: '#/definitions/EmptyResult'
+      - $ref: '#/definitions/ResponseHeader'
