@@ -6,6 +6,8 @@ info:
     - The URL for On Demand Data Exhaust API(s) is `dataset/v1/request`
     
     - The URL for Standard Data Exhaust API(s) is `data/v3/dataset`
+
+    - Postman collection for different testcases - [Test Cases](https://www.getpostman.com/collections/273f2aea59dc2856a033)
     
   termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
   contact:
@@ -449,13 +451,13 @@ paths:
               schema:
                 type: string
                 example: An unexpected error occurred
-  /read/{tag}/{request_ID}:
+  /read/{tag}:
     get:
       tags:
       - On Demand Data Exhaust API(s)
       description: This API is used to get all the details of specific request and a tag
       
-        - The end point for **Get Request Details** is `/read/{tag}/{request_ID}`
+        - The end point for **Get Request Details** is `/read/{tag}?requestId={requestId}`
         
         - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: Get Request Details
@@ -466,8 +468,8 @@ paths:
         required: true
         schema:
           type: string
-      - name: request_ID
-        in: path
+      - name: requestId
+        in: query
         description: Request ID provided in the response when the job execution request
           is made.
         required: true

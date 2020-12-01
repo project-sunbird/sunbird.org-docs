@@ -1,8 +1,11 @@
 openapi: 3.0.1
 info:
   title: Device API(s)
-  description: The Device Profile APIs are used to capture device & user location details and also to retrieve back details.\n- The URL for Device Profile API is\
-    \ `v3/device/`.
+  description: The Device Profile APIs are used to capture device & user location details and also to retrieve back details.
+
+    - The URL for Device Profile API is `v3/device/`.
+    
+    - Postman collection for different testcases - [Test Cases](https://www.getpostman.com/collections/a04adbcc9cf941fe425e)
     
     - For request & response samples please refer doc - [Postman Doc](https://documenter.getpostman.com/view/1229135/TVmJiywZ)
   version: "1.0"
@@ -97,14 +100,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeviceRegisterResponse'
+        401:
+          description: Unauthorized, **Device Register** operation failed! The possible
+            reason for failure is that you may have missed providing authorization token in header
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
         500:
           description: INTERNAL SERVER ERROR. We track these errors automatically
             and try to set it right at the earliest. Try refreshing the page. If the
             problem persists contact us at info@sunbird.org.
-          content:
-            application/json:
+          content: 
+            text/plain:
               schema:
-                $ref: '#/components/schemas/DeviceErrorResponse'
+                type: string
+                example: An unexpected error occurred
   /profile/{device-id}:
     get:
       tags:
@@ -212,14 +227,26 @@ paths:
                   ipLocation:
                     state: ""
                     district: ""      
-        500:
-          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
-            errors are tracked automatically, but if the problem persists feel free
-            to contact us. In the meantime, try refreshing.
+        401:
+          description: Unauthorized, **Device Profile Get** operation failed! The possible
+            reason for failure is that you may have missed providing authorization token in header
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeviceErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content: 
+            text/plain:
+              schema:
+                type: string
+                example: An unexpected error occurred
 components:
   schemas:
     RegisterDeviceRequest:
@@ -333,19 +360,7 @@ components:
             ipLocation:  
               type: object
               allOf:
-                - $ref: '#/components/schemas/locationObject'  
-    DeviceErrorResponse:
-      title: API error response
-      allOf:
-      - $ref: '#/components/schemas/ApiErrorResponse'
-      - $ref: '#/components/schemas/EmptyResult'
-    EmptyResult:
-      title: Empty Result
-      type: object
-      properties:
-        result:
-          type: object
-          properties: {}
+                - $ref: '#/components/schemas/locationObject'
     ApiRequest:
       type: object
       properties:
@@ -397,46 +412,6 @@ components:
               - failed
         responseCode:
           type: string
-    ApiErrorResponse:
-      required:
-      - ts
-      - id
-      - params
-      - ver
-      type: object
-      properties:
-        id:
-          type: string
-          description: Represents the ID of the request which was made
-        ver:
-          type: string
-          description: Represents the version of the API which was used
-        ts:
-          type: string
-          description: 'Represents the timestamp(UTC) in string. Ex: 2020-11-27T08:50:55.365+00:00'
-        params:
-          required:
-          - resmsgid
-          - status
-          type: object
-          properties:
-            resmsgid:
-              type: string
-              description: Represents the ID of the message sent
-              example: '5aa0115f-ad5e-4ab7-9bba-cd0f716dbe97'
-            err:
-              type: string
-              description: Represents the ID of the message sent
-              example: 'ERROR'
-            errmsg:
-              type: string
-              description: Represents the ID of the message sent
-              example: 'INTERNAL_SERVER_ERROR'
-            status:
-              type: string
-              example: failed
-        responseCode:
-          type: string      
   securitySchemes:
     bearer:
       type: apiKey
