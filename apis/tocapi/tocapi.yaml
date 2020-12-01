@@ -5,14 +5,13 @@ info:
     The TOC API resources perform operations related to download and upload of textbook on the Sunbird Platform in csv format. The TOC API(s) operations include uploads and downloads.
 
     The URL for TOC API(s) is /textbook/v1/toc.
-    - [TestCases](https://www.getpostman.com/collections/6564ee020f45d52bed39)
-    - [Postman Doc](https://documenter.getpostman.com/view/7127399/TVmHFfhS)
+    - [TestCases](https://app.getpostman.com/run-collection/78d9cafb2d26eda89260)
   termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
   contact:
     email: info@sunbird.org
   version: '1.0'
 servers:
-  - url: 'https://staging.sunbirded.org/api/textbook/v1/toc'
+  - url: 'https://staging.open-sunbird.org/api/textbook/v1/toc'
     variables: {}
 paths:
   '/upload/{textbook-id}':
@@ -79,7 +78,7 @@ paths:
               properties:
                 fileUrl:
                   type: string
-                  description: "This is a csv file.\n\nEach line of the file is a data record. Each record consists of one or more textbook fields, separated by commas. \nThe CSV file format supported is mentioned below:\n\nIdentifier: TextBook Id.\nTextBook NAME: Name of TextBook.\nBoard: TextBook Board.\nMedium: Medium of TextBook (eg. English, Hindi).\tGrade: TextBook Grade (eg. 2nd grade).\nSubject:TextBook Subject (eg. Science).\nLevel 1 Textbook Unit: TextBook unit deatils.\nQR Code Required?: yes/no."
+                  description: ""
         required: false
       responses:
         '200':
@@ -139,7 +138,8 @@ paths:
                 responseCode: RESOURCE_NOT_FOUND
                 result: {}
       deprecated: false
-      security: []
+      security:
+        - bearer: []
   '/download/{textbook-id}':
     get:
       tags:
@@ -226,7 +226,8 @@ paths:
                 responseCode: RESOURCE_NOT_FOUND
                 result: {}
       deprecated: false
-      security: []
+      security:
+        - bearer: []
 components:
   schemas:
     Params:
@@ -430,6 +431,11 @@ components:
       example:
         tocUrl: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/textbook/toc/do_11316025504283852811_test-27-nov_1606491356306.csv'
         ttl: '86400'
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
 tags:
   - name: TOC APIs
     description: ''

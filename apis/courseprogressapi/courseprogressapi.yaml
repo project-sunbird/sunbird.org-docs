@@ -5,14 +5,13 @@ info:
     The Course Progress API resource is used to publish and update the status of the course as consumed by a user. The operations include the basic course status and the updated status.
 
     The URL for Course Progress API is /course/v1/user/content/state.
-    - [TestCases](https://www.getpostman.com/collections/166e85c10db9c1ef0783)
-    - [Postman Doc](https://documenter.getpostman.com/view/7127399/TVmHEKmj)
+    - [TestCases](https://app.getpostman.com/run-collection/fa3d016f153862ea5537)
   termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
   contact:
     email: info@sunbird.org
   version: '1.0'
 servers:
-  - url: 'https://staging.sunbirded.org/api/course/v1/content/state'
+  - url: 'https://staging.open-sunbird.org/api/course/v1/content/state'
     variables: {}
 paths:
   /read:
@@ -92,8 +91,27 @@ paths:
                 responseCode: OK
                 result:
                   contentList: []
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateContentState-500InternalServerError'
+              example:
+                id: api.content.state.read
+                ver: v1
+                ts: '2020-11-24 07:37:21:727+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
       deprecated: false
-      security: []
+      security:
+        - bearer: []
   /update:
     patch:
       tags:
@@ -191,7 +209,8 @@ paths:
                 responseCode: SERVER_ERROR
                 result: {}
       deprecated: false
-      security: []
+      security:
+        - bearer: []
 components:
   schemas:
     ReadContentStateRequest:
@@ -488,6 +507,11 @@ components:
         err: INTERNAL_ERROR
         status: SERVER_ERROR
         errmsg: 'Process failed,please try again later.'
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
 tags:
   - name: Course Progress API(s)
     description: ''
