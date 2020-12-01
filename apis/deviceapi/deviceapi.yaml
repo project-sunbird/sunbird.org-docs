@@ -1,0 +1,448 @@
+openapi: 3.0.1
+info:
+  title: Device Profile API(s)
+  description: The Device Profile APIs are used to capture device & user location details and also to retrieve back details.\n- The URL for Device Profile API is\
+    \ `v3/device/`.
+    
+    - For request & response samples please refer doc - [Postman Doc](https://documenter.getpostman.com/view/1229135/TVmJiywZ)
+  version: "1.0"
+servers:
+- url: https://staging.open-sunbird.org/api/v3/device/
+paths:
+  /register/{device-id}:
+    post:
+      tags:
+      - Device Profile API(s)
+      summary: Register device to system with details
+      description: |-
+        This API is used to capture device & user location details.
+           - The endpoint for **Device Register** is `/register`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: StatePost
+      parameters:
+      - name: device-id
+        in: path
+        description: 'device unique id'
+        required: true
+        style: simple
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the type of the request. Possible\
+          \ types are:- \n  - Application/json"
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Represents the body and parameters of the device
+          register API. Request example is
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiRequest'
+              - $ref: '#/components/schemas/RegisterDeviceRequest'
+            examples:
+             a:
+              summary: "With User Declared location data"
+              description: Valid request with both dspec and user declared location data
+              value: 
+               request:
+                  dspec:
+                   idisk: 11
+                   cap: []
+                   mem: -1
+                   os: "Android 6.0"
+                   cpu: "abi: armeabi-v7a  ARMv7 Processor rev 4 (v7l)"
+                   scrn: 5
+                   sims: -1
+                   id: "2d994b152d314aca"
+                   camera: "9.0,5.0"
+                   edisk: 11
+                   make: "Motorola XT1706"
+                  userDeclaredLocation: 
+                   state: Karnataka
+                   district: BENGALURU URBAN SOUTH
+             b:
+              summary: "Without User Declared location data"
+              description: Valid request with only dspec
+              value: 
+               request:
+                  dspec:
+                   idisk: 11
+                   cap: []
+                   mem: -1
+                   os: "Android 6.0"
+                   cpu: "abi: armeabi-v7a  ARMv7 Processor rev 4 (v7l)"
+                   scrn: 5
+                   sims: -1
+                   id: "2d994b152d314aca"
+                   camera: "9.0,5.0"
+                   edisk: 11
+                   make: "Motorola XT1706"  
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The "Device Register" operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceRegisterResponse'
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceErrorResponse'
+  /profile/{device-id}:
+    get:
+      tags:
+      - Device Profile API(s)
+      summary: Retrieve device ip resolved and user declared location data
+      description: "This API is used to retrieve device ip resolved and user declared location details\ 
+      \n   - The endpoint for **Device Profile** is `/profile`\n   - The fields\
+        \ marked with an asterisk (*) are mandatory. They cannot be null or empty.\n\
+        \   "
+      operationId: StateGet
+      parameters:
+      - name: device-id
+        in: path
+        description: 'device unique id'
+        required: true
+        style: simple
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the type of the request. Possible\
+          \ types are:- \n  - Application/json"
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: SUCCESS. The "Device Profile Get" operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceProfileResponse'
+              examples:
+               a:
+                summary: With both user declared and IP resolved data
+                description: provides both user declared and IP resolved loaction for given device id
+                value:
+                 id: analytics.device-profile
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "successful"
+                 responseCode: OK
+                 result:
+                  userDeclaredLocation: 
+                    state: Karnataka
+                    district: BENGALURU URBAN SOUTH
+                  ipLocation:
+                    state: Karnataka
+                    district: BENGALURU URBAN SOUTH
+               b:
+                summary: With only IP resolved data
+                description: provides only IP resolved loaction for given device id and user declared location data is not available
+                value:
+                 id: analytics.device-profile
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "successful"
+                 responseCode: OK
+                 result:
+                  ipLocation:
+                    state: Karnataka
+                    district: BENGALURU URBAN SOUTH
+               c:
+                summary: With only user declared data
+                description: provides only user declared loaction for given device id and ip based location is not resolved 
+                value:
+                 id: analytics.device-profile
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "successful"
+                 responseCode: OK
+                 result:
+                  userDeclaredLocation: 
+                    state: Karnataka
+                    district: BENGALURU URBAN SOUTH
+                  ipLocation:
+                    state: ""
+                    district: ""    
+               d:
+                summary: Without location data/Empty response
+                description: for given device id, ip based location is not resolved and user declared location data is not available
+                value:
+                 id: analytics.device-profile
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "successful"
+                 responseCode: OK
+                 result:
+                  ipLocation:
+                    state: ""
+                    district: ""      
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel free
+            to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceErrorResponse'
+components:
+  schemas:
+    RegisterDeviceRequest:
+      title: register device request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/Request'
+    Request:
+      title: Request
+      required:
+      - userId
+      type: object
+      properties:
+        dspec:
+          $ref: '#/components/schemas/dspec'
+        userDeclaredLocation:
+          $ref: '#/components/schemas/locationObject'  
+    dspec:
+      title: This represents the device specification details
+      type: object
+      properties:
+        os:
+          type: string
+          description: Device os data
+          example: Android 6.0
+        cpu:
+          type: string
+          description: Device cpu info
+          example: 'abi: armeabi-v7a  ARMv7 Processor rev 4 (v7l) '
+        scrn:
+          type: number
+          description: Device screen data
+          example: 5
+        sims:
+          type: number
+          description: Sim details of device
+          example: -1
+        id:
+          type: string
+          description: This is device unique ID
+          example: 2d994b152d314aca 
+        camera:
+          type: string
+          description: This is device camera info
+          example: 9.0,5.0 
+        make:
+          type: string
+          description: This is device make data
+          example: Motorola XT1706 
+        edisk:
+          type: number
+          description: This is device external disk info
+          example: 11 
+        idisk:
+          type: number
+          description: This is device internal disk info 
+          example: 11 
+        mem:
+          type: number
+          description: This is device memory info
+          example: -1   
+    locationObject:
+      title: userDeclaredLocation
+      required:
+      - state
+      type: object
+      properties:
+        state:
+          type: string
+          description: This is user decalred state value
+          example: Karnataka
+        district:
+          type: string
+          description: This is user decalred district value
+          example: BENGALURU URBAN SOUTH
+    DeviceRegisterResponse:
+      title: This is the response body when a device register API is called
+      allOf:
+      - $ref: '#/components/schemas/ApiResponse'
+      - $ref: '#/components/schemas/RegisterResponseResult'
+    RegisterResponseResult:
+      title: Device Register message
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            message:
+              type: string
+              description: This is device registeration message
+              example: Device registered successfully
+    DeviceProfileResponse:
+      title: This is the response body when a device register API is called
+      allOf:
+      - $ref: '#/components/schemas/ApiResponse'
+      - $ref: '#/components/schemas/ProfileResponseResult'
+    ProfileResponseResult:
+      title: Device Profile response
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            userDeclaredLocation:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/locationObject'
+            ipLocation:  
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/locationObject'  
+    DeviceErrorResponse:
+      title: API error response
+      allOf:
+      - $ref: '#/components/schemas/ApiErrorResponse'
+      - $ref: '#/components/schemas/EmptyResult'
+    EmptyResult:
+      title: Empty Result
+      type: object
+      properties:
+        result:
+          type: object
+          properties: {}
+    ApiRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents an API uniquely
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ts:
+          type: integer
+          description: 'Represents the timestamp(UTC) in string. Ex: 2020-11-27T08:50:55.365+00:00'
+        params:
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the unique ID of the message being sent
+    ApiResponse:
+      required:
+      - ts
+      - id
+      - params
+      - ver
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents the ID of the request which was made
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ts:
+          type: string
+          description: 'Represents the timestamp(UTC) in string. Ex: 2020-11-27T08:50:55.365+00:00'
+        params:
+          required:
+          - resmsgid
+          - status
+          type: object
+          properties:
+            resmsgid:
+              type: string
+              description: Represents the ID of the message sent
+            status:
+              type: string
+              enum:
+              - successful
+              - failed
+        responseCode:
+          type: string
+    ApiErrorResponse:
+      required:
+      - ts
+      - id
+      - params
+      - ver
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents the ID of the request which was made
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ts:
+          type: string
+          description: 'Represents the timestamp(UTC) in string. Ex: 2020-11-27T08:50:55.365+00:00'
+        params:
+          required:
+          - resmsgid
+          - status
+          type: object
+          properties:
+            resmsgid:
+              type: string
+              description: Represents the ID of the message sent
+              example: '5aa0115f-ad5e-4ab7-9bba-cd0f716dbe97'
+            err:
+              type: string
+              description: Represents the ID of the message sent
+              example: 'ERROR'
+            errmsg:
+              type: string
+              description: Represents the ID of the message sent
+              example: 'INTERNAL_SERVER_ERROR'
+            status:
+              type: string
+              example: failed
+        responseCode:
+          type: string      
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+    userToken:
+      type: apiKey
+      name: x-authenticated-user-token
+      in: header
