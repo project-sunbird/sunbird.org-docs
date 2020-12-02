@@ -38,6 +38,8 @@ They are categorized by resource type. Each resource type has one or more data r
             <!--<li><a href="apis/badgesapi/" target="_blank">User Badges </a></li>-->
             <li><a href="apis/noteapi/" target="_blank">User Notes </a></li>
             <li><a href="apis/badgingframeworkapi/" target="_blank">Badging Framework </a></li>
+            <li><a href="apis/tocapi/" target="_blank">TOC</a></li>
+            <li><a href="apis/groupactivityapi/" target="_blank">Group Activity Aggregator</a></li>
         </ul>
     </div>
     <div class="col-sm-4">
