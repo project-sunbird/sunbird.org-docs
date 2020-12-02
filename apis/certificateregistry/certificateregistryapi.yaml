@@ -3,9 +3,7 @@ info:
   title: Certificate Registry API's
   description: |- 
      This API is used to store,download and validate the course certificate.
-      - [TestCases](https://github.com/project-sunbird/certificate-registry/blob/master/service/test/controllers/CertificateControllerTest.java)
-      -  [PostManDoc](https://documenter.getpostman.com/view/4287737/TVmJiezY)
-
+      - [TestCases](https://app.getpostman.com/run-collection/6a5a786f8a0cfce13d0)
   version: "1.0"
 servers:
 - url: https://staging.open-sunbird.org/api
@@ -19,7 +17,8 @@ paths:
         This API allows you to add the  digitally generated certificates into the certificate registry.
            - All fields marked with an * are mandatory
            - Mandatory fields cannot be null or empty
-           - The request accepts id, accessCode , jsonData(the raw certificate json),related (courseId, batchId, type of the certificate, templateId(optional), pdfUrl) . If certificate should be reissused provide oldId
+           - The request accepts id, accessCode , jsonData(the raw certificate json,generated using cert/generate api ),related (courseId, batchId, type of the certificate, templateId(optional), pdfUrl) . If certificate should be reissused provide oldId
+           - Backend route : /certs/v1/registry/add 
       operationId: AddCertificateV1
       parameters:
       - name: ts
@@ -28,23 +27,8 @@ paths:
         required: false
         schema:
           type: string
-      - name: X-msgid
-        in: header
-        description: A unique ID that identifies the request, in case the same API
-          is executed multiple times.
-        required: false
-        style: simple
-        schema:
-          type: string
-          example: '{{Authorization}}'
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
-          to the administrator for the use of the API. You will receive the authorization
-          key. Specify the key received, here.
-        required: true
-        schema:
-          type: string
+      security: 
+        - bearer: []
       requestBody:
         description: The body refers to the format of the request. The body contains
           metadata about the request to add the certificate.
@@ -70,7 +54,7 @@ paths:
                   type: course-completion
                   batchId: batchId
                 jsonData:
-                  id: https://staging.ntp.net.in/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243
+                  id: https://staging.open-sunbird.org/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243
                   type:
                   - Assertion
                   - Extension
@@ -81,9 +65,9 @@ paths:
                     - id
                     hashed: false
                     name: Aishwarya
-                    '@context': https://staging.ntp.net.in/certs/v1/context.json
+                    '@context': https://staging.open-sunbird.org/certs/v1/context.json
                   badge:
-                    id: https://staging.ntp.net.in/certs/0125450863553740809/Badge.json
+                    id: https://staging.open-sunbird.org/certs/0125450863553740809/Badge.json
                     type:
                     - BadgeClass
                     name: Course Name
@@ -92,21 +76,21 @@ paths:
                       - Criteria
                       narrative: course completion certificate
                     issuer:
-                      context: https://staging.ntp.net.in/certs/v1/context.json
-                      id: https://staging.ntp.net.in/certs/Issuer.json
+                      context: https://staging.open-sunbird.org/certs/v1/context.json
+                      id: https://staging.open-sunbird.org/certs/Issuer.json
                       type:
                       - Issuer
                       name: Gujarat Council of Educational Research and Training
                       url: https://gcert.gujarat.gov.in/gcert/
-                    '@context': https://staging.ntp.net.in/certs/v1/context.json
+                    '@context': https://staging.open-sunbird.org/certs/v1/context.json
                   evidence:
-                    id: https://staging.ntp.net.in/certs/Evidence.json
+                    id: https://staging.open-sunbird.org/certs/Evidence.json
                     type:
                     - Evidence
                     - Extension
                     - extensions:TrainingEvidence
                     name: Course name
-                    '@context': https://staging.ntp.net.in/certs/v1/context.json
+                    '@context': https://staging.open-sunbird.org/certs/v1/context.json
                   verification:
                     type:
                     - hosted
@@ -119,10 +103,10 @@ paths:
                     hashed: false
                     designation: CEO
                     image: https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg
-                    '@context': https://staging.ntp.net.in/certs/v1/extensions/SignatoryExtension/context.json
-                  '@context': https://staging.ntp.net.in/certs/v1/context.json
-                jsonUrl: https://staging.ntp.net.in/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243.json
-                pdfUrl: https://staging.ntp.net.in/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243.pdf
+                    '@context': https://staging.open-sunbird.org/certs/v1/extensions/SignatoryExtension/context.json
+                  '@context': https://staging.open-sunbird.org/certs/v1/context.json
+                jsonUrl: https://staging.open-sunbird.org/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243.json
+                pdfUrl: https://staging.open-sunbird.org/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243.pdf
              b:
               summary: "Mandatory Param Missing Request"
               description: some fields are mandatory. in the above example json data is missing. if jsondata is not provide , will get 400 bad request in the response
@@ -243,16 +227,9 @@ paths:
            - All fields marked with an * are mandatory
            - Mandatory fields cannot be null or empty
            - The request accepts id, accessCode , jsonUrl, jsonData(the raw certificate json),related (courseId, batchId, type of the certificate, templateId(optional)). The difference between v1 and v2 are v1 expects pdfurl and v2 expects printUri(materialised svg string) in the jsonData
+           - Backend route : /certs/v2/registry/add 
+
       operationId: AddCertificateV2
-      parameters:
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{Authorization}}'
       requestBody:
         description: ''
         content:
@@ -277,7 +254,7 @@ paths:
                   templateId: templateId
                   completionUrl: completionUrl
                 jsonData:
-                  id: https://staging.ntp.net.in/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243
+                  id: https://staging.open-sunbird.org/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243
                   type:
                   - Assertion
                   - Extension
@@ -288,9 +265,9 @@ paths:
                     - id
                     hashed: false
                     name: Aishwarya
-                    '@context': https://staging.ntp.net.in/certs/v1/context.json
+                    '@context': https://staging.open-sunbird.org/certs/v1/context.json
                   badge:
-                    id: https://staging.ntp.net.in/certs/0125450863553740809/Badge.json
+                    id: https://staging.open-sunbird.org/certs/0125450863553740809/Badge.json
                     type:
                     - BadgeClass
                     name: CourseName
@@ -299,22 +276,22 @@ paths:
                       - Criteria
                       narrative: course completion certificate
                     issuer:
-                      context: https://staging.ntp.net.in/certs/v1/context.json
-                      id: https://staging.ntp.net.in/certs/Issuer.json
+                      context: https://staging.open-sunbird.org/certs/v1/context.json
+                      id: https://staging.open-sunbird.org/certs/Issuer.json
                       type:
                       - Issuer
                       name: Gujarat Council of Educational Research and Training
                       url: https://gcert.gujarat.gov.in/gcert/
                       publicKey: []
-                    '@context': https://staging.ntp.net.in/certs/v1/context.json
+                    '@context': https://staging.open-sunbird.org/certs/v1/context.json
                   evidence:
-                    id: https://staging.ntp.net.in/certs/Evidence.json
+                    id: https://staging.open-sunbird.org/certs/Evidence.json
                     type:
                     - Evidence
                     - Extension
                     - extensions:TrainingEvidence
                     name: CourseName
-                    '@context': https://staging.ntp.net.in/certs/v1/context.json
+                    '@context': https://staging.open-sunbird.org/certs/v1/context.json
                   verification:
                     type:
                     - hosted
@@ -327,10 +304,10 @@ paths:
                     hashed: false
                     designation: CEO
                     image: https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg
-                    '@context': https://staging.ntp.net.in/certs/v1/extensions/SignatoryExtension/context.json
+                    '@context': https://staging.open-sunbird.org/certs/v1/extensions/SignatoryExtension/context.json
                   printUri: ''
-                  '@context': https://staging.ntp.net.in/certs/v1/context.json
-                jsonUrl: https://staging.ntp.net.in/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243.json
+                  '@context': https://staging.open-sunbird.org/certs/v1/context.json
+                jsonUrl: https://staging.open-sunbird.org/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243.json
              b:
               summary: "Mandatory Param Missing Request"
               value: 
@@ -439,7 +416,10 @@ paths:
                 result:
                   message: Process failed,please try again later.
       deprecated: false
-      security: []
+      security:
+      - bearer: []
+      - userToken: []
+        
   /certreg/v1/certs/download:
     post:
       tags:
@@ -450,6 +430,7 @@ paths:
            - All fields marked with an * are mandatory
            - The mandatory fields cannot be null or empty
            - the request accepts pdfUrl , during certificate generation pdfUrl will generated, and returns signed url
+           - Backend route: /certs/v1/registry/download
       operationId: download certificate
       parameters:
       - name: ts
@@ -466,16 +447,6 @@ paths:
         required: false
         schema:
           type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
-          to the administrator for the use of the API. You will receive the authorization
-          key. Specify the key received, here.
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{Authorization}}'
       requestBody:
         description: The body refers to the format of the request. The body contains
           metadata about the request to download the certificate.
@@ -490,7 +461,7 @@ paths:
                description: "Provide pdf Url, Get from certificate generate response "
                value:
                 request:
-                  pdfUrl: 'https://staging.ntp.net.in/certs/0125450863553740809/0baa0938-f814-460a-bddb-09519507b6e1.pdf'
+                  pdfUrl: 'https://staging.open-sunbird.org/certs/0125450863553740809/0baa0938-f814-460a-bddb-09519507b6e1.pdf'
               b:
                summary: "Mandatory Param pdfUrl Missing"
                description: "PdfUrl is mandatory"
@@ -541,8 +512,21 @@ paths:
               schema:
                 allOf:
                 - $ref: '#/components/schemas/500ServerError'
+              example:
+                id: api.certs.registry.download
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      security:
+      - bearer: []
 
-      x-codegen-request-body-name: Body
   /certreg/v2/certs/download/{certId}:
     get:
       tags:
@@ -553,6 +537,8 @@ paths:
            - All fields marked with an * are mandatory
            - The mandatory fields cannot be null or empty
            - Based on Id provided in the url, returns printUri (materialised svg string)
+           - Backend route: /certs/v2/registry/download
+
       operationId: DownloadCertificate(v2)
       parameters:
       - name: certId
@@ -562,14 +548,6 @@ paths:
         style: simple
         schema:
           type: string
-      - name: Authorization
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{Authorization}}'
       - name: Content-Type
         in: header
         description: ''
@@ -617,8 +595,22 @@ paths:
               schema:
                 allOf:
                 - $ref: '#/components/schemas/500ServerError'
+              example:
+                id: api.certs.registry.download
+                ver: v2
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
       deprecated: false
-      security: []
+      security:
+      - bearer: []
+      
   /certreg/v1/certs/read/{certId}: 
     get:
       tags:
@@ -629,7 +621,7 @@ paths:
            - All fields marked with an * are mandatory
            - The mandatory fields cannot be null or empty
            - Returns certificate json data, pdfUrl, related params
-          
+           - Backend route : /certs/v1/registry/read/:certId
       operationId: Read certificate
       parameters:
       - name: certId
@@ -651,14 +643,6 @@ paths:
           is executed multiple times.
         schema:
           type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{Authorization}}'
       responses:
         200:
           description: OK! Operation successful."Certificate read" operation was executed
@@ -717,7 +701,22 @@ paths:
               schema:
                 allOf:
                 - $ref: '#/components/schemas/500ServerError'
+              example:
+                id: api.certs.registry.read
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      security:
+      - bearer: []
       deprecated: false
+      
   /certreg/v1/certs/validate:
     post:
       tags:
@@ -728,18 +727,9 @@ paths:
            - All fields marked with an * are mandatory
            - Mandatory fields cannot be null or empty
            - Request body expects certificate id and accesscode, Validates the certificate id matches the access code supplied and if matches  returns raw certificate json data else returns error message
+           - Backend route : /certs/v1/registry/validate
+
       operationId: validate certificate
-      parameters:
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
-          to the administrator for the use of the API. You will receive the authorization
-          key. Specify the key received, here.
-        required: true
-        schema:
-          type: string
-          example: '{{Authorization}}'
-        style: simple
       requestBody:
         description: The body refers to the format of the request. The body contains
           metadata about the request to validate the certificate.
@@ -805,12 +795,6 @@ paths:
                   id: api.certs.registry.validate
                   ver: v1
                   ts: timestamp
-                  params:
-                   resmsgid: <string>
-                   msgid: <string>
-                   err: <string>
-                   status: <string>
-                   errmsg: <string>
                   responseCode: CLIENT_ERROR
                   result: 
                    message: value can not be empty for mandatory param accessCode
@@ -820,13 +804,7 @@ paths:
                 value:
                   id: api.certs.registry.validate
                   ver: v1
-                  ts: timestamp
-                  params:
-                   resmsgid: <string>
-                   msgid: <string>
-                   err: <string>
-                   status: <string>
-                   errmsg: <string>
+                  ts: '2020-11-23 15:15:18:331+0000'
                   responseCode: CLIENT_ERROR
                   result: 
                    message: PROVIDED ID {certId} AND ACCESS CODE {accesCode} COMBINATION DOES NOT EXISTS"
@@ -839,7 +817,20 @@ paths:
               schema:
                 allOf:
                 - $ref: '#/components/schemas/500ServerError'
-      x-codegen-request-body-name: Body
+              example:
+                id: api.certs.registry.validate
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      security:
+      - bearer: []
   /certreg/v1/certs/verify:
     post:
       tags:
@@ -853,6 +844,8 @@ paths:
            - Request expects raw certificate data and id . This is to verify the JSON certificate data. Verifies certificate signature value and expiry date.
            - The certificate contains a signature in the signature field. The signature is encrypted using the awarding body's(Issuer) private key. Signature is verified by using encryption service verify API which takes signature value, issuer's public key id, and certificate object in the request and returns "true" if the signature is valid else "false"
            - If a certificate contains an expiry date, The expiry date is compared with the current date. and checks whether the certificate is expired or not
+           - Backend route : /certs/v1/registry/verify
+
       operationId: verify certificate
       parameters:
       - name: ts
@@ -867,14 +860,6 @@ paths:
         description: A unique ID that identifies the request, in case the same API
           is executed multiple times.
         required: false
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
-          to the administrator for the use of the API. You will receive the authorization
-          key. Specify the key received, here.
-        required: true
         schema:
           type: string
       requestBody:
@@ -978,7 +963,8 @@ paths:
               schema:
                 allOf:
                 - $ref: '#/components/schemas/500ServerError'
-      x-codegen-request-body-name: Body
+      security:
+      - bearer: [] 
   /certreg/v1/certs/search:
     post:
       tags:
@@ -991,7 +977,8 @@ paths:
         \ or empty\n   - This API is a wrapper for ElasticSearch. Hence, the manner\
         \ in which the search request is sent to ElasticSearch, the same way it is\
         \ sent to the search API inside the request object.\n   - The system does\
-        \ not validate the request. "
+        \ not validate the request.  \n - Backend route : /certs/v1/registry/validate"
+
       operationId: Search certificate
       parameters:
       - name: ts
@@ -1004,14 +991,6 @@ paths:
         in: header
         description: A unique ID that identifies the request, in case the same API
           is executed multiple times.
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
-          to the administrator for the use of the API. You will receive the authorization
-          key. Specify the key received, here.
-        required: true
         schema:
           type: string
       requestBody:
@@ -1060,22 +1039,22 @@ paths:
                     - _index: certv3
                       _type: _doc
                       _source:
-                        pdfUrl: string
+                        pdfUrl: pdfURl
                         related:
-                          type: string
-                          batchId: string
-                          courseId: string
-                      _id: string
+                          type: completion certificate
+                          batchId: batchId
+                          courseId: batchId
+                      _id: 8a6d6cc2-16ee-4e7a-a4d1-d74d7523424
                       _score: 55.460940000000001
                     - _index: certv3
                       _type: _doc
                       _source:
                         pdfUrl: string
                         related:
-                          type: string
-                          batchId: string
-                          courseId: string
-                      _id: string
+                          type: completion certificate
+                          batchId: batchId
+                          courseId: batchId
+                      _id: 8a6d6cc2-16ee-4e7a-a4d1-d74d7523222
                       _score: 55.460940000000001
                     count: 2
         400:
@@ -1094,7 +1073,8 @@ paths:
               schema:
                 allOf:
                 - $ref: '#/components/schemas/500ServerError'
-      x-codegen-request-body-name: Body
+      security:
+      - bearer: []
 components:
   schemas:
     ReadCertificateRes404:
@@ -1657,7 +1637,7 @@ components:
             templateId: templateId
             completionUrl: completionUrl
           jsonData:
-            id: https://staging.ntp.net.in/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243
+            id: https://staging.open-sunbird.org/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243
             type:
             - Assertion
             - Extension
@@ -1668,9 +1648,9 @@ components:
               - id
               hashed: false
               name: Aishwarya
-              '@context': https://staging.ntp.net.in/certs/v1/context.json
+              '@context': https://staging.open-sunbird.org/certs/v1/context.json
             badge:
-              id: https://staging.ntp.net.in/certs/0125450863553740809/Badge.json
+              id: https://staging.open-sunbird.org/certs/0125450863553740809/Badge.json
               type:
               - BadgeClass
               name: Course Name
@@ -1679,22 +1659,22 @@ components:
                 - Criteria
                 narrative: course completion certificate
               issuer:
-                context: https://staging.ntp.net.in/certs/v1/context.json
-                id: https://staging.ntp.net.in/certs/Issuer.json
+                context: https://staging.open-sunbird.org/certs/v1/context.json
+                id: https://staging.open-sunbird.org/certs/Issuer.json
                 type:
                 - Issuer
                 name: Gujarat Council of Educational Research and Training
                 url: https://gcert.gujarat.gov.in/gcert/
                 publicKey: []
-              '@context': https://staging.ntp.net.in/certs/v1/context.json
+              '@context': https://staging.open-sunbird.org/certs/v1/context.json
             evidence:
-              id: https://staging.ntp.net.in/certs/Evidence.json
+              id: https://staging.open-sunbird.org/certs/Evidence.json
               type:
               - Evidence
               - Extension
               - extensions:TrainingEvidence
               name: CourseName
-              '@context': https://staging.ntp.net.in/certs/v1/context.json
+              '@context': https://staging.open-sunbird.org/certs/v1/context.json
             verification:
               type:
               - hosted
@@ -1707,10 +1687,10 @@ components:
               hashed: false
               designation: CEO
               image: https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg
-              '@context': https://staging.ntp.net.in/certs/v1/extensions/SignatoryExtension/context.json
+              '@context': https://staging.open-sunbird.org/certs/v1/extensions/SignatoryExtension/context.json
             printUri: ''
-            '@context': https://staging.ntp.net.in/certs/v1/context.json
-          jsonUrl: https://staging.ntp.net.in/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243.json
+            '@context': https://staging.open-sunbird.org/certs/v1/context.json
+          jsonUrl: https://staging.open-sunbird.org/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243.json
   securitySchemes:
     bearer:
       type: apiKey
