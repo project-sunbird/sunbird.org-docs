@@ -18,7 +18,7 @@ paths:
     get:
       tags:
         - Course Batch APIs
-      summary: CourseBatchRead
+      summary: CourseBatch Read
       description: |-
         Fetch a particular Batch
         This API is associated with fetching a particular batch on the Sunbird Platform.
@@ -188,7 +188,7 @@ paths:
     patch:
       tags:
         - Course Batch APIs
-      summary: CourseBatchUpdate
+      summary: CourseBatch Update
       description: |-
         This API is associated with updating a batch on the Sunbird Platform.
         The endpoint for Course Batch Update is /batch/update
@@ -303,7 +303,7 @@ paths:
     post:
       tags:
         - Course Batch APIs
-      summary: CourseBatchSearch
+      summary: CourseBatch Search
       description: |-
         Lists the existing batches
         This API is associated with fetching and listing existing batches
@@ -478,7 +478,7 @@ paths:
     post:
       tags:
         - Course Batch APIs
-      summary: CourseBatchCreate
+      summary: CourseBatch Create
       description: |-
         This API is associated with batch creation
         The endpoint for Creates a Batch is /batch/create
@@ -559,26 +559,66 @@ paths:
               schema:
                 $ref: '#/components/schemas/CourseBatchCreate-400BadRequest-InvalidCourseId'
               examples:
-                Invalid_CourseId:
+                a:
                   summary: Invalid_CourseId
                   description: Response example when invalid course id got passed into request
                   value:
-                    $ref: '#/components/schemas/CourseBatchCreate-400BadRequest-InvalidCourseId/example'
-                Mandatory_Parameter_Missing:
+                    id: api.course.batch.create
+                    ver: v1
+                    ts: '2020-11-23 06:40:48:878+0000'
+                    params:
+                      resmsgid: null
+                      msgid: e85a4592-7458-4506-a3e3-0dc00d923616
+                      err: INVALID_COURSE_ID
+                      status: INVALID_COURSE_ID
+                      errmsg: Course doesnot exist. Please provide a valid course identifier
+                    responseCode: CLIENT_ERROR
+                    result: {}
+                b:
                   summary: Mandatory_Parameter_Missing
                   description: Response example for any parameter is missing into request
                   value:
-                    $ref: '#/components/schemas/CourseBatchCreate-400BadRequest-Mandatory_Parameter_Missing/example'
-                Invalid_Batch_Start_Date:
+                    id: api.course.batch.create
+                    ver: v1
+                    ts: '2020-11-23 06:40:48:878+0000'
+                    params:
+                      resmsgid: null
+                      msgid: 4bc18ba9-0f3a-44ad-884a-d8b15c5680d1
+                      err: MANDATORY_PARAMETER_MISSING
+                      status: MANDATORY_PARAMETER_MISSING
+                      errmsg: Mandatory parameter courseId/collectionId is missing.
+                    responseCode: CLIENT_ERROR
+                    result: {}
+                c:
                   summary: Invalid_Batch_Start_Date
                   description: Response example for invalid batch start date
                   value:
-                    $ref: '#/components/schemas/CourseBatchCreate-400BadRequest-Invalid_Batch_Start_Date/example'
-                Invalid_Batch_End_Date:
+                    id: api.course.batch.create
+                    ver: v1
+                    ts: '2020-11-23 06:40:48:878+0000'
+                    params:
+                      resmsgid: null
+                      msgid: 358e9376-0eb4-426b-903f-42a0a5235c39
+                      err: COURSE_BATCH_START_DATE_INVALID
+                      status: COURSE_BATCH_START_DATE_INVALID
+                      errmsg: Batch start date should be either today or future date.
+                    responseCode: CLIENT_ERROR
+                    result: {}
+                d:
                   summary: Invalid_Batch_End_Date
                   description: Response example for invalid batch end date
                   value:
-                    $ref: '#/components/schemas/CourseBatchCreate-400BadRequest-Invalid_Batch_End_Date/example'
+                    id: api.course.batch.create
+                    ver: v1
+                    ts: '2020-11-23 06:40:48:878+0000'
+                    params:
+                      resmsgid: null
+                      msgid: 40e5e6c9-3777-4a15-b820-124f974dc202
+                      err: END_DATE_ERROR
+                      status: END_DATE_ERROR
+                      errmsg: End date should be greater than start date.
+                    responseCode: CLIENT_ERROR
+                    result: {}
         '500':
           description: Internal Server Error
           content:
@@ -1624,114 +1664,6 @@ components:
           err: INVALID_COURSE_ID
           status: INVALID_COURSE_ID
           errmsg: Course doesnot exist. Please provide a valid course identifier
-        responseCode: CLIENT_ERROR
-        result: {}
-    CourseBatchCreate-400BadRequest-Mandatory_Parameter_Missing:
-      title: CourseBatchCreate-400BadRequest-Mandatory_Parameter_Missing
-      description: CourseBatchCreate-400BadRequest-Mandatory_Parameter_Missing
-      required:
-        - id
-        - ver
-        - ts
-        - params
-        - responseCode
-        - result
-      type: object
-      properties:
-        id:
-          type: string
-        ver:
-          type: string
-        ts:
-          type: string
-        params:
-          $ref: '#/components/schemas/Params1'
-        responseCode:
-          type: string
-        result:
-          type: object
-      example:
-        id: api.course.batch.create
-        ver: v1
-        ts: '2020-11-23 06:40:48:878+0000'
-        params:
-          resmsgid: null
-          msgid: 4bc18ba9-0f3a-44ad-884a-d8b15c5680d1
-          err: MANDATORY_PARAMETER_MISSING
-          status: MANDATORY_PARAMETER_MISSING
-          errmsg: Mandatory parameter courseId/collectionId is missing.
-        responseCode: CLIENT_ERROR
-        result: {}
-    CourseBatchCreate-400BadRequest-Invalid_Batch_Start_Date:
-      title: CourseBatchCreate-400BadRequest-Invalid_Batch_Start_Date
-      description: CourseBatchCreate-400BadRequest-Invalid_Batch_Start_Date
-      required:
-        - id
-        - ver
-        - ts
-        - params
-        - responseCode
-        - result
-      type: object
-      properties:
-        id:
-          type: string
-        ver:
-          type: string
-        ts:
-          type: string
-        params:
-          $ref: '#/components/schemas/Params1'
-        responseCode:
-          type: string
-        result:
-          type: object
-      example:
-        id: api.course.batch.create
-        ver: v1
-        ts: '2020-11-23 06:40:48:878+0000'
-        params:
-          resmsgid: null
-          msgid: 358e9376-0eb4-426b-903f-42a0a5235c39
-          err: COURSE_BATCH_START_DATE_INVALID
-          status: COURSE_BATCH_START_DATE_INVALID
-          errmsg: Batch start date should be either today or future date.
-        responseCode: CLIENT_ERROR
-        result: {}
-    CourseBatchCreate-400BadRequest-Invalid_Batch_End_Date:
-      title: CourseBatchCreate-400BadRequest-Invalid_Batch_End_Date
-      description: CourseBatchCreate-400BadRequest-Invalid_Batch_End_Date
-      required:
-        - id
-        - ver
-        - ts
-        - params
-        - responseCode
-        - result
-      type: object
-      properties:
-        id:
-          type: string
-        ver:
-          type: string
-        ts:
-          type: string
-        params:
-          $ref: '#/components/schemas/Params1'
-        responseCode:
-          type: string
-        result:
-          type: object
-      example:
-        id: api.course.batch.create
-        ver: v1
-        ts: '2020-11-23 06:40:48:878+0000'
-        params:
-          resmsgid: null
-          msgid: 40e5e6c9-3777-4a15-b820-124f974dc202
-          err: END_DATE_ERROR
-          status: END_DATE_ERROR
-          errmsg: End date should be greater than start date.
         responseCode: CLIENT_ERROR
         result: {}
     CourseBatchCreate-500InternalServerError:
