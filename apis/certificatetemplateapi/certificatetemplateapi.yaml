@@ -5,9 +5,9 @@ info:
               - [TestCases](https://app.getpostman.com/run-collection/9d9053de65748c341609)
   version: "1.0"
 servers:
-- url: https://staging.open-sunbird.org/api/cert/v1
+- url: https://staging.open-sunbird.org/api
 paths:
-  /template/create:
+  /cert/v1/template/create:
     post:
       tags:
       - Certificate Template API
@@ -18,34 +18,13 @@ paths:
            - All fields marked with an * are mandatory
            - Required fields cannot be null or empty
            - Accepts certificate template name , template , description etc
+           - Backend Route: http://cert-service:9000/cert/v1/template/create
       operationId: CreateCertificateTemplate
       parameters:
       - name: Content-Type
         in: header
         description: The content type entity is the media type of the resource. Possible
           media types can be Application/json
-        required: true
-        schema:
-          type: string
-      - name: ts
-        in: header
-        description: 'The timestamp at which the **Create certificate template** request
-          was sent. '
-        required: false
-        schema:
-          type: string
-      - name: X-msgid
-        in: header
-        description: A unique ID that identifies the request, in case the same API
-          is executed multiple times.
-        required: false
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
-          to the administrator for the use of the API. You will receive the authorization
-          key. Specify the key received, here.
         required: true
         schema:
           type: string
@@ -149,8 +128,10 @@ paths:
                 responseCode: SERVER_ERROR
                 result:
                   message: Process failed,please try again later.
-      x-codegen-request-body-name: Body
-  /template/update/{templateId}:
+      security:
+      - bearer: []
+
+  /cert/v1/template/update/{templateId}:
     patch:
       tags:
       - Certificate Template API
@@ -160,6 +141,8 @@ paths:
            - The **_ /template/update_** endpoint updates the certificate template.
            - All fields marked with an * are mandatory
            - Required fields cannot be null or empty
+           - Backend Route: http://cert-service:9000/cert/v1/template/update/:templateId
+           
       operationId: UpdateCertificateTemplate
       parameters:
       - name: templateId
@@ -172,35 +155,6 @@ paths:
         in: header
         description: The Content Type entity is the media type of the resource.Possible
           media types can be Application/json
-        required: true
-        schema:
-          type: string
-      - name: ts
-        in: header
-        description: 'The timestamp at which the **update certificate template** request
-          was sent. '
-        required: true
-        schema:
-          type: string
-      - name: X-msgid
-        in: header
-        description: A unique ID that identifies the request, in case the same API
-          is executed multiple times.
-        required: true
-        schema:
-          type: string
-      - name: x-authenticated-user-token
-        in: header
-        description: The access token of the registered user sending the given API
-          request. This is an alphanumeric string.
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
-          to the administrator for the use of the API. You will receive the authorization
-          key. Specify the key received, here.
         required: true
         schema:
           type: string
@@ -271,9 +225,10 @@ paths:
                 responseCode: SERVER_ERROR
                 result:
                   message: Process failed,please try again later.
-          
-      x-codegen-request-body-name: Body
-  /template/read/{templateId}:
+      security:
+      - bearer: []
+
+  /cert/v1/template/read/{templateId}:
     get:
       tags:
       - Certificate Template API
@@ -283,6 +238,7 @@ paths:
            - The **_ /template/read_** endpoint fetches the certificate template.
            - All fields marked with an * are mandatory
            - Required fields cannot be null or empty
+           - Backend Route: http://cert-service:9000/cert/v1/template/read/:templateId
       operationId: GetCertificateTemplate
       parameters:
       - name: templateId
@@ -295,28 +251,6 @@ paths:
         in: header
         description: The Content Type entity is the media type of the resource.Possible
           media types can be Application/json
-        required: true
-        schema:
-          type: string
-      - name: ts
-        in: header
-        description: 'The timestamp at which the **read certificate template** request
-          was sent. '
-        required: true
-        schema:
-          type: string
-      - name: X-msgid
-        in: header
-        description: A unique ID that identifies the request, in case the same API
-          is executed multiple times.
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
-          to the administrator for the use of the API. You will receive the authorization
-          key. Specify the key received, here.
         required: true
         schema:
           type: string
@@ -385,6 +319,9 @@ paths:
                 responseCode: SERVER_ERROR
                 result:
                   message: Process failed,please try again later.
+      security:
+      - bearer: []        
+
 components:
   schemas:
     AddCertificateTemplateRequest:

@@ -18,7 +18,7 @@ paths:
            - All fields marked with an * are mandatory
            - Mandatory fields cannot be null or empty
            - The request accepts id, accessCode , jsonData(the raw certificate json,generated using cert/generate api ),related (courseId, batchId, type of the certificate, templateId(optional), pdfUrl) . If certificate should be reissused provide oldId
-           - Backend route : /certs/v1/registry/add 
+           - Backend route : http://cert-registry-service:9000/certs/v1/registry/add 
       operationId: AddCertificateV1
       parameters:
       - name: ts
@@ -64,7 +64,7 @@ paths:
                     type:
                     - id
                     hashed: false
-                    name: Aishwarya
+                    name: userName
                     '@context': https://staging.open-sunbird.org/certs/v1/context.json
                   badge:
                     id: https://staging.open-sunbird.org/certs/0125450863553740809/Badge.json
@@ -80,7 +80,7 @@ paths:
                       id: https://staging.open-sunbird.org/certs/Issuer.json
                       type:
                       - Issuer
-                      name: Gujarat Council of Educational Research and Training
+                      name: issuer name
                       url: https://gcert.gujarat.gov.in/gcert/
                     '@context': https://staging.open-sunbird.org/certs/v1/context.json
                   evidence:
@@ -227,7 +227,7 @@ paths:
            - All fields marked with an * are mandatory
            - Mandatory fields cannot be null or empty
            - The request accepts id, accessCode , jsonUrl, jsonData(the raw certificate json),related (courseId, batchId, type of the certificate, templateId(optional)). The difference between v1 and v2 are v1 expects pdfurl and v2 expects printUri(materialised svg string) in the jsonData
-           - Backend route : /certs/v2/registry/add 
+           - Backend route : http://cert-registry-service:9000/certs/v2/registry/add 
 
       operationId: AddCertificateV2
       requestBody:
@@ -264,7 +264,7 @@ paths:
                     type:
                     - id
                     hashed: false
-                    name: Aishwarya
+                    name: userName
                     '@context': https://staging.open-sunbird.org/certs/v1/context.json
                   badge:
                     id: https://staging.open-sunbird.org/certs/0125450863553740809/Badge.json
@@ -280,7 +280,7 @@ paths:
                       id: https://staging.open-sunbird.org/certs/Issuer.json
                       type:
                       - Issuer
-                      name: Gujarat Council of Educational Research and Training
+                      name: issure name
                       url: https://gcert.gujarat.gov.in/gcert/
                       publicKey: []
                     '@context': https://staging.open-sunbird.org/certs/v1/context.json
@@ -418,7 +418,6 @@ paths:
       deprecated: false
       security:
       - bearer: []
-      - userToken: []
         
   /certreg/v1/certs/download:
     post:
@@ -430,7 +429,7 @@ paths:
            - All fields marked with an * are mandatory
            - The mandatory fields cannot be null or empty
            - the request accepts pdfUrl , during certificate generation pdfUrl will generated, and returns signed url
-           - Backend route: /certs/v1/registry/download
+           - Backend route: http://cert-registry-service:9000/certs/v1/registry/download
       operationId: download certificate
       parameters:
       - name: ts
@@ -537,7 +536,7 @@ paths:
            - All fields marked with an * are mandatory
            - The mandatory fields cannot be null or empty
            - Based on Id provided in the url, returns printUri (materialised svg string)
-           - Backend route: /certs/v2/registry/download
+           - Backend route: http://cert-registry-service:9000/certs/v2/registry/download
 
       operationId: DownloadCertificate(v2)
       parameters:
@@ -621,7 +620,7 @@ paths:
            - All fields marked with an * are mandatory
            - The mandatory fields cannot be null or empty
            - Returns certificate json data, pdfUrl, related params
-           - Backend route : /certs/v1/registry/read/:certId
+           - Backend route : http://cert-registry-service:9000/certs/v1/registry/read/:certId
       operationId: Read certificate
       parameters:
       - name: certId
@@ -727,7 +726,7 @@ paths:
            - All fields marked with an * are mandatory
            - Mandatory fields cannot be null or empty
            - Request body expects certificate id and accesscode, Validates the certificate id matches the access code supplied and if matches  returns raw certificate json data else returns error message
-           - Backend route : /certs/v1/registry/validate
+           - Backend route : http://cert-registry-service:9000/certs/v1/registry/validate
 
       operationId: validate certificate
       requestBody:
@@ -831,6 +830,7 @@ paths:
                 result: {}
       security:
       - bearer: []
+  
   /certreg/v1/certs/verify:
     post:
       tags:
@@ -844,7 +844,7 @@ paths:
            - Request expects raw certificate data and id . This is to verify the JSON certificate data. Verifies certificate signature value and expiry date.
            - The certificate contains a signature in the signature field. The signature is encrypted using the awarding body's(Issuer) private key. Signature is verified by using encryption service verify API which takes signature value, issuer's public key id, and certificate object in the request and returns "true" if the signature is valid else "false"
            - If a certificate contains an expiry date, The expiry date is compared with the current date. and checks whether the certificate is expired or not
-           - Backend route : /certs/v1/registry/verify
+           - Backend route : http://cert-registry-service:9000/certs/v1/registry/verify
 
       operationId: verify certificate
       parameters:
@@ -965,6 +965,7 @@ paths:
                 - $ref: '#/components/schemas/500ServerError'
       security:
       - bearer: [] 
+  
   /certreg/v1/certs/search:
     post:
       tags:
@@ -977,7 +978,7 @@ paths:
         \ or empty\n   - This API is a wrapper for ElasticSearch. Hence, the manner\
         \ in which the search request is sent to ElasticSearch, the same way it is\
         \ sent to the search API inside the request object.\n   - The system does\
-        \ not validate the request.  \n - Backend route : /certs/v1/registry/validate"
+        \ not validate the request.  \n - Backend route : http://cert-registry-service:9000/certs/v1/registry/validate"
 
       operationId: Search certificate
       parameters:
@@ -1647,7 +1648,7 @@ components:
               type:
               - id
               hashed: false
-              name: Aishwarya
+              name: userName
               '@context': https://staging.open-sunbird.org/certs/v1/context.json
             badge:
               id: https://staging.open-sunbird.org/certs/0125450863553740809/Badge.json
@@ -1663,7 +1664,7 @@ components:
                 id: https://staging.open-sunbird.org/certs/Issuer.json
                 type:
                 - Issuer
-                name: Gujarat Council of Educational Research and Training
+                name: issuer name
                 url: https://gcert.gujarat.gov.in/gcert/
                 publicKey: []
               '@context': https://staging.open-sunbird.org/certs/v1/context.json

@@ -6,19 +6,20 @@ info:
         - [Testcases](https://app.getpostman.com/run-collection/4d683e7b17b98026c267)
   version: "1.0"
 servers:
-- url: https://staging.open-sunbird.org/api/certs
+- url: https://staging.open-sunbird.org/api
 paths:
-  /v1/generate:
+  /certs/v1/generate:
     post:
       tags:
       - Certificate Api
-      summary: certificate generation
+      summary: certificate generation (pdf)
       description: |-
         This API is associated with digitally certificate generation.
            - The **_ /generate_** endpoint executes the "Certificate" request based on parameters provided as metadata in the request body to be replaced by appropriate Id
            - Required fields cannot be left null or empty
            - Request expects, array of data object which includes recipient Name, email, id and phone, Certificate name and description, signatory list, issuer name and url,htmlTemplate(html template zip url)  certificate logo, courseName. If certificate should signed , then pass signKeys(keys.id)
            - Response returns , id ( The unique identifier to this certificate) jsonUrl, pdfUrl, data (raw certificate json), accesCode (code to access the certificate)
+           - Backend Route: http://cert-service:9000/v1/certs/generate
       operationId: GeneratePost
       parameters:
       - name: X-Channel-ID
@@ -271,18 +272,21 @@ paths:
                   errmsg: 'Process failed,please try again later.'
                 responseCode: SERVER_ERROR
                 result: {}
-      x-codegen-request-body-name: Body
-  /v2/generate:
+      security:
+      - bearer: []
+
+  /certs/v2/generate:
     post:
       tags:
       - Certificate Api
-      summary: certificate generation
+      summary: certificate generation (svg)
       description: |-
         This API is associated with digitally certificate generation.
            - The **_ /v2/generate_** endpoint executes the "Certificate" request based on parameters provided as metadata in the request body to be replaced by appropriate Id
            - Required fields cannot be left null or empty
            - Request expects, array of data object which includes recipient Name, email, id and phone,svgTemplate url, Certificate name and description, signatory list, issuer name and url, certificate logo, courseName. If certificate should signed , then pass signKeys(keys.id)
            - Response returns , id ( The unique identifier to this certificate) jsonUrl, pdfUrl, data (raw certificate json, with materialized svg string **printUri**), accesCode (code to access the certificate)
+           - Backend Route: http://cert-service:9000/v2/certs/generate
       operationId: SVGCertificate
       parameters:
       - name: X-Channel-ID
@@ -297,14 +301,6 @@ paths:
         description: "The Content Type entity is the media type of the resource.\n\
           \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
           \   - Application/x-www-form-urlencoded"
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: All User APIs require authorization for use. Specify the authorization
-          key received from the administrator when placing the request for use of
-          the API.
         required: true
         schema:
           type: string
@@ -456,7 +452,7 @@ paths:
                             id: 'https://staging.open-sunbird.org/certs/Issuer.json'
                             type:
                               - Issuer
-                            name: Gujarat Council of Educational Research and Training
+                            name: issuer name
                             url: 'https: //gcert.gujarat.gov.in/gcert/'
                           '@context': 'https://staging.open-sunbird.org/certs/v1/context.json'
                         evidence:
@@ -533,7 +529,8 @@ paths:
                   errmsg: 'Process failed,please try again later.'
                 responseCode: SERVER_ERROR
                 result: {}
-      x-codegen-request-body-name: Body
+      security:
+      - bearer: []
 components:
   schemas:
     GenerateCertificateRequest:
