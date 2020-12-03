@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Program_API's
-  description: 'These are the API used to do all the stufs about program like creating, updating and some more operations '
+  description: 'These are the API used to do all the operations about program like creating, updating and some more operations '
   contact: {}
   version: '1.0'
 servers:
@@ -24,6 +24,14 @@ paths:
           type: string
           example: keep-alive
       - name: Pragma
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: no-cache
+      - name: Cache-Control
         in: header
         description: ''
         required: true
@@ -162,7 +170,6 @@ paths:
                   - English
                   - Hindi
                   - Tamil
-                 
                   gradeLevel:
                   - Class 1
                   - Class 10
@@ -182,7 +189,6 @@ paths:
                   - Geography
                   - History
                   - Tamil
-                 
         required: true
       responses:
         200:
@@ -430,6 +436,26 @@ paths:
                       gradeLevel: '["Class 10", "Class 1", "Class 7"]'
                       medium: '["English", "Hindi"]'
                     matchCount: 8
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error-400'
+              example:
+                id: api.v1.list
+                ver: 1.0
+                ts: 2020-12-03T06:09:58.651Z
+                params:
+                  resmsgid: 2bead4b0-352e-11eb-86c8-875983bcd642
+                  msgid: 
+                  status: failed
+                  err: ERR_GET_PROGRAM_DATA
+                  errmsg: Required fields to get program are missing
+                responseCode: CLIENT_ERROR
+                result: {}
+        500:
+          description: Internal Server Error
       deprecated: false
 components:
   schemas:
@@ -496,7 +522,6 @@ components:
           - English
           - Hindi
           - Tamil
-          - null
           gradeLevel:
           - Class 1
           - Class 10
@@ -516,8 +541,6 @@ components:
           - Geography
           - History
           - Tamil
-          - null
-          - null
     Filters:
       title: Filters
       required:
@@ -576,7 +599,6 @@ components:
         - English
         - Hindi
         - Tamil
-        - null
         gradeLevel:
         - Class 1
         - Class 10
@@ -596,8 +618,68 @@ components:
         - Geography
         - History
         - Tamil
-        - null
-        - null
+    Error-400:
+      title: Error-400
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          type: object
+      example:
+        id: api.v1.list
+        ver: 1.0
+        ts: 2020-12-03T06:09:58.651Z
+        params:
+          resmsgid: 2bead4b0-352e-11eb-86c8-875983bcd642
+          msgid: 
+          status: failed
+          err: ERR_GET_PROGRAM_DATA
+          errmsg: Required fields to get program are missing
+        responseCode: CLIENT_ERROR
+        result: {}
+    Params:
+      title: Params
+      required:
+      - resmsgid
+      - msgid
+      - status
+      - err
+      - errmsg
+      type: object
+      properties:
+        resmsgid:
+          type: string
+        msgid:
+          type: string
+          nullable: true
+        status:
+          type: string
+        err:
+          type: string
+        errmsg:
+          type: string
+      example:
+        resmsgid: 2bead4b0-352e-11eb-86c8-875983bcd642
+        msgid: 
+        status: failed
+        err: ERR_GET_PROGRAM_DATA
+        errmsg: Required fields to get program are missing
     Success:
       title: Success
       required:
@@ -613,7 +695,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/Params1'
         responseCode:
           type: string
         result:
@@ -627,9 +709,123 @@ components:
           status: successful
           err: 
           errmsg: 
-        responseCode: OK    
-    Params:
-      title: Params
+        responseCode: OK
+        result:
+          programs:
+          - id: 13727
+            program_id: ba0f3ba0-19a9-11eb-81b1-659ec274e395
+            user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
+            organisation_id: 
+            status: Pending
+            content_types:
+            - Asset
+            collection_ids:
+            - do_1131395604521943041440
+            feedback: 
+            rolemapping: 
+            createdby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
+            updatedby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
+            createdon: 2020-11-02T12:05:02.373Z
+            updatedon: 2020-11-02T12:05:05.722Z
+            program:
+              program_id: ba0f3ba0-19a9-11eb-81b1-659ec274e395
+              name: aaa
+              type: public
+              collection_ids:
+              - do_11310770891570380814
+              - do_113108534623428608149
+              - do_113123388075057152110
+              - do_11311353404644556811
+              - do_113114880153911296165
+              - do_11312842715158937612
+              - do_113108536022335488152
+              content_types:
+              - Asset
+              target_collection_category: 
+              startdate: 2020-10-29T05:44:09.017Z
+              enddate: 2021-02-02T18:30:00Z
+              nomination_enddate: 2020-11-06T18:30:00Z
+              shortlisting_enddate: 2020-12-05T18:30:00Z
+              content_submission_enddate: 2021-01-09T18:30:00Z
+              image: 
+              status: Live
+              slug: sunbird
+              rolemapping: 
+              createdby: bf020396-0d7b-436f-ae9f-869c6780fc45
+              updatedby: 
+              createdon: 2020-10-29T05:44:09.016Z
+              updatedon: 2020-11-20T05:50:06.403Z
+              rootorg_id: 01307938306521497658
+              sourcing_org_name: Christ_University
+              channel: DIKSHA
+              template_id: template1
+              guidelines_url: 
+              subject: '["Mathematics", "Science", "Geography"]'
+              defaultContributeOrgReview: true
+              framework: ekstep_ncert_k-12
+              board: CBSE
+              gradeLevel: '["Class 1", "Class 3", "Class 9", "Class 2", "Class 7", "Class 4", "Class 6", "Class 5", "Class 10", "Class 8"]'
+              medium: '["English", "Hindi"]'
+            matchCount: 15
+          - id: 13724
+            program_id: 5d7ba0e0-18e6-11eb-81b1-659ec274e395
+            user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
+            organisation_id: 
+            status: Initiated
+            content_types:
+            - Learning Resource
+            - Explanation Content
+            - Practice Question Set
+            collection_ids: 
+            feedback: 
+            rolemapping: 
+            createdby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
+            updatedby: 
+            createdon: 2020-11-02T11:58:23.891Z
+            updatedon: 
+            program:
+              program_id: 5d7ba0e0-18e6-11eb-81b1-659ec274e395
+              name: dfgskjdhfgsakjhd
+              type: public
+              collection_ids:
+              - do_11304065892935270414
+              - do_11312349241665945618
+              - do_113133925712527360121
+              - do_113123500867362816115
+              - do_1131232640033505281322
+              - do_113123507574349824124
+              content_types:
+              - Practice Question Set
+              - Explanation Content
+              - Learning Resource
+              target_collection_category: 
+              startdate: 2020-10-28T06:25:51.571Z
+              enddate: 2020-11-07T18:30:00Z
+              nomination_enddate: 2020-11-07T18:30:00Z
+              shortlisting_enddate: 2020-11-07T18:30:00Z
+              content_submission_enddate: 2020-11-07T18:30:00Z
+              image: 
+              status: Live
+              slug: sunbird
+              rolemapping: 
+              createdby: cca53828-8111-4d71-9c45-40e569f13bad
+              updatedby: 
+              createdon: 2020-10-28T06:25:51.571Z
+              updatedon: 2020-10-28T06:25:53.886Z
+              rootorg_id: 012983850117177344161
+              sourcing_org_name: Vidya2
+              channel: DIKSHA
+              template_id: template1
+              guidelines_url: 
+              subject: '["Hindi", "Mathematics", "English"]'
+              defaultContributeOrgReview: true
+              framework: ekstep_ncert_k-12
+              board: CBSE
+              gradeLevel: '["Class 10", "Class 1", "Class 7"]'
+              medium: '["English", "Hindi"]'
+            matchCount: 8
+    Params1:
+      title: Params1
       required:
       - resmsgid
       - msgid
