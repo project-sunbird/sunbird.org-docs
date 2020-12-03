@@ -1,11 +1,11 @@
 openapi: 3.0.1
 info:
   title: Data Exhaust API(s)
-  description: As the exhaust files are pretty large and need to aggregate data from various sources, they are run as a set of scheduled jobs with a turn around time of 24 hours. These are the following set of APIs involved in making an exhaust request.
+  description: The data exhaust requests are run as a scheduled job with a turn around time of 24 hours. The data exhaust apis enable aggregation across multiple sources and can result in huge data size. The following set of apis are used to submit a data exhaust request.
   
-    - The URL for On Demand Data Exhaust API(s) is `dataset/v1/request`
+    - The endpoint for On Demand Data Exhaust API(s) is `dataset/v1/request`
     
-    - The URL for Standard Data Exhaust API(s) is `data/v3/dataset`
+    - The endpoint for Standard Data Exhaust API(s) is `data/v3/dataset`
 
     - Postman collection for different testcases - [Test Cases](https://www.getpostman.com/collections/273f2aea59dc2856a033)
     
@@ -37,8 +37,8 @@ paths:
           type: string
       - name: Content-Type
         in: header
-        description: "The Content Type entity is the type of the request. Possible\
-          \ types are:- \n  - Application/json"
+        description: "The Content Type request header denotes the data type of the request body.
+          \ Types are:- \n  - Application/json"
         required: true
         schema:
           type: string    
@@ -50,7 +50,7 @@ paths:
           type: string
       - name: x-authenticated-user-token
         in: header
-        description: The organization id of the tenant/state
+        description: The user specific token for accessing the API
         schema:
           type: string
         example: '{{authToken}}'  
@@ -61,14 +61,24 @@ paths:
           type: string    
       requestBody:
         description: |-
-          The body refers to the format of the request.
+          Request json object in the request has below requied fields -
+          
+          - **tag** - Unique identifier to identify request submitted.
+          - **dataset** - The job/dataset id the request is for.
+          - **datasetConfig** - Dataset config to fetch the data.
+          
+          Supported predefined dataset ids are -
+          - **progress-exhaust** - course progress/completion and certification issued information for specific batch 
+          - **response-exhaust** - attempt information of assessments for specific batch 
+          - **userinfo-exhaust** - all the users personal information wrt userConsent for specific batch
+          
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/dataRequestBody'
             examples:
              a:
-              summary: "Request for progress exhaust"
+              summary: "Request for course progress data exhaust for a given batch"
               description: Valid request with all required fields for course progress report for specific batch
               value: 
                request:
@@ -78,7 +88,7 @@ paths:
                     batchId: batch-001
                   requestedBy: user-001  
              b:
-              summary: "Request for response exhaust"
+              summary: "Request for response data exhaust for a given batch"
               description: Valid request with all required fields for response exhaust report for specific batch
               value: 
                request:
@@ -88,7 +98,7 @@ paths:
                     batchId: batch-001
                   requestedBy: user-001       
              c:
-              summary: "Request for userinfo exhaust"
+              summary: "Request for userinfo data exhaust for a given batch"
               description: Valid request with all required fields for  userinfo report for specific batch
               value: 
                request:
@@ -158,7 +168,7 @@ paths:
                   datasetConfig:
                     batchId: "batch001"
                   downloadUrls: [
-                    "signedUrl of report file from blob"
+                    "Signled URL of the data exhaust report file on blob storage with an expiry. The report file URL will be automatically invalidated after the expiry."
                   ]
                   requestedBy: "user001"
                   jobStats:
@@ -288,7 +298,7 @@ paths:
       parameters:
       - name: tag
         in: path
-        description: "Unique identifier to identify request submitted.Ex: BatchId"
+        description: "Unique identifier to identify request submitted. e.g.: BatchId"
         required: true
         schema:
           type: string
@@ -313,7 +323,7 @@ paths:
           type: string
       - name: x-authenticated-user-token
         in: header
-        description: ''
+        description: The user specific token for accessing the API
         schema:
           type: string
         example: '{{authToken}}'  
@@ -360,7 +370,7 @@ paths:
                       datasetConfig:
                         batchId: "batch001"
                       downloadUrls: [
-                        "signedUrl of report file from blob"
+                        "Signled URL of the data exhaust report file on blob storage with an expiry. The report file URL will be automatically invalidated after the expiry."
                       ]
                       requestedBy: "user001"
                       jobStats:
@@ -464,7 +474,7 @@ paths:
       parameters:
       - name: tag
         in: path
-        description: "Unique identifier to identify request submitted.Ex: BatchId"
+        description: "Unique identifier to identify request submitted. e.g.: BatchId"
         required: true
         schema:
           type: string
@@ -491,7 +501,7 @@ paths:
           type: string
       - name: x-authenticated-user-token
         in: header
-        description: The organization id of the tenant/state
+        description: The user specific token for accessing the API
         schema:
           type: string
         example: '{{authToken}}'  
@@ -520,7 +530,7 @@ paths:
                   datasetConfig:
                     batchId: "batch001"
                   downloadUrls: [
-                    "signedUrl of report file from blob"
+                    "Signled URL of the data exhaust report file on blob storage with an expiry. The report file URL will be automatically invalidated after the expiry."
                   ]
                   requestedBy: "user001"
                   jobStats:
@@ -646,7 +656,7 @@ paths:
     get:
       tags:
       - Standard Data Exhaust API(s)
-      description: This API is used to get exhaust data(raw/rollup/summary data) for specific channel that gets generated by user interaction and activities.
+      description: This API is used to get exhaust data(raw/summary-rollup/summary-channel data) for specific channel that gets generated by user interaction and activities.
       
         - The endpoint for **Get Exhaust Details** is `/get/{dataset_id}/`
         
@@ -655,7 +665,7 @@ paths:
       parameters:
       - name: dataset_id
         in: path
-        description: "Data type id. Available options are: **summary-channel-exhaust** and **summary-rollup**."
+        description: "Data type id. Available options are: **raw**, **summary-channel-exhaust** and **summary-rollup**."
         required: true
         schema:
           type: string
@@ -666,12 +676,12 @@ paths:
           type: string
       - name: to
         in: query
-        description: End date of the data exhaust in YYYY-MM-DD format.Default will take as today
+        description: End date of the data exhaust in YYYY-MM-DD format. Default will take as today
         schema:
           type: string
       - name: since
         in: query
-        description: "Since date of the data exhaust in YYYY-MM-DD format till current date. Ex: since can be provided instead of from and to when requesting for last x days"
+        description: "From date of the data exhaust in YYYY-MM-DD format till current date. e.g.: since can be provided instead of from and to when requesting for last x days"
         schema:
           type: string 
       - name: Authorization
@@ -684,13 +694,13 @@ paths:
           type: string
       - name: X-Channel-ID
         in: header
-        description: The organization slug value of the tenant/state
+        description: The organization slug value of the tenant/states. Slug is nothing but specific code for the tenant/states.
         required: true
         schema:
           type: string
       - name: x-authenticated-user-token
         in: header
-        description: The organization id of the tenant/state
+        description: The user specific token for accessing the API
         schema:
           type: string
         example: '{{authToken}}'  
@@ -943,7 +953,7 @@ components:
       properties:
         tag:
           type: string
-          description: "Unique identifier to identify request submitted.Ex: BatchId"
+          description: "Unique identifier to identify request submitted. e.g.: CourseId/BatchId"
         requestedBy:
           type: string
           description: Requester id for submitted request
@@ -1051,7 +1061,7 @@ components:
             allOf:
             - $ref: '#/components/schemas/dataExhaustResult'
     DatasetResponse:
-      title: This is the response body when a device register API is called
+      title: DatasetGetResponse
       allOf:
       - $ref: '#/components/schemas/ApiResponse'
       - $ref: '#/components/schemas/DatasetResult'
