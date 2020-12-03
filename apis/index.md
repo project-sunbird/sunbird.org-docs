@@ -29,6 +29,7 @@ They are categorized by resource type. Each resource type has one or more data r
             <li><a href="apis/courseprogressapi/" target="_blank">Course Progress</a></li>
             <li><a href="apis/certificatetemplateapi/" target="_blank">Certificate Templates</a></li>
             <li><a href="apis/coursebatchcertificateapi/" target="_blank">Batch Certificate</a></li>
+            <li><a href="apis/certificate/" target="_blank">Certificate Generator</a></li>
             <li><a href="apis/certificateregistry/" target="_blank">Certificate Registry</a></li>
             <li><a href="apis/dialapi/" target="_blank">D.I.A.L </a></li>
             <li><a href="apis/framework/" target="_blank">Framework </a></li>
