@@ -5,16 +5,17 @@ info:
     The TOC API resources perform operations related to download and upload of textbook on the Sunbird Platform in csv format. The TOC API(s) operations include uploads and downloads.
 
     The URL for TOC API(s) is /textbook/v1/toc.
+    - The backend URL for TOC API(s) is /v1/textbook/toc.
     - [TestCases](https://app.getpostman.com/run-collection/78d9cafb2d26eda89260)
   termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
   contact:
     email: info@sunbird.org
   version: '1.0'
 servers:
-  - url: 'https://staging.open-sunbird.org/api/textbook/v1/toc'
+  - url: 'https://staging.open-sunbird.org/api'
     variables: {}
 paths:
-  '/upload/{textbook-id}':
+  '/textbook/v1/toc/upload/{textbook-id}':
     post:
       tags:
         - TOC APIs
@@ -38,12 +39,13 @@ paths:
         - name: Content-Type
           in: header
           description: "The Content Type entity is the media type of the resource. Possible\
-            \ media types are:- \n  - application/json"
+            \ media types are:- \n  - Application/json\n  - Multipart/form-data\n  -\
+            \ Application/x-www-form-urlencoded"
           required: true
           schema:
             type: string
             example: 'application/json'
-        - name: x-authenticated-user-token
+        - name: X-Authenticated-User-Token
           in: header
           description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
           required: true
@@ -136,10 +138,28 @@ paths:
                   errmsg: rootId do_11316025545317580812 does not exist
                 responseCode: RESOURCE_NOT_FOUND
                 result: {}
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TOCDownload-Resource_Not_Found'
+              example:
+                id: api.textbook.toc.upload
+                ver: v1
+                ts: '2020-11-23 06:48:19:128+0000'
+                params:
+                  resmsgid: null
+                  msgid: 50f76a53-4710-4333-936f-c043031eec03
+                  err: SERVER_ERROR
+                  status: SERVER_ERROR
+                  errmsg: SERVER_ERROR
+                responseCode: SERVER_ERROR
+                result: {}
       deprecated: false
       security:
         - bearer: []
-  '/download/{textbook-id}':
+  '/textbook/v1/toc/download/{textbook-id}':
     get:
       tags:
         - TOC APIs
@@ -154,7 +174,8 @@ paths:
         - name: Content-Type
           in: header
           description: "The Content Type entity is the media type of the resource. Possible\
-            \ media types are:- \n  - application/json"
+            \ media types are:- \n  - Application/json\n  - Multipart/form-data\n  -\
+            \ Application/x-www-form-urlencoded"
           required: true
           schema:
             type: string
@@ -222,6 +243,24 @@ paths:
                   status: RESOURCE_NOT_FOUND
                   errmsg: rootId do_11263298042220544900 does not exist
                 responseCode: RESOURCE_NOT_FOUND
+                result: {}
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TOCDownload-Resource_Not_Found'
+              example:
+                id: api.textbook.toc.download
+                ver: v1
+                ts: '2020-11-23 06:48:19:128+0000'
+                params:
+                  resmsgid: null
+                  msgid: 50f76a53-4710-4333-936f-c043031eec03
+                  err: SERVER_ERROR
+                  status: SERVER_ERROR
+                  errmsg: SERVER_ERROR
+                responseCode: SERVER_ERROR
                 result: {}
       deprecated: false
       security:
