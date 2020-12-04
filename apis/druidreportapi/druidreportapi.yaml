@@ -102,7 +102,7 @@
           required: true
         responses:
           '200':
-            description: Success example for new druid report
+            description: Success example for submitting druid report
             headers: {}
             content:
               application/json:
@@ -111,6 +111,7 @@
                 examples:
                   New_Report:
                     summary: If_New_Report
+                    description: If not the report already exists
                     value: 
                       id: ekstep.analytics.report.submit
                       ver: v1
@@ -123,6 +124,7 @@
                         $ref: '#/components/examples/reportexample'
                   Existing_Report:
                     summary: If_Report_Exists_Already
+                    description: If the already a report with same reportId exists
                     value: 
                       id: ekstep.analytics.report.submit
                       ver: v1
@@ -278,6 +280,7 @@
                 examples:
                   Existing_Report:
                     summary: If_Report_Exists
+                    description: If report exists, update will be successful
                     value: 
                       id: ekstep.analytics.report.update
                       ver: v1
@@ -290,6 +293,7 @@
                         $ref: '#/components/examples/reportexample'
                   New_Report:
                     summary: If_Report_Doesnt_Exists
+                    description: If report doesnt exist, the update will fail
                     value: 
                       id: ekstep.analytics.report.submit
                       ver: v1
@@ -440,7 +444,7 @@
           required: true
         responses:
           '200':
-            description: Success example for new druid report
+            description: Success example for listing all active or inactive reports
             headers: {}
             content:
               application/json:
@@ -500,7 +504,7 @@
               type: string
         responses:
           '200':
-            description: Success example for new druid report
+            description: Success example for deactivating the report
             headers: {}
             content:
               application/json:
@@ -509,6 +513,7 @@
                 examples:
                   Existing_Report:
                     summary: If_Report_Exists
+                    description: Response If the report is avaliable
                     value: 
                       id: ekstep.analytics.report.update
                       ver: v1
@@ -519,7 +524,8 @@
                       responseCode: OK
                       result:
                         result: Successfully DeActivated the Report
-                  New_Report:
+                  Report_Doesnt_Exist:
+                    description: Response If the report doesnt exist
                     summary: If_Report_Doesnt_Exists
                     value: 
                       id: ekstep.analytics.report.submit
