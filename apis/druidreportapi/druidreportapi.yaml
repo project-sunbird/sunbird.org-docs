@@ -1,7 +1,8 @@
   openapi: 3.0.1
   info:
     title: Druid Report API(s)
-    description: "- The Druid Report API is used to submit and update druid based report respectively. The Operations include get all reports, getand deactivate particular report  \n- The URL for Druid Report API(S) is\
+    description: " User can create reports using druid data, which can be rendered on portal/app
+      \n - The Druid Report API is used to submit and update druid based report respectively. The Operations include get all reports, getand deactivate particular report  \n- The URL for Druid Report API(S) is\
       \ `/data/v1/report/jobs`.
       - Postman collection for different testcases - [TestCases](https://www.getpostman.com/collections/94c5f2b82e734b577417) "
     contact: {}
@@ -16,7 +17,7 @@
           - V1
         summary: SubmitDruidReport
         description:  |-
-          This API is used for create a new druid report config. For example, the user can create a report with selective filters ,dimensions  and aggregations
+          This API is used for create a new report with druid config with selective datasource and filters. For example, the user can create a report with selective filters ,dimensions  and aggregations
              - The endpoint for ** Druid Report** is `/submit`
              - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
         operationId: SubmitDruidReport
@@ -106,7 +107,7 @@
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/SubmitDruidReport-200OK'
+                  $ref: '#/components/schemas/SubmitDruidReport-SuccessResponse'
                 examples:
                   New_Report:
                     summary: If_New_Report
@@ -139,19 +140,19 @@
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/DruidReport-400BadRequest'
+                  $ref: '#/components/schemas/DruidReport-BadRequestResponse'
                 examples:
                   EmptyFields:
                     summary: EmptyFields
                     description: Response example when required fields are missing
                     value:
-                      $ref: '#/components/schemas/DruidReport-400BadRequest/example'
+                      $ref: '#/components/schemas/DruidReport-BadRequestResponse/example'
           '500':
             description: Internal Server Error example for report submit
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/DruidReport-500InternalServerError'
+                  $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
                 example:
                   id: ekstep.analytics.report.submit
                   ver: v1
@@ -273,7 +274,7 @@
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/UpdateDruidReport-200OK'
+                  $ref: '#/components/schemas/UpdateDruidReport-SuccessResponse'
                 examples:
                   Existing_Report:
                     summary: If_Report_Exists
@@ -306,19 +307,19 @@
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/DruidReport-400BadRequest'
+                  $ref: '#/components/schemas/DruidReport-BadRequestResponse'
                 examples:
                   EmptyFields:
                     summary: EmptyFields
                     description: Response example when required fields are missing
                     value:
-                      $ref: '#/components/schemas/DruidReport-400BadRequest/example'
+                      $ref: '#/components/schemas/DruidReport-BadRequestResponse/example'
           '500':
             description: Internal Server Error example for report submit
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/DruidReport-500InternalServerError'
+                  $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
                 example:
                   id: ekstep.analytics.report.submit
                   ver: v1
@@ -357,7 +358,7 @@
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/GetDruidReport-200OK'
+                  $ref: '#/components/schemas/GetDruidReport-SuccessResponse'
                 examples:
                   Existing_Report:
                     summary: If_Report_Exists
@@ -390,19 +391,19 @@
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/DruidReport-400BadRequest'
+                  $ref: '#/components/schemas/DruidReport-BadRequestResponse'
                 examples:
                   EmptyFields:
                     summary: EmptyFields
                     description: Response example when required fields are missing
                     value:
-                      $ref: '#/components/schemas/DruidReport-400BadRequest/example'
+                      $ref: '#/components/schemas/DruidReport-BadRequestResponse/example'
           '500':
             description: Internal Server Error example for report get
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/DruidReport-500InternalServerError'
+                  $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
                 example:
                   id: ekstep.analytics.report.submit
                   ver: v1
@@ -444,7 +445,7 @@
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/ListDruidReport-200OK'
+                  $ref: '#/components/schemas/ListDruidReport-SuccessResponse'
                 example:
                       id: ekstep.analytics.report.get
                       ver: v1
@@ -464,7 +465,7 @@
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/DruidReport-500InternalServerError'
+                  $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
                 example:
                   id: ekstep.analytics.report.get
                   ver: v1
@@ -504,7 +505,7 @@
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/DeactivateDruidReport-200OK'
+                  $ref: '#/components/schemas/DeactivateDruidReport-SuccessResponse'
                 examples:
                   Existing_Report:
                     summary: If_Report_Exists
@@ -536,7 +537,7 @@
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/DruidReport-500InternalServerError'
+                  $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
                 example:
                   id: ekstep.analytics.report.submit
                   ver: v1
@@ -866,6 +867,7 @@
             type: string
           interval:
             $ref: '#/components/schemas/Interval'
+            nullable: true
         example:
           interval:
             startDate: '2020-10-01'
@@ -1223,9 +1225,9 @@
           request: 
             filters:
               status: ['INACTIVE']
-      DruidReport-400BadRequest:
-        title: DruidReport-400BadRequest
-        description: DruidReport-400BadRequest- All Missing Fields
+      DruidReport-BadRequestResponse:
+        title: DruidReport-BadRequestResponse
+        description: DruidReport-BadRequestResponse- All Missing Fields
         required:
           - id
           - ver
@@ -1263,8 +1265,8 @@
             "request.createdBy": "Created By should not be empty",
             "request.reportId": "Report Id should not be  empty"
           }
-      DruidReport-500InternalServerError:
-        title: DruidReport-500InternalServerError
+      DruidReportAPI-InternalServerError:
+        title: DruidReportAPI-InternalServerError
         required:
           - id
           - ver
@@ -1298,8 +1300,8 @@
             errmsg: 'Process failed,please try again later.'
           responseCode: SERVER_ERROR
           result: {}
-      SubmitDruidReport-200OK:
-        title: SubmitDruidReport-200OK
+      SubmitDruidReport-SuccessResponse:
+        title: SubmitDruidReport-SuccessResponse
         required:
           - id
           - ver
@@ -1331,8 +1333,8 @@
           responseCode: OK
           result:
               $ref: '#/components/examples/reportexample'
-      UpdateDruidReport-200OK:
-        title: UpdateDruidReport-200OK
+      UpdateDruidReport-SuccessResponse:
+        title: UpdateDruidReport-SuccessResponse
         required:
           - id
           - ver
@@ -1364,8 +1366,8 @@
           responseCode: OK
           result:
               $ref: '#/components/examples/reportexample'            
-      GetDruidReport-200OK:
-        title: UpdateDruidReport-200OK
+      GetDruidReport-SuccessResponse:
+        title: UpdateDruidReport-SuccessResponse
         required:
           - id
           - ver
@@ -1397,8 +1399,8 @@
           responseCode: OK
           result:
               $ref: '#/components/examples/reportexample'                        
-      ListDruidReport-200OK:
-        title: ListDruidReport-200OK
+      ListDruidReport-SuccessResponse:
+        title: ListDruidReport-SuccessResponse
         required:
           - id
           - ver
@@ -1448,8 +1450,8 @@
          reports: [
             $ref:  '#/components/examples/reportexample'
             ]
-      DeactivateDruidReport-200OK:
-        title: DeactivateDruidReport-200OK
+      DeactivateDruidReport-SuccessResponse:
+        title: DeactivateDruidReport-SuccessResponse
         required:
           - id
           - ver

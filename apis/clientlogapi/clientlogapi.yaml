@@ -1,8 +1,8 @@
   openapi: 3.0.1
   info:
     title: Client Log API
-    description: "- The Client Log API is used to capture client error event and store it to es. The Operations include store the client telemetry error log  \n- The URL for ClientLog API is\
-      \ `/data/v1/client/logs`.
+    description: "- The Client Log API is used to capture and log the cause of crash or errors from both mobile and portal clients. The logs are streamed into Elasticsearch. \n- The end point URL for the Client Log API is
+\ `/data/v1/client/logs
           - Postman collection for different testcases - [TestCases](https://www.getpostman.com/collections/bff24c84986e08222d57) "
       
     contact: {}
@@ -17,12 +17,12 @@
           - V1
         summary: ClientErrorLogAPI
         description:  |-
-          This API is used for storing the client error logs to es
+          This API is used to stream the error logs from the portal and mobile clients into Elasticsearch. The data allows us to set up dashboards to visualise patterns in errors from the clients.
              - The endpoint for ** logging client error logs** is `/client/logs
              - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
         operationId: ClientErrorLogAPI
         requestBody:
-          description: Represents the body and formdata parameters of the client logs
+          description: Represents the body and form data parameters of the client error log
           content:
             application/json:
               schema:
@@ -32,12 +32,12 @@
           required: true
         responses:
           '200':
-            description: Success example  - logging valid client log request
+            description: Success example - logging valid client log request
             headers: {}
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/ClientLogAPI-200OK'
+                  $ref: '#/components/schemas/ClientLogAPI-SuccessReponse'
                 example:
                       id: ekstep.analytics.client-log
                       ver: v1
@@ -53,11 +53,11 @@
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/ClientLog-400BadRequest'
+                  $ref: '#/components/schemas/ClientLog-FailedResponse'
                 examples:
-                  EmptyRequest:
-                    summary: Request_Field_Validation
-                    description: Response example when request is missing
+                  RequestFieldBodyMissing:
+                    summary: Request_Field_Body_Validation
+                    description: Response example when request body field is missing
                     value:
                       id: ekstep.analytics.client-log
                       ver: v1
@@ -69,23 +69,23 @@
                         errorMsg: 'property: request is missing!'
                       responseCode: CLIENT_ERROR
                       result: null
-                  ContextFieldsMissing:
+                  ContextFieldMissing:
                     summary: Context_Field_Validation
-                    description: Response example with all required fields
+                    description: Response example when context field in missing in request body
                     value:
                       id: ekstep.analytics.client-log
                       ver: v1
                       ts: '2020-11-23 06:42:39:001+0000'
                       params:
                         resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
-                        status: failed
                         err: CLIENT_ERROR
+                        status: failed
                         errorMsg: 'property: context is missing!'
                       responseCode: CLIENT_ERROR
                       result: null
-                  ContextDidFieldsMissing:
+                  ContextDidFieldMissing:
                     summary: Context_DID_Required_Validation
-                    description: did mandatory in context
+                    description: did field is mandatory. extras and dspec fields are optional in context map
                     value:
                       id: ekstep.analytics.client-log
                       ver: v1
@@ -97,9 +97,9 @@
                         errorMsg: 'property: context.did is null or empty!'
                       responseCode: CLIENT_ERROR
                       result: null
-                  PdataMissingFields:
+                  PdataFieldsMissing:
                     summary: PDATA_Fields_Validation
-                    description: pid, ver, id  mandatory in pdata
+                    description: pid, ver, id fields mandatory in pdata map
                     value:
                       id: ekstep.analytics.client-log
                       ver: v1
@@ -111,9 +111,9 @@
                         errorMsg: 'property: pdata.pid is null or empty!'
                       responseCode: CLIENT_ERROR
                       result: null
-                  LogsMissingFields:
+                  LogsFieldsMissing:
                     summary: LOG_Fields_Validation
-                    description: log, ts mandatory in logs
+                    description: log, ts fields mandatory and id is optional in logs map
                     value:
                       id: ekstep.analytics.client-log
                       ver: v1
@@ -127,7 +127,7 @@
                       result: null
                   LogsTsValidation:
                     summary: LOG_TS_Field_Validation
-                    description: ts should be greater than 0
+                    description: ts field value should always be greater than 0
                     value:
                       id: ekstep.analytics.client-log
                       ver: v1
@@ -140,11 +140,11 @@
                       responseCode: CLIENT_ERROR
                       result: null                      
           '500':
-            description: Internal Server Error example for client log
+            description: Internal Server Error example for client error log
             content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/ClientLog-500InternalServerError'
+                  $ref: '#/components/schemas/ClientLog-InternalServerError'
                 example:
                   id: ekstep.analytics.client-log
                   ver: v1
@@ -214,21 +214,21 @@
             context:
               did: D1234
               dspec: 
-                os: mac
-                make: ''
+                os: Android 8.0.0
+                make: 'samsung'
                 mem: 0
-                idisk: ''
-                edisk: ''
-                scrn: ''
-                camera: ''
-                cpu: ''
-                sims: 0
+                idisk: '53.3'
+                edisk: '53.28'
+                scrn: '5.8'
+                camera: '13.0,8.0'
+                cpu: 'armeabi-v7a processor'
+                sims: '-1.0'
                 uaspec: 
-                  agent: ''
-                  ver: ''
-                  system: ''
-                  platform: ''
-                  raw: ''
+                  agent: 'Mozilla'
+                  ver: '5.0'
+                  system: 'Android'
+                  platform: 'Mozilla/5.0'
+                  raw: 'Dalvik/2.1.0 (Linux; U; Android 10; SM-M205F Build/QP1A.190711.020)'
               extras:
                 key1: value1
                 key2: value2
@@ -294,7 +294,7 @@
             description: Log timestamp
           log:
             type: string
-            description: exception of the log event
+            description: Stacktrace of  client error
           appver:
             type: string
           pageid:
@@ -342,13 +342,13 @@
             $ref: '#/components/schemas/Uaspec'
         example:
           os: mac
-          make: ''
-          mem: 0
-          idisk: ''
-          edisk: ''
-          scrn: ''
-          camera: ''
-          cpu: ''
+          make: 'Xiaomi Redmi Note 7 Pro'
+          mem: 2
+          idisk: 'Andriod 10'
+          edisk: '50.49'
+          scrn: '49.10'
+          camera: '6.1'
+          cpu: 'abi: arm64-v8a  AArch64 Processor rev 14 (aarch64)   '
           sims: 0
           uaspec: '#/components/schemas/Uaspec/example'
       Uaspec:
@@ -365,14 +365,14 @@
           raw: 
             type: string
         example:
-          agent: ''
-          ver: ''
-          system: ''
-          platform: ''
-          raw: ''
+          agent: 'Mozilla'
+          ver: '5.0'
+          system: 'samsung'
+          platform: 'AppleWebKit/531.21.10'
+          raw: 'Mozilla/5.0 (X11 Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)'
          
-      ClientLogAPI-200OK:
-        title: ClientLogAPI-200OK
+      ClientLogAPI-SuccessReponse:
+        title: ClientLogAPI-SuccessReponse
         required:
           - id
           - ver
@@ -407,8 +407,8 @@
           responseCode: OK
           result:
             message: Log captured successfully!
-      ClientLog-400BadRequest:
-        title: ClientLog-400BadRequest
+      ClientLog-FailedResponse:
+        title: ClientLog-FailedResponse
         required:
           - id
           - ver
@@ -441,8 +441,8 @@
             errorMsg: pdata is missing!
           responseCode: CLIENT_ERROR
           result: null
-      ClientLog-500InternalServerError:
-              title: ClientLog-500InternalServerError
+      ClientLog-InternalServerError:
+              title: ClientLog-InternalServerError
               required:
                 - id
                 - ver
