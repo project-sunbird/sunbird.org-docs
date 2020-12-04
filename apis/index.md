@@ -29,6 +29,7 @@ They are categorized by resource type. Each resource type has one or more data r
             <li><a href="apis/courseprogressapi/" target="_blank">Course Progress</a></li>
             <li><a href="apis/certificatetemplateapi/" target="_blank">Certificate Templates</a></li>
             <li><a href="apis/coursebatchcertificateapi/" target="_blank">Batch Certificate</a></li>
+            <li><a href="apis/certificate/" target="_blank">Certificate Generator</a></li>
             <li><a href="apis/certificateregistry/" target="_blank">Certificate Registry</a></li>
             <li><a href="apis/dialapi/" target="_blank">D.I.A.L </a></li>
             <li><a href="apis/framework/" target="_blank">Framework </a></li>
@@ -39,6 +40,15 @@ They are categorized by resource type. Each resource type has one or more data r
             <li><a href="apis/noteapi/" target="_blank">User Notes </a></li>
             <li><a href="apis/badgingframeworkapi/" target="_blank">Badging Framework </a></li>
             <li><a href="apis/courseenrolmentapi/" target="_blank">Course Enrolment </a></li>
+            <li><a href="apis/echoapi/" target="_blank">Echo API</a></li>
+            <li><a href="apis/refreshtokenapi/" target="_blank">Refresh Token API</a></li>
+            <li><a href="apis/kongcredentialregisterapiv1/" target="_blank">Kong Credential Register API V1</a></li>
+            <li><a href="apis/kongcredentialregisterapiv2/" target="_blank">Kong Credential Register API V2</a></li>
+            <li><a href="apis/tocapi/" target="_blank">TOC</a></li>
+            <li><a href="apis/groupactivityapi/" target="_blank">Group Activity Aggregator</a></li>
+            <li><a href="apis/desktop/app-update/" target="_blank">Desktop app update </a></li>
+            <li><a href="apis/desktop/device-registry/" target="_blank">Desktop app device registry </a></li>
+
         </ul>
     </div>
     <div class="col-sm-4">

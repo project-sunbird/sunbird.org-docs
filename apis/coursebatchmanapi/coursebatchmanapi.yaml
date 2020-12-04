@@ -1,1031 +1,1335 @@
 openapi: 3.0.1
 info:
-  title: Course Batch Management API(s)
-  description: "- The Course Batch Management API allows you to manage course batches\
-    \ on the Sunbird platform. A batch is used to arrange courses for specific sets\
-    \ or groups.The basic operations for this API include Create, Update, Enroll,\
-    \ List.  \n- The URL for Coure Batch Management API(s) is `/course/v1`."
+  title: Course Batch Management APIs
+  description: |-
+    The Course Batch Management API allows you to manage course batches on the Sunbird platform. A batch is used to arrange courses for specific sets or groups.The basic operations for this API include Create, Update, Read, List(Search).
+
+    The URL for Coure Batch Management API(s) is /course/v1/batch.
+    - The backend URL for Coure Batch Management API(s) is /v1/course/batch.
+    - [TestCases](https://app.getpostman.com/run-collection/1122b59b7dc69b2b370b)
   termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
   contact:
     email: info@sunbird.org
-  version: "1.0"
+  version: '1.0'
 servers:
-- url: https://staging.open-sunbird.org/api/course/v1
+  - url: 'https://staging.open-sunbird.org/api'
+    variables: {}
 paths:
-  /batch/create:
-    post:
-      tags:
-      - Course Batch APIs
-      summary: Creates a Batch
-      description: "This API is associated with batch creation\n  - The endpoint for\
-        \ **Creates a Batch** is `/batch/create` \n  - The fields marked with an asterisk\
-        \ (*) are mandatory. They cannot be null or empty."
-      operationId: '{{host}}/course/v1/batch/create'
-      parameters:
-      - name: Content-Type
-        in: header
-        description: "The Content Type entity is the media type of the resource.Possible\
-          \ media types can be:- \n  - Application/json"
-        required: true
-        schema:
-          type: string
-      - name: ts
-        in: header
-        description: The time stamp at which the **create batch** request was sent.
-        required: true
-        schema:
-          type: string
-      - name: X-msg
-        in: header
-        description: It is a Unique ID that identifies the request incase the same
-          API is executed multiple times.
-        required: true
-        schema:
-          type: string
-      - name: x-authenticated-user-token
-        in: header
-        description: The alphanumeric string to access the API
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
-          to the administrator for the use of the API. You will receive the authorization
-          key. Specify the key received, here.
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: |-
-          The body refers to the format of the request.
-            - The body contains metadata about the new batch to be created.
-        content:
-          application/json:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiRequest'
-              - $ref: '#/components/schemas/SingleCreatebatchReq'
-          multipart/form-data:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiRequest'
-              - $ref: '#/components/schemas/SingleCreatebatchReq'
-          application/x-www-form-urlencoded:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiRequest'
-              - $ref: '#/components/schemas/SingleCreatebatchReq'
-        required: true
-      responses:
-        200:
-          description: SUCCESS. The **create batch** operation was successful!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  CreateBatchResponse:
-                    $ref: '#/components/schemas/CreateBatchResponse'
-        400:
-          description: BAD REQUEST,**create batch** operation failed !The possible
-            reason for failure is that you may have missed providing input for a mandatory
-            parameter
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-        404:
-          description: RESOURCE NOT FOUND ! **Create Batch**operation failed ! The
-            possible reason for failure is that the provided course Id is invalid.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-        500:
-          description: INTERNAL SERVER ERROR. We track these errors automatically
-            and try to set it right at the earliest. Try refreshing the page. If the
-            problem persists contact us at info@sunbird.org.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-      x-codegen-request-body-name: Body
-  /batch/read/{Batch_ID}:
+  '/course/v1/batch/read/{batch-id}':
     get:
       tags:
-      - Course Batch APIs
-      summary: Fetch a particular Batch
-      description: |2-
-
+        - Course Batch APIs
+      summary: CourseBatch Read
+      description: |-
+        Fetch a particular Batch
         This API is associated with fetching a particular batch on the Sunbird Platform.
-          - The endpoint for **Fetch a particular Batch** is `/batch/read/{Batch_ID}`
-          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: getBatch
+        The endpoint for Fetch a particular Batch is /batch/read/{Batch_ID}
+        The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: CourseBatchRead
       parameters:
-      - name: Batch_ID
-        in: path
-        description: Append a valid Batch ID To the Request URL
-        required: true
-        schema:
-          type: string
-      - name: Content-Type
-        in: header
-        description: "The Content Type entity is the media type of the resource.Possible\
-          \ media types can be:- \n  - Application/json"
-        required: true
-        schema:
-          type: string
-      - name: ts
-        in: header
-        description: 'The time stamp at which the **Fetch a batch** request was sent. '
-        required: true
-        schema:
-          type: string
-      - name: X-msgid
-        in: header
-        description: It is a Unique ID which identifies the request incase the same
-          API is executed multiple times.
-        required: true
-        schema:
-          type: string
-      - name: x-authenticated-user-token
-        in: header
-        description: The alphanumeric string for accessing the API
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
+        - name: Authorization
+          in: header
+          description: 'To make use of the API, you require authorization. Raise a request
           to the administrator for the use of the API. You will receive the authorization
           key. Specify the key received, here.'
-        required: true
-        schema:
-          type: string
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{api-key}}'
+        - name: x-authenticated-user-token
+          in: header
+          description: 'The alphanumeric string to access the API'
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{authToken}}'
+        - name: Content-Type
+          in: header
+          description: 'The Content Type entity is the media type of the resource.Possible\
+          \ media types can be:- \n  - application/json'
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: application/json
+        - name: batch-id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
       responses:
-        200:
-          description: SUCCESS. The **Fetch a batch** operation was successful!
+        '200':
+          description: 'SUCCESS. The **Fetch a batch** operation was successful!'
+          headers: {}
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  SingleBatchResponseWrapper:
-                    $ref: '#/components/schemas/SingleBatchResponseWrapper'
-        400:
-          description: BAD REQUEST,**Fetch a batch** operation failed !The possible
-            reason for failure is that you may have missed providing input for a mandatory
-            parameter
+                $ref: '#/components/schemas/CourseBatchRead-200OK'
+              example:
+                id: api.course.batch.read
+                ver: v1
+                ts: '2020-11-23 15:10:45:215+0000'
+                params:
+                  resmsgid: null
+                  msgid: aa240e09-4481-4cbd-a832-617a15e8e872
+                  err: null
+                  status: success
+                  errmsg: null
+                responseCode: OK
+                result:
+                  response:
+                    identifier: 0131439667998310406
+                    createdFor: []
+                    endDate: 2020-12-30
+                    description: batch description1
+                    updatedDate:
+                    cert_templates:
+                      Test_Template_4:
+                        identifier: Test_Template_4
+                        criteria:
+                          enrollment:
+                            status: 2
+                        name: Test_Template_4
+                        notifyTemplate:
+                          emailTemplateType: defaultCertTemp
+                          subject: Completion certificate
+                          stateImgUrl: https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png
+                          regards: Minister of Gujarat
+                          regardsperson: Chairperson
+                        issuer:
+                          name: Gujarat Council of Educational Research and Training
+                          url: https://gcert.gujarat.gov.in/gcert/
+                        url: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_4/artifact/cbse.svg
+                        signatoryList:
+                          - image: https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg
+                            name: CEO Gujarat
+                            id: CEO
+                            designation: CEO
+                      Test_Template_prad:
+                        identifier: Test_Template_prad
+                        criteria:
+                          enrollment:
+                            status: 2
+                        name: Updated Asset
+                        notifyTemplate:
+                          emailTemplateType: defaultCertTemp
+                          subject: Completion certificate
+                          stateImgUrl: https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png
+                          regards: Minister of Gujarat
+                          regardsperson: Chairperson
+                        issuer:
+                          name: Gujarat Council of Educational Research and Training
+                          url: https://gcert.gujarat.gov.in/gcert/
+                        url: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_prad/artifact/file-0130860005482086401.svg
+                        signatoryList:
+                          - image: https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg
+                            name: CEO Gujarat
+                            id: CEO
+                            designation: CEO
+                      template_01_dev_001:
+                        identifier: template_01_dev_001
+                        criteria:
+                          enrollment:
+                            status: 2
+                        name: Course merit certificate
+                        notifyTemplate:
+                          emailTemplateType: defaultCertTemp
+                          subject: Completion certificate
+                          stateImgUrl: https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png
+                          regards: Minister of Gujarat
+                          regardsperson: Chairperson
+                        issuer:
+                          name: Gujarat Council of Educational Research and Training
+                          url: https://gcert.gujarat.gov.in/gcert/
+                        url: ''
+                        signatoryList:
+                          - image: https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg
+                            name: CEO Gujarat
+                            id: CEO
+                            designation: CEO
+                    batchId: 0131439667998310406
+                    tandc:
+                    createdDate: 2020-11-04 10:54:31:731+0000
+                    createdBy: 95e4942d-cbe8-477d-aebd-ad8e6de4bfc8
+                    mentors: []
+                    name: test cert scalability
+                    id: 0131439667998310406
+                    enrollmentType: open
+                    enrollmentEndDate:
+                    courseId: do_1131396442662912001425
+                    collectionId: do_1131396442662912001425
+                    startDate: 2020-11-04
+                    status: 1
+        '500':
+          description: Internal Server Error
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-        404:
-          description: RESOURCE NOT FOUND" operation failed ! The possible reason
-            for failure is that BatchId is invalid.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-        500:
-          description: INTERNAL SERVER ERROR. We track these errors automatically
-            and try to set it right at the earliest. Try refreshing the page. If the
-            problem persists contact us at info@sunbird.org.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-  /batch/user/add/{Batch_Id}:
-    post:
-      tags:
-      - Course Batch APIs
-      summary: Add User to a specific batch
-      description: |-
-        This API is associated with addding a user to a particular batch on the Sunbird Platform.
-          - The endpoint for **Add User to a specific batch** is `/batch/user/add/{Batch_Id}`
-          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: '{{host}}/course/v1/batch/user/add/{Batch_Id}'
-      parameters:
-      - name: Batch_Id
-        in: path
-        description: Append a valid Batch ID To the Request URL
-        required: true
-        schema:
-          type: string
-      - name: Content-Type
-        in: header
-        description: "The Content Type entity is the media type of the resource.Possible\
-          \ media types can be:- \n  - Application/json"
-        required: true
-        schema:
-          type: string
-      - name: ts
-        in: header
-        description: 'The time stamp at which the **Add a user to a specific batch**
-          request was sent. '
-        required: true
-        schema:
-          type: string
-      - name: X-msgid
-        in: header
-        description: It is a Unique ID which identifies the request incase the same
-          API is executed multiple times.
-        required: true
-        schema:
-          type: string
-      - name: x-authenticated-user-token
-        in: header
-        description: The alphanumeric string for accessing the API
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
-          to the administrator for the use of the API. You will receive the authorization
-          key. Specify the key received, here.'
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: |-
-          The body refers to the format of the request.
-            - The body contains metadata about the user to be added to a specific batch
-        content:
-          application/json:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiResponse'
-              - $ref: '#/components/schemas/AddUserToBatchReq'
-          multipart/form-data:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiResponse'
-              - $ref: '#/components/schemas/AddUserToBatchReq'
-          application/x-www-form-urlencoded:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiResponse'
-              - $ref: '#/components/schemas/AddUserToBatchReq'
-        required: true
-      responses:
-        200:
-          description: SUCCESS. The **Add user to a specific batch** operation was
-            successful!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  AddUserToBatchResp:
-                    $ref: '#/components/schemas/AddUserToBatchResp'
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-        400:
-          description: BAD REQUEST,**dd user to a specific batch** operation failed
-            !The possible reason for failure is that you may have missed providing
-            input for a mandatory parameter
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-        500:
-          description: INTERNAL SERVER ERROR. We track these errors automatically
-            and try to set it right at the earliest. Try refreshing the page. If the
-            problem persists contact us at info@sunbird.org.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-      x-codegen-request-body-name: Body
-  /batch/list:
-    post:
-      tags:
-      - Course Batch APIs
-      summary: Lists the existing batches
-      description: |-
-        This API is associated with fetching and listing existing batches
-          - The endpoint for **Lists the existing batches** is `/batch/list`
-          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: '{{host}}/course/v1/batch/list'
-      parameters:
-      - name: orgdetails
-        in: query
-        description: Extra data can be passed in query param with above mention key
-          and comma separated value:Example ,?orgdetails=email,name . Sunbird will
-          take this query param and pass to content service as it is, and content
-          service knows what need to be done.
-        schema:
-          type: string
-      - name: Content-Type
-        in: header
-        description: "The Content Type entity is the media type of the resource.Possible\
-          \ media types can be:- \n  - Application/json"
-        required: true
-        schema:
-          type: string
-      - name: ts
-        in: header
-        description: 'The time stamp identifying when the **List the existing batches**
-          request was sent. '
-        required: true
-        schema:
-          type: string
-      - name: X-msgid
-        in: header
-        description: It is a Unique ID which identifies the request incase the same
-          API is executed multiple times.
-        required: true
-        schema:
-          type: string
-      - name: x-authenticated-user-token
-        in: header
-        description: The alphanumeric string for accessing the API
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
-          to the administrator for the use of the API. You will receive the authorization
-          key. Specify the key received, here.'
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: The body refers to the format of the request.
-        content:
-          application/json:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiResponse'
-              - $ref: '#/components/schemas/CourseBatchSearchReq'
-          multipart/form-data:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiResponse'
-              - $ref: '#/components/schemas/CourseBatchSearchReq'
-          application/x-www-form-urlencoded:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiResponse'
-              - $ref: '#/components/schemas/CourseBatchSearchReq'
-        required: true
-      responses:
-        200:
-          description: SUCCESS. The **Lists the existing batches** operation was successful!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  SearchBatchResponse:
-                    $ref: '#/components/schemas/SearchBatchResponse'
-        400:
-          description: BAD REQUEST,**Lists the existing batches** operation failed
-            !The possible reason for failure is that you may have missed providing
-            input for a mandatory parameter
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-        500:
-          description: INTERNAL SERVER ERROR. We track these errors automatically
-            and try to set it right at the earliest. Try refreshing the page. If the
-            problem persists contact us at info@sunbird.org.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-      x-codegen-request-body-name: Body
-  /batch/update:
+                $ref: '#/components/schemas/CourseBatchCreate-400BadRequest-InvalidCourseId'
+              example:
+                id: api.course.batch.read
+                ver: v1
+                ts: '2020-11-23 06:48:19:128+0000'
+                params:
+                  resmsgid: null
+                  msgid: 50f76a53-4710-4333-936f-c043031eec03
+                  err: SERVER_ERROR
+                  status: SERVER_ERROR
+                  errmsg: SERVER_ERROR
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /course/v1/batch/update:
     patch:
       tags:
-      - Course Batch APIs
-      summary: Course Batch Update
+        - Course Batch APIs
+      summary: CourseBatch Update
       description: |-
         This API is associated with updating a batch on the Sunbird Platform.
-          - The endpoint for **Course Batch Update** is `/batch/update`
-          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: Course Batch Update
+        The endpoint for Course Batch Update is /batch/update
+        The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: CourseBatchUpdate
       parameters:
-      - name: Accept
-        in: header
-        description: Represents the media type(s) specified in the request body that
-          are acceptable in the response body
-        required: true
-        schema:
-          type: string
-      - name: Content-Type
-        in: header
-        description: "The Content Type entity is the media type of the resource.Possible\
-          \ media types can be:- \n  - Application/json"
-        required: true
-        schema:
-          type: string
-      - name: ts
-        in: header
-        description: 'The time stamp identifying when the **update a batch** request
-          was sent. '
-        required: true
-        schema:
-          type: string
-      - name: X-msgid
-        in: header
-        description: It is a Unique ID which identifies the request incase the same
-          API is executed multiple times.
-        required: true
-        schema:
-          type: string
-      - name: x-authenticated-user-token
-        in: header
-        description: The alphanumeric string for accessing the API
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
+        - name: Content-Type
+          in: header
+          description: 'The Content Type entity is the media type of the resource.Possible\
+          \ media types can be:- \n  - application/json'
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: application/json
+        - name: x-authenticated-user-token
+          in: header
+          description: 'The alphanumeric string for accessing the API'
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{authToken}}'
+        - name: Authorization
+          in: header
+          description: 'To make use of the API, you require authorization. Raise a request
           to the administrator for the use of the API. You will receive the authorization
           key. Specify the key received, here.'
-        required: true
-        schema:
-          type: string
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{api-key}}'
       requestBody:
-        description: |-
-          The body refers to the format of the request.
-            - The body contains metadata about the batch to be updated.
+        description: 'The body refers to the format of the request.
+            - The body contains metadata about the batch to be updated.'
         content:
           application/json:
             schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiResponse'
-              - $ref: '#/components/schemas/CourseBatchUpdaterequest'
-          multipart/form-data:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiResponse'
-              - $ref: '#/components/schemas/CourseBatchUpdaterequest'
-          application/x-www-form-urlencoded:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiResponse'
-              - $ref: '#/components/schemas/CourseBatchUpdaterequest'
+              $ref: '#/components/schemas/CourseBatchUpdateRequest'
+            example:
+              request:
+                enrollmentType: open
+                startDate: '2020-11-23'
+                enrollmentEndDate: '2021-12-30'
+                status: 1
+                courseId: '{{course-id}}'
+                id: '{{batch-id}}'
         required: true
       responses:
-        200:
-          description: SUCCESS. The **Update a batch** operation was successful!
+        '200':
+          description: 'SUCCESS. The **Update a batch** operation was successful!'
+          headers: {}
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  CreateEmptyResponse:
-                    $ref: '#/components/schemas/CreateEmptyResponse'
-        400:
+                $ref: '#/components/schemas/CourseBatchUpdate-200OK'
+              example:
+                id: api.course.batch.update
+                ver: v1
+                ts: '2020-11-23 06:59:52:152+0000'
+                params:
+                  resmsgid: null
+                  msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
+                  err: null
+                  status: success
+                  errmsg: null
+                responseCode: OK
+                result: {}
+        '400':
           description: BAD REQUEST,**Update a batch** operation failed !The possible
             reason for failure is that you may have missed providing input for a mandatory
             parameter
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-        500:
-          description: INTERNAL SERVER ERROR. We track these errors automatically
-            and try to set it right at the earliest. Try refreshing the page. If the
-            problem persists contact us at info@sunbird.org.
+                $ref: '#/components/schemas/CourseBatchCreate-400BadRequest-InvalidCourseId'
+              example:
+                id: api.course.batch.update
+                ver: v1
+                ts: '2020-11-23 06:57:38:160+0000'
+                params:
+                  resmsgid: null
+                  msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
+                  err: INVALID_BATCH_START_DATE_ERROR
+                  status: INVALID_BATCH_START_DATE_ERROR
+                  errmsg: Please provide valid Start Date.
+                responseCode: CLIENT_ERROR
+                result: {}
+        '500':
+          description: Internal Server Error
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-      x-codegen-request-body-name: Body
-  /batch/participants/list:
+                $ref: '#/components/schemas/CourseBatchCreate-500InternalServerError'
+              example:
+                id: api.course.batch.update
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /course/v1/batch/list:
     post:
       tags:
-      - Course Batch APIs
-      summary: Course Batch Participants List
+        - Course Batch APIs
+      summary: CourseBatch Search
       description: |-
-        This API is associated with fetching participants for a training batch on the Sunbird Platform.
-          - The endpoint for **Course Batch participants list** is `/batch/participants/list`
-          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: Course Batch Fetch Participants
+        Lists the existing batches
+        This API is associated with fetching and listing existing batches
+        The endpoint for Lists the existing batches is /batch/list
+        The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: CourseBatchSearch
       parameters:
-      - name: Accept
-        in: header
-        description: Represents the media type(s) specified in the request body that
-          are acceptable in the response body
-        required: true
-        schema:
-          type: string
-      - name: Content-Type
-        in: header
-        description: "The Content Type entity is the media type of the resource.Possible\
-          \ media types can be:- \n  - Application/json"
-        required: true
-        schema:
-          type: string
-      - name: ts
-        in: header
-        description: The time stamp identifying when the **fetch participants of batch**
-          request was sent.
-        required: true
-        schema:
-          type: string
-      - name: X-msgid
-        in: header
-        description: It is a Unique ID which identifies the request incase the same
-          API is executed multiple times.
-        required: true
-        schema:
-          type: string
-      - name: x-authenticated-user-token
-        in: header
-        description: The alphanumeric string for accessing the API
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
+        - name: Content-Type
+          in: header
+          description: 'The Content Type entity is the media type of the resource.Possible\
+          \ media types can be:- \n  - application/json'
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: application/json
+        - name: Authorization
+          in: header
+          description: 'To make use of the API, you require authorization. Raise a request
           to the administrator for the use of the API. You will receive the authorization
           key. Specify the key received, here.'
-        required: true
-        schema:
-          type: string
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{api-key}}'
+        - name: x-authenticated-user-token
+          in: header
+          description: 'The alphanumeric string for accessing the API'
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{authToken}}'
       requestBody:
-        description: |-
-          The body refers to the format of the request.
-            - The body contains metadata about the batch to be updated.
+        description: 'The body refers to the format of the request.'
         content:
           application/json:
             schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiResponse'
-              - $ref: '#/components/schemas/BatchParticipantsRequest'
-          multipart/form-data:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiResponse'
-              - $ref: '#/components/schemas/BatchParticipantsRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiResponse'
-              - $ref: '#/components/schemas/BatchParticipantsRequest'
+              $ref: '#/components/schemas/CourseBatchSearchRequest'
+            example:
+              request:
+                filters:
+                  courseId: '{{course-id}}'
+                limit: 2
         required: true
       responses:
-        200:
-          description: SUCCESS. The **Fetch batch participants** operation was successful!
+        '200':
+          description: 'SUCCESS. The **Lists the existing batches** operation was successful!'
+          headers: {}
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  CreateEmptyParticipantsResponse:
-                    $ref: '#/components/schemas/CreateEmptyParticipantsResponse'
-        400:
-          description: BAD REQUEST,**Fetch batch participants** operation failed !The
-            possible reason for failure is that you may have missed providing input
-            for a mandatory parameter
+                $ref: '#/components/schemas/CourseBatchSearch-200OK'
+              example:
+                id: api.course.batch.search
+                ver: v1
+                ts: '2020-11-23 15:31:47:895+0000'
+                params:
+                  resmsgid: null
+                  msgid: 3b07f74d-59af-494c-8d41-c8b665fa75ea
+                  err: null
+                  status: success
+                  errmsg: null
+                responseCode: OK
+                result:
+                  response:
+                    count: 15
+                    content:
+                      - identifier: 0131440087048683528
+                        createdFor: []
+                        endDate: '2020-11-30'
+                        description: batch description1
+                        updatedDate: null
+                        cert_templates:
+                          Test_Template_prad:
+                            identifier: Test_Template_prad
+                            criteria:
+                              enrollment:
+                                status: 2
+                            name: Updated Asset
+                            notifyTemplate:
+                              emailTemplateType: defaultCertTemp
+                              subject: Completion certificate
+                              stateImgUrl: 'https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png'
+                              regards: Minister of Gujarat
+                              regardsperson: Chairperson
+                            issuer:
+                              name: Gujarat Council of Educational Research and Training
+                              url: 'https://gcert.gujarat.gov.in/gcert/'
+                            url: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_prad/artifact/file-0130860005482086401.svg'
+                            signatoryList:
+                              - image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+                                name: CEO Gujarat
+                                id: CEO
+                                designation: CEO
+                        batchId: 0131440087048683528
+                        tandc: null
+                        createdDate: '2020-11-04 12:26:38:668+0000'
+                        createdBy: 95e4942d-cbe8-477d-aebd-ad8e6de4bfc8
+                        mentors: []
+                        name: test cert scalability
+                        id: 0131440087048683528
+                        enrollmentType: open
+                        enrollmentEndDate: null
+                        courseId: do_1131396442662912001425
+                        collectionId: do_1131396442662912001425
+                        startDate: '2020-11-04'
+                        status: 1
+                      - identifier: 0131439524674273284
+                        createdFor: []
+                        endDate: '2020-12-30'
+                        description: batch description1
+                        updatedDate: null
+                        cert_templates:
+                          Test_Template_prad:
+                            identifier: Test_Template_prad
+                            criteria:
+                              enrollment:
+                                status: 2
+                            name: Updated Asset
+                            notifyTemplate:
+                              emailTemplateType: defaultCertTemp
+                              subject: Completion certificate
+                              stateImgUrl: 'https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png'
+                              regards: Minister of Gujarat
+                              regardsperson: Chairperson
+                            issuer:
+                              name: Gujarat Council of Educational Research and Training
+                              url: 'https://gcert.gujarat.gov.in/gcert/'
+                            url: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_prad/artifact/file-0130860005482086401.svg'
+                            signatoryList:
+                              - image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+                                name: CEO Gujarat
+                                id: CEO
+                                designation: CEO
+                        batchId: 0131439524674273284
+                        tandc: null
+                        createdDate: '2020-11-04 10:24:25:778+0000'
+                        createdBy: 95e4942d-cbe8-477d-aebd-ad8e6de4bfc8
+                        mentors: []
+                        name: test cert scalability
+                        id: 0131439524674273284
+                        enrollmentType: open
+                        enrollmentEndDate: null
+                        courseId: do_1131396442662912001425
+                        collectionId: do_1131396442662912001425
+                        startDate: '2020-11-04'
+                        status: 1
+        '500':
+          description: Internal Server Error
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-        500:
-          description: INTERNAL SERVER ERROR. We track these errors automatically
-            and try to set it right at the earliest. Try refreshing the page. If the
-            problem persists contact us at info@sunbird.org.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-      x-codegen-request-body-name: Body
-  /enrol:
+                $ref: '#/components/schemas/CourseBatchCreate-500InternalServerError'
+              example:
+                id: api.course.batch.search
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /course/v1/batch/create:
     post:
       tags:
-      - Course Batch APIs
-      summary: User self enrollment for open batch.
+        - Course Batch APIs
+      summary: CourseBatch Create
       description: |-
-        This API is associated with enrollment of user for a particular open course batch. Users can enrol only for an open batch.
-          - The endpoint for **User self control enrollment for open batch** is `/enrol`
-          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: '{{host}}/course/v1/enrol'
+        This API is associated with batch creation
+        The endpoint for Creates a Batch is /batch/create
+        The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: CourseBatchCreate
       parameters:
-      - name: Content-Type
-        in: header
-        description: 'The Content Type entity is the media type of the resource.Possible
-          media types can be:- '
-        required: true
-        schema:
-          type: string
-      - name: ts
-        in: header
-        description: 'The time stamp identifying when the **Enroll to batch** request
-          was sent. '
-        required: true
-        schema:
-          type: string
-      - name: X-msgid
-        in: header
-        description: It is a Unique ID which identifies the request incase the same
-          API is executed multiple times.
-        required: true
-        schema:
-          type: string
-      - name: x-authenticated-user-token
-        in: header
-        description: The alphanumeric string for accessing the API
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
+        - name: Content-Type
+          in: header
+          description: 'The Content Type entity is the media type of the resource.Possible\
+          \ media types can be:- \n  - application/json'
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: application/json
+        - name: x-authenticated-user-token
+          in: header
+          description: 'The alphanumeric string to access the API'
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{authToken}}'
+        - name: Authorization
+          in: header
+          description: 'To make use of the API, you require authorization. Raise a request
           to the administrator for the use of the API. You will receive the authorization
-          key. Specify the key received, here.
-        required: true
-        schema:
-          type: string
+          key. Specify the key received, here.'
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{api-key}}'
       requestBody:
-        description: |-
-          The body refers to the format of the request.
-            - The body contains metadata about the batch that the user wants to enrol into.
+        description: The body refers to the format of the request.
+          - The body contains metadata about the new batch to be created.
         content:
           application/json:
             schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiRequest'
-              - $ref: '#/components/schemas/EnrollBatchReq'
-          multipart/form-data:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiRequest'
-              - $ref: '#/components/schemas/EnrollBatchReq'
-          application/x-www-form-urlencoded:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiRequest'
-              - $ref: '#/components/schemas/EnrollBatchReq'
+              $ref: '#/components/schemas/CourseBatchCreateRequest'
+            example:
+              request:
+                courseId: '{{course-id}}'
+                name: test cert scalability
+                description: batch description1
+                enrollmentType: open
+                startDate: '2020-11-23'
+                endDate: '2021-12-30'
         required: true
       responses:
-        200:
-          description: SUCCESS. The **enroll to batch** operation was successful!
+        '200':
+          description: Success example for batch create
+          headers: {}
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  EnrollBatchResponse:
-                    $ref: '#/components/schemas/EnrollBatchResponse'
-        400:
-          description: BAD REQUEST,**EnrollBatch** operation failed !The possible
+                $ref: '#/components/schemas/CourseBatchCreate-200OK'
+              example:
+                id: api.course.batch.create
+                ver: v1
+                ts: '2020-11-23 06:42:39:001+0000'
+                params:
+                  resmsgid: null
+                  msgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+                  err: null
+                  status: success
+                  errmsg: null
+                responseCode: OK
+                result:
+                  response: SUCCESS
+                  batchId: 01315728917531852810
+        '400':
+          description: BAD REQUEST,**create batch** operation failed !The possible
             reason for failure is that you may have missed providing input for a mandatory
             parameter
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-        404:
-          description: RESOURCE NOT FOUND ! **EnrollBatch**operation failed ! The
-            possible reason for failure is that either of provided batch Id,course
-            Id, User Id is invalid.
+                $ref: '#/components/schemas/CourseBatchCreate-400BadRequest-InvalidCourseId'
+              examples:
+                a:
+                  summary: Invalid_CourseId
+                  description: Response example when invalid course id got passed into request
+                  value:
+                    id: api.course.batch.create
+                    ver: v1
+                    ts: '2020-11-23 06:40:48:878+0000'
+                    params:
+                      resmsgid: null
+                      msgid: e85a4592-7458-4506-a3e3-0dc00d923616
+                      err: INVALID_COURSE_ID
+                      status: INVALID_COURSE_ID
+                      errmsg: Course doesnot exist. Please provide a valid course identifier
+                    responseCode: CLIENT_ERROR
+                    result: {}
+                b:
+                  summary: Mandatory_Parameter_Missing
+                  description: Response example for any parameter is missing into request
+                  value:
+                    id: api.course.batch.create
+                    ver: v1
+                    ts: '2020-11-23 06:40:48:878+0000'
+                    params:
+                      resmsgid: null
+                      msgid: 4bc18ba9-0f3a-44ad-884a-d8b15c5680d1
+                      err: MANDATORY_PARAMETER_MISSING
+                      status: MANDATORY_PARAMETER_MISSING
+                      errmsg: Mandatory parameter courseId/collectionId is missing.
+                    responseCode: CLIENT_ERROR
+                    result: {}
+                c:
+                  summary: Invalid_Batch_Start_Date
+                  description: Response example for invalid batch start date
+                  value:
+                    id: api.course.batch.create
+                    ver: v1
+                    ts: '2020-11-23 06:40:48:878+0000'
+                    params:
+                      resmsgid: null
+                      msgid: 358e9376-0eb4-426b-903f-42a0a5235c39
+                      err: COURSE_BATCH_START_DATE_INVALID
+                      status: COURSE_BATCH_START_DATE_INVALID
+                      errmsg: Batch start date should be either today or future date.
+                    responseCode: CLIENT_ERROR
+                    result: {}
+                d:
+                  summary: Invalid_Batch_End_Date
+                  description: Response example for invalid batch end date
+                  value:
+                    id: api.course.batch.create
+                    ver: v1
+                    ts: '2020-11-23 06:40:48:878+0000'
+                    params:
+                      resmsgid: null
+                      msgid: 40e5e6c9-3777-4a15-b820-124f974dc202
+                      err: END_DATE_ERROR
+                      status: END_DATE_ERROR
+                      errmsg: End date should be greater than start date.
+                    responseCode: CLIENT_ERROR
+                    result: {}
+        '500':
+          description: Internal Server Error
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-        500:
-          description: INTERNAL SERVER ERROR. We track these errors automatically
-            and try to set it right at the earliest. Try refreshing the page. If the
-            problem persists contact us at info@sunbird.org.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-      x-codegen-request-body-name: Body
-  /unenrol:
-    post:
-      tags:
-      - Course Batch APIs
-      summary: Unenrolls a user from the batch
-      description: |-
-        This API is associated with unenrollment of users from a particular course batch
-          - The endpoint for **Unenrolls a user from the batch** is `/unenrol`
-          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: '{{host}}/course/v1/unenrol'
-      parameters:
-      - name: Content-Type
-        in: header
-        description: "The Content Type entity is the media type of the resource.Possible\
-          \ media types can be:- \n  - Application/json\n  - Multipart/form-data\n\
-          \  - Application/x-www-form-urlencoded"
-        required: true
-        schema:
-          type: string
-      - name: ts
-        in: header
-        description: 'The time stamp identifying when the **unenroll from batch**
-          request was sent. '
-        required: true
-        schema:
-          type: string
-      - name: X-msgid
-        in: header
-        description: It is a Unique ID which identifies the request incase the same
-          API is executed multiple times.
-        required: true
-        schema:
-          type: string
-      - name: x-authenticated-user-token
-        in: header
-        description: The alphanumeric string for accessing the API
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
-          to the administrator for the use of the API. You will receive the authorization
-          key. Specify the key received, here.
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: |-
-          The body refers to the format of the request.
-            - The body contains metadata about the batch from which the user wants to unenroll.
-        content:
-          application/json:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiRequest'
-              - $ref: '#/components/schemas/UnenrollBatchReq'
-          multipart/form-data:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiRequest'
-              - $ref: '#/components/schemas/UnenrollBatchReq'
-          application/x-www-form-urlencoded:
-            schema:
-              allOf:
-              - $ref: '#/components/schemas/ApiRequest'
-              - $ref: '#/components/schemas/UnenrollBatchReq'
-        required: true
-      responses:
-        200:
-          description: SUCCESS. The **unenroll from batch** operation was successful!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  UnenrollBatchResponse:
-                    $ref: '#/components/schemas/UnenrollBatchResponse'
-        400:
-          description: BAD REQUEST,**UnenrollBatch** operation failed !The possible
-            reason for failure is that you may have missed providing input for a mandatory
-            parameter
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-        404:
-          description: RESOURCE NOT FOUND ! **UnenrollBatch**operation failed ! The
-            possible reason for failure is that either of provided batch Id,course
-            Id, User Id is invalid.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-        500:
-          description: INTERNAL SERVER ERROR. We track these errors automatically
-            and try to set it right at the earliest. Try refreshing the page. If the
-            problem persists contact us at info@sunbird.org.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  BatchCreateErrorResponse:
-                    $ref: '#/components/schemas/BatchCreateErrorResponse'
-      x-codegen-request-body-name: Body
+                $ref: '#/components/schemas/CourseBatchCreate-500InternalServerError'
+              example:
+                id: api.course.batch.create
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security:
+        - bearer: []
 components:
   schemas:
-    AddUserToBatchResp:
-      type: object
-      properties:
-        result:
-          type: object
-          properties: {}
-      description: ""
-    AddUserToBatchReq:
-      type: object
-      properties:
-        request:
-          type: object
-          properties:
-            userIds:
-              type: array
-              items:
-                type: string
-                description: contains user ids.
-      description: request structure for add user to batch
-    SearchBatchResponse:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/GetBatchResponse'
-      description: ""
-    SingleCreatebatchReq:
-      type: object
-      properties:
-        request:
-          $ref: '#/components/schemas/CreateBatchRequest'
-      description: this will hold request data for single batch
-    CreateBatchRequest:
+    CourseBatchRead-200OK:
+      title: CourseBatchRead-200OK
       required:
-      - courseId
-      - description
-      - enrollmentType
-      - name
-      - startDate
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params1'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result'
+      example:
+        id: api.course.batch.read
+        ver: v1
+        ts: 2020-11-23 04:48:35:260+0000
+        params:
+          resmsgid:
+          msgid: 16824a40-389e-4008-aecc-f1d86be693c9
+          err:
+          status: success
+          errmsg:
+        responseCode: OK
+        result:
+          response:
+            identifier: 0131439667998310406
+            createdFor: []
+            endDate: 2020-12-30
+            description: batch description1
+            updatedDate:
+            cert_templates:
+              Test_Template_4:
+                identifier: Test_Template_4
+                criteria:
+                  enrollment:
+                    status: 2
+                name: Test_Template_4
+                notifyTemplate:
+                  emailTemplateType: defaultCertTemp
+                  subject: Completion certificate
+                  stateImgUrl: https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png
+                  regards: Minister of Gujarat
+                  regardsperson: Chairperson
+                issuer:
+                  name: Gujarat Council of Educational Research and Training
+                  url: https://gcert.gujarat.gov.in/gcert/
+                url: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_4/artifact/cbse.svg
+                signatoryList:
+                  - image: https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg
+                    name: CEO Gujarat
+                    id: CEO
+                    designation: CEO
+              Test_Template_prad:
+                identifier: Test_Template_prad
+                criteria:
+                  enrollment:
+                    status: 2
+                name: Updated Asset
+                notifyTemplate:
+                  emailTemplateType: defaultCertTemp
+                  subject: Completion certificate
+                  stateImgUrl: https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png
+                  regards: Minister of Gujarat
+                  regardsperson: Chairperson
+                issuer:
+                  name: Gujarat Council of Educational Research and Training
+                  url: https://gcert.gujarat.gov.in/gcert/
+                url: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_prad/artifact/file-0130860005482086401.svg
+                signatoryList:
+                  - image: https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg
+                    name: CEO Gujarat
+                    id: CEO
+                    designation: CEO
+              template_01_dev_001:
+                identifier: template_01_dev_001
+                criteria:
+                  enrollment:
+                    status: 2
+                name: Course merit certificate
+                notifyTemplate:
+                  emailTemplateType: defaultCertTemp
+                  subject: Completion certificate
+                  stateImgUrl: https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png
+                  regards: Minister of Gujarat
+                  regardsperson: Chairperson
+                issuer:
+                  name: Gujarat Council of Educational Research and Training
+                  url: https://gcert.gujarat.gov.in/gcert/
+                url: ''
+                signatoryList:
+                  - image: https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg
+                    name: CEO Gujarat
+                    id: CEO
+                    designation: CEO
+            batchId: 0131439667998310406
+            tandc:
+            createdDate: 2020-11-04 10:54:31:731+0000
+            createdBy: 95e4942d-cbe8-477d-aebd-ad8e6de4bfc8
+            mentors: []
+            name: test cert scalability
+            id: 0131439667998310406
+            enrollmentType: open
+            enrollmentEndDate:
+            courseId: do_1131396442662912001425
+            collectionId: do_1131396442662912001425
+            startDate: 2020-11-04
+            status: 1
+    CourseBatchRead-200InvalidBatchID:
+      title: CourseBatchRead-200InvalidBatchID
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result'
+      example:
+        id: api.course.batch.read
+        ver: v1
+        ts: '2020-11-23 15:10:45:215+0000'
+        params:
+          resmsgid: null
+          msgid: aa240e09-4481-4cbd-a832-617a15e8e872
+          err: null
+          status: success
+          errmsg: null
+        responseCode: OK
+        result:
+          response: {}
+    Params:
+      title: Params
+      required:
+        - resmsgid
+        - msgid
+        - err
+        - status
+        - errmsg
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          nullable: true
+        msgid:
+          type: string
+        err:
+          type: string
+          nullable: true
+        status:
+          type: string
+        errmsg:
+          type: string
+          nullable: true
+      example:
+        resmsgid: null
+        msgid: aa240e09-4481-4cbd-a832-617a15e8e872
+        err: null
+        status: success
+        errmsg: null
+    Result:
+      title: Result
+      required:
+        - response
+      type: object
+      properties:
+        response:
+          type: object
+      example:
+        response: {}
+    Params1:
+      title: Params1
+      required:
+        - resmsgid
+        - msgid
+        - err
+        - status
+        - errmsg
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          nullable: true
+        msgid:
+          type: string
+        err:
+          type: string
+        status:
+          type: string
+        errmsg:
+          type: string
+    CourseBatchUpdateRequest:
+      title: CourseBatchUpdateRequest
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/Request'
+      example:
+        request:
+          enrollmentType: open
+          startDate: '2020-11-23'
+          enrollmentEndDate: '2021-12-30'
+          status: 1
+          courseId: '{{course-id}}'
+          id: '{{batch-id}}'
+    Request:
+      title: Request
+      required:
+        - enrollmentType
+        - startDate
+        - enrollmentEndDate
+        - status
+        - courseId
+        - id
+      type: object
+      properties:
+        enrollmentType:
+          type: string
+        startDate:
+          type: string
+        enrollmentEndDate:
+          type: string
+        status:
+          type: integer
+          format: int32
+        courseId:
+          type: string
+        id:
+          type: string
+      example:
+        enrollmentType: open
+        startDate: '2020-11-23'
+        enrollmentEndDate: '2021-12-30'
+        status: 1
+        courseId: '{{course-id}}'
+        id: '{{batch-id}}'
+    Params2:
+      title: Params2
+      required:
+        - resmsgid
+        - msgid
+        - err
+        - status
+        - errmsg
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          nullable: true
+        msgid:
+          type: string
+          nullable: true
+        err:
+          type: string
+        status:
+          type: string
+        errmsg:
+          type: string
+    CourseBatchUpdate-200OK:
+      title: CourseBatchUpdate-200OK
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          type: object
+      example:
+        id: api.course.batch.update
+        ver: v1
+        ts: '2020-11-23 06:59:52:152+0000'
+        params:
+          resmsgid: null
+          msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
+          err: null
+          status: success
+          errmsg: null
+        responseCode: OK
+        result: {}
+    CourseBatchSearchRequest:
+      title: CourseBatchSearchRequest
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/Request1'
+      example:
+        request:
+          filters:
+            courseId: '{{course-id}}'
+          limit: 2
+    Request1:
+      title: Request1
+      required:
+        - filters
+        - limit
+      type: object
+      properties:
+        filters:
+          $ref: '#/components/schemas/Filters'
+        limit:
+          type: integer
+          format: int32
+      example:
+        filters:
+          courseId: '{{course-id}}'
+        limit: 2
+    Filters:
+      title: Filters
+      required:
+        - courseId
       type: object
       properties:
         courseId:
           type: string
-          description: content id for which user want to create a course
-        name:
+      example:
+        courseId: '{{course-id}}'
+    CourseBatchSearch-200OK:
+      title: CourseBatchSearch-200OK
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
           type: string
-          description: name of the course
-        description:
+        ver:
           type: string
-          description: about courses
-        enrollmentType:
+        ts:
           type: string
-          description: possible values are {invite-only and open}
-        startDate:
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
           type: string
-          description: start data of the batch valid format is yyyy-mm-dd
-        endDate:
-          type: string
-          description: end data of batch valid format is yyyy-mm-dd
-        createdFor:
+        result:
+          $ref: '#/components/schemas/Result1'
+      example:
+        id: api.course.batch.search
+        ver: v1
+        ts: '2020-11-23 15:31:47:895+0000'
+        params:
+          resmsgid: null
+          msgid: 3b07f74d-59af-494c-8d41-c8b665fa75ea
+          err: null
+          status: success
+          errmsg: null
+        responseCode: OK
+        result:
+          response:
+            count: 15
+            content:
+              - identifier: 0131440087048683528
+                createdFor: []
+                endDate: '2020-11-30'
+                description: batch description1
+                updatedDate: null
+                cert_templates:
+                  Test_Template_prad:
+                    identifier: Test_Template_prad
+                    criteria:
+                      enrollment:
+                        status: 2
+                    name: Updated Asset
+                    notifyTemplate:
+                      emailTemplateType: defaultCertTemp
+                      subject: Completion certificate
+                      stateImgUrl: 'https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png'
+                      regards: Minister of Gujarat
+                      regardsperson: Chairperson
+                    issuer:
+                      name: Gujarat Council of Educational Research and Training
+                      url: 'https://gcert.gujarat.gov.in/gcert/'
+                    url: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_prad/artifact/file-0130860005482086401.svg'
+                    signatoryList:
+                      - image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+                        name: CEO Gujarat
+                        id: CEO
+                        designation: CEO
+                batchId: 0131440087048683528
+                tandc: null
+                createdDate: '2020-11-04 12:26:38:668+0000'
+                createdBy: 95e4942d-cbe8-477d-aebd-ad8e6de4bfc8
+                mentors: []
+                name: test cert scalability
+                id: 0131440087048683528
+                enrollmentType: open
+                enrollmentEndDate: null
+                courseId: do_1131396442662912001425
+                collectionId: do_1131396442662912001425
+                startDate: '2020-11-04'
+                status: 1
+              - identifier: 0131439524674273284
+                createdFor: []
+                endDate: '2020-12-30'
+                description: batch description1
+                updatedDate: null
+                cert_templates:
+                  Test_Template_prad:
+                    identifier: Test_Template_prad
+                    criteria:
+                      enrollment:
+                        status: 2
+                    name: Updated Asset
+                    notifyTemplate:
+                      emailTemplateType: defaultCertTemp
+                      subject: Completion certificate
+                      stateImgUrl: 'https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png'
+                      regards: Minister of Gujarat
+                      regardsperson: Chairperson
+                    issuer:
+                      name: Gujarat Council of Educational Research and Training
+                      url: 'https://gcert.gujarat.gov.in/gcert/'
+                    url: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_prad/artifact/file-0130860005482086401.svg'
+                    signatoryList:
+                      - image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+                        name: CEO Gujarat
+                        id: CEO
+                        designation: CEO
+                batchId: 0131439524674273284
+                tandc: null
+                createdDate: '2020-11-04 10:24:25:778+0000'
+                createdBy: 95e4942d-cbe8-477d-aebd-ad8e6de4bfc8
+                mentors: []
+                name: test cert scalability
+                id: 0131439524674273284
+                enrollmentType: open
+                enrollmentEndDate: null
+                courseId: do_1131396442662912001425
+                collectionId: do_1131396442662912001425
+                startDate: '2020-11-04'
+                status: 1
+    Result1:
+      title: Result1
+      required:
+        - response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/Response'
+      example:
+        response:
+          count: 15
+          content:
+            - identifier: 0131440087048683528
+              createdFor: []
+              endDate: '2020-11-30'
+              description: batch description1
+              updatedDate: null
+              cert_templates:
+                Test_Template_prad:
+                  identifier: Test_Template_prad
+                  criteria:
+                    enrollment:
+                      status: 2
+                  name: Updated Asset
+                  notifyTemplate:
+                    emailTemplateType: defaultCertTemp
+                    subject: Completion certificate
+                    stateImgUrl: 'https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png'
+                    regards: Minister of Gujarat
+                    regardsperson: Chairperson
+                  issuer:
+                    name: Gujarat Council of Educational Research and Training
+                    url: 'https://gcert.gujarat.gov.in/gcert/'
+                  url: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_prad/artifact/file-0130860005482086401.svg'
+                  signatoryList:
+                    - image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+                      name: CEO Gujarat
+                      id: CEO
+                      designation: CEO
+              batchId: 0131440087048683528
+              tandc: null
+              createdDate: '2020-11-04 12:26:38:668+0000'
+              createdBy: 95e4942d-cbe8-477d-aebd-ad8e6de4bfc8
+              mentors: []
+              name: test cert scalability
+              id: 0131440087048683528
+              enrollmentType: open
+              enrollmentEndDate: null
+              courseId: do_1131396442662912001425
+              collectionId: do_1131396442662912001425
+              startDate: '2020-11-04'
+              status: 1
+            - identifier: 0131439524674273284
+              createdFor: []
+              endDate: '2020-12-30'
+              description: batch description1
+              updatedDate: null
+              cert_templates:
+                Test_Template_prad:
+                  identifier: Test_Template_prad
+                  criteria:
+                    enrollment:
+                      status: 2
+                  name: Updated Asset
+                  notifyTemplate:
+                    emailTemplateType: defaultCertTemp
+                    subject: Completion certificate
+                    stateImgUrl: 'https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png'
+                    regards: Minister of Gujarat
+                    regardsperson: Chairperson
+                  issuer:
+                    name: Gujarat Council of Educational Research and Training
+                    url: 'https://gcert.gujarat.gov.in/gcert/'
+                  url: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_prad/artifact/file-0130860005482086401.svg'
+                  signatoryList:
+                    - image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+                      name: CEO Gujarat
+                      id: CEO
+                      designation: CEO
+              batchId: 0131439524674273284
+              tandc: null
+              createdDate: '2020-11-04 10:24:25:778+0000'
+              createdBy: 95e4942d-cbe8-477d-aebd-ad8e6de4bfc8
+              mentors: []
+              name: test cert scalability
+              id: 0131439524674273284
+              enrollmentType: open
+              enrollmentEndDate: null
+              courseId: do_1131396442662912001425
+              collectionId: do_1131396442662912001425
+              startDate: '2020-11-04'
+              status: 1
+    Response:
+      title: Response
+      required:
+        - count
+        - content
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        content:
           type: array
           items:
-            type: string
-            description: this will hold list of organisations id.this is mandatory
-              in case of invite-only badge
-        mentors:
-          type: array
-          items:
-            type: string
-            description: list of user id who will take care of course
-      description: request body for creating a batch from a course.
-    CreateEmptyResponse:
-      type: object
-      properties:
-        result:
-          type: object
-          properties:
-            response:
-              type: string
-      description: contains response for created batch
-    CreateBatchResponse:
-      type: object
-      properties:
-        result:
-          type: object
-          properties:
-            response:
-              type: string
-            batchId:
-              type: string
-      description: contains response for created batch
-    SingleBatchResponseWrapper:
-      type: object
-      properties:
-        result:
-          type: object
-          properties:
-            response:
-              type: object
-              allOf:
-              - $ref: '#/components/schemas/GetBatchResponse'
-      description: ""
-    GetBatchResponse:
+            $ref: '#/components/schemas/Content'
+          description: ''
+      example:
+        count: 15
+        content:
+          - identifier: 0131440087048683528
+            createdFor: []
+            endDate: '2020-11-30'
+            description: batch description1
+            updatedDate: null
+            cert_templates:
+              Test_Template_prad:
+                identifier: Test_Template_prad
+                criteria:
+                  enrollment:
+                    status: 2
+                name: Updated Asset
+                notifyTemplate:
+                  emailTemplateType: defaultCertTemp
+                  subject: Completion certificate
+                  stateImgUrl: 'https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png'
+                  regards: Minister of Gujarat
+                  regardsperson: Chairperson
+                issuer:
+                  name: Gujarat Council of Educational Research and Training
+                  url: 'https://gcert.gujarat.gov.in/gcert/'
+                url: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_prad/artifact/file-0130860005482086401.svg'
+                signatoryList:
+                  - image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+                    name: CEO Gujarat
+                    id: CEO
+                    designation: CEO
+            batchId: 0131440087048683528
+            tandc: null
+            createdDate: '2020-11-04 12:26:38:668+0000'
+            createdBy: 95e4942d-cbe8-477d-aebd-ad8e6de4bfc8
+            mentors: []
+            name: test cert scalability
+            id: 0131440087048683528
+            enrollmentType: open
+            enrollmentEndDate: null
+            courseId: do_1131396442662912001425
+            collectionId: do_1131396442662912001425
+            startDate: '2020-11-04'
+            status: 1
+          - identifier: 0131439524674273284
+            createdFor: []
+            endDate: '2020-12-30'
+            description: batch description1
+            updatedDate: null
+            cert_templates:
+              Test_Template_prad:
+                identifier: Test_Template_prad
+                criteria:
+                  enrollment:
+                    status: 2
+                name: Updated Asset
+                notifyTemplate:
+                  emailTemplateType: defaultCertTemp
+                  subject: Completion certificate
+                  stateImgUrl: 'https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png'
+                  regards: Minister of Gujarat
+                  regardsperson: Chairperson
+                issuer:
+                  name: Gujarat Council of Educational Research and Training
+                  url: 'https://gcert.gujarat.gov.in/gcert/'
+                url: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_prad/artifact/file-0130860005482086401.svg'
+                signatoryList:
+                  - image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+                    name: CEO Gujarat
+                    id: CEO
+                    designation: CEO
+            batchId: 0131439524674273284
+            tandc: null
+            createdDate: '2020-11-04 10:24:25:778+0000'
+            createdBy: 95e4942d-cbe8-477d-aebd-ad8e6de4bfc8
+            mentors: []
+            name: test cert scalability
+            id: 0131439524674273284
+            enrollmentType: open
+            enrollmentEndDate: null
+            courseId: do_1131396442662912001425
+            collectionId: do_1131396442662912001425
+            startDate: '2020-11-04'
+            status: 1
+    Content:
+      title: Content
+      required:
+        - identifier
+        - createdFor
+        - endDate
+        - description
+        - updatedDate
+        - cert_templates
+        - batchId
+        - tandc
+        - createdDate
+        - createdBy
+        - mentors
+        - name
+        - id
+        - enrollmentType
+        - enrollmentEndDate
+        - courseId
+        - collectionId
+        - startDate
+        - status
       type: object
       properties:
         identifier:
@@ -1034,286 +1338,426 @@ components:
           type: array
           items:
             type: string
-        courseAdditionalInfo:
-          type: object
-          properties: {}
+          description: ''
         endDate:
-          type: string
-          description: date format is yyyy-MM-dd
-        countIncrementDate:
           type: string
         description:
           type: string
-        countDecrementDate:
-          type: string
         updatedDate:
           type: string
-        participant:
-          type: object
-          properties: {}
-        countIncrementStatus:
-          type: boolean
+          nullable: true
+        cert_templates:
+          $ref: '#/components/schemas/CertTemplates'
+        batchId:
+          type: string
+        tandc:
+          type: string
+          nullable: true
         createdDate:
           type: string
-          description: date format is 2017-08-07 12:41:16:151+0530
         createdBy:
-          type: string
-          description: By whom the batch is created
-        courseCreator:
           type: string
         mentors:
           type: array
           items:
             type: string
-        countDecrementStatus:
-          type: boolean
+          description: ''
         name:
           type: string
         id:
           type: string
         enrollmentType:
           type: string
+        enrollmentEndDate:
+          type: string
+          nullable: true
         courseId:
+          type: string
+        collectionId:
           type: string
         startDate:
           type: string
-          description: format is yyyy-mm-dd
         status:
           type: integer
-          description: staus of the batch 0- not started, 1- started, 2- ended
-      description: contains response for single batch object
-    CourseBatchSearchReq:
-      type: object
-      properties:
-        request:
-          type: object
-          properties:
-            query:
-              type: string
-              description: any text, it will do free text search
-            filters:
-              type: object
-              properties:
-                objectType:
-                  type: string
-                  description: which object you need to search
-              description: here you can pass the attribute and values
-      description: this will contain request structure for batch search
-    CourseBatchUpdaterequest:
-      title: Course Batch UpdateRequest
+          format: int32
+      example:
+        identifier: 0131440087048683528
+        createdFor: []
+        endDate: '2020-11-30'
+        description: batch description1
+        updatedDate: null
+        cert_templates:
+          Test_Template_prad:
+            identifier: Test_Template_prad
+            criteria:
+              enrollment:
+                status: 2
+            name: Updated Asset
+            notifyTemplate:
+              emailTemplateType: defaultCertTemp
+              subject: Completion certificate
+              stateImgUrl: 'https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png'
+              regards: Minister of Gujarat
+              regardsperson: Chairperson
+            issuer:
+              name: Gujarat Council of Educational Research and Training
+              url: 'https://gcert.gujarat.gov.in/gcert/'
+            url: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_prad/artifact/file-0130860005482086401.svg'
+            signatoryList:
+              - image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+                name: CEO Gujarat
+                id: CEO
+                designation: CEO
+        batchId: 0131440087048683528
+        tandc: null
+        createdDate: '2020-11-04 12:26:38:668+0000'
+        createdBy: 95e4942d-cbe8-477d-aebd-ad8e6de4bfc8
+        mentors: []
+        name: test cert scalability
+        id: 0131440087048683528
+        enrollmentType: open
+        enrollmentEndDate: null
+        courseId: do_1131396442662912001425
+        collectionId: do_1131396442662912001425
+        startDate: '2020-11-04'
+        status: 1
+    CertTemplates:
+      title: CertTemplates
       required:
-      - request
+        - Test_Template_prad
       type: object
       properties:
-        request:
-          $ref: '#/components/schemas/BatchUpdateReq'
-    EnrollBatchReq:
+        Test_Template_prad:
+          $ref: '#/components/schemas/TestTemplatePrad'
+      example:
+        Test_Template_prad:
+          identifier: Test_Template_prad
+          criteria:
+            enrollment:
+              status: 2
+          name: Updated Asset
+          notifyTemplate:
+            emailTemplateType: defaultCertTemp
+            subject: Completion certificate
+            stateImgUrl: 'https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png'
+            regards: Minister of Gujarat
+            regardsperson: Chairperson
+          issuer:
+            name: Gujarat Council of Educational Research and Training
+            url: 'https://gcert.gujarat.gov.in/gcert/'
+          url: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_prad/artifact/file-0130860005482086401.svg'
+          signatoryList:
+            - image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+              name: CEO Gujarat
+              id: CEO
+              designation: CEO
+    TestTemplatePrad:
+      title: TestTemplatePrad
       required:
-      - batchId
-      - courseId
-      - userId
+        - identifier
+        - criteria
+        - name
+        - notifyTemplate
+        - issuer
+        - url
+        - signatoryList
       type: object
       properties:
-        courseId:
+        identifier:
           type: string
-          description: content id for which the user wants to create a course
-        batchId:
-          type: string
-          description: name of the course
-        userId:
-          type: string
-          description: about courses
-      description: request body for enrolling user to batch
-    UnenrollBatchReq:
-      required:
-      - batchId
-      - courseId
-      - userId
-      type: object
-      properties:
-        courseId:
-          type: string
-          description: Course id for which user want to unenroll
-        batchId:
-          type: string
-          description: identifier of the batch, from where user want to unenroll
-        userId:
-          type: string
-          description: Id of the user, who is going to unenrol from given course batch.
-      description: request body for unenrolling user to batch
-    BatchUpdateReq:
-      title: Batch update request
-      required:
-      - id
-      - startDate
-      type: object
-      properties:
-        createdFor:
-          type: array
-          description: organisation id for which batch are created.
-          items:
-            type: string
-        startDate:
-          type: string
-          description: batch start date
-        endDate:
-          type: string
-          description: batch end date can be updated if end date hasnt expired
-        description:
-          type: string
-          description: ""
+        criteria:
+          $ref: '#/components/schemas/Criteria'
         name:
           type: string
-          description: ""
+        notifyTemplate:
+          $ref: '#/components/schemas/NotifyTemplate'
+        issuer:
+          $ref: '#/components/schemas/Issuer'
+        url:
+          type: string
+        signatoryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SignatoryList'
+          description: ''
+      example:
+        identifier: Test_Template_prad
+        criteria:
+          enrollment:
+            status: 2
+        name: Updated Asset
+        notifyTemplate:
+          emailTemplateType: defaultCertTemp
+          subject: Completion certificate
+          stateImgUrl: 'https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png'
+          regards: Minister of Gujarat
+          regardsperson: Chairperson
+        issuer:
+          name: Gujarat Council of Educational Research and Training
+          url: 'https://gcert.gujarat.gov.in/gcert/'
+        url: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_prad/artifact/file-0130860005482086401.svg'
+        signatoryList:
+          - image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+            name: CEO Gujarat
+            id: CEO
+            designation: CEO
+    Criteria:
+      title: Criteria
+      required:
+        - enrollment
+      type: object
+      properties:
+        enrollment:
+          $ref: '#/components/schemas/Enrollment'
+      example:
+        enrollment:
+          status: 2
+    Enrollment:
+      title: Enrollment
+      required:
+        - status
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+      example:
+        status: 2
+    NotifyTemplate:
+      title: NotifyTemplate
+      required:
+        - emailTemplateType
+        - subject
+        - stateImgUrl
+        - regards
+        - regardsperson
+      type: object
+      properties:
+        emailTemplateType:
+          type: string
+        subject:
+          type: string
+        stateImgUrl:
+          type: string
+        regards:
+          type: string
+        regardsperson:
+          type: string
+      example:
+        emailTemplateType: defaultCertTemp
+        subject: Completion certificate
+        stateImgUrl: 'https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png'
+        regards: Minister of Gujarat
+        regardsperson: Chairperson
+    Issuer:
+      title: Issuer
+      required:
+        - name
+        - url
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+      example:
+        name: Gujarat Council of Educational Research and Training
+        url: 'https://gcert.gujarat.gov.in/gcert/'
+    SignatoryList:
+      title: SignatoryList
+      required:
+        - image
+        - name
+        - id
+        - designation
+      type: object
+      properties:
+        image:
+          type: string
+        name:
+          type: string
         id:
           type: string
-          description: ""
-    EnrollBatchResponse:
-      type: object
-      properties:
-        result:
-          type: object
-          properties:
-            response:
-              type: string
-      description: contains response for created batch
-    UnenrollBatchResponse:
-      type: object
-      properties:
-        result:
-          type: object
-          properties:
-            response:
-              type: string
-      description: contains response for created batch
-    BatchCreateErrorResponse:
-      title: Create Content Error Response
-      allOf:
-      - $ref: '#/components/schemas/EmptyResult'
-    EmptyResult:
-      title: Empty Result
-      type: object
-      properties:
-        result:
-          type: object
-          properties: {}
-    BatchParticipantsRequest:
-      title: Empty Result
+        designation:
+          type: string
+      example:
+        image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+        name: CEO Gujarat
+        id: CEO
+        designation: CEO
+    CourseBatchCreateRequest:
+      title: CourseBatchCreateRequest
       required:
-      - request
+        - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/BatchParticipantReq'
-    BatchParticipantReq:
-      title: Empty Result
+          $ref: '#/components/schemas/CourseBatchCreate-Request'
+      example:
+        request:
+          courseId: '{{course-id}}'
+          name: test cert scalability
+          description: batch description1
+          enrollmentType: open
+          startDate: '2020-11-23'
+          endDate: '2021-12-30'
+    CourseBatchCreate-Request:
+      title: CourseBatchCreate-Request
       required:
-      - batchId
+        - courseId
+        - name
+        - description
+        - enrollmentType
+        - startDate
+        - endDate
       type: object
       properties:
-        batchId:
+        courseId:
           type: string
-          description: batch identifier for which participants are fetched
-        active:
+        name:
           type: string
-          description: signifies active participants, default to true
-    CreateEmptyParticipantsResponse:
-      title: Participants Response
-      type: object
-      properties:
-        result:
-          type: object
-          allOf:
-          - $ref: '#/components/schemas/EmptyBatchResult'
-    EmptyBatchResult:
-      title: Batch Participants Wrapper Response
-      type: object
-      properties:
-        batch:
-          type: object
-          allOf:
-          - $ref: '#/components/schemas/EmptyBatchParticipantsResult'
-    EmptyBatchParticipantsResult:
-      title: Batch Participants Response
-      type: object
-      properties:
-        count:
-          type: integer
-          description: count of participants
-        participants:
-          type: array
-          description: participants user Ids
-          items:
-            type: string
-    ApiRequest:
+        description:
+          type: string
+        enrollmentType:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+      example:
+        courseId: '{{course-id}}'
+        name: test cert scalability
+        description: batch description1
+        enrollmentType: open
+        startDate: '2020-11-23'
+        endDate: '2021-12-30'
+    CourseBatchCreate-400BadRequest-InvalidCourseId:
+      title: CourseBatchCreate-400BadRequest-InvalidCourseId
+      description: CourseBatchCreate-400BadRequest-InvalidCourseId
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
       type: object
       properties:
         id:
           type: string
-          description: Represents an API uniquely
         ver:
           type: string
-          description: Represents the version of the API which was used
-        ets:
-          type: integer
-          description: Represents the EPOCH (UTC) timestamp in milliseconds since
-            EPOCH
-          format: int64
-        params:
-          type: object
-          properties:
-            msgid:
-              type: string
-              description: Represents the unique ID of the message being sent
-            did:
-              type: string
-              description: Represents the device UUID from which API is called
-    ApiResponse:
-      required:
-      - ets
-      - id
-      - params
-      - ver
-      type: object
-      properties:
-        id:
+        ts:
           type: string
-          description: Represents the ID of the request which was made
-        ver:
-          type: string
-          description: Represents the version of the API which was used
-        ets:
-          type: integer
-          description: Represents the EPOCH (UTC) timestamp in milliseconds since
-            EPOCH
-          format: int64
         params:
-          required:
-          - msgid
-          - resmsgid
-          - status
-          type: object
-          properties:
-            msgid:
-              type: string
-              description: Represents the ID of the message sent
-            resmsgid:
-              type: string
-              description: Represents the ID of the response message
-            status:
-              type: string
-              enum:
-              - success
-              - error
+          $ref: '#/components/schemas/Params1'
         responseCode:
           type: string
+        result:
+          type: object
+      example:
+        id: api.course.batch.create
+        ver: v1
+        ts: '2020-11-23 06:40:48:878+0000'
+        params:
+          resmsgid: null
+          msgid: e85a4592-7458-4506-a3e3-0dc00d923616
+          err: INVALID_COURSE_ID
+          status: INVALID_COURSE_ID
+          errmsg: Course doesnot exist. Please provide a valid course identifier
+        responseCode: CLIENT_ERROR
+        result: {}
+    CourseBatchCreate-500InternalServerError:
+      title: CourseBatchCreate-500InternalServerError
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params2'
+        responseCode:
+          type: string
+        result:
+          type: object
+      example:
+        id: api.course.batch.create
+        ver: v1
+        ts: '2020-11-23 15:15:18:331+0000'
+        params:
+          resmsgid: null
+          msgid: null
+          err: INTERNAL_ERROR
+          status: SERVER_ERROR
+          errmsg: 'Process failed,please try again later.'
+        responseCode: SERVER_ERROR
+        result: {}
+    CourseBatchCreate-200OK:
+      title: CourseBatchCreate-200OK
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/CourseBatchCreate-Result'
+      example:
+        id: api.course.batch.create
+        ver: v1
+        ts: '2020-11-23 06:42:39:001+0000'
+        params:
+          resmsgid: null
+          msgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+          err: null
+          status: success
+          errmsg: null
+        responseCode: OK
+        result:
+          response: SUCCESS
+          batchId: 01315728917531852810
+    CourseBatchCreate-Result:
+      title: Result2
+      required:
+        - response
+        - batchId
+      type: object
+      properties:
+        response:
+          type: string
+        batchId:
+          type: string
+      example:
+        response: SUCCESS
+        batchId: 01315728917531852810
   securitySchemes:
     bearer:
       type: apiKey
       name: Authorization
       in: header
-    userToken:
-      type: apiKey
-      name: x-authenticated-user-token
-      in: header
-
+tags:
+  - name: Course Batch APIs
+    description: ''
