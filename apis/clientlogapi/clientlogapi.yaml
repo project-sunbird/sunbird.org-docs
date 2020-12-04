@@ -32,7 +32,7 @@
           required: true
         responses:
           '200':
-            description: Success example - logging valid client log request
+            description: Success example fo logging valid client error using ClientLog API
             headers: {}
             content:
               application/json:
@@ -49,14 +49,14 @@
                       result:
                         message: Log captured successfully!
           '400':
-            description: Bad Request for logging client log
+            description: Bad Request for logging client log API
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ClientLog-FailedResponse'
                 examples:
                   RequestFieldBodyMissing:
-                    summary: Request_Field_Body_Validation
+                    summary: 'With request field missing in request body'
                     description: Response example when request body field is missing
                     value:
                       id: ekstep.analytics.client-log
@@ -70,7 +70,7 @@
                       responseCode: CLIENT_ERROR
                       result: null
                   ContextFieldMissing:
-                    summary: Context_Field_Validation
+                    summary: With context field missing in request field
                     description: Response example when context field in missing in request body
                     value:
                       id: ekstep.analytics.client-log
@@ -84,7 +84,7 @@
                       responseCode: CLIENT_ERROR
                       result: null
                   ContextDidFieldMissing:
-                    summary: Context_DID_Required_Validation
+                    summary: With did missing in context field
                     description: did field is mandatory. extras and dspec fields are optional in context map
                     value:
                       id: ekstep.analytics.client-log
@@ -98,7 +98,7 @@
                       responseCode: CLIENT_ERROR
                       result: null
                   PdataFieldsMissing:
-                    summary: PDATA_Fields_Validation
+                    summary: With pdata field missing in request field
                     description: pid, ver, id fields mandatory in pdata map
                     value:
                       id: ekstep.analytics.client-log
@@ -112,7 +112,7 @@
                       responseCode: CLIENT_ERROR
                       result: null
                   LogsFieldsMissing:
-                    summary: LOG_Fields_Validation
+                    summary: With logs field missing in request field
                     description: log, ts fields mandatory and id is optional in logs map
                     value:
                       id: ekstep.analytics.client-log
@@ -126,7 +126,7 @@
                       responseCode: CLIENT_ERROR
                       result: null
                   LogsTsValidation:
-                    summary: LOG_TS_Field_Validation
+                    summary: With ts value 0
                     description: ts field value should always be greater than 0
                     value:
                       id: ekstep.analytics.client-log

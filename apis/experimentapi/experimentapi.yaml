@@ -6,6 +6,7 @@
     \n - For example one can create a experiment
     \n   -  for all users with medium as English and redirect to specific content page  (or)
     \n   -  for all devices with state as karnataka can use new feature in app
+    \n   -  for every 1 in 10 users with organisation as sunbird should take an assessment
     \n -  The Operations include create and get experiment  \n- The URL for Experiment API(S) is\
       \ `/data/v1/experiment`.
       - Postman collection for different testcases - [TestCases](https://www.getpostman.com/collections/a18a2d1dbc7504551638) "
@@ -21,7 +22,7 @@
           - V1
         summary: CreateExperiment
         description:  |-
-          This API is used for create a new experiment based on particular user or device filters.
+          This API is used for create a new experiment based on particular user filters such as organisation, board, medium etc. or device filters such as device id, device location state/district, first access dates etc.
              - The endpoint for ** Experiment Create** is `/create
              - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
         operationId: CreateExperiment
@@ -34,7 +35,7 @@
           required: true
         responses:
           '200':
-            description: Success example for creating an experiment
+            description: An example for successful experiment creation
             headers: {}
             content:
               application/json:
@@ -42,7 +43,8 @@
                   $ref: '#/components/schemas/CreateExperiment-SuccessResponse'
                 examples:
                   New_Experiment:
-                    summary: IF_NEW_EXPERIMENT
+                    summary: 'With new experiment id'
+                    description: 'New experiment gets created when no experiment with same ExpId exists'
                     value: 
                       id: ekstep.analytics.experiement.create
                       ver: v1
@@ -58,8 +60,9 @@
                         last_updated: 1606818148268
                         status: SUBMITTED
                         status_msg: Experiment successfully submitted
-                  If_Experiment_Already_Exists:
-                    summary: If_Experiment_Already_Exists
+                  Experiment_Already_Exists:
+                    summary: With old experiment id
+                    description: 'experiment doesnt get created or updated when experiment with same ExpId already Exists'
                     value: 
                       id: ekstep.analytics.experiement.create
                       ver: v1
@@ -75,20 +78,20 @@
                          errorMsg: ExperimentId already exists.                    
         
           '400':
-            description: Bad Request for create experiment
+            description: Bad Request for Create Experiment API
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/CreateExperiment-FailedResponse'
                 examples:
                   EmptyRequest:
-                    summary: Request_Field_Missing
+                    summary: 'With no request field in body'
                     description: Response example when request is missing
                     value:
                       $ref: '#/components/schemas/CreateExperiment-FailedResponse/example'
                   RequiredRequestFieldsEmpty:
-                    summary: Required_Body_Fields_Validation
-                    description: Reponse example when requried fields expId, name, data etc  are missing 
+                    summary: 'With empty request fields- ex: request-{}'
+                    description: Response example when requried fields expId, name, data etc in the request field are missing 
                     value:
                       id: ekstep.analytics.experiement.create
                       ver: v1
@@ -99,14 +102,14 @@
                         err: CLIENT_ERROR
                         errorMsg:
                           status: failed
-                          request.expId: Created By should not be empty
+                          request.expId: Experiment Id should not be empty
                           request.name: Experiment Name should not be  empty
                           request.createdBy: Created By should not be empty
                           request.data: Data should not be empty
                       responseCode: CLIENT_ERROR
                       result: null
-                  MissingDateFields:
-                    summary: Missing_Date_Fields_Validation 
+                  RequiredDataDateFields:
+                    summary: With startdate and enddate missing in data field
                     description: Response example with date fields are missing in data fields
                     value:
                       id: ekstep.analytics.experiement.create
@@ -123,7 +126,7 @@
                       responseCode: CLIENT_ERROR
                       result: null
                   InvalidDateFields:
-                    summary: Invalid_Date_Fields_Validation
+                    summary: With invalid dates for startdate and enddate
                     description: Response example start date and end date are invalid
                     value:
                       id: ekstep.analytics.experiement.create
@@ -139,7 +142,7 @@
                       responseCode: CLIENT_ERROR
                       result: null
                   StartEndDateValidation:
-                    summary: Start_End_Date_Validation
+                    summary: With startdate greater than enddate
                     description: Response example start date is greater than end date
                     value:
                       id: ekstep.analytics.experiement.create
@@ -155,7 +158,7 @@
                       responseCode: CLIENT_ERROR
                       result: null
           '500':
-            description: Internal Server Error example for experiment create
+            description: Internal Server Error example for create experiment API
             content:
               application/json:
                 schema:
@@ -180,7 +183,7 @@
           - V1
         summary: GetExperiment
         description:  |-
-          This API is used for get particular experiment based on experiment id
+          The get experiment API is used for retrieving the details about an existing experiment using the experiment id
              - The endpoint for ** Get Experiment** is `/{experiment-id}`
              - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
         operationId: GetExperiment
@@ -194,7 +197,7 @@
               type: string
         responses:
           '200':
-            description: Success example for get particular experiment
+            description: An example for a successful retrieval of an existing experiment using the Get Experiment API.
             headers: {}
             content:
               application/json:
@@ -218,7 +221,7 @@
                         expId: D1234
                         name: DEVICE_EXP
                         createdBy: USER2
-                        description: Experiment to redirect all users with device_state as Karnataka and first_access in range of october month to different app page
+                        description: Experiment to redirect all users with device_state as Karnataka and first_access in the range of the month of October 2019 to a different app landing page.
                         criteria:
                          type: device
                          filters: [
@@ -259,7 +262,7 @@
                       responseCode: OK
                       result: null
           '500':
-            description: Internal Server Error example for batch create
+            description: Internal Server Error example for Get Experiment API
             content:
               application/json:
                 schema:
@@ -362,10 +365,10 @@
            description: Unique id for experiment
           name:
            type: string
-           description: name of the experiment
+           description: Name of the experiment
           createdBy:
            type: string
-           description: name of the user who created the experiment
+           description: Name of the user who created the experiment
           description:
            type: string
            description: Short description about the experiment
@@ -382,7 +385,7 @@
        properties:
          type:
            type: string
-           description: Experiment type - either user or device
+           description: Experiment type - either user/user_mod/device/device_mod
          filters:
            description: Required filters based on user or device filters
            type: object
@@ -402,7 +405,7 @@
         properties:
           startDate:
             type: string
-            description: Start date of the experiment(yyyy-mm-dd). Should be always greater than experiment created date
+            description: Start date of the experiment. Should be always greater than experiment created date
           endDate:
             type: string
             description: End date of the experiment((yyyy-mm-dd)). Should be always be valid greater than experiment created date and start date
@@ -412,11 +415,15 @@
           client:
             type: string
             description: experiment client - either app or portal
+          modulus:
+            type: integer
+            description: '1 in modulus no of users or devices'
         example:
           startDate: "2020-10-11"
           endDate: "2020-10-19"
           key: '/org/profile'
           client: 'portal'
+          modulus: 10
            
       CreateExperiment-SuccessResponse:
         title: CreateExperiment-SuccessResponse

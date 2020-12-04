@@ -102,7 +102,7 @@
           required: true
         responses:
           '200':
-            description: Success example for submitting druid report
+            description: Success example for druid report submit API
             headers: {}
             content:
               application/json:
@@ -110,8 +110,8 @@
                   $ref: '#/components/schemas/SubmitDruidReport-SuccessResponse'
                 examples:
                   New_Report:
-                    summary: If_New_Report
-                    description: If not the report already exists
+                    summary: With new reportId
+                    description: 'Report gets created when no report with same reportId exists'
                     value: 
                       id: ekstep.analytics.report.submit
                       ver: v1
@@ -123,8 +123,8 @@
                       result:
                         $ref: '#/components/examples/reportexample'
                   Existing_Report:
-                    summary: If_Report_Exists_Already
-                    description: If the already a report with same reportId exists
+                    summary: With old report id
+                    description: Report doesnt get submitted or updated when report with reportid exists
                     value: 
                       id: ekstep.analytics.report.submit
                       ver: v1
@@ -138,14 +138,14 @@
                       result: null
                       
           '400':
-            description: Bad Request for submit report.
+            description: Bad Request for druid report submit API.
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/DruidReport-BadRequestResponse'
                 examples:
-                  EmptyFields:
-                    summary: EmptyFields
+                  RequiredFieldsMissing:
+                    summary: With empty fields like request, reportid, config, config.store etc
                     description: Response example when required fields are missing
                     value:
                       $ref: '#/components/schemas/DruidReport-BadRequestResponse/example'
@@ -175,7 +175,7 @@
           - V1
         summary: UpdateDruidReport
         description:  |-
-          This API is used for updating any exisiting report. For example, the user can update  report with selective filters ,dimensions  and aggregations
+          This API is used for updating any exisiting report. For example, the user can update  report with updated filters ,dimensions  or aggregations
              - The endpoint for ** Druid Report** is `/{report-id}`
              - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
         operationId: UpdateDruidReport
@@ -271,7 +271,7 @@
           required: true
         responses:
           '200':
-            description: Success example for new druid report
+            description: Success example for druid report Update API
             headers: {}
             content:
               application/json:
@@ -279,8 +279,8 @@
                   $ref: '#/components/schemas/UpdateDruidReport-SuccessResponse'
                 examples:
                   Existing_Report:
-                    summary: If_Report_Exists
-                    description: If report exists, update will be successful
+                    summary: With exising report id
+                    description: If report exists,then only update will be successful
                     value: 
                       id: ekstep.analytics.report.update
                       ver: v1
@@ -292,7 +292,7 @@
                       result:
                         $ref: '#/components/examples/reportexample'
                   New_Report:
-                    summary: If_Report_Doesnt_Exists
+                    summary: With new report id
                     description: If report doesnt exist, the update will fail
                     value: 
                       id: ekstep.analytics.report.submit
@@ -307,19 +307,19 @@
                       result: null
                       
           '400':
-            description: Bad Request for submit report.
+            description: Bad Request for druid report update API
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/DruidReport-BadRequestResponse'
                 examples:
-                  EmptyFields:
-                    summary: EmptyFields
+                  RequiredFieldsMissing:
+                    summary: With empty fields like request, reportid, filters, aggregations etc
                     description: Response example when required fields are missing
                     value:
                       $ref: '#/components/schemas/DruidReport-BadRequestResponse/example'
           '500':
-            description: Internal Server Error example for report submit
+            description: Internal Server Error example for druid report update API
             content:
               application/json:
                 schema:
@@ -343,7 +343,7 @@
           - V1
         summary: GetDruidReport
         description:  |-
-          This API is used for get particular report based on report id
+          This Get Report API is used for retrieving the details about an existing report using the report id.
              - The endpoint for ** Druid Report** is `/{report-id}`
              - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
         operationId: GetDruidReport
@@ -357,7 +357,7 @@
               type: string
         responses:
           '200':
-            description: Success example for get particular report
+            description: Success example for get report API
             headers: {}
             content:
               application/json:
@@ -365,7 +365,7 @@
                   $ref: '#/components/schemas/GetDruidReport-SuccessResponse'
                 examples:
                   Existing_Report:
-                    summary: If_Report_Exists
+                    summary: With old report id
                     value: 
                       id: ekstep.analytics.report.get
                       ver: v1
@@ -377,7 +377,7 @@
                       result:
                         $ref: '#/components/examples/reportexample'
                   New_Report:
-                    summary: If_Report_Doesnt_Exists
+                    summary: With new report id
                     value: 
                       id: ekstep.analytics.report.get
                       ver: v1
@@ -389,21 +389,8 @@
                         errmsg: no report available with requested reportid
                       responseCode: OK
                       result: null
-                      
-          '400':
-            description: Bad Request for submit report.
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/DruidReport-BadRequestResponse'
-                examples:
-                  EmptyFields:
-                    summary: EmptyFields
-                    description: Response example when required fields are missing
-                    value:
-                      $ref: '#/components/schemas/DruidReport-BadRequestResponse/example'
           '500':
-            description: Internal Server Error example for report get
+            description: Internal Server Error example for report get API
             content:
               application/json:
                 schema:
@@ -428,7 +415,7 @@
           - V1
         summary: GetDruidReportsList
         description:  |-
-          This API is used for getting the list of avaliable active reports.
+          This API is used for getting the list of avaliable active or inactive reports.
              - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
         operationId: GetDruidReportsList
         requestBody:
@@ -465,7 +452,7 @@
                         $ref: '#/components/examples/reportexample1'
                         ]
           '500':
-            description: Internal Server Error example druid list report
+            description: Internal Server Error example druid list report API
             content:
               application/json:
                 schema:
@@ -504,7 +491,7 @@
               type: string
         responses:
           '200':
-            description: Success example for deactivating the report
+            description: Success example for deactivating report API
             headers: {}
             content:
               application/json:
@@ -512,8 +499,8 @@
                   $ref: '#/components/schemas/DeactivateDruidReport-SuccessResponse'
                 examples:
                   Existing_Report:
-                    summary: If_Report_Exists
-                    description: Response If the report is avaliable
+                    summary: With old report id
+                    description: Response when the report is avaliable
                     value: 
                       id: ekstep.analytics.report.update
                       ver: v1
@@ -525,8 +512,8 @@
                       result:
                         result: Successfully DeActivated the Report
                   Report_Doesnt_Exist:
-                    description: Response If the report doesnt exist
-                    summary: If_Report_Doesnt_Exists
+                    description: Response when the report doesnt exist
+                    summary: With new report id
                     value: 
                       id: ekstep.analytics.report.submit
                       ver: v1
@@ -539,7 +526,7 @@
                       responseCode: OK
                       result: null
           '500':
-            description: Internal Server Error example for report submit
+            description: Internal Server Error example for deactivate report API
             content:
               application/json:
                 schema:
@@ -942,8 +929,10 @@
         properties:
           type:
             type: string
+            description: Filter type - and/or/in etc
           dimension:
             type: string
+            description: Druid dimension name
           values:
             type: array
             items:
@@ -961,8 +950,10 @@
           aliasName:
             nullable: true
             type: string
+            description: Alias name for druid dimension name
           fieldName:
             type: string
+            description: Druid dimension name
         example:
           fieldName: derived_loc_district
           aliasName: district
@@ -978,6 +969,7 @@
             type: string
           type:
             type: string
+            description: Aggregation type- count/cardinality etc
           fieldName:
             type: string
         example:
@@ -1064,92 +1056,13 @@
                 "id",
                 "dims"
               ]
-      UpdateReportRequest:
-        title: UpdateDruidReport
-        required:
-          - request
-        type: object
-        properties:
-          request:
-            $ref: '#/components/schemas/Report-Request'
-        example:
-          request:
-            reportId: 'district_monthly'
-            requestedBy: analytics
-            description: Unique Device district wise monthly
-            reportSchedule: reportSchedule
-            config: 
-              id: district_monthly
-          queryType: groupBy
-          dateRange:
-            staticInterval: LastMonth
-            granularity: all
-          metrics: 
-            metric: totalUniqueDevices
-            label: Total Unique Devices
-            druidQuery: 
-              "queryType": "groupBy"
-              "dataSource": "telemetry-rollup-syncts"
-              "intervals": "LastMonth"
-            aggregations:
-               "name": "total_unique_devices"
-               "type": "cardinality"
-               "fieldName": "context_did"
-            dimensions:
-              [
-                  {
-                    "fieldName": "derived_loc_state",
-                    "aliasName": "state"
-                  },
-                  {
-                    "fieldName": "derived_loc_district",
-                    "aliasName": "district"
-                  }
-                ]
-            filters: 
-              [
-                  {
-                    "type": "in",
-                    "dimension": "context_pdata_id",
-                    "values": [
-                      "sunbirdddev.diksha.portal",
-                      "sunbirddev.diksha.app"
-                      ]
-                  },
-                  {
-                    "type": "isnotnull",
-                    "dimension": "derived_loc_state"
-                  },
-                  {
-                    "type": "isnotnull",
-                    "dimension": "derived_loc_district"
-                  }
-              ]
-            descending: 'false'
-            labels: {
-            "state": "State",
-            "district": "District",
-            "total_unique_devices": "Number of Unique Devices"
-            }
-            output: [
-              type: csv,
-              "metrics": [
-                "total_unique_devices"
-              ],
-              "dims": [
-                "state"
-              ]
-            ]
-            fileParameters: [
-                "id",
-                "dims"
-              ]            
       Labels:
         title: Labels
         type: object
         properties:
           '{{label-key}}':
            type: string
+           description: key value pairs for changing druid columns to desired names for report
         example:
           "total_unique_devices": "Number of Unique Devices"
           "state": "State"
@@ -1167,16 +1080,19 @@
             description: 'Output type csv or json'
           metrics:
             type: array
+            description: List of metrics names from aggregations and post aggregations
             items:
               type: string
           dims:
             type: array
+            description: List of dimensions for the report folders
             items:
               type: string
           fileParameters:
             type: array
+            description: Parameters like filename etcs
             items:
-              type: string            
+              type: string
       Report-Request:
         title: Report-Request
         required:
