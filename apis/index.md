@@ -39,7 +39,9 @@ They are categorized by resource type. Each resource type has one or more data r
             <!--<li><a href="apis/badgesapi/" target="_blank">User Badges </a></li>-->
             <li><a href="apis/noteapi/" target="_blank">User Notes </a></li>
             <li><a href="apis/badgingframeworkapi/" target="_blank">Badging Framework </a></li>
-            <li><a href="apis/deviceapi/" target="_blank">Device </a></li>
+
+            <li><a href="apis/desktop/app-update/" target="_blank">Desktop app update </a></li>
+            <li><a href="apis/desktop/device-registry/" target="_blank">Desktop app device registry </a></li>
         </ul>
     </div>
     <div class="col-sm-4">
