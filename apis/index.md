@@ -39,6 +39,7 @@ They are categorized by resource type. Each resource type has one or more data r
             <!--<li><a href="apis/badgesapi/" target="_blank">User Badges </a></li>-->
             <li><a href="apis/noteapi/" target="_blank">User Notes </a></li>
             <li><a href="apis/badgingframeworkapi/" target="_blank">Badging Framework </a></li>
+            <li><a href="apis/courseenrolmentapi/" target="_blank">Course Enrolment </a></li>
             <li><a href="apis/echoapi/" target="_blank">Echo API</a></li>
             <li><a href="apis/refreshtokenapi/" target="_blank">Refresh Token API</a></li>
             <li><a href="apis/kongcredentialregisterapiv1/" target="_blank">Kong Credential Register API V1</a></li>
