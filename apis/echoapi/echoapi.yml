@@ -1,0 +1,93 @@
+openapi: 3.0.1
+info:
+  version: '1.0'
+  title: Echo API
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  description: >-
+    The Echo API is used internally by the portal service in the SSO login
+    workflow. The portal service will invoke this API to validate the token.
+    This API is never directly used by the end user, but instead used by a
+    service to validate the Kong's bearer token. Here is an example scenario
+    which describes the use of this API - Usually an API request is handled by
+    multiple services. The request will flow via Kong from the frontend app to
+    the backend app. In case the API request is completely served by the
+    frontend itself, then in order to validate the token, the frontend app can
+    internally invoke the Echo API.
+paths:
+  '/{text}':
+    get:
+      description: |-
+        This API is used the validate the Kong's bearer token
+           - Required fields cannot be left null or empty
+      summary: Validate the token
+      tags:
+        - Echo API
+      operationId: EchoAPI
+      parameters:
+        - in: path
+          name: text
+          required: true
+          description: Append any text to the request URL
+          example: hello
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                $ref: '#/components/schemas/TokenValidOrServiceDown'
+              example: hello
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenError'
+              example:
+                message: Unauthorized
+              
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenError'
+              examples:
+                No permission to access the API:
+                  value: 
+                    message: You cannot consume this service
+                Token is not found: 
+                  value:
+                    message: No credentials found for given 'iss'
+                Token is malformed:
+                  value:
+                    message: Invalid signature
+        '502':
+          description: Sevice Unavailable
+          content:
+            text/html:
+              schema:
+                $ref: '#/components/schemas/TokenValidOrServiceDown'
+              example: An invalid response was received from the upstream server
+security:
+  - bearerAuth: []
+servers:
+  - url: 'https://dev.sunbirded.org/api/echo/'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    TokenValidOrServiceDown:
+      description: Token is valid or service is down
+      type: string
+    TokenError:
+      description: Token is not found, missing permission, null or malformed
+      type: object
+      properties:
+        message:
+          type: string
