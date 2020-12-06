@@ -1,34 +1,29 @@
 openapi: 3.0.1
 info:
   title: Notification API(s)
-  description: The Email resources provides the notification mechanism for all the
-    users on Sunbird .The Resource notifies users officially about something on Sunbird.
+  description: 'The Email resources provides the notification mechanism for all the
+    users on Sunbird. The Resource notifies users officially about something on Sunbird. '
   termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
   contact:
     email: info@sunbird.org
   version: "1.0"
-
+  
 externalDocs:
-   description: "Testcases"
-   url: "https://www.getpostman.com/collections/0d115856f5fb996ad38c"
+ description: "Testcases"
+ url: "https://www.getpostman.com/collections/0d115856f5fb996ad38c"
 servers:
-- url: https://staging.open-sunbird.org/api
+- url: https://staging.sunbirded.org/api
 paths:
-  '/user/v1/notification/email ':
+  /otp/v1/generate:
     post:
       tags:
       - Notification APIs
-      summary: ' Notifiying Users'
-      description: "This API is associated with notifying a user on the Sunbird Platform.if\
-        \ request will contain mode attribute with value sms ,then user will be notify\
-        \ via sms.During sms notification you can pass list of phone number or list\
-        \ of phone number and userid both.\n   - {{host}}/user/v1/notification/email\
-        \ , This is the format of the API URL for sending notifications. \n   - The\
-        \ **_/email/_** endpoint executes the notification request based on parameters\
-        \ provided as metadata in the request body.\n   - It is mandatory to provide\
-        \ values for parameters marked with *. \n   - Mandatory fields cannot be null\
-        \ or empty."
-      operationId: '{{host}}/user/v1/notification/email '
+      summary: Generate OTP
+      description: |-
+        This API is associated with sending OTP to user on the Sunbird Platform.
+           - The endpoint for **Generate OTP** is `otp/v1/generate`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: '{{host}}/otp/v1/generate'
       parameters:
       - name: Authorization
         in: header
@@ -45,7 +40,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/emailRequest'
+              $ref: '#/components/schemas/generateOtpRequest'
         required: true
       responses:
         200:
@@ -56,7 +51,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ContentCreateResponse'
               example:
-                id: api.notification.email
+                id: api.otp.generate
                 ver: v1
                 ts: 2020-12-01 10:49:01:948+0000
                 params:
@@ -83,22 +78,98 @@ paths:
                 params:
                   resmsgid: 
                   msgid: 12eb0ca45ce4c776fab994d120bedd41
-                  err: INVALID_PARAMETER_VALUE
-                  status: INVALID_PARAMETER_VALUE
-                  errmsg: Invalid value 5ee4a77c-4600-46de-a938-dsdsdsdb for parameter recipientUserIds. Please provide a valid value.
+                  err: MANDATORY_PARAMETER_MISSING
+                  status: MANDATORY_PARAMETER_MISSING
+                  errmsg: Mandatory parameter key is missing.
                 responseCode: SERVER_ERROR
                 result: {}
-                
         500:
-          description: "'INTERNAL SERVER ERROR. We track these errors automatically and
-            try to set it right at the earliest. Try refreshing the page. If the
-            problem persists contact us at info@sunbird.org.'"
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel free
+            to contact us. In the meantime, try refreshing.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentCreateErrorResponse'
+              example:
+                id: api.otp.generate
+                ver: v1
+                ts: 2020-12-01 10:49:01:948+0000
+                params:
+                  resmsgid: 
+                  msgid: 12eb0ca45ce4c776fab994d120bedd41
+                  err: INTERNAL_ERROR
+                  status: INTERNAL_ERROR
+                  errmsg: Process failed,please try again later.
+                responseCode: SERVER_ERROR
+                result: {}
+  /otp/v1/verify:
+    post:
+      tags:
+      - Notification APIs
+      summary: Verify OTP
+      description: |-
+        This API is associated with verifying OTP to user on the Sunbird Platform.
+           - The endpoint for **Verifiy OTP** is `otp/v1/verify`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: '{{host}}/otp/v1/verify'
+      parameters:
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the notification to be sent.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/verifyOtpRequest'
+        required: true
+      responses:
+        200:
+          description: OK ! Successful operation."Notifying User" operation was successfully
+            executed.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ContentCreateErrorResponse"
+                $ref: '#/components/schemas/ContentCreateResponse'
               example:
-                id: api.notification.email
+                id: api.otp.generate
+                ver: v1
+                ts: 2020-12-01 10:49:01:948+0000
+                params:
+                  resmsgid: 
+                  msgid: 12eb0ca45ce4c776fab994d120bedd41
+                  err: null
+                  status: success
+                  errmsg: null.
+                responseCode: OK
+                result: 
+                 response: "SUCCESS"
+        400:
+          description: BAD REQUEST. The "Notifying User" operation failed! The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentCreateErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel free
+            to contact us. In the meantime, try refreshing.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentCreateErrorResponse'
+              example:
+                id: api.otp.verify
                 ver: v1
                 ts: 2020-12-01 10:49:01:948+0000
                 params:
