@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: OTP API(s)
   description: 'The Email resources provides the notification mechanism for all the
-    users on Sunbird. The Resource notifies users officially about something on Sunbird. '
+    users on Sunbird. The otp generate api will generate the otp for the users which can be verified using otp verify api. '
   termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
   contact:
     email: info@sunbird.org
@@ -44,7 +44,7 @@ paths:
         required: true
       responses:
         200:
-          description: OK ! Successful operation."Notifying User" operation was successfully
+          description: OK ! Successful operation."Generate OTP" operation was successfully
             executed.
           content:
             application/json:
@@ -64,7 +64,7 @@ paths:
                 result: 
                  response: "SUCCESS"
         400:
-          description: BAD REQUEST. The "Notifying User" operation failed ! The possible
+          description: BAD REQUEST. The "Generate OTP" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
             parameter.
           content:
@@ -109,9 +109,10 @@ paths:
       - OTP APIs
       summary: Verify OTP
       description: |-
-        This API is associated with verifying OTP to user on the Sunbird Platform.
+        This API is associated with verifying the OTP of the user on the Sunbird Platform.
            - The endpoint for **Verifiy OTP** is `otp/v1/verify`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+           - The Otp provided in the request is verified with the available otp generated for the user within the sunbird system.
       operationId: '{{host}}/otp/v1/verify'
       parameters:
       - name: Authorization
@@ -133,7 +134,7 @@ paths:
         required: true
       responses:
         200:
-          description: OK ! Successful operation."Notifying User" operation was successfully
+          description: OK ! Successful operation."Verify Otp" operation was successfully
             executed.
           content:
             application/json:
@@ -153,7 +154,7 @@ paths:
                 result: 
                  response: "SUCCESS"
         400:
-          description: BAD REQUEST. The "Notifying User" operation failed! The possible
+          description: BAD REQUEST. The "Verify Otp" operation failed! The possible
             reason for failure is that you may have missed providing input for a mandatory
             parameter.
           content:
@@ -182,86 +183,6 @@ paths:
                 result: {}
 components:
   schemas:
-    emailRequest:
-      title: Request structure for sending email notification
-      required:
-      - request
-      type: object
-      properties:
-        request:
-          $ref: '#/components/schemas/Request'
-      example:
-        request:
-          name: Amit
-          subject: test email
-          body: Hello Amit.
-          downloadUrl: https://www.google.com/
-          recipientEmails:
-          - amit.kumar@tarento.com
-          - amit1.kumar@tarento.com
-          mode: sms
-          recipientPhones:
-          - valid phone number without country code
-          recipientUserIds:
-          - valid userId
-          recipentSearchQuery:
-            filters:
-              channel: nameof channel
-              rootOrgId: rootOrgIds
-              organisations.roles:
-              - valid roles
-    Request:
-      title: Request
-      required:
-      - body
-      - downloadUrl
-      - recipientEmails
-      - recipientUserIds
-      - subject
-      type: object
-      properties:
-        name:
-          type: string
-          description: Recipient name to whom mail is sending
-        subject:
-          type: string
-          description: Subject of mail
-        body:
-          type: string
-          description: Contents of mail body
-        mode:
-          type: object
-          description: supported value is sms, apart from sms all other values will
-            be ignore.if value is sms then it will notify user via sms, and body will
-            become sms text
-        downloadUrl:
-          type: string
-          description: Download link of content
-        recipientEmails:
-          type: array
-          description: List of recipient mail ids
-          items:
-            type: string
-        recipientPhones:
-          type: array
-          description: List of valid phone numbers without country code
-          items:
-            type: string
-        recipientUserIds:
-          type: array
-          description: List of recipient user ids. With help of user ids system fetches
-            user email to send mail.
-          items:
-            type: string
-        recipientSearchQuery:
-          type: object
-          properties:
-            filters:
-              type: object
-              properties: {}
-          description: 'Filter query to find user based on some criteria, Example:
-            send all users with particular rootOrgId and having certain roles. among
-            recipientEmails,recipientUserIds,recipientSearchQuery any one is mandatory.'
     generateOtpRequest:
       title: Request structure for sending OTP
       required:
@@ -335,7 +256,7 @@ components:
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/SendNotificationMailResult'
+          $ref: '#/components/schemas/SendOtpResult'
     ResponseHeader:
       title: ResponseHeader
       type: object
@@ -355,14 +276,13 @@ components:
           type: object
           properties: {}
           description: 'API response code '
-    SendNotificationMailResult:
-      title: Send Notification Result
+    SendOtpResult:
+      title: Send Otp Result
       type: object
       properties:
         response:
           type: string
-          description: SUCCESS in case mail send successfully otherwise user id with
-            reason of mailsending fail .
+          description: It will contain "SUCCESS" as a value,if the Otp is generated and send successfully to the user otherwise user id with reason of failure.
     ResponseParams:
       title: Response Parameter
       type: object

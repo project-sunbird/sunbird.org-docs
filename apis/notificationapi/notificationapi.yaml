@@ -1,8 +1,8 @@
 openapi: 3.0.1
 info:
   title: Notification API(s)
-  description: The Email resources provides the notification mechanism for all the
-    users on Sunbird .The Resource notifies users officially about something on Sunbird.
+  description: The API resources provides the notification mechanism for all the
+    users on Sunbird .This API can be used to notify the sunbird system's user officially about any event or action on the Sunbird.
   termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
   contact:
     email: info@sunbird.org
@@ -19,15 +19,16 @@ paths:
       tags:
       - Notification APIs
       summary: ' Notifiying Users'
-      description: "This API is associated with notifying a user on the Sunbird Platform.if\
-        \ request will contain mode attribute with value sms ,then user will be notify\
-        \ via sms.During sms notification you can pass list of phone number or list\
-        \ of phone number and userid both.\n   - {{host}}/user/v1/notification/email\
-        \ , This is the format of the API URL for sending notifications. \n   - The\
-        \ **_/email/_** endpoint executes the notification request based on parameters\
-        \ provided as metadata in the request body.\n   - It is mandatory to provide\
-        \ values for parameters marked with *. \n   - Mandatory fields cannot be null\
-        \ or empty."
+      description: >-
+        This API is associated with notifying a user on the Sunbird Platform. If the
+         request will contain the mode attribute with value as sms, then the user will be notified
+         via sms else the user will be notified with email. During sms notification you can pass list of phone number or list of phone number and userid both. 
+    
+        - The **_/email/_** endpoint executes the notification request based on parameters
+          provided as metadata in the request body.
+        - It is mandatory to provide values for parameters marked with * . 
+        
+        - Mandatory fields cannot be null or empty.
       operationId: '{{host}}/user/v1/notification/email '
       parameters:
       - name: Authorization
@@ -191,69 +192,6 @@ components:
           description: 'Filter query to find user based on some criteria, Example:
             send all users with particular rootOrgId and having certain roles. among
             recipientEmails,recipientUserIds,recipientSearchQuery any one is mandatory.'
-    generateOtpRequest:
-      title: Request structure for sending OTP
-      required:
-      - request
-      type: object
-      properties:
-        request:
-          $ref: '#/components/schemas/genOtpRequest'
-      example:
-        request:
-          userId: 372175df-7f44-48df-8aa5-4t6228996b06s
-          key: amit@gmail.com
-          type: email
-    genOtpRequest:
-      title: Request
-      required:
-      - key
-      - type
-      type: object
-      properties:
-        userId:
-          type: string
-          description: Recipient name to whom mail is sending
-        key:
-          type: string
-          description: Subject of mail
-        type:
-          type: string
-          description: Contents of mail body
-    verifyOtpRequest:
-      title: Request structure for verifying OTP
-      required:
-      - request
-      type: object
-      properties:
-        request:
-          $ref: '#/components/schemas/verOtpRequest'
-      example:
-        request:
-          userId: 372175df-7f44-48df-8aa5-4t6228996b06s
-          key: amit@gmail.com
-          type: email
-          otp: "79562"
-    verOtpRequest:
-      title: Request
-      required:
-      - key
-      - otp
-      - type
-      type: object
-      properties:
-        userId:
-          type: string
-          description: Recipient name to whom mail is sending
-        key:
-          type: string
-          description: Subject of mail
-        type:
-          type: string
-          description: Contents of mail body
-        otp:
-          type: string
-          description: OTP
     ContentCreateResponse:
       description: Create Content Response
       allOf:
