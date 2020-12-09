@@ -50,6 +50,7 @@ They are categorized by resource type. Each resource type has one or more data r
             <li><a href="apis/desktop/device-registry/" target="_blank">Desktop app device registry </a></li>
             <li><a href="apis/consentapi/" target="_blank">User Consent</a></li>
 	    <li><a href="apis/tenantpreferenceapi/" target="_blank">Tenant Preference</a></li>
+            <li><a href="apis/geolocationapi/" target="_blank">Geo-Location</a></li>
 
         </ul>
     </div>
