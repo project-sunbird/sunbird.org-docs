@@ -1,76 +1,27 @@
 openapi: 3.0.0
 info:
-  title: Program_API's
-  description: 'These are the API used to do all the operations about program like creating, updating and some more operations '
-  contact: {}
+  title: Program Api's
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  description: Add some valid description here.
+
+  contact: 
+   email: info@sunbird.org
   version: '1.0'
 servers:
-- url: https://dock.sunbirded.org/content/program/v1
+- url: https://dock.sunbirded.org/content/program/v1/process
   variables: {}
+externalDocs:
+ description: "Testcases"
+ url: "https://www.getpostman.com/collections/1402163310181f7057e5"
 paths:
-  /list:
+  /v1/list/download:
     post:
       tags:
-      - Misc
-      summary: https://dock.sunbirded.org/content/program/v1/list
-      operationId: https://dock.sunbirded.org/content/program/v1/list
+      - Success
+      summary: List Download 200 Success
+      description: list/download
+      operationId: ListDownload200Success
       parameters:
-      - name: Connection
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: keep-alive
-      - name: Pragma
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: no-cache
-      - name: Cache-Control
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: no-cache
-      - name: X-App-Id
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: dev.dock.portal
-      - name: ts
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: 2020-12-02T11:25:26+05:30
-      - name: X-msgid
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: e973c862-115d-51f1-5637-ca177b072a3f
-      - name: User-Agent
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.67 Safari/537.36
       - name: Accept
         in: header
         description: ''
@@ -79,22 +30,6 @@ paths:
         schema:
           type: string
           example: application/json
-      - name: X-Source
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: web
-      - name: X-Device-ID
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: d94997d031c714aa590c8f2380850a69
       - name: Origin
         in: header
         description: ''
@@ -103,38 +38,6 @@ paths:
         schema:
           type: string
           example: https://dock.sunbirded.org
-      - name: Sec-Fetch-Site
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: same-origin
-      - name: Sec-Fetch-Mode
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: cors
-      - name: Sec-Fetch-Dest
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: empty
-      - name: Referer
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: https://dock.sunbirded.org/contribute/myenrollprograms
       - name: Accept-Language
         in: header
         description: ''
@@ -143,52 +46,156 @@ paths:
         schema:
           type: string
           example: en-GB,en;q=0.9
-      - name: Cookie
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListDownload200SuccessRequest'
+            example:
+              request:
+                filters:
+                  program_id:
+                  - afdfa9a0-1dbc-11eb-81b1-659ec274e395
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+    put:
+      tags:
+      - Failures
+      summary: List Download 404 Not Found
+      operationId: ListDownload404NotFound
+      parameters:
+      - name: Accept
         in: header
         description: ''
         required: true
         style: simple
         schema:
           type: string
-          example: connect.sid=s%3A6fKZOFiFJcnIQnw998c_9Wz6Y-Aup7v4.EScUhuBdEetLBIRgsuOCAIYjc7VCtugzpqv8qCCoFoY
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
       requestBody:
         description: ''
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/listrequest'
+              $ref: '#/components/schemas/ListDownload404NotFoundRequest'
             example:
               request:
                 filters:
-                  enrolled_id:
-                    user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
-                  status:
-                  - Live
-                  - Unlisted
-                sort:
-                  medium:
-                  - English
-                  - Hindi
-                  - Tamil
-                  gradeLevel:
-                  - Class 1
-                  - Class 10
-                  - Class 7
-                  - Class 3
-                  - Class 9
-                  - Class 2
-                  - Class 4
-                  - Class 6
-                  - Class 5
-                  - Class 8
-                  subject:
-                  - Mathematics
-                  - Hindi
-                  - Science
-                  - English
-                  - Geography
-                  - History
-                  - Tamil
+                  program_id:
+                  - afdfa9a0-1dbc-11eb-81b1-659ec274e395
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+    get:
+      tags:
+      - Failures
+      summary: List Download 204 No Content
+      operationId: ListDownload204NoContent
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+  /v1/configuration/search:
+    post:
+      tags:
+      - Success
+      summary: Configuration  Search 200 Success
+      description: Configuration/search
+      operationId: ConfigurationSearch200Success
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationSearch200SuccessRequest'
+            example:
+              request:
+                key: overrideMetaData
+                status: active
         required: true
       responses:
         200:
@@ -199,13 +206,1495 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: Wed, 02 Dec 2020 09:51:51 GMT
+                  example: Wed, 02 Dec 2020 11:03:07 GMT
             Content-Length:
               content:
                 text/plain:
                   schema:
                     type: string
-                  example: 114522
+                  example: 927
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: SAMEORIGIN
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=15552000; includeSubDomains
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1; mode=block
+            x-ratelimit-limit-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 30000
+            x-ratelimit-remaining-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 29997
+            x-powered-by:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Express
+            access-control-allow-origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            access-control-allow-methods:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: GET,PUT,POST,PATCH,DELETE,OPTIONS
+            access-control-allow-headers:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Content-Type, Authorization,cid, user-id, x-auth, Cache-Control, X-Requested-With, datatype, *
+            etag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"39f-/OXYNw5sfRTg1KixRs/EZa69YRQ"
+            x-kong-upstream-latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 692
+            x-kong-proxy-latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 0
+            via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: kong/0.9.9
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/ConfigurationSearch400BadRequest'
+              example:
+                id: api.configuration.search
+                ver: 1.0
+                ts: 2020-12-02T11:03:07.275Z
+                params:
+                  resmsgid: f5241db0-348d-11eb-9c32-15914148e3ce
+                  msgid: f80986af-e190-f6a4-04c4-c1b984e056e4
+                  status: successful
+                  err: 
+                  errmsg: 
+                responseCode: OK
+                result:
+                  configuration:
+                    id: 9
+                    key: overrideMetaData
+                    value: '[{"code":"name","dataType":"text","editable":true},{"code":"learningOutcome","dataType":"list","editable":true},{"code":"attributions","dataType":"list","editable":false},{"code":"copyright","dataType":"text","editable":false},{"code":"creator","dataType":"text","editable":false},{"code":"license","dataType":"list","editable":false},{"code":"contentPolicyCheck","dataType":"boolean","editable":false}]'
+                    status: active
+                    createdby: 
+                    updatedby: 
+                    createdon: 2020-09-03T11:24:42.13Z
+                    updatedon: 2020-09-03T11:24:42.13Z
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400badRequestwithoutchannel'
+              example:
+                id: api.error
+                ver: 1.0
+                ts: 2020-12-03 07:50:55:637+0000
+                params:
+                  resmsgid: 46298c50-353c-11eb-ada5-dde7a2458a3f
+                  msgid: 
+                  status: failed
+                  err: INVALID_TOKEN
+                  errmsg: INVALID_TOKEN
+                responseCode: UNAUTHORIZED_ACCESS
+                result: {}
+        404:
+          description: Not Found
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+  /v1/nomination/update:
+    post:
+      tags:
+      - Success
+      summary: Nomination Update 200 Success
+      description: nomination/update
+      operationId: NominationUpdate200Success
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NominationUpdate200SuccessRequest'
+            example:
+              request:
+                program_id: c43f7790-0a2a-11eb-a2e9-4fe29a51bb70
+                status: Initiated
+                content_types:
+                - Teacher Resource
+                user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
+                updatedby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NominationUpdate400BadRequest'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400badRequestwithoutchannel'
+              example:
+                id: api.error
+                ver: 1.0
+                ts: 2020-12-03 07:55:28:459+0000
+                params:
+                  resmsgid: e8c6e1b0-353c-11eb-ada5-dde7a2458a3f
+                  msgid: 
+                  status: failed
+                  err: INVALID_TOKEN
+                  errmsg: INVALID_TOKEN
+                responseCode: UNAUTHORIZED_ACCESS
+                result: {}
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404NotFound'
+              example:
+                request_path: /program/nomination/update
+                message: API not found with these values
+                request_host:
+                - kong
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+  /v1/nomination/list/download:
+    post:
+      tags:
+      - Success
+      summary: Nomination List Download 200 Success
+      description: nomination/list/download
+      operationId: NominationListDownload200Success
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NominationListDownload200SuccessRequest'
+            example:
+              request:
+                filters:
+                  program_name: allTypeContent
+                  program_id: d16524d0-348a-11eb-9c32-15914148e3ce
+                  status:
+                  - Pending
+                  - Approved
+                  - Rejected
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400badRequestwithoutchannel'
+              example:
+                id: api.list.download
+                ver: 1.0
+                ts: 2020-12-02T18:12:26.673Z
+                params:
+                  resmsgid: eef05210-34c9-11eb-9c32-15914148e3ce
+                  msgid: 
+                  status: failed
+                  err: ERR_DOWNLOADING_NOMINATION_DATA
+                  errmsg: Required fields like program_id, program_name, status while getting nomination data are missing
+                responseCode: CLIENT_ERROR
+                result: {}
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404NotFound'
+              example:
+                request_path: /program/nomination/list/download
+                message: API not found with these values
+                request_host:
+                - kong
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+    put:
+      tags:
+      - Failures
+      summary: Nomination List Download 404 Not Found
+      operationId: NominationListDownload404NotFound
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NominationListDownload404NotFoundRequest'
+            example:
+              request:
+                filters:
+                  program_name: allTypeContent
+                  program_id: d16524d0-348a-11eb-9c32-15914148e3ce
+                  status:
+                  - Pending
+                  - Approved
+                  - Rejected
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+  /v1/nomination/list:
+    post:
+      tags:
+      - Success
+      summary: Nomination List 200 Success
+      description: nomination/list
+      operationId: NominationList200Success
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NominationList200SuccessRequest'
+            example:
+              request:
+                filters: {}
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400badRequestwithoutchannel'
+              example:
+                id: api.error
+                ver: 1.0
+                ts: 2020-12-03 07:52:57:567+0000
+                params:
+                  resmsgid: 8ed696f0-353c-11eb-ada5-dde7a2458a3f
+                  msgid: 
+                  status: failed
+                  err: INVALID_TOKEN
+                  errmsg: INVALID_TOKEN
+                responseCode: UNAUTHORIZED_ACCESS
+                result: {}
+        500:
+          description: Internal Server Error
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+    put:
+      tags:
+      - Failures
+      summary: Nomination List 404 Not Found
+      operationId: NominationList404NotFound
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NominationList404NotFoundRequest'
+            example:
+              request:
+                filters: {}
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+  /v1/preference/create:
+    post:
+      tags:
+      - Success
+      summary: Preference-create 200 Success
+      description: preference/create
+      operationId: Preference-create200Success
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Preference-create200SuccessRequest'
+            example:
+              request:
+                user_id: 48dc0e70-2775-474b-9b78-def27d047836
+                program_id: afdfa9a0-1dbc-11eb-81b1-659ec274e395
+                preference:
+                  medium:
+                  - English
+                  subject:
+                  - ''
+                  gradeLevel:
+                  - Class 7
+                type: sourcing
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+    put:
+      tags:
+      - Failures
+      summary: Preference-create 404 Not Found
+      operationId: Preference-create404NotFound
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Preference-create404NotFoundRequest'
+            example:
+              request:
+                user_id: 48dc0e70-2775-474b-9b78-def27d047836
+                program_id: afdfa9a0-1dbc-11eb-81b1-659ec274e395
+                preference:
+                  medium:
+                  - ''
+                  subject:
+                  - ''
+                  gradeLevel:
+                  - ' '
+                type: sourcing
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+  /v1/preference/read:
+    post:
+      tags:
+      - Success
+      summary: Preference-read 200 Success
+      description: preference/read
+      operationId: Preference-read200Success
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Preference-read200SuccessRequest'
+            example:
+              request:
+                user_id: 48dc0e70-2775-474b-9b78-def27d047836
+                program_id: ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+    get:
+      tags:
+      - Failures
+      summary: Preference-read 404 Not Found
+      operationId: Preference-read404NotFound
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+  /v1/preference/update:
+    post:
+      tags:
+      - Success
+      summary: Preference-update 200 Success
+      description: preference/update
+      operationId: Preference-update200Success
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Preference-update200SuccessRequest'
+            example:
+              request:
+                user_id: 48dc0e70-2775-474b-9b78-def27d047836
+                program_id: afdfa9a0-1dbc-11eb-81b1-659ec274e395
+                preference:
+                  medium:
+                  - English
+                  subject:
+                  - ''
+                  gradeLevel:
+                  - ''
+                type: sourcing
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+    get:
+      tags:
+      - Failures
+      summary: Preference-update 204 Not Content
+      operationId: Preference-update204NotContent
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+    put:
+      tags:
+      - Failures
+      summary: Preference-update 404 Not Found
+      operationId: Preference-update404NotFound
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Preference-update404NotFoundRequest'
+            example:
+              request:
+                user_id: 48dc0e70-2775-474b-9b78-def27d047836
+                program_id: afdfa9a0-1dbc-11eb-81b1-659ec274e395
+                preference:
+                  medium:
+                  - English
+                  subject:
+                  - ''
+                  gradeLevel:
+                  - ''
+                type: sourcing
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+  /v1/update:
+    post:
+      tags:
+      - Success
+      summary: Program Update 200 Success
+      description: program/update
+      operationId: ProgramUpdate200Success
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProgramUpdate200SuccessRequest'
+        required: true
+      responses:
+        200:
+          description: ''
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 03 Dec 2020 08:38:21 GMT
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 297
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: SAMEORIGIN
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=15552000; includeSubDomains
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1; mode=block
+            x-ratelimit-limit-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 30000
+            x-ratelimit-remaining-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 29985
+            x-powered-by:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Express
+            access-control-allow-origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            access-control-allow-methods:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: GET,PUT,POST,PATCH,DELETE,OPTIONS
+            access-control-allow-headers:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Content-Type, Authorization,cid, user-id, x-auth, Cache-Control, X-Requested-With, datatype, *
+            etag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"129-LbaZmw0G9CHcmkEYEex9cwMe89k"
+            x-kong-upstream-latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 24
+            x-kong-proxy-latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 0
+            via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: kong/0.9.9
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/200Successfull'
+              example:
+                id: api.program.update
+                ts: 2020-12-03T08:38:21.34Z
+                params:
+                  resmsgid: e6555dc1-3542-11eb-84ed-692ec8c8dbe9
+                  msgid: e6555dc0-3542-11eb-84ed-692ec8c8dbe9
+                  status: successful
+                  err: 
+                  errmsg: 
+                responseCode: OK
+                result:
+                  program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400badRequestwithoutchannel'
+              example:
+                id: api.v1.update
+                ver: 1.0
+                ts: 2020-12-03T08:53:26.127Z
+                params:
+                  resmsgid: 01a0e7f0-3545-11eb-84ed-692ec8c8dbe9
+                  msgid: 
+                  status: failed
+                  err: ERR_UPDATE_PROGRAM_DATA
+                  errmsg: Required fields while updating program data are missing
+                responseCode: CLIENT_ERROR
+                result: {}
+        404:
+          description: Not Found
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+    put:
+      tags:
+      - Failures
+      summary: Program Update 404 Not Found
+      operationId: ProgramUpdate404NotFound
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProgramUpdate404NotFoundRequest'
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+    get:
+      tags:
+      - Failures
+      summary: Program Update 204 No Content
+      operationId: ProgramUpdate204NoContent
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+  /v1/create:
+    post:
+      tags:
+      - Success
+      summary: Create Program 200 Success
+      description: program/create
+      operationId: CreateProgram200Success
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProgram200SuccessRequest'
+        required: true
+      responses:
+        200:
+          description: ''
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 03 Dec 2020 08:25:51 GMT
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 297
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            X-DNS-Prefetch-Control:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: off
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: SAMEORIGIN
+            Strict-Transport-Security:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: max-age=15552000; includeSubDomains
+            X-Download-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: noopen
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1; mode=block
+            x-ratelimit-limit-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 30000
+            x-ratelimit-remaining-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 29994
+            x-powered-by:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Express
+            access-control-allow-origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            access-control-allow-methods:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: GET,PUT,POST,PATCH,DELETE,OPTIONS
+            access-control-allow-headers:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Content-Type, Authorization,cid, user-id, x-auth, Cache-Control, X-Requested-With, datatype, *
+            etag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"129-RZSEi/EHu9+si/Iw6crOyuDuj14"
+            x-kong-upstream-latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 798
+            x-kong-proxy-latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 0
+            via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: kong/0.9.9
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/200success'
+              example:
+                id: api.program.create
+                ts: 2020-12-03T08:25:51.2Z
+                params:
+                  resmsgid: 27371601-3541-11eb-a10c-1da50649277e
+                  msgid: 27371600-3541-11eb-a10c-1da50649277e
+                  status: successful
+                  err: 
+                  errmsg: 
+                responseCode: OK
+                result:
+                  program_id: 26be3c80-3541-11eb-a10c-1da50649277e
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NominationUpdate400BadRequest'
+        404:
+          description: Not Found
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+    put:
+      tags:
+      - Failures
+      summary: Create Program 404 Not Found
+      operationId: CreateProgram404NotFound
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProgram404NotFoundRequest'
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+    get:
+      tags:
+      - Failures
+      summary: Create Program 204 No Content
+      operationId: CreateProgram204NoContent
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+  /v1/publish:
+    post:
+      tags:
+      - Success
+      summary: Program-Publish 200 Success
+      description: program/publish
+      operationId: Program-Publish200Success
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Program-Publish200SuccessRequest'
+            example:
+              request:
+                program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+                channel: sunbird
+        required: true
+      responses:
+        200:
+          description: ''
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 03 Dec 2020 08:14:32 GMT
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 795
             Connection:
               content:
                 text/plain:
@@ -289,13 +1778,13 @@ paths:
                 text/plain:
                   schema:
                     type: string
-                  example: W/"1bf5a-UrvswHKMpx9iinf/0MZ1OXgg0HU"
+                  example: W/"31b-dbHFdBs3i3P687NS5Wmnpmlhdd8"
             x-kong-upstream-latency:
               content:
                 text/plain:
                   schema:
                     type: string
-                  example: 689
+                  example: 649
             x-kong-proxy-latency:
               content:
                 text/plain:
@@ -311,156 +1800,1022 @@ paths:
           content:
             application/json; charset=utf-8:
               schema:
-                $ref: '#/components/schemas/Success'
+                $ref: '#/components/schemas/200SuccessProgramPublish'
               example:
-                id: api.program.list
-                ts: 2020-12-02T09:51:51.521Z
+                id: api.program.publish
+                ts: 2020-12-03T08:14:32.077Z
                 params:
-                  resmsgid: 0097d511-3484-11eb-9c32-15914148e3ce
-                  msgid: 0097d510-3484-11eb-9c32-15914148e3ce
+                  resmsgid: 926d23d1-353f-11eb-86c8-875983bcd642
+                  msgid: 926d23d0-353f-11eb-86c8-875983bcd642
                   status: successful
                   err: 
                   errmsg: 
                 responseCode: OK
                 result:
-                  programs:
-                  - id: 13727
-                    program_id: ba0f3ba0-19a9-11eb-81b1-659ec274e395
-                    user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
-                    organisation_id: 
-                    status: Pending
-                    content_types:
-                    - Asset
-                    collection_ids:
-                    - do_1131395604521943041440
-                    feedback: 
-                    rolemapping: 
-                    createdby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
-                    updatedby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
-                    createdon: 2020-11-02T12:05:02.373Z
-                    updatedon: 2020-11-02T12:05:05.722Z
-                    program:
-                      program_id: ba0f3ba0-19a9-11eb-81b1-659ec274e395
-                      name: aaa
-                      type: public
-                      collection_ids:
-                      - do_11310770891570380814
-                      - do_113108534623428608149
-                      - do_113123388075057152110
-                      - do_11311353404644556811
-                      - do_113114880153911296165
-                      - do_11312842715158937612
-                      - do_113108536022335488152
-                      content_types:
-                      - Asset
-                      target_collection_category: 
-                      startdate: 2020-10-29T05:44:09.017Z
-                      enddate: 2021-02-02T18:30:00Z
-                      nomination_enddate: 2020-11-06T18:30:00Z
-                      shortlisting_enddate: 2020-12-05T18:30:00Z
-                      content_submission_enddate: 2021-01-09T18:30:00Z
-                      image: 
-                      status: Live
-                      slug: sunbird
-                      rolemapping: 
-                      createdby: bf020396-0d7b-436f-ae9f-869c6780fc45
-                      updatedby: 
-                      createdon: 2020-10-29T05:44:09.016Z
-                      updatedon: 2020-11-20T05:50:06.403Z
-                      rootorg_id: 01307938306521497658
-                      sourcing_org_name: Christ_University
-                      channel: DIKSHA
-                      template_id: template1
-                      guidelines_url: 
-                      subject: '["Mathematics", "Science", "Geography"]'
-                      defaultContributeOrgReview: true
-                      framework: ekstep_ncert_k-12
-                      board: CBSE
-                      gradeLevel: '["Class 1", "Class 3", "Class 9", "Class 2", "Class 7", "Class 4", "Class 6", "Class 5", "Class 10", "Class 8"]'
-                      medium: '["English", "Hindi"]'
-                    matchCount: 15
-                  - id: 13724
-                    program_id: 5d7ba0e0-18e6-11eb-81b1-659ec274e395
-                    user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
-                    organisation_id: 
-                    status: Initiated
-                    content_types:
-                    - Learning Resource
-                    - Explanation Content
-                    - Practice Question Set
-                    collection_ids: 
-                    feedback: 
-                    rolemapping: 
-                    createdby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
-                    updatedby: 
-                    createdon: 2020-11-02T11:58:23.891Z
-                    updatedon: 
-                    program:
-                      program_id: 5d7ba0e0-18e6-11eb-81b1-659ec274e395
-                      name: dfgskjdhfgsakjhd
-                      type: public
-                      collection_ids:
-                      - do_11304065892935270414
-                      - do_11312349241665945618
-                      - do_113133925712527360121
-                      - do_113123500867362816115
-                      - do_1131232640033505281322
-                      - do_113123507574349824124
-                      content_types:
-                      - Practice Question Set
-                      - Explanation Content
-                      - Learning Resource
-                      target_collection_category: 
-                      startdate: 2020-10-28T06:25:51.571Z
-                      enddate: 2020-11-07T18:30:00Z
-                      nomination_enddate: 2020-11-07T18:30:00Z
-                      shortlisting_enddate: 2020-11-07T18:30:00Z
-                      content_submission_enddate: 2020-11-07T18:30:00Z
-                      image: 
-                      status: Live
-                      slug: sunbird
-                      rolemapping: 
-                      createdby: cca53828-8111-4d71-9c45-40e569f13bad
-                      updatedby: 
-                      createdon: 2020-10-28T06:25:51.571Z
-                      updatedon: 2020-10-28T06:25:53.886Z
-                      rootorg_id: 012983850117177344161
-                      sourcing_org_name: Vidya2
-                      channel: DIKSHA
-                      template_id: template1
-                      guidelines_url: 
-                      subject: '["Hindi", "Mathematics", "English"]'
-                      defaultContributeOrgReview: true
-                      framework: ekstep_ncert_k-12
-                      board: CBSE
-                      gradeLevel: '["Class 10", "Class 1", "Class 7"]'
-                      medium: '["English", "Hindi"]'
-                    matchCount: 8
+                  program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+                  afterPublishResponse:
+                    nomination:
+                      error: 
+                      result:
+                        program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+                        user_id: 48dc0e70-2775-474b-9b78-def27d047836
+                        organisation_id: e0ab89f4-0fcb-47ea-9b70-3ed0f12b1b7a
+                        status: Approved
+                        content_types:
+                        - Course Assessment
+                        - eTextbook
+                        - Explanation Content
+                        - Learning Resource
+                        - Practice Question Set
+                        - Teacher Resource
+                        collection_ids:
+                        - do_1131644069627576321824
+                        - do_1131644069627740161825
+                        - do_1131644069627330561823
+                    userMapping: {}
         400:
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error-400'
+                $ref: '#/components/schemas/400badRequestwithoutchannel'
               example:
-                id: api.v1.list
+                id: api.v1.publish
                 ver: 1.0
-                ts: 2020-12-03T06:09:58.651Z
+                ts: 2020-12-02T18:28:15.284Z
                 params:
-                  resmsgid: 2bead4b0-352e-11eb-86c8-875983bcd642
+                  resmsgid: 245adf40-34cc-11eb-9c32-15914148e3ce
                   msgid: 
                   status: failed
-                  err: ERR_GET_PROGRAM_DATA
-                  errmsg: Required fields to get program are missing
+                  err: ERR_PUBLISH_PROGRAM_DATA
+                  errmsg: Required fields while publishing program data are missing
                 responseCode: CLIENT_ERROR
                 result: {}
-        500:
-          description: Internal Server Error
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404NotFound'
+              example:
+                request_path: /v1/publish
+                message: API not found with these values
+                request_host:
+                - kong
       deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+    put:
+      tags:
+      - Failures
+      summary: Program-Publish 404 Not Found
+      operationId: Program-Publish404NotFound
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Program-Publish404NotFoundRequest'
+            example:
+              request:
+                program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+                channel: sunbird
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+    get:
+      tags:
+      - Failures
+      summary: Program-Publish 204 No Content
+      operationId: Program-Publish204NoContent
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+  /v1/feed/search:
+    post:
+      tags:
+      - Success
+      summary: Program-Feed-Search 200 success
+      operationId: Program-Feed-Search200success
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Program-Feed-Search200successRequest'
+            example:
+              request:
+                nomination:
+                  programId:
+                  - a549ffa0-3553-11eb-84ed-692ec8c8dbe9
+                  - ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
+                  status:
+                  - Pending
+                contribution:
+                  programId:
+                  - f2c1d380-389a-11eb-af92-c5fb4afce83e
+                  - a043dc40-3497-11eb-9c32-15914148e3ce
+                  - Live
+                channel: 012983850117177344161
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+    get:
+      tags:
+      - Failures
+      summary: Program-Feed-Search-404
+      operationId: Program-Feed-Search-404
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+  /v1/read/c43f7790-0a2a-11eb-a2e9-4fe29a51bb70:
+    get:
+      tags:
+      - Success
+      summary: Read-Program-200-Success
+      operationId: Read-Program-200-Success
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+    post:
+      tags:
+      - Failures
+      summary: Program-read-404
+      operationId: Program-read-404
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+  /program/v1/report:
+    post:
+      tags:
+      - Success
+      summary: Report-success-200
+      operationId: Report-success-200
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en-US;q=0.9,en;q=0.8
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Report-success-200-Request'
+            example:
+              request:
+                filters:
+                  program_id:
+                  - 95d604b0-2af4-11eb-9bed-c53bebe417b7
+                  openForContribution: true
+                  report: textbookLevelReport
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+  /program/v1/tenant/list:
+    post:
+      tags:
+      - Success
+      summary: Tenant-success-200
+      operationId: Tenant-success-200
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '*/*'
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en-US;q=0.9,en;q=0.8
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tenant-success-200-Request'
+            example:
+              request:
+                filters:
+                  status: Live
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+  /program/v1/configuration/search:
+    post:
+      tags:
+      - Failures
+      summary: Configuration  Search 401 Unauthorized
+      operationId: ConfigurationSearch401Unauthorized
+      parameters:
+      - name: Connection
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: keep-alive
+      - name: Pragma
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: no-cache
+      - name: Cache-Control
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: no-cache
+      - name: X-App-Id
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: dev.dock.portal
+      - name: ts
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: 2020-12-02T16:32:31+05:30
+      - name: X-msgid
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: f80986af-e190-f6a4-04c4-c1b984e056e4
+      - name: User-Agent
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: X-Source
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: web
+      - name: X-Device-ID
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: 6a6ec694e694548fef971f85910385bd
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Sec-Fetch-Site
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: same-origin
+      - name: Sec-Fetch-Mode
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: cors
+      - name: Sec-Fetch-Dest
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: empty
+      - name: Referer
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org/contribute
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      - name: Cookie
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: connect.sid=s%3ABJW2W7KN-MXRuOv1L6_tU6UDkPC-hfuF.8XWBywws%2Bj8qGuqBweKrNTv7ag6kvF46Xlz1MrQRxZ0
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationSearch401UnauthorizedRequest'
+            example:
+              request:
+                key: overrideMetaData
+                status: active
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://dock.sunbirded.org/content
+        variables: {}
+  /program/v1/nomination/update:
+    put:
+      tags:
+      - Failures
+      summary: Nomination Update 404 Not Found
+      operationId: NominationUpdate404NotFound
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NominationUpdate404NotFoundRequest'
+            example:
+              request:
+                program_id: c43f7790-0a2a-11eb-a2e9-4fe29a51bb70
+                status: Initiated
+                content_types:
+                - Teacher Resource
+                user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
+                updatedby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://dock.sunbirded.org/content
+        variables: {}
+  /v1/preference/create/:
+    get:
+      tags:
+      - Failures
+      summary: Preference-create 204 No Content
+      operationId: Preference-create204NoContent
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+  /program/v1/preference/read:
+    get:
+      tags:
+      - Failures
+      summary: Preference-read 204 No Content
+      operationId: Preference-read204NoContent
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://dock.sunbirded.org/content
+        variables: {}
+  /v1/unlist/publish:
+    post:
+      tags:
+      - Failures
+      summary: Unlist-Publish 400 Bad Request
+      operationId: Unlist-Publish400BadRequest
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Unlist-Publish400BadRequestRequest'
+            example:
+              request:
+                program_id: ''
+                channel: sunbird
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+    put:
+      tags:
+      - Failures
+      summary: Unlist-Publish 404 Not Found
+      operationId: Unlist-Publish404NotFound
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Unlist-Publish404NotFoundRequest'
+            example:
+              request:
+                program_id: f2c1d380-389a-11eb-af92-c5fb4afce83e
+                channel: sunbird
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
+  /program/v1/unlist/publish:
+    get:
+      tags:
+      - Failures
+      summary: Unlist-Publish 204 No Content
+      operationId: Unlist-Publish204NoContent
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://dock.sunbirded.org/content
+        variables: {}
+  /program/v1/read/c43f7790-0a2a-11eb-a2e9-4fe29a51bb70:
+    get:
+      tags:
+      - Failures
+      summary: Program-read-502 Bad Gateway
+      operationId: Program-read-502BadGateway
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://dock.sunbirded.org/content
+        variables: {}
+  /program/v1/list:
+    post:
+      tags:
+      - Success-Case
+      summary: Program  List success-200
+      operationId: ProgramListsuccess-200
+      parameters:
+      - name: Connection
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: keep-alive
+      - name: X-msgid
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: e973c862-115d-51f1-5637-ca177b072a3f
+      - name: User-Agent
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.67 Safari/537.36
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: X-Source
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: web
+      - name: X-Device-ID
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: d94997d031c714aa590c8f2380850a69
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProgramListsuccess-200Request'
+            example:
+              request:
+                filters:
+                  enrolled_id:
+                    user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
+                  status:
+                  - Live
+                  - Unlisted
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://example.com
+        variables: {}
 components:
   schemas:
-    listrequest:
-      title: https://dock.sunbirded.org/content/program/v1/listrequest
+    ListDownload200SuccessRequest:
+      title: ListDownload200SuccessRequest
       required:
       - request
       type: object
@@ -470,46 +2825,92 @@ components:
       example:
         request:
           filters:
+            program_id:
+            - afdfa9a0-1dbc-11eb-81b1-659ec274e395
+    Request:
+      title: Request
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          $ref: '#/components/schemas/Filters'
+      example:
+        filters:
+          program_id:
+          - afdfa9a0-1dbc-11eb-81b1-659ec274e395
+    Filters:
+      title: Filters
+      required:
+      - program_id
+      type: object
+      properties:
+        program_id:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        program_id:
+        - afdfa9a0-1dbc-11eb-81b1-659ec274e395
+    ListDownload400BadRequestRequest:
+      title: ListDownload400BadRequestRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ListRequest'
+      example:
+        request:
+          filters: {}
+    ListRequest:
+      title: ListRequest
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          type: object
+      example:
+        filters: {}
+    ListDownload404NotFoundRequest:
+      title: ListDownload404NotFoundRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/Request'
+      example:
+        request:
+          filters:
+            program_id:
+            - afdfa9a0-1dbc-11eb-81b1-659ec274e395
+    ProgramListsuccess-200Request:
+      title: ProgramListsuccess-200Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ProgramListRequest'
+      example:
+        request:
+          filters:
             enrolled_id:
               user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
             status:
             - Live
             - Unlisted
-          sort:
-            medium:
-            - English
-            - Hindi
-            - Tamil
-            gradeLevel:
-            - Class 1
-            - Class 10
-            - Class 7
-            - Class 3
-            - Class 9
-            - Class 2
-            - Class 4
-            - Class 6
-            - Class 5
-            - Class 8
-            subject:
-            - Mathematics
-            - Hindi
-            - Science
-            - English
-            - Geography
-            - History
-            - Tamil
-    Request:
-      title: Request
+    ProgramListRequest:
+      title: ProgramListRequest
       required:
       - filters
-      - sort
       type: object
       properties:
         filters:
-          $ref: '#/components/schemas/Filters'
-        sort:
-          $ref: '#/components/schemas/Sort'
+          $ref: '#/components/schemas/ProgramListFilters'
       example:
         filters:
           enrolled_id:
@@ -517,32 +2918,8 @@ components:
           status:
           - Live
           - Unlisted
-        sort:
-          medium:
-          - English
-          - Hindi
-          - Tamil
-          gradeLevel:
-          - Class 1
-          - Class 10
-          - Class 7
-          - Class 3
-          - Class 9
-          - Class 2
-          - Class 4
-          - Class 6
-          - Class 5
-          - Class 8
-          subject:
-          - Mathematics
-          - Hindi
-          - Science
-          - English
-          - Geography
-          - History
-          - Tamil
-    Filters:
-      title: Filters
+    ProgramListFilters:
+      title: ProgramListFilters
       required:
       - enrolled_id
       - status
@@ -571,55 +2948,212 @@ components:
           type: string
       example:
         user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
-    Sort:
-      title: Sort
+    ProgramList400-errorRequest:
+      title: ProgramList400-errorRequest
       required:
-      - medium
-      - gradeLevel
-      - subject
+      - request
       type: object
       properties:
+        request:
+          $ref: '#/components/schemas/ProgramListErrorRequest'
+      example:
+        request:
+          filter:
+            status:
+            - Live
+            - Unlisted
+            role:
+            - REVIEWER
+            user_id: d63056e0-c58d-4724-aa84-285a68ea24fb
+    ProgramListErrorRequest:
+      title: ProgramListErrorRequest
+      required:
+      - filter
+      type: object
+      properties:
+        filter:
+          $ref: '#/components/schemas/Filter'
+      example:
+        filter:
+          status:
+          - Live
+          - Unlisted
+          role:
+          - REVIEWER
+          user_id: d63056e0-c58d-4724-aa84-285a68ea24fb
+    Filter:
+      title: Filter
+      required:
+      - status
+      - role
+      - user_id
+      type: object
+      properties:
+        status:
+          type: array
+          items:
+            type: string
+          description: ''
+        role:
+          type: array
+          items:
+            type: string
+          description: ''
+        user_id:
+          type: string
+      example:
+        status:
+        - Live
+        - Unlisted
+        role:
+        - REVIEWER
+        user_id: d63056e0-c58d-4724-aa84-285a68ea24fb
+    ProgramList500-errorRequest:
+      title: ProgramList500-errorRequest
+      required:
+      - requests
+      type: object
+      properties:
+        requests:
+          $ref: '#/components/schemas/Requests'
+      example:
+        requests:
+          filters:
+            status:
+            - Live
+            - Unlisted
+            role:
+            - REVIEWER
+            user_id: d63056e0-c58d-4724-aa84-285a68ea24fb
+            medium:
+            - English
+            gradeLevel:
+            - Class 1
+    Requests:
+      title: Requests
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          $ref: '#/components/schemas/ProgramListErrorFilters'
+      example:
+        filters:
+          status:
+          - Live
+          - Unlisted
+          role:
+          - REVIEWER
+          user_id: d63056e0-c58d-4724-aa84-285a68ea24fb
+          medium:
+          - English
+          gradeLevel:
+          - Class 1
+    ProgramListErrorFilters:
+      title: ProgramListErrorFilters
+      required:
+      - status
+      - role
+      - user_id
+      - medium
+      - gradeLevel
+      type: object
+      properties:
+        status:
+          type: array
+          items:
+            type: string
+          description: ''
+        role:
+          type: array
+          items:
+            type: string
+          description: ''
+        user_id:
+          type: string
         medium:
           type: array
           items:
             type: string
           description: ''
         gradeLevel:
-          type: array
-          items:
-            type: string
-          description: ''
-        subject:
           type: array
           items:
             type: string
           description: ''
       example:
+        status:
+        - Live
+        - Unlisted
+        role:
+        - REVIEWER
+        user_id: d63056e0-c58d-4724-aa84-285a68ea24fb
         medium:
         - English
-        - Hindi
-        - Tamil
         gradeLevel:
         - Class 1
-        - Class 10
-        - Class 7
-        - Class 3
-        - Class 9
-        - Class 2
-        - Class 4
-        - Class 6
-        - Class 5
-        - Class 8
-        subject:
-        - Mathematics
-        - Hindi
-        - Science
-        - English
-        - Geography
-        - History
-        - Tamil
-    Error-400:
-      title: Error-400
+    ConfigurationSearch400BadRequestRequest:
+      title: ConfigurationSearch400BadRequestRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          type: object
+      example:
+        request: {}
+    ConfigurationSearch401UnauthorizedRequest:
+      title: ConfigurationSearch401UnauthorizedRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ConfigurationSearchRequest'
+      example:
+        request:
+          key: overrideMetaData
+          status: active
+    ConfigurationSearchRequest:
+      title: ConfigurationSearchRequest
+      required:
+      - key
+      - status
+      type: object
+      properties:
+        key:
+          type: string
+        status:
+          type: string
+      example:
+        key: overrideMetaData
+        status: active
+    ConfigurationSearch404NotFoundRequest:
+      title: ConfigurationSearch404NotFoundRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ConfigurationSearchRequest'
+      example:
+        request:
+          key: overrideMetaData
+          status: active
+    ConfigurationSearch200SuccessRequest:
+      title: ConfigurationSearch200SuccessRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ConfigurationSearchRequest'
+      example:
+        request:
+          key: overrideMetaData
+          status: active
+    ConfigurationSearch400BadRequest:
+      title: ConfigurationSearch400BadRequest
       required:
       - id
       - ver
@@ -636,25 +3170,121 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/ConfigurationSearchParams'
         responseCode:
           type: string
         result:
-          type: object
+          $ref: '#/components/schemas/ConfigurationSearchResult'
       example:
-        id: api.v1.list
+        id: api.configuration.search
         ver: 1.0
-        ts: 2020-12-03T06:09:58.651Z
+        ts: 2020-12-02T11:03:07.275Z
         params:
-          resmsgid: 2bead4b0-352e-11eb-86c8-875983bcd642
-          msgid: 
-          status: failed
-          err: ERR_GET_PROGRAM_DATA
-          errmsg: Required fields to get program are missing
-        responseCode: CLIENT_ERROR
-        result: {}
-    Params:
-      title: Params
+          resmsgid: f5241db0-348d-11eb-9c32-15914148e3ce
+          msgid: f80986af-e190-f6a4-04c4-c1b984e056e4
+          status: successful
+          err: 
+          errmsg: 
+        responseCode: OK
+        result:
+          configuration:
+            id: 9
+            key: overrideMetaData
+            value: '[{"code":"name","dataType":"text","editable":true},{"code":"learningOutcome","dataType":"list","editable":true},{"code":"attributions","dataType":"list","editable":false},{"code":"copyright","dataType":"text","editable":false},{"code":"creator","dataType":"text","editable":false},{"code":"license","dataType":"list","editable":false},{"code":"contentPolicyCheck","dataType":"boolean","editable":false}]'
+            status: active
+            createdby: 
+            updatedby: 
+            createdon: 2020-09-03T11:24:42.13Z
+            updatedon: 2020-09-03T11:24:42.13Z
+    ConfigurationSearchParams:
+      title: ConfigurationSearchParams
+      required:
+      - resmsgid
+      - msgid
+      - status
+      - err
+      - errmsg
+      type: object
+      properties:
+        resmsgid:
+          type: string
+        msgid:
+          type: string
+        status:
+          type: string
+        err:
+          type: string
+          nullable: true
+        errmsg:
+          type: string
+          nullable: true
+      example:
+        resmsgid: f5241db0-348d-11eb-9c32-15914148e3ce
+        msgid: f80986af-e190-f6a4-04c4-c1b984e056e4
+        status: successful
+        err: 
+        errmsg: 
+    ConfigurationSearchResult:
+      title: ConfigurationSearchResult
+      required:
+      - configuration
+      type: object
+      properties:
+        configuration:
+          $ref: '#/components/schemas/Configuration'
+      example:
+        configuration:
+          id: 9
+          key: overrideMetaData
+          value: '[{"code":"name","dataType":"text","editable":true},{"code":"learningOutcome","dataType":"list","editable":true},{"code":"attributions","dataType":"list","editable":false},{"code":"copyright","dataType":"text","editable":false},{"code":"creator","dataType":"text","editable":false},{"code":"license","dataType":"list","editable":false},{"code":"contentPolicyCheck","dataType":"boolean","editable":false}]'
+          status: active
+          createdby: 
+          updatedby: 
+          createdon: 2020-09-03T11:24:42.13Z
+          updatedon: 2020-09-03T11:24:42.13Z
+    Configuration:
+      title: Configuration
+      required:
+      - id
+      - key
+      - value
+      - status
+      - createdby
+      - updatedby
+      - createdon
+      - updatedon
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        key:
+          type: string
+        value:
+          type: string
+        status:
+          type: string
+        createdby:
+          type: string
+          nullable: true
+        updatedby:
+          type: string
+          nullable: true
+        createdon:
+          type: string
+        updatedon:
+          type: string
+      example:
+        id: 9
+        key: overrideMetaData
+        value: '[{"code":"name","dataType":"text","editable":true},{"code":"learningOutcome","dataType":"list","editable":true},{"code":"attributions","dataType":"list","editable":false},{"code":"copyright","dataType":"text","editable":false},{"code":"creator","dataType":"text","editable":false},{"code":"license","dataType":"list","editable":false},{"code":"contentPolicyCheck","dataType":"boolean","editable":false}]'
+        status: active
+        createdby: 
+        updatedby: 
+        createdon: 2020-09-03T11:24:42.13Z
+        updatedon: 2020-09-03T11:24:42.13Z
+    ProgramPublishParams:
+      title: ProgramPublishParams
       required:
       - resmsgid
       - msgid
@@ -675,13 +3305,59 @@ components:
         errmsg:
           type: string
       example:
-        resmsgid: 2bead4b0-352e-11eb-86c8-875983bcd642
+        resmsgid: 46298c50-353c-11eb-ada5-dde7a2458a3f
         msgid: 
         status: failed
-        err: ERR_GET_PROGRAM_DATA
-        errmsg: Required fields to get program are missing
-    Success:
-      title: Success
+        err: INVALID_TOKEN
+        errmsg: INVALID_TOKEN
+    NominationUpdate200SuccessRequest:
+      title: NominationUpdate200SuccessRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/NominationRequest'
+      example:
+        request:
+          program_id: c43f7790-0a2a-11eb-a2e9-4fe29a51bb70
+          status: Initiated
+          content_types:
+          - Teacher Resource
+          user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
+          updatedby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
+    NominationRequest:
+      title: NominationRequest
+      required:
+      - program_id
+      - status
+      - content_types
+      - user_id
+      - updatedby
+      type: object
+      properties:
+        program_id:
+          type: string
+        status:
+          type: string
+        content_types:
+          type: array
+          items:
+            type: string
+          description: ''
+        user_id:
+          type: string
+        updatedby:
+          type: string
+      example:
+        program_id: c43f7790-0a2a-11eb-a2e9-4fe29a51bb70
+        status: Initiated
+        content_types:
+        - Teacher Resource
+        user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
+        updatedby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
+    NominationUpdate400BadRequest:
+      title: NominationUpdate400BadRequest
       required:
       - id
       - ts
@@ -695,454 +3371,574 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params1'
+          $ref: '#/components/schemas/NominationParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Result'
-      example:
-        id: api.program.list
-        ts: 2020-12-02T09:51:51.521Z
-        params:
-          resmsgid: 0097d511-3484-11eb-9c32-15914148e3ce
-          msgid: 0097d510-3484-11eb-9c32-15914148e3ce
-          status: successful
-          err: 
-          errmsg: 
-        responseCode: OK
-        result:
-          programs:
-          - id: 13727
-            program_id: ba0f3ba0-19a9-11eb-81b1-659ec274e395
-            user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
-            organisation_id: 
-            status: Pending
-            content_types:
-            - Asset
-            collection_ids:
-            - do_1131395604521943041440
-            feedback: 
-            rolemapping: 
-            createdby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
-            updatedby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
-            createdon: 2020-11-02T12:05:02.373Z
-            updatedon: 2020-11-02T12:05:05.722Z
-            program:
-              program_id: ba0f3ba0-19a9-11eb-81b1-659ec274e395
-              name: aaa
-              type: public
-              collection_ids:
-              - do_11310770891570380814
-              - do_113108534623428608149
-              - do_113123388075057152110
-              - do_11311353404644556811
-              - do_113114880153911296165
-              - do_11312842715158937612
-              - do_113108536022335488152
-              content_types:
-              - Asset
-              target_collection_category: 
-              startdate: 2020-10-29T05:44:09.017Z
-              enddate: 2021-02-02T18:30:00Z
-              nomination_enddate: 2020-11-06T18:30:00Z
-              shortlisting_enddate: 2020-12-05T18:30:00Z
-              content_submission_enddate: 2021-01-09T18:30:00Z
-              image: 
-              status: Live
-              slug: sunbird
-              rolemapping: 
-              createdby: bf020396-0d7b-436f-ae9f-869c6780fc45
-              updatedby: 
-              createdon: 2020-10-29T05:44:09.016Z
-              updatedon: 2020-11-20T05:50:06.403Z
-              rootorg_id: 01307938306521497658
-              sourcing_org_name: Christ_University
-              channel: DIKSHA
-              template_id: template1
-              guidelines_url: 
-              subject: '["Mathematics", "Science", "Geography"]'
-              defaultContributeOrgReview: true
-              framework: ekstep_ncert_k-12
-              board: CBSE
-              gradeLevel: '["Class 1", "Class 3", "Class 9", "Class 2", "Class 7", "Class 4", "Class 6", "Class 5", "Class 10", "Class 8"]'
-              medium: '["English", "Hindi"]'
-            matchCount: 15
-          - id: 13724
-            program_id: 5d7ba0e0-18e6-11eb-81b1-659ec274e395
-            user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
-            organisation_id: 
-            status: Initiated
-            content_types:
-            - Learning Resource
-            - Explanation Content
-            - Practice Question Set
-            collection_ids: 
-            feedback: 
-            rolemapping: 
-            createdby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
-            updatedby: 
-            createdon: 2020-11-02T11:58:23.891Z
-            updatedon: 
-            program:
-              program_id: 5d7ba0e0-18e6-11eb-81b1-659ec274e395
-              name: dfgskjdhfgsakjhd
-              type: public
-              collection_ids:
-              - do_11304065892935270414
-              - do_11312349241665945618
-              - do_113133925712527360121
-              - do_113123500867362816115
-              - do_1131232640033505281322
-              - do_113123507574349824124
-              content_types:
-              - Practice Question Set
-              - Explanation Content
-              - Learning Resource
-              target_collection_category: 
-              startdate: 2020-10-28T06:25:51.571Z
-              enddate: 2020-11-07T18:30:00Z
-              nomination_enddate: 2020-11-07T18:30:00Z
-              shortlisting_enddate: 2020-11-07T18:30:00Z
-              content_submission_enddate: 2020-11-07T18:30:00Z
-              image: 
-              status: Live
-              slug: sunbird
-              rolemapping: 
-              createdby: cca53828-8111-4d71-9c45-40e569f13bad
-              updatedby: 
-              createdon: 2020-10-28T06:25:51.571Z
-              updatedon: 2020-10-28T06:25:53.886Z
-              rootorg_id: 012983850117177344161
-              sourcing_org_name: Vidya2
-              channel: DIKSHA
-              template_id: template1
-              guidelines_url: 
-              subject: '["Hindi", "Mathematics", "English"]'
-              defaultContributeOrgReview: true
-              framework: ekstep_ncert_k-12
-              board: CBSE
-              gradeLevel: '["Class 10", "Class 1", "Class 7"]'
-              medium: '["English", "Hindi"]'
-            matchCount: 8
-    Params1:
-      title: Params1
+          $ref: '#/components/schemas/NominationResult'
+    NominationParams:
+      title: NominationParams
       required:
       - resmsgid
       - msgid
       - status
-      - err
-      - errmsg
       type: object
       properties:
         resmsgid:
           type: string
         msgid:
           type: string
+          nullable: true
         status:
           type: string
-        err:
-          type: string
-          nullable: true
-        errmsg:
-          type: string
-          nullable: true
       example:
-        resmsgid: 0097d511-3484-11eb-9c32-15914148e3ce
-        msgid: 0097d510-3484-11eb-9c32-15914148e3ce
-        status: successful
-        err: 
-        errmsg: 
-    Result:
-      title: Result
+        resmsgid: 776d9731-34c3-11eb-9c32-15914148e3ce
+        msgid: 
+        status: failed
+    NominationResult:
+      title: NominationResult
       required:
-      - programs
+      - name
+      - parent
+      - original
+      - sql
+      - parameters
       type: object
       properties:
-        programs:
+        name:
+          type: string
+        parent:
+          $ref: '#/components/schemas/Parent'
+        original:
+          $ref: '#/components/schemas/Original'
+        sql:
+          type: string
+        parameters:
           type: array
           items:
-            $ref: '#/components/schemas/Program'
-          description: ''
+            type: array
+            items:
+              type: string
+    Parent:
+      title: Parent
+      required:
+      - name
+      - length
+      - severity
+      - code
+      - file
+      - line
+      - routine
+      - sql
+      - parameters
+      type: object
+      properties:
+        name:
+          type: string
+        length:
+          type: integer
+          format: int32
+        severity:
+          type: string
+        code:
+          type: string
+        file:
+          type: string
+        line:
+          type: string
+        routine:
+          type: string
+        sql:
+          type: string
+        parameters:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+    Original:
+      title: Original
+      required:
+      - name
+      - length
+      - severity
+      - code
+      - file
+      - line
+      - routine
+      - sql
+      - parameters
+      type: object
+      properties:
+        name:
+          type: string
+        length:
+          type: integer
+          format: int32
+        severity:
+          type: string
+        code:
+          type: string
+        file:
+          type: string
+        line:
+          type: string
+        routine:
+          type: string
+        sql:
+          type: string
+        parameters:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+    NominationUpdate400BadRequestRequest:
+      title: NominationUpdate400BadRequestRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/NominationRequest'
       example:
-        programs:
-        - id: 13727
-          program_id: ba0f3ba0-19a9-11eb-81b1-659ec274e395
-          user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
-          organisation_id: 
-          status: Pending
+        request:
+          program_id: c43f7790-0a2a-11eb-a2e9-4fe29a51bb70
+          status: ''
           content_types:
-          - Asset
-          collection_ids:
-          - do_1131395604521943041440
-          feedback: 
-          rolemapping: 
-          createdby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
-          updatedby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
-          createdon: 2020-11-02T12:05:02.373Z
-          updatedon: 2020-11-02T12:05:05.722Z
-          program:
-            program_id: ba0f3ba0-19a9-11eb-81b1-659ec274e395
-            name: aaa
-            type: public
-            collection_ids:
-            - do_11310770891570380814
-            - do_113108534623428608149
-            - do_113123388075057152110
-            - do_11311353404644556811
-            - do_113114880153911296165
-            - do_11312842715158937612
-            - do_113108536022335488152
-            content_types:
-            - Asset
-            target_collection_category: 
-            startdate: 2020-10-29T05:44:09.017Z
-            enddate: 2021-02-02T18:30:00Z
-            nomination_enddate: 2020-11-06T18:30:00Z
-            shortlisting_enddate: 2020-12-05T18:30:00Z
-            content_submission_enddate: 2021-01-09T18:30:00Z
-            image: 
-            status: Live
-            slug: sunbird
-            rolemapping: 
-            createdby: bf020396-0d7b-436f-ae9f-869c6780fc45
-            updatedby: 
-            createdon: 2020-10-29T05:44:09.016Z
-            updatedon: 2020-11-20T05:50:06.403Z
-            rootorg_id: 01307938306521497658
-            sourcing_org_name: Christ_University
-            channel: DIKSHA
-            template_id: template1
-            guidelines_url: 
-            subject: '["Mathematics", "Science", "Geography"]'
-            defaultContributeOrgReview: true
-            framework: ekstep_ncert_k-12
-            board: CBSE
-            gradeLevel: '["Class 1", "Class 3", "Class 9", "Class 2", "Class 7", "Class 4", "Class 6", "Class 5", "Class 10", "Class 8"]'
-            medium: '["English", "Hindi"]'
-          matchCount: 15
-        - id: 13724
-          program_id: 5d7ba0e0-18e6-11eb-81b1-659ec274e395
+          - Teacher Resource
           user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
-          organisation_id: 
+          updatedby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
+    NominationUpdate401UnauthorizedRequest:
+      title: NominationUpdate401UnauthorizedRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/NominationRequest'
+      example:
+        request:
+          program_id: c43f7790-0a2a-11eb-a2e9-4fe29a51bb70
           status: Initiated
           content_types:
-          - Learning Resource
-          - Explanation Content
-          - Practice Question Set
-          collection_ids: 
-          feedback: 
-          rolemapping: 
-          createdby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
-          updatedby: 
-          createdon: 2020-11-02T11:58:23.891Z
-          updatedon: 
-          program:
-            program_id: 5d7ba0e0-18e6-11eb-81b1-659ec274e395
-            name: dfgskjdhfgsakjhd
-            type: public
-            collection_ids:
-            - do_11304065892935270414
-            - do_11312349241665945618
-            - do_113133925712527360121
-            - do_113123500867362816115
-            - do_1131232640033505281322
-            - do_113123507574349824124
-            content_types:
-            - Practice Question Set
-            - Explanation Content
-            - Learning Resource
-            target_collection_category: 
-            startdate: 2020-10-28T06:25:51.571Z
-            enddate: 2020-11-07T18:30:00Z
-            nomination_enddate: 2020-11-07T18:30:00Z
-            shortlisting_enddate: 2020-11-07T18:30:00Z
-            content_submission_enddate: 2020-11-07T18:30:00Z
-            image: 
-            status: Live
-            slug: sunbird
-            rolemapping: 
-            createdby: cca53828-8111-4d71-9c45-40e569f13bad
-            updatedby: 
-            createdon: 2020-10-28T06:25:51.571Z
-            updatedon: 2020-10-28T06:25:53.886Z
-            rootorg_id: 012983850117177344161
-            sourcing_org_name: Vidya2
-            channel: DIKSHA
-            template_id: template1
-            guidelines_url: 
-            subject: '["Hindi", "Mathematics", "English"]'
-            defaultContributeOrgReview: true
-            framework: ekstep_ncert_k-12
-            board: CBSE
-            gradeLevel: '["Class 10", "Class 1", "Class 7"]'
-            medium: '["English", "Hindi"]'
-          matchCount: 8
-    Program:
-      title: Program
+          - Teacher Resource
+          user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
+          updatedby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
+    NominationUpdate404NotFoundRequest:
+      title: NominationUpdate404NotFoundRequest
       required:
-      - id
-      - program_id
-      - user_id
-      - organisation_id
-      - status
-      - content_types
-      - collection_ids
-      - feedback
-      - rolemapping
-      - createdby
-      - updatedby
-      - createdon
-      - updatedon
-      - program
-      - matchCount
+      - request
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
+        request:
+          $ref: '#/components/schemas/NominationRequest'
+      example:
+        request:
+          program_id: c43f7790-0a2a-11eb-a2e9-4fe29a51bb70
+          status: Initiated
+          content_types:
+          - Teacher Resource
+          user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
+          updatedby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
+    NominationListDownload200SuccessRequest:
+      title: NominationListDownload200SuccessRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/NominationListDownloadRequest'
+      example:
+        request:
+          filters:
+            program_name: allTypeContent
+            program_id: d16524d0-348a-11eb-9c32-15914148e3ce
+            status:
+            - Pending
+            - Approved
+            - Rejected
+    NominationListDownloadRequest:
+      title: NominationListDownloadRequest
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          $ref: '#/components/schemas/NominationListFilters'
+      example:
+        filters:
+          program_name: allTypeContent
+          program_id: d16524d0-348a-11eb-9c32-15914148e3ce
+          status:
+          - Pending
+          - Approved
+          - Rejected
+    NominationListFilters:
+      title: NominationListFilters
+      required:
+      - program_name
+      - program_id
+      - status
+      type: object
+      properties:
+        program_name:
+          type: string
         program_id:
           type: string
+        status:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        program_name: allTypeContent
+        program_id: d16524d0-348a-11eb-9c32-15914148e3ce
+        status:
+        - Pending
+        - Approved
+        - Rejected
+    NominationListDownload400BadRequestwithoutProgram-idRequest:
+      title: NominationListDownload400BadRequestwithoutProgram-idRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/NominationListDownloadRequest'
+      example:
+        request:
+          filters:
+            program_name: allTypeContent
+            program_id: ''
+            status:
+            - Pending
+            - Approved
+            - Rejected
+    NominationListDownload404NotFoundRequest:
+      title: NominationListDownload404NotFoundRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/NominationListDownloadRequest'
+      example:
+        request:
+          filters:
+            program_name: allTypeContent
+            program_id: d16524d0-348a-11eb-9c32-15914148e3ce
+            status:
+            - Pending
+            - Approved
+            - Rejected
+    NominationList200SuccessRequest:
+      title: NominationList200SuccessRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ListRequest'
+      example:
+        request:
+          filters: {}
+    NominationList401UnauthorizedRequest:
+      title: NominationList401UnauthorizedRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ListRequest'
+      example:
+        request:
+          filters: {}
+    NominationList404NotFoundRequest:
+      title: NominationList404NotFoundRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ListRequest'
+      example:
+        request:
+          filters: {}
+    Preference-create200SuccessRequest:
+      title: Preference-create200SuccessRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/PreferenceRequest'
+      example:
+        request:
+          user_id: 48dc0e70-2775-474b-9b78-def27d047836
+          program_id: afdfa9a0-1dbc-11eb-81b1-659ec274e395
+          preference:
+            medium:
+            - English
+            subject:
+            - ''
+            gradeLevel:
+            - Class 7
+          type: sourcing
+    PreferenceRequest:
+      title: PreferenceRequest
+      required:
+      - user_id
+      - program_id
+      - preference
+      - type
+      type: object
+      properties:
         user_id:
           type: string
-        organisation_id:
+        program_id:
           type: string
-          nullable: true
-        status:
+        preference:
+          $ref: '#/components/schemas/Preference'
+        type:
           type: string
-        content_types:
-          type: array
-          items:
-            type: string
-          description: ''
-        collection_ids:
-          type: array
-          items:
-            type: string
-          description: ''
-          nullable: true
-        feedback:
-          type: string
-          nullable: true
-        rolemapping:
-          type: string
-          nullable: true
-        createdby:
-          type: string
-        updatedby:
-          type: string
-          nullable: true
-        createdon:
-          type: string
-        updatedon:
-          type: string
-          nullable: true
-        program:
-          $ref: '#/components/schemas/Program1'
-        matchCount:
-          type: integer
-          format: int32
       example:
-        id: 13727
-        program_id: ba0f3ba0-19a9-11eb-81b1-659ec274e395
-        user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
-        organisation_id: 
-        status: Pending
-        content_types:
-        - Asset
-        collection_ids:
-        - do_1131395604521943041440
-        feedback: 
-        rolemapping: 
-        createdby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
-        updatedby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
-        createdon: 2020-11-02T12:05:02.373Z
-        updatedon: 2020-11-02T12:05:05.722Z
-        program:
-          program_id: ba0f3ba0-19a9-11eb-81b1-659ec274e395
-          name: aaa
-          type: public
-          collection_ids:
-          - do_11310770891570380814
-          - do_113108534623428608149
-          - do_113123388075057152110
-          - do_11311353404644556811
-          - do_113114880153911296165
-          - do_11312842715158937612
-          - do_113108536022335488152
-          content_types:
-          - Asset
-          target_collection_category: 
-          startdate: 2020-10-29T05:44:09.017Z
-          enddate: 2021-02-02T18:30:00Z
-          nomination_enddate: 2020-11-06T18:30:00Z
-          shortlisting_enddate: 2020-12-05T18:30:00Z
-          content_submission_enddate: 2021-01-09T18:30:00Z
-          image: 
-          status: Live
-          slug: sunbird
-          rolemapping: 
-          createdby: bf020396-0d7b-436f-ae9f-869c6780fc45
-          updatedby: 
-          createdon: 2020-10-29T05:44:09.016Z
-          updatedon: 2020-11-20T05:50:06.403Z
-          rootorg_id: 01307938306521497658
-          sourcing_org_name: Christ_University
-          channel: DIKSHA
-          template_id: template1
-          guidelines_url: 
-          subject: '["Mathematics", "Science", "Geography"]'
-          defaultContributeOrgReview: true
-          framework: ekstep_ncert_k-12
-          board: CBSE
-          gradeLevel: '["Class 1", "Class 3", "Class 9", "Class 2", "Class 7", "Class 4", "Class 6", "Class 5", "Class 10", "Class 8"]'
-          medium: '["English", "Hindi"]'
-        matchCount: 15
-    Program1:
-      title: Program1
+        user_id: 48dc0e70-2775-474b-9b78-def27d047836
+        program_id: afdfa9a0-1dbc-11eb-81b1-659ec274e395
+        preference:
+          medium:
+          - English
+          subject:
+          - ''
+          gradeLevel:
+          - Class 7
+        type: sourcing
+    Preference:
+      title: Preference
       required:
+      - medium
+      - subject
+      - gradeLevel
+      type: object
+      properties:
+        medium:
+          type: array
+          items:
+            type: string
+          description: ''
+        subject:
+          type: array
+          items:
+            type: string
+          description: ''
+        gradeLevel:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        medium:
+        - English
+        subject:
+        - ''
+        gradeLevel:
+        - Class 7
+    Preference-create400BadRequestRequest:
+      title: Preference-create400BadRequestRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/PreferenceRequest'
+      example:
+        request:
+          user_id: 48dc0e70-2775-474b-9b78-def27d047836
+          program_id: ''
+          preference:
+            medium:
+            - English
+            subject:
+            - ''
+            gradeLevel:
+            - Class 7
+          type: sourcing
+    Preference-create404NotFoundRequest:
+      title: Preference-create404NotFoundRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/PreferenceRequest'
+      example:
+        request:
+          user_id: 48dc0e70-2775-474b-9b78-def27d047836
+          program_id: afdfa9a0-1dbc-11eb-81b1-659ec274e395
+          preference:
+            medium:
+            - ''
+            subject:
+            - ''
+            gradeLevel:
+            - ' '
+          type: sourcing
+    Preference-read200SuccessRequest:
+      title: Preference-read200SuccessRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/PreferenceReadRequest'
+      example:
+        request:
+          user_id: 48dc0e70-2775-474b-9b78-def27d047836
+          program_id: ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
+    PreferenceReadRequest:
+      title: PreferenceReadRequest
+      required:
+      - user_id
       - program_id
+      type: object
+      properties:
+        user_id:
+          type: string
+        program_id:
+          type: string
+      example:
+        user_id: 48dc0e70-2775-474b-9b78-def27d047836
+        program_id: ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
+    Preference-read400BadRequestRequest:
+      title: Preference-read400BadRequestRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/PreferenceReadRequest'
+      example:
+        request:
+          user_id: ''
+          program_id: ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
+    Preference-read401UnauthorizedRequest:
+      title: Preference-read401UnauthorizedRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/PreferenceReadRequest'
+      example:
+        request:
+          user_id: 48dc0e70-2775-474b-9b78-def27d047836
+          program_id: ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
+    Preference-update200SuccessRequest:
+      title: Preference-update200SuccessRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/PreferenceRequest'
+      example:
+        request:
+          user_id: 48dc0e70-2775-474b-9b78-def27d047836
+          program_id: afdfa9a0-1dbc-11eb-81b1-659ec274e395
+          preference:
+            medium:
+            - English
+            subject:
+            - ''
+            gradeLevel:
+            - ''
+          type: sourcing
+    Preference-update400BadRequestRequest:
+      title: Preference-update400BadRequestRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/PreferenceRequest'
+      example:
+        request:
+          user_id: 48dc0e70-2775-474b-9b78-def27d047836
+          program_id: ''
+          preference:
+            medium:
+            - English
+            subject:
+            - ''
+            gradeLevel:
+            - ''
+          type: sourcing
+    Preference-update404NotFoundRequest:
+      title: Preference-update404NotFoundRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/PreferenceRequest'
+      example:
+        request:
+          user_id: 48dc0e70-2775-474b-9b78-def27d047836
+          program_id: afdfa9a0-1dbc-11eb-81b1-659ec274e395
+          preference:
+            medium:
+            - English
+            subject:
+            - ''
+            gradeLevel:
+            - ''
+          type: sourcing
+    ProgramUpdate200SuccessRequest:
+      title: ProgramUpdate200SuccessRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ProgramRequest'
+    ProgramRequest:
+      title: ProgramRequest
+      required:
       - name
-      - type
-      - collection_ids
-      - content_types
-      - target_collection_category
-      - startdate
-      - enddate
+      - description
       - nomination_enddate
       - shortlisting_enddate
       - content_submission_enddate
-      - image
-      - status
-      - slug
-      - rolemapping
-      - createdby
-      - updatedby
-      - createdon
-      - updatedon
-      - rootorg_id
+      - rewards
+      - content_types
+      - target_collection_category
       - sourcing_org_name
-      - channel
-      - template_id
-      - guidelines_url
-      - subject
-      - defaultContributeOrgReview
-      - framework
-      - board
-      - gradeLevel
-      - medium
+      - rootorg_id
+      - createdby
+      - createdon
+      - startdate
+      - slug
+      - type
+      - default_roles
+      - enddate
+      - status
+      - program_id
+      - collection_ids
+      - config
       type: object
       properties:
-        program_id:
-          type: string
         name:
           type: string
-        type:
+        description:
           type: string
-        collection_ids:
-          type: array
-          items:
-            type: string
-          description: ''
+        nomination_enddate:
+          type: string
+        shortlisting_enddate:
+          type: string
+        content_submission_enddate:
+          type: string
+        rewards:
+          type: string
         content_types:
           type: array
           items:
@@ -1153,10 +3949,1139 @@ components:
           items:
             type: string
           description: ''
-          nullable: true
+        sourcing_org_name:
+          type: string
+        rootorg_id:
+          type: string
+        createdby:
+          type: string
+        createdon:
+          type: string
         startdate:
           type: string
+        slug:
+          type: string
+        type:
+          type: string
+        default_roles:
+          type: array
+          items:
+            type: string
+          description: ''
         enddate:
+          type: string
+        status:
+          type: string
+        program_id:
+          type: string
+        collection_ids:
+          type: array
+          items:
+            type: string
+          description: ''
+        config:
+          $ref: '#/components/schemas/ProgramConfig'
+    ProgramConfig:
+      title: ProgramConfig
+      required:
+      - defaultContributeOrgReview
+      - _comments
+      - loginReqired
+      - framework
+      - board
+      - gradeLevel
+      - medium
+      - subject
+      - roles
+      - header
+      - components
+      - sharedContext
+      - collections
+      type: object
+      properties:
+        defaultContributeOrgReview:
+          type: boolean
+        _comments:
+          type: string
+        loginReqired:
+          type: boolean
+        framework:
+          type: array
+          items:
+            type: string
+          description: ''
+        board:
+          type: array
+          items:
+            type: string
+          description: ''
+        gradeLevel:
+          type: array
+          items:
+            type: string
+          description: ''
+        medium:
+          type: array
+          items:
+            type: string
+          description: ''
+        subject:
+          type: array
+          items:
+            type: string
+          description: ''
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+          description: ''
+        header:
+          $ref: '#/components/schemas/Header'
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/Component'
+          description: ''
+        sharedContext:
+          type: array
+          items:
+            type: string
+          description: ''
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Collection'
+          description: ''
+    Role:
+      title: Role
+      required:
+      - id
+      - name
+      - defaultTab
+      - tabs
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        default:
+          type: boolean
+        defaultTab:
+          type: integer
+          format: int32
+        tabs:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: ''
+      example:
+        id: 1
+        name: CONTRIBUTOR
+        default: true
+        defaultTab: 1
+        tabs:
+        - 1
+    Header:
+      title: Header
+      required:
+      - id
+      - ver
+      - compId
+      - author
+      - description
+      - publishedDate
+      - data
+      - config
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        compId:
+          type: string
+        author:
+          type: string
+        description:
+          type: string
+        publishedDate:
+          type: string
+        data:
+          type: object
+        config:
+          $ref: '#/components/schemas/HeaderConfig'
+      example:
+        id: ng.sunbird.header
+        ver: 1.0
+        compId: headerComp
+        author: Venkat
+        description: ''
+        publishedDate: ''
+        data: {}
+        config:
+          tabs:
+          - index: 1
+            label: Contribute
+            onClick: collectionComponent
+          - index: 2
+            label: Review
+            onClick: collectionComponent
+          - index: 3
+            label: Dashboard
+            onClick: dashboardComponent
+    HeaderConfig:
+      title: HeaderConfig
+      required:
+      - tabs
+      type: object
+      properties:
+        tabs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tab'
+          description: ''
+      example:
+        tabs:
+        - index: 1
+          label: Contribute
+          onClick: collectionComponent
+        - index: 2
+          label: Review
+          onClick: collectionComponent
+        - index: 3
+          label: Dashboard
+          onClick: dashboardComponent
+    Tab:
+      title: Tab
+      required:
+      - index
+      - label
+      - onClick
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        label:
+          type: string
+        onClick:
+          type: string
+      example:
+        index: 1
+        label: Contribute
+        onClick: collectionComponent
+    Component:
+      title: Component
+      required:
+      - id
+      - ver
+      - compId
+      - author
+      - description
+      - publishedDate
+      - data
+      - config
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        compId:
+          type: string
+        author:
+          type: string
+        description:
+          type: string
+        publishedDate:
+          type: string
+        data:
+          type: object
+        config:
+          $ref: '#/components/schemas/FormConfig'
+    FormConfig:
+      title: FormConfig
+      type: object
+      properties:
+        filters:
+          $ref: '#/components/schemas/FormFilters'
+        groupBy:
+          $ref: '#/components/schemas/GroupBy'
+        collectionType:
+          type: string
+        collectionList:
+          type: array
+          items:
+            type: string
+          description: ''
+        status:
+          type: array
+          items:
+            type: string
+          description: ''
+        contentTypes:
+          $ref: '#/components/schemas/ContentTypes'
+        filesConfig:
+          $ref: '#/components/schemas/FilesConfig'
+        formConfiguration:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormConfiguration'
+          description: ''
+        resourceTitleLength:
+          type: string
+        tenantName:
+          type: string
+        No of options:
+          type: integer
+          format: int32
+        solutionType:
+          type: array
+          items:
+            type: string
+          description: ''
+        questionCategory:
+          type: array
+          items:
+            type: string
+          description: ''
+        assetConfig:
+          $ref: '#/components/schemas/AssetConfig'
+    FormFilters:
+      title: FormFilters
+      required:
+      - implicit
+      - explicit
+      type: object
+      properties:
+        implicit:
+          type: array
+          items:
+            $ref: '#/components/schemas/Implicit'
+          description: ''
+        explicit:
+          type: array
+          items:
+            $ref: '#/components/schemas/Explicit'
+          description: ''
+    Implicit:
+      title: Implicit
+      required:
+      - code
+      - defaultValue
+      - label
+      type: object
+      properties:
+        code:
+          type: string
+        defaultValue:
+          type: array
+          items:
+            type: string
+          description: ''
+        label:
+          type: string
+    Explicit:
+      title: Explicit
+      required:
+      - code
+      - range
+      - label
+      - multiselect
+      - defaultValue
+      - visibility
+      type: object
+      properties:
+        code:
+          type: string
+        range:
+          type: array
+          items:
+            type: string
+          description: ''
+        label:
+          type: string
+        multiselect:
+          type: boolean
+        defaultValue:
+          type: array
+          items:
+            type: string
+          description: ''
+        visibility:
+          type: boolean
+      example:
+        code: gradeLevel
+        range:
+        - Kindergarten
+        - Grade 1
+        - Grade 2
+        - Grade 3
+        label: Class
+        multiselect: false
+        defaultValue:
+        - Kindergarten
+        - Grade 1
+        visibility: true
+    GroupBy:
+      title: GroupBy
+      required:
+      - value
+      - defaultValue
+      type: object
+      properties:
+        value:
+          type: string
+        defaultValue:
+          type: string
+      example:
+        value: subject
+        defaultValue: subject
+    ContentTypes:
+      title: ContentTypes
+      required:
+      - value
+      - defaultValue
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Value'
+          description: ''
+        defaultValue:
+          type: array
+          items:
+            $ref: '#/components/schemas/DefaultValue'
+          description: ''
+      example:
+        value:
+        - id: explanationContent
+          label: Explanation
+          onClick: uploadComponent
+          mimeType:
+          - application/pdf
+          - video/mp4
+          - video/webm
+          - application/epub
+          metadata:
+            name: Explanation Resource
+            description: ExplanationResource
+            resourceType: Read
+            contentType: ExplanationResource
+            audience:
+            - Learner
+            appIcon: https://ntpstagingall.blob.core.windows.net/ntp-content-staging/content/do_21291553051403878414/artifact/explanation.thumb_1576602846206.png
+            marks: 5
+          filesConfig:
+            accepted: pdf, mp4, webm, epub
+            size: 50
+        - id: learningActivity
+          label: Activity for Learning
+          onClick: uploadComponent
+          mimeType:
+          - application/pdf
+          - video/mp4
+          - video/webm
+          - application/epub
+          - application/vnd.ekstep.h5p-archive
+          metadata:
+            name: Activity for Learning
+            description: LearningActivity
+            resourceType: Read
+            contentType: LearningActivity
+            audience:
+            - Learner
+            appIcon: ''
+            marks: 5
+          filesConfig:
+            accepted: pdf, mp4, webm, epub, h5p
+            size: 50
+        - id: experientialContent
+          label: Experiential
+          onClick: uploadComponent
+          mimeType:
+          - video/mp4
+          - video/webm
+          metadata:
+            name: Experiential Resource
+            description: ExperientialResource
+            resourceType: Read
+            contentType: ExperientialResource
+            audience:
+            - Learner
+            appIcon: https://ntpstagingall.blob.core.windows.net/ntp-content-staging/content/do_21291553051403878414/artifact/explanation.thumb_1576602846206.png
+            marks: 5
+          filesConfig:
+            accepted: mp4, webm
+            size: 50
+        - id: classroomTeachingVideo
+          label: Classroom Teaching Video
+          onClick: uploadComponent
+          mimeType:
+          - video/mp4
+          - video/webm
+          metadata:
+            name: Classroom Teaching Video
+            description: ClassroomTeachingVideo
+            resourceType: Read
+            contentType: ClassroomTeachingVideo
+            audience:
+            - Learner
+            appIcon: ''
+            marks: 5
+          filesConfig:
+            accepted: mp4, webm
+            size: 50
+        - id: explanationVideo
+          label: Explanation Video
+          onClick: uploadComponent
+          mimeType:
+          - video/mp4
+          - video/webm
+          metadata:
+            name: Explanation Video
+            description: ExplanationVideo
+            resourceType: Read
+            contentType: ExplanationVideo
+            audience:
+            - Learner
+            appIcon: ''
+            marks: 5
+          filesConfig:
+            accepted: mp4, webm
+            size: 50
+        - id: explanationReadingMaterial
+          label: Explanation Reading Material
+          onClick: uploadComponent
+          mimeType:
+          - application/pdf
+          - application/epub
+          metadata:
+            name: Explanation Reading Material
+            description: ExplanationReadingMaterial
+            resourceType: Read
+            contentType: ExplanationReadingMaterial
+            audience:
+            - Learner
+            appIcon: ''
+            marks: 5
+          filesConfig:
+            accepted: pdf, epub
+            size: 50
+        - id: previousBoardExamPapers
+          label: Previous Board Exam Papers
+          onClick: uploadComponent
+          mimeType:
+          - application/pdf
+          - application/epub
+          metadata:
+            name: Previous Board Exam Papers
+            description: PreviousBoardExamPapers
+            resourceType: Read
+            contentType: PreviousBoardExamPapers
+            audience:
+            - Learner
+            appIcon: ''
+            marks: 5
+          filesConfig:
+            accepted: pdf, epub
+            size: 50
+        - id: lessonPlanResource
+          label: Lesson Plan
+          onClick: uploadComponent
+          mimeType:
+          - application/pdf
+          - application/epub
+          metadata:
+            name: Lesson Plan
+            description: LessonPlanResource
+            resourceType: Read
+            contentType: LessonPlanResource
+            audience:
+            - Learner
+            appIcon: ''
+            marks: 5
+          filesConfig:
+            accepted: pdf, epub
+            size: 50
+        - id: focusSpotContent
+          label: FocusSpot
+          onClick: uploadComponent
+          mimeType:
+          - application/pdf
+          - application/epub
+          metadata:
+            name: FocusSpot Resource
+            description: FocusSpot
+            resourceType: Read
+            contentType: FocusSpot
+            audience:
+            - Learner
+            appIcon: https://ntpstagingall.blob.core.windows.net/ntp-content-staging/content/do_21291553100098764812/artifact/focus-spot_1561727473311.thumb_1576602905573.png
+            marks: 5
+          filesConfig:
+            accepted: pdf, epub
+            size: 50
+        - id: TeachingMethod
+          label: Teaching Method
+          onClick: uploadComponent
+          mimeType:
+          - application/pdf
+          - application/epub
+          metadata:
+            name: Teaching Method
+            description: TeachingMethod
+            resourceType: Read
+            contentType: TeachingMethod
+            audience:
+            - Learner
+            appIcon: https://ntpstagingall.blob.core.windows.net/ntp-content-staging/content/do_21291553100098764812/artifact/focus-spot_1561727473311.thumb_1576602905573.png
+            marks: 5
+          filesConfig:
+            accepted: pdf, epub
+            size: 50
+        - id: PedagogyFlow
+          label: Pedagogy Flow
+          onClick: uploadComponent
+          mimeType:
+          - application/pdf
+          - application/epub
+          metadata:
+            name: Pedagogy Flow
+            description: PedagogyFlow
+            resourceType: Read
+            contentType: PedagogyFlow
+            audience:
+            - Learner
+            appIcon: https://ntpstagingall.blob.core.windows.net/ntp-content-staging/content/do_21291553100098764812/artifact/focus-spot_1561727473311.thumb_1576602905573.png
+            marks: 5
+          filesConfig:
+            accepted: pdf, epub
+            size: 50
+        - id: LearningOutcomeDefinition
+          label: Learning Outcome Definition
+          onClick: uploadComponent
+          mimeType:
+          - application/pdf
+          - application/epub
+          metadata:
+            name: Learning Outcome Definition
+            description: LearningOutcomeDefinition
+            resourceType: Read
+            contentType: LearningOutcomeDefinition
+            audience:
+            - Learner
+            appIcon: https://ntpstagingall.blob.core.windows.net/ntp-content-staging/content/do_21291553100098764812/artifact/focus-spot_1561727473311.thumb_1576602905573.png
+            marks: 5
+          filesConfig:
+            accepted: pdf, epub
+            size: 50
+        - id: MarkingSchemeRubric
+          label: Marking Scheme Rubric
+          onClick: uploadComponent
+          mimeType:
+          - application/pdf
+          - application/epub
+          metadata:
+            name: Marking Scheme Rubric
+            description: MarkingSchemeRubric
+            resourceType: Read
+            contentType: MarkingSchemeRubric
+            audience:
+            - Learner
+            appIcon: https://ntpstagingall.blob.core.windows.net/ntp-content-staging/content/do_21291553100098764812/artifact/focus-spot_1561727473311.thumb_1576602905573.png
+            marks: 5
+          filesConfig:
+            accepted: pdf, epub
+            size: 50
+        - id: ConceptMap
+          label: Concept Map
+          onClick: uploadComponent
+          mimeType:
+          - application/pdf
+          - application/epub
+          metadata:
+            name: Concept Map
+            description: ConceptMap
+            resourceType: Read
+            contentType: ConceptMap
+            audience:
+            - Learner
+            appIcon: https://ntpstagingall.blob.core.windows.net/ntp-content-staging/content/do_21291553100098764812/artifact/focus-spot_1561727473311.thumb_1576602905573.png
+            marks: 5
+          filesConfig:
+            accepted: pdf, epub
+            size: 50
+        - id: SelfAssess
+          label: Self Assess
+          onClick: uploadComponent
+          mimeType:
+          - application/pdf
+          - application/epub
+          metadata:
+            name: Self Assess
+            description: SelfAssess
+            resourceType: Read
+            contentType: SelfAssess
+            audience:
+            - Learner
+            appIcon: https://ntpstagingall.blob.core.windows.net/ntp-content-staging/content/do_21291553100098764812/artifact/focus-spot_1561727473311.thumb_1576602905573.png
+            marks: 5
+          filesConfig:
+            accepted: pdf, epub
+            size: 50
+        - id: vsaPracticeQuestionContent
+          label: VSA - Practice Sets
+          onClick: questionSetComponent
+          mimeType:
+          - application/vnd.ekstep.ecml-archive
+          metadata:
+            name: Practice QuestionSet
+            description: Practice QuestionSet
+            resourceType: Learn
+            contentType: PracticeQuestionSet
+            audience:
+            - Learner
+            appIcon: ''
+            marks: 5
+          questionCategories:
+          - vsa
+        - id: saPracticeQuestionContent
+          label: SA - Practice Sets
+          onClick: questionSetComponent
+          mimeType:
+          - application/vnd.ekstep.ecml-archive
+          metadata:
+            name: Practice QuestionSet
+            description: Practice QuestionSet
+            resourceType: Learn
+            contentType: PracticeQuestionSet
+            audience:
+            - Learner
+            appIcon: ''
+            marks: 5
+          questionCategories:
+          - sa
+        - id: laPracticeQuestionContent
+          label: LA - Practice Sets
+          onClick: questionSetComponent
+          mimeType:
+          - application/vnd.ekstep.ecml-archive
+          metadata:
+            name: Practice QuestionSet
+            description: Practice QuestionSet
+            resourceType: Learn
+            contentType: PracticeQuestionSet
+            audience:
+            - Learner
+            appIcon: ''
+            marks: 5
+          questionCategories:
+          - la
+        - id: mcqPracticeQuestionContent
+          label: MCQ - Practice Sets
+          onClick: questionSetComponent
+          mimeType:
+          - application/vnd.ekstep.ecml-archive
+          metadata:
+            name: Practice QuestionSet
+            description: Practice QuestionSet
+            resourceType: Learn
+            contentType: PracticeQuestionSet
+            audience:
+            - Learner
+            appIcon: ''
+            marks: 5
+          questionCategories:
+          - mcq
+        - id: curiositySetContent
+          label: Curiosity Sets
+          onClick: curiositySetComponent
+          mimeType:
+          - application/vnd.ekstep.ecml-archive
+          metadata:
+            name: Curiosity QuestionSet
+            description: Curiosity QuestionSet
+            resourceType: Learn
+            contentType: CuriosityQuestionSet
+            audience:
+            - Learner
+            appIcon: ''
+            marks: 5
+          questionCategories:
+          - curiosity
+        defaultValue:
+        - id: vsaPracticeQuestionContent
+          label: Practice Sets
+          onClick: questionSetComponent
+          mimeType:
+          - application/vnd.ekstep.ecml-archive
+          metadata:
+            name: Practice QuestionSet
+            description: Practice QuestionSet
+            resourceType: Learn
+            contentType: PracticeQuestionSet
+            audience:
+            - Learner
+            appIcon: ''
+            marks: 5
+          questionCategories:
+          - vsa
+    Value:
+      title: Value
+      required:
+      - id
+      - label
+      - onClick
+      - mimeType
+      - metadata
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        onClick:
+          type: string
+        mimeType:
+          type: array
+          items:
+            type: string
+          description: ''
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        filesConfig:
+          $ref: '#/components/schemas/FilesConfig'
+        questionCategories:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        id: explanationContent
+        label: Explanation
+        onClick: uploadComponent
+        mimeType:
+        - application/pdf
+        - video/mp4
+        - video/webm
+        - application/epub
+        metadata:
+          name: Explanation Resource
+          description: ExplanationResource
+          resourceType: Read
+          contentType: ExplanationResource
+          audience:
+          - Learner
+          appIcon: https://ntpstagingall.blob.core.windows.net/ntp-content-staging/content/do_21291553051403878414/artifact/explanation.thumb_1576602846206.png
+          marks: 5
+        filesConfig:
+          accepted: pdf, mp4, webm, epub
+          size: 50
+    Metadata:
+      title: Metadata
+      required:
+      - name
+      - description
+      - resourceType
+      - contentType
+      - audience
+      - appIcon
+      - marks
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        resourceType:
+          type: string
+        contentType:
+          type: string
+        audience:
+          type: array
+          items:
+            type: string
+          description: ''
+        appIcon:
+          type: string
+        marks:
+          type: integer
+          format: int32
+      example:
+        name: Explanation Resource
+        description: ExplanationResource
+        resourceType: Read
+        contentType: ExplanationResource
+        audience:
+        - Learner
+        appIcon: https://ntpstagingall.blob.core.windows.net/ntp-content-staging/content/do_21291553051403878414/artifact/explanation.thumb_1576602846206.png
+        marks: 5
+    FilesConfig:
+      title: FilesConfig
+      required:
+      - accepted
+      - size
+      type: object
+      properties:
+        accepted:
+          type: string
+        size:
+          type: string
+      example:
+        accepted: pdf, mp4, webm, epub
+        size: 50
+    DefaultValue:
+      title: DefaultValue
+      required:
+      - id
+      - label
+      - onClick
+      - mimeType
+      - metadata
+      - questionCategories
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        onClick:
+          type: string
+        mimeType:
+          type: array
+          items:
+            type: string
+          description: ''
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        questionCategories:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        id: vsaPracticeQuestionContent
+        label: Practice Sets
+        onClick: questionSetComponent
+        mimeType:
+        - application/vnd.ekstep.ecml-archive
+        metadata:
+          name: Practice QuestionSet
+          description: Practice QuestionSet
+          resourceType: Learn
+          contentType: PracticeQuestionSet
+          audience:
+          - Learner
+          appIcon: ''
+          marks: 5
+        questionCategories:
+        - vsa
+    FormConfiguration:
+      title: FormConfiguration
+      required:
+      - code
+      - dataType
+      - editable
+      - inputType
+      - name
+      - required
+      - visible
+      type: object
+      properties:
+        code:
+          type: string
+        dataType:
+          type: string
+        description:
+          type: string
+        editable:
+          type: boolean
+        inputType:
+          type: string
+        label:
+          type: string
+        name:
+          type: string
+        placeholder:
+          type: string
+        required:
+          type: boolean
+        visible:
+          type: boolean
+        helpText:
+          type: string
+      example:
+        code: learningOutcome
+        dataType: list
+        description: Learning Outcomes For The Content
+        editable: true
+        inputType: multiselect
+        label: Learning Outcome
+        name: LearningOutcome
+        placeholder: Select Learning Outcomes
+        required: false
+        visible: true
+    AssetConfig:
+      title: AssetConfig
+      required:
+      - image
+      - video
+      type: object
+      properties:
+        image:
+          $ref: '#/components/schemas/Image'
+        video:
+          $ref: '#/components/schemas/Video'
+      example:
+        image:
+          size: 50
+          accepted: jpeg, png, jpg
+        video:
+          size: 50
+          accepted: pdf, mp4, webm, youtube
+    Image:
+      title: Image
+      required:
+      - size
+      - accepted
+      type: object
+      properties:
+        size:
+          type: string
+        accepted:
+          type: string
+      example:
+        size: 50
+        accepted: jpeg, png, jpg
+    Video:
+      title: Video
+      required:
+      - size
+      - accepted
+      type: object
+      properties:
+        size:
+          type: string
+        accepted:
+          type: string
+      example:
+        size: 50
+        accepted: pdf, mp4, webm, youtube
+    Collection:
+      title: Collection
+      required:
+      - id
+      - allowed_content_types
+      - children
+      type: object
+      properties:
+        id:
+          type: string
+        allowed_content_types:
+          type: array
+          items:
+            type: string
+          description: ''
+        children:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        id: do_113133960314445824150
+        allowed_content_types: []
+        children: []
+    200Successfull:
+      title: 200Successfull
+      required:
+      - id
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/ConfigurationSearchParams'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/ProgramUpdateResult'
+      example:
+        id: api.program.update
+        ts: 2020-12-03T08:38:21.34Z
+        params:
+          resmsgid: e6555dc1-3542-11eb-84ed-692ec8c8dbe9
+          msgid: e6555dc0-3542-11eb-84ed-692ec8c8dbe9
+          status: successful
+          err: 
+          errmsg: 
+        responseCode: OK
+        result:
+          program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+    ProgramUpdateResult:
+      title: ProgramUpdateResult
+      required:
+      - program_id
+      type: object
+      properties:
+        program_id:
+          type: string
+      example:
+        program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+    ProgramUpdate404NotFoundRequest:
+      title: ProgramUpdate404NotFoundRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ProgramRequest'
+    CreateProgram200SuccessRequest:
+      title: CreateProgram200SuccessRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ProgramCreateRequest'
+    ProgramCreateRequest:
+      title: ProgramCreateRequest
+      required:
+      - name
+      - description
+      - nomination_enddate
+      - shortlisting_enddate
+      - content_submission_enddate
+      - rewards
+      - content_types
+      - target_collection_category
+      - sourcing_org_name
+      - rootorg_id
+      - createdby
+      - createdon
+      - startdate
+      - slug
+      - type
+      - default_roles
+      - enddate
+      - status
+      - program_id
+      - config
+      type: object
+      properties:
+        name:
+          type: string
+        description:
           type: string
         nomination_enddate:
           type: string
@@ -1164,97 +5089,793 @@ components:
           type: string
         content_submission_enddate:
           type: string
-        image:
+        rewards:
           type: string
-          nullable: true
-        status:
-          type: string
-        slug:
-          type: string
-        rolemapping:
-          $ref: '#/components/schemas/Rolemapping'
-        createdby:
-          type: string
-        updatedby:
-          type: string
-          nullable: true
-        createdon:
-          type: string
-        updatedon:
-          type: string
-        rootorg_id:
-          type: string
-        sourcing_org_name:
-          type: string
-        channel:
-          type: string
-        template_id:
-          type: string
-        guidelines_url:
-          type: string
-          nullable: true
-        subject:
-          type: string
-        defaultContributeOrgReview:
-          type: string
-          nullable: true
-        framework:
-          type: string
-        board:
-          type: string
-          nullable: true
-        gradeLevel:
-          type: string
-        medium:
-          type: string
-      example:
-        program_id: ba0f3ba0-19a9-11eb-81b1-659ec274e395
-        name: aaa
-        type: public
-        collection_ids:
-        - do_11310770891570380814
-        - do_113108534623428608149
-        - do_113123388075057152110
-        - do_11311353404644556811
-        - do_113114880153911296165
-        - do_11312842715158937612
-        - do_113108536022335488152
         content_types:
-        - Asset
-        target_collection_category: 
-        startdate: 2020-10-29T05:44:09.017Z
-        enddate: 2021-02-02T18:30:00Z
-        nomination_enddate: 2020-11-06T18:30:00Z
-        shortlisting_enddate: 2020-12-05T18:30:00Z
-        content_submission_enddate: 2021-01-09T18:30:00Z
-        image: 
-        status: Live
-        slug: sunbird
-        rolemapping: 
-        createdby: bf020396-0d7b-436f-ae9f-869c6780fc45
-        updatedby: 
-        createdon: 2020-10-29T05:44:09.016Z
-        updatedon: 2020-11-20T05:50:06.403Z
-        rootorg_id: 01307938306521497658
-        sourcing_org_name: Christ_University
-        channel: DIKSHA
-        template_id: template1
-        guidelines_url: 
-        subject: '["Mathematics", "Science", "Geography"]'
-        defaultContributeOrgReview: true
-        framework: ekstep_ncert_k-12
-        board: CBSE
-        gradeLevel: '["Class 1", "Class 3", "Class 9", "Class 2", "Class 7", "Class 4", "Class 6", "Class 5", "Class 10", "Class 8"]'
-        medium: '["English", "Hindi"]'
-    Rolemapping:
-      title: Rolemapping
-      type: object
-      properties:
-        REVIEWER:
           type: array
           items:
             type: string
           description: ''
+        target_collection_category:
+          type: array
+          items:
+            type: string
+          description: ''
+        sourcing_org_name:
+          type: string
+        rootorg_id:
+          type: string
+        createdby:
+          type: string
+        createdon:
+          type: string
+        startdate:
+          type: string
+        slug:
+          type: string
+        type:
+          type: string
+        default_roles:
+          type: array
+          items:
+            type: string
+          description: ''
+        enddate:
+          type: string
+        status:
+          type: string
+        program_id:
+          type: string
+        config:
+          $ref: '#/components/schemas/ProgramCreateConfig'
+    ProgramCreateConfig:
+      title: ProgramCreateConfig
+      required:
+      - defaultContributeOrgReview
+      - _comments
+      - loginReqired
+      - framework
+      - board
+      - gradeLevel
+      - medium
+      - subject
+      - roles
+      - header
+      - components
+      - sharedContext
+      type: object
+      properties:
+        defaultContributeOrgReview:
+          type: boolean
+        _comments:
+          type: string
+        loginReqired:
+          type: boolean
+        framework:
+          type: string
+        board:
+          type: array
+          items:
+            type: string
+          description: ''
+        gradeLevel:
+          type: array
+          items:
+            type: string
+          description: ''
+        medium:
+          type: array
+          items:
+            type: string
+          description: ''
+        subject:
+          type: array
+          items:
+            type: string
+          description: ''
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+          description: ''
+        header:
+          $ref: '#/components/schemas/Header'
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/Component'
+          description: ''
+        sharedContext:
+          type: array
+          items:
+            type: string
+          description: ''
+    200success:
+      title: 200success
+      required:
+      - id
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/ConfigurationSearchParams'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/ProgramUpdateResult'
+      example:
+        id: api.program.create
+        ts: 2020-12-03T08:25:51.2Z
+        params:
+          resmsgid: 27371601-3541-11eb-a10c-1da50649277e
+          msgid: 27371600-3541-11eb-a10c-1da50649277e
+          status: successful
+          err: 
+          errmsg: 
+        responseCode: OK
+        result:
+          program_id: 26be3c80-3541-11eb-a10c-1da50649277e
+    CreateProgram404NotFoundRequest:
+      title: CreateProgram404NotFoundRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ProgramCreateRequest'
+    Program-Publish200SuccessRequest:
+      title: Program-Publish200SuccessRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ProgramPublishRequest'
+      example:
+        request:
+          program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+          channel: sunbird
+    ProgramPublishRequest:
+      title: ProgramPublishRequest
+      required:
+      - program_id
+      - channel
+      type: object
+      properties:
+        program_id:
+          type: string
+        channel:
+          type: string
+      example:
+        program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+        channel: sunbird
+    200SuccessProgramPublish:
+      title: 200SuccessProgramPublish
+      required:
+      - id
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/ConfigurationSearchParams'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/ProgramPublishResult'
+      example:
+        id: api.program.publish
+        ts: 2020-12-03T08:14:32.077Z
+        params:
+          resmsgid: 926d23d1-353f-11eb-86c8-875983bcd642
+          msgid: 926d23d0-353f-11eb-86c8-875983bcd642
+          status: successful
+          err: 
+          errmsg: 
+        responseCode: OK
+        result:
+          program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+          afterPublishResponse:
+            nomination:
+              error: 
+              result:
+                program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+                user_id: 48dc0e70-2775-474b-9b78-def27d047836
+                organisation_id: e0ab89f4-0fcb-47ea-9b70-3ed0f12b1b7a
+                status: Approved
+                content_types:
+                - Course Assessment
+                - eTextbook
+                - Explanation Content
+                - Learning Resource
+                - Practice Question Set
+                - Teacher Resource
+                collection_ids:
+                - do_1131644069627576321824
+                - do_1131644069627740161825
+                - do_1131644069627330561823
+            userMapping: {}
+    ProgramPublishResult:
+      title: ProgramPublishResult
+      required:
+      - program_id
+      - afterPublishResponse
+      type: object
+      properties:
+        program_id:
+          type: string
+        afterPublishResponse:
+          $ref: '#/components/schemas/AfterPublishResponse'
+      example:
+        program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+        afterPublishResponse:
+          nomination:
+            error: 
+            result:
+              program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+              user_id: 48dc0e70-2775-474b-9b78-def27d047836
+              organisation_id: e0ab89f4-0fcb-47ea-9b70-3ed0f12b1b7a
+              status: Approved
+              content_types:
+              - Course Assessment
+              - eTextbook
+              - Explanation Content
+              - Learning Resource
+              - Practice Question Set
+              - Teacher Resource
+              collection_ids:
+              - do_1131644069627576321824
+              - do_1131644069627740161825
+              - do_1131644069627330561823
+          userMapping: {}
+    AfterPublishResponse:
+      title: AfterPublishResponse
+      required:
+      - nomination
+      - userMapping
+      type: object
+      properties:
+        nomination:
+          $ref: '#/components/schemas/Nomination'
+        userMapping:
+          type: object
+      example:
+        nomination:
+          error: 
+          result:
+            program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+            user_id: 48dc0e70-2775-474b-9b78-def27d047836
+            organisation_id: e0ab89f4-0fcb-47ea-9b70-3ed0f12b1b7a
+            status: Approved
+            content_types:
+            - Course Assessment
+            - eTextbook
+            - Explanation Content
+            - Learning Resource
+            - Practice Question Set
+            - Teacher Resource
+            collection_ids:
+            - do_1131644069627576321824
+            - do_1131644069627740161825
+            - do_1131644069627330561823
+        userMapping: {}
+    Nomination:
+      title: Nomination
+      required:
+      - error
+      - result
+      type: object
+      properties:
+        error:
+          type: string
+          nullable: true
+        result:
+          $ref: '#/components/schemas/NominationPublishResult'
+      example:
+        error: 
+        result:
+          program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+          user_id: 48dc0e70-2775-474b-9b78-def27d047836
+          organisation_id: e0ab89f4-0fcb-47ea-9b70-3ed0f12b1b7a
+          status: Approved
+          content_types:
+          - Course Assessment
+          - eTextbook
+          - Explanation Content
+          - Learning Resource
+          - Practice Question Set
+          - Teacher Resource
+          collection_ids:
+          - do_1131644069627576321824
+          - do_1131644069627740161825
+          - do_1131644069627330561823
+    NominationPublishResult:
+      title: NominationPublishResult
+      required:
+      - program_id
+      - user_id
+      - organisation_id
+      - status
+      - content_types
+      - collection_ids
+      type: object
+      properties:
+        program_id:
+          type: string
+        user_id:
+          type: string
+        organisation_id:
+          type: string
+        status:
+          type: string
+        content_types:
+          type: array
+          items:
+            type: string
+          description: ''
+        collection_ids:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+        user_id: 48dc0e70-2775-474b-9b78-def27d047836
+        organisation_id: e0ab89f4-0fcb-47ea-9b70-3ed0f12b1b7a
+        status: Approved
+        content_types:
+        - Course Assessment
+        - eTextbook
+        - Explanation Content
+        - Learning Resource
+        - Practice Question Set
+        - Teacher Resource
+        collection_ids:
+        - do_1131644069627576321824
+        - do_1131644069627740161825
+        - do_1131644069627330561823
+    400badRequestwithoutchannel:
+      title: 400badRequestwithoutchannel
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/ProgramPublishParams'
+        responseCode:
+          type: string
+        result:
+          type: object
+      example:
+        id: api.v1.publish
+        ver: 1.0
+        ts: 2020-12-02T18:28:15.284Z
+        params:
+          resmsgid: 245adf40-34cc-11eb-9c32-15914148e3ce
+          msgid: 
+          status: failed
+          err: ERR_PUBLISH_PROGRAM_DATA
+          errmsg: Required fields while publishing program data are missing
+        responseCode: CLIENT_ERROR
+        result: {}
+    404NotFound:
+      title: 404NotFound
+      required:
+      - request_path
+      - message
+      - request_host
+      type: object
+      properties:
+        request_path:
+          type: string
+        message:
+          type: string
+        request_host:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        request_path: /v1/publish
+        message: API not found with these values
+        request_host:
+        - kong
+    Program-Publish400BadRequestRequest:
+      title: Program-Publish400BadRequestRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ProgramPublishRequest'
+      example:
+        request:
+          program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+          channel: ''
+    Program-Publish404NotFoundRequest:
+      title: Program-Publish404NotFoundRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ProgramPublishRequest'
+      example:
+        request:
+          program_id: a043dc40-3497-11eb-9c32-15914148e3ce
+          channel: sunbird
+    Unlist-Publish200SuccessRequest:
+      title: Unlist-Publish200SuccessRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ProgramPublishRequest'
+      example:
+        request:
+          program_id: f2c1d380-389a-11eb-af92-c5fb4afce83e
+          channel: sunbird
+    Unlist-Publish400BadRequestRequest:
+      title: Unlist-Publish400BadRequestRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ProgramPublishRequest'
+      example:
+        request:
+          program_id: ''
+          channel: sunbird
+    Unlist-Publish404NotFoundRequest:
+      title: Unlist-Publish404NotFoundRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ProgramPublishRequest'
+      example:
+        request:
+          program_id: f2c1d380-389a-11eb-af92-c5fb4afce83e
+          channel: sunbird
+    Program-Feed-Search200successRequest:
+      title: Program-Feed-Search200successRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ProgramFeedSearchPrequest'
+      example:
+        request:
+          nomination:
+            programId:
+            - a549ffa0-3553-11eb-84ed-692ec8c8dbe9
+            - ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
+            status:
+            - Pending
+          contribution:
+            programId:
+            - f2c1d380-389a-11eb-af92-c5fb4afce83e
+            status:
+            - Live
+          channel: 012983850117177344161
+    ProgramFeedSearchPrequest:
+      title: ProgramFeedSearchPrequest
+      required:
+      - nomination
+      - contribution
+      - channel
+      type: object
+      properties:
+        nomination:
+          $ref: '#/components/schemas/NominationPropertyRequest'
+        contribution:
+          $ref: '#/components/schemas/Contribution'
+        channel:
+          type: string
+      example:
+        nomination:
+          programId:
+          - a549ffa0-3553-11eb-84ed-692ec8c8dbe9
+          - ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
+          status:
+          - Pending
+        contribution:
+          programId:
+          - f2c1d380-389a-11eb-af92-c5fb4afce83e
+          - a043dc40-3497-11eb-9c32-15914148e3ce
+          status:
+          - Live
+        channel: 012983850117177344161
+    NominationPropertyRequest:
+      title: NominationPropertyRequest
+      required:
+      - programId
+      - status
+      type: object
+      properties:
+        programId:
+          type: array
+          items:
+            type: string
+          description: ''
+        status:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        programId:
+        - a549ffa0-3553-11eb-84ed-692ec8c8dbe9
+        - ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
+        status:
+        - Pending
+    Contribution:
+      title: Contribution
+      required:
+      - programId
+      - status
+      type: object
+      properties:
+        programId:
+          type: array
+          items:
+            type: string
+          description: ''
+        status:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        programId:
+        - f2c1d380-389a-11eb-af92-c5fb4afce83e
+        - a043dc40-3497-11eb-9c32-15914148e3ce
+        status:
+        - Live
+    Program-Feed-SearchBadRequestRequest:
+      title: Program-Feed-SearchBadRequestRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ProgramFeedSearchPrequest'
+      example:
+        request:
+          nomination:
+            programId: []
+            status:
+            - Pending
+          contribution:
+            programId:
+            - f2c1d380-389a-11eb-af92-c5fb4afce83e
+            - a043dc40-3497-11eb-9c32-15914148e3ce
+            status:
+            - Live
+          channel: 012983850117177344161
+    Program-Feed-Search400BadRequestonChannelIdAsEmptyRequest:
+      title: Program-Feed-Search400BadRequestonChannelIdAsEmptyRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ProgramFeedSearchPrequest'
+      example:
+        request:
+          nomination:
+            programId:
+            - a549ffa0-3553-11eb-84ed-692ec8c8dbe9
+            - ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
+            status:
+            - Pending
+          contribution:
+            programId:
+            - f2c1d380-389a-11eb-af92-c5fb4afce83e
+            - a043dc40-3497-11eb-9c32-15914148e3ce
+            status:
+            - Live
+          channel: ''
+    Report-success-200-Request:
+      title: Report-success-200-Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ReportRequest'
+      example:
+        request:
+          filters:
+            program_id:
+            - 95d604b0-2af4-11eb-9bed-c53bebe417b7
+            openForContribution: true
+            report: textbookLevelReport
+    ReportRequest:
+      title: ReportRequest
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          $ref: '#/components/schemas/ReportFilters'
+      example:
+        filters:
+          program_id:
+          - 95d604b0-2af4-11eb-9bed-c53bebe417b7
+          openForContribution: true
+          report: textbookLevelReport
+    ReportFilters:
+      title: ReportFilters
+      required:
+      - program_id
+      - openForContribution
+      - report
+      type: object
+      properties:
+        program_id:
+          type: array
+          items:
+            type: string
+          description: ''
+        openForContribution:
+          type: boolean
+        report:
+          type: string
+      example:
+        program_id:
+        - 95d604b0-2af4-11eb-9bed-c53bebe417b7
+        openForContribution: true
+        report: textbookLevelReport
+    Report-Error-400Request:
+      title: Report-Error-400Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ReportErrorRequest'
+      example:
+        request:
+          filters:
+            program:
+            - 95d604b0-2af4-11eb-9bed-c53bebe417b7
+            openForContribution: true
+            report: textbookLevelReport
+    ReportErrorRequest:
+      title: ReportErrorRequest
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          $ref: '#/components/schemas/ReportErrorFilters'
+      example:
+        filters:
+          program:
+          - 95d604b0-2af4-11eb-9bed-c53bebe417b7
+          openForContribution: true
+          report: textbookLevelReport
+    ReportErrorFilters:
+      title: ReportErrorFilters
+      required:
+      - program
+      - openForContribution
+      - report
+      type: object
+      properties:
+        program:
+          type: array
+          items:
+            type: string
+          description: ''
+        openForContribution:
+          type: boolean
+        report:
+          type: string
+      example:
+        program:
+        - 95d604b0-2af4-11eb-9bed-c53bebe417b7
+        openForContribution: true
+        report: textbookLevelReport
+    Tenant-success-200-Request:
+      title: Tenant-success-200-Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/TenantRequest'
+      example:
+        request:
+          filters:
+            status: Live
+    TenantRequest:
+      title: TenantRequest
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          $ref: '#/components/schemas/TenantFilters'
+      example:
+        filters:
+          status: Live
+    TenantFilters:
+      title: TenantFilters
+      required:
+      - status
+      type: object
+      properties:
+        status:
+          type: string
+      example:
+        status: Live
+    Tenant-error-400-Request:
+      title: Tenant-error-400-Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/TenantErrorRequest'
+      example:
+        request:
+          filters:
+            statu: Live
+    TenantErrorRequest:
+      title: TenantErrorRequest
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          $ref: '#/components/schemas/TenantErrorFilters'
+      example:
+        filters:
+          statu: Live
+    TenantErrorFilters:
+      title: TenantErrorFilters
+      required:
+      - statu
+      type: object
+      properties:
+        statu:
+          type: string
+      example:
+        statu: Live
 tags:
-- name: Misc
-  description: ''
+- name: Success
+- name: Failures
+- name: Success-Case
+- name: Error-case
+- name: success
+- name: Error
