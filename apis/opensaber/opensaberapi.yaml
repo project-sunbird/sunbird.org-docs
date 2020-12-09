@@ -1,0 +1,2601 @@
+openapi: 3.0.1
+info:
+  title: Opensaber Registry API
+  contact: {}
+  version: '1.0'
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  description: >-
+            The Opensaber regsitry API resource will manage registry records. These resource allow to create a registry record, read/update the details, search records and get audited records.
+
+servers:
+- url: https://staging.sunbirded.org/api
+  variables: {}
+paths:
+  /add:
+    post:
+      tags:
+      - Misc
+      summary: Add Registry Record
+      description: >-
+        This api is used to create a record in registry based on the schema configuration.
+         - The endpoint for **Create Registry** is `/add`.
+         - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty
+         - Schema representation for entity available such as **Teacher.json, Person.json** available by default in **public/_schema** directory under resources folder. Teacher or Person will represent the entity and other fields under Teacher or Person will represent the schema definition.
+      operationId: AddRegistryRecord
+      parameters:
+      - name: Authorization
+        in : header
+        required: true
+        description: To make use of any opensaber Registry API, you require authorization. Raise a
+            request to the administrator for the use of the API. You will
+            receive the authorization key. Specify the key received, here.
+        schema:
+         type: string
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddRegistryRecordRequest'
+            examples:
+             a:
+              $ref: '#/components/examples/addTeacherRegistry'
+             b:
+              $ref: '#/components/examples/addPersonRegistry'
+                  
+        required: true
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddRegistryRecord'
+              examples:
+                a:
+                 $ref: '#/components/examples/addTeacherRegistryResponse'
+                b:
+                 $ref: '#/components/examples/addPersonRegistryResponse'
+                c:
+                 $ref: '#/components/examples/schemaInvalidErrorResponse'
+                d:
+                 $ref: '#/components/examples/MandatoryParamMissingResponse'
+                e:
+                 $ref: '#/components/examples/AuthenticationInvalidResponse'
+                f:
+                 $ref: '#/components/examples/InternalServerErrorResponse'
+      deprecated: false
+  /read:
+    post:
+      tags:
+      - Misc
+      summary: Read Registry Record
+      description: >-
+        This api is used to read the registry record
+         - The endpoint for **Read Registry Record** is /read.
+         - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty
+         - The view can be customized or change to show different, computed or hide fields by using `static view` template or `dynamic view` templates as available in the examples section.
+      operationId: ReadRegistryRecord
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadRegistryRecordRequest'
+            examples:
+              a:
+               $ref: '#/components/examples/ReadTeacherRegistryRequest'
+              b:
+               $ref : '#/components/examples/ReadPersonRegistryRequest'
+              c: 
+               $ref: '#/components/examples/ReadPersonRegistryRequestWithstaticTemplate'
+              d: 
+               $ref: '#/components/examples/ReadPersonRegistryRequestWithDynamicTemplate'
+        required: true
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadRegistryRecord'
+              examples:
+                a:
+                 $ref: '#/components/examples/ReadTeacherRegistryResponse'
+                b:
+                 $ref: '#/components/examples/ReadPersonRegistryResponse'
+                c:
+                 $ref: '#/components/examples/ReadRegistryWithStaticTemplatesResponse'
+                d:
+                 $ref: '#/components/examples/ReadRegistryWithDynamicTemplatesResponse'
+                e:
+                 $ref: '#/components/examples/AuthenticationInvalidReadResponse'
+                f:
+                 $ref: '#/components/examples/InternalServerErrorReadResponse'
+                g:
+                 $ref: '#/components/examples/InvalidIdResponse'
+      deprecated: false
+  /update:
+    post:
+      tags:
+      - Misc
+      summary: Update Registry Record
+      description: >-
+        This api is used to Update a record in registry
+         - The endpoint for **Update Registry** is `/update`.
+         - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty
+      operationId: UpdateRegistryRecord
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRegistryRecordRequest'
+            examples:
+              a:
+               $ref: '#/components/examples/UpdateRequestExample1'
+              
+        required: true
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateRegistryRecord'
+              examples:
+               a:
+                $ref: '#/components/examples/UpdateRequestResponse'
+               b:
+                $ref: '#/components/examples/AuthenticationInvalidUpdateResponse'
+               c:
+                $ref: '#/components/examples/InternalServerErrorUpdateResponse'
+               d:
+                $ref: '#/components/examples/InvalidIdUpdateResponse'
+                
+      deprecated: false
+  /delete:
+    post:
+      tags:
+      - Misc
+      summary: Delete Registry Record
+      description: >-
+        This api is used to delete a record in registry
+         - The endpoint for **Delete Registry** is `/delete`.
+         - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty
+         - It does a soft delete records by making the record status as inactive, so we cannot use the same value for primary key, unique fields even after delete as data exist physically in the database
+      operationId: DeleteRegistryRecord
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteRegistryRecordRequest'
+            examples:
+             a:
+              summary: Delete Person Record
+              description: "This is an example of delete request for person registry record"
+              value:
+               id: open-saber.registry.delete
+               ver: "1.0"
+               ets: "11234"
+               params:
+                did: ''
+                key: ''
+                msgid: ''
+               request:
+                Person:
+                  osid: 1-d6844c76-b128-43cc-bbba-74edfd09c716
+        required: true
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteRegistryRecord'
+              examples:
+                a:
+                 $ref: '#/components/examples/SuccessDeleteResponse'
+                b:
+                 $ref: '#/components/examples/AuthenticationInvalidDeleteResponse'
+                c:
+                 $ref: '#/components/examples/InternalServerErrorDeleteResponse'
+                d:
+                 $ref: '#/components/examples/InvalidIdDeleteResponse'
+                
+      deprecated: false
+  /search:
+    post:
+      tags:
+      - Misc
+      summary: Search Registry Records
+      description: >-
+        This api is used to Search a record in registry
+         - The endpoint for **Search Registry** is `/search`.
+         - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty
+         - Other Supported operators can be found  [here](https://github.com/project-sunbird/open-saber/wiki/API-examples-(JSON-Support)#search)
+      operationId: SearchRegistryRecords
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRegistryRecordsRequest'
+            examples:
+             a:
+              $ref: '#/components/examples/SearchRequest1'
+             b: 
+              $ref: '#/components/examples/SearchRequest2'
+             c:
+              $ref: '#/components/examples/SearchRequest3'
+        required: true
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchRegistryRecords'
+              examples:
+                a:
+                 $ref: '#/components/examples/SearchResultsResponse1'
+                b:
+                 $ref: '#/components/examples/EmptySearchResponse'
+                c:
+                 $ref: '#/components/examples/AuthenticationInvalidSearchResponse'
+                d:
+                 $ref: '#/components/examples/InternalServerErrorSearchResponse'
+                
+      deprecated: false
+  /audit:
+    post:
+      tags:
+      - Misc
+      summary: Search Audit Records
+      description: >-
+        This api is used to Search audit records in registry
+         - The endpoint for **Search Audit Registry** is `/audit`.
+         - It fetches all the operation performed such as ADD, READ, DELETE , UPDATE or AUDIT logged as a part of audit operation.
+         - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty
+         - This api is supported only when the audit is enabled and storage is chosen as DATABASE in the configuration.
+      operationId: SearchAuditRecords
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchAuditRecordsRequest'
+            examples:
+             a: 
+              $ref: '#/components/examples/TeacherSearchAuditEmptyFilterRequest'
+             b:
+              $ref: '#/components/examples/TeacherSearchAuditFilterRequest'
+        required: true
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditResponseSchema'
+              examples:
+                a:
+                 $ref: '#/components/examples/SearchAuditRecordsResponse'
+                b:
+                 $ref: '#/components/examples/SearchAddAuditRecordsResponse'
+                
+      deprecated: false
+components:
+  schemas:
+    AddRegistryRecordRequest:
+      title: AddRegistryRecordRequest
+      description: >-
+            Contains schema representation for entity available such as **Teacher.json, Person.json** available by default in **public/_schema** directory under resources folder. Teacher or Person will represent the entity and other fields under Teacher or Person will represent the schema definition.A new entity can be added by adding **`<ENTITY>.json`** under schema directory by following the json schema definition.
+      required:
+      - id
+      - request
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ets:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        request:
+          oneOf:
+          - $ref: '#/components/schemas/TeacherRequest'
+          - $ref: '#/components/schemas/PersonRequest'
+      
+    Params:
+      title: Params
+      type: object
+      properties:
+        did:
+          type: string
+        key:
+          type: string
+        msgid:
+          type: string
+      example:
+        did: 'deviceId'
+        key: 'key'
+        msgid: 'msgid'
+    TeacherRequest:
+      title: TeacherRequest
+      required:
+      - Teacher
+      type: object
+      properties:
+        Teacher:
+          $ref: '#/components/schemas/Teacher'
+    PersonRequest:
+      title: PersonRequest
+      required:
+      - Person
+      type: object
+      properties:
+        Person:
+          $ref: '#/components/schemas/Person'
+    Teacher:
+      title: Teacher
+      required:
+      - signatures
+      - serialNum
+      - teacherCode
+      - nationalIdentifier
+      - teacherName
+      - gender
+      - birthDate
+      - socialCategory
+      - highestAcademicQualification
+      - highestTeacherQualification
+      - yearOfJoiningService
+      - teachingRole
+      - inServiceTeacherTrainingFromBRC
+      - inServiceTeacherTrainingFromCRC
+      - inServiceTeacherTrainingFromDIET
+      - inServiceTeacherTrainingFromOthers
+      - nonTeachingAssignmentsForAcademicCalendar
+      - basicProficiencyLevel
+      - disabilityType
+      - trainedForChildrenSpecialNeeds
+      - trainedinUseOfComputer
+      type: object
+      properties:
+        signatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/Signature'
+          description: ''
+        serialNum:
+          type: integer
+          format: int32
+        teacherCode:
+          type: string
+        nationalIdentifier:
+          type: string
+        teacherName:
+          type: string
+        gender:
+          type: string
+        birthDate:
+          type: string
+        socialCategory:
+          type: string
+        highestAcademicQualification:
+          type: string
+        highestTeacherQualification:
+          type: string
+        yearOfJoiningService:
+          type: string
+        teachingRole:
+          $ref: '#/components/schemas/TeachingRole'
+        inServiceTeacherTrainingFromBRC:
+          $ref: '#/components/schemas/InServiceTeacherTrainingFromBRC'
+        inServiceTeacherTrainingFromCRC:
+          $ref: '#/components/schemas/InServiceTeacherTrainingFromCRC'
+        inServiceTeacherTrainingFromDIET:
+          $ref: '#/components/schemas/InServiceTeacherTrainingFromDIET'
+        inServiceTeacherTrainingFromOthers:
+          $ref: '#/components/schemas/InServiceTeacherTrainingFromOthers'
+        nonTeachingAssignmentsForAcademicCalendar:
+          $ref: '#/components/schemas/NonTeachingAssignmentsForAcademicCalendar'
+        basicProficiencyLevel:
+          type: array
+          items:
+            $ref: '#/components/schemas/BasicProficiencyLevel'
+          description: ''
+        disabilityType:
+          type: string
+        trainedForChildrenSpecialNeeds:
+          type: string
+        trainedinUseOfComputer:
+          type: string
+      example:
+        serialNum: 8
+        teacherCode: 1223h4d
+        nationalIdentifier: 1234567890123456
+        teacherName: Marvin Pande
+        gender: GenderTypeCode-MALE
+        birthDate: 1990-12-06
+        socialCategory: SocialCategoryTypeCode-GENERAL
+        highestAcademicQualification: AcademicQualificationTypeCode-PHD
+        highestTeacherQualification: TeacherQualificationTypeCode-MED
+        yearOfJoiningService: 2014
+        disabilityType: DisabilityCode-NA
+        trainedForChildrenSpecialNeeds: YesNoCode-YES
+        trainedinUseOfComputer: YesNoCode-YES
+    Person:
+      title: Person
+      required:
+      - nationalIdentifier
+      - name
+      - gender
+      - dob
+      type: object
+      properties:
+        signatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/Signature'
+          description: ''
+        nationalIdentifier:
+          type: string
+        name:
+          type: string
+        gender:
+          type: string
+          enum: [
+              "MALE",
+              "FEMALE",
+              "OTHER"
+            ]
+        photo:
+          type: string
+        dob:
+          type: string
+        hasDrivingLicense:
+          type: boolean
+        vehicles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vehicle'
+      example:
+        nationalIdentifier: 1234567890123456
+        name: John
+        gender: MALE
+        photo: image.png
+        dob: "1990-12-01"
+        hasDrivingLicense: true
+        
+    Vehicle:
+      title: Vehicle
+      required:
+      - registrationNumber
+      - yearManufactured
+      - model
+      - manufacturer
+      type: object
+      properties:
+        signatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/Signature'
+          description: ''
+        registrationNumber:
+          type: string
+        model:
+          type: string
+        manufacturer:
+          type: string
+          enum: ["Hero",
+                "Honda",
+                "Bajaj",
+                "Suzuki",
+                "Kawasaki",
+                "Other"]
+        yearManufactured:
+          type: string
+        kerbWeight:
+          type: number
+          
+      example:
+        registrationNumber: "Kg-12333"
+        model: "Honda BS-1V"
+        manufacturer: "Hero"
+        yearManufactured: "2016"
+        kerbWeight: 130.5
+    Signature:
+      title: Signature
+      required:
+      - '@type'
+      - signatureFor
+      - creator
+      - created
+      - nonce
+      - signatureValue
+      type: object
+      properties:
+        '@type':
+          type: string
+        signatureFor:
+          type: string
+        creator:
+          type: string
+        created:
+          type: string
+        nonce:
+          type: string
+        signatureValue:
+          type: string
+      example:
+        '@type': sc:GraphSignature2012
+        signatureFor: http://localhost:8080/serialNum
+        creator: https://example.com/i/pat/keys/5
+        created: 2017-09-23T20:21:34Z
+        nonce: 2bbgh3dgjg2302d-d2b3gi423d42
+        signatureValue: eyiOiJKJ0eXA...OEjgFWFXk
+    TeachingRole:
+      title: TeachingRole
+      required:
+      - '@type'
+      - teacherType
+      - appointmentType
+      - classesTaught
+      - appointedForSubjects
+      - mainSubjectsTaught
+      - appointmentYear
+      type: object
+      properties:
+        '@type':
+          type: string
+        teacherType:
+          type: string
+        appointmentType:
+          type: string
+        classesTaught:
+          type: string
+        appointedForSubjects:
+          type: string
+        mainSubjectsTaught:
+          type: array
+          items:
+            type: string
+          description: ''
+        appointmentYear:
+          type: string
+      example:
+        '@type': TeachingRole
+        teacherType: TeacherTypeCode-HEAD
+        appointmentType: TeacherAppointmentTypeCode-REGULAR
+        classesTaught: ClassTypeCode-SECONDARYANDHIGHERSECONDARY
+        appointedForSubjects: SubjectCode-ENGLISH
+        mainSubjectsTaught:
+        - SubjectCode-SOCIALSTUDIES
+        - SubjectCode-ENGLISH
+        appointmentYear: 2015
+    InServiceTeacherTrainingFromBRC:
+      title: InServiceTeacherTrainingFromBRC
+      required:
+      - daysOfInServiceTeacherTraining
+      type: object
+      properties:
+        daysOfInServiceTeacherTraining:
+          type: string
+      example:
+        daysOfInServiceTeacherTraining: "10"
+    InServiceTeacherTrainingFromCRC:
+      title: InServiceTeacherTrainingFromCRC
+      required:
+      - daysOfInServiceTeacherTraining
+      type: object
+      properties:
+        daysOfInServiceTeacherTraining:
+          type: string
+      example:
+        daysOfInServiceTeacherTraining: "2"
+    InServiceTeacherTrainingFromDIET:
+      title: InServiceTeacherTrainingFromDIET
+      required:
+      - daysOfInServiceTeacherTraining
+      type: object
+      properties:
+        daysOfInServiceTeacherTraining:
+          type: string
+      example:
+        daysOfInServiceTeacherTraining: "5.5"
+    InServiceTeacherTrainingFromOthers:
+      title: InServiceTeacherTrainingFromOthers
+      required:
+      - '@type'
+      - daysOfInServiceTeacherTraining
+      type: object
+      properties:
+        '@type':
+          type: string
+        daysOfInServiceTeacherTraining:
+          type: string
+      example:
+        '@type': InServiceTeacherTrainingFromOthers
+        daysOfInServiceTeacherTraining: "3.5"
+    NonTeachingAssignmentsForAcademicCalendar:
+      title: NonTeachingAssignmentsForAcademicCalendar
+      required:
+      - '@type'
+      - daysOfNonTeachingAssignments
+      type: object
+      properties:
+        '@type':
+          type: string
+        daysOfNonTeachingAssignments:
+          type: integer
+          format: int32
+      example:
+        '@type': NonTeachingAssignmentsForAcademicCalendar
+        daysOfNonTeachingAssignments: 6
+    BasicProficiencyLevel:
+      title: BasicProficiencyLevel
+      required:
+      - '@type'
+      - proficiencySubject
+      - proficiencyAcademicQualification
+      type: object
+      properties:
+        '@type':
+          type: string
+        proficiencySubject:
+          type: string
+        proficiencyAcademicQualification:
+          type: string
+      example:
+        '@type': BasicProficiencyLevel
+        proficiencySubject: SubjectCode-MATH
+        proficiencyAcademicQualification: AcademicQualificationTypeCode-PHD
+    AddRegistryRecord:
+      title: AddRegistryRecord
+      required:
+      - id
+      - ver
+      - ets
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ets:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result'
+    Result:
+      title: Result
+      required:
+      - Teacher
+      type: object
+      properties:
+        Teacher:
+          $ref: '#/components/schemas/AddTeacherResponseSchema'
+    AddTeacherResponseSchema:
+      title: AddTeacherResponseSchema
+      required:
+      - osid
+      type: object
+      properties:
+        osid:
+          type: string
+    
+    ReadRegistryRecordRequest:
+      title: ReadRegistryRecordRequest
+      required:
+      - id
+      - request
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ets:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        request:
+          oneOf:
+          - $ref: '#/components/schemas/TeacherReadRequest'
+          - $ref: '#/components/schemas/PersonReadRequest'
+    TeacherReadRequest:
+      title: TeacherRequest
+      required:
+      - Teacher
+      type: object
+      properties:
+        Teacher:
+          $ref: '#/components/schemas/TeacherRead'
+    TeacherRead:
+      title: TeacherRead
+      required:
+      - osid
+      type: object
+      properties:
+        osid:
+          type: string
+        includeSignatures:
+          type: boolean
+      example:
+        osid: 1-610ffc0f-6d91-4bc6-a039-087d4a881164
+        includeSignatures: true
+    PersonReadRequest:
+      title: PersonRequest
+      required:
+      - Person
+      type: object
+      properties:
+        Person:
+          $ref: '#/components/schemas/PersonR'
+    PersonR:
+      title: Person
+      required:
+      - osid
+      type: object
+      properties:
+        osid:
+          type: string
+      example:
+        osid: 1-610ffc0f-6d91-4bc6-a039-087d4a881164
+       
+    ReadRegistryRecord:
+      title: ReadRegistryRecord
+      required:
+      - id
+      - ver
+      - ets
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ets:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result'
+    Result1:
+      title: Result1
+      required:
+      - Teacher
+      type: object
+      properties:
+        Teacher:
+          $ref: '#/components/schemas/Teacher3'
+      example:
+        Teacher:
+          disabilityType: DisabilityCode-NA
+          highestTeacherQualification: TeacherQualificationTypeCode-MED
+          gender: GenderTypeCode-MALE
+          socialCategory: SocialCategoryTypeCode-GENERAL
+          inServiceTeacherTrainingFromCRC:
+            osid: 1-03414440-9467-411c-93cc-b028e2006eee
+            osUpdatedAt: 2020-11-23T09:58:56.559Z
+            osCreatedAt: 2020-11-23T09:58:56.559Z
+            daysOfInServiceTeacherTraining: 2
+          inServiceTeacherTrainingFromBRC:
+            osid: 1-f7ceeb46-22d5-4687-9989-fc8c0a29f24f
+            osUpdatedAt: 2020-11-23T09:58:56.559Z
+            osCreatedAt: 2020-11-23T09:58:56.559Z
+            daysOfInServiceTeacherTraining: 10
+          osid: 1-d6844c76-b128-43cc-bbba-74edfd09c716
+          yearOfJoiningService: 2014
+          signatures:
+          - signatureFor: http://localhost:8080/serialNum
+            osUpdatedAt: 2020-11-23T09:58:56.559Z
+            creator: https://example.com/i/pat/keys/5
+            osCreatedAt: 2020-11-23T09:58:56.559Z
+            created: 2017-09-23T20:21:34Z
+            osid: 1-e019c0fd-2060-451c-9d61-f7d9b5034ac4
+            nonce: 2bbgh3dgjg2302d-d2b3gi423d42
+            signatureValue: eyiOiJKJ0eXA...OEjgFWFXk
+          teachingRole:
+            osid: 1-c8d28fca-1cdf-4958-9d0c-bc94e0927e8b
+            teacherType: TeacherTypeCode-HEAD
+            appointmentType: TeacherAppointmentTypeCode-REGULAR
+            osUpdatedAt: 2020-11-23T09:58:56.559Z
+            osCreatedAt: 2020-11-23T09:58:56.559Z
+            mainSubjectsTaught:
+            - SubjectCode-SOCIALSTUDIES
+            - SubjectCode-ENGLISH
+            appointmentYear: 2015
+            classesTaught: ClassTypeCode-SECONDARYANDHIGHERSECONDARY
+            appointedForSubjects: SubjectCode-ENGLISH
+          osUpdatedAt: 2020-11-23T09:58:56.559Z
+          serialNum: 4
+          teacherName: Marvin Pande
+          basicProficiencyLevel:
+          - osUpdatedAt: 2020-11-23T09:58:56.559Z
+            proficiencySubject: SubjectCode-MATH
+            proficiencyAcademicQualification: AcademicQualificationTypeCode-PHD
+            osCreatedAt: 2020-11-23T09:58:56.559Z
+            osid: 1-03f2c43c-e275-4c33-b4d4-630c979dfa84
+          - osUpdatedAt: 2020-11-23T09:58:56.559Z
+            proficiencySubject: SubjectCode-ENGLISH
+            proficiencyAcademicQualification: AcademicQualificationTypeCode-HIGHERSECONDARY
+            osCreatedAt: 2020-11-23T09:58:56.559Z
+            osid: 1-e3a5b8ff-755e-49d6-9033-e5c7f7eed24e
+          - osUpdatedAt: 2020-11-23T09:58:56.559Z
+            proficiencySubject: SubjectCode-SOCIALSTUDIES
+            proficiencyAcademicQualification: AcademicQualificationTypeCode-SECONDARY
+            osCreatedAt: 2020-11-23T09:58:56.559Z
+            osid: 1-f5bf3d90-08b5-4bc1-b1b9-6eb14110566d
+          nonTeachingAssignmentsForAcademicCalendar:
+            osid: 1-888ce05c-3a1d-424f-9779-5c8c6651f05d
+            osUpdatedAt: 2020-11-23T09:58:56.559Z
+            osCreatedAt: 2020-11-23T09:58:56.559Z
+            daysOfNonTeachingAssignments: 6
+          trainedinUseOfComputer: YesNoCode-YES
+          osCreatedAt: 2020-11-23T09:58:56.559Z
+          highestAcademicQualification: AcademicQualificationTypeCode-PHD
+          inServiceTeacherTrainingFromOthers:
+            osid: 1-5eca91c4-1cdf-43cd-ad8e-f3da71e19679
+            osUpdatedAt: 2020-11-23T09:58:56.559Z
+            osCreatedAt: 2020-11-23T09:58:56.559Z
+            daysOfInServiceTeacherTraining: 3.5
+          inServiceTeacherTrainingFromDIET:
+            osid: 1-0125f68e-2117-4796-87d8-53b93136370a
+            osUpdatedAt: 2020-11-23T09:58:56.559Z
+            osCreatedAt: 2020-11-23T09:58:56.559Z
+            daysOfInServiceTeacherTraining: 5.5
+          trainedForChildrenSpecialNeeds: YesNoCode-YES
+    Teacher3:
+      title: Teacher3
+      required:
+      - disabilityType
+      - highestTeacherQualification
+      - gender
+      - socialCategory
+      - inServiceTeacherTrainingFromCRC
+      - inServiceTeacherTrainingFromBRC
+      - osid
+      - yearOfJoiningService
+      - signatures
+      - teachingRole
+      - osUpdatedAt
+      - serialNum
+      - teacherName
+      - basicProficiencyLevel
+      - nonTeachingAssignmentsForAcademicCalendar
+      - trainedinUseOfComputer
+      - osCreatedAt
+      - highestAcademicQualification
+      - inServiceTeacherTrainingFromOthers
+      - inServiceTeacherTrainingFromDIET
+      - trainedForChildrenSpecialNeeds
+      type: object
+      properties:
+        disabilityType:
+          type: string
+        highestTeacherQualification:
+          type: string
+        gender:
+          type: string
+        socialCategory:
+          type: string
+        inServiceTeacherTrainingFromCRC:
+          $ref: '#/components/schemas/InServiceTeacherTrainingFromCRC1'
+        inServiceTeacherTrainingFromBRC:
+          $ref: '#/components/schemas/InServiceTeacherTrainingFromBRC1'
+        osid:
+          type: string
+        yearOfJoiningService:
+          type: string
+        signatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/Signature1'
+          description: ''
+        teachingRole:
+          $ref: '#/components/schemas/TeachingRole1'
+        osUpdatedAt:
+          type: string
+        serialNum:
+          type: integer
+          format: int32
+        teacherName:
+          type: string
+        basicProficiencyLevel:
+          type: array
+          items:
+            $ref: '#/components/schemas/BasicProficiencyLevel1'
+          description: ''
+        nonTeachingAssignmentsForAcademicCalendar:
+          $ref: '#/components/schemas/NonTeachingAssignmentsForAcademicCalendar1'
+        trainedinUseOfComputer:
+          type: string
+        osCreatedAt:
+          type: string
+        highestAcademicQualification:
+          type: string
+        inServiceTeacherTrainingFromOthers:
+          $ref: '#/components/schemas/InServiceTeacherTrainingFromOthers1'
+        inServiceTeacherTrainingFromDIET:
+          $ref: '#/components/schemas/InServiceTeacherTrainingFromDIET1'
+        trainedForChildrenSpecialNeeds:
+          type: string
+      example:
+        disabilityType: DisabilityCode-NA
+        highestTeacherQualification: TeacherQualificationTypeCode-MED
+        gender: GenderTypeCode-MALE
+        socialCategory: SocialCategoryTypeCode-GENERAL
+        inServiceTeacherTrainingFromCRC:
+          osid: 1-03414440-9467-411c-93cc-b028e2006eee
+          osUpdatedAt: 2020-11-23T09:58:56.559Z
+          osCreatedAt: 2020-11-23T09:58:56.559Z
+          daysOfInServiceTeacherTraining: 2
+        inServiceTeacherTrainingFromBRC:
+          osid: 1-f7ceeb46-22d5-4687-9989-fc8c0a29f24f
+          osUpdatedAt: 2020-11-23T09:58:56.559Z
+          osCreatedAt: 2020-11-23T09:58:56.559Z
+          daysOfInServiceTeacherTraining: 10
+        osid: 1-d6844c76-b128-43cc-bbba-74edfd09c716
+        yearOfJoiningService: 2014
+        signatures:
+        - signatureFor: http://localhost:8080/serialNum
+          osUpdatedAt: 2020-11-23T09:58:56.559Z
+          creator: https://example.com/i/pat/keys/5
+          osCreatedAt: 2020-11-23T09:58:56.559Z
+          created: 2017-09-23T20:21:34Z
+          osid: 1-e019c0fd-2060-451c-9d61-f7d9b5034ac4
+          nonce: 2bbgh3dgjg2302d-d2b3gi423d42
+          signatureValue: eyiOiJKJ0eXA...OEjgFWFXk
+        teachingRole:
+          osid: 1-c8d28fca-1cdf-4958-9d0c-bc94e0927e8b
+          teacherType: TeacherTypeCode-HEAD
+          appointmentType: TeacherAppointmentTypeCode-REGULAR
+          osUpdatedAt: 2020-11-23T09:58:56.559Z
+          osCreatedAt: 2020-11-23T09:58:56.559Z
+          mainSubjectsTaught:
+          - SubjectCode-SOCIALSTUDIES
+          - SubjectCode-ENGLISH
+          appointmentYear: 2015
+          classesTaught: ClassTypeCode-SECONDARYANDHIGHERSECONDARY
+          appointedForSubjects: SubjectCode-ENGLISH
+        osUpdatedAt: 2020-11-23T09:58:56.559Z
+        serialNum: 4
+        teacherName: Marvin Pande
+        basicProficiencyLevel:
+        - osUpdatedAt: 2020-11-23T09:58:56.559Z
+          proficiencySubject: SubjectCode-MATH
+          proficiencyAcademicQualification: AcademicQualificationTypeCode-PHD
+          osCreatedAt: 2020-11-23T09:58:56.559Z
+          osid: 1-03f2c43c-e275-4c33-b4d4-630c979dfa84
+        - osUpdatedAt: 2020-11-23T09:58:56.559Z
+          proficiencySubject: SubjectCode-ENGLISH
+          proficiencyAcademicQualification: AcademicQualificationTypeCode-HIGHERSECONDARY
+          osCreatedAt: 2020-11-23T09:58:56.559Z
+          osid: 1-e3a5b8ff-755e-49d6-9033-e5c7f7eed24e
+        - osUpdatedAt: 2020-11-23T09:58:56.559Z
+          proficiencySubject: SubjectCode-SOCIALSTUDIES
+          proficiencyAcademicQualification: AcademicQualificationTypeCode-SECONDARY
+          osCreatedAt: 2020-11-23T09:58:56.559Z
+          osid: 1-f5bf3d90-08b5-4bc1-b1b9-6eb14110566d
+        nonTeachingAssignmentsForAcademicCalendar:
+          osid: 1-888ce05c-3a1d-424f-9779-5c8c6651f05d
+          osUpdatedAt: 2020-11-23T09:58:56.559Z
+          osCreatedAt: 2020-11-23T09:58:56.559Z
+          daysOfNonTeachingAssignments: 6
+        trainedinUseOfComputer: YesNoCode-YES
+        osCreatedAt: 2020-11-23T09:58:56.559Z
+        highestAcademicQualification: AcademicQualificationTypeCode-PHD
+        inServiceTeacherTrainingFromOthers:
+          osid: 1-5eca91c4-1cdf-43cd-ad8e-f3da71e19679
+          osUpdatedAt: 2020-11-23T09:58:56.559Z
+          osCreatedAt: 2020-11-23T09:58:56.559Z
+          daysOfInServiceTeacherTraining: 3.5
+        inServiceTeacherTrainingFromDIET:
+          osid: 1-0125f68e-2117-4796-87d8-53b93136370a
+          osUpdatedAt: 2020-11-23T09:58:56.559Z
+          osCreatedAt: 2020-11-23T09:58:56.559Z
+          daysOfInServiceTeacherTraining: 5.5
+        trainedForChildrenSpecialNeeds: YesNoCode-YES
+    InServiceTeacherTrainingFromCRC1:
+      title: InServiceTeacherTrainingFromCRC1
+      required:
+      - osid
+      - osUpdatedAt
+      - osCreatedAt
+      - daysOfInServiceTeacherTraining
+      type: object
+      properties:
+        osid:
+          type: string
+        osUpdatedAt:
+          type: string
+        osCreatedAt:
+          type: string
+        daysOfInServiceTeacherTraining:
+          type: string
+      example:
+        osid: 1-03414440-9467-411c-93cc-b028e2006eee
+        osUpdatedAt: 2020-11-23T09:58:56.559Z
+        osCreatedAt: 2020-11-23T09:58:56.559Z
+        daysOfInServiceTeacherTraining: 2
+    InServiceTeacherTrainingFromBRC1:
+      title: InServiceTeacherTrainingFromBRC1
+      required:
+      - osid
+      - osUpdatedAt
+      - osCreatedAt
+      - daysOfInServiceTeacherTraining
+      type: object
+      properties:
+        osid:
+          type: string
+        osUpdatedAt:
+          type: string
+        osCreatedAt:
+          type: string
+        daysOfInServiceTeacherTraining:
+          type: string
+      example:
+        osid: 1-f7ceeb46-22d5-4687-9989-fc8c0a29f24f
+        osUpdatedAt: 2020-11-23T09:58:56.559Z
+        osCreatedAt: 2020-11-23T09:58:56.559Z
+        daysOfInServiceTeacherTraining: 10
+    Signature1:
+      title: Signature1
+      required:
+      - signatureFor
+      - osUpdatedAt
+      - creator
+      - osCreatedAt
+      - created
+      - osid
+      - nonce
+      - signatureValue
+      type: object
+      properties:
+        signatureFor:
+          type: string
+        osUpdatedAt:
+          type: string
+        creator:
+          type: string
+        osCreatedAt:
+          type: string
+        created:
+          type: string
+        osid:
+          type: string
+        nonce:
+          type: string
+        signatureValue:
+          type: string
+      example:
+        signatureFor: http://localhost:8080/serialNum
+        osUpdatedAt: 2020-11-23T09:58:56.559Z
+        creator: https://example.com/i/pat/keys/5
+        osCreatedAt: 2020-11-23T09:58:56.559Z
+        created: 2017-09-23T20:21:34Z
+        osid: 1-e019c0fd-2060-451c-9d61-f7d9b5034ac4
+        nonce: 2bbgh3dgjg2302d-d2b3gi423d42
+        signatureValue: eyiOiJKJ0eXA...OEjgFWFXk
+    TeachingRole1:
+      title: TeachingRole1
+      required:
+      - osid
+      - teacherType
+      - appointmentType
+      - osUpdatedAt
+      - osCreatedAt
+      - mainSubjectsTaught
+      - appointmentYear
+      - classesTaught
+      - appointedForSubjects
+      type: object
+      properties:
+        osid:
+          type: string
+        teacherType:
+          type: string
+        appointmentType:
+          type: string
+        osUpdatedAt:
+          type: string
+        osCreatedAt:
+          type: string
+        mainSubjectsTaught:
+          type: array
+          items:
+            type: string
+          description: ''
+        appointmentYear:
+          type: string
+        classesTaught:
+          type: string
+        appointedForSubjects:
+          type: string
+      example:
+        osid: 1-c8d28fca-1cdf-4958-9d0c-bc94e0927e8b
+        teacherType: TeacherTypeCode-HEAD
+        appointmentType: TeacherAppointmentTypeCode-REGULAR
+        osUpdatedAt: 2020-11-23T09:58:56.559Z
+        osCreatedAt: 2020-11-23T09:58:56.559Z
+        mainSubjectsTaught:
+        - SubjectCode-SOCIALSTUDIES
+        - SubjectCode-ENGLISH
+        appointmentYear: 2015
+        classesTaught: ClassTypeCode-SECONDARYANDHIGHERSECONDARY
+        appointedForSubjects: SubjectCode-ENGLISH
+    BasicProficiencyLevel1:
+      title: BasicProficiencyLevel1
+      required:
+      - osUpdatedAt
+      - proficiencySubject
+      - proficiencyAcademicQualification
+      - osCreatedAt
+      - osid
+      type: object
+      properties:
+        osUpdatedAt:
+          type: string
+        proficiencySubject:
+          type: string
+        proficiencyAcademicQualification:
+          type: string
+        osCreatedAt:
+          type: string
+        osid:
+          type: string
+      example:
+        osUpdatedAt: 2020-11-23T09:58:56.559Z
+        proficiencySubject: SubjectCode-MATH
+        proficiencyAcademicQualification: AcademicQualificationTypeCode-PHD
+        osCreatedAt: 2020-11-23T09:58:56.559Z
+        osid: 1-03f2c43c-e275-4c33-b4d4-630c979dfa84
+    NonTeachingAssignmentsForAcademicCalendar1:
+      title: NonTeachingAssignmentsForAcademicCalendar1
+      required:
+      - osid
+      - osUpdatedAt
+      - osCreatedAt
+      - daysOfNonTeachingAssignments
+      type: object
+      properties:
+        osid:
+          type: string
+        osUpdatedAt:
+          type: string
+        osCreatedAt:
+          type: string
+        daysOfNonTeachingAssignments:
+          type: integer
+          format: int32
+      example:
+        osid: 1-888ce05c-3a1d-424f-9779-5c8c6651f05d
+        osUpdatedAt: 2020-11-23T09:58:56.559Z
+        osCreatedAt: 2020-11-23T09:58:56.559Z
+        daysOfNonTeachingAssignments: 6
+    InServiceTeacherTrainingFromOthers1:
+      title: InServiceTeacherTrainingFromOthers1
+      required:
+      - osid
+      - osUpdatedAt
+      - osCreatedAt
+      - daysOfInServiceTeacherTraining
+      type: object
+      properties:
+        osid:
+          type: string
+        osUpdatedAt:
+          type: string
+        osCreatedAt:
+          type: string
+        daysOfInServiceTeacherTraining:
+          type: string
+      example:
+        osid: 1-5eca91c4-1cdf-43cd-ad8e-f3da71e19679
+        osUpdatedAt: 2020-11-23T09:58:56.559Z
+        osCreatedAt: 2020-11-23T09:58:56.559Z
+        daysOfInServiceTeacherTraining: 3.5
+    InServiceTeacherTrainingFromDIET1:
+      title: InServiceTeacherTrainingFromDIET1
+      required:
+      - osid
+      - osUpdatedAt
+      - osCreatedAt
+      - daysOfInServiceTeacherTraining
+      type: object
+      properties:
+        osid:
+          type: string
+        osUpdatedAt:
+          type: string
+        osCreatedAt:
+          type: string
+        daysOfInServiceTeacherTraining:
+          type: string
+      example:
+        osid: 1-0125f68e-2117-4796-87d8-53b93136370a
+        osUpdatedAt: 2020-11-23T09:58:56.559Z
+        osCreatedAt: 2020-11-23T09:58:56.559Z
+        daysOfInServiceTeacherTraining: 5.5
+    UpdateRegistryRecordRequest:
+      title: UpdateRegistryRecordRequest
+      required:
+      - id
+      - request
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ets:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        request:
+          $ref: '#/components/schemas/updaterequest'
+      example:
+        id: open-saber.registry.update
+        ver: 1.0
+        ets: 11234
+        params:
+          did: ''
+          key: ''
+          msgid: ''
+        request:
+          entity:
+            osid: 1-d6844c76-b128-43cc-bbba-74edfd09c716
+            propertyName: "<Value>"
+    updaterequest:
+      title: updaterequest
+      required:
+      - entity
+      type: object
+      properties:
+        entity:
+          $ref: '#/components/schemas/entity'
+    entity:
+      title: entity
+      required:
+      - osid
+      - propertyName
+      type: object
+      properties:
+        osid:
+          type: string
+      example:
+        osid: 1-d6844c76-b128-43cc-bbba-74edfd09c716
+        propertyName: "<Value>"
+    UpdateRegistryRecord:
+      title: UpdateRegistryRecord
+      required:
+      - id
+      - responseCode
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ets:
+          type: integer
+          format: int64
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+      example:
+        id: open-saber.registry.update
+        ver: 1.0
+        ets: 1606197586959
+        params:
+          resmsgid: ''
+          msgid: cf9ccce8-d460-4259-8a9c-3ace6f6f187d
+          err: ''
+          status: SUCCESSFUL
+          errmsg: ''
+        responseCode: OK
+    DeleteRegistryRecordRequest:
+      title: DeleteRegistryRecordRequest
+      required:
+      - id
+      - request
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ets:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        request:
+          $ref: '#/components/schemas/PersonR'
+      example:
+        id: open-saber.registry.delete
+        ver: "1.0"
+        ets: "11234"
+        params:
+          did: ''
+          key: ''
+          msgid: ''
+        request:
+          Person:
+            osid: 1-d6844c76-b128-43cc-bbba-74edfd09c716
+    DeleteRegistryRecord:
+      title: DeleteRegistryRecord
+      required:
+      - id
+      - ver
+      - ets
+      - params
+      - responseCode
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ets:
+          type: integer
+          format: int64
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+      example:
+        id: open-saber.registry.delete
+        ver: 1.0
+        ets: 1606197786469
+        params:
+          resmsgid: ''
+          msgid: 1bed3e39-4898-4511-9a16-0c7089287618
+          err: ''
+          status: SUCCESSFUL
+          errmsg: ''
+        responseCode: OK
+    SearchRegistryRecordsRequest:
+      title: SearchRegistryRecordsRequest
+      required:
+      - id
+      - request
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ets:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        request:
+          $ref: '#/components/schemas/SearchRequest'
+      example:
+        id: open-saber.registry.search
+        ver: 1.0
+        ets: 11234
+        params:
+          did: ''
+          key: ''
+          msgid: ''
+        request:
+          entityType:
+          - Teacher
+          filters:
+            gender:
+              eq: GenderTypeCode-MALE
+    SearchRequest:
+      title: SearchRequest
+      required:
+      - entityType
+      - filters
+      type: object
+      properties:
+        entityType:
+          type: array
+          items:
+            type: string
+          description: ''
+        filters:
+          $ref: '#/components/schemas/Filters'
+      example:
+        entityType:
+        - Teacher
+        filters:
+          gender:
+            eq: GenderTypeCode-MALE
+    Filters:
+      title: Filters
+      type: object
+      properties:
+        fieldName:
+          $ref: '#/components/schemas/operator'
+      example:
+        fieldName:
+          operator: fieldValue
+    operator:
+      title: operator
+      type: object
+      properties:
+        operator:
+          type: string
+
+    SearchRegistryRecords:
+      title: SearchRegistryRecords
+      required:
+      - id
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ets:
+          type: integer
+          format: int64
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/SearchRegistryResponseSchema'
+      example:
+        id: open-saber.registry.search
+        ver: 1.0
+        ets: 1606198791762
+        params:
+          resmsgid: ''
+          msgid: adee64ca-fe1a-4477-9572-ce91c9d876af
+          err: ''
+          status: SUCCESSFUL
+          errmsg: ''
+        responseCode: OK
+        result:
+          Teacher:
+          - disabilityType: DisabilityCode-NA
+            highestTeacherQualification: TeacherQualificationTypeCode-MED
+            gender: GenderTypeCode-MALE
+            '@type': Teacher
+            socialCategory: SocialCategoryTypeCode-GENERAL
+            inServiceTeacherTrainingFromCRC:
+              osid: 1-e3e67444-709e-4313-8f36-3f46e1ad0abf
+            inServiceTeacherTrainingFromBRC:
+              osid: 1-1503fc79-39c8-4bd5-ba46-610daffa6126
+            osid: 1-610ffc0f-6d91-4bc6-a039-087d4a881164
+            yearOfJoiningService: 2014
+            signatures:
+              osid: 1-b0191ff7-bf78-4215-8cc2-10d7d08a4885
+            teachingRole:
+              osid: 1-be05a8c1-69a0-4e9a-9954-6711e0ab1728
+            osUpdatedAt: 2020-11-23T08:13:15.749Z
+            serialNum: 6
+            teacherName: Marvin Pande
+            basicProficiencyLevel:
+              osid: 1-e2ce3153-cd10-48df-a697-8068c06876f6
+            nonTeachingAssignmentsForAcademicCalendar:
+              osid: 1-aaf08a22-12e5-4b3b-ae92-cdf61e2d21bf
+            trainedinUseOfComputer: YesNoCode-YES
+            osCreatedAt: 2020-11-23T08:13:15.749Z
+            highestAcademicQualification: AcademicQualificationTypeCode-PHD
+            inServiceTeacherTrainingFromOthers:
+              osid: 1-32a28ea4-8b61-403a-bc83-0daee216c9f5
+            inServiceTeacherTrainingFromDIET:
+              osid: 1-0a1c5283-74f4-47b7-b7c3-3a15e0e30d84
+            trainedForChildrenSpecialNeeds: YesNoCode-YES
+          - disabilityType: DisabilityCode-NA
+            highestTeacherQualification: TeacherQualificationTypeCode-MED
+            gender: GenderTypeCode-MALE
+            '@type': Teacher
+            socialCategory: SocialCategoryTypeCode-GENERAL
+            inServiceTeacherTrainingFromCRC:
+              osid: 1-60a64a04-c497-4009-87c2-2d90f166f57a
+            inServiceTeacherTrainingFromBRC:
+              osid: 1-f3e1bcaf-fdea-425a-a349-455540f0221b
+            osid: 1-54a7b32a-c748-4c47-b3f1-63aa3598eb0a
+            yearOfJoiningService: 2014
+            signatures:
+              osid: 1-a2d24e9d-468d-45b1-bc50-73e1dc6ded36
+            teachingRole:
+              osid: 1-967e61b7-65f6-404b-8140-fc88ea3352bf
+            osUpdatedAt: 2020-11-24T06:14:36.429Z
+            serialNum: 8
+            teacherName: Marvin Pande
+            basicProficiencyLevel:
+              osid: 1-08920f83-58a9-4321-be6e-9cde5d343f26
+            nonTeachingAssignmentsForAcademicCalendar:
+              osid: 1-2716f567-d7ec-418a-a25c-da1d12c40794
+            trainedinUseOfComputer: YesNoCode-YES
+            osCreatedAt: 2020-11-24T06:14:36.429Z
+            highestAcademicQualification: AcademicQualificationTypeCode-PHD
+            inServiceTeacherTrainingFromOthers:
+              osid: 1-917519aa-a859-4d33-bb9e-67282dd6b4c2
+            inServiceTeacherTrainingFromDIET:
+              osid: 1-ffb13cec-ce2f-475d-9d91-c19274448702
+            trainedForChildrenSpecialNeeds: YesNoCode-YES
+    SearchRegistryResponseSchema:
+      title: SearchRegistryResponseSchema
+      required:
+      - entityType
+      type: object
+      properties:
+        entityType:
+          type: array
+          items:
+            $ref: '#/components/schemas/entityType'
+          description: ''
+
+    entityType:
+     title: entityTypeObject
+     type: object
+    SearchAuditRecordsRequest:
+      title: SearchAuditRecordsRequest
+      required:
+      - id
+      - request
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ets:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        request:
+          $ref: '#/components/schemas/SearchRequestFilter'
+      example:
+        id: open-saber.registry.audit
+        ver: 1.0
+        ets: 11234
+        params:
+         did: ''
+         key: ''
+         msgid: ''
+        request:
+         entityType:
+          filters:
+           fieldName:
+            operator: fieldValue
+            
+    SearchRequestFilter:
+      title: SearchRequestFilter
+      required:
+      - entityType
+      type: object
+      properties:
+        entityType:
+          $ref: '#/components/schemas/filters'
+      example:
+        Teacher:
+    filters:
+      title: filter
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          type: object
+        limit:
+          type: integer
+        offset:
+          type: integer
+      example:
+        filters: 
+          field:
+           operator: value
+        limit: 1,
+        offset: 0
+    
+    
+    AuditResponseSchema:
+      title: AuditResponseSchema
+      required:
+      - Teacher_Audit
+      type: object
+      properties:
+        Teacher_Audit:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeacherAudit'
+          description: ''
+      example:
+        Teacher_Audit:
+        - recordId: 610ffc0f-6d91-4bc6-a039-087d4a881164
+          auditId: cd65e340-899b-4ae9-9595-d14d0c9f6ba5
+          auditInfo:
+          - op: READ
+            path: /Teacher
+          osUpdatedAt: 2020-11-24T07:31:19.304Z
+          osCreatedAt: 2020-11-24T07:31:19.304Z
+          '@type': Teacher_Audit
+          entityType: Teacher
+          action: READ
+          osid: 1-5e37fc11-1c97-49b5-8449-8ead99f40302
+          transactionId:
+          - 970121863
+          timestamp: 1606203079255
+    TeacherAudit:
+      title: TeacherAudit
+      required:
+      - recordId
+      - auditId
+      - auditInfo
+      - osUpdatedAt
+      - osCreatedAt
+      - '@type'
+      - entityType
+      - action
+      - osid
+      - transactionId
+      - timestamp
+      type: object
+      properties:
+        recordId:
+          type: string
+        auditId:
+          type: string
+        auditInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditInfo'
+          description: ''
+        osUpdatedAt:
+          type: string
+        osCreatedAt:
+          type: string
+        '@type':
+          type: string
+        entityType:
+          type: string
+        action:
+          type: string
+        osid:
+          type: string
+        transactionId:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: ''
+        timestamp:
+          type: string
+      example:
+        recordId: 610ffc0f-6d91-4bc6-a039-087d4a881164
+        auditId: cd65e340-899b-4ae9-9595-d14d0c9f6ba5
+        auditInfo:
+        - op: READ
+          path: /Teacher
+        osUpdatedAt: 2020-11-24T07:31:19.304Z
+        osCreatedAt: 2020-11-24T07:31:19.304Z
+        '@type': Teacher_Audit
+        entityType: Teacher
+        action: READ
+        osid: 1-5e37fc11-1c97-49b5-8449-8ead99f40302
+        transactionId:
+        - 970121863
+        timestamp: 1606203079255
+    AuditInfo:
+      title: AuditInfo
+      required:
+      - op
+      - path
+      type: object
+      properties:
+        op:
+          type: string
+        path:
+          type: string
+      example:
+        op: READ
+        path: /Teacher
+        
+  examples:
+   addTeacherRegistry:
+    summary:  "Teacher Registry Request"
+    description: >-
+          This is an example of adding the Teacher record in the registry. This request is validated with Teacher schema which is available as an example schema in the opensaber schema directory.
+    value:
+     id: "open-saber.registry.create"
+     ver: "1.0"
+     ets: "11234"
+     params:
+      did: ''
+      key: ''
+      msgid: ''
+     request:
+      Teacher:
+        signatures:
+        - '@type': sc:GraphSignature2012
+          signatureFor: http://localhost:8080/serialNum
+          creator: https://example.com/i/pat/keys/5
+          created: 2017-09-23T20:21:34Z
+          nonce: 2bbgh3dgjg2302d-d2b3gi423d42
+          signatureValue: eyiOiJKJ0eXA...OEjgFWFXk
+        serialNum: 8
+        teacherCode: "1223h4d"
+        nationalIdentifier: "1234567890123456"
+        teacherName: Marvin Pande
+        gender: GenderTypeCode-MALE
+        birthDate: 1990-12-06
+        socialCategory: SocialCategoryTypeCode-GENERAL
+        highestAcademicQualification: AcademicQualificationTypeCode-PHD
+        highestTeacherQualification: TeacherQualificationTypeCode-MED
+        yearOfJoiningService: "2014"
+        teachingRole:
+         '@type': TeachingRole
+         teacherType: TeacherTypeCode-HEAD
+         appointmentType: TeacherAppointmentTypeCode-REGULAR
+         classesTaught: ClassTypeCode-SECONDARYANDHIGHERSECONDARY
+         appointedForSubjects: SubjectCode-ENGLISH
+         mainSubjectsTaught:
+          - SubjectCode-SOCIALSTUDIES
+          - SubjectCode-ENGLISH
+         appointmentYear: "2015"
+        inServiceTeacherTrainingFromBRC:
+          daysOfInServiceTeacherTraining: "10"
+        inServiceTeacherTrainingFromCRC:
+          daysOfInServiceTeacherTraining: "2"
+        inServiceTeacherTrainingFromDIET:
+          daysOfInServiceTeacherTraining: "5.5"
+        inServiceTeacherTrainingFromOthers:
+         '@type': InServiceTeacherTrainingFromOthers
+         daysOfInServiceTeacherTraining: "3.5"
+        nonTeachingAssignmentsForAcademicCalendar:
+         '@type': NonTeachingAssignmentsForAcademicCalendar
+         daysOfNonTeachingAssignments: 6
+        basicProficiencyLevel:
+         - '@type': BasicProficiencyLevel
+           proficiencySubject: SubjectCode-MATH
+           proficiencyAcademicQualification: AcademicQualificationTypeCode-PHD
+         - '@type': BasicProficiencyLevel
+           proficiencySubject: SubjectCode-ENGLISH
+           proficiencyAcademicQualification: AcademicQualificationTypeCode-HIGHERSECONDARY
+         - '@type': BasicProficiencyLevel
+           proficiencySubject: SubjectCode-SOCIALSTUDIES
+           proficiencyAcademicQualification: AcademicQualificationTypeCode-SECONDARY
+        disabilityType: DisabilityCode-NA
+        trainedForChildrenSpecialNeeds: YesNoCode-YES
+        trainedinUseOfComputer: YesNoCode-YES
+   addPersonRegistry:
+    summary:  "Person Registry Request"
+    description: >-
+           This is an example of adding the Person record in the registry. This request is validated with Person schema which is available as an example schema in the opensaber schema directory."
+    value:
+     id: "open-saber.registry.create"
+     ver: "1.0"
+     ets: "11234"
+     params:
+      did: ''
+      key: ''
+      msgid: ''
+     request:
+      Person:
+       nationalIdentifier: "1234567890123456"
+       name: John
+       gender: MALE
+       dob: "1990-12-01"
+       hasDrivingLicense: true
+       vehicles:
+       - registrationNumber: "Kg-12333"
+         model: "Honda BS-1V"
+         manufacturer: "Honda"
+         yearManufactured: "2016"
+         kerbWeight: 130.5
+   addTeacherRegistryResponse:
+     summary: "Teacher Registry Response"
+     description: "This is an example response for the successful addition of the teacher record in the registry. **osid** is the registry id of the teacher record which gets inserted into the system"
+     value:
+      id: open-saber.registry.create
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: SUCCESSFUL
+        errmsg: ''
+      responseCode: OK
+      result:
+        Teacher:
+          osid: 1-d6844c76-b128-43cc-bbba-74edfd09c716
+   addPersonRegistryResponse:
+     summary: "Person Registry Response"
+     description: "This is an example response for the successful addition of the person record in the registry. **osid** is the registry id of the person's record which get inserted into the system"
+     value:
+      id: open-saber.registry.create
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: SUCCESSFUL
+        errmsg: ''
+      responseCode: OK
+      result:
+        Person:
+          osid: 1-f09e2d35-3410-4c73-b1c2-7ff0b116e05d
+   schemaInvalidErrorResponse:
+     summary: "Invalid Schema Error Response"
+     description: "This is an example response for the schema validation issue while adding teacher record to the registry database."
+     value:
+      id: open-saber.registry.create
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "UNSUCCESSFUL"
+        errmsg: "#/Teacher/serialNum: expected type: Number, found: String"
+      responseCode: OK
+   MandatoryParamMissingResponse:
+     summary: "Mandatory Paramater Missing Response"
+     description: "This is an example response for missing of the mandatory paramater which are required as per Teacher schema definition."
+     value:
+      id: open-saber.registry.create
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "UNSUCCESSFUL"
+        errmsg: "#/Teacher: required key [serialNum] not found"
+      responseCode: OK
+   AuthenticationInvalidResponse:
+     summary: "Invalid Authentication Token Response"
+     description: "This is an example response for the authentication failure of the request due to expired token, invalid token or if token is not passed as Authorization"
+     value:
+      id: open-saber.registry.create
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "UNSUCCESSFUL"
+        errmsg: "Authentication token is invalid"
+      responseCode: "OK"
+   InternalServerErrorResponse:
+     summary: "Operation Unsuccessful Response"
+     description: "This is an example response if there is any internal error in the api and operation is unsuccessful i.e due to NullPointerException or any runtime error"
+     value:
+      id: open-saber.registry.create
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "UNSUCCESSFUL"
+        errmsg: ""
+      responseCode: OK
+   AuthenticationInvalidReadResponse:
+     summary: "Invalid Authentication Token Response"
+     description: "This is an example response for the authentication failure of the request due to expired token, invalid token or if token is not passed as Authorization"
+     value:
+      id: open-saber.registry.read
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "UNSUCCESSFUL"
+        errmsg: "Authentication token is invalid"
+      responseCode: "OK"
+   InternalServerErrorReadResponse:
+     summary: "Operation Unsuccessful Response"
+     description: "This is an example response if there is any internal error in the api and operation is unsuccessful i.e due to NullPointerException or any runtime error"
+     value:
+      id: open-saber.registry.read
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "UNSUCCESSFUL"
+        errmsg: ""
+      responseCode: OK
+   InvalidIdResponse:
+     summary: "Invalid Registry Id Response"
+     description: "This is an example response for the invalid id is passed to **registry id**"
+     value:
+      id: open-saber.registry.read
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "UNSUCCESSFUL"
+        errmsg: "Invalid id"
+      responseCode: "OK"
+   ReadTeacherRegistryRequest:
+     summary: "Read Teacher Registry Record"
+     description: "This is an example request to get Teacher registry Records from the system. **osid** is the registry id of the teacher as configured in the application.yml. Teacher response result is available in examples of the `Responses`."
+     value:
+      id: open-saber.registry.read
+      ver: "1.0"
+      ets: "11234"
+      params:
+       did: ''
+       key: ''
+       msgid: ''
+      request:
+       Teacher:
+         osid: 1-d6844c76-b128-43cc-bbba-74edfd09c716
+         includeSignatures: true
+   
+   ReadPersonRegistryRequestWithstaticTemplate:
+     summary: "Read Registry With Static Template"
+     description: >-
+       1. This is an example request to get Person registry Records with static template which is available as a configuration in the view directory in the registry resources directory. Static template will customized the view(fields in the response) which administrator wants to expose as a response. **osid** is the registry id of the person as configured in the application.yml. Read Registry With Static templates is available as an example view in the `Responses.`
+       
+       2. **viewTemplateId** is the key required to pass the static template.
+       
+     value:
+      id: open-saber.registry.read
+      ver: "1.0"
+      ets: "11234"
+      params:
+       did: ''
+       key: ''
+       msgid: ''
+      request:
+       Person:
+         osid: 1-f09e2d35-3410-4c73-b1c2-7ff0b116e05d
+       viewTemplateId: "6ccd3400-4745-11ea-b77f-2e728ce88125.json"  
+       
+   ReadPersonRegistryRequestWithDynamicTemplate:
+     summary: "Read Registry With Dynamic Template"
+     description: >-
+       1. This is an example request to get Person registry Records with dynamic template which is added with the request body. Dynamic template will customized the view(fields in the response) which administrator wants to expose as a response. **osid** is the registry id of the person as configured in the application.yml. Read Registry With Static templates is available as an example view in the `Responses.`
+       
+       2. **viewTemplate** is the key required to pass along with.
+       
+     value:
+      id: open-saber.registry.read
+      ver: "1.0"
+      ets: "11234"
+      params:
+       did: ''
+       key: ''
+       msgid: ''
+      request:
+       Person:
+         osid: 1-f09e2d35-3410-4c73-b1c2-7ff0b116e05d
+       viewTemplate:
+        fields: 
+         - name: "name"
+         - name: "osid"
+         - name: "nationalIdentifier"
+         - name: "dob"
+       
+   ReadPersonRegistryRequest:
+     summary: "Read Person Registry Record"
+     description: "This is an example request to get Person registry Records from the system. **osid** is the registry id of the person as configured in the application.yml. Person response result is available in examples of the `Responses.`"
+     value:
+      id: open-saber.registry.read
+      ver: "1.0"
+      ets: "11234"
+      params:
+       did: ''
+       key: ''
+       msgid: ''
+      request:
+       Person:
+         osid: 1-f09e2d35-3410-4c73-b1c2-7ff0b116e05d
+   ReadTeacherRegistryResponse:
+     summary: "Teacher Registry Read Response"
+     description: >-
+          This is an example response for teacher read operation with teacher registry id . `includesignature` is not a manadatory parameter and only needed when we need to show signatures in the response.
+     value:
+       id: open-saber.registry.read
+       ver: "1.0"
+       ets: "1606128840146"
+       params:
+         resmsgid: ''
+         msgid: 5e5bb5c0-2a7f-4e0f-b164-cf06ceb1dc95
+         err: ''
+         status: SUCCESSFUL
+         errmsg: ''
+       responseCode: OK
+       result:
+         Teacher:
+           disabilityType: DisabilityCode-NA
+           highestTeacherQualification: TeacherQualificationTypeCode-MED
+           gender: GenderTypeCode-MALE
+           socialCategory: SocialCategoryTypeCode-GENERAL
+           inServiceTeacherTrainingFromCRC:
+             osid: 1-03414440-9467-411c-93cc-b028e2006eee
+             osUpdatedAt: "2020-11-23T09:58:56.559Z"
+             osCreatedAt: "2020-11-23T09:58:56.559Z"
+             daysOfInServiceTeacherTraining: "2"
+           inServiceTeacherTrainingFromBRC:
+             osid: 1-f7ceeb46-22d5-4687-9989-fc8c0a29f24f
+             osUpdatedAt: "2020-11-23T09:58:56.559Z"
+             osCreatedAt: "2020-11-23T09:58:56.559Z"
+             daysOfInServiceTeacherTraining: "10"
+           osid: 1-d6844c76-b128-43cc-bbba-74edfd09c716
+           yearOfJoiningService: "2014"
+           signatures:
+            - signatureFor: http://localhost:8080/serialNum
+              osUpdatedAt: "2020-11-23T09:58:56.559Z"
+              creator: https://example.com/i/pat/keys/5
+              osCreatedAt: "2020-11-23T09:58:56.559Z"
+              created: "2017-09-23T20:21:34Z"
+              osid: 1-e019c0fd-2060-451c-9d61-f7d9b5034ac4
+              nonce: 2bbgh3dgjg2302d-d2b3gi423d42
+              signatureValue: eyiOiJKJ0eXA...OEjgFWFXk
+           teachingRole:
+             osid: 1-c8d28fca-1cdf-4958-9d0c-bc94e0927e8b
+             teacherType: TeacherTypeCode-HEAD
+             appointmentType: TeacherAppointmentTypeCode-REGULAR
+             osUpdatedAt: "2020-11-23T09:58:56.559Z"
+             osCreatedAt: "2020-11-23T09:58:56.559Z"
+           mainSubjectsTaught:
+            - SubjectCode-SOCIALSTUDIES
+            - SubjectCode-ENGLISH
+           appointmentYear: "2015"
+           classesTaught: ClassTypeCode-SECONDARYANDHIGHERSECONDARY
+           appointedForSubjects: SubjectCode-ENGLISH
+           osUpdatedAt: "2020-11-23T09:58:56.559Z"
+           serialNum: 4
+           teacherName: Marvin Pande
+           basicProficiencyLevel:
+            - osUpdatedAt: "2020-11-23T09:58:56.559Z"
+              proficiencySubject: SubjectCode-MATH
+              proficiencyAcademicQualification: AcademicQualificationTypeCode-PHD
+              osCreatedAt: "2020-11-23T09:58:56.559Z"
+              osid: 1-03f2c43c-e275-4c33-b4d4-630c979dfa84
+            - osUpdatedAt: "2020-11-23T09:58:56.559Z"
+              proficiencySubject: SubjectCode-ENGLISH
+              proficiencyAcademicQualification: AcademicQualificationTypeCode-HIGHERSECONDARY
+              osCreatedAt: "2020-11-23T09:58:56.559Z"
+              osid: 1-e3a5b8ff-755e-49d6-9033-e5c7f7eed24e
+            - osUpdatedAt: "2020-11-23T09:58:56.559Z"
+              proficiencySubject: SubjectCode-SOCIALSTUDIES
+              proficiencyAcademicQualification: AcademicQualificationTypeCode-SECONDARY
+              osCreatedAt: "2020-11-23T09:58:56.559Z"
+              osid: 1-f5bf3d90-08b5-4bc1-b1b9-6eb14110566d
+           nonTeachingAssignmentsForAcademicCalendar:
+              osid: 1-888ce05c-3a1d-424f-9779-5c8c6651f05d
+              osUpdatedAt: "2020-11-23T09:58:56.559Z"
+              osCreatedAt: "2020-11-23T09:58:56.559Z"
+              daysOfNonTeachingAssignments: 6
+           trainedinUseOfComputer: YesNoCode-YES
+           osCreatedAt: "2020-11-23T09:58:56.559Z"
+           highestAcademicQualification: AcademicQualificationTypeCode-PHD
+           inServiceTeacherTrainingFromOthers:
+              osid: 1-5eca91c4-1cdf-43cd-ad8e-f3da71e19679
+              osUpdatedAt: "2020-11-23T09:58:56.559Z"
+              osCreatedAt: "2020-11-23T09:58:56.559Z"
+              daysOfInServiceTeacherTraining: "3.5"
+           inServiceTeacherTrainingFromDIET:
+              osid: 1-0125f68e-2117-4796-87d8-53b93136370a
+              osUpdatedAt: "2020-11-23T09:58:56.559Z"
+              osCreatedAt: "2020-11-23T09:58:56.559Z"
+              daysOfInServiceTeacherTraining: "5.5"
+           trainedForChildrenSpecialNeeds: YesNoCode-YES
+           
+   ReadPersonRegistryResponse:
+    summary: "Person Registry Read Response"
+    description: >-
+       This is an example response for person read operation with person registry id . `includesignature` is not included, hence the response will not show the signatures.
+    value:
+     id: open-saber.registry.read
+     ver: "1.0"
+     ets: "1606128840146"
+     params:
+      resmsgid: ''
+      msgid: 5e5bb5c0-2a7f-4e0f-b164-cf06ceb1dc95
+      err: ''
+      status: SUCCESSFUL
+      errmsg: ''
+     responseCode: OK
+     result:
+      Person:
+       osUpdatedAt: "2020-11-26T09:24:13.893Z"
+       osCreatedAt: "2020-11-26T09:24:13.893Z"
+       gender: "MALE"
+       dob: "1990-12-01"
+       name: "john"
+       osid: "1-fa1e3602-18c0-4f5a-950c-281e21c000d6"
+       vehicles:
+        - osUpdatedAt: "2020-11-26T09:24:13.893Z"
+          kerbWeight: 130.5
+          osCreatedAt: "2020-11-26T09:24:13.893Z"
+          registrationNumber: "Kg-12333"
+          model: "Honda BS-1V"
+          osid: "1-f09e2d35-3410-4c73-b1c2-7ff0b116e05d"
+          yearManufactured: "2016"
+          manufacturer: "Honda"
+      nationalIdentifier: "1234567890123456"
+      hasDrivingLicense: true
+   ReadRegistryWithStaticTemplatesResponse:
+    summary: "Read Registry with Static template Response"
+    description: >-
+       This is an example response for person read operation with static view template available as a configuration in view directory.Hence, the response will contain fields as per view template configuration.
+    value:
+     id: open-saber.registry.read
+     ver: "1.0"
+     ets: "1606128840146"
+     params:
+      resmsgid: ''
+      msgid: 5e5bb5c0-2a7f-4e0f-b164-cf06ceb1dc95
+      err: ''
+      status: SUCCESSFUL
+      errmsg: ''
+     responseCode: OK
+     result:
+      Person:
+       name: "john"
+       osid: "1-fa1e3602-18c0-4f5a-950c-281e21c000d6"
+       nationalIdentifier: "1234567890123456"
+       dob: "1990-12-01"
+       gender: "MALE"
+       
+   ReadRegistryWithDynamicTemplatesResponse:
+    summary: "Read Registry with Dynamic template Response"
+    description: >-
+       This is an example response for person read operation with dynamic view template provided in the request body.Hence, the response will contain fields as per view template.
+    value:
+     id: open-saber.registry.read
+     ver: "1.0"
+     ets: "1606128840146"
+     params:
+      resmsgid: ''
+      msgid: 5e5bb5c0-2a7f-4e0f-b164-cf06ceb1dc95
+      err: ''
+      status: SUCCESSFUL
+      errmsg: ''
+     responseCode: OK
+     result:
+      Person:
+       name: "john"
+       osid: "1-fa1e3602-18c0-4f5a-950c-281e21c000d6"
+       nationalIdentifier: "1234567890123456"
+       dob: "1990-12-01"
+   AuthenticationInvalidDeleteResponse:
+     summary: "Invalid Authentication Token Response"
+     description: "This is an example response for the authentication failure of the request due to expired token, invalid token or if token is not passed as Authorization"
+     value:
+      id: open-saber.registry.delete
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "UNSUCCESSFUL"
+        errmsg: "Authentication token is invalid"
+      responseCode: "OK"
+   InternalServerErrorDeleteResponse:
+     summary: "Operation Unsuccessful Response"
+     description: "This is an example response if there is any internal error in the api and operation is unsuccessful i.e due to NullPointerException or any runtime error"
+     value:
+      id: open-saber.registry.delete
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "UNSUCCESSFUL"
+        errmsg: ""
+      responseCode: OK
+   SuccessDeleteResponse:
+     summary: "Delete Successfull Response"
+     description: "This is an example of delete registry record successfull operation"
+     value:
+      id: open-saber.registry.delete
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "UNSUCCESSFUL"
+        errmsg: ""
+      responseCode: OK
+   InvalidIdDeleteResponse:
+     summary: "Invalid Registry Id Response"
+     description: "This is an example response for the invalid id is passed to **registry id**"
+     value:
+      id: open-saber.registry.delete
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "UNSUCCESSFUL"
+        errmsg: "Invalid id"
+      responseCode: "OK"  
+   TeacherSearchAuditEmptyFilterRequest:
+    summary: "Search Audit Records for Teacher"
+    description: "This is an example request to get all the action performed in the registry for the entity Teacher."
+    value:
+     id: open-saber.registry.audit
+     ver: "1.0"
+     ets: "1606125536553"
+     params:
+       did: ''
+       key: ''
+       msgid: ''
+     request:
+       Teacher:
+        filters: {}
+   TeacherSearchAuditFilterRequest:
+    summary: "Get all the ADD action in the Registry"
+    description: "This is an example request to get all the ADD action performed in the registry for the entity Teacher."
+    value:
+     id: open-saber.registry.audit
+     ver: "1.0"
+     ets: "1606125536553"
+     params:
+       did: ''
+       key: ''
+       msgid: ''
+     request:
+       Teacher:
+        filters:
+          action:
+           eq: "ADD"
+           
+   SearchAuditRecordsResponse:
+     summary: "Get All Audit Records"
+     value:
+      id: open-saber.registry.audit
+      ver: "1.0"
+      ets: "1606203260750"
+      params:
+       resmsgid: ''
+       msgid: 16104d32-e5e3-4cbc-bbf2-267deba37b59
+       err: ''
+       status: SUCCESSFUL
+       errmsg: ''
+      responseCode: OK
+      result:
+        Teacher_Audit:
+         - recordId: 610ffc0f-6d91-4bc6-a039-087d4a881164
+           auditId: cd65e340-899b-4ae9-9595-d14d0c9f6ba5
+           auditInfo:
+           - op: ADD
+           path: /Teacher
+           osUpdatedAt: "2020-11-24T07:31:19.304Z"
+           osCreatedAt: "2020-11-24T07:31:19.304Z"
+           '@type': Teacher_Audit
+           entityType: Teacher
+           action: ADD
+           osid: 1-5e37fc11-1c97-49b5-8449-8ead99f40302
+           transactionId:
+           - "970121863"
+           timestamp: "1606203079255"
+         - recordId: 610ffc0f-6d91-4bc6-a039-087d4a881164
+           auditId: cd65e340-899b-4ae9-9595-d14d0c9f6ba5
+           auditInfo:
+           - op: READ
+           path: /Teacher
+           osUpdatedAt: "2020-11-24T07:31:19.304Z"
+           osCreatedAt: "2020-11-24T07:31:19.304Z"
+           '@type': Teacher_Audit
+           entityType: Teacher
+           action: READ
+           osid: 1-5e37fc11-1c97-49b5-8449-8ead99f40302
+           transactionId:
+           - "970121864"
+           timestamp: "1606203079255"
+   SearchAddAuditRecordsResponse:
+     summary: "Get All Add operation Audit Records"
+     value:
+      id: open-saber.registry.audit
+      ver: "1.0"
+      ets: "1606203260750"
+      params:
+       resmsgid: ''
+       msgid: 16104d32-e5e3-4cbc-bbf2-267deba37b59
+       err: ''
+       status: SUCCESSFUL
+       errmsg: ''
+      responseCode: OK
+      result:
+        Teacher_Audit:
+         - recordId: 610ffc0f-6d91-4bc6-a039-087d4a881164
+           auditId: cd65e340-899b-4ae9-9595-d14d0c9f6ba5
+           auditInfo:
+           - op: ADD
+           path: /Teacher
+           osUpdatedAt: "2020-11-24T07:31:19.304Z"
+           osCreatedAt: "2020-11-24T07:31:19.304Z"
+           '@type': Teacher_Audit
+           entityType: Teacher
+           action: ADD
+           osid: 1-5e37fc11-1c97-49b5-8449-8ead99f40302
+           transactionId:
+           - "970121863"
+           timestamp: "1606203079255"
+   SearchRequest1:
+    summary: "Find all Male Teachers from Registry"
+    value:
+      id: open-saber.registry.search
+      ver: "1.0"
+      ets: "11234"
+      params:
+        did: ''
+        key: ''
+        msgid: ''
+      request:
+        entityType:
+          - Teacher
+        filters:
+         gender:
+           eq: GenderTypeCode-MALE
+   SearchRequest2:
+    summary: "Find all Teachers Whose name starts with Marvin"
+    value:
+      id: open-saber.registry.search
+      ver: "1.0"
+      ets: "11234"
+      params:
+        did: ''
+        key: ''
+        msgid: ''
+      request:
+        entityType:
+          - Teacher
+        filters:
+         teacherName:
+           startsWith: "Marvin"
+   SearchRequest3:
+    summary: "Find all Teachers with property teacherName as Mahir or Jash"
+    value:
+      id: open-saber.registry.search
+      ver: "1.0"
+      ets: "11234"
+      params:
+        did: ''
+        key: ''
+        msgid: ''
+      request:
+        entityType:
+          - Teacher
+        filters:
+         teacherName:
+           or: 
+            - "Mahir"
+            - "Jash"
+   SearchResultsResponse1:
+    summary: "Get Teachers Record"
+    value:
+      id: open-saber.registry.search
+      ver: "1.0"
+      ets: "1606198791762"
+      params:
+        resmsgid: ''
+        msgid: adee64ca-fe1a-4477-9572-ce91c9d876af
+        err: ''
+        status: SUCCESSFUL
+        errmsg: ''
+      responseCode: OK
+      result:
+        Teacher:
+          - disabilityType: DisabilityCode-NA
+            highestTeacherQualification: TeacherQualificationTypeCode-MED
+            gender: GenderTypeCode-MALE
+            '@type': Teacher
+            socialCategory: SocialCategoryTypeCode-GENERAL
+            inServiceTeacherTrainingFromCRC:
+             osid: 1-e3e67444-709e-4313-8f36-3f46e1ad0abf
+            inServiceTeacherTrainingFromBRC:
+              osid: 1-1503fc79-39c8-4bd5-ba46-610daffa6126
+            osid: 1-610ffc0f-6d91-4bc6-a039-087d4a881164
+            yearOfJoiningService: 2014
+            signatures:
+              osid: 1-b0191ff7-bf78-4215-8cc2-10d7d08a4885
+            teachingRole:
+              osid: 1-be05a8c1-69a0-4e9a-9954-6711e0ab1728
+            osUpdatedAt: "2020-11-23T08:13:15.749Z"
+            serialNum: 6
+            teacherName: Marvin Pande
+            basicProficiencyLevel:
+              osid: 1-e2ce3153-cd10-48df-a697-8068c06876f6
+            nonTeachingAssignmentsForAcademicCalendar:
+              osid: 1-aaf08a22-12e5-4b3b-ae92-cdf61e2d21bf
+            trainedinUseOfComputer: YesNoCode-YES
+            osCreatedAt: "2020-11-23T08:13:15.749Z"
+            highestAcademicQualification: AcademicQualificationTypeCode-PHD
+            inServiceTeacherTrainingFromOthers:
+              osid: 1-32a28ea4-8b61-403a-bc83-0daee216c9f5
+            inServiceTeacherTrainingFromDIET:
+              osid: 1-0a1c5283-74f4-47b7-b7c3-3a15e0e30d84
+            trainedForChildrenSpecialNeeds: YesNoCode-YES
+          - disabilityType: DisabilityCode-NA
+            highestTeacherQualification: TeacherQualificationTypeCode-MED
+            gender: GenderTypeCode-MALE
+            '@type': Teacher
+            socialCategory: SocialCategoryTypeCode-GENERAL
+            inServiceTeacherTrainingFromCRC:
+              osid: 1-60a64a04-c497-4009-87c2-2d90f166f57a
+            inServiceTeacherTrainingFromBRC:
+              osid: 1-f3e1bcaf-fdea-425a-a349-455540f0221b
+            osid: 1-54a7b32a-c748-4c47-b3f1-63aa3598eb0a
+            yearOfJoiningService: "2014"
+            signatures:
+              osid: 1-a2d24e9d-468d-45b1-bc50-73e1dc6ded36
+            teachingRole:
+              osid: 1-967e61b7-65f6-404b-8140-fc88ea3352bf
+            osUpdatedAt: "2020-11-24T06:14:36.429Z"
+            serialNum: 8
+            teacherName: Marvin Pande
+            basicProficiencyLevel:
+              osid: 1-08920f83-58a9-4321-be6e-9cde5d343f26
+            nonTeachingAssignmentsForAcademicCalendar:
+              osid: 1-2716f567-d7ec-418a-a25c-da1d12c40794
+            trainedinUseOfComputer: YesNoCode-YES
+            osCreatedAt: "2020-11-24T06:14:36.429Z"
+            highestAcademicQualification: AcademicQualificationTypeCode-PHD
+            inServiceTeacherTrainingFromOthers:
+              osid: 1-917519aa-a859-4d33-bb9e-67282dd6b4c2
+            inServiceTeacherTrainingFromDIET:
+              osid: 1-ffb13cec-ce2f-475d-9d91-c19274448702
+            trainedForChildrenSpecialNeeds: YesNoCode-YES
+   AuthenticationInvalidSearchResponse:
+     summary: "Invalid Authentication Token Response"
+     description: "This is an example response for the authentication failure of the request due to expired token, invalid token or if token is not passed as Authorization"
+     value:
+      id: open-saber.registry.search
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "UNSUCCESSFUL"
+        errmsg: "Authentication token is invalid"
+      responseCode: "OK"
+   InternalServerErrorSearchResponse:
+     summary: "Operation Unsuccessful Response"
+     description: "This is an example response if there is any internal error in the api and operation is unsuccessful i.e due to NullPointerException or any runtime error"
+     value:
+      id: open-saber.registry.search
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "UNSUCCESSFUL"
+        errmsg: ""
+      responseCode: OK
+   EmptySearchResponse:
+     summary: "Empty Search Response"
+     description: "This is an example of delete registry record successfull operation"
+     value:
+      id: open-saber.registry.delete
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "UNSUCCESSFUL"
+        errmsg: ""
+      responseCode: OK
+      result:
+       Teacher: []
+   UpdateRequestExample1:
+     summary: "Update Teacher's name and Appointment year"
+     value:
+      id: open-saber.registry.update
+      ver: "1.0"
+      ets: "11234"
+      params:
+        did: ''
+        key: ''
+        msgid: ''
+      request:
+        Teacher:
+          osid: 1-d6844c76-b128-43cc-bbba-74edfd09c716
+          teachingRole:
+            osid: 1-c8d28fca-1cdf-4958-9d0c-bc94e0927e8b
+            appointmentYear: "2016"
+          teacherName: "Mohan"
+   AuthenticationInvalidUpdateResponse:
+     summary: "Invalid Authentication Token Response"
+     description: "This is an example response for the authentication failure of the request due to expired token, invalid token or if token is not passed as Authorization"
+     value:
+      id: open-saber.registry.update
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "UNSUCCESSFUL"
+        errmsg: "Authentication token is invalid"
+      responseCode: "OK"
+   InternalServerErrorUpdateResponse:
+     summary: "Operation Unsuccessful Response"
+     description: "This is an example response if there is any internal error in the api and operation is unsuccessful i.e due to NullPointerException or any runtime error"
+     value:
+      id: open-saber.registry.update
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "UNSUCCESSFUL"
+        errmsg: ""
+      responseCode: OK
+   UpdateRequestResponse:
+     summary: "Operation Successful Response"
+     description: "This is an example successfull update operation"
+     value:
+      id: open-saber.registry.update
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "SUCCESSFUL"
+        errmsg: ""
+      responseCode: OK
+      
+   InvalidIdUpdateResponse:
+     summary: "Invalid Registry Id Response"
+     description: "This is an example response for the invalid id is passed to **registry id**"
+     value:
+      id: open-saber.registry.update
+      ver: "1.0"
+      ets: "1606125536553"
+      params:
+        resmsgid: ''
+        msgid: 861533da-d815-4809-97c3-9c2bde55f79a
+        err: ''
+        status: "UNSUCCESSFUL"
+        errmsg: "Invalid id"
+      responseCode: "OK"     
+    
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+- httpBearer: []
+tags:
+- name: Misc
+  description: ''

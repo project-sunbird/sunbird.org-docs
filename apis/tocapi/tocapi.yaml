@@ -1,0 +1,478 @@
+openapi: 3.0.1
+info:
+  title: TOC APIs
+  description: |-
+    The TOC API resources perform operations related to download and upload of textbook on the Sunbird Platform in csv format. The TOC API(s) operations include uploads and downloads.
+
+    The URL for TOC API(s) is /textbook/v1/toc.
+    - The backend URL for TOC API(s) is /v1/textbook/toc.
+    - [TestCases](https://app.getpostman.com/run-collection/78d9cafb2d26eda89260)
+  termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
+  contact:
+    email: info@sunbird.org
+  version: '1.0'
+servers:
+  - url: 'https://staging.open-sunbird.org/api'
+    variables: {}
+paths:
+  '/textbook/v1/toc/upload/{textbook-id}':
+    post:
+      tags:
+        - TOC APIs
+      summary: TOC Upload
+      description: |-
+        'This API is associated with upload TOC with csv format on the Sunbird Platform.
+
+        The endpoint for TOC upload is /textbook/v1/toc/upload
+
+        You can find sample TOC here [Sample-TOC](https://dev.sunbirded.org/content-plugins/org.ekstep.collectioneditor-1.6/assets/uploadsamplecsvfile.csv)
+
+        or use following
+
+        "Board,Medium,Grade,Subject,Textbook Name,Level 1 Textbook Unit,Level 2 Textbook Unit,Level 3 Textbook Unit,Level 4 Textbook Unit,Description,Mapped Topics,Purpose of Content to be linked,Keywords,QR Code Required?,QR Code
+        CBSE,English,Class 6,Science,Science-10,5. Human Body,,,,This chapter describes about human body,Human Body,Video of lungs pumping,"head, eyes, nose, mouth",Yes,
+        CBSE,English,Class 6,Science,Science-10,5. Human Body,5.1 Parts of Body,,,"This section describes about various part of the body such as head, hands, legs etc.",Parts of Body,,,No,"
+
+        The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.'
+      operationId: TOCUpload
+      parameters:
+        - name: Content-Type
+          in: header
+          description: "The Content Type entity is the media type of the resource. Possible\
+            \ media types are:- \n  - Application/json\n  - Multipart/form-data\n  -\
+            \ Application/x-www-form-urlencoded"
+          required: true
+          schema:
+            type: string
+            example: 'application/json'
+        - name: X-Authenticated-User-Token
+          in: header
+          description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{authToken}}'
+        - name: Authorization
+          in: header
+          description: Access token of registered user performing given API request.
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{api-key}}'
+        - name: textbook-id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+                - fileUrl
+              type: object
+              properties:
+                fileUrl:
+                  type: string
+                  description: ""
+        required: false
+      responses:
+        '200':
+          description: 'SUCCESS. The "TOC Upload" operation was successful!'
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TOCUpload-Success'
+              example:
+                id: api.textbook.toc.upload
+                ver: v1
+                ts: '2020-11-27 15:35:56:361+0000'
+                params:
+                  resmsgid: null
+                  msgid: b3eb6ee7-108d-48b7-9f9f-0d96c55ac289
+                  err: null
+                  status: success
+                  errmsg: null
+                responseCode: OK
+                result:
+                  response: SUCCESS
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TOCDownload-Resource_Not_Found'
+              example:
+                id: api.textbook.toc.upload
+                ver: v1
+                ts: '2020-11-27 15:20:24:393+0000'
+                params:
+                  resmsgid: null
+                  msgid: 30527359-4723-4b59-b4c0-0b5b14f9a3e2
+                  err: INVALID_TEXTBOOK_NAME
+                  status: INVALID_TEXTBOOK_NAME
+                  errmsg: Textbook Name given in the file doesn’t match current Textbook name. Please check and upload again.
+                responseCode: CLIENT_ERROR
+                result: {}
+        '404':
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TOCDownload-Resource_Not_Found'
+              example:
+                id: api.textbook.toc.upload
+                ver: v1
+                ts: '2020-11-27 15:27:56:969+0000'
+                params:
+                  resmsgid: null
+                  msgid: c148b326-7f46-4899-b0cb-31d563f225bc
+                  err: RESOURCE_NOT_FOUND
+                  status: RESOURCE_NOT_FOUND
+                  errmsg: rootId do_11316025545317580812 does not exist
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TOCDownload-Resource_Not_Found'
+              example:
+                id: api.textbook.toc.upload
+                ver: v1
+                ts: '2020-11-23 06:48:19:128+0000'
+                params:
+                  resmsgid: null
+                  msgid: 50f76a53-4710-4333-936f-c043031eec03
+                  err: SERVER_ERROR
+                  status: SERVER_ERROR
+                  errmsg: SERVER_ERROR
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security:
+        - bearer: []
+  '/textbook/v1/toc/download/{textbook-id}':
+    get:
+      tags:
+        - TOC APIs
+      summary: TOC Download
+      description: |-
+        This API is associated with download textbook in csv format.
+
+        The endpoint for TOC download is /download
+        The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: TOCDownload
+      parameters:
+        - name: Content-Type
+          in: header
+          description: "The Content Type entity is the media type of the resource. Possible\
+            \ media types are:- \n  - Application/json\n  - Multipart/form-data\n  -\
+            \ Application/x-www-form-urlencoded"
+          required: true
+          schema:
+            type: string
+            example: 'application/json'
+        - name: x-authenticated-user-token
+          in: header
+          description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{authToken}}'
+        - name: Authorization
+          in: header
+          description: 'Access token of registered user performing given API request.'
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{api-key}}'
+        - name: textbook-id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'SUCCESS. The "TOC Download" operation was successful!'
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TOCDownload-Success'
+              example:
+                id: api.textbook.toc.download
+                ver: v1
+                ts: '2020-11-27 15:47:33:106+0000'
+                params:
+                  resmsgid: null
+                  msgid: ab202e68-bacd-4eee-a3b3-10d59b09c17f
+                  err: null
+                  status: success
+                  errmsg: null
+                responseCode: OK
+                result:
+                  textbook:
+                    tocUrl: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/textbook/toc/do_11316025504283852811_test-27-nov_1606491356306.csv'
+                    ttl: '86400'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TOCDownload-Resource_Not_Found'
+              example:
+                id: api.textbook.toc.download
+                ver: v1
+                ts: '2020-11-27 15:49:18:113+0000'
+                params:
+                  resmsgid: null
+                  msgid: 1f4ed0b6-ab14-4644-8e91-0bed6b0cd756
+                  err: RESOURCE_NOT_FOUND
+                  status: RESOURCE_NOT_FOUND
+                  errmsg: rootId do_11263298042220544900 does not exist
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TOCDownload-Resource_Not_Found'
+              example:
+                id: api.textbook.toc.download
+                ver: v1
+                ts: '2020-11-23 06:48:19:128+0000'
+                params:
+                  resmsgid: null
+                  msgid: 50f76a53-4710-4333-936f-c043031eec03
+                  err: SERVER_ERROR
+                  status: SERVER_ERROR
+                  errmsg: SERVER_ERROR
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+    Params:
+      title: Params
+      required:
+        - resmsgid
+        - msgid
+        - err
+        - status
+        - errmsg
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          nullable: true
+        msgid:
+          type: string
+        err:
+          type: string
+        status:
+          type: string
+        errmsg:
+          type: string
+      example:
+        resmsgid: null
+        msgid: 30527359-4723-4b59-b4c0-0b5b14f9a3e2
+        err: INVALID_TEXTBOOK_NAME
+        status: INVALID_TEXTBOOK_NAME
+        errmsg: Textbook Name given in the file doesn’t match current Textbook name. Please check and upload again.
+    TOCUpload-Success:
+      title: TOCUpload-Success
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params2'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result'
+      example:
+        id: api.textbook.toc.upload
+        ver: v1
+        ts: '2020-11-27 15:35:56:361+0000'
+        params:
+          resmsgid: null
+          msgid: b3eb6ee7-108d-48b7-9f9f-0d96c55ac289
+          err: null
+          status: success
+          errmsg: null
+        responseCode: OK
+        result:
+          response: SUCCESS
+    Params2:
+      title: Params2
+      required:
+        - resmsgid
+        - msgid
+        - err
+        - status
+        - errmsg
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          nullable: true
+        msgid:
+          type: string
+        err:
+          type: string
+          nullable: true
+        status:
+          type: string
+        errmsg:
+          type: string
+          nullable: true
+      example:
+        resmsgid: null
+        msgid: b3eb6ee7-108d-48b7-9f9f-0d96c55ac289
+        err: null
+        status: success
+        errmsg: null
+    Result:
+      title: Result
+      required:
+        - response
+      type: object
+      properties:
+        response:
+          type: string
+      example:
+        response: SUCCESS
+    TOCDownload-Resource_Not_Found:
+      title: TOCDownload-Resource_Not_Found
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          type: object
+      example:
+        id: api.textbook.toc.download
+        ver: v1
+        ts: '2020-11-27 15:49:18:113+0000'
+        params:
+          resmsgid: null
+          msgid: 1f4ed0b6-ab14-4644-8e91-0bed6b0cd756
+          err: RESOURCE_NOT_FOUND
+          status: RESOURCE_NOT_FOUND
+          errmsg: rootId do_11263298042220544900 does not exist
+        responseCode: RESOURCE_NOT_FOUND
+        result: {}
+    TOCDownload-Success:
+      title: TOCDownload-Success
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params2'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result1'
+      example:
+        id: api.textbook.toc.download
+        ver: v1
+        ts: '2020-11-27 15:47:33:106+0000'
+        params:
+          resmsgid: null
+          msgid: ab202e68-bacd-4eee-a3b3-10d59b09c17f
+          err: null
+          status: success
+          errmsg: null
+        responseCode: OK
+        result:
+          textbook:
+            tocUrl: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/textbook/toc/do_11316025504283852811_test-27-nov_1606491356306.csv'
+            ttl: '86400'
+    Result1:
+      title: Result1
+      required:
+        - textbook
+      type: object
+      properties:
+        textbook:
+          $ref: '#/components/schemas/Textbook'
+      example:
+        textbook:
+          tocUrl: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/textbook/toc/do_11316025504283852811_test-27-nov_1606491356306.csv'
+          ttl: '86400'
+    Textbook:
+      title: Textbook
+      required:
+        - tocUrl
+        - ttl
+      type: object
+      properties:
+        tocUrl:
+          type: string
+        ttl:
+          type: string
+      example:
+        tocUrl: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/textbook/toc/do_11316025504283852811_test-27-nov_1606491356306.csv'
+        ttl: '86400'
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+tags:
+  - name: TOC APIs
+    description: ''

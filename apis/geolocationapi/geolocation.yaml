@@ -1,99 +1,111 @@
-swagger: '2.0'
+openapi: 3.0.1
 info:
-  version: '1.0'
   title: Geo-location API(s)
-  description: >- 
+  description: |-
     Geo-location resources API are used to identify the geographic location of an organization, while the geo-location of an organization can be a particular point or place in physical space.
-    
     The URL for Geo-location API(s) is `/org/v1/location`
-host: staging.open-sunbird.org
-basePath: /api/org/v1/location
-securityDefinitions:
-  bearer:
-      type: apiKey  # arbitrary name for the security scheme
-      in: header # The secrity scheme parameter is in "header"
-      name: Authorization # name of the header, query parameter or cookie
-  userToken:
-      type: apiKey  # arbitrary name for the security scheme
-      in: header # The secrity scheme parameter is in "header"
-      name: x-authenticated-user-token # name of the header, query parameter or cookie
-schemes:
-  - https
-consumes:
-  - application/json
-produces:
-  - application/json
+  version: "1.0"
+externalDocs:
+ description: "Testcases"
+ url: "https://www.getpostman.com/collections/4e87ea152c1bd57581e6"    
+servers:
+- url: https://staging.open-sunbird.org/api/org/v1/location
 paths:
   /create:
     post:
-      description: >-
-       This API is used for creating a new Geo-location of an organisation.
-          - The endpoint for **Create a Geo-location** is `/create`
-          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      tags:
+      - Geolocation APIs
       summary: Create a Geo-location
-      tags: 
-        - Geolocation APIs
+      description: |-
+        This API is used for creating a new Geo-location of an organisation.
+           - The endpoint for **Create a Geo-location** is `/create`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: CreatePost
-      produces:
-        - application/json
       parameters:
-        - name: request
-          in: body
-          required: true
-          description: >-
-              The body refers to the format of the request.
-                - The body contains metadata about the request for creating Geo-location.
-          schema:
-            allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
-              - $ref: '#/definitions/CreateLocationrequest'
-        - name: Content-Type
-          in: header
-          required: true
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.\n\
+          \  Possible media types can be:- \n    - Application/json"
+        required: true
+        schema:
           type: string
-          description: >-
-            The Content Type entity is the media type of the resource.
-              Possible media types can be:- 
-                - Application/json
-        - name: Authorization
-          in: header
-          required: true
+      - name: Authorization
+        in: header
+        description: All User APIs requires authorization for use. Specify the authorization
+          key received from the administrator when placing the request to use the
+          API.
+        required: true
+        schema:
           type: string
-          description: 'All User APIs requires authorization for use. Specify the authorization key received from the administrator when placing the request to use the API.'
-        - name: x-authenticated-user-token
-          in: header
-          required: true
+      - name: x-authenticated-user-token
+        in: header
+        description: The token/key used to execute the API
+        required: true
+        schema:
           type: string
-          description: 'The token/key used to execute the API'
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the request for creating Geo-location.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiRequest'
+              - $ref: '#/components/schemas/CreateLocationrequest'
+        required: true
       responses:
-        '200':
-          description: 'OK! Successful operation. "Create Geolocation" operation was successfully executed.'
-          schema:
-            allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/CreateGeolocationResponse'
-        '400':
-          description: >-
-            BAD REQUEST, **Create Geolocation** operation failed! The possible reason for failure is that you may have missed providing input for a mandatory parameter.
-          schema:
-             allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/ErrorResponse'
-        
-        '404':
-          description: >-
-            Resource not found, **Create Geolocation** operation failed! The possible reason for failure is that the requested resource could not be found.
-          schema:
-             allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/ErrorResponse'
-        '500':
-          description: >-
-            INTERNAL SERVER ERROR! Looks like something went wrong! These errors are tracked automatically. If the problem persists, please feel free to contact us. In the meantime, you may try again.
-          schema:
-            allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/ErrorResponse'
+        200:
+          description: OK! Successful operation. "Create Geolocation" operation was
+            successfully executed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  CreateGeolocationResponse:
+                    $ref: '#/components/schemas/CreateGeolocationResponse'
+        400:
+          description: BAD REQUEST, **Create Geolocation** operation failed! The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  ErrorResponse:
+                    $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: Resource not found, **Create Geolocation** operation failed!
+            The possible reason for failure is that the requested resource could not
+            be found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  ErrorResponse:
+                    $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR! Looks like something went wrong! These
+            errors are tracked automatically. If the problem persists, please feel
+            free to contact us. In the meantime, you may try again.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  ErrorResponse:
+                    $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer: []
       x-unitTests:
@@ -106,7 +118,7 @@ paths:
             X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
             Authorization: Bearer {{api-key}}
             x-authenticated-user-token: '{{user-token}}'
-          body: >2-
+          body: |2-
               {
 
             "request": {
@@ -134,7 +146,6 @@ paths:
                       ]
 
             }
-
             }
         expectedResponse:
           x-allowExtraHeaders: true
@@ -146,88 +157,114 @@ paths:
         x-testShouldPass: true
         x-testEnabled: true
         x-testName: Create Location
-        x-testDescription: ''
+        x-testDescription: ""
       x-operation-settings:
         CollectParameters: false
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-
+      x-codegen-request-body-name: request
   /update/{locationId}:
     patch:
-      description: >-
-       This API is used for updating a Geo-location of an organisation
-          - The endpoint for **Updates a Geo-location** is `/update/{locationId}`
-          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      tags:
+      - Geolocation APIs
       summary: Updates a Geo-location
-      tags: 
-        - Geolocation APIs
+      description: |-
+        This API is used for updating a Geo-location of an organisation
+           - The endpoint for **Updates a Geo-location** is `/update/{locationId}`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: V1LocationUpdateByLocationIdPatch
-      produces:
-      - application/json
       parameters:
-        - in: path
-          name: locationId
+      - name: locationId
+        in: path
+        description: Please append a valid location Id to the request URL
+        required: true
+        schema:
           type: string
-          required: true
-          description: 'Please append a valid location Id to the request URL' 
-        - name: request
-          in: body
-          required: true
-          description:  >-
-              The body refers to the format of the request.
-                - The body contains metadata about the request for updating Geo-location.
-          schema:
-            allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
-              - $ref: '#/definitions/UpdateGeolocationRequest'
-        - name: Content-Type
-          in: header
-          required: true
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.\n\
+          \  Possible media types can be:- \n    - Application/json"
+        required: true
+        schema:
           type: string
-          description: >-
-            The Content Type entity is the media type of the resource.
-              Possible media types can be:- 
-                - Application/json
-        - name: Authorization
-          in: header
-          required: true
+      - name: Authorization
+        in: header
+        description: To make use of any User API, you require authorization. Raise
+          a request to the administrator for the use of the API. You will receive
+          the authorization key. Specify the key received, here.
+        required: true
+        schema:
           type: string
-          description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-        - name: x-authenticated-user-token
-          in: header
-          required: true
+      - name: x-authenticated-user-token
+        in: header
+        description: The token/key used to execute the API
+        required: true
+        schema:
           type: string
-          description: 'The token/key used to execute the API'
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the request for updating Geo-location.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ApiRequest'
+              - $ref: '#/components/schemas/UpdateGeolocationRequest'
+        required: true
       responses:
-        '200':
-          description: 'OK! Successful operation. "Update Geolocation" operation was successfully executed.'
-          schema:
-            allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/UpdateGeolocationResponse'
-        '400':
-          description: >-
-            BAD REQUEST, **Update Geolocation** operation failed! The possible reason for failure is that you may have missed providing input for a mandatory parameter.
-          schema:
-             allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/ErrorResponse'
-        
-        '404':
-          description: >-
-            Resource not found, **Update Geolocation** operation failed! The possible reason for failure is that the requested resource could not be found.
-          schema:
-             allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/ErrorResponse'
-        '500':
-          description: >-
-            INTERNAL SERVER ERROR! Looks like something went wrong! These errors are tracked automatically. If the problem persists, please feel free to contact us. In the meantime, you may try again.
-          schema:
-            allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/ErrorResponse'
+        200:
+          description: OK! Successful operation. "Update Geolocation" operation was
+            successfully executed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  UpdateGeolocationResponse:
+                    $ref: '#/components/schemas/UpdateGeolocationResponse'
+        400:
+          description: BAD REQUEST, **Update Geolocation** operation failed! The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  ErrorResponse:
+                    $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: Resource not found, **Update Geolocation** operation failed!
+            The possible reason for failure is that the requested resource could not
+            be found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  ErrorResponse:
+                    $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR! Looks like something went wrong! These
+            errors are tracked automatically. If the problem persists, please feel
+            free to contact us. In the meantime, you may try again.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  ErrorResponse:
+                    $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer: []
       x-unitTests: []
@@ -236,72 +273,96 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-
+      x-codegen-request-body-name: request
   /delete/{locationId}:
     delete:
-      description: >-
-       This API is used for deleting the corresponding Geo-location of an organisation.
-          - The endpoint for **Delete a Geolocation** is `/delete/{locationId}`
-          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      tags:
+      - Geolocation APIs
       summary: Delete a Geolocation
-      tags: 
-        - Geolocation APIs
+      description: |-
+        This API is used for deleting the corresponding Geo-location of an organisation.
+           - The endpoint for **Delete a Geolocation** is `/delete/{locationId}`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: LocationDelete
-      produces:
-        - application/json
       parameters:
-        - in: path
-          name: locationId
+      - name: locationId
+        in: path
+        description: Please append a valid location Id to the Request URL
+        required: true
+        schema:
           type: string
-          required: true
-          description: 'Please append a valid location Id to the Request URL' 
-        - name: Content-Type
-          in: header
-          required: true
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.\n\
+          \  Possible media types can be:- \n    - Application/json"
+        required: true
+        schema:
           type: string
-          description: >-
-            The Content Type entity is the media type of the resource.
-              Possible media types can be:- 
-                - Application/json
-        - name: Authorization
-          in: header
-          required: true
+      - name: Authorization
+        in: header
+        description: Raise a request to the administrator for the use of the API.
+          You will receive the authorization key. Specify the key received, here.
+        required: true
+        schema:
           type: string
-          description: 'Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-        - name: x-authenticated-user-token
-          in: header
-          required: true
+      - name: x-authenticated-user-token
+        in: header
+        description: The token/key used to execute the API
+        required: true
+        schema:
           type: string
-          description: 'The token/key used to execute the API'
       responses:
-        '200':
-          description: 'OK! Successful operation. "Delete Geolocation" operation was successfully executed.'
-          schema:
-            allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/DeleteGeolocationResponse'
-        '400':
-          description: >-
-            BAD REQUEST, **Delete Geolocation** operation failed! The possible reason for failure is that you may have missed providing input for a mandatory parameter.
-          schema:
-             allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/ErrorResponse'
-        
-        '404':
-          description: >-
-            Resource not found, **Delete Geolocation** operation failed! The possible reason for failure is that the requested resource could not be found.
-          schema:
-             allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/ErrorResponse'
-        '500':
-          description: >-
-            INTERNAL SERVER ERROR! Looks like something went wrong! These errors are tracked automatically. If the problem persists, please feel free to contact us. In the meantime, you may try again.
-          schema:
-            allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/ErrorResponse'
+        200:
+          description: OK! Successful operation. "Delete Geolocation" operation was
+            successfully executed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  DeleteGeolocationResponse:
+                    $ref: '#/components/schemas/DeleteGeolocationResponse'
+        400:
+          description: BAD REQUEST, **Delete Geolocation** operation failed! The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  ErrorResponse:
+                    $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: Resource not found, **Delete Geolocation** operation failed!
+            The possible reason for failure is that the requested resource could not
+            be found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  ErrorResponse:
+                    $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR! Looks like something went wrong! These
+            errors are tracked automatically. If the problem persists, please feel
+            free to contact us. In the meantime, you may try again.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  ErrorResponse:
+                    $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer: []
       x-unitTests:
@@ -324,86 +385,111 @@ paths:
         x-testShouldPass: true
         x-testEnabled: true
         x-testName: Delete Location
-        x-testDescription: ''
+        x-testDescription: ""
       x-operation-settings:
         CollectParameters: false
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-
   /read/{ID}:
     get:
-      description:  >-
-       This API is used for fetching a Geo-location of an organisation on Sunbird platform.
-          - The endpoint for **Get Geolocation details** is `/read/{ID}`
-          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      tags:
+      - Geolocation APIs
       summary: Get Geolocation details
-      tags: 
-        - Geolocation APIs
+      description: |-
+        This API is used for fetching a Geo-location of an organisation on Sunbird platform.
+           - The endpoint for **Get Geolocation details** is `/read/{ID}`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: Get
-      produces:
-        - application/json
       parameters:
-        - in: path
-          name: ID
+      - name: ID
+        in: path
+        description: Location ID OR Tenant ID should be appended here
+        required: true
+        schema:
           type: string
-          required: true
-          description: 'Location ID OR Tenant ID should be appended here' 
-        - name: type
-          in: query
-          required: true
+      - name: type
+        in: query
+        description: |-
+          The type can be either be Tenant ID or Location ID, depending on which one is appended in request path
+            - organisation
+            - location
+        required: true
+        schema:
           type: string
-          description: >-
-            The type can be either be Tenant ID or Location ID, depending on which one is appended in request path
-              - organisation
-              - location
-        - name: Content-Type
-          in: header
-          required: true
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.\n\
+          \  Possible media types can be:- \n    - Application/json"
+        required: true
+        schema:
           type: string
-          description: >-
-            The Content Type entity is the media type of the resource.
-              Possible media types can be:- 
-                - Application/json
-        - name: Authorization
-          in: header
-          required: true
+      - name: Authorization
+        in: header
+        description: To make use of any User API, you require authorization. Raise
+          a request to the administrator for the use of the API. You will receive
+          the authorization key. Specify the key received, here.
+        required: true
+        schema:
           type: string
-          description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-        - name: x-authenticated-user-token
-          in: header
-          required: true
+      - name: x-authenticated-user-token
+        in: header
+        description: The token/key used to execute the API
+        required: true
+        schema:
           type: string
-          description: 'The token/key used to execute the API'
       responses:
-        '200':
-          description: 'OK! Successful operation. "Get Geolocation" operation was successfully executed.'
-          schema:
-            allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/GetGeolocationResponse'
-        '400':
-          description: >-
-            BAD REQUEST, **Get Geolocation** operation failed! The possible reason for failure is that you may have missed providing input for a mandatory parameter.
-          schema:
-             allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/ErrorResponse'
-        
-        '404':
-          description: >-
-            Resource not found, **Get Geolocation** operation failed! The possible reason for failure is that the requested resource could not be found.
-          schema:
-             allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/ErrorResponse'
-        '500':
-          description: >-
-            INTERNAL SERVER ERROR! Looks like something went wrong! These errors are tracked automatically. If the problem persists, please feel free to contact us. In the meantime, you may try again.
-          schema:
-            allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/ErrorResponse'
+        200:
+          description: OK! Successful operation. "Get Geolocation" operation was successfully
+            executed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  GetGeolocationResponse:
+                    $ref: '#/components/schemas/GetGeolocationResponse'
+        400:
+          description: BAD REQUEST, **Get Geolocation** operation failed! The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  ErrorResponse:
+                    $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: Resource not found, **Get Geolocation** operation failed! The
+            possible reason for failure is that the requested resource could not be
+            found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  ErrorResponse:
+                    $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR! Looks like something went wrong! These
+            errors are tracked automatically. If the problem persists, please feel
+            free to contact us. In the meantime, you may try again.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ApiResponse:
+                    $ref: '#/components/schemas/ApiResponse'
+                  ErrorResponse:
+                    $ref: '#/components/schemas/ErrorResponse'
       security:
       - bearer: []
       x-unitTests:
@@ -426,159 +512,225 @@ paths:
         x-testShouldPass: true
         x-testEnabled: true
         x-testName: Get Geo Location By Id
-        x-testDescription: ''
+        x-testDescription: ""
       x-operation-settings:
         CollectParameters: false
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-
-definitions:
-  ErrorResponse:
-    type: object
-    allOf:
-      - $ref: '#/definitions/EmptyResult'
-
-  EmptyResult:
-    type: object
-    properties:
-      result:
-        type: object
-
-  CreateLocationrequest:
-    type: object
-    properties:
-      request:
-        type: object
-        properties:
-          rootOrgId:
-            type: string
-            description: Tenant ID
-          data:
-            type: array
-            items:
-              type: object
-              properties:
-                location:
-                  type: string
-                  description: Name of the Geolocation to be create
-                type:
-                  type: string
-                  description: Type of Geolocation depends on how the Tenant wants to categorize their Geo-locations. Possible values for an administrative tenant may be 'district', 'block' etc 
-              required:
+components:
+  schemas:
+    ErrorResponse:
+      allOf:
+      - $ref: '#/components/schemas/EmptyResult'
+    EmptyResult:
+      type: object
+      properties:
+        result:
+          type: object
+          properties: {}
+    CreateLocationrequest:
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          required:
+          - data
+          - rootOrgId
+          type: object
+          properties:
+            rootOrgId:
+              type: string
+              description: Tenant ID
+            data:
+              type: array
+              items:
+                required:
                 - location
                 - type
-        required:
-          - rootOrgId
-          - data
-    required:
-    - request
-
-  CreateGeolocationResponse:
-    type: object
-    properties:
-      result:
-        type: object
-        properties:
-          response:
-            type: array
-            items:
-              type: object
-              properties:
-                location:
-                  type: string
-                id:
-                  type: string
-                status:
-                  type: string
-              required:
-                - location
+                type: object
+                properties:
+                  location:
+                    type: string
+                    description: Name of the Geolocation to be create
+                  type:
+                    type: string
+                    description: Type of Geolocation depends on how the Tenant wants
+                      to categorize their Geo-locations. Possible values for an administrative
+                      tenant may be 'district', 'block' etc
+    CreateGeolocationResponse:
+      type: object
+      properties:
+        result:
+          required:
+          - response
+          type: object
+          properties:
+            response:
+              type: array
+              items:
+                required:
                 - id
+                - location
                 - status
-        required:
-          - response
-
-  UpdateGeolocationRequest:
-    type: object
-    properties:
-      request:
-        type: object
-        properties:
-          location:
-            type: string
-          type:
-            type: string
-    required:
-    - request
-
-  UpdateGeolocationResponse:
-    type: object
-    properties:
-      result:
-        type: object
-        properties:
-          response:
-            type: string
-        required:
-          - response
-    required:
+                type: object
+                properties:
+                  location:
+                    type: string
+                  id:
+                    type: string
+                  status:
+                    type: string
+    UpdateGeolocationRequest:
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          type: object
+          properties:
+            location:
+              type: string
+            type:
+              type: string
+    UpdateGeolocationResponse:
+      required:
       - result
-  
-  DeleteGeolocationResponse:
-    type: object
-    properties:
-      result:
-        type: object
-        properties:
-          response:
-            type: string
-        required:
+      type: object
+      properties:
+        result:
+          required:
           - response
-    required:
+          type: object
+          properties:
+            response:
+              type: string
+    DeleteGeolocationResponse:
+      required:
       - result
-
-  GetGeolocationResponse:
-    type: object
-    properties:
-      result:
-        type: object
-        properties:
-          response:
-            type: array
-            items:
-              type: object
-              properties:
-                createdDate:
-                  type: string
-                updatedBy:
-                  type: string
-                  description: Unique ID of the user who updated this location
-                userCount:
-                  type: integer
-                  format: int32
-                  description: Number of users associated with this location
-                createdBy:
-                  type: string
-                  description: Unique ID of the user who created this location
-                userCountTTL:
-                  type: string
-                  description: TTL to refresh associated user count
-                topic:
-                  type: string
-                  description: The FCM topic ID associated with the location 
-                location:
-                  type: string
-                  description: Name of the location
-                id:
-                  type: string
-                updatedDate:
-                  type: string
-                type:
-                  type: string
-                rootOrgId:
-                  type: string
-                  description: Tenant ID
-        required:
+      type: object
+      properties:
+        result:
+          required:
           - response
-    required:
+          type: object
+          properties:
+            response:
+              type: string
+    GetGeolocationResponse:
+      required:
       - result
+      type: object
+      properties:
+        result:
+          required:
+          - response
+          type: object
+          properties:
+            response:
+              type: array
+              items:
+                type: object
+                properties:
+                  createdDate:
+                    type: string
+                  updatedBy:
+                    type: string
+                    description: Unique ID of the user who updated this location
+                  userCount:
+                    type: integer
+                    description: Number of users associated with this location
+                    format: int32
+                  createdBy:
+                    type: string
+                    description: Unique ID of the user who created this location
+                  userCountTTL:
+                    type: string
+                    description: TTL to refresh associated user count
+                  topic:
+                    type: string
+                    description: The FCM topic ID associated with the location
+                  location:
+                    type: string
+                    description: Name of the location
+                  id:
+                    type: string
+                  updatedDate:
+                    type: string
+                  type:
+                    type: string
+                  rootOrgId:
+                    type: string
+                    description: Tenant ID
+    ApiRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents an API uniquely
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the unique ID of the message being sent
+            did:
+              type: string
+              description: Represents the device UUID from which API is called
+    ApiResponse:
+      required:
+      - ets
+      - id
+      - params
+      - ver
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents the ID of the request which was made
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          required:
+          - msgid
+          - resmsgid
+          - status
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the ID of the message sent
+            resmsgid:
+              type: string
+              description: Represents the ID of the response message
+            status:
+              type: string
+              enum:
+              - success
+              - error
+        responseCode:
+          type: string
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+    userToken:
+      type: apiKey
+      name: x-authenticated-user-token
+      in: header
