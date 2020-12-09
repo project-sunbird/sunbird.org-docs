@@ -8,13 +8,13 @@ info:
    email: info@sunbird.org
   version: '1.0'
 servers:
-- url: https://dock.sunbirded.org/content/program/v1/process
+- url: https://dock.sunbirded.org/content/program
   variables: {}
 externalDocs:
  description: "Testcases"
  url: "https://www.getpostman.com/collections/1402163310181f7057e5"
 paths:
-  /v1/list/download:
+  /list/download:
     post:
       tags:
       - Success
@@ -63,9 +63,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
     put:
       tags:
       - Failures
@@ -113,9 +110,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
     get:
       tags:
       - Failures
@@ -151,10 +145,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
-  /v1/configuration/search:
+  /configuration/search:
     post:
       tags:
       - Success
@@ -361,10 +352,7 @@ paths:
         404:
           description: Not Found
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
-  /v1/nomination/update:
+  /nomination/update:
     post:
       tags:
       - Success
@@ -420,7 +408,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NominationUpdate400BadRequest'
+                $ref: '#/components/schemas/nominationupdate400BadRequest'
         401:
           description: Unauthorized
           content:
@@ -451,10 +439,57 @@ paths:
                 request_host:
                 - kong
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
-  /v1/nomination/list/download:
+    put:
+      tags:
+      - Failures
+      summary: Nomination Update 404 Not Found
+      operationId: NominationUpdate404NotFound
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NominationUpdate404NotFoundRequest'
+            example:
+              request:
+                program_id: c43f7790-0a2a-11eb-a2e9-4fe29a51bb70
+                status: Initiated
+                content_types:
+                - Teacher Resource
+                user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
+                updatedby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+  /nomination/list/download:
     post:
       tags:
       - Success
@@ -536,9 +571,6 @@ paths:
                 request_host:
                 - kong
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
     put:
       tags:
       - Failures
@@ -590,10 +622,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
-  /v1/nomination/list:
+  /nomination/list:
     post:
       tags:
       - Success
@@ -662,9 +691,6 @@ paths:
         500:
           description: Internal Server Error
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
     put:
       tags:
       - Failures
@@ -710,10 +736,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
-  /v1/preference/create:
+  /preference/create:
     post:
       tags:
       - Success
@@ -769,9 +792,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
     put:
       tags:
       - Failures
@@ -826,10 +846,50 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
-  /v1/preference/read:
+    get:
+      tags:
+      - Failures
+      summary: Preference-create 204 No Content
+      operationId: Preference-create204NoContent
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en;q=0.9
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+  /preference/read:
     post:
       tags:
       - Success
@@ -877,9 +937,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
     get:
       tags:
       - Failures
@@ -923,10 +980,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
-  /v1/preference/update:
+  /preference/update:
     post:
       tags:
       - Success
@@ -982,9 +1036,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
     get:
       tags:
       - Failures
@@ -1028,9 +1079,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
     put:
       tags:
       - Failures
@@ -1085,10 +1133,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
-  /v1/update:
+  /update:
     post:
       tags:
       - Success
@@ -1248,7 +1293,7 @@ paths:
           content:
             application/json; charset=utf-8:
               schema:
-                $ref: '#/components/schemas/200Successfull'
+                $ref: '#/components/schemas/ProgramUpdate200Successfull'
               example:
                 id: api.program.update
                 ts: 2020-12-03T08:38:21.34Z
@@ -1282,9 +1327,6 @@ paths:
         404:
           description: Not Found
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
     put:
       tags:
       - Failures
@@ -1327,9 +1369,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
     get:
       tags:
       - Failures
@@ -1373,10 +1412,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
-  /v1/create:
+  /create:
     post:
       tags:
       - Success
@@ -1536,7 +1572,7 @@ paths:
           content:
             application/json; charset=utf-8:
               schema:
-                $ref: '#/components/schemas/200success'
+                $ref: '#/components/schemas/CreateProgram200success'
               example:
                 id: api.program.create
                 ts: 2020-12-03T08:25:51.2Z
@@ -1554,13 +1590,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NominationUpdate400BadRequest'
+                $ref: '#/components/schemas/nominationupdate400BadRequest'
         404:
           description: Not Found
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
     put:
       tags:
       - Failures
@@ -1603,9 +1636,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
     get:
       tags:
       - Failures
@@ -1641,10 +1671,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
-  /v1/publish:
+  /publish:
     post:
       tags:
       - Success
@@ -1800,7 +1827,7 @@ paths:
           content:
             application/json; charset=utf-8:
               schema:
-                $ref: '#/components/schemas/200SuccessProgramPublish'
+                $ref: '#/components/schemas/Program-Publish200Success'
               example:
                 id: api.program.publish
                 ts: 2020-12-03T08:14:32.077Z
@@ -1863,9 +1890,6 @@ paths:
                 request_host:
                 - kong
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
     put:
       tags:
       - Failures
@@ -1912,9 +1936,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
     get:
       tags:
       - Failures
@@ -1958,10 +1979,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
-  /v1/feed/search:
+  /feed/search:
     post:
       tags:
       - Success
@@ -2004,12 +2022,15 @@ paths:
                   programId:
                   - a549ffa0-3553-11eb-84ed-692ec8c8dbe9
                   - ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
+
                   status:
                   - Pending
                 contribution:
                   programId:
                   - f2c1d380-389a-11eb-af92-c5fb4afce83e
                   - a043dc40-3497-11eb-9c32-15914148e3ce
+                 
+                  status:
                   - Live
                 channel: 012983850117177344161
         required: true
@@ -2018,9 +2039,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
     get:
       tags:
       - Failures
@@ -2064,10 +2082,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
-  /v1/read/c43f7790-0a2a-11eb-a2e9-4fe29a51bb70:
+  /read/c43f7790-0a2a-11eb-a2e9-4fe29a51bb70:
     get:
       tags:
       - Success
@@ -2095,9 +2110,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
     post:
       tags:
       - Failures
@@ -2125,10 +2137,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
-  /program/v1/report:
+  /report:
     post:
       tags:
       - Success
@@ -2178,10 +2187,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
-  /program/v1/tenant/list:
+  /tenant/list:
     post:
       tags:
       - Success
@@ -2228,320 +2234,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
-  /program/v1/configuration/search:
-    post:
-      tags:
-      - Failures
-      summary: Configuration  Search 401 Unauthorized
-      operationId: ConfigurationSearch401Unauthorized
-      parameters:
-      - name: Connection
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: keep-alive
-      - name: Pragma
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: no-cache
-      - name: Cache-Control
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: no-cache
-      - name: X-App-Id
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: dev.dock.portal
-      - name: ts
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: 2020-12-02T16:32:31+05:30
-      - name: X-msgid
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: f80986af-e190-f6a4-04c4-c1b984e056e4
-      - name: User-Agent
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36
-      - name: Accept
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: application/json
-      - name: X-Source
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: web
-      - name: X-Device-ID
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: 6a6ec694e694548fef971f85910385bd
-      - name: Origin
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: https://dock.sunbirded.org
-      - name: Sec-Fetch-Site
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: same-origin
-      - name: Sec-Fetch-Mode
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: cors
-      - name: Sec-Fetch-Dest
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: empty
-      - name: Referer
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: https://dock.sunbirded.org/contribute
-      - name: Accept-Language
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: en-GB,en;q=0.9
-      - name: Cookie
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: connect.sid=s%3ABJW2W7KN-MXRuOv1L6_tU6UDkPC-hfuF.8XWBywws%2Bj8qGuqBweKrNTv7ag6kvF46Xlz1MrQRxZ0
-      requestBody:
-        description: ''
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ConfigurationSearch401UnauthorizedRequest'
-            example:
-              request:
-                key: overrideMetaData
-                status: active
-        required: true
-      responses:
-        200:
-          description: ''
-          headers: {}
-      deprecated: false
-      servers:
-      - url: https://dock.sunbirded.org/content
-        variables: {}
-  /program/v1/nomination/update:
-    put:
-      tags:
-      - Failures
-      summary: Nomination Update 404 Not Found
-      operationId: NominationUpdate404NotFound
-      parameters:
-      - name: Accept
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: application/json
-      - name: Origin
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: https://dock.sunbirded.org
-      - name: Accept-Language
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: en-GB,en;q=0.9
-      requestBody:
-        description: ''
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NominationUpdate404NotFoundRequest'
-            example:
-              request:
-                program_id: c43f7790-0a2a-11eb-a2e9-4fe29a51bb70
-                status: Initiated
-                content_types:
-                - Teacher Resource
-                user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
-                updatedby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
-        required: true
-      responses:
-        200:
-          description: ''
-          headers: {}
-      deprecated: false
-      servers:
-      - url: https://dock.sunbirded.org/content
-        variables: {}
-  /v1/preference/create/:
-    get:
-      tags:
-      - Failures
-      summary: Preference-create 204 No Content
-      operationId: Preference-create204NoContent
-      parameters:
-      - name: Content-Type
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: application/json
-      - name: Accept
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: application/json
-      - name: Origin
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: https://dock.sunbirded.org
-      - name: Accept-Language
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: en-GB,en;q=0.9
-      responses:
-        200:
-          description: ''
-          headers: {}
-      deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
-  /program/v1/preference/read:
-    get:
-      tags:
-      - Failures
-      summary: Preference-read 204 No Content
-      operationId: Preference-read204NoContent
-      parameters:
-      - name: Content-Type
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: application/json
-      - name: Accept
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: application/json
-      - name: Origin
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: https://dock.sunbirded.org
-      - name: Accept-Language
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: en-GB,en;q=0.9
-      responses:
-        200:
-          description: ''
-          headers: {}
-      deprecated: false
-      servers:
-      - url: https://dock.sunbirded.org/content
-        variables: {}
-  /v1/unlist/publish:
+  /unlist/publish:
     post:
       tags:
       - Failures
@@ -2588,9 +2281,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
     put:
       tags:
       - Failures
@@ -2637,10 +2327,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
-  /program/v1/unlist/publish:
     get:
       tags:
       - Failures
@@ -2684,41 +2370,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://dock.sunbirded.org/content
-        variables: {}
-  /program/v1/read/c43f7790-0a2a-11eb-a2e9-4fe29a51bb70:
-    get:
-      tags:
-      - Failures
-      summary: Program-read-502 Bad Gateway
-      operationId: Program-read-502BadGateway
-      parameters:
-      - name: Accept
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: application/json
-      - name: Accept-Language
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: en-GB,en;q=0.9
-      responses:
-        200:
-          description: ''
-          headers: {}
-      deprecated: false
-      servers:
-      - url: https://dock.sunbirded.org/content
-        variables: {}
-  /program/v1/list:
+  /list:
     post:
       tags:
       - Success-Case
@@ -2809,9 +2461,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: http://example.com
-        variables: {}
 components:
   schemas:
     ListDownload200SuccessRequest:
@@ -2821,25 +2470,25 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/Request'
+          $ref: '#/components/schemas/ListDownloadRequest'
       example:
         request:
           filters:
             program_id:
             - afdfa9a0-1dbc-11eb-81b1-659ec274e395
-    Request:
-      title: Request
+    ListDownloadRequest:
+      title: ListDownloadRequest
       required:
       - filters
       type: object
       properties:
         filters:
-          $ref: '#/components/schemas/Filters'
+          $ref: '#/components/schemas/ListDownloadFilters'
       example:
         filters:
           program_id:
           - afdfa9a0-1dbc-11eb-81b1-659ec274e395
-    Filters:
+    ListDownloadFilters:
       title: Filters
       required:
       - program_id
@@ -2860,12 +2509,12 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ListRequest'
+          $ref: '#/components/schemas/ListNominationDownloadRequest1'
       example:
         request:
           filters: {}
-    ListRequest:
-      title: ListRequest
+    ListNominationDownloadRequest1:
+      title: ListNominationDownloadRequest1
       required:
       - filters
       type: object
@@ -2881,7 +2530,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/Request'
+          $ref: '#/components/schemas/ListDownloadRequest'
       example:
         request:
           filters:
@@ -2955,7 +2604,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ProgramListErrorRequest'
+          $ref: '#/components/schemas/ProgramList400Request'
       example:
         request:
           filter:
@@ -2965,14 +2614,14 @@ components:
             role:
             - REVIEWER
             user_id: d63056e0-c58d-4724-aa84-285a68ea24fb
-    ProgramListErrorRequest:
-      title: ProgramListErrorRequest
+    ProgramList400Request:
+      title: ProgramList400Request
       required:
       - filter
       type: object
       properties:
         filter:
-          $ref: '#/components/schemas/Filter'
+          $ref: '#/components/schemas/ProgramListFilter'
       example:
         filter:
           status:
@@ -2981,8 +2630,8 @@ components:
           role:
           - REVIEWER
           user_id: d63056e0-c58d-4724-aa84-285a68ea24fb
-    Filter:
-      title: Filter
+    ProgramListFilter:
+      title: ProgramListFilter
       required:
       - status
       - role
@@ -3015,7 +2664,7 @@ components:
       type: object
       properties:
         requests:
-          $ref: '#/components/schemas/Requests'
+          $ref: '#/components/schemas/ProgramList500Requests'
       example:
         requests:
           filters:
@@ -3029,14 +2678,14 @@ components:
             - English
             gradeLevel:
             - Class 1
-    Requests:
-      title: Requests
+    ProgramList500Requests:
+      title: ProgramList500Requests
       required:
       - filters
       type: object
       properties:
         filters:
-          $ref: '#/components/schemas/ProgramListErrorFilters'
+          $ref: '#/components/schemas/ProgramList500Filters'
       example:
         filters:
           status:
@@ -3049,8 +2698,8 @@ components:
           - English
           gradeLevel:
           - Class 1
-    ProgramListErrorFilters:
-      title: ProgramListErrorFilters
+    ProgramList500Filters:
+      title: ProgramList500Filters
       required:
       - status
       - role
@@ -3102,20 +2751,20 @@ components:
           type: object
       example:
         request: {}
-    ConfigurationSearch401UnauthorizedRequest:
-      title: ConfigurationSearch401UnauthorizedRequest
+    ConfigurationSearch200SuccessRequest:
+      title: ConfigurationSearch200SuccessRequest
       required:
       - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ConfigurationSearchRequest'
+          $ref: '#/components/schemas/ConfigurationSearch200Request'
       example:
         request:
           key: overrideMetaData
           status: active
-    ConfigurationSearchRequest:
-      title: ConfigurationSearchRequest
+    ConfigurationSearch200Request:
+      title: ConfigurationSearch200Request
       required:
       - key
       - status
@@ -3128,30 +2777,6 @@ components:
       example:
         key: overrideMetaData
         status: active
-    ConfigurationSearch404NotFoundRequest:
-      title: ConfigurationSearch404NotFoundRequest
-      required:
-      - request
-      type: object
-      properties:
-        request:
-          $ref: '#/components/schemas/ConfigurationSearchRequest'
-      example:
-        request:
-          key: overrideMetaData
-          status: active
-    ConfigurationSearch200SuccessRequest:
-      title: ConfigurationSearch200SuccessRequest
-      required:
-      - request
-      type: object
-      properties:
-        request:
-          $ref: '#/components/schemas/ConfigurationSearchRequest'
-      example:
-        request:
-          key: overrideMetaData
-          status: active
     ConfigurationSearch400BadRequest:
       title: ConfigurationSearch400BadRequest
       required:
@@ -3170,7 +2795,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/ConfigurationSearchParams'
+          $ref: '#/components/schemas/ProgramParams'
         responseCode:
           type: string
         result:
@@ -3196,8 +2821,8 @@ components:
             updatedby: 
             createdon: 2020-09-03T11:24:42.13Z
             updatedon: 2020-09-03T11:24:42.13Z
-    ConfigurationSearchParams:
-      title: ConfigurationSearchParams
+    ProgramParams:
+      title: Program Params
       required:
       - resmsgid
       - msgid
@@ -3283,8 +2908,8 @@ components:
         updatedby: 
         createdon: 2020-09-03T11:24:42.13Z
         updatedon: 2020-09-03T11:24:42.13Z
-    ProgramPublishParams:
-      title: ProgramPublishParams
+    Program-PublishParams:
+      title: Program-PublishParams
       required:
       - resmsgid
       - msgid
@@ -3317,7 +2942,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/NominationRequest'
+          $ref: '#/components/schemas/NominationUpdateRequest'
       example:
         request:
           program_id: c43f7790-0a2a-11eb-a2e9-4fe29a51bb70
@@ -3326,8 +2951,8 @@ components:
           - Teacher Resource
           user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
           updatedby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
-    NominationRequest:
-      title: NominationRequest
+    NominationUpdateRequest:
+      title: NominationUpdateRequest
       required:
       - program_id
       - status
@@ -3356,8 +2981,8 @@ components:
         - Teacher Resource
         user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
         updatedby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
-    NominationUpdate400BadRequest:
-      title: NominationUpdate400BadRequest
+    nominationupdate400BadRequest:
+      title: nominationupdate400BadRequest
       required:
       - id
       - ts
@@ -3371,13 +2996,13 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/NominationParams'
+          $ref: '#/components/schemas/NominationUpdateParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/NominationResult'
-    NominationParams:
-      title: NominationParams
+          $ref: '#/components/schemas/NominationUpdateResult'
+    NominationUpdateParams:
+      title: NominationUpdateParams
       required:
       - resmsgid
       - msgid
@@ -3395,8 +3020,8 @@ components:
         resmsgid: 776d9731-34c3-11eb-9c32-15914148e3ce
         msgid: 
         status: failed
-    NominationResult:
-      title: NominationResult
+    NominationUpdateResult:
+      title: NominationUpdateResult
       required:
       - name
       - parent
@@ -3408,9 +3033,9 @@ components:
         name:
           type: string
         parent:
-          $ref: '#/components/schemas/Parent'
+          $ref: '#/components/schemas/NominationUpdatParent'
         original:
-          $ref: '#/components/schemas/Original'
+          $ref: '#/components/schemas/NominationUpdateOriginal'
         sql:
           type: string
         parameters:
@@ -3419,8 +3044,8 @@ components:
             type: array
             items:
               type: string
-    Parent:
-      title: Parent
+    NominationUpdatParent:
+      title: NominationUpdatParent
       required:
       - name
       - length
@@ -3456,8 +3081,8 @@ components:
             type: array
             items:
               type: string
-    Original:
-      title: Original
+    NominationUpdateOriginal:
+      title: NominationUpdateOriginal
       required:
       - name
       - length
@@ -3500,27 +3125,11 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/NominationRequest'
+          $ref: '#/components/schemas/NominationUpdateRequest'
       example:
         request:
           program_id: c43f7790-0a2a-11eb-a2e9-4fe29a51bb70
           status: ''
-          content_types:
-          - Teacher Resource
-          user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
-          updatedby: bcc23eec-5290-4ca2-8f3e-144a24f03b6d
-    NominationUpdate401UnauthorizedRequest:
-      title: NominationUpdate401UnauthorizedRequest
-      required:
-      - request
-      type: object
-      properties:
-        request:
-          $ref: '#/components/schemas/NominationRequest'
-      example:
-        request:
-          program_id: c43f7790-0a2a-11eb-a2e9-4fe29a51bb70
-          status: Initiated
           content_types:
           - Teacher Resource
           user_id: 19ba0e4e-9285-4335-8dd0-f674bf03fa4d
@@ -3532,7 +3141,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/NominationRequest'
+          $ref: '#/components/schemas/NominationUpdateRequest'
       example:
         request:
           program_id: c43f7790-0a2a-11eb-a2e9-4fe29a51bb70
@@ -3565,7 +3174,7 @@ components:
       type: object
       properties:
         filters:
-          $ref: '#/components/schemas/NominationListFilters'
+          $ref: '#/components/schemas/NominationListDownloadRequestFilters'
       example:
         filters:
           program_name: allTypeContent
@@ -3574,8 +3183,8 @@ components:
           - Pending
           - Approved
           - Rejected
-    NominationListFilters:
-      title: NominationListFilters
+    NominationListDownloadRequestFilters:
+      title: NominationListDownloadRequestFilters
       required:
       - program_name
       - program_id
@@ -3639,18 +3248,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ListRequest'
-      example:
-        request:
-          filters: {}
-    NominationList401UnauthorizedRequest:
-      title: NominationList401UnauthorizedRequest
-      required:
-      - request
-      type: object
-      properties:
-        request:
-          $ref: '#/components/schemas/ListRequest'
+          $ref: '#/components/schemas/ListNominationDownloadRequest1'
       example:
         request:
           filters: {}
@@ -3661,7 +3259,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ListRequest'
+          $ref: '#/components/schemas/ListNominationDownloadRequest1'
       example:
         request:
           filters: {}
@@ -3672,7 +3270,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/PreferenceRequest'
+          $ref: '#/components/schemas/Preference-Request'
       example:
         request:
           user_id: 48dc0e70-2775-474b-9b78-def27d047836
@@ -3685,8 +3283,8 @@ components:
             gradeLevel:
             - Class 7
           type: sourcing
-    PreferenceRequest:
-      title: PreferenceRequest
+    Preference-Request:
+      title: Preference-Request
       required:
       - user_id
       - program_id
@@ -3750,7 +3348,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/PreferenceRequest'
+          $ref: '#/components/schemas/Preference-Request'
       example:
         request:
           user_id: 48dc0e70-2775-474b-9b78-def27d047836
@@ -3770,7 +3368,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/PreferenceRequest'
+          $ref: '#/components/schemas/Preference-Request'
       example:
         request:
           user_id: 48dc0e70-2775-474b-9b78-def27d047836
@@ -3790,13 +3388,13 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/PreferenceReadRequest'
+          $ref: '#/components/schemas/Preference-readRequest'
       example:
         request:
           user_id: 48dc0e70-2775-474b-9b78-def27d047836
           program_id: ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
-    PreferenceReadRequest:
-      title: PreferenceReadRequest
+    Preference-readRequest:
+      title: Preference-readRequest
       required:
       - user_id
       - program_id
@@ -3816,22 +3414,10 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/PreferenceReadRequest'
+          $ref: '#/components/schemas/Preference-readRequest'
       example:
         request:
           user_id: ''
-          program_id: ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
-    Preference-read401UnauthorizedRequest:
-      title: Preference-read401UnauthorizedRequest
-      required:
-      - request
-      type: object
-      properties:
-        request:
-          $ref: '#/components/schemas/PreferenceReadRequest'
-      example:
-        request:
-          user_id: 48dc0e70-2775-474b-9b78-def27d047836
           program_id: ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
     Preference-update200SuccessRequest:
       title: Preference-update200SuccessRequest
@@ -3840,7 +3426,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/PreferenceRequest'
+          $ref: '#/components/schemas/Preference-Request'
       example:
         request:
           user_id: 48dc0e70-2775-474b-9b78-def27d047836
@@ -3860,7 +3446,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/PreferenceRequest'
+          $ref: '#/components/schemas/Preference-Request'
       example:
         request:
           user_id: 48dc0e70-2775-474b-9b78-def27d047836
@@ -3880,7 +3466,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/PreferenceRequest'
+          $ref: '#/components/schemas/Preference-Request'
       example:
         request:
           user_id: 48dc0e70-2775-474b-9b78-def27d047836
@@ -3900,9 +3486,9 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ProgramRequest'
-    ProgramRequest:
-      title: ProgramRequest
+          $ref: '#/components/schemas/ProgramUpdateRequest'
+    ProgramUpdateRequest:
+      title: ProgramUpdateRequest
       required:
       - name
       - description
@@ -3980,9 +3566,9 @@ components:
             type: string
           description: ''
         config:
-          $ref: '#/components/schemas/ProgramConfig'
-    ProgramConfig:
-      title: ProgramConfig
+          $ref: '#/components/schemas/ProgramUpdateConfig'
+    ProgramUpdateConfig:
+      title: ProgramUpdateConfig
       required:
       - defaultContributeOrgReview
       - _comments
@@ -4033,7 +3619,7 @@ components:
         roles:
           type: array
           items:
-            $ref: '#/components/schemas/Role'
+            $ref: '#/components/schemas/ProgramUpdateRole'
           description: ''
         header:
           $ref: '#/components/schemas/Header'
@@ -4052,8 +3638,8 @@ components:
           items:
             $ref: '#/components/schemas/Collection'
           description: ''
-    Role:
-      title: Role
+    ProgramUpdateRole:
+      title: ProgramUpdate Role
       required:
       - id
       - name
@@ -4112,7 +3698,7 @@ components:
         data:
           type: object
         config:
-          $ref: '#/components/schemas/HeaderConfig'
+          $ref: '#/components/schemas/ProgramUpdateRoleConfig'
       example:
         id: ng.sunbird.header
         ver: 1.0
@@ -4132,8 +3718,8 @@ components:
           - index: 3
             label: Dashboard
             onClick: dashboardComponent
-    HeaderConfig:
-      title: HeaderConfig
+    ProgramUpdateRoleConfig:
+      title: ProgramUpdateRoleConfig
       required:
       - tabs
       type: object
@@ -4201,13 +3787,13 @@ components:
         data:
           type: object
         config:
-          $ref: '#/components/schemas/FormConfig'
-    FormConfig:
-      title: FormConfig
+          $ref: '#/components/schemas/ProgramUpdateRoleConfig2'
+    ProgramUpdateRoleConfig2:
+      title: ProgramUpdateRoleConfig2
       type: object
       properties:
         filters:
-          $ref: '#/components/schemas/FormFilters'
+          $ref: '#/components/schemas/ProgramUpdateFilters'
         groupBy:
           $ref: '#/components/schemas/GroupBy'
         collectionType:
@@ -4250,8 +3836,8 @@ components:
           description: ''
         assetConfig:
           $ref: '#/components/schemas/AssetConfig'
-    FormFilters:
-      title: FormFilters
+    ProgramUpdateFilters:
+      title: ProgramUpdateFilters
       required:
       - implicit
       - explicit
@@ -4996,8 +4582,8 @@ components:
         id: do_113133960314445824150
         allowed_content_types: []
         children: []
-    200Successfull:
-      title: 200Successfull
+    ProgramUpdate200Successfull:
+      title: ProgramUpdate200Successfull
       required:
       - id
       - ts
@@ -5011,11 +4597,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/ConfigurationSearchParams'
+          $ref: '#/components/schemas/ProgramParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/ProgramUpdateResult'
+          $ref: '#/components/schemas/ProgramResult'
       example:
         id: api.program.update
         ts: 2020-12-03T08:38:21.34Z
@@ -5028,8 +4614,8 @@ components:
         responseCode: OK
         result:
           program_id: a043dc40-3497-11eb-9c32-15914148e3ce
-    ProgramUpdateResult:
-      title: ProgramUpdateResult
+    ProgramResult:
+      title: ProgramResult
       required:
       - program_id
       type: object
@@ -5045,7 +4631,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ProgramRequest'
+          $ref: '#/components/schemas/ProgramUpdateRequest'
     CreateProgram200SuccessRequest:
       title: CreateProgram200SuccessRequest
       required:
@@ -5053,9 +4639,9 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ProgramCreateRequest'
-    ProgramCreateRequest:
-      title: ProgramCreateRequest
+          $ref: '#/components/schemas/CreateProgramRequest'
+    CreateProgramRequest:
+      title: CreateProgramRequest
       required:
       - name
       - description
@@ -5127,9 +4713,9 @@ components:
         program_id:
           type: string
         config:
-          $ref: '#/components/schemas/ProgramCreateConfig'
-    ProgramCreateConfig:
-      title: ProgramCreateConfig
+          $ref: '#/components/schemas/CreateProgramConfig'
+    CreateProgramConfig:
+      title: CreateProgramConfig
       required:
       - defaultContributeOrgReview
       - _comments
@@ -5176,7 +4762,7 @@ components:
         roles:
           type: array
           items:
-            $ref: '#/components/schemas/Role'
+            $ref: '#/components/schemas/ProgramUpdateRole'
           description: ''
         header:
           $ref: '#/components/schemas/Header'
@@ -5190,8 +4776,8 @@ components:
           items:
             type: string
           description: ''
-    200success:
-      title: 200success
+    CreateProgram200success:
+      title: CreateProgram200success
       required:
       - id
       - ts
@@ -5205,11 +4791,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/ConfigurationSearchParams'
+          $ref: '#/components/schemas/ProgramParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/ProgramUpdateResult'
+          $ref: '#/components/schemas/ProgramResult'
       example:
         id: api.program.create
         ts: 2020-12-03T08:25:51.2Z
@@ -5229,7 +4815,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ProgramCreateRequest'
+          $ref: '#/components/schemas/CreateProgramRequest'
     Program-Publish200SuccessRequest:
       title: Program-Publish200SuccessRequest
       required:
@@ -5237,13 +4823,13 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ProgramPublishRequest'
+          $ref: '#/components/schemas/Program-PublishRequest'
       example:
         request:
           program_id: a043dc40-3497-11eb-9c32-15914148e3ce
           channel: sunbird
-    ProgramPublishRequest:
-      title: ProgramPublishRequest
+    Program-PublishRequest:
+      title: Program-PublishRequest
       required:
       - program_id
       - channel
@@ -5256,8 +4842,8 @@ components:
       example:
         program_id: a043dc40-3497-11eb-9c32-15914148e3ce
         channel: sunbird
-    200SuccessProgramPublish:
-      title: 200SuccessProgramPublish
+    Program-Publish200Success:
+      title: Program-Publish200Success
       required:
       - id
       - ts
@@ -5271,11 +4857,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/ConfigurationSearchParams'
+          $ref: '#/components/schemas/ProgramParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/ProgramPublishResult'
+          $ref: '#/components/schemas/Program-Publish-Result'
       example:
         id: api.program.publish
         ts: 2020-12-03T08:14:32.077Z
@@ -5308,8 +4894,8 @@ components:
                 - do_1131644069627740161825
                 - do_1131644069627330561823
             userMapping: {}
-    ProgramPublishResult:
-      title: ProgramPublishResult
+    Program-Publish-Result:
+      title: Program-Publish-Result
       required:
       - program_id
       - afterPublishResponse
@@ -5383,7 +4969,7 @@ components:
           type: string
           nullable: true
         result:
-          $ref: '#/components/schemas/NominationPublishResult'
+          $ref: '#/components/schemas/Program-Publish-Nomination'
       example:
         error: 
         result:
@@ -5402,8 +4988,8 @@ components:
           - do_1131644069627576321824
           - do_1131644069627740161825
           - do_1131644069627330561823
-    NominationPublishResult:
-      title: NominationPublishResult
+    Program-Publish-Nomination:
+      title: Program-Publish-Nomination
       required:
       - program_id
       - user_id
@@ -5465,7 +5051,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/ProgramPublishParams'
+          $ref: '#/components/schemas/Program-PublishParams'
         responseCode:
           type: string
         result:
@@ -5511,7 +5097,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ProgramPublishRequest'
+          $ref: '#/components/schemas/Program-PublishRequest'
       example:
         request:
           program_id: a043dc40-3497-11eb-9c32-15914148e3ce
@@ -5523,7 +5109,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ProgramPublishRequest'
+          $ref: '#/components/schemas/Program-PublishRequest'
       example:
         request:
           program_id: a043dc40-3497-11eb-9c32-15914148e3ce
@@ -5535,7 +5121,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ProgramPublishRequest'
+          $ref: '#/components/schemas/Program-PublishRequest'
       example:
         request:
           program_id: f2c1d380-389a-11eb-af92-c5fb4afce83e
@@ -5547,7 +5133,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ProgramPublishRequest'
+          $ref: '#/components/schemas/Program-PublishRequest'
       example:
         request:
           program_id: ''
@@ -5559,7 +5145,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ProgramPublishRequest'
+          $ref: '#/components/schemas/Program-PublishRequest'
       example:
         request:
           program_id: f2c1d380-389a-11eb-af92-c5fb4afce83e
@@ -5571,23 +5157,26 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ProgramFeedSearchPrequest'
+          $ref: '#/components/schemas/Program-Feed-SearchRequest'
       example:
         request:
           nomination:
             programId:
             - a549ffa0-3553-11eb-84ed-692ec8c8dbe9
             - ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
+
             status:
             - Pending
           contribution:
             programId:
             - f2c1d380-389a-11eb-af92-c5fb4afce83e
+            - a043dc40-3497-11eb-9c32-15914148e3ce
+
             status:
             - Live
           channel: 012983850117177344161
-    ProgramFeedSearchPrequest:
-      title: ProgramFeedSearchPrequest
+    Program-Feed-SearchRequest:
+      title: Program-Feed-Search200Request
       required:
       - nomination
       - contribution
@@ -5595,7 +5184,7 @@ components:
       type: object
       properties:
         nomination:
-          $ref: '#/components/schemas/NominationPropertyRequest'
+          $ref: '#/components/schemas/Program-Feed-Nomination'
         contribution:
           $ref: '#/components/schemas/Contribution'
         channel:
@@ -5605,17 +5194,19 @@ components:
           programId:
           - a549ffa0-3553-11eb-84ed-692ec8c8dbe9
           - ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
+
           status:
           - Pending
         contribution:
           programId:
           - f2c1d380-389a-11eb-af92-c5fb4afce83e
           - a043dc40-3497-11eb-9c32-15914148e3ce
+
           status:
           - Live
         channel: 012983850117177344161
-    NominationPropertyRequest:
-      title: NominationPropertyRequest
+    Program-Feed-Nomination:
+      title: Program-Feed-Nomination
       required:
       - programId
       - status
@@ -5635,6 +5226,7 @@ components:
         programId:
         - a549ffa0-3553-11eb-84ed-692ec8c8dbe9
         - ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
+
         status:
         - Pending
     Contribution:
@@ -5658,6 +5250,7 @@ components:
         programId:
         - f2c1d380-389a-11eb-af92-c5fb4afce83e
         - a043dc40-3497-11eb-9c32-15914148e3ce
+
         status:
         - Live
     Program-Feed-SearchBadRequestRequest:
@@ -5667,7 +5260,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ProgramFeedSearchPrequest'
+          $ref: '#/components/schemas/Program-Feed-SearchRequest'
       example:
         request:
           nomination:
@@ -5678,6 +5271,7 @@ components:
             programId:
             - f2c1d380-389a-11eb-af92-c5fb4afce83e
             - a043dc40-3497-11eb-9c32-15914148e3ce
+
             status:
             - Live
           channel: 012983850117177344161
@@ -5688,13 +5282,14 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ProgramFeedSearchPrequest'
+          $ref: '#/components/schemas/Program-Feed-SearchRequest'
       example:
         request:
           nomination:
             programId:
             - a549ffa0-3553-11eb-84ed-692ec8c8dbe9
             - ef3ecc80-3553-11eb-84ed-692ec8c8dbe9
+
             status:
             - Pending
           contribution:
@@ -5711,7 +5306,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ReportRequest'
+          $ref: '#/components/schemas/Report-success-200-Request-body'
       example:
         request:
           filters:
@@ -5719,22 +5314,22 @@ components:
             - 95d604b0-2af4-11eb-9bed-c53bebe417b7
             openForContribution: true
             report: textbookLevelReport
-    ReportRequest:
-      title: ReportRequest
+    Report-success-200-Request-body:
+      title: Report-success-200-Request-body
       required:
       - filters
       type: object
       properties:
         filters:
-          $ref: '#/components/schemas/ReportFilters'
+          $ref: '#/components/schemas/Report-success-200-Request-Filters'
       example:
         filters:
           program_id:
           - 95d604b0-2af4-11eb-9bed-c53bebe417b7
           openForContribution: true
           report: textbookLevelReport
-    ReportFilters:
-      title: ReportFilters
+    Report-success-200-Request-Filters:
+      title: Report-success-200-Request-Filters
       required:
       - program_id
       - openForContribution
@@ -5762,7 +5357,7 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/ReportErrorRequest'
+          $ref: '#/components/schemas/Report-Error-400Request-body'
       example:
         request:
           filters:
@@ -5770,22 +5365,22 @@ components:
             - 95d604b0-2af4-11eb-9bed-c53bebe417b7
             openForContribution: true
             report: textbookLevelReport
-    ReportErrorRequest:
-      title: ReportErrorRequest
+    Report-Error-400Request-body:
+      title: Report-Error-400Request-body
       required:
       - filters
       type: object
       properties:
         filters:
-          $ref: '#/components/schemas/ReportErrorFilters'
+          $ref: '#/components/schemas/Report-Error-400Request-bodyFilters'
       example:
         filters:
           program:
           - 95d604b0-2af4-11eb-9bed-c53bebe417b7
           openForContribution: true
           report: textbookLevelReport
-    ReportErrorFilters:
-      title: ReportErrorFilters
+    Report-Error-400Request-bodyFilters:
+      title: Report-Error-400Request-bodyFilters
       required:
       - program
       - openForContribution
@@ -5813,24 +5408,24 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/TenantRequest'
+          $ref: '#/components/schemas/Tenant-success-200-Request-body'
       example:
         request:
           filters:
             status: Live
-    TenantRequest:
-      title: TenantRequest
+    Tenant-success-200-Request-body:
+      title: Tenant-success-200-Request-body
       required:
       - filters
       type: object
       properties:
         filters:
-          $ref: '#/components/schemas/TenantFilters'
+          $ref: '#/components/schemas/Tenant-success-200-Request-bodyFilters'
       example:
         filters:
           status: Live
-    TenantFilters:
-      title: TenantFilters
+    Tenant-success-200-Request-bodyFilters:
+      title: Tenant-success-200-Request-bodyFilters
       required:
       - status
       type: object
@@ -5846,24 +5441,24 @@ components:
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/TenantErrorRequest'
+          $ref: '#/components/schemas/Tenant-error-400-Request-body'
       example:
         request:
           filters:
             statu: Live
-    TenantErrorRequest:
-      title: TenantErrorRequest
+    Tenant-error-400-Request-body:
+      title: Tenant-error-400-Request-body
       required:
       - filters
       type: object
       properties:
         filters:
-          $ref: '#/components/schemas/TenantErrorFilters'
+          $ref: '#/components/schemas/Tenant-error-400-RequestFilters'
       example:
         filters:
           statu: Live
-    TenantErrorFilters:
-      title: TenantErrorFilters
+    Tenant-error-400-RequestFilters:
+      title: Tenant-error-400-RequestFilters
       required:
       - statu
       type: object
