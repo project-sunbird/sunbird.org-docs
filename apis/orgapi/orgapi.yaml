@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.0.1
 info:
   title: Org API(s)
   description: "- The Organisation Management API resources perform operations related\
@@ -8,11 +8,8 @@ info:
   contact:
     email: info@sunbird.org
   version: "1.0"
-externalDocs:
- description: "Testcases"
- url: "https://www.getpostman.com/collections/ad86fc520425abd74bef" 
 servers:
-- url: https://staging.sunbirded.org/api/org/v1
+- url: https://staging.open-sunbird.org/api/org/v1
 paths:
   /create:
     post:
@@ -74,7 +71,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgCreateClientErrorResponse'
+                $ref: '#/components/schemas/OrgErrorResponse'
         500:
           description: '''INTERNAL SERVER ERROR. The Organisation Create operation
             failed due to a server error. Possible reasons for failure: Channel registration
@@ -82,7 +79,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgCreateErrorResponse'
+                $ref: '#/components/schemas/OrgErrorResponse'
       security:
       - bearer: []
       x-codegen-request-body-name: Body
@@ -138,7 +135,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgReadClientErrorResponse'
+                $ref: '#/components/schemas/OrgErrorResponse'
         404:
           description: '''RESOURCE_NOT_FOUND. The requested operation failed as given
             resource is not existing on server. Possible reasons for failure: organisationId
@@ -146,14 +143,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgReadNotFoundResponse'
+                $ref: '#/components/schemas/OrgErrorResponse'
         500:
           description: '''INTERNAL SERVER ERROR. The requested operation failed due
             to a server error.'''
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgReadServerErrorResponse'
+                $ref: '#/components/schemas/OrgErrorResponse'
       security:
       - bearer: []
       x-codegen-request-body-name: Body
@@ -215,14 +212,22 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgSearchClientErrorResponse'
+                $ref: '#/components/schemas/OrgErrorResponse'
+        404:
+          description: '''RESOURCE_NOT_FOUND. The requested operation failed as given
+            resource is not existing on server. Possible reasons for failure: organisationId
+            is mandatory.'''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgErrorResponse'
         500:
           description: '''INTERNAL SERVER ERROR. The requested operation failed due
             to a server error.'''
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgSearchServerErrorResponse'
+                $ref: '#/components/schemas/OrgErrorResponse'
       security:
       - bearer: []
       x-codegen-request-body-name: Body
@@ -284,7 +289,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgUpdateClientErrorResponse'
+                $ref: '#/components/schemas/OrgErrorResponse'
         500:
           description: '''INTERNAL SERVER ERROR. The requested operation failed due
             to a server error. Possible reasons for failure: Channel registration
@@ -292,7 +297,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgUpdateServerErrorResponse'
+                $ref: '#/components/schemas/OrgErrorResponse'
       security:
       - bearer: []
       x-codegen-request-body-name: Body
@@ -354,7 +359,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgUStatusUpdateClientErrorResponse'
+                $ref: '#/components/schemas/OrgErrorResponse'
         500:
           description: '''INTERNAL SERVER ERROR. The requested operation failed due
             to a server error. Possible reasons for failure: Channel registration
@@ -362,7 +367,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgStatusUpdateServerErrorResponse'
+                $ref: '#/components/schemas/OrgErrorResponse'
       x-codegen-request-body-name: Body
   /type/create:
     post:
@@ -419,10 +424,7 @@ paths:
           description: '''CLIENT_ERROR. The requested operation failed due to bad
             request from client. Possible reasons for failure: Organisation type name
             is mandatory.'''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OrgErrorResponse'
+          content: {}
         500:
           description: '''INTERNAL SERVER ERROR. The requested operation failed due
             to a server error.'''
@@ -482,7 +484,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgTypeListServerErrorResponse'
+                $ref: '#/components/schemas/OrgErrorResponse'
       security:
       - bearer: []
   /type/update:
@@ -601,7 +603,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgAddMemberResponse'
+                $ref: '#/components/schemas/OrgSuccessResponse'
         400:
           description: '''CLIENT_ERROR. The requested operation failed due to bad
             request from client. Possible reasons for failure: Organisation Id or
@@ -613,14 +615,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgAddMemberClientErrorResponse'
+                $ref: '#/components/schemas/OrgErrorResponse'
         500:
           description: '''INTERNAL SERVER ERROR. The requested operation failed due
             to a server error.'''
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgAddMemberServerErrorResponse'
+                $ref: '#/components/schemas/OrgErrorResponse'
       security:
       - bearer: []
       x-codegen-request-body-name: Body
@@ -674,7 +676,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgRemoveMemberResponse'
+                $ref: '#/components/schemas/OrgSuccessResponse'
         400:
           description: '''CLIENT_ERROR. The requested operation failed due to bad
             request from client. Possible reasons for failure: Organisation Id or
@@ -685,82 +687,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgRemoveMemberClientErrorResponse'
+                $ref: '#/components/schemas/OrgErrorResponse'
         500:
           description: '''INTERNAL SERVER ERROR. The requested operation failed due
             to a server error.'''
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgRemoveMemberServerErrorResponse'
+                $ref: '#/components/schemas/OrgErrorResponse'
       x-codegen-request-body-name: Body
-  /assign/key:
-    post:
-      tags:
-      - Org APIs
-      summary: Create New Organisation Type
-      description: |-
-        This API is for creation/Addition of keysto a Organisation
-      operationId: Assign Key to Org
-      parameters:
-      - name: ts
-        in: header
-        description: Timestamp at which given API request is sent.
-        schema:
-          type: string
-      - name: X-msgid
-        in: header
-        description: This ID uniquely identifies a request if the same API is executed
-          multiple times.
-        schema:
-          type: string
-      - name: X-Authenticated-User-Token
-        in: header
-        description: Access token of registered user performing given API request.
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: 'Specify authorization key (format: Bearer api-key) received
-          from administrator when performing given API request.'
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: The body contains metadata about the new Organisation Type to
-          be created.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/OrgAssignKeyRequest'
-        required: true
-      responses:
-        200:
-          description: OK. Successful operation. The Organisation Create operation
-            was successfully executed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OrgAssignKeyResponse'
-        400:
-          description: '''CLIENT_ERROR. The requested operation failed due to bad
-            request from client. Possible reasons for failure: Organisation type name
-            is mandatory.'''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OrgAssignKeyClientErrorResponse'
-        500:
-          description: '''INTERNAL SERVER ERROR. The requested operation failed due
-            to a server error.'''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OrgAssignKeyServerErrorResponse'
-      security:
-      - bearer: []
-      x-codegen-request-body-name: Body    
 components:
   schemas:
     AddressCreateRequest:
@@ -794,17 +729,6 @@ components:
       - type: object
         properties:
           request:
-           $ref: '#/components/schemas/OrgReqV1'
-        example:
-          request:
-            orgName : Diksha Org Name
-            channel : dikshaChannel
-            description: Diksha Description
-            externalId: dikshaExtId
-            isRootOrg: true
-            email: info@diksha.org
-            isSSOEnabled: true
-    OrgReqV1:
             required:
             - channel
             - orgName
@@ -887,75 +811,12 @@ components:
               response:
                 type: string
                 description: Response message for successfully created organisation
-        example:
-            id: api.org.create
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: 
-              status: success
-              errmsg: 
-            responseCode: OK
-            result:
-              organisationId: 0131636612466278400
-              response: SUCCESS
-    OrgCreateErrorResponse:
-      title: Server error response for create Organisation API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.create
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INTERNAL_ERROR
-              status: INTERNAL_ERROR
-              errmsg: Process failed,please try again later.
-            responseCode: SERVER_ERROR
-            result: {}
-    OrgCreateClientErrorResponse:
-      title: Client error response for create Organisation API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.create
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INVALID_CHANNEL
-              status: INVALID_CHANNEL
-              errmsg: Channel value is invalid.
-            responseCode: CLIENT_ERROR
-            result: {}        
     OrgGetRequest:
       title: Organisation Get API request format
       allOf:
       - type: object
         properties:
           request:
-            $ref: '#/components/schemas/OrgReadReq'
-        example:
-          request:
-            organisationId : "0131630445447741440"
-    OrgReadReq: 
-            required:
-            - organisationId
             type: object
             properties:
               organisationId:
@@ -1067,6 +928,7 @@ components:
     OrgGetResponse:
       title: Organisation Get API response format
       allOf:
+      - $ref: '#/components/schemas/ApiResponse'
       - type: object
         properties:
           result:
@@ -1074,139 +936,12 @@ components:
             properties:
               response:
                 $ref: '#/components/schemas/Organisation'
-            example:
-              id: api.org.read
-              ver: v1
-              ts: 2020-11-23 10:03:39:935+0000
-              params:
-                resmsgid: 
-                msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-                err: 
-                status: success
-                errmsg: 
-              responseCode: OK
-              result:
-                 dateTime: null
-                 preferredLanguage: null
-                 keys: {}
-                 channel": dikshaChannelNew
-                 approvedBy: null
-                 description: Updated Description
-                 updatedDate: 2020-12-01 10:29:49:496+0000
-                 addressId: "0131630420489011201"
-                 orgType: null
-                 provider: dikshachannelnew
-                 orgCode: null
-                 locationId: null
-                 theme: null
-                 id: "0131630445447741440"
-                 isApproved: null
-                 communityId: null
-                 slug: dikshachannelnew
-                 email: info@diksha.org
-                 isSSOEnabled: false
-                 identifier: "0131630445447741440"
-                 thumbnail: null
-                 updatedBy": null
-                 orgName: Diksha Org Name
-                 address: {}
-                 externalId: dikshaextid
-                 isRootOrg: true
-                 rootOrgId: "0131630445447741440"
-                 imgUrl: null
-                 approvedDate: null
-                 orgTypeId: null
-                 homeUrl: null
-                 isDefault: null
-                 createdDate: 2020-12-01 09:52:46:962+0000
-                 parentOrgId: null
-                 createdBy: null
-                 hashTagId: "0131630445447741440"
-                 noOfMembers: null
-                 status: 0 
-                 locationIds: [
-                    "bc75cc99-9205-463e-a722-5326857838f8",
-                    "aecac7ab-15e4-45c9-ac7b-d716444cd652",
-                    "3f286755-a36f-45bb-9505-ffeeee5aa723"
-                ]
-    OrgReadClientErrorResponse:
-      title: Client error response for get Organisation Details API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.read
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: MANDATORY_PARAMETER_MISSING
-              status: MANDATORY_PARAMETER_MISSING
-              errmsg: Mandatory parameter organisationId is missing.
-            responseCode: CLIENT_ERROR
-            result: {}  
-    OrgReadNotFoundResponse:
-      title: Not Found error response for read Organisation API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.read
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: ORG_NOT_EXIST
-              status: ORG_NOT_EXIST
-              errmsg: Requested organisation does not exist.
-            responseCode: RESOURCE_NOT_FOUND
-            result: {}      
-    OrgReadServerErrorResponse:
-      title: Server error response for read Organisation API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.read
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INTERNAL_ERROR
-              status: INTERNAL_ERROR
-              errmsg: Process failed,please try again later.
-            responseCode: SERVER_ERROR
-            result: {}         
     OrgUpdateRequest:
       title: Organisation Update API request format
       allOf:
       - type: object
         properties:
           request:
-            $ref: '#/components/schemas/OrgUpdateReq'
-        example:
-          request:
-            organisationId : 0131630445447741440,
-            description : updated description,
-            orgName : Updated Org Name,
-            locationIds : ["3f286755-a36f-45bb-9505-ffeeee5aa723",
-            "aecac7ab-15e4-45c9-ac7b-d716444cd652"]
-    OrgUpdateReq:        
             required:
             - organisationId
             type: object
@@ -1215,9 +950,20 @@ components:
                 type: string
                 description: ID of organisation(mandatory) whose details are required
                   to be updated
+              address:
+                type: object
+                properties: {}
+                description: Address of organisation
               description:
                 type: string
                 description: Organisation description
+              externalId:
+                type: string
+                description: Organisation specific ID. This parameter is required
+                  if provider is given.
+              isRootOrg:
+                type: boolean
+                description: Set to true for root organisation
               locationIds:
                 type: array
                 description: ID of location returned using Location Create API , you
@@ -1225,9 +971,29 @@ components:
                   to pass complete data, it will directly replace with stored locations
                 items:
                   type: string
+              locationCode:
+                type: array
+                description: Code of created state,district,block etc, you can either
+                  pass locationIds or locationCode.During update you need to pass
+                  complete data, it will directly replace with stored locations
+                items:
+                  type: string
+                  description: '["BH"]'
+              provider:
+                type: string
+                description: Specified by sub-organisations to identify channel of
+                  root organisation.  This parameter is required if externalId is
+                  given.
               orgName:
                 type: string
                 description: Organisation name
+              orgType:
+                type: string
+                description: Organisation type
+              orgTypeId:
+                type: string
+                description: ID of organisation type returned using Organisation Type
+                  Create API
               email:
                 type: string
                 description: Contact email of organisation
@@ -1256,78 +1022,12 @@ components:
               response:
                 type: string
                 description: Response message for successfully updated organisation
-        example:
-            id: api.org.update
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: 
-              status: success
-              errmsg: 
-            responseCode: OK
-            result:
-              organisationId: 0131636612466278400
-              response: SUCCESS            
-    OrgUpdateClientErrorResponse:
-      title: Client error response for get Organisation Details API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.update
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INVALID_REQUESTED_DATA
-              status: INVALID_REQUESTED_DATA
-              errmsg: Requested data for this operation is not valid.
-            responseCode: CLIENT_ERROR
-            result: {}  
-    OrgUpdateServerErrorResponse:
-      title: Server error response for read Organisation API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.update
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INTERNAL_ERROR
-              status: INTERNAL_ERROR
-              errmsg: Process failed,please try again later.
-            responseCode: SERVER_ERROR
-            result: {}                     
     OrgStatusUpdateRequest:
       title: Organisation Status Update API request format
       allOf:
       - type: object
         properties:
           request:
-             $ref: '#/components/schemas/OrgStatusUpdateReq'
-        example:
-          request:
-            filters:
-              organisationId : "0131630445447741440"
-              status : 0
-    OrgStatusUpdateReq: 
-            required:
-            - organisationId
-            - status
             type: object
             properties:
               organisationId:
@@ -1353,173 +1053,12 @@ components:
                 type: string
                 description: Response message for successfully updated organisation
                   status
-        example:
-            id: api.org.status.update
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: 
-              status: success
-              errmsg: 
-            responseCode: OK
-            result:
-              organisationId: 0131636612466278400
-              response: SUCCESS          
-    OrgUStatusUpdateClientErrorResponse:
-      title: Client error response for get Organisation Details API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.status.update
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INVALID_REQUESTED_DATA
-              status: INVALID_REQUESTED_DATA
-              errmsg: Requested data for this operation is not valid.
-            responseCode: CLIENT_ERROR
-            result: {}  
-    OrgStatusUpdateServerErrorResponse:
-      title: Server error response for read Organisation API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.status.update
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INTERNAL_ERROR
-              status: INTERNAL_ERROR
-              errmsg: Process failed,please try again later.
-            responseCode: SERVER_ERROR
-            result: {}        
-    OrgAssignKeyRequest:
-      title: Organisation Assign Key API request format
-      allOf:
-      - type: object
-        properties:
-          request:
-             $ref: '#/components/schemas/OrgAssignKeyReq'
-        example:
-          request:
-              id : "0131630445447741440"
-              signKeys : [
-                "S1","S2"
-                ]
-              encKeys: [
-                "E1","E2"
-                ]
-    OrgAssignKeyReq: 
-            required:
-            - id
-            - signKeys
-            - encKeys
-            type: object
-            properties:
-              id:
-                type: string
-                description: ID of organisation whose details are required to be updated
-              signKeys:
-                type: string
-                description: 'signed keys'
-              encKeys:
-                type: string
-                description: 'encryption keys'
-    OrgAssignKeyResponse:
-      title: Organisation Assign Key API response format
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties:
-              response:
-                type: string
-                description: Response message for successfully updated organisation
-                  status
-        example:
-            id: api.org.assign.key
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: 
-              status: success
-              errmsg: 
-            responseCode: OK
-            result:
-              response: SUCCESS          
-    OrgAssignKeyClientErrorResponse:
-      title: Client error response for get Organisation Details API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.assign.key
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INVALID_REQUESTED_DATA
-              status: INVALID_REQUESTED_DATA
-              errmsg: INVALID_ORG_ID
-            responseCode: CLIENT_ERROR
-            result: {}  
-    OrgAssignKeyServerErrorResponse:
-      title: Server error response for read Organisation API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.assign.key
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INTERNAL_ERROR
-              status: INTERNAL_ERROR
-              errmsg: Process failed,please try again later.
-            responseCode: SERVER_ERROR
-            result: {}                
     OrgTypeCreateRequest:
       title: Organisation Type Create API request format
       allOf:
       - type: object
         properties:
           request:
-             $ref: '#/components/schemas/OrgTypeCreateReq'
-        example:
-          request:
-            name : Higher Secondary School
-    OrgTypeCreateReq:        
             required:
             - name
             type: object
@@ -1547,55 +1086,12 @@ components:
                     name:
                       type: string
                       description: Organisation type name
-        example:
-          id: api.org.type.list
-          ver: v1
-          ts: 2020-11-23 09:16:58:628+0000
-          params:
-            resmsgid: 
-            msgid: ad7135b8-ef64-44bd-adaa-0b131a657689
-            err: 
-            status: success
-            errmsg: 
-          responseCode: OK
-          result:
-            response:
-                - id: "126489256548895649"
-                  name: Higher Secondary School
-                      
-    OrgTypeListServerErrorResponse:
-      title: Server error response for read Organisation API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.type.list
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INTERNAL_ERROR
-              status: INTERNAL_ERROR
-              errmsg: Process failed,please try again later.
-            responseCode: SERVER_ERROR
-            result: {}                    
     OrgTypeUpdateRequest:
       title: Organisation Type Update API request format
       allOf:
       - type: object
         properties:
           request:
-             $ref: '#/components/schemas/OrgTypeUpdateReq'
-        example:
-          request:
-            id : "0131630445447741440"
-            name : Secondary School
-    OrgTypeUpdateReq: 
             required:
             - id
             - name
@@ -1614,18 +1110,9 @@ components:
       - type: object
         properties:
           request:
-            $ref: '#/components/schemas/OrgAddMemberReq'
-        example:
-          request:
-            userId : 91b4a9e5-2eb1-4aa0-8f0a-ce171ed5ff3e
-            organisationId : "0131630445447741440"
-            roles : [
-            "ADMIN",
-            "BOOK_CREATOR"
-           ]
-    OrgAddMemberReq:        
             required:
             - organisationId
+            - roles
             - userId
             type: object
             properties:
@@ -1645,93 +1132,12 @@ components:
                 type: string
                 description: ID of user who is required to be added if we are not
                   providing the userId then we need to provide userExternalId,userProvider,userIdType
-    OrgAddMemberResponse:
-      title: Add Member to Organisation API response format
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties:
-              response:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      description: Organisation type ID
-                    name:
-                      type: string
-                      description: Organisation type name
-        example:
-          id: api.org.member.add
-          ver: v1
-          ts: 2020-11-23 09:16:58:628+0000
-          params:
-            resmsgid: 
-            msgid: ad7135b8-ef64-44bd-adaa-0b131a657689
-            err: 
-            status: success
-            errmsg: 
-          responseCode: OK
-          result:
-            response: SUCCESS
-    OrgAddMemberClientErrorResponse:
-      title: Client error response for get Organisation Details API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.member.add
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INVALID_ORGANIZATION_DATA
-              status: INVALID_ORGANIZATION_DATA
-              errmsg: Given Organization Data doesn't exist in our records. Please provide a valid one
-            responseCode: CLIENT_ERROR
-            result: {}  
-    OrgAddMemberServerErrorResponse:
-      title: Server error response for read Organisation API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.member.add
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INTERNAL_ERROR
-              status: INTERNAL_ERROR
-              errmsg: Process failed,please try again later.
-            responseCode: SERVER_ERROR
-            result: {}              
     OrgRemoveUserRequest:
       title: Organisation Remove User API request format
       allOf:
       - type: object
         properties:
           request:
-            $ref: '#/components/schemas/OrgRemoveMemberReq'
-        example:
-          request:
-            userId : 91b4a9e5-2eb1-4aa0-8f0a-ce171ed5ff3e
-            organisationId : "0131630445447741440"
-    OrgRemoveMemberReq:
             required:
             - organisationId
             - userId
@@ -1744,81 +1150,6 @@ components:
               userId:
                 type: string
                 description: ID of user who is required to be removed
-    OrgRemoveMemberClientErrorResponse:
-      title: Client error response for get Organisation Details API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.member.remove
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INVALID_ORGANIZATION_DATA
-              status: INVALID_ORGANIZATION_DATA
-              errmsg: Given Organization Data doesn't exist in our records. Please provide a valid one
-            responseCode: CLIENT_ERROR
-            result: {}  
-    OrgRemoveMemberResponse:
-      title: Add Member to Organisation API response format
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties:
-              response:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      description: Organisation type ID
-                    name:
-                      type: string
-                      description: Organisation type name
-        example:
-          id: api.org.member.remove
-          ver: v1
-          ts: 2020-11-23 09:16:58:628+0000
-          params:
-            resmsgid: 
-            msgid: ad7135b8-ef64-44bd-adaa-0b131a657689
-            err: 
-            status: success
-            errmsg: 
-          responseCode: OK
-          result:
-            response: SUCCESS        
-    OrgRemoveMemberServerErrorResponse:
-      title: Server error response for read Organisation API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.member.remove
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INTERNAL_ERROR
-              status: INTERNAL_ERROR
-              errmsg: Process failed,please try again later.
-            responseCode: SERVER_ERROR
-            result: {}              
     OrgSuccessResponse:
       title: Common success response for an Organisation Management API
       allOf:
@@ -1846,20 +1177,19 @@ components:
       - type: object
         properties:
           request:
-            $ref: '#/components/schemas/OrgSearchReq'
-        example:
-          request:
-            filters:
-              id : "0131630445447741440"
-    OrgSearchReq: 
-            required:
-            - filters
             type: object
             properties:
               filters:
                 type: object
+                properties:
+                  $or:
+                    type: object
+                    properties: {}
+                    description: this is additional param which support or condition
+                      for search
                 description: Organisation search filters inside filters map you can
-                  put the attributes required for your search
+                  put the attributes, required for your search it also supports the
+                  $or attributes
               limit:
                 type: integer
                 description: 'Limit on the number of results '
@@ -1870,117 +1200,16 @@ components:
     OrgSearchResponse:
       type: object
       properties:
-        id:
-          type: string
-        ver:
-          type: string
-        ts:
-          type: string
-        responseCode:
-          type: string
-        result:
-          $ref: '#/components/schemas/ApiResponse'
-      example:
-        id: api.org.search
-        ver: v1
-        ts: 2020-11-23 09:16:58:628+0000
-        params:
-          resmsgid: 
-          msgid: ad7135b8-ef64-44bd-adaa-0b131a657689
-          err: 
-          status: success
-          errmsg: 
-        responseCode: OK
-        result:
-          response:
-            count: 1
+        response:
+          type: object
+          properties:
+            count:
+              type: integer
             content:
-              - dateTime: null
-                preferredLanguage: null
-                keys: {}
-                channel": dikshaChannelNew
-                approvedBy: null
-                description: Updated Description
-                updatedDate: 2020-12-01 10:29:49:496+0000
-                addressId: "0131630420489011201"
-                orgType: null
-                provider: dikshachannelnew
-                orgCode: null
-                locationId: null
-                theme: null
-                id: "0131630445447741440"
-                isApproved: null
-                communityId: null
-                slug: dikshachannelnew
-                email: info@diksha.org
-                isSSOEnabled: false
-                identifier: "0131630445447741440"
-                thumbnail: null
-                updatedBy": null
-                orgName: Diksha Org Name
-                address: {}
-                externalId: dikshaextid
-                isRootOrg: true
-                rootOrgId: "0131630445447741440"
-                imgUrl: null
-                approvedDate: null
-                orgTypeId: null
-                homeUrl: null
-                isDefault: null
-                createdDate: 2020-12-01 09:52:46:962+0000
-                parentOrgId: null
-                createdBy: null
-                hashTagId: "0131630445447741440"
-                noOfMembers: null
-                status: 0 
-                locationIds: [
-                  "bc75cc99-9205-463e-a722-5326857838f8",
-                  "aecac7ab-15e4-45c9-ac7b-d716444cd652",
-                  "3f286755-a36f-45bb-9505-ffeeee5aa723"
-                ]
-      
-    OrgSearchClientErrorResponse:
-      title: Client error response for get Organisation Details API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.search
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: MANDATORY_PARAMETER_MISSING
-              status: MANDATORY_PARAMETER_MISSING
-              errmsg: Mandatory parameter filters is missing.
-            responseCode: CLIENT_ERROR
-            result: {} 
-    OrgSearchServerErrorResponse:
-      title: Server error response for read Organisation API
-      allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - type: object
-        properties:
-          result:
-            type: object
-            properties: {}  
-        example:
-            id: api.org.search
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid: 
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INTERNAL_ERROR
-              status: INTERNAL_ERROR
-              errmsg: Process failed,please try again later.
-            responseCode: SERVER_ERROR
-            result: {}          
+              type: array
+              items:
+                $ref: '#/components/schemas/Organisation'
+      description: Organisation Search API response format
     ApiResponse:
       required:
       - ets
