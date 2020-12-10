@@ -27,7 +27,7 @@ Currently, Sunbird has the following microservice categories. Each microservice 
 
 The **Content and Learning Services** category has the following microservices:
 
-- [**Content Management:**](https://apis/content/){target="_blank"} Provides services to manage content objects and their lifecycle for a defined taxonomy in a learning domain. This service is dependent on the taxonomy microservice as every content piece must be tagged with the appropriate taxonomy.
+- [**Content Management:**](https://apis/content/){:target="_blank"} Provides services to manage content objects and their lifecycle for a defined taxonomy in a learning domain. This service is dependent on the taxonomy microservice as every content piece must be tagged with the appropriate taxonomy.
 - **Usage & Tracking Service:** Provides services for enrolment, usage and progress tracking of trackable learning objects like online courses, quizzes, etc.
 
 ## Contribution & Curation Services
@@ -35,7 +35,7 @@ The **Content and Learning Services** category has the following microservices:
 The **Contribution & Curation Services** category has the following microservices:
 
 - **Contribution Management:** This service enables organisations to digitally plan, coordinate and manage crowd sourcing for content contributions.
-- [**Contributor Management:**](https://apis/opensaber/){target="_blank"} This service enables a registry of individual contributors and contributing organisations that nominate and contribute digital content via sourcing projects.
+- [**Contributor Management:**](https://apis/opensaber/){:target="_blank"} This service enables a registry of individual contributors and contributing organisations that nominate and contribute digital content via sourcing projects.
 
 ## Taxonomy & Tagging Services
 
