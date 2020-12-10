@@ -41,7 +41,7 @@ The **Contribution & Curation Services** category has the following microservice
 
 The **Taxonomy & Tagging Services** category has the following microservices:
 
-- [**Taxonomy Framework Management:**](https://apis/dialapi/){target="_blank"} Provides the ability to create, organise and manage taxonomy frameworks in a learning domain. This microservice is domain independent, i.e. can be used to model the taxonomy of any learning domain, e.g: K-12, Leadership training, Professional training, etc.
+- [**Taxonomy Framework Management:**](https://apis/dialapi/){:target="_blank"} Provides the ability to create, organise and manage taxonomy frameworks in a learning domain. This microservice is domain independent, i.e. can be used to model the taxonomy of any learning domain, e.g: K-12, Leadership training, Professional training, etc.
 - **Content Category Management:** Provides the ability to create and manage categories for content, collections, and question sets.
 
 ## Telemetry & Data, Analytics Services
@@ -56,11 +56,11 @@ The **Telemetry & Data, Analytics Services** category has the following microser
 
 The **Registry & Discovery Services** category has the following microservices:
 
-- [**DIAL Service:**](https://apis/dialapi/){target="_blank"} Provides services to manage and implement DIAL codes. DIAL is an open source framework to codify and link physical resources (like textbooks) with digital resources in a dynamic and extensible manner, using QR codes.
+- [**DIAL Service:**](https://apis/dialapi/){:target="_blank"} Provides services to manage and implement DIAL codes. DIAL is an open source framework to codify and link physical resources (like textbooks) with digital resources in a dynamic and extensible manner, using QR codes.
 - **Search Service:** Provides services to search and discover content and knowledge assets.
 - **User & Org Management:** This service enables a registry of users and organisations on the Sunbird platform. It provides services to manage the lifecycle, administration, and permissions of users and organisations.
-- [**Location Service:**](https://apis/locationapi/){target="_blank"} This service enables the registry of geographic locations. It provides services to create and manage locations for each organisation.
-- [**Device Management:**](https://apis/deviceapi/){target="_blank"} This service enables the registry of devices accessing the sunbird platform. The device profile and location of device is stored in the device registry.
+- [**Location Service:**](https://apis/locationapi/){:target="_blank"} This service enables the registry of geographic locations. It provides services to create and manage locations for each organisation.
+- [**Device Management:**](https://apis/deviceapi/){:target="_blank"} This service enables the registry of devices accessing the sunbird platform. The device profile and location of device is stored in the device registry.
 
 
 ## Interaction & Collaboration Services
