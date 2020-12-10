@@ -1,0 +1,219 @@
+openapi: 3.0.1
+info:
+  title: Chat bot API(s)
+  description: 'These are the sunbird chatbot APIs for interacting with TARA as assistance.'
+  termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
+  contact:
+    email: info@sunbird.org
+  version: "1.0"
+  
+externalDocs:
+ description: "Testcases"
+ url: "https://www.getpostman.com/collections/aad34d927df640d90727"
+paths:
+  /bot:
+    post:
+      tags:
+      - Bot API
+      summary: Bot interaction for web chat
+      description: |-
+        This API is used for interacrting with TARA.
+           - The endpoint for **Bot** is `/bot`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: '{{host}}/bot'
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains request query from the request.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/generateBotRequest'
+        required: true
+      responses:
+        200:
+          description: OK ! Successful operation
+          content:
+            application/json:
+              example:
+                id: api.bot.response
+                ver: v1
+                ts: 2020-12-01 10:49:01:948+0000
+                params:
+                  resmsgid: 
+                  msgid: 12eb0ca45ce4c776fab994d120bedd41
+                  err: null
+                  status: success
+                  errmsg: null.
+                responseCode: OK
+                result: 
+                 response: 
+                  type: button
+                  data :
+                   text: Hello, I am Tara!<br>I am your DIKSHA guide<br>Please select your preference from the options I provide or type your query directly
+                   buttons:
+                    text: Digital content
+                    value: 1
+        400:
+          description: BAD REQUEST. The "Bot respond" operation failed ! The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BotErrorResponse'
+              example:
+                id: api.otp.generate
+                ver: v1
+                ts: 2020-12-01 10:49:01:948+0000
+                params:
+                  resmsgid: 
+                  msgid: 12eb0ca45ce4c776fab994d120bedd41
+                  err: MANDATORY_PARAMETER_MISSING
+                  status: MANDATORY_PARAMETER_MISSING
+                responseCode: SERVER_ERROR
+                result: {}
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel free
+            to contact us. In the meantime, try refreshing.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BotErrorResponse'
+              example:
+                id: api.otp.generate
+                ver: v1
+                ts: 2020-12-01 10:49:01:948+0000
+                params:
+                  resmsgid: 
+                  msgid: 12eb0ca45ce4c776fab994d120bedd41
+                  err: INTERNAL_ERROR
+                  status: INTERNAL_ERROR
+                  errmsg: Process failed,please try again later.
+                responseCode: SERVER_ERROR
+                result: {}
+  /whatsapp: 
+   post:
+      tags:
+      - Whatsapp API
+      summary: Bot interaction for whats app conversation
+      description: |-
+        This API is used for interacrting with TARA through whats app.
+           - The endpoint for **Bot** is `/bot`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: '{{host}}/whatsapp'
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains request query from the request.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/generateBotRequest'
+        required: true
+      responses:
+        200:
+          description: OK ! Successful operation
+          content:
+            application/json:
+              example:
+                id: api.bot.response
+                ver: v1
+                ts: 2020-12-01 10:49:01:948+0000
+                params:
+                  resmsgid: 
+                  msgid: 12eb0ca45ce4c776fab994d120bedd41
+                  err: null
+                  status: success
+                  errmsg: null.
+                responseCode: OK
+                result: 
+                 response: 
+                  type: button
+                  data :
+                   text: Hello, I am Tara!<br>I am your DIKSHA guide<br>Please select your preference from the options I provide or type your query directly
+                   buttons:
+                    text: Digital content
+                    value: 1
+        400:
+          description: BAD REQUEST. The "Bot respond" operation failed ! The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BotErrorResponse'
+              example:
+                id: api.otp.generate
+                ver: v1
+                ts: 2020-12-01 10:49:01:948+0000
+                params:
+                  resmsgid: 
+                  msgid: 12eb0ca45ce4c776fab994d120bedd41
+                  err: MANDATORY_PARAMETER_MISSING
+                  status: MANDATORY_PARAMETER_MISSING
+                responseCode: SERVER_ERROR
+                result: {}
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel free
+            to contact us. In the meantime, try refreshing.
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BotErrorResponse'
+              example:
+                id: api.otp.generate
+                ver: v1
+                ts: 2020-12-01 10:49:01:948+0000
+                params:
+                  resmsgid: 
+                  msgid: 12eb0ca45ce4c776fab994d120bedd41
+                  err: INTERNAL_ERROR
+                  status: INTERNAL_ERROR
+                  errmsg: Process failed,please try again later.
+                responseCode: SERVER_ERROR
+                result: {}
+components:
+  schemas:
+    generateBotRequest:
+      title: Request structure for bot response
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/genBotRequest'
+      example:
+        request:
+          userId: 372175df-7f44-48df-8aa5-4t6228996b06s
+          appId: prod.diksha.portal
+          channel: 505c7c48ac6dc1edc9b08f21db5a571d
+          from: 449c94833e1caa71aaadfe2567bea945
+          context: null
+          Body: "0"
+    genBotRequest:
+      title: Request
+      required:
+      - body
+      - userId
+      properties:
+        userId:
+          type: string
+          description: Requested user ID
+        body:
+          type: string
+          description: steps
+    BotErrorResponse:
+      title: Bot Error Response
+      allOf:
+      - $ref: '#/components/schemas/EmptyResult'
+    EmptyResult:
+      title: Empty Result
+      type: object
+      properties:
+        result:
+          type: object
+          properties: {}
+          description: Empty Result
