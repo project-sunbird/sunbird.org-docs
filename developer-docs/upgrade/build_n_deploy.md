@@ -4,15 +4,12 @@ page_title: Build and Deploy
 description: Build and Deploy
 published: true
 allowSearch: true
-keywords: Upgrade, Sunbird 2.7.0, Core, elasticsearch
+keywords: Upgrade, Sunbird 3.1.0, Core, elasticsearch
 ---
 
 ## Overview
 
-This page details out the jobs required to be run as part of the upgrade from Sunbird release 2.6.0 to release 2.7.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. 
-
-As part of this upgrade, you may choose to set up the load balancer for swarm managers. If you do not require a load balancer for swarm managers, only update the value of the variable **sunbird_swarm_manager_lb_ip** to the swarm manager's IP in the private repository.
-
+This page details out the jobs required to be run as part of the upgrade from Sunbird release 2.5.0 to release 3.1.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. 
 
 ## Running the Builds 
 
@@ -32,60 +29,56 @@ The following is the list of jobs required to be built and deployed :
 
 Order: Top down per column
 
-| Knowledge Platform Build | Knowledge Platform Deploy | DataPipeline Build | DataPipeline Deploy | Core Build  | Core Deploy                 |
-|--------------------------|---------------------------|--------------------|---------------------|-------------|-----------------------------|
-| KnowledgePlatform        | Search Service            | Analytics          | AnalyticsAPI        |             | cassandra                   |
-|                          | Learning                  |                    | Dataproducts        | Learner     | learner                     |
-|                          |                           |                    | KafkaIndexer        |             | cert\-registry              |
-| Yarn                     | Yarn                      |                    |                     | Cert        | cert                        |
-|                          | Neo4jDefinitionUpdate     | DataPipeline       | Yarn                | Lms         | lms                         |
-|                          |                           |                    | KafkaSetup          |             | print                       |
-|                          |                           |                    |                     |             | cassandra\-cql insert query |
-|                          |                           |                    |                     |             | content\-service            |
-|                          |                           |                    |                     |             | assessment\-service         |
-|                          |                           |                    |                     |             | Keycloak                    |
-|                          |                           |                    |                     | KnowledgeMW | knowledge\-mw\-service      |
-|                          |                           |                    |                     |             | LogEsUpgrade6xx             |
-|                          |                           |                    |                     |             | oauth                       |
-|                          |
-|                          |                           |                    |                     |             | oauth                       |
-|                          |
-|                          |                           |                    |                     |             | Proxy                       |
-|                          |                           |                    |                     |             | OnboardAPIs                 |
+| Knowledge Platform Build | Knowledge Platform Deploy | DataPipeline Build | DataPipeline Provision | DataPipeline Deploy                         | Core Build       | Core Deploy           |
+|--------------------------|---------------------------|--------------------|------------------------|---------------------------------------------|------------------|-----------------------|
+| KnowledgePlatform        | Learning                  | AdhocScript        | AnalyticsApi           | AdhocScripts                                | API MANAGER      | BootstrapMinima       |
+| Yarn                     | Yarn                      | AnalyticsCore      | AnalyticsSpark         | AnalyticsAPI                                | API MANAGER Echo | nginx-private-ingress |
+|                          | Neo4jDefinitionUpdate     | Analytics Service  | Cassandra              | AnalyticsCore                               | lms              | API Manager           |
+|                          |                           | Api module         | Postgres               | AnalyticsGeoLocationDBSetup                 | Content          | API MANAGER Echo      |
+|                          |                           | Core Data Product  | Influxdb               | AnalyticsPopulatePSQLConsumerChannelMapping | Search           | OnboardAPIS           |
+|                          |                           | Data pipeline      | Zookeeper              | AnalyticsService                            | Player           | OnboardConsumers      |
+|                          |                           | EdDataProducts     | Kafka                  | ApiModule                                   | Keycloak         | Cassandra             |
+|                          |                           |                    | Redis                  | CoreDataProducts                            | Proxy            | Keycloak              |
+|                          |                           |                    | Kibana                 | DataProducts                                |                  | Player                |
+|                          |                           |                    | postgres-managed       | EdDataProducts                              |                  | Learner               |
+|                          |                           |                    | TelemetrySearch        | ETLUserCacheIndexer                         |                  | Content               |
+|                          |                           |                    |                        | KafkaIndexer                                |                  | Search                |
+|                          |                           |                    |                        | KafkaSetup                                  |                  | KnowledgeMW           |
+|                          |                           |                    |                        | Yarn                                        |                  | Lms                   |
+|                          |                           |                    |                        |                                             |                  | certTemplate          |
+|                          |                           |                    |                        |                                             |                  | Cert                  |
+|                          |                           |                    |                        |                                             |                  | nginx-public-ingress  |
 
-
-> **Note:** 
-Refer to the notes to trigger the **Neo4jElasticSearchSyncTool** jenkins job located under Deploy/KnowledgePlatform directory.
 
 **Create License and update Channel default License set and Content License migration based on channel**
 
-1.Run the following script on the swarm manager node VM to create License .
+1.Run the following script on the content-service  to create License .
  
 ```
-Copy below code and save file name as create_license
+"Copy below code and save file name as create_license"
 #!/bin/bash
-echo "License name: $1"
-echo "License descripition: $2"
-echo "License url: $3"
+echo ""License name: $1""
+echo ""License descripition: $2""
+echo ""License url: $3""
 curl -X POST \
-  http://localhost:9002/license/v3/create \
+  http://localhost:9000/license/v3/create \
   -H 'Content-Type: application/json' \
   -d '{
-    "request":{
-        "license":{
-            "name": "'$1'",
-            "description": "'$2'",
-            "url": "'$3'"
+    ""request"":{
+        ""license"":{
+            ""name"": ""'$1'"",
+            ""description"": ""'$2'"",
+            ""url"": ""'$3'""
         }
     }
 }'
 
 Run these commands
-bash -x create_license CC\ BY-NC-SA\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial-ShareAlike https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
-bash -x create_license CC\ BY-NC\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial  https://creativecommons.org/licenses/by-nc/4.0/legalcode
-bash -x create_license CC\ BY-SA\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-ShareAlike https://creativecommons.org/licenses/by-sa/4.0/legalcode
-bash -x create_license CC\ BY\ 4.0 This\ is\ the\ standard\ license\ of\ any\ Youtube\ content https://creativecommons.org/licenses/by/4.0/legalcode
-bash -x create_license Standard\ YouTube\ License This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial-ShareAlike https://www.youtube.com/
+bash -x script CC\ BY-NC-SA\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial-ShareAlike https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+bash -x script CC\ BY-NC\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial  https://creativecommons.org/licenses/by-nc/4.0/legalcode
+bash -x script CC\ BY-SA\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-ShareAlike https://creativecommons.org/licenses/by-sa/4.0/legalcode
+bash -x script CC\ BY\ 4.0 This\ is\ the\ standard\ license\ of\ any\ Youtube\ content https://creativecommons.org/licenses/by/4.0/legalcode
+bash -x script Standard\ YouTube\ License This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial-ShareAlike https://www.youtube.com/"        
 ```
 
 2.Update all content with valid license .  
@@ -287,9 +280,29 @@ Run the below command in LP redis server
 cd /home/learning/redis-stable/src
 ./redis-cli keys do_* | xargs ./redis-cli del
 ```
+5.Kong 9-14 migration
 
+```
+export PG_DB="api_manager_kong14"
 
+docker container rm kong-migration
 
+docker run -it --name kong-migration \
+-e ""KONG_DATABASE=postgres"" \
+-e ""KONG_PG_DATABASE=$PG_DB"" \
+-e ""KONG_PG_HOST=$PG_HOST"" \
+-e ""KONG_PG_PASSWORD=$PGPASSWORD"" \
+-e ""KONG_PG_USER=$PG_USER"" \
+-e ""KONG_PROXY_ACCESS_LOG=/dev/stdout"" \
+-e ""KONG_ADMIN_ACCESS_LOG=/dev/stdout"" \
+-e ""KONG_PROXY_ERROR_LOG=/dev/stderr"" \
+-e ""KONG_ADMIN_ERROR_LOG=/dev/stderr"" \
+-e ""KONG_ADMIN_LISTEN=0.0.0.0:8001"" \
+-p 8000:8000 \
+-p 8001:8001 \
+kong:0.14.1 kong migrations up --vv
+
+```
 
 
 
