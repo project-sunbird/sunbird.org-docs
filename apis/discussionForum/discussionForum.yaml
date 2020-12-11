@@ -1,0 +1,3956 @@
+openapi: 3.0.1
+info:
+  title: Discussions Forum
+  description: |-
+    The discussions forum allows the user to perticipate in multiple discussion.
+      - User can create multiple categories, under each category he can perform multiple discussions.
+      - User can post the questions.
+      - User can reply to the post.
+      - User can upvote or downvote to the posts.
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- url: https://disussionsmw-service:3002/discussion
+- url: http://disussionsmw-service:3002/discussion
+paths:
+  /categories:
+    get:
+      tags:
+      - categories
+      summary: Get list of all categories
+      description: |-
+        This API is used to fetch categories from NodeBB.
+           - The endpoint for **Category** is `/categories`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetCategories
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListOfCategories'
+                x-content-type: application/json
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Categories
+  /v2/categories:
+    post:
+      tags:
+      - categories
+      summary: Add a new category
+      description: |-
+        This api allows the user to create new category in the nodebb
+          - The endpoint for **Category** is `/v2/categories`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: CreateCategory
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+            examples:
+              a:
+                summary: Create simple category
+                value:
+                  name: NodeJS Tutorial
+              b:
+                summary: Create category with all inputs
+                value:
+                  name: NodeJS Tutorial
+                  description: Nodejs Tutorial
+                  bgColor: White
+                  color: black
+                  parentCid: 1
+                  class: category
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Categories
+  /category/{category_id}/{slug}:
+    get:
+      tags:
+      - categories
+      summary: Get the category details
+      description: |-
+        This app allow the user to get all the details of categories in nodebb
+          - The endpoint for **Category** is `/category/{category_id}/{slug}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetCategoryDetails
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: category_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: slug
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDetails'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Categories
+  /category/{cid}:
+    get:
+      tags:
+      - categories
+      summary: Get the category details
+      description: |-
+        This app allow the user to get all the details of categories in nodebb
+          - The endpoint for **Category** is `/category/{cid}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetCategoryDetailsById
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: cid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDetails'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Categories
+  /v2/categories/{cid}:
+    put:
+      tags:
+      - categories
+      summary: Updates the already existing catrgory
+      description: |-
+        This api can updated the category based on the category id which we created previously
+          - The endpoint for **Category** is `/v2/categories/{cid}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: UpdateCategory
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: cid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+            examples:
+              a:
+                summary: Update the category
+                value:
+                  description: Nodejs Tutorial
+                  bgColor: White
+                  color: black
+                  parentCid: 1
+                  class: category
+        required: false
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Categories
+    delete:
+      tags:
+      - categories
+      summary: Delete the Category
+      description: |-
+        This api allows the user to delete the existing category in nodebb
+          - The endpoint for **Category** is `/v2/categories/{cid}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: DeleteCategory
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: cid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Categories
+  /user/{userslug}:
+    get:
+      tags:
+      - users
+      summary: Fetch nodebb user details
+      description: |-
+        This api is used for fetching the user details from Nodebb.
+          - The endpoint for **Category** is `/user/{userslug}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetUserDetails
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: userslug
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetails'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Users
+  /user/{userslug}/upvoted:
+    get:
+      tags:
+      - users
+      summary: Fetch user upvoted posts list
+      description: |-
+        This api is used for fetching the user upvote details from Nodebb.
+          - The endpoint for **Category** is `/user/{userslug}/upvoted`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetUserUpvoteDetails
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: userslug
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetails'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Users
+  /user/{userslug}/downvoted:
+    get:
+      tags:
+      - users
+      summary: Fetch user downvoted posts list
+      description: |-
+        This api is used for fetching the user down vote details from Nodebb.
+          - The endpoint for **Category** is `/user/{userslug}/downvoted`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetUserDownvoteDetails
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: userslug
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetails'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Users
+  /user/{userslug}/bookmarks:
+    get:
+      tags:
+      - users
+      summary: Fetch user bookmarked posts
+      description: |-
+        This api is used for fetching the user bookmark post details from Nodebb.
+          - The endpoint for **Category** is `/user/{userslug}/bookmarks`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetUserBookmarkDetails
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: userslug
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetails'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Users
+  /v2/users:
+    post:
+      tags:
+      - users
+      summary: Create new user in nodebb
+      description: |-
+        This api is used for creating the user in Nodebb.
+          - The endpoint for **Category** is `/v2/users`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: CreateNewUser
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+            examples:
+              a:
+                summary: Create user
+                value:
+                  username: Vinu Kumar
+                  email: example@gmail.com
+                  password: Test@123
+        required: false
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Users
+  /v2/users/{uid}:
+    put:
+      tags:
+      - users
+      summary: Updates a user's profile information
+      description: |-
+        This api is used for updates user's profile information in Nodebb.
+          - The endpoint for **Category** is `/v2/users/{uid}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: UpdateUserInfo
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: uid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserInfo'
+            examples:
+              a:
+                summary: Update user info
+                value:
+                  username: Venkat
+                  email: example@gmail.com
+                  fullname: venkat kadiveti
+                  website: https://example.org/
+                  location: Bangalore
+                  birthday: 02/04/1995
+                  signature: venkat
+        required: false
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostOperationResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Users
+    delete:
+      tags:
+      - users
+      summary: Deletes a user from NodeBB
+      description: |-
+        This api is used for deleting user in Nodebb.
+          - The endpoint for **Category** is `/v2/users/{uid}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: DeleteUser
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: uid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostOperationResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Users
+  /unread:
+    get:
+      tags:
+      - topics
+      summary: Get unread topics
+      description: |-
+        This api allow the user to get all the unread topics in nodebb
+          - The endpoint for **Category** is `/unread`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetUnreadTopics
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopicResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Topics
+  /recent:
+    get:
+      tags:
+      - topics
+      summary: Get recent topics
+      description: |-
+        This api allow the user to get all the recent topics in nodebb
+          - The endpoint for **Category** is `/recent`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetRecentTopics
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopicResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Topics
+  /popular:
+    get:
+      tags:
+      - topics
+      summary: Get popular topics
+      description: |-
+        This api allow the user to get all the popular topics in nodebb
+          - The endpoint for **Category** is `/recent`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetPopularTopics
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopicResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Topics
+  /topic/{topic_id}/{slug}:
+    get:
+      tags:
+      - topics
+      summary: Get topics details
+      description: |-
+        This api allow the user to get topics details in nodebb
+          - The endpoint for **Category** is `/topic/{topic_id}/{slug}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetTopicsDetails
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: topic_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: slug
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopicDetails'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Topics
+  /v2/topics:
+    post:
+      tags:
+      - topics
+      summary: Create new topic
+      description: |-
+        This app allow the user to create new topic in nodebb
+          - The endpoint for **Category** is `/v2/topics`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: CreateNewTopic
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTopicBody'
+            examples:
+              a:
+                summary: Create simple topic
+                value:
+                  cid: 1
+                  title: Learning
+                  content: All Javascript frameworks
+              b:
+                summary: Create topics with tags
+                value:
+                  cid: 1
+                  title: Learning
+                  content: All Javascript frameworks
+                  tags:
+                  - Angular
+                  - React
+        required: false
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTopicResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Topics
+  /v2/topics/{tid}:
+    put:
+      tags:
+      - topics
+      summary: Updates a post in a topic
+      description: |-
+        This app allow the user to update topic in nodebb
+          - The endpoint for **Category** is `/v2/topics/{tid}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: UpdateTopic
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: tid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTopicBody'
+            examples:
+              a:
+                summary: Update topic
+                value:
+                  content: Example content
+                  pid: 1
+                  handle: example
+                  title: Topic title
+                  topic_thumb: 0
+                  tags:
+                  - Angular
+        required: false
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTopicResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Topics
+    post:
+      tags:
+      - topics
+      summary: Create new reply topic
+      description: |-
+        This app allow the user to create new reply to topic in nodebb
+          - The endpoint for **Category** is `/v2/topics/{tid}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: CreateNewReplyToTopic
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: tid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReplyBody'
+            examples:
+              a:
+                summary: Create Reply
+                value:
+                  content: Example reply to topic
+                  toPid: 1
+        required: false
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTopicResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Topics
+    delete:
+      tags:
+      - topics
+      summary: delete topic
+      description: |-
+        This app allow the user to delete topic in nodebb
+          - The endpoint for **Category** is `/v2/topics/{tid}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: DeleteTopic
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: tid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTopicResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Topics
+  /groups:
+    get:
+      tags:
+      - groups
+      summary: Get group list
+      description: |-
+        This api allows the user to get the group list in nodebb
+          - The endpoint for **Category** is `/groups`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetGroupList
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupListResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Groups
+  /groups/{slug}:
+    get:
+      tags:
+      - groups
+      summary: Get group list
+      description: |-
+        This api allows the user to get the group list in nodebb
+          - The endpoint for **Category** is `/groups/{slug}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetGroupDetails
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: slug
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupDetailsResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Groups
+  /v2/groups:
+    post:
+      tags:
+      - groups
+      summary: Create new group
+      description: |-
+        This app allow the user to create new group in nodebb
+          - The endpoint for **Category** is `/v2/groups`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: CreateNewGroup
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupRequestBody'
+            examples:
+              a:
+                summary: Create group
+                value:
+                  name: Group name
+                  description: Group description
+                  hidden: false
+                  private: true
+                  ownerUid: 1
+        required: false
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Groups
+  /v2/groups/{slug}:
+    delete:
+      tags:
+      - groups
+      summary: Deletes a group
+      description: |-
+        This app allow the user to delete group in nodebb
+          - The endpoint for **Category** is `/v2/groups/{slug}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: DeleteGroup
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: slug
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostOperationResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Groups
+  /v2/posts/{pid}:
+    put:
+      tags:
+      - Posts
+      summary: Edits a post by post ID
+      description: |-
+        This api allows the user to edit post in the nodebb
+          - The endpoint for **Category** is `/v2/posts/{pid}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: UpdatePost
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: pid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePostBody'
+            examples:
+              a:
+                summary: Edit post
+                value:
+                  content: Some example content
+                  title: Post title name
+                  topic_thumb: 0
+                  tags:
+                  - JS
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostOperationResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Posts
+    delete:
+      tags:
+      - Posts
+      summary: Delete a post by post ID
+      description: |-
+        This api allows the user to delete post in the nodebb
+          - The endpoint for **Category** is `/v2/posts/{pid}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: DeletePost
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: pid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostOperationResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Posts
+  /v2/posts/{pid}/vote:
+    post:
+      tags:
+      - Posts
+      summary: Vote a post by post ID
+      description: |-
+        This api allows the user to vote(Up/down) to post in the nodebb
+          - The endpoint for **Category** is `/v2/posts/{pid}/vote`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: VotePost
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: pid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        description: delta must be a number. If delta > 0, it's considered an upvote;
+          if delta < 0, it's considered a downvote; otherwise, it's an unvote.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VotePostBody'
+            examples:
+              a:
+                summary: Up vote
+                value:
+                  delta: 1
+              b:
+                summary: Down vote
+                value:
+                  delta: -1
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostOperationResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Posts
+    delete:
+      tags:
+      - Posts
+      summary: Unvotes a post by post ID
+      description: |-
+        This api allows the user to delete vote(Up/down) to post in the nodebb
+          - The endpoint for **Category** is `/v2/posts/{pid}/vote`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: UnvotesPost
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: pid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostOperationResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Posts
+  /v2/posts/{pid}/bookmark:
+    post:
+      tags:
+      - Posts
+      summary: Bookmarks a post by post ID
+      description: |-
+        This api allows the user to Bookmarks a post in the nodebb
+          - The endpoint for **Category** is `/v2/posts/{pid}/bookmark`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: BookmarksPost
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: pid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostOperationResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Posts
+    delete:
+      tags:
+      - Posts
+      summary: Unbookmarks a post by post ID
+      description: |-
+        This api allows the user to Unbookmarks a post in the nodebb
+          - The endpoint for **Category** is `/v2/posts/{pid}/bookmark`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: UnbookmarksPost
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: pid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostOperationResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Posts
+  /forumId/{id}:
+    get:
+      tags:
+      - Forum
+      summary: Get Forum Id
+      description: |-
+        This app allow the user to get the Forum Id
+          - The endpoint for **Category** is `/forumId/{id}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetForumID
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ForumResponse'
+                x-content-type: application/json
+      x-swagger-router-controller: Forum
+  /forum:
+    post:
+      tags:
+      - Forum
+      summary: Create forum id
+      description: |-
+        This app allow the user to create new Forum Id
+          - The endpoint for **Category** is `/forum`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: CreateForumID
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForumIdRequestBody'
+            examples:
+              a:
+                summary: Create forumID
+                value:
+                  type: course
+                  cid: 2
+                  identifier: do_123456789
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ForumResponse'
+                x-content-type: application/json
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Forum
+components:
+  schemas:
+    Category:
+      required:
+      - bgColor
+      - class
+      - color
+      - description
+      - name
+      - parentCid
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        bgColor:
+          type: string
+        color:
+          type: string
+        parentCid:
+          type: integer
+        class:
+          type: string
+    DeleteCategory:
+      type: object
+      properties:
+        code:
+          type: string
+        payload:
+          type: object
+          properties: {}
+          example: {}
+      example:
+        code: code
+        payload: {}
+    CreateUser:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    CategoryResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        payload:
+          $ref: '#/components/schemas/CategoryResponse_payload'
+      example:
+        code: code
+        payload:
+          color: color
+          numRecentReplies: numRecentReplies
+          icon: icon
+          link: link
+          description: description
+          topic_count: topic_count
+          imageClass: imageClass
+          parentCid: 6
+          descriptionParsed: descriptionParsed
+          bgColor: bgColor
+          name: name
+          disabled: disabled
+          post_count: post_count
+          isSection: isSection
+          class: class
+          slug: slug
+          cid: 0
+          order: order
+    ListOfCategories:
+      type: object
+      properties:
+        cid:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        descriptionParsed:
+          type: string
+        icon:
+          type: string
+        bgColor:
+          type: string
+        color:
+          type: string
+        slug:
+          type: string
+        parentCid:
+          type: integer
+        topic_count:
+          type: string
+        post_count:
+          type: string
+        disabled:
+          type: string
+        order:
+          type: string
+        link:
+          type: string
+        numRecentReplies:
+          type: string
+        class:
+          type: string
+        imageClass:
+          type: string
+        isSection:
+          type: string
+        posts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListOfCategories_posts'
+        children:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        tagWhitelist:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        unread-class:
+          type: string
+        totalTopicCount:
+          type: integer
+        totalPostCount:
+          type: integer
+        minTags:
+          type: integer
+        maxTags:
+          type: integer
+      example:
+        unread-class: unread-class
+        color: color
+        numRecentReplies: numRecentReplies
+        icon: icon
+        link: link
+        description: description
+        posts:
+        - parentCid: 9
+          index: 2
+          topic:
+            title: title
+            slug: slug
+          pid: 1
+          timestampISO: timestampISO
+          user:
+            uid: 5
+            icon:bgColor: icon:bgColor
+            icon:text: icon:text
+            userslug: userslug
+            picture: picture
+            username: username
+          content: content
+          timestamp: 5
+          cid: 7
+        - parentCid: 9
+          index: 2
+          topic:
+            title: title
+            slug: slug
+          pid: 1
+          timestampISO: timestampISO
+          user:
+            uid: 5
+            icon:bgColor: icon:bgColor
+            icon:text: icon:text
+            userslug: userslug
+            picture: picture
+            username: username
+          content: content
+          timestamp: 5
+          cid: 7
+        totalTopicCount: 3
+        parentCid: 6
+        totalPostCount: 2
+        maxTags: 7
+        descriptionParsed: descriptionParsed
+        bgColor: bgColor
+        children:
+        - {}
+        - {}
+        disabled: disabled
+        tagWhitelist:
+        - {}
+        - {}
+        class: class
+        slug: slug
+        order: order
+        minTags: 4
+        topic_count: topic_count
+        imageClass: imageClass
+        name: name
+        post_count: post_count
+        isSection: isSection
+        cid: 0
+    UserDetails:
+      type: object
+      properties:
+        uid:
+          type: string
+        username:
+          type: string
+        userslug:
+          type: string
+        email:
+          type: string
+        email:confirmed:
+          type: boolean
+        joindate:
+          type: integer
+        lastonline:
+          type: integer
+        fullname:
+          type: string
+        location:
+          type: string
+        birthday:
+          type: string
+        website:
+          type: string
+        aboutme:
+          type: string
+        signature:
+          type: string
+        uploadedpicture:
+          type: string
+        profileviews:
+          type: integer
+        reputation:
+          type: integer
+        postcount:
+          type: integer
+        topiccount:
+          type: integer
+        lastposttime:
+          type: integer
+        banned:
+          type: boolean
+        banned:expire:
+          type: integer
+        status:
+          type: string
+        flags:
+          type: string
+        followerCount:
+          type: integer
+        followingCount:
+          type: integer
+        cover:url:
+          type: string
+        cover:position:
+          type: string
+        groupTitle:
+          type: string
+        groupTitleArray:
+          type: array
+          items:
+            type: string
+        icon:text:
+          type: string
+        icon:bgColor:
+          type: boolean
+        joindateISO:
+          type: string
+        lastonlineISO:
+          type: string
+        banned_until:
+          type: integer
+        banned_until_readable:
+          type: string
+        aboutmeParsed:
+          type: string
+        age:
+          type: integer
+        emailClass:
+          type: string
+        ips:
+          type: object
+          properties: {}
+          example: {}
+        isBlocked:
+          type: boolean
+        blocksCount:
+          type: boolean
+        yourid:
+          type: integer
+        theirid:
+          type: integer
+        isTargetAdmin:
+          type: boolean
+        isAdmin:
+          type: boolean
+        isGlobalModerator:
+          type: boolean
+        isModerator:
+          type: boolean
+        isAdminOrGlobalModerator:
+          type: boolean
+        isAdminOrGlobalModeratorOrModerator:
+          type: boolean
+        isSelfOrAdminOrGlobalModerator:
+          type: boolean
+        canEdit:
+          type: boolean
+        canBan:
+          type: boolean
+        canChangePassword:
+          type: boolean
+        isSelf:
+          type: boolean
+        isFollowing:
+          type: boolean
+        hasPrivateChat:
+          type: integer
+        showHidden:
+          type: boolean
+        groups:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        disableSignatures:
+          type: boolean
+        reputation:disabled:
+          type: boolean
+        downvote:disabled:
+          type: boolean
+        profile_links:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        sso:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        websiteLink:
+          type: string
+        websiteName:
+          type: string
+        moderationNote:
+          type: string
+        username:disableEdit:
+          type: boolean
+        email:disableEdit:
+          type: boolean
+        posts:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserDetails_posts'
+        latestPosts:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserDetails_posts'
+        bestPosts:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserDetails_posts'
+        breadcrumbs:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        title:
+          type: string
+        allowCoverPicture:
+          type: boolean
+        selectedGroup:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        loggedIn:
+          type: boolean
+        relative_path:
+          type: string
+        template:
+          type: object
+          properties: {}
+          example: {}
+        url:
+          type: string
+        bodyClass:
+          type: string
+        widgets:
+          type: object
+          properties: {}
+          example: {}
+        _header:
+          type: object
+          properties: {}
+          example: {}
+      example:
+        websiteLink: websiteLink
+        _header: {}
+        reputation: 5
+        blocksCount: true
+        posts:
+        - upvotes: 5
+          pid: 6
+          timestampISO: timestampISO
+          downvotes: 9
+          tid: 7
+          content: content
+          uid: 1
+          deleted: true
+          isMainPost: true
+          topic:
+            uid: 8
+            deleted: 3
+            postcount: 6
+            titleRaw: titleRaw
+            mainPid: 1
+            title: title
+            teaserPid: {}
+            tid: 9
+            slug: slug
+            cid: 6
+          votes: 9
+          category:
+            parentCid: 6
+            bgColor: bgColor
+            color: color
+            backgroundImage: {}
+            name: name
+            icon: icon
+            slug: slug
+            cid: 2
+            imageClass: imageClass
+          user:
+            uid: 6
+            icon:bgColor: icon:bgColor
+            icon:text: icon:text
+            userslug: userslug
+            picture: {}
+            username: username
+            status: status
+          timestamp: 4
+        - upvotes: 5
+          pid: 6
+          timestampISO: timestampISO
+          downvotes: 9
+          tid: 7
+          content: content
+          uid: 1
+          deleted: true
+          isMainPost: true
+          topic:
+            uid: 8
+            deleted: 3
+            postcount: 6
+            titleRaw: titleRaw
+            mainPid: 1
+            title: title
+            teaserPid: {}
+            tid: 9
+            slug: slug
+            cid: 6
+          votes: 9
+          category:
+            parentCid: 6
+            bgColor: bgColor
+            color: color
+            backgroundImage: {}
+            name: name
+            icon: icon
+            slug: slug
+            cid: 2
+            imageClass: imageClass
+          user:
+            uid: 6
+            icon:bgColor: icon:bgColor
+            icon:text: icon:text
+            userslug: userslug
+            picture: {}
+            username: username
+            status: status
+          timestamp: 4
+        sso:
+        - {}
+        - {}
+        icon:text: icon:text
+        isGlobalModerator: true
+        joindate: 0
+        profile_links:
+        - {}
+        - {}
+        reputation:disabled: true
+        banned_until_readable: banned_until_readable
+        allowCoverPicture: true
+        isAdmin: true
+        moderationNote: moderationNote
+        ips: {}
+        latestPosts:
+        - null
+        - null
+        aboutme: aboutme
+        email:confirmed: true
+        isTargetAdmin: true
+        isAdminOrGlobalModerator: true
+        emailClass: emailClass
+        loggedIn: true
+        downvote:disabled: true
+        topiccount: 2
+        relative_path: relative_path
+        isSelf: true
+        breadcrumbs:
+        - {}
+        - {}
+        status: status
+        birthday: birthday
+        template: {}
+        showHidden: true
+        yourid: 1
+        lastposttime: 7
+        isModerator: true
+        signature: signature
+        icon:bgColor: true
+        canEdit: true
+        flags: flags
+        groupTitle: groupTitle
+        isBlocked: true
+        bestPosts:
+        - null
+        - null
+        title: title
+        widgets: {}
+        followingCount: 2
+        lastonlineISO: lastonlineISO
+        email:disableEdit: true
+        uid: uid
+        groupTitleArray:
+        - groupTitleArray
+        - groupTitleArray
+        canChangePassword: true
+        profileviews: 1
+        bodyClass: bodyClass
+        cover:url: cover:url
+        selectedGroup:
+        - {}
+        - {}
+        banned: true
+        banned_until: 4
+        userslug: userslug
+        followerCount: 3
+        email: email
+        website: website
+        isFollowing: true
+        uploadedpicture: uploadedpicture
+        canBan: true
+        lastonline: 6
+        disableSignatures: true
+        banned:expire: 9
+        groups:
+        - {}
+        - {}
+        username:disableEdit: true
+        joindateISO: joindateISO
+        url: url
+        isSelfOrAdminOrGlobalModerator: true
+        websiteName: websiteName
+        hasPrivateChat: 1
+        isAdminOrGlobalModeratorOrModerator: true
+        cover:position: cover:position
+        postcount: 5
+        location: location
+        fullname: fullname
+        aboutmeParsed: aboutmeParsed
+        age: 7
+        theirid: 1
+        username: username
+    CategoryDetails:
+      type: object
+      properties:
+        bgColor:
+          type: string
+        cid:
+          type: integer
+        class:
+          type: string
+        color:
+          type: string
+        description:
+          type: string
+        descriptionParsed:
+          type: string
+        disabled:
+          type: integer
+        icon:
+          type: string
+        imageClass:
+          type: string
+        isSection:
+          type: integer
+        link:
+          type: string
+        name:
+          type: string
+        numRecentReplies:
+          type: integer
+        order:
+          type: integer
+        parentCid:
+          type: integer
+        post_count:
+          type: integer
+        slug:
+          type: string
+        topic_count:
+          type: integer
+        minTags:
+          type: integer
+        maxTags:
+          type: integer
+        totalPostCount:
+          type: integer
+        totalTopicCount:
+          type: integer
+        tagWhitelist:
+          type: array
+          items:
+            type: string
+        unread-class:
+          type: string
+        children:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        topics:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryDetails_topics'
+        isWatched:
+          type: boolean
+        isNotWatched:
+          type: boolean
+        isIgnored:
+          type: boolean
+        breadcrumbs:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        title:
+          type: string
+        privileges:
+          type: object
+          properties: {}
+          example: {}
+        showSelect:
+          type: boolean
+        showTopicTools:
+          type: boolean
+        rssFeedUrl:
+          type: string
+        feeds:disableRSS:
+          type: integer
+        reputation:disabled:
+          type: integer
+        pagination:
+          type: object
+          properties: {}
+          example: {}
+        loggedIn:
+          type: boolean
+        relative_path:
+          type: string
+        template:
+          type: object
+          properties: {}
+          example: {}
+        url:
+          type: string
+        bodyClass:
+          type: string
+        _header:
+          type: object
+          properties: {}
+          example: {}
+        widgets:
+          type: object
+          properties: {}
+          example: {}
+      example:
+        unread-class: unread-class
+        template: {}
+        privileges: {}
+        pagination: {}
+        color: color
+        numRecentReplies: 5
+        icon: icon
+        link: link
+        _header: {}
+        description: description
+        title: title
+        widgets: {}
+        showSelect: true
+        totalTopicCount: 7
+        parentCid: 2
+        maxTags: 2
+        totalPostCount: 4
+        bgColor: bgColor
+        descriptionParsed: descriptionParsed
+        children:
+        - {}
+        - {}
+        bodyClass: bodyClass
+        disabled: 6
+        rssFeedUrl: rssFeedUrl
+        tagWhitelist:
+        - tagWhitelist
+        - tagWhitelist
+        class: class
+        slug: slug
+        order: 5
+        minTags: 3
+        showTopicTools: true
+        topics:
+        - pinned: 6
+          lastposttime: 1
+          upvotes: 8
+          unreplied: true
+          unread: true
+          timestampISO: timestampISO
+          title: title
+          teaserPid: {}
+          tid: 7
+          uid: 4
+          lastposttimeISO: lastposttimeISO
+          deleterUid: 6
+          isOwner: true
+          mainPid: 1
+          locked: 9
+          slug: slug
+          timestamp: 1
+          ignored: true
+          index: 6
+          downvotes: 9
+          icons: {}
+          tags: {}
+          bookmark: {}
+          deleted: 9
+          postcount: 6
+          viewcount: 5
+          titleRaw: titleRaw
+          votes: 3
+          category: {}
+          user: {}
+          cid: 1
+          teaser: {}
+        - pinned: 6
+          lastposttime: 1
+          upvotes: 8
+          unreplied: true
+          unread: true
+          timestampISO: timestampISO
+          title: title
+          teaserPid: {}
+          tid: 7
+          uid: 4
+          lastposttimeISO: lastposttimeISO
+          deleterUid: 6
+          isOwner: true
+          mainPid: 1
+          locked: 9
+          slug: slug
+          timestamp: 1
+          ignored: true
+          index: 6
+          downvotes: 9
+          icons: {}
+          tags: {}
+          bookmark: {}
+          deleted: 9
+          postcount: 6
+          viewcount: 5
+          titleRaw: titleRaw
+          votes: 3
+          category: {}
+          user: {}
+          cid: 1
+          teaser: {}
+        isNotWatched: true
+        reputation:disabled: 2
+        isWatched: true
+        isIgnored: true
+        topic_count: 9
+        url: url
+        imageClass: imageClass
+        feeds:disableRSS: 1
+        loggedIn: true
+        name: name
+        isSection: 1
+        post_count: 7
+        relative_path: relative_path
+        breadcrumbs:
+        - {}
+        - {}
+        cid: 0
+    TopicResponse:
+      type: object
+      properties:
+        nextStart:
+          type: integer
+        topicCount:
+          type: integer
+        topics:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopicResponse_topics'
+        tids:
+          type: array
+          items:
+            type: string
+        canPost:
+          type: boolean
+        showSelect:
+          type: boolean
+        showTopicTools:
+          type: boolean
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopicResponse_categories'
+        allCategoriesUrl:
+          type: string
+        selectedCategory:
+          type: object
+          properties: {}
+          example: {}
+        selectedCids:
+          type: array
+          items:
+            type: string
+        feeds:disableRSS:
+          type: integer
+        rssFeedUrl:
+          type: string
+        title:
+          type: string
+        filters:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        selectedFilter:
+          type: object
+          properties: {}
+          example: {}
+        terms:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        selectedTerm:
+          type: object
+          properties: {}
+          example: {}
+        pagination:
+          type: object
+          properties: {}
+          example: {}
+        breadcrumbs:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        loggedIn:
+          type: boolean
+        relative_path:
+          type: string
+        template:
+          type: object
+          properties: {}
+          example: {}
+        url:
+          type: string
+        bodyClass:
+          type: string
+        _header:
+          type: object
+          properties: {}
+          example: {}
+        widgets:
+          type: object
+          properties: {}
+          example: {}
+      example:
+        template: {}
+        pagination: {}
+        _header: {}
+        nextStart: 0
+        selectedTerm: {}
+        title: title
+        widgets: {}
+        showSelect: true
+        canPost: true
+        selectedCids:
+        - selectedCids
+        - selectedCids
+        terms:
+        - {}
+        - {}
+        bodyClass: bodyClass
+        topicCount: 6
+        rssFeedUrl: rssFeedUrl
+        categories:
+        - parentCid: 5
+          color: color
+          bgColor: bgColor
+          level: level
+          name: name
+          icon: icon
+          selected: true
+          cid: 4
+          imageClass: imageClass
+        - parentCid: 5
+          color: color
+          bgColor: bgColor
+          level: level
+          name: name
+          icon: icon
+          selected: true
+          cid: 4
+          imageClass: imageClass
+        showTopicTools: true
+        topics:
+        - pinned: 1
+          lastposttime: 5
+          upvotes: 1
+          unreplied: true
+          unread: true
+          timestampISO: timestampISO
+          title: title
+          teaserPid: {}
+          tid: 7
+          uid: 3
+          lastposttimeISO: lastposttimeISO
+          deleterUid: 6
+          isOwner: true
+          mainPid: 5
+          locked: 7
+          slug: slug
+          timestamp: 9
+          ignored: true
+          index: 1
+          downvotes: 1
+          icons: {}
+          tags: {}
+          bookmark: {}
+          deleted: 4
+          postcount: 2
+          viewcount: 2
+          titleRaw: titleRaw
+          votes: 7
+          category:
+            parentCid: 6
+            bgColor: bgColor
+            color: color
+            backgroundImage: {}
+            name: name
+            icon: icon
+            slug: slug
+            cid: 2
+            imageClass: imageClass
+          user:
+            uid: 6
+            icon:bgColor: icon:bgColor
+            icon:text: icon:text
+            userslug: userslug
+            picture: {}
+            username: username
+            status: status
+          cid: 1
+          teaser: {}
+        - pinned: 1
+          lastposttime: 5
+          upvotes: 1
+          unreplied: true
+          unread: true
+          timestampISO: timestampISO
+          title: title
+          teaserPid: {}
+          tid: 7
+          uid: 3
+          lastposttimeISO: lastposttimeISO
+          deleterUid: 6
+          isOwner: true
+          mainPid: 5
+          locked: 7
+          slug: slug
+          timestamp: 9
+          ignored: true
+          index: 1
+          downvotes: 1
+          icons: {}
+          tags: {}
+          bookmark: {}
+          deleted: 4
+          postcount: 2
+          viewcount: 2
+          titleRaw: titleRaw
+          votes: 7
+          category:
+            parentCid: 6
+            bgColor: bgColor
+            color: color
+            backgroundImage: {}
+            name: name
+            icon: icon
+            slug: slug
+            cid: 2
+            imageClass: imageClass
+          user:
+            uid: 6
+            icon:bgColor: icon:bgColor
+            icon:text: icon:text
+            userslug: userslug
+            picture: {}
+            username: username
+            status: status
+          cid: 1
+          teaser: {}
+        filters:
+        - {}
+        - {}
+        allCategoriesUrl: allCategoriesUrl
+        url: url
+        selectedFilter: {}
+        tids:
+        - tids
+        - tids
+        feeds:disableRSS: 9
+        loggedIn: true
+        selectedCategory: {}
+        relative_path: relative_path
+        breadcrumbs:
+        - {}
+        - {}
+    TopicDetails:
+      type: object
+      properties:
+        cid:
+          type: integer
+        lastposttime:
+          type: integer
+        mainPid:
+          type: integer
+        postcount:
+          type: integer
+        slug:
+          type: string
+        tid:
+          type: integer
+        timestamp:
+          type: integer
+        title:
+          type: string
+        uid:
+          type: integer
+        viewcount:
+          type: integer
+        deleted:
+          type: integer
+        locked:
+          type: integer
+        pinned:
+          type: integer
+        upvotes:
+          type: integer
+        downvotes:
+          type: integer
+        deleterUid:
+          type: integer
+        titleRaw:
+          type: string
+        timestampISO:
+          type: string
+        lastposttimeISO:
+          type: string
+        votes:
+          type: integer
+        teaserPid:
+          type: integer
+        tags:
+          type: array
+          items:
+            type: string
+        posts:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        category:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        tagWhitelist:
+          type: array
+          items:
+            type: string
+        minTags:
+          type: integer
+        maxTags:
+          type: integer
+        thread_tools:
+          type: array
+          items:
+            type: string
+        isFollowing:
+          type: boolean
+        isNotFollowing:
+          type: boolean
+        isIgnoring:
+          type: boolean
+        bookmark:
+          type: object
+          properties: {}
+          example: {}
+        postSharing:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        deleter:
+          type: object
+          properties: {}
+          example: {}
+        merger:
+          type: object
+          properties: {}
+          example: {}
+        related:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        unreplied:
+          type: boolean
+        icons:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        privileges:
+          type: object
+          properties: {}
+          example: {}
+        topicStaleDays:
+          type: integer
+        reputation:disabled:
+          type: integer
+        downvote:disabled:
+          type: integer
+        feeds:disableRSS:
+          type: integer
+        bookmarkThreshold:
+          type: integer
+        necroThreshold:
+          type: integer
+        postEditDuration:
+          type: integer
+        postDeleteDuration:
+          type: integer
+        scrollToMyPost:
+          type: boolean
+        allowMultipleBadges:
+          type: boolean
+        privateUploads:
+          type: boolean
+        rssFeedUrl:
+          type: string
+        postIndex:
+          type: integer
+        breadcrumbs:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        pagination:
+          type: object
+          properties: {}
+          example: {}
+        loggedIn:
+          type: boolean
+        relative_path:
+          type: string
+        template:
+          type: object
+          properties: {}
+          example: {}
+        url:
+          type: string
+        bodyClass:
+          type: string
+        loggedInUser:
+          type: object
+          properties: {}
+          example: {}
+        _header:
+          type: object
+          properties: {}
+          example: {}
+        widgets:
+          type: object
+          properties: {}
+          example: {}
+      example:
+        privileges: {}
+        upvotes: 7
+        unreplied: true
+        privateUploads: true
+        postDeleteDuration: 6
+        _header: {}
+        topicStaleDays: 4
+        teaserPid: 6
+        loggedInUser: {}
+        posts:
+        - {}
+        - {}
+        tid: 5
+        postEditDuration: 9
+        deleterUid: 1
+        necroThreshold: 8
+        mainPid: 1
+        rssFeedUrl: rssFeedUrl
+        locked: 2
+        slug: slug
+        reputation:disabled: 5
+        downvotes: 1
+        tags:
+        - tags
+        - tags
+        bookmark: {}
+        feeds:disableRSS: 9
+        isNotFollowing: true
+        loggedIn: true
+        downvote:disabled: 9
+        postIndex: 3
+        titleRaw: titleRaw
+        relative_path: relative_path
+        breadcrumbs:
+        - {}
+        - {}
+        cid: 0
+        allowMultipleBadges: true
+        template: {}
+        pinned: 4
+        pagination: {}
+        lastposttime: 6
+        bookmarkThreshold: 6
+        postSharing:
+        - {}
+        - {}
+        timestampISO: timestampISO
+        title: title
+        widgets: {}
+        deleter: {}
+        uid: 7
+        lastposttimeISO: lastposttimeISO
+        maxTags: 1
+        related:
+        - {}
+        - {}
+        bodyClass: bodyClass
+        tagWhitelist:
+        - tagWhitelist
+        - tagWhitelist
+        timestamp: 2
+        minTags: 7
+        isIgnoring: true
+        isFollowing: true
+        scrollToMyPost: true
+        icons:
+        - {}
+        - {}
+        url: url
+        deleted: 3
+        postcount: 5
+        thread_tools:
+        - thread_tools
+        - thread_tools
+        viewcount: 9
+        votes: 1
+        category:
+        - {}
+        - {}
+        merger: {}
+    GroupListResponse:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        allowGroupCreation:
+          type: boolean
+        nextStart:
+          type: integer
+        title:
+          type: string
+        breadcrumbs:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        loggedIn:
+          type: boolean
+        relative_path:
+          type: string
+        template:
+          type: object
+          properties: {}
+          example: {}
+        url:
+          type: string
+        bodyClass:
+          type: string
+        _header:
+          type: object
+          properties: {}
+          example: {}
+        widgets:
+          type: object
+          properties: {}
+          example: {}
+      example:
+        template: {}
+        loggedIn: true
+        bodyClass: bodyClass
+        _header: {}
+        groups:
+        - {}
+        - {}
+        allowGroupCreation: true
+        nextStart: 0
+        title: title
+        relative_path: relative_path
+        widgets: {}
+        breadcrumbs:
+        - {}
+        - {}
+        url: url
+    GroupDetailsResponse:
+      type: object
+      properties:
+        title:
+          type: string
+        group:
+          type: object
+          properties: {}
+          example: {}
+        posts:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        isAdmin:
+          type: boolean
+        isGlobalMod:
+          type: boolean
+        allowPrivateGroups:
+          type: integer
+        breadcrumbs:
+          type: array
+          items:
+            type: object
+            properties: {}
+            example: {}
+        loggedIn:
+          type: boolean
+        relative_path:
+          type: string
+        template:
+          type: object
+          properties: {}
+          example: {}
+        url:
+          type: object
+          properties: {}
+          example: {}
+        bodyClass:
+          type: string
+        _header:
+          type: object
+          properties: {}
+          example: {}
+        widgets:
+          type: object
+          properties: {}
+          example: {}
+      example:
+        template: {}
+        _header: {}
+        isGlobalMod: true
+        isAdmin: true
+        title: title
+        widgets: {}
+        posts:
+        - {}
+        - {}
+        url: {}
+        allowPrivateGroups: 0
+        loggedIn: true
+        bodyClass: bodyClass
+        relative_path: relative_path
+        breadcrumbs:
+        - {}
+        - {}
+        group: {}
+    CreateTopicResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        payload:
+          $ref: '#/components/schemas/CreateTopicResponse_payload'
+      example:
+        code: code
+        payload:
+          topicData:
+            pinned: 4
+            lastposttime: 6
+            upvotes: 7
+            unreplied: 6
+            mainPost: {}
+            unread: true
+            timestampISO: timestampISO
+            title: title
+            teaserPid: {}
+            tid: 5
+            uid: 7
+            lastposttimeISO: lastposttimeISO
+            deleterUid: 1
+            isOwner: true
+            mainPid: 1
+            locked: 2
+            slug: slug
+            timestamp: 2
+            ignored: true
+            downvotes: 1
+            icons: {}
+            tags: {}
+            bookmark: {}
+            deleted: 3
+            postcount: 5
+            viewcount: 9
+            titleRaw: titleRaw
+            votes: 1
+            category: {}
+            user: {}
+            cid: 0
+            teaser: {}
+          postData:
+            isMain: true
+            bookmarked: true
+            selfPost: true
+            index: 9
+            pid: 7
+            timestampISO: timestampISO
+            display_edit_tools: true
+            tid: 4
+            content: content
+            uid: 1
+            display_moderator_tools: true
+            display_move_tools: true
+            topic: {}
+            votes: 6
+            display_delete_tools: true
+            user: {}
+            timestamp: 5
+            cid: 9
+    CreateTopicBody:
+      required:
+      - cid
+      - content
+      - title
+      type: object
+      properties:
+        cid:
+          type: integer
+        title:
+          type: string
+        content:
+          type: string
+    CreateReplyBody:
+      required:
+      - content
+      type: object
+      properties:
+        content:
+          type: string
+        toPid:
+          type: integer
+    UpdateTopicBody:
+      required:
+      - content
+      - pid
+      type: object
+      properties:
+        pid:
+          type: integer
+        content:
+          type: string
+        handle:
+          type: string
+        title:
+          type: string
+        topic_thumb:
+          type: integer
+        tags:
+          type: array
+          items:
+            type: string
+    UpdatePostBody:
+      required:
+      - content
+      type: object
+      properties:
+        content:
+          type: string
+        title:
+          type: string
+        topic_thumb:
+          type: integer
+        tags:
+          type: array
+          items:
+            type: string
+    VotePostBody:
+      required:
+      - delta
+      type: object
+      properties:
+        delta:
+          type: integer
+          description: delta must be a number. If delta > 0, it's considered an upvote;
+            if delta < 0, it's considered a downvote; otherwise, it's an unvote.
+    PostOperationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        payload:
+          type: object
+          properties: {}
+          example: {}
+      example:
+        code: code
+        payload: {}
+    UpdateUserInfo:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        fullname:
+          type: string
+        website:
+          type: string
+        location:
+          type: string
+        birthday:
+          type: string
+        signature:
+          type: string
+    ForumResponse:
+      type: object
+      properties:
+        type:
+          type: string
+        identifier:
+          type: string
+        cid:
+          type: integer
+      example:
+        identifier: identifier
+        type: type
+        cid: 0
+    ForumIdRequestBody:
+      type: object
+      properties:
+        type:
+          type: string
+        identifier:
+          type: string
+        cid:
+          type: integer
+    GroupRequestBody:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        hidden:
+          type: boolean
+        private:
+          type: boolean
+        ownerUid:
+          type: integer
+    GroupResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        payload:
+          $ref: '#/components/schemas/GroupResponse_payload'
+      example:
+        code: code
+        payload:
+          userTitle: userTitle
+          createtime: 0
+          private: 2
+          system: 5
+          hidden: 5
+          userTitleEnabled: 6
+          disableLeave: 9
+          memberCount: 1
+          name: name
+          description: description
+          disableJoinRequests: 7
+          slug: slug
+    CreateUserResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        payload:
+          $ref: '#/components/schemas/CreateUserResponse_payload'
+      example:
+        code: code
+        payload:
+          uid: 0
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        params:
+          type: object
+          properties: {}
+    CategoryResponse_payload:
+      type: object
+      properties:
+        cid:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        descriptionParsed:
+          type: string
+        icon:
+          type: string
+        bgColor:
+          type: string
+        color:
+          type: string
+        slug:
+          type: string
+        parentCid:
+          type: integer
+        topic_count:
+          type: string
+        post_count:
+          type: string
+        disabled:
+          type: string
+        order:
+          type: string
+        link:
+          type: string
+        numRecentReplies:
+          type: string
+        class:
+          type: string
+        imageClass:
+          type: string
+        isSection:
+          type: string
+      example:
+        color: color
+        numRecentReplies: numRecentReplies
+        icon: icon
+        link: link
+        description: description
+        topic_count: topic_count
+        imageClass: imageClass
+        parentCid: 6
+        descriptionParsed: descriptionParsed
+        bgColor: bgColor
+        name: name
+        disabled: disabled
+        post_count: post_count
+        isSection: isSection
+        class: class
+        slug: slug
+        cid: 0
+        order: order
+    ListOfCategories_user:
+      type: object
+      properties:
+        uid:
+          type: integer
+        username:
+          type: string
+        userslug:
+          type: string
+        picture:
+          type: string
+        icon:text:
+          type: string
+        icon:bgColor:
+          type: string
+      example:
+        uid: 5
+        icon:bgColor: icon:bgColor
+        icon:text: icon:text
+        userslug: userslug
+        picture: picture
+        username: username
+    ListOfCategories_topic:
+      type: object
+      properties:
+        slug:
+          type: string
+        title:
+          type: string
+      example:
+        title: title
+        slug: slug
+    ListOfCategories_posts:
+      type: object
+      properties:
+        pid:
+          type: integer
+        timestamp:
+          type: integer
+        content:
+          type: string
+        timestampISO:
+          type: string
+        user:
+          $ref: '#/components/schemas/ListOfCategories_user'
+        index:
+          type: integer
+        cid:
+          type: integer
+        parentCid:
+          type: integer
+        topic:
+          $ref: '#/components/schemas/ListOfCategories_topic'
+      example:
+        parentCid: 9
+        index: 2
+        topic:
+          title: title
+          slug: slug
+        pid: 1
+        timestampISO: timestampISO
+        user:
+          uid: 5
+          icon:bgColor: icon:bgColor
+          icon:text: icon:text
+          userslug: userslug
+          picture: picture
+          username: username
+        content: content
+        timestamp: 5
+        cid: 7
+    UserDetails_user:
+      type: object
+      properties:
+        uid:
+          type: integer
+        username:
+          type: string
+        userslug:
+          type: string
+        picture:
+          type: object
+          properties: {}
+          example: {}
+        status:
+          type: string
+        icon:text:
+          type: string
+        icon:bgColor:
+          type: string
+      example:
+        uid: 6
+        icon:bgColor: icon:bgColor
+        icon:text: icon:text
+        userslug: userslug
+        picture: {}
+        username: username
+        status: status
+    UserDetails_topic:
+      type: object
+      properties:
+        uid:
+          type: integer
+        tid:
+          type: integer
+        title:
+          type: string
+        cid:
+          type: integer
+        slug:
+          type: string
+        deleted:
+          type: integer
+        postcount:
+          type: integer
+        mainPid:
+          type: integer
+        teaserPid:
+          type: object
+          properties: {}
+          example: {}
+        titleRaw:
+          type: string
+      example:
+        uid: 8
+        deleted: 3
+        postcount: 6
+        titleRaw: titleRaw
+        mainPid: 1
+        title: title
+        teaserPid: {}
+        tid: 9
+        slug: slug
+        cid: 6
+    UserDetails_category:
+      type: object
+      properties:
+        cid:
+          type: integer
+        name:
+          type: string
+        icon:
+          type: string
+        slug:
+          type: string
+        parentCid:
+          type: integer
+        bgColor:
+          type: string
+        color:
+          type: string
+        backgroundImage:
+          type: object
+          properties: {}
+          example: {}
+        imageClass:
+          type: string
+      example:
+        parentCid: 6
+        bgColor: bgColor
+        color: color
+        backgroundImage: {}
+        name: name
+        icon: icon
+        slug: slug
+        cid: 2
+        imageClass: imageClass
+    UserDetails_posts:
+      type: object
+      properties:
+        pid:
+          type: integer
+        tid:
+          type: integer
+        content:
+          type: string
+        uid:
+          type: integer
+        timestamp:
+          type: integer
+        deleted:
+          type: boolean
+        upvotes:
+          type: integer
+        downvotes:
+          type: integer
+        votes:
+          type: integer
+        timestampISO:
+          type: string
+        user:
+          $ref: '#/components/schemas/UserDetails_user'
+        topic:
+          $ref: '#/components/schemas/UserDetails_topic'
+        category:
+          $ref: '#/components/schemas/UserDetails_category'
+        isMainPost:
+          type: boolean
+      example:
+        upvotes: 5
+        pid: 6
+        timestampISO: timestampISO
+        downvotes: 9
+        tid: 7
+        content: content
+        uid: 1
+        deleted: true
+        isMainPost: true
+        topic:
+          uid: 8
+          deleted: 3
+          postcount: 6
+          titleRaw: titleRaw
+          mainPid: 1
+          title: title
+          teaserPid: {}
+          tid: 9
+          slug: slug
+          cid: 6
+        votes: 9
+        category:
+          parentCid: 6
+          bgColor: bgColor
+          color: color
+          backgroundImage: {}
+          name: name
+          icon: icon
+          slug: slug
+          cid: 2
+          imageClass: imageClass
+        user:
+          uid: 6
+          icon:bgColor: icon:bgColor
+          icon:text: icon:text
+          userslug: userslug
+          picture: {}
+          username: username
+          status: status
+        timestamp: 4
+    CategoryDetails_topics:
+      type: object
+      properties:
+        cid:
+          type: integer
+        lastposttime:
+          type: integer
+        mainPid:
+          type: integer
+        postcount:
+          type: integer
+        slug:
+          type: string
+        tid:
+          type: integer
+        timestamp:
+          type: integer
+        title:
+          type: string
+        uid:
+          type: integer
+        viewcount:
+          type: integer
+        deleted:
+          type: integer
+        locked:
+          type: integer
+        pinned:
+          type: integer
+        upvotes:
+          type: integer
+        downvotes:
+          type: integer
+        deleterUid:
+          type: integer
+        titleRaw:
+          type: string
+        timestampISO:
+          type: string
+        lastposttimeISO:
+          type: string
+        votes:
+          type: integer
+        teaserPid:
+          type: object
+          properties: {}
+          example: {}
+        category:
+          type: object
+          properties: {}
+          example: {}
+        user:
+          type: object
+          properties: {}
+          example: {}
+        teaser:
+          type: object
+          properties: {}
+          example: {}
+        tags:
+          type: object
+          properties: {}
+          example: {}
+        isOwner:
+          type: boolean
+        ignored:
+          type: boolean
+        unread:
+          type: boolean
+        bookmark:
+          type: object
+          properties: {}
+          example: {}
+        unreplied:
+          type: boolean
+        icons:
+          type: object
+          properties: {}
+          example: {}
+        index:
+          type: integer
+      example:
+        pinned: 6
+        lastposttime: 1
+        upvotes: 8
+        unreplied: true
+        unread: true
+        timestampISO: timestampISO
+        title: title
+        teaserPid: {}
+        tid: 7
+        uid: 4
+        lastposttimeISO: lastposttimeISO
+        deleterUid: 6
+        isOwner: true
+        mainPid: 1
+        locked: 9
+        slug: slug
+        timestamp: 1
+        ignored: true
+        index: 6
+        downvotes: 9
+        icons: {}
+        tags: {}
+        bookmark: {}
+        deleted: 9
+        postcount: 6
+        viewcount: 5
+        titleRaw: titleRaw
+        votes: 3
+        category: {}
+        user: {}
+        cid: 1
+        teaser: {}
+    TopicResponse_topics:
+      type: object
+      properties:
+        cid:
+          type: integer
+        lastposttime:
+          type: integer
+        mainPid:
+          type: integer
+        postcount:
+          type: integer
+        slug:
+          type: string
+        tid:
+          type: integer
+        timestamp:
+          type: integer
+        title:
+          type: string
+        uid:
+          type: integer
+        viewcount:
+          type: integer
+        deleted:
+          type: integer
+        locked:
+          type: integer
+        pinned:
+          type: integer
+        upvotes:
+          type: integer
+        downvotes:
+          type: integer
+        deleterUid:
+          type: integer
+        titleRaw:
+          type: string
+        timestampISO:
+          type: string
+        lastposttimeISO:
+          type: string
+        votes:
+          type: integer
+        teaserPid:
+          type: object
+          properties: {}
+          example: {}
+        category:
+          $ref: '#/components/schemas/UserDetails_category'
+        user:
+          $ref: '#/components/schemas/UserDetails_user'
+        teaser:
+          type: object
+          properties: {}
+          example: {}
+        tags:
+          type: object
+          properties: {}
+          example: {}
+        isOwner:
+          type: boolean
+        ignored:
+          type: boolean
+        unread:
+          type: boolean
+        bookmark:
+          type: object
+          properties: {}
+          example: {}
+        unreplied:
+          type: boolean
+        icons:
+          type: object
+          properties: {}
+          example: {}
+        index:
+          type: integer
+      example:
+        pinned: 1
+        lastposttime: 5
+        upvotes: 1
+        unreplied: true
+        unread: true
+        timestampISO: timestampISO
+        title: title
+        teaserPid: {}
+        tid: 7
+        uid: 3
+        lastposttimeISO: lastposttimeISO
+        deleterUid: 6
+        isOwner: true
+        mainPid: 5
+        locked: 7
+        slug: slug
+        timestamp: 9
+        ignored: true
+        index: 1
+        downvotes: 1
+        icons: {}
+        tags: {}
+        bookmark: {}
+        deleted: 4
+        postcount: 2
+        viewcount: 2
+        titleRaw: titleRaw
+        votes: 7
+        category:
+          parentCid: 6
+          bgColor: bgColor
+          color: color
+          backgroundImage: {}
+          name: name
+          icon: icon
+          slug: slug
+          cid: 2
+          imageClass: imageClass
+        user:
+          uid: 6
+          icon:bgColor: icon:bgColor
+          icon:text: icon:text
+          userslug: userslug
+          picture: {}
+          username: username
+          status: status
+        cid: 1
+        teaser: {}
+    TopicResponse_categories:
+      type: object
+      properties:
+        cid:
+          type: integer
+        name:
+          type: string
+        level:
+          type: string
+        icon:
+          type: string
+        parentCid:
+          type: integer
+        color:
+          type: string
+        bgColor:
+          type: string
+        imageClass:
+          type: string
+        selected:
+          type: boolean
+      example:
+        parentCid: 5
+        color: color
+        bgColor: bgColor
+        level: level
+        name: name
+        icon: icon
+        selected: true
+        cid: 4
+        imageClass: imageClass
+    CreateTopicResponse_payload_topicData:
+      type: object
+      properties:
+        cid:
+          type: integer
+        lastposttime:
+          type: integer
+        mainPid:
+          type: integer
+        postcount:
+          type: integer
+        slug:
+          type: string
+        tid:
+          type: integer
+        timestamp:
+          type: integer
+        title:
+          type: string
+        uid:
+          type: integer
+        viewcount:
+          type: integer
+        deleted:
+          type: integer
+        locked:
+          type: integer
+        pinned:
+          type: integer
+        upvotes:
+          type: integer
+        downvotes:
+          type: integer
+        deleterUid:
+          type: integer
+        titleRaw:
+          type: string
+        timestampISO:
+          type: string
+        lastposttimeISO:
+          type: string
+        votes:
+          type: integer
+        teaserPid:
+          type: object
+          properties: {}
+          example: {}
+        category:
+          type: object
+          properties: {}
+          example: {}
+        user:
+          type: object
+          properties: {}
+          example: {}
+        teaser:
+          type: object
+          properties: {}
+          example: {}
+        tags:
+          type: object
+          properties: {}
+          example: {}
+        isOwner:
+          type: boolean
+        ignored:
+          type: boolean
+        unread:
+          type: boolean
+        bookmark:
+          type: object
+          properties: {}
+          example: {}
+        unreplied:
+          type: integer
+        icons:
+          type: object
+          properties: {}
+          example: {}
+        mainPost:
+          type: object
+          properties: {}
+          example: {}
+      example:
+        pinned: 4
+        lastposttime: 6
+        upvotes: 7
+        unreplied: 6
+        mainPost: {}
+        unread: true
+        timestampISO: timestampISO
+        title: title
+        teaserPid: {}
+        tid: 5
+        uid: 7
+        lastposttimeISO: lastposttimeISO
+        deleterUid: 1
+        isOwner: true
+        mainPid: 1
+        locked: 2
+        slug: slug
+        timestamp: 2
+        ignored: true
+        downvotes: 1
+        icons: {}
+        tags: {}
+        bookmark: {}
+        deleted: 3
+        postcount: 5
+        viewcount: 9
+        titleRaw: titleRaw
+        votes: 1
+        category: {}
+        user: {}
+        cid: 0
+        teaser: {}
+    CreateTopicResponse_payload_postData:
+      type: object
+      properties:
+        pid:
+          type: integer
+        uid:
+          type: integer
+        tid:
+          type: integer
+        content:
+          type: string
+        timestamp:
+          type: integer
+        cid:
+          type: integer
+        isMain:
+          type: boolean
+        user:
+          type: object
+          properties: {}
+          example: {}
+        topic:
+          type: object
+          properties: {}
+          example: {}
+        index:
+          type: integer
+        votes:
+          type: integer
+        bookmarked:
+          type: boolean
+        display_edit_tools:
+          type: boolean
+        display_delete_tools:
+          type: boolean
+        display_moderator_tools:
+          type: boolean
+        display_move_tools:
+          type: boolean
+        selfPost:
+          type: boolean
+        timestampISO:
+          type: string
+      example:
+        isMain: true
+        bookmarked: true
+        selfPost: true
+        index: 9
+        pid: 7
+        timestampISO: timestampISO
+        display_edit_tools: true
+        tid: 4
+        content: content
+        uid: 1
+        display_moderator_tools: true
+        display_move_tools: true
+        topic: {}
+        votes: 6
+        display_delete_tools: true
+        user: {}
+        timestamp: 5
+        cid: 9
+    CreateTopicResponse_payload:
+      type: object
+      properties:
+        topicData:
+          $ref: '#/components/schemas/CreateTopicResponse_payload_topicData'
+        postData:
+          $ref: '#/components/schemas/CreateTopicResponse_payload_postData'
+      example:
+        topicData:
+          pinned: 4
+          lastposttime: 6
+          upvotes: 7
+          unreplied: 6
+          mainPost: {}
+          unread: true
+          timestampISO: timestampISO
+          title: title
+          teaserPid: {}
+          tid: 5
+          uid: 7
+          lastposttimeISO: lastposttimeISO
+          deleterUid: 1
+          isOwner: true
+          mainPid: 1
+          locked: 2
+          slug: slug
+          timestamp: 2
+          ignored: true
+          downvotes: 1
+          icons: {}
+          tags: {}
+          bookmark: {}
+          deleted: 3
+          postcount: 5
+          viewcount: 9
+          titleRaw: titleRaw
+          votes: 1
+          category: {}
+          user: {}
+          cid: 0
+          teaser: {}
+        postData:
+          isMain: true
+          bookmarked: true
+          selfPost: true
+          index: 9
+          pid: 7
+          timestampISO: timestampISO
+          display_edit_tools: true
+          tid: 4
+          content: content
+          uid: 1
+          display_moderator_tools: true
+          display_move_tools: true
+          topic: {}
+          votes: 6
+          display_delete_tools: true
+          user: {}
+          timestamp: 5
+          cid: 9
+    GroupResponse_payload:
+      type: object
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        createtime:
+          type: integer
+        userTitle:
+          type: string
+        userTitleEnabled:
+          type: integer
+        description:
+          type: string
+        memberCount:
+          type: integer
+        hidden:
+          type: integer
+        system:
+          type: integer
+        private:
+          type: integer
+        disableJoinRequests:
+          type: integer
+        disableLeave:
+          type: integer
+      example:
+        userTitle: userTitle
+        createtime: 0
+        private: 2
+        system: 5
+        hidden: 5
+        userTitleEnabled: 6
+        disableLeave: 9
+        memberCount: 1
+        name: name
+        description: description
+        disableJoinRequests: 7
+        slug: slug
+    CreateUserResponse_payload:
+      type: object
+      properties:
+        uid:
+          type: integer
+      example:
+        uid: 0
