@@ -71,15 +71,15 @@ Before you start the installation process, ensure that you provision for servers
   </tr>
   <tr>
     <td>Redis</td>
-    <td>redis1, lp-redis, redis</td>
+    <td>redis1, lp-redis, redis, dp-redis, lms-redis</td>
   </tr>
   <tr>
-    <td>Search</td>
-    <td>search1, search</td>
+    <td>dial</td>
+    <td>dial1</td>
   </tr>
   <tr>
     <td>Kafka</td>
-    <td>processing-cluster-kafka, processing-cluster-zookeepers, kafka-ps, kafka-1</td>
+    <td>processing-cluster-kafka, processing-cluster-zookeepers, kafka-ps, kafka-1, ingestion-cluster-kafka</td>
   </tr>
   <tr>
     <td rowspan="8">Data Pipeline</td>
@@ -140,3 +140,35 @@ Before you start the installation process, ensure that you provision for servers
 - All ports must be open in internal networks (Azure-Vnet or AWS-VPC) for internal comumnication between the VMs
 - By default, all the outbound ports are allowed for public access from the VM. 
 
+## Steps to create AKS cluster
+
+> **Note** AKS cluster and vm's should be in same vnet (if both are in diffrent vnet, vnet peering has to be done)  to do  vnet peering bot the vnet ip's should not overlap. 
+
+1.command to create aks cluster: (requires az cli and aks-preview)
+
+ ```
+    - create service principal and assign contributor role to service principal, get the secrets and client id of service principal.
+    
+    - az aks create --resource-group <resouse-group-name> --node-resource-group <k8s-resource-group-name> --name <cluster name>  --node-count 4 --admin-username deployer --kubernetes-version 1.16.13 --service-principal "<service principal id>" --node-vm-size <vm size> --client-secret "<client id>" --network-plugin azure --ssh-key-value @deployer.pub -l <region> --vm-set-type VirtualMachineScaleSets --vnet-subnet-id /subscriptions/<subscription id>/resourceGroups/<resouse-group-name>/providers/Microsoft.Network/virtualNetworks/<vnet-name>/subnets/<subnet name>
+
+    - command to get kube config file for created cluster:
+       az aks get-credentials --resource-group <resource group name> --name <cluster name> --file - > k8s.yaml
+
+ ```  
+
+ ## Storage account configuration
+
+ 1.Update CORS rule for storage account as below
+
+ ```
+    Allowed Origins: *
+    Allowed Methods: GET,HEAD,OPTIONS, PUT
+    Allowed Headers: Access-Control-Allow-Method,Origin,x-ms-meta-qqfilename,x-ms-blob-type,x-ms-blob-content-type,Content-Type
+    Exposed Headers: Access-Control-Allow-Origin,Access-Control-Allow-Methods
+    Max Age: 200
+
+ ``` 
+
+ 2.Disable Secure transfer required in stoarge account configuration
+
+ 3.Create container  dial, termsandcondtions and content(it can be any name for content container, but use same container name in kp common.yml) with public ACL

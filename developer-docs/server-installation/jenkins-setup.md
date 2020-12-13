@@ -16,7 +16,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 
  ```
     - git clone [https://github.com/project-sunbird/sunbird-devops.git](https://github.com/project-sunbird/sunbird-devops.git) 
-    - cd sunbird-devops && git checkout tags/release-3.1.0 -b release-3.1.0
+    - cd sunbird-devops && git checkout tags/release-3.4.0 -b release-3.4.0
     - cd deploy/jenkins
     - sudo bash jenkins-server-setup.sh
 
@@ -83,6 +83,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 |**public_repo_branch**|This is the branch or tag to pick the Jenkins file. You can set this value as refs/tags/release-3.1.0 if you want to build from tags or provide the value of the development branch, for example, release-3.1.0. Changing this value is not recommended since development branches are not stable. |
 |**override_private_branch**|true|
 |**override_public_branch**|true| 
+|**java11_home**|/usr/lib/jvm/java-11-openjdk-amd64/|
  
 21.Scroll to the **Global Pipeline Libraries** section and click **Add**. Provide the values as below:
 
@@ -124,9 +125,19 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 
 32.Copy the contents of the `deployer_ssh_key` into `/var/lib/jenkins/secrets/deployer_ssh_key`  
 
-33.If your private GitHub repository has Ansible encrypted files, then enter the decryption password in `/var/lib/jenkins/secrets/vault-pass`. If there are no encrypted files, then enter a random value like **12345** into the `vault-pass` file. This file cannot be empty
+33.Copy the kubernetes config file `k8s.yaml` into `/var/lib/jenkins/secrets/k8s.yaml`
 
-34.Restart the Jenkins server
+34.If your private GitHub repository has Ansible encrypted files, then enter the decryption password in `/var/lib/jenkins/secrets/vault-pass`. If there are no encrypted files, then enter a random value like **12345** into the `vault-pass` file. This file cannot be empty
+
+35.give sudo access to jenkins user 
+ ```
+    sudo visudo
+    addd below line in visudo
+    jenkins ALL=(ALL) NOPASSWD:ALL   
+
+ ``` 
+
+36.Restart the Jenkins server
 
 
 > Note: 
