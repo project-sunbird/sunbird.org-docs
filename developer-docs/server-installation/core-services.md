@@ -39,7 +39,7 @@ This page explains the jobs to be run to bring up the Core services.
 | Search  | search service docker image |release-3.4.0 
 | KnowledgeMW | Knowledge-mw service docker image | release-3.4.0
 | Learner | Learner service docker image | release-3.4.0
-| Player | Player service docker image. | release-3.4.0|
+| Player | Player service docker image. | release-3.4.5
 | Cert | Cert service docker image | release-1.1.1
 | EncService | Envservice docker image | release-1.1.1
 | Proxy | Proxy docker image | release-3.4.0
