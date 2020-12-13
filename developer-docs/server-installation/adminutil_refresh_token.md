@@ -18,7 +18,7 @@ After lms client is created in keycloak, use the lms client and secret to genera
 ```
    if public nginx is deplyed and mapped Domain name for the public ip, use the domain  name in curl command:
    
-   curl --location --request POST 'https://<domain name>/auth/realms/sunbird/      protocol/openid-connect/token' \
+   curl --location --request POST 'https://<domain name>/auth/realms/sunbird/protocol/openid-connect/token' \
    --header 'Content-Type: application/x-www-form-urlencoded' \
    --data-urlencode 'client_id=lms' \
    --data-urlencode 'client_secret=<LMS CLIENT SECRET>' \
