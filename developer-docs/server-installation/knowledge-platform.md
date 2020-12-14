@@ -15,10 +15,12 @@ Switch to the `Build` folder and run all jobs in the below sequence. For the val
 
 |Operation Name    | Function              | CURRENT RELEASE TAG |
 | --------------   | --------------------- | -------------------
-| CassandraTrigger | Generate the jar file for cassandraTrigger | release-3.1.4
-| KnowledgePlatform| Generate the artefacts for knowledge Platform | release-3.1.4
-| Neo4j            | Generate the Neo4j jar file| release-3.1.4
-| Yarn             | Generate the artefacts for Samza job | release-3.1.4
+| CassandraTrigger | Generate the jar file for cassandraTrigger | release-3.4.0
+| KnowledgePlatform| Generate the artefacts for knowledge Platform | release-3.4.0
+| Neo4j            | Generate the Neo4j jar file| release-3.4.0
+| Yarn             | Generate the artefacts for Samza job | release-3.4.0
+| Dial             | Generate the artifacts for dial service | release-3.3.0
+| FlinkJobs        | Generate the artifacts for flink jobs   | relelase-3.4.0
 
 
 
@@ -41,28 +43,51 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
     
 | Operation Name | Function              | Description | CURRENT RELEASE TAG |
 | -------------- | --------------------- |-------------|  -----------------
-| CompositeSearch| Installs the ElasticSearch | Installs dependencies for elastic search and starts elastic search service | release-3.1.4
-| Neo4j          | Installs the Neo4j and Logstash | Installs Neo4j and its dependencies | relesae-3.1.4|
-|zookeeper          | Installs the zookeper | zookeeper installation | release-3.1.4
-| Kafka          | Installs the Kafka | Kafka installation | release-3.1.4
-| Learning       | Installs the dependency to run the learning application | Creates learning user and installs dependencies(java, tomcat, logstash, ffmpeg,imagemagick) | release-3.1.4
-| Redis          | Installs the Redis database | Download and installs Redis | release-3.1.4
+| CompositeSearch| Installs the ElasticSearch | Installs dependencies for elastic search and starts elastic search service | release-3.4.0
+| Neo4j          | Installs the Neo4j and Logstash | Installs Neo4j and its dependencies | relesae-3.4.0|
+|zookeeper          | Installs the zookeper | zookeeper installation | release-3.4.0
+| Kafka          | Installs the Kafka | Kafka installation | release-3.4.0
+| Learning       | Installs the dependency to run the learning application | Creates learning user and installs dependencies(java, tomcat, logstash, ffmpeg,imagemagick) | release-3.4.0
+| Redis          | Installs the Redis database | Download and installs Redis | release-3.4.0
+| Dial           | Installs the dependency to run the dial service | install logstash and other dependencies | release-3.4.0
 
 ## Deploy
 
-*   Switch to `Deploy/dev/KnowledgePlatform` and run the jobs in the following sequence:
+*   Switch to `Deploy/dev/KnowledgePlatform` and run the jobs in the following sequence (start deploy jobs after all DB provision is done from core folder):
  
 | Operation Name      | Function              | CURRENT RELEASE TAG |
 | --------------      | --------------------- | -------------------
-| CassandraTrigger    | Deploys the CassandraTrigger jar file and installs the logstash | release-3.1.4
-| CassandraDbUpdate   | Creates the Cassandra keyspace and update| release-3.1.4
-| Neo4j               | Deploys the Neo4j artefacts | release-3.1.4
-| StartNeo4jCluster   | Starts the Neo4j process| release-3.1.4
-| Learning            | Deploys the learning service artefacts and starts the learning service | release-3.1.4
-| Neo4DefinitionUpdate| Updates Neo4j definition | release-3.1.4
-| KafkaSetup          | Creates the Kafka Topics| release-3.1.4
-| Yarn                | Deploys the Samza jobs | release-3.1.4
+| CassandraTrigger    | Deploys the CassandraTrigger jar file and installs the logstash | release-3.4.0
+| CassandraDbUpdate   | Creates the Cassandra keyspace and update| release-3.4.0
+| Neo4j               | Deploys the Neo4j artefacts | release-3.4.0
+| StartNeo4jCluster   | Starts the Neo4j process| release-3.4.0
+| Learning            | Deploys the learning service artefacts and starts the learning service | release-3.4.0
+| Neo4DefinitionUpdate| Updates Neo4j definition | release-3.4.0
+| KafkaSetup          | Creates the Kafka Topics| release-3.4.0
+| Yarn                | Deploys the Samza jobs | release-3.4.0
+| Dial                | Deploys and starts dial service | release-3.4.0
+| FlinkJobs           | Deploys flink jobs | release-3.4.0
 
 
+## Create master framework category
+        
+1.Make sure learning services is running and healthy, command to check learning service health **http://localhost:8080/learning-service/health**
+
+2.Run the below curl command from learning vm:
+
+ ```
+   curl --location --request POST 'http://localhost:8080/learning-service/framework/v3/category/master/create' \
+                  --header 'Content-Type: application/json' \
+                  --data-raw '{
+                     "request": {
+                        "category":{
+                            "name":"Subject",
+                            "description":"Subject",
+                            "code":"subject"
+                        }
+                      }
+                  }'
+
+ ```   
 
 Refer [How to Create Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird){:target="_blank"}, [How to Create Schemas for Knowledge Platform Objects](developer-docs/server-installation/knowledge-platform-object-schema){:target="_blank"}
