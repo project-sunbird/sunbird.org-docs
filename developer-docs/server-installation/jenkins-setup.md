@@ -97,7 +97,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 
 22.Click **Save** and go to **Manage Jenkins** -> **Configure global security** 
 
-23.Choose the **Markup Formatter** as **Safe HTML**
+23.Choose the **Markup Formatter** as **Safe HTML** and Under **Copy Artifact Compatibility mode**  choose **Migration**
 
 24.Go to **Manage Jenkins** -> **Manager Nodes** -> Click **master** -> Click **Configure** -> Provide **labels**. Provide the label as `build-slave`, `jenkin-slave11`
 
