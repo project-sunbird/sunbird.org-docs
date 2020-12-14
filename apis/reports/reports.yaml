@@ -1,0 +1,2907 @@
+openapi: 3.0.0
+info:
+  title: Report Service API's
+  description: >-
+    The Report API resources perform operations related to all the Reports, Reports Summaries, and Chart Summaries on the Sunbird Platform.
+
+
+    - Each of the endpoints serves a different purpose, so which one to use depends on what you want to do
+
+    - The operations include CRUD (Create, Update, Read and Delete) operations and other operations such as retire, publish, etc.
+
+    - The URL for Sunbird Report API(s) is` /report`
+  termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
+  contact:
+    email: info@sunbird.org
+  version: '1.0'
+externalDocs:
+  description: "Testcases"
+  url: "https://www.getpostman.com/collections/ad86fc520425abd74bef" 
+servers:
+- url: https://staging.open-sunbird.org/api/data/v1/report-service/report
+  variables: {}
+paths:
+  /list:
+    post:
+      tags:
+      - Reports API's
+      summary: Search Reports
+      description: >-
+        This API is associated with Searching Reports on the Sunbird Platform.
+
+
+        - The endpoint for search Reports is `/report/list`
+
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: SearchReports
+      parameters:
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{auth}}'
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchReportsRequest'
+            example:
+              request:
+                filters: {}
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **Search Reports** operation was successful!
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+              example:
+                id: api.report.list
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: string
+                  status: string
+                  err: string
+                  errmsg: string
+                responseCode: string
+                result:
+                  reports:
+                  - reportid: string
+                    title: string
+                    description: string
+                    authorizedroles:
+                    - string
+                    status: string
+                    type: string
+                    reportaccessurl: string
+                    createdon: string
+                    updatedon: string
+                    createdby: string
+                    reportconfig:
+                      id: string
+                      label: string
+                      table:
+                      - name: string
+                        valuesExpr: string
+                        columnsExpr: string
+                      title: string
+                      charts:
+                      - colors:
+                        - borderColor: string
+                          backgroundColor: string
+                        options:
+                          title:
+                            text: string
+                            display: true
+                            fontSize: 16
+                          legend:
+                            display: false
+                          scales:
+                            xAxes:
+                            - scaleLabel:
+                                display: true
+                                labelString: string
+                            yAxes:
+                            - scaleLabel:
+                                display: true
+                                labelString: string
+                          tooltips:
+                            mode: string
+                            intersect: false
+                            bodySpacing: 5
+                            titleSpacing: 5
+                          responsive: true
+                        datasets:
+                        - label: string
+                          dataExpr: string
+                        chartType: string
+                        labelsExpr: string
+                      dataSource: string
+                      description: string
+                      downloadUrl: string
+                    templateurl: string
+                    slug: string
+                    reportgenerateddate: string
+                    reportduration:
+                      enddate: string
+                      startdate: string
+                    tags:
+                    - string
+                    updatefrequency: string
+                    parameters:
+                    - string
+                    report_type: string
+                    children: []
+                  count: 1
+        400:
+          description: '''BAD REQUEST. The operation failed. You
+            may have missed input for a mandatory parameter.'''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoReportFound'
+              example:
+                id: api.report.list
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: 
+                  status: failed
+                  err: string
+                  errmsg: string
+                responseCode: string
+                result: {}
+        500:
+          description: "''INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.''"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+              example:
+                result: {}
+                id: string
+                ver: string
+                params:
+                  resmsgid: string
+                  msgid: string
+                  err: string
+                  status: string
+                  errmsg: string
+                responseCode: {}
+      deprecated: false
+      security: []
+  /get/{Report_Id}:
+    get:
+      tags:
+      - Reports API's
+      summary: Read Report
+      description: >-
+        This API is associated with viewing and reading out the Report on the Sunbird Platform.
+
+
+        - The endpoint for search Reports is `/report/get/{ Report_Id }`
+
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: ReadReport
+      parameters:
+      - name: Report_Id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: >-
+          The Content Type entity is the media type of the resource.Possible media types can be:-
+
+
+          Application/json
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{auth}}'
+      responses:
+        200:
+          description: SUCCESS. The **Read Report** operation was successful!
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+              example:
+                id: string
+                ver: string
+                params:
+                  resmsgid: string
+                  msgid: string
+                  status: success
+                  err: string
+                  errmsg: string
+                responseCode: OK
+                result:
+                  reports:
+                  - reportid: string
+                    title: string
+                    description: string
+                    authorizedroles:
+                    - string
+                    status: string
+                    type: string
+                    reportaccessurl: string
+                    createdon: string
+                    updatedon: string
+                    createdby: string
+                    reportconfig:
+                      id: string
+                      label: string
+                      table:
+                      - name: string
+                        valuesExpr: string
+                        columnsExpr: string
+                      title: string
+                      charts:
+                      - colors:
+                        - borderColor: string
+                          backgroundColor: string
+                        options:
+                          title:
+                            text: string
+                            display: true
+                            fontSize: 16
+                          legend:
+                            display: false
+                          scales:
+                            xAxes:
+                            - scaleLabel:
+                                display: true
+                                labelString: string
+                            yAxes:
+                            - scaleLabel:
+                                display: true
+                                labelString: string
+                          tooltips:
+                            mode: string
+                            intersect: false
+                            bodySpacing: 5
+                            titleSpacing: 5
+                          responsive: true
+                        datasets:
+                        - label: string
+                          dataExpr: string
+                        chartType: string
+                        labelsExpr: string
+                      dataSource: string
+                      description: string
+                      downloadUrl: string
+                    templateurl: string
+                    slug: string
+                    reportgenerateddate: string
+                    reportduration:
+                      enddate: string
+                      startdate: string
+                    tags:
+                    - string
+                    updatefrequency: string
+                    parameters:
+                    - string
+                    report_type: string
+                    children: []
+                  count: 1
+        404:
+          description: Report Not Found with given report Id parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoReportFound'
+              example:
+                id: api.report.read
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: 
+                  status: failed
+                  err: null
+                  errmsg: no report found
+                responseCode: string
+                result: {}
+        500:
+          description: "''INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.''"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+              example:
+                result: {}
+                id: string
+                ver: string
+                params:
+                  resmsgid: string
+                  msgid: string
+                  err: string
+                  status: string
+                  errmsg: string
+                responseCode: {}
+      deprecated: false
+      security: []
+  /create:
+    post:
+      tags:
+      - Reports API's
+      summary: Create Report
+      description: >-
+        This API is associated with creating a  Report on the Sunbird Platform.
+
+
+        - The endpoint for search Reports is `/report/create`
+
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: CreateReport
+      parameters:
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{auth}}'
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReportRequest'
+            example:
+              request:
+                report:
+                  title: string
+                  description: string
+                  authorizedroles:
+                  - string
+                  status: string
+                  type: string
+                  createdby: string
+                  reportconfig:
+                    id: string
+                    label: string
+                    table:
+                      valuesExpr: string
+                      columnsExpr: string
+                    title: string
+                    charts:
+                    - id: string
+                      options:
+                        title:
+                          text: string
+                          display: true
+                          fontSize: 16
+                        legend:
+                          display: true
+                        scales:
+                          xAxes:
+                          - scaleLabel:
+                              display: true
+                              labelString: string
+                          yAxes:
+                          - scaleLabel:
+                              display: true
+                              labelString: string
+                        tooltips:
+                          mode: string
+                          intersect: false
+                          bodySpacing: 5
+                          titleSpacing: 5
+                        responsive: true
+                      datasets:
+                      - label: string
+                        dataExpr: string
+                      chartType: string
+                      labelsExpr: string
+                      dataSource:
+                        ids:
+                        - string
+                        commonDimension: string
+                    dataSource:
+                    - id: string
+                      path: string
+                    description: string
+                    reportLevelDataSourceId: string
+                  slug: string
+                  reportgenerateddate: string
+                  reportduration:
+                    enddate: string
+                    startdate: Tstring
+                  tags:
+                  - string
+                  updatefrequency: string
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **Create Report** operation was successful!
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success2'
+              example:
+                id: api.report.create
+                ver: string
+                params:
+                  resmsgid: string
+                  msgid: string
+                  status: string
+                  err: string
+                  errmsg: string
+                responseCode: string
+                result:
+                  reportId: string
+                  reportaccessurl: string
+        400:
+          description: '''BAD REQUEST. The operation failed. You
+            may have missed input for a mandatory parameter.'''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoReportFound'
+              example:
+                id: api.report.create
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: 
+                  status: string
+                  err: string
+                  errmsg: string
+                responseCode: string
+                result: {}
+        500:
+          description: "''INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.''"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+              example:
+                result: {}
+                id: string
+                ver: string
+                params:
+                  resmsgid: string
+                  msgid: string
+                  err: string
+                  status: string
+                  errmsg: string
+                responseCode: {}
+      deprecated: false
+      security: []
+  /delete/{Report_Id}:
+    delete:
+      tags:
+      - Reports API's
+      summary: Delete Report
+      description: >-
+        This API is associated with deleting a  Report on the Sunbird Platform.
+
+
+        - The endpoint for search Reports is `/report/delete/{ Report_Id }`
+
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: DeleteReport
+      parameters:
+      - name: Report_Id
+        in: path
+        description: Please append a valid Report ID To the Request URL
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{Report_Id}}'
+      - name: Content-Type
+        in: header
+        description: >-
+          The Content Type entity is the media type of the resource.Possible media types can be:-
+
+          Application/json
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{auth}}'
+      responses:
+        200:
+          description: SUCCESS. The **Delete Report** operation was successful!
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success3'
+              example:
+                id: api.report.delete
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: string
+                  status: string
+                  err: string
+                  errmsg: string
+                responseCode: OK
+                result:
+                  reportId: string
+        404:
+          description: Report Not Found with given report Id parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoReportFound1'
+              example:
+                id: api.report.delete
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: string
+                  status: string
+                  err: null
+                  errmsg: no report found
+                responseCode: string
+                result: {}
+        500:
+          description: "''INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.''"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+              example:
+                result: {}
+                id: string
+                ver: string
+                params:
+                  resmsgid: string
+                  msgid: string
+                  err: string
+                  status: string
+                  errmsg: string
+                responseCode: {}
+      deprecated: false
+      security: []
+  /update/{Report_Id}:
+    patch:
+      tags:
+      - Reports API's
+      summary: Update Report
+      description: >-
+        This API is associated with updating a  Report on the Sunbird Platform.
+
+
+        - The endpoint for search Reports is `/report/update/{ Report_Id }`
+
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: UpdateReport
+      parameters:
+      - name: Report_Id
+        in: path
+        description: Please append a valid Report ID To the Request URL
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{Report_Id}}'
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{auth}}'
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReportRequest'
+            example:
+              request:
+                report: {}
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **Update Report** operation was successful!
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success3'
+              example:
+                id: api.report.update
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: string
+                  status: string
+                  err: string
+                  errmsg: string
+                responseCode: OK
+                result:
+                  reportId: string
+        400:
+          description: '''BAD REQUEST. The operation failed. You
+            may have missed input for a mandatory parameter.'''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoReportFound'
+              example:
+                id: api.report.update
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: 
+                  status: string
+                  err: string
+                  errmsg: string
+                responseCode: string
+                result: {}
+        404:
+          description: Report Not Found with given report Id parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoReportFound1'
+              example:
+                id: api.report.update
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: string
+                  status: string
+                  err: null
+                  errmsg: no report found
+                responseCode: string
+                result: {}
+        500:
+          description: "''INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.''"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+              example:
+                result: {}
+                id: string
+                ver: string
+                params:
+                  resmsgid: string
+                  msgid: string
+                  err: string
+                  status: string
+                  errmsg: string
+                responseCode: {}
+      deprecated: false
+      security: []
+  /publish/{Report_Id}:
+    get:
+      tags:
+      - Reports API's
+      summary: Publish Report
+      description: >-
+        This API is associated with publishing a  Report as live on the Sunbird Platform.
+
+
+        - The endpoint for search Reports is `/report/publish/{ Report_Id }`
+
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: PublishReport
+      parameters:
+      - name: Report_Id
+        in: path
+        description: Please append a valid Report ID To the Request URL
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{Report_Id}}'
+      - name: Content-Type
+        in: header
+        description: >-
+          The Content Type entity is the media type of the resource.Possible media types can be:-
+
+          Application/json
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{auth}}'
+      responses:
+        200:
+          description: SUCCESS. The **Publish Report** operation was successful!
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success3'
+              example:
+                id: api.report.publish
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: string
+                  status: string
+                  err: string
+                  errmsg: string
+                responseCode: OK
+                result:
+                  reportId: string
+        404:
+          description: Report Not Found with given report Id parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoReportFound1'
+              example:
+                id: api.report.publish
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: string
+                  status: string
+                  err: string
+                  errmsg: no report found
+                responseCode: string
+                result: {}
+        500:
+          description: "''INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.''"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+              example:
+                result: {}
+                id: string
+                ver: string
+                params:
+                  resmsgid: string
+                  msgid: string
+                  err: string
+                  status: string
+                  errmsg: string
+                responseCode: {}
+      deprecated: false
+      security: []
+  /retire/{Report_Id}:
+    get:
+      tags:
+      - Reports API's
+      summary: Retire Report
+      description: >-
+        This API is associated with retiring a  Report on the Sunbird Platform.
+
+
+        - The endpoint for search Reports is `/report/retire/{Report_Id}`
+
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: RetireReport
+      parameters:
+      - name: Report_Id
+        in: path
+        description: Please append a valid Report ID To the Request URL
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{Report_Id}}'
+      - name: Content-Type
+        in: header
+        description: >-
+          The Content Type entity is the media type of the resource.Possible media types can be:-
+
+          Application/json
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{auth}}'
+      responses:
+        200:
+          description: SUCCESS. The **Publish Report** operation was successful!
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success3'
+              example:
+                id: api.report.publish
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: string
+                  status: string
+                  err: string
+                  errmsg: string
+                responseCode: OK
+                result:
+                  reportId: string
+        404:
+          description: Report Not Found with given report Id parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoReportFound1'
+              example:
+                id: api.report.retire
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: string
+                  status: string
+                  err: null
+                  errmsg: no report found
+                responseCode: string
+                result: {}
+        500:
+          description: "''INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.''"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+              example:
+                result: {}
+                id: string
+                ver: string
+                params:
+                  resmsgid: string
+                  msgid: string
+                  err: string
+                  status: string
+                  errmsg: string
+                responseCode: {}
+      deprecated: false
+      security: []
+  /summary/list:
+    post:
+      tags:
+      - Report-Summary
+      summary: list summaries
+      description: >-
+        This API is associated with viewing and reading out the Report & Chart Summaries history on the Sunbird Platform.
+
+
+        - The endpoint for search Reports is `/report/summary/list`
+
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: listsummaries
+      parameters:
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{auth}}'
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/listsummariesrequest'
+            example:
+              request:
+                filters:
+                  reportid: string
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **List Report Summaries** operation was successful!
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success7'
+              example:
+                id: api.report.summary.list
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: string
+                  status: string
+                  err: string
+                  errmsg: string
+                responseCode: string
+                result:
+                  summaries: []
+                  count: 0
+        400:
+          description: '''BAD REQUEST. The operation failed. You
+            may have missed input for a mandatory parameter.'''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoReportFound'
+              example:
+                id: api.report.summary.list
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: 
+                  status: string
+                  err: string
+                  errmsg: string
+                responseCode: string
+                result: {}
+        500:
+          description: "''INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.''"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+              example:
+                result: {}
+                id: string
+                ver: string
+                params:
+                  resmsgid: string
+                  msgid: string
+                  err: string
+                  status: string
+                  errmsg: string
+                responseCode: {}
+      deprecated: false
+      security: []
+  /summary/create:
+    post:
+      tags:
+      - Report-Summary
+      summary: Create Report Summary
+      description: >-
+        This API is associated with creating a  Report Summary on the Sunbird Platform.
+
+
+        - The endpoint for search Reports is `/report/summary/create`
+
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: CreateReportSummary
+      parameters:
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{auth}}'
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReportSummaryRequest'
+            example:
+              request:
+                summary:
+                  reportid: string
+                  createdby: string
+                  summary: string
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **Create Report Summary** operation was successful!
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success8'
+              example:
+                id: api.report.summary.create
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: string
+                  status: string
+                  err: string
+                  errmsg: string
+                responseCode: string
+                result:
+                  summaryId: string
+        400:
+          description: '''BAD REQUEST. The operation failed. You
+            may have missed input for a mandatory parameter.'''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoReportFound'
+              example:
+                id: api.report.summary.create
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: 
+                  status: string
+                  err: string
+                  errmsg: string
+                responseCode: string
+                result: {}
+        500:
+          description: "''INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.''"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+              example:
+                result: {}
+                id: string
+                ver: string
+                params:
+                  resmsgid: string
+                  msgid: string
+                  err: string
+                  status: string
+                  errmsg: string
+                responseCode: {}
+      deprecated: false
+      security: []
+  /summary/{Report_Id}:
+    get:
+      tags:
+      - Report-Summary
+      summary: Get Latest Report Summary
+      description: >-
+        This API is associated with viewing and fetching the latest Chart or Report summary n the Sunbird Platform.
+
+
+        - The endpoint for search Reports is `/report/summary/{Report_Id}`
+
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetLatestReportSummary
+      parameters:
+      - name: Report_Id
+        in: path
+        description: Please append a valid Report ID To the Request URL
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{Report_Id}}'
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{auth}}'
+      - name: Content-Type
+        in: header
+        description: >-
+          The Content Type entity is the media type of the resource.Possible media types can be:-
+
+          Application/json
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      responses:
+        200:
+          description: SUCCESS. The **Read Report Summary** operation was successful!
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success7'
+              example:
+                id: api.report.summary.get
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: string
+                  status: string
+                  err: string
+                  errmsg: string
+                responseCode: string
+                result:
+                  summaries: []
+                  count: 0
+        500:
+          description: "''INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.''"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+              example:
+                result: {}
+                id: string
+                ver: string
+                params:
+                  resmsgid: string
+                  msgid: string
+                  err: string
+                  status: string
+                  errmsg: string
+                responseCode: {}
+      deprecated: false
+      security: []
+  /summary/{Report_Id}/{Chart_Id}:
+    get:
+      tags:
+      - Report-Summary
+      summary: Get Latest Chart Summary
+      description: >-
+        This API is associated with viewing and fetching the latest Chart or Report summary n the Sunbird Platform.
+
+
+        - The endpoint for search Reports is `/report/summary/{Report_Id}/{Chart_Id}`
+
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetLatestChartSummary
+      parameters:
+      - name: Report_Id
+        in: path
+        description: Please append a valid Report ID To the Request URL
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{Report_Id}}'
+      - name: Chart_Id
+        in: path
+        description: Please append a valid Chart ID To the Request URL
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{Chart_Id}}'
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{auth}}'
+      - name: Content-Type
+        in: header
+        description: >-
+          The Content Type entity is the media type of the resource.Possible media types can be:-
+
+          Application/json
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      responses:
+        200:
+          description: SUCCESS. The **Read Chart Summary** operation was successful!
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success7'
+              example:
+                id: api.report.summary.get
+                ver: 1.0.0
+                params:
+                  resmsgid: string
+                  msgid: string
+                  status: string
+                  err: string
+                  errmsg: string
+                responseCode: string
+                result:
+                  summaries: []
+                  count: 0
+        500:
+          description: "''INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.''"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+              example:
+                result: {}
+                id: string
+                ver: string
+                params:
+                  resmsgid: string
+                  msgid: string
+                  err: string
+                  status: string
+                  errmsg: string
+                responseCode: {}
+      deprecated: false
+      security: []
+components:
+  schemas:
+    SearchReportsRequest:
+      title: SearchReportsRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/Request'
+      example:
+        request:
+          filters: {}
+    Request:
+      title: Request
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          type: object
+      example:
+        filters: {}
+    InternalServerError:
+      title: InternalServerError
+      required:
+      - result
+      - id
+      - ver
+      - params
+      - responseCode
+      type: object
+      properties:
+        result:
+          type: object
+        id:
+          type: string
+        ver:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: object
+      example:
+        result: {}
+        id: string
+        ver: string
+        params:
+          resmsgid: string
+          msgid: string
+          err: string
+          status: string
+          errmsg: string
+        responseCode: {}
+    Params:
+      title: Params
+      required:
+      - resmsgid
+      - msgid
+      - err
+      - status
+      - errmsg
+      type: object
+      properties:
+        resmsgid:
+          type: string
+        msgid:
+          type: string
+        err:
+          type: string
+        status:
+          type: string
+        errmsg:
+          type: string
+      example:
+        resmsgid: string
+        msgid: string
+        err: string
+        status: string
+        errmsg: string
+    Success:
+      title: Success
+      required:
+      - id
+      - ver
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result'
+      example:
+        id: api.report.list
+        ver: 1.0.0
+        params:
+          resmsgid: string
+          msgid: string
+          status: string
+          err: string
+          errmsg: string
+        responseCode: string
+        result:
+          reports:
+          - reportid: string
+            title: string
+            description: string
+            authorizedroles:
+            - string
+            status: string
+            type: string
+            reportaccessurl: string
+            createdon: string
+            updatedon: string
+            createdby: string
+            reportconfig:
+              id: string
+              label: string
+              table:
+              - name: string
+                valuesExpr: string
+                columnsExpr: string
+              title: string
+              charts:
+              - colors:
+                - borderColor: string
+                  backgroundColor: string
+                options:
+                  title:
+                    text: string
+                    display: true
+                    fontSize: 16
+                  legend:
+                    display: false
+                  scales:
+                    xAxes:
+                    - scaleLabel:
+                        display: true
+                        labelString: string
+                    yAxes:
+                    - scaleLabel:
+                        display: true
+                        labelString: string
+                  tooltips:
+                    mode: string
+                    intersect: false
+                    bodySpacing: 5
+                    titleSpacing: 5
+                  responsive: true
+                datasets:
+                - label: string
+                  dataExpr: string
+                chartType: string
+                labelsExpr: string
+              dataSource: string
+              description: string
+              downloadUrl: string
+            templateurl: string
+            slug: string
+            reportgenerateddate: string
+            reportduration:
+              enddate: string
+              startdate: string
+            tags:
+            - string
+            updatefrequency: string
+            parameters:
+            - string
+            report_type: string
+            children: []
+          count: 1
+    Result:
+      title: Result
+      required:
+      - reports
+      - count
+      type: object
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/Report'
+          description: ''
+        count:
+          type: integer
+          format: int32
+      example:
+        reports:
+        - reportid: string
+          title: string
+          description: string
+          authorizedroles:
+          - string
+          status: string
+          type: string
+          reportaccessurl: string
+          createdon: string
+          updatedon: string
+          createdby: string
+          reportconfig:
+            id: string
+            label: string
+            table:
+            - name: string
+              valuesExpr: string
+              columnsExpr: string
+            title: string
+            charts:
+            - colors:
+              - borderColor: string
+                backgroundColor: string
+              options:
+                title:
+                  text: string
+                  display: true
+                  fontSize: 16
+                legend:
+                  display: false
+                scales:
+                  xAxes:
+                  - scaleLabel:
+                      display: true
+                      labelString: string
+                  yAxes:
+                  - scaleLabel:
+                      display: true
+                      labelString: string
+                tooltips:
+                  mode: string
+                  intersect: false
+                  bodySpacing: 5
+                  titleSpacing: 5
+                responsive: true
+              datasets:
+              - label: string
+                dataExpr: string
+              chartType: string
+              labelsExpr: string
+            dataSource: string
+            description: string
+            downloadUrl: string
+          templateurl: string
+          slug: string
+          reportgenerateddate: string
+          reportduration:
+            enddate: string
+            startdate: string
+          tags:
+          - string
+          updatefrequency: string
+          parameters:
+          - string
+          report_type: string
+          children: []
+        count: 1
+    Report:
+      title: Report
+      required:
+      - reportid
+      - title
+      - description
+      - authorizedroles
+      - status
+      - type
+      - reportaccessurl
+      - createdon
+      - updatedon
+      - createdby
+      - reportconfig
+      - templateurl
+      - slug
+      - reportgenerateddate
+      - reportduration
+      - tags
+      - updatefrequency
+      - parameters
+      - report_type
+      - children
+      type: object
+      properties:
+        reportid:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        authorizedroles:
+          type: array
+          items:
+            type: string
+          description: ''
+        status:
+          type: string
+        type:
+          type: string
+        reportaccessurl:
+          type: string
+        createdon:
+          type: string
+        updatedon:
+          type: string
+        createdby:
+          type: string
+        reportconfig:
+          $ref: '#/components/schemas/Reportconfig'
+        templateurl:
+          type: string
+        slug:
+          type: string
+        reportgenerateddate:
+          type: string
+        reportduration:
+          $ref: '#/components/schemas/Reportduration'
+        tags:
+          type: array
+          items:
+            type: string
+          description: ''
+        updatefrequency:
+          type: string
+        parameters:
+          type: array
+          items:
+            type: string
+          description: ''
+        report_type:
+          type: string
+        children:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        reportid: string
+        title: string
+        description: string
+        authorizedroles:
+        - string
+        status: string
+        type: string
+        reportaccessurl: string
+        createdon: string
+        updatedon: string
+        createdby: string
+        reportconfig:
+          id: string
+          label: string
+          table:
+          - name: string
+            valuesExpr: string
+            columnsExpr: string
+          title: string
+          charts:
+          - colors:
+            - borderColor: string
+              backgroundColor: string
+            options:
+              title:
+                text: string
+                display: true
+                fontSize: 16
+              legend:
+                display: false
+              scales:
+                xAxes:
+                - scaleLabel:
+                    display: true
+                    labelString: string
+                yAxes:
+                - scaleLabel:
+                    display: true
+                    labelString: string
+              tooltips:
+                mode: string
+                intersect: false
+                bodySpacing: 5
+                titleSpacing: 5
+              responsive: true
+            datasets:
+            - label: string
+              dataExpr: string
+            chartType: string
+            labelsExpr: string
+          dataSource: string
+          description: string
+          downloadUrl: string
+        templateurl: string
+        slug: string
+        reportgenerateddate: string
+        reportduration:
+          enddate: string
+          startdate: string
+        tags:
+        - string
+        updatefrequency: string
+        parameters:
+        - string
+        report_type: string
+        children: []
+    Reportconfig:
+      title: Reportconfig
+      required:
+      - id
+      - label
+      - table
+      - title
+      - charts
+      - dataSource
+      - description
+      - downloadUrl
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        table:
+          type: array
+          items:
+            $ref: '#/components/schemas/Table'
+          description: ''
+        title:
+          type: string
+        charts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chart'
+          description: ''
+        dataSource:
+          type: string
+        description:
+          type: string
+        downloadUrl:
+          type: string
+      example:
+        id: string
+        label: string
+        table:
+        - name: string
+          valuesExpr: string
+          columnsExpr: string
+        title: string
+        charts:
+        - colors:
+          - borderColor: string
+            backgroundColor: string
+          options:
+            title:
+              text: string
+              display: true
+              fontSize: 16
+            legend:
+              display: false
+            scales:
+              xAxes:
+              - scaleLabel:
+                  display: true
+                  labelString: string
+              yAxes:
+              - scaleLabel:
+                  display: true
+                  labelString: string
+            tooltips:
+              mode: string
+              intersect: false
+              bodySpacing: 5
+              titleSpacing: 5
+            responsive: true
+          datasets:
+          - label: string
+            dataExpr: string
+          chartType: string
+          labelsExpr: string
+        dataSource: string
+        description: string
+        downloadUrl: string
+    Table:
+      title: Table
+      required:
+      - name
+      - valuesExpr
+      - columnsExpr
+      type: object
+      properties:
+        name:
+          type: string
+        valuesExpr:
+          type: string
+        columnsExpr:
+          type: string
+      example:
+        name: string
+        valuesExpr: string
+        columnsExpr: string
+    Chart:
+      title: Chart
+      required:
+      - colors
+      - options
+      - datasets
+      - chartType
+      - labelsExpr
+      type: object
+      properties:
+        colors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Color'
+          description: ''
+        options:
+          $ref: '#/components/schemas/Options'
+        datasets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset'
+          description: ''
+        chartType:
+          type: string
+        labelsExpr:
+          type: string
+      example:
+        colors:
+        - borderColor: string
+          backgroundColor: string
+        options:
+          title:
+            text: string
+            display: true
+            fontSize: 16
+          legend:
+            display: false
+          scales:
+            xAxes:
+            - scaleLabel:
+                display: true
+                labelString: string
+            yAxes:
+            - scaleLabel:
+                display: true
+                labelString: string
+          tooltips:
+            mode: string
+            intersect: false
+            bodySpacing: 5
+            titleSpacing: 5
+          responsive: true
+        datasets:
+        - label: string
+          dataExpr: string
+        chartType: string
+        labelsExpr: string
+    Color:
+      title: Color
+      required:
+      - borderColor
+      - backgroundColor
+      type: object
+      properties:
+        borderColor:
+          type: string
+        backgroundColor:
+          type: string
+      example:
+        borderColor: string
+        backgroundColor: string
+    Options:
+      title: Options
+      required:
+      - title
+      - legend
+      - scales
+      - tooltips
+      - responsive
+      type: object
+      properties:
+        title:
+          $ref: '#/components/schemas/Title'
+        legend:
+          $ref: '#/components/schemas/Legend'
+        scales:
+          $ref: '#/components/schemas/Scales'
+        tooltips:
+          $ref: '#/components/schemas/Tooltips'
+        responsive:
+          type: boolean
+      example:
+        title:
+          text: string
+          display: true
+          fontSize: 16
+        legend:
+          display: false
+        scales:
+          xAxes:
+          - scaleLabel:
+              display: true
+              labelString: string
+          yAxes:
+          - scaleLabel:
+              display: true
+              labelString: string
+        tooltips:
+          mode: string
+          intersect: false
+          bodySpacing: 5
+          titleSpacing: 5
+        responsive: true
+    Title:
+      title: Title
+      required:
+      - text
+      - display
+      - fontSize
+      type: object
+      properties:
+        text:
+          type: string
+        display:
+          type: boolean
+        fontSize:
+          type: integer
+          format: int32
+      example:
+        text: string
+        display: true
+        fontSize: 16
+    Legend:
+      title: Legend
+      required:
+      - display
+      type: object
+      properties:
+        display:
+          type: boolean
+      example:
+        display: false
+    Scales:
+      title: Scales
+      required:
+      - xAxes
+      - yAxes
+      type: object
+      properties:
+        xAxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/XAxis'
+          description: ''
+        yAxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/YAxis'
+          description: ''
+      example:
+        xAxes:
+        - scaleLabel:
+            display: true
+            labelString: string
+        yAxes:
+        - scaleLabel:
+            display: true
+            labelString: string
+    XAxis:
+      title: XAxis
+      required:
+      - scaleLabel
+      type: object
+      properties:
+        scaleLabel:
+          $ref: '#/components/schemas/ScaleLabel'
+      example:
+        scaleLabel:
+          display: true
+          labelString: string
+    ScaleLabel:
+      title: ScaleLabel
+      required:
+      - display
+      - labelString
+      type: object
+      properties:
+        display:
+          type: boolean
+        labelString:
+          type: string
+      example:
+        display: true
+        labelString: string
+    YAxis:
+      title: YAxis
+      required:
+      - scaleLabel
+      type: object
+      properties:
+        scaleLabel:
+          $ref: '#/components/schemas/ScaleLabel'
+      example:
+        scaleLabel:
+          display: true
+          labelString: string
+    Tooltips:
+      title: Tooltips
+      required:
+      - mode
+      - intersect
+      - bodySpacing
+      - titleSpacing
+      type: object
+      properties:
+        mode:
+          type: string
+        intersect:
+          type: boolean
+        bodySpacing:
+          type: integer
+          format: int32
+        titleSpacing:
+          type: integer
+          format: int32
+      example:
+        mode: string
+        intersect: false
+        bodySpacing: 5
+        titleSpacing: 5
+    Dataset:
+      title: Dataset
+      required:
+      - label
+      - dataExpr
+      type: object
+      properties:
+        label:
+          type: string
+        dataExpr:
+          type: string
+      example:
+        label: string
+        dataExpr: string
+    Reportduration:
+      title: Reportduration
+      required:
+      - enddate
+      - startdate
+      type: object
+      properties:
+        enddate:
+          type: string
+        startdate:
+          type: string
+      example:
+        enddate: string
+        startdate: string
+    Params2:
+      title: Params2
+      required:
+      - resmsgid
+      - msgid
+      - status
+      - err
+      - errmsg
+      type: object
+      properties:
+        resmsgid:
+          type: string
+        msgid:
+          type: string
+          nullable: true
+        status:
+          type: string
+        err:
+          type: string
+        errmsg:
+          type: string
+      example:
+        resmsgid: string
+        msgid: 
+        status: failed
+        err: string
+        errmsg: string
+    NoReportFound:
+      title: NoReportFound
+      required:
+      - id
+      - ver
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params2'
+        responseCode:
+          type: string
+        result:
+          type: object
+      example:
+        id: api.report.read
+        ver: 1.0.0
+        params:
+          resmsgid: string
+          msgid: 
+          status: failed
+          err: null
+          errmsg: no report found
+        responseCode: string
+        result: {}
+    CreateReportRequest:
+      title: CreateReportRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/Request1'
+      example:
+        request:
+          report:
+            title: string
+            description: string
+            authorizedroles:
+            - string
+            status: string
+            type: string
+            createdby: string
+            reportconfig:
+              id: string
+              label: string
+              table:
+                valuesExpr: string
+                columnsExpr: string
+              title: string
+              charts:
+              - id: string
+                options:
+                  title:
+                    text: string
+                    display: true
+                    fontSize: 16
+                  legend:
+                    display: true
+                  scales:
+                    xAxes:
+                    - scaleLabel:
+                        display: true
+                        labelString: string
+                    yAxes:
+                    - scaleLabel:
+                        display: true
+                        labelString: string
+                  tooltips:
+                    mode: string
+                    intersect: false
+                    bodySpacing: 5
+                    titleSpacing: 5
+                  responsive: true
+                datasets:
+                - label: string
+                  dataExpr: string
+                chartType: string
+                labelsExpr: string
+                dataSource:
+                  ids:
+                  - string
+                  commonDimension: string
+              dataSource:
+              - id: string
+                path: string
+              description: string
+              reportLevelDataSourceId: string
+            slug: string
+            reportgenerateddate: string
+            reportduration:
+              enddate: string
+              startdate: Tstring
+            tags:
+            - string
+            updatefrequency: string
+    Request1:
+      title: Request1
+      required:
+      - report
+      type: object
+      properties:
+        report:
+          $ref: '#/components/schemas/Report2'
+      example:
+        report:
+          title: string
+          description: string
+          authorizedroles:
+          - string
+          status: string
+          type: string
+          createdby: string
+          reportconfig:
+            id: string
+            label: string
+            table:
+              valuesExpr: string
+              columnsExpr: string
+            title: string
+            charts:
+            - id: string
+              options:
+                title:
+                  text: string
+                  display: true
+                  fontSize: 16
+                legend:
+                  display: true
+                scales:
+                  xAxes:
+                  - scaleLabel:
+                      display: true
+                      labelString: string
+                  yAxes:
+                  - scaleLabel:
+                      display: true
+                      labelString: string
+                tooltips:
+                  mode: string
+                  intersect: false
+                  bodySpacing: 5
+                  titleSpacing: 5
+                responsive: true
+              datasets:
+              - label: string
+                dataExpr: string
+              chartType: string
+              labelsExpr: string
+              dataSource:
+                ids:
+                - string
+                commonDimension: string
+            dataSource:
+            - id: string
+              path: string
+            description: string
+            reportLevelDataSourceId: string
+          slug: string
+          reportgenerateddate: string
+          reportduration:
+            enddate: string
+            startdate: Tstring
+          tags:
+          - string
+          updatefrequency: string
+    Report2:
+      title: Report2
+      required:
+      - title
+      - description
+      - authorizedroles
+      - status
+      - type
+      - createdby
+      - reportconfig
+      - slug
+      - reportgenerateddate
+      - reportduration
+      - tags
+      - updatefrequency
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        authorizedroles:
+          type: array
+          items:
+            type: string
+          description: ''
+        status:
+          type: string
+        type:
+          type: string
+        createdby:
+          type: string
+        reportconfig:
+          $ref: '#/components/schemas/Reportconfig2'
+        slug:
+          type: string
+        reportgenerateddate:
+          type: string
+        reportduration:
+          $ref: '#/components/schemas/Reportduration'
+        tags:
+          type: array
+          items:
+            type: string
+          description: ''
+        updatefrequency:
+          type: string
+      example:
+        title: string
+        description: string
+        authorizedroles:
+        - string
+        status: string
+        type: string
+        createdby: string
+        reportconfig:
+          id: string
+          label: string
+          table:
+            valuesExpr: string
+            columnsExpr: string
+          title: string
+          charts:
+          - id: string
+            options:
+              title:
+                text: string
+                display: true
+                fontSize: 16
+              legend:
+                display: true
+              scales:
+                xAxes:
+                - scaleLabel:
+                    display: true
+                    labelString: string
+                yAxes:
+                - scaleLabel:
+                    display: true
+                    labelString: string
+              tooltips:
+                mode: string
+                intersect: false
+                bodySpacing: 5
+                titleSpacing: 5
+              responsive: true
+            datasets:
+            - label: string
+              dataExpr: string
+            chartType: string
+            labelsExpr: string
+            dataSource:
+              ids:
+              - string
+              commonDimension: string
+          dataSource:
+          - id: string
+            path: string
+          description: string
+          reportLevelDataSourceId: string
+        slug: string
+        reportgenerateddate: string
+        reportduration:
+          enddate: string
+          startdate: Tstring
+        tags:
+        - string
+        updatefrequency: string
+    Reportconfig2:
+      title: Reportconfig2
+      required:
+      - id
+      - label
+      - table
+      - title
+      - charts
+      - dataSource
+      - description
+      - reportLevelDataSourceId
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        table:
+          $ref: '#/components/schemas/Table2'
+        title:
+          type: string
+        charts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chart2'
+          description: ''
+        dataSource:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSource1'
+          description: ''
+        description:
+          type: string
+        reportLevelDataSourceId:
+          type: string
+      example:
+        id: string
+        label: string
+        table:
+          valuesExpr: string
+          columnsExpr: string
+        title: string
+        charts:
+        - id: string
+          options:
+            title:
+              text: string
+              display: true
+              fontSize: 16
+            legend:
+              display: true
+            scales:
+              xAxes:
+              - scaleLabel:
+                  display: true
+                  labelString: string
+              yAxes:
+              - scaleLabel:
+                  display: true
+                  labelString: string
+            tooltips:
+              mode: string
+              intersect: false
+              bodySpacing: 5
+              titleSpacing: 5
+            responsive: true
+          datasets:
+          - label: string
+            dataExpr: string
+          chartType: string
+          labelsExpr: string
+          dataSource:
+            ids:
+            - string
+            commonDimension: string
+        dataSource:
+        - id: string
+          path: string
+        description: string
+        reportLevelDataSourceId: string
+    Table2:
+      title: Table2
+      required:
+      - valuesExpr
+      - columnsExpr
+      type: object
+      properties:
+        valuesExpr:
+          type: string
+        columnsExpr:
+          type: string
+      example:
+        valuesExpr: string
+        columnsExpr: string
+    Chart2:
+      title: Chart2
+      required:
+      - id
+      - options
+      - datasets
+      - chartType
+      - labelsExpr
+      - dataSource
+      type: object
+      properties:
+        id:
+          type: string
+        options:
+          $ref: '#/components/schemas/Options'
+        datasets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset'
+          description: ''
+        chartType:
+          type: string
+        labelsExpr:
+          type: string
+        dataSource:
+          $ref: '#/components/schemas/DataSource'
+      example:
+        id: string
+        options:
+          title:
+            text: string
+            display: true
+            fontSize: 16
+          legend:
+            display: true
+          scales:
+            xAxes:
+            - scaleLabel:
+                display: true
+                labelString: string
+            yAxes:
+            - scaleLabel:
+                display: true
+                labelString: string
+          tooltips:
+            mode: string
+            intersect: false
+            bodySpacing: 5
+            titleSpacing: 5
+          responsive: true
+        datasets:
+        - label: string
+          dataExpr: string
+        chartType: string
+        labelsExpr: string
+        dataSource:
+          ids:
+          - string
+          commonDimension: string
+    DataSource:
+      title: DataSource
+      required:
+      - ids
+      - commonDimension
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+          description: ''
+        commonDimension:
+          type: string
+      example:
+        ids:
+        - string
+        commonDimension: string
+    DataSource1:
+      title: DataSource1
+      required:
+      - id
+      - path
+      type: object
+      properties:
+        id:
+          type: string
+        path:
+          type: string
+      example:
+        id: string
+        path: string
+    Success2:
+      title: Success2
+      required:
+      - id
+      - ver
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result2'
+      example:
+        id: api.report.create
+        ver: string
+        params:
+          resmsgid: string
+          msgid: string
+          status: string
+          err: string
+          errmsg: string
+        responseCode: string
+        result:
+          reportId: string
+          reportaccessurl: string
+    Result2:
+      title: Result2
+      required:
+      - reportId
+      - reportaccessurl
+      type: object
+      properties:
+        reportId:
+          type: string
+        reportaccessurl:
+          type: string
+      example:
+        reportId: string
+        reportaccessurl: string
+    NoReportFound1:
+      title: NoReportFound1
+      required:
+      - id
+      - ver
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          type: object
+      example:
+        id: api.report.delete
+        ver: 1.0.0
+        params:
+          resmsgid: string
+          msgid: string
+          status: string
+          err: null
+          errmsg: no report found
+        responseCode: string
+        result: {}
+    Success3:
+      title: Success3
+      required:
+      - id
+      - ver
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result3'
+      example:
+        id: api.report.delete
+        ver: 1.0.0
+        params:
+          resmsgid: string
+          msgid: string
+          status: string
+          err: string
+          errmsg: string
+        responseCode: OK
+        result:
+          reportId: string
+    Result3:
+      title: Result3
+      required:
+      - reportId
+      type: object
+      properties:
+        reportId:
+          type: string
+      example:
+        reportId: string
+    UpdateReportRequest:
+      title: UpdateReportRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/Request2'
+      example:
+        request:
+          report: {}
+    Request2:
+      title: Request2
+      required:
+      - report
+      type: object
+      properties:
+        report:
+          type: object
+      example:
+        report: {}
+    listsummariesrequest:
+      title: listsummariesrequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/Request3'
+      example:
+        request:
+          filters:
+            reportid: string
+    Request3:
+      title: Request3
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          $ref: '#/components/schemas/Filters'
+      example:
+        filters:
+          reportid: string
+    Filters:
+      title: Filters
+      required:
+      - reportid
+      type: object
+      properties:
+        reportid:
+          type: string
+      example:
+        reportid: string
+    Success7:
+      title: Success7
+      required:
+      - id
+      - ver
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result7'
+      example:
+        id: api.report.summary.list
+        ver: 1.0.0
+        params:
+          resmsgid: string
+          msgid: string
+          status: string
+          err: string
+          errmsg: string
+        responseCode: string
+        result:
+          summaries: []
+          count: 0
+    Result7:
+      title: Result7
+      required:
+      - summaries
+      - count
+      type: object
+      properties:
+        summaries:
+          type: array
+          items:
+            type: string
+          description: ''
+        count:
+          type: integer
+          format: int32
+      example:
+        summaries: []
+        count: 0
+    CreateReportSummaryRequest:
+      title: CreateReportSummaryRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/Request4'
+      example:
+        request:
+          summary:
+            reportid: string
+            createdby: string
+            summary: string
+    Request4:
+      title: Request4
+      required:
+      - summary
+      type: object
+      properties:
+        summary:
+          $ref: '#/components/schemas/Summary'
+      example:
+        summary:
+          reportid: string
+          createdby: string
+          summary: string
+    Summary:
+      title: Summary
+      required:
+      - reportid
+      - createdby
+      - summary
+      type: object
+      properties:
+        reportid:
+          type: string
+        createdby:
+          type: string
+        summary:
+          type: string
+      example:
+        reportid: string
+        createdby: string
+        summary: string
+    Success8:
+      title: Success8
+      required:
+      - id
+      - ver
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result8'
+      example:
+        id: api.report.summary.create
+        ver: 1.0.0
+        params:
+          resmsgid: string
+          msgid: string
+          status: string
+          err: string
+          errmsg: string
+        responseCode: string
+        result:
+          summaryId: string
+    Result8:
+      title: Result8
+      required:
+      - summaryId
+      type: object
+      properties:
+        summaryId:
+          type: string
+      example:
+        summaryId: string
+    CreateChartSummaryRequest:
+      title: CreateChartSummaryRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/Request5'
+      example:
+        request:
+          summary:
+            reportid: string
+            chartid: string
+            createdby: string
+            summary: string
+    Request5:
+      title: Request5
+      required:
+      - summary
+      type: object
+      properties:
+        summary:
+          $ref: '#/components/schemas/Summary1'
+      example:
+        summary:
+          reportid: string
+          chartid: string
+          createdby: string
+          summary: string
+    Summary1:
+      title: Summary1
+      required:
+      - reportid
+      - chartid
+      - createdby
+      - summary
+      type: object
+      properties:
+        reportid:
+          type: string
+        chartid:
+          type: string
+        createdby:
+          type: string
+        summary:
+          type: string
+      example:
+        reportid: string
+        chartid: string
+        createdby: string
+        summary: string
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+- httpBearer: []
+tags:
+- name: Reports API's
+  description: >-
+    The Reports API resources perform operations related to all the Reports on the Sunbird Platform.
+
+
+    - Each of the endpoints serve a different purpose, so which one to use depends on what you want to do
+
+    - The operations include CRUD (Create, Update, Read and Delete), Publish , Retire operations on the Reports.
+
+    - The URL for Sunbird Reports API(s) is `/api/data/v1/report-service/report`
+- name: Report-Summary
+  description: Add/ Fetch Report and Chart Summaries.
