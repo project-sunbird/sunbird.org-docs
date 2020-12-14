@@ -157,7 +157,7 @@ AKS cluster and vm's should be in same vnet (if both are in diffrent vnet, vnet 
 1.command to create aks cluster: (requires az cli and aks-preview)
 
  ```
-    - create service principal and assign contributor role to service principal, get the secrets and client id of service principal. [Steps to create azure service principal](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli)
+    - create service principal and assign contributor role to service principal, get the secrets and client id of service principal. (https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli)
     
     - az aks create --resource-group <resouse-group-name> --node-resource-group <k8s-resource-group-name> --name <cluster name>  --node-count 4 --admin-username deployer --kubernetes-version 1.16.13 --service-principal "<service principal id>" --node-vm-size <vm size> --client-secret "<client id>" --network-plugin azure --ssh-key-value @deployer.pub -l <region> --vm-set-type VirtualMachineScaleSets --vnet-subnet-id /subscriptions/<subscription id>/resourceGroups/<resouse-group-name>/providers/Microsoft.Network/virtualNetworks/<vnet-name>/subnets/<subnet name>
 
