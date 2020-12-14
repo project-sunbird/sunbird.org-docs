@@ -48,6 +48,8 @@ They are categorized by resource type. Each resource type has one or more data r
             <li><a href="apis/groupactivityapi/" target="_blank">Group Activity Aggregator</a></li>
             <li><a href="apis/desktop/app-update/" target="_blank">Desktop app update </a></li>
             <li><a href="apis/desktop/device-registry/" target="_blank">Desktop app device registry </a></li>
+            <li><a href="apis/reports/" target="_blank">Reports</a></li>
+
 
         </ul>
     </div>
