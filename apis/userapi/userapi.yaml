@@ -1307,11 +1307,26 @@ paths:
                   phone: 8888888888
                   phoneVerified: true
              b:
-               summary: Update location details of user
+               summary: Update location details of user as list of strings
                value:
                 request:
                   userId: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
                   locationCodes: ["22","2202"]
+             c:
+               summary: Update location details of user as list of map
+               value:
+                request:
+                  userId: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
+                  locationCodes:  [
+                    {
+	                    type : "state",      
+	                    code : "localstate-1"
+                    },
+                    {
+                      type: "district",
+                      code: "localstatedis-1"
+                    }
+                  ]      
         required: true
       responses:
         200:
@@ -7302,7 +7317,10 @@ components:
         description:  The user's preferred locations
         type: array
         items:
-          type: string    
+          type: object
+          oneOf:
+            - $ref: '#/components/schemas/LocationCodesAsStringArray'
+            - $ref: '#/components/schemas/LocationCodesAsMapArray'
        externalId:
         description: 'The user identifier provided by another organization. externalId,externalIdType,externalIdProvider are the keys required if the user does not pass the userId'
         type: string
@@ -7346,6 +7364,20 @@ components:
         type: string
         description : 'The value for the operation. Possible values are ADD,EDIT,REMOVE'
         
+    LocationCodesAsStringArray:
+     title: Location codes as array of location codes
+     type: string
+     
+    LocationCodesAsMapArray:
+     title: Location codes as array of map which contains code and type
+     type: object
+     properties:
+      type: 
+        type: string
+        description: 'Type of the location as state, district, block, cluster'
+      code:
+        type: string
+        description: 'Code of the location'
     FrameworkData:
      title: Framework details
      type: object
