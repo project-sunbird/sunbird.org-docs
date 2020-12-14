@@ -78,7 +78,7 @@ Update **core_vault_sunbird_api_auth_token**, **core_vault_kong__test_jwt** and 
 | KeycloakRealm(Core folder) |  User management -Creates sunbird realm | Creates a Sunbird Realm. After the Sunbird realm is created, configure Keycloak by using the steps mentioned in the **Keycloak Configuration** section | release-3.4.0
 |Adminutil | Deploys the Adminutil container | Creates tokens for the sunbird devices | release-3.0.0
 | Player |  UI for sunbird  | Deploys portal UI | release-3.4.0
-| Learner | Deploys the Learner Service |  Handles user management and helps to search org | release-3.1.0 **before deploying learner service Create root org by using the steps mentioned in the Create Org section below**
+| Learner | Deploys the Learner Service |  Handles user management and helps to search org | release-3.4.0 **before deploying learner service Create root org by using the steps mentioned in the Create Org section below**
 | Content | Deploys content service | Helps to create content | release-3.4.0
 | Search              | Deploys the search service artefacts and starts the search service | |release-3.4.0
 | KnowledgeMW | Deploys knowledgemw service | Deploys the knowledgemw service | release-3.4.0
@@ -87,8 +87,8 @@ Update **core_vault_sunbird_api_auth_token**, **core_vault_kong__test_jwt** and 
 | Cert | Deploys cert services | Issues certificates | release-3.1.0
 | Telemetry | Aggregates and send telemetry data to kafka | Telemetry management service| release-3.4.0
 | Analytics | Deploys Analytics service | Deploys Analytics service | release-3.4.0
-| Taxonomy | Deploys Taxonomy service | Deploys Taxonomy service | release-3.4.0
-|nginx-public-ingress |xxxx | xxxx | release-3.4.0 after deploying taxonomy service create master category and run definition scripts by using the steps mentioned in **Create master category**| section
+| Taxonomy | Deploys Taxonomy service | Deploys Taxonomy service | release-3.4.0 after deploying taxonomy service create master category and run definition scripts by using the steps mentioned in **Create master category** section
+|nginx-public-ingress | Deploys Proxy service | Deploys Nginx | release-3.4.0 
 |BootstrapMinimal |creating the namespace for kubernetes orchestration  and also Bootstrap minimal create docker registry secrets and nginx ssls also| Creates namespace for the core service | release-3.4.0
 
 ### Keycloak Configuration 
@@ -189,6 +189,6 @@ Migration Completed at ==1571996508540`
 
 1.login to taxonomy service container and execute the curl commands to create master category. curl commands are availabe in the file [master_category_create](https://github.com/project-sunbird/knowledge-platform/blob/release-3.4.0/definition-scripts/master_category_create) 
 
-2.Replace the {{host}} to http://localhost:9000 while running
+2.Replace the `{{host}}` to http://localhost:9000 while running
 
 3.Run other defintion scripts from taxonomy service [definition-scripts](https://github.com/project-sunbird/knowledge-platform/tree/release-3.4.0/definition-scripts) Since master_category_create is alredy ran do not run again.
