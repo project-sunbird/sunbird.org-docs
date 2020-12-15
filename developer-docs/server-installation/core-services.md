@@ -189,6 +189,6 @@ Migration Completed at ==1571996508540`
 
 1.login to taxonomy service container and execute the curl commands to create master category. curl commands are availabe in the file [master_category_create](https://github.com/project-sunbird/knowledge-platform/blob/release-3.4.0/definition-scripts/master_category_create) 
 
-2.Replace the `{{host}}` to http://localhost:9000 while running
+2.Replace the host to http://localhost:9000 while running
 
 3.Run other defintion scripts from taxonomy service [definition-scripts](https://github.com/project-sunbird/knowledge-platform/tree/release-3.4.0/definition-scripts) Since master_category_create is alredy ran do not run again.
