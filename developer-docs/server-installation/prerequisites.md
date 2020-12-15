@@ -181,7 +181,4 @@ AKS cluster and vm's should be in same vnet (if both are in diffrent vnet, vnet 
 
  2.Disable Secure transfer required in stoarge account configuration
 
- 3.Create the following containers in Storage account with public ACL 
-     - dial
-     - termsandcondtions 
-     - content
+ 3.Create the following containers in Storage account with public ACL (dial, termsandcondtions, content)
