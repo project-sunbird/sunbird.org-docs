@@ -50,7 +50,7 @@ The **Telemetry & Data, Analytics Services** category has the following microser
 
 - **Telemetry Service:** Provides services to collect telemetry and ingest the telemetry into the data pipeline for processing.
 - **Data Service:** Provides services to manage report jobs and data exhausts.
-- **Reports Service:** Provides services to create, review and publish reports to the Sunbird portal using the HawkEye framework.
+- [**Reports Service:**](https://apis/dialapi/reports/){:target="_blank"} Provides services to create, review and publish reports to the Sunbird portal using the HawkEye framework.
 
 ## Registry & Discovery Services
 
