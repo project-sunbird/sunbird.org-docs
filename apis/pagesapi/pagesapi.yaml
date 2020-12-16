@@ -3,12 +3,11 @@ info:
   title: Page API(s)
   description: |-
     - The Page resources APIs are used to set up the current page, change settings, and configure how things will be displayed to the user
-    - The URL for Page API(s) is `/data/v1/page`
   version: "1.0"
 servers:
-- url: https://staging.open-sunbird.org/api/data/v1/page
+- url: https://staging.open-sunbird.org/api
 paths:
-  /create:
+  /data/v1/page/create:
     post:
       tags:
       - Page APIs
@@ -77,6 +76,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ContentCreateResponse'
+              example:
+                id: api.page.create
+                ver: v1
+                ts: '1606196636922'
+                params: 
+                  resmsgid: null,
+                  msgid: a4b7041c-2d42-43e8-81d2-d3f3b6fbeccf
+                  err: null
+                  status: success
+                  errmsg: null
+                responseCode: OK
+                result:
+                  response: SUCCESS
+                  pageId: 0131699903041208327
         400:
           description: BAD REQUEST. The "create page" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
@@ -85,626 +98,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ContentCreateErrorResponse'
+              example:
+                id: api.page.create
+                ver: v1
+                ts: '1606196636922'
+                params: 
+                  resmsgid: null,
+                  msgid: 34b7041c-2d42-43e8-81d2-d3f3b6fbeccf
+                  err: PAGE_ALREADY_EXIST
+                  status: PAGE_ALREADY_EXIST
+                  errmsg: page already exist with this Page Name and Org Code.
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
-          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
-            errors are tracked automatically, but if the problem persists feel free
-            to contact us. In the meantime, try refreshing.
-          content: {}
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org. '
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/500ServerError'
+              example:
+                id: api.page.create
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
       security:
       - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /create
-          headers:
-            Content-Type: application/json
-            X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-            ts: 2017-05-25 10:18:56:578+0530
-            Authorization: Bearer {{api-key}}
-            x-authenticated-user-token: '{{user-token}}'
-          body: "{\r\n\"id\":\"unique API ID\",\r\n\"ts\":\"2013/10/15 16:16:39\"\
-            ,\r\n\"params\": { },\r\n \"request\":{\r\n        \"name\":\"Resources\"\
-            ,\r\n        \"portalMap\":[\r\n           {\r\n            \"id\":\"\
-            01228383082462412826\",\r\n            \"index\":1,\r\n            \"\
-            group\":1\r\n            \r\n          },\r\n           {\r\n        \
-            \    \"id\":\"01228383384379392023\",\r\n             \"index\":1,\r\n\
-            \            \"group\":2\r\n          }\r\n        ],\r\n        \"appMap\"\
-            :[\r\n          {\r\n            \"id\":\"01228383082462412826\",\r\n\
-            \             \"index\":1,\r\n            \"group\":1\r\n          },\r\
-            \n           {\r\n            \"id\":\"01228383384379392023\",\r\n   \
-            \          \"index\":1,\r\n            \"group\":2\r\n          }\r\n\
-            \          ]\r\n        \r\n      }\r\n   }"
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: create page
-        x-testDescription: ""
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-      x-codegen-request-body-name: Body
-  /section/list:
-    get:
-      tags:
-      - Page APIs
-      summary: Fetch Page Settings
-      description: |-
-        This API is associated with fetching the settings of a page.
-           - The endpoint for **Fetch Page Settings** is `/section/list`
-           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: AllSettingsGet
-      parameters:
-      - name: Content-Type
-        in: header
-        description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
-          \   - Application/x-www-form-urlencoded"
-        required: true
-        schema:
-          type: string
-      - name: X-msgid
-        in: header
-        description: This Id Uniquely identifies a request if the same API is executed
-          multiple times.
-        required: true
-        schema:
-          type: string
-      - name: ts
-        in: header
-        description: Time Stamp at which fetch settings request was sent.
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: All User APIs require authorization for use. Specify the authorization
-          key received from the administrator when placing the request for use of
-          the API.
-        required: true
-        schema:
-          type: string
-      - name: x-authenticated-user-token
-        in: header
-        description: The token/key used to execute the API
-        required: true
-        schema:
-          type: string
-      responses:
-        200:
-          description: OK ! Successful operation."fetch settings" operation was successfully
-            executed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
-        400:
-          description: BAD REQUEST. The "fetch settings" operation failed ! The possible
-            reason for failure is that you may have missed providing input for a mandatory
-            parameter.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
-        500:
-          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
-            errors are tracked automatically, but if the problem persists feel free
-            to contact us. In the meantime, try refreshing.
-          content: {}
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: GET
-          uri: /all/settings
-          headers:
-            Content-Type: application/json
-            X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-            ts: 2017-05-25 10:18:56:578+0530
-            Authorization: Bearer {{api-key}}
-            x-authenticated-user-token: '{{user-token}}'
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: get All Page Settings
-        x-testDescription: ""
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-  /read/{pageName}:
-    get:
-      tags:
-      - Page APIs
-      summary: Get Specific Page Resources
-      description: |-
-        This API is associated with fetching specific resources.
-           - The endpoint for **Get Specific Page Resources** is `/read/{pageName}`
-           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: ResourceGet
-      parameters:
-      - name: pageName
-        in: path
-        description: Please append a valid Section Id to the request URL
-        required: true
-        schema:
-          type: string
-      - name: Content-Type
-        in: header
-        description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
-          \   - Application/x-www-form-urlencoded"
-        required: true
-        schema:
-          type: string
-      - name: X-msgid
-        in: header
-        description: This Id Uniquely identifies a request if the same API is executed
-          multiple times.
-        required: true
-        schema:
-          type: string
-      - name: ts
-        in: header
-        description: Time Stamp at which get specific page resources request was sent.
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: All User APIs require authorization for use. Specify the authorization
-          key received from the administrator when placing the request for use of
-          the API.
-        required: true
-        schema:
-          type: string
-      - name: x-authenticated-user-token
-        in: header
-        description: The token/key used to execute the API
-        required: true
-        schema:
-          type: string
-      responses:
-        200:
-          description: OK ! Successful operation."get specific page resources" operation
-            was successfully executed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
-        400:
-          description: BAD REQUEST. The "get specific page resources" operation failed
-            ! The possible reason for failure is that you may have missed providing
-            input for a mandatory parameter.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
-        500:
-          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
-            errors are tracked automatically, but if the problem persists feel free
-            to contact us. In the meantime, try refreshing.
-          content: {}
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: GET
-          uri: /Resource
-          headers:
-            Content-Type: application/json
-            X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-            ts: 2017-05-25 10:18:56:578+0530
-            Authorization: Bearer {{api-key}}
-            x-authenticated-user-token: '{{user-token}}'
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: get particular page Settings
-        x-testDescription: ""
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-  /section/create:
-    post:
-      tags:
-      - Page APIs
-      summary: Create Page Section
-      description: |-
-        This API is associated with creating a new section on a page.
-           - The endpoint for **Create Page Section** is `/section/create`
-           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: SectionCreatePost
-      parameters:
-      - name: Content-Type
-        in: header
-        description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
-          \   - Application/x-www-form-urlencoded"
-        required: true
-        schema:
-          type: string
-      - name: X-msgid
-        in: header
-        description: This Id Uniquely identifies a request if the same API is executed
-          multiple times.
-        required: true
-        schema:
-          type: string
-      - name: ts
-        in: header
-        description: Time Stamp at which create section request was sent.
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: All User APIs require authorization for use. Specify the authorization
-          key received from the administrator when placing the request for use of
-          the API.
-        required: true
-        schema:
-          type: string
-      - name: x-authenticated-user-token
-        in: header
-        description: The token/key used to execute the API
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: |-
-          The body refers to the format of the request.
-            - The body contains metadata about the request for creating geo location.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreatePageSectionrequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/CreatePageSectionrequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/CreatePageSectionrequest'
-        required: true
-      responses:
-        200:
-          description: OK ! Successful operation."create section" operation was successfully
-            executed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
-        400:
-          description: BAD REQUEST. The "create section" operation failed ! The possible
-            reason for failure is that you may have missed providing input for a mandatory
-            parameter.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
-        500:
-          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
-            errors are tracked automatically, but if the problem persists feel free
-            to contact us. In the meantime, try refreshing.
-          content: {}
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /section/create
-          headers:
-            Content-Type: application/json
-            X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-            ts: 2017-05-25 10:18:56:578+0530
-            Authorization: Bearer {{api-key}}
-            x-authenticated-user-token: '{{user-token}}'
-          body: |-
-            {
-            "id":"unique API ID",
-            "ts":"2013/10/15 16:16:39",
-            "params": { },
-            "request":{
-
-             "name":"Recommended TextBook",
-
-             "searchQuery":{"request": {
-
-                 "query":"",
-
-                 "filters":
-
-                 {"language":["English"],"contentType":["TextBook"]},"limit":10,"sort_by":{"lastUpdatedOn":"desc"}}},
-
-             "sectionDataType" :"course",
-
-             "display":{"name":{"en":"popular story","hi":"????????"}}
-
-                    }
-
-              }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: create page section
-        x-testDescription: ""
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-      x-codegen-request-body-name: Body
-  /section/update:
-    patch:
-      tags:
-      - Page APIs
-      summary: Update Page Section
-      description: |-
-        This API is associated with updating content of a section on a page.
-           - The endpoint for **Update Page Section** is `/section/update`
-           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: SectionUpdatePatch
-      parameters:
-      - name: Content-Type
-        in: header
-        description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
-          \   - Application/x-www-form-urlencoded"
-        required: true
-        schema:
-          type: string
-      - name: X-msgid
-        in: header
-        description: This Id Uniquely identifies a request if the same API is executed
-          multiple times.
-        required: true
-        schema:
-          type: string
-      - name: ts
-        in: header
-        description: Time Stamp at which updating page section request was sent.
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: All User APIs require authorization for use. Specify the authorization
-          key received from the administrator when placing the request for use of
-          the API.
-        required: true
-        schema:
-          type: string
-      - name: x-authenticated-user-token
-        in: header
-        description: The token/key used to execute the API
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: |-
-          The body refers to the format of the request.
-            - The body contains metadata about the request for creating geo location.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdatePageSectionInforequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/UpdatePageSectionInforequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/UpdatePageSectionInforequest'
-        required: true
-      responses:
-        200:
-          description: OK ! Successful operation."page section" operation was successfully
-            executed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
-        400:
-          description: BAD REQUEST. The "page section" operation failed ! The possible
-            reason for failure is that you may have missed providing input for a mandatory
-            parameter.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
-        500:
-          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
-            errors are tracked automatically, but if the problem persists feel free
-            to contact us. In the meantime, try refreshing.
-          content: {}
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: PATCH
-          uri: /section/update
-          headers:
-            Content-Type: application/json
-            X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-            ts: 2017-05-25 10:18:56:578+0530
-            Authorization: Bearer {{api-key}}
-            x-authenticated-user-token: '{{user-token}}'
-          body: |-
-            {
-            "id":"unique API ID",
-            "ts":"2013/10/15 16:16:39",
-            "params": { },
-            "request":{
-
-              "id":"0122662435116892160",
-
-             "name":"Popular Course",
-
-             "searchQuery":{"request": { "query": "","filters":{"objectType": ["Content"],"mimeType": ["application/vnd.ekstep.html-archive"],"status": ["Draft", "Live"]},"offset": 0,"limit": 5 }},
-
-             "sectionDataType" :"course",
-
-             "display":{
-
-                    "name":{
-
-                            "en":"popular Course",
-
-                            "hi":"????????"
-
-                              }
-
-                      }
-
-                    }
-
-              }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: update page section info
-        x-testDescription: ""
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-      x-codegen-request-body-name: Body
-  /section/read/{SectionId}:
-    get:
-      tags:
-      - Page APIs
-      summary: Fetch Section Details by Id
-      description: |-
-        This API is associated with fetching specific section details.
-           - The endpoint for **Fetch Section Details by Id** is `/section/read/{sectionId}`
-           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: Section0122771215738306560Get
-      parameters:
-      - name: SectionId
-        in: path
-        description: Please append a valid Section Id to the request URL
-        required: true
-        schema:
-          type: string
-      - name: Content-Type
-        in: header
-        description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
-          \   - Application/x-www-form-urlencoded"
-        required: true
-        schema:
-          type: string
-      - name: X-msgid
-        in: header
-        description: This Id Uniquely identifies a request if the same API is executed
-          multiple times.
-        required: true
-        schema:
-          type: string
-      - name: ts
-        in: header
-        description: Time Stamp at which Fetch Section Details request was sent.
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: All User APIs require authorization for use. Specify the authorization
-          key received from the administrator when placing the request for use of
-          the API.
-        required: true
-        schema:
-          type: string
-      - name: x-authenticated-user-token
-        in: header
-        description: The token/key used to execute the API
-        required: true
-        schema:
-          type: string
-      responses:
-        200:
-          description: OK ! Successful operation."fetching section details" operation
-            was successfully executed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
-        400:
-          description: BAD REQUEST. The "fetching section details" operation failed
-            ! The possible reason for failure is that you may have missed providing
-            input for a mandatory parameter.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
-        500:
-          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
-            errors are tracked automatically, but if the problem persists feel free
-            to contact us. In the meantime, try refreshing.
-          content: {}
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: GET
-          uri: /section/read/0122771215738306560
-          headers:
-            Content-Type: application/json
-            X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-            ts: 2017-05-25 10:18:56:578+0530
-            Authorization: Bearer {{api-key}}
-            x-authenticated-user-token: '{{user-token}}'
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: get section details by id
-        x-testDescription: ""
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-  /update:
+  /data/v1/page/update:
     patch:
       tags:
       - Page APIs
@@ -773,77 +202,84 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ContentCreateResponse'
+              example:
+                id: api.page.update
+                ver: v1
+                ts: '1606196636922'
+                params: {
+                  resmsgid: null,
+                  msgid: "34b7041c-2d42-43e8-81d2-d3f3b6fbeccf",
+                  err: null,
+                  status: "success",
+                  errmsg: null
+                }
+                responseCode: OK
+                result:
+                  response: SUCCESS
         400:
-          description: BAD REQUEST. The "update page information" operation failed
-            ! The possible reason for failure is that you may have missed providing
-            input for a mandatory parameter.
+          description: BAD REQUEST. The "update page" operation failed ! The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ContentCreateErrorResponse'
+              example:
+                id: api.page.update
+                ver: v1
+                ts: '1606196636922'
+                params: 
+                  resmsgid: null,
+                  msgid: 34b7041c-2d42-43e8-81d2-d3f3b6fbeccf
+                  err: PAGE_ALREADY_EXIST
+                  status: PAGE_ALREADY_EXIST
+                  errmsg: page already exist with this Page Name and Org Code.
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
-          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
-            errors are tracked automatically, but if the problem persists feel free
-            to contact us. In the meantime, try refreshing.
-          content: {}
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org. '
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/500ServerError'
+              example:
+                id: api.page.update
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
       security:
       - bearer: []
-      x-unitTests:
-      - request:
-          method: PATCH
-          uri: /update
-          headers:
-            Content-Type: application/json
-            X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-            ts: 2017-05-25 10:18:56:578+0530
-            Authorization: Bearer {{api-key}}
-            x-authenticated-user-token: '{{user-token}}'
-          body: "{\r\n\"id\":\"unique API ID\",\r\n\"ts\":\"2013/10/15 16:16:39\"\
-            ,\r\n\"params\": { },\r\n \"request\":{\r\n        \"name\":\"Resourcessss\"\
-            ,\r\n        \"id\":\"01228394137835929612\",\r\n        \"portalMap\"\
-            :[\r\n           {\r\n            \"id\":\"01228383082462412826\",\r\n\
-            \            \"index\":1,\r\n            \"group\":1\r\n            \r\
-            \n          },\r\n           {\r\n            \"id\":\"01228383384379392023\"\
-            ,\r\n             \"index\":1,\r\n            \"group\":2\r\n        \
-            \  }\r\n        ],\r\n        \"appMap\":[\r\n          {\r\n        \
-            \    \"id\":\"01228383082462412826\",\r\n             \"index\":1,\r\n\
-            \            \"group\":1\r\n          },\r\n           {\r\n         \
-            \   \"id\":\"01228383384379392023\",\r\n             \"index\":1,\r\n\
-            \            \"group\":2\r\n          }\r\n          ]\r\n        \r\n\
-            \      }\r\n   }"
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: update page info
-        x-testDescription: ""
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-      x-codegen-request-body-name: Body
-  /assemble:
-    post:
+  /data/v1/page/read/{pageName}:
+    get:
       tags:
       - Page APIs
-      summary: Get Page Data
+      summary: Get Specific Page Resources
       description: |-
-        This API is associated with fetching page complete data.
-           - The endpoint for **Get Page Date** is `/assemble`
+        This API is associated with fetching specific resources.
+           - The endpoint for **Get Specific Page Resources** is `/read/{pageName}`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: AssemblePost
+      operationId: ResourceGet
       parameters:
+      - name: pageName
+        in: path
+        description: Please append a valid Section Id to the request URL
+        required: true
+        schema:
+          type: string
       - name: Content-Type
         in: header
         description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
-          \   - Application/x-www-form-urlencoded"
+          \ Possible media types can be:- \n   - Application/json"
         required: true
         schema:
           type: string
@@ -856,7 +292,126 @@ paths:
           type: string
       - name: ts
         in: header
-        description: Time Stamp at which Get Page Data request was sent.
+        description: Time Stamp at which get specific page resources request was sent.
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: All User APIs require authorization for use. Specify the authorization
+          key received from the administrator when placing the request for use of
+          the API.
+        required: true
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: The token/key used to execute the API
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK ! Successful operation."get specific page resources" operation
+            was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageReadResponse'
+              example:
+                id: "api.page.read.Course"
+                ver: v1
+                ts: "2020-12-14 10:30:12:868+0000"
+                params: 
+                  resmsgid: null
+                  msgid: 829f92fa-ef96-4250-a9b2-1a169e8ff59d
+                  err: null
+                  status: success
+                  errmsg: null
+                  responseCode: OK
+                result: 
+                  page: 
+                    name: Course
+                    id: 01228382478150860822
+                    portalSections: 
+                      display: "{\"name\":{\"en\":\"Latest Courses\"}}"
+                      alt: null
+                      description: null
+                      index: 1
+                      sectionDataType: course
+                      imgUrl: null
+                      searchQuery: "{\"request\":{\"filters\":{\"contentType\":[\"Course\"],\"objectType\":[\"Content\"],\"status\":[\"Live\"]},\"sort_by\":{\"lastPublishedOn\":\"desc\"},\"limit\":10}}"
+                      name: "Latest Courses"
+                      id: 01228382278062080019
+                      dynamicFilters: null
+                      dataSource: null
+                      status: 1
+                      group: 1
+                    appSections: 
+                      display: "{\"name\":{\"en\":\"Latest Courses\",\"hi\":\"????????\"}}"
+                      alt: null
+                      description: null
+                      index: 1
+                      sectionDataType: course
+                      imgUrl: null
+                      searchQuery: "{\"request\":{\"filters\":{\"contentType\":[\"Course\"],\"objectType\":[\"Content\"],\"status\":[\"Live\"]},\"sort_by\":{\"lastPublishedOn\":\"desc\"},\"limit\":10}}"
+                      name: "Latest Courses"
+                      id: 01228382278062080019
+                      dynamicFilters: null
+                      dataSource: null
+                      status: 1
+                      group: 1
+        500:
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org. '
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/500ServerError'
+              example:
+                id: api.page.update
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      security:
+      - bearer: []
+  /data/v1/page/section/create:
+    post:
+      tags:
+      - Page APIs
+      summary: Create Page Section
+      description: |-
+        This API is associated with creating a new section on a page.
+           - The endpoint for **Create Page Section** is `/section/create`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: SectionCreatePost
+      parameters:
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.\n\
+          \ Possible media types can be:- \n   - Application/json"
+        required: true
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: This Id Uniquely identifies a request if the same API is executed
+          multiple times.
+        required: true
+        schema:
+          type: string
+      - name: ts
+        in: header
+        description: Time Stamp at which create section request was sent.
         required: true
         schema:
           type: string
@@ -877,73 +432,496 @@ paths:
       requestBody:
         description: |-
           The body refers to the format of the request.
-            - The body contains metadata about the request for Get Page data.
+            - The body contains metadata about the request for creating geo location.
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GetPageData~1Assemblerequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/GetPageData~1Assemblerequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/GetPageData~1Assemblerequest'
+              $ref: '#/components/schemas/CreatePageSectionrequest'
+              examples:
+                a:
+                  summary: "Create page section Request"
+                  value:
+                    request:
+                      name: Page - prad - Section - 1
+                      searchQuery:
+                        request:
+                          facets:
+                            - language
+                            - grade
+                            - domain
+                            - contentType
+                            - subject
+                            - medium
+                          filters:
+                            contentType:
+                              - TextBook
+                            objectType:
+                              - Content
+                            status:
+                              - Live
+                            compatibilityLevel:
+                               max: 4
+                               min: 1
+                          mode: collection
+                          limit: 10
+                          sort_by:
+                            lastUpdatedOn: desc
+                      sectionDataType: Content
+                      display:
+                        name:
+                          en: Page - 1 - Section - 1
+                b:
+                  summary: "Create page section Bad Request "
+                  value:
+                    request: 
+                      name: "Page - prad - Section - 1"
+                      limit: 10
+                      sort_by: 
+                      lastUpdatedOn: desc
+                      sectionDataType: Content
+                      display: 
+                        name: 
+                          en: "Page - 1 - Section - 1"
         required: true
       responses:
         200:
-          description: OK ! Successful operation."Get Page Data" operation was successfully
+          description: OK ! Successful operation."create section" operation was successfully
             executed.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ContentCreateResponse'
+              example:
+                id: api.page.section.create
+                ver: v1
+                ts: '1606196636922'
+                params: 
+                  resmsgid: null,
+                  msgid: a4b7041c-2d42-43e8-81d2-d3f3b6fbeccf
+                  err: null
+                  status: success
+                  errmsg: null
+                responseCode: OK
+                result:
+                  response: SUCCESS
+                  pageId: 0131735539027230726
         400:
-          description: BAD REQUEST. The "Get Page Data" operation failed ! The possible
+          description: BAD REQUEST. The "create section" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
             parameter.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ContentCreateErrorResponse'
+              example:
+                id: api.page.section.create
+                ver: v1
+                ts: 2020-12-16 07:58:41:739+0000
+                params: 
+                  resmsgid: null
+                  msgid: "637888ae-16c5-48d0-997f-3662149646f0"
+                  err: SECTION_DATA_TYPE_MISSING
+                  status: SECTION_DATA_TYPE_MISSING
+                  errmsg: Section data type missing.
+                responseCode: CLIENT_ERROR
+                result: 
         500:
-          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
-            errors are tracked automatically, but if the problem persists feel free
-            to contact us. In the meantime, try refreshing.
-          content: {}
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org. '
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/500ServerError'
+              example:
+                id: api.page.section.create
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
       security:
       - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /assemble
-          headers:
-            Content-Type: application/json
-            X-msgid: 8e27cbf5-e299-43b0-bca7-8347f7e5abcf
-            ts: 2017-05-25 10:18:56:578+0530
-            Authorization: Bearer {{api-key}}
-            x-authenticated-user-token: '{{user-token}}'
-          body: "{\r\n\"id\":\"unique API ID\",\r\n\"ts\":\"2013/10/15 16:16:39\"\
-            ,\r\n\"params\": { },\r\n \"request\":{\r\n         \"source\":\"web\"\
-            ,\r\n         \"name\":\"page\",\r\n         \"filters\":{\r\n       \
-            \          \"objectType\": [\"Content\"]\r\n                \r\n     \
-            \    }\r\n      }\r\n   }"
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: get page data / assemble
-        x-testDescription: ""
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-      x-codegen-request-body-name: Body
+  /data/v1/page/section/update:
+    patch:
+      tags:
+      - Page APIs
+      summary: Update Page Section
+      description: |-
+        This API is associated with updating content of a section on a page.
+           - The endpoint for **Update Page Section** is `/section/update`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: SectionUpdatePatch
+      parameters:
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.\n\
+          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
+          \   - Application/x-www-form-urlencoded"
+        required: true
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: This Id Uniquely identifies a request if the same API is executed
+          multiple times.
+        required: true
+        schema:
+          type: string
+      - name: ts
+        in: header
+        description: Time Stamp at which updating page section request was sent.
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: All User APIs require authorization for use. Specify the authorization
+          key received from the administrator when placing the request for use of
+          the API.
+        required: true
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: The token/key used to execute the API
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the request for creating geo location.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePageSectionInforequest'
+            examples:
+              a:
+                summary: Update Page Request
+                value:
+                  example:
+                    request: 
+                      id: 01269259447543398412
+                      name: "Linked Content"
+                      searchQuery: 
+                        request: 
+                          facets: 
+                            - medium
+                          filters: 
+                            primaryCategory: 
+                              - Course
+                            mimeType: 
+                              - "application/vnd.ekstep.content-collection"
+                            status: 
+                              - Live
+                            compatibilityLevel: 
+                              max: 4
+                              min: 1
+                          mode: collection
+                          limit: 10
+                          sort_by: 
+                            lastUpdatedOn: desc
+                      display: 
+                        name: 
+                        en: "Linked Content"      
+        required: true
+      responses:
+        200:
+          description: OK ! Successful operation."create section" operation was successfully
+            executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentCreateResponse'
+              example:
+                id: api.page.section.update
+                ver: v1
+                ts: '1606196636922'
+                params: 
+                  resmsgid: null,
+                  msgid: a4b7041c-2d42-43e8-81d2-d3f3b6fbeccf
+                  err: null
+                  status: success
+                  errmsg: null
+                responseCode: OK
+                result:
+                  response: SUCCESS
+                  pageId: 0131735539027230726
+        400:
+          description: BAD REQUEST. The "create section" operation failed ! The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentCreateErrorResponse'
+              example:
+                id: api.page.section.update
+                ver: v1
+                ts: 2020-12-16 07:58:41:739+0000
+                params: 
+                  resmsgid: null
+                  msgid: "637888ae-16c5-48d0-997f-3662149646f0"
+                  err: SECTION_DATA_TYPE_MISSING
+                  status: SECTION_DATA_TYPE_MISSING
+                  errmsg: Section data type missing.
+                responseCode: CLIENT_ERROR
+                result: 
+        500:
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org. '
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/500ServerError'
+              example:
+                id: api.page.section.update
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      security:
+      - bearer: []
+  /data/v1/page/section/read/{SectionId}:
+    get:
+      tags:
+      - Page APIs
+      summary: Fetch Section Details by Id
+      description: |-
+        This API is associated with fetching specific section details.
+           - The endpoint for **Fetch Section Details by Id** is `/section/read/{sectionId}`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: Section0122771215738306560Get
+      parameters:
+      - name: SectionId
+        in: path
+        description: Please append a valid Section Id to the request URL
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.\n\
+          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
+          \   - Application/x-www-form-urlencoded"
+        required: true
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: This Id Uniquely identifies a request if the same API is executed
+          multiple times.
+        required: true
+        schema:
+          type: string
+      - name: ts
+        in: header
+        description: Time Stamp at which Fetch Section Details request was sent.
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: All User APIs require authorization for use. Specify the authorization
+          key received from the administrator when placing the request for use of
+          the API.
+        required: true
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: The token/key used to execute the API
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK ! Successful operation."fetching section details" operation
+            was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentCreateResponse'
+              example:
+                id: "api.page.section.read"
+                ver: v1
+                ts: "2020-12-16 08:33:54:060+0000"
+                params: 
+                  resmsgid: null
+                  msgid: 5d809eaf-525b-4f96-b3f1-798636b55ecf
+                  err: null
+                  status: success
+                  errmsg: null
+                responseCode: OK
+                result: 
+                  section: 
+                    updatedBy: null
+                    display: "{\"name\":{\"en\":\"Ongoing Courses\"}}"
+                    alt: null 
+                    description: null
+                    updatedDate: null
+                    sectionDataType: coursebatch
+                    imgUrl: null
+                    createdDate: null
+                    createdBy: null
+                    searchQuery: "{\"request\":{\"query\":\"\",\"filters\":{\"status\":\"1\"},\"limit\":10,\"sort_by\":{\"createdDate\":\"desc\"}}}"
+                    name: "Ongoing Course"
+                    id: 0127029938411765763
+                    dynamicFilters: null
+                    dataSource: batch
+                    status: 1
+        500:
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org. '
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/500ServerError'
+              example:
+                id: api.page.section.read
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      security:
+      - bearer: []
+  /data/v1/page/section/list:
+    get:
+      tags:
+      - Page APIs
+      summary: Fetch Page Settings
+      description: |-
+        This API is associated with fetching the settings of a page.
+           - The endpoint for **Fetch Page Settings** is `/section/list`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: AllSettingsGet
+      parameters:
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.\n\
+          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
+          \   - Application/x-www-form-urlencoded"
+        required: true
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: This Id Uniquely identifies a request if the same API is executed
+          multiple times.
+        required: true
+        schema:
+          type: string
+      - name: ts
+        in: header
+        description: Time Stamp at which fetch settings request was sent.
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: All User APIs require authorization for use. Specify the authorization
+          key received from the administrator when placing the request for use of
+          the API.
+        required: true
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: The token/key used to execute the API
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK ! Successful operation."fetch settings" operation was successfully
+            executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentCreateResponse'
+              example:
+                id: "api.page.section.list"
+                ver: v1
+                ts: "2020-12-16 08:45:22:994+0000"
+                params: 
+                  resmsgid: null
+                  msgid: "04c00561-c3af-46a9-924d-ab891e1b62a8"
+                  err: null
+                  status: success
+                  errmsg: null
+                responseCode: OK
+                result: 
+                  response: 
+                    - 
+                      display: "{\"name\":{\"en\":\"Latest Courses\"}}"
+                      alt: null
+                      description: null
+                      sectionDataType: ContentBrowser
+                      imgUrl: null
+                      searchQuery: "{\"request\":{\"filters\":{\"contentType\":[\"Course\"],\"objectType\":[\"Content\"],\"status\":[\"Live\"]},\"sort_by\":{\"lastPublishedOn\":\"desc\"},\"limit\":10}}"
+                      name: "Latest Courses"
+                      id: 0131191751772733441
+                      dynamicFilters: null
+                      dataSource: null
+                      status: 1
+                    - 
+                      display: "{\"name\":{\"en\":\"NCC\"}}"
+                      alt: null
+                      description: null
+                      sectionDataType: Content
+                      imgUrl: null
+                      searchQuery: "{\"request\":{\"filters\":{\"contentType\":[\"Course\"],\"status\":[\"Live\"],\"objectType\":[\"Content\"],\"createdFor\":[\"0129902071599595522\"],\"subject\":[\"NCC\"]},\"sort_by\":{\"lastPublishedOn\":\"desc\"},\"limit\":10}}"
+                      name: NCC
+                      id: 0129916933832212480
+                      dynamicFilters: null
+                      dataSource: null
+                      status: 1
+        500:
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org. '
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/500ServerError'
+              example:
+                id: api.page.section.list
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      security:
+      - bearer: []
 components:
   schemas:
     CreatePagerequest:
@@ -971,8 +949,8 @@ components:
         request:
           $ref: '#/components/schemas/Request'
       example:
-        id: unique API ID
-        ts: 2013/10/15 16:16:39
+        id: api.page.create
+        ts: 2020/12/11 16:16:39
         params: {}
         request:
           name: Resources
@@ -1596,8 +1574,8 @@ components:
         - id: 1.228383384379392E18
           index: 1
           group: 2
-    GetPageData/Assemblerequest:
-      title: get page data / assembleRequest
+    GetPageAssemblerequest:
+      title: get page assembleRequest
       required:
       - id
       - params
@@ -1686,6 +1664,11 @@ components:
       allOf:
       - $ref: '#/components/schemas/ResultWithNodeId'
       - $ref: '#/components/schemas/ResponseHeader'
+    PageReadResponse:
+      description: Page Read Response
+      allOf:
+      - $ref: '#/components/schemas/ResponseHeader'
+      - $ref: '#/components/schemas/EmptyResult'
     ResponseHeader:
       title: ResponseHeader
       type: object
@@ -1742,8 +1725,34 @@ components:
     ContentCreateErrorResponse:
       title: Create Content Error Response
       allOf:
-      - $ref: '#/components/schemas/EmptyResult'
       - $ref: '#/components/schemas/ResponseHeader'
+      - $ref: '#/components/schemas/EmptyResult'
+    500ServerError:
+      title: 500ServerError
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          type: string
+        responseCode:
+          type: string
+        result:
+          type: object
+          properties:
+           message:
+            type: string
   securitySchemes:
     bearer:
       type: apiKey
