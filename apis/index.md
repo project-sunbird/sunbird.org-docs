@@ -27,7 +27,7 @@ Currently, Sunbird has the following microservice categories. Each microservice 
 
 The **Content and Learning Services** category has the following microservices:
 
-- [**Content Management:**](https://apis/content/){:target="_blank"} Provides services to manage content objects and their lifecycle for a defined taxonomy in a learning domain. This service is dependent on the taxonomy microservice as every content piece must be tagged with the appropriate taxonomy.
+- [**Content Management:**](apis/content/){:target="_blank"} Provides services to manage content objects and their lifecycle for a defined taxonomy in a learning domain. This service is dependent on the taxonomy microservice as every content piece must be tagged with the appropriate taxonomy.
 - **Usage & Tracking Service:** Provides services for enrolment, usage and progress tracking of trackable learning objects like online courses, quizzes, etc.
 
 ## Contribution & Curation Services
@@ -35,13 +35,13 @@ The **Content and Learning Services** category has the following microservices:
 The **Contribution & Curation Services** category has the following microservices:
 
 - **Contribution Management:** This service enables organisations to digitally plan, coordinate and manage crowd sourcing for content contributions.
-- [**Contributor Management:**](https://apis/opensaber/){:target="_blank"} This service enables a registry of individual contributors and contributing organisations that nominate and contribute digital content via sourcing projects.
+- [**Contributor Management:**](apis/opensaber/){:target="_blank"} This service enables a registry of individual contributors and contributing organisations that nominate and contribute digital content via sourcing projects.
 
 ## Taxonomy & Tagging Services
 
 The **Taxonomy & Tagging Services** category has the following microservices:
 
-- [**Taxonomy Framework Management:**](https://apis/dialapi/){:target="_blank"} Provides the ability to create, organise and manage taxonomy frameworks in a learning domain. This microservice is domain independent, i.e. can be used to model the taxonomy of any learning domain, e.g: K-12, Leadership training, Professional training, etc.
+- [**Taxonomy Framework Management:**](apis/dialapi/){:target="_blank"} Provides the ability to create, organise and manage taxonomy frameworks in a learning domain. This microservice is domain independent, i.e. can be used to model the taxonomy of any learning domain, e.g: K-12, Leadership training, Professional training, etc.
 - **Content Category Management:** Provides the ability to create and manage categories for content, collections, and question sets.
 
 ## Telemetry & Data, Analytics Services
@@ -50,17 +50,17 @@ The **Telemetry & Data, Analytics Services** category has the following microser
 
 - **Telemetry Service:** Provides services to collect telemetry and ingest the telemetry into the data pipeline for processing.
 - **Data Service:** Provides services to manage report jobs and data exhausts.
-- **Reports Service:** Provides services to create, review and publish reports to the Sunbird portal using the HawkEye framework.
+- [**Reports Service:**](apis/reports/){:target="_blank"} Provides services to create, review and publish reports to the Sunbird portal using the HawkEye framework.
 
 ## Registry & Discovery Services
 
 The **Registry & Discovery Services** category has the following microservices:
 
-- [**DIAL Service:**](https://apis/dialapi/){:target="_blank"} Provides services to manage and implement DIAL codes. DIAL is an open source framework to codify and link physical resources (like textbooks) with digital resources in a dynamic and extensible manner, using QR codes.
+- [**DIAL Service:**](apis/dialapi/){:target="_blank"} Provides services to manage and implement DIAL codes. DIAL is an open source framework to codify and link physical resources (like textbooks) with digital resources in a dynamic and extensible manner, using QR codes.
 - **Search Service:** Provides services to search and discover content and knowledge assets.
 - **User & Org Management:** This service enables a registry of users and organisations on the Sunbird platform. It provides services to manage the lifecycle, administration, and permissions of users and organisations.
-- [**Location Service:**](https://apis/locationapi/){:target="_blank"} This service enables the registry of geographic locations. It provides services to create and manage locations for each organisation.
-- [**Device Management:**](https://apis/deviceapi/){:target="_blank"} This service enables the registry of devices accessing the sunbird platform. The device profile and location of device is stored in the device registry.
+- [**Location Service:**](apis/locationapi/){:target="_blank"} This service enables the registry of geographic locations. It provides services to create and manage locations for each organisation.
+- [**Device Management:**](apis/deviceapi/){:target="_blank"} This service enables the registry of devices accessing the sunbird platform. The device profile and location of device is stored in the device registry.
 
 
 ## Interaction & Collaboration Services
@@ -92,7 +92,4 @@ The **Infra & Shared Services** category has the following microservices:
 - **Configuration Management:** Provides services to manage configurations like system settings, and UI forms.
 - **API Management:** Provides services to create, manage and validate API tokens, to register mobile and desktop apps, and to issue and refresh API tokens of registered mobile and desktop app devices.
 - **Logging Service:** Provides services to client applications like mobile and desktop apps to save error logs on the server.
-
-
-
 
