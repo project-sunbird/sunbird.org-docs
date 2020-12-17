@@ -3,11 +3,9 @@ info:
   title: Framework API(s)
   description: "The Framework API resources is basically a supporting data structure\
     \ which serves as a template \n- It can be used in places where the structure\
-    \ remains the same but only the usage changes are per requirement\n- These resources\
-    \ are used to create, update, search, frameworks, channels, catergories, terms\n\
-    \   - The Hierarchy is as: Framework-->Category-->Terms\n     - Category: An abstract\
+    \ remains the same but only the usage changes as per the requirement.\n- These resources are used to create, update, read, search, the objects like channels, frameworks, catergories, terms\n- The Hierarchy is as: Framework-->Category-->Terms\n     - Category: An abstract\
     \ classification of the terms partitioned according to requirement\n     - Terms:\
-    \ Refers to a keyword or a phrase to descibe a Concept"
+    \ Refers to a keyword or a phrase to descibe a Concept\n- [TestCases](https://app.getpostman.com/run-collection/1122b59b7dc69b2b370b)"
   version: "1.0"
 servers:
 - url: https://staging.open-sunbird.org/api
@@ -17,16 +15,17 @@ paths:
       tags:
       - Channel APIs
       summary: Create Channel
-      description: "This API is used for creating a channel \n   - The endpoint for\
-        \ **Create Channel** is `/channel/v1/create`\n   - The fields marked with\
-        \ an asterisk (*) are mandatory. They cannot be null or empty."
+      description: |-
+        This API is used for creating a channel    
+          - The endpoint for **Create Channel** is `/channel/v1/create`
+          - It points to knowledge-mw-service - `/v1/channel/create`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: ChannelV1CreatePost
       parameters:
       - name: Content-Type
         in: header
         description: "The Content Type entity is the media type of the resource\n\
-          \ Possible media types can be:- \n   - application/json\n   - multipart/form-data\n\
-          \   - application/x-www-form-urlencoded"
+          \ Possible media types can be:- \n   - application/json"
         required: true
         schema:
           type: string
@@ -42,17 +41,16 @@ paths:
         description: "'The body parameter refers to the format of the request, the\
           \ request body (payload) takes the following media types to make the payload:'\n\
           \   \n   - JSON \n   - XML data\n \n The body is the representation of the\
-          \ resource object for creating a channel"
+          \ resource object for creating a channel.\n Please refer for supported [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/channel/1.0/schema.json)"
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ChannelCreateRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/ChannelCreateRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/ChannelCreateRequest'
+            example:
+              request:
+                channel:
+                  name: Channel Name
+                  code: channel-id
         required: true
       responses:
         200:
@@ -62,22 +60,50 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ChannelCreate200Response'
+              example:
+                id: api.channel.create
+                ver: '1.0'
+                ts: '2020-12-14T08:27:27.810Z'
+                params:
+                  resmsgid: 3357da20-3de6-11eb-9ff3-67c41480f6aa
+                  msgid: 3353bb70-3de6-11eb-9ff3-67c41480f6aa
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: channel-id
+                  node_id: channel-id
         400:
           description: BAD REQUEST. The "Create channel" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
-            parameter.
+            parameter or proving some wrong request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ChannelCreate400Response'
+              example:
+                id: api.channel.create
+                ver: '1.0'
+                ts: '2020-12-14T08:26:15.914Z'
+                params:
+                  resmsgid: 087d64a0-3de6-11eb-9ff3-67c41480f6aa
+                  msgid: null
+                  status: failed
+                  err: CONSTRAINT_VALIDATION_FAILED
+                  errmsg: 'Object already exists with identifier: channel-id'
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+                
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-codegen-request-body-name: Body
+      deprecated: false
+      security: 
+        - bearer: []
   /channel/v1/read/{ID}:
     get:
       tags:
@@ -86,6 +112,7 @@ paths:
       description: |-
         This API is associated with fetching a channel by a specific channel ID
            - The endpoint for **Get a Channel** is `/channel/v1/read/{ID}`
+           - It points to knowledge-mw-service - `/v1/channel/read/{ID}` 
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: ChannelV1ReadGet
       parameters:
@@ -114,35 +141,116 @@ paths:
       responses:
         200:
           description: OK ! Successful operation.The "fetch channel by ID" operation
-            was successfully executed.
+            was successfully executed. \n Please refer for different additional [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/content/1.0/schema.json)
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ChannelGet200Response'
-        400:
-          description: BAD REQUEST. The "fetch channel by ID" operation failed ! The
-            possible reason for failure is that you may have missed providing input
-            for a mandatory parameter.
+              example:
+                id: api.channel.read
+                ver: '3.0'
+                ts: '2020-12-14T08:33:50ZZ'
+                params:
+                  resmsgid: 02c742d2-57e1-4441-aa31-0ce339c3917b
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  channel:
+                    identifier: channel-405
+                    lastStatusChangedOn: '2020-12-14T08:27:49.490+0000'
+                    code: channel-405
+                    consumerId: 7411b6bd-89f3-40ec-98d1-229dc64ce77d
+                    assetAdditionalCategories: []
+                    autoCreateBatch: Enabled
+                    languageCode: []
+                    suggested_frameworks:
+                      - identifier: NCF
+                        code: NCF
+                        name: NCF
+                        objectType: Framework
+                    createdOn: '2020-12-14T08:27:49.490+0000'
+                    objectType: Channel
+                    versionKey: '1607934825088'
+                    collectionPrimaryCategories:
+                      - Content Playlist
+                      - Course
+                      - Digital Textbook
+                      - Explanation Content
+                    contentPrimaryCategories:
+                      - Course Assessment
+                      - eTextbook
+                      - Explanation Content
+                      - Learning Resource
+                      - Practice Question Set
+                      - Teacher Resource
+                    name: Channel without Default License
+                    lastUpdatedOn: '2020-12-14T08:33:45.088+0000'
+                    defaultCourseFramework: TPD
+                    collectionAdditionalCategories:
+                      - Textbook
+                      - Lesson Plan
+                      - TV Lesson
+                    assetPrimaryCategories:
+                      - Asset
+                      - CertAsset
+                      - Certificate Template
+                    contentAdditionalCategories:
+                      - Classroom Teaching Video
+                      - Concept Map
+                      - Curiosity Question Set
+                      - Experiential Resource
+                      - Explanation Video
+                      - Focus Spot
+                      - Learning Outcome Definition
+                      - Lesson Plan
+                      - Marking Scheme Rubric
+                      - Pedagogy Flow
+                      - Previous Board Exam Papers
+                      - TV Lesson
+                      - Textbook
+                    status: Live
+                    defaultFramework: NCF
+        404:
+          description: RESOURCE NOT FOUND. The "fetch channel by ID" operation failed ! The
+            possible reason for failure is that you may have missed invalid channl id.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ChannelGet400Response'
+              example:
+                id: api.channel.read
+                ver: '3.0'
+                ts: '2020-12-14T08:36:08ZZ'
+                params:
+                  resmsgid: e54ff3af-4026-420e-9412-0fcd3eba1674
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: channel-407'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
+      deprecated: false
+      security: 
+        - bearer: []
   /channel/v1/update/{ID}:
     patch:
       tags:
       - Channel APIs
       summary: Update Channel
-      description: "This API is associated with updating a specific channel \n   -\
-        \ The endpoint for **Update Channel** is `/channel/v1/update/{ID}`\n   - The\
-        \ fields marked with an asterisk (*) are mandatory. They cannot be null or\
-        \ empty."
+      description: |-
+        This API is associated with updating a specific channel
+          - The endpoint for **Update Channel** is `/channel/v1/update/{ID}`
+          - It points to knowledge-mw-service - `/v1/channel/update/{ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: ChannelV1UpdatePatch
       parameters:
       - name: ID
@@ -171,17 +279,15 @@ paths:
         description: "'The body parameter refers to the format of the request, the\
           \ request body (payload) takes the following media types to make the payload:\n\
           \   \n   - JSON \n   - XML data\n \n The body is the representation of the\
-          \ resource object for updating a channel"
+          \ resource object for updating a channel.\n Please refer for supported [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/channel/1.0/schema.json))"
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ChannelUpdateRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/ChannelUpdateRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/ChannelUpdateRequest'
+            example:
+              request:
+                channel:
+                  description: Updated channel description
         required: true
       responses:
         200:
@@ -191,6 +297,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ChannelCreate200Response'
+              example:
+                id: api.channel.update
+                ver: '1.0'
+                ts: '2020-12-14T08:29:24.724Z'
+                params:
+                  resmsgid: 79078340-3de6-11eb-9ff3-67c41480f6aa
+                  msgid: 78fef7c0-3de6-11eb-9ff3-67c41480f6aa
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: channel-405
+                  node_id: channel-405
+        404:
+          description: RESOURCE NOT FOUND. The "update channel by ID" operation failed !
+            The possible reason for failure is that you may have passed invalid channel id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannelCreate400Response'
+              example:
+                id: api.channel.update
+                ver: '1.0'
+                ts: '2020-12-14T08:30:44.219Z'
+                params:
+                  resmsgid: a8697cb0-3de6-11eb-9ff3-67c41480f6aa
+                  msgid: null
+                  status: failed
+                  err: NOT_FOUND
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: channel-406'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
         400:
           description: BAD REQUEST. The "update channel by ID" operation failed !
             The possible reason for failure is that you may have missed providing
@@ -204,75 +344,9 @@ paths:
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-codegen-request-body-name: Body
-  /channel/v1/list:
-    post:
-      tags:
-      - Channel APIs
-      summary: List Channels
-      description: "This API is associated with listing the existing channels \n \
-        \  - The endpoint for **List Channels** is `/channel/v1/list`\n   - The fields\
-        \ marked with an asterisk (*) are mandatory. They cannot be null or empty."
-      operationId: ChannelV1ListPost
-      parameters:
-      - name: Content-Type
-        in: header
-        description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - application/json\n   - multipart/form-data\n\
-          \   - application/x-www-form-urlencoded"
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
-          to the administrator for the use of the API. You will receive the authorization
-          key. Specify the key received, here.'
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: "'The body parameter refers to the format of the request, the\
-          \ request body (payload) takes the following media types to make the payload:'\n\
-          \   \n   - JSON \n   - XML data\n \n The body is the representation of the\
-          \ resource object for listing channels"
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ChannelSearchRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/ChannelSearchRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/ChannelSearchRequest'
-        required: true
-      responses:
-        200:
-          description: OK ! Successful operation."list channels" operation was successfully
-            executed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
-        400:
-          description: BAD REQUEST. The "list channels" operation failed ! The possible
-            reason for failure is that you may have missed providing input for a mandatory
-            parameter.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
-        500:
-          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
-            errors are tracked automatically, but if the problem persists feel free
-            to contact us. In the meantime, try refreshing.
-          content: {}
-      security:
-      - bearer: []
-      x-codegen-request-body-name: Body
+      deprecated: false
+      security: 
+        - bearer: []
   /framework/v1/create:
     post:
       tags:
@@ -281,14 +355,14 @@ paths:
       description: |-
         This API is associated with creating a new framework on the Sunbird Platform.
            - The endpoint for **Create a Framework** is `/framework/v1/create`
+           - It points to knowledge-mw-service - `/v1/framework/create`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: FrameworkV1CreatePost
       parameters:
       - name: Content-Type
         in: header
         description: "The Content Type entity is the media type of the resource\n\
-          \ Possible media types can be:- \n   - application/json\n   - multipart/form-data\n\
-          \   - application/x-www-form-urlencoded"
+          \ Possible media types can be:- \n   - application/json"
         required: true
         schema:
           type: string
@@ -310,18 +384,18 @@ paths:
       requestBody:
         description: "'The body parameter refers to the format of the request, the\
           \ request body (payload) takes the following media types to make the payload:'\n\
-          \  \n   - JSON \n   - XML data\n  \n  The body is the representation of\
-          \ the resource object for updating a channel"
+          \  \n   - JSON \n  The body is the representation of the resource object for updating a framework. \n Please refer for supported [metadata](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-3.5.0/docs/domain_model_v2/definitions/framework_definition.json)"
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateFrameworkRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/CreateFrameworkRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/CreateFrameworkRequest'
+            example:
+              request:
+                framework:
+                  name: Framework Name
+                  code: dummy_framework
+                  channels:
+                    - identifier: in.ekstep
         required: true
       responses:
         200:
@@ -331,6 +405,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FrameworkCreate200Response'
+              example:
+                id: api.framework.create
+                ver: '1.0'
+                ts: '2020-12-14T09:49:06.794Z'
+                params:
+                  resmsgid: 9b5d7ca0-3df1-11eb-9ff3-67c41480f6aa
+                  msgid: 9b4a90e0-3df1-11eb-9ff3-67c41480f6aa
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  node_id: dummy_framework
+                  versionKey: '1607939346678'
         400:
           description: BAD REQUEST. The "create framework" operation failed ! The
             possible reason for failure is that you may have missed providing input
@@ -339,51 +427,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FrameworkGet400Response'
+              example:
+                id: api.framework.create
+                ver: '1.0'
+                ts: '2020-12-14T09:50:45.249Z'
+                params:
+                  resmsgid: d60c8710-3df1-11eb-9ff3-67c41480f6aa
+                  msgid: null
+                  status: failed
+                  err: CONSTRAINT_VALIDATION_FAILED
+                  errmsg: 'Object already exists with identifier: dummy_framework'
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-codegen-request-body-name: Body
+      deprecated: false
+      security: 
+        - bearer: []
   /framework/v1/read/{ID}:
     get:
       tags:
       - Framework - Core APIs
       summary: Get a Framework
-      description: "This API is associated with fetching a specific framework \n \
-        \  - The endpoint for **Get a Framework** is `/framework/v1/read/{ID}`\n \
-        \  - The fields marked with an asterisk (*) are mandatory. They cannot be\
-        \ null or empty."
+      description: |-
+        This API is associated with fetching a specific framework
+          - The endpoint for **Get a Framework** is `/framework/v1/read/{ID}`
+          - It points to knowledge-mw-service - `/v1/framework/read/{ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: FrameworkV1ReadGet
       parameters:
       - name: ID
         in: path
         description: The identifier of the framework to be fetched
-        required: true
-        schema:
-          type: string
-      - name: Content-Type
-        in: header
-        description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - application/json\n   - multipart/form-data\n\
-          \   - application/x-www-form-urlencoded"
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
-          to the administrator for the use of the API. You will receive the authorization
-          key. Specify the key received, here.
-        required: true
-        schema:
-          type: string
-      - name: X-Channel-Id
-        in: header
-        description: Its a unique ID for identifying the root organisation to which
-          the user belongs
         required: true
         schema:
           type: string
@@ -395,6 +473,68 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FrameworkGet200Response'
+              example:
+                id: api.framework.read
+                ver: '1.0'
+                ts: '2020-12-14T19:51:24ZZ'
+                params:
+                  resmsgid: 28f10a2a-ce6c-4dbe-a733-4c193013e84b
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  framework:
+                    identifier: dummy_framework
+                    code: Dumy framework updated
+                    name: Framework Name
+                    description: Dumy framework updated
+                    categories:
+                      - identifier: dummy_framework_subject
+                        code: subject
+                        terms:
+                          - identifier: dummy_framework_subject_english
+                            code: english
+                            translations: null
+                            name: English
+                            description: English
+                            index: 1
+                            category: subject
+                            status: Live
+                        translations: null
+                        name: Subject
+                        description: Updated description
+                        index: 1
+                        status: Live
+                      - identifier: dummy_framework_medium
+                        code: medium
+                        translations: null
+                        name: Medium
+                        description: Medium
+                        index: 2
+                        status: Live
+                    type: K-12
+                    objectType: Framework
+                
+        404:
+          description: RESOURCE NOT FOUND. The "read framework" operation failed ! The possible reason for failure is that you may have passed invalid framework id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FrameworkGet400Response'
+              example:
+                id: api.framework.read
+                ver: '1.0'
+                ts: '2020-12-14T10:00:12.540Z'
+                params:
+                  resmsgid: 282e43c0-3df3-11eb-9ff3-67c41480f6aa
+                  msgid: null
+                  status: failed
+                  err: ERR_DATA_NOT_FOUND
+                  errmsg: 'Data not found with id : dummy_framework1'
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
         400:
           description: BAD REQUEST. The "read framework" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
@@ -408,16 +548,19 @@ paths:
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
+      deprecated: false
+      security: 
+        - bearer: []
   /framework/v1/update/{ID}:
     patch:
       tags:
       - Framework - Core APIs
       summary: Update Framework
-      description: "This API is associated with updating a framework \n   - The endpoint\
-        \ for **Update Framework** is `/framework/v1/update/{ID}`\n   - The fields\
-        \ marked with an asterisk (*) are mandatory. They cannot be null or empty."
+      description: |-
+        This API is associated with updating a framework
+          - The endpoint for **Update Framework** is `/framework/v1/update/{ID}`
+          - It points to knowledge-mw-service - `/v1/framework/update/{ID}`
+          - The fieldsmarked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: FrameworkV1UpdatePatch
       parameters:
       - name: ID
@@ -453,17 +596,15 @@ paths:
         description: "'The body parameter refers to the format of the request, the\
           \ request body (payload) takes the following media types to make the payload:'\n\
           \   \n   - JSON \n   - XML data\n \n The body is the representation of the\
-          \ resource object for updating a channel"
+          \ resource object for updating a framework. \n Please refer for supported [metadata](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-3.5.0/docs/domain_model_v2/definitions/framework_definition.json)"
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateFrameworkRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/UpdateFrameworkRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/UpdateFrameworkRequest'
+            example:
+              request:
+                framework:
+                  description: Dumy framework updated
         required: true
       responses:
         200:
@@ -473,6 +614,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FrameworkUpdate200Response'
+              example:
+                id: api.framework.update
+                ver: '1.0'
+                ts: '2020-12-14T09:57:20.317Z'
+                params:
+                  resmsgid: c1871ed0-3df2-11eb-9ff3-67c41480f6aa
+                  msgid: c17ff2e0-3df2-11eb-9ff3-67c41480f6aa
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  node_id: dummy_framework
+                  versionKey: '1607939840281'
+        404:
+          description: RESOURCE NOT FOUND. The "update framework" operation failed ! The
+            possible reason for failure is that you may have passed invalid framework id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FrameworkUpdate400Response'
+              example:
+                id: api.framework.update
+                ver: '1.0'
+                ts: '2020-12-14T09:57:50.352Z'
+                params:
+                  resmsgid: d36e1900-3df2-11eb-9ff3-67c41480f6aa
+                  msgid: null
+                  status: failed
+                  err: ERR_FRAMEWORK_NOT_FOUND
+                  errmsg: 'Framework Not Found With Id : dummy_framework1'
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
         400:
           description: BAD REQUEST. The "update framework" operation failed ! The
             possible reason for failure is that you may have missed providing input
@@ -486,9 +660,9 @@ paths:
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-codegen-request-body-name: Body
+      deprecated: false
+      security: 
+        - bearer: []
   /framework/v1/list:
     post:
       tags:
@@ -497,15 +671,141 @@ paths:
       description: |-
         This API is associated with listing of all existing frameworks
            - The endpoint for **List Existing Frameworks** is `/framework/v1/list`
+           - It points to knowledge-mw-service - `/v1/framework/list`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: FrameworkV1ListPost
       parameters:
       - name: Content-Type
         in: header
         description: "The Content Type entity is the media type of the resource\n\
-          \ Possible media types can be:- \n   - application/json\n   - multipart/form-data\n\
-          \   - application/x-www-form-urlencoded"
+          \ Possible media types can be:- \n   - application/json"
         required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: "The body is the representation of the resource object \n  -\
+          \ The body contains metadata for listing the existing frameworks"
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FrameworkListRequest'
+            example:
+              request:
+                search:
+                  status: Live
+        required: true
+      responses:
+        200:
+          description: OK ! Successful operation."list framework" operation was successfully
+            executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FrameworkList200Response'
+              example:
+                id: api.framework.list
+                ver: '1.0'
+                ts: '2020-12-14T10:02:06.928Z'
+                params:
+                  resmsgid: 6c5c7d00-3df3-11eb-9ff3-67c41480f6aa
+                  msgid: 6c38ef70-3df3-11eb-9ff3-67c41480f6aa
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  frameworks:
+                    - owner: in.ekstep
+                      identifier: NCERT
+                      code: NCERT
+                      apoc_json: '{"batch": true}'
+                      consumerId: a6654129-b58d-4dd8-9cf2-f8f3c2f458bc
+                      channel: in.ekstep
+                      description: 'NCERT '
+                      type: K-12
+                      createdOn: '2018-01-18T17:24:50.850+0000'
+                      apoc_text: APOC
+                      versionKey: '1525253065583'
+                      channels:
+                        - identifier: in.ekstep
+                          name: Ekstep
+                          objectType: Channel
+                          relation: hasSequenceMember
+                          description: Channel for in.ekstep
+                          status: Live
+                      appId: ekstep_portal
+                      name: NCERT
+                      lastUpdatedOn: '2018-05-02T09:24:25.583+0000'
+                      categories:
+                        - identifier: ncert_board
+                          name: Boards
+                          objectType: CategoryInstance
+                          relation: hasSequenceMember
+                          description: ''
+                          index: 5
+                          status: Retired
+                      status: Live
+                      apoc_num: 1
+                  count: 1
+        400:
+          description: BAD REQUEST. The "list framework" operation failed ! The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FrameworkList400Response'
+              example:
+                id: api.framework.list
+                ver: '1.0'
+                ts: '2020-12-14T18:07:11.141Z'
+                params:
+                  resmsgid: 2fd2f550-3e37-11eb-9ff3-67c41480f6aa
+                  msgid: null
+                  status: failed
+                  err: ERR_INVALID_SEARCH_REQUEST
+                  errmsg: Invalid Search Request
+                responseCode: CLIENT_ERROR
+                result: {}
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel free
+            to contact us. In the meantime, try refreshing.
+          content: {}
+      deprecated: false
+      security: 
+        - bearer: []
+  /framework/v1/publish/{ID}:
+    post:
+      tags:
+      - Framework - Core APIs
+      summary: Publish Framework
+      description: |-
+        This API is associated with publishing a framework
+          - The endpoint for **Publish Framework** is `/framework/v1/publish/{ID}`
+          - It points to knowledge-mw-service - `/v1/framework/publish/{ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: publishFramework
+      parameters:
+      - name: ID
+        in: path
+        description: The identifier of the framework to be published
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.\n\
+          \  Possible media types can be:- \n   - application/json"
+        required: false
         schema:
           type: string
       - name: Authorization
@@ -524,57 +824,81 @@ paths:
         schema:
           type: string
       requestBody:
-        description: "The body is the representation of the resource object \n  -\
-          \ The body contains metadata for listing the existing frameworks"
+        description: "'The body parameter refers to the format of the request, the\
+          \ request body (payload) takes the following media types to make the payload:\n\
+          \   \n   - JSON \n   \n The body is the representation of the\
+          \ resource object for publishing a framework"
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FrameworkListRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/FrameworkListRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/FrameworkListRequest'
+              $ref: '#/components/schemas/PublishFrameworkRequest'
+            example:
+              {}
         required: true
       responses:
         200:
-          description: OK ! Successful operation."list framework" operation was successfully
+          description: OK ! Successful operation."Publish framework" operation was successfully
             executed.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FrameworkList200Response'
+                $ref: '#/components/schemas/FrameworkPublish200Response'
+              example:
+                id: api.framework.publish
+                ver: '1.0'
+                ts: '2020-12-14T10:07:54.648Z'
+                params:
+                  resmsgid: 3b9e5980-3df4-11eb-9ff3-67c41480f6aa
+                  msgid: 3b9cabd0-3df4-11eb-9ff3-67c41480f6aa
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  publishStatus: Publish Operation for Framework Id 'dummy_framework' Started Successfully!
         400:
-          description: BAD REQUEST. The "list framework" operation failed ! The possible
+          description: BAD REQUEST. The "Publish Framework" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
             parameter.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FrameworkList400Response'
+                $ref: '#/components/schemas/FrameworkCopy400Response'
+              example:
+                id: api.framework.publish
+                ver: '1.0'
+                ts: '2020-12-14T10:08:19.872Z'
+                params:
+                  resmsgid: 4aa73a00-3df4-11eb-9ff3-67c41480f6aa
+                  msgid: null
+                  status: failed
+                  err: ERR_INVALID_FRAMEOWRK_ID
+                  errmsg: Invalid Framework Id. Framework doesn't exist.
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-codegen-request-body-name: Body
-  /framework/v1/publish/{ID}:
+      deprecated: false
+      security: 
+        - bearer: []
+  /framework/v1/copy/{ID}:
     post:
       tags:
       - Framework - Core APIs
-      summary: Publish Framework
-      description: "This API is associated with publishing a framework \n   - The\
-        \ endpoint for **Publish Framework** is `/framework/v1/publish/{ID}`\n   -\
-        \ The fields marked with an asterisk (*) are mandatory. They cannot be null\
-        \ or empty."
-      operationId: publishFramework
+      summary: Copy Framework
+      description: |-
+        This API is associated with copying a framework
+          - The endpoint for **Copy Framework** is `/framework/v1/copy/{ID}`
+          - It points to knowledge-mw-service - `v1/framework/copy/{ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: NCERTPost
       parameters:
       - name: ID
         in: path
-        description: The identifier of the framework to be published
+        description: The identifier of the framework to be copied
         required: true
         schema:
           type: string
@@ -603,97 +927,15 @@ paths:
       requestBody:
         description: "'The body parameter refers to the format of the request, the\
           \ request body (payload) takes the following media types to make the payload:\n\
-          \   \n   - JSON \n   - XML data\n\n The body is the representation of the\
-          \ resource object for publishing a framework"
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PublishFrameworkRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PublishFrameworkRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PublishFrameworkRequest'
-        required: true
-      responses:
-        200:
-          description: OK ! Successful operation."Copy framework" operation was successfully
-            executed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FrameworkPublish200Response'
-        400:
-          description: BAD REQUEST. The "Copy fFramework" operation failed ! The possible
-            reason for failure is that you may have missed providing input for a mandatory
-            parameter.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FrameworkCopy400Response'
-        500:
-          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
-            errors are tracked automatically, but if the problem persists feel free
-            to contact us. In the meantime, try refreshing.
-          content: {}
-      security:
-      - bearer: []
-      x-codegen-request-body-name: Body
-  /framework/v1/copy/{ID}:
-    post:
-      tags:
-      - Framework - Core APIs
-      summary: Copy Framework
-      description: "This API is associated with copying a framework \n   - The endpoint\
-        \ for **Copy Framework** is `/framework/v1/copy/{ID}`\n   - The fields marked\
-        \ with an asterisk (*) are mandatory. They cannot be null or empty."
-      operationId: NCERTPost
-      parameters:
-      - name: ID
-        in: path
-        description: The identifier of the framework to be copied
-        required: true
-        schema:
-          type: string
-      - name: Content-Type
-        in: header
-        description: "The Content Type entity is the media type of the resource.\n\
-          \  Possible media types can be:- \n   - application/json\n   - multipart/form-data\n\
-          \   - application/x-www-form-urlencoded"
-        required: true
-        schema:
-          type: string
-      - name: Authorization
-        in: header
-        description: To make use of the API, you require authorization. Raise a request
-          to the administrator for the use of the API. You will receive the authorization
-          key. Specify the key received, here.
-        required: true
-        schema:
-          type: string
-      - name: X-Channel-Id
-        in: header
-        description: It is the Unique Id to identify the root organisation to which
-          the user belongs
-        required: true
-        schema:
-          type: string
-      requestBody:
-        description: "'The body parameter refers to the format of the request, the\
-          \ request body (payload) takes the following media types to make the payload:\n\
-          \   \n   - JSON \n   - XML data\n   \n   The body is the representation\
-          \ of the resource object for creating a framework"
+          \   \n   - JSON \n   The body is the representation of the resource object for creating a new framework while copying old one."
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CopyFrameworkRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/CopyFrameworkRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/CopyFrameworkRequest'
+            example:
+              request:
+                framework:
+                  code: NCERTCOPY11
         required: true
       responses:
         200:
@@ -703,6 +945,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FrameworkCopy200Response'
+              example:
+                id: api.framework.copy
+                ver: '1.0'
+                ts: '2020-12-14T10:46:44.287Z'
+                params:
+                  resmsgid: a8310cf0-3df9-11eb-9ff3-67c41480f6aa
+                  msgid: a6b2aa50-3df9-11eb-9ff3-67c41480f6aa
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  node_id: NCERTCOPY11
+        404:
+          description: RESOURCE NOT FOUND. The "Copy fFramework" operation failed ! The possible reason for failure is that you may have missed invlalid framework id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FrameworkCopy400Response'
+              example:
+                id: api.framework.copy
+                ver: '1.0'
+                ts: '2020-12-14T10:47:47.865Z'
+                params:
+                  resmsgid: ce164890-3df9-11eb-9ff3-67c41480f6aa
+                  msgid: null
+                  status: failed
+                  err: ERR_DATA_NOT_FOUND
+                  errmsg: 'Data not found with id : NCERT101100'
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
         400:
           description: BAD REQUEST. The "Copy fFramework" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
@@ -711,14 +984,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FrameworkCopy400Response'
+              example:
+                id: api.framework.copy
+                ver: '1.0'
+                ts: '2020-12-14T10:47:22.578Z'
+                params:
+                  resmsgid: bf03cb20-3df9-11eb-9ff3-67c41480f6aa
+                  msgid: null
+                  status: failed
+                  err: ERR_FRAMEWORK_EXISTS
+                  errmsg: 'Framework with code: NCERTCOPY11, already exists.'
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-codegen-request-body-name: Body
+      deprecated: false
+      security: 
+        - bearer: []
   /framework/v1/category/create:
     post:
       tags:
@@ -727,21 +1012,20 @@ paths:
       description: |-
         This API is associated with creating a category under a framework
            - The endpoint for **Create Category** is `/framework/v1/category/create`
+           - It points to knowledge-mw-service - `/v1/framework/category/create`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: FrameworkV1CategoryCreatePost
       parameters:
       - name: framework
         in: query
-        description: Its an abstract data structure which serves as a template for
-          categories and terms
+        description: The code of the framework under which category has to be created
         required: true
         schema:
           type: string
       - name: Content-Type
         in: header
         description: "The Content Type entity is the media type of the resource\n\
-          \ Possible media types can be:- \n   - application/json\n   - multipart/form-data\n\
-          \   - application/x-www-form-urlencoded"
+          \ Possible media types can be:- \n   - application/json"
         required: true
         schema:
           type: string
@@ -753,28 +1037,20 @@ paths:
         required: true
         schema:
           type: string
-      - name: X-Channel-Id
-        in: header
-        description: It is the Unique Id to identify the root organisation to which
-          the user belongs
-        required: true
-        schema:
-          type: string
       requestBody:
         description: "'The body parameter refers to the format of the request, the\
           \ request body (payload) takes the following media types to make the payload:\n\
-          \   \n   - JSON \n   - XML data\n   \n   The body is the representation\
-          \ of the resource object for creating a category"
+          \   \n   - JSON  \n   The body is the representation\
+          \ of the resource object for creating a category.\n Please refer for supported [metadata](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-3.5.0/docs/domain_model_v2/definitions/categoryInstance_definition.json)"
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateCategoryInstanceRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/CreateCategoryInstanceRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/CreateCategoryInstanceRequest'
+            example:
+              request:
+                category:
+                  name: Subject
+                  code: subject
         required: true
       responses:
         200:
@@ -784,6 +1060,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CategoryInstanceCreate200Response'
+              example:
+                id: api.category.create
+                ver: '1.0'
+                ts: '2020-12-14T19:32:01.754Z'
+                params:
+                  resmsgid: 0a10dba0-3e43-11eb-9ff3-67c41480f6aa
+                  msgid: 0a05df20-3e43-11eb-9ff3-67c41480f6aa
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  node_id: dummy_framework_medium
+                  versionKey: '1607974321700'
         400:
           description: BAD REQUEST. The "create category" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
@@ -792,14 +1082,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CategoryInstanceCreate400Response'
+              example:
+                id: api.category.create
+                ver: '1.0'
+                ts: '2020-12-14T19:30:50.114Z'
+                params:
+                  resmsgid: df5d7620-3e42-11eb-9ff3-67c41480f6aa
+                  msgid: null
+                  status: failed
+                  err: CONSTRAINT_VALIDATION_FAILED
+                  errmsg: 'Object already exists with identifier: dummy_framework_subject'
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-codegen-request-body-name: Body
+      deprecated: false
+      security: 
+        - bearer: []
   /framework/v1/category/read/{code}:
     get:
       tags:
@@ -808,6 +1110,7 @@ paths:
       description: |-
         This API is associated with fetching a category on Sunbird Platform
            - The endpoint for **Fetch Category** is `/framework/v1/category/read/{code}`
+           - It points to knowledge-mw-service - `/v1/framework/category/read/{code}`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: FrameworkV1CategoryReadClassGet
       parameters:
@@ -819,7 +1122,7 @@ paths:
           type: string
       - name: framework
         in: query
-        description: Its an abstract data structure which serves as a template for
+        description: Name of the framework under which category exists. Its an abstract data structure which serves as a template for
           categories and terms
         required: true
         schema:
@@ -827,9 +1130,8 @@ paths:
       - name: Content-Type
         in: header
         description: "The Content Type entity is the media type of the resource\n\
-          \ Possible media types can be:- \n   - application/json\n   - multipart/form-data\n\
-          \   - application/x-www-form-urlencoded"
-        required: true
+          \ Possible media types can be:- \n   - application/json"
+        required: false
         schema:
           type: string
       - name: Authorization
@@ -837,13 +1139,6 @@ paths:
         description: To make use of the API, you require authorization. Raise a request
           to the administrator for the use of the API. You will receive the authorization
           key. Specify the key received, here.
-        required: true
-        schema:
-          type: string
-      - name: X-Channel-Id
-        in: header
-        description: It is the Unique ID to identify the root organisation to which
-          the user belongs
         required: true
         schema:
           type: string
@@ -855,6 +1150,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CategoryInstanceGet200Response'
+              example:
+                id: api.category.read
+                ver: '1.0'
+                ts: '2020-12-14T19:34:41.261Z'
+                params:
+                  resmsgid: 6923b1d0-3e43-11eb-9ff3-67c41480f6aa
+                  msgid: 691e3390-3e43-11eb-9ff3-67c41480f6aa
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  category:
+                    identifier: dummy_framework_subject
+                    lastStatusChangedOn: '2020-12-14T19:30:32.392+0000'
+                    code: subject
+                    frameworks:
+                      - identifier: dummy_framework
+                        name: Framework Name
+                        objectType: Framework
+                        relation: hasSequenceMember
+                        description: Dumy framework updated
+                        status: Live
+                    consumerId: 7411b6bd-89f3-40ec-98d1-229dc64ce77d
+                    channel: in.ekstep
+                    description: Subject
+                    domains: []
+                    createdOn: '2020-12-14T19:30:32.392+0000'
+                    versionKey: '1607974232392'
+                    terms: []
+                    appId: '@ignore@'
+                    name: Subject
+                    lastUpdatedOn: '2020-12-14T19:30:32.392+0000'
+                    status: Live
         400:
           description: BAD REQUEST. The "fetch category" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
@@ -863,13 +1192,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CategoryInstanceGet400Response'
+              example:
+                id: api.category.read
+                ver: '1.0'
+                ts: '2020-12-14T19:35:21.540Z'
+                params:
+                  resmsgid: 8125c840-3e43-11eb-9ff3-67c41480f6aa
+                  msgid: null
+                  status: failed
+                  err: ERR_INVALID_FRAMEWORK_ID
+                  errmsg: 'Invalid FrameworkId: dummy_framework1 for Categoryinstance '
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
+      deprecated: false
+      security: 
+        - bearer: []
   /framework/v1/category/update/{code}:
     patch:
       tags:
@@ -877,7 +1219,8 @@ paths:
       summary: Update Category
       description: |-
         This API is associated with updating a category in an  existing framework
-           - The endpoint for **Update Category** is `/framework/v1/category/read/{code}`
+           - The endpoint for **Update Category** is `/framework/v1/category/update/{code}`
+           - It points to knowledge-mw-service - `/v1/framework/category/update/{code}`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: FrameworkV1CategoryUpdatePatch
       parameters:
@@ -896,21 +1239,7 @@ paths:
       - name: Content-Type
         in: header
         description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - application/json\n   - multipart/form-data\n\
-          \   - application/x-www-form-urlencoded"
-        required: true
-        schema:
-          type: string
-      - name: Accept-Charset
-        in: header
-        description: 'The acceptable character set is: Unicode for all objects'
-        required: true
-        schema:
-          type: string
-      - name: Accept-Encoding
-        in: header
-        description: UTF-8 (Unicode Transformation Format, 8-bit form) charset is
-          accepted for all media types
+          \ Possible media types can be:- \n   - application/json"
         required: true
         schema:
           type: string
@@ -922,28 +1251,18 @@ paths:
         required: true
         schema:
           type: string
-      - name: X-Channel-Id
-        in: header
-        description: Unique ID for identifying the root organisation to which the
-          user belongs
-        required: true
-        schema:
-          type: string
       requestBody:
         description: "'The body parameter refers to the format of the request, the\
           \ request body (payload) takes the following media types to make the payload:\n\
-          \   \n   - JSON \n   - XML data\n   \n   The body is the representation\
-          \ of the resource object for updating a category in a framework"
+          \   \n   - JSON \n   The body is the representation of the resource object for updating a category in a framework. \n Please refer for supported [metadata](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-3.5.0/docs/domain_model_v2/definitions/categoryInstance_definition.json)"
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateCategoryInstanceRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/UpdateCategoryInstanceRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/UpdateCategoryInstanceRequest'
+            example:
+              request:
+                category:
+                  description: Updated description
         required: true
       responses:
         200:
@@ -953,6 +1272,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CategoryInstanceUpdate200Response'
+              example:
+                id: api.category.update
+                ver: '1.0'
+                ts: '2020-12-14T19:37:49.082Z'
+                params:
+                  resmsgid: d916e7a0-3e43-11eb-9ff3-67c41480f6aa
+                  msgid: d90f4680-3e43-11eb-9ff3-67c41480f6aa
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  node_id: dummy_framework_subject
+                  versionKey: '1607974669043'
         400:
           description: BAD REQUEST. The "update category" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
@@ -961,20 +1294,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CategoryInstanceUpdate400Response'
+              example:
+                id: api.category.update
+                ver: '1.0'
+                ts: '2020-12-14T19:38:29.662Z'
+                params:
+                  resmsgid: f146ebe0-3e43-11eb-9ff3-67c41480f6aa
+                  msgid: null
+                  status: failed
+                  err: ERR_INVALID_FRAMEWORK_ID
+                  errmsg: 'Invalid FrameworkId: dummy_framework1 for Categoryinstance '
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      x-codegen-request-body-name: Body
+      deprecated: false
+      security: 
+        - bearer: []
   /framework/v1/category/search:
     post:
       tags:
       - Framework - Category APIs
       summary: Search Categories
-      description: "This API is associated with searching a category \n   - The endpoint\
-        \ for **Search Categories** is `/framework/v1/category/search`\n   - The fields\
-        \ marked with an asterisk (*) are mandatory. They cannot be null or empty."
+      description: |-
+        This API is associated with searching a category
+          - The endpoint for **Search Categories** is `/framework/v1/category/search`
+          - It points to knowledge-mw-service - `/v1/framework/category/search`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: FrameworkV1CategorySearchPost
       parameters:
       - name: framework
@@ -986,8 +1335,7 @@ paths:
       - name: Content-Type
         in: header
         description: "The Content Type entity is the media type of the resource\n\
-          \ Possible media types can be:- \n   - application/json\n   - multipart/form-data\n\
-          \   - application/x-www-form-urlencoded"
+          \ Possible media types can be:- \n   - application/json"
         required: true
         schema:
           type: string
@@ -999,28 +1347,18 @@ paths:
         required: true
         schema:
           type: string
-      - name: X-Channel-Id
-        in: header
-        description: It the Unique Id to identify the root organisation to which the
-          user belongs
-        required: true
-        schema:
-          type: string
       requestBody:
         description: "'The body parameter refers to the format of the request, the\
           \ request body (payload) takes the following media types to make the payload:\n\
-          \   \n   - JSON \n   - XML data\n \n   The body is the representation of\
+          \   \n   - JSON \n   The body is the representation of\
           \ the resource object for searching a category in a framework"
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CategoryInstanceSearchRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/CategoryInstanceSearchRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/CategoryInstanceSearchRequest'
+            example:
+              request:
+                search: {}
         required: true
       responses:
         200:
@@ -1030,6 +1368,62 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CategoryInstanceSearch200Response'
+              example:
+                id: api.category.search
+                ver: '1.0'
+                ts: '2020-12-14T19:40:23.864Z'
+                params:
+                  resmsgid: 3558c380-3e44-11eb-9ff3-67c41480f6aa
+                  msgid: 3555b640-3e44-11eb-9ff3-67c41480f6aa
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  count: 2
+                  categories:
+                    - identifier: dummy_framework_subject
+                      lastStatusChangedOn: '2020-12-14T19:30:32.392+0000'
+                      code: subject
+                      frameworks:
+                        - identifier: dummy_framework
+                          name: Framework Name
+                          objectType: Framework
+                          relation: hasSequenceMember
+                          description: Dumy framework updated
+                          status: Live
+                      consumerId: 7411b6bd-89f3-40ec-98d1-229dc64ce77d
+                      channel: in.ekstep
+                      description: Updated description
+                      domains: []
+                      createdOn: '2020-12-14T19:30:32.392+0000'
+                      versionKey: '1607974669043'
+                      terms: []
+                      appId: dev.sunbird.portal
+                      name: Subject
+                      lastUpdatedOn: '2020-12-14T19:37:49.043+0000'
+                      status: Live
+                    - identifier: dummy_framework_medium
+                      lastStatusChangedOn: '2020-12-14T19:32:01.700+0000'
+                      code: medium
+                      frameworks:
+                        - identifier: dummy_framework
+                          name: Framework Name
+                          objectType: Framework
+                          relation: hasSequenceMember
+                          description: Dumy framework updated
+                          status: Live
+                      consumerId: 7411b6bd-89f3-40ec-98d1-229dc64ce77d
+                      channel: in.ekstep
+                      description: Medium
+                      domains: []
+                      createdOn: '2020-12-14T19:32:01.700+0000'
+                      versionKey: '1607974321700'
+                      terms: []
+                      appId: '@ignore@'
+                      name: Medium
+                      lastUpdatedOn: '2020-12-14T19:32:01.700+0000'
+                      status: Live
         400:
           description: BAD REQUEST. The "search category" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
@@ -1038,23 +1432,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CategoryInstanceSearch400Response'
+              example:
+                id: api.category.search
+                ver: '1.0'
+                ts: '2020-12-14T19:41:28.846Z'
+                params:
+                  resmsgid: 5c143ae0-3e44-11eb-9ff3-67c41480f6aa
+                  msgid: null
+                  status: failed
+                  err: ERR_INVALID_FRAMEWORK_ID
+                  errmsg: 'Invalid FrameworkId: dummy_framework1 for Categoryinstance '
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-codegen-request-body-name: Body
+      deprecated: false
+      security: 
+        - bearer: []
   /framework/v1/term/create:
     post:
       tags:
       - Framework - Term APIs
       summary: Create Term
-      description: "This API is associated with creating a term under a framework\
-        \ category \n   - The endpoint for **Create Term** is `/framework/v1/term/create`\n\
-        \   - The fields marked with an asterisk (*) are mandatory. They cannot be\
-        \ null or empty."
+      description: |-
+        This API is associated with creating a term under a framework category
+          - The endpoint for **Create Term** is `/framework/v1/term/create`
+          - It points to knowledge-mw-service - `/v1/framework/term/create`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty."
       operationId: FrameworkV1TermCreatePost
       parameters:
       - name: framework
@@ -1072,8 +1479,7 @@ paths:
       - name: Content-Type
         in: header
         description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - application/json\n   - multipart/form-data\n\
-          \   - application/x-www-form-urlencoded"
+          \ Possible media types can be:- \n   - application/json"
         required: true
         schema:
           type: string
@@ -1085,28 +1491,20 @@ paths:
         required: true
         schema:
           type: string
-      - name: X-Channel-Id
-        in: header
-        description: Unique ID for identifying the root organisation to which the
-          user belongs
-        required: true
-        schema:
-          type: string
       requestBody:
         description: "'The body parameter refers to the format of the request, the\
           \ request body (payload) takes the following media types to make the payload:\n\
-          \   \n   - JSON \n   - XML data\n \n   The body is the representation of\
-          \ the resource object for creating a term"
+          \   \n   - JSON \n   The body is the representation of\
+          \ the resource object for creating a term. \n Please refer for supported [metadata](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-3.5.0/docs/domain_model_v2/definitions/term_definition.json)"
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateFrameworkTermRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/CreateFrameworkTermRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/CreateFrameworkTermRequest'
+            example:
+              request:
+                term:
+                  code: english
+                  name: English
         required: true
       responses:
         200:
@@ -1116,6 +1514,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FrameworkTermCreate200Response'
+              example:
+                id: api.term.create
+                ver: '1.0'
+                ts: '2020-12-14T19:44:02.348Z'
+                params:
+                  resmsgid: b792c6c0-3e44-11eb-9ff3-67c41480f6aa
+                  msgid: b783f9b0-3e44-11eb-9ff3-67c41480f6aa
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  node_id:
+                    - dummy_framework_subject_english
         400:
           description: BAD REQUEST. The "create term" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
@@ -1124,14 +1536,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FrameworkTermCreate400Response'
+              example:
+                id: api.term.create
+                ver: '1.0'
+                ts: '2020-12-14T19:44:49.263Z'
+                params:
+                  resmsgid: d3896ff0-3e44-11eb-9ff3-67c41480f6aa
+                  msgid: null
+                  status: failed
+                  err: ERR_INVALID_CATEGORY_ID
+                  errmsg: Please provide valid category.
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-codegen-request-body-name: Body
+      deprecated: false
+      security: 
+        - bearer: []
   /framework/v1/term/read/{code}:
     get:
       tags:
@@ -1140,6 +1564,7 @@ paths:
       description: |-
         This API is associated with fetching the available terms under a specific category and a framework on Sunbird Platform.
            - The endpoint for **Fetch Term** is `/framework/v1/term/read/{code}`
+           - It points to knowledge-mw-service - `/v1/framework/term/read/{code}`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: FrameworkV1TermReadClass2Get
       parameters:
@@ -1151,7 +1576,7 @@ paths:
           type: string
       - name: framework
         in: query
-        description: Represents the framework in which the term can be fetched
+        description: Represents the framework id in which the term can be fetched
         required: true
         schema:
           type: string
@@ -1164,9 +1589,8 @@ paths:
       - name: Content-Type
         in: header
         description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - application/json\n   - multipart/form-data\n\
-          \   - application/x-www-form-urlencoded"
-        required: true
+          \ Possible media types can be:- \n   - application/json"
+        required: false
         schema:
           type: string
       - name: Authorization
@@ -1174,13 +1598,6 @@ paths:
         description: To make use of the API, you require authorization. Raise a request
           to the administrator for the use of the API. You will receive the authorization
           key. Specify the key received, here.
-        required: true
-        schema:
-          type: string
-      - name: X-Channel-Id
-        in: header
-        description: Unique ID for identifying the root organisation to which the
-          user belongs
         required: true
         schema:
           type: string
@@ -1192,6 +1609,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FrameworkTermGet200Response'
+              example:
+                id: api.term.read
+                ver: '1.0'
+                ts: '2020-12-17T07:24:51.258Z'
+                params:
+                  resmsgid: f380c1a0-4038-11eb-9b0c-abcfbdf41bc3
+                  msgid: f358c740-4038-11eb-9b0c-abcfbdf41bc3
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  term:
+                    associations: []
+                    identifier: dummy_framework_subject_english
+                    lastStatusChangedOn: '2020-12-14T19:44:02.260+0000'
+                    code: english
+                    consumerId: 7411b6bd-89f3-40ec-98d1-229dc64ce77d
+                    channel: in.ekstep
+                    description: English
+                    createdOn: '2020-12-14T19:44:02.260+0000'
+                    versionKey: '1607975299669'
+                    children: []
+                    appId: dev.sunbird.portal
+                    name: English
+                    lastUpdatedOn: '2020-12-14T19:48:19.669+0000'
+                    categories:
+                      - identifier: dummy_framework_subject
+                        name: Subject
+                        objectType: CategoryInstance
+                        relation: hasSequenceMember
+                        description: Updated description
+                        status: Live
+                    category: subject
+                    status: Live
         400:
           description: BAD REQUEST. The "Fetch term" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
@@ -1200,13 +1652,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FrameworkTermGet400Response'
+              example:
+                id: api.term.read
+                ver: '1.0'
+                ts: '2020-12-17T07:54:24.246Z'
+                params:
+                  resmsgid: 14494160-403d-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_INVALID_CATEGORY_ID
+                  errmsg: Please provide valid category.
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
+      deprecated: false
+      security: 
+        - bearer: []
   /framework/v1/term/update{code}:
     patch:
       tags:
@@ -1215,6 +1680,7 @@ paths:
       description: |-
         This API is associated with updating a term under a category in a framework on Sunbird Platform
            - The endpoint for **Update Term** is `/framework/v1/term/update{code}`
+           - It points to knowledge-mw-service - `/v1/framework/term/update/{code}`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: FrameworkV1TermUpdateClass2Patch
       parameters:
@@ -1239,8 +1705,7 @@ paths:
       - name: Content-Type
         in: header
         description: "The Content Type entity is the media type of the resource\n\
-          \ Possible media types can be:- \n   - application/json\n   - multipart/form-data\n\
-          \   - application/x-www-form-urlencoded"
+          \ Possible media types can be:- \n   - application/json"
         required: true
         schema:
           type: string
@@ -1252,28 +1717,20 @@ paths:
         required: true
         schema:
           type: string
-      - name: X-Channel-Id
-        in: header
-        description: It is the Unique ID to identify the root organisation to which
-          the user belongs
-        required: true
-        schema:
-          type: string
       requestBody:
         description: "'The body parameter refers to the format of the request, the\
           \ request body (payload) takes the following media types to make the payload:\n\
-          \   \n   - JSON \n   - XML data\n \n   The body is the representation of\
-          \ the resource object for updating a term"
+          \   \n   - JSON \n   The body is the representation of\
+          \ the resource object for updating a term. Please refer for supported [metadata](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-3.5.0/docs/domain_model_v2/definitions/term_definition.json)"
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateFrameworkTermRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/UpdateFrameworkTermRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/UpdateFrameworkTermRequest'
+            example:
+              request:
+                term:
+                  name: English
+                  description: English
         required: true
       responses:
         200:
@@ -1283,6 +1740,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FrameworkTermUpdate200Response'
+              example:
+                id: api.term.update
+                ver: '1.0'
+                ts: '2020-12-14T19:48:19.754Z'
+                params:
+                  resmsgid: 50ffd0a0-3e45-11eb-9ff3-67c41480f6aa
+                  msgid: 50f04040-3e45-11eb-9ff3-67c41480f6aa
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  node_id: dummy_framework_subject_english
+                  versionKey: '1607975299669'
         400:
           description: BAD REQUEST. The "update term" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
@@ -1291,14 +1762,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FrameworkTermUpdate400Response'
+              example:
+                id: api.term.update
+                ver: '1.0'
+                ts: '2020-12-14T19:49:03.927Z'
+                params:
+                  resmsgid: 6b541470-3e45-11eb-9ff3-67c41480f6aa
+                  msgid: null
+                  status: failed
+                  err: ERR_INVALID_CATEGORY_ID
+                  errmsg: Please provide valid category.
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-codegen-request-body-name: Body
+      deprecated: false
+      security: 
+        - bearer: []
   /framework/v1/term/search:
     post:
       tags:
@@ -1307,6 +1790,7 @@ paths:
       description: |-
         This API is associated with searching the existing terms under a category in a framework on Sunbird Platform
            - The endpoint for **Search Term** is `/framework/v1/term/search`
+           - It points to knowledge-mw-service - `/v1/framework/term/search`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: FrameworkV1TermSearchPost
       parameters:
@@ -1330,37 +1814,18 @@ paths:
         required: true
         schema:
           type: string
-      - name: Content-Type
-        in: header
-        description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - application/json\n   - multipart/form-data\n\
-          \   - application/x-www-form-urlencoded"
-        required: true
-        schema:
-          type: string
-      - name: X-Channel-Id
-        in: header
-        description: It is the Unique ID to identify the root organisation to which
-          the user belongs
-        required: true
-        schema:
-          type: string
       requestBody:
         description: "'The body parameter refers to the format of the request, the\
           \ request body (payload) takes the following media types to make the payload:\n\
-          \   \n   - JSON \n   - XML data\n \n   The body is the representation of\
+          \   \n   - JSON \n   The body is the representation of\
           \ the resource object for searching a term"
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/FrameworkTermSearchRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/FrameworkTermSearchRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/FrameworkTermSearchRequest'
-        required: true
+            example:
+              request: {}
+        required: false
       responses:
         200:
           description: OK ! Successful operation."Search term operation was successfully
@@ -1369,6 +1834,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FrameworkTermSearch200Response'
+              example:
+                id: api.term.search
+                ver: '1.0'
+                ts: '2020-12-17T08:12:44.816Z'
+                params:
+                  resmsgid: a446e900-403f-11eb-9b0c-abcfbdf41bc3
+                  msgid: a4447800-403f-11eb-9b0c-abcfbdf41bc3
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  terms:
+                    - associations: []
+                      identifier: dummy_framework_subject_english
+                      lastStatusChangedOn: '2020-12-14T19:44:02.260+0000'
+                      code: english
+                      consumerId: 7411b6bd-89f3-40ec-98d1-229dc64ce77d
+                      channel: in.ekstep
+                      description: English
+                      createdOn: '2020-12-14T19:44:02.260+0000'
+                      versionKey: '1607975299669'
+                      children: []
+                      appId: dev.sunbird.portal
+                      name: English
+                      lastUpdatedOn: '2020-12-14T19:48:19.669+0000'
+                      categories:
+                        - identifier: dummy_framework_subject
+                          name: Subject
+                          objectType: CategoryInstance
+                          relation: hasSequenceMember
+                          description: Updated description
+                          status: Live
+                      category: subject
+                      status: Live
+                  count: 1
         400:
           description: BAD REQUEST. The "search term" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
@@ -1377,14 +1878,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FrameworkTermSearch400Response'
+              example:
+                id: api.term.search
+                ver: '1.0'
+                ts: '2020-12-17T08:13:50.811Z'
+                params:
+                  resmsgid: cb9cf2b0-403f-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_INVALID_CATEGORY_ID
+                  errmsg: Please provide valid category.
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-codegen-request-body-name: Body
+      deprecated: false
+      security: 
+        - bearer: []
 components:
   schemas:
     CreateFrameworkRequest:
@@ -1464,78 +1977,6 @@ components:
                   description: Represents the translation of framework name in different
                     language
       description: Request body of update framework
-    ResultWithNodeId:
-      title: Result Containing Node Id
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/NodeId'
-    ContentCreateResponse:
-      description: Create Content Response
-      allOf:
-      - $ref: '#/components/schemas/ResultWithNodeId'
-      - $ref: '#/components/schemas/ResponseHeader'
-    ResponseHeader:
-      title: ResponseHeader
-      type: object
-      properties:
-        id:
-          type: string
-          description: Represents the API identifier
-        ver:
-          type: string
-          description: Represents the API version information
-        ts:
-          type: string
-          description: Represents the API execution timespan
-        params:
-          $ref: '#/components/schemas/ResponseParams'
-        responseCode:
-          type: object
-          properties: {}
-          description: 'Represents the API response code '
-    ResponseParams:
-      title: Response Parameter
-      type: object
-      properties:
-        resmsgid:
-          type: string
-          description: Represents the response message identifier
-        msgid:
-          type: string
-          description: Represents the message uniquely
-        err:
-          type: string
-          description: Represents the error code
-        status:
-          type: string
-          description: Represents the response status
-        errmsg:
-          type: string
-          description: Represents the error message
-    EmptyResult:
-      title: Empty Result
-      type: object
-      properties:
-        result:
-          type: object
-          properties: {}
-          description: Empty Result
-    NodeId:
-      title: Node Id
-      type: object
-      properties:
-        node_id:
-          type: string
-          description: Node Identifier
-        versionKey:
-          type: string
-          description: Represents the version key of the category instance
-    ContentCreateErrorResponse:
-      title: Create Content Error Response
-      allOf:
-      - $ref: '#/components/schemas/EmptyResult'
-      - $ref: '#/components/schemas/ResponseHeader'
     RequestChannelCreate:
       type: object
       properties:
@@ -1551,9 +1992,6 @@ components:
                 code:
                   type: string
                   description: Represents the unique code of the channel
-                description:
-                  type: string
-                  description: It is the description of the channel
       description: Request body of create channel
     RequestChannelUpdate:
       type: object
@@ -1570,12 +2008,6 @@ components:
                 description:
                   type: string
                   description: It is the description of the channel
-                framework:
-                  type: array
-                  description: Framework linked to the channel
-                  items:
-                    type: object
-                    properties: {}
       description: Request body of update channel
     ChannelCreateRequest:
       description: Request body of the create channel
@@ -1594,10 +2026,9 @@ components:
             node_id:
               type: string
               description: Represents the identifier of the channel created
-            versionKey:
+            identifier:
               type: string
-              description: Represents the version key of the current channel
-      description: Response body of the create channel
+              description: Represents the identifier of the channel created
     ResponseChannelCreate400:
       type: object
       properties:
@@ -1664,22 +2095,6 @@ components:
       allOf:
       - $ref: '#/components/schemas/ApiResponse'
       - $ref: '#/components/schemas/ResponseChannelCreate400'
-    RequestChannelSearch:
-      type: object
-      properties:
-        request:
-          type: object
-          properties:
-            search:
-              type: object
-              properties:
-                status:
-                  type: string
-      description: Request map of channel search api
-    ChannelSearchRequest:
-      description: Channel create request
-      allOf:
-      - $ref: '#/components/schemas/RequestChannelSearch'
     FrameworkGet400Response:
       description: Framework get response for 400.
       allOf:
@@ -1932,24 +2347,10 @@ components:
               properties:
                 code:
                   type: string
-                  description: ""
+                  description: "Unique code of the category"
                 name:
                   type: string
-                  description: ""
-                description:
-                  type: string
-                  description: ""
-                translations:
-                  type: object
-                  properties: {}
-                  description: Represents the translation of category name in different
-                    language.
-                frameworks:
-                  type: array
-                  description: Frameworks with which category instance is associated
-                  items:
-                    type: object
-                    properties: {}
+                  description: "Name of the category"
       description: Request map of CategoryInstance Create api.
     CategoryInstanceCreate400Response:
       description: CategoryInstance Create response for 400.
@@ -2086,30 +2487,9 @@ components:
             framework:
               type: object
               properties:
-                name:
-                  type: string
-                  description: Name of the Category Instance
                 description:
                   type: string
                   description: Description of the Category Instance
-                frameworks:
-                  type: array
-                  description: Frameworks with which Category Instance is associated
-                  items:
-                    type: object
-                    properties: {}
-                channels:
-                  type: array
-                  description: Channels with which Category Instance is associated
-                  items:
-                    type: object
-                    properties: {}
-                terms:
-                  type: array
-                  description: Terms associated with Category
-                  items:
-                    type: object
-                    properties: {}
                 translations:
                   type: object
                   properties: {}
@@ -2216,51 +2596,10 @@ components:
               properties:
                 code:
                   type: string
-                  description: ""
+                  description: "Unique code of the term"
                 name:
                   type: string
-                  description: ""
-                description:
-                  type: string
-                  description: ""
-                index:
-                  type: number
-                  description: ""
-                categories:
-                  type: array
-                  description: ""
-                  items:
-                    type: object
-                    properties: {}
-                parents:
-                  type: array
-                  description: ""
-                  items:
-                    type: object
-                    properties: {}
-                associationswith:
-                  type: array
-                  description: ""
-                  items:
-                    type: object
-                    properties: {}
-                children:
-                  type: array
-                  description: ""
-                  items:
-                    type: object
-                    properties: {}
-                associations:
-                  type: array
-                  description: ""
-                  items:
-                    type: object
-                    properties: {}
-                translations:
-                  type: object
-                  properties: {}
-                  description: Represents the translation of term name in different
-                    language
+                  description: "Name of the term."
       description: Request map of FrameworkTerm Create API
     FrameworkTermCreate400Response:
       description: Framework Term Create response for 400.
@@ -2290,11 +2629,10 @@ components:
           type: object
           properties:
             node_id:
-              type: string
-              description: Identifier of the Framework Term
-            versionKey:
-              type: string
-              description: versionKey of the Framework Term
+              type: array
+              description: List of Identifiers of the Framework Term
+              items:
+                type: string
       description: Response of the FrameworkTerm Create.
     FrameworkTermObj:
       type: object
@@ -2373,7 +2711,7 @@ components:
         result:
           type: object
           properties:
-            category:
+            term:
               $ref: '#/components/schemas/FrameworkTermObj'
       description: Response body of the get Framework Term
     FrameworkTermGet200Response:
@@ -2567,7 +2905,7 @@ components:
       description: Response body of copy framework
     ApiResponse:
       required:
-      - ets
+      - ts
       - id
       - params
       - ver
@@ -2579,7 +2917,7 @@ components:
         ver:
           type: string
           description: Represents the version of the API which was used
-        ets:
+        ts:
           type: integer
           description: Represents the EPOCH (UTC) timestamp in milliseconds since
             EPOCH
@@ -2589,6 +2927,8 @@ components:
           - msgid
           - resmsgid
           - status
+          - err
+          - errmsg
           type: object
           properties:
             msgid:
@@ -2600,16 +2940,18 @@ components:
             status:
               type: string
               enum:
-              - success
-              - error
+              - successful
+              - failed
+            err:
+              type: string
+              description: Represents the response error code
+            errmsg:
+              type: string
+              description: Represents the response error message
         responseCode:
           type: string
   securitySchemes:
     bearer:
       type: apiKey
       name: Authorization
-      in: header
-    userToken:
-      type: apiKey
-      name: x-authenticated-user-token
       in: header
