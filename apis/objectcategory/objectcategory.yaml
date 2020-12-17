@@ -1,0 +1,1184 @@
+openapi: 3.0.1
+info:
+  title: Sunbird Object Category API(s)
+  description: |-
+    The Object Category Definition API resourcses mainly allows you to set the rules for creating different type of objects for a particular category. For creating definition for each object category, object Category has to be created. Each endpoint serves a different purpose, so based on your requirement you can do the following: 
+    - The APIs include CRUD (Create, Update, Read and Delete) operations. 
+    - You have to create a master category before setting the rules for the same.
+    - [TestCases](https://www.getpostman.com/collections/d5913f67bfd5f9c6c082)"
+  termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
+  contact:
+    email: info@sunbird.org
+  version: "1.0"
+servers:
+- url: https://staging.sunbirded.org/api
+paths:
+  /object/category/v1/create:
+    post:
+      tags:
+      - Object Category APIs
+      summary: Create Object Category
+      description: |-
+        This API is associated with creating Object Category on the Sunbird Platform.
+          - The endpoint for **Create Object Category** is `/object/category/v1/create`
+          - It points to taxonomy-service - `/object/category/v4/create`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: Create Object Category
+      parameters:
+      - name: Content-Type
+        in: header
+        description: |-
+          The Content Type entity is the media type of the resource.Possible media types can be:
+          - application/json
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
+            - JSON: The body is the representation of the resource object for creating object category (an array of parameters which describes the object category)
+            - Please refer for supported [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/objectcategory/1.0/schema.json)
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateObjectCategoryRequest'
+            example:
+              request:
+                objectCategory:
+                  name: "Explanation Content"
+                  description: "Content that can be used to Explain"
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **Create Object Category** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryCreateSuccessResponse'
+              example:
+                id: api.object.category.create
+                ver: '3.0'
+                ts: '2020-12-10T20:24:45ZZ'
+                params:
+                  resmsgid: 3be02c4b-3324-41a3-afd8-60f6be0584d2
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: obj-cat:classroom-teaching-video
+        400:
+          description: BAD REQUEST. The **Create Object Category** operation failed. You
+            may have missed input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryCreateErrorResponse'
+              example:
+                id: api.object.category.create
+                ver: '1.0'
+                ts: '2020-12-10T08:50:29.786Z'
+                params:
+                  resmsgid: c169a7a0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: ERR_NAME_SET_AS_IDENTIFIER
+                  errmsg: Name will be set as identifier
+                responseCode: CLIENT_ERROR
+                result: {}
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryCreateErrorResponse'
+              example:
+                id: api.object.category.create
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: 
+        - bearer: []
+  /object/category/v1/update/{ObjectCategory_Id}:
+    patch:
+      description: |-
+        This API is associated with updating object category on the Sunbird Platform .
+          - **_/Update/_** endpoint executes the "Update Object Category" request based on parameters provided as metadata in the request body.
+          - The endpoint for **Update Object Category** is `/object/category/v1/update/{ObjectCategory_Id}`
+          - It points to taxonomy-service - `/object/category/v4/update/{ObjectCategory_Id}`
+          - {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Update Object Category
+      tags:
+        - Object Category APIs
+      operationId: Update Object Category
+      parameters:
+        - in: path
+          name: ObjectCategory_Id
+          required: true
+          description: Please append a valid Object Category Id To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All content APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateObjectCategoryrequest'
+            example:
+              request:
+                objectCategory:
+                  description: 'Updated description'
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the object category to be updated.
+            - Please refer for supported [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/objectcategory/1.0/schema.json)
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation. Object Category  update operation was successfuly
+            executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryCreateSuccessResponse'
+              example:
+                id: api.object.category.update
+                ver: '4.0'
+                ts: '2020-12-10T20:26:07ZZ'
+                params:
+                  resmsgid: 80aa9310-b749-411c-a13b-8d9f25af389f
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: obj-cat:classroom-teaching-video
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,** Object Category Update** operation failed !The possible reason for failure is that you may have provided wrong object category id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryCreateErrorResponse'
+              example:
+                id: api.object.category.update
+                ver: '3.0'
+                ts: '2020-12-17T20:16:23ZZ'
+                params:
+                  resmsgid: 34d3161a-aaa8-417e-9cbd-d77bad54441c
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: obj-cat:classroom-teaching-video1'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '400':
+          description: >-
+            BAD REQUEST. The 'Update  Object Category ' operation failed ! The possible
+            reason for failure is that you may have missed providing input for a mandatory parameter. 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryCreateErrorResponse'
+              example:
+                id: api.object.category.update
+                ver: '4.0'
+                ts: '2020-12-10T20:27:01ZZ'
+                params:
+                  resmsgid: 87eb99c6-bc10-406a-a6fe-13651f546ce1
+                  msgid: null
+                  err: "ERROR_RESTRICTED_PROP"
+                  status: failed
+                  errmsg:  "Properties in list [identifier, name, status] are not allowed in request"
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryCreateErrorResponse'
+              example:
+                id: api.object.category.update
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: 
+        - bearer: []
+  /object/category/v1/read/{ObjectCategory_Id}:
+    get:
+      description: >-
+        This API is associated with viewing and reading out the master object category on the
+        Sunbird Platform .
+          - The **_/read/{ObjectCategory_Id}_** endpoint executes request for fetching the contents to be viewed and read.
+          - The endpoint for **Read Object Category** is `/object/category/v1/read/{ObjectCategory_Id}`
+          - It points to taxonomy-service - `/object/category/v4/read/{ObjectCategory_Id}`
+          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate id.
+          - You need to provide a valid object category id value in {ObjectCategory Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      summary: Read ObjectCategory
+      tags:
+        - Object Category APIs
+      operationId: Read ObjectCategory
+      parameters:
+        - in: path
+          name: ObjectCategory_Id
+          required: true
+          description: Please append a valid ObjectCategory Id To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource. Possible media types can be:- 
+              - Application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: >-
+            OK ! Successful operation."Read Object Category" operation was successfully executed. For all possible metadata, please [refer](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/objectcategory/1.0/schema.json)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryGetSuccessResponse'
+              example:
+                id: api.object.category.read
+                ver: '3.0'
+                ts: '2020-12-17T09:32:09ZZ'
+                params:
+                  resmsgid: fa4ebf30-bb78-4448-9636-ee2a27bf75e5
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  objectCategory:
+                    identifier: 'obj-cat:checking-account'
+                    lastStatusChangedOn: '2020-12-17T09:09:55.687+0000'
+                    consumerId: 7411b6bd-89f3-40ec-98d1-229dc64ce77d
+                    name: 'Checking Account'
+                    channel: in.ekstep
+                    lastUpdatedOn: '2020-12-17T09:14:56.660+0000'
+                    description: Textbook Unit
+                    languageCode: []
+                    createdOn: '2020-12-17T09:09:55.687+0000'
+                    objectType: ObjectCategory
+                    versionKey: '1608196496660'
+                    status: Live
+        404:
+          description: >-
+            RESOURCE NOT FOUND,**Object Category Read** operation failed !The possible reason
+            for failure is that you may have provided wrong object category id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryCreateErrorResponse'
+              example:
+                id: api.content.read
+                ver: '1.0'
+                ts: '2020-12-10T20:37:58.223Z'
+                params:
+                  resmsgid: 96a71df0-3b27-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: NOT_FOUND
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1131697204035993601314'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        500:
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryCreateErrorResponse'
+              example:
+                id: api.object.category.read
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: 
+        - bearer: []
+  /object/category/definition/v1/create:
+    post:
+      tags:
+      - Object Category Definition APIs
+      summary: Create Object Category Definition
+      description: |-
+        This API is associated with creating Object Category Definition on the Sunbird Platform.
+          - The endpoint for **Create Object Category Definition** is `/object/category/definition/v1/create`
+          - It points to taxonomy-service - `/object/category/definition/v4/create`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: Create Object Category Definition
+      parameters:
+      - name: Content-Type
+        in: header
+        description: |-
+          The Content Type entity is the media type of the resource. Possible media types can be:
+            - application/json
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: |-
+          To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
+            - JSON
+          The body is the representation of the resource object for creating object category defintion (an array of parameters which describes the object category defintion) 
+            - Please refer for supported [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/objectcategorydefinition/1.0/schema.json)
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateObjectCategoryDefinitionRequest'
+            example:
+              request:
+                objectCategoryDefinition:
+                  categoryId: 'obj-cat:practice-question-set'
+                  targetObjectType: Content
+                  objectMetadata:
+                    config: {}
+                    schema: {}
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **Create Object Category Definition** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryDefinitionCreateSuccessResponse'
+              example:
+                id: api.object.category.definition.create
+                ver: '3.0'
+                ts: '2020-12-10T20:24:45ZZ'
+                params:
+                  resmsgid: 3be02c4b-3324-41a3-afd8-60f6be0584d2
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: obj-cat:explanation-content_content_all
+        400:
+          description: |-
+            BAD REQUEST. The **Create Object Category Definition** operation failed. You may have missed input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryDefinitionCreateErrorResponse'
+              example:
+               id: api.object.category.definition.create
+               ver: '3.0'
+               ts: '2020-12-17T06:44:49ZZ'
+               params:
+                 resmsgid: c4fa577f-6e15-4991-b251-94f7b2a897bf
+                 msgid: null
+                 err: CLIENT_ERROR
+                 status: failed
+                 errmsg: Invalid request
+               responseCode: CLIENT_ERROR
+               result:
+                 messages:
+                   - 'Invalid Props are : [xyz]'
+ 
+        500:
+          description: |-
+            INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryDefinitionCreateErrorResponse'
+              example:
+                id: api.object.category.definition.create
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: 
+        - bearer: []
+  /object/category/definition/v1/update/{ObjectCategoryDefinition_Id}:
+    patch:
+      description: |-
+        This API is associated with updating object category on the Sunbird Platform .
+          - **_/Update/_** endpoint executes the "Update Object Category Definition" request based on parameters provided as metadata in the request body.
+          - The endpoint for **Update Object Category Definition** is `/object/category/definition/v1/update/{ID}`
+          - It points to taxonomy-service - `/object/category/definition/v4/update/{ID}`
+          - {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Update Object Category Definition
+      tags:
+        - Object Category Definition APIs
+      operationId: Update Object Category Definition
+      parameters:
+        - in: path
+          name: ObjectCategoryDefinition_Id
+          required: true
+          description: Please append a valid Object Category Definition Id To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: true
+          description: |-
+            The Content Type entity is the media type of the resource.Possible media types can be:
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: |-
+            All content APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateObjectCategoryDefinitionrequest'
+            example:
+              request:
+                content:
+                  description: 'Updated description'
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the object category to be updated.
+            - Please refer for supported [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/objectcategorydefinition/1.0/schema.json)
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation. Object Category Definition  update operation was successfuly
+            executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryDefinitionCreateErrorResponse'
+              example:
+                id: api.object.category.definition.update
+                ver: '4.0'
+                ts: '2020-12-10T20:26:07ZZ'
+                params:
+                  resmsgid: 80aa9310-b749-411c-a13b-8d9f25af389f
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: obj-cat:explanation-content_content_all
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,** Object Category Definition  Update** operation failed !The possible reason
+            for failure is that you may have provided wrong content id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryDefinitionCreateErrorResponse'
+              example:
+                id: api.object.category.definition.update
+                ver: '3.0'
+                ts: '2020-12-12T00:31:16ZZ'
+                params:
+                  resmsgid: c29ffd8b-d105-4eeb-a875-deaeae2bf5b8
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_21317015414162227213604'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '400':
+          description: >-
+            BAD REQUEST. The 'Update  Object Category Definition ' operation failed ! The possible
+            reason for failure is that you may have missed providing input for a mandatory parameter. 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryDefinitionCreateErrorResponse'
+              example:
+                id: api.object.category.definition.update
+                ver: '3.0'
+                ts: '2020-12-17T11:15:46ZZ'
+                params:
+                  resmsgid: d2ed46be-6846-42e4-b761-c8acdff5954a
+                  msgid: null
+                  err: ERROR_RESTRICTED_PROP
+                  status: failed
+                  errmsg: 'Properties in list [identifier, categoryId, targetObjectType, channel, status, objectType] are not allowed in request'
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryDefinitionCreateErrorResponse'
+              example:
+                id: api.object.category.create
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: 
+        - bearer: []
+  /object/category/definition/v1/read/{ObjectCategoryDefinition_Id}:
+    get:
+      description: >-
+        This API is associated with viewing and reading out the master object category on the
+        Sunbird Platform .
+          - The **_/read/{objectCategoryDefinition_Id}_** endpoint executes request for fetching the contents to be viewed and read.
+          - The endpoint for **Update Object Category Definition** is `/object/category/definition/v1/read/{ID}`
+          - It points to taxonomy-service - `/object/category/definition/v4/read/{ID}`
+          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
+          - You need to provide a valid object category definition Id value in {objectCategoryDefinition_Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      summary: Read ObjectCategoryDefinition
+      tags:
+        - Object Category Definition APIs
+      operationId: Read ObjectCategoryDefinition
+      parameters:
+        - name: ObjectCategoryDefinition_Id
+          in: path
+          required: true
+          description: Please append a valid ObjectCategoryDefinition Id To the Request URL
+          schema:
+            type: string
+        - name: fields
+          in: query
+          required: false
+          description: List of specific properties to be fetched.
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation."Read content" operation was successfully executed. For all possible metadata, please [refer](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/objectcategorydefinition/1.0/schema.json)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryDefinitionGetSuccessResponse'
+              example:
+               id: api.object.category.definition.read
+               ver: '3.0'
+               ts: '2020-12-17T13:25:16ZZ'
+               params:
+                 resmsgid: e61aee2f-8099-4978-a624-6605360218e1
+                 msgid: null
+                 err: null
+                 status: successful
+                 errmsg: null
+               responseCode: OK
+               result:
+                 objectCategoryDefinition:
+                    identifier: 'obj-cat:checking-account'
+                    lastStatusChangedOn: '2020-12-17T09:09:55.687+0000'
+                    consumerId: 7411b6bd-89f3-40ec-98d1-229dc64ce77d
+                    name: 'Checking Account'
+                    channel: in.ekstep
+                    lastUpdatedOn: '2020-12-17T11:15:37.740+0000'
+                    description: Textbook Unit
+                    createdOn: '2020-12-17T09:09:55.687+0000'
+                    objectType: ObjectCategory
+                    versionKey: '1608203737740'
+                    status: Live  
+                    objectMetadata:
+                      config: {}
+                      schema: {}
+                    languageCode: []
+                    forms: {}
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**ObjectCategoryDefinition Read** operation failed !The possible reason
+            for failure is that you may have provided wrong content id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryDefinitionCreateErrorResponse'
+              example:
+                id: api.object.category.definition.read
+                ver: '1.0'
+                ts: '2020-12-10T20:37:58.223Z'
+                params:
+                  resmsgid: 96a71df0-3b27-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: NOT_FOUND
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1131697204035993601314'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+                
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryDefinitionCreateErrorResponse'
+              example:
+                id: api.object.category.create
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: 
+        - bearer: []
+  /object/category/definition/v1/read:
+    post:
+      tags:
+      - Object Category Definition APIs
+      summary: Get Object Category Definition
+      description: |-
+        This API is associated with creating Object Category Definition on the Sunbird Platform.
+          - The endpoint for **Create Object Category Definition** is `/object/category/definition/v1/read`
+          - It points to taxonomy-service - `/object/category/definition/v4/read`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: Read Object Category Definition
+      parameters:
+      - name: Content-Type
+        in: header
+        description: |-
+          The Content Type entity is the media type of the resource. Possible media types can be:
+            - application/json
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: |-
+          To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
+            - JSON
+          The body is the representation of the resource object for getting object category defintion (an array of parameters which describes the object category defintion) 
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetObjectCategoryDefinitionRequest'
+            example:
+              request:
+                objectCategoryDefinition:
+                  name: learning resource
+                  objectType: Content
+                  channel: 013085024460783616158023
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **Create Object Category Definition** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryDefinitionGetSuccessResponse'
+              example:
+                id: api.object.category.definition.read
+                ver: '3.0'
+                ts: '2020-12-14T14:01:36ZZ'
+                params:
+                  resmsgid: 8c94cbfa-7bb9-4d81-97f5-6cd1bdbe0ed6
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  objectCategoryDefinition:
+                    identifier: 'obj-cat:learning-resource_content_013085024460783616158023'
+                    objectMetadata:
+                      config: {}
+                      schema: {}
+                    languageCode: []
+                    forms: {}
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**ObjectCategoryDefinition Read** operation failed !The possible reason
+            for failure is that you may have provided wrong content id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryDefinitionCreateErrorResponse'
+              example:
+                id: api.object.category.definition.read
+                ver: '1.0'
+                ts: '2020-12-10T20:37:58.223Z'
+                params:
+                  resmsgid: 96a71df0-3b27-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: NOT_FOUND
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1131697204035993601314'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        400:
+          description: |-
+            BAD REQUEST. The **Get Object Category Definition** operation failed. You may have missed input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryDefinitionCreateErrorResponse'
+              example:
+                id: api.object.category.definition.read
+                ver: '3.0'
+                ts: '2020-12-17T19:40:33ZZ'
+                params:
+                  resmsgid: e1d9d400-bbda-483f-8184-0f506a3649b4
+                  msgid: null
+                  err: ERR_INVALID_REQUEST
+                  status: failed
+                  errmsg: Please provide required properties!
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        500:
+          description: |-
+            INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectCategoryDefinitionCreateErrorResponse'
+              example:
+                id: api.object.category.definition.create
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: 
+        - bearer: []
+components:
+  schemas:
+    ObjectCategoryGetSuccessResponse:
+      description: Object Category Get Success Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ResultObjectCategoryMetadata'
+        - $ref: '#/components/schemas/ResponseHeader'
+    ResultObjectCategoryMetadata:
+      title: Result Object Category Metadata
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/ObjectCategoryMetadata'
+    ObjectCategoryMetadata:
+      title: Object Category Metadata
+      type: object
+      properties:
+        objectCategory:
+          type: object
+          properties:
+            identifier:
+              type: string
+              description: Object Category Identifier
+            name:
+              type: string
+              description: Object Category name
+            lastStatusChangedOn:
+              type: string
+              description: Date on which Object category status was last updated
+            lastUpdatedOn:
+              type: string
+              description: Date on which Object category was last updated
+            description:
+              type: string
+              description: Description of the object category
+            languageCode:
+              type: string
+              description: Language code supported for object category
+            createdOn:
+              type: string
+              description: Date on which Object category was created
+            objectType:
+              type: string
+              description: Represents objectType of Object Category
+            versionKey:
+              type: string
+              description: Version Key of object category
+            status:
+              type: string
+              description: Current status Object Category
+    UpdateObjectCategoryrequest:
+      title: Update ObjectCategory Request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ObjectCategoryUpdateRequestObjectCategory'
+      required:
+        - request
+    ObjectCategoryUpdateRequestObjectCategory:
+      title: ObjectCategoryUpdateRequestObjectCategory
+      type: object
+      properties:
+        objectCategory:
+          $ref: '#/components/schemas/ObjectCategoryUpdateRequestObjectCategoryObject'
+      required:
+        - objectCategory
+    ObjectCategoryUpdateRequestObjectCategoryObject:
+      title: ObjectCategory
+      type: object
+      properties:
+        description:
+          type: string
+          description: Represents the description for the object category
+    ObjectCategoryCreateErrorResponse:
+      description: Create ObjectCategory Error Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EmptyResult'
+        - $ref: '#/components/schemas/ResponseHeader'
+    EmptyResult:
+      title: Empty Result
+      type: object
+      properties:
+        result:
+          type: object
+          description: Empty Result
+    CreateObjectCategoryRequest:
+      title: Request Object
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ObjectCategoryCreateRequestObjectCategory'
+    ObjectCategoryCreateRequestObjectCategory:
+      title: Request
+      required:
+      - objectCategory
+      type: object
+      properties:
+        objectCategory:
+          $ref: '#/components/schemas/ObjectCategoryCreateRequestObjectCategoryObject'
+    ObjectCategoryCreateRequestObjectCategoryObject:
+      title:  Object Category 
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Represents the name of the object category
+        description:
+          type: string
+          description: Represents the description of the object category
+    ObjectCategoryCreateSuccessResponse:
+      description: Create Object Category Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ResultObjectCategoryCreateSuccess'
+        - $ref: '#/components/schemas/ResponseHeader'
+    ResultObjectCategoryCreateSuccess:
+      title: Result Object Category Create Sucess
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/CategoryCreate'
+    CategoryCreate:
+      title: Category Create
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Object Category Identifier
+    GetObjectCategoryDefinitionRequest:
+      title: Request Object
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ObjectCategoryDefinitionGetRequestObjectCategoryDefinition'
+    ObjectCategoryDefinitionGetRequestObjectCategoryDefinition:
+      title: Request
+      required:
+      - objectCategoryDefinition
+      type: object
+      properties:
+        objectCategoryDefinition:
+          $ref: '#/components/schemas/ObjectCategoryDefinitionGetRequestObjectCategoryDefinitionObject'
+    ObjectCategoryDefinitionGetRequestObjectCategoryDefinitionObject:
+      title:  Object Category Definition 
+      required:
+      - name
+      - objectType
+      type: object
+      properties:
+        name:
+          type: string
+          description: Represents the name of the object category definition
+        objectType:
+          type: string
+          description: Represents the targetObjectType of the object category definition
+        channel:
+          type: string
+          description: Represents the chnnel id for which object category definition is defined
+    CreateObjectCategoryDefinitionRequest:
+      title: Request Object
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ObjectCategoryDefinitionCreateRequestObjectCategoryDefinition'
+    ObjectCategoryDefinitionCreateRequestObjectCategoryDefinition:
+      title: Request
+      required:
+      - objectCategoryDefinition
+      type: object
+      properties:
+        objectCategoryDefinition:
+          $ref: '#/components/schemas/ObjectCategoryDefinitionCreateRequestObjectCategoryDefinitionObject'
+    ObjectCategoryDefinitionCreateRequestObjectCategoryDefinitionObject:
+      title:  Object Category Definition 
+      required:
+      - name
+      - categoryId
+      - targetObjectType
+      type: object
+      properties:
+        name:
+          type: string
+          description: Represents the name of the object category
+                       definition
+        categoryId:
+          type: string
+          description: Represents the categoryId of the object               category definition
+        targetObjectType:
+          type: string
+          description: Represents the targetObjectType of the                object category definition
+    UpdateObjectCategoryDefinitionrequest:
+      title: Update ObjectCategoryDefinition Request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ObjectCategoryDefinitionUpdateRequestObjectCategoryDefinition'
+      required:
+        - request
+    ObjectCategoryDefinitionUpdateRequestObjectCategoryDefinition:
+      title: ObjectCategoryDefinitionUpdateRequestObjectCategoryDefinition
+      type: object
+      properties:
+        objectCategoryDefinition:
+          $ref: '#/components/schemas/ObjectCategoryDefinitionUpdateRequestObjectCategoryDefinitionObject'
+      required:
+        - objectCategoryDefinition
+    ObjectCategoryDefinitionUpdateRequestObjectCategoryDefinitionObject:
+      title: ObjectCategoryDefinition
+      type: object
+      properties:
+        description:
+          type: string
+          description: Represents the description for the content
+    ObjectCategoryDefinitionCreateSuccessResponse:
+      description: Create Content Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ResultWithContentId'
+        - $ref: '#/components/schemas/ResponseHeader'
+    ResultWithContentId:
+      title: Result Containing Content Id
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/ContentId'
+    ContentId:
+      title: Content Id
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Content Identifier
+    ObjectCategoryDefinitionCreateErrorResponse:
+      description: Create ObjectCategoryDefinition Error Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EmptyResult'
+        - $ref: '#/components/schemas/ResponseHeader'
+    ResponseHeader:
+      title: ResponseHeader
+      type: object
+      properties:
+        id:
+          type: string
+          description: API Identifier
+        ver:
+          type: string
+          description: API version information
+        ts:
+          type: string
+          description: API execution timespan
+        params:
+          $ref: '#/components/schemas/ResponseParams'
+        responseCode:
+          type: string
+          description: 'API response code '
+    ResponseParams:
+      title: Response Parameter
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          description: Response Message Id
+        msgid:
+          type: string
+          description: Message Id
+        err:
+          type: string
+          description: Error Code
+        status:
+          type: string
+          description: Response Status
+        errmsg:
+          type: string
+          description: Error Message
+    ObjectCategoryDefinitionGetSuccessResponse:
+      description: Get Content Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ResultWithContentMetadata'
+        - $ref: '#/components/schemas/ResponseHeader'
+    ResultWithContentMetadata:
+      title: Result Containing Content Id and other metadata
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/ObjectCategoryDefinitionIdWithMetadata'
+    ObjectCategoryDefinitionIdWithMetadata:
+      title: Object Category Definition Metadata
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Object Category Definition Identifier
+        name:
+          type: string
+          description: Object Category Definition name
+
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
