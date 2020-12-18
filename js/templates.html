@@ -59,13 +59,19 @@ $(function () {
 	var widgetLatestVersionNotificationContainer = $("#template-widgetLatestVersionNotification").html();
 	var widgetLatestVersionNotificationTemplate = Handlebars.compile(widgetLatestVersionNotificationContainer);
 	var widgetLatestVersionNotificationTemplateHtml = widgetLatestVersionNotificationTemplate(widgetsData);
-	$('.widgetLatestVersionNotification').html(widgetLatestVersionNotificationTemplateHtml);
-	
+
 	// Pre-release Version notification
 	var widgetPreReleaseVersionNotificationContainer = $("#template-widgetPreReleaseVersionNotification").html();
 	var widgetPreReleaseVersionNotificationTemplate = Handlebars.compile(widgetPreReleaseVersionNotificationContainer);
-	var widgetPreReleaseVersionNotificationTemplateHtml = widgetLatestVersionNotificationTemplate(widgetsData);
-	$('.widgetLatestVersionNotification').html(widgetPreReleaseVersionNotificationTemplateHtml);
+	var widgetPreReleaseVersionNotificationTemplateHtml = widgetPreReleaseVersionNotificationTemplate(widgetsData);
+
+	let url = window.location.pathname.split('/');
+	// (currentVersion ==  preReleaseVersion[0].branch) || (url[1] = preReleaseVersion[0].branch) || (window.location.pathname == preReleaseVersion[0].branch)
+	if ((url[1] == preReleaseVersion[0].branch) || (url[0] == preReleaseVersion[0].branch)) {
+		$('.widgetLatestVersionNotification').html(widgetPreReleaseVersionNotificationTemplateHtml);
+	} else {
+		$('.widgetLatestVersionNotification').html(widgetLatestVersionNotificationTemplateHtml);
+	}
 });
 </script>
 <script>

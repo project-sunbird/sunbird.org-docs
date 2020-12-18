@@ -4,6 +4,10 @@ publishedVersions = widgetsData.versions.filter(function(version){
 latestVersion = widgetsData.versions.filter(function(version){
 	return version.published === true && version.latest === true ;
 });
+preReleaseVersion = widgetsData.versions.filter(function(version){
+	return version.published === true && version.prerelease === true ;
+});
+
 currentVersion = $('#docsVersion').attr("content");
 currentVersionData = widgetsData.versions.find( version => version.title === currentVersion);
 console.log(currentVersionData);
