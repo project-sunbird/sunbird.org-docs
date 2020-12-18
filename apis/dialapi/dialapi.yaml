@@ -5,33 +5,35 @@ info:
     The D.I.A.L Code (Digital Infrastructure for Augmented Learning) API resources are used for energising the textbooks.
      - D.I.A.L code allows textbook creators to tag various pages and topics in a flexible manner using the DIAL codes (in QR code format) and these codes can be linked with digital content, thus providing easy access for the end users and a seamless physical to digital transition.
      - The URL for D.I.A.L code API(s) is `dialcode/v1`
+     - [TestCases](https://www.getpostman.com/collections/f0d1ce3dbaff9de778fe)
   version: "1.0"
 servers:
-- url: https://staging.open-sunbird.org/api/dialcode/v1
+- url: https://staging.open-sunbird.org/api
 paths:
-  /generate:
+  /dialcode/v1/generate:
     post:
       tags:
       - DIAL APIs
       summary: Generate DIAL code
       description: |-
         This API is associated with generating DIAL code.
-           - The endpoint for **Generate DIAL code** is `/generate`
+           - The endpoint for **Generate DIAL code** is `/dialcode/v1/generate`
+           - It points to knowledge-mw-service - `/v1/dialcode/generate`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: GeneratePost
       parameters:
       - name: X-Channel-ID
         in: header
-        description: It the Unique Id to identify the root organization to which the
-          user belongs
+        description: |-
+          It the Unique Id to identify the root organization to which the user belongs
         required: true
         schema:
           type: string
       - name: Content-Type
         in: header
-        description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
-          \   - Application/x-www-form-urlencoded"
+        description: |-
+          The Content Type entity is the media type of the resource. Possible media types can be:-
+          - Application/json"
         required: true
         schema:
           type: string
@@ -51,12 +53,12 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenerateDialcoderequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/GenerateDialcoderequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/GenerateDialcoderequest'
+            example:
+              request:
+                dialcodes:
+                  count: 5
+                  publisher: 'publisher1'
+                  batchCode: 'b672038a-7660-49fe-abc9-2696de81931d'
         required: true
       responses:
         200:
@@ -65,7 +67,28 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
+                $ref: '#/components/schemas/DialcodeGenerateResponse'
+              example:
+                id: api.dialcode.generate
+                ver: '1.0'
+                ts: '2020-12-17T15:20:45.354Z'
+                params:
+                  resmsgid: 6f1208a0-407b-11eb-9b0c-abcfbdf41bc3
+                  msgid: 6ebeb880-407b-11eb-9b0c-abcfbdf41bc3
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  dialcodes:
+                    - N5U3S6
+                    - U4X6A2
+                    - K5W8G9
+                    - Z7N4G2
+                    - T8K1Y6
+                  count: 5
+                  batchcode: b672038a-7660-49fe-abc9-2696de81931d
+                  publisher: publisher1
         400:
           description: BAD REQUEST. The "Generate DIAL code" operation failed ! The
             possible reason for failure is that you may have missed providing input
@@ -73,55 +96,36 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/DialcodeErrorResponse'
+              example:
+                id: api.dialcode.generate
+                ver: '1.0'
+                ts: '2020-12-17T15:36:29.803Z'
+                params:
+                  resmsgid: a20183b1-407d-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_DIALCODE_GENERATE_COUNT_ERROR
+                  errmsg: Required fields count is missing or invalid
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /generate
-          headers:
-            Content-Type: application/json
-            X-Channel-ID: sunbird
-            Authorization: Bearer {{api_key}}
-          body: |-
-            {
-              "request": {
-                "dialcodes": {
-                  "count": 1,
-                  "publisher": "Sunbird"
-                }
-              }
-            }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Generate dialcode
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-      x-codegen-request-body-name: Body
-  /publisher/create:
+      deprecated: false
+      security: 
+        - bearer: []
+  /dialcode/v1/publisher/create:
     post:
       tags:
       - DIAL APIs
       summary: Create Publisher
       description: |-
         This API is associated with creating a publisher. A publisher owns the DIAL code.
-           - The endpoint for **Create Publisher** is `/publisher/create`
+           - The endpoint for **Create Publisher** is ` /dialcode/v1/publisher/create`
+           - It points to knowledge-mw-service - `v1/dialcode/publisher/create`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: PublisherCreatePost
       parameters:
@@ -129,7 +133,7 @@ paths:
         in: header
         description: It the Unique Id to identify the root organization to which the
           user belongs
-        required: true
+        required: false
         schema:
           type: string
       - name: Content-Type
@@ -155,13 +159,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreatePublisherrequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/CreatePublisherrequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/CreatePublisherrequest'
+              $ref: '#/components/schemas/CreatePublisherRequest'
+            example:
+              request:
+                publisher:
+                  identifier: '2e5ee61b-57a2-41b3-968b-54607e5885a6'
+                  name: Sunbird Test Publisher
         required: true
       responses:
         200:
@@ -170,7 +173,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
+                $ref: '#/components/schemas/PublisherCreateResponse'
+              example:
+                id: api.publisher.create
+                ver: '1.0'
+                ts: '2020-12-17T15:39:35.742Z'
+                params:
+                  resmsgid: 10d58de0-407e-11eb-9b0c-abcfbdf41bc3
+                  msgid: 10338180-407e-11eb-9b0c-abcfbdf41bc3
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: 2e5ee61b-57a2-41b3-968b-54607e5885a6
         400:
           description: BAD REQUEST. The "Create Publisher" operation failed ! The
             possible reason for failure is that you may have missed providing input
@@ -178,55 +194,36 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/DialcodeErrorResponse'
+              example:
+                id: api.publisher.create
+                ver: '1.0'
+                ts: '2020-12-17T15:50:04.717Z'
+                params:
+                  resmsgid: 87bb85d0-407f-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_CREATE_PUBLISHER_DIALCODE_FIELDS_MISSING
+                  errmsg: Required fields for create publisher are missing
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /publisher/create
-          headers:
-            Content-Type: application/json
-            X-Channel-ID: sunbird
-            Authorization: Bearer {{api_key}}
-          body: |-
-            {
-              "request": {
-                "publisher": {
-                  "identifier": "Sunbird",
-                  "name": "Sunbird Portal"
-                }
-              }
-            }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Create publisher
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-      x-codegen-request-body-name: Body
-  /process/status/{processId}:
+      deprecated: false
+      security: 
+        - bearer: []
+  /dialcode/v1/process/status/{processId}:
     get:
       tags:
       - DIAL APIs
       summary: Get Process Status
       description: |-
         This API is associated with fetching the process Id while generating DIAL codes or when DIAL codes are listed.
-           - The endpoint for **Get Process Status** is `/process/status/{processId}`
+           - The endpoint for **Get Process Status** is `/dialcode/v1/process/status/{processId}`
+           - It points to knowledge-mw-service - `/v1/dialcode/process/status`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: ProcessStatusGet
       parameters:
@@ -241,14 +238,13 @@ paths:
         in: header
         description: It the Unique Id to identify the root organization to which the
           user belongs
-        required: true
+        required: false
         schema:
           type: string
       - name: Content-Type
         in: header
         description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
-          \   - Application/x-www-form-urlencoded"
+          \ Possible media types can be:- \n   - Application/json"
         required: true
         schema:
           type: string
@@ -267,53 +263,58 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
-        400:
-          description: BAD REQUEST. The "Get Process Status" operation failed ! The
-            possible reason for failure is that you may have missed providing input
-            for a mandatory parameter.
+                $ref: '#/components/schemas/ProcessStatusResponse'
+              example:
+                id: api.process.status
+                ver: '1.0'
+                ts: '2020-12-17T12:44:59.924Z'
+                params:
+                  resmsgid: acc29540-4065-11eb-9b0c-abcfbdf41bc3
+                  msgid: acc1d1f0-4065-11eb-9b0c-abcfbdf41bc3
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  status: completed
+                  url: 'https://sunbirddev.blob.core.windows.net/dial/b00bc992ef25f1a9a8d63291e20efc8d/do_112876945300905984168_hindi_kindergarten_math_1571893740506.zip'
+        404:
+          description: RESOURCE NOT FOUND. The "Get Process Status" operation failed ! The
+            possible reason for failure is that you may have passed invalid process id.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/DialcodeErrorResponse'
+              example:
+                id: api.process.status
+                ver: '1.0'
+                ts: '2020-12-17T16:00:09.824Z'
+                params:
+                  resmsgid: f0678600-4080-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_PROCESS_ID_NOT_FOUND
+                  errmsg: Requested process id not found
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: GET
-          uri: /process/status
-          headers:
-            X-Channel-ID: sunbird
-            Content-Type: application/json
-            Authorization: Bearer {{api_key}}
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Get Process Status
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-  /read:
+      deprecated: false
+      security: 
+        - bearer: []
+  /dialcode/v1/read:
     post:
       tags:
       - DIAL APIs
       summary: Get DIAL Code
-      description: "This API is associated with fetching/reading the DIAL code \n\
-        \   - The endpoint for **Get DIAL code** is `/read`\n   - The fields marked\
-        \ with an asterisk (*) are mandatory. They cannot be null or empty."
+      description: |-
+        This API is associated with fetching/reading the DIAL code 
+          - The endpoint for **Get DIAL code** is `/dialcode/v1/read/{dialcode}`
+          - It points to knowledge-mw-service - `/v1/dialcode/read/{dialcode}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty."
       operationId: ReadPost
       parameters:
       - name: X-Channel-ID
@@ -326,8 +327,7 @@ paths:
       - name: Content-Type
         in: header
         description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
-          \   - Application/x-www-form-urlencoded"
+          \ Possible media types can be:- \n   - Application/json"
         required: true
         schema:
           type: string
@@ -347,12 +347,10 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GetDialcoderequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/GetDialcoderequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/GetDialcoderequest'
+            example:
+              request:
+                dialcode:
+                  identifier: Q13PMA
         required: true
       responses:
         200:
@@ -361,7 +359,48 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
+                $ref: '#/components/schemas/GetDialcodeResponse'
+              example:
+                id: api.dialcode.read
+                ver: '1.0'
+                ts: '2020-12-17T16:09:58.255Z'
+                params:
+                  resmsgid: 4f22f7f0-4082-11eb-9b0c-abcfbdf41bc3
+                  msgid: 4f21e680-4082-11eb-9b0c-abcfbdf41bc3
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  dialcode:
+                    identifier: V1T2P8
+                    channel: sunbird
+                    publisher: ef41a799-0438-4397-bbb4-a2a65aed4e55
+                    batchCode: ede34398-5310-4009-a49e-4f3dd0147c69
+                    status: Draft
+                    generatedOn: '2020-12-17T16:09:13.008+0000'
+                    publishedOn: null
+                    metadata: null
+        404:
+          description: RESOURCE NOT FOUND. The "Get DIAL code" operation failed ! The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DialcodeErrorResponse'
+              example:
+                id: api.dialcode.read
+                ver: '1.0'
+                ts: '2020-12-17T16:19:33.944Z'
+                params:
+                  resmsgid: a6462380-4083-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_DIALCODE_INFO
+                  errmsg: 'Dial Code Not Found With Id: {{invalid-dial}}'
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
         400:
           description: BAD REQUEST. The "Get DIAL code" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
@@ -369,56 +408,37 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/DialcodeErrorResponse'
+              example:
+                id: api.dialcode.read
+                ver: '1.0'
+                ts: '2020-12-17T16:21:47.297Z'
+                params:
+                  resmsgid: f5c23111-4083-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_REQUEST_FIELDS_CHANNEL_ID_MISSING
+                  errmsg: Required field channel id is missing
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /read
-          headers:
-            Content-Type: application/json
-            X-Channel-ID: sunbird
-            Authorization: Bearer {{api_key}}
-          body: |-
-            {
-              "request": {
-                "dialcode": {
-                  "identifier": "Q13PMP"
-                }
-              }
-            }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Get dialcode
-        x-testDescription: ""
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-      x-codegen-request-body-name: Body
-  /publisher/read/{publisherId}:
+      deprecated: false
+      security: 
+        - bearer: []
+  /dialcode/v1/publisher/read/{publisherId}:
     get:
       tags:
       - DIAL APIs
       summary: Get Publisher
       description: |-
         This API is associated with fetching a specific publisher owning a DIAL code.
-           - The endpoint for **Get Publisher** is `/publisher/read/publisherId`
-           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - The endpoint for **Get Publisher** is `/dialcode/v1/publisher/read/publisherId`
+          - It points to knowledge-mw-service - `/v1/dialcode/publisher/read/{dialcode}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: PublisherReadSunbirdGet
       parameters:
       - name: publisherId
@@ -436,9 +456,9 @@ paths:
           type: string
       - name: Content-Type
         in: header
-        description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
-          \   - Application/x-www-form-urlencoded"
+        description: |-
+          The Content Type entity is the media type of the resource. Possible media types can be:
+          - Application/json
         required: true
         schema:
           type: string
@@ -457,7 +477,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
+                $ref: '#/components/schemas/GetPublisherResponse'
+              example:
+                id: api.publisher.read
+                ver: '1.0'
+                ts: '2020-12-18T06:50:18.047Z'
+                params:
+                  resmsgid: 4a2f9cf0-40fd-11eb-9b0c-abcfbdf41bc3
+                  msgid: 4a2e3d60-40fd-11eb-9b0c-abcfbdf41bc3
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  publisher:
+                    identifier: f85a10a8-1f16-4414-bd3f-d6b5a9d824bc
+                    name: Sunbird Test Publisher
+                    channel: sunbird
+                    createdOn: '2020-12-18T06:50:08.877'
+                    updatedOn: '2020-12-18T06:50:08.877'
         400:
           description: BAD REQUEST. The "Get Publisher" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
@@ -465,47 +503,38 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/DialcodeErrorResponse'
+              example:
+                id: api.publisher.read
+                ver: '1.0'
+                ts: '2020-12-18T07:05:34.268Z'
+                params:
+                  resmsgid: 6c4bd7c0-40ff-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_INVALID_PUBLISHER_READ_REQUEST
+                  errmsg: 'Publisher with Identifier: {{invalid-publisher-id}} does not exists.'
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: GET
-          uri: /publisher/read/Sunbird
-          headers:
-            X-Channel-ID: sunbird
-            Content-Type: application/json
-            Authorization: Bearer {{api_key}}
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Get publisher
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-  /update/{dialcode}:
+      deprecated: false
+      security: 
+        - bearer: []
+  /dialcode/v1/update/{dialcode}:
     patch:
       tags:
       - DIAL APIs
       summary: Update DIAL code
       description: |-
         This API is associated with updating the DIAL code.
-           - The endpoint for **Update DIAL code** is `/update/{dialcode}`
-           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: UpdateQ13PMPPatch
+          - The endpoint for **Update DIAL code** is `/dialcode/v1/update/{dialcode}`
+          - It points to knowledge-mw-service - `/v1/dialcode/update/{dialcode}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: UpdateDialcode
       parameters:
       - name: dialcode
         in: path
@@ -522,9 +551,9 @@ paths:
           type: string
       - name: Content-Type
         in: header
-        description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
-          \   - Application/x-www-form-urlencoded"
+        description: |-
+          The Content Type entity is the media type of the resource. Possible media types can be:
+          - Application/json
         required: true
         schema:
           type: string
@@ -544,12 +573,14 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateDialcoderequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/UpdateDialcoderequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/UpdateDialcoderequest'
+            example:
+              request:
+                dialcode:
+                  metadata:
+                    gradeLevel: Class 5
+                    subject: Math
+                    board: Test Board
+                    medium: English
         required: true
       responses:
         200:
@@ -558,7 +589,38 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
+                $ref: '#/components/schemas/DialcodeUpdateResponse'
+              example:
+                id: api.dialcode.update
+                ver: '1.0'
+                ts: '2020-12-18T07:10:28.747Z'
+                params:
+                  resmsgid: 1bd1c5b0-4100-11eb-9b0c-abcfbdf41bc3
+                  msgid: 19fe8c50-4100-11eb-9b0c-abcfbdf41bc3
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: V1T2P8
+        404:
+          description: RESOURCE NOT FOUND. The "Update DIAL code" operation failed ! The possible reason for failure is that you may have passed invalid dialcode id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DialcodeErrorResponse'
+              example:
+                id: api.dialcode.update
+                ver: '1.0'
+                ts: '2020-12-18T07:19:58.494Z'
+                params:
+                  resmsgid: 6f6a43e0-4101-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_DIALCODE_INFO
+                  errmsg: 'Dial Code Not Found With Id: {{invalid-dial}}'
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
         400:
           description: BAD REQUEST. The "Update DIAL code" operation failed ! The
             possible reason for failure is that you may have missed providing input
@@ -566,56 +628,37 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/DialcodeErrorResponse'
+              example:
+                id: api.dialcode.update
+                ver: '1.0'
+                ts: '2020-12-18T07:19:39.845Z'
+                params:
+                  resmsgid: 644ca750-4101-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_INVALID_CHANNEL_ID
+                  errmsg: Invalid Channel Id.
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: PATCH
-          uri: /update/Q13PMP
-          headers:
-            Content-Type: application/json
-            X-Channel-ID: sunbird
-            Authorization: Bearer {{api_key}}
-          body: |-
-            {
-              "request": {
-                "dialcode": {
-                  "publisher": "Sunbird",
-                  "tags": ["test"]
-                }
-              }
-            }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: update dialcode
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-      x-codegen-request-body-name: Body
-  /publisher/update/{publisherId}:
+      deprecated: false
+      security: 
+        - bearer: []
+  /dialcode/v1/publisher/update/{publisherId}:
     patch:
       tags:
       - DIAL APIs
       summary: Update Publisher
       description: |-
         This API is associated with updating specific DIAL code publisher.
-           - The endpoint for **Update Publisher** is `/publisher/update/{publisherId}`
-           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - The endpoint for **Update Publisher** is `/dialcode/v1/publisher/update/{publisherId}`
+          - It points to knowledge-mw-service - `/v1/dialcode/publisher/update/{publisherId}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: PublisherUpdateSunbirdPatch
       parameters:
       - name: publisherId
@@ -633,9 +676,9 @@ paths:
           type: string
       - name: Content-Type
         in: header
-        description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
-          \   - Application/x-www-form-urlencoded"
+        description: |-
+          The Content Type entity is the media type of the resource. Possible media types can be:
+          - Application/json
         required: true
         schema:
           type: string
@@ -655,12 +698,10 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdatePublisherrequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/UpdatePublisherrequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/UpdatePublisherrequest'
+            example:
+              request:
+                publisher:
+                  name: Test Publisher 001
         required: true
       responses:
         200:
@@ -669,7 +710,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
+                $ref: '#/components/schemas/PublisherUpdateResponse'
+              example:
+                id: api.publisher.update
+                ver: '1.0'
+                ts: '2020-12-18T07:23:10.630Z'
+                params:
+                  resmsgid: e1efe460-4101-11eb-9b0c-abcfbdf41bc3
+                  msgid: e1ed7360-4101-11eb-9b0c-abcfbdf41bc3
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: f85a10a8-1f16-4414-bd3f-d6b5a9d824bc
         400:
           description: BAD REQUEST. The "Update Publisher" operation failed ! The
             possible reason for failure is that you may have missed providing input
@@ -677,56 +731,38 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/DialcodeErrorResponse'
+              example:
+                id: api.publisher.update
+                ver: '1.0'
+                ts: '2020-12-18T07:30:42.261Z'
+                params:
+                  resmsgid: ef215050-4102-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_INVALID_PUBLISHER_UPDATE_REQUEST
+                  errmsg: 'Publisher with Identifier: {{invalid-publisher-id}} does not exists.'
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: PATCH
-          uri: /publisher/update/Sunbird
-          headers:
-            Content-Type: application/json
-            X-Channel-ID: sunbird
-            Authorization: Bearer {{api_key}}
-          body: |-
-            {
-              "request": {
-                "publisher": {
-                  "name": "Anuj Kumar Gupta"
-                }
-              }
-            }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Update publisher
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-      x-codegen-request-body-name: Body
-  /publish:
+      deprecated: false
+      security: 
+        - bearer: []
+  /dialcode/v1/publish:
     post:
       tags:
       - DIAL APIs
       summary: Publish DIAL code
       description: |-
         This API is associated with publishing the  DIAL code.
-           - The endpoint for **Publish DIAL code** is `/publish`
-           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: PublishQ13PMPPost
+          - The endpoint for **Publish DIAL code** is `/dialcode/v1/publish`
+          - It points to knowledge-mw-service - `/v1/dialcode/publish`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: PublishDialcode
       parameters:
       - name: X-Channel-ID
         in: header
@@ -737,9 +773,9 @@ paths:
           type: string
       - name: Content-Type
         in: header
-        description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
-          \   - Application/x-www-form-urlencoded"
+        description: |-
+          The Content Type entity is the media type of the resource. Possible media types can be:
+          - Application/json
         required: true
         schema:
           type: string
@@ -759,12 +795,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PublishDialcoderequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PublishDialcoderequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PublishDialcoderequest'
+            example:
+              request: {}
         required: true
       responses:
         200:
@@ -773,61 +805,75 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
+                $ref: '#/components/schemas/DialcodePublishResponse'
+              example:
+                id: api.dialcode.publish
+                ver: '1.0'
+                ts: '2020-12-18T08:52:33.907Z'
+                params:
+                  resmsgid: 5eb30430-410e-11eb-9b0c-abcfbdf41bc3
+                  msgid: 5eb0ba40-410e-11eb-9b0c-abcfbdf41bc3
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: V1T2P8
         400:
           description: BAD REQUEST. The "Publish DIAL code" operation failed ! The
-            possible reason for failure is that you may have missed providing input
-            for a mandatory parameter.
+            possible reason for failure is that you may have missed providing input for a mandatory parameter or provided wrong parameter.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/DialcodeErrorResponse'
+              example:
+                id: api.dialcode.publish
+                ver: '1.0'
+                ts: '2020-12-18T08:53:46.031Z'
+                params:
+                  resmsgid: 89b043f0-410e-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_INVALID_CHANNEL_ID
+                  errmsg: Invalid Channel Id.
+                responseCode: CLIENT_ERROR
+                result: {}
+        404:
+          description: RESOURCE NOT FOUND. The "Publish DIAL code" operation failed ! The possible reason for failure is that you may have passed invalid dialcode id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DialcodeErrorResponse'
+              example:
+                id: api.dialcode.publish
+                ver: '1.0'
+                ts: '2020-12-18T08:55:21.548Z'
+                params:
+                  resmsgid: c29f00c0-410e-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_DIALCODE_INFO
+                  errmsg: 'Dial Code Not Found With Id: {{invalid-dial}}'
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /publish/Q13PMP
-          headers:
-            Content-Type: application/json
-            X-Channel-ID: sunbird
-            Authorization: Bearer {{api_key}}
-          body: |-
-            {
-              "request": {
-              }
-            }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Publish dialcode
-        x-testDescription: ""
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-      x-codegen-request-body-name: Body
-  /content/link:
+      deprecated: false
+      security: 
+        - bearer: []
+  /dialcode/v1/content/link:
     post:
       tags:
       - DIAL APIs
       summary: Link DIAL code
-      description: "This API is associated with linking DIAL code to the content\n\
-        \ - The endpoint for **Link DIAL code** is `/content/link`\n - The fields\
-        \ marked with an asterisk (*) are mandatory. They cannot be null or empty.\n\
-        \ "
+      description: |-
+        This API is associated with linking DIAL code to the content
+        - The endpoint for **Link DIAL code** is `/dialcode/v1/content/link`
+        - It points to knowledge-mw-service - `/v1/dialcode/content/link`
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: ContentLinkPost
       parameters:
       - name: X-Channel-ID
@@ -839,9 +885,9 @@ paths:
           type: string
       - name: Content-Type
         in: header
-        description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
-          \   - Application/x-www-form-urlencoded"
+        description: |-
+          The Content Type entity is the media type of the resource. Possible media types can be:
+          - Application/json
         required: true
         schema:
           type: string
@@ -861,12 +907,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/LinkDialcoderequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/LinkDialcoderequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/LinkDialcoderequest'
+            example:
+              request:
+                content:
+                  identifier:
+                    - 'do_12345'
+                  dialcode:
+                    - 'A1Y2G3'
         required: true
       responses:
         200:
@@ -875,7 +922,37 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
+                $ref: '#/components/schemas/LinkDialcodeResponse'
+              example:
+                id: api.content.link
+                ver: '1.0'
+                ts: '2020-12-18T09:20:57.108Z'
+                params:
+                  resmsgid: 55e2dd40-4112-11eb-9b0c-abcfbdf41bc3
+                  msgid: 55bd05c0-4112-11eb-9b0c-abcfbdf41bc3
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result: {}
+        207:
+          description: OK ! Partial Successful operation."Link DIAL code" operation was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkDialcodeResponse'
+              example:
+                id: api.content.link
+                ver: '1.0'
+                ts: '2020-12-18T09:32:11.112Z'
+                params:
+                  resmsgid: e79fb680-4113-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_DIALCODE_LINK
+                  errmsg: 'Content not found with id(s): invalid_do_id_1'
+                responseCode: PARTIAL_SUCCESS
+                result: {}
         400:
           description: BAD REQUEST. The "Link DIAL code" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
@@ -883,79 +960,74 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/DialcodeErrorResponse'
+              example:
+                id: api.content.link
+                ver: '1.0'
+                ts: '2020-12-18T09:30:48.549Z'
+                params:
+                  resmsgid: b6699950-4113-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_DIALCODE_CONTENT_LINK_FIELDS_MISSING
+                  errmsg: Required fields for content link dialcode are missing
+                responseCode: CLIENT_ERROR
+                result: {}
+        404:
+          description: RESOURCE NOT FOUND. The "Link DIAL code" operation failed ! The possible reason for failure is that you may have passed invalid input.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DialcodeErrorResponse'
+              example:
+                id: api.content.link
+                ver: '1.0'
+                ts: '2020-12-18T09:33:04.542Z'
+                params:
+                  resmsgid: 07787be0-4114-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_DIALCODE_LINK
+                  errmsg: 'DIAL Code not found with id(s):[INV123, INV234]'
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /content/link
-          headers:
-            Content-Type: application/json
-            X-Channel-ID: sunbird
-            Authorization: Bearer {{api_key}}
-          body: |-
-            {
-              "request": {
-                "content": {
-                  "identifier": [""],
-                  "dialcode": [""]
-                }
-              }
-            }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Link dialcode
-        x-testDescription: ""
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-      x-codegen-request-body-name: Body
-  /search:
+      deprecated: false
+      security: 
+        - bearer: []
+  /dialcode/v1/search:
     post:
       tags:
       - DIAL APIs
       summary: Search DIAL code
       description: |-
         This API is associated with searching a DIAL code.
-           - The endpoint for **Search DIAL code** is `/search`
-           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - The endpoint for **Search DIAL code** is `/dialcode/v1/search`
+          - It points to knowledge-mw-service - `/v1/dialcode/search`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: SearchPost
       parameters:
       - name: X-Channel-ID
         in: header
-        description: It the Unique Id to identify the root organization to which the
-          user belongs
+        description: It the Unique Id to identify the root organization to which the user belongs
         required: true
         schema:
           type: string
       - name: Content-Type
         in: header
-        description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
-          \   - Application/x-www-form-urlencoded"
+        description: |-
+          The Content Type entity is the media type of the resource. Possible media types can be:
+            - Application/json
         required: true
         schema:
           type: string
       - name: Authorization
         in: header
-        description: All User APIs require authorization for use. Specify the authorization
-          key received from the administrator when placing the request for use of
-          the API.
+        description: All User APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.
         required: true
         schema:
           type: string
@@ -967,12 +1039,12 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/SearchDialcoderequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/SearchDialcoderequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/SearchDialcoderequest'
+            example:
+              request:
+                search:
+                  publisher: '19272ed8-6577-413a-9d1c-f170460e9417'
+                  status: Draft
+                  identifier: L7H1R3
         required: true
       responses:
         200:
@@ -981,85 +1053,84 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
+                $ref: '#/components/schemas/SearchDialcodeResponse'
+              example:
+                id: api.dialcode.search
+                ver: '1.0'
+                ts: '2020-12-18T09:42:45.135Z'
+                params:
+                  resmsgid: 6187f1f0-4115-11eb-9b0c-abcfbdf41bc3
+                  msgid: 61861d30-4115-11eb-9b0c-abcfbdf41bc3
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  dialcodes:
+                    - dialcode_index: 9040972
+                      identifier: L7H1R3
+                      channel: sunbird
+                      batchcode: 844521db-6fbb-4c03-b8aa-2166a005701d
+                      publisher: 19272ed8-6577-413a-9d1c-f170460e9417
+                      generated_on: '2020-12-18T09:42:34.802+0000'
+                      status: Draft
+                      objectType: DialCode
+                  count: 1
         400:
-          description: BAD REQUEST. The "search DIAL code" operation failed ! The
-            possible reason for failure is that you may have missed providing input
-            for a mandatory parameter.
+          description: BAD REQUEST. The "search DIAL code" operation failed ! The possible reason for failure is that you may have missed providing input or valid channel id.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/DialcodeErrorResponse'
+              example:
+                id: api.dialcode.search
+                ver: '1.0'
+                ts: '2020-12-18T09:50:51.372Z'
+                params:
+                  resmsgid: 8359d2c0-4116-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_REQUEST_FIELDS_CHANNEL_ID_MISSING
+                  errmsg: Required field channel id is missing
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /search
-          headers:
-            Content-Type: application/json
-            X-Channel-ID: sunbird
-            Authorization: Bearer {{api_key}}
-          body: |-
-            {
-              "request": {
-                "search": {
-                  "status": "Draft"
-                }
-              }
-            }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Search dialcode
-        x-testDescription: ""
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-      x-codegen-request-body-name: Body
-  /list:
+      deprecated: false
+      security: 
+        - bearer: []
+  /dialcode/v1/list:
     post:
       tags:
       - DIAL APIs
       summary: List DIAL code
-      description: "This API is associated with listing the DIAL codes \n   - The\
-        \ endpoint for **List DIAL code** is `/list`\n   - The fields marked with\
-        \ an asterisk (*) are mandatory. They cannot be null or empty."
+      description: 
+        This API is associated with listing the DIAL codes
+          - The endpoint for **List DIAL code** is `/dialcode/v1/list`
+          - It points to knowledge-mw-service - `/v1/dialcode/list`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: ListPost
       parameters:
       - name: X-Channel-ID
         in: header
-        description: It the Unique Id to identify the root organization to which the
-          user belongs
+        description: It the Unique Id to identify the root organization to which the user belongs
         required: true
         schema:
           type: string
       - name: Content-Type
         in: header
-        description: "The Content Type entity is the media type of the resource.\n\
-          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
-          \   - Application/x-www-form-urlencoded"
+        description: |-
+          The Content Type entity is the media type of the resource. Possible media types can be:
+          - Application/json
         required: true
         schema:
           type: string
       - name: Authorization
         in: header
-        description: All User APIs require authorization for use. Specify the authorization
-          key received from the administrator when placing the request for use of
-          the API.
+        description: All User APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.
         required: true
         schema:
           type: string
@@ -1070,69 +1141,165 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ListDialcoderequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/ListDialcoderequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/ListDialcoderequest'
+              $ref: '#/components/schemas/SearchDialcoderequest'
+            example:
+              request:
+                search:
+                  publisher: '19272ed8-6577-413a-9d1c-f170460e9417'
+                  status: Draft
+                  identifier: L7H1R3
         required: true
       responses:
         200:
-          description: OK ! Successful operation."List DIAL code" operation was successfully
-            executed.
+          description: OK ! Successful operation."List DIAL code" operation was successfully executed.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
+                $ref: '#/components/schemas/SearchDialcodeResponse'
+              example:
+                id: api.dialcode.list
+                ver: '1.0'
+                ts: '2020-12-18T09:52:47.150Z'
+                params:
+                  resmsgid: c85c24e0-4116-11eb-9b0c-abcfbdf41bc3
+                  msgid: c85a2910-4116-11eb-9b0c-abcfbdf41bc3
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  dialcodes:
+                    - dialcode_index: 9040972
+                      identifier: L7H1R3
+                      channel: sunbird
+                      batchcode: 844521db-6fbb-4c03-b8aa-2166a005701d
+                      publisher: 19272ed8-6577-413a-9d1c-f170460e9417
+                      generated_on: '2020-12-18T09:42:34.802+0000'
+                      status: Draft
+                      objectType: DialCode
+                  count: 1
         400:
-          description: BAD REQUEST. The "List DIAL code" operation failed ! The possible
-            reason for failure is that you may have missed providing input for a mandatory
-            parameter.
+          description: BAD REQUEST. The "List DIAL code" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/DialcodeErrorResponse'
+              example:
+                id: api.dialcode.list
+                ver: '1.0'
+                ts: '2020-12-18T09:53:06.734Z'
+                params:
+                  resmsgid: d4086ce1-4116-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_REQUEST_FIELDS_CHANNEL_ID_MISSING
+                  errmsg: Required field channel id is missing
+                responseCode: CLIENT_ERROR
+                result: {}
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
             to contact us. In the meantime, try refreshing.
           content: {}
-      security:
-      - bearer: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /list
-          headers:
-            Content-Type: application/json
-            X-Channel-ID: sunbird
-            Authorization: Bearer {{api_key}}
-          body: |-
-            {
-              "request": {
-                "search": {
-                  "publisher": "Sunbird"
-                }
-              }
-            }
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: list dialcode
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
-      x-codegen-request-body-name: Body
+      deprecated: false
+      security: 
+        - bearer: []
+  /dialcode/v1/reserve:
+    post:
+      tags:
+      - DIAL APIs
+      summary: Reserve DIAL code
+      description: 
+        This API is associated with reserve the DIAL codes
+          - The endpoint for **Reserve DIAL code** is `/dialcode/v1/reserve`
+          - It points to knowledge-mw-service - `/v1/dialcode/reserve`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: Reserve Dialcode
+      parameters:
+      - name: X-Channel-ID
+        in: header
+        description: It the Unique Id to identify the root organization to which the user belongs
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: |-
+          The Content Type entity is the media type of the resource. Possible media types can be:
+          - Application/json
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: All User APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the request for updating user notes.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReserveDialcodeRequest'
+            example:
+              request:
+                dialcodes:
+                  count: 2
+        required: true
+      responses:
+        200:
+          description: OK ! Successful operation."Reserve DIAL code" operation was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReserveDialcodeResponse'
+              example:
+                id: api.dialcode.reserve
+                ver: '1.0'
+                ts: '2020-12-18T10:16:46.725Z'
+                params:
+                  resmsgid: 2269db50-411a-11eb-9b0c-abcfbdf41bc3
+                  msgid: 22192340-411a-11eb-9b0c-abcfbdf41bc3
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  count: 2
+                  reservedDialcodes:
+                    P6M8X2: 1
+                    G4R3K3: 0
+                  node_id: do_681
+                  versionKey: '1608286373090'
+        400:
+          description: BAD REQUEST. The "List DIAL code" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter or providing wrong count.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DialcodeErrorResponse'
+              example:
+                id: api.dialcode.reserve
+                ver: '1.0'
+                ts: '2020-12-18T10:21:41.072Z'
+                params:
+                  resmsgid: d1dba500-411a-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_INVALID_COUNT
+                  errmsg: Invalid dialcode count range. Its hould be between 1 to 2500.
+                responseCode: CLIENT_ERROR
+                result: {}
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel free
+            to contact us. In the meantime, try refreshing.
+          content: {}
+      deprecated: false
+      security: 
+        - bearer: []
 components:
   schemas:
     GenerateDialcoderequest:
@@ -1164,7 +1331,6 @@ components:
       title: Dialcodes
       required:
       - count
-      - publisher
       type: object
       properties:
         count:
@@ -1176,10 +1342,11 @@ components:
           type: string
           description: Represents the entity who  who owns the DIAL code
           example: Sunbird
-      example:
-        count: 1
-        publisher: Sunbird
-    CreatePublisherrequest:
+        batchCode:
+          type: string
+          description: Represents a set of dialcode for specific purpose
+          example: batch101
+    CreatePublisherRequest:
       title: Create publisherRequest
       required:
       - request
@@ -1230,10 +1397,6 @@ components:
       properties:
         request:
           $ref: '#/components/schemas/Request7'
-      example:
-        request:
-          dialcode:
-            identifier: Q13PMP
     Request7:
       title: Request7
       required:
@@ -1242,21 +1405,135 @@ components:
       properties:
         dialcode:
           $ref: '#/components/schemas/Dialcode'
-      example:
-        dialcode:
-          identifier: Q13PMP
-    Dialcode:
-      title: Dialcode
-      required:
-      - identifier
+    DialcodeGenerate:
+      title: Dialcode Generate
+      type: object
+      properties:
+        dialcodes:
+          type: array
+          description: List of generated dialcodes
+          items:
+            type: string
+            description: generated dialcode id
+        count:
+          type: number
+          description: Number of generated dialcodes
+        batchcode:
+          type: string
+          description: Batch code against which dialcode is generated
+        publisher:
+          type: string
+          description: Publisher who owns dialcodes
+    DialcodeUpdate:
+      title: Dialcode Update
       type: object
       properties:
         identifier:
           type: string
-          description: Alphanumeric DIAL code generated by platform
-          example: Q13PMP
-      example:
-        identifier: Q13PMP
+          description: Identifier of dialcode
+    DialcodePublish:
+      title: Dialcode Publish
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Identifier of dialcode
+    PublisherUpdate:
+      title: Publisher Update
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Identifier of Publisher
+    DialcodeGet:
+      title: Dialcode Get
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Represents identifier of dialcode
+        channel:
+          type: number
+          description: represents channel under which dialdoe is generated
+        status:
+          type: string
+          description: Status of the dialcode
+        publisher:
+          type: string
+          description: Publisher who owns dialcodes
+        generatedOn:
+          type: string
+          description: Timestamp at which dialcode is generated
+        metadata:
+          type: string
+          description: Additional metadata of dialcode
+    PublisherGet:
+      title: Publisher Get
+      type: object
+      properties:
+        publisher:
+          type: object
+          properties:
+            identifier:
+              type: string
+              description: Represents identifier of dialcode
+            name:
+              type: number
+              description: Name of the publisher
+            channel:
+              type: string
+              description: Channel under which prublisher is created
+            createdOn:
+              type: string
+              description: Timestamp at which publisher is created
+            updatedOn:
+              type: string
+              description: Timestamp at which publisher is updated
+    PublisherCreate:
+      title: Publisher Create
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Identifier of the publisher
+    SearchDialcode:
+      title: Search Dialcode
+      type: object
+      properties:
+        dialcodes:
+          type: array
+          description: list of dialcode with metadata
+          items:
+            type: object
+        count:
+          type: number
+          description: number of dialcode object returned in response 
+    ResponseReserveDialcode:
+      title: Reserve Dialcode Response
+      type: object
+      properties:
+        reservedDialcodes:
+          type: object
+          description: Map of generated dialcode and its sequence
+        count:
+          type: number
+          description: number of dialcode object returned in response
+        node_id:
+          type: string
+          description: Identifier of the contnet against which dialcodes are reserved
+        versionKey:
+          type: string
+          description: Current Version Key of content
+    ProcessStatus:
+      title: Process Status
+      type: object
+      properties:
+        status:
+          type: string
+          description: Process status of the dialcode generation QR code image link
+        url:
+          type: string
+          description: QR code image url link
     UpdateDialcoderequest:
       title: update dialcodeRequest
       required:
@@ -1265,12 +1542,6 @@ components:
       properties:
         request:
           $ref: '#/components/schemas/Request10'
-      example:
-        request:
-          dialcode:
-            publisher: Sunbird
-            tags:
-            - test
     Request10:
       title: Request10
       required:
@@ -1279,33 +1550,17 @@ components:
       properties:
         dialcode:
           $ref: '#/components/schemas/Dialcode11'
-      example:
-        dialcode:
-          publisher: Sunbird
-          tags:
-          - test
     Dialcode11:
       title: Dialcode11
-      required:
-      - publisher
-      - tags
       type: object
       properties:
         publisher:
           type: string
           description: ' Represents the entity who owns the DIAL code.'
           example: Sunbird
-        tags:
-          type: array
-          description: ""
-          example:
-          - test
-          items:
-            type: string
-      example:
-        publisher: Sunbird
-        tags:
-        - test
+        metadata:
+          type: object
+          description: "Additional metadata of dialcode"
     UpdatePublisherrequest:
       title: Update publisherRequest
       required:
@@ -1314,10 +1569,6 @@ components:
       properties:
         request:
           $ref: '#/components/schemas/Request13'
-      example:
-        request:
-          publisher:
-            name: Anuj Kumar Gupta
     Request13:
       title: Request13
       required:
@@ -1326,21 +1577,13 @@ components:
       properties:
         publisher:
           $ref: '#/components/schemas/Publisher14'
-      example:
-        publisher:
-          name: Anuj Kumar Gupta
     Publisher14:
       title: Publisher14
-      required:
-      - name
       type: object
       properties:
         name:
           type: string
           description: Name of Publisher
-          example: Anuj Kumar Gupta
-      example:
-        name: Anuj Kumar Gupta
     PublishDialcoderequest:
       title: Publish dialcodeRequest
       required:
@@ -1362,13 +1605,6 @@ components:
       properties:
         request:
           $ref: '#/components/schemas/Request17'
-      example:
-        request:
-          content:
-            identifier:
-            - ABCDF
-            dialcode:
-            - do_10101010
     Request17:
       title: Request17
       required:
@@ -1377,9 +1613,6 @@ components:
       properties:
         content:
           $ref: '#/components/schemas/Content'
-      example:
-        content:
-          description: Alphanumeric DIAL code generated by platform
     Content:
       title: Content
       required:
@@ -1389,33 +1622,30 @@ components:
       properties:
         identifier:
           type: array
-          description: Alphanumeric DIAL code generated by platform
-          example:
-          - ""
+          description: List of content ids with which dialcode has to be linked
           items:
             type: string
         dialcode:
           type: array
-          description: ""
-          example:
-          - ""
+          description: List of dialcode ids which have to be linked with content
           items:
             type: string
-      example:
-        identifier:
-          description: Alphanumeric DIAL code generated by platform
     SearchDialcoderequest:
-      title: Search dialcodeRequest
+      title: Search Dialcode Request
       required:
       - request
       type: object
       properties:
         request:
           $ref: '#/components/schemas/Request20'
-      example:
+    ReserveDialcodeRequest:
+      title: Reserve Dialcode Request
+      required:
+      - request
+      type: object
+      properties:
         request:
-          search:
-            status: Draft
+          $ref: '#/components/schemas/ReserveDialcode'
     Request20:
       title: Request20
       required:
@@ -1424,66 +1654,155 @@ components:
       properties:
         search:
           $ref: '#/components/schemas/Search'
-      example:
-        search:
-          status: Draft
+    ReserveDialcode:
+      title: Reserve Dialcoe
+      required:
+      - dialcodes
+      type: object
+      properties:
+        dialcodes:
+          $ref: '#/components/schemas/RequestReserveDialcode'
+    RequestReserveDialcode:
+      title: Reserve Dialcode Request
+      required:
+      - count
+      type: object
+      properties:
+        count:
+          type: number
     Search:
       title: Search
-      required:
-      - status
       type: object
       properties:
         status:
           type: string
-          description: ""
-          example: Draft
-      example:
-        status: Draft
-    ListDialcoderequest:
-      title: list dialcodeRequest
-      required:
-      - request
-      type: object
-      properties:
-        request:
-          $ref: '#/components/schemas/Request23'
-      example:
-        request:
-          search:
-            publisher: Sunbird
-    Request23:
-      title: Request23
-      required:
-      - search
-      type: object
-      properties:
-        search:
-          $ref: '#/components/schemas/Search24'
-      example:
-        search:
-          publisher: Sunbird
-    Search24:
-      title: Search24
-      required:
-      - publisher
-      type: object
-      properties:
+          description: "Status of dialcode"
         publisher:
           type: string
-          description: Represents the entity who owns the DIAL code
-          example: Sunbird
-      example:
-        publisher: Sunbird
-    ResultWithNodeId:
-      title: Result Containing Node ID
+          description: "Publisher of dialcode"
+        identifier:
+          type: string
+          description: "Identifier of dialcode"
+    ResultDialcodeGenerate:
+      title: Result containing Dialcode
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/NodeId'
-    ContentCreateResponse:
-      description: Create Content Response
+          $ref: '#/components/schemas/DialcodeGenerate'
+    ResultDialcodeUpdate:
+      title: Result containing Dialcode
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/DialcodeUpdate'
+    ResultDialcodePublish:
+      title: Result containing Dialcode
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/DialcodePublish'
+    ResultPublisherUpdate:
+      title: Result containing Publisher
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PublisherUpdate'
+    ResultDialcodeGet:
+      title: Result containing Dialcode
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/DialcodeGet'
+    ResultPublisherGet:
+      title: Result containing Publisher
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PublisherGet'
+    ResultLinkDialcode:
+      title: Result containing Link Dialcode Response
+      type: object
+      properties:
+        result:
+          type: object
+    ResultSearchDialcode:
+      title: Result containing Search Dialcode Response
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/SearchDialcode'
+    ResultReserveDialcode:
+      title: Result containing Reserve Dialcode Response
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/ResponseReserveDialcode'
+    ResultPublisherCreate:
+      title: Result containing Publisher
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/PublisherCreate'
+    ResultProcessStatus:
+      title: Result Process status
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/ProcessStatus'
+    DialcodeGenerateResponse:
+      description: Generate Dialcode Response
       allOf:
-      - $ref: '#/components/schemas/ResultWithNodeId'
+      - $ref: '#/components/schemas/ResultDialcodeGenerate'
+      - $ref: '#/components/schemas/ResponseHeader'
+    DialcodeUpdateResponse:
+      description: Update Dialcode Response
+      allOf:
+      - $ref: '#/components/schemas/ResultDialcodeUpdate'
+      - $ref: '#/components/schemas/ResponseHeader'
+    DialcodePublishResponse:
+      description: Update Dialcode Response
+      allOf:
+      - $ref: '#/components/schemas/ResultDialcodePublish'
+      - $ref: '#/components/schemas/ResponseHeader'
+    PublisherUpdateResponse:
+      description: Update Publisher Response
+      allOf:
+      - $ref: '#/components/schemas/ResultPublisherUpdate'
+      - $ref: '#/components/schemas/ResponseHeader'
+    PublisherCreateResponse:
+      description: Create Publisher Response
+      allOf:
+      - $ref: '#/components/schemas/ResultPublisherCreate'
+      - $ref: '#/components/schemas/ResponseHeader'
+    ProcessStatusResponse:
+      description: Process status Response
+      allOf:
+      - $ref: '#/components/schemas/ResultProcessStatus'
+      - $ref: '#/components/schemas/ResponseHeader'
+    GetDialcodeResponse:
+      description: Get Dialcode Response
+      allOf:
+      - $ref: '#/components/schemas/ResultDialcodeGet'
+      - $ref: '#/components/schemas/ResponseHeader'
+    GetPublisherResponse:
+      description: Get Publisher Response
+      allOf:
+      - $ref: '#/components/schemas/ResultPublisherGet'
+      - $ref: '#/components/schemas/ResponseHeader'
+    LinkDialcodeResponse:
+      description: Link Dialcode Response
+      allOf:
+      - $ref: '#/components/schemas/ResultLinkDialcode'
+      - $ref: '#/components/schemas/ResponseHeader'
+    SearchDialcodeResponse:
+      description: Search Dialcode Response
+      allOf:
+      - $ref: '#/components/schemas/ResultSearchDialcode'
+      - $ref: '#/components/schemas/ResponseHeader'
+    ReserveDialcodeResponse:
+      description: Reserve Dialcode Response
+      allOf:
+      - $ref: '#/components/schemas/ResultReserveDialcode'
       - $ref: '#/components/schemas/ResponseHeader'
     ResponseHeader:
       title: ResponseHeader
@@ -1501,9 +1820,8 @@ components:
         params:
           $ref: '#/components/schemas/ResponseParams'
         responseCode:
-          type: object
-          properties: {}
-          description: 'API response code '
+          type: string
+          description: 'API response code'
     ResponseParams:
       title: Response Parameter
       type: object
@@ -1531,15 +1849,15 @@ components:
           type: object
           properties: {}
           description: Empty Result
-    NodeId:
-      title: Node Id
+    Dialcode:
+      title: Dialcode
       type: object
       properties:
-        node_id:
+        identifier:
           type: string
           description: Node Identifier
-    ContentCreateErrorResponse:
-      title: Create Content Error Response
+    DialcodeErrorResponse:
+      title: Dialcode Error Response
       allOf:
       - $ref: '#/components/schemas/EmptyResult'
       - $ref: '#/components/schemas/ResponseHeader'
