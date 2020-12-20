@@ -22,7 +22,7 @@
 	{{#each versions}}
 		{{#if this.published}}
 			<option value="{{this.branch}}" >
-				{{this.title}} {{#if this.latest}}(Latest){{/if}}
+				{{this.title}} {{#if this.latest}}(Latest){{/if}} {{#if this.prerelease}}(Pre-Release){{/if}}
 			</option>
 		{{/if}}	
 	{{/each}}
@@ -31,6 +31,12 @@
 <script id="template-widgetLatestVersionNotification" type="text/x-handlebars-template">
 	<div class="VersionNotification">
 		Careful! You are browsing documentation for an older version of Sunbird. Go <a href="/latest/">here</a> to browse the documentation for the latest version
+	</div>
+</script>
+
+<script id="template-widgetPreReleaseVersionNotification" type="text/x-handlebars-template">
+	<div class="VersionNotification">
+		Careful! You are browsing documentation for a pre-release version of Sunbird. Go <a href="/latest/">here</a> to browse the documentation for the latest version
 	</div>
 </script>
 <!-- /Templates-->
@@ -53,8 +59,19 @@ $(function () {
 	var widgetLatestVersionNotificationContainer = $("#template-widgetLatestVersionNotification").html();
 	var widgetLatestVersionNotificationTemplate = Handlebars.compile(widgetLatestVersionNotificationContainer);
 	var widgetLatestVersionNotificationTemplateHtml = widgetLatestVersionNotificationTemplate(widgetsData);
-	$('.widgetLatestVersionNotification').html(widgetLatestVersionNotificationTemplateHtml);
-	
+
+	// Pre-release Version notification
+	var widgetPreReleaseVersionNotificationContainer = $("#template-widgetPreReleaseVersionNotification").html();
+	var widgetPreReleaseVersionNotificationTemplate = Handlebars.compile(widgetPreReleaseVersionNotificationContainer);
+	var widgetPreReleaseVersionNotificationTemplateHtml = widgetPreReleaseVersionNotificationTemplate(widgetsData);
+
+	let url = window.location.pathname.split('/');
+	if ((url[1] == preReleaseVersion[0].branch) || (currentVersion == preReleaseVersion[0].branch)) {
+		console.log(currentVersion, 'currentVersion in the template')
+		$('.widgetLatestVersionNotification').html(widgetPreReleaseVersionNotificationTemplateHtml);
+	} else {
+		$('.widgetLatestVersionNotification').html(widgetLatestVersionNotificationTemplateHtml);
+	}
 });
 </script>
 <script>
@@ -62,7 +79,6 @@ $(".js-latestVersion-title").text(latestVersion[0].title);
 $(".js-latestVersion-releaseDate").text(latestVersion[0].releaseDate);
 $(".js-thisVersion-title").text(currentVersion);
 //$(".js-version-releaseDate").text(currentVersionData[0].releaseDate);
-
 currentUrl = window.location.pathname;
 $('#widgetVersionSwitcher select').val(currentVersion);
 $('#widgetVersionSwitcher select').on('change', function () {
