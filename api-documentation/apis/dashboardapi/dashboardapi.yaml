@@ -1,0 +1,139 @@
+openapi: 3.0.1
+info:
+  title: Course Progress Download API
+  description: 'The Course Progress Download API is used to download the status of
+    the course and assessment as consumed by a user. '
+  version: "1.0"
+servers:
+- url: https://staging.open-sunbird.org/learner/dashboard/v1/progress/course/
+paths:
+  /{batchId}/export:
+    get:
+      tags:
+      - Course Progress and Assessment Download API
+      summary: Download Course and Assessment Report
+      description: "This API is used to download the course and assessment CSV report.\n\
+        \   - **_/{batchId}/export/_** endpoint downloads the report in a csv format.\
+        \  \n   - Required fields cannot be left null or empty    "
+      operationId: ProgressGet
+      parameters:
+      - name: batchId
+        in: path
+        description: '''Unique identifier of the batch to get'''
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource. Possible\
+          \ media types are:- \n  - Application/json"
+        required: true
+        schema:
+          type: string
+      - name: X-Authenticated-User-Token
+        in: header
+        description: The registered user token/key to authenticate user and execute
+          the API.
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: SUCCESS.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAssessmentResponse'
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content: {}
+components:
+  schemas:
+    GetAssessmentResponse:
+      description: Get Assessment Download Response
+      allOf:
+      - $ref: '#/components/schemas/ApiResponse'
+      - $ref: '#/components/schemas/ResultStatus'
+    ResultStatus:
+      type: object
+      properties:
+        duration:
+          type: string
+          description: This represents the time for which the signedUrl would be active
+        reports:
+          type: object
+          properties:
+            assessmentReportUrl:
+              type: string
+              description: Contains the Url for assessment report
+            courseProgressReportUrl:
+              type: string
+              description: Contains the Url for course progress report
+        signedUrl:
+          type: string
+          description: Contains the signed Url for course report
+    EmptyResult:
+      title: Empty Result
+      type: object
+      properties:
+        result:
+          type: object
+          properties: {}
+    ApiResponse:
+      required:
+      - ets
+      - id
+      - params
+      - ver
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents the ID of the request which was made
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          required:
+          - msgid
+          - resmsgid
+          - status
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the ID of the message sent
+            resmsgid:
+              type: string
+              description: Represents the ID of the response message
+            status:
+              type: string
+              enum:
+              - success
+              - error
+        responseCode:
+          type: string
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+    userToken:
+      type: apiKey
+      name: x-authenticated-user-token
+      in: header
