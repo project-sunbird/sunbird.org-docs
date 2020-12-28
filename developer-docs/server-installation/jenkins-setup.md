@@ -16,7 +16,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 
  ```
     - git clone [https://github.com/project-sunbird/sunbird-devops.git](https://github.com/project-sunbird/sunbird-devops.git) 
-    - cd sunbird-devops && git checkout tags/release-3.1.0 -b release-3.1.0
+    - cd sunbird-devops && git checkout tags/release-3.4.0 -b release-3.4.0
     - cd deploy/jenkins
     - sudo bash jenkins-server-setup.sh
 
