@@ -28,9 +28,11 @@ Currently, Sunbird has the following microservice categories. Each microservice 
 
 The **Content and Learning Services** category has the following microservices:
 
-- [**Content Management**](apis/content/){:target="_blank"}: **/textbook/** Provides services to manage content objects and their lifecycle for a defined taxonomy in a learning domain. This service is dependent on the taxonomy microservice as every content piece must be tagged with the appropriate taxonomy.  
-        [Content APIs](apis/content/){:target="_blank"}  
-        [Textbook APIs](apis/tocapi/){:target="_blank"}  
+- **Content Management:**  Provides services to manage content objects and their lifecycle for a defined taxonomy in a learning domain. This service is dependent on the taxonomy microservice as every content piece must be tagged with the appropriate taxonomy.  
+        [Content APIs](apis/content/){:target="_blank"}         
+        [Textbook APIs](apis/tocapi/){:target="_blank"} 
+//add lock and plugin API folders
+        
 
 - [**Usage & Tracking Service**](apis/courseprogressapi/){:target="_blank"}: Provides services for enrolment, usage and progress tracking of trackable learning objects like online courses, [course batches](apis/coursebatchmanapi){:target="_blank"}, quizzes, etc.
 
@@ -38,7 +40,7 @@ The **Content and Learning Services** category has the following microservices:
 
 The **Contribution & Curation Services** category has the following microservices:
 
-- [**Contribution Management:**](apis/programsapi/) This service enables organisations to digitally plan, coordinate and manage crowd sourcing for content contributions.
+- [**Contribution Management:**](apis/programsapi/){:target="_blank"} This service enables organisations to digitally plan, coordinate and manage crowd sourcing for content contributions.
 - [**Contributor Management:**](apis/opensaber/){:target="_blank"} This service enables a registry of individual contributors and contributing organisations that nominate and contribute digital content via sourcing projects.
 
 ## Taxonomy & Tagging Services
@@ -46,14 +48,16 @@ The **Contribution & Curation Services** category has the following microservice
 The **Taxonomy & Tagging Services** category has the following microservices:
 
 - [**Taxonomy Framework Management:**](apis/framework/){:target="_blank"} Provides the ability to create, organise and manage taxonomy frameworks in a learning domain. This microservice is domain independent, i.e. can be used to model the taxonomy of any learning domain, e.g: K-12, Leadership training, Professional training, etc.
-- [**Content Category Management:**](apis/objectapi/) Provides the ability to create and manage categories for content, collections, and question sets.
+- [**Content Category Management:**](apis/objectcategory/){:target="_blank"} Provides the ability to create and manage categories for content, collections, and question sets.  
 
 ## Telemetry & Data, Analytics Services
 
 The **Telemetry & Data, Analytics Services** category has the following microservices:
 
-- [**Telemetry Service:**](apis/data/) Provides services to collect telemetry and ingest the telemetry into the data pipeline for processing.
-- [**Data Service:**]() **apis/data & apis/dataset ** Provides services to manage report jobs and data exhausts.
+- [**Telemetry Service:**](apis/){:target="_blank"} Provides services to collect telemetry and ingest the telemetry into the data pipeline for processing.
+    
+- [**Data Service:**](apis/dataexhaustapi){:target="_blank"} Provides services to manage report jobs and data exhausts.
+
 - [**Reports Service:**](apis/reports/){:target="_blank"} **/data/v1/report-service/report/summary** Provides services to create, review and publish reports to the Sunbird portal using the HawkEye framework.
 
 ## Registry & Discovery Services
@@ -61,9 +65,15 @@ The **Telemetry & Data, Analytics Services** category has the following microser
 The **Registry & Discovery Services** category has the following microservices:
 
 - [**DIAL Service:**](apis/dialapi/){:target="_blank"} Provides services to manage and implement DIAL codes. DIAL is an open source framework to codify and link physical resources (like textbooks) with digital resources in a dynamic and extensible manner, using QR codes.
-- [**Search Service:**](apis/searchapi/) Provides services to search and discover content and knowledge assets.
+- [**Search Service:**](apis/searchapi/){:target="_blank"} Provides services to search and discover content and knowledge assets.
+
 - [**User**](apis/userapi/){:target="_blank"} & [**Org Management:**](apis/orgapi/){:target="_blank"} This service enables a registry of users and organisations on the Sunbird platform. It provides services to manage the lifecycle, administration, and permissions of users and organisations.
-- [**Location Service:**](apis/locationapi/){:target="_blank"} This service enables the registry of [geographic locations](apis/geolocationapi/). It provides services to create and manage locations for each organisation.
+        
+        [User bulk upload](apis/bulkupload)
+        [Organisation Location](apis/geolocationapi/){:target="_blank"}  
+
+- [**Location Service:**](apis/locationapi/){:target="_blank"} This service enables the registry of geographic locations. It provides services to create and manage locations for each organisation.
+
 - [**Device Management:**](apis/deviceapi/){:target="_blank"} This service enables the registry of devices accessing the sunbird platform. The device profile and location of device is stored in the device registry.
 
 
@@ -73,19 +83,23 @@ The **Interaction & Collaboration Services** category has the following microser
 
 - [**Notifications Service:**](apis/notificationapi/){:target="_blank"} **/user/v1/notification/email** & **/data/v1/notification/send** Provides services to send user notifications using multiple channels such as email, SMS, and in-app.
 - [**Groups Service:**](apis/groupapi/){:target="_blank"} Provides services to create and managing groups of registered users, assign activities to group members and track assigned activities.
+- [**Discussion Forum:**](apis/discussionForum){:target="_blank"} 
+- [**Chatbot Service:**](apis/chatbotapi){:target="_blank"} 
 
 
 ## Practice, Sensing & Assessment Services
 
 The **Practice, Sensing & Assessment Services** category has the following microservice:
 
-- [**Assessment Service:**](apis/itemsetapi/){:target="_blank"} Provides services to create and manage questions and question sets that are useful to assess proficiency of learners.  
+- [**Assessment Service:**](apis/assessmentapi/){:target="_blank"} Provides services to create and manage questions and question sets that are useful to assess proficiency of learners.  
+
+- [**Assessment Management Service:**](apis/itemsetapi){:target="_blank"} (Under development) Provides services to create and manage questions and question sets that are useful to assess proficiency of learners.  
 
 ## Credentialing & Badging Services
 
 The **Credentialing & Badging Services** category has the following microservice:  
 
-- [**Credentialing Service:**]() **/certreg/v2/certs/download & /cert/v1/certs/generate** Provides services to issue digital certificates as per incredible specifications. It also enables storage and verification of digitally issued certificates.
+- [**Credentialing Service:**](){:target="_blank"} **/certreg/v2/certs/download & /cert/v1/certs/generate** Provides services to issue digital certificates as per incredible specifications. It also enables storage and verification of digitally issued certificates.
     [Certificate generation](apis/certificate/){:target="_blank"} 
     [Certificate registry](apis/certificateregistry/){:target="_blank"}
     [Certificate template](apis/certificatetemplateapi/){:target="_blank"}
