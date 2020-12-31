@@ -55,7 +55,7 @@ Ensure that all Artifacts are uploaded
 
 | Operation Name | Function | Description | CURRENT RELEASE TAG |
 |--------------------|-----------|---------| ------------------- |
-| (Deploy) ApplicationES ( Kubernetes folder) |  Provisions Elasticsearch 6.2.3 version used by core services | From the Deploy Folder, **Deploy ApplicationES** provisions for the Elasticsearch and creates indices necessary for Sunbird Core| release-3.4.0
+| (Deploy) ApplicationES( Kubernetes folder) | Provisions Elasticsearch 6.2.3 version used by core services | From the Deploy Folder, **Deploy ApplicationES** provisions for the Elasticsearch and creates indices necessary for Sunbird Core| release-3.4.0
 | ESMapping (Under OpsAdministarion. Provide the value as *all* for job parameter indices_name) | Creates Elasticsearch indexes | Creates the specific index with its mapping or all indices which will be used by our sunbird app | release-3.4.0
 | Postgres | Provisions for Postgres | Provisions the Postgres instance | release-3.4.0
 | PostgresDbUpdate | Creates the databases, assigns roles and creates users | Creates a schema with DB's, Tables | release-3.4.0 **Perform Kong migration once db update is done, steps are mentioned in the kong migration section**
