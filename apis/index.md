@@ -91,9 +91,9 @@ The **Interaction & Collaboration Services** category has the following microser
 
 - [**Groups Service:**](apis/groupapi/){:target="_blank"} Provides services to create and managing groups of registered users, [assign activities](apis/groupactivityapi/) to group members and track assigned activities.
 
-- [**Discussion Forum:**](apis/discussionForum){:target="_blank"} allows the user to participate in multiple discussion .in different categories, post the questions and reply or upvote or downvote a post
+- [**Discussion Forum:**](apis/discussionForum/){:target="_blank"} allows the user to participate in multiple discussion .in different categories, post the questions and reply or upvote or downvote a post
 
-- [**Chatbot Service:**](apis/chatbotapi){:target="_blank"} provides a chatbot assistance for user interaction
+- [**Chatbot Service:**](apis/chatbotapi/){:target="_blank"} provides a chatbot assistance for user interaction
 
 
 ## Practice, Sensing & Assessment Services
@@ -102,31 +102,31 @@ The **Practice, Sensing & Assessment Services** category has the following micro
 
 - [**Assessment Service:**](apis/assessmentapi/){:target="_blank"} Provides services to create and manage questions and question sets that are useful to assess proficiency of learners.  
 
-- [**Assessment Management Service:**](apis/itemsetapi){:target="_blank"} (Under development) Provides services to create and manage questions and question sets that are useful to assess proficiency of learners.  
+<!--- - [**Assessment Management Service:**](apis/itemsetapi/){:target="_blank"} (Under development) Provides services to create and manage questions and question sets that are useful to assess proficiency of learners.  -->
 
 ## Credentialing & Badging Services
 
 The **Credentialing & Badging Services** category has the following microservice:  
 
-- [**Credentialing Service:**](){:target="_blank"} **/certreg/v2/certs/download & /cert/v1/certs/generate** Provides services to issue digital certificates as per incredible specifications. It also enables storage and verification of digitally issued certificates.
-    [Certificate generation](apis/certificate/){:target="_blank"} 
-    [Certificate registry](apis/certificateregistry/){:target="_blank"}
-    [Certificate template](apis/certificatetemplateapi/){:target="_blank"}
+- **Credentialing Service:** <!---**/certreg/v2/certs/download & /cert/v1/certs/generate**--> Provides services to issue digital certificates as per incredible specifications. It also enables storage and verification of digitally issued certificates.
+    [Certificate generation](apis/certificate/){:target="_blank"}   
+    [Certificate registry](apis/certificateregistry/){:target="_blank"}  
+    [Certificate template](apis/certificatetemplateapi/){:target="_blank"}  
 
 ## Infra & Shared Services
 
 The **Infra & Shared Services** category has the following microservices:
     
 - [**Configuration Management:**] <!---**/data/v1/role/read & /desktop/v1/update**--> Provides services to manage configurations like system settings, and UI forms.
-        [Form APIs](apis/form){:target="_blank"}
-        [Page APIs](apis/pagesapi){:target="_blank"}
-        [System settings APIs](apis/systemsettingsapi){:target="_blank"}
-        [Desktop app update](apis/desktop/app-update){:target="_blank"}
+        [Form APIs](apis/form/){:target="_blank"}
+        [Page APIs](apis/pagesapi/){:target="_blank"}
+        [System settings APIs](apis/systemsettingsapi/){:target="_blank"}
+        [Desktop app update](apis/desktop/app-update/){:target="_blank"}
 
-- **API Management:** Provides services to create, manage and validate API tokens, to register mobile and desktop apps, and to issue and refresh API tokens of registered mobile and desktop app devices.
-        [Echo API](apis/echoapi){:target="_blank"}  
-        [Kong register](apis/kongcredentialregisterapiv1){:target="_blank"}  
-        [Kong register](apis/kongcredentialregisterapiv2){:target="_blank"}  
+- **API Management:** Provides services to create, manage and validate API tokens, to register mobile and desktop apps, and to issue and refresh API tokens of registered mobile and desktop app devices.  
+        [Echo API](apis/echoapi/){:target="_blank"}  
+        [Kong register version 1](apis/kongcredentialregisterapiv1/){:target="_blank"}  
+        [Kong register version 2](apis/kongcredentialregisterapiv2/){:target="_blank"}  
         [Refresh API tokens](apis/refreshtokenapi){:target="_blank"}  
 
 - [**Logging Service:**](apis/clientlogapi){:target="_blank"} <!---**/data/v1/client/logs**--> Provides services to [client applications](apis/clientlogapi){:target="_blank"} like mobile and [desktop apps](apis/desktop/){:target="_blank"} to save [error logs](apis/clientlogapi){:target="_blank"} on the server.
