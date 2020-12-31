@@ -8,36 +8,23 @@ allowSearch: true
 
 ## Overview
 
-After lms client is created in keycloak, use the lms client and secret to generate a keycloak token for a user
+After Lms client is created in keycloak, use the Lms client and secret to generate a keycloak token for a user.
  
 
 ## Steps to create Adminutil refresh token
 
-1.After lms client is created in keycloak, use the lms client and secret to generate user access token. 
+1.After LMS client is created in keycloak, use the LMS client and secret to generate user access token.
 
 ```
-   if public nginx is deplyed and mapped Domain name for the public ip, use the domain  name in curl command:
-   
    curl --location --request POST 'https://<domain name>/auth/realms/sunbird/protocol/openid-connect/token' \
    --header 'Content-Type: application/x-www-form-urlencoded' \
    --data-urlencode 'client_id=lms' \
    --data-urlencode 'client_secret=<LMS CLIENT SECRET>' \
    --data-urlencode 'grant_type=client_credentials'
 
-   else use the keycloak ip:
-
-   curl --location --request POST 'http://<keycloak ip>:8080/auth/realms/sunbird/protocol/openid-connect/token' \
-   --header 'Content-Type: application/x-www-form-urlencoded' \
-   --header 'x-forwarded-scheme: https' \
-   --header 'x-forwarded-proto: https' \
-   --header 'HOST: <DOMAIN NAME>' \
-   --data-urlencode 'client_id=lms' \
-   --data-urlencode 'grant_type=client_credentials' \
-   --data-urlencode 'client_secret=<LMS CLIENT SECRET>'
-
 ```
 
-2.copy the access_token from the above command output.
+2.Copy the access_token from the above command output.
 
 ```
    Go to jwt.io website.
