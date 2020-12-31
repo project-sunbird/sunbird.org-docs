@@ -191,4 +191,4 @@ Migration Completed at ==1571996508540`
 
 2.Replace the host to http://localhost:9000 while running
 
-3.Run other defintion scripts from taxonomy service [definition-scripts](https://github.com/project-sunbird/knowledge-platform/tree/release-3.4.0/definition-scripts) Since master_category_create is alredy ran do not run again.
+3.Run other defintion scripts from taxonomy service [definition-scripts](https://github.com/project-sunbird/knowledge-platform/tree/release-3.4.0/definition-scripts) Since master_category_create is already ran do not run again.
