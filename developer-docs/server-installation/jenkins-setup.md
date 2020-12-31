@@ -99,9 +99,9 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 
 23.Choose the **Markup Formatter** as **Safe HTML** and Under **Copy Artifact Compatibility mode**  choose **Migration**
 
-24.Go to **Manage Jenkins** -> **Manager Nodes** -> Click **master** -> Click **Configure** -> Provide **labels**. Provide the label as `build-slave`, `jenkin-slave11`
+24.Go to **Manage Jenkins** -> **Manager Nodes** -> Click **master** -> Click **Configure** -> Provide **labels**. Provide the label as `build-slave jenkin-slave11`
 
-25.Set the number of executors. For example, if your system configuration is: RAM - 16 GB and CPU - 4 core, set the number as 15. Adjust this number based on your system configuration 
+25.Set the number of executors. The executors must be equal to number of cores. 
 
 26.Restart Jenkins using the command `sudo service jenkins restart` 
 
