@@ -16,7 +16,7 @@ A microservice is defined as 'a **logical unit** of software functionality expos
 To explain the parts of the microservice definition:  
 - A **logical unit** of work is that which generates value for a user. E.g. The *Content Management* microservice is responsible for the lifecycle of content, collections, and assets on the platform.  
 
-- An **Application Programming Interface (API)** is a computing tool (web service, UI component, etc.) that implements a set of rules. E.g.*Create Content* is an API within the Content Management microservice. The APIs are enhanced as required with each release and hence there are versions of the API. Sunbird APIs are:  
+- An **Application Programming Interface (API)** is a computing tool (web service, UI component) that implements a set of rules. E.g.*Create Content* is an API within the Content Management microservice. The APIs are enhanced as required with each release and hence there are versions of the API. Sunbird APIs are:  
     - REST based (JSON over HTTPS)  
     - Stateless  
     - Versioned  
@@ -35,7 +35,7 @@ The **Content and Learning Services** category has the following microservices:
 <!--- add lock and plugin API folders and here --> 
         
 
-- [**Usage & Tracking Service**](apis/courseprogressapi/){:target="_blank"}: Provides services for [enrolment](apis/courseenrolmentapi/){:target="_blank"}, usage and progress tracking of trackable learning objects like online courses, [course batches](apis/coursebatchmanapi/){:target="_blank"}, quizzes, [batch certificates](apis/coursebatchcertificateapi/){:target="_blank"} etc.
+- [**Usage & Tracking Service**](apis/courseprogressapi/){:target="_blank"}: Provides services for [enrolment](apis/courseenrolmentapi/){:target="_blank"}, usage and progress tracking of trackable learning objects like online courses, [course batches](apis/coursebatchmanapi/){:target="_blank"}, quizzes, [batch certificates](apis/coursebatchcertificateapi/){:target="_blank"}.
 
 ## Contribution & Curation Services
 
@@ -48,7 +48,7 @@ The **Contribution & Curation Services** category has the following microservice
 
 The **Taxonomy & Tagging Services** category has the following microservices:
 
-- [**Taxonomy Framework Management:**](apis/framework/){:target="_blank"} Provides the ability to create, organise and manage taxonomy frameworks in a learning domain using Sunbird platform APIs ([license APIs](apis/license/){:target="_blank"}). This microservice is domain independent, i.e. can be used to model the taxonomy of any learning domain, e.g: K-12, Leadership training, Professional training, etc.  
+- [**Taxonomy Framework Management:**](apis/framework/){:target="_blank"} Provides the ability to create, organise and manage taxonomy frameworks in a learning domain using Sunbird platform APIs ([license APIs](apis/license/){:target="_blank"}). This microservice is domain independent, i.e. can be used to model the taxonomy of any learning domain, e.g: K-12, Leadership training, Professional training.  
 
 - [**Content Category Management:**](apis/objectcategory/){:target="_blank"} Provides the ability to create and manage categories for content, collections, and question sets.  
 
@@ -60,7 +60,7 @@ The **Telemetry & Data, Analytics Services** category has the following microser
     
 - [**Data Service:**](apis/dataexhaustapi){:target="_blank"} Provides services to [manage report](apis/druidreportapi){:target="_blank"} jobs and data exhausts.
 
-- [**Reports Service:**](apis/reports/){:target="_blank"} **/data/v1/report-service/report/summary** Provides services to create, review and publish reports to the Sunbird portal using the HawkEye framework.
+- [**Reports Service:**](apis/reports/){:target="_blank"} Provides services to create, review and publish reports to the Sunbird portal using the HawkEye framework.
 
 ## Registry & Discovery Services
 
@@ -69,7 +69,7 @@ The **Registry & Discovery Services** category has the following microservices:
 - [**DIAL Service:**](apis/dialapi/){:target="_blank"} Provides services to manage and implement DIAL codes. DIAL is an open source framework to codify and link physical resources (like textbooks) with digital resources in a dynamic and extensible manner, using QR codes.
 - [**Search Service:**](apis/searchapi/){:target="_blank"} Provides services to search and discover content and knowledge assets.
 
-- [**User APIs:**](apis/userapi/){:target="_blank"} This service enables a registry of users on the Sunbird platform. It provides services to manage the lifecycle, administration, and permissions of users.
+- [**User APIs:**](apis/userapi/){:target="_blank"} This service enables a registry of users on the Sunbird platform. It provides services to manage the lifecycle, administration, and permissions of users.  
         [User bulk upload](apis/bulkupload){:target="_blank"}  
         [User roles](apis/userapi/#operation/Assign_User_Role){:target="_blank"}  
         [Manage user alerts](apis/feedapi){:target="_blank"}  
@@ -108,7 +108,7 @@ The **Practice, Sensing & Assessment Services** category has the following micro
 
 The **Credentialing & Badging Services** category has the following microservice:  
 
-- **Credentialing Service:** <!---**/certreg/v2/certs/download & /cert/v1/certs/generate**--> Provides services to issue digital certificates as per incredible specifications. It also enables storage and verification of digitally issued certificates.
+- **Credentialing Service:** <!---**/certreg/v2/certs/download & /cert/v1/certs/generate**--> Provides services to issue digital certificates as per incredible specifications. It also enables storage and verification of digitally issued certificates.  
     [Certificate generation](apis/certificate/){:target="_blank"}   
     [Certificate registry](apis/certificateregistry/){:target="_blank"}  
     [Certificate template](apis/certificatetemplateapi/){:target="_blank"}  
@@ -117,11 +117,11 @@ The **Credentialing & Badging Services** category has the following microservice
 
 The **Infra & Shared Services** category has the following microservices:
     
-- [**Configuration Management:**] <!---**/data/v1/role/read & /desktop/v1/update**--> Provides services to manage configurations like system settings, and UI forms.
-        [Form APIs](apis/form/){:target="_blank"}
-        [Page APIs](apis/pagesapi/){:target="_blank"}
-        [System settings APIs](apis/systemsettingsapi/){:target="_blank"}
-        [Desktop app update](apis/desktop/app-update/){:target="_blank"}
+- **Configuration Management:** <!---**/data/v1/role/read & /desktop/v1/update**--> Provides services to manage configurations like system settings, and UI forms.  
+        [Form APIs](apis/form/){:target="_blank"}  
+        [Page APIs](apis/pagesapi/){:target="_blank"}  
+        [System settings APIs](apis/systemsettingsapi/){:target="_blank"}  
+        [Desktop app update](apis/desktop/app-update/){:target="_blank"}  
 
 - **API Management:** Provides services to create, manage and validate API tokens, to register mobile and desktop apps, and to issue and refresh API tokens of registered mobile and desktop app devices.  
         [Echo API](apis/echoapi/){:target="_blank"}  
