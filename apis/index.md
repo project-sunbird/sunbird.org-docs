@@ -108,7 +108,7 @@ The **Practice, Sensing & Assessment Services** category has the following micro
 
 The **Credentialing & Badging Services** category has the following microservice:  
 
-- **Credentialing Service:** <!---**/certreg/v2/certs/download & /cert/v1/certs/generate**--> Provides services to issue digital certificates as per incredible specifications. It also enables storage and verification of digitally issued certificates.
+- **Credentialing Service:** <!---**/certreg/v2/certs/download & /cert/v1/certs/generate**--> Provides services to issue digital certificates as per incredible specifications. It also enables storage and verification of digitally issued certificates.  
     [Certificate generation](apis/certificate/){:target="_blank"}   
     [Certificate registry](apis/certificateregistry/){:target="_blank"}  
     [Certificate template](apis/certificatetemplateapi/){:target="_blank"}  
@@ -117,11 +117,11 @@ The **Credentialing & Badging Services** category has the following microservice
 
 The **Infra & Shared Services** category has the following microservices:
     
-- [**Configuration Management:**] <!---**/data/v1/role/read & /desktop/v1/update**--> Provides services to manage configurations like system settings, and UI forms.
-        [Form APIs](apis/form/){:target="_blank"}
-        [Page APIs](apis/pagesapi/){:target="_blank"}
-        [System settings APIs](apis/systemsettingsapi/){:target="_blank"}
-        [Desktop app update](apis/desktop/app-update/){:target="_blank"}
+- [**Configuration Management:**] <!---**/data/v1/role/read & /desktop/v1/update**--> Provides services to manage configurations like system settings, and UI forms.  
+        [Form APIs](apis/form/){:target="_blank"}  
+        [Page APIs](apis/pagesapi/){:target="_blank"}  
+        [System settings APIs](apis/systemsettingsapi/){:target="_blank"}  
+        [Desktop app update](apis/desktop/app-update/){:target="_blank"}  
 
 - **API Management:** Provides services to create, manage and validate API tokens, to register mobile and desktop apps, and to issue and refresh API tokens of registered mobile and desktop app devices.  
         [Echo API](apis/echoapi/){:target="_blank"}  
