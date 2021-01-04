@@ -1,0 +1,700 @@
+openapi: 3.0.0
+info:
+  title: Bulk_Approve
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  description: These api's are all about the bulk approval of the contents which includes scenarios like create, update, read and search operations in that.
+
+  contact: 
+   email: info@sunbird.org
+  version: '1.0'
+servers:
+- url: https://dock.sunbirded.org/content
+  variables: {}
+externalDocs:
+ description: "Testcases"
+ url: "https://www.getpostman.com/collections/f411ad92af3fe867a8cb"
+paths:
+  /program/v1/process/create:
+    post:
+      tags:
+      - Success
+      summary: Success-200
+      operationId: Success-200
+      description: |-
+        This API creates the bulk job of the content.
+           - The **_process/create_** endpoint creates the bulk job approve for contents.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
+           - Backend Route: http://program-service:6000/program/v1/process/create
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: X-Device-ID
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: 452622eb87b3e266af1a17b7afbca91d
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRequest'
+            example:
+              request:
+                process_id: 98c5d59a-5e8d-41ec-99d4-9cad8fef5ee4
+                program_id: d3183400-f729-11ea-a660-c91ae7e44037
+                collection_id: do_113108485878816768110286
+                org_id: 01307938306521497658
+                type: bulk_approval
+                status: processing
+                overall_stats:
+                  approve_success: 0
+                  approve_failed: 0
+                  approve_pending: 7
+                  total: 7
+                createdby: bf020396-0d7b-436f-ae9f-869c6780fc45
+                createdon: 2020-12-04T11:37:03.13Z
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+  /program/v1/process/update:
+    patch:
+      tags:
+      - Success
+      summary: success-200
+      operationId: success-200
+      description: |-
+        This API updates the bulk job approve of the content.
+           - The **_process/update** endpoint updates the bulk job approve of the content.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
+           - Backend Route: http://program-service:6000/program/v1/process/create      
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateRequest'
+            example:
+              request:
+                process_id: 16264756-c71c-4061-a99c-bfab0556d047
+                status: processing
+                overall_stats:
+                  approve_success: 44
+                  approve_failed: 0
+                  approve_pending: -40
+                  total: 4
+                updatedby: bf020396-0d7b-436f-ae9f-869c6780fc45
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+  /program/v1/process/read/98c5d59a-5e8d-41ec-99d4-9cad8fef5ee2:
+    get:
+      tags:
+      - Success
+      summary: Success-200
+      operationId: GetSuccess-200
+      description: |-
+        This API reads the bulk job approve of the content.
+           - The **_process/read_** endpoint read the bulk job approve of the content.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
+           - Backend Route: http://program-service:6000/program/v1/process/read       
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Sec-Fetch-Site
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: same-origin
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en-US;q=0.9,en;q=0.8
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+  /program/v1/process/search:
+    post:
+      tags:
+      - Success
+      summary: Success-200
+      operationId: PostSuccess-200
+      description: |-
+        This API search the bulk job approve of the content.
+           - The **_process/search_** endpoint search the bulk job approve of the content.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
+           - Backend Route: http://program-service:6000/program/v1/process/search         
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en-US;q=0.9,en;q=0.8
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+            example:
+              request:
+                filters:
+                  program_id: 4d1bece0-fbf0-11ea-8789-cf2d70041403
+                  collection_id: do_113112787166773248110944
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+  /program/v1/process/read/98c5d59a-5e8d-41ec-99d4-9cad8fef5ee:
+    get:
+      tags:
+      - Error
+      summary: Error-404
+      operationId: GetError-404
+      description: |-
+        This API read the bulk job approve of the content.
+           - The **_process/read_** endpoint read the bulk job approve of the content.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
+           - Backend Route: http://program-service:6000/program/v1/process/read      
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      - name: Origin
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: https://dock.sunbirded.org
+      - name: Accept-Language
+        in: header
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: en-GB,en-US;q=0.9,en;q=0.8
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    CreateRequest:
+      title: Success-200-Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/CreateRequestBody'
+      example:
+        request:
+          process_id: 98c5d59a-5e8d-41ec-99d4-9cad8fef5ee4
+          program_id: d3183400-f729-11ea-a660-c91ae7e44037
+          collection_id: do_113108485878816768110286
+          org_id: 01307938306521497658
+          type: bulk_approval
+          status: processing
+          overall_stats:
+            approve_success: 0
+            approve_failed: 0
+            approve_pending: 7
+            total: 7
+          createdby: bf020396-0d7b-436f-ae9f-869c6780fc45
+          createdon: 2020-12-04T11:37:03.13Z
+    CreateRequestBody:
+      title: Create Request Body
+      required:
+      - process_id
+      - program_id
+      - collection_id
+      - org_id
+      - type
+      - status
+      - overall_stats
+      - createdby
+      - createdon
+      type: object
+      properties:
+        process_id:
+          type: string
+        program_id:
+          type: string
+        collection_id:
+          type: string
+        org_id:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        overall_stats:
+          $ref: '#/components/schemas/OverallStats'
+        createdby:
+          type: string
+        createdon:
+          type: string
+      example:
+        process_id: 98c5d59a-5e8d-41ec-99d4-9cad8fef5ee4
+        program_id: d3183400-f729-11ea-a660-c91ae7e44037
+        collection_id: do_113108485878816768110286
+        org_id: 01307938306521497658
+        type: bulk_approval
+        status: processing
+        overall_stats:
+          approve_success: 0
+          approve_failed: 0
+          approve_pending: 7
+          total: 7
+        createdby: bf020396-0d7b-436f-ae9f-869c6780fc45
+        createdon: 2020-12-04T11:37:03.13Z
+    OverallStats:
+      title: OverallStats
+      required:
+      - approve_success
+      - approve_failed
+      - approve_pending
+      - total
+      type: object
+      properties:
+        approve_success:
+          type: integer
+          format: int32
+        approve_failed:
+          type: integer
+          format: int32
+        approve_pending:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+      example:
+        approve_success: 0
+        approve_failed: 0
+        approve_pending: 7
+        total: 7
+    CreateRequestBody-Error-500-Request:
+      title: CreateRequestBody-Error-500-Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/CreateRequestBody'
+      example:
+        request:
+          process_id: 16264756-c71c-4061-a99c-bfab0556d047
+          program_id: 47fa5b80-fca3-11ea-bd95-45e87e333d53
+          collection_id: do_113113416823963648111044
+          org_id: 01307938306521497658
+          type: bulk_approval
+          status: processing
+          overall_stats:
+            approve_success: 0
+            approve_failed: 0
+            approve_pending: 4
+            total: 4
+          createdby: bf020396-0d7b-436f-ae9f-869c6780fc45
+          createdon: 2020-12-04T10:30:35.357Z
+    CreateRequestBody-Error-400-Request:
+      title: CreateRequestBody Error-400-Request
+      required:
+      - requests
+      type: object
+      properties:
+        requests:
+          $ref: '#/components/schemas/Requests'
+      example:
+        requests:
+          process_id: 16264756-c71c-4061-a99c-bfab0556d047
+          program_id: 47fa5b80-fca3-11ea-bd95-45e87e333d53
+          collection_id: do_113113416823963648111044
+          org_id: 01307938306521497658
+          type: bulk_approval
+          status: processing
+          overall_stats:
+            approve_success: 0
+            approve_failed: 0
+            approve_pending: 4
+            total: 4
+          createdby: bf020396-0d7b-436f-ae9f-869c6780fc45
+          createdon: 2020-12-04T10:30:35.357Z
+    Requests:
+      title: Requests
+      required:
+      - process_id
+      - program_id
+      - collection_id
+      - org_id
+      - type
+      - status
+      - overall_stats
+      - createdby
+      - createdon
+      type: object
+      properties:
+        process_id:
+          type: string
+        program_id:
+          type: string
+        collection_id:
+          type: string
+        org_id:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        overall_stats:
+          $ref: '#/components/schemas/OverallStats'
+        createdby:
+          type: string
+        createdon:
+          type: string
+      example:
+        process_id: 16264756-c71c-4061-a99c-bfab0556d047
+        program_id: 47fa5b80-fca3-11ea-bd95-45e87e333d53
+        collection_id: do_113113416823963648111044
+        org_id: 01307938306521497658
+        type: bulk_approval
+        status: processing
+        overall_stats:
+          approve_success: 0
+          approve_failed: 0
+          approve_pending: 4
+          total: 4
+        createdby: bf020396-0d7b-436f-ae9f-869c6780fc45
+        createdon: 2020-12-04T10:30:35.357Z
+    updateRequest:
+      title: update Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/updateRequestBody'
+      example:
+        request:
+          process_id: 16264756-c71c-4061-a99c-bfab0556d047
+          status: processing
+          overall_stats:
+            approve_success: 44
+            approve_failed: 0
+            approve_pending: -40
+            total: 4
+          updatedby: bf020396-0d7b-436f-ae9f-869c6780fc45
+    updateRequestBody:
+      title: update Request Body
+      required:
+      - process_id
+      - status
+      - overall_stats
+      - updatedby
+      type: object
+      properties:
+        process_id:
+          type: string
+        status:
+          type: string
+        overall_stats:
+          $ref: '#/components/schemas/OverallStats'
+        updatedby:
+          type: string
+      example:
+        process_id: 16264756-c71c-4061-a99c-bfab0556d047
+        status: processing
+        overall_stats:
+          approve_success: 44
+          approve_failed: 0
+          approve_pending: -40
+          total: 4
+        updatedby: bf020396-0d7b-436f-ae9f-869c6780fc45
+    Update-Error-404-Request:
+      title: Update-Error-404-Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/updateRequestBody'
+      example:
+        request:
+          process_id: 16264756-c71c-4061-a99c-bfab0556d47
+          status: processing
+          overall_stats:
+            approve_success: 44
+            approve_failed: 0
+            approve_pending: -40
+            total: 4
+          updatedby: bf020396-0d7b-436f-ae9f-869c6780fc45
+    Update-Error-400-Request:
+      title: Update Error-400-Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/updateRequest-400'
+      example:
+        request:
+          process: 16264756-c71c-4061-a99c-bfab0556d47
+          status: processing
+          overall_stats:
+            approve_success: 44
+            approve_failed: 0
+            approve_pending: -40
+            total: 4
+          updatedby: bf020396-0d7b-436f-ae9f-869c6780fc45
+    updateRequest-400:
+      title: update Request for 400 error
+      required:
+      - process
+      - status
+      - overall_stats
+      - updatedby
+      type: object
+      properties:
+        process:
+          type: string
+        status:
+          type: string
+        overall_stats:
+          $ref: '#/components/schemas/OverallStats'
+        updatedby:
+          type: string
+      example:
+        process: 16264756-c71c-4061-a99c-bfab0556d47
+        status: processing
+        overall_stats:
+          approve_success: 44
+          approve_failed: 0
+          approve_pending: -40
+          total: 4
+        updatedby: bf020396-0d7b-436f-ae9f-869c6780fc45
+    SearchRequest:
+      title: Search Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/SearchRequestBody'
+      example:
+        request:
+          filters:
+            program_id: 4d1bece0-fbf0-11ea-8789-cf2d70041403
+            collection_id: do_113112787166773248110944
+    SearchRequestBody:
+      title: Search Request Body
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          $ref: '#/components/schemas/Filters'
+      example:
+        filters:
+          program_id: 4d1bece0-fbf0-11ea-8789-cf2d70041403
+          collection_id: do_113112787166773248110944
+    Filters:
+      title: Filters
+      required:
+      - program_id
+      - collection_id
+      type: object
+      properties:
+        program_id:
+          type: string
+        collection_id:
+          type: string
+      example:
+        program_id: 4d1bece0-fbf0-11ea-8789-cf2d70041403
+        collection_id: do_113112787166773248110944
+    Search-Error-400-Request:
+      title: Search Error-400-Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/SearchRequest400'
+      example:
+        request:
+          filter:
+            program_id: 4d1bece0-fbf0-11ea-8789-cf2d70041403
+            collection_id: do_113112787166773248110944
+    SearchRequest400:
+      title: Search Request for error 400
+      required:
+      - filter
+      type: object
+      properties:
+        filter:
+          $ref: '#/components/schemas/Filter'
+      example:
+        filter:
+          program_id: 4d1bece0-fbf0-11ea-8789-cf2d70041403
+          collection_id: do_113112787166773248110944
+    Filter:
+      title: Filter
+      required:
+      - program_id
+      - collection_id
+      type: object
+      properties:
+        program_id:
+          type: string
+        collection_id:
+          type: string
+      example:
+        program_id: 4d1bece0-fbf0-11ea-8789-cf2d70041403
+        collection_id: do_113112787166773248110944
+    Search-Error-500-Request1:
+      title: Search Error-500-Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/SearchRequestError500'
+      example:
+        request:
+          filters:
+            program_id: 4d1bece0-fbf0-11ea-8789-cf2d7004603
+            collection: do_11311278166773248110944
+    SearchRequestError500:
+      title: Search Request Error 500
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          $ref: '#/components/schemas/Filters1'
+      example:
+        filters:
+          program_id: 4d1bece0-fbf0-11ea-8789-cf2d7004603
+          collection: do_11311278166773248110944
+    Filters1:
+      title: Filters1
+      required:
+      - program_id
+      - collection
+      type: object
+      properties:
+        program_id:
+          type: string
+        collection:
+          type: string
+      example:
+        program_id: 4d1bece0-fbf0-11ea-8789-cf2d7004603
+        collection: do_11311278166773248110944
+tags:
+- name: Success
+- name: Error
