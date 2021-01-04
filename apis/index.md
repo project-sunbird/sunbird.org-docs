@@ -69,7 +69,7 @@ The **Registry & Discovery Services** category has the following microservices:
 - [**DIAL Service:**](apis/dialapi/){:target="_blank"} Provides services to manage and implement DIAL codes. DIAL is an open source framework to codify and link physical resources (like textbooks) with digital resources in a dynamic and extensible manner, using QR codes.
 - [**Search Service:**](apis/searchapi/){:target="_blank"} Provides services to search and discover content and knowledge assets.
 
-- [**User APIs:**](apis/userapi/){:target="_blank"} This service enables a registry of users on the Sunbird platform. It provides services to manage the lifecycle, administration, and permissions of users.
+- [**User APIs:**](apis/userapi/){:target="_blank"} This service enables a registry of users on the Sunbird platform. It provides services to manage the lifecycle, administration, and permissions of users.  
         [User bulk upload](apis/bulkupload){:target="_blank"}  
         [User roles](apis/userapi/#operation/Assign_User_Role){:target="_blank"}  
         [Manage user alerts](apis/feedapi){:target="_blank"}  
