@@ -128,6 +128,7 @@ The **Infra & Shared Services** category has the following microservices:
         [Kong register version 1](apis/kongcredentialregisterapiv1/){:target="_blank"}  
         [Kong register version 2](apis/kongcredentialregisterapiv2/){:target="_blank"}  
         [Refresh API tokens](apis/refreshtokenapi){:target="_blank"}  
+        [Desktop register API](apis/desktop/device-registry/){:target="_blank"}  
 
 - [**Logging Service:**](apis/clientlogapi){:target="_blank"} <!---**/data/v1/client/logs**--> Provides services to [client applications](apis/clientlogapi){:target="_blank"} like mobile and [desktop apps](apis/desktop/){:target="_blank"} to save [error logs](apis/clientlogapi){:target="_blank"} on the server.
 
