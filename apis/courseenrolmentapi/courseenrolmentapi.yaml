@@ -232,8 +232,8 @@ paths:
       parameters:
         - name: orgdetails
           in: query
-          description: ''
-          required: true
+          description: 'Org details related with course'
+          required: false
           style: form
           explode: true
           schema:
@@ -241,8 +241,8 @@ paths:
             example: orgName,email
         - name: licenseDetails
           in: query
-          description: ''
-          required: true
+          description: 'License details related with course'
+          required: false
           style: form
           explode: true
           schema:
@@ -250,8 +250,8 @@ paths:
             example: name,description,url
         - name: fields
           in: query
-          description: ''
-          required: true
+          description: 'Different course related details can be passed'
+          required: false
           style: form
           explode: true
           schema:
@@ -259,13 +259,22 @@ paths:
             example: contentType,topic,name,channel
         - name: batchDetails
           in: query
-          description: ''
-          required: true
+          description: 'Batch details can be passed to filter'
+          required: false
           style: form
           explode: true
           schema:
             type: string
             example: name,endDate,startDate,status,enrollmentType,createdBy,certificates,cache=false
+        - name: cache
+            in: query
+            description: 'The batch data got updated in cache after sometime to get updated details immediately we can pass cache false'
+            required: false
+            style: form
+            explode: true
+            schema:
+              type: string
+              example: cache=false
         - name: Content-Type
           in: header
           description: >-
@@ -295,14 +304,14 @@ paths:
             example: '{{authToken}}'
         - name: user-id
           in: path
-          description: ''
+          description: 'Id of user for whom enrolment details we want'
           required: true
           style: simple
           schema:
             type: string
       responses:
         200:
-          description: ''
+          description: 'SUCCESS. The "User Enrolment List" operation was successful!'
           headers: {}
           content:
             application/json:
@@ -516,7 +525,7 @@ paths:
             example: '{{authToken}}'
         - name: batch-id
           in: path
-          description: ''
+          description: 'Identifier of batch to which we want to add the user'
           required: true
           style: simple
           schema:
@@ -641,7 +650,7 @@ paths:
             example: '{{authToken}}'
         - name: batch-id
           in: path
-          description: ''
+          description: 'Identifier of batch from which we want to remove the user'
           required: true
           style: simple
           schema:
