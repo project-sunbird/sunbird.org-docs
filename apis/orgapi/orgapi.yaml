@@ -761,6 +761,58 @@ paths:
       security:
       - bearer: []
       x-codegen-request-body-name: Body    
+  /org/v1/tenant/info:
+    get:
+      tags:
+      - Org APIs
+      summary: Gives the tenant information.
+      description: |-
+        This API gives the tenant information like logo and URL's for specific tenant.
+          - The endpoint for **Tenant information** is `/v1/tenant/info`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: Tenant Information
+      parameters:
+      - name: ts
+        in: header
+        description: Timestamp at which given API request is sent.
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: This ID uniquely identifies a request if the same API is executed
+          multiple times.
+        schema:
+          type: string
+      - name: X-Authenticated-User-Token
+        in: header
+        description: Access token of registered user performing given API request.
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'Specify authorization key (format: Bearer api-key) received
+          from administrator when performing given API request.'
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK. Successful operation. The get tenent inforamtion operation
+            was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantInformationResponse'
+        500:
+          description: '''INTERNAL SERVER ERROR. The requested operation failed due
+            to a server error.'''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantInfoServerErrorResponse'
+      security:
+      - bearer: []
 components:
   schemas:
     AddressCreateRequest:
@@ -1562,6 +1614,44 @@ components:
             response:
                 - id: "126489256548895649"
                   name: Higher Secondary School
+    TenantInformationResponse:
+      title: Tenant information API response format
+      allOf:
+      - $ref: '#/components/schemas/ApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties:
+              response:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: Organisation type ID
+                    name:
+                      type: string
+                      description: Organisation type name
+        example:
+          id: api.tenant.info
+          ver: "1.0"
+          ts: 2020-12-11 04:23:38:772+0000
+          params:
+            resmsgid: a4848d40-3b68-11eb-bb20-69fba69624fc
+            msgid: null
+            err: 
+            status: successful
+            errmsg: 
+          responseCode: OK
+          result:
+            response:
+                - appLogo: "https://staging.sunbirded.org/assets/images/sunbird_logo.png"
+                  favicon: "https://staging.sunbirded.org/assets/images/favicon.ico"
+                  logo: "https://staging.sunbirded.org/assets/images/sunbird_logo.png"
+                  poster: "https://staging.sunbirded.org/assets/images/sunbird_logo.png"
+                  titleName: "sunbird"
                       
     OrgTypeListServerErrorResponse:
       title: Server error response for read Organisation API
@@ -1579,6 +1669,27 @@ components:
             params:
               resmsgid: 
               msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
+              err: INTERNAL_ERROR
+              status: INTERNAL_ERROR
+              errmsg: Process failed,please try again later.
+            responseCode: SERVER_ERROR
+            result: {}                    
+    TenantInfoServerErrorResponse:
+      title: Server error response for read Organisation API
+      allOf:
+      - $ref: '#/components/schemas/ApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties: {}  
+        example:
+            id: api.tenant.info
+            ver: "1.0"
+            ts: "2020-12-11 04:06:01:620+0000"
+            params:
+              msgid: null
+              resmsgid: "2e67f540-3b66-11eb-bb20-69fba69624fc"
               err: INTERNAL_ERROR
               status: INTERNAL_ERROR
               errmsg: Process failed,please try again later.

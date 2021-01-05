@@ -57,7 +57,7 @@ paths:
             type: string
             example: '{{authToken}}'
       requestBody:
-        description: 'Represents the body and formdata parameters of the course
+        description: 'Represents the body and form data parameters of the course
           progress state API'
         content:
           application/json:
@@ -168,6 +168,14 @@ paths:
                     status: 2
                     courseId: '{{course-id}}'
                     lastAccessTime: '2020-11-23 12:58:35:179+0000'
+                assessments:
+                  - contentId: '{{content-id}}'
+                    batchId: '{{batch-id}}'
+                    courseId: '{{course-id}}'
+                    userId: '{{user-id}}'
+                    attemptId: '{{attemptId}}'
+                    assessmentTs: '1567591211000'
+                    events: [ ]
         required: true
       responses:
         '200':
@@ -238,15 +246,18 @@ components:
       properties:
         userId:
           type: string
+          description: 'This identifier uniquely identifies a user'
         courseId:
           type: string
+          description: 'Identifier of the course'
         contentIds:
           type: array
           items:
             type: string
-          description: ''
+          description: 'This represents the list of content IDs for that course and batch. Associate only one courseId and batchId to the list of all content IDs.'
         batchId:
           type: string
+          description: 'The identifier of the batch to which the course belongs.'
       example:
         userId: '{{user-id}}'
         courseId: '{{course-id}}'
@@ -357,11 +368,17 @@ components:
       properties:
         userId:
           type: string
+          description: 'This ID uniquely identifies a user'
         contents:
           type: array
           items:
             $ref: '#/components/schemas/Content'
-          description: ''
+          description: 'This represents the array of the contents which comprises of various parameters related to the content'
+        assessments:
+          description: 'This represents the array of the assessments which comprises of various parameters related to assessments'
+          type: array
+          items:
+            $ref: '#/components/schemas/Assessment'
       example:
         userId: '{{user-id}}'
         contents:
@@ -370,6 +387,14 @@ components:
             status: 2
             courseId: '{{course-id}}'
             lastAccessTime: '2020-11-23 12:58:35:179+0000'
+        assessments:
+          - contentId: '{{content-id}}'
+            batchId: '{{batch-id}}'
+            courseId: '{{course-id}}'
+            userId: '{{user-id}}'
+            attemptId: '{{attemptId}}'
+            assessmentTs: '1567591211000'
+            events: [ ]
     Content:
       title: Content
       required:
@@ -382,21 +407,62 @@ components:
       properties:
         contentId:
           type: string
+          description: 'The identifier of content status need to update'
         batchId:
           type: string
+          description: 'Identifier of the batch, for user enrolled'
         status:
           type: integer
           format: int32
+          description: 'This represents the user content consumption status. For reference: Example 0 - not started, 1- in progress, 2- completed'
         courseId:
           type: string
+          description: 'Identifier of the course'
         lastAccessTime:
           type: string
+          description: 'Represents when was the the course content last accessed'
       example:
         contentId: '{{content-id}}'
         batchId: '{{batch-id}}'
         status: 2
         courseId: '{{course-id}}'
         lastAccessTime: '2020-11-23 12:58:35:179+0000'
+    Assessment:
+      title: Assessment
+      type: object
+      properties:
+        assessmentTs:
+          description: 'Assessment time in epoch'
+          type: long
+        batchId:
+          description: 'This ID uniquely identifies a batch'
+          type: string
+        courseId:
+          description: 'This ID uniquely identifies the course'
+          type: string
+        userId:
+          description: 'This ID uniquely identifies a user'
+          type: string
+        attemptId:
+          description: 'This ID uniquely identifies the attempt'
+          type: string
+        contentId:
+          description: 'This ID uniquely identifies the content'
+          type: string
+        events:
+          description: 'This will have the assess events of the telemetry'
+          example: []
+          type: array
+          items:
+            []
+        example:
+          contentId: '{{content-id}}'
+          batchId: '{{batch-id}}'
+          attemptId: '{{attemptId}}'
+          courseId: '{{course-id}}'
+          assessmentTs: '1567591211000'
+          userId: '{{user-id}}'
+          events: [ ]
     UpdateContentState-200OK-Success:
       title: UpdateContentState-200OK-Success
       required:
