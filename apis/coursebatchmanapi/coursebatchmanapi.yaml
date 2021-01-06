@@ -56,7 +56,7 @@ paths:
             example: application/json
         - name: batch-id
           in: path
-          description: ''
+          description: 'Append a valid Batch ID To the Request URL'
           required: true
           style: simple
           schema:
@@ -312,6 +312,11 @@ paths:
         The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: CourseBatchSearch
       parameters:
+        - in: query
+          name: orgdetails
+          description: 'Extra data can be passed in query parameter with above mentioned key and comma separated value. Example,?orgdetails=email,name. Sunbird will take this query parameter and pass to content service as it is, and content service does the needful.'
+          type: string
+          required: false
         - name: Content-Type
           in: header
           description: 'The Content Type entity is the media type of the resource.Possible\
@@ -876,9 +881,7 @@ components:
     Request:
       title: Request
       required:
-        - enrollmentType
         - startDate
-        - enrollmentEndDate
         - status
         - courseId
         - id
@@ -886,16 +889,25 @@ components:
       properties:
         enrollmentType:
           type: string
+          description: 'possible values are {invite-only and open}'
         startDate:
           type: string
+          description: 'Batch start date'
         enrollmentEndDate:
           type: string
+          description: 'Batch enrollment end date'
         status:
           type: integer
           format: int32
+          description: 'Status of batch possible values are {0, 1 or 2}'
         courseId:
           type: string
+          description: 'Course id for which the user wants to update the batch'
         id:
+          type: string
+          description: 'Batch id which the user wants to update'
+        endDate:
+          description: 'Batch end date can be updated if end date hasnt expired'
           type: string
       example:
         enrollmentType: open
@@ -978,13 +990,16 @@ components:
       title: Request1
       required:
         - filters
-        - limit
       type: object
       properties:
+        query:
+          type: string
+          description: 'any text, it will do free text search eg. creatorDetails&orgDetails'
         filters:
           $ref: '#/components/schemas/Filters'
         limit:
           type: integer
+          description: 'Number of batch user want in response'
           format: int32
       example:
         filters:
@@ -995,6 +1010,7 @@ components:
       required:
         - courseId
       type: object
+      description: 'here you can pass the attribute and values'
       properties:
         courseId:
           type: string
@@ -1614,16 +1630,32 @@ components:
       properties:
         courseId:
           type: string
+          description: 'Content id for which user want to create a course'
         name:
           type: string
+          description: 'Name of the course'
         description:
           type: string
+          description: 'About courses'
         enrollmentType:
           type: string
+          description: 'Possible values are {invite-only and open}'
         startDate:
           type: string
+          description: 'Start data of the batch valid format is yyyy-mm-dd'
         endDate:
           type: string
+          description: 'End data of batch valid format is yyyy-mm-dd'
+        createdFor:
+          type: array
+          description: 'This will hold list of organisations id. This is mandatory in case of invite-only badge'
+          items:
+            type: string
+        mentors:
+          type: array
+          description: 'List of user id who will take care of course'
+          items:
+            type: string
       example:
         courseId: '{{course-id}}'
         name: test cert scalability
