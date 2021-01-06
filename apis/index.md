@@ -70,14 +70,15 @@ The **Registry & Discovery Services** category has the following microservices:
 - [**Search Service:**](apis/searchapi/){:target="_blank"} Provides services to search and discover content and knowledge assets.
 
 - [**User APIs:**](apis/userapi/){:target="_blank"} This service enables a registry of users on the Sunbird platform. It provides services to manage the lifecycle, administration, and permissions of users.  
-        [User bulk upload](apis/bulkupload){:target="_blank"}  
-        [User roles](apis/userapi/#operation/Assign_User_Role){:target="_blank"}  
-        [Manage user alerts](apis/feedapi){:target="_blank"}  
-        [User permissions](apis/consentapi){:target="_blank"}
+        [User bulk upload](apis/bulkupload/){:target="_blank"}  
+        [User roles](apis/userapi/#operation/Assign_User_Role/){:target="_blank"}  
+        [Manage user alerts](apis/feedapi/){:target="_blank"}  
+        [User permissions](apis/consentapi/){:target="_blank"}  
+        [Data Sync APIs](apis/datasyncapi/){:target="_blank"}  
 
  - [**Organisation Management:**](apis/orgapi/){:target="_blank"} This service enables a registry of organisations on the Sunbird platform. It provides services to manage the lifecycle, administration, and permissions of organisations.  
         [Organisation Location](apis/geolocationapi/){:target="_blank"}  
-
+        [Tenant Preference](apis/tenantpreferenceapi/){:target="_blank"}
 - [**Location Service:**](apis/locationapi/){:target="_blank"} This service enables the registry of geographic locations. It provides services to create and manage locations for each organisation.
 
 - [**Device Management:**](apis/deviceapi/){:target="_blank"} This service enables the registry of devices accessing the sunbird platform. The device profile and location of device is stored in the device registry.
@@ -102,7 +103,7 @@ The **Practice, Sensing & Assessment Services** category has the following micro
 
 - [**Assessment Service:**](apis/assessmentapi/){:target="_blank"} Provides services to create and manage questions and question sets that are useful to assess proficiency of learners.  
 
-<!--- - [**Assessment Management Service:**](apis/itemsetapi/){:target="_blank"} (Under development) Provides services to create and manage questions and question sets that are useful to assess proficiency of learners.  -->
+<!--- [**Assessment Management Service:**](apis/itemsetapi/){:target="_blank"} (Under development) Provides services to create and manage questions and question sets that are useful to assess proficiency of learners.  -->
 
 ## Credentialing & Badging Services
 
