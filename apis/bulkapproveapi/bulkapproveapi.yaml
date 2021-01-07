@@ -104,6 +104,42 @@ paths:
                   updatedon: 2021-01-06T11:30:50.261Z
                   completedon:
                   expiration:
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Create-Process-Error-400-Response"
+              example:
+                id: api.process.create
+                ver: 1.0
+                ts: 2021-01-06T14:51:59.175Z
+                params:
+                  resmsgid: ba730572-502e-11eb-a115-db22788c28aa
+                  msgid:
+                  status: failed
+                  err: ERR_CREATE_BULK_JOB
+                  errmsg: Required fields to create bulk job request are missing
+                responseCode: CLIENT_ERROR
+                result: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Create-Process-Error-500-Response"
+              example:
+                id: api.process.create
+                ver: 1.0
+                ts: 2021-01-07T04:14:57.384Z
+                params:
+                  resmsgid: e6e64e81-509e-11eb-a115-db22788c28aa
+                  msgid:
+                  status: failed
+                  err: ERR_CREATE_BULK_JOB_REQUEST_FAILED
+                  errmsg: process_id must be unique
+                responseCode: SERVER_ERROR
+                result: {}
       deprecated: false
   /program/v1/process/update:
     patch:
@@ -172,6 +208,42 @@ paths:
                 responseCode: OK
                 result:
                   process_id: 16264756-c71c-4061-a99c-bfab0556d047
+        400:
+          description: Update-Process-Error-40
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Process-Update-Error-400-Response"
+              example:
+                id: api.process.update
+                ver: 1.0
+                ts: 2021-01-07T04:43:35.328Z
+                params:
+                  resmsgid: e6dfc202-50a2-11eb-a115-db22788c28aa
+                  msgid:
+                  status: failed
+                  err: ERR_UPDATING_BULK_JOB_REQUEST
+                  errmsg: Required fields like process_id to update bulk job request are missing
+                responseCode: CLIENT_ERROR
+                result: {}
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Process-Update-Error-404"
+              example:
+                id: api.process.update
+                ver: 1.0
+                ts: 2021-01-06T10:49:45.873Z
+                params:
+                  resmsgid: e3ed2011-500c-11eb-a115-db22788c28aa
+                  msgid:
+                  status: failed
+                  err: ERR_UPDATING_BULK_JOB_REQUEST
+                  errmsg: process_id not found
+                responseCode: PROCESS_NOT_FOUND
+                result: {}
       deprecated: false
   /program/v1/process/read/98c5d59a-5e8d-41ec-99d4-9cad8fef5ee2:
     get:
@@ -242,6 +314,24 @@ paths:
                   updatedon: 2020-12-04T11:39:25.265Z
                   completedon:
                   expiration:
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Process-Read-Error-404-Response"
+              example:
+                id: api.process.read
+                ver: 1.0
+                ts: 2021-01-07T06:02:51.523Z
+                params:
+                  resmsgid: f9c98531-50ad-11eb-a115-db22788c28aa
+                  msgid:
+                  status: failed
+                  err: PROCESS_NOT_FOUND
+                  errmsg: process_id 98c5d59a-5e8d-41ec-99d4-9cad8fef5ee does not exist
+                responseCode: PROCESS_NOT_FOUND
+                result: {}
       deprecated: false
   /program/v1/process/search:
     post:
@@ -326,40 +416,42 @@ paths:
                       updatedon: 2020-12-04T11:35:21.942Z
                       completedon:
                       expiration:
-      deprecated: false
-  /program/v1/process/read/98c5d59a-5e8d-41ec-99d4-9cad8fef5ee:
-    get:
-      tags:
-        - Error
-      summary: Process read
-      operationId: Read process error
-      description: |-
-        This API read the bulk job approval of the content.
-           - The **_process/read_** endpoint read the bulk job approve of the content.
-           - All fields marked with an * are mandatory
-           - Required fields cannot be null or empty
-           - Backend Route: http://program-service:6000/program/v1/process/read
-      parameters:
-        - name: Content-Type
-          in: header
-          description: The Content Type entity is the media type of the resource
-          required: true
-          style: simple
-          schema:
-            type: string
-            example: application/json
-        - name: Authorization
-          in: header
-          description:
-            To make use of the API, you require authorization. Raise a request
-            to the administrator for the use of the API. You will receive the authorization
-            key. Specify the key received, here.
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: "This represents the response of the api"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Process-Search-Error-400-Response"
+              example:
+                id: api.process.search
+                ver: 1.0
+                ts: 2021-01-07T06:08:49.166Z
+                params:
+                  resmsgid: cef582e2-50ae-11eb-a115-db22788c28aa
+                  msgid:
+                  status: failed
+                  err: ERR_SEARCHING_BULK_JOB_REQUEST
+                  errmsg: Required fields like filters are missing
+                responseCode: CLIENT_ERROR
+                result: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Process-Search-Error-500-Response"
+              example:
+                id: api.process.search
+                ver: 1.0
+                ts: 2021-01-07T06:14:02.62Z
+                params:
+                  resmsgid: 89cacbc1-50af-11eb-a115-db22788c28aa
+                  msgid:
+                  status: failed
+                  err: ERROR_SEARCHING_BULK_JOB_REQUEST
+                  errmsg: column bulk_job_request.collection does not exist
+                responseCode: SERVER_ERROR
+                result: {}
       deprecated: false
 components:
   schemas:
@@ -471,6 +563,88 @@ components:
         approve_failed: 0
         approve_pending: 7
         total: 7
+    Create-Process-Error-400-Response:
+      title: Create-Process-Error-400
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          description: Represents the api id
+          type: string
+        ver:
+          description: Represents the api version
+          type: string
+        ts:
+          description: Represents the EPOCH epoch time in milliseconds
+          type: integer
+          format: int64
+        params:
+          $ref: "#/components/schemas/Params"
+        responseCode:
+          type: string
+          description: Represents the api response code
+        result:
+          type: object
+          description: Represents the result of the api response
+      example:
+        id: api.process.create
+        ver: 1.0
+        ts: 2021-01-06T14:51:59.175Z
+        params:
+          resmsgid: ba730572-502e-11eb-a115-db22788c28aa
+          msgid:
+          status: failed
+          err: ERR_CREATE_BULK_JOB
+          errmsg: Required fields to create bulk job request are missing
+        responseCode: CLIENT_ERROR
+        result: {}
+    Create-Process-Error-500-Response:
+      title: Create-Process-Error-500
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          description: Represents the api id
+          type: string
+        ver:
+          description: Represents the api version
+          type: string
+        ts:
+          description: Represents the EPOCH epoch time in milliseconds
+          type: integer
+          format: int64
+        params:
+          $ref: "#/components/schemas/Params"
+        responseCode:
+          type: string
+          description: Represents the api response code
+        result:
+          type: object
+          description: Represents the result of the api response
+      example:
+        id: api.process.create
+        ver: 1.0
+        ts: 2021-01-07T04:14:57.384Z
+        params:
+          resmsgid: e6e64e81-509e-11eb-a115-db22788c28aa
+          msgid:
+          status: failed
+          err: ERR_CREATE_BULK_JOB_REQUEST_FAILED
+          errmsg: process_id must be unique
+        responseCode: SERVER_ERROR
+        result: {}
     Create-bulk-Job-Success-200:
       title: Create-bulk-Job Success-200
       description: Represents the Create-bulk-Job Success-200
@@ -497,6 +671,7 @@ components:
           $ref: "#/components/schemas/Params"
         responseCode:
           type: string
+          description: Represents the api response code
         result:
           $ref: "#/components/schemas/createProcessResponse"
       example:
@@ -810,6 +985,47 @@ components:
           approve_pending: -40
           total: 4
         updatedby: bf020396-0d7b-436f-ae9f-869c6780fc45
+    Process-Update-Error-400-Response:
+      title: Update-Process-Error-400
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          description: Represents the api id
+          type: string
+        ver:
+          description: Represents the api version
+          type: string
+        ts:
+          description: Represents the EPOCH epoch time in milliseconds
+          type: integer
+          format: int64
+        params:
+          $ref: "#/components/schemas/Params"
+        responseCode:
+          type: string
+          description: Represents the api response code
+        result:
+          type: object
+          description: Represents the result of the api response
+      example:
+        id: api.process.update
+        ver: 1.0
+        ts: 2021-01-07T04:43:35.328Z
+        params:
+          resmsgid: e6dfc202-50a2-11eb-a115-db22788c28aa
+          msgid:
+          status: failed
+          err: ERR_UPDATING_BULK_JOB_REQUEST
+          errmsg: Required fields like process_id to update bulk job request are missing
+        responseCode: CLIENT_ERROR
+        result: {}
     Process-update-success-200-Response:
       title: Process-update-success-200-Response
       description: This represents the Process-update-success-200-Response
@@ -829,6 +1045,47 @@ components:
             approve_pending: -40
             total: 4
           updatedby: bf020396-0d7b-436f-ae9f-869c6780fc45
+    Process-Update-Error-404:
+      title: Update-Process-Error-404
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          description: Represents the api id
+          type: string
+        ver:
+          description: Represents the api version
+          type: string
+        ts:
+          description: Represents the EPOCH epoch time in milliseconds
+          type: integer
+          format: int64
+        params:
+          $ref: "#/components/schemas/Params"
+        responseCode:
+          type: string
+          description: Represents the api response code
+        result:
+          type: object
+          description: Represents the result of the api response
+      example:
+        id: api.process.update
+        ver: 1.0
+        ts: 2021-01-06T10:49:45.873Z
+        params:
+          resmsgid: e3ed2011-500c-11eb-a115-db22788c28aa
+          msgid:
+          status: failed
+          err: ERR_UPDATING_BULK_JOB_REQUEST
+          errmsg: process_id not found
+        responseCode: PROCESS_NOT_FOUND
+        result: {}
     Process-update-response:
       title: Process-update-response
       description: Represents the process update response
@@ -1063,6 +1320,48 @@ components:
           updatedon: 2020-12-04T11:39:25.265Z
           completedon:
           expiration:
+    Process-Read-Error-404-Response:
+      title: Read-Process-Error-404
+      description: This represents the Process-Read-Error 404 Response
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          description: Represents the api id
+          type: string
+        ver:
+          description: Represents the api version
+          type: string
+        ts:
+          description: Represents the EPOCH epoch time in milliseconds
+          type: integer
+          format: int64
+        params:
+          $ref: "#/components/schemas/Params"
+        responseCode:
+          type: string
+          description: Represents the api response code
+        result:
+          type: object
+          description: Represents the result of the api response
+      example:
+        id: api.process.read
+        ver: 1.0
+        ts: 2021-01-07T06:02:51.523Z
+        params:
+          resmsgid: f9c98531-50ad-11eb-a115-db22788c28aa
+          msgid:
+          status: failed
+          err: PROCESS_NOT_FOUND
+          errmsg: process_id 98c5d59a-5e8d-41ec-99d4-9cad8fef5ee does not exist
+        responseCode: PROCESS_NOT_FOUND
+        result: {}
     Filters:
       title: Filters
       description: This represents the description of the filter required
@@ -1252,6 +1551,90 @@ components:
         filters:
           program_id: 4d1bece0-fbf0-11ea-8789-cf2d7004603
           collection: do_11311278166773248110944
+    Process-Search-Error-400-Response:
+      title: Process-Search-Error-400
+      description: This represents the Process-Search-Error-400 response
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          description: Represents the api id
+          type: string
+        ver:
+          description: Represents the api version
+          type: string
+        ts:
+          description: Represents the EPOCH epoch time in milliseconds
+          type: integer
+          format: int64
+        params:
+          $ref: "#/components/schemas/Params"
+        responseCode:
+          type: string
+          description: Represents the api response code
+        result:
+          type: object
+          description: Represents the result of the api response
+      example:
+        id: api.process.search
+        ver: 1.0
+        ts: 2021-01-07T06:08:49.166Z
+        params:
+          resmsgid: cef582e2-50ae-11eb-a115-db22788c28aa
+          msgid:
+          status: failed
+          err: ERR_SEARCHING_BULK_JOB_REQUEST
+          errmsg: Required fields like filters are missing
+        responseCode: CLIENT_ERROR
+        result: {}
+    Process-Search-Error-500-Response:
+      title: Process-Search-Error-500
+      description: This represents the Process-Search-Error-500
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          description: Represents the api id
+          type: string
+        ver:
+          description: Represents the api version
+          type: string
+        ts:
+          description: Represents the EPOCH epoch time in milliseconds
+          type: integer
+          format: int64
+        params:
+          $ref: "#/components/schemas/Params"
+        responseCode:
+          type: string
+          description: Represents the api response code
+        result:
+          type: object
+          description: Represents the result of the api response
+      example:
+        id: api.process.search
+        ver: 1.0
+        ts: 2021-01-07T06:14:02.62Z
+        params:
+          resmsgid: 89cacbc1-50af-11eb-a115-db22788c28aa
+          msgid:
+          status: failed
+          err: ERROR_SEARCHING_BULK_JOB_REQUEST
+          errmsg: column bulk_job_request.collection does not exist
+        responseCode: SERVER_ERROR
+        result: {}
     Filters1:
       title: Filters1
       description: Has the information about filters required
