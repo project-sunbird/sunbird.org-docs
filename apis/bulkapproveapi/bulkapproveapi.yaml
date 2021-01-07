@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Bulk_Approve
   termsOfService: "https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE"
-  description: These api's are all about the bulk approval of the contents which includes scenarios like create, update, read and search operations in that.
+  description: Bulk Approve service provides mechanism for CRUD operation for process used for bulk approval of content created via contribution mechanism.
 
   contact:
     email: info@sunbird.org
@@ -16,7 +16,7 @@ paths:
   /program/v1/process/create:
     post:
       tags:
-        - Success
+        - Process
       summary: Process create
       operationId: Process create
       description: |-
@@ -144,7 +144,7 @@ paths:
   /program/v1/process/update:
     patch:
       tags:
-        - Success
+        - Process
       summary: Process update
       operationId: Process update
       description: |-
@@ -209,7 +209,7 @@ paths:
                 result:
                   process_id: 16264756-c71c-4061-a99c-bfab0556d047
         400:
-          description: Update-Process-Error-40
+          description: Update-Process-Error-400
           content:
             application/json:
               schema:
@@ -248,7 +248,7 @@ paths:
   /program/v1/process/read/98c5d59a-5e8d-41ec-99d4-9cad8fef5ee2:
     get:
       tags:
-        - Success
+        - Process
       summary: Process read
       operationId: Read process
       description: |-
@@ -336,7 +336,7 @@ paths:
   /program/v1/process/search:
     post:
       tags:
-        - Success
+        - Process
       summary: Process search
       operationId: Search process
       description: |-
@@ -546,18 +546,22 @@ components:
           type: integer
           format: int32
           description: Number of process in approve_success status
+          example: 2
         approve_failed:
           type: integer
           format: int32
           description: Number of process in approve_failed status
+          example: 3
         approve_pending:
           type: integer
           format: int32
           description: Number of process in approve_pending status
+          example: 7
         total:
           type: integer
           format: int32
           description: Total number of process
+          example: 12
       example:
         approve_success: 0
         approve_failed: 0
