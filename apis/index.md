@@ -31,7 +31,7 @@ The **Content and Learning Services** category has the following microservices:
 
 - **Content Management:**  Provides services to manage content objects and their lifecycle for a defined taxonomy in a learning domain. This service is dependent on the taxonomy microservice as every content piece must be tagged with the appropriate taxonomy.  
         [Content APIs](apis/content/){:target="_blank"}         
-        [Textbook APIs](apis/tocapi/){:target="_blank"} 
+        [Textbook APIs](apis/tocapi/){:target="_blank"}  
 <!--- add lock and plugin API folders and here --> 
         
 
@@ -42,6 +42,7 @@ The **Content and Learning Services** category has the following microservices:
 The **Contribution & Curation Services** category has the following microservices:
 
 - [**Contribution Management:**](apis/programsapi/){:target="_blank"} This service enables organisations to digitally plan, coordinate and [manage crowd sourcing](apis/bulkapproveapi){:target="_blank"}   for content contributions.  
+
 - [**Contributor Management:**](apis/opensaber/){:target="_blank"} This service enables a registry of individual contributors and contributing organisations that nominate and contribute digital content via sourcing projects.  
 
 ## Taxonomy & Tagging Services
