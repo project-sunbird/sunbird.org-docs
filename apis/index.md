@@ -31,7 +31,7 @@ The **Content and Learning Services** category has the following microservices:
 
 - **Content Management:**  Provides services to manage content objects and their lifecycle for a defined taxonomy in a learning domain. This service is dependent on the taxonomy microservice as every content piece must be tagged with the appropriate taxonomy.  
         [Content APIs](apis/content/){:target="_blank"}         
-        [Textbook APIs](apis/tocapi/){:target="_blank"} 
+        [Textbook APIs](apis/tocapi/){:target="_blank"}  
 <!--- add lock and plugin API folders and here --> 
         
 
@@ -42,6 +42,7 @@ The **Content and Learning Services** category has the following microservices:
 The **Contribution & Curation Services** category has the following microservices:
 
 - [**Contribution Management:**](apis/programsapi/){:target="_blank"} This service enables organisations to digitally plan, coordinate and [manage crowd sourcing](apis/bulkapproveapi){:target="_blank"}   for content contributions.  
+
 - [**Contributor Management:**](apis/opensaber/){:target="_blank"} This service enables a registry of individual contributors and contributing organisations that nominate and contribute digital content via sourcing projects.  
 
 ## Taxonomy & Tagging Services
@@ -70,14 +71,15 @@ The **Registry & Discovery Services** category has the following microservices:
 - [**Search Service:**](apis/searchapi/){:target="_blank"} Provides services to search and discover content and knowledge assets.
 
 - [**User APIs:**](apis/userapi/){:target="_blank"} This service enables a registry of users on the Sunbird platform. It provides services to manage the lifecycle, administration, and permissions of users.  
-        [User bulk upload](apis/bulkupload){:target="_blank"}  
-        [User roles](apis/userapi/#operation/Assign_User_Role){:target="_blank"}  
-        [Manage user alerts](apis/feedapi){:target="_blank"}  
-        [User permissions](apis/consentapi){:target="_blank"}
+        [User bulk upload](apis/bulkupload/){:target="_blank"}  
+        [User roles](apis/userapi/#operation/Assign_User_Role/){:target="_blank"}  
+        [Manage user alerts](apis/feedapi/){:target="_blank"}  
+        [User permissions](apis/consentapi/){:target="_blank"}  
+        [Data Sync APIs](apis/datasyncapi/){:target="_blank"}  
 
  - [**Organisation Management:**](apis/orgapi/){:target="_blank"} This service enables a registry of organisations on the Sunbird platform. It provides services to manage the lifecycle, administration, and permissions of organisations.  
         [Organisation Location](apis/geolocationapi/){:target="_blank"}  
-
+        [Tenant Preference](apis/tenantpreferenceapi/){:target="_blank"}
 - [**Location Service:**](apis/locationapi/){:target="_blank"} This service enables the registry of geographic locations. It provides services to create and manage locations for each organisation.
 
 - [**Device Management:**](apis/deviceapi/){:target="_blank"} This service enables the registry of devices accessing the sunbird platform. The device profile and location of device is stored in the device registry.
@@ -102,7 +104,7 @@ The **Practice, Sensing & Assessment Services** category has the following micro
 
 - [**Assessment Service:**](apis/assessmentapi/){:target="_blank"} Provides services to create and manage questions and question sets that are useful to assess proficiency of learners.  
 
-<!--- - [**Assessment Management Service:**](apis/itemsetapi/){:target="_blank"} (Under development) Provides services to create and manage questions and question sets that are useful to assess proficiency of learners.  -->
+<!--- [**Assessment Management Service:**](apis/itemsetapi/){:target="_blank"} (Under development) Provides services to create and manage questions and question sets that are useful to assess proficiency of learners.  -->
 
 ## Credentialing & Badging Services
 
@@ -128,6 +130,7 @@ The **Infra & Shared Services** category has the following microservices:
         [Kong register version 1](apis/kongcredentialregisterapiv1/){:target="_blank"}  
         [Kong register version 2](apis/kongcredentialregisterapiv2/){:target="_blank"}  
         [Refresh API tokens](apis/refreshtokenapi){:target="_blank"}  
+        [Desktop register API](apis/desktop/device-registry/){:target="_blank"}  
 
 - [**Logging Service:**](apis/clientlogapi){:target="_blank"} <!---**/data/v1/client/logs**--> Provides services to [client applications](apis/clientlogapi){:target="_blank"} like mobile and [desktop apps](apis/desktop/){:target="_blank"} to save [error logs](apis/clientlogapi){:target="_blank"} on the server.
 
