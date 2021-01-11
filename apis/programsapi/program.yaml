@@ -19,7 +19,7 @@ paths:
         - Program CRUD
       summary: Program List Download
       description: |-
-        This API download the generated Details of the Program.
+        This API downloads the generated Details of the Program.
             - The **_list/download_** endpoint downloads the generated details of the program.
             - All fields marked with an * are mandatory
             - Required fields cannot be null or empty
@@ -1634,6 +1634,7 @@ components:
       properties:
         filters:
           type: object
+          description: This represents the filter data
       example:
         filters: {}
     ListDownload404NotFoundRequest:
@@ -2162,6 +2163,7 @@ components:
           description: "unique id of particular user"
         ts:
           type: string
+          description: Represents the EPOCH epoch time in milliseconds
         params:
           $ref: "#/components/schemas/NominationUpdateParams"
         responseCode:
@@ -2262,6 +2264,7 @@ components:
           description: "sql statement"
         parameters:
           type: array
+          description: This represents the list of parameters for nomination update
           items:
             type: array
             items:
@@ -2308,6 +2311,7 @@ components:
           description: "sql statement for update nomination"
         parameters:
           type: array
+          description: This represents the list of parameters for nomination update
           items:
             type: array
             items:
@@ -3859,7 +3863,7 @@ components:
           type: array
           items:
             type: string
-          description: "This represents the childrens array"
+          description: "This represents the children's array"
       example:
         id: do_113133960314445824150
         allowed_content_types: []
@@ -3909,6 +3913,7 @@ components:
       properties:
         program_id:
           type: string
+          description: This represents the unique program id
       example:
         program_id: a043dc40-3497-11eb-9c32-15914148e3ce
     ProgramUpdate404NotFoundRequest:
@@ -4183,6 +4188,7 @@ components:
           $ref: "#/components/schemas/ProgramParams"
         responseCode:
           type: string
+          description: Represents the api response code
         result:
           $ref: "#/components/schemas/Program-Publish-Result"
       example:
@@ -4537,6 +4543,7 @@ components:
           $ref: "#/components/schemas/Contribution"
         channel:
           type: string
+          description: This represents the channel data
       example:
         nomination:
           programId:
@@ -4563,14 +4570,15 @@ components:
       properties:
         programId:
           type: array
+          
           items:
             type: string
-          description: ""
+          description: "This represents the program id"
         status:
           type: array
           items:
             type: string
-          description: ""
+          description: "This represents the status"
       example:
         programId:
           - a549ffa0-3553-11eb-84ed-692ec8c8dbe9
@@ -4697,8 +4705,10 @@ components:
           description: "Unique string identifies a particular program"
         openForContribution:
           type: boolean
+          description: This represents the state of contribution
         report:
           type: string
+          description: This represents the generated content report 
       example:
         program_id:
           - 95d604b0-2af4-11eb-9bed-c53bebe417b7
@@ -4751,8 +4761,10 @@ components:
           description: "unique string identifies particular program_id"
         openForContribution:
           type: boolean
+          description: This represents the state of contribution
         report:
           type: string
+          description: This represents the generated content report
       example:
         program:
           - 95d604b0-2af4-11eb-9bed-c53bebe417b7
@@ -4792,6 +4804,7 @@ components:
       properties:
         status:
           type: string
+          description: This represents the status of org like live 
       example:
         status: Live
     Tenant-error-400-Request:
@@ -4925,14 +4938,16 @@ components:
         - program_id
         - values
       type: object
+      description: This represents the TableDatum
       properties:
         program_id:
           type: string
+          description: This represents the unique program id
         values:
           type: array
           items:
             $ref: "#/components/schemas/TableDatumValue"
-          description: ""
+          description: "This represents the TableDatumValue"
       example:
         program_id: afdfa9a0-1dbc-11eb-81b1-659ec274e395
         values:
@@ -4978,6 +4993,7 @@ components:
           description: "These represents the mediums value"
         Class:
           type: string
+          description: "These represents the class value"
         Subject:
           type: array
           items:
@@ -5079,6 +5095,7 @@ components:
 
     ProgramListsuccess-200:
       title: ProgramListsuccess-200
+      description: This represents the Program List success
       required:
         - id
         - ts
@@ -5166,6 +5183,7 @@ components:
                 medium: '["English", "Tamil"]'
     ProgramListsuccessResult:
       title: ProgramListsuccessResult
+      description: This represents the Program List success Result
       required:
         - count
         - programs
@@ -5383,7 +5401,7 @@ components:
           description: Represents the medium
     Rolemapping:
       title: Rolemapping
-      description: Represents the Rolemapping
+      description: Represents the Role Mapping
       required:
         - REVIEWER
       type: object
@@ -5451,7 +5469,7 @@ components:
       properties:
         resmsgid:
           type: string
-          description: This represents resmsgid
+          description: This represents res msgid
         msgid:
           type: string
           nullable: true
@@ -5741,7 +5759,7 @@ components:
               orgId: 01309282781705830427
     NominationListResult:
       title: NominationListResult
-      description: This represents NominationListResult
+      description: This represents Nomination List Result
       required:
         - id
         - program_id
@@ -5793,7 +5811,7 @@ components:
         rolemapping:
           type: string
           nullable: true
-          description: This represents rolemapping details
+          description: This represents role mapping details
         createdby:
           type: string
           nullable: true
@@ -5996,7 +6014,8 @@ components:
         orgId: 01309282781705830427
 
     Preference-create200Success:
-      title: Preference-create200Success
+      title: Preference-create 200 Success
+      description:  This represents the Preference-create 200 Success
       required:
         - id
         - ver
@@ -6070,6 +6089,7 @@ components:
           $ref: "#/components/schemas/SourcingPreference"
         contributor_preference:
           type: object
+          description: This represents the contributor preference
       example:
         user_id: 48dc0e70-2775-474b-9b78-def27d047836
         program_id: afdfa9a0-1dbc-11eb-81b1-659ec274e395
@@ -6115,7 +6135,7 @@ components:
           - Class 7
 
     Preference-read200Success:
-      title: Preference-read200Success
+      title: Preference-read 200 Success
       description: Represents the Preference-read 200 Success
       required:
         - id
@@ -6188,7 +6208,7 @@ components:
         timestamp: 2020-12-03T10:42:58.288Z
 
     Preference-update200Success:
-      title: Preference-update200Success
+      title: Preference-update 200 Success
       description: This represents the Preference-update 200 Success
       required:
         - id
@@ -6414,8 +6434,8 @@ components:
                 Total Number of Chapters: 2
                 Total Contents Contributed: 0
                 Total Contents Reviewed: 0
-                Chapters with atleast one approved in each contentType: 0
-                Chapters with atleast one approved: 0
+                Chapters with at least one approved in each contentType: 0
+                Chapters with at least one approved: 0
                 Total number of Approved Contents: 0
                 Digital Textbook: 0
     ReportResult:
@@ -6441,8 +6461,8 @@ components:
               Total Number of Chapters: 2
               Total Contents Contributed: 0
               Total Contents Reviewed: 0
-              Chapters with atleast one approved in each contentType: 0
-              Chapters with atleast one approved: 0
+              Chapters with at least one approved in each contentType: 0
+              Chapters with at least one approved: 0
               Total number of Approved Contents: 0
               Digital Textbook: 0
     ReportTableDatum:
@@ -6456,8 +6476,8 @@ components:
         - Total Number of Chapters
         - Total Contents Contributed
         - Total Contents Reviewed
-        - Chapters with atleast one approved in each contentType
-        - Chapters with atleast one approved
+        - Chapters with at least one approved in each contentType
+        - Chapters with at least one approved
         - Total number of Approved Contents
         - Digital Textbook
       type: object
@@ -6486,14 +6506,14 @@ components:
           type: integer
           format: int32
           description: "signifies total contents to be reviewed "
-        Chapters with atleast one approved in each contentType:
+        Chapters with at least one approved in each contentType:
           type: integer
           format: int32
-          description: "Number of chapters atleast one approved content Type"
-        Chapters with atleast one approved:
+          description: "Number of chapters at least one approved content Type"
+        Chapters with at least one approved:
           type: integer
           format: int32
-          description: "Number of chapters with atleast one approved chapter"
+          description: "Number of chapters with at least one approved chapter"
         Total number of Approved Contents:
           type: integer
           format: int32
@@ -6778,6 +6798,7 @@ components:
 
     Read-Program-200-Success:
       title: Read-Program-200-Success
+      description: This represents the Read-Program-200-Success
       required:
         - id
         - ts
@@ -6841,6 +6862,7 @@ components:
           description: Details/info of the program
         type:
           type: string
+          description: Details/info of the program type
         collection_ids:
           type: array
           items:
@@ -6873,35 +6895,48 @@ components:
         image:
           type: string
           nullable: true
+          description: This Represents the  image
         status:
           type: string
+          description: This Represents the status
         slug:
           type: string
+          description: This Represents the slug
         config:
           $ref: "#/components/schemas/Config"
         rolemapping:
           type: string
           nullable: true
+          description: This Represents the role mapping
         createdby:
           type: string
+          description: This Represents the createdby
         updatedby:
           type: string
+          description: This Represents the updatedby
           nullable: true
         createdon:
           type: string
+          description: This Represents the createdon
         updatedon:
           type: string
+          description: This Represents the updatedon
         rootorg_id:
           type: string
+          description: This Represents the rootorg_id
         sourcing_org_name:
           type: string
+          description: This Represents the sourcing_org_name
         channel:
           type: string
+          description: This Represents the channel
         template_id:
           type: string
+          description: This Represents the template_id
         guidelines_url:
           type: string
           nullable: true
+          description: This Represents the guidelines_url
     Config:
       title: Config
       description: "Configuration"
@@ -6959,7 +6994,7 @@ components:
           type: array
           items:
             type: string
-          description: "list of gradelevel data supported in the program"
+          description: "list of grade level data supported in the program"
         collections:
           type: array
           items:
@@ -6978,7 +7013,7 @@ components:
           description: "default review enabled for contribute org"
     Role:
       title: Role
-      description: "Roles supported in the program, required id,name,tabs,defaultab"
+      description: "Roles supported in the program, required id,name,tabs,default tab"
       required:
         - id
         - name
@@ -7580,7 +7615,7 @@ components:
         roles:
           - 2
     ShowAawaitingReview:
-      title: ShowAawaitingReview
+      title: Show awaiting Review
       description: "Display/show Awaiting review enabled"
       required:
         - roles
@@ -7645,7 +7680,7 @@ components:
           - 1
     Config2:
       title: Config2
-      description: "Configuration2, list status,collectionlist,contentypes"
+      description: "Configuration2, list status,collection list,contenttypes"
       type: object
       properties:
         status:
@@ -7686,7 +7721,7 @@ components:
           type: array
           items:
             type: string
-          description: "Details/data for the soultion type of the program"
+          description: "Details/data for the solution type of the program"
         No of options:
           type: integer
           format: int32
@@ -7920,8 +7955,8 @@ components:
         responseCode: CLIENT_ERROR
         result: {}
     Unlist-PublisParams:
-      title: Unlist-Publis Params
-      description: Unlist-Publis
+      title: Unlist-Publish Params
+      description: Unlist-Publish
       required:
         - resmsgid
         - msgid
