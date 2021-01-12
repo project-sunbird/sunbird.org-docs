@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Program Api's
   termsOfService: "https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE"
-  description: These are the API used to do all the operations about program like creating, updating and some more operations.
+  description: Program construct enable to contribution program on sunbird for content creation and content contribution by individual and organisation.
 
   contact:
     email: info@sunbird.org
@@ -1233,7 +1233,35 @@ paths:
       responses:
         200:
           description: "Successful Unlist-Publish Program Content"
-          headers: {}
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/resultProgram'
+              example:
+                id: api.program.publish
+                ts: 2021-01-12T10:57:24.721Z
+                params:
+                  resmsgid: f3e64611-54c4-11eb-8795-e372ee0a4d37
+                  msgid: f3e64610-54c4-11eb-8795-e372ee0a4d37
+                  status: successful
+                  err: 
+                  errmsg: 
+                responseCode: OK
+                result:
+                  program_id: d2f35e20-54c4-11eb-8795-e372ee0a4d37
+                  afterPublishResponse:
+                    nomination:
+                      error: 
+                      result:
+                        program_id: d2f35e20-54c4-11eb-8795-e372ee0a4d37
+                        user_id: c5bbabfc-7f2b-4d2e-bdc4-64b0db810817
+                        organisation_id: 32625405-bc59-4622-89bb-d06934d690ef
+                        status: Approved
+                        content_types:
+                        - Course Assessment
+                        collection_ids:
+                        - do_21319279857165107214382
+                    userMapping: {}
         400:
           description: Unlist-Publish Bad Request
           content:
@@ -7987,6 +8015,88 @@ components:
         status: failed
         err: ERR_PUBLISH_PROGRAM_DATA
         errmsg: Required fields while publishing program data are missing
+
+    resultProgram:
+      title: This represents the publish program response
+      description: This represents the publish program response
+      required:
+      - id
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          description: Represents the api id
+          type: string
+        ver:
+          description: Represents the api version
+          type: string
+        ts:
+          description: Represents the EPOCH epoch time in milliseconds
+          type: integer
+          format: int64
+        params:
+          $ref: '#/components/schemas/ProgramParams'
+        responseCode:
+          type: string
+          description: Represents the response code
+        result:
+          $ref: '#/components/schemas/PublishResult'
+      example:
+        id: api.program.publish
+        ts: 2021-01-12T10:57:24.721Z
+        params:
+          resmsgid: f3e64611-54c4-11eb-8795-e372ee0a4d37
+          msgid: f3e64610-54c4-11eb-8795-e372ee0a4d37
+          status: successful
+          err: 
+          errmsg: 
+        responseCode: OK
+        result:
+          program_id: d2f35e20-54c4-11eb-8795-e372ee0a4d37
+          afterPublishResponse:
+            nomination:
+              error: 
+              result:
+                program_id: d2f35e20-54c4-11eb-8795-e372ee0a4d37
+                user_id: c5bbabfc-7f2b-4d2e-bdc4-64b0db810817
+                organisation_id: 32625405-bc59-4622-89bb-d06934d690ef
+                status: Approved
+                content_types:
+                - Course Assessment
+                collection_ids:
+                - do_21319279857165107214382
+            userMapping: {}
+    PublishResult:
+      title: Result
+      description: This represents publish response 
+      required:
+      - program_id
+      - afterPublishResponse
+      type: object
+      properties:
+        program_id:
+          type: string
+          description: This represents the unique program id
+        afterPublishResponse:
+          $ref: '#/components/schemas/AfterPublishResponse'
+      example:
+        program_id: d2f35e20-54c4-11eb-8795-e372ee0a4d37
+        afterPublishResponse:
+          nomination:
+            error: 
+            result:
+              program_id: d2f35e20-54c4-11eb-8795-e372ee0a4d37
+              user_id: c5bbabfc-7f2b-4d2e-bdc4-64b0db810817
+              organisation_id: 32625405-bc59-4622-89bb-d06934d690ef
+              status: Approved
+              content_types:
+              - Course Assessment
+              collection_ids:
+              - do_21319279857165107214382
+          userMapping: {}
 
 tags:
   - name: Program CRUD
