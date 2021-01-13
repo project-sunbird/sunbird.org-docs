@@ -37,7 +37,6 @@ They are categorized by resource type. Each resource type has one or more data r
             <li><a href="apis/userapi/" target="_blank">User </a></li>
             <!--<li><a href="apis/badgesapi/" target="_blank">User Badges </a></li>-->
             <li><a href="apis/noteapi/" target="_blank">User Notes </a></li>
-            <li><a href="apis/badgingframeworkapi/" target="_blank">Badging Framework </a></li>
             <li><a href="apis/groupapi/" target="_blank">Group</a></li>
         </ul>
     </div>
@@ -45,7 +44,6 @@ They are categorized by resource type. Each resource type has one or more data r
         <h3>Administration API(s)</h3>
         <ul>
             <li><a href="apis/notificationapi/" target="_blank">Notification </a></li>
-            <li><a href="apis/firebasecloudmessagingapi/" target="_blank">Push Notification </a></li>
             <li><a href="apis/form/" target="_blank">Form </a></li>   
             <li><a href="apis/locationapi/" target="_blank"> Location </a></li>
         </ul>
