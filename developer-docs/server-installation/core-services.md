@@ -105,7 +105,7 @@ You can access keycloak via `localhost:8080`
 | 3 | Creating keycloak federation [Deployment Steps for Keycloak User Federation](developer-docs/server-installation/keycloak_user_federation) |
 | 4 | Creating keycloak lms client [Creation Steps for Keycloak lms client](developer-docs/server-installation/keycloak_lms_configuration) |
 | 5 | Create Keycloak Password policy: navigate to Authentication > Password Policy > from add policy drop down select `Hashing Iterations, Minimum Length, Special Characters, Uppercase Characters, Lowercase Characters`
-| 6 | get the value for variable adminutil_refresh_token_public_key_kid [STeps to get the value for variable](developer-docs/server-installation/adminutil_refresh_token) |
+| 6 | Get the value for variable adminutil_refresh_token_public_key_kid [Steps to get the value for variable](developer-docs/server-installation/adminutil_refresh_token) |
 
 
 **Note:**
