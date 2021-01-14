@@ -151,7 +151,7 @@ Before you start the installation process, ensure that you provision for servers
 
 ## Creating the AKS cluster
 
-> **Note**  Follow the steps given below to create the Kuebrnetes cluster in Azure. Refer to the documents provided by respective cloud providers to create the Kubernetes cluster on any other cloud.
+> **Note**  Follow the steps given below to create the Kubernetes cluster in Azure. Refer to the documents provided by respective cloud providers to create the Kubernetes cluster on any other cloud.
 The AKS cluster and VM's should be in same vnet. If they are in diffrent vnet, you have to peer the vnets. To peer the vnets the IP address of the two vnets should not overlap. 
 
 1.Use the following command to create the AKS cluster: (requires az cli and aks-preview)
