@@ -149,12 +149,12 @@ Before you start the installation process, ensure that you provision for servers
 - All ports must be open in internal networks (Azure-Vnet or AWS-VPC) for internal comumnication between the VMs
 - By default, all the outbound ports are allowed for public access from the VM. 
 
-## Steps to create AKS cluster
+## Creating the AKS cluster
 
-> **Note**  below steps is for creating Kuebrneets cluster in Azure, Please refer respective cloud providers document for any other cloud.
-AKS cluster and vm's should be in same vnet (if both are in diffrent vnet, vnet peering has to be done)  to do  vnet peering bot the vnet ip's should not overlap. 
+> **Note**  Follow the steps given below to create the Kuebrnetes cluster in Azure. Refer to the documents provided by respective cloud providers to create the Kubernetes cluster on any other cloud.
+The AKS cluster and VM's should be in same vnet. If they are in diffrent vnet, you have to peer the vnets. To peer the vnets the IP address of the two vnets should not overlap. 
 
-1.command to create aks cluster: (requires az cli and aks-preview)
+1.Use the following command to create the AKS cluster: (requires az cli and aks-preview)
 
  ```
     - create service principal and assign contributor role to service principal, get the secrets and client id of service principal. (https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli)
@@ -166,9 +166,9 @@ AKS cluster and vm's should be in same vnet (if both are in diffrent vnet, vnet 
 
  ```  
 
- ## Azure Storage account configuration
+ ## Configuring the Azure storage account
 
- 1.Update CORS rule for storage account as below
+ 1.Update the CORS rule for the storage account as follows:
 
  ```
     Allowed Origins: *
@@ -179,6 +179,6 @@ AKS cluster and vm's should be in same vnet (if both are in diffrent vnet, vnet 
 
  ``` 
 
- 2.Disable Secure transfer required in stoarge account configuration
+ 2.Disable 'Secure transfer required' in storage account configuration
 
  3.Create the following containers in Storage account with public ACL (dial, termsandcondtions, content)
