@@ -8,12 +8,12 @@ allowSearch: true
 
 ## Overview
 
-After Lms client is created in keycloak, use the Lms client and secret to generate a keycloak token for a user.
+After creating the LMS client in Keycloak, use the LMS client and secret to generate a Keycloak token for a user.
  
 
-## Steps to create Adminutil refresh token
+## Creating the Adminutil refresh token
 
-1.After LMS client is created in keycloak, use the LMS client and secret to generate user access token.
+1.After LMS client is created in Keycloak, use the LMS client and secret to generate the user access token using the following command:
 
 ```
    curl --location --request POST 'https://<domain name>/auth/realms/sunbird/protocol/openid-connect/token' \
@@ -24,7 +24,7 @@ After Lms client is created in keycloak, use the Lms client and secret to genera
 
 ```
 
-2.Copy the access_token from the above command output.
+2.Copy the access token from the output of the command .
 
 ```
    Go to jwt.io website.
