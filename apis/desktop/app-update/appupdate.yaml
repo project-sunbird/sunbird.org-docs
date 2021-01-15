@@ -1,0 +1,159 @@
+openapi: 3.0.1
+info:
+  title: Sunbird Desktop app update API
+  description: This is the API used to check whether any update is available or not. If update is available then it returns the downloadable url.
+  termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
+  contact:
+    email: info@sunbird.org
+  version: "1.0"
+servers:
+- url: https://staging.open-sunbird.org/api
+paths:
+  /desktop/v1/update:
+    post:
+      tags:
+      - Desktop app update API
+      summary: Get desktop app update url
+      description: |-
+        This API is associated with desktop app update.
+           - The **_ /update_** endpoint takes the current version of the application and checks if update is available or not.
+           - Required fields cannot be left null or empty
+      operationId: Desktop update API
+      parameters:
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.Possible\
+          \ media types can be:- \n  - Application/json\n  - Multipart/form-data\n\
+          \  - Application/x-www-form-urlencoded"
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: "'The body parameter refers to the format of the request, the\
+          \ request body (payload) takes the following media types to make the payload:'\
+          \            \n - JSON           \nThe body is the representation of the\
+          \ resource object to get the update url"
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Request'
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUpdateResponse'
+        500:
+          description: '''INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUpdateErrorResponse'
+      x-codegen-request-body-name: Body
+components:
+  schemas:
+    Request:
+      title: App update Request
+      type: object
+      properties:
+        request:
+          title: UpdateObject
+          type: object
+          properties:
+            appVersion:
+              type: string
+              description: Current desktop application version (Example- '1.3.0')
+            os:
+              type: string
+              description: OS of the machine where the app is installed (Example- '64bit')
+            arch:
+              type: string
+              description: Arch of the machine where the app is installed (Example- '64bit')
+    GetUpdateResponse:
+      description: Get Update Response
+      allOf:
+      - $ref: '#/components/schemas/ResponseHeader'
+      - $ref: '#/components/schemas/ResultWithUpdateUrl'
+    ResultWithUpdateUrl:
+      title: Result Containing update url
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/updateURL'
+    updateURL:
+      title: update url
+      type: object
+      properties:
+        updateAvailable:
+          type: boolean
+          description: Key to check whether update is available or not
+        version:
+          type: string
+          description: Key to get the current available version. This is only returned if 'updateAvailable' key is true.
+        url:
+          type: string
+          description: Key to get the update url. This is only returned if 'updateAvailable' key is true.
+    ResponseHeader:
+      title: ResponseHeader
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents the unique API Identifier
+        ver:
+          type: string
+          description: Represents the API version information
+        ts:
+          type: string
+          description: Represents the current date and time
+        params:
+          $ref: '#/components/schemas/ResponseParams'
+    ResponseParams:
+      title: Response Parameter
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          description: ID represents the response uniquely
+        msgid:
+          type: string
+          description: Represents the unique ID of the response message
+        err:
+          type: string
+          description: Represents the Error Code in case the execution fails
+        status:
+          type: string
+          description: Represents the Response status when an API is called
+        errmsg:
+          type: string
+          description: Represents the text that is part of response status
+    EmptyResult:
+      title: Empty Result
+      type: object
+      properties:
+        result:
+          type: object
+          properties: {}
+          description: Empty Result
+    GetUpdateErrorResponse:
+      title: Get update url Error Response
+      allOf:
+      - $ref: '#/components/schemas/EmptyResult'
+      - $ref: '#/components/schemas/ResponseHeader'
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header

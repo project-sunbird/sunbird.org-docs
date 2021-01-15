@@ -1,0 +1,689 @@
+openapi: 3.0.1
+info:
+  title: Sunbird License API(s)
+  description: |-
+    The License API allows you to create licenses which can be tagged to content based on your requirements over the sunbird platform. Each endpoint serves a different purpose, so based on your requirement you can do the following: 
+    - The operations include CRUD (Create, Update, Read and Delete) operations
+    - The URL for Sunbird License API(s) is `/license/v3`
+    - The backend URL for the same is `/license/v3`. 
+    - [TestCases](https://www.getpostman.com/collections/86800b15d2dd42a1b425)"
+  termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
+  contact:
+    email: info@sunbird.org
+  version: "1.0"
+servers:
+- url: https://staging.sunbirded.org/api
+paths:
+  /license/v3/create:
+    post:
+      tags:
+      - License APIs
+      summary: Create License
+      description: |-
+        This API is associated with creating License on the Sunbird Platform.
+          - The endpoint for **Create License** is `/license/v3/create`
+          - It points to content-service - `/license/v3/create`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: Create License
+      parameters:
+      - name: Content-Type
+        in: header
+        description: |-
+          The Content Type entity is the media type of the resource.Possible media types can be:
+          - application/json
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body is the representation of the resource object for creating license (an array of parameters which describes the license). The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
+          - JSON
+          - Please refer for supported [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/license/1.0/schema.json)
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLicenseRequest'
+            example:
+              request:
+                license:
+                  name: 'CC BY 4.0'
+                  url: www.url.com
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **Create License** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseCreateSuccessResponse'
+              example:
+                id: api.license.create
+                ver: '3.0'
+                ts: '2020-12-18T06:48:10ZZ'
+                params:
+                  resmsgid: 5eb2e0f9-e27c-4d38-8353-e1720b0ed78a
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: cc-by-4.0
+                  node_id: cc-by-4.0
+        400:
+          description: |-
+            BAD REQUEST. The **Create License** operation failed. You may have missed input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseCreateErrorResponse'
+              example:
+               id: api.license.create
+               ver: '3.0'
+               ts: '2020-12-18T08:41:21ZZ'
+               params:
+                 resmsgid: 0ea93a27-b70d-4587-b280-29564175af86
+                 msgid: null
+                 err: CLIENT_ERROR
+                 status: failed
+                 errmsg: Validation Errors
+               responseCode: CLIENT_ERROR
+               result:
+                 messages:
+                   - Required Metadata name not set
+        500:
+          description: '''INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseCreateErrorResponse'
+              example:
+                id: api.license.create
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: 
+        - bearer: []
+  /license/v3/update/{License_Id}:
+    patch:
+      description: |-
+        This API is associated with updating license on the Sunbird Platform .
+          - **_/Update/_** endpoint executes the "Update License" request based on parameters provided as metadata in the request body.
+          - The endpoint for **Create License** is `/license/v3/update/{License_Id}`
+          - It points to content-service - `/license/v3/update/{License_Id}`
+          - {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Update License
+      tags:
+        - License APIs
+      operationId: Update License
+      parameters:
+        - in: path
+          name: License_Id
+          required: true
+          description: Please append a valid License Id To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All license APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLicenserequest'
+            example:
+              request:
+                license:
+                  description: 'Updated description'
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the object category to be updated.
+            - Please refer for supported [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/license/1.0/schema.json)
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation. License  update operation was successfuly
+            executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseCreateSuccessResponse'
+              example:
+                id: api.license.update
+                ver: '3.0'
+                ts: '2020-12-18T12:10:36ZZ'
+                params:
+                  resmsgid: 18fa41bd-7b8e-4f8b-9028-d17879f60cc6
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: standard-youtube-license
+                  node_id: standard-youtube-license
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**License  Update** operation failed !The possible reason for failure is that you may have provided wrong license id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseCreateErrorResponse'
+              example:
+                id: api.license.update
+                ver: '3.0'
+                ts: '2020-12-18T12:13:57ZZ'
+                params:
+                  resmsgid: d30ba7f5-916e-422f-8fcc-6a67b80acaea
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: standard-youtube-license1'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '400':
+          description: >-
+            BAD REQUEST. The 'Update  License ' operation failed ! The possible
+            reason for failure is that you may have missed providing input for a mandatory parameter. 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseCreateErrorResponse'
+              example:
+                id: api.license.update
+                ver: '4.0'
+                ts: '2020-12-10T20:27:01ZZ'
+                params:
+                  resmsgid: 87eb99c6-bc10-406a-a6fe-13651f546ce1
+                  msgid: null
+                  err: "ERROR_RESTRICTED_PROP"
+                  status: failed
+                  errmsg:  "Properties in list [identifier, name, status] are not allowed in request"
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseCreateErrorResponse'
+              example:
+                id: api.license.update
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: 
+        - bearer: []
+  /license/v3/read/{License_Id}:
+    get:
+      description: >-
+        This API is associated with viewing and reading out the master object category on the
+        Sunbird Platform .
+          - The **_/read/{License_Id}_** endpoint executes request for fetching the licenses to be viewed and read.
+          - The endpoint for **Read License** is `/license/v3/read/{License_Id}`
+          - It points to content-service - `/license/v3/read/{License_Id}`
+          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate id.
+          - You need to provide a valid object category id value in {License_Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      summary: Read License
+      tags:
+        - License APIs
+      operationId: Read License
+      parameters:
+        - in: path
+          name: License_Id
+          required: true
+          description: Please append a valid License_Id To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All license APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation."Read License" operation was successfully executed. For all possible metadata, please [refer](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/license/1.0/schema.json)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseGetSuccessResponse'
+              example:
+                id: api.license.read
+                ver: '3.0'
+                ts: '2020-12-18T12:10:18ZZ'
+                params:
+                  resmsgid: f7b3b400-cf43-49a3-ab14-a6d1a74e70b7
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  license:
+                    identifier: standard-youtube-license
+                    lastStatusChangedOn: '2019-11-25T13:34:45.334+0000'
+                    apoc_json: '{"batch": true}'
+                    url: www.url.com
+                    description: This is the standard license of any Youtube content
+                    languageCode: []
+                    createdOn: '2019-11-25T13:34:45.334+0000'
+                    objectType: License
+                    apoc_text: APOC
+                    versionKey: '1582725030824'
+                    name: Standard YouTube License
+                    lastUpdatedOn: '2020-02-26T13:50:30.824+0000'
+                    apoc_num: 1
+                    status: Live
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**License Read** operation failed !The possible reason
+            for failure is that you may have provided wrong license id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseCreateErrorResponse'
+              example:
+                id: api.license.read
+                ver: '3.0'
+                ts: '2020-12-18T12:21:51ZZ'
+                params:
+                  resmsgid: f5b2202a-f349-4488-a7ba-e061cfc2a88b
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: standard-youtube-license1'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseCreateErrorResponse'
+              example:
+                id: api.license.read
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: 
+        - bearer: []
+  /license/v3/retire/{License_Id}:
+    delete:
+      description: |-
+        This API is associated with retiring license on the Sunbird Platform .
+          - The **_/retire/{License_Id}_** endpoint executes  "Retire License" request based on license Id to delete the specific license.'
+          - The endpoint for **Retire License** is `/license/v3/retire/{License_Id}`
+          - It points to content-service - `/license/v3/retire/{License_Id}`
+          - {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
+          - It is mandatory to provide values for parameters.
+          - Mandatory fields cannot be null or empty.
+      summary: Retire Content
+      tags:
+        - License APIs
+      operationId: Retire License
+      parameters:
+        - in: path
+          name: License_Id
+          required: true
+          description: Please append a valid Content Id To the Request URL
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All content APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation.**License retire operation was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseRetireSuccessResponse'
+              example:
+                id: api.license.retire
+                ver: '3.0'
+                ts: '2020-12-11T12:05:52ZZ'
+                params:
+                  resmsgid: ebd2655a-a69a-460c-9bcf-0f45f5938fac
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: standard-youtube-license
+                  node_id: standard-youtube-license
+        '400':
+          description: >-
+            ERR CONTENT RETIRE! License is already retired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseCreateErrorResponse'
+              example:
+                id: api.license.retire
+                ver: '3.0'
+                ts: '2020-12-11T12:01:24ZZ'
+                params:
+                  resmsgid: ec20ec05-581c-4559-988a-449f3c5ae698
+                  msgid: null
+                  err: ERR_CONTENT_RETIRE
+                  status: failed
+                  errmsg: Content with Identifier standard-youtube-license is already Retired.
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**License Retire** operation failed !The possible reason
+            for failure is that you may have provided wrong license id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseCreateErrorResponse'
+              example:
+                id: api.license.retire
+                ver: '3.0'
+                ts: '2020-12-11T11:56:35ZZ'
+                params:
+                  resmsgid: d826e808-2866-4603-9b60-0a3130a37128
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: standard-youtube-license1'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseCreateErrorResponse'
+              example:
+                id: api.license.retire
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: 
+        - bearer: []
+components:
+  schemas:
+    CreateLicenseRequest:
+      title: Request Object
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/LicenseCreateRequestLicense'
+    LicenseCreateRequestLicense:
+      title: Request
+      required:
+      - license
+      type: object
+      properties:
+        license:
+          $ref: '#/components/schemas/LicenseCreateRequestLicenseObject'
+    LicenseCreateRequestLicenseObject:
+      title:  License 
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Represents the name of the license
+    UpdateLicenserequest:
+      title: Update License Request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/LicenseUpdateRequestLicense'
+      required:
+        - request
+    LicenseUpdateRequestLicense:
+      title: LicenseUpdateRequestLicense
+      type: object
+      required:
+        - license
+      properties:
+        license:
+          $ref: '#/components/schemas/LicenseUpdateRequestLicenseObject'
+    LicenseUpdateRequestLicenseObject:
+      title: License
+      type: object
+      properties:
+        description:
+          type: string
+          description: Represents the description for the license
+    LicenseCreateSuccessResponse:
+      description: Create License Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ResultWithLicenseId'
+        - $ref: '#/components/schemas/ResponseHeader'
+    ResultWithLicenseId:
+      title: Result Containing License Id
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/CreateLicense'
+    CreateLicense:
+      title: Create License
+      type: object
+      properties:
+        node_id:
+          type: string
+          description: License Identifier
+        identifier:
+          type: string
+          description: License Identifier
+    LicenseCreateErrorResponse:
+      description: Create License Error Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EmptyResult'
+        - $ref: '#/components/schemas/ResponseHeader'
+    EmptyResult:
+      title: Empty Result
+      type: object
+      properties:
+        result:
+          type: object
+          description: Empty Result
+    ResponseHeader:
+      title: ResponseHeader
+      type: object
+      properties:
+        id:
+          type: string
+          description: API Identifier
+        ver:
+          type: string
+          description: API version information
+        ts:
+          type: string
+          description: API execution timespan
+        params:
+          $ref: '#/components/schemas/ResponseParams'
+        responseCode:
+          type: string
+          description: 'API response code '
+    ResponseParams:
+      title: Response Parameter
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          description: Response Message Id
+        msgid:
+          type: string
+          description: Message Id
+        err:
+          type: string
+          description: Error Code
+        status:
+          type: string
+          description: Response Status
+        errmsg:
+          type: string
+          description: Error Message
+    LicenseGetSuccessResponse:
+      description: Get Content Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ResultWithLicenseMetadata'
+        - $ref: '#/components/schemas/ResponseHeader'
+    ResultWithLicenseMetadata:
+      title: Result With License
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/ResultWithLicense'
+    ResultWithLicense:
+      title: Result With License
+      type: object
+      properties:
+        license:
+          $ref: '#/components/schemas/LicenseMetadata'
+    LicenseMetadata:
+      title: License Metadata
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: License Identifier
+        name:
+          type: string
+          description: License name
+        description:
+          type: string
+          description: License description
+        versionKey:
+          type: string
+          description: License version key
+        url:
+          type: string
+          description: License url link
+    LicenseRetireSuccessResponse:
+      description: License Retire Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/RetireResultWithLicenseId'
+        - $ref: '#/components/schemas/ResponseHeader'
+    RetireResultWithLicenseId:
+      title: Retire Result Containing License
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/RetireLicense'
+    RetireLicense:
+      title: Retire License
+      type: object
+      properties:
+        node_id:
+          type: string
+          description: License Identifier
+        identifier:
+          type: string
+          description: License Identifier
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
