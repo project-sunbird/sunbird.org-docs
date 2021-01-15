@@ -1,1413 +1,1413 @@
-  openapi: 3.0.1
-  info:
-    title: Druid Report API(s)
-    description: " User can create reports using druid data, which can be rendered on portal/app
-      \n - The Druid Report API is used to submit and update druid based report respectively. The Operations include get all reports, getand deactivate particular report  \n- The URL for Druid Report API(S) is\
-      \ `/data/v1/report/jobs`.
-      - Postman collection for different testcases - [TestCases](https://www.getpostman.com/collections/94c5f2b82e734b577417) "
-    contact: {}
-    version: '1.0'
-  servers:
-    - url: 'https://staging.open-sunbird.org/api/data/v1/report/jobs'
-      variables: {}
-  paths:
-    /data/v1/report/jobs/submit:
-      post:
-        tags:
-          - V1
-        summary: SubmitDruidReport
-        description:  |-
-          This API is used for create a new report with druid config with selective datasource and filters. For example, the user can create a report with selective filters ,dimensions  and aggregations
-             - The endpoint for ** Druid Report** is `/submit`
-             - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-        operationId: SubmitDruidReport
-        requestBody:
-          description: Represents the body and formdata parameters of the new druid report 
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SubmitReportRequest'
-              example:
-                request:
-                  reportId: 'district_monthly'
-                  requestedBy: analytics
-                  description: Unique Device district wise monthly
-                  reportSchedule: MONTHLY
-                  config:
-                    id: district_monthly
-                    queryType: groupBy
-                    dateRange:
-                      staticInterval: LastMonth
-                      granularity: all
-                    metrics: 
-                      metric: totalUniqueDevices
-                      label: Total Unique Devices
-                      druidQuery: 
-                         "queryType": "groupBy"
-                         "dataSource": "telemetry-events"
-                         "intervals": "LastMonth"
-                    aggregations:
-                       "name": "total_unique_devices"
-                       "type": "cardinality"
-                       "fieldName": "context_did"
-                    dimensions:
-                      [
-                          {
-                            "fieldName": "derived_loc_state",
-                            "aliasName": "state"
-                          },
-                          {
-                            "fieldName": "derived_loc_district",
-                            "aliasName": "district"
-                          }
-                        ]
-                    filters: 
-                      [
-                          {
-                            "type": "in",
-                            "dimension": "context_pdata_id",
-                            "values": [
-                              "sunbirdddev.diksha.portal",
-                              "sunbirddev.diksha.app"
-                              ]
-                          },
-                          {
-                            "type": "isnotnull",
-                            "dimension": "derived_loc_state"
-                          },
-                          {
-                            "type": "isnotnull",
-                            "dimension": "derived_loc_district"
-                          }
-                      ]
-                    descending: 'false'
-                    labels: {
-                    "state": "State",
-                    "district": "District",
-                    "total_unique_devices": "Number of Unique Devices"
-                    }
-                    output: [
-                      type: csv,
-                      "metrics": [
-                        "total_unique_devices"
-                      ],
-                      "dims": [
-                        "state"
-                      ]
-                    ]
-                    fileParameters: [
-                        "id",
-                        "dims"
-                      ]
-          required: true
-        responses:
-          '200':
-            description: Success example for druid report submit API
-            headers: {}
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/SubmitDruidReport-SuccessResponse'
-                examples:
-                  New_Report:
-                    summary: With new reportId
-                    description: 'Report gets created when no report with same reportId exists'
-                    value: 
-                      id: ekstep.analytics.report.submit
-                      ver: v1
-                      ts: '2020-11-30T07:17:22.982+00:00  '
-                      params:
-                        resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
-                        status: successful
-                      responseCode: OK
-                      result:
-                        $ref: '#/components/examples/reportexample'
-                  Existing_Report:
-                    summary: With old report id
-                    description: Report doesnt get submitted or updated when report with reportid exists
-                    value: 
-                      id: ekstep.analytics.report.submit
-                      ver: v1
-                      ts: '2020-11-30T07:17:22.982+00:00  '
-                      params:
-                        err: OK
-                        resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
-                        status: failed
-                        errmsg: ReportId already Exists
-                      responseCode: OK
-                      result: null
-                      
-          '400':
-            description: Bad Request for druid report submit API.
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/DruidReport-BadRequestResponse'
-                examples:
-                  RequiredFieldsMissing:
-                    summary: With empty fields like request, reportid, config, config.store etc
-                    description: Response example when required fields are missing
-                    value:
-                      $ref: '#/components/schemas/DruidReport-BadRequestResponse/example'
-          '500':
-            description: Internal Server Error example for report submit
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
-                example:
-                  id: ekstep.analytics.report.submit
-                  ver: v1
-                  ts: '2020-11-23 15:15:18:331+0000'
-                  params:
-                    resmsgid: null
-                    msgid: null
-                    err: INTERNAL_ERROR
-                    status: SERVER_ERROR
-                    errmsg: 'Process failed,please try again later.'
-                  responseCode: SERVER_ERROR
-                  result: {}
-        deprecated: false
-        security: []
-    /data/v1/report/jobs/'{report-id}':
-      post:
-        tags:
-          - V1
-        summary: UpdateDruidReport
-        description:  |-
-          This API is used for updating any exisiting report. For example, the user can update  report with updated filters ,dimensions  or aggregations
-             - The endpoint for ** Druid Report** is `/{report-id}`
-             - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-        operationId: UpdateDruidReport
-        parameters:
-          - name: report-id
-            in: path
-            description: ''
-            required: true
-            style: simple
+openapi: 3.0.1
+info:
+  title: Druid Report API(s)
+  description: " User can create reports using druid data, which can be rendered on portal/app
+    \n - The Druid Report API is used to submit and update druid based report respectively. The Operations include get all reports, getand deactivate particular report  \n- The URL for Druid Report API(S) is\
+    \ `/data/v1/report/jobs`.
+    - Postman collection for different testcases - [TestCases](https://www.getpostman.com/collections/94c5f2b82e734b577417) "
+  contact: {}
+  version: '1.0'
+servers:
+  - url: 'https://staging.open-sunbird.org/api/data/v1/report/jobs'
+    variables: {}
+paths:
+  /data/v1/report/jobs/submit:
+    post:
+      tags:
+        - V1
+      summary: SubmitDruidReport
+      description:  |-
+        This API is used for create a new report with druid config with selective datasource and filters. For example, the user can create a report with selective filters ,dimensions  and aggregations
+           - The endpoint for ** Druid Report** is `/submit`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: SubmitDruidReport
+      requestBody:
+        description: Represents the body and formdata parameters of the new druid report 
+        content:
+          application/json:
             schema:
-              type: string            
-        requestBody:
-          description: Represents the body and formdata parameters of the druid report 
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Report-Request'
-              example:
-                request:
-                  reportId: 'district_monthly'
-                  requestedBy: analytics
-                  description: Unique Device district wise monthly
+              $ref: '#/components/schemas/SubmitReportRequest'
+            example:
+              request:
+                reportId: 'district_monthly'
+                requestedBy: analytics
+                description: Unique Device district wise monthly
+                reportSchedule: MONTHLY
+                config:
                   id: district_monthly
-                  reportSchedule: MONTHLY
-                  config:
-                    queryType: groupBy
-                    dateRange:
-                      staticInterval: LastMonth
-                      granularity: all
-                    metrics: 
-                      metric: totalUniqueDevices
-                      label: Total Unique Devices
-                      druidQuery: 
-                         "queryType": "groupBy"
-                         "dataSource": "telemetry-events"
-                         "intervals": "LastMonth"
-                    aggregations:
-                       "name": "total_unique_devices"
-                       "type": "cardinality"
-                       "fieldName": "context_did"
-                    dimensions:
-                      [
-                          {
-                            "fieldName": "derived_loc_state",
-                            "aliasName": "state"
-                          },
-                          {
-                            "fieldName": "derived_loc_district",
-                            "aliasName": "district"
-                          }
-                        ]
-                    filters: 
-                      [
-                          {
-                            "type": "in",
-                            "dimension": "context_pdata_id",
-                            "values": [
-                              "sunbirdddev.diksha.portal",
-                              "sunbirddev.diksha.app"
-                              ]
-                          },
-                          {
-                            "type": "isnotnull",
-                            "dimension": "derived_loc_state"
-                          },
-                          {
-                            "type": "isnotnull",
-                            "dimension": "derived_loc_district"
-                          }
+                  queryType: groupBy
+                  dateRange:
+                    staticInterval: LastMonth
+                    granularity: all
+                  metrics: 
+                    metric: totalUniqueDevices
+                    label: Total Unique Devices
+                    druidQuery: 
+                       "queryType": "groupBy"
+                       "dataSource": "telemetry-events"
+                       "intervals": "LastMonth"
+                  aggregations:
+                     "name": "total_unique_devices"
+                     "type": "cardinality"
+                     "fieldName": "context_did"
+                  dimensions:
+                    [
+                        {
+                          "fieldName": "derived_loc_state",
+                          "aliasName": "state"
+                        },
+                        {
+                          "fieldName": "derived_loc_district",
+                          "aliasName": "district"
+                        }
                       ]
-                    descending: 'false'
-                    labels: {
-                    "state": "State",
-                    "district": "District",
-                    "total_unique_devices": "Number of Unique Devices"
-                    }
-                    output: [
-                      type: csv,
-                      "metrics": [
-                        "total_unique_devices"
-                      ],
-                      "dims": [
-                        "state"
-                      ]
+                  filters: 
+                    [
+                        {
+                          "type": "in",
+                          "dimension": "context_pdata_id",
+                          "values": [
+                            "sunbirdddev.diksha.portal",
+                            "sunbirddev.diksha.app"
+                            ]
+                        },
+                        {
+                          "type": "isnotnull",
+                          "dimension": "derived_loc_state"
+                        },
+                        {
+                          "type": "isnotnull",
+                          "dimension": "derived_loc_district"
+                        }
                     ]
-                    fileParameters: [
-                        "id",
-                        "dims"
-                      ]
-                  store: azure
-                  key: folder-name/
-                  container: container-name    
-          required: true
-        responses:
-          '200':
-            description: Success example for druid report Update API
-            headers: {}
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/UpdateDruidReport-SuccessResponse'
-                examples:
-                  Existing_Report:
-                    summary: With exising report id
-                    description: If report exists,then only update will be successful
-                    value: 
-                      id: ekstep.analytics.report.update
-                      ver: v1
-                      ts: '2020-11-30T07:17:22.982+00:00  '
-                      params:
-                        resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
-                        status: successful
-                      responseCode: OK
-                      result:
-                        $ref: '#/components/examples/reportexample'
-                  New_Report:
-                    summary: With new report id
-                    description: If report doesnt exist, the update will fail
-                    value: 
-                      id: ekstep.analytics.report.submit
-                      ver: v1
-                      ts: '2020-11-30T07:17:22.982+00:00  '
-                      params:
-                        err: OK
-                        resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
-                        status: failed
-                        errmsg: no report available with requested reportid
-                      responseCode: OK
-                      result: null
-                      
-          '400':
-            description: Bad Request for druid report update API
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/DruidReport-BadRequestResponse'
-                examples:
-                  RequiredFieldsMissing:
-                    summary: With empty fields like request, reportid, filters, aggregations etc
-                    description: Response example when required fields are missing
-                    value:
-                      $ref: '#/components/schemas/DruidReport-BadRequestResponse/example'
-          '500':
-            description: Internal Server Error example for druid report update API
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
-                example:
-                  id: ekstep.analytics.report.submit
-                  ver: v1
-                  ts: '2020-11-23 15:15:18:331+0000'
-                  params:
-                    resmsgid: null
-                    msgid: null
-                    err: INTERNAL_ERROR
-                    status: SERVER_ERROR
-                    errmsg: 'Process failed,please try again later.'
-                  responseCode: SERVER_ERROR
-                  result: {}
-        deprecated: false
-        security: []      
-      get:
-        tags:
-          - V1
-        summary: GetDruidReport
-        description:  |-
-          This Get Report API is used for retrieving the details about an existing report using the report id.
-             - The endpoint for ** Druid Report** is `/{report-id}`
-             - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-        operationId: GetDruidReport
-        parameters:
-          - name: report-id
-            in: path
-            description: ''
-            required: true
-            style: simple
-            schema:
-              type: string
-        responses:
-          '200':
-            description: Success example for get report API
-            headers: {}
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/GetDruidReport-SuccessResponse'
-                examples:
-                  Existing_Report:
-                    summary: With old report id
-                    value: 
-                      id: ekstep.analytics.report.get
-                      ver: v1
-                      ts: '2020-11-30T07:17:22.982+00:00  '
-                      params:
-                        resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
-                        status: successful
-                      responseCode: OK
-                      result:
-                        $ref: '#/components/examples/reportexample'
-                  New_Report:
-                    summary: With new report id
-                    value: 
-                      id: ekstep.analytics.report.get
-                      ver: v1
-                      ts: '2020-11-30T07:17:22.982+00:00  '
-                      params:
-                        err: OK
-                        resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
-                        status: failed
-                        errmsg: no report available with requested reportid
-                      responseCode: OK
-                      result: null
-          '500':
-            description: Internal Server Error example for report get API
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
-                example:
-                  id: ekstep.analytics.report.submit
-                  ver: v1
-                  ts: '2020-11-23 15:15:18:331+0000'
-                  params:
-                    resmsgid: null
-                    msgid: null
-                    err: INTERNAL_ERROR
-                    status: SERVER_ERROR
-                    errmsg: 'Process failed,please try again later.'
-                  responseCode: SERVER_ERROR
-                  result: {}
-        deprecated: false
-        security: []            
-    /data/v1/report/jobs:
-      post:
-        tags:
-          - V1
-        summary: GetDruidReportsList
-        description:  |-
-          This API is used for getting the list of avaliable active or inactive reports.
-             - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-        operationId: GetDruidReportsList
-        requestBody:
-          description: Represents the body and formdata parameters of the druid report 
+                  descending: 'false'
+                  labels: {
+                  "state": "State",
+                  "district": "District",
+                  "total_unique_devices": "Number of Unique Devices"
+                  }
+                  output: [
+                    type: csv,
+                    "metrics": [
+                      "total_unique_devices"
+                    ],
+                    "dims": [
+                      "state"
+                    ]
+                  ]
+                  fileParameters: [
+                      "id",
+                      "dims"
+                    ]
+        required: true
+      responses:
+        '200':
+          description: Success example for druid report submit API
+          headers: {}
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListDruidReportRequest'
+                $ref: '#/components/schemas/SubmitDruidReport-SuccessResponse'
+              examples:
+                New_Report:
+                  summary: With new reportId
+                  description: 'Report gets created when no report with same reportId exists'
+                  value: 
+                    id: ekstep.analytics.report.submit
+                    ver: v1
+                    ts: '2020-11-30T07:17:22.982+00:00  '
+                    params:
+                      resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
+                      status: successful
+                    responseCode: OK
+                    result:
+                      $ref: '#/components/examples/reportexample'
+                Existing_Report:
+                  summary: With old report id
+                  description: Report doesnt get submitted or updated when report with reportid exists
+                  value: 
+                    id: ekstep.analytics.report.submit
+                    ver: v1
+                    ts: '2020-11-30T07:17:22.982+00:00  '
+                    params:
+                      err: OK
+                      resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
+                      status: failed
+                      errmsg: ReportId already Exists
+                    responseCode: OK
+                    result: null
+                    
+        '400':
+          description: Bad Request for druid report submit API.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DruidReport-BadRequestResponse'
+              examples:
+                RequiredFieldsMissing:
+                  summary: With empty fields like request, reportid, config, config.store etc
+                  description: Response example when required fields are missing
+                  value:
+                    $ref: '#/components/schemas/DruidReport-BadRequestResponse/example'
+        '500':
+          description: Internal Server Error example for report submit
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
               example:
-                request: 
-                  filters:
-                    status: ['ACTIVE']          
+                id: ekstep.analytics.report.submit
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: []
+  /data/v1/report/jobs/'{report-id}':
+    post:
+      tags:
+        - V1
+      summary: UpdateDruidReport
+      description:  |-
+        This API is used for updating any exisiting report. For example, the user can update  report with updated filters ,dimensions  or aggregations
+           - The endpoint for ** Druid Report** is `/{report-id}`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: UpdateDruidReport
+      parameters:
+        - name: report-id
+          in: path
+          description: ''
           required: true
-        responses:
-          '200':
-            description: Success example for listing all active or inactive reports
-            headers: {}
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ListDruidReport-SuccessResponse'
-                example:
-                      id: ekstep.analytics.report.get
-                      ver: v1
-                      ts: '2020-11-30T07:17:22.982+00:00  '
-                      params:
-                        resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
-                        status: successful
-                      responseCode: OK
-                      result:
-                        count: 1
-                        reports: [
-                        $ref: '#/components/examples/reportexample',
-                        $ref: '#/components/examples/reportexample1'
-                        ]
-          '500':
-            description: Internal Server Error example druid list report API
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
-                example:
-                  id: ekstep.analytics.report.get
-                  ver: v1
-                  ts: '2020-11-23 15:15:18:331+0000'
-                  params:
-                    resmsgid: null
-                    msgid: null
-                    err: INTERNAL_ERROR
-                    status: SERVER_ERROR
-                    errmsg: 'Process failed,please try again later.'
-                  responseCode: SERVER_ERROR
-                  result: {}
-        deprecated: false
-        security: []
-    /data/v1/report/jobs/deactivate/'{report-id}':
-      post:
-        tags:
-          - V1
-        summary: DeactivateDruidReport
-        description:  |-
-          This API is used for deactivating any particular report with reportid . It make report InActive
-             - The endpoint for ** Druid Report** is `/deactivate/{report-id}`
-             - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-        operationId: DeactivateDruidReport
-        parameters:
-          - name: report-id
-            in: path
-            description: ''
-            required: true
-            style: simple
+          style: simple
+          schema:
+            type: string            
+      requestBody:
+        description: Represents the body and formdata parameters of the druid report 
+        content:
+          application/json:
             schema:
-              type: string
-        responses:
-          '200':
-            description: Success example for deactivating report API
-            headers: {}
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/DeactivateDruidReport-SuccessResponse'
-                examples:
-                  Existing_Report:
-                    summary: With old report id
-                    description: Response when the report is avaliable
-                    value: 
-                      id: ekstep.analytics.report.update
-                      ver: v1
-                      ts: '2020-11-30T07:17:22.982+00:00  '
-                      params:
-                        resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
-                        status: successful
-                      responseCode: OK
-                      result:
-                        result: Successfully DeActivated the Report
-                  Report_Doesnt_Exist:
-                    description: Response when the report doesnt exist
-                    summary: With new report id
-                    value: 
-                      id: ekstep.analytics.report.submit
-                      ver: v1
-                      ts: '2020-11-30T07:17:22.982+00:00  '
-                      params:
-                        err: OK
-                        status: failed
-                        resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
-                        errmsg: no report available with requested reportid
-                      responseCode: OK
-                      result: null
-          '500':
-            description: Internal Server Error example for deactivate report API
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
-                example:
-                  id: ekstep.analytics.report.submit
-                  ver: v1
-                  ts: '2020-11-23 15:15:18:331+0000'
-                  params:
-                    resmsgid: null
-                    msgid: null
-                    err: INTERNAL_ERROR
-                    status: SERVER_ERROR
-                    errmsg: 'Process failed,please try again later.'
-                  responseCode: SERVER_ERROR
-                  result: {}
-        deprecated: false
-  security:
-    - bearerAuth: []      
-    
-  components:
-    securitySchemes:
-      bearerAuth:
-        type: http
-        scheme: bearer
-        bearerFormat: JWT   
-    examples:
-      reportexample:
-        value:
-            reportId: 'district_monthly'
-            requestedBy: analytics
-            description: Unique Device district wise monthly
-            reportSchedule: reportSchedule
-            createdOn: 1589699335278
-            updatedOn: 1589699343488
-            submittedOn: 1589699335278
-            status: INACTIVE
-            status_msg: REPORT SUCCESSFULLY ACTIVATED
-            config: 
-              id: district_monthly
-            queryType: groupBy
-            dateRange:
-              staticInterval: LastMonth
-              granularity: all
-              metrics: 
-                metric: totalUniqueDevices
-                label: Total Unique Devices
-                druidQuery: 
-                  "queryType": "groupBy"
-                  "dataSource": "telemetry-events"
-                  "intervals": "LastMonth"
-                aggregations:
-                   "name": "total_unique_devices"
-                   "type": "cardinality"
-                   "fieldName": "context_did"
-                dimensions:
-                  [
-                      {
-                        "fieldName": "derived_loc_state",
-                        "aliasName": "state"
-                      },
-                      {
-                        "fieldName": "derived_loc_district",
-                        "aliasName": "district"
-                      }
+              $ref: '#/components/schemas/Report-Request'
+            example:
+              request:
+                reportId: 'district_monthly'
+                requestedBy: analytics
+                description: Unique Device district wise monthly
+                id: district_monthly
+                reportSchedule: MONTHLY
+                config:
+                  queryType: groupBy
+                  dateRange:
+                    staticInterval: LastMonth
+                    granularity: all
+                  metrics: 
+                    metric: totalUniqueDevices
+                    label: Total Unique Devices
+                    druidQuery: 
+                       "queryType": "groupBy"
+                       "dataSource": "telemetry-events"
+                       "intervals": "LastMonth"
+                  aggregations:
+                     "name": "total_unique_devices"
+                     "type": "cardinality"
+                     "fieldName": "context_did"
+                  dimensions:
+                    [
+                        {
+                          "fieldName": "derived_loc_state",
+                          "aliasName": "state"
+                        },
+                        {
+                          "fieldName": "derived_loc_district",
+                          "aliasName": "district"
+                        }
+                      ]
+                  filters: 
+                    [
+                        {
+                          "type": "in",
+                          "dimension": "context_pdata_id",
+                          "values": [
+                            "sunbirdddev.diksha.portal",
+                            "sunbirddev.diksha.app"
+                            ]
+                        },
+                        {
+                          "type": "isnotnull",
+                          "dimension": "derived_loc_state"
+                        },
+                        {
+                          "type": "isnotnull",
+                          "dimension": "derived_loc_district"
+                        }
                     ]
-                filters: 
-                  [
-                      {
-                        "type": "in",
-                        "dimension": "context_pdata_id",
-                        "values": [
-                          "sunbirdddev.diksha.portal",
-                          "sunbirddev.diksha.app"
-                          ]
-                      },
-                      {
-                        "type": "isnotnull",
-                        "dimension": "derived_loc_state"
-                      },
-                      {
-                        "type": "isnotnull",
-                        "dimension": "derived_loc_district"
-                      }
+                  descending: 'false'
+                  labels: {
+                  "state": "State",
+                  "district": "District",
+                  "total_unique_devices": "Number of Unique Devices"
+                  }
+                  output: [
+                    type: csv,
+                    "metrics": [
+                      "total_unique_devices"
+                    ],
+                    "dims": [
+                      "state"
+                    ]
                   ]
-            descending: 'false'
-            labels: {
-              "state": "State",
-              "district": "District",
-              "total_unique_devices": "Number of Unique Devices"
-              }
-            output: [
-                type: csv,
-                "metrics": [
-                  "total_unique_devices"
-                ],
-                "dims": [
-                  "state"
-                ]
-              ]
-            fileParameters: [
-                  "id",
-                  "dims"
-                ]
-        summary: A sample object        
-      reportexample1:
-        value:
-            reportId: board_wise_max_time_spent_1
-            createdOn: 1589699335278
-            updatedOn: 1589699343488
-            requestedBy: analytics
-            description: Test Report
-            reportSchedule: Daily
-            config: 
-              id: test_report
-            queryType: timeseries
-            dateRange:
-              interval: 
-               startDate: 2020-01-01
-               endDate: 2020-01-05
-              granularity: all
-              metrics: 
-                metric: Total Plays on Portal
-                label: Total Plays on Portal
-                druidQuery: 
-                  "queryType": "timeseries"
-                  "dataSource": "telemetry-events"
-                  "intervals": "LastMonth"
-                aggregations:
-                   "name": "total_plays"
-                   "type": "count"
-                   "fieldName": "count"
-                filters: 
-                  [
-                      {
-                        "dimension": "context_pdata_id",
-                        "values": [
-                        "type": "equals",
-                          "local.diksha.portal"
-                          ]
-                      }
-                  ]
-            descending: 'false'
-            labels: {
-              "total_plays": "Total Plays Portal"
-              }
-            output: [
-                type: csv,
-                "metrics": [
-                  "total_plays"
-                ],
-                "dims": [
-                  "date"
-                ]
-              ]
-            fileParameters: [
-                  "id",
-                  "dims"
-                ]
-            status: INACTIVE
-            submittedOn: 1598857058574
-            status_msg: REPORT DEACTIVATED
-        summary: A sample object              
-    schemas:
-      Params:
-        title: Params
-        required:
-          - resmsgid
-          - err
-          - status
-        type: object
-        properties:
-          resmsgid:
+                  fileParameters: [
+                      "id",
+                      "dims"
+                    ]
+                store: azure
+                key: folder-name/
+                container: container-name    
+        required: true
+      responses:
+        '200':
+          description: Success example for druid report Update API
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateDruidReport-SuccessResponse'
+              examples:
+                Existing_Report:
+                  summary: With exising report id
+                  description: If report exists,then only update will be successful
+                  value: 
+                    id: ekstep.analytics.report.update
+                    ver: v1
+                    ts: '2020-11-30T07:17:22.982+00:00  '
+                    params:
+                      resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
+                      status: successful
+                    responseCode: OK
+                    result:
+                      $ref: '#/components/examples/reportexample'
+                New_Report:
+                  summary: With new report id
+                  description: If report doesnt exist, the update will fail
+                  value: 
+                    id: ekstep.analytics.report.submit
+                    ver: v1
+                    ts: '2020-11-30T07:17:22.982+00:00  '
+                    params:
+                      err: OK
+                      resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
+                      status: failed
+                      errmsg: no report available with requested reportid
+                    responseCode: OK
+                    result: null
+                    
+        '400':
+          description: Bad Request for druid report update API
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DruidReport-BadRequestResponse'
+              examples:
+                RequiredFieldsMissing:
+                  summary: With empty fields like request, reportid, filters, aggregations etc
+                  description: Response example when required fields are missing
+                  value:
+                    $ref: '#/components/schemas/DruidReport-BadRequestResponse/example'
+        '500':
+          description: Internal Server Error example for druid report update API
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
+              example:
+                id: ekstep.analytics.report.submit
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: []      
+    get:
+      tags:
+        - V1
+      summary: GetDruidReport
+      description:  |-
+        This Get Report API is used for retrieving the details about an existing report using the report id.
+           - The endpoint for ** Druid Report** is `/{report-id}`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetDruidReport
+      parameters:
+        - name: report-id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
             type: string
-            nullable: true
-          err:
-            type: string
-          status:
-            type: string
-      ReportConfig:
-        title: ReportConfig
-        required:
-          - id
-          - queryType
-          - dateRange
-          - metrics
-          - labels
-          - output
-        type: object
-        properties:
-          id:
-            type: string
-          queryType:
-            type: string
-          store:
-            type: string
-          container:
-            type: string
-          key:
-            type: string
-          dateRange:
-            $ref: '#/components/schemas/DateRange'
-          metrics:
-            type: array
-            items:
-              $ref: '#/components/schemas/Metrics'
-          labels:
-            $ref: '#/components/schemas/Labels'  
-          output:
-            type: array
-            items:
-              $ref: '#/components/schemas/Output'
-        example:
-          id: district_monthly
-          queryType: groupBy
-          dateRange:
-            staticInterval: LastMonth
-            granularity: all
-          metrics: 
-            metric: totalUniqueDevices
-            label: Total Unique Devices
-            druidQuery: 
-              "queryType": "groupBy"
-              "dataSource": "telemetry-events"
-              "intervals": "LastMonth"
-            aggregations:
-               "name": "total_unique_devices"
-               "type": "cardinality"
-               "fieldName": "context_did"
-            dimensions:
-              [
-                  {
-                    "fieldName": "derived_loc_state",
-                    "aliasName": "state"
-                  },
-                  {
-                    "fieldName": "derived_loc_district",
-                    "aliasName": "district"
-                  }
-                ]
-            filters: 
-              [
-                  {
-                    "type": "in",
-                    "dimension": "context_pdata_id",
-                    "values": [
-                      "sunbirdddev.diksha.portal",
-                      "sunbirddev.diksha.app"
+      responses:
+        '200':
+          description: Success example for get report API
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDruidReport-SuccessResponse'
+              examples:
+                Existing_Report:
+                  summary: With old report id
+                  value: 
+                    id: ekstep.analytics.report.get
+                    ver: v1
+                    ts: '2020-11-30T07:17:22.982+00:00  '
+                    params:
+                      resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
+                      status: successful
+                    responseCode: OK
+                    result:
+                      $ref: '#/components/examples/reportexample'
+                New_Report:
+                  summary: With new report id
+                  value: 
+                    id: ekstep.analytics.report.get
+                    ver: v1
+                    ts: '2020-11-30T07:17:22.982+00:00  '
+                    params:
+                      err: OK
+                      resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
+                      status: failed
+                      errmsg: no report available with requested reportid
+                    responseCode: OK
+                    result: null
+        '500':
+          description: Internal Server Error example for report get API
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
+              example:
+                id: ekstep.analytics.report.submit
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: []            
+  /data/v1/report/jobs:
+    post:
+      tags:
+        - V1
+      summary: GetDruidReportsList
+      description:  |-
+        This API is used for getting the list of avaliable active or inactive reports.
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetDruidReportsList
+      requestBody:
+        description: Represents the body and formdata parameters of the druid report 
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListDruidReportRequest'
+            example:
+              request: 
+                filters:
+                  status: ['ACTIVE']          
+        required: true
+      responses:
+        '200':
+          description: Success example for listing all active or inactive reports
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDruidReport-SuccessResponse'
+              example:
+                    id: ekstep.analytics.report.get
+                    ver: v1
+                    ts: '2020-11-30T07:17:22.982+00:00  '
+                    params:
+                      resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
+                      status: successful
+                    responseCode: OK
+                    result:
+                      count: 1
+                      reports: [
+                      $ref: '#/components/examples/reportexample',
+                      $ref: '#/components/examples/reportexample1'
                       ]
-                  },
-                  {
-                    "type": "isnotnull",
-                    "dimension": "derived_loc_state"
-                  },
-                  {
-                    "type": "isnotnull",
-                    "dimension": "derived_loc_district"
-                  }
-              ]
-            descending: 'false'
-            labels: {
-            "state": "State",
-            "district": "District",
-            "total_unique_devices": "Number of Unique Devices"
-            }
-            output: [
-              type: csv,
-              "metrics": [
-                "total_unique_devices"
-              ],
-              "dims": [
-                "state"
-              ]
-            ]
-            fileParameters: [
-                "id",
-                "dims"
-              ]        
-      DruidConfig:
-        title: DruidConfig
-        required:
-          - reportConfig
-          - store
-          - container
-          - key
-        type: object
-        properties:
-          reportConfig:
-            type: object
-            items: 
-             $ref: '#/components/schemas/ReportConfig'
-          store:
+        '500':
+          description: Internal Server Error example druid list report API
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
+              example:
+                id: ekstep.analytics.report.get
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: []
+  /data/v1/report/jobs/deactivate/'{report-id}':
+    post:
+      tags:
+        - V1
+      summary: DeactivateDruidReport
+      description:  |-
+        This API is used for deactivating any particular report with reportid . It make report InActive
+           - The endpoint for ** Druid Report** is `/deactivate/{report-id}`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: DeactivateDruidReport
+      parameters:
+        - name: report-id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
             type: string
-            description: 'Options : azure/local/s3'
-          container:
-            type: string
-          key:
-            type: string
-        example:
-          reportConfig:
-           $ref: '#/components/schemas/ReportConfig/example'
-          store: azure
-          key: folder-name/
-          container: container-name
-      Interval:
-        title: Interval
-        required:
-          - startDate
-          - endDate
-        type: object
-        properties:
-          startDate:
-            type: string
-          endDate:
-            type: string  
-        example:
-          startDate: '2020-10-11'
-          endDate: '2020-11-11'
-      DateRange:
-        title: DateRange
-        required:
-          - staticInterval
-          - interval
-          - granularity
-        type: object
-        properties:
-          staticInterval:
-            type: string
-            nullable: true
-          granularity:
-            type: string
-          interval:
-            $ref: '#/components/schemas/Interval'
-            nullable: true
-        example:
-          interval:
-            startDate: '2020-10-01'
-            endDate: '2020-10-02'
-          staticInterval: 'LastMonth'  
-          granularity: 'Day'
-      Metrics:
-        title: Metrics
-        required:
-          - metric
-          - label
-          - druidQuery
-        type: object
-        properties:
-          metric:
-            type: string
-          label:
-            type: string
-          druidQuery:
-            $ref: '#/components/schemas/DruidQuery'
-        example:
-          druidQuery: ''
-          metric: 'totalUniqueDevices'  
-          label: 'Total Unique Devices'    
-      DruidQuery:
-        title: DruidQuery
-        required:
-          - queryType
-          - dataSource
-          - intervals
-          - descending
-        type: object
-        properties:
-          queryType:
-            type: string
-          dataSource:
-            type: string
-          intervals:
-            type: string
-          descending:
-            type: boolean
-          filters:
-            nullable: true
-            type: array
-            items:
-              $ref: '#/components/schemas/Filters'
-          dimensions:
-            nullable: true
-            type: array
-            items: 
-              $ref: '#/components/schemas/Dimensions'
-          aggregations:
-            type: array
-            items: 
-              $ref: '#/components/schemas/Aggregations'    
-        example:
-          queryType: 'groupBy'
-          dataSource: 'telemetry-events'
-          intervals: '2020-09-01/2020-09-04'
-      Filters:
-        title: Filters
-        required:
-          - type
-          - dimension
-        type: object
-        properties:
-          type:
-            type: string
-            description: Filter type - and/or/in etc
-          dimension:
-            type: string
-            description: Druid dimension name
-          values:
-            type: array
-            items:
-              type: string
-        example:
-          type: 'in//or/and'
-          dimension: context_pdata_id
-          values: ['test.diksha.portal']    
-      Dimensions:
-        title: Dimensions
-        required:
-          - fieldName
-        type: object
-        properties:
-          aliasName:
-            nullable: true
-            type: string
-            description: Alias name for druid dimension name
-          fieldName:
-            type: string
-            description: Druid dimension name
-        example:
-          fieldName: derived_loc_district
-          aliasName: district
-      Aggregations:
-        title: Aggregations
-        required:
-          - name
-          - type
-          - fieldName
-        type: object
-        properties:
-          name:
-            type: string
-          type:
-            type: string
-            description: Aggregation type- count/cardinality etc
-          fieldName:
-            type: string
-        example:
-          name: total_unique_devices
-          type: cardinality
-          fieldName: context_did
-      SubmitReportRequest:
-        title: SubmitDruidReport
-        required:
-          - request
-        type: object
-        properties:
-          request:
-            $ref: '#/components/schemas/Report-Request'
-        example:
-          request:
-            reportId: 'district_monthly'
-            requestedBy: analytics
-            description: Unique Device district wise monthly
-            reportSchedule: reportSchedule
-            config: 
-              id: district_monthly
-          queryType: groupBy
-          dateRange:
-            staticInterval: LastMonth
-            granularity: all
-          metrics: 
-            metric: totalUniqueDevices
-            label: Total Unique Devices
-            druidQuery: 
-              "queryType": "groupBy"
-              "dataSource": "telemetry-events"
-              "intervals": "LastMonth"
-            aggregations:
-               "name": "total_unique_devices"
-               "type": "cardinality"
-               "fieldName": "context_did"
-            dimensions:
-              [
-                  {
-                    "fieldName": "derived_loc_state",
-                    "aliasName": "state"
-                  },
-                  {
-                    "fieldName": "derived_loc_district",
-                    "aliasName": "district"
-                  }
-                ]
-            filters: 
-              [
-                  {
-                    "type": "in",
-                    "dimension": "context_pdata_id",
-                    "values": [
-                      "sunbirdddev.diksha.portal",
-                      "sunbirddev.diksha.app"
-                      ]
-                  },
-                  {
-                    "type": "isnotnull",
-                    "dimension": "derived_loc_state"
-                  },
-                  {
-                    "type": "isnotnull",
-                    "dimension": "derived_loc_district"
-                  }
-              ]
-            descending: 'false'
-            labels: {
-            "state": "State",
-            "district": "District",
-            "total_unique_devices": "Number of Unique Devices"
-            }
-            output: [
-              type: csv,
-              "metrics": [
-                "total_unique_devices"
-              ],
-              "dims": [
-                "state"
-              ]
-            ]
-            fileParameters: [
-                "id",
-                "dims"
-              ]
-      Labels:
-        title: Labels
-        type: object
-        properties:
-          '{{label-key}}':
-           type: string
-           description: key value pairs for changing druid columns to desired names for report
-        example:
-          "total_unique_devices": "Number of Unique Devices"
-          "state": "State"
-      Output:
-        title: Output
-        type: object
-        required:
-          - type
-          - metrics
-          - dims
-          - fileParameters
-        properties:
-          type:
-            type: string
-            description: 'Output type csv or json'
-          metrics:
-            type: array
-            description: List of metrics names from aggregations and post aggregations
-            items:
-              type: string
-          dims:
-            type: array
-            description: List of dimensions for the report folders
-            items:
-              type: string
-          fileParameters:
-            type: array
-            description: Parameters like filename etcs
-            items:
-              type: string
-      Report-Request:
-        title: Report-Request
-        required:
-        - reportId
-        - requestedBy
-        - description
-        - reportSchedule
-        - config
-        type: object
-        properties:
-          reportId:
-            type: string
-            description: This identifier uniquely identifies a report
-          requestedBy:
-            type: string
-            description: This represents the user who request the report
-            example: analytics
-          reportSchedule:
-            type: string
-            description: This represents short description about the report
-            example: MONTHLY
-          description:
-            type: string
-            description: Short description about report
-            example: Unique Device district wise monthly
-          config:
-            $ref: '#/components/schemas/DruidConfig'
-        example:
+      responses:
+        '200':
+          description: Success example for deactivating report API
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeactivateDruidReport-SuccessResponse'
+              examples:
+                Existing_Report:
+                  summary: With old report id
+                  description: Response when the report is avaliable
+                  value: 
+                    id: ekstep.analytics.report.update
+                    ver: v1
+                    ts: '2020-11-30T07:17:22.982+00:00  '
+                    params:
+                      resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
+                      status: successful
+                    responseCode: OK
+                    result:
+                      result: Successfully DeActivated the Report
+                Report_Doesnt_Exist:
+                  description: Response when the report doesnt exist
+                  summary: With new report id
+                  value: 
+                    id: ekstep.analytics.report.submit
+                    ver: v1
+                    ts: '2020-11-30T07:17:22.982+00:00  '
+                    params:
+                      err: OK
+                      status: failed
+                      resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
+                      errmsg: no report available with requested reportid
+                    responseCode: OK
+                    result: null
+        '500':
+          description: Internal Server Error example for deactivate report API
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
+              example:
+                id: ekstep.analytics.report.submit
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+security:
+  - bearerAuth: []      
+  
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT   
+  examples:
+    reportexample:
+      value:
           reportId: 'district_monthly'
           requestedBy: analytics
           description: Unique Device district wise monthly
           reportSchedule: reportSchedule
-          config: ''
-      ListDruidReportRequest:
-        title: ListDruidReportRequest
-        required:
-        - request
-        type: object
-        properties:
-          request:
-            type: object
-            description: Request to get all active or inactive reports
-            properties:
-              filter:
-               type: object
-               properties:
-                status:
-                  type: array
-                  items:
-                    type: string
-        example:
-          request: 
-            filters:
-              status: ['INACTIVE']
-      DruidReport-BadRequestResponse:
-        title: DruidReport-BadRequestResponse
-        description: DruidReport-BadRequestResponse- All Missing Fields
-        required:
-          - id
-          - ver
-          - ts
-          - params
-          - responseCode
-          - result
-        type: object
-        properties:
-          id:
-            type: string
-          ver:
-            type: string
-          ts:
-            type: string
-          params:
-            $ref: '#/components/schemas/Params'
-          responseCode:
-            type: string
-          result:
-            type: object
-        example:
-          id: ekstep.analytics.report.submit
-          ver: v1
-          ts: '2020-11-30T09:01:46.049+00:00'
-          params:
-            resmsgid: f434f2ea-56a2-4142-92ce-1023d229142a
-            err: CLIENT_ERROR
-            status: failed
-          responseCode: CLIENT_ERROR
-          result: {
-            "request.config": "Config should not be empty",
-            "request.description": "Report Description should not empty",
-            "status": "failed",
-            "request.createdBy": "Created By should not be empty",
-            "request.reportId": "Report Id should not be  empty"
-          }
-      DruidReportAPI-InternalServerError:
-        title: DruidReportAPI-InternalServerError
-        required:
-          - id
-          - ver
-          - ts
-          - params
-          - responseCode
-          - result
-        type: object
-        properties:
-          id:
-            type: string
-          ver:
-            type: string
-          ts:
-            type: string
-          params:
-            $ref: '#/components/schemas/Params'
-          responseCode:
-            type: string
-          result:
-            type: object
-        example:
-          id: ekstep.analytics.report.submit
-          ver: v1
-          ts: '2020-11-23 15:15:18:331+0000'
-          params:
-            resmsgid: null
-            msgid: null
-            err: INTERNAL_ERROR
-            status: SERVER_ERROR
-            errmsg: 'Process failed,please try again later.'
-          responseCode: SERVER_ERROR
-          result: {}
-      SubmitDruidReport-SuccessResponse:
-        title: SubmitDruidReport-SuccessResponse
-        required:
-          - id
-          - ver
-          - ts
-          - params
-          - responseCode
-          - result
-        type: object
-        properties:
-          id:
-            type: string
-          ver:
-            type: string
-          ts:
-            type: string
-          params:
-            $ref: '#/components/schemas/Params'
-          responseCode:
-            type: string
-          result:
-            $ref: '#/components/schemas/Report-Request'
-        example:
-          id: ekstep.analytics.report.submit
-          ver: v1
-          ts: '2020-11-23 06:42:39:001+0000'
-          params:
-            resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
-            status: successful
-          responseCode: OK
-          result:
-              $ref: '#/components/examples/reportexample'
-      UpdateDruidReport-SuccessResponse:
-        title: UpdateDruidReport-SuccessResponse
-        required:
-          - id
-          - ver
-          - ts
-          - params
-          - responseCode
-          - result
-        type: object
-        properties:
-          id:
-            type: string
-          ver:
-            type: string
-          ts:
-            type: string
-          params:
-            $ref: '#/components/schemas/Params'
-          responseCode:
-            type: string
-          result:
-            $ref: '#/components/schemas/Report-Request'
-        example:
-          id: ekstep.analytics.report.update
-          ver: v1
-          ts: '2020-11-23 06:42:39:001+0000'
-          params:
-            resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
-            status: successful
-          responseCode: OK
-          result:
-              $ref: '#/components/examples/reportexample'            
-      GetDruidReport-SuccessResponse:
-        title: UpdateDruidReport-SuccessResponse
-        required:
-          - id
-          - ver
-          - ts
-          - params
-          - responseCode
-          - result
-        type: object
-        properties:
-          id:
-            type: string
-          ver:
-            type: string
-          ts:
-            type: string
-          params:
-            $ref: '#/components/schemas/Params'
-          responseCode:
-            type: string
-          result:
-            $ref: '#/components/schemas/Report-Request'
-        example:
-          id: ekstep.analytics.report.update
-          ver: v1
-          ts: '2020-11-23 06:42:39:001+0000'
-          params:
-            resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
-            status: successful
-          responseCode: OK
-          result:
-              $ref: '#/components/examples/reportexample'                        
-      ListDruidReport-SuccessResponse:
-        title: ListDruidReport-SuccessResponse
-        required:
-          - id
-          - ver
-          - ts
-          - params
-          - responseCode
-          - result
-        type: object
-        properties:
-          id:
-            type: string
-          ver:
-            type: string
-          ts:
-            type: string
-          params:
-            $ref: '#/components/schemas/Params'
-          responseCode:
-            type: string
-          result:
-            $ref: '#/components/schemas/ListReports-Response'
-        example:
-          id: ekstep.analytics.report.get
-          ver: v1
-          ts: '2020-11-23 06:42:39:001+0000'
-          params:
-            resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
-            status: successful
-          responseCode: OK
-          result:
-            $ref: '#/components/schemas/ListReports-Response/example'
-      ListReports-Response:
-        title: ListReports-Response
-        required:
-          - count
-          - reports
-        type: object
-        properties:
-          count:
-            type: integer
-          reports:
-            type: array
-            items:
-              $ref: '#/components/schemas/Report-Request'
-        example:
-         count: 1
-         reports: [
-            $ref:  '#/components/examples/reportexample'
+          createdOn: 1589699335278
+          updatedOn: 1589699343488
+          submittedOn: 1589699335278
+          status: INACTIVE
+          status_msg: REPORT SUCCESSFULLY ACTIVATED
+          config: 
+            id: district_monthly
+          queryType: groupBy
+          dateRange:
+            staticInterval: LastMonth
+            granularity: all
+            metrics: 
+              metric: totalUniqueDevices
+              label: Total Unique Devices
+              druidQuery: 
+                "queryType": "groupBy"
+                "dataSource": "telemetry-events"
+                "intervals": "LastMonth"
+              aggregations:
+                 "name": "total_unique_devices"
+                 "type": "cardinality"
+                 "fieldName": "context_did"
+              dimensions:
+                [
+                    {
+                      "fieldName": "derived_loc_state",
+                      "aliasName": "state"
+                    },
+                    {
+                      "fieldName": "derived_loc_district",
+                      "aliasName": "district"
+                    }
+                  ]
+              filters: 
+                [
+                    {
+                      "type": "in",
+                      "dimension": "context_pdata_id",
+                      "values": [
+                        "sunbirdddev.diksha.portal",
+                        "sunbirddev.diksha.app"
+                        ]
+                    },
+                    {
+                      "type": "isnotnull",
+                      "dimension": "derived_loc_state"
+                    },
+                    {
+                      "type": "isnotnull",
+                      "dimension": "derived_loc_district"
+                    }
+                ]
+          descending: 'false'
+          labels: {
+            "state": "State",
+            "district": "District",
+            "total_unique_devices": "Number of Unique Devices"
+            }
+          output: [
+              type: csv,
+              "metrics": [
+                "total_unique_devices"
+              ],
+              "dims": [
+                "state"
+              ]
             ]
-      DeactivateDruidReport-SuccessResponse:
-        title: DeactivateDruidReport-SuccessResponse
-        required:
-          - id
-          - ver
-          - ts
-          - params
-          - responseCode
-          - result
-        type: object
-        properties:
-          id:
+          fileParameters: [
+                "id",
+                "dims"
+              ]
+      summary: A sample object        
+    reportexample1:
+      value:
+          reportId: board_wise_max_time_spent_1
+          createdOn: 1589699335278
+          updatedOn: 1589699343488
+          requestedBy: analytics
+          description: Test Report
+          reportSchedule: Daily
+          config: 
+            id: test_report
+          queryType: timeseries
+          dateRange:
+            interval: 
+             startDate: 2020-01-01
+             endDate: 2020-01-05
+            granularity: all
+            metrics: 
+              metric: Total Plays on Portal
+              label: Total Plays on Portal
+              druidQuery: 
+                "queryType": "timeseries"
+                "dataSource": "telemetry-events"
+                "intervals": "LastMonth"
+              aggregations:
+                 "name": "total_plays"
+                 "type": "count"
+                 "fieldName": "count"
+              filters: 
+                [
+                    {
+                      "dimension": "context_pdata_id",
+                      "values": [
+                      "type": "equals",
+                        "local.diksha.portal"
+                        ]
+                    }
+                ]
+          descending: 'false'
+          labels: {
+            "total_plays": "Total Plays Portal"
+            }
+          output: [
+              type: csv,
+              "metrics": [
+                "total_plays"
+              ],
+              "dims": [
+                "date"
+              ]
+            ]
+          fileParameters: [
+                "id",
+                "dims"
+              ]
+          status: INACTIVE
+          submittedOn: 1598857058574
+          status_msg: REPORT DEACTIVATED
+      summary: A sample object              
+  schemas:
+    Params:
+      title: Params
+      required:
+        - resmsgid
+        - err
+        - status
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          nullable: true
+        err:
+          type: string
+        status:
+          type: string
+    ReportConfig:
+      title: ReportConfig
+      required:
+        - id
+        - queryType
+        - dateRange
+        - metrics
+        - labels
+        - output
+      type: object
+      properties:
+        id:
+          type: string
+        queryType:
+          type: string
+        store:
+          type: string
+        container:
+          type: string
+        key:
+          type: string
+        dateRange:
+          $ref: '#/components/schemas/DateRange'
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metrics'
+        labels:
+          $ref: '#/components/schemas/Labels'  
+        output:
+          type: array
+          items:
+            $ref: '#/components/schemas/Output'
+      example:
+        id: district_monthly
+        queryType: groupBy
+        dateRange:
+          staticInterval: LastMonth
+          granularity: all
+        metrics: 
+          metric: totalUniqueDevices
+          label: Total Unique Devices
+          druidQuery: 
+            "queryType": "groupBy"
+            "dataSource": "telemetry-events"
+            "intervals": "LastMonth"
+          aggregations:
+             "name": "total_unique_devices"
+             "type": "cardinality"
+             "fieldName": "context_did"
+          dimensions:
+            [
+                {
+                  "fieldName": "derived_loc_state",
+                  "aliasName": "state"
+                },
+                {
+                  "fieldName": "derived_loc_district",
+                  "aliasName": "district"
+                }
+              ]
+          filters: 
+            [
+                {
+                  "type": "in",
+                  "dimension": "context_pdata_id",
+                  "values": [
+                    "sunbirdddev.diksha.portal",
+                    "sunbirddev.diksha.app"
+                    ]
+                },
+                {
+                  "type": "isnotnull",
+                  "dimension": "derived_loc_state"
+                },
+                {
+                  "type": "isnotnull",
+                  "dimension": "derived_loc_district"
+                }
+            ]
+          descending: 'false'
+          labels: {
+          "state": "State",
+          "district": "District",
+          "total_unique_devices": "Number of Unique Devices"
+          }
+          output: [
+            type: csv,
+            "metrics": [
+              "total_unique_devices"
+            ],
+            "dims": [
+              "state"
+            ]
+          ]
+          fileParameters: [
+              "id",
+              "dims"
+            ]        
+    DruidConfig:
+      title: DruidConfig
+      required:
+        - reportConfig
+        - store
+        - container
+        - key
+      type: object
+      properties:
+        reportConfig:
+          type: object
+          items: 
+           $ref: '#/components/schemas/ReportConfig'
+        store:
+          type: string
+          description: 'Options : azure/local/s3'
+        container:
+          type: string
+        key:
+          type: string
+      example:
+        reportConfig:
+         $ref: '#/components/schemas/ReportConfig/example'
+        store: azure
+        key: folder-name/
+        container: container-name
+    Interval:
+      title: Interval
+      required:
+        - startDate
+        - endDate
+      type: object
+      properties:
+        startDate:
+          type: string
+        endDate:
+          type: string  
+      example:
+        startDate: '2020-10-11'
+        endDate: '2020-11-11'
+    DateRange:
+      title: DateRange
+      required:
+        - staticInterval
+        - interval
+        - granularity
+      type: object
+      properties:
+        staticInterval:
+          type: string
+          nullable: true
+        granularity:
+          type: string
+        interval:
+          $ref: '#/components/schemas/Interval'
+          nullable: true
+      example:
+        interval:
+          startDate: '2020-10-01'
+          endDate: '2020-10-02'
+        staticInterval: 'LastMonth'  
+        granularity: 'Day'
+    Metrics:
+      title: Metrics
+      required:
+        - metric
+        - label
+        - druidQuery
+      type: object
+      properties:
+        metric:
+          type: string
+        label:
+          type: string
+        druidQuery:
+          $ref: '#/components/schemas/DruidQuery'
+      example:
+        druidQuery: ''
+        metric: 'totalUniqueDevices'  
+        label: 'Total Unique Devices'    
+    DruidQuery:
+      title: DruidQuery
+      required:
+        - queryType
+        - dataSource
+        - intervals
+        - descending
+      type: object
+      properties:
+        queryType:
+          type: string
+        dataSource:
+          type: string
+        intervals:
+          type: string
+        descending:
+          type: boolean
+        filters:
+          nullable: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Filters'
+        dimensions:
+          nullable: true
+          type: array
+          items: 
+            $ref: '#/components/schemas/Dimensions'
+        aggregations:
+          type: array
+          items: 
+            $ref: '#/components/schemas/Aggregations'    
+      example:
+        queryType: 'groupBy'
+        dataSource: 'telemetry-events'
+        intervals: '2020-09-01/2020-09-04'
+    Filters:
+      title: Filters
+      required:
+        - type
+        - dimension
+      type: object
+      properties:
+        type:
+          type: string
+          description: Filter type - and/or/in etc
+        dimension:
+          type: string
+          description: Druid dimension name
+        values:
+          type: array
+          items:
             type: string
-          ver:
+      example:
+        type: 'in//or/and'
+        dimension: context_pdata_id
+        values: ['test.diksha.portal']    
+    Dimensions:
+      title: Dimensions
+      required:
+        - fieldName
+      type: object
+      properties:
+        aliasName:
+          nullable: true
+          type: string
+          description: Alias name for druid dimension name
+        fieldName:
+          type: string
+          description: Druid dimension name
+      example:
+        fieldName: derived_loc_district
+        aliasName: district
+    Aggregations:
+      title: Aggregations
+      required:
+        - name
+        - type
+        - fieldName
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          description: Aggregation type- count/cardinality etc
+        fieldName:
+          type: string
+      example:
+        name: total_unique_devices
+        type: cardinality
+        fieldName: context_did
+    SubmitReportRequest:
+      title: SubmitDruidReport
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/Report-Request'
+      example:
+        request:
+          reportId: 'district_monthly'
+          requestedBy: analytics
+          description: Unique Device district wise monthly
+          reportSchedule: reportSchedule
+          config: 
+            id: district_monthly
+        queryType: groupBy
+        dateRange:
+          staticInterval: LastMonth
+          granularity: all
+        metrics: 
+          metric: totalUniqueDevices
+          label: Total Unique Devices
+          druidQuery: 
+            "queryType": "groupBy"
+            "dataSource": "telemetry-events"
+            "intervals": "LastMonth"
+          aggregations:
+             "name": "total_unique_devices"
+             "type": "cardinality"
+             "fieldName": "context_did"
+          dimensions:
+            [
+                {
+                  "fieldName": "derived_loc_state",
+                  "aliasName": "state"
+                },
+                {
+                  "fieldName": "derived_loc_district",
+                  "aliasName": "district"
+                }
+              ]
+          filters: 
+            [
+                {
+                  "type": "in",
+                  "dimension": "context_pdata_id",
+                  "values": [
+                    "sunbirdddev.diksha.portal",
+                    "sunbirddev.diksha.app"
+                    ]
+                },
+                {
+                  "type": "isnotnull",
+                  "dimension": "derived_loc_state"
+                },
+                {
+                  "type": "isnotnull",
+                  "dimension": "derived_loc_district"
+                }
+            ]
+          descending: 'false'
+          labels: {
+          "state": "State",
+          "district": "District",
+          "total_unique_devices": "Number of Unique Devices"
+          }
+          output: [
+            type: csv,
+            "metrics": [
+              "total_unique_devices"
+            ],
+            "dims": [
+              "state"
+            ]
+          ]
+          fileParameters: [
+              "id",
+              "dims"
+            ]
+    Labels:
+      title: Labels
+      type: object
+      properties:
+        '{{label-key}}':
+         type: string
+         description: key value pairs for changing druid columns to desired names for report
+      example:
+        "total_unique_devices": "Number of Unique Devices"
+        "state": "State"
+    Output:
+      title: Output
+      type: object
+      required:
+        - type
+        - metrics
+        - dims
+        - fileParameters
+      properties:
+        type:
+          type: string
+          description: 'Output type csv or json'
+        metrics:
+          type: array
+          description: List of metrics names from aggregations and post aggregations
+          items:
             type: string
-          ts:
+        dims:
+          type: array
+          description: List of dimensions for the report folders
+          items:
             type: string
-          params:
-            $ref: '#/components/schemas/Params'
-          responseCode:
+        fileParameters:
+          type: array
+          description: Parameters like filename etcs
+          items:
             type: string
-          result:
-            type: object
-            properties:
-             result:
-              type: string
-        example:
-          id: ekstep.analytics.report.delete
-          ver: v1
-          ts: '2020-11-23 06:42:39:001+0000'
-          params:
-            resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
-            status: successful
-          responseCode: OK
-          result:
-            result: Successfully DeActivated the Report
-  tags:
-    - name: V1
-      description: ''
+    Report-Request:
+      title: Report-Request
+      required:
+      - reportId
+      - requestedBy
+      - description
+      - reportSchedule
+      - config
+      type: object
+      properties:
+        reportId:
+          type: string
+          description: This identifier uniquely identifies a report
+        requestedBy:
+          type: string
+          description: This represents the user who request the report
+          example: analytics
+        reportSchedule:
+          type: string
+          description: This represents short description about the report
+          example: MONTHLY
+        description:
+          type: string
+          description: Short description about report
+          example: Unique Device district wise monthly
+        config:
+          $ref: '#/components/schemas/DruidConfig'
+      example:
+        reportId: 'district_monthly'
+        requestedBy: analytics
+        description: Unique Device district wise monthly
+        reportSchedule: reportSchedule
+        config: ''
+    ListDruidReportRequest:
+      title: ListDruidReportRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          type: object
+          description: Request to get all active or inactive reports
+          properties:
+            filter:
+             type: object
+             properties:
+              status:
+                type: array
+                items:
+                  type: string
+      example:
+        request: 
+          filters:
+            status: ['INACTIVE']
+    DruidReport-BadRequestResponse:
+      title: DruidReport-BadRequestResponse
+      description: DruidReport-BadRequestResponse- All Missing Fields
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          type: object
+      example:
+        id: ekstep.analytics.report.submit
+        ver: v1
+        ts: '2020-11-30T09:01:46.049+00:00'
+        params:
+          resmsgid: f434f2ea-56a2-4142-92ce-1023d229142a
+          err: CLIENT_ERROR
+          status: failed
+        responseCode: CLIENT_ERROR
+        result: {
+          "request.config": "Config should not be empty",
+          "request.description": "Report Description should not empty",
+          "status": "failed",
+          "request.createdBy": "Created By should not be empty",
+          "request.reportId": "Report Id should not be  empty"
+        }
+    DruidReportAPI-InternalServerError:
+      title: DruidReportAPI-InternalServerError
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          type: object
+      example:
+        id: ekstep.analytics.report.submit
+        ver: v1
+        ts: '2020-11-23 15:15:18:331+0000'
+        params:
+          resmsgid: null
+          msgid: null
+          err: INTERNAL_ERROR
+          status: SERVER_ERROR
+          errmsg: 'Process failed,please try again later.'
+        responseCode: SERVER_ERROR
+        result: {}
+    SubmitDruidReport-SuccessResponse:
+      title: SubmitDruidReport-SuccessResponse
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Report-Request'
+      example:
+        id: ekstep.analytics.report.submit
+        ver: v1
+        ts: '2020-11-23 06:42:39:001+0000'
+        params:
+          resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+          status: successful
+        responseCode: OK
+        result:
+            $ref: '#/components/examples/reportexample'
+    UpdateDruidReport-SuccessResponse:
+      title: UpdateDruidReport-SuccessResponse
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Report-Request'
+      example:
+        id: ekstep.analytics.report.update
+        ver: v1
+        ts: '2020-11-23 06:42:39:001+0000'
+        params:
+          resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+          status: successful
+        responseCode: OK
+        result:
+            $ref: '#/components/examples/reportexample'            
+    GetDruidReport-SuccessResponse:
+      title: UpdateDruidReport-SuccessResponse
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Report-Request'
+      example:
+        id: ekstep.analytics.report.update
+        ver: v1
+        ts: '2020-11-23 06:42:39:001+0000'
+        params:
+          resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+          status: successful
+        responseCode: OK
+        result:
+            $ref: '#/components/examples/reportexample'                        
+    ListDruidReport-SuccessResponse:
+      title: ListDruidReport-SuccessResponse
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/ListReports-Response'
+      example:
+        id: ekstep.analytics.report.get
+        ver: v1
+        ts: '2020-11-23 06:42:39:001+0000'
+        params:
+          resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+          status: successful
+        responseCode: OK
+        result:
+          $ref: '#/components/schemas/ListReports-Response/example'
+    ListReports-Response:
+      title: ListReports-Response
+      required:
+        - count
+        - reports
+      type: object
+      properties:
+        count:
+          type: integer
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/Report-Request'
+      example:
+       count: 1
+       reports: [
+          $ref:  '#/components/examples/reportexample'
+          ]
+    DeactivateDruidReport-SuccessResponse:
+      title: DeactivateDruidReport-SuccessResponse
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          type: object
+          properties:
+           result:
+            type: string
+      example:
+        id: ekstep.analytics.report.delete
+        ver: v1
+        ts: '2020-11-23 06:42:39:001+0000'
+        params:
+          resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+          status: successful
+        responseCode: OK
+        result:
+          result: Successfully DeActivated the Report
+tags:
+  - name: V1
+    description: ''
