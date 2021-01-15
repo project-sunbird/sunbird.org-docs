@@ -125,7 +125,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 
 32.Copy the contents of the `deployer_ssh_key` into `/var/lib/jenkins/secrets/deployer_ssh_key`  
 
-33.Copy the kubernetes config file `k8s.yaml` into `/var/lib/jenkins/secrets/k8s.yaml`
+33.Copy the Kubernetes config file `k8s.yaml` into `/var/lib/jenkins/secrets/k8s.yaml`
 
 34.If your private GitHub repository has Ansible encrypted files, then enter the decryption password in `/var/lib/jenkins/secrets/vault-pass`. If there are no encrypted files, then enter a random value like **12345** into the `vault-pass` file. This file cannot be empty
 
