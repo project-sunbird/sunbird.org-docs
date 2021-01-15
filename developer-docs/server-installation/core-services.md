@@ -76,7 +76,7 @@ Update **core_vault_sunbird_api_auth_token**, **core_vault_kong__test_jwt** and 
 |(Provision) Keycloak | Install dependencies for keycloak | Provisions Keycloak by installing prerequisites like Java and environment variables | release-3.4.0
 | Keycloak | Deploys Keycloak service to VM | Centralized user management for sunbird | release-3.4.0
 | KeycloakRealm(Core folder) |  User management -Creates sunbird realm | Creates a Sunbird Realm. After the Sunbird realm is created, configure Keycloak by using the steps mentioned in the **Keycloak Configuration** section | release-3.4.0
-|Adminutil | Deploys the Adminutil container | Creates tokens for the sunbird devices | release-3.0.0
+|Adminutil | Deploys the Adminutil container | Creates tokens for the sunbird devices | release-3.4.0
 | Player |  UI for sunbird  | Deploys portal UI | release-3.4.0
 | Learner | Deploys the Learner Service |  Handles user management and helps to search org | release-3.4.0 **before deploying learner service Create root org by using the steps mentioned in the Create Org section below**
 | Content | Deploys content service | Helps to create content | release-3.4.0
