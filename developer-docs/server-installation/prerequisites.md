@@ -29,7 +29,8 @@ Before you start the installation process, ensure that you provision for servers
 | DP        | 4core 16G 60G HDD | 1   |
 | DB        | 4core 16G 60G HDD   | 1   |
 | Yarn      | 4core 16G 60G HDD | 2   |
-| Load Balancers         |  -   | 5 (Optional)   |
+| Druid     | 4core 16G 60G HDD | 1  |
+| Load Balancers         |  -   | 2 (Optional)   |
 
 ## List of Servers with their Ansible Group Name
 <table>
@@ -71,15 +72,15 @@ Before you start the installation process, ensure that you provision for servers
   </tr>
   <tr>
     <td>Redis</td>
-    <td>redis1, lp-redis, redis</td>
+    <td>redis1, lp-redis, redis, dp-redis, lms-redis</td>
   </tr>
   <tr>
-    <td>Search</td>
-    <td>search1, search</td>
+    <td>dial</td>
+    <td>dial1</td>
   </tr>
   <tr>
     <td>Kafka</td>
-    <td>processing-cluster-kafka, processing-cluster-zookeepers, kafka-ps, kafka-1</td>
+    <td>processing-cluster-kafka, processing-cluster-zookeepers, kafka-ps, kafka-1, ingestion-cluster-kafka</td>
   </tr>
   <tr>
     <td rowspan="8">Data Pipeline</td>
@@ -125,10 +126,18 @@ Before you start the installation process, ensure that you provision for servers
     <td>Yarn Master Slave 2</td>
     <td>yarn-master, yarn-slave, yarn-ps</td>
   </tr>
+  <tr>
+    <td>Druid</td>
+    <td>Server-7</td>
+    <td>druid servicer</td>
+    <td> druid-postgres,raw-coordinator,raw-overlord,raw-broker,raw-historical,raw-middlemanager,raw-graphite,raw-zookeeper
+    </td>
+   </tr> 
 </table>
 
 
-## Other Requirements
+
+## Infra Requirements
 
 1.k8s Cluster  
 2.Private GitHub repository to store Ansible hosts and secrets  
@@ -140,3 +149,36 @@ Before you start the installation process, ensure that you provision for servers
 - All ports must be open in internal networks (Azure-Vnet or AWS-VPC) for internal comumnication between the VMs
 - By default, all the outbound ports are allowed for public access from the VM. 
 
+## Creating the AKS cluster
+
+> **Note**  Follow the steps given below to create the Kubernetes cluster in Azure. Refer to the documents provided by respective cloud providers to create the Kubernetes cluster on any other cloud.
+The AKS cluster and VM's should be in same vnet. If they are in diffrent vnet, you have to peer the vnets. To peer the vnets the IP address of the two vnets should not overlap. 
+
+1.Use the following command to create the AKS cluster: (requires az cli and aks-preview)
+
+ ```
+    - create service principal and assign contributor role to service principal, get the secrets and client id of service principal. (https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli)
+    
+    - az aks create --resource-group <resouse-group-name> --node-resource-group <k8s-resource-group-name> --name <cluster name>  --node-count 4 --admin-username deployer --kubernetes-version 1.16.13 --service-principal "<service principal id>" --node-vm-size <vm size> --client-secret "<client id>" --network-plugin azure --ssh-key-value @deployer.pub -l <region> --vm-set-type VirtualMachineScaleSets --vnet-subnet-id /subscriptions/<subscription id>/resourceGroups/<resouse-group-name>/providers/Microsoft.Network/virtualNetworks/<vnet-name>/subnets/<subnet name>
+
+    - command to get kube config file for created cluster:
+       az aks get-credentials --resource-group <resource group name> --name <cluster name> --file - > k8s.yaml
+
+ ```  
+
+ ## Configuring the Azure storage account
+
+ 1.Update the CORS rule for the storage account as follows:
+
+ ```
+    Allowed Origins: *
+    Allowed Methods: GET,HEAD,OPTIONS, PUT
+    Allowed Headers: Access-Control-Allow-Method,Origin,x-ms-meta-qqfilename,x-ms-blob-type,x-ms-blob-content-type,Content-Type
+    Exposed Headers: Access-Control-Allow-Origin,Access-Control-Allow-Methods
+    Max Age: 200
+
+ ``` 
+
+ 2.Disable 'Secure transfer required' in storage account configuration
+
+ 3.Create the following containers in Storage account with public ACL (dial, termsandcondtions, content)
