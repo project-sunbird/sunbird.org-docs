@@ -78,7 +78,6 @@ The **Registry & Discovery Services** category has the following microservices:
         [Data Sync APIs](apis/datasyncapi/){:target="_blank"}  
 
  - [**Organisation Management:**](apis/orgapi/){:target="_blank"} This service enables a registry of organisations on the Sunbird platform. It provides services to manage the lifecycle, administration, and permissions of organisations.  
-        [Organisation Location](apis/geolocationapi/){:target="_blank"}  
         [Tenant Preference](apis/tenantpreferenceapi/){:target="_blank"}
 - [**Location Service:**](apis/locationapi/){:target="_blank"} This service enables the registry of geographic locations. It provides services to create and manage locations for each organisation.
 
@@ -89,7 +88,7 @@ The **Registry & Discovery Services** category has the following microservices:
 
 The **Interaction & Collaboration Services** category has the following microservices:
 
-- [**Notifications Service:**](apis/notificationapi/){:target="_blank"} Provides services to send user notifications using multiple channels such as email, SMS, [in-app notifications](apis/firebasecloudmessagingapi/){:target="_blank"}, and [OTPs](apis/otpapi/){:target="_blank"}.
+- [**Notifications Service:**](apis/notificationapi/){:target="_blank"} Provides services to send user notifications using multiple channels such as email, SMS, and [OTPs](apis/otpapi/){:target="_blank"}.
 
 - [**Groups Service:**](apis/groupapi/){:target="_blank"} Provides services to create and managing groups of registered users, [assign activities](apis/groupactivityapi/) to group members and track assigned activities.
 
