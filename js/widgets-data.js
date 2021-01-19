@@ -22,7 +22,7 @@ var widgetsData = {
          "branch":"3.1.0",
          "desc":"",
          "releaseDate":"3rd October 2020",
-         "latest":true,
+         "latest":false,
          "published":true
       },
       {  
