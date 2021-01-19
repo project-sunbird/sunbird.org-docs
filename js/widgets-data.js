@@ -9,7 +9,15 @@ var widgetsData = {
          "published":true,
          "prerelease":true
       },
-     {  
+      {  
+         "title":"3.4.0",
+         "branch":"3.4.0",
+         "desc":"",
+         "releaseDate":"19th January 2021",
+         "latest":true,
+         "published":true
+      },
+      {  
          "title":"3.1.0",
          "branch":"3.1.0",
          "desc":"",
@@ -47,7 +55,7 @@ var widgetsData = {
          "desc":"",
          "releaseDate":"22nd Nov 2019",
          "latest":false,
-         "published":true
+         "published":false
       },
       {  
          "title":"2.5.0",
