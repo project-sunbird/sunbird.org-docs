@@ -1344,8 +1344,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       x-swagger-router-controller: Posts
-  /forumId/{id}:
-    get:
+  /forum/v2/read:
+    post:
       tags:
       - Forum
       summary: Get Forum Id
@@ -1362,13 +1362,19 @@ paths:
         explode: false
         schema:
           type: string
-      - name: id
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadForumCID'
+            examples:
+              a:
+                summary: Create group
+                value:
+                  request :
+                    type: 'course' 
+                    identifier: 'do_12345678996312'
+        required: false  
       responses:
         "200":
           description: successful operation
@@ -1380,7 +1386,7 @@ paths:
                   $ref: '#/components/schemas/ForumResponse'
                 x-content-type: application/json
       x-swagger-router-controller: Forum
-  /forum:
+  /forum/v2/create:
     post:
       tags:
       - Forum
@@ -1402,14 +1408,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ForumIdRequestBody'
+              $ref: '#/components/schemas/CreateForumCID'
             examples:
               a:
                 summary: Create forumID
                 value:
-                  type: course
+                  sbType: course
                   cid: 2
-                  identifier: do_123456789
+                  sbIdentifier: do_123456789
         required: true
       responses:
         "200":
@@ -3954,3 +3960,25 @@ components:
           type: integer
       example:
         uid: 0
+    ReadForumCID:
+      type: object
+      properties:
+        request: 
+          type: object
+          properties:
+            type:
+              type: 'string'
+            identifier:
+              type: 'string'
+    CreateForumCID:
+      type: object
+      properties:
+        request: 
+          type: object
+          properties:
+            sbType:
+              type: 'string'
+            sbIdentifier:
+              type: 'string'
+            cid:
+              type: integer
