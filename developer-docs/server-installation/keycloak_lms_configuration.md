@@ -46,3 +46,7 @@ To create a Keycloak lms client follow the following steps:
 8.In client role drop down , select realm-management and add manage-users role as shown
 
 <img src='developer-docs/server-installation/images/keycloak_manage-users_setting.png'>
+
+9.In client role drop down , select admin-cli and add admin role as shown
+
+<img src='developer-docs/server-installation/images/keycloak_admincli_role_setting.png'>
