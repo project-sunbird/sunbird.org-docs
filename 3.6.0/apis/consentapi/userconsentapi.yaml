@@ -1,0 +1,961 @@
+openapi: 3.0.0
+info:
+  title: UserConsent API documentation
+  contact: {}
+  version: '1.0'
+  description:
+    The UserConsent API resources are used to update and retrieve consent of the user on PII information. These reources allow to update the consent of a user for orgnisation level and course or collection level.
+externalDocs:
+ description: "Testcases"
+ url: "https://www.getpostman.com/collections/0680d91c97f3e7386999"    
+servers:
+- url: https://staging.open-sunbird.org/api
+paths:
+ /user/v1/consent/update:
+    post:
+      tags:
+        - Consent APIs
+      summary: Consent Update
+      operationId: Consent Update
+      description: |-
+        This API is used to update user consent for sharing the PII to an organisation, course or collection
+           - The endpoint for **Update Consent** is `/user/v1/consent/update`  
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      parameters:
+        - name: ts
+          in: header
+          required: false
+          description: Timestamp at which given API request is sent.
+          schema:
+            type: string
+        - name: X-msgid
+          in: header
+          required: false
+          description: >-
+            This ID uniquely identifies a request if the same API is executed
+            multiple times.
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            To make use of this API, you require authorization. Raise a
+            request to the administrator for the use of the API. You will
+            receive the authorization key. Specify the key received, here.
+          schema:
+            type: string
+        - name: x-authenticated-user-token
+          in: header
+          required: true
+          description: >-
+            It is a unique token/key to authenticate the user each time an API
+            is called. For corresponding sessions this token is used, not your
+            actual username/password
+          schema:
+            type: string
+        - name: x-authenticated-for
+          in: header
+          required: false
+          description: >-
+            Managed User token of registered MUA user performing given API
+            request.
+          schema:
+            type: string
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userconsentupdaterequest'
+            examples:
+              RequestUpdateConsentToActiveForCourse: 
+                value:
+                  request:
+                    consent:
+                      status: ACTIVE
+                      userId: e94ad69a-9096-491c-b107-782a67760a2b
+                      consumerId: 0126632859575746566
+                      objectId: do_31313966505806233613406
+                      objectType: Collection
+              RequestUpdateConsentToRevokedForCourse: 
+                value:
+                  request:
+                    consent:
+                      status: REVOKED
+                      userId: e94ad69a-9096-491c-b107-782a67760a2b
+                      consumerId: 0126632859575746566
+                      objectId: do_31313966505806233613406
+                      objectType: Collection
+              RequestUpdateConsentToActiveForOrganication: 
+                value:
+                  request:
+                    consent:
+                      status: ACTIVE
+                      userId: e94ad69a-9096-491c-b107-782a67760a2b
+                      consumerId: 0126632859575746566
+                      objectId: 0126632859575746566
+                      objectType: Organisation
+              RequestUpdateConsentToRevokedForOrganication: 
+                value:
+                  request:
+                    consent:
+                      status: REVOKED
+                      userId: e94ad69a-9096-491c-b107-782a67760a2b
+                      consumerId: 0126632859575746566
+                      objectId: 0126632859575746566
+                      objectType: Organisation
+        required: true
+      responses:
+        200:
+          description: 'Consent update success response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsentUpdateSuccess'
+              example:
+                id: api.user.consent.update
+                ver: v1
+                ts: 2020-09-17 14:07:15:545+0000
+                params:
+                  resmsgid: 
+                  msgid: 3d1afc39-9350-4565-afb3-735dbccd19c7
+                  err: 
+                  status: success
+                  errmsg: 
+                responseCode: OK
+                result:
+                  consent:
+                    userId: e94ad69a-9096-491c-b107-782a67760a2b
+                  message: User Consent updated successfully.
+        401:
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+              example:
+                id: api.user.consent.update
+                ver: v1
+                ts: 2020-11-25 03:47:00:682+0000
+                params:
+                  resmsgid: 
+                  msgid: 3714a8e54fc515c1e8dccf06449cf677
+                  err: UNAUTHORIZED_USER
+                  status: SERVER_ERROR
+                  errmsg: You are not authorized.
+                responseCode: CLIENT_ERROR
+                result: {}
+        400:
+          description: >-
+            BAD REQUEST. The possible reason for failure is that you may have missed providing input for a
+            mandatory parameter.
+          content:
+            application/json:
+              example:
+                Bad Request
+        404:
+          description: >-
+            RESOURSE NOT FOUND. The possible reason for failure is the requested resource is not
+            available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFound'
+              example:
+                id: api.user.consent.update
+                ver: v1
+                ts: 2020-11-25 03:47:00:682+0000
+                params:
+                  resmsgid: 
+                  msgid: 3714a8e54fc515c1e8dccf06449cf677
+                  err: INVALID_ORG_ID
+                  status: INVALID_ORG_ID
+                  errmsg: INVALID_ORG_ID
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
+        500:
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
+              example:
+                id: api.user.consent.update
+                ver: v1
+                ts: 2020-11-25 03:47:00:682+0000
+                params:
+                  resmsgid: 
+                  msgid: 3714a8e54fc515c1e8dccf06449cf677
+                  err: INTERNAL_SERVER_ERROR
+                  status: INTERNAL_SERVER_ERROR
+                  errmsg: INTERNAL_SERVER_ERROR
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+ /user/v1/consent/read:
+    post:
+      tags:
+      - Consent APIs
+      summary: UserConsentRead
+      operationId: UserConsentRead
+      parameters:
+        - name: ts
+          in: header
+          required: false
+          description: Timestamp at which given API request is sent.
+          schema:
+            type: string
+        - name: X-msgid
+          in: header
+          required: false
+          description: >-
+            This ID uniquely identifies a request if the same API is executed
+            multiple times.
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            To make use of this API, you require authorization. Raise a
+            request to the administrator for the use of the API. You will
+            receive the authorization key. Specify the key received, here.
+          schema:
+            type: string
+        - name: x-authenticated-user-token
+          in: header
+          required: true
+          description: >-
+            It is a unique token/key to authenticate the user each time an API
+            is called. For corresponding sessions this token is used, not your
+            actual username/password
+          schema:
+            type: string
+        - name: x-authenticated-for
+          in: header
+          required: false
+          description: >-
+            Managed User token of registered MUA user performing given API
+            request.
+          schema:
+            type: string
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userconsentreadrequest'
+            examples:
+              RequestReadConsentForCourse: 
+                value:
+                  request:
+                    consent:
+                      filters:
+                        userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
+                        consumerId: 0126632859575746566
+                        objectId: do_31313966505806233613406
+              RequestReadConsentForOrganisation: 
+                value:
+                  request:
+                    consent:
+                      filters:
+                        userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
+                        consumerId: 0126632859575746566
+                        objectId: 0126632859575746566
+        required: true
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsentReadSuccess'
+              examples:
+                ReadConsentResponseForCourse: 
+                  value:
+                    id: api.user.consent.read
+                    ver: v1
+                    ts: 2020-09-17 14:11:19:029+0000
+                    params:
+                      resmsgid: 
+                      msgid: dfb32305-cb9f-470a-b52b-fe492ca89415
+                      err: 
+                      status: success
+                      errmsg: 
+                    responseCode: OK
+                    result:
+                      consents:
+                      - userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
+                        consumerId: 0126632859575746566
+                        status: ACTIVE
+                        objectType: Collection
+                        objectId: do_31313966505806233613406
+                ReadConsentResponseForOrganisation: 
+                  value:
+                    id: api.user.consent.read
+                    ver: v1
+                    ts: 2020-09-17 14:11:19:029+0000
+                    params:
+                      resmsgid: 
+                      msgid: dfb32305-cb9f-470a-b52b-fe492ca89415
+                      err: 
+                      status: success
+                      errmsg: 
+                    responseCode: OK
+                    result:
+                      consents:
+                      - userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
+                        consumerId: 0126632859575746566
+                        status: ACTIVE
+                        objectType: Organisation
+                        objectId: 0126632859575746566
+        401:
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedRead'
+              example:
+                id: api.user.consent.read
+                ver: v1
+                ts: 2020-11-25 03:47:00:682+0000
+                params:
+                  resmsgid: 
+                  msgid: 3714a8e54fc515c1e8dccf06449cf677
+                  err: UNAUTHORIZED_USER
+                  status: SERVER_ERROR
+                  errmsg: You are not authorized.
+                responseCode: CLIENT_ERROR
+                result: {}
+        400:
+          description: >-
+            BAD REQUEST. The possible reason for failure is that you may have missed providing input for a
+            mandatory parameter.
+          content:
+            application/json:
+              example:
+                Bad Request
+        404:
+          description: >-
+            RESOURSE NOT FOUND. The possible reason for failure is the requested resource is not
+            available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundRead'
+              example:
+                id: api.user.consent.read
+                ver: v1
+                ts: 2020-11-25 03:47:00:682+0000
+                params:
+                  resmsgid: 
+                  msgid: 3714a8e54fc515c1e8dccf06449cf677
+                  err: USER_CONSENT_NOT_FOUND
+                  status: USER_CONSENT_NOT_FOUND
+                  errmsg: User consent not found.
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
+        500:
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerErrorRead'
+              example:
+                id: api.user.consent.read
+                ver: v1
+                ts: 2020-11-25 03:47:00:682+0000
+                params:
+                  resmsgid: 
+                  msgid: 3714a8e54fc515c1e8dccf06449cf677
+                  err: INTERNAL_SERVER_ERROR
+                  status: INTERNAL_SERVER_ERROR
+                  errmsg: INTERNAL_SERVER_ERROR
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+components:
+  schemas:
+    userconsentupdaterequest:
+      title: ConsentUpdateRequestForCourses
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/Request'
+      example:
+        request:
+          consent:
+            status: ACTIVE
+            userId: e94ad69a-9096-491c-b107-782a67760a2b
+            consumerId: 0126632859575746566
+            objectId: do_31313966505806233613406
+            objectType: Collection
+    Request:
+      title: RequestinConsentUpdateForCourses
+      required:
+      - consent
+      type: object
+      properties:
+        consent:
+          $ref: '#/components/schemas/Consent'
+      example:
+        consent:
+          status: ACTIVE
+          userId: e94ad69a-9096-491c-b107-782a67760a2b
+          consumerId: 0126632859575746566
+          objectId: do_31313966505806233613406
+          objectType: Collection
+    Consent:
+      title: ConsentinConsentUpdateForCourses
+      required:
+      - status
+      - userId
+      - consumerId
+      - objectId
+      - objectType
+      type: object
+      properties:
+        status:
+          type: string
+          description: Status of the consent - ACTIVE or REVOKED
+        userId:
+          type: string
+          description: UUID of the user
+        consumerId:
+          type: string
+          description: organisation id of the course or org to which consent is given
+        objectId:
+          type: string
+          description: collection id or organisation id to which consent is given
+        objectType:
+          type: string
+          description: Type of object to which consent is given - collection or organisation
+      example:
+        status: ACTIVE
+        userId: e94ad69a-9096-491c-b107-782a67760a2b
+        consumerId: 0126632859575746566
+        objectId: do_31313966505806233613406
+        objectType: Collection
+    ConsentUpdateSuccess:
+      title: ConsentUpdateSuccess
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result'
+      example:
+        id: api.user.consent.update
+        ver: v1
+        ts: 2020-09-17 14:07:15:545+0000
+        params:
+          resmsgid: 
+          msgid: 3d1afc39-9350-4565-afb3-735dbccd19c7
+          err: 
+          status: success
+          errmsg: 
+        responseCode: OK
+        result:
+          consent:
+            userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
+          message: User Consent updated successfully.
+    Params:
+      title: ParamsinConsentResponse
+      required:
+      - resmsgid
+      - msgid
+      - err
+      - status
+      - errmsg
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          nullable: true
+        msgid:
+          type: string
+        err:
+          type: string
+          nullable: true
+        status:
+          type: string
+        errmsg:
+          type: string
+          nullable: true
+      example:
+        resmsgid: 
+        msgid: 3d1afc39-9350-4565-afb3-735dbccd19c7
+        err: 
+        status: success
+        errmsg: 
+    Result:
+      title: ResultinConsentUpdateSuccess
+      required:
+      - consent
+      - message
+      type: object
+      properties:
+        consent:
+          $ref: '#/components/schemas/Consent1'
+        message:
+          type: string
+      example:
+        consent:
+          userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
+        message: User Consent updated successfully.
+    Consent1:
+      title: ConsentinConsentUpdateSuccess
+      required:
+      - userId
+      type: object
+      properties:
+        userId:
+          type: string
+      example:
+        userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
+    Unauthorized:
+      title: UnauthorizedinUpdateConsent
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params1'
+        responseCode:
+          type: string
+        result:
+          type: object
+      example:
+        id: api.user.consent.update
+        ver: v1
+        ts: 2020-11-25 03:47:00:682+0000
+        params:
+          resmsgid: 
+          msgid: 3714a8e54fc515c1e8dccf06449cf677
+          err: UNAUTHORIZED_USER
+          status: SERVER_ERROR
+          errmsg: You are not authorized.
+        responseCode: CLIENT_ERROR
+        result: {}
+    UnauthorizedRead:
+      title: UnauthorizedinReadConsent
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params1'
+        responseCode:
+          type: string
+        result:
+          type: object
+      example:
+        id: api.user.consent.read
+        ver: v1
+        ts: 2020-11-25 03:47:00:682+0000
+        params:
+          resmsgid: 
+          msgid: 3714a8e54fc515c1e8dccf06449cf677
+          err: UNAUTHORIZED_USER
+          status: SERVER_ERROR
+          errmsg: You are not authorized.
+        responseCode: CLIENT_ERROR
+        result: {}
+    Params1:
+      title: ParamsinUnauthorized
+      required:
+      - resmsgid
+      - msgid
+      - err
+      - status
+      - errmsg
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          nullable: true
+        msgid:
+          type: string
+        err:
+          type: string
+        status:
+          type: string
+        errmsg:
+          type: string
+      example:
+        resmsgid: 
+        msgid: 3714a8e54fc515c1e8dccf06449cf677
+        err: UNAUTHORIZED_USER
+        status: SERVER_ERROR
+        errmsg: You are not authorized.
+    ServerError:
+      title: ServerErrorinUpdateConsent
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params1ServerError'
+        responseCode:
+          type: string
+        result:
+          type: object
+      example:
+        id: api.user.consent.update
+        ver: v1
+        ts: 2020-11-25 03:47:00:682+0000
+        params:
+          resmsgid: 
+          msgid: 3714a8e54fc515c1e8dccf06449cf677
+          err: INTERNAL_SERVER_ERROR
+          status: INTERNAL_SERVER_ERROR
+          errmsg: INTERNAL_SERVER_ERROR
+        responseCode: SERVER_ERROR
+        result: {}
+    ServerErrorRead:
+      title: ServerErrorinReadConsent
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params1ServerError'
+        responseCode:
+          type: string
+        result:
+          type: object
+      example:
+        id: api.user.consent.read
+        ver: v1
+        ts: 2020-11-25 03:47:00:682+0000
+        params:
+          resmsgid: 
+          msgid: 3714a8e54fc515c1e8dccf06449cf677
+          err: INTERNAL_SERVER_ERROR
+          status: INTERNAL_SERVER_ERROR
+          errmsg: INTERNAL_SERVER_ERROR
+        responseCode: SERVER_ERROR
+        result: {}
+    Params1ServerError:
+      title: ParamsinServerError
+      required:
+      - resmsgid
+      - msgid
+      - err
+      - status
+      - errmsg
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          nullable: true
+        msgid:
+          type: string
+        err:
+          type: string
+        status:
+          type: string
+        errmsg:
+          type: string
+      example:
+        resmsgid: 
+        msgid: 3714a8e54fc515c1e8dccf06449cf677
+        err: INTERNAL_SERVER_ERROR
+        status: INTERNAL_SERVER_ERROR
+        errmsg: INTERNAL_SERVER_ERROR
+    ResourceNotFound:
+      title: ResourceNotFoundinUpdateConsent
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params1ResourceNotFound'
+        responseCode:
+          type: string
+        result:
+          type: object
+      example:
+        id: api.user.consent.update
+        ver: v1
+        ts: 2020-11-25 03:47:00:682+0000
+        params:
+          resmsgid: 
+          msgid: 3714a8e54fc515c1e8dccf06449cf677
+          err: INVALID_ORG_ID
+          status: INVALID_ORG_ID
+          errmsg: INVALID_ORG_ID
+        responseCode: RESOURCE_NOT_FOUND
+        result: {}
+    ResourceNotFoundRead:
+      title: ResourceNotFoundinReadConsent
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params1ResourceNotFound'
+        responseCode:
+          type: string
+        result:
+          type: object
+      example:
+        id: api.user.consent.read
+        ver: v1
+        ts: 2020-11-25 03:47:00:682+0000
+        params:
+          resmsgid: 
+          msgid: 3714a8e54fc515c1e8dccf06449cf677
+          err: USER_CONSENT_NOT_FOUND
+          status: USER_CONSENT_NOT_FOUND
+          errmsg: User consent not found.
+        responseCode: RESOURCE_NOT_FOUND
+        result: {}
+    Params1ResourceNotFound:
+      title: ParamsinResourceNotFound
+      required:
+      - resmsgid
+      - msgid
+      - err
+      - status
+      - errmsg
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          nullable: true
+        msgid:
+          type: string
+        err:
+          type: string
+        status:
+          type: string
+        errmsg:
+          type: string
+      example:
+        resmsgid: 
+        msgid: 3714a8e54fc515c1e8dccf06449cf677
+        err: USER_CONSENT_NOT_FOUND
+        status: USER_CONSENT_NOT_FOUND
+        errmsg: User consent not found.    
+    userconsentreadrequest:
+      title: UserConsentReadRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/Request1'
+      example:
+        request:
+          consent:
+            filters:
+              userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
+              consumerId: 0126632859575746566
+              objectId: 0126632859575746566
+    Request1:
+      title: RequestinConsentReadRequest
+      required:
+      - consent
+      type: object
+      properties:
+        consent:
+          $ref: '#/components/schemas/Consent2'
+      example:
+        consent:
+          filters:
+            userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
+            consumerId: 0126632859575746566
+            objectId: 0126632859575746566
+    Consent2:
+      title: ConsentinConsentReadRequest
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          $ref: '#/components/schemas/Filters'
+      example:
+        filters:
+          userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
+          consumerId: 0126632859575746566
+          objectId: 0126632859575746566
+    Filters:
+      title: FiltersinConsentReadRequest
+      required:
+      - userId
+      - consumerId
+      - objectId
+      type: object
+      properties:
+        userId:
+          type: string
+          description: UUID of the user
+        consumerId:
+          type: string
+          description: organisation id of the course or org to which consent is given
+        objectId:
+          type: string
+          description: collection id or organisation id to which consent is given
+      example:
+        userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
+        consumerId: 0126632859575746566
+        objectId: 0126632859575746566
+    ConsentReadSuccess:
+      title: ConsentReadSuccess
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result1'
+      example:
+        id: api.user.consent.read
+        ver: v1
+        ts: 2020-09-17 14:11:19:029+0000
+        params:
+          resmsgid: 
+          msgid: dfb32305-cb9f-470a-b52b-fe492ca89415
+          err: 
+          status: success
+          errmsg: 
+        responseCode: OK
+        result:
+          consents:
+          - userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
+            consumerId: 0126632859575746566
+            status: REVOKED
+            objectType: Collection
+            objectId: do_31313966505806233613406
+    Result1:
+      title: ResultinConsentReadSuccess
+      required:
+      - consents
+      type: object
+      properties:
+        consents:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consent'
+          description: ''
+      example:
+        consents:
+        - userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
+          consumerId: 0126632859575746566
+          status: REVOKED
+          objectType: Collection
+          objectId: do_31313966505806233613406
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+- httpBearer: []
+tags:
+- name: Consent APIs
+  description: ''
