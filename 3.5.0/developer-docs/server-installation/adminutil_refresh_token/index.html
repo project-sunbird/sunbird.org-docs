@@ -10,8 +10,8 @@
 <meta name="msapplication-TileColor" content="#65d3f7">
 <meta name="msapplication-TileImage" content="/img/favicon/mstile-150x150.png">
 
-<title>User Rights and Permissions</title>
-<meta name="description" content="Product features"/>
+<title>Adminutil refresh token creation</title>
+<meta name="description" content="Steps to get the adminutil refresh token"/>
 
 <meta http-equiv="cache-control" content="max-age=0" />
 <meta http-equiv="cache-control" content="no-cache" />
@@ -96,12 +96,12 @@ resetBase();
  
 	<div id="widgetVersionSwitcher"></div>
 	
-	<div class="sidebar-wrapper faqs"> 
+	<div class="sidebar-wrapper developer-docs"> 
 		
 			
 				
 				
-				<div class="">
+				<div class="active">
 					<a href="developer-docs/" >
 						<h4 class="sidebar-group-title">Developer Documentation</h4>
 					</a>
@@ -1099,7 +1099,7 @@ resetBase();
 			
 				
 				
-				<div class="active">
+				<div class="">
 					<a href="faqs/" >
 						<h4 class="sidebar-group-title">Frequently asked questions</h4>
 					</a>
@@ -1306,14 +1306,14 @@ resetBase();
 </div>
 
 <script>
-	$("a[href$='faqs/user_rightspermissions/']").addClass("sidebar-link-selected");
+	$("a[href$='developer-docs/server-installation/adminutil_refresh_token/']").addClass("sidebar-link-selected");
 </script>
 
       </div>
     </nav>
     <div class="content">
       <div class="inner__content header" id="heading">
-        <h1>User Rights and Permissions </h1>
+        <h1>Adminutil refresh token creation </h1>
       </div>
 
       <div id="main-content" class="inner__content">
@@ -1323,7 +1323,7 @@ resetBase();
 				  <i class="fa fa-book" aria-hidden="true"></i> <i>Contribution Guidelines</i>
 			  </a> &nbsp;&nbsp;-->
 			  
-			 <a target="_blank"  title="Edit this page"class="" href="https://github.com/project-sunbird/sunbird.org-docs/edit/3.5.0/faqs/user_rightspermissions.md">
+			 <a target="_blank"  title="Edit this page"class="" href="https://github.com/project-sunbird/sunbird.org-docs/edit/3.5.0/developer-docs/server-installation/adminutil_refresh_token.md">
 				  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
 			  </a> 
 			  | 
@@ -1334,72 +1334,75 @@ resetBase();
 			  </span>
 			</p>
 			<div class="widgetLatestVersionNotification"></div>
-          <p><strong>Q. What user roles does the platform support?</strong></p>
+          <div id="toc-container">
+  <table class="toc" id="toc">
+    <tbody>
+      <tr>
+        <td>
+          <div id="toctitle">
+            <h2>Contents</h2>
+            <span class="toctoggle">[<a id="toctogglelink" class="internal" href="#">hide</a>]</span>
+          </div>
+          <ul>
+            <li class="toc_level-1 toc_section-1">
+              <a href="#overview"><span class="tocnumber">1 .</span> <span class="toctext">Overview</span></a>
+            </li>
+            <li class="toc_level-1 toc_section-2">
+              <a href="#creating-the-adminutil-refresh-token"><span class="tocnumber">2 .</span> <span class="toctext">Creating the Adminutil refresh token</span></a>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div><h2 id="overview">Overview</h2>
 
-<p>Currently, Sunbird users are categorized as:</p>
+<p>After creating the LMS client in Keycloak, use the LMS client and secret to generate a Keycloak token for a user.</p>
 
-<ul>
-  <li>Admin</li>
-  <li>Instructor</li>
-  <li>Learners</li>
-</ul>
+<h2 id="creating-the-adminutil-refresh-token">Creating the Adminutil refresh token</h2>
 
-<p>The workflows for all user roles can be configured.</p>
+<p>1.After LMS client is created in Keycloak, use the LMS client and secret to generate the user access token using the following command:</p>
 
-<p><strong>Q. How do you get content creation rights on the platform?</strong></p>
+<pre>
+  <code>   curl --location --request POST 'https://&lt;domain name&gt;/auth/realms/sunbird/protocol/openid-connect/token' \
+   --header 'Content-Type: application/x-www-form-urlencoded' \
+   --data-urlencode 'client_id=lms' \
+   --data-urlencode 'client_secret=&lt;LMS CLIENT SECRET&gt;' \
+   --data-urlencode 'grant_type=client_credentials'
 
-<p>The platform has set protocols for user roles and functionalities. The user base follows a certain hierarchy, where the administrators provide rights and permissions to other users, based on need, to accomplish their tasks across the platform.</p>
+</code>
+</pre>
 
-<p>Strategically, every organization should have designated system administrators, who create and assign rights to organizational administrators, who in turn create roles viz,</p>
+<p>2.Copy the access token from the output of the command .</p>
 
-<ul>
-  <li>Content Creator</li>
-  <li>Content Reviewer</li>
-  <li>Flag Reviewer</li>
-  <li>Course Mentor</li>
-  <li>Announcement Sender</li>
-  <li>Course creator</li>
-  <li>Course Admin</li>
-  <li>Org Moderator</li>
-</ul>
+<pre>
+  <code>   Go to jwt.io website.
+   look for the "kid" value in header section by pasting the access or refresh token in jwt.io website
+   
+   Sample output below in jwt.io site.
+      {
+         "alg": "RS256",
+         "typ": "JWT",
+         "kid": "yhgfresdghkouyjmkjhgfdwetxnwetyioxsefp"
+      }
 
-<p><strong>Q. What is the difference between the User ID of an administrator and a general user?</strong></p>
-
-<p>User IDs of administrators are not different from any other user. However, the permissions provided to administrators differ from other users.</p>
-
-<p><strong>Q. What data does a content provider see?</strong></p>
-
-<p>While creating content, content providers can see following data:</p>
-
-<ul>
-  <li>Content creation trend over time (by status - draft, review, published)</li>
-  <li>Single statistics for number of authors</li>
-  <li>Number of reviewers</li>
-  <li>Total content pieces created (by status - draft, review, published)</li>
-</ul>
-
-<p>While viewing content, content providers can see following data:</p>
-
-<ul>
-  <li>Consumption trend over time</li>
-  <li>Single statistics for number of organization members,</li>
-  <li>Total user visits</li>
-  <li>Total time for content views,</li>
-  <li>Total number of content pieces viewed,</li>
-  <li>Average time spent per user per visit</li>
-</ul>
-
+   copy the kid value add it in Core/secrets.yml
+   Sample variable value update in inventory:
+   adminutil_refresh_token_public_key_kid: "yhgfresdghkouyjmkjhgfdwetxnwetyioxsefp"
+   
+</code>
+</pre>
 
           
           <hr />
           
           <p class="edit-para text-right">
-			<a target="_blank" href="https://github.com/project-sunbird/sunbird.org-docs/edit/3.5.0/faqs/user_rightspermissions.md" title="Fix this page">
+			<a target="_blank" href="https://github.com/project-sunbird/sunbird.org-docs/edit/3.5.0/developer-docs/server-installation/adminutil_refresh_token.md" title="Fix this page">
 				<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a> |
 			<a target="_blank" href="https://github.com/project-sunbird/sunbird.org-docs/issues" title="Report issue">
 				<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Report</a>
 		  </p>
-		  <a href="faqs/user_rightspermissions/#heading" class="scrollup"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
+		  <a href="developer-docs/server-installation/adminutil_refresh_token/#heading" class="scrollup"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
           
       </div>
     </div>
@@ -1453,7 +1456,7 @@ resetBase();
 	});
 	$('#toc a').each(function(){
 		var url = this.href.replace(baseURL.href, "");
-		this.href = 'faqs/user_rightspermissions/' + url;
+		this.href = 'developer-docs/server-installation/adminutil_refresh_token/' + url;
     })
 	$(".zoomcover").click(function(){
 		if (!$(this).hasClass("fullscreen")){

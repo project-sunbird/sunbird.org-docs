@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2021-01-15 15:52:14 +0530">
+<meta name="last-modified" content="2021-01-25 15:44:16 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="2941" />
+<meta name="buildNo" content="2966" />
 <meta name="version" id="docsVersion" content="3.5.0" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?15012021"  />
+<link rel="stylesheet" href="/css/style.css?25012021"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?15012021"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?15012021"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?15012021"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?15012021"></script>
-<script type="text/javascript" src="/js/widgets-data.js?15012021"></script>
-<script type="text/javascript" src="/js/widgets.js?15012021"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?25012021"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?25012021"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?25012021"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?25012021"></script>
+<script type="text/javascript" src="/js/widgets-data.js?25012021"></script>
+<script type="text/javascript" src="/js/widgets.js?25012021"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -1100,45 +1100,6 @@ resetBase();
 				
 				
 				<div class="">
-					<a href="/contributions/" >
-						<h4 class="sidebar-group-title">Contribute to Sunbird</h4>
-					</a>
-					
-					<ul class="sidebar-group">
-					
-						<li>
-							
-								
-								<a 
-									href="/contributions/filing_a_bug" 
-									
-									class="" 
-									>
-									Guidelines for Filing a Bug
-								</a>
-							
-						</li>
-					
-						<li>
-							
-								
-								<a 
-									href="/contributions/contribution_guidelines" 
-									
-									class="" 
-									>
-									Contributing to Sunbird Documentation
-								</a>
-							
-						</li>
-					
-					</ul>
-					
-				</div>
-			
-				
-				
-				<div class="">
 					<a href="faqs/" >
 						<h4 class="sidebar-group-title">Frequently asked questions</h4>
 					</a>
@@ -1398,7 +1359,10 @@ resetBase();
               <a href="#list-of-servers-with-their-ansible-group-name"><span class="tocnumber">3 .</span> <span class="toctext">List of Servers with their Ansible Group Name</span></a>
             </li>
             <li class="toc_level-1 toc_section-5">
-              <a href="#other-requirements"><span class="tocnumber">4 .</span> <span class="toctext">Other Requirements</span></a>
+              <a href="#infra-requirements"><span class="tocnumber">4 .</span> <span class="toctext">Infra Requirements</span></a>
+            </li>
+            <li class="toc_level-1 toc_section-6">
+              <a href="#creating-the-aks-cluster"><span class="tocnumber">5 .</span> <span class="toctext">Creating the AKS cluster</span></a>
             </li>
           </ul>
         </td>
@@ -1460,9 +1424,14 @@ resetBase();
       <td>2</td>
     </tr>
     <tr>
+      <td>Druid</td>
+      <td>4core 16G 60G HDD</td>
+      <td>1</td>
+    </tr>
+    <tr>
       <td>Load Balancers</td>
       <td>-</td>
-      <td>5 (Optional)</td>
+      <td>2 (Optional)</td>
     </tr>
   </tbody>
 </table>
@@ -1507,15 +1476,15 @@ resetBase();
   </tr>
   <tr>
     <td>Redis</td>
-    <td>redis1, lp-redis, redis</td>
+    <td>redis1, lp-redis, redis, dp-redis, lms-redis</td>
   </tr>
   <tr>
-    <td>Search</td>
-    <td>search1, search</td>
+    <td>dial</td>
+    <td>dial1</td>
   </tr>
   <tr>
     <td>Kafka</td>
-    <td>processing-cluster-kafka, processing-cluster-zookeepers, kafka-ps, kafka-1</td>
+    <td>processing-cluster-kafka, processing-cluster-zookeepers, kafka-ps, kafka-1, ingestion-cluster-kafka</td>
   </tr>
   <tr>
     <td rowspan="8">Data Pipeline</td>
@@ -1561,9 +1530,16 @@ resetBase();
     <td>Yarn Master Slave 2</td>
     <td>yarn-master, yarn-slave, yarn-ps</td>
   </tr>
+  <tr>
+    <td>Druid</td>
+    <td>Server-7</td>
+    <td>druid servicer</td>
+    <td> druid-postgres,raw-coordinator,raw-overlord,raw-broker,raw-historical,raw-middlemanager,raw-graphite,raw-zookeeper
+    </td>
+   </tr> 
 </table>
 
-<h2 id="other-requirements">Other Requirements</h2>
+<h2 id="infra-requirements">Infra Requirements</h2>
 
 <p>1.k8s Cluster<br />
 2.Private GitHub repository to store Ansible hosts and secrets<br />
@@ -1577,6 +1553,43 @@ resetBase();
   <li>By default, all the outbound ports are allowed for public access from the VM.</li>
 </ul>
 
+<h2 id="creating-the-aks-cluster">Creating the AKS cluster</h2>
+
+<blockquote>
+  <p><strong>Note</strong>  Follow the steps given below to create the Kubernetes cluster in Azure. Refer to the documents provided by respective cloud providers to create the Kubernetes cluster on any other cloud.
+The AKS cluster and VM’s should be in same vnet. If they are in diffrent vnet, you have to peer the vnets. To peer the vnets the IP address of the two vnets should not overlap.</p>
+</blockquote>
+
+<p>1.Use the following command to create the AKS cluster: (requires az cli and aks-preview)</p>
+
+<pre>
+  <code>    - create service principal and assign contributor role to service principal, get the secrets and client id of service principal. (https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli)
+    
+    - az aks create --resource-group &lt;resouse-group-name&gt; --node-resource-group &lt;k8s-resource-group-name&gt; --name &lt;cluster name&gt;  --node-count 4 --admin-username deployer --kubernetes-version 1.16.13 --service-principal "&lt;service principal id&gt;" --node-vm-size &lt;vm size&gt; --client-secret "&lt;client id&gt;" --network-plugin azure --ssh-key-value @deployer.pub -l &lt;region&gt; --vm-set-type VirtualMachineScaleSets --vnet-subnet-id /subscriptions/&lt;subscription id&gt;/resourceGroups/&lt;resouse-group-name&gt;/providers/Microsoft.Network/virtualNetworks/&lt;vnet-name&gt;/subnets/&lt;subnet name&gt;
+
+    - command to get kube config file for created cluster:
+       az aks get-credentials --resource-group &lt;resource group name&gt; --name &lt;cluster name&gt; --file - &gt; k8s.yaml
+
+</code>
+</pre>
+
+<p>## Configuring the Azure storage account</p>
+
+<p>1.Update the CORS rule for the storage account as follows:</p>
+
+<pre>
+  <code>    Allowed Origins: *
+    Allowed Methods: GET,HEAD,OPTIONS, PUT
+    Allowed Headers: Access-Control-Allow-Method,Origin,x-ms-meta-qqfilename,x-ms-blob-type,x-ms-blob-content-type,Content-Type
+    Exposed Headers: Access-Control-Allow-Origin,Access-Control-Allow-Methods
+    Max Age: 200
+
+</code>
+</pre>
+
+<p>2.Disable ‘Secure transfer required’ in storage account configuration</p>
+
+<p>3.Create the following containers in Storage account with public ACL (dial, termsandcondtions, content)</p>
 
           
           <hr />
