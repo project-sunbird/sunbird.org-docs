@@ -281,6 +281,225 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       x-swagger-router-controller: Categories
+  /v2/categories/{cid}/moderators:
+    get:
+      tags:
+      - categories
+      summary: Get the moderators list for a category
+      description: |-
+        This api can get the category moderators based on the category id which we created previously
+          - The endpoint for **Category** is `/v2/categories/{cid}/moderators`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetModeratorsList
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: cid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModeratorsResponse'
+              examples:
+                a:
+                  summary: "Success response"
+                  value:
+                    uid : 8
+                    username : content_reviewer_tn1970
+                    userslug : content_reviewer_tn1970
+                    picture : null
+                    displayname : content_reviewer_tn1970
+                    icon:text : C
+                    icon:bgColor : #1b5e20
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Categories    
+  /v2/categories/{cid}/state:
+    put:
+      tags:
+      - categories
+      summary: Enable category
+      description: |-
+        This app allow the user to delete a topic in nodebb
+          - The endpoint for **Category** is `/v2/categories/{cid}/state`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: EnableCategories
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: cid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Categories  
+    delete:
+      tags:
+      - categories
+      summary: DisableCategories
+      description: |-
+        This app allow the user to delete a topic in nodebb
+          - The endpoint for **Category** is `/v2/categories/{cid}/state`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: DisableCategories
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: cid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Categories  
+  /v2/categories/{cid}/privileges:
+    put:
+      tags:
+      - categories
+      summary: Add privileges to category
+      description: |-
+        This app allow the user to add privilages to a topic in nodebb
+          - The endpoint for **Category** is `/v2/categories/{cid}/privileges`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: AddPrivilagesToCategories
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: cid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddPrivilagesToCategory'
+            examples:
+              a:
+                summary: Success operation
+                value:
+                  'groups:topics:create'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Categories  
+    delete:
+      tags:
+      - categories
+      summary: DisableCategories
+      description: |-
+        This app allow the user to delete a topic in nodebb
+          - The endpoint for **Category** is `/v2/categories/{cid}/state`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: RemovePrivilagesCategories
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: cid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer    
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Categories      
   /user/{userslug}:
     get:
       tags:
@@ -578,6 +797,64 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       x-swagger-router-controller: Users
+  /user/v1/create:
+    post:
+      tags:
+      - users
+      summary: Create new user in nodebb OIDC
+      description: |-
+        This api is used for creating the user in Nodebb.
+          - The endpoint for **User** is `/user/v1/create`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: CreateNewUserUsingOIDC
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserOIDC'
+            examples:
+              a:
+                summary: Create user
+                value:
+                  request:
+                    example: 
+                     id : api.discussions.user.create
+                     ver : 1.0
+                     params :
+                      resmsgid : 
+                      msgid : 
+                      status : unsuccessful
+                      msg : User already Exists
+                     responseCode : 400
+                     result : 
+                        userId : 
+                          uid: 1
+                        userSlug : content_creator_tn3941
+                        userName : content_creator_tn3941
+        required: false
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponseOIDC'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Users
   /unread:
     get:
       tags:
@@ -674,6 +951,250 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       x-swagger-router-controller: Topics
+  /top:
+    get:
+      tags:
+      - topics
+      summary: Get top topics
+      description: |-
+        This api allow the user to get all top topics in nodebb
+          - The endpoint for **Category** is `/top`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetTopTopics
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopTopicResponse'
+              examples:
+                a:
+                  summary: 'Success response'
+                  value:
+                    nextStart : 20
+                    topicCount : 50
+                    topics :
+                      mainPid : 67
+                      postcount : 5
+                      slug : 35/how-to-enroll-into-nishtha-courses
+                      tid : 35
+                      timestamp : 1610697802418
+                      title : How to enroll into Nishtha courses
+                      uid : 18
+                      viewcount : 103
+                      postercount : 5
+                      teaserPid : 109
+                      downvotes : 0
+                      upvotes : 3
+                      deleted : 0
+                      locked : 0
+                      pinned : 0
+                      pinExpiry : 0
+                      deleterUid : 0
+                      titleRaw : How to enroll into Nishtha courses
+                      timestampISO : 2021-01-15T08:03:22.418Z
+                      lastposttimeISO : 2021-01-20T05:48:10.675Z
+                      pinExpiryISO : 
+                      votes : 3
+                      thumbs : 
+                      category :
+                        cid : 9
+                        lastposttime : 1611121690675
+                        name : General Discussion
+                        slug : 9/general-discussion
+                        icon : fa-comments
+                        backgroundImage : null
+                        imageClass : cover
+                        bgColor : #BA8BAF
+                        color : #ffffff
+                        disabled : 0
+                      user : 
+                        cid : 9
+                        lastposttime : 1611121690675
+                        uid : 18
+                        username : vsv.df1_t1p1
+                        userslug : vsv-df1_t1p1
+                        reputation : 3
+                        postcount : 1
+                        picture : null
+                        signature : null
+                        banned : 0
+                        status : offline
+                        displayname : vsv.df1_t1p1
+                        icon:text : V
+                        icon:bgColor : #2196f3
+                        banned_until_readable : Not Banned
+                      teaser : null
+                      tags : 
+                      isOwner : false
+                      ignored : false
+                      unread : false
+                      bookmark : 1
+                      unreplied : false
+                      icons : 
+                      index : 0
+                    tids : 
+                    canPost : true
+                    showSelect : true
+                    showTopicTools : true
+                    categories : 
+                    allCategoriesUrl : top
+                    selectedCategory : null
+                    selectedCids : 
+                    feeds:disableRSS : 0
+                    rssFeedUrl : /discussions/top/alltime.rss?uid=6&token=bdb3cc19-791f-4d4a-a97c-895565cb3ad7
+                    title : null
+                    filters : 
+                    selectedFilter : null
+                    terms : 
+                    selectedTerm : null
+                    pagination : null
+                    breadcrumbs : 
+                    loggedIn : true
+                    relative_path : /discussions
+                    template : null
+                    url : /discussions/top
+                    bodyClass : page-top page-status-200
+                    _header : null
+                    widgets : null
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Topics    
+  /unread/total:
+    get:
+      tags:
+      - topics
+      summary: Get Total count
+      description: |-
+        This api allow the user to get count of topics in nodebb
+          - The endpoint for **Category** is `/unread/total`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetCountOfTopics
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountOfTopic'
+              examples:
+                a:
+                  summary: "success response"
+                  value:
+                    10
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Topics    
+  /topic/teaser/{topic_id}:
+    get:
+      tags:
+      - topics
+      summary: Get teaser of topic
+      description: |-
+        This api allow the user to get count of topics in nodebb
+          - The endpoint for **Category** is `/topic/teaser/{topic_id}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetTeaserOfTopics
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: topic_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer    
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeaserTopicDetails'
+              examples:
+                a:
+                  summary: "success response"
+                  value:
+                    pid : 16
+                    tid : 16
+                    content : <p dir="auto">Disucssion umesh 1</p>
+                    uid : 4
+                    timestamp : 1610103898937
+                    deleted : false
+                    upvotes : 0
+                    downvotes : 0
+                    replies : 0
+                    votes : 0
+                    timestampISO : 2021-01-08T11:04:58.937Z
+                    user : 
+                      uid : 4
+                      username : nodebb
+                      userslug : nodebb
+                      picture : null
+                      status : offline
+                      displayname : nodebb
+                      icon:text : N
+                      icon:bgColor : #9c27b0
+                    topic : 
+                      uid : 4
+                      tid : 16
+                      title : Disucssion umesh 1
+                      cid : 8
+                      slug : 16/disucssion-umesh-1
+                      deleted : 0
+                      postcount : 1
+                      mainPid : 16
+                      teaserPid : null
+                      titleRaw : Disucssion umesh 1
+                    category : 
+                      cid : 8
+                      name : Announcements
+                      icon : fa-comments
+                      slug : 8/announcements
+                      parentCid : 7
+                      bgColor : #A1B56C
+                      color : #ffffff
+                      backgroundImage : null
+                      imageClass : cover
+                    isMainPost : true
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Topics    
   /topic/{topic_id}/{slug}:
     get:
       tags:
@@ -713,6 +1234,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TopicDetails'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Topics
+  /topic/pagination/{topic_id}:
+    get:
+      tags:
+      - topics
+      summary: Get Paginate topics
+      description: |-
+        This api allow the user to get paginations topics in nodebb
+          - The endpoint for **Category** is `/topic/pagination/{topic_id}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetPaginationTopics
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: topic_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer    
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopicPaginationResponse'
         "400":
           description: Bad request
           content:
@@ -775,6 +1335,293 @@ paths:
                 $ref: '#/components/schemas/Error'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Topics
+  /v2/topics/{tid}/state:
+    put:
+      tags:
+      - topics
+      summary: Delete a topic (Soft delete)
+      description: |-
+        This app allow the user to delete a topic in nodebb
+          - The endpoint for **Category** is `/v2/topics/{tid}/state`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: SoftDeleteTopic
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: tid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Topics
+  /v2/topics/{tid}/follow:
+    put:
+      tags:
+      - topics
+      summary: Follow a Post
+      description: |-
+        This app allow the user to delete a topic in nodebb
+          - The endpoint for **Category** is `/v2/topics/{tid}/state`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: FollowTopic
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: tid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Topics
+    delete:
+      tags:
+      - topics
+      summary: UnFollow a Post
+      description: |-
+        This app allow the user to unfollow a topic in nodebb
+          - The endpoint for **Category** is `/v2/topics/{tid}/state`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: UnFollowTopic
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: tid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Topics 
+  /v2/topics/{tid}/tags:
+    put:
+      tags:
+      - topics
+      summary: Follow a Post
+      description: |-
+        This app allow the user to add tags to a topic in nodebb
+          - The endpoint for **Category** is `/v2/topics/{tid}/tags`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: AddTagsToTopic
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: tid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTagsToTopic'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Topics  
+    delete:
+      tags:
+      - topics
+      summary: Follow a Post
+      description: |-
+        This app allow the user to add tags to a topic in nodebb
+          - The endpoint for **Category** is `/v2/topics/{tid}/tags`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: DaleteTagsToTopic
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: tid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Topics  
+  /v2/topics/{tid}/pin:
+    put:
+      tags:
+      - topics
+      summary: Pin a Post
+      description: |-
+        This app allow the user to pin to a topic in nodebb
+          - The endpoint for **Category** is `/v2/topics/{tid}/pin`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: PinTagsToTopic
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: tid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTagsToTopic'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Topics  
+    delete:
+      tags:
+      - topics
+      summary: Follow a Post
+      description: |-
+        This app allow the user to add tags to a topic in nodebb
+          - The endpoint for **Category** is `/v2/topics/{tid}/pin`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: UnPinTagsToTopic
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: tid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Topics      
   /v2/topics/{tid}:
     put:
       tags:
@@ -1079,6 +1926,178 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       x-swagger-router-controller: Groups
+  /v2/groups/{slug}/membership:
+    put:
+      tags:
+      - groups
+      summary: Join to group
+      description: |-
+        This app allow the user to join to group in nodebb
+          - The endpoint for **Category** is `/v2/groups/{slug}/membership`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: JoinToNewGroup
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: slug
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Groups
+    delete:
+      tags:
+      - groups
+      summary: Exit from group
+      description: |-
+        This app allow the user to Exit from group in nodebb
+          - The endpoint for **Category** is `/v2/groups/{slug}/membership`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: ExitFromNewGroup
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: slug
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Groups 
+  /v2/groups/{slug}/membership/{uid}:
+    put:
+      tags:
+      - groups
+      summary: Add User to group
+      description: |-
+        This app allow the user to Add user to group in nodebb
+          - The endpoint for **Category** is `/v2/groups/{slug}/membership/{uid}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: AddUserIntoGroup
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: slug
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: uid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer    
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Groups
+    delete:
+      tags:
+      - groups
+      summary: Remove User from group
+      description: |-
+        This app allow the user to rempve user from group in nodebb
+          - The endpoint for **Category** is `/v2/groups/{slug}/membership/{uid}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: RemoveUserFromGroup
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: slug
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: uid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer    
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Groups    
   /v2/posts/{pid}:
     put:
       tags:
@@ -1344,8 +2363,91 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       x-swagger-router-controller: Posts
-  /forumId/{id}:
-    get:
+  /forum/v2/read:
+    post:
+      tags:
+      - Posts
+      summary: Restores a post
+      description: |-
+        This api allows the user to Restores a post in the nodebb
+          - The endpoint for **Category** is `/v2/posts/{pid}/state`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: RestorePost
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: pid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Posts
+    delete:
+      tags:
+      - Posts
+      summary: Deletes a post
+      description: |-
+        This api allows the user to Deletes a post in the nodebb
+          - The endpoint for **Category** is `/v2/posts/{pid}/state`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: SoftDeletePost
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadForumCID'
+            examples:
+              a:
+                summary: Create group
+                value:
+                  request :
+                    type: 'course' 
+                    identifier: 'do_12345678996312'
+        required: false  
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCategory'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Posts    
+  /forum/v2/read:
+    post:
       tags:
       - Forum
       summary: Get Forum Id
@@ -1362,13 +2464,19 @@ paths:
         explode: false
         schema:
           type: string
-      - name: id
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadForumCID'
+            examples:
+              a:
+                summary: Create group
+                value:
+                  request :
+                    type: 'course' 
+                    identifier: 'do_12345678996312'
+        required: false  
       responses:
         "200":
           description: successful operation
@@ -1380,7 +2488,7 @@ paths:
                   $ref: '#/components/schemas/ForumResponse'
                 x-content-type: application/json
       x-swagger-router-controller: Forum
-  /forum:
+  /forum/v2/create:
     post:
       tags:
       - Forum
@@ -1402,14 +2510,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ForumIdRequestBody'
+              $ref: '#/components/schemas/CreateForumCID'
             examples:
               a:
                 summary: Create forumID
                 value:
-                  type: course
+                  sbType: course
                   cid: 2
-                  identifier: do_123456789
+                  sbIdentifier: do_123456789
         required: true
       responses:
         "200":
@@ -1423,6 +2531,41 @@ paths:
                 x-content-type: application/json
       x-codegen-request-body-name: body
       x-swagger-router-controller: Forum
+  /tags:
+    get:
+      tags:
+      - tags
+      summary: Get list of all tags
+      description: |-
+        This API is used to fetch tags from NodeBB.
+           - The endpoint for **Category** is `/tags`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetTags
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListOfTags'
+                x-content-type: application/json
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Categories    
 components:
   schemas:
     Category:
@@ -3954,3 +5097,304 @@ components:
           type: integer
       example:
         uid: 0
+    ReadForumCID:
+      type: object
+      properties:
+        request: 
+          type: object
+          properties:
+            type:
+              type: 'string'
+            identifier:
+              type: 'string'
+    CreateForumCID:
+      type: object
+      properties:
+        request: 
+          type: object
+          properties:
+            sbType:
+              type: 'string'
+            sbIdentifier:
+              type: 'string'
+            cid:
+              type: integer
+    ListOfTags:
+      type: object
+      properties:
+        value :
+          type : string
+        score :
+          type : integer
+        valueEscaped :
+          type : string
+        color :
+          type : string
+        bgColor :
+          type : string
+      example: 
+       value : learning
+       score : 1
+       valueEscaped : learning
+       color : "#FFF"
+       bgColor : "#EEE"
+    CreateUserOIDC:
+      type: object
+      properties:
+        request: 
+          type: object
+          properties:
+            username: 
+              type: string
+            identifier:
+              type: string
+    CreateUserResponseOIDC:
+      type: object
+      properties:
+        id :
+         type : string
+        ver :
+          type : string
+        params :
+          type : object
+          properties:
+            resmsgid :
+              type : string
+            msgid :
+              type : string
+            status :
+              type : string
+            msg :
+              type : string
+        responseCode :
+          type : string
+        result :
+          type : object
+          properties:
+            userId :
+              type : object
+              properties:
+                uid: 
+                  type: integer
+            userSlug :
+              type : string
+            userName :
+              type : string
+    ModeratorsResponse:
+      type: object
+      properties:
+        uid :
+         type: integer
+        username :
+         type: string
+        userslug :
+         type: string
+        picture :
+         type: string
+        displayname :
+         type: string
+        icon:text :
+         type: string
+        icon:bgColor :
+         type: string
+    TopTopicResponse:
+      type: object
+      properties:
+        nextStart :
+         type: integer
+        topicCount :
+         type: integer
+        topics :
+         type: array
+         items:
+          $ref: '#/components/schemas/TopicDetails'
+        tids :
+          type: object
+        canPost :
+         type: object
+        showSelect :
+         type: object
+        showTopicTools :
+         type: object
+        categories :
+         type: object
+        allCategoriesUrl :
+         type: string
+        selectedCategory :
+         type: object
+        selectedCids :
+         type: object
+        feeds:disableRSS :
+         type: integer
+        rssFeedUrl :
+         type: string
+        title :
+         type: string
+        filters :
+         type: object
+        selectedFilter :
+         type: object
+        terms :
+         type: object
+        selectedTerm :
+         type: object
+        pagination :
+         type: object
+        breadcrumbs :
+         type: object
+        loggedIn :
+         type: object
+        relative_path :
+         type: string
+        template :
+         type: object
+        url :
+         type: string
+        bodyClass :
+         type: string
+        _header :
+         type: object
+        widgets :
+         type: object
+    CountOfTopic:
+      type: integer
+    TeaserTopicDetails:
+      type: object
+      properties:
+        pid :
+         type: integer
+        tid :
+         type: integer
+        content :
+         type: string
+        uid :
+         type: integer
+        timestamp :
+         type: integer
+        deleted :
+         type: object
+        upvotes :
+         type: integer
+        downvotes :
+         type: integer
+        replies :
+         type: integer
+        votes :
+         type: integer
+        timestampISO :
+         type: string
+        user :
+         type: object
+         properties:
+          uid :
+           type: integer
+          username :
+           type: string
+          userslug :
+           type: string
+          picture :
+           type: object
+          status :
+           type: string
+          displayname :
+           type: string
+          icon:text :
+           type: string
+          icon:bgColor :
+           type: string
+        topic :
+         type: object
+         properties:
+          uid :
+           type: integer
+          tid :
+           type: integer
+          title :
+           type: string
+          cid :
+           type: integer
+          slug :
+           type: string
+          deleted :
+           type: integer
+          postcount :
+           type: integer
+          mainPid :
+           type: integer
+          teaserPid :
+           type: object
+          titleRaw :
+           type: string
+        category :
+         type: object
+         properties:
+          cid :
+           type: integer
+          name :
+           type: string
+          icon :
+           type: string
+          slug :
+           type: string
+          parentCid :
+           type: integer
+          bgColor :
+           type: string
+          color :
+           type: string
+          backgroundImage :
+           type: object
+          imageClass :
+           type: string
+        isMainPost :
+         type: object
+    TopicPaginationResponse:
+      type: object
+      properties:
+        pagination:
+          type: object
+          properties:
+            prev :
+             type: object
+             properties:
+              page:
+                type: integer
+              active:
+                type: string
+            next :
+              type: object
+              properties:
+                page:
+                  type: integer
+                active:
+                  type: string
+            first :
+              type: object
+              properties:
+                page:
+                  type: integer
+                active:
+                  type: string
+            last :
+              type: object
+              properties:
+                page:
+                  type: integer
+                active:
+                  type: string
+            rel :
+             type: object
+            pages :
+             type: object
+            currentPage :
+             type: integer
+            pageCount :
+             type: integer
+    AddTagsToTopic:
+      type: array
+      items:
+        type: string
+    AddPrivilagesToCategory:
+      type: array
+      items:
+        type: string
