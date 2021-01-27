@@ -1,0 +1,1168 @@
+openapi: 3.0.0
+info:
+  title: Lock Resource
+  termsOfService: "https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE"
+  description: This services explains the design of lock service and types of locks that are possible with mechanisms to lock a resource and unlock it with different possibilities.
+
+  contact:
+    email: info@sunbird.org
+  version: "1.0"
+servers:
+- url: https://dev.sunbirded.org/api
+externalDocs:
+  description: "Testcases"
+  url: "https://www.getpostman.com/collections/48a47be792b6da418123"
+paths:
+  /lock/v1/list:
+    post:
+      tags:
+      - Lock List
+      summary: lock list
+      operationId: lock list
+      description: |-
+        This API searches for a list of Locked resource by a user or system or service.
+           - The **_lock/v1/list_** endpoint searches the list of  Locked resource.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
+           - Backend Route: http://knowledge-mw-service:5000/v1/lock/list
+      parameters:
+        - name: Content-Type
+          in: header
+          description: The Content Type entity is the media type of the resource
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: application/json
+        - name: Authorization
+          in: header
+          description:
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the authorization
+            key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 'This represents the list request body'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/listrequest'
+            example:
+              request:
+                filters:
+                  resourceId:
+                  - do_11319479631000371211
+                  - do_11319851826161254418
+                  - do_113107812356022272164
+                  - do_1131983093687828481353
+                  - do_113197939102253056140
+                  - do_113197917149233152139
+                  - do_113197913444737024138
+                  - do_113197844509425664130
+                  - do_113197903995772928137
+        required: true
+      responses:
+        200:
+          description: 'This represents the list response success'
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Locklist200'
+              example:
+                id: api.lock.list
+                ver: 1.0
+                ts: 2021-01-21T09:44:03.248Z
+                params:
+                  resmsgid: 32228b00-5bcd-11eb-9b0c-abcfbdf41bc3
+                  msgid: 3247615a-0095-9236-9b6b-357d7b130b6e
+                  status: successful
+                  err: 
+                  errmsg: 
+                responseCode: OK
+                result:
+                  count: 1
+                  data:
+                  - lockId: 1d767439-a517-4433-bf46-fb0cca148d31
+                    resourceId: do_11319479631000371211
+                    resourceType: Content
+                    resourceInfo: '{"contentType":"TextBook","framework":"ekstep_ncert_k-12","identifier":"do_11319479631000371211","mimeType":"application/vnd.ekstep.content-collection"}'
+                    createdBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+                    creatorInfo: '{"name":"N11","id":"5a587cc1-e018-4859-a0a8-e842650b9d64"}'
+                    createdOn: 2021-01-21T09:22:12.577Z
+                    deviceId: ad8ed16beb09e7c91534c2af80a1a41e
+                    expiresAt: 2021-01-21T10:26:27.591Z
+        500:
+          description: This represents the Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list500'
+              example:
+                id: api.lock.list
+                ver: 1.0
+                ts: 2021-01-21T12:59:12.456Z
+                params:
+                  resmsgid: 755de480-5be8-11eb-9b0c-abcfbdf41bc3
+                  msgid: 
+                  status: failed
+                  err: ERR_LISTING_LOCK_FAILED
+                  errmsg: Listing lock failed
+                responseCode: SERVER_ERROR
+                result: {}            
+      deprecated: false
+  /lock/v1/retire:
+    delete:
+      tags:
+      - Lock Retire
+      summary: Lock retire
+      operationId: Lock retire
+      description: |-
+        This API used to retire the Locked resource by a user or system or service.
+           - The **_lock/v1/retire_** endpoint used to retire  the Locked resource by a user or system or service.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
+           - Backend Route: http://knowledge-mw-service:5000/v1/lock/retire
+      parameters:
+        - name: Content-Type
+          in: header
+          description: The Content Type entity is the media type of the resource
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: application/json
+        - name: Authorization
+          in: header
+          description:
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the authorization
+            key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+            
+      responses:
+        200:
+          description: 'This represents the retire success response'
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/retire200'
+              example:
+                id: api.lock.retire
+                ver: 1.0
+                ts: 2021-01-21T11:07:24.864Z
+                params:
+                  resmsgid: d7549400-5bd8-11eb-9b0c-abcfbdf41bc3
+                  msgid: eb729276-769e-8db2-477a-91548152908b
+                  status: successful
+                  err: 
+                  errmsg: 
+                responseCode: OK
+                result: {}
+        400:
+          description: This represents the retire Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/retire400'
+              example:
+                id: api.lock.retire
+                ver: 1.0
+                ts: 2021-01-21T11:08:43.618Z
+                params:
+                  resmsgid: 0645ca40-5bd9-11eb-9b0c-abcfbdf41bc3
+                  msgid: 
+                  status: failed
+                  err: ERR_LOCK_RETIRING_FAILED
+                  errmsg: Resource is not locked
+                responseCode: CLIENT_ERROR
+                result: {}
+      deprecated: false
+  /lock/v1/create:
+    post:
+      tags:
+      - Lock Create
+      summary: Lock create
+      operationId: Lock create
+      description: |-
+        This API used to create the Lock resource by a user or system or service.
+           - The **_lock/v1/create_** endpoint search the bulk job approve of the content.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
+           - Backend Route: http://knowledge-mw-service:5000/v1/lock/create
+      parameters:
+        - name: Content-Type
+          in: header
+          description: The Content Type entity is the media type of the resource
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: application/json
+        - name: Authorization
+          in: header
+          description:
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the authorization
+            key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 'This represents create request body'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createrequest'
+            example:
+              request:
+                resourceId: do_11319479631000371211
+                resourceType: Content
+                resourceInfo: '{"contentType":"TextBook","framework":"ekstep_ncert_k-12","identifier":"do_11319479631000371211","mimeType":"application/vnd.ekstep.content-collection"}'
+                creatorInfo: '{"name":"N11","id":"5a587cc1-e018-4859-a0a8-e842650b9d64"}'
+                createdBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+                isRootOrgAdmin: true
+        required: true
+      responses:
+        200:
+          description: 'This represents the create response body 200'
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Createlock200'
+              example:
+                id: api.lock.create
+                ver: 1.0
+                ts: 2021-01-21T11:14:46.643Z
+                params:
+                  resmsgid: dea6b430-5bd9-11eb-9b0c-abcfbdf41bc3
+                  msgid: 33e7b5d4-7662-bab6-1c06-72e71b8b8221
+                  status: successful
+                  err: 
+                  errmsg: 
+                responseCode: OK
+                result:
+                  lockKey: bad55f24-8081-4d03-baab-364296062b47
+                  expiresAt: 2021-01-21T12:14:46.594Z
+                  expiresIn: 60
+        400:
+          description: This represents the create response Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/lockcreate400'
+              example:
+                id: api.lock.create
+                ver: 1.0
+                ts: 2021-01-21T13:09:44.935Z
+                params:
+                  resmsgid: ee5a8770-5be9-11eb-9b0c-abcfbdf41bc3
+                  msgid: 
+                  status: failed
+                  err: ERR_LOCK_CREATION_FIELDS_MISSING
+                  errmsg: '"resourceInfo" is required'
+                responseCode: CLIENT_ERROR
+                result: {}
+      deprecated: false
+  /lock/v1/refresh:
+    patch:
+      tags:
+      - Lock Refresh
+      summary: Lock Refresh
+      operationId: refresh
+      description: |-
+        This API used to refresh the Locked resource by a user or system or service.
+           - The **_lock/v1/refresh_** endpoint refresh the Locked resource by a user or system or service.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
+           - Backend Route: http://knowledge-mw-service:5000/v1/lock/refresh
+      parameters:
+        - name: Content-Type
+          in: header
+          description: The Content Type entity is the media type of the resource
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: application/json
+        - name: Authorization
+          in: header
+          description:
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the authorization
+            key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 'This represents the refresh request body'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/refreshrequest'
+            example:
+              request:
+                resourceId: do_11316513466772684811649
+                resourceType: Content
+                lockId: 0e6b1631-93e6-4726-9dcf-0debdba37aa1
+        required: true
+      responses:
+        200:
+          description: 'This represents the refresh response 200'
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/refresh200'
+              example:
+                id: api.v1.refresh
+                ver: 1.0
+                ts: 2021-01-21T11:24:31.981Z
+                params:
+                  resmsgid: 3b8a31d0-5bdb-11eb-9b0c-abcfbdf41bc3
+                  msgid: 3a33a280-5bdb-11eb-9b0c-abcfbdf41bc3
+                  status: successful
+                  err: 
+                  errmsg: 
+                responseCode: OK
+                result:
+                  lockKey: 0e6b1631-93e6-4726-9dcf-0debdba37aa1
+                  expiresAt: 2021-01-21T12:24:29.738Z
+                  expiresIn: 60
+        400:
+          description: This represents the refresh response for Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/refresh400'
+              example:
+                id: api.v1.refresh
+                ver: 1.0
+                ts: 2021-01-21T11:27:46.193Z
+                params:
+                  resmsgid: af4c9810-5bdb-11eb-9b0c-abcfbdf41bc3
+                  msgid: 
+                  status: failed
+                  err: ERR_LOCK_REFRESHING_FIELDS_MISSING
+                  errmsg: '"resourceId" is required'
+                responseCode: CLIENT_ERROR
+                result: {}
+      deprecated: false
+components:
+  schemas:
+    listrequest:
+      title: listrequest
+      description: This represents the list request body
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/ListRequest'
+      example:
+        request:
+          filters:
+            resourceId:
+            - do_11319479631000371211
+            - do_11319851826161254418
+            - do_113107812356022272164
+            - do_1131983093687828481353
+            - do_113197939102253056140
+            - do_113197917149233152139
+            - do_113197913444737024138
+            - do_113197844509425664130
+            - do_113197903995772928137
+    ListRequest:
+      title: ListRequest
+      description: This represents the list request body details
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          $ref: '#/components/schemas/ListRequestFilters'
+      example:
+        filters:
+          resourceId:
+          - do_11319479631000371211
+          - do_11319851826161254418
+          - do_113107812356022272164
+          - do_1131983093687828481353
+          - do_113197939102253056140
+          - do_113197917149233152139
+          - do_113197913444737024138
+          - do_113197844509425664130
+          - do_113197903995772928137
+    ListRequestFilters:
+      title: ListRequestFilters
+      description: This represents the list request body Filters details 
+      required:
+      - resourceId
+      type: object
+      properties:
+        resourceId:
+          type: array
+          items:
+            type: string
+          description: 'This represents unique resourceId'
+      example:
+        resourceId:
+        - do_11319479631000371211
+        - do_11319851826161254418
+        - do_113107812356022272164
+        - do_1131983093687828481353
+        - do_113197939102253056140
+        - do_113197917149233152139
+        - do_113197913444737024138
+        - do_113197844509425664130
+        - do_113197903995772928137
+    Locklist200:
+      title: Locklist200
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          description: Represents the api id
+          type: string
+        ver:
+          description: Represents the api version
+          type: string
+        ts:
+          description: Represents the EPOCH epoch time in milliseconds
+          type: integer
+          format: int64
+        params:
+          $ref: "#/components/schemas/Params"
+        responseCode:
+          type: string
+          description: Represents the api response code
+        result:
+          $ref: '#/components/schemas/Locklist200Result'
+      example:
+        id: api.lock.list
+        ver: 1.0
+        ts: 2021-01-21T09:44:03.248Z
+        params:
+          resmsgid: 32228b00-5bcd-11eb-9b0c-abcfbdf41bc3
+          msgid: 3247615a-0095-9236-9b6b-357d7b130b6e
+          status: successful
+          err: 
+          errmsg: 
+        responseCode: OK
+        result:
+          count: 1
+          data:
+          - lockId: 1d767439-a517-4433-bf46-fb0cca148d31
+            resourceId: do_11319479631000371211
+            resourceType: Content
+            resourceInfo: '{"contentType":"TextBook","framework":"ekstep_ncert_k-12","identifier":"do_11319479631000371211","mimeType":"application/vnd.ekstep.content-collection"}'
+            createdBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+            creatorInfo: '{"name":"N11","id":"5a587cc1-e018-4859-a0a8-e842650b9d64"}'
+            createdOn: 2021-01-21T09:22:12.577Z
+            deviceId: ad8ed16beb09e7c91534c2af80a1a41e
+            expiresAt: 2021-01-21T10:26:27.591Z
+    Params:
+      title: Params
+      required:
+      - resmsgid
+      - msgid
+      - status
+      - err
+      - errmsg
+      type: object
+      properties:
+        resmsgid:
+          description: Represents the message id of the response
+          type: string
+        status:
+          description: Represents the status of the request
+          type: string
+          enum:
+            - success
+            - failed
+        err:
+          description: Represents the error
+          type: string
+          nullable: true
+        errmsg:
+          description: Represents the error message
+          type: string
+          nullable: true
+      example:
+        resmsgid: 32228b00-5bcd-11eb-9b0c-abcfbdf41bc3
+        msgid: 3247615a-0095-9236-9b6b-357d7b130b6e
+        status: successful
+        err: 
+        errmsg: 
+    Locklist200Result:
+      title: Result
+      description: Represents the Lock list 200 Result
+      required:
+      - count
+      - data
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+          description: Represents the locked resource list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Datum'
+          description: 'Represents the locked resource details'
+      example:
+        count: 1
+        data:
+        - lockId: 1d767439-a517-4433-bf46-fb0cca148d31
+          resourceId: do_11319479631000371211
+          resourceType: Content
+          resourceInfo: '{"contentType":"TextBook","framework":"ekstep_ncert_k-12","identifier":"do_11319479631000371211","mimeType":"application/vnd.ekstep.content-collection"}'
+          createdBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+          creatorInfo: '{"name":"N11","id":"5a587cc1-e018-4859-a0a8-e842650b9d64"}'
+          createdOn: 2021-01-21T09:22:12.577Z
+          deviceId: ad8ed16beb09e7c91534c2af80a1a41e
+          expiresAt: 2021-01-21T10:26:27.591Z
+    Datum:
+      title: Datum
+      description: 'Represents the locked each resource details'
+      required:
+      - lockId
+      - resourceId
+      - resourceType
+      - resourceInfo
+      - createdBy
+      - creatorInfo
+      - createdOn
+      - deviceId
+      - expiresAt
+      type: object
+      properties:
+        lockId:
+          type: string
+          description: Represents the unique lockId
+        resourceId:
+          type: string
+          description: Represents the unique resourceId
+        resourceType:
+          type: string
+          description: Represents the unique resourceType
+        resourceInfo:
+          type: string
+          description: Represents the resourceInfo
+        createdBy:
+          type: string
+          description: Represents the createdBy info
+        creatorInfo:
+          type: string
+          description: Represents the creatorInfo info 
+        createdOn:
+          type: string
+          description: Represents the createdOn info
+        deviceId:
+          type: string
+          description: Represents the unique deviceId
+        expiresAt:
+          type: string
+          description: Represents the resource lock expires At
+      example:
+        lockId: 1d767439-a517-4433-bf46-fb0cca148d31
+        resourceId: do_11319479631000371211
+        resourceType: Content
+        resourceInfo: '{"contentType":"TextBook","framework":"ekstep_ncert_k-12","identifier":"do_11319479631000371211","mimeType":"application/vnd.ekstep.content-collection"}'
+        createdBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+        creatorInfo: '{"name":"N11","id":"5a587cc1-e018-4859-a0a8-e842650b9d64"}'
+        createdOn: 2021-01-21T09:22:12.577Z
+        deviceId: ad8ed16beb09e7c91534c2af80a1a41e
+        expiresAt: 2021-01-21T10:26:27.591Z
+    retire200:
+      title: retire200
+      description: This represents the retire success response
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          description: Represents the api id
+          type: string
+        ver:
+          description: Represents the api version
+          type: string
+        ts:
+          description: Represents the EPOCH epoch time in milliseconds
+          type: integer
+          format: int64
+        params:
+          $ref: "#/components/schemas/Params"
+        responseCode:
+          type: string
+          description: Represents the api response code
+        result:
+          type: object
+          description: Represents the result of the api response
+      example:
+        id: api.lock.retire
+        ver: 1.0
+        ts: 2021-01-21T11:07:24.864Z
+        params:
+          resmsgid: d7549400-5bd8-11eb-9b0c-abcfbdf41bc3
+          msgid: eb729276-769e-8db2-477a-91548152908b
+          status: successful
+          err: 
+          errmsg: 
+        responseCode: OK
+        result: {}
+    refresh400Params:
+      title: refresh 400 Params
+      description: This represents the refresh 400 Params
+      required:
+      - resmsgid
+      - msgid
+      - status
+      - err
+      - errmsg
+      type: object
+      properties:
+        resmsgid:
+          description: Represents the message id of the response
+          type: string
+        status:
+          description: Represents the status of the request
+          type: string
+          enum:
+            - success
+            - failed
+        err:
+          description: Represents the error
+          type: string
+          nullable: true
+        errmsg:
+          description: Represents the error message
+          type: string
+          nullable: true
+      example:
+        resmsgid: 0645ca40-5bd9-11eb-9b0c-abcfbdf41bc3
+        msgid: 
+        status: failed
+        err: ERR_LOCK_RETIRING_FAILED
+        errmsg: Resource is not locked
+    createrequest:
+      title: createrequest
+      description: This represents the create request body
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/createRequestBody'
+      example:
+        request:
+          resourceId: do_11319479631000371211
+          resourceType: Content
+          resourceInfo: '{"contentType":"TextBook","framework":"ekstep_ncert_k-12","identifier":"do_11319479631000371211","mimeType":"application/vnd.ekstep.content-collection"}'
+          creatorInfo: '{"name":"N11","id":"5a587cc1-e018-4859-a0a8-e842650b9d64"}'
+          createdBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+          isRootOrgAdmin: true
+    createRequestBody:
+      title: createRequestBody
+      description: This represents the create request body details
+      required:
+      - resourceId
+      - resourceType
+      - resourceInfo
+      - creatorInfo
+      - createdBy
+      - isRootOrgAdmin
+      type: object
+      properties:
+        resourceId:
+          type: string
+          description: This represents the unique resource id
+        resourceType:
+          type: string
+          description: This represents the resource type
+        resourceInfo:
+          type: string
+          description: This represents the resource info
+        creatorInfo:
+          type: string
+          description: This represents the creator info
+        createdBy:
+          type: string
+          description: This represents the created by 
+        isRootOrgAdmin:
+          type: boolean
+          description: This represents the boolean value for root org admin
+      example:
+        resourceId: do_11319479631000371211
+        resourceType: Content
+        resourceInfo: '{"contentType":"TextBook","framework":"ekstep_ncert_k-12","identifier":"do_11319479631000371211","mimeType":"application/vnd.ekstep.content-collection"}'
+        creatorInfo: '{"name":"N11","id":"5a587cc1-e018-4859-a0a8-e842650b9d64"}'
+        createdBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+        isRootOrgAdmin: true
+    Createlock200:
+      title: Createlock200
+      description: This represents the Create lock success 200 response
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          description: Represents the api id
+          type: string
+        ver:
+          description: Represents the api version
+          type: string
+        ts:
+          description: Represents the EPOCH epoch time in milliseconds
+          type: integer
+          format: int64
+        params:
+          $ref: "#/components/schemas/Params"
+        responseCode:
+          type: string
+          description: Represents the api response code
+        result:
+          $ref: '#/components/schemas/Createlock200Result'
+      example:
+        id: api.lock.create
+        ver: 1.0
+        ts: 2021-01-21T11:14:46.643Z
+        params:
+          resmsgid: dea6b430-5bd9-11eb-9b0c-abcfbdf41bc3
+          msgid: 33e7b5d4-7662-bab6-1c06-72e71b8b8221
+          status: successful
+          err: 
+          errmsg: 
+        responseCode: OK
+        result:
+          lockKey: bad55f24-8081-4d03-baab-364296062b47
+          expiresAt: 2021-01-21T12:14:46.594Z
+          expiresIn: 60
+    Createlock200Result:
+      title: Createlock200Result
+      description: This represents Create lock 200 Result
+      required:
+      - lockKey
+      - expiresAt
+      - expiresIn
+      type: object
+      properties:
+        lockKey:
+          type: string
+          description: This represents lock key
+        expiresAt:
+          type: string
+          description: This represents expiresAt
+        expiresIn:
+          type: integer
+          format: int32
+          description: This represents expiresIn
+      example:
+        lockKey: bad55f24-8081-4d03-baab-364296062b47
+        expiresAt: 2021-01-21T12:14:46.594Z
+        expiresIn: 60
+    refreshrequest:
+      title: refresh request
+      description: This represents refresh request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/refreshrequestRequest'
+      example:
+        request:
+          resourceId: do_11316513466772684811649
+          resourceType: Content
+          lockId: 0e6b1631-93e6-4726-9dcf-0debdba37aa1
+    refreshrequestRequest:
+      title: refresh request Request
+      description: This represents refresh request details
+      required:
+      - resourceId
+      - resourceType
+      - lockId
+      type: object
+      properties:
+        resourceId:
+          type: string
+          description: This represents unique resourceId 
+        resourceType:
+          type: string
+          description: This represents resourceType
+        lockId:
+          type: string
+          description: This represents lockId 
+      example:
+        resourceId: do_11316513466772684811649
+        resourceType: Content
+        lockId: 0e6b1631-93e6-4726-9dcf-0debdba37aa1
+    refresh400:
+      title: refresh400
+      description: This represents the refresh 400 response
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          description: Represents the api id
+          type: string
+        ver:
+          description: Represents the api version
+          type: string
+        ts:
+          description: Represents the EPOCH epoch time in milliseconds
+          type: integer
+          format: int64
+        params:
+          $ref: "#/components/schemas/refresh400Params"
+        responseCode:
+          type: string
+          description: Represents the api response code
+        result:
+          type: object
+          description: Represents the result of the api response    
+      example:
+        id: api.v1.refresh
+        ver: 1.0
+        ts: 2021-01-21T11:27:46.193Z
+        params:
+          resmsgid: af4c9810-5bdb-11eb-9b0c-abcfbdf41bc3
+          msgid: 
+          status: failed
+          err: ERR_LOCK_REFRESHING_FIELDS_MISSING
+          errmsg: '"resourceId" is required'
+        responseCode: CLIENT_ERROR
+        result: {}
+    refresh200:
+      title: refresh200
+      description: Represents the refresh 200 response
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          description: Represents the api id
+          type: string
+        ver:
+          description: Represents the api version
+          type: string
+        ts:
+          description: Represents the EPOCH epoch time in milliseconds
+          type: integer
+          format: int64
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+          description: Represents the api response code
+        result:
+          $ref: '#/components/schemas/refresh200Result'
+      example:
+        id: api.v1.refresh
+        ver: 1.0
+        ts: 2021-01-21T11:24:31.981Z
+        params:
+          resmsgid: 3b8a31d0-5bdb-11eb-9b0c-abcfbdf41bc3
+          msgid: 3a33a280-5bdb-11eb-9b0c-abcfbdf41bc3
+          status: successful
+          err: 
+          errmsg: 
+        responseCode: OK
+        result:
+          lockKey: 0e6b1631-93e6-4726-9dcf-0debdba37aa1
+          expiresAt: 2021-01-21T12:24:29.738Z
+          expiresIn: 60
+    refresh200Result:
+      title: refresh 200 Result
+      description: This represents refresh  200 Result
+      required:
+      - lockKey
+      - expiresAt
+      - expiresIn
+      type: object
+      properties:
+        lockKey:
+          type: string
+          description: This represents lock key
+        expiresAt:
+          type: string
+          description: This represents expiresAt
+        expiresIn:
+          type: integer
+          format: int32
+          description: This represents expiresIn
+      example:
+        lockKey: bad55f24-8081-4d03-baab-364296062b47
+        expiresAt: 2021-01-21T12:14:46.594Z
+        expiresIn: 60      
+    retire400:
+      title: retire400
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          description: Represents the api id
+          type: string
+        ver:
+          description: Represents the api version
+          type: string
+        ts:
+          description: Represents the EPOCH epoch time in milliseconds
+          type: integer
+          format: int64
+        params:
+          $ref: '#/components/schemas/RetireParams'
+        result:
+          type: object
+          description: Represents the result of the api response
+      example:
+        id: api.lock.retire
+        ver: 1.0
+        ts: 2021-01-21T11:08:43.618Z
+        params:
+          resmsgid: 0645ca40-5bd9-11eb-9b0c-abcfbdf41bc3
+          msgid: 
+          status: failed
+          err: ERR_LOCK_RETIRING_FAILED
+          errmsg: Resource is not locked
+        responseCode: CLIENT_ERROR
+        result: {}
+    RetireParams:
+      title: Params
+      required:
+      - resmsgid
+      - msgid
+      - status
+      - err
+      - errmsg
+      type: object
+      properties:
+        resmsgid:
+          description: Represents the message id of the response
+          type: string
+        status:
+          description: Represents the status of the request
+          type: string
+          enum:
+            - success
+            - failed
+        err:
+          description: Represents the error
+          type: string
+          nullable: true
+        errmsg:
+          description: Represents the error message
+          type: string
+          nullable: true
+        msgid:
+          type: string
+          nullable: true
+          description: Represents the  message id
+      example:
+        resmsgid: 0645ca40-5bd9-11eb-9b0c-abcfbdf41bc3
+        msgid: 
+        status: failed
+        err: ERR_LOCK_RETIRING_FAILED
+        errmsg: Resource is not locked
+        
+    list500:
+      title: list 500
+      description: Represents the list 500
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          description: Represents the api id
+          type: string
+        ver:
+          description: Represents the api version
+          type: string
+        ts:
+          description: Represents the EPOCH epoch time in milliseconds
+          type: integer
+          format: int64
+        params:
+          $ref: '#/components/schemas/listParams500'
+        responseCode:
+          type: string
+          description: Represents the api response code
+        result:
+          type: object
+          description: Represents the result of the api response 
+      example:
+        id: api.lock.list
+        ver: 1.0
+        ts: 2021-01-21T12:59:12.456Z
+        params:
+          resmsgid: 755de480-5be8-11eb-9b0c-abcfbdf41bc3
+          msgid: 
+          status: failed
+          err: ERR_LISTING_LOCK_FAILED
+          errmsg: Listing lock failed
+        responseCode: SERVER_ERROR
+        result: {}
+    listParams500:
+      title: list Params 500
+      description: Represents the list Params 500
+      required:
+      - resmsgid
+      - msgid
+      - status
+      - err
+      - errmsg
+      type: object
+      properties:
+        resmsgid:
+          description: Represents the message id of the response
+          type: string
+        status:
+          description: Represents the status of the request
+          type: string
+          enum:
+            - success
+            - failed
+        err:
+          description: Represents the error
+          type: string
+          nullable: true
+        errmsg:
+          description: Represents the error message
+          type: string
+          nullable: true
+        msgid:
+          type: string
+          nullable: true
+          description: Represents the  message id
+      example:
+        resmsgid: 755de480-5be8-11eb-9b0c-abcfbdf41bc3
+        msgid: 
+        status: failed
+        err: ERR_LISTING_LOCK_FAILED
+        errmsg: Listing lock failed
+    lockcreate400:
+      title: lock create 400
+      description: Represents the lock create 400
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          description: Represents the api id
+          type: string
+        ver:
+          description: Represents the api version
+          type: string
+        ts:
+          description: Represents the EPOCH epoch time in milliseconds
+          type: integer
+          format: int64
+        params:
+          $ref: '#/components/schemas/Paramslockcreate400'
+        responseCode:
+          type: string
+          description: Represents the api response code
+        result:
+          type: object
+          description: Represents the result of the api response 
+      example:
+        id: api.lock.create
+        ver: 1.0
+        ts: 2021-01-21T13:09:44.935Z
+        params:
+          resmsgid: ee5a8770-5be9-11eb-9b0c-abcfbdf41bc3
+          msgid: 
+          status: failed
+          err: ERR_LOCK_CREATION_FIELDS_MISSING
+          errmsg: '"resourceInfo" is required'
+        responseCode: CLIENT_ERROR
+        result: {}
+    Paramslockcreate400:
+      title: Params
+      required:
+      - resmsgid
+      - msgid
+      - status
+      - err
+      - errmsg
+      type: object
+      properties:
+        resmsgid:
+          description: Represents the message id of the response
+          type: string
+        status:
+          description: Represents the status of the request
+          type: string
+          enum:
+            - success
+            - failed
+        err:
+          description: Represents the error
+          type: string
+          nullable: true
+        errmsg:
+          description: Represents the error message
+          type: string
+          nullable: true
+        msgid:
+          type: string
+          nullable: true
+          description: Represents the  message id
+      example:
+        resmsgid: ee5a8770-5be9-11eb-9b0c-abcfbdf41bc3
+        msgid: 
+        status: failed
+        err: ERR_LOCK_CREATION_FIELDS_MISSING
+        errmsg: '"resourceInfo" is required'
+tags:
+- name: Lock Create
+- name: Lock List
+- name: Lock Retire
+- name: Lock Refresh
+
