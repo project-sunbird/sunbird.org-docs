@@ -2363,8 +2363,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
       x-swagger-router-controller: Posts
-  /v2/posts/{pid}/state:
-    put:
+  /forum/v2/read:
+    post:
       tags:
       - Posts
       summary: Restores a post
@@ -2419,13 +2419,19 @@ paths:
         explode: false
         schema:
           type: string
-      - name: pid
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
+          requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadForumCID'
+            examples:
+              a:
+                summary: Create group
+                value:
+                  request :
+                    type: 'course' 
+                    identifier: 'do_12345678996312'
+        required: false  
       responses:
         "200":
           description: successful operation
