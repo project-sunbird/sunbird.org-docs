@@ -1,0 +1,564 @@
+openapi: 3.0.1
+info:
+  title: Dhiti Service API(s)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  description: >-
+    - The Dhiti Service is a centralised Service to support other services. Apis perform operations related to generating app reports and pdf reports etc 
+    
+    - The URL for dhiti service API(s) is `dhiti/api`
+
+    - <b>Note:</b> These resources can be used in other services 
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://staging.open-sunbird.org/dhiti/api
+  variables: {}
+# tags:
+#   - name: Users
+#     description: API for users
+paths: 
+  /v1/programs/list:
+    post:
+      tags:
+      - Program API's
+      summary: Get List of Programs
+      description: This API is used for getting list of programs.
+           - The endpoint for **Program List  V1** is `/programs/list`  
+      operationId: Get List of Programs
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId and entityType
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProgramListRequest"
+      responses:
+        200:
+          description: "Program List"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgramListResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgramList400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/solutions/list:
+    post:
+      tags:
+      - Solution API's
+      summary: Get List of solutions
+      description: This API is used for getting list of solutions.
+           - The endpoint for **Solution List  V1** is `/solutions/list`  
+      operationId: Get List of Solutions
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId,entityType and programId
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SolutionListRequest"
+      responses:
+        200:
+          description: "Solution List"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionListResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionList400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/surveys/solutionReport:
+    get:
+      tags:
+      - Survey API's
+      summary: Get Survey Solution Report
+      description: This API is used for getting Survey solution report.
+           - The endpoint for **Survey solution report  V1** is `/surveys/solutionReport`  
+      operationId: Survey 
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: solutionId
+          required: true
+          description: solutionId for which report will be generated
+          schema:
+            type: string
+      responses:
+        200:
+          description: "Survey Solution Report"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveySolutionReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveySubmissionReport400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/surveys/getAllResponsesOfQuestion:
+    post:
+      tags:
+      - Survey API's
+      summary: Get all responses for the given questionId
+      description: This API is used for getting all the response of a question.
+           - The endpoint for **Survey  getAllResponsesOfQuestion  V1** is `/surveys/getAllResponsesOfQuestion`  
+      operationId: Get all responses for the given questionId
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId and entityType
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SurveyGetAllResponsesOfQuestionRequest"
+      responses:
+        200:
+          description: "Get All Responses Of a Question"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveyGetAllResponsesOfQuestionResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveyGetAllResponsesOfQuestion400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/surveys/submissionReport:
+    get:
+      tags:
+      - Survey API's
+      summary: Get Survey Solution Report
+      description: This API is used for getting Survey submission report.
+           - The endpoint for **Survey submission report  V1** is `/surveys/submissionReport`  
+      operationId: Survey API's
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: submissionId
+          required: true
+          description: submissionId for which report will be generated
+          schema:
+            type: string
+      responses:
+        200:
+          description: "Survey Submission Report"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveySolutionReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveySubmissionReport400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/surveys/listAllEvidences:
+    post:
+      tags:
+      - Survey API's
+      summary: List all evidences of question
+      description: This API is used for getting all the evidences of a question.
+           - The endpoint for **Survey listAllEvidences  V1** is `/surveys/listAllEvidences`  
+      operationId: survey 
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId and entityType
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SurveyListAllEvidenceRequest"
+      responses:
+        200:
+          description: "Survey Submission Report"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveySolutionReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveySubmissionReport400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+ 
+components:
+  schemas:
+   
+    500Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: Internal Server Error
+        
+    ProgramList400Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: entityId and entityType are required fields
+          
+    ProgramListRequest:
+      type: object
+      required:
+        - entityId
+        - entityType
+      properties:
+        entityId:
+          type: string
+          example: 5ffd83b545cfa47ab52d760a
+        entityType:
+          type: string
+          example: school
+    ProgramListResult:
+      type: object
+      properties:
+        programId:
+          type: string
+        programName:
+          type: string
+      example:
+        programId: 5ff444f3addbc0493ecf189b
+        programName: DCPCR program
+    ProgramListResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+        data: 
+          type: array
+          items:
+            $ref: '#/components/schemas/ProgramListResult'
+            
+    SolutionListRequest:
+      type: object
+      required:
+        - entityId
+        - entityType
+        - programId
+      properties:
+        entityId:
+          type: string
+          example: 5ffd83b545cfa47ab52d760a
+        entityType:
+          type: string
+          example: school
+        programId:
+          type: string
+          example: 5bbd83b545cfa47ab52d760b
+    SolutionListResult:
+      type: object
+      properties:
+        solutionId:
+          type: string
+        solutionName:
+          type: string
+        type:
+          type: string
+        scoring:
+          type: boolean
+        id:
+          type: string
+      example:
+        solutionId: 5ff444f3addbc0493ecf189b
+        programName: CRP Visiting Form -june 26
+        type: observation
+        scoring: false
+        id: 01c04166-a65e-4e92-a87b-a9e4194e771d
+    SolutionListResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+        data: 
+          type: object
+          properties:
+            mySolutions:
+              type: array
+              items:
+                $ref: '#/components/schemas/SolutionListResult'
+            allSolutions:
+              type: array
+              items:
+                $ref: '#/components/schemas/SolutionListResult'
+    SolutionList400Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: entityId,entityType,programId are required fields
+          
+    EvidenceArray:
+      type: object
+      properties:
+        url:
+          type: string
+          example: 5f6b0f8626e1b91d91c44bad//tmp_2020-8-22-13850488768898328338.jpg
+        extension:
+          type: string
+          example: jpg
+    SurveySolutionReportResult:
+      type: object
+      properties:
+        order: 
+          type: integer
+          example: 1
+        question: 
+          type: string
+          example: Did you like the training session?
+        responseType: 
+          type: string
+          example: radio
+        answers: 
+          type: array
+          items:
+             $ref: ''
+          example:
+            ["yes"]
+        instanceQuestions:
+          type: array
+          items:
+             $ref: ''
+        chart: 
+          type: object
+        evidences:
+          type: array
+          items:
+             $ref: '#/components/schemas/EvidenceArray'
+    SurveySolutionReportResponse:
+      type: object
+      properties:
+        solutionName:
+          type: string
+          example: CRP Visiting Form -june 26
+        response: 
+          type: array
+          items:
+            $ref: '#/components/schemas/SurveySolutionReportResult'
+    SurveySolutionReport400Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: solutionId is a required field
+          
+    SurveyGetAllResponsesOfQuestionRequest:
+      type: object
+      required:
+        - solutionId
+        - questionExternalId
+      properties:
+        solutionId:
+          type: string
+          example: 5ffd83b545cfa47ab52d760a
+        questionExternalId:
+          type: string
+          example: SA5015-1608719629286
+        completedDate:
+          type: string
+          example: "2015-07-28T01:00:00.000Z"
+    SurveyGetAllResponsesOfQuestionResponse:
+      type: object
+      properties:
+        question: 
+          type: string
+          example: How many children are there in class
+        answers:
+          type: array
+          items:
+             $ref: ''
+          example: [9,10]
+        completedDate:
+          type: string
+          example: "2015-07-28T01:00:00.000Z"
+    SurveyGetAllResponsesOfQuestion400Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: solutionId, questionExternalId and completedDate are required fields
+        
+    SurveySubmissionReport400Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: submissionId is a required field
+    
+    SurveyListAllEvidenceRequest:
+      type: object
+      required:
+        - solutionId
+        - submissionId
+        - questionId
+      example:
+        solutionId:
+          type: string
+          example: 5ffd83b545cfa47ab52d760a
+        submissionId:
+          type: string
+          example: 5ffd83b545cfa47ab52d760a
+        questionId:
+          type: string
+          example: SA5015-1608719629286
+        
+    
+        
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header    
+      
+
+
+
+
+
+
+
+
+
