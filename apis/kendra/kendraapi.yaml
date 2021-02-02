@@ -1,0 +1,670 @@
+openapi: 3.0.1
+info:
+  title: Kendra Service API(s)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  description: >-
+    - The Kendra Service is a centralised Service to support other services. Apis perform operations related to program entities user solutions etc 
+    
+    - The URL for Kendra API(s) is `kendra/api`
+
+    - <b>Note:</b> These resources can be used in other services 
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://staging.open-sunbird.org/kendra/api
+  variables: {}
+paths: 
+  /v1/users/create:
+    post:
+      tags:
+      - User APIs
+      summary: Create User
+      description: This API is used to create a user
+           - The endpoint for **Create User V1** is `/v1/users/create`  
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: Create User
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the metadata of the user being created
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserRequestBody"
+      responses:
+        200:
+          description: "User Create Successful Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
+              example:
+                status: true
+                message: User created successfully
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  
+  /v1//users/isSystemAdmin:
+    post:
+      summary: check if user is system admin or not
+      description: This API is used to check if user is system admin or not
+           - The endpoint for **isSystemAdmin User V1** is `/v1/users/isSystemAdmin`  
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      tags:
+       - User APIs
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the email of the user to be checked
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IsSystemAdminRequest"
+      responses:
+        200:
+          description: "User Admin Check Successful Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IsSystemAdminResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Error'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+  '/v1/users/privatePrograms/{userId}':
+    post:
+      summary: list of user private programs
+      description: This API is used to get list of user private programs
+           - The endpoint for **privatePrograms User V1** is `/v1/users/isSystemAdmin`  
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      tags:
+       - User APIs
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: userId
+          in: path
+          description: user Id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "User Admin Check Successful Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivateProgramsList'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorUserIdMissing'
+                
+  '/v1/users/createProgram/{userId}':
+    post:
+      summary: Users created program and solution
+      description: This API is used to get list of user private programs
+           - The endpoint for **createProgram User V1** is `/v1/users/createProgram`  
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      tags:
+       - User APIs
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: userId
+          in: path
+          description: user Id
+          required: true
+          schema:
+            type: string
+        - name: programId
+          in: query
+          description: program Id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the metadata of the user being created
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateProgramRequestData"
+      responses:
+        200:
+          description: "Users created program and solution Successfull Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateProgramResponse'
+                
+  '/v1//users/entitiesMappingForm/{stateId}/':
+    get:
+      summary: Entities mapping form
+      description: This API is used to get entities mapping form
+           - The endpoint for **entitiesMappingForm User V1** is `/v1/users/entitiesMappingForm`  
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      tags:
+       - User APIs
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: stateId
+          in: path
+          description: state Id
+          required: true
+          schema:
+            type: string
+        - name: roleId
+          in: query
+          description: role Id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "Entities mapping form Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entitiesMappingForm'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorForEntitiesMappingForm'
+  
+  '/v1//users/getUserOrganisationsAndRootOrganisations':
+    get:
+      summary: Get organisation and root organisation
+      description: This API is used to get organisation and root organisation
+           - The endpoint for **getUserOrganisationsAndRootOrganisations User V1** is `/v1/users/getUserOrganisationsAndRootOrganisations`  
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      tags:
+       - User APIs
+      responses:
+        200:
+          description: "Entities mapping form Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getUserOrganisationsAndRootOrganisations'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+components:
+  schemas:
+    CreateUserRequestBody:
+      title: CreateUserRequestBody
+      description: "Request Data for Publishing the program based on program_id or channel"
+      type: object
+      required:
+        - userName
+        - email
+        - role
+        - createdBy
+      properties:
+        userName:
+          type: string
+          description: userName of user
+        email:
+          type: string
+          description: email of user
+        role:
+          type: string
+          description: role of user example SYS_ADMIN
+        createdBy:
+          type: string
+          description: the created by user Id
+      example:
+        userName: a
+        email: a@a.com
+        role: SYS_ADMIN
+        createdBy: SYSTEM
+        
+    500Error:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: oops something went wrong
+      example:
+        status: false
+        message: oops something went wrong
+        
+    400Error:
+      type: object
+      properties:
+        status:
+          type: string
+          example: 400
+        message:
+          type: array
+          items:
+           $ref: '#/components/schemas/User400Response'
+           
+    CreateUserResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+      example:
+        status: 200
+        message: User created successfully
+        
+    User400Response:
+      type: object
+      properties:
+        location:
+          type: string
+          example: body
+        param:
+          type: string
+          example: email
+        msg:
+          type: string
+          example: required email of the user
+  
+    IsSystemAdminRequest:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          example: a@a.com
+    IsSystemAdminResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        success:
+          type: boolean
+          example: true
+    PrivateProgramsList:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: List of private programs
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrivateProgramsResult'
+    PrivateProgramsResult:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 5edf0d14c57dab7f639f3e0d
+        externalId:
+          type: string
+          example: 'EF-DCPCR-2018-001-TEMPLATE-2020-06-09 09:46:20'
+        name:
+          type: string
+          example: My program
+        description:
+          type: string
+          example: DCPCR Assessment Framework 2018
+        isAPrivateProgram:
+          type: boolean
+          example: false
+          
+    400ErrorUserIdMissing:
+      type: object
+      properties:
+        location:
+          type: string
+          example: path
+        param:
+          type: string
+          example: userId
+        msg:
+          type: string
+          example: required userId of the user
+          
+    CreateProgramRequestData:
+      type: object
+      required:
+        - programName
+        - solutionName
+      properties:
+        programName:
+          type: string
+          example: Test project program
+        solutionName:
+          type: string
+          example: Test project solution
+          
+    CreateProgramResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: List of private programs
+        result:
+          type: object
+          properties:
+            programs:
+              $ref: '#/components/schemas/CreateProgramData'
+            solutions:
+              $ref: '#/components/schemas/CreateSolutionData'
+              
+    CreateProgramData:
+      type: object
+      properties:
+        resourceType:
+          type: string
+          example:
+            - Program
+        language:
+          type: string
+          example:
+            - English
+        keywords:
+          type: string
+          example:
+            - keyword1
+            - keyword2
+        concepts:
+          type: string
+          example: []
+        createdFor:
+          type: string
+          example: []
+        components:
+          type: string
+          example: []
+        isAPrivateProgram:
+          type: boolean
+          example: false
+        rootOrganisations:
+          type: string
+          example: []
+        _id:
+          type: string
+          example: 5f44b08cdbe917732246149f
+        deleted:
+          type: boolean
+          example: DCPCRfalse
+        externalId:
+          type: string
+          example: Test project program-1598337164794
+        name:
+          type: string
+          example: Test project program
+        description:
+          type: string
+          example: Test project program
+        status:
+          type: string
+          example: active
+        imageCompression:
+          type: object
+          example:
+            quality: 10
+        updatedAt:
+          type: string
+          example: "2020-08-25T06:32:44.796Z"
+        createdAt:
+          type: string
+          example: "2020-08-25T06:32:44.796Z"
+      
+    CreateSolutionData:
+      type: object
+      properties:
+        resourceType:
+          type: string
+          example:
+            - Program
+        language:
+          type: string
+          example: []
+        keywords:
+          type: string
+          example: []
+        concepts:
+          type: string
+          example: []
+        createdFor:
+          type: string
+          example: []
+        themes:
+          type: string
+          example: []
+        flattenedThemes:
+          type: string
+          example: []
+        entities:
+          type: string
+          example: []
+        registry:
+          type: string
+          example: []
+        isRubricDriven:
+          type: boolean
+          example: false
+        enableQuestionReadOut:
+          type: boolean
+          example: false
+        captureGpsLocationAtQuestionLevel:
+          type: boolean
+          example: false
+        isAPrivateProgram:
+          type: boolean
+          example: false
+        allowMultipleAssessemts:
+          type: boolean
+          example: false
+        isDeleted:
+          type: boolean
+          example: false
+        rootOrganisations:
+          type: string
+          example: []
+        _id:
+          type: string
+          example: 5f44b08cdbe91773224614a0
+        deleted:
+          type: boolean
+          example: false
+        name:
+          type: string
+          example: Test project solution
+        externalId:
+          type: string
+          example: Test project solution-1598337164794
+        description:
+          type: string
+          example: Test project solution
+        programId:
+          type: string
+          example: 5f44b08cdbe917732246149f
+        programExternalId:
+          type: string
+          example: Test project program-1598337164794
+        programName:
+          type: string
+          example: Test project program
+        programDescription:
+          type: string
+          example: Test project program
+        updatedAt:
+          type: string
+          example: "2020-08-25T06:32:44.796Z"
+        createdAt:
+          type: string
+          example: "2020-08-25T06:32:44.796Z"
+          
+    entitiesMappingForm:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: Entities mapping form fetched successfully
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/entitiesMappingFormsResult'
+            
+    entitiesMappingFormsResult:
+      type: object
+      properties:
+        field:
+          type: string
+        label:
+          type: string
+        value:
+          type: string
+        visible:
+          type: boolean
+        editable:
+          type: boolean
+        input:
+          type: string
+        validation:
+          type: object
+      example:
+        - field: district
+          label: Select District
+          value: ""
+          visible: true
+          editable: true
+          input: text
+          validation:
+            required: false
+        - field: block
+          label: Select Block
+          value: ""
+          visible: true
+          editable: true
+          input: text
+          validation:
+            required: true
+            
+    400ErrorForEntitiesMappingForm:
+      type: object
+      properties:
+        location:
+          type: string
+        param:
+          type: string
+        msg:
+          type: string
+      example:
+        - location: path
+          param: stateId
+          msg: required Entity id 
+        - location: query
+          param: roleId
+          msg: required role id
+    
+    getUserOrganisationsAndRootOrganisations:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: User organisations fetched successfully
+        result:
+          type: object
+          properties:
+            createdFor:
+              type: string
+            rootOrganisations:
+              type: string
+          example:
+            createdFor: [
+              01305447637218918413
+              ]
+            rootOrganisations: [
+              01305447637218918413
+              ]
+            
+      
+  
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header    
+      
+    
