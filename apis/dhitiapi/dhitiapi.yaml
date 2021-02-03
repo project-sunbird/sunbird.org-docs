@@ -3,7 +3,7 @@ info:
   title: Dhiti Service API(s)
   termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
   description: >-
-    - The Dhiti Service is a centralised Service to support other services. Apis perform operations related to generating app reports and pdf reports etc 
+    - The Dhiti Service is to generate reports. Apis perform operations related to generating app reports and pdf reports etc 
     
     - The URL for dhiti service API(s) is `dhiti/api`
 
@@ -13,9 +13,6 @@ info:
 servers:
 - url: https://staging.open-sunbird.org/dhiti/api
   variables: {}
-# tags:
-#   - name: Users
-#     description: API for users
 paths: 
   /v1/programs/list:
     post:
@@ -303,6 +300,684 @@ paths:
       deprecated: false
       security:
         - bearer: []
+        
+  /v1/improvement-project/viewProjectReport:
+    post:
+      tags:
+      - Improvement Project API's
+      summary: View project report
+      description: This API is used for view project report.
+           - The endpoint for **viewProjectReport V1** is `/improvement-project/viewProjectReport`  
+      operationId: View project report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId and entityType
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/viewProjectReportRequest"
+      responses:
+        200:
+          description: "viewProjectReport Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/viewProjectReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+        
+  /v1/improvement-project/entityReport:
+    post:
+      tags:
+      - Improvement Project API's
+      summary: entity report
+      description: This API is used for getting entity report.
+           - The endpoint for **entityReport V1** is `/improvement-project/entityReport`  
+      operationId: entity report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId and entityType
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/entityReportRequest"
+      responses:
+        200:
+          description: "viewProjectReport Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/viewProjectReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+        
+  /v1/assessments/listPrograms:
+    post:
+      tags:
+      - Assessments API's
+      summary: List assessment programs
+      description: This API is used for getting list of assessment programs.
+           - The endpoint for **listPrograms V1** is `/assessments/listPrograms`  
+      operationId: List assessment programs
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId, immediateChildType and entityType
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/listProgramsRequest"
+      responses:
+        200:
+          description: "viewProjectReport Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listProgramsResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+        
+  /v1/assessments/entity:
+    post:
+      tags:
+      - Assessments API's
+      summary: Entity assessment
+      description: This API is used for getting entity assessment.
+           - The endpoint for **entity V1** is `/assessments/entity`  
+      operationId: Entity assessment
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId, progarmId, solutionId, immediateChildEntityType and entityType
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/entityRequest"
+      responses:
+        200:
+          description: "viewProjectReport Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entityResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  
+  /v1/assessments/listAssessmentPrograms:
+    post:
+      tags:
+      - Assessments API's
+      summary: List assessment programs
+      description: This API is used for getting list of assessment programs.
+           - The endpoint for **listAssessmentPrograms V1** is `/assessments/listAssessmentPrograms`  
+      operationId: List assessment programs2
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "viewProjectReport Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listAssessmentProgramsResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+        
+  /v1/assessments/listEntities:
+    post:
+      tags:
+      - Assessments API's
+      summary: List entities
+      description: This API is used for getting list of entities.
+           - The endpoint for **listEntities V1** is `/assessments/listEntities`  
+      operationId: List entities
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the programId
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/listEntitiesRequest"
+      responses:
+        200:
+          description: "List entities Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listEntitiesResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+        
+  /v1/assessments/listImprovementProjects:
+    post:
+      tags:
+      - Assessments API's
+      summary: List improvement programs
+      description: This API is used for getting list of improvement programs.
+           - The endpoint for **listImprovementProjects V1** is `/assessments/listImprovementProjects`  
+      operationId: List improvement programs
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId, progarmId, solutionId and entityType
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/listImprovementProjectsRequest"
+      responses:
+        200:
+          description: "List entities Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listImprovementProjectsResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+        
+  /v1/assessments/entityReport:
+    post:
+      tags:
+      - Assessments API's
+      summary: entity level assessment report
+      description: This API is used for getting entity level assessment report.
+           - The endpoint for **entityReport V1** is `/assessments/entityReport`  
+      operationId: entity level assessment report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId, progarmId, solutionId and entityType
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/listImprovementProjectsRequest"
+      responses:
+        200:
+          description: "viewProjectReport Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/assessmentEntityReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+        
+  /v1/unnati/pdfReport:
+    post:
+      tags:
+      - Unnati API's
+      summary: Project pdf report
+      description: This API is used for getting project pdf report.
+           - The endpoint for **pdfReport V1** is `/unnati/pdfReport`  
+      operationId: Project pdf report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the title, goal, duration, status, startDate, endDate, category and tasks
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/unnatiPdfReportRequest"
+      responses:
+        200:
+          description: "Project pdf report Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unnatiPdfReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+        
+  /v1/unnati/monthlyReport:
+    post:
+      tags:
+      - Unnati API's
+      summary: Monthly report
+      description: This API is used for getting Monthly report.
+           - The endpoint for **monthlyReport V1** is `/unnati/monthlyReport`  
+      operationId: Monthly report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the schoolName, reportType, projectDetails, title and tasks
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/monthlyReportRequest"
+      responses:
+        200:
+          description: "Project pdf report Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unnatiPdfReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+        
+  /v1/unnati/viewProjectReport:
+    post:
+      tags:
+      - Unnati API's
+      summary: View project report
+      description: This API is used for view project report.
+           - The endpoint for **viewProjectReport V1** is `/unnati/viewProjectReport`  
+      operationId: Unnati View project report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the schoolName, reportType and projectDetails
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/unnatiViewProjectReportRequest"
+      responses:
+        200:
+          description: "Project pdf report Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unnatiPdfReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+        
+  /v1/unnati/addTaskReport:
+    post:
+      tags:
+      - Unnati API's
+      summary: Add task report
+      description: This API is used for getting add task report.
+           - The endpoint for **addTaskReport V1** is `/unnati/addTaskReport`  
+      operationId: Add task report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the projectName, goal, duration, assigneeName, startDate and tasks
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/addTaskReportRequest"
+      responses:
+        200:
+          description: "Project pdf report Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unnatiPdfReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  
+  /v1/observations/instanceObservationScoreReport:
+    post:
+      tags:
+      - Observations API's
+      summary: Instance observation score report
+      description: This API is used for getting instance observation score report.
+           - The endpoint for **instanceObservationScoreReport V1** is `/observations/instanceObservationScoreReport`  
+      operationId: Instance observation score report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the submissionId
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/instanceObservationScoreReportRequest"
+      responses:
+        200:
+          description: "Instance observation score report Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/instanceObservationScoreReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+        
+  /v1/observations/entity:
+    post:
+      tags:
+      - Observations API's
+      summary: Entity observation report
+      description: This API is used for getting entity observation report.
+           - The endpoint for **entity V1** is `/observations/entity`  
+      operationId: Entity observation report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId and observationId
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/entityObservationReportRequest"
+      responses:
+        200:
+          description: "Instance observation score report Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entityObservationReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+        
+  /v1/observations/entityObservationReport:
+    post:
+      tags:
+      - Observations API's
+      summary: Entity observation report(cluster/zone/district/state)
+      description: This API is used for getting entity observation report (cluster/zone/district/state).
+           - The endpoint for **entityObservationReport V1** is `/observations/entityObservationReport`  
+      operationId: Entity observation report(cluster/zone/district/state)
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId, entityType, immediateChildEntityType and observationId
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/observationEntityReportRequest"
+      responses:
+        200:
+          description: "Instance observation score report Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationEntityReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+        
+  /v1/observations/entityScoreReport:
+    post:
+      tags:
+      - Observations API's
+      summary: Entity observation score report
+      description: This API is used for getting entity observation score report
+           - The endpoint for **entityScoreReport V1** is `/observations/entityScoreReport`  
+      operationId: Entity observation score report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId and observationId
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/entityScoreReportRequest"
+      responses:
+        200:
+          description: "Instance observation score report Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entityScoreReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
  
 components:
   schemas:
@@ -339,6 +1014,7 @@ components:
         entityType:
           type: string
           example: school
+          
     ProgramListResult:
       type: object
       properties:
@@ -349,6 +1025,7 @@ components:
       example:
         programId: 5ff444f3addbc0493ecf189b
         programName: DCPCR program
+        
     ProgramListResponse:
       type: object
       properties:
@@ -376,6 +1053,7 @@ components:
         programId:
           type: string
           example: 5bbd83b545cfa47ab52d760b
+          
     SolutionListResult:
       type: object
       properties:
@@ -395,6 +1073,7 @@ components:
         type: observation
         scoring: false
         id: 01c04166-a65e-4e92-a87b-a9e4194e771d
+        
     SolutionListResponse:
       type: object
       properties:
@@ -412,6 +1091,7 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/SolutionListResult'
+                
     SolutionList400Error:
       type: object
       properties:
@@ -431,6 +1111,7 @@ components:
         extension:
           type: string
           example: jpg
+          
     SurveySolutionReportResult:
       type: object
       properties:
@@ -459,6 +1140,7 @@ components:
           type: array
           items:
              $ref: '#/components/schemas/EvidenceArray'
+             
     SurveySolutionReportResponse:
       type: object
       properties:
@@ -469,6 +1151,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SurveySolutionReportResult'
+            
     SurveySolutionReport400Error:
       type: object
       properties:
@@ -494,6 +1177,7 @@ components:
         completedDate:
           type: string
           example: "2015-07-28T01:00:00.000Z"
+          
     SurveyGetAllResponsesOfQuestionResponse:
       type: object
       properties:
@@ -508,6 +1192,7 @@ components:
         completedDate:
           type: string
           example: "2015-07-28T01:00:00.000Z"
+          
     SurveyGetAllResponsesOfQuestion400Error:
       type: object
       properties:
@@ -534,7 +1219,7 @@ components:
         - solutionId
         - submissionId
         - questionId
-      example:
+      properties:
         solutionId:
           type: string
           example: 5ffd83b545cfa47ab52d760a
@@ -544,9 +1229,1031 @@ components:
         questionId:
           type: string
           example: SA5015-1608719629286
-        
+          
+    viewProjectReportRequest:
+      type: object
+      required:
+        - schoolName
+        - reportType
+        - projectDetails
+      properties:
+        schoolName:
+          type: string
+          example: ""
+        reportType:
+          type: string
+          example: ""
+        projectDetails:
+          type: string
+          example: []
     
-        
+    viewProjectReportResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "success"
+        message:
+          type: string
+          example: "report generated"
+        pdfUrl:
+          type: string
+          example: "http://localhost:4201/dhiti/api/v1/observations/pdfReportsUrl?id=dG1wLzczMmM5MzhkLTRiOWUtNGRhMS1iMGUxLWQ4NjRjNjUwNDliMC0tMzcxNw=="
+    
+    entityReportRequest:
+      type: object
+      properties:
+        entityName:
+          type: string
+          example: ""
+        programName:
+          type: string
+          example: ""
+        sharedBy:
+          type: string
+          example: ""
+        reportType:
+          type: string
+          example: ""
+        categories:
+          $ref: '#/components/schemas/viewProjectReportCategoryRequest'
+        tasks:
+          $ref: '#/components/schemas/viewProjectReportTasksRequest'
+        projects:
+          $ref: '#/components/schemas/viewProjectReportTasksRequest'
+
+    viewProjectReportCategoryRequest:
+      type: object
+      properties:
+        total:
+          type: string
+        null:
+          type: string
+        Teachers:
+          type: string
+        Students:
+          type: string
+        Infrastructure:
+          type: string
+        ui:
+          type: string
+        Community:
+          type: string
+        Othersr:
+          type: string
+      example: {
+        "total": 7,
+        "null": 2,
+        "Teachers": 2,
+        "Students": 2,
+        "Infrastructure": 2,
+        "ui": 1,
+        "Community": 1,
+        "Othersr": 1
+      }
+      
+    viewProjectReportTasksRequest:
+      type: object
+      properties:
+        total:
+          type: string
+        completed:
+          type: string
+        inProgress:
+          type: string
+        notStarted:
+          type: string
+        overdue:
+          type: string
+        not started:
+          type: string
+      example: {
+        "total": 2,
+        "completed": 0,
+        "inProgress": 0,
+        "notStarted": 1,
+        "overdue": 0,
+        "not started": 1
+      }
+      
+    listProgramsResponse:
+      type: object
+      properties:
+        programName:
+          type: string
+          example: ""
+        programId:
+          type: string
+          example: ""
+        programDescription:
+          type: string
+          example: ""
+        programExternalId:
+          type: string
+          example: ""
+        solutions:
+          $ref: '#/components/schemas/listProgramsSolutionsResponse'
+    
+    listProgramsSolutionsResponse:
+      type: object
+      properties:
+        solutionName:
+          type: string
+        solutionId:
+          type: string
+        solutionDescription:
+          type: string
+        solutionExternalId:
+          type: string
+      example: {
+        "solutionName": "",
+        "solutionId": "",
+        "solutionDescription": "",
+        "solutionExternalId": "",
+      }
+      
+    listProgramsRequest:
+      type: object
+      properties:
+        entityId:
+          type: string
+        entityType:
+          type: string
+        immediateChildType:
+          type: string
+      example: {
+        "entityId": "",
+        "entityType": "",
+        "immediateChildType": ""
+      }
+      
+    entityRequest:
+      type: object
+      properties:
+        entityId:
+          type: string
+        entityType:
+          type: string
+        progarmId:
+          type: string
+        solutionId:
+          type: string
+        immediateChildEntityType:
+          type: string
+      example: {
+        "entityId": "",
+        "entityType": "",
+        "progarmId": "",
+        "solutionId": "",
+        "immediateChildEntityType": ""
+      }
+    
+    entityResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: true
+        title:
+          type: string
+          example: ""
+        reportSections:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/entityResponseReportSection'
+            - $ref: '#/components/schemas/entityResponseReportSection2'
+    
+    entityResponseReportSection:
+      type: object
+      properties:
+        order:
+          type: string
+          example: ""
+        chart:
+          $ref: '#/components/schemas/entityResponseChart'
+
+    entityResponseChart:
+      type: object
+      properties:
+        type:
+          type: string
+          example: ""
+        nextChildEntityType:
+          type: string
+          example: ""
+        stacking:
+          type: string
+          example: ""
+        title:
+          type: string
+          example: ""
+        xAxis:
+          type: object
+          example: {
+            "categories": [],
+            "title": "",
+          }
+        yAxis:
+          type: object
+          example: {
+            "title": {
+              "text": ""
+            }
+          }
+        data:
+          type: array
+          items:
+            type: object
+          example: [{
+             "name": "",
+             "data": []
+          }]
+          
+    entityResponseReportSection2:
+      type: object
+      properties:
+        order:
+          type: string
+          example: ""
+        chart:
+          $ref: '#/components/schemas/entityResponseChart2'
+
+    entityResponseChart2:
+      type: object
+      properties:
+        type:
+          type: string
+          example: ""
+        title:
+          type: string
+          example: ""
+        entities:
+          type: array
+          items:
+            $ref: '#/components/schemas/entityResponseChart2Entities'
+     
+    entityResponseChart2Entities:
+      type: object
+      properties:
+        entityName:
+          type: string
+          example: ""
+        entityId:
+          type: string
+          example: ""
+        domains:
+          type: array
+          items:
+            $ref: '#/components/schemas/entityResponseChart2Domains'
+            
+    entityResponseChart2Domains:
+      type: object
+      properties:
+        domainName:
+          type: string
+          example: ""
+        domainId:
+          type: string
+          example: ""
+        criterias:
+          type: array
+          items:
+            type: object
+          example: [{
+              "name": "",
+              "level": ""
+          }]
+          
+    listAssessmentProgramsResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: true
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              programName:
+                type: string 
+                example: ""
+              programId:
+                type: string 
+                example: ""
+            
+    listEntitiesRequest:
+      type: object
+      properties:
+        programId:
+          type: string
+          example: ""
+          
+    listEntitiesResponse:
+      type: object
+      properties:
+        result:
+            type: string
+            example: true
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              entityId:
+                type: string 
+                example: ""
+              entityName:
+                type: string 
+                example: ""
+              entityType:
+                type: string 
+                example: ""
+              solutions:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    solutionId:
+                      type: string 
+                      example: ""
+                    solutionName:
+                      type: string 
+                      example: ""
+    
+    listImprovementProjectsRequest:
+      type: object
+      properties:
+        entityId:
+          type: string
+        entityType:
+          type: string
+        progarmId:
+          type: string
+        solutionId:
+          type: string
+      example: {
+        "entityId": "",
+        "entityType": "",
+        "progarmId": "",
+        "solutionId": ""
+      }
+      
+    listImprovementProjectsResponse:
+      type: object
+      properties:
+        result:
+            type: string
+            example: true
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              criteriaName:
+                type: string 
+                example: ""
+              level:
+                type: string 
+                example: ""
+              improvementProjects:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    projectName:
+                      type: string 
+                      example: ""
+                    projectId:
+                      type: string 
+                      example: ""
+                    projectGoal:
+                      type: string 
+                      example: ""
+                    projectExternalId:
+                      type: string 
+                      example: ""
+                      
+    assessmentEntityReportResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          example: true
+        programName:
+          type: string
+          example: ""
+        solutionName:
+          type: string
+          example: ""
+        reportSections:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/assessmentEntityResponseReportSection'
+            - $ref: '#/components/schemas/assessmentEntityResponseReportSection2'
+            
+    assessmentEntityResponseReportSection:
+      type: object
+      properties:
+        order:
+          type: string
+          example: 1
+        chart:
+          $ref: '#/components/schemas/assessmentEntityResponseChart'
+          
+    assessmentEntityResponseChart:
+      type: object
+      properties:
+        type:
+          type: string
+          example: ""
+        title:
+          type: string
+          example: ""  
+        xAxis:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/assessmentEntityResponsexAxis'
+              - $ref: '#/components/schemas/assessmentEntityResponsexAxis2'
+        yAxis:
+          type: object
+          example: {
+            "min": 0,
+            "title": {
+              "text": ""
+            }
+          }
+        legend:
+          type: object
+          properties:
+            reversed:
+              type: string
+              example: true
+        plotOptions:
+          type: object
+          properties:
+            series:
+              type: object
+              properties:
+                stacking:
+                  type: string
+                  example: percent
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "Level 1"
+              data:
+                type: string
+                example: []
+                
+    assessmentEntityResponsexAxis:
+      type: object
+      properties:
+        categories:
+          type: string
+          example: []
+    
+    assessmentEntityResponsexAxis2:
+      type: object
+      properties:
+        opposite:
+          type: string
+          example: true
+        reversed:
+          type: string
+          example: false
+        categories:
+          type: string
+          example: []
+        linkedTo: 
+          type: string
+          example: 0
+          
+    assessmentEntityResponseReportSection2:
+      type: object
+      properties:
+        order:
+          type: string
+          example: ""
+        chart:
+          $ref: '#/components/schemas/assessmentEntityResponseChart2'
+          
+    assessmentEntityResponseChart2:
+      type: object
+      properties:
+        type:
+          type: string
+          example: ""
+        title:
+          type: string
+          example: ""
+        heading:
+          type: array
+          items:
+            example: 
+              ["Assess. 1","Assess. 2"]
+        domains:
+          type: array
+          items:
+            $ref: '#/components/schemas/assessmentEntityResponseChart2Domains'
+    
+    assessmentEntityResponseChart2Domains:
+      type: object
+      properties:
+        domainName:
+          type: string
+          example: ""
+        criterias:
+          type: array
+          items:
+            properties:
+              criteriaName:
+                type: string
+                example: ""
+              levels:
+                type: array
+                example: []
+                
+    unnatiPdfReportRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          example: ""
+        goal:
+          type: string
+          example: ""
+        duration:
+          type: string
+          example: ""
+        status:
+          type: string
+          example: ""
+        startDate:
+          type: string
+          example: ""
+        endDate:
+          type: string
+          example: ""
+        category:
+          type: array
+          items:
+            type: string
+          example: []
+        tasks:
+          type: array
+          items:
+            type: string
+          example: []
+          
+    unnatiPdfReportResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ""
+        message:
+          type: string
+          example: ""
+        pdfUrl:
+          type: string
+          example: ""
+    
+    monthlyReportRequest:
+      type: object
+      properties:
+        schoolName:
+          type: string
+          example: ""
+        reportType:
+          type: string
+          example: ""
+        projectDetails:
+          type: string
+          example: ""
+        title:
+          type: string
+          example: ""
+        tasks:
+          type: array
+          items:
+            type: string
+          example: []
+          
+    unnatiViewProjectReportRequest:
+      type: object
+      properties:
+        schoolName:
+          type: string
+          example: ""
+        reportType:
+          type: string
+          example: ""
+        projectDetails:
+          type: array
+          items:
+            type: string
+          example: []
+          
+    addTaskReportRequest:
+      type: object
+      properties:
+        projectName:
+          type: string
+          example: ""
+        goal:
+          type: string
+          example: ""
+        duration:
+          type: string
+          example: ""
+        startDate:
+          type: string
+          example: ""
+        assigneeName:
+          type: string
+          example: ""
+        tasks:
+          type: object
+          properties:
+            title:
+              type: string
+              example: ""
+            endDate:
+              type: string
+              example: ""
+            attachments:
+              type: array
+              items:
+                properties:
+                  name:
+                    type: string
+                    example: ""
+                    
+    instanceObservationScoreReportRequest:
+      type: object
+      properties:
+        submissionId:
+          type: string
+          example: ""
+          
+    instanceObservationScoreReportResponse:
+      type: object
+      properties:
+        result: 
+          type: boolean
+          example: true
+        totalScore:
+          type: string
+          example: ""
+        scoreAchieved:
+          type: string
+          example: ""
+        observationName:
+          type: string
+          example: ""
+        response:
+         type: array
+         items:
+          properties:
+            order:
+              type: string
+              example: ""
+            question:
+              type: string
+              example: ""
+            chart:
+              type: object
+              properties:
+                type:
+                  type: string
+                  example: ""
+                credits:
+                  type: object
+                  properties:
+                    enabled:
+                      type: boolean
+                      example: false
+                plotOptions:
+                  type: object
+                  properties:
+                    pie:
+                      type: object
+                      properties:
+                        allowPointSelect:
+                          type: boolean
+                          example: true
+                        cursor:
+                          type: string
+                          example: pointer
+                        dataLabels:
+                          type: object
+                          properties:
+                            enabled:
+                              type: boolean
+                              example: false
+                        showInLegend:
+                          type: boolean
+                          example: true
+                        borderColor:
+                          type: string
+                          example: "#000000"
+                data:          
+                  type: object
+                  properties:       
+                    data:
+                      type: array
+                      items:
+                        oneOf:
+                          - $ref: '#/components/schemas/dataArrayinstanceObservationScoreReport'
+                          - $ref: '#/components/schemas/dataArrayinstanceObservationScoreReport'
+            evidences:
+              type: array
+              items:
+                type: object
+                properties:
+                    url:
+                      type: string
+                      example: ""
+                    extension:
+                      type: string
+                      example: ""
+                          
+    dataArrayinstanceObservationScoreReport:
+      type: object
+      properties:
+        name:
+          type: string
+          example: ""
+        y:
+          type: string
+          example: ""
+        color:
+          type: string
+          example: "#000000" 
+    
+    entityObservationReportRequest:
+      type: object
+      properties:
+          entityId:
+            type: string
+            example: ""
+          observationId:
+            type: string
+            example: ""
+    
+    entityObservationReportResponse:
+      type: object
+      properties:
+        observationId:
+          type: string
+          example: ""
+        observationName:
+          type: string
+          example: ""
+        entityType:
+          type: string
+          example: ""
+        entityId:
+          type: string
+          example: ""
+        entityName:
+          type: string
+          example: ""
+        response:
+          type: array
+          items:
+            type: object
+            properties:
+                order:
+                  type: string
+                  example: ""
+                question:
+                  type: string
+                  example: ""
+                responseType:
+                  type: string
+                  example: "" 
+                answers:
+                  type: string
+                  example: "" 
+                chart:
+                  type: object
+                  example: {}
+                instanceQuestions:
+                  type: array
+                  items:
+                    type: string
+                  example: []
+                evidences:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                        url:
+                          type: string
+                          example: ""
+                        extension:
+                          type: string
+                          example: ""
+                          
+    observationEntityReportRequest:
+      type: object
+      properties:
+          entityId:
+            type: string
+            example: ""
+          entityType:
+            type: string
+            example: ""
+          immediateChildEntityType:
+            type: string
+            example: ""
+          observationId:
+            type: string
+            example: ""
+            
+    observationEntityReportResponse:
+      type: object
+      properties:
+        solutionId:
+          type: string
+          example: ""
+        solutionName:
+          type: string
+          example: ""
+        entityType:
+          type: string
+          example: ""
+        entityId:
+          type: string
+          example: ""
+        entityName:
+          type: string
+          example: ""
+        response:
+          type: array
+          items:
+            type: object
+            properties:
+                order:
+                  type: string
+                  example: ""
+                question:
+                  type: string
+                  example: ""
+                responseType:
+                  type: string
+                  example: "" 
+                answers:
+                  type: string
+                  example: "" 
+                chart:
+                  type: object
+                  example: {}
+                instanceQuestions:
+                  type: array
+                  items:
+                    type: string
+                  example: []
+                  
+    entityScoreReportRequest:
+      type: object
+      properties:
+        entityId:
+          type: string
+          example: ""
+        observationId:
+          type: string
+          example: ""
+          
+    entityScoreReportResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+        schoolName:
+          type: string
+          example: ""
+        totalObservations:
+          type: string
+          example: ""
+        observationName:
+          type: string
+          example: ""
+        response:
+          type: array
+          items:
+            type: object
+            properties:
+                order:
+                  type: string
+                  example: ""
+                question:
+                  type: string
+                  example: ""                  
+                chart:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      example: "scatter"
+                    title:
+                      type: string
+                      example: "" 
+                    xAxis:
+                      type: object
+                      properties:
+                        title:
+                          type: object
+                          properties:
+                            enabled:
+                              type: boolean
+                              example: true 
+                            text:
+                              type: string
+                              example: observations
+                        labels:
+                          type: object
+                          example: {}
+                        categories:
+                          type: array
+                          items:
+                            type: string
+                          example: ["Obs1", "Obs2", "Obs3", "Obs4", "Obs5"]
+                        startOnTick:
+                          type: boolean
+                          example: false 
+                        endOnTick:
+                          type: boolean
+                          example: false  
+                        showLastLabel:    
+                          type: boolean
+                          example: false  
+                    yAxis:
+                      type: object
+                      properties:
+                        min:
+                          type: string
+                          example: 0 
+                        max:
+                          type: string
+                          example: ""
+                        allowDecimals:
+                          type: boolean
+                          example: false
+                        title:
+                          type: object
+                          properties:
+                            text:
+                              type: string
+                              example: Score
+                    plotOptions:
+                      type: object
+                      properties:
+                        scatter:
+                          type: object
+                          properties:
+                            lineWidth:
+                              type: string
+                              example: 1 
+                            lineColor:
+                              type: string
+                              example: "#F6B343"
+                    credits:
+                      type: object
+                      properties:
+                        enabled:
+                          type: boolean
+                          example: false 
+                    legend:
+                      type: object
+                      properties:
+                        enabled:
+                          type: boolean
+                          example: false 
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          color:
+                            type: string
+                            example: "#F6B343"
+                          data:
+                            type: array
+                            example: []
+                            items:
+                              type: string
+                          
   securitySchemes:
     bearer:
       type: apiKey
