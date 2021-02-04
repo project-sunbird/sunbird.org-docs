@@ -152,7 +152,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SurveySubmissionReport400Error'
+                $ref: '#/components/schemas/SurveySolutionReport400Error'
         
       deprecated: false
       security:
@@ -282,7 +282,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SurveySolutionReportResponse'
+                $ref: '#/components/schemas/ListAllEvidencesResponse'
            
         500:
           description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
@@ -300,7 +300,6 @@ paths:
       deprecated: false
       security:
         - bearer: []
-        
   /v1/improvement-project/viewProjectReport:
     post:
       tags:
@@ -343,7 +342,6 @@ paths:
       deprecated: false
       security:
         - bearer: []
-        
   /v1/improvement-project/entityReport:
     post:
       tags:
@@ -386,7 +384,6 @@ paths:
       deprecated: false
       security:
         - bearer: []
-        
   /v1/assessments/listPrograms:
     post:
       tags:
@@ -429,7 +426,6 @@ paths:
       deprecated: false
       security:
         - bearer: []
-        
   /v1/assessments/entity:
     post:
       tags:
@@ -472,7 +468,6 @@ paths:
       deprecated: false
       security:
         - bearer: []
-  
   /v1/assessments/listAssessmentPrograms:
     post:
       tags:
@@ -505,7 +500,6 @@ paths:
       deprecated: false
       security:
         - bearer: []
-        
   /v1/assessments/listEntities:
     post:
       tags:
@@ -548,7 +542,6 @@ paths:
       deprecated: false
       security:
         - bearer: []
-        
   /v1/assessments/listImprovementProjects:
     post:
       tags:
@@ -591,7 +584,6 @@ paths:
       deprecated: false
       security:
         - bearer: []
-        
   /v1/assessments/entityReport:
     post:
       tags:
@@ -634,7 +626,6 @@ paths:
       deprecated: false
       security:
         - bearer: []
-        
   /v1/unnati/pdfReport:
     post:
       tags:
@@ -677,7 +668,6 @@ paths:
       deprecated: false
       security:
         - bearer: []
-        
   /v1/unnati/monthlyReport:
     post:
       tags:
@@ -720,7 +710,6 @@ paths:
       deprecated: false
       security:
         - bearer: []
-        
   /v1/unnati/viewProjectReport:
     post:
       tags:
@@ -763,7 +752,6 @@ paths:
       deprecated: false
       security:
         - bearer: []
-        
   /v1/unnati/addTaskReport:
     post:
       tags:
@@ -806,7 +794,55 @@ paths:
       deprecated: false
       security:
         - bearer: []
-  
+  /v1/observations/instance:
+    post:
+      tags:
+      - Observations API's
+      summary: Get Observation Instance report
+      description: This API is used for getting instance (submission) report.
+           - The endpoint for **Observation instance report V1** is `/observations/instance`  
+      operationId: Get Instance Report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the submissionId and questionId filter
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InstanceObservationRequest"
+      responses:
+        200:
+          description: "Program List"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceObservationResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveySubmissionReport400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
   /v1/observations/instanceObservationScoreReport:
     post:
       tags:
@@ -831,7 +867,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/instanceObservationScoreReportRequest"
+              $ref: "#/components/schemas/InstanceObservationRequest"
       responses:
         200:
           description: "Instance observation score report Response"
@@ -849,7 +885,6 @@ paths:
       deprecated: false
       security:
         - bearer: []
-        
   /v1/observations/entity:
     post:
       tags:
@@ -892,7 +927,6 @@ paths:
       deprecated: false
       security:
         - bearer: []
-        
   /v1/observations/entityObservationReport:
     post:
       tags:
@@ -935,7 +969,55 @@ paths:
       deprecated: false
       security:
         - bearer: []
-        
+  /v1/observations/entitySolutionReport:
+    post:
+      tags:
+      - Observations API's
+      summary: Solution report of an entity
+      description: This API is used for getting entity solution report.
+           - The endpoint for **entitySolutionReport V1** is `/observations/entitySolutionReport`  
+      operationId: Entity solution report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId, entityType, immediateChildEntityType and solutionId
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EntityObservationSolutionReportRequest"
+      responses:
+        200:
+          description: "Entity solution report Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityObservationSolutionReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+                
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntitySolutionReport400Error'
+      deprecated: false
+      security:
+        - bearer: []
   /v1/observations/entityScoreReport:
     post:
       tags:
@@ -978,7 +1060,858 @@ paths:
       deprecated: false
       security:
         - bearer: []
- 
+  /v1/observations/report:
+    post:
+      tags:
+      - Observations API's
+      summary: Observation report
+      description: This API is used for getting Observation level report.
+           - The endpoint for **Observation report V1** is `/observations/report`  
+      operationId: Observation report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the observationId and questionId filter
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ObservationReportRequest"
+      responses:
+        200:
+          description: "Observation report Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entityObservationReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObservationReport400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/observations/scoreReport:
+    post:
+      tags:
+      - Observations API's
+      summary: Observation score report
+      description: This API is used for getting Observation score report.
+           - The endpoint for **Observation score report V1** is `/observations/scoreReport`  
+      operationId: Observation score report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the observationId and questionId filter
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ObservationReportRequest"
+      responses:
+        200:
+          description: "Observation score report Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObservationScoreReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObservationReport400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/observations/listObservationNames:
+    post:
+      tags:
+      - Observations API's
+      summary: List observation names
+      description: This API is used for listing Observation names based on entityId and type.
+           - The endpoint for ** List observation names V1** is `/observatations/listObservationNames`  
+      operationId: List observation names
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId and entityType
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ListObservationNamesRequest"
+      responses:
+        200:
+          description: "List of observation names for the give entityId and entityType"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListObservationNamesResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListObservationNames400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/observations/listObservationSolutions:
+    post:
+      tags:
+      - Observations API's
+      summary: List observation solutions
+      description: This API is used for listing Observation solutions based on entityId and type
+           - The endpoint for ** List observation solutions V1** is `/observatations/listObservationSolutions`  
+      operationId: List observation solutions
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId and entityType
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ListObservationNamesRequest"
+      responses:
+        200:
+          description: "List of observation solutions for the given entityId and entityType"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListObservationSolutionsResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListObservationNames400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/observations/submissionsCount:
+    post:
+      tags:
+      - Observations API's
+      summary: Number of submissions for the entity / observation
+      description: This API is used for getting observation submissions count for the entity/ observation
+           - The endpoint for **SubmissionsCount V1** is `/observatations/submissionsCount`  
+      operationId: Get observation submission count
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId and observationId or only observationId
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubmissionCountRequest"
+      responses:
+        200:
+          description: "Get number of submission count for the given entityId and observationId"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmissionCountResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmissionCount400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/observations/pdfReports:
+    get:
+      tags:
+      - Observations API's
+      summary: PDF reports for submission / entity / observation / solution level
+      description: This API is used for getting observation pdf reports
+           - The endpoint for **PdfReports V1** is `/observatations/pdfReports`  
+      operationId: Get  pdf reports
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: submissionId
+          in: query
+          required: true
+          description:  submissionId / entityId and observationId / observationId / entityId and entityType and solutionId combinations can be passed to get pdf reports
+          schema:
+            type: string
+      responses:
+        200:
+          description: "observation pdf reports url"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unnatiPdfReportResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObservationPdfReports400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/observations/observationScorePdfReport:
+    post:
+      tags:
+      - Observations API's
+      summary: Observation score PDF reports for submission / entity / observation / solution level
+      description: This API is used for getting observation score pdf reports
+           - The endpoint for **ObservationScorePdfReport V1** is `/observatations/observationScorePdfReport`  
+      operationId: Get observation score pdf reports
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the submissionId / entityId and observationId / observationId / entityId, entityType, solutionId and reportType 
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ObservationPdfReportRequest"
+      responses:
+        200:
+          description: "observation score pdf reports url"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unnatiPdfReportResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObservationPdfReports400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/observations/instanceReportByCriteria:
+    post:
+      tags:
+      - Observations API's
+      summary: Get observation instance Criteria wise report
+      description: This API is used for getting instance (submission) criteria wise report.
+           - The endpoint for **Observation instance criteria report V1** is `/observations/instanceReportByCriteria`  
+      operationId: Get Instance Criteria wise Report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the submissionId and questionId filter
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InstanceCriteriaReportRequest"
+      responses:
+        200:
+          description: "Program List"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceReportByCriteriaResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveySubmissionReport400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/observations/instanceScoreReportByCriteria:
+    post:
+      tags:
+      - Observations API's
+      summary: Instance observation score report by criteria
+      description: This API is used for getting instance observation score criteria wise report.
+           - The endpoint for **instanceScoreReportByCriteria V1** is `/observations/instanceScoreReportByCriteria`  
+      operationId: Instance observation score criteria wise report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the submissionId and questionId filter
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InstanceCriteriaReportRequest"
+      responses:
+        200:
+          description: "Instance observation score report Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/instanceScoreReportByCriteriaResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/observations/entityReportByCriteria:
+    post:
+      tags:
+      - Observations API's
+      summary: Entity observation criteria wise report 
+      description: This API is used for getting entity observation criteria wise report.
+           - The endpoint for **entityReportByCriteria V1** is `/observations/entityReportByCriteria`  
+      operationId: Entity observation criteria wise report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId, observationId, entityType and criteriaId filter
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EntityReportByCriteriaRequest"
+      responses:
+        200:
+          description: "Entity observation report by criteria Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityReportByCriteriaResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityReportByCriteria400Error'
+                
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/observations/entityScoreReportByCriteria:
+    post:
+      tags:
+      - Observations API's
+      summary: Entity observation score criteria wise report 
+      description: This API is used for getting entity observation score criteria wise report.
+           - The endpoint for **entityScoreReportByCriteria V1** is `/observations/entityScoreReportByCriteria`  
+      operationId: Entity observation score criteria wise report
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId,observationId,entityType and criteriaId filter
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EntityReportByCriteriaRequest"
+      responses:
+        200:
+          description: "Entity observation score report by criteria Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityScoreReportByCriteriaResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityReportByCriteria400Error'
+                
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/observations/observationReportByCriteria:
+    post:
+      tags:
+      - Observations API's
+      summary: Observation report by criteria
+      description: This API is used for getting Observation report by criteria wise.
+           - The endpoint for **observationReportByCriteria report V1** is `/observations/observationReportByCriteria`  
+      operationId: Observation report by criteria
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the observationId and criteriaId filter
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ObservationReportByCriteriaRequest"
+      responses:
+        200:
+          description: "Observation criteria wise report  Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObservationReportByCriteriaResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObservationReport400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/observations/observationScoreReportByCriteria:
+    post:
+      tags:
+      - Observations API's
+      summary: Observation score criteria wise report
+      description: This API is used for getting Observation score criteria wise report.
+           - The endpoint for **observationScoreReportByCriteria score report V1** is `/observations/observationScoreReportByCriteria`  
+      operationId: Observation score criteria wise report 
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the observationId and criteriaId filter
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ObservationReportByCriteriaRequest"
+      responses:
+        200:
+          description: "Observation score report Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationScoreReportByCriteriaResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObservationReport400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/observations/pdfReportsByCriteria:
+    post:
+      tags:
+      - Observations API's
+      summary: Observation criteria wise PDF reports for submission / entity / observation level
+      description: This API is used for getting observation criteria wise pdf reports
+           - The endpoint for **PdfReportsByCriteria V1** is `/observatations/pdfReportsByCriteria`  
+      operationId: Get observation criteria wise pdf reports
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the submissionId / entityId and observationId / observationId 
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ObservationPdfReportRequest"
+      responses:
+        200:
+          description: "observation criteria wise reports url"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unnatiPdfReportResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObservationPdfReports400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/observations/scorePdfReportsByCriteria:
+    post:
+      tags:
+      - Observations API's
+      summary: Observation score criteria wise PDF reports for submission / entity / observation level
+      description: This API is used for getting observation score criteria wise pdf reports
+           - The endpoint for **ScorePdfReportsByCriteria V1** is `/observatations/scorePdfReportsByCriteria`  
+      operationId: Get observation score criteria wise pdf reports
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the submissionId / entityId and observationId / observationId 
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ObservationPdfReportRequest"
+      responses:
+        200:
+          description: "observation score criteria wise reports url"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unnatiPdfReportResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObservationPdfReports400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/observations/listAllEvidences:
+    post:
+      tags:
+      - Observations API's
+      summary: List all evidences of submission/entity/observation question
+      description: This API is used for getting all the evidences of a question
+           - The endpoint for **Observation listAllEvidences  V1** is `/observations/listAllEvidences`  
+      operationId: List all evidences of a question
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the questionId, submissionId / entityId and observationId / observationId  
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ObservationListAllEvidenceRequest"
+      responses:
+        200:
+          description: "Survey Submission Report"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAllEvidencesResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObservationListAllEvidence400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  /v2/observations/pdfReports:
+    post:
+      tags:
+      - Observations API's
+      summary: PDF reports for submission / entity / observation / solution level
+      description: This API is used for getting observation pdf reports for the given input
+           - The endpoint for **PdfReports V2** is `/observatations/pdfReports`  
+      operationId: Get  observation pdf reports
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the submissionId / entityId and observationId / observationId / entityId, entityType, solutionId and reportType 
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ObservationPdfReportRequest"
+      responses:
+        200:
+          description: "observation pdf reports url"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unnatiPdfReportResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObservationPdfReports400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /v2/observations/entitySolutionReport:
+    post:
+      tags:
+      - Observations API's
+      summary: Solution report of an entity
+      description: This API is used for getting entity solution report.
+           - The endpoint for **entitySolutionReport V2** is `/observations/entitySolutionReport`  
+      operationId: Entity solution report V2
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the entityId, entityType, immediateChildEntityType and solutionId
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EntityObservationSolutionReportRequest"
+      responses:
+        200:
+          description: "Entity solution report Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityObservationSolutionReportResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+                
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntitySolutionReport400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  
 components:
   schemas:
    
@@ -1107,7 +2040,7 @@ components:
       properties:
         url:
           type: string
-          example: 5f6b0f8626e1b91d91c44bad//tmp_2020-8-22-13850488768898328338.jpg
+          example: 5f6b0f8626e1b91d91c44bad/tmp_2020-8-22-13850488768898328338.jpg
         extension:
           type: string
           example: jpg
@@ -1116,8 +2049,8 @@ components:
       type: object
       properties:
         order: 
-          type: integer
-          example: 1
+          type: string
+          example: "q1_1567899877"
         question: 
           type: string
           example: Did you like the training session?
@@ -1133,7 +2066,8 @@ components:
         instanceQuestions:
           type: array
           items:
-             $ref: ''
+            $ref: ''
+          example: []
         chart: 
           type: object
         evidences:
@@ -1215,10 +2149,6 @@ components:
     
     SurveyListAllEvidenceRequest:
       type: object
-      required:
-        - solutionId
-        - submissionId
-        - questionId
       properties:
         solutionId:
           type: string
@@ -1658,7 +2588,7 @@ components:
       type: object
       properties:
         order:
-          type: string
+          type: integer
           example: 1
         chart:
           $ref: '#/components/schemas/assessmentEntityResponseChart'
@@ -1740,8 +2670,8 @@ components:
       type: object
       properties:
         order:
-          type: string
-          example: ""
+          type: integer
+          example: 1
         chart:
           $ref: '#/components/schemas/assessmentEntityResponseChart2'
           
@@ -1897,13 +2827,106 @@ components:
                     type: string
                     example: ""
                     
-    instanceObservationScoreReportRequest:
+    InstanceObservationRequest:
       type: object
+      required:
+        - submissionId
       properties:
         submissionId:
           type: string
+          example: 5ffd83b545cfa47ab52d760a
+        filter:
+          type: object
+          properties:
+            questionId:
+              type: array
+              items:
+                $ref: ''
+              example: ["SA5015-1608719629286"]
+    InstanceObservationResponse:
+      type: object
+      properties:
+        entityName: 
+          type: string
+          example: Sri vidhya vidhai public scool
+        observationName: 
+          type: string
+          example: teacher training 
+        observationId:
+          type: string
+          example: 5bb23d8f3c330302e720e67f
+        entityType:
+          type: string
+          example: school
+        entityId:
+          type: string
+          example: 5ffd83b545cfa47ab52d760a
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/SurveySolutionReportResult'
+            
+    instanceObservationScoreResult:
+      type: object
+      properties:
+        order:
+          type: string
           example: ""
-          
+        question:
+          type: string
+          example: ""
+        chart:
+          type: object
+          properties:
+            type:
+              type: string
+              example: ""
+            credits:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                  example: false
+            plotOptions:
+              type: object
+              properties:
+                pie:
+                  type: object
+                  properties:
+                    allowPointSelect:
+                      type: boolean
+                      example: true
+                    cursor:
+                      type: string
+                      example: pointer
+                    dataLabels:
+                      type: object
+                      properties:
+                        enabled:
+                          type: boolean
+                          example: false
+                    showInLegend:
+                      type: boolean
+                      example: true
+                    borderColor:
+                      type: string
+                      example: "#000000"
+            data:          
+              type: array
+              items:
+                type: object
+                properties:
+                  data: 
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/dataArrayinstanceObservationScoreReport'
+                        - $ref: '#/components/schemas/dataArrayinstanceObservationScoreReport'
+        evidences:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvidenceArray'
+
     instanceObservationScoreReportResponse:
       type: object
       properties:
@@ -1922,69 +2945,7 @@ components:
         response:
          type: array
          items:
-          properties:
-            order:
-              type: string
-              example: ""
-            question:
-              type: string
-              example: ""
-            chart:
-              type: object
-              properties:
-                type:
-                  type: string
-                  example: ""
-                credits:
-                  type: object
-                  properties:
-                    enabled:
-                      type: boolean
-                      example: false
-                plotOptions:
-                  type: object
-                  properties:
-                    pie:
-                      type: object
-                      properties:
-                        allowPointSelect:
-                          type: boolean
-                          example: true
-                        cursor:
-                          type: string
-                          example: pointer
-                        dataLabels:
-                          type: object
-                          properties:
-                            enabled:
-                              type: boolean
-                              example: false
-                        showInLegend:
-                          type: boolean
-                          example: true
-                        borderColor:
-                          type: string
-                          example: "#000000"
-                data:          
-                  type: object
-                  properties:       
-                    data:
-                      type: array
-                      items:
-                        oneOf:
-                          - $ref: '#/components/schemas/dataArrayinstanceObservationScoreReport'
-                          - $ref: '#/components/schemas/dataArrayinstanceObservationScoreReport'
-            evidences:
-              type: array
-              items:
-                type: object
-                properties:
-                    url:
-                      type: string
-                      example: ""
-                    extension:
-                      type: string
-                      example: ""
+            $ref: '#/components/schemas/instanceObservationScoreResult'
                           
     dataArrayinstanceObservationScoreReport:
       type: object
@@ -2004,11 +2965,22 @@ components:
       properties:
           entityId:
             type: string
-            example: ""
+            example: 5ce23d8f3c330302e720e6ad
           observationId:
             type: string
-            example: ""
-    
+            example: 5ba23d8f3c330302e720e6af
+          entityType: 
+            type: string
+            example: school
+          filter:
+            type: object
+            properties: 
+              questionId:
+                type: array
+                items:
+                  type: string
+                example: ["5ce23d8f3c330302e720e6ad"]
+                  
     entityObservationReportResponse:
       type: object
       properties:
@@ -2055,14 +3027,7 @@ components:
                 evidences:
                   type: array
                   items:
-                    type: object
-                    properties:
-                        url:
-                          type: string
-                          example: ""
-                        extension:
-                          type: string
-                          example: ""
+                    $ref: '#/components/schemas/EvidenceArray'
                           
     observationEntityReportRequest:
       type: object
@@ -2133,6 +3098,108 @@ components:
         observationId:
           type: string
           example: ""
+    EntityScoreReportResult:
+      type: object
+      properties:
+        order:
+          type: string
+          example: ""
+        question:
+          type: string
+          example: ""                  
+        chart:
+          type: object
+          properties:
+            type:
+              type: string
+              example: "scatter"
+            title:
+              type: string
+              example: "" 
+            xAxis:
+              type: object
+              properties:
+                title:
+                  type: object
+                  properties:
+                    enabled:
+                      type: boolean
+                      example: true 
+                    text:
+                      type: string
+                      example: observations
+                labels:
+                  type: object
+                  example: {}
+                categories:
+                  type: array
+                  items:
+                    type: string
+                  example: ["Obs1", "Obs2", "Obs3", "Obs4", "Obs5"]
+                startOnTick:
+                  type: boolean
+                  example: false 
+                endOnTick:
+                  type: boolean
+                  example: false  
+                showLastLabel:    
+                  type: boolean
+                  example: false  
+            yAxis:
+              type: object
+              properties:
+                min:
+                  type: string
+                  example: 0 
+                max:
+                  type: string
+                  example: ""
+                allowDecimals:
+                  type: boolean
+                  example: false
+                title:
+                  type: object
+                  properties:
+                    text:
+                      type: string
+                      example: Score
+            plotOptions:
+              type: object
+              properties:
+                scatter:
+                  type: object
+                  properties:
+                    lineWidth:
+                      type: string
+                      example: 1 
+                    lineColor:
+                      type: string
+                      example: "#F6B343"
+            credits:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                  example: false 
+            legend:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                  example: false 
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  color:
+                    type: string
+                    example: "#F6B343"
+                  data:
+                    type: array
+                    example: []
+                    items:
+                      type: string
           
     entityScoreReportResponse:
       type: object
@@ -2152,6 +3219,595 @@ components:
         response:
           type: array
           items:
+            $ref: '#/components/schemas/EntityScoreReportResult'
+                        
+    ObservationReportRequest:
+      type: object
+      required:
+        - observationId
+      properties:
+        observationId:
+          type: string
+          example: 600984544aa73519117a0f7b
+        filter:
+          type: object
+          properties:
+            questionId:
+              type: array
+              items:
+                $ref: ''
+              example: ["SA5015-1608719629286"]
+    ObservationReport400Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: observationId is a required field
+    ObservationScoreReportResult:
+      type: object
+      properties:
+        order: 
+          type: string
+          example:
+        question: 
+          type: string
+          example: 
+        chart:
+          type: object
+          properties:
+            type:
+              type: string
+              example: bar
+            title: 
+              type: string
+              example:
+            xAxis:
+              type: object
+              properties:
+                title:
+                  type: object
+                  properties:
+                    text:
+                      type: string
+                      example:
+                labels:
+                  type: object
+                categories: 
+                  type: array
+                  items:
+                    type: string
+            yAxis:
+              type: object
+              properties:
+                min: 
+                  type: integer
+                  example: 0
+                max:
+                  type: integer
+                  example:
+                title:
+                  type: object
+                  properties:
+                    text:
+                      type: string
+                      example: Score
+                labels:
+                  type: object
+                  properties:
+                    overflow:
+                      type: string
+                      example: justify
+                allowDecimals:
+                  type: boolean
+                  example: false
+            plotOptions:
+              type: object
+              properties:
+                bar: 
+                  type: object
+                  properties:
+                    dataLabels:
+                      type: object
+                      properties:
+                        enabled:
+                          type: boolean
+                          example: true
+            legend:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                  example: true 
+            credits:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                  example: false 
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: observation1
+                  data:
+                    type: array
+                    items:
+                      type: string
+            evidences:
+              type: array
+              items:
+                $ref: '#/components/schemas/EvidenceArray'
+    ObservationScoreReportResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+        solutionName:
+          type: string
+          example:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObservationScoreReportResult' 
+              
+    ListObservationNamesRequest:
+      type: object
+      required:
+        - entityId
+        - entityType
+      properties:
+        entityId:
+          type: string
+          example: 600984544aa73519117a0f7b
+        entityType:
+          type: string
+          example: school
+    ListObservationNamesResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              observationId:
+                type: string
+                example: 600984544aa73519117a0f7b
+              observationName:
+                type: string
+                example: CRO-2019_Qa_Test
+    ListObservationNames400Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: entityId and entityType are required field
+    ListObservationSolutionsResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              solutionId:
+                type: string
+                example: 600984544aa73519117a0f7b
+              solutionName:
+                type: string
+                example: CRO-2019_Qa_Test
+              scoring:
+                type: boolean
+                example: true
+    InstanceCriteriaReportRequest:
+      type: object
+      required:
+        - submissionId
+      properties:
+        submissionId:
+          type: string
+          example: 5ffd83b545cfa47ab52d760a
+        filter:
+          type: object
+          properties:
+            criteria:
+              type: array
+              items:
+                $ref: ''
+              example: ["600984544aa73519117a0f7b"]
+    InstanceReportByCriteriaResponse:
+      type: object
+      properties:
+        entityName: 
+          type: string
+          example: Sri vidhya vidhai public scool
+        observationName: 
+          type: string
+          example: teacher training 
+        observationId:
+          type: string
+          example: 5bb23d8f3c330302e720e67f
+        entityType:
+          type: string
+          example: school
+        entityId:
+          type: string
+          example: 5ffd83b545cfa47ab52d760a
+        response:
+          type: array
+          items: 
+            type: object
+            properties:
+              criteriaName:
+                type: string
+                example: Student attainment class 8 - Math
+              criteriaId:
+                type: string
+                example: 5ce23d8f3c330302e720e6ad
+              questionArray:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SurveySolutionReportResult'
+    instanceScoreReportByCriteriaResponse:
+      type: object
+      properties:
+        result: 
+          type: boolean
+          example: true
+        totalScore:
+          type: integer
+          example: 152
+        scoreAchieved: 
+          type: integer
+          example: 148
+        observationName:
+          type: string
+          example: teacher training 
+        response:
+          type: array
+          items: 
+            type: object
+            properties:
+              criteriaName:
+                type: string
+                example: Student attainment class 8 - Math
+              criteriaId:
+                type: string
+                example: 5ce23d8f3c330302e720e6ad
+              questionArray:
+                type: array
+                items:
+                  $ref: '#/components/schemas/instanceObservationScoreResult'
+    EntityReportByCriteriaRequest:
+      type: object
+      required:
+       - entityId
+       - observationId
+      properties:
+          entityId:
+            type: string
+            example: 5ce23d8f3c330302e720e6ad
+          observationId:
+            type: string
+            example: 5ba23d8f3c330302e720e6af
+          entityType: 
+            type: string
+            example: school
+          filter:
+            type: object
+            properties: 
+              criteria:
+                type: array
+                items:
+                  type: string
+                example: ["5ce23d8f3c330302e720e6ad"]
+                
+    ObservationQuestionAnswerResponse:
+      type: object
+      properties:
+        order:
+          type: string
+          example: ""
+        question:
+          type: string
+          example: ""
+        responseType:
+          type: string
+          example: "" 
+        answers:
+          type: string
+          example: "" 
+        chart:
+          type: object
+          example: {}
+        instanceQuestions:
+          type: array
+          items:
+            $ref: ''
+          example: []
+        evidences:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvidenceArray'
+    EntityReportByCriteriaResponse:
+      type: object
+      properties:
+        observationId:
+          type: string
+          example: 5ce23d8f3c330302e720e6ad
+        observationName:
+          type: string
+          example: Classroom observation
+        entityType:
+          type: string
+          example: school
+        entityId:
+          type: string
+          example: 5ce23d8f3c330302e720e6ad
+        entityName:
+          type: string
+          example: Sri vidhya vikas public school
+        response:
+          type: array
+          items:
+            type: object
+            properties:
+              criteriaName:
+                type: string
+                example: Student attainment class 8 - Math
+              criteriaId:
+                type: string
+                example: 5ce23d8f3c330302e720e6ad
+              questionArray:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObservationQuestionAnswerResponse'
+    EntityReportByCriteria400Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: entityId and observationId are required field
+    EntityScoreReportByCriteriaResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+        schoolName:
+          type: string
+          example: ""
+        totalObservations:
+          type: string
+          example: ""
+        observationName:
+          type: string
+          example: ""
+        response:
+          type: array
+          items:
+            type: object
+            properties:
+              criteriaName:
+                type: string
+                example: Student attainment class 8 - Math
+              criteriaId:
+                type: string
+                example: 5ce23d8f3c330302e720e6ad
+              questionArray:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EntityScoreReportResult'
+    ObservationReportByCriteriaRequest:
+      type: object
+      required:
+        - observationId
+      properties:
+        observationId:
+          type: string
+          example: 600984544aa73519117a0f7b
+        filter:
+          type: object
+          properties:
+            criteria:
+              type: array
+              items:
+                $ref: ''
+              example: ["5ce23d8f3c330302e720e6ad"]
+    ObservationReportByCriteriaResponse:
+      type: object
+      properties:
+        observationId:
+          type: string
+          example: ""
+        observationName:
+          type: string
+          example: ""
+        entityType:
+          type: string
+          example: ""
+        entityId:
+          type: string
+          example: ""
+        entityName:
+          type: string
+          example: ""
+        response:
+          type: array
+          items:
+            type: object
+            properties:
+              criteriaName:
+                type: string
+                example: Student attainment class 8 - Math
+              criteriaId:
+                type: string
+                example: 5ce23d8f3c330302e720e6ad
+              questionArray:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObservationQuestionAnswerResponse'
+    observationScoreReportByCriteriaResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+        solutionName:
+          type: string
+          example: Classroom observation form
+        response:
+          type: array
+          items:
+            type: object
+            properties:
+              criteriaName:
+                type: string
+                example: Student attainment class 8 - Math
+              criteriaId:
+                type: string
+                example: 5ce23d8f3c330302e720e6ad
+              questionArray:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObservationScoreReportResult'
+    ObservationListAllEvidenceRequest:
+      type: object
+      properties:
+        submissionId:
+          type: string
+          example: 5efc83b545cfa47ab52d7608
+        entityId:
+          type: string
+          example: 5ffd83b545cfa47ab52d7609
+        observationId:
+          type: string
+          example: 5fdb83b545cfa47ab52d7601
+        questionId:
+          type: string
+          example: SA5015-1608719629286
+    ListAllEvidencesResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+        data:
+          type: array
+          items: 
+            type: object
+            properties:
+              images:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EvidenceArray'
+              videos:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EvidenceArray'
+              documents:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EvidenceArray'
+              remars:
+                type: array
+                items:
+                  type: string
+                example: [""]
+    ObservationListAllEvidence400Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: questionId and submissionId or entityId and observationId or observationId are required fields
+    SubmissionCountRequest:
+      type: object
+      properties:
+        entityId:
+          type: string
+          example: 5efc83b545cfa47ab52d7608
+        observationId:
+          type: string
+          example: 5cac83b545cfa47ab52d7789
+    SubmissionCountResponse:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            noOfSubmissions:
+              type: integer
+              example: 4
+    SubmissionCount400Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: entityId and observation or only observationId are required fields.
+    ObservationPdfReports400Error:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failure
+        message:
+          type: string
+          example: Invalid input.
+    ObservationPdfReportRequest:
+      type: object
+      properties:
+        submissionId:
+          type: string
+          example: 5efc83b545cfa47ab52d7608
+    EntityObservationSolutionReportResponse:
+      type: object
+      properties:
+        solutionId:
+          type: string
+          example: ""
+        solutionName:
+          type: string
+          example: ""
+        entityType:
+          type: string
+          example: ""
+        entityId:
+          type: string
+          example: ""
+        entityName:
+          type: string
+          example: ""
+        response:
+          type: array
+          items:
             type: object
             properties:
                 order:
@@ -2159,108 +3815,61 @@ components:
                   example: ""
                 question:
                   type: string
-                  example: ""                  
+                  example: ""
+                responseType:
+                  type: string
+                  example: "" 
+                answers:
+                  type: string
+                  example: "" 
                 chart:
                   type: object
-                  properties:
-                    type:
-                      type: string
-                      example: "scatter"
-                    title:
-                      type: string
-                      example: "" 
-                    xAxis:
-                      type: object
-                      properties:
-                        title:
-                          type: object
-                          properties:
-                            enabled:
-                              type: boolean
-                              example: true 
-                            text:
-                              type: string
-                              example: observations
-                        labels:
-                          type: object
-                          example: {}
-                        categories:
-                          type: array
-                          items:
-                            type: string
-                          example: ["Obs1", "Obs2", "Obs3", "Obs4", "Obs5"]
-                        startOnTick:
-                          type: boolean
-                          example: false 
-                        endOnTick:
-                          type: boolean
-                          example: false  
-                        showLastLabel:    
-                          type: boolean
-                          example: false  
-                    yAxis:
-                      type: object
-                      properties:
-                        min:
-                          type: string
-                          example: 0 
-                        max:
-                          type: string
-                          example: ""
-                        allowDecimals:
-                          type: boolean
-                          example: false
-                        title:
-                          type: object
-                          properties:
-                            text:
-                              type: string
-                              example: Score
-                    plotOptions:
-                      type: object
-                      properties:
-                        scatter:
-                          type: object
-                          properties:
-                            lineWidth:
-                              type: string
-                              example: 1 
-                            lineColor:
-                              type: string
-                              example: "#F6B343"
-                    credits:
-                      type: object
-                      properties:
-                        enabled:
-                          type: boolean
-                          example: false 
-                    legend:
-                      type: object
-                      properties:
-                        enabled:
-                          type: boolean
-                          example: false 
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          color:
-                            type: string
-                            example: "#F6B343"
-                          data:
-                            type: array
-                            example: []
-                            items:
-                              type: string
-                          
+                  example: {}
+                instanceQuestions:
+                  type: array
+                  items:
+                    type: string
+                  example: []
+                evidences:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EvidenceArray'
+    EntityObservationSolutionReportRequest:
+      type: object
+      required:
+        - entityId
+        - entityType
+        - solutionId
+      properties:
+        entityId:
+          type: string
+          example: 5efc83b545cfa47ab52d7608
+        entityType:
+          type: string
+          example: cluster
+        immediateChildEntityType: 
+          type: string
+          example: school
+        solutionId:
+          type: string
+          example: 5efc83b545cfa47ab52d7608
+    EntitySolutionReport400Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: entityId, entityType, immediateChildEntityType and solutionId required fields
+    
+     
   securitySchemes:
     bearer:
       type: apiKey
       name: Authorization
       in: header    
       
-
 
 
 
