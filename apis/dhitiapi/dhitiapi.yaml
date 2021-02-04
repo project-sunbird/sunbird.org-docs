@@ -339,6 +339,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/viewProjectReport400Error'
       deprecated: false
       security:
         - bearer: []
@@ -381,6 +387,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entityReport400Error'
+          
       deprecated: false
       security:
         - bearer: []
@@ -423,6 +436,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listPrograms400Error'
       deprecated: false
       security:
         - bearer: []
@@ -465,6 +484,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listPrograms400Error'
       deprecated: false
       security:
         - bearer: []
@@ -539,6 +564,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listEntities400Error'
       deprecated: false
       security:
         - bearer: []
@@ -581,6 +612,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listEntities400Error'
       deprecated: false
       security:
         - bearer: []
@@ -623,6 +660,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listEntities400Error'
       deprecated: false
       security:
         - bearer: []
@@ -1942,9 +1985,11 @@ components:
         - entityType
       properties:
         entityId:
+          description: 'entity Id'
           type: string
           example: 5ffd83b545cfa47ab52d760a
         entityType:
+          description: 'entity type'
           type: string
           example: school
           
@@ -1978,12 +2023,15 @@ components:
         - programId
       properties:
         entityId:
+          description: 'entity Id'
           type: string
           example: 5ffd83b545cfa47ab52d760a
         entityType:
+          description: 'entity type'
           type: string
           example: school
         programId:
+          description: 'program Id'
           type: string
           example: 5bbd83b545cfa47ab52d760b
           
@@ -2103,12 +2151,15 @@ components:
         - questionExternalId
       properties:
         solutionId:
+          description: 'solution Id'
           type: string
           example: 5ffd83b545cfa47ab52d760a
         questionExternalId:
+          description: 'question ExternalId Id'
           type: string
           example: SA5015-1608719629286
         completedDate:
+          description: 'completed date'
           type: string
           example: "2015-07-28T01:00:00.000Z"
           
@@ -2151,12 +2202,15 @@ components:
       type: object
       properties:
         solutionId:
+          description: 'solution Id'
           type: string
           example: 5ffd83b545cfa47ab52d760a
         submissionId:
+          description: 'submission Id'
           type: string
           example: 5ffd83b545cfa47ab52d760a
         questionId:
+          description: 'question Id'
           type: string
           example: SA5015-1608719629286
           
@@ -2168,14 +2222,40 @@ components:
         - projectDetails
       properties:
         schoolName:
+          description: 'school name'
           type: string
-          example: ""
+          example: "GHSS, PAPAMPATTY"
         reportType:
+          description: 'report type'
           type: string
-          example: ""
+          example: "Monthly"
         projectDetails:
           type: string
-          example: []
+          example: [
+            {
+            "_id": "5d84ad7361149a7ad6c847ff",
+            "title": "Student Clubs",
+            "status": "in progress",
+            "tasks": [
+                {
+                    "_id": "5d84ad7361149a7ad6c8480a",
+                    "startDate": "2019-09-19T12:57:47.761Z",
+                    "endDate": "2019-09-19T12:57:47.761Z",
+                    "title": "Announce the clubs",
+                    "status": "completed",
+                    "subTasks": [
+                        {
+                            "_id": "5d84ad7361149a7ad6c8480c",
+                            "title": "Announce student clubs and encourage students to participate\\n"
+                        },
+                        {
+                            "_id": "5d84ad7361149a7ad6c8480b",
+                            "title": " Share the plan or list of clubs with parents as well"
+                        }
+                    ]
+                }
+            ]
+        }]
     
     viewProjectReportResponse:
       type: object
@@ -2194,17 +2274,20 @@ components:
       type: object
       properties:
         entityName:
+          description: 'entity name'
           type: string
-          example: ""
+          example: "GHSS, PAPAMPATTY"
         programName:
+          description: 'program name'
           type: string
-          example: ""
+          example: "TN-Program"
         sharedBy:
           type: string
           example: ""
         reportType:
+          description: 'report type'
           type: string
-          example: ""
+          example: "Monthly"
         categories:
           $ref: '#/components/schemas/viewProjectReportCategoryRequest'
         tasks:
@@ -2306,36 +2389,44 @@ components:
       type: object
       properties:
         entityId:
+          description: 'entity Id'
           type: string
         entityType:
+          description: 'entity type'
           type: string
         immediateChildType:
+          description: 'immediate child type'
           type: string
       example: {
-        "entityId": "",
-        "entityType": "",
-        "immediateChildType": ""
+        "entityId": "5ffd83b545cfa47ab52d760a",
+        "entityType": "cluster",
+        "immediateChildType": "school"
       }
       
     entityRequest:
       type: object
       properties:
         entityId:
+          description: 'entity Id'
           type: string
         entityType:
+          description: 'entity type'
           type: string
         progarmId:
+          description: 'program Id'
           type: string
         solutionId:
+          description: 'solution Id'
           type: string
         immediateChildEntityType:
+          description: 'immediate child type'
           type: string
       example: {
-        "entityId": "",
-        "entityType": "",
-        "progarmId": "",
-        "solutionId": "",
-        "immediateChildEntityType": ""
+        "entityId": "5ffd83b545cfa47ab52d760a",
+        "entityType": "cluster",
+        "progarmId": "5bbd83b545cfa47ab52d760b",
+        "solutionId": "5efc83b545cfa47ab52d7608",
+        "immediateChildEntityType": "school"
       }
     
     entityResponse:
@@ -2468,17 +2559,20 @@ components:
             properties:
               programName:
                 type: string 
-                example: ""
+                example: "TN-Program"
               programId:
                 type: string 
-                example: ""
+                example: "5bbd83b545cfa47ab52d760b"
             
     listEntitiesRequest:
       type: object
+      required:
+        - programId
       properties:
         programId:
+          description: 'program Id'
           type: string
-          example: ""
+          example: "5bbd83b545cfa47ab52d760b"
           
     listEntitiesResponse:
       type: object
@@ -2493,13 +2587,13 @@ components:
             properties:
               entityId:
                 type: string 
-                example: ""
+                example: "5ffd83b545cfa47ab52d760a"
               entityName:
                 type: string 
-                example: ""
+                example: "GHSS, PAPAMPATTY"
               entityType:
                 type: string 
-                example: ""
+                example: "school"
               solutions:
                 type: array
                 items:
@@ -2507,27 +2601,31 @@ components:
                   properties:
                     solutionId:
                       type: string 
-                      example: ""
+                      example: "5efc83b545cfa47ab52d7608"
                     solutionName:
                       type: string 
-                      example: ""
+                      example: "MH01-Mantra4Change-APSWREIS School Leader Feedback"
     
     listImprovementProjectsRequest:
       type: object
       properties:
         entityId:
+          description: 'entity Id'
           type: string
         entityType:
+          description: 'entity type'
           type: string
         progarmId:
+          description: 'program Id'
           type: string
         solutionId:
+          description: 'solution Id'
           type: string
       example: {
-        "entityId": "",
-        "entityType": "",
-        "progarmId": "",
-        "solutionId": ""
+        "entityId": "5ffd83b545cfa47ab52d760a",
+        "entityType": "school",
+        "progarmId": "5bbd83b545cfa47ab52d760b",
+        "solutionId": "5efc83b545cfa47ab52d7608"
       }
       
     listImprovementProjectsResponse:
@@ -3033,17 +3131,21 @@ components:
       type: object
       properties:
           entityId:
+            description: 'entity Id'
             type: string
-            example: ""
+            example: "5ffd83b545cfa47ab52d760a"
           entityType:
+            description: 'entity type'
             type: string
-            example: ""
+            example: "cluster"
           immediateChildEntityType:
+            description: 'immediate child type'
             type: string
-            example: ""
+            example: "school"
           observationId:
+            description: 'observation Id'
             type: string
-            example: ""
+            example: "5bbd83b545cfa47ab52d760b"
             
     observationEntityReportResponse:
       type: object
@@ -3853,6 +3955,7 @@ components:
         solutionId:
           type: string
           example: 5efc83b545cfa47ab52d7608
+          
     EntitySolutionReport400Error:
       type: object
       properties:
@@ -3862,8 +3965,47 @@ components:
         message:
           type: string
           example: entityId, entityType, immediateChildEntityType and solutionId required fields
+          
+    viewProjectReport400Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: schoolName, reportType and projectDetails required fields
     
-     
+    entityReport400Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: entityName, reportType and programName required fields
+          
+    listPrograms400Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: entityId and reportType required fields
+    
+    listEntities400Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: programId is required field
+    
   securitySchemes:
     bearer:
       type: apiKey
