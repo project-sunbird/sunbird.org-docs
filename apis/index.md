@@ -35,10 +35,10 @@ The **Content and Learning Services** category has microservices for content man
         - [Course Hierarchy APIs](apis/coursehierarchyapi//){:target="_blank"}
         - [Content Lock APIs](apis/lockService//){:target="_blank"} 
 
-- **Usage & Tracking Service**: The usage and tracking microservice is used for course enrolment, manage content usage, and to track progress of trackable learning objects like online courses, course batches, quizzes, and batch certificates. The APIs for this microservice are grouped into:
-        - [Course Progress APIs](apis/courseprogressapi/){:target="_blank"}
-        - [Course Enrolment APIs](apis/courseenrolmentapi/){:target="_blank"}
+- **Usage & Tracking Service**: The usage and tracking microservice is used for course enrolment, to manage content usage, and to track progress of trackable learning objects like online courses, course batches, quizzes, and batch certificates. They also include APIs for batch management that allow you to create, view, update and search for course batches.The APIs for this microservice are grouped into:
         - [Course Batch Management APIs](apis/coursebatchmanapi/){:target="_blank"}
+        - [Course Enrolment APIs](apis/courseenrolmentapi/){:target="_blank"}
+        - [Course Progress APIs](apis/courseprogressapi/){:target="_blank"} 
         - [Course Batch Certificates](apis/coursebatchcertificateapi/){:target="_blank"}
 
 ## Contribution & Curation Services
@@ -56,9 +56,9 @@ The **Contribution & Curation Services** category has microservices for contribu
 
 The **Taxonomy & Tagging Services** category has microservices for taxonomy and framework management, and content category management.  
 
-- **Taxonomy Framework Management:** The taxonomy and framework microservice provides the ability to create, organise and manage taxonomy frameworks in a learning domain using the license APIs from the Sunbird platform APIs. This microservice is domain independent, i.e. it can be used to model the taxonomy of any learning domain, e.g: K-12, Leadership training, Professional training. The APIs in this microservice are grouped as:  
+- **Taxonomy Framework Management:** The taxonomy and framework management microservice uses two services - the taxonomy and framework service that provides the ability to create, organise and manage taxonomy frameworks in a learning domain; and the license service that manages content licenses. This microservice is domain independent, i.e. it can be used to model the taxonomy of any learning domain, e.g: K-12, Leadership training, Professional training. The APIs in this microservice are grouped as:  
         - [Taxonomy Framework Management APis](apis/framework/){:target="_blank"}
-        - [License APIs](apis/license/){:target="_blank"})
+        - [License APIs](apis/license/){:target="_blank"}
 
 - **Content Category Management:** The content category management microservice provides the ability to set rules to create and manage categories for different content categories, such as collections, question sets, etc.  
         -[Object Category Management APIs](apis/objectcategory/){:target="_blank"}
@@ -67,7 +67,7 @@ The **Taxonomy & Tagging Services** category has microservices for taxonomy and 
 
 The **Telemetry & Data, Analytics Services** category has the following microservices:
 
-- **Telemetry Service**: The [Telemetry Service](../developer-docs/){:target="_blank"} microservice collects telemetry and ingests the telemetry into the data pipeline for processing.
+- **Telemetry Service**: The [Telemetry Service](../developer-docs/telemetry/overview/){:target="_blank"} microservice collects telemetry and ingests the telemetry into the data pipeline for processing.
     
 - **Data Service:**: The data microservice provides services to manage report jobs and data exhausts that enable data aggregation across multiple sources services. The APIs are grouped as:
         - [Data Exhaust APIs](apis/dataexhaustapi){:target="_blank"} 
@@ -106,9 +106,7 @@ The **Interaction & Collaboration Services** category has microservices that sen
 
 ## Practice, Sensing & Assessment Services
 
-The **Practice, Sensing & Assessment Services** category has a microservice that creates and manages questions and question sets that are useful to assess proficiency of learners. The APIs for this microservice are grouped under:
-
-- [Assessment Item APIs](apis/assessmentapi/){:target="_blank"}    
+The **Practice, Sensing & Assessment Services** category has a microservice that creates and manages questions and question sets that are useful to assess proficiency of learners. The APIs for this microservice will be shared in the subsequent release. 
 
 ## Credentialing & Badging Services
 
