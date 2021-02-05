@@ -32,6 +32,7 @@ The **Content and Learning Services** category has microservices for content man
 - **Content Management:**  The content management microservice manages content objects and their lifecycle for a defined taxonomy, in a learning domain. This microservice is dependent on the taxonomy microservice as every content piece must have the appropriate taxonomy tags. The content management microservices have the following APIs:     
         - [Content APIs](apis/content/){:target="_blank"}         
         - [Textbook APIs](apis/tocapi/){:target="_blank"} 
+        
         - [Course Hierarchy APIs](apis/coursehierarchyapi//){:target="_blank"}
         - [Content Lock APIs](apis/lockService//){:target="_blank"} 
 
