@@ -27,6 +27,17 @@ Currently, Sunbird has the following microservice categories. Each microservice 
 
 ## Content & Learning Services
 
+## Content &amp; Learning Services
+
+The  **Content and Learning Services**  category has microservices for content management and content usage and tracking.
+
+- **Content Management:**  The content management microservice manages content objects and their lifecycle for a defined taxonomy, in a learning domain. This microservice is dependent on the taxonomy microservice as every content piece must have the appropriate taxonomy tags. The content management microservices have the following APIs:
+  - [Content APIs](apis/content){:target="_blank"}
+  - [Textbook APIs](https://github.com/Sunitashelar/sunbird.org-docs/blob/3.6.0/apis/apis/tocapi){:target=&quot;\_blank&quot;}
+  - [Course Hieracrchy APIs](https://github.com/Sunitashelar/sunbird.org-docs/blob/3.6.0/apis/apis/coursehierarchyapi){:target=&quot;\_blank&quot;}
+  - [Content Lock APIs](https://github.com/Sunitashelar/sunbird.org-docs/blob/3.6.0/apis/apis/coursehierarchyapi){:target=&quot;\_blank&quot;}
+
+
 The **Content and Learning Services** category has microservices for content management and content usage and tracking. 
 
 - **Content Management:**  The content management microservice manages content objects and their lifecycle for a defined taxonomy, in a learning domain. This microservice is dependent on the taxonomy microservice as every content piece must have the appropriate taxonomy tags. The content management microservices have the following APIs: 
