@@ -98,7 +98,7 @@ The **Registry & Discovery Services** category has microservices that manage and
 The **Interaction & Collaboration Services** category has microservices that send user notifications through multiple channels such as email, SMS, and OTPs; create and manage groups of registered users and track activities assigned to group members; allow users to participate in multiple categories of discussions and provide chatbot assistance to users. The APIs for the microservices are grouped under:
 
 - [Notification APIs](apis/notificationapi/){:target="_blank"}  
-    -[OTP APIs](apis/otpapi/){:target="_blank"}.
+    - [OTP APIs](apis/otpapi/){:target="_blank"}.
 - [Group Management APIs](apis/groupapi/){:target="_blank"} 
     - [Group Activity APIs](apis/groupactivityapi/) 
 - [Discussion Forum APIs](apis/discussionForum/){:target="_blank"} 
