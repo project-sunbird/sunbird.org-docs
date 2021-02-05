@@ -61,7 +61,7 @@ The **Taxonomy & Tagging Services** category has microservices for taxonomy and 
     - [License APIs](apis/license/){:target="_blank"}
 
 - **Content Category Management:** The content category management microservice provides the ability to set rules to create and manage categories for different content categories, such as collections, question sets, etc.  
-    -[Object Category Management APIs](apis/objectcategory/){:target="_blank"}
+    - [Object Category Management APIs](apis/objectcategory/){:target="_blank"}
 
 ## Telemetry & Data, Analytics Services
 
