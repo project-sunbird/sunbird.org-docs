@@ -29,13 +29,12 @@ Currently, Sunbird has the following microservice categories. Each microservice 
 
 The **Content and Learning Services** category has microservices for content management and content usage and tracking. 
 
-- **Content Management:**  The content management microservice manages content objects and their lifecycle for a defined taxonomy, in a learning domain. This microservice is dependent on the taxonomy microservice as every content piece must have the appropriate taxonomy tags. The content management microservices have the following APIs:     
-        - [Content APIs](apis/content/){:target="_blank"}         
-        - [Textbook APIs](apis/tocapi/){:target="_blank"} 
+- **Content Management:**  The content management microservice manages content objects and their lifecycle for a defined taxonomy, in a learning domain. This microservice is dependent on the taxonomy microservice as every content piece must have the appropriate taxonomy tags. The content management microservices have the following APIs: 
+        - [Content APIs](apis/content/){:target="_blank"}
+        - [Textbook APIs](apis/tocapi/){:target="_blank"}
+        - [Course Hieracrchy APIs](apis/coursehierarchyapi//){:target="_blank"}
+        - [Content Lock APIs](apis/coursehierarchyapi//){:target="_blank"}
         
-        - [Course Hierarchy APIs](apis/coursehierarchyapi//){:target="_blank"}
-        - [Content Lock APIs](apis/lockService//){:target="_blank"} 
-
 - **Usage & Tracking Service**: The usage and tracking microservice is used for course enrolment, to manage content usage, and to track progress of trackable learning objects like online courses, course batches, quizzes, and batch certificates. They also include APIs for batch management that allow you to create, view, update and search for course batches.The APIs for this microservice are grouped into:
         - [Course Batch Management APIs](apis/coursebatchmanapi/){:target="_blank"}
         - [Course Enrolment APIs](apis/courseenrolmentapi/){:target="_blank"}
