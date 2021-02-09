@@ -2197,6 +2197,131 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  /content/v1/fetchmeta:
+    post:
+      tags:
+        - Content APIs
+      summary: Url Fetch Metadata
+      description: |-
+        This API is associated with fetching url metadata details on the Sunbird Platform.
+          - The endpoint for **Create Content** is `/content/v1/fetchmeta`
+          - It points to knowledge-mw-service - `/v1/url/fetchmeta`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: Fetch Url Metadata
+      parameters:
+        - name: Content-Type
+          in: header
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+          The body is the representation of the resource object for creating
+          content (an array of parameters which describes the content) 
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FetchUrlMetadataRequest'
+            example:
+              request:
+                url: 'https://github.com/project-sunbird/sunbird.org-docs'
+        required: true
+      responses:
+        '200':
+          description: SUCCESS. The **URL Fetch Metadata** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UrlFetchMetadataSuccessResponse'
+              example:
+                ts: '2021-02-02T08:38:20.329Z'
+                params:
+                  resmsgid: 00edd990-6532-11eb-9dac-65b700f4c009
+                  msgid: null
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  url: 'https://github.com/project-sunbird/sunbird.org-docs'
+                  canonical: 'https://github.com/project-sunbird/sunbird.org-docs'
+                  title: project-sunbird/sunbird.org-docs
+                  image: 'https://avatars.githubusercontent.com/u/26705730?s=400&v=4'
+                  author: ''
+                  description: Repository for documentation on sunbird.org. Contribute to project-sunbird/sunbird.org-docs development by creating an account on GitHub.
+                  keywords: ''
+                  source: github.com
+                  'og:url': 'https://github.com/project-sunbird/sunbird.org-docs'
+                  'og:locale': ''
+                  'og:locale:alternate': ''
+                  'og:title': project-sunbird/sunbird.org-docs
+                  'og:type': object
+                  'og:description': Repository for documentation on sunbird.org. Contribute to project-sunbird/sunbird.org-docs development by creating an account on GitHub.
+                  'og:determiner': ''
+                  'og:site_name': GitHub
+                  'og:image': 'https://avatars.githubusercontent.com/u/26705730?s=400&v=4'
+                  'og:image:secure_url': ''
+                  'og:image:type': ''
+                  'og:image:width': ''
+                  'og:image:height': ''
+                  price: ''
+                  priceCurrency: ''
+                  availability: ''
+        '400':
+          description: >-
+            'BAD REQUEST. The **URL Fetch Metadata** operation failed. You may have
+            missed input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UrlFetchMetadataErrorResponse'
+              example:
+                ts: '2021-02-02T08:53:31.808Z'
+                params:
+                  resmsgid: 20368200-6534-11eb-9dac-65b700f4c009
+                  msgid: null
+                  status: failed
+                  err: ERR_FETCH_URLMETA_MISSING
+                  errmsg: Required fields for fetching url meta data are missing
+                responseCode: CLIENT_ERROR
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UrlFetchMetadataErrorResponse'
+              example:
+                ts: '2021-02-02T08:57:49.620Z'
+                params:
+                  resmsgid: b9e17f40-6534-11eb-9dac-65b700f4c009
+                  msgid: null
+                  status: failed
+                  err: ERR_FETCH_URLMETA_FAILED
+                  errmsg: Unable to load the url metadata
+      deprecated: false
+      security:
+        - bearer: []
 components:
   schemas:
     CreateContentRequest:
@@ -2240,6 +2365,23 @@ components:
         createdBy:
           type: string
           description: ID of the user who created Content
+    FetchUrlMetadataRequest:
+      title: Request Object
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/FetchUrlMetadataRequestUrl'
+    FetchUrlMetadataRequestUrl:
+      title: Request
+      required:
+        - url
+      type: object
+      properties:
+        url:
+          type: string
+          description: Url for which metadat is required
     UpdateContentrequest:
       title: Update ContentRequest
       type: object
@@ -2434,6 +2576,78 @@ components:
         versionKey:
           type: string
           description: Content versionKey
+    UrlFetchMetadataSuccessResponse:
+      description: Url Fetch Metadata Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ResultWithUrlMetadata'
+        - $ref: '#/components/schemas/ResponseHeader'
+    ResultWithUrlMetadata:
+      title: Result Containing Url Metadata
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/UrlMetadata'
+    UrlMetadata:
+      title: Url Metadata
+      type: object
+      properties:
+        url:
+          type: string
+          description: Url link
+        canonical:
+          type: string
+          description: Url link
+        title:
+          type: string
+          description: Title of the url
+        image:
+          type: string
+          description: Content versionKey
+        author:
+          type: string
+          description: Author of the link
+        description:
+          type: string
+          description: Description about the url
+        keywords:
+          type: string
+          description: Keyword associated with url
+        source:
+          type: string
+          description: Source of the link
+        og:url:
+          type: string
+        og:locale:
+          type: string
+        og:locale:alternate:
+          type: string
+        og:title:
+          type: string
+        og:type:
+          type: string
+        og:description:
+          type: string
+        og:determiner:
+          type: string
+        og:site_name:
+          type: string
+        og:image:
+          type: string
+        og:image:secure_url:
+          type: string
+        og:image:type:
+          type: string
+        og:image:width:
+          type: string
+        og:image:height:
+          type: string
+        price:
+          type: string
+        priceCurrency:
+          type: string
+        availability:
+          type: string
     ContentUploadSuccessResponse:
       description: Upload Content Response
       type: object
@@ -2660,6 +2874,11 @@ components:
         result:
           type: object
           description: Empty Result
+    UrlFetchMetadataErrorResponse:
+      description: Url Fetch Metadata Error Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ResponseHeader'
     ResponseHeader:
       title: ResponseHeader
       type: object
