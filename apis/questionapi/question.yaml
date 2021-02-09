@@ -294,7 +294,7 @@ paths:
       description: >-
         This API is associated with viewing and reading the question on the
         Sunbird Platform .
-          - The **_/read/{Question_Id}_** endpoint executes request for fetching the question to be viewed and read.
+          - The **_/read/{Question_Id}_** endpoint executes the request to fetch the question to be viewed and read based on parameters provided as metadata in the request body.
           - The endpoint for **Read Question** is `/question/v1/read`
           - It points to assessment-service - `/question/v4/read`
           - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
@@ -309,7 +309,7 @@ paths:
         - in: path
           name: Question_Id
           required: true
-          description: Please append a valid Question Id To the Request URL
+          description: Append a valid Question ID To the Request URL
           schema:
             type: string
         - name: Content-Type
@@ -333,9 +333,9 @@ paths:
       responses:
         '200':
           description: >-
-            OK ! Successful operation."Read Question" operation was successfully
-            executed. For all possible metadata, please
-            [refer](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/question/1.0/schema.json)
+            OK ! Successful operation.The "Read Question" operation was successfully
+            executed. Click link to refer to the supported
+            [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/question/1.0/schema.json)
           content:
             application/json:
               schema:
@@ -382,7 +382,7 @@ paths:
         '404':
           description: >-
             RESOURCE NOT FOUND,**Question Read** operation failed !The possible
-            reason for failure is that you may have provided wrong question id.
+            reason for failure is that you may have provided the wrong question ID.
           content:
             application/json:
               schema:
@@ -404,7 +404,7 @@ paths:
           description: >-
             INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel
-            free to contact us. In the meantime, try refreshing.
+            free to contact info@sunbird.org. In the meantime, try refreshing.
           content:
             application/json:
               schema:
@@ -415,13 +415,13 @@ paths:
   /question/v1/review/{Question_Id}:
     post:
       description: >-
-        >- This API is associated with Submission of question for Review  on the
+        >- This API is associated with Submitting questions for Review  on the
         Sunbird Platform .
           - The**_/review/{Question_Id}_** endpoint executes "Submit for Review" request based on parameters provided as metadata in the request body.
           - The endpoint for **Review Question** is `/question/v1/review`
           - It points to assessment-service - `/question/v4/review`
-          - {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
-          - You need to provide a valid content Id value in {Question_Id} field of API URL.
+          - {...}refers to a section of the review endpoint URL path that needs to be replaced with the appropriate ID.
+          - You need to provide a valid content ID value in {Question_Id} field of the API URL.
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       summary: Submit for Review
@@ -432,7 +432,7 @@ paths:
         - in: path
           name: Question_Id
           required: true
-          description: Please append a valid Question Id To the Request URL
+          description: Please append a valid Question ID To the Request URL
           schema:
             type: string
         - name: Content-Type
@@ -488,7 +488,7 @@ paths:
           description: >-
             RESOURCE NOT FOUND,**Question Send for Review** operation failed !The
             possible reason for failure is that you may have provided wrong
-            question id.
+            question ID.
           content:
             application/json:
               schema:
@@ -502,7 +502,7 @@ paths:
                   msgid: null
                   err: NOT_FOUND
                   status: failed
-                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1132079319215554561111'
+                  errmsg: 'Error! Node(s) does not Exist. | [Invalid Node Id.]: do_1132079319215554561111'
                 responseCode: RESOURCE_NOT_FOUND
                 result:
                   messages: null
@@ -532,7 +532,7 @@ paths:
           description: >-
             INTERNAL SERVER ERROR ! Looks like something went wrong! We track
             these errors automatically, but if the problem persists feel free to
-            contact us. In the meantime, try refreshing.
+            contact info@sunbird.org. In the meantime, try refreshing.
           content:
             application/json:
               schema:
@@ -543,7 +543,7 @@ paths:
   /question/v1/publish/{Question_Id}:
     post:
       description: |-
-        This API is associated with publishing question on the Sunbird Platform .
+        This API is associated with publishing questions on the Sunbird Platform .
           - **_/publish/_** endpoint executes the "Publish Question" request based on parameters provided as metadata in the request body.
           - The endpoint for **Publish Question** is `/question/v1/publish`
           - It points to assessment-service - `/question/v4/publish`
@@ -558,7 +558,7 @@ paths:
         - in: path
           name: Question_Id
           required: true
-          description: Question Id to be published
+          description: The Question ID to be published
           schema:
             type: string
         - name: Content-Type
@@ -573,7 +573,9 @@ paths:
         - name: Authorization
           in: header
           required: true
-          description: Authorizing user in order to grant access.
+          description: All content APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
           schema:
             type: string
       requestBody:
@@ -588,7 +590,7 @@ paths:
       responses:
         '200':
           description: >-
-            OK ! Successful operation.**Question publish operation was
+            OK ! Successful operation.The **Publish Question** operation was
             successfully executed.
           content:
             application/json:
@@ -610,7 +612,7 @@ paths:
                   identifier: do_113207931921555456111
         '404':
           description: >-
-            RESOURCE NOT FOUND,**Question Send for publish** operation failed !The possible reason for failure is that you may have provided wrong question id.
+            RESOURCE NOT FOUND,**Publish Question** operation failed! The possible reason for failure is that you may have provided wrong question ID.
           content:
             application/json:
               schema:
@@ -632,7 +634,7 @@ paths:
           description: >-
             INTERNAL SERVER ERROR ! Looks like something went wrong! We track
             these errors automatically, but if the problem persists feel free to
-            contact us. In the meantime, try refreshing.
+            contact info@sunbird.org. In the meantime, try refreshing.
           content:
             application/json:
               schema:
@@ -643,11 +645,11 @@ paths:
   /question/v1/retire/{Question_Id}:
     delete:
       description: |-
-        This API is associated with retiring Question on the Sunbird Platform .
-          - The **_/retire/{Question_Id}_** endpoint executes  "Retire Question" request based on Question_Id to delete the specific Question.'
+        This API is associated with retiring Questions on the Sunbird Platform .
+          - The **_/retire/{Question_Id}_** endpoint executes the "Retire Question" request based on the Question_Id. It deletes the specific question.
           - The endpoint for **Retire Content** is `/question/v1/retire`
           - It points to assessment-service - `/question/v4/retire`
-          - {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
+          - {...}refers to a section of retire endpoint URL path that needs to be replaced by appropriate ID.
           - It is mandatory to provide values for parameters.
           - Mandatory fields cannot be null or empty.
       summary: Retire Question
@@ -658,7 +660,7 @@ paths:
         - in: path
           name: Question_Id
           required: true
-          description: Please append a valid Question Id To the Request URL
+          description: Please append a valid Question ID To the request URL
           schema:
             type: string
         - name: Authorization
@@ -673,7 +675,7 @@ paths:
       responses:
         '200':
           description: >-
-            OK ! Successful operation.**Question deletion operation was successfully executed.
+            OK ! Successful operation.The **Delete Question** operation was successfully executed.
           content:
             application/json:
               schema:
@@ -693,7 +695,7 @@ paths:
                   identifier: do_113207939069968384112
                   versionKey: '1612297249754'
         '400':
-          description: ERR QUESTION RETIRE! Question is already retired.
+          description: ERROR RETIRE QUESTION! Question is already retired.
           content:
             application/json:
               schema:
@@ -713,7 +715,7 @@ paths:
                   messages: null
         '404':
           description: >-
-            RESOURCE NOT FOUND,**Question Send for Retire** operation failed! The possible reason for failure is that you may have provided wrong question id.
+            RESOURCE NOT FOUND. The **Retire Question** operation failed! The possible reason for failure is that you may have provided the wrong question ID.
           content:
             application/json:
               schema:
@@ -727,7 +729,7 @@ paths:
                   msgid: null
                   err: NOT_FOUND
                   status: failed
-                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1132079390699683841121'
+                  errmsg: 'Error! Node(s) does not Exist. | [Invalid Node Id.]: do_1132079390699683841121'
                 responseCode: RESOURCE_NOT_FOUND
                 result:
                   messages: null
@@ -735,7 +737,7 @@ paths:
           description: >-
             INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel
-            free to contact us. In the meantime, try refreshing.
+            free to contact . In the meantime, try refreshing.
           content:
             application/json:
               schema:
@@ -780,7 +782,7 @@ paths:
            - JSON 
           The body is the representation of the resource object for creating
           questionset (an array of parameters which describes the question) 
-          - Please refer for supported
+          - Click the link to refer to supported
           [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.7.0/schemas/questionset/1.0/schema.json)
         content:
           application/json:
@@ -897,7 +899,7 @@ paths:
           - **_/Update/_** endpoint executes the "Update QuestionSet" request based on parameters provided as metadata in the request body.
           - The endpoint for **Update QuestionSet** is `/questionset/v1/update`
           - It points to assessment-service - `/questionset/v4/update`
-          - {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
+          - {...}refers to a section of update endpoint URL path that needs to be replaced with the appropriate ID.
           - It is mandatory to provide values for parameters marked with *.
           - Mandatory fields cannot be null or empty.
       summary: Update QuestionSet
@@ -908,7 +910,7 @@ paths:
         - in: path
           name: QuestionSet_Id
           required: true
-          description: Please append a valid QuestionSet Id To the Request URL
+          description: Append a valid QuestionSet Id To the Request URL
           schema:
             type: string
         - name: Content-Type
@@ -942,12 +944,12 @@ paths:
         description: |-
           The body refers to the format of the request.
             - The body contains metadata about the questionset to be updated.
-            - Please refer for supported [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/questionset/1.0/schema.json)
+            - Click the link to refer to the supported [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/questionset/1.0/schema.json)
         required: true
       responses:
         '200':
           description: >-
-            OK ! Successful operation.QuestionSet update operation was successfuly
+            OK ! Successful operation. The **Update Question Set** operation was successfuly
             executed.
           content:
             application/json:
@@ -991,8 +993,8 @@ paths:
                   messages: null
         '404':
           description: >-
-            RESOURCE NOT FOUND,**QuestionSet Update** operation failed !The possible
-            reason for failure is that you may have provided wrong question id.
+            RESOURCE NOT FOUND,The **Update Question Set** operation failed !The possible
+            reason for failure is that you may have provided wrong question ID.
           content:
             application/json:
               schema:
@@ -1006,7 +1008,7 @@ paths:
                   msgid: null
                   err: NOT_FOUND
                   status: failed
-                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1132079240377466881101'
+                  errmsg: 'Error! Node(s) does not exist. | [Invalid Node Id.]: do_1132079240377466881101'
                 responseCode: RESOURCE_NOT_FOUND
                 result:
                   messages: null
@@ -1014,7 +1016,7 @@ paths:
           description: >-
             INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel
-            free to contact us. In the meantime, try refreshing.
+            free to contact info@sunbird.org. In the meantime, try refreshing.
           content:
             application/json:
               schema:
@@ -1029,7 +1031,7 @@ paths:
           - The **_/read/{QuestionSet_Id}_** endpoint executes request for fetching the question to be viewed and read.
           - The endpoint for **Read QuestionSet** is `/questionset/v1/read`
           - It points to assessment-service - `/questionset/v4/read`
-          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
+          - {...}refers to a section of read endpoint URL path that needs to be replaced by appropriate Id.
           - You need to provide a valid QuestionSet Id value in {QuestionSet_Id} field of API URL.
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
@@ -1041,7 +1043,7 @@ paths:
         - in: path
           name: QuestionSet_Id
           required: true
-          description: Please append a valid QuestionSet Id To the Request URL
+          description: Append a valid Question Set Id To the Request URL
           schema:
             type: string
         - name: Content-Type
@@ -1065,9 +1067,8 @@ paths:
       responses:
         '200':
           description: >-
-            OK ! Successful operation."Read QuestionSet" operation was successfully
-            executed. For all possible metadata, please
-            [refer](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/questionset/1.0/schema.json)
+            OK ! Successful operation.The "Read Question Set" operation was successfully
+            executed. Click link to refer to the [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/questionset/1.0/schema.json)
           content:
             application/json:
               schema:
@@ -1122,8 +1123,8 @@ paths:
                     status: Draft
         '404':
           description: >-
-            RESOURCE NOT FOUND,**QuestionSet Read** operation failed !The possible
-            reason for failure is that you may have provided wrong question id.
+            RESOURCE NOT FOUND,The **Read Question Set** operation failed! The possible
+            reason for failure is that you may have provided wrong question set ID.
           content:
             application/json:
               schema:
@@ -1137,7 +1138,7 @@ paths:
                   msgid: null
                   err: NOT_FOUND
                   status: failed
-                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1132083238015549441201'
+                  errmsg: 'Error! Node(s) does not exist. | [Invalid Node Id.]: do_1132083238015549441201'
                 responseCode: RESOURCE_NOT_FOUND
                 result:
                   messages: null
@@ -1145,7 +1146,7 @@ paths:
           description: >-
             INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel
-            free to contact us. In the meantime, try refreshing.
+            free to contact info@sunbird.org. In the meantime, try refreshing.
           content:
             application/json:
               schema:
@@ -1156,11 +1157,11 @@ paths:
   /questionset/v1/review/{QuestionSet_Id}:
     post:
       description: >-
-        This API is associated with Submission of questionset for Review  on the Sunbird Platform .
+        This API is associated with submitting the question set for review  on the Sunbird Platform .
           - The**_/review/{QuestionSet_Id}_** endpoint executes "Submit for Review" request based on parameters provided as metadata in the request body.
           - The endpoint for **Review QuestionSet** is `/questionset/v1/review`
           - It points to assessment-service - `/questionset/v4/review`
-          - {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
+          - {...}refers to a section of the review endpoint URL path that needs to be replaced by appropriate ID.
           - You need to provide a valid QuestionSet Id value in {QuestionSet_Id} field of API URL.
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
@@ -1172,7 +1173,7 @@ paths:
         - in: path
           name: QuestionSet_Id
           required: true
-          description: Please append a valid QuestionSet Id To the Request URL
+          description: Append a valid QuestionSet ID To the Request URL
           schema:
             type: string
         - name: Content-Type
@@ -1188,7 +1189,7 @@ paths:
           in: header
           required: true
           description: >-
-            All content APIs require authorization for use. Specify theauthorization key received from the administrator when placing the request for use of the API.
+            All content APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.
           schema:
             type: string
       requestBody:
@@ -1198,12 +1199,12 @@ paths:
               type: object
         description: |-
           The body refers to the format of the request.
-            - The body contains metadata about the questionset to be sent for review.
+            - The body contains metadata about the question set to be sent for review.
         required: true
       responses:
         '200':
           description: >-
-            OK ! Successful operation. QuestionSet sent for review operation was successfully executed.
+            OK ! Successful operation. The ** Review Question Set** operation was successfully executed.
           content:
             application/json:
               schema:
@@ -1224,8 +1225,8 @@ paths:
                   versionKey: '1612344214060'
         '404':
           description: >-
-            RESOURCE NOT FOUND,**QuestionSet Send for Review** operation failed !The
-            possible reason for failure is that you may have provided wrong questionset id.
+            RESOURCE NOT FOUND,The **Send Question Set for Review** operation failed! The
+            possible reason for failure is that you may have provided wrong question set ID.
           content:
             application/json:
               schema:
@@ -1239,13 +1240,13 @@ paths:
                   msgid: null
                   err: NOT_FOUND
                   status: failed
-                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1132079319215554561111'
+                  errmsg: 'Error! Node(s) does not exist. | [Invalid Node Id.]: do_1132079319215554561111'
                 responseCode: RESOURCE_NOT_FOUND
                 result:
                   messages: null
         '400':
           description: >-
-            BAD REQUEST. The 'Review QuestionSet' operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter. 
+            BAD REQUEST. The 'Review Question Set' operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter. 
           content:
             application/json:
               schema:
@@ -1259,7 +1260,7 @@ paths:
                   msgid: null
                   err: ERR_QUESTION_SET_REVIEW
                   status: failed
-                  errmsg: QuestionSet with status other than Draft can't be sent for review.
+                  errmsg: A question set with status other than Draft can't be sent for review.
                 responseCode: CLIENT_ERROR
                 result:
                   messages: null
@@ -1267,7 +1268,7 @@ paths:
           description: >-
             INTERNAL SERVER ERROR ! Looks like something went wrong! We track
             these errors automatically, but if the problem persists feel free to
-            contact us. In the meantime, try refreshing.
+            contact info@sunbird.org. In the meantime, try refreshing.
           content:
             application/json:
               schema:
@@ -1278,7 +1279,7 @@ paths:
   /questionset/v1/reject/{QuestionSet_Id}:
     post:
       description: >-
-        This API is associated with Rejecting the QuestionSet Review  on the Sunbird Platform .
+        This API is associated with rejecting the Question Set Review  on the Sunbird Platform .
           - The**_/reject/{QuestionSet_Id}_** endpoint executes "Rejecting QuestionSet for Review" request based on parameters provided as metadata in the request body.
           - The endpoint for **Reject QuestionSet Review** is `/questionset/v1/reject`
           - It points to assessment-service - `/questionset/v4/reject`
@@ -1294,7 +1295,7 @@ paths:
         - in: path
           name: QuestionSet_Id
           required: true
-          description: Please append a valid QuestionSet Id To the Request URL
+          description: ppend a valid QuestionSet Id To the Request URL
           schema:
             type: string
         - name: Content-Type
