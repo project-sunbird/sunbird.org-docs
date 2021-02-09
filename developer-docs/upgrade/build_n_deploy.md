@@ -4,12 +4,12 @@ page_title: Build and Deploy
 description: Build and Deploy
 published: true
 allowSearch: true
-keywords: Upgrade, Sunbird 3.1.0, Core, elasticsearch
+keywords: Upgrade, Sunbird 3.5.0, Core, elasticsearch
 ---
 
 ## Overview
 
-This page details out the jobs required to be run as part of the upgrade from Sunbird release 2.5.0 to release 3.1.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. 
+This page details out the jobs required to be run as part of the upgrade from Sunbird release 3.4.0 to release 3.5.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. 
 
 ## Running the Builds 
 
@@ -29,26 +29,15 @@ The following is the list of jobs required to be built and deployed :
 
 Order: Top down per column
 
-| Knowledge Platform Build | Knowledge Platform Deploy | DataPipeline Build | DataPipeline Provision | DataPipeline Deploy                         | Core Build       | Core Deploy           |
-|--------------------------|---------------------------|--------------------|------------------------|---------------------------------------------|------------------|-----------------------|
-| KnowledgePlatform        | Learning                  | AdhocScript        | AnalyticsApi           | AdhocScripts                                | API MANAGER      | BootstrapMinima       |
-| Yarn                     | Yarn                      | AnalyticsCore      | AnalyticsSpark         | AnalyticsAPI                                | API MANAGER Echo | nginx-private-ingress |
-|                          | Neo4jDefinitionUpdate     | Analytics Service  | Cassandra              | AnalyticsCore                               | lms              | API Manager           |
-|                          |                           | Api module         | Postgres               | AnalyticsGeoLocationDBSetup                 | Content          | API MANAGER Echo      |
-|                          |                           | Core Data Product  | Influxdb               | AnalyticsPopulatePSQLConsumerChannelMapping | Search           | OnboardAPIS           |
-|                          |                           | Data pipeline      | Zookeeper              | AnalyticsService                            | Player           | OnboardConsumers      |
-|                          |                           | EdDataProducts     | Kafka                  | ApiModule                                   | Keycloak         | Cassandra             |
-|                          |                           |                    | Redis                  | CoreDataProducts                            | Proxy            | Keycloak              |
-|                          |                           |                    | Kibana                 | DataProducts                                |                  | Player                |
-|                          |                           |                    | postgres-managed       | EdDataProducts                              |                  | Learner               |
-|                          |                           |                    | TelemetrySearch        | ETLUserCacheIndexer                         |                  | Content               |
-|                          |                           |                    |                        | KafkaIndexer                                |                  | Search                |
-|                          |                           |                    |                        | KafkaSetup                                  |                  | KnowledgeMW           |
-|                          |                           |                    |                        | Yarn                                        |                  | Lms                   |
-|                          |                           |                    |                        |                                             |                  | certTemplate          |
-|                          |                           |                    |                        |                                             |                  | Cert                  |
-|                          |                           |                    |                        |                                             |                  | nginx-public-ingress  |
-
+| Knowledge Platform Build | Knowledge Platform Deploy | DataPipeline Build | DataPipeline Deploy    | Core Build       | Core Deploy | Plugins |
+|--------------------------|---------------------------|--------------------|------------------------|------------------|-------------|---------|
+| FlinkJobs                | FlinkJobs                 | FlinkPipelineJobs  | FlinkPipelineJobs      | Cert             | Cert        | CollectionEditor|
+| Learning                 | Learning                  | AnalyticsCore      | AnalyticsCore          | Content          | Content     | ContentEditor   |
+| Yarn                     | Yarn                      | EdDataProducts     | EdDataProducts         | Learner          | Learner     | ContentPlayer   |
+                                                                                                     | Lms              | Lms         | GenericEditor   |
+                                                                                                     | Player           | Player      | ContentPlugins  |
+                                                                                                     |                  | nginx-public-ingress|         |
+                                                                                                     
 
 **Create License and update Channel default License set and Content License migration based on channel**
 
