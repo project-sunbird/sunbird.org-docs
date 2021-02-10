@@ -1,0 +1,480 @@
+  openapi: 3.0.1
+  info:
+    title: Client Log API
+    description: "- The Client Log API is used to capture and log the cause of crash or errors from both mobile and portal clients. The logs are streamed into Elasticsearch. \n- The end point URL for the Client Log API is
+\ `/data/v1/client/logs
+          - Postman collection for different testcases - [TestCases](https://www.getpostman.com/collections/bff24c84986e08222d57) "
+      
+    contact: {}
+    version: '1.0'
+  servers:
+    - url: 'https://staging.open-sunbird.org/api'
+  paths:
+    /data/v1/client/logs:
+      post:
+        tags:
+          - V1
+        summary: ClientErrorLogAPI
+        description:  |-
+          This API is used to stream the error logs from the portal and mobile clients into Elasticsearch. The data allows us to set up dashboards to visualise patterns in errors from the clients.
+             - The endpoint for ** logging client error logs** is `/client/logs
+             - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+        operationId: ClientErrorLogAPI
+        requestBody:
+          description: Represents the body and form data parameters of the client error log
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientLogRequest'
+              example:
+                $ref: '#/components/schemas/ClientLogRequest/example'  
+          required: true
+        responses:
+          '200':
+            description: Success example fo logging valid client error using ClientLog API
+            headers: {}
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ClientLogAPI-SuccessReponse'
+                example:
+                      id: ekstep.analytics.client-log
+                      ver: v1
+                      ts: '2020-11-30T07:17:22.982+00:00  '
+                      params:
+                        resmsgid: 5a7e1ad3-705b-408b-a8f7-d428f094f7a4
+                        status: successful
+                      responseCode: OK
+                      result:
+                        message: Log captured successfully!
+          '400':
+            description: Bad Request for logging client log API
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ClientLog-FailedResponse'
+                examples:
+                  RequestFieldBodyMissing:
+                    summary: 'With request field missing in request body'
+                    description: Response example when request body field is missing
+                    value:
+                      id: ekstep.analytics.client-log
+                      ver: v1
+                      ts: '2020-11-23 06:42:39:001+0000'
+                      params:
+                        resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+                        status: failed
+                        err: CLIENT_ERROR
+                        errorMsg: 'property: request is missing!'
+                      responseCode: CLIENT_ERROR
+                      result: null
+                  ContextFieldMissing:
+                    summary: With context field missing in request field
+                    description: Response example when context field in missing in request body
+                    value:
+                      id: ekstep.analytics.client-log
+                      ver: v1
+                      ts: '2020-11-23 06:42:39:001+0000'
+                      params:
+                        resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+                        err: CLIENT_ERROR
+                        status: failed
+                        errorMsg: 'property: context is missing!'
+                      responseCode: CLIENT_ERROR
+                      result: null
+                  ContextDidFieldMissing:
+                    summary: With did missing in context field
+                    description: did field is mandatory. extras and dspec fields are optional in context map
+                    value:
+                      id: ekstep.analytics.client-log
+                      ver: v1
+                      ts: '2020-11-23 06:42:39:001+0000'
+                      params:
+                        resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+                        status: failed
+                        err: CLIENT_ERROR
+                        errorMsg: 'property: context.did is null or empty!'
+                      responseCode: CLIENT_ERROR
+                      result: null
+                  PdataFieldsMissing:
+                    summary: With pdata field missing in request field
+                    description: pid, ver, id fields mandatory in pdata map
+                    value:
+                      id: ekstep.analytics.client-log
+                      ver: v1
+                      ts: '2020-11-23 06:42:39:001+0000'
+                      params:
+                        resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+                        status: failed
+                        err: CLIENT_ERROR
+                        errorMsg: 'property: pdata.pid is null or empty!'
+                      responseCode: CLIENT_ERROR
+                      result: null
+                  LogsFieldsMissing:
+                    summary: With logs field missing in request field
+                    description: log, ts fields mandatory and id is optional in logs map
+                    value:
+                      id: ekstep.analytics.client-log
+                      ver: v1
+                      ts: '2020-11-23 06:42:39:001+0000'
+                      params:
+                        resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+                        status: failed
+                        err: CLIENT_ERROR
+                        errorMsg: 'property: logs.log is null or empty!'
+                      responseCode: CLIENT_ERROR
+                      result: null
+                  LogsTsValidation:
+                    summary: With ts value 0
+                    description: ts field value should always be greater than 0
+                    value:
+                      id: ekstep.analytics.client-log
+                      ver: v1
+                      ts: '2020-11-23 06:42:39:001+0000'
+                      params:
+                        resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+                        status: failed
+                        err: CLIENT_ERROR
+                        errorMsg: 'property: logs, mandatory fields are missing or type mismatch!'
+                      responseCode: CLIENT_ERROR
+                      result: null                      
+          '500':
+            description: Internal Server Error example for client error log
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ClientLog-InternalServerError'
+                example:
+                  id: ekstep.analytics.client-log
+                  ver: v1
+                  ts: '2020-11-23 15:15:18:331+0000'
+                  params:
+                    resmsgid: null
+                    msgid: null
+                    err: INTERNAL_ERROR
+                    status: SERVER_ERROR
+                    errmsg: 'Process failed,please try again later.'
+                  responseCode: SERVER_ERROR
+                  result: {}
+        deprecated: false
+        security: []
+  security:
+    - bearerAuth: []      
+    
+  components:
+    securitySchemes:
+      bearerAuth:
+        type: http
+        scheme: bearer
+        bearerFormat: JWT
+    schemas:
+      Params:
+        title: Params
+        required:
+          - resmsgid
+          - err
+          - status
+        type: object
+        properties:
+          resmsgid:
+            type: string
+            nullable: true
+          err:
+            type: string
+          status:
+            type: string
+      ErrorParams:
+        title: ErrorParams
+        required:
+          - resmsgid
+          - err
+          - status
+          - errorMsg
+        type: object
+        properties:
+          resmsgid:
+            type: string
+          err:
+            type: string
+          status:
+            type: string 
+          errorMsg:
+            type: string
+      ClientLogRequest:
+        title: ClientLogRequest
+        required:
+          - request
+        type: object
+        properties:
+          request:
+            $ref: '#/components/schemas/ClientLog-Request'
+        example:
+          request:
+            context:
+              did: D1234
+              dspec: 
+                os: Android 8.0.0
+                make: 'samsung'
+                mem: 0
+                idisk: '53.3'
+                edisk: '53.28'
+                scrn: '5.8'
+                camera: '13.0,8.0'
+                cpu: 'armeabi-v7a processor'
+                sims: '-1.0'
+                uaspec: 
+                  agent: 'Mozilla'
+                  ver: '5.0'
+                  system: 'Android'
+                  platform: 'Mozilla/5.0'
+                  raw: 'Dalvik/2.1.0 (Linux; U; Android 10; SM-M205F Build/QP1A.190711.020)'
+              extras:
+                key1: value1
+                key2: value2
+            pdata:
+              pid: 'player'
+              ver: '2.0'
+              id: 'portal'
+            logs: [
+                {
+                  id: dfjdkfd,
+                  ts: 15600045849,
+                  log: 'Exception in thread'
+                }        
+              ]
+              
+      ClientLog-Request:
+        title: ClientLog-Request
+        required:
+         - pdata
+         - context
+         - logs
+        type: object
+        properties:
+          pdata:
+            $ref: '#/components/schemas/Pdata'
+          context:
+           $ref: '#/components/schemas/Context'
+          logs:
+           type: array
+           items:
+             $ref: '#/components/schemas/Logs'
+           description: logs
+      Pdata:
+       title: Pdata
+       required:
+         - id
+         - ver
+         - pid
+       properties:
+         id: 
+           type: string
+           description: Producer id
+         ver:
+           type: string
+           description: Error Event version
+         pid:
+           type: string
+       example:
+         id: contentPlayer
+         ver: '1.0'
+         pid: sunbird.portal
+      Logs:
+        title: Logs
+        required:
+          - log
+          - ts
+        properties:
+          id:
+            type: string
+            description: Unique id of log
+          ts:
+            type: number
+            description: Log timestamp
+          log:
+            type: string
+            description: Stacktrace of  client error
+          appver:
+            type: string
+          pageid:
+            type: string
+        example:
+          id: '13123-123123'
+          ts: "1560346371"
+          log: 'Exception in thread \"main\" java.lang.NullPointerException'
+          appver: '1.0'
+          pageid: 'player'
+      Context:
+        title: Context
+        required:
+         - did
+        properties:
+          did:
+           type: string
+           description: Unique device identifier
+          dspec:
+            $ref: '#/components/schemas/Dspec'
+          extras:
+           type: object
+      Dspec:
+        title: Dspec
+        properties: 
+          os: 
+           type: string 
+          make: 
+            type: string
+          mem:
+            type: integer
+          idisk:
+            type: string
+          edisk: 
+            type: string 
+          scrn:
+            type: string
+          camera:
+            type: string 
+          cpu: 
+            type: string
+          sims: 
+            type: integer
+          uaspec: 
+            $ref: '#/components/schemas/Uaspec'
+        example:
+          os: mac
+          make: 'Xiaomi Redmi Note 7 Pro'
+          mem: 2
+          idisk: 'Andriod 10'
+          edisk: '50.49'
+          scrn: '49.10'
+          camera: '6.1'
+          cpu: 'abi: arm64-v8a  AArch64 Processor rev 14 (aarch64)   '
+          sims: 0
+          uaspec: '#/components/schemas/Uaspec/example'
+      Uaspec:
+        title: Uaspec
+        properties: 
+          agent: 
+           type: string 
+          ver: 
+            type: string
+          system:
+            type: integer
+          platform:
+            type: string
+          raw: 
+            type: string
+        example:
+          agent: 'Mozilla'
+          ver: '5.0'
+          system: 'samsung'
+          platform: 'AppleWebKit/531.21.10'
+          raw: 'Mozilla/5.0 (X11 Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)'
+         
+      ClientLogAPI-SuccessReponse:
+        title: ClientLogAPI-SuccessReponse
+        required:
+          - id
+          - ver
+          - ts
+          - params
+          - responseCode
+          - result
+        type: object
+        properties:
+          id:
+            type: string
+          ver:
+            type: string
+          ts:
+            type: string
+          params:
+            $ref: '#/components/schemas/Params'
+          responseCode:
+            type: string
+          result:
+            type: object
+            properties:
+              message:
+                type: string
+        example:
+          id: ekstep.analytics.client-log
+          ver: v1
+          ts: '2020-11-23 06:42:39:001+0000'
+          params:
+            resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+            status: successful
+          responseCode: OK
+          result:
+            message: Log captured successfully!
+      ClientLog-FailedResponse:
+        title: ClientLog-FailedResponse
+        required:
+          - id
+          - ver
+          - ts
+          - params
+          - responseCode
+          - result
+        type: object
+        properties:
+          id:
+            type: string
+          ver:
+            type: string
+          ts:
+            type: string
+          params:
+            $ref: '#/components/schemas/ErrorParams'
+          responseCode:
+            type: string
+          result:
+            type: string
+        example:
+          id: ekstep.analytics.client-log
+          ver: v1
+          ts: '2020-11-23 06:42:39:001+0000'
+          params:
+            resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+            status: failed
+            err: CLIENT_ERROR
+            errorMsg: pdata is missing!
+          responseCode: CLIENT_ERROR
+          result: null
+      ClientLog-InternalServerError:
+              title: ClientLog-InternalServerError
+              required:
+                - id
+                - ver
+                - ts
+                - params
+                - responseCode
+                - result
+              type: object
+              properties:
+                id:
+                  type: string
+                ver:
+                  type: string
+                ts:
+                  type: string
+                params:
+                  $ref: '#/components/schemas/ErrorParams'
+                responseCode:
+                  type: string
+                result:
+                  type: object
+              example:
+                id: ekstep.analytics.client-log
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}  
+  tags:
+    - name: V1
+      description: ''

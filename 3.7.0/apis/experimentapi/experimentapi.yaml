@@ -1,0 +1,628 @@
+openapi: 3.0.1
+info:
+  title: Experiment API(s)
+  description: "-  Experiment Feature allows consumers having different specifications to load the different portal/app with new features
+  \n - The Experiment API is used to create an experiment with user filters(all user specific details like organisation, board, medium etc) or device filters(state,first_access and district)
+  \n - For example one can create a experiment
+  \n   -  for all users with medium as English and redirect to specific content page  (or)
+  \n   -  for all devices with state as karnataka can use new feature in app
+  \n   -  for every 1 in 10 users with organisation as sunbird should take an assessment
+  \n -  The Operations include create and get experiment  \n- The URL for Experiment API(S) is\
+    \ `/data/v1/experiment`.
+    - Postman collection for different testcases - [TestCases](https://www.getpostman.com/collections/a18a2d1dbc7504551638) "
+  contact: {}
+  version: '1.0'
+servers:
+  - url: 'https://staging.open-sunbird.org/api/data/v1/experiement'
+    variables: {}
+paths:
+  /data/v1/experiement/create:
+    post:
+      tags:
+        - V1
+      summary: CreateExperiment
+      description:  |-
+        This API is used for create a new experiment based on particular user filters such as organisation, board, medium etc. or device filters such as device id, device location state/district, first access dates etc.
+           - The endpoint for ** Experiment Create** is `/create
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: CreateExperiment
+      requestBody:
+        description: Represents the body and formdata parameters of the new experiment
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateExperiment'
+        required: true
+      responses:
+        '200':
+          description: An example for successful experiment creation
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateExperiment-SuccessResponse'
+              examples:
+                New_Experiment:
+                  summary: 'With new experiment id'
+                  description: 'New experiment gets created when no experiment with same ExpId exists'
+                  value: 
+                    id: ekstep.analytics.experiement.create
+                    ver: v1
+                    ts: '2020-11-30T07:17:22.982+00:00  '
+                    params:
+                      resmsgid: 565b07a3a-d59f-47e6-b3d3-76cc5866411c
+                      status: successful
+                    responseCode: OK
+                    result:
+                      stats: {}
+                      request: '#/components/schemas/Experiment-Request/example'
+                      created_on: 1606818148268
+                      last_updated: 1606818148268
+                      status: SUBMITTED
+                      status_msg: Experiment successfully submitted
+                Experiment_Already_Exists:
+                  summary: With old experiment id
+                  description: 'experiment doesnt get created or updated when experiment with same ExpId already Exists'
+                  value: 
+                    id: ekstep.analytics.experiement.create
+                    ver: v1
+                    ts: '2020-11-23 06:42:39:001+0000'
+                    params:
+                      resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+                      status: successful
+                    responseCode: OK
+                    result:
+                     expResponse:
+                       request: '#/components/schemas/Experiment-Request/example'
+                       err: Failed
+                       errorMsg: ExperimentId already exists.                    
+      
+        '400':
+          description: Bad Request for Create Experiment API
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateExperiment-FailedResponse'
+              examples:
+                EmptyRequest:
+                  summary: 'With no request field in body'
+                  description: Response example when request is missing
+                  value:
+                    $ref: '#/components/schemas/CreateExperiment-FailedResponse/example'
+                RequiredRequestFieldsEmpty:
+                  summary: 'With empty request fields- ex: request-{}'
+                  description: Response example when requried fields expId, name, data etc in the request field are missing 
+                  value:
+                    id: ekstep.analytics.experiement.create
+                    ver: v1
+                    ts: '2020-11-23 06:42:39:001+0000'
+                    params:
+                      resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+                      status: failed
+                      err: CLIENT_ERROR
+                      errorMsg:
+                        status: failed
+                        request.expId: Experiment Id should not be empty
+                        request.name: Experiment Name should not be  empty
+                        request.createdBy: Created By should not be empty
+                        request.data: Data should not be empty
+                    responseCode: CLIENT_ERROR
+                    result: null
+                RequiredDataDateFields:
+                  summary: With startdate and enddate missing in data field
+                  description: Response example with date fields are missing in data fields
+                  value:
+                    id: ekstep.analytics.experiement.create
+                    ver: v1
+                    ts: '2020-11-23 06:42:39:001+0000'
+                    params:
+                      resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+                      status: failed
+                      err: CLIENT_ERROR
+                      errorMsg:
+                        status: failed
+                        data.startDate: Experiment Start_Date should not be empty
+                        data.endDate: Experiment End_Date should not be empty
+                    responseCode: CLIENT_ERROR
+                    result: null
+                InvalidDateFields:
+                  summary: With invalid dates for startdate and enddate
+                  description: Response example start date and end date are invalid
+                  value:
+                    id: ekstep.analytics.experiement.create
+                    ver: v1
+                    ts: '2020-11-23 06:42:39:001+0000'
+                    params:
+                      resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+                      status: failed
+                      err: CLIENT_ERROR
+                      errorMsg:
+                        status: failed
+                        data.endDate: End_Date should be greater than today's date.
+                    responseCode: CLIENT_ERROR
+                    result: null
+                StartEndDateValidation:
+                  summary: With startdate greater than enddate
+                  description: Response example start date is greater than end date
+                  value:
+                    id: ekstep.analytics.experiement.create
+                    ver: v1
+                    ts: '2020-11-23 06:42:39:001+0000'
+                    params:
+                      resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+                      status: failed
+                      err: CLIENT_ERROR
+                      errorMsg:
+                        status: failed
+                        data.startDate: Date range should not be -ve. Please check your start_date & end_date
+                    responseCode: CLIENT_ERROR
+                    result: null
+        '500':
+          description: Internal Server Error example for create experiment API
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentAPI-InternalServerError'
+              example:
+                id: ekstep.analytics.experiment.create
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: []
+  /data/v1/experiement/get/'{experiment-id}':
+    get:
+      tags:
+        - V1
+      summary: GetExperiment
+      description:  |-
+        The get experiment API is used for retrieving the details about an existing experiment using the experiment id
+           - The endpoint for ** Get Experiment** is `/{experiment-id}`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: GetExperiment
+      parameters:
+        - name: experiment-id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An example for a successful retrieval of an existing experiment using the Get Experiment API.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetExperiment-SuccessResponse'
+              examples:
+                Existing_Experiment:
+                  summary: With available experiment id
+                  value: 
+                    id: ekstep.analytics.experiement.get
+                    ver: v1
+                    ts: '2020-11-23 06:42:39:001+0000'
+                    params:
+                      resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+                      status: successful
+                    responseCode: OK
+                    result:
+                     stats: 
+                      devicesMatched: 10000
+                     request:
+                      expId: D1234
+                      name: DEVICE_EXP
+                      createdBy: USER2
+                      description: Experiment to redirect all users with device_state as Karnataka and first_access in the range of the month of October 2019 to a different app landing page.
+                      criteria:
+                       type: device
+                       filters: [
+                         {
+                           name: state,
+                           operator: IN,
+                           value: [KARNATAKA]
+                         },
+                         {
+                           name: first_access,
+                           operator:  RANGE,
+                           value: { 
+                             start: '2019-10-01',
+                             end: '2019-10-30'
+                           }
+                         }
+                        ]
+                      data:
+                        startDate: 2020-11-01
+                        endDate: 2020-11-05
+                        key: 24-32jewfjewout0sdf
+                        client: app
+                    created_date: 1602062500777
+                    last_updated: 1602062542509
+                    status: ACTIVE
+                    status_msg: Experiment Mapped Sucessfully
+                IF_Experiment_DOESNT_EXIST:
+                  summary: With new experiment id
+                  description: Get Experiment fails when experiment with experiment id doesnt exists
+                  value: 
+                    id: ekstep.analytics.experiment.get
+                    ver: v1
+                    ts: '2020-11-30T07:17:22.982+00:00  '
+                    params:
+                      err: OK
+                      resmsgid: 25b07a3a-d59f-47e6-b3d3-76cc5866411c
+                      status: failed
+                      errmsg: no experiment available with the given experimentid
+                    responseCode: OK
+                    result: null
+        '500':
+          description: Internal Server Error example for Get Experiment API
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentAPI-InternalServerError'
+              example:
+                id: ekstep.analytics.experiment.submit
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+security:
+  - bearerAuth: []      
+  
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Params:
+      title: Params
+      required:
+        - resmsgid
+        - err
+        - status
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          nullable: true
+        err:
+          type: string
+        status:
+          type: string
+    ErrorParams:
+      title: ErrorParams
+      required:
+        - resmsgid
+        - err
+        - status
+        - errorMsg
+      type: object
+      properties:
+        resmsgid:
+          type: string
+        err:
+          type: string
+        status:
+          type: string 
+        errorMsg:
+          type: object
+          properties:
+            status:
+              type: string
+    CreateExperiment:
+      title: CreateExperiment
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/Experiment-Request'
+      example:
+        request:
+          expId: U1234
+          name: USER_ORG
+          description: Experiment to get users with orgname as sunbird to explore page 
+          createdBy: User1
+          criteria: 
+            type: user
+            filters:
+              organisations.orgName: [sunbird]
+          data:
+            startDate: '2020-10-11'
+            endDate: '2020-10-20'
+            key: 'ASDSDFDK23SDFKJDK'
+            client: app
+            
+    Experiment-Request:
+      title: Experiment-Request
+      required:
+       - expId
+       - name
+       - createdBy
+       - description
+       - criteria
+       - data
+      type: object
+      properties:
+        expId:
+         type: string
+         description: Unique id for experiment
+        name:
+         type: string
+         description: Name of the experiment
+        createdBy:
+         type: string
+         description: Name of the user who created the experiment
+        description:
+         type: string
+         description: Short description about the experiment
+        criteria:
+          $ref: '#/components/schemas/Criteria'
+        data:
+          $ref: '#/components/schemas/Data'
+    Criteria:
+     title: Criteria
+     description: Criteria of the experiment
+     required:
+       - type
+       - filters
+     properties:
+       type:
+         type: string
+         description: Experiment type - either user/user_mod/device/device_mod
+       filters:
+         description: Required filters based on user or device filters
+         type: object
+     example:
+       type: user
+       filters: {
+         organisations: sunbird
+        }
+    Data:
+      title: Data
+      description: Data describing the experiment
+      required:
+        - startDate
+        - endDate
+        - key
+        - client
+      properties:
+        startDate:
+          type: string
+          description: Start date of the experiment. Should be always greater than experiment created date
+        endDate:
+          type: string
+          description: End date of the experiment((yyyy-mm-dd)). Should be always be valid greater than experiment created date and start date
+        key:
+          type: string
+          description: key of the experiment- For Example  url for portal or app-key for app client
+        client:
+          type: string
+          description: experiment client - either app or portal
+        modulus:
+          type: integer
+          description: '1 in modulus no of users or devices'
+      example:
+        startDate: "2020-10-11"
+        endDate: "2020-10-19"
+        key: '/org/profile'
+        client: 'portal'
+        modulus: 10
+         
+    CreateExperiment-SuccessResponse:
+      title: CreateExperiment-SuccessResponse
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Experiment-Response'
+      example:
+        id: ekstep.analytics.experiment.submit
+        ver: v1
+        ts: '2020-11-23 06:42:39:001+0000'
+        params:
+          resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+          status: successful
+        responseCode: OK
+        result:
+          $ref: '#/components/schemas/Experiment-Response/example'
+            
+    Experiment-Response:
+      title: Experiment-Response
+      required:
+        - stats
+        - request
+        - status
+        - status_msg
+      properties:
+        stats:
+          type: object
+        request:
+          $ref: '#/components/schemas/Experiment-Request'
+        status:
+          type: string
+        status_msg:
+          type: string
+        created_on:
+          type: string
+        last_updated:
+          type: string
+      example:
+        stats: {}
+        request: '#/components/schemas/Experiment-Request/example'
+        created_on: 1606818148268
+        last_updated: 1606818148268
+        status: SUBMITTED
+        status_msg: Experiment successfully submitted
+    CreateExperiment-FailedResponse:
+      title: CreateExperiment-FailedResponse
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/ErrorParams'
+        responseCode:
+          type: string
+        result:
+          type: string
+      example:
+        id: ekstep.analytics.experiement.create
+        ver: v1
+        ts: '2020-11-23 06:42:39:001+0000'
+        params:
+          resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+          status: failed
+          err: CLIENT_ERROR
+          errorMsg:
+            status: failed
+            request: Request should not be empty
+        responseCode: CLIENT_ERROR
+        result: null
+    ExperimentAPI-InternalServerError:
+            title: ExperimentAPI-InternalServerError
+            required:
+              - id
+              - ver
+              - ts
+              - params
+              - responseCode
+              - result
+            type: object
+            properties:
+              id:
+                type: string
+              ver:
+                type: string
+              ts:
+                type: string
+              params:
+                $ref: '#/components/schemas/ErrorParams'
+              responseCode:
+                type: string
+              result:
+                type: object
+            example:
+              id: ekstep.analytics.experiement
+              ver: v1
+              ts: '2020-11-23 15:15:18:331+0000'
+              params:
+                resmsgid: null
+                msgid: null
+                err: INTERNAL_ERROR
+                status: SERVER_ERROR
+                errmsg: 'Process failed,please try again later.'
+              responseCode: SERVER_ERROR
+              result: {}          
+    GetExperiment-SuccessResponse:
+      title: GetExperiment-SuccessResponse
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/Params'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/Experiment-Request'
+      example:
+        id: ekstep.analytics.experiement.get
+        ver: v1
+        ts: '2020-11-23 06:42:39:001+0000'
+        params:
+          resmsgid: 8c244093-e19d-4694-a4ba-342bc0f8b721
+          status: successful
+        responseCode: OK
+        result:
+         stats: 
+          devicesMatched: 10000
+         request:
+          expId: D1234
+          name: DEVICE_EXP
+          createdBy: USER2
+          description: Experiment to redirect all users to different app page with device state as Karnataka and first access in range of october month 
+          criteria:
+           type: device
+           filters: [
+             {
+               name: state,
+               operator: IN,
+               value: [KARNATAKA]
+             },
+             {
+               name: first_access,
+               operator:  RANGE,
+               value: { 
+                 start: '2019-10-01',
+                 end: '2019-10-30'
+               }
+             }
+            ]
+          data:
+            startDate: 2020-11-01
+            endDate: 2020-11-05
+            key: 24-32jewfjewout0sdf
+            client: app
+        created_date: 1602062500777
+        last_updated: 1602062542509
+        status: ACTIVE
+        status_msg: Experiment Mapped Sucessfully
+tags:
+  - name: V1
+    description: ''
