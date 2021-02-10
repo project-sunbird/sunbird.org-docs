@@ -67,7 +67,7 @@ The **Taxonomy & Tagging Services** category has microservices for taxonomy and 
 
 The **Telemetry & Data, Analytics Services** category has the following microservices:
 
-- **Telemetry Service**: The [Telemetry Service](../developer-docs/telemetry/overview/){:target="_blank"} microservice collects telemetry and ingests the telemetry into the data pipeline for processing.
+- **Telemetry Service**: The [Telemetry Service](./developer-docs/telemetry/overview){:target="_blank"} microservice collects telemetry and ingests the telemetry into the data pipeline for processing.
     
 - **Data Service:**: The data microservice provides services to manage report jobs and data exhausts that enable data aggregation across multiple sources services. The APIs are grouped as:
     - [Data Exhaust APIs](apis/dataexhaustapi){:target="_blank"} 
