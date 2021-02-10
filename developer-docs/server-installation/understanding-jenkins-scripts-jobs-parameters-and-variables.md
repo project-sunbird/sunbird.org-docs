@@ -50,7 +50,7 @@ The following environment variables are used for Jenkins setup.
 
 |Parameter| Description|
 |---------------|-----------|
-|github_release_tag |Specify a tag name from which you want the build, example - release-2.8.0. It looks for a tag named release-2.8.0 in the repository URL configured in the Jenkins job and checks out the code from this tag. This tag is different from public_repo_branch which is used only to check out the Jenkinsfile which has all the build logic.|
+|github_release_tag |Specify a tag name from which you want the build, example - release-3.5.0. It looks for a tag named release-3.5.0 in the repository URL configured in the Jenkins job and checks out the code from this tag. This tag is different from public_repo_branch which is used only to check out the Jenkinsfile which has all the build logic.|
 
 > **Note:** Even if the **public_repo_branch** is configured to a tag name, you need to provide a tag name in this parameter box when running the build. If this is empty, it will checkout code from the tag specified in **public_repo_branch** but it will not tag build artifact with the tag name. Instead it will tag it with commit hash which is undesirable when you want to build from tag. All build jobs create an artifact **metadata.json** that has details such as artifact/docker image name and version, and the Jenkins slave on which it was built.
 
