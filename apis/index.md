@@ -106,7 +106,8 @@ The **Interaction & Collaboration Services** category has microservices that sen
 
 ## Practice, Sensing & Assessment Services
 
-The **Practice, Sensing & Assessment Services** category has a microservice that creates and manages questions and question sets that are useful to assess proficiency of learners. The APIs for this microservice will be shared in the subsequent release. 
+The **Practice, Sensing & Assessment Services** category has a microservice that creates and manages questions and question sets that are useful to assess proficiency of learners. The APIs for this microservice are gouped under: 
+- [Question Management APIs](apis/questionapi//){:target="_blank"}
 
 ## Credentialing & Badging Services
 
