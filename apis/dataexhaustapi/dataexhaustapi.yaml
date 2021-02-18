@@ -75,7 +75,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/dataRequestBody'
+              $ref: '#/components/schemas/dataexhaustapidataRequestBody'
             examples:
              a:
               summary: "Request for course progress data exhaust for a given batch"
@@ -133,7 +133,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/dataExhaustResponse'
+                $ref: '#/components/schemas/dataexhaustapidataExhaustResponse'
               examples:
                a:
                 summary: Request in SUBMITTED state
@@ -189,7 +189,7 @@ paths:
                 type: object
                 properties:
                   result:
-                    $ref: '#/components/schemas/ApiResponse'
+                    $ref: '#/components/schemas/dataexhaustapiApiResponse'
               examples:
                a:
                 summary: For missing dataset config in request
@@ -338,7 +338,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JobListResponse'
+                $ref: '#/components/schemas/dataexhaustapiJobListResponse'
               examples:
                a:
                 summary: List of requests
@@ -516,7 +516,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JobInfoResponse'
+                $ref: '#/components/schemas/dataexhaustapiJobInfoResponse'
               examples:
                a:
                 summary: Success request
@@ -715,7 +715,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DatasetResponse'
+                $ref: '#/components/schemas/dataexhaustapiDatasetResponse'
               examples:
                 a:
                   summary: Success response with files
@@ -755,7 +755,7 @@ paths:
                 type: object
                 properties:
                   result:
-                    $ref: '#/components/schemas/ApiResponse'
+                    $ref: '#/components/schemas/dataexhaustapiApiResponse'
               examples:
                a:
                 summary: For date range greater than 10 days
@@ -881,7 +881,7 @@ paths:
                 example: An unexpected error occurred
 components:
   schemas:
-    dataRequestBody:
+    dataexhaustapidataRequestBody:
       title: DataExhaust - Data Request
       required:
       - id
@@ -904,10 +904,10 @@ components:
           description: 'request timestamp in format: YYYY-MM-DDThh:mm:ss+/-nn:nn'
           x-go-name: Ts
         params:
-          $ref: '#/components/schemas/RequestParams'
+          $ref: '#/components/schemas/dataexhaustapiRequestParams'
         request:
-          $ref: '#/components/schemas/DataExhaustRequest'
-    DataExhaustJobStats:
+          $ref: '#/components/schemas/dataexhaustapiDataExhaustRequest'
+    dataexhaustapiDataExhaustJobStats:
       title: JobState
       type: object
       properties:
@@ -920,7 +920,7 @@ components:
         executionTime:
           type: integer
           description: Total time taken for processing request
-    dataExhaustResponse:
+    dataexhaustapidataExhaustResponse:
       type: object
       properties:
         id:
@@ -930,12 +930,12 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/ResponseParams'
+          $ref: '#/components/schemas/dataexhaustapiResponseParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/dataExhaustResult'
-    RequestParams:
+          $ref: '#/components/schemas/dataexhaustapidataExhaustResult'
+    dataexhaustapiRequestParams:
       title: Params
       type: object
       properties:
@@ -943,7 +943,7 @@ components:
           type: string
           description: unique request message id, UUID, for handling API idempotency
           x-go-name: MsgID
-    DataExhaustRequest:
+    dataexhaustapiDataExhaustRequest:
       title: Request
       required:
       - tag
@@ -966,7 +966,7 @@ components:
         encryptionKey:
           type: string
           description: Encryption key for the data exhaust file.
-    JobListResponse:
+    dataexhaustapiJobListResponse:
       type: object
       properties:
         id:
@@ -976,12 +976,12 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/ResponseParams'
+          $ref: '#/components/schemas/dataexhaustapiResponseParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/JobListResult'
-    JobInfoResponse:
+          $ref: '#/components/schemas/dataexhaustapiJobListResult'
+    dataexhaustapiJobInfoResponse:
       type: object
       properties:
         id:
@@ -991,12 +991,12 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/ResponseParams'
+          $ref: '#/components/schemas/dataexhaustapiResponseParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/dataExhaustResult'
-    dataExhaustResult:
+          $ref: '#/components/schemas/dataexhaustapidataExhaustResult'
+    dataexhaustapidataExhaustResult:
       type: object
       properties:
         requestId:
@@ -1022,10 +1022,10 @@ components:
         expiresAt:
           type: integer
         jobStats:
-          $ref: '#/components/schemas/DataExhaustJobStats'
+          $ref: '#/components/schemas/dataexhaustapiDataExhaustJobStats'
         attempts:
           type: integer
-    ResponseParams:
+    dataexhaustapiResponseParams:
       type: object
       properties:
         resmsgid:
@@ -1049,7 +1049,7 @@ components:
           description: default English error message
           x-go-name: ErrorMessage
       x-go-package: ecosystem-platform-api/api
-    JobListResult:
+    dataexhaustapiJobListResult:
       type: object
       properties:
         count:
@@ -1059,13 +1059,13 @@ components:
           items:
             type: object
             allOf:
-            - $ref: '#/components/schemas/dataExhaustResult'
-    DatasetResponse:
+            - $ref: '#/components/schemas/dataexhaustapidataExhaustResult'
+    dataexhaustapiDatasetResponse:
       title: DatasetGetResponse
       allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - $ref: '#/components/schemas/DatasetResult'
-    DatasetResult:
+      - $ref: '#/components/schemas/dataexhaustapiApiResponse'
+      - $ref: '#/components/schemas/dataexhaustapiDatasetResult'
+    dataexhaustapiDatasetResult:
       type: object
       properties:
         files:
@@ -1077,7 +1077,7 @@ components:
         expiresAt:
           type: integer
           description: Represents expire EPOCH (UTC) timestamp in milliseconds
-    ApiResponse:
+    dataexhaustapiApiResponse:
       required:
       - ts
       - id
@@ -1098,7 +1098,7 @@ components:
           description: 'request timestamp in format: YYYY-MM-DDThh:mm:ss+/-nn:nn'
           x-go-name: Ts
         params:
-          $ref: '#/components/schemas/ResponseParams'
+          $ref: '#/components/schemas/dataexhaustapiResponseParams'
         responseCode:
           type: string
   securitySchemes:
