@@ -25,7 +25,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SubmitReportRequest'
+              $ref: '#/components/schemas/druidreportapiSubmitReportRequest'
             example:
               request:
                 reportId: 'district_monthly'
@@ -106,7 +106,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SubmitDruidReport-SuccessResponse'
+                $ref: '#/components/schemas/druidreportapiSubmitDruidReport-SuccessResponse'
               examples:
                 New_Report:
                   summary: With new reportId
@@ -141,7 +141,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DruidReport-BadRequestResponse'
+                $ref: '#/components/schemas/druidreportapiDruidReport-BadRequestResponse'
               examples:
                 RequiredFieldsMissing:
                   summary: With empty fields like request, reportid, config, config.store etc
@@ -153,7 +153,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
+                $ref: '#/components/schemas/druidreportapiDruidReportAPI-InternalServerError'
               example:
                 id: ekstep.analytics.report.submit
                 ver: v1
@@ -191,7 +191,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Report-Request'
+              $ref: '#/components/schemas/druidreportapiReport-Request'
             example:
               request:
                 reportId: 'district_monthly'
@@ -275,7 +275,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UpdateDruidReport-SuccessResponse'
+                $ref: '#/components/schemas/druidreportapiUpdateDruidReport-SuccessResponse'
               examples:
                 Existing_Report:
                   summary: With exising report id
@@ -310,7 +310,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DruidReport-BadRequestResponse'
+                $ref: '#/components/schemas/druidreportapiDruidReport-BadRequestResponse'
               examples:
                 RequiredFieldsMissing:
                   summary: With empty fields like request, reportid, filters, aggregations etc
@@ -322,7 +322,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
+                $ref: '#/components/schemas/druidreportapiDruidReportAPI-InternalServerError'
               example:
                 id: ekstep.analytics.report.submit
                 ver: v1
@@ -361,7 +361,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetDruidReport-SuccessResponse'
+                $ref: '#/components/schemas/druidreportapiGetDruidReport-SuccessResponse'
               examples:
                 Existing_Report:
                   summary: With old report id
@@ -393,7 +393,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
+                $ref: '#/components/schemas/druidreportapiDruidReportAPI-InternalServerError'
               example:
                 id: ekstep.analytics.report.submit
                 ver: v1
@@ -422,7 +422,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ListDruidReportRequest'
+              $ref: '#/components/schemas/druidreportapiListDruidReportRequest'
             example:
               request: 
                 filters:
@@ -435,7 +435,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListDruidReport-SuccessResponse'
+                $ref: '#/components/schemas/druidreportapiListDruidReport-SuccessResponse'
               example:
                     id: ekstep.analytics.report.get
                     ver: v1
@@ -455,7 +455,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
+                $ref: '#/components/schemas/druidreportapiDruidReportAPI-InternalServerError'
               example:
                 id: ekstep.analytics.report.get
                 ver: v1
@@ -495,7 +495,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeactivateDruidReport-SuccessResponse'
+                $ref: '#/components/schemas/druidreportapiDeactivateDruidReport-SuccessResponse'
               examples:
                 Existing_Report:
                   summary: With old report id
@@ -529,7 +529,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DruidReportAPI-InternalServerError'
+                $ref: '#/components/schemas/druidreportapiDruidReportAPI-InternalServerError'
               example:
                 id: ekstep.analytics.report.submit
                 ver: v1
@@ -690,7 +690,7 @@ components:
           status_msg: REPORT DEACTIVATED
       summary: A sample object              
   schemas:
-    Params:
+    druidreportapiParams:
       title: Params
       required:
         - resmsgid
@@ -705,7 +705,7 @@ components:
           type: string
         status:
           type: string
-    ReportConfig:
+    druidreportapiReportConfig:
       title: ReportConfig
       required:
         - id
@@ -727,17 +727,17 @@ components:
         key:
           type: string
         dateRange:
-          $ref: '#/components/schemas/DateRange'
+          $ref: '#/components/schemas/druidreportapiDateRange'
         metrics:
           type: array
           items:
-            $ref: '#/components/schemas/Metrics'
+            $ref: '#/components/schemas/druidreportapiMetrics'
         labels:
-          $ref: '#/components/schemas/Labels'  
+          $ref: '#/components/schemas/druidreportapiLabels'  
         output:
           type: array
           items:
-            $ref: '#/components/schemas/Output'
+            $ref: '#/components/schemas/druidreportapiOutput'
       example:
         id: district_monthly
         queryType: groupBy
@@ -804,7 +804,7 @@ components:
               "id",
               "dims"
             ]        
-    DruidConfig:
+    druidreportapiDruidConfig:
       title: DruidConfig
       required:
         - reportConfig
@@ -816,7 +816,7 @@ components:
         reportConfig:
           type: object
           items: 
-           $ref: '#/components/schemas/ReportConfig'
+           $ref: '#/components/schemas/druidreportapiReportConfig'
         store:
           type: string
           description: 'Options : azure/local/s3'
@@ -830,7 +830,7 @@ components:
         store: azure
         key: folder-name/
         container: container-name
-    Interval:
+    druidreportapiInterval:
       title: Interval
       required:
         - startDate
@@ -844,7 +844,7 @@ components:
       example:
         startDate: '2020-10-11'
         endDate: '2020-11-11'
-    DateRange:
+    druidreportapiDateRange:
       title: DateRange
       required:
         - staticInterval
@@ -858,14 +858,14 @@ components:
         granularity:
           type: string
         interval:
-          $ref: '#/components/schemas/Interval'
+          $ref: '#/components/schemas/druidreportapiInterval'
       example:
         interval:
           startDate: '2020-10-01'
           endDate: '2020-10-02'
         staticInterval: 'LastMonth'  
         granularity: 'Day'
-    Metrics:
+    druidreportapiMetrics:
       title: Metrics
       required:
         - metric
@@ -878,12 +878,12 @@ components:
         label:
           type: string
         druidQuery:
-          $ref: '#/components/schemas/DruidQuery'
+          $ref: '#/components/schemas/druidreportapiDruidQuery'
       example:
         druidQuery: ''
         metric: 'totalUniqueDevices'  
         label: 'Total Unique Devices'    
-    DruidQuery:
+    druidreportapiDruidQuery:
       title: DruidQuery
       required:
         - queryType
@@ -904,21 +904,21 @@ components:
           nullable: true
           type: array
           items:
-            $ref: '#/components/schemas/Filters'
+            $ref: '#/components/schemas/druidreportapiFilters'
         dimensions:
           nullable: true
           type: array
           items: 
-            $ref: '#/components/schemas/Dimensions'
+            $ref: '#/components/schemas/druidreportapiDimensions'
         aggregations:
           type: array
           items: 
-            $ref: '#/components/schemas/Aggregations'    
+            $ref: '#/components/schemas/druidreportapiAggregations'    
       example:
         queryType: 'groupBy'
         dataSource: 'telemetry-events'
         intervals: '2020-09-01/2020-09-04'
-    Filters:
+    druidreportapiFilters:
       title: Filters
       required:
         - type
@@ -939,7 +939,7 @@ components:
         type: 'in//or/and'
         dimension: context_pdata_id
         values: ['test.diksha.portal']    
-    Dimensions:
+    druidreportapiDimensions:
       title: Dimensions
       required:
         - fieldName
@@ -955,7 +955,7 @@ components:
       example:
         fieldName: derived_loc_district
         aliasName: district
-    Aggregations:
+    druidreportapiAggregations:
       title: Aggregations
       required:
         - name
@@ -974,14 +974,14 @@ components:
         name: total_unique_devices
         type: cardinality
         fieldName: context_did
-    SubmitReportRequest:
+    druidreportapiSubmitReportRequest:
       title: SubmitDruidReport
       required:
         - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/Report-Request'
+          $ref: '#/components/schemas/druidreportapiReport-Request'
       example:
         request:
           reportId: 'district_monthly'
@@ -1054,7 +1054,7 @@ components:
               "id",
               "dims"
             ]
-    Labels:
+    druidreportapiLabels:
       title: Labels
       type: object
       properties:
@@ -1064,7 +1064,7 @@ components:
       example:
         "total_unique_devices": "Number of Unique Devices"
         "state": "State"
-    Output:
+    druidreportapiOutput:
       title: Output
       type: object
       required:
@@ -1091,7 +1091,7 @@ components:
           description: Parameters like filename etcs
           items:
             type: string
-    Report-Request:
+    druidreportapiReport-Request:
       title: Report-Request
       required:
       - reportId
@@ -1117,14 +1117,14 @@ components:
           description: Short description about report
           example: Unique Device district wise monthly
         config:
-          $ref: '#/components/schemas/DruidConfig'
+          $ref: '#/components/schemas/druidreportapiDruidConfig'
       example:
         reportId: 'district_monthly'
         requestedBy: analytics
         description: Unique Device district wise monthly
         reportSchedule: reportSchedule
         config: ''
-    ListDruidReportRequest:
+    druidreportapiListDruidReportRequest:
       title: ListDruidReportRequest
       required:
       - request
@@ -1145,7 +1145,7 @@ components:
         request: 
           filters:
             status: ['INACTIVE']
-    DruidReport-BadRequestResponse:
+    druidreportapiDruidReport-BadRequestResponse:
       title: DruidReport-BadRequestResponse
       description: DruidReport-BadRequestResponse- All Missing Fields
       required:
@@ -1164,7 +1164,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/druidreportapiParams'
         responseCode:
           type: string
         result:
@@ -1185,7 +1185,7 @@ components:
           "request.createdBy": "Created By should not be empty",
           "request.reportId": "Report Id should not be  empty"
         }
-    DruidReportAPI-InternalServerError:
+    druidreportapiDruidReportAPI-InternalServerError:
       title: DruidReportAPI-InternalServerError
       required:
         - id
@@ -1203,7 +1203,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/druidreportapiParams'
         responseCode:
           type: string
         result:
@@ -1220,7 +1220,7 @@ components:
           errmsg: 'Process failed,please try again later.'
         responseCode: SERVER_ERROR
         result: {}
-    SubmitDruidReport-SuccessResponse:
+    druidreportapiSubmitDruidReport-SuccessResponse:
       title: SubmitDruidReport-SuccessResponse
       required:
         - id
@@ -1238,11 +1238,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/druidreportapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Report-Request'
+          $ref: '#/components/schemas/druidreportapiReport-Request'
       example:
         id: ekstep.analytics.report.submit
         ver: v1
@@ -1253,7 +1253,7 @@ components:
         responseCode: OK
         result:
             $ref: '#/components/examples/reportexample'
-    UpdateDruidReport-SuccessResponse:
+    druidreportapiUpdateDruidReport-SuccessResponse:
       title: UpdateDruidReport-SuccessResponse
       required:
         - id
@@ -1271,11 +1271,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/druidreportapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Report-Request'
+          $ref: '#/components/schemas/druidreportapiReport-Request'
       example:
         id: ekstep.analytics.report.update
         ver: v1
@@ -1286,7 +1286,7 @@ components:
         responseCode: OK
         result:
             $ref: '#/components/examples/reportexample'            
-    GetDruidReport-SuccessResponse:
+    druidreportapiGetDruidReport-SuccessResponse:
       title: UpdateDruidReport-SuccessResponse
       required:
         - id
@@ -1304,11 +1304,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/druidreportapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Report-Request'
+          $ref: '#/components/schemas/druidreportapiReport-Request'
       example:
         id: ekstep.analytics.report.update
         ver: v1
@@ -1319,7 +1319,7 @@ components:
         responseCode: OK
         result:
             $ref: '#/components/examples/reportexample'                        
-    ListDruidReport-SuccessResponse:
+    druidreportapiListDruidReport-SuccessResponse:
       title: ListDruidReport-SuccessResponse
       required:
         - id
@@ -1337,11 +1337,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/druidreportapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/ListReports-Response'
+          $ref: '#/components/schemas/druidreportapiListReports-Response'
       example:
         id: ekstep.analytics.report.get
         ver: v1
@@ -1352,7 +1352,7 @@ components:
         responseCode: OK
         result:
           $ref: '#/components/schemas/ListReports-Response/example'
-    ListReports-Response:
+    druidreportapiListReports-Response:
       title: ListReports-Response
       required:
         - count
@@ -1364,13 +1364,13 @@ components:
         reports:
           type: array
           items:
-            $ref: '#/components/schemas/Report-Request'
+            $ref: '#/components/schemas/druidreportapiReport-Request'
       example:
        count: 1
        reports: [
           $ref:  '#/components/examples/reportexample'
           ]
-    DeactivateDruidReport-SuccessResponse:
+    druidreportapiDeactivateDruidReport-SuccessResponse:
       title: DeactivateDruidReport-SuccessResponse
       required:
         - id
@@ -1388,7 +1388,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/druidreportapiParams'
         responseCode:
           type: string
         result:
