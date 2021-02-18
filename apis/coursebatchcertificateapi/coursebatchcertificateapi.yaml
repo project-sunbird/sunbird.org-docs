@@ -66,8 +66,8 @@ paths:
           application/json:
             schema:
               allOf:
-              - $ref: '#/components/schemas/ApiRequest'
-              - $ref: '#/components/schemas/AddCertificateTemplateRequest'
+              - $ref: '#/components/schemas/coursebatchcertificateapiApiRequest'
+              - $ref: '#/components/schemas/coursebatchcertificateapiAddCertificateTemplateRequest'
         required: true
       responses:
         200:
@@ -78,10 +78,10 @@ paths:
               schema:
                 type: object
                 properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  SuccessResponse:
-                    $ref: '#/components/schemas/SuccessResponse'
+                  coursebatchcertificateapiApiResponse:
+                    $ref: '#/components/schemas/coursebatchcertificateapiApiResponse'
+                  coursebatchcertificateapiSuccessResponse:
+                    $ref: '#/components/schemas/coursebatchcertificateapiSuccessResponse'
               example:
                 id: api.course.batch.cert.template.add
                 ver: v1
@@ -101,7 +101,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddCertificateTemplateErrorResponse'
+                $ref: '#/components/schemas/coursebatchcertificateapiAddCertificateTemplateErrorResponse'
               example:
                 id: api.course.batch.cert.template.add
                 ver: v1
@@ -120,7 +120,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddCertificateTemplateErrorResponse'
+                $ref: '#/components/schemas/coursebatchcertificateapiAddCertificateTemplateErrorResponse'
               example:
                 id: api.course.batch.cert.issue
                 ver: v1
@@ -141,7 +141,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                - $ref: '#/components/schemas/500ServerError'
+                - $ref: '#/components/schemas/coursebatchcertificateapi500ServerError'
               example:
                 id: api.course.batch.cert.template.add
                 ver: v1
@@ -215,8 +215,8 @@ paths:
           application/json:
             schema:
               allOf:
-              - $ref: '#/components/schemas/ApiRequest'
-              - $ref: '#/components/schemas/RemoveCertificateTemplateRequest'
+              - $ref: '#/components/schemas/coursebatchcertificateapiApiRequest'
+              - $ref: '#/components/schemas/coursebatchcertificateapiRemoveCertificateTemplateRequest'
             example:
               request:
                 batch:
@@ -234,10 +234,10 @@ paths:
               schema:
                 type: object
                 properties:
-                  ApiResponse:
-                    $ref: '#/components/schemas/ApiResponse'
-                  SuccessResponse:
-                    $ref: '#/components/schemas/SuccessResponse'
+                  coursebatchcertificateapiApiResponse:
+                    $ref: '#/components/schemas/coursebatchcertificateapiApiResponse'
+                  coursebatchcertificateapiSuccessResponse:
+                    $ref: '#/components/schemas/coursebatchcertificateapiSuccessResponse'
               example:
                 id: api.course.batch.cert.template.remove
                 ver: v1
@@ -257,7 +257,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RemoveCertificateTemplateErrorResponse'
+                $ref: '#/components/schemas/coursebatchcertificateapiRemoveCertificateTemplateErrorResponse'
               example:
                 id: api.course.batch.cert.template.remove
                 ver: v1
@@ -276,7 +276,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddCertificateTemplateErrorResponse'
+                $ref: '#/components/schemas/coursebatchcertificateapiAddCertificateTemplateErrorResponse'
               example:
                 id: api.course.batch.cert.issue
                 ver: v1
@@ -297,7 +297,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                - $ref: '#/components/schemas/500ServerError'
+                - $ref: '#/components/schemas/coursebatchcertificateapi500ServerError'
               example:
                 id: api.course.batch.cert.template.remove
                 ver: v1
@@ -316,7 +316,7 @@ paths:
       - userToken: []
 components:
   schemas:
-    500ServerError:
+    coursebatchcertificateapi500ServerError:
       title: 500ServerError
       required:
         - id
@@ -342,23 +342,23 @@ components:
           properties:
            message:
             type: string
-    AddCertificateTemplateRequest:
+    coursebatchcertificateapiAddCertificateTemplateRequest:
       title: AddCertificateTemplateRequest
       required:
       - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/AddCourseBatchTemplateRequest'
-    AddCourseBatchTemplateRequest:
+          $ref: '#/components/schemas/coursebatchcertificateapiAddCourseBatchTemplateRequest'
+    coursebatchcertificateapiAddCourseBatchTemplateRequest:
       title: AddCourseBatchTemplateRequest
       required:
       - batch
       type: object
       properties:
         batch:
-          $ref: '#/components/schemas/AddCourseBatchTemplate'
-    AddCourseBatchTemplate:
+          $ref: '#/components/schemas/coursebatchcertificateapiAddCourseBatchTemplate'
+    coursebatchcertificateapiAddCourseBatchTemplate:
       title: AddCourseBatchTemplate
       required:
       - batchId
@@ -373,8 +373,8 @@ components:
           type: string
           description: The batch identifier
         template:
-          $ref: '#/components/schemas/AddBatchTemplate'
-    AddBatchTemplate:
+          $ref: '#/components/schemas/coursebatchcertificateapiAddBatchTemplate'
+    coursebatchcertificateapiAddBatchTemplate:
       title: AddBatchTemplate
       required:
       - criteria
@@ -442,23 +442,23 @@ components:
                 type: integer
                 format: int64
           description: The filter for the template
-    RemoveCertificateTemplateRequest:
+    coursebatchcertificateapiRemoveCertificateTemplateRequest:
       title: RemoveCertificateTemplateRequest
       required:
       - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/RemoveCourseBatchTemplateRequest'
-    RemoveCourseBatchTemplateRequest:
+          $ref: '#/components/schemas/coursebatchcertificateapiRemoveCourseBatchTemplateRequest'
+    coursebatchcertificateapiRemoveCourseBatchTemplateRequest:
       title: RemoveCourseBatchTemplateRequest
       required:
       - batch
       type: object
       properties:
         batch:
-          $ref: '#/components/schemas/RemoveCourseBatchTemplate'
-    RemoveCourseBatchTemplate:
+          $ref: '#/components/schemas/coursebatchcertificateapiRemoveCourseBatchTemplate'
+    coursebatchcertificateapiRemoveCourseBatchTemplate:
       title: RemoveCourseBatchTemplate
       required:
       - batchId
@@ -473,8 +473,8 @@ components:
           type: string
           description: The batch identifier
         template:
-          $ref: '#/components/schemas/RemoveBatchTemplate'
-    RemoveBatchTemplate:
+          $ref: '#/components/schemas/coursebatchcertificateapiRemoveBatchTemplate'
+    coursebatchcertificateapiRemoveBatchTemplate:
       title: RemoveBatchTemplate
       required:
       - templateId
@@ -483,15 +483,15 @@ components:
         templateId:
           type: string
           description: The template identifier
-    IssueCertificateRequest:
+    coursebatchcertificateapiIssueCertificateRequest:
       title: Issue certificate request
       required:
       - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/Request'
-    Request:
+          $ref: '#/components/schemas/coursebatchcertificateapiRequest'
+    coursebatchcertificateapiRequest:
       title: Request
       required:
       - batchId
@@ -509,7 +509,7 @@ components:
           description: The optional User IDs
           items:
             type: string
-    IssueCertificateResponse:
+    coursebatchcertificateapiIssueCertificateResponse:
       type: object
       properties:
         result:
@@ -528,7 +528,7 @@ components:
                 submitted Successfully!
           description: The response details
       description: Issue certificate Response
-    ResponseHeader:
+    coursebatchcertificateapiResponseHeader:
       title: ResponseHeader
       type: object
       properties:
@@ -542,12 +542,12 @@ components:
           type: string
           description: The API execution timestamp
         params:
-          $ref: '#/components/schemas/ResponseParams'
+          $ref: '#/components/schemas/coursebatchcertificateapiResponseParams'
         responseCode:
           type: string
           description: The API response code
           example: CLIENT_ERROR
-    ResponseParams:
+    coursebatchcertificateapiResponseParams:
       title: Response Parameter
       type: object
       properties:
@@ -567,7 +567,7 @@ components:
           type: string
           description: Error Message
           example: No such batchId exists
-    EmptyResult:
+    coursebatchcertificateapiEmptyResult:
       title: Empty Result
       type: object
       properties:
@@ -575,12 +575,12 @@ components:
           type: object
           properties: {}
           description: Empty Result
-    IssueCertificateErrorResponse:
+    coursebatchcertificateapiIssueCertificateErrorResponse:
       title: Create Content Error Response
       allOf:
-      - $ref: '#/components/schemas/ResponseHeader'
-      - $ref: '#/components/schemas/EmptyResult'
-    SuccessResponse:
+      - $ref: '#/components/schemas/coursebatchcertificateapiResponseHeader'
+      - $ref: '#/components/schemas/coursebatchcertificateapiEmptyResult'
+    coursebatchcertificateapiSuccessResponse:
       type: object
       properties:
         result:
@@ -590,17 +590,17 @@ components:
               type: string
               example: SUCCESS
       description: Contains the success response
-    AddCertificateTemplateErrorResponse:
+    coursebatchcertificateapiAddCertificateTemplateErrorResponse:
       title: Create cerrtificate error response
       allOf:
-      - $ref: '#/components/schemas/ResponseHeader'
-      - $ref: '#/components/schemas/EmptyResult'
-    RemoveCertificateTemplateErrorResponse:
+      - $ref: '#/components/schemas/coursebatchcertificateapiResponseHeader'
+      - $ref: '#/components/schemas/coursebatchcertificateapiEmptyResult'
+    coursebatchcertificateapiRemoveCertificateTemplateErrorResponse:
       title: Remove certificate error response
       allOf:
-      - $ref: '#/components/schemas/ResponseHeader'
-      - $ref: '#/components/schemas/EmptyResult'
-    ApiRequest:
+      - $ref: '#/components/schemas/coursebatchcertificateapiResponseHeader'
+      - $ref: '#/components/schemas/coursebatchcertificateapiEmptyResult'
+    coursebatchcertificateapiApiRequest:
       type: object
       properties:
         id:
@@ -623,7 +623,7 @@ components:
             did:
               type: string
               description: Represents the device UUID from which API is called
-    ApiResponse:
+    coursebatchcertificateapiApiResponse:
       required:
       - ets
       - id
