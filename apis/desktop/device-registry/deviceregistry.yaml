@@ -43,7 +43,7 @@ paths:
         content:
           '*/*':
             schema:
-              $ref: '#/components/schemas/Request'
+              $ref: '#/components/schemas/device-registryRequest'
         required: true
       responses:
         200:
@@ -51,7 +51,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetTokenResponse'
+                $ref: '#/components/schemas/device-registryGetTokenResponse'
         500:
           description: '''INTERNAL SERVER ERROR. We track these errors automatically
             and try to set it right at the earliest. Try refreshing the page. If the
@@ -59,11 +59,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetTokenErrorResponse'
+                $ref: '#/components/schemas/device-registryGetTokenErrorResponse'
       x-codegen-request-body-name: Body
 components:
   schemas:
-    Request:
+    device-registryRequest:
       title: Registry Request
       required:
       - request
@@ -78,18 +78,18 @@ components:
             key:
               type: string
               description: Device id
-    GetTokenResponse:
+    device-registryGetTokenResponse:
       description: Get Token Response
       allOf:
-      - $ref: '#/components/schemas/ResponseHeader'
-      - $ref: '#/components/schemas/ResultWithToken'
-    ResultWithToken:
+      - $ref: '#/components/schemas/device-registryResponseHeader'
+      - $ref: '#/components/schemas/device-registryResultWithToken'
+    device-registryResultWithToken:
       title: Result Containing token
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/Token'
-    Token:
+          $ref: '#/components/schemas/device-registryToken'
+    device-registryToken:
       title: Token details
       type: object
       properties:
@@ -102,7 +102,7 @@ components:
         token:
           type: string
           description: token
-    ResponseHeader:
+    device-registryResponseHeader:
       title: ResponseHeader
       type: object
       properties:
@@ -116,8 +116,8 @@ components:
           type: number
           description: Represents the current time stamp
         params:
-          $ref: '#/components/schemas/ResponseParams'
-    ResponseParams:
+          $ref: '#/components/schemas/device-registryResponseParams'
+    device-registryResponseParams:
       title: Response Parameter
       type: object
       properties:
@@ -136,11 +136,11 @@ components:
         errmsg:
           type: string
           description: Represents the text that is part of response status
-    GetTokenErrorResponse:
+    device-registryGetTokenErrorResponse:
       title: Get Token Error Response
       allOf:
-      - $ref: '#/components/schemas/ResponseParams'
-      - $ref: '#/components/schemas/ResponseHeader'
+      - $ref: '#/components/schemas/device-registryResponseParams'
+      - $ref: '#/components/schemas/device-registryResponseHeader'
   securitySchemes:
     bearer:
       type: apiKey

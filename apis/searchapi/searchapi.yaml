@@ -49,7 +49,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CompositeSearchRequest'
+              $ref: '#/components/schemas/searchapiCompositeSearchRequest'
             examples:
               a:
                 summary: Search - All status & with limit
@@ -128,7 +128,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CompositeSearchSuccessResponse'
+                $ref: '#/components/schemas/searchapiCompositeSearchSuccessResponse'
               examples:
                 a:
                   summary: Search Response - All status & with limit
@@ -382,7 +382,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CompositeSearchErrorResponse'
+                $ref: '#/components/schemas/searchapiCompositeSearchErrorResponse'
               example:
                 id: api.v1.search
                 ver: '1.0'
@@ -402,7 +402,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CompositeSearchErrorResponse'
+                $ref: '#/components/schemas/searchapiCompositeSearchErrorResponse'
               example:
                 id: api.v1.search
                 ver: '1.0'
@@ -420,12 +420,12 @@ paths:
         - bearer: []
 components:
   schemas:
-    CompositeSearchRequest:
+    searchapiCompositeSearchRequest:
       description: Composite Search Request
       type: object
       allOf:
-        - $ref: '#/components/schemas/CompositeSearchRequestRequest'
-    CompositeSearchRequestRequest:
+        - $ref: '#/components/schemas/searchapiCompositeSearchRequestRequest'
+    searchapiCompositeSearchRequestRequest:
       title: Composite Search Request
       required:
       - request
@@ -458,19 +458,19 @@ components:
           description: Fields which must be available in the object
           items:
             type: string
-    CompositeSearchSuccessResponse:
+    searchapiCompositeSearchSuccessResponse:
       description: Composite Search Success Response
       type: object
       allOf:
-        - $ref: '#/components/schemas/ResultWithCompositeSearch'
-        - $ref: '#/components/schemas/ResponseHeader'
-    ResultWithCompositeSearch:
+        - $ref: '#/components/schemas/searchapiResultWithCompositeSearch'
+        - $ref: '#/components/schemas/searchapiResponseHeader'
+    searchapiResultWithCompositeSearch:
       title: Result Containing Composite Search
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/CompositeSearch'
-    CompositeSearch:
+          $ref: '#/components/schemas/searchapiCompositeSearch'
+    searchapiCompositeSearch:
       title: Composite Search
       type: object
       properties:
@@ -486,19 +486,19 @@ components:
           items:
             type: object
             description: Grouping on field value
-    CompositeSearchErrorResponse:
+    searchapiCompositeSearchErrorResponse:
       description: Composite Search Error Response
       type: object
       allOf:
-        - $ref: '#/components/schemas/ErrorSearchResult'
-        - $ref: '#/components/schemas/ResponseHeader'
-    ErrorSearchResult:
+        - $ref: '#/components/schemas/searchapiErrorSearchResult'
+        - $ref: '#/components/schemas/searchapiResponseHeader'
+    searchapiErrorSearchResult:
       title: Error Search Result
       type: object
       properties:
         result:
           type: object
-    ResponseHeader:
+    searchapiResponseHeader:
       title: ResponseHeader
       type: object
       properties:
@@ -512,11 +512,11 @@ components:
           type: string
           description: API execution timespan
         params:
-          $ref: '#/components/schemas/ResponseParams'
+          $ref: '#/components/schemas/searchapiResponseParams'
         responseCode:
           type: string
           description: 'API response code '
-    ResponseParams:
+    searchapiResponseParams:
       title: Response Parameter
       type: object
       properties:
