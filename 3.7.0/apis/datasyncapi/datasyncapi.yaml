@@ -68,7 +68,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/syncrequest'
+              $ref: '#/components/schemas/datasyncapisyncrequest'
         required: true
       responses:
         200:
@@ -77,7 +77,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
+                $ref: '#/components/schemas/datasyncapiContentCreateResponse'
         400:
           description: BAD REQUEST,"Data sync" operation failed ! The possible reason
             for failure is that you may have missed providing input for a mandatory
@@ -85,7 +85,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/datasyncapiContentCreateErrorResponse'
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! We
             track these errors automatically, but if the problem persists feel free
@@ -94,7 +94,7 @@ paths:
       x-codegen-request-body-name: Body
 components:
   schemas:
-    syncrequest:
+    datasyncapisyncrequest:
       title: Data sync request
       required:
       - params
@@ -106,8 +106,8 @@ components:
           properties: {}
           description: ""
         request:
-          $ref: '#/components/schemas/Request'
-    Request:
+          $ref: '#/components/schemas/datasyncapiRequest'
+    datasyncapiRequest:
       title: Request
       required:
       - objectType
@@ -125,18 +125,18 @@ components:
             if data volumn is huge, better to pass objectIds. '
           items:
             type: string
-    ContentCreateResponse:
+    datasyncapiContentCreateResponse:
       description: Data sync response
       allOf:
-      - $ref: '#/components/schemas/ResultWithNodeId'
-      - $ref: '#/components/schemas/ResponseHeader'
-    ResultWithNodeId:
+      - $ref: '#/components/schemas/datasyncapiResultWithNodeId'
+      - $ref: '#/components/schemas/datasyncapiResponseHeader'
+    datasyncapiResultWithNodeId:
       title: Result Containing Node Id
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/NodeId'
-    ResponseHeader:
+          $ref: '#/components/schemas/datasyncapiNodeId'
+    datasyncapiResponseHeader:
       title: ResponseHeader
       type: object
       properties:
@@ -150,19 +150,19 @@ components:
           type: string
           description: API execution timespan
         params:
-          $ref: '#/components/schemas/ResponseParams'
+          $ref: '#/components/schemas/datasyncapiResponseParams'
         responseCode:
           type: object
           properties: {}
           description: 'API response code '
-    NodeId:
+    datasyncapiNodeId:
       title: Node Id
       type: object
       properties:
         node_id:
           type: string
           description: Node Identifier
-    ResponseParams:
+    datasyncapiResponseParams:
       title: Response Parameter
       type: object
       properties:
@@ -181,12 +181,12 @@ components:
         errmsg:
           type: string
           description: Error Message
-    ContentCreateErrorResponse:
+    datasyncapiContentCreateErrorResponse:
       title: Create Content Error Response
       allOf:
-      - $ref: '#/components/schemas/EmptyResult'
-      - $ref: '#/components/schemas/ResponseHeader'
-    EmptyResult:
+      - $ref: '#/components/schemas/datasyncapiEmptyResult'
+      - $ref: '#/components/schemas/datasyncapiResponseHeader'
+    datasyncapiEmptyResult:
       title: Empty Result
       type: object
       properties:

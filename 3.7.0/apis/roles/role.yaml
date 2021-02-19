@@ -10,9 +10,9 @@ info:
     \ website to get the exact object payload parameters "
   version: "1.0"
 servers:
-- url: https://staging.open-sunbird.org/api/data/v1/role
+- url: https://staging.open-sunbird.org/api
 paths:
-  /read:
+  /data/v1/role/read:
     get:
       summary: role list
       description: |-
@@ -49,7 +49,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Roleresponse'
+                $ref: '#/components/schemas/roleRoleresponse'
         400:
           description: BAD REQUEST. The "list object" operation failed ! The possible
             reason for failure is that you may have missed providing input for a mandatory
@@ -57,7 +57,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/roleContentCreateErrorResponse'
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
@@ -65,7 +65,7 @@ paths:
           content: {}
 components:
   schemas:
-    response:
+    roleresponse:
       title: Response of role api
       type: object
       properties:
@@ -75,13 +75,13 @@ components:
             roles:
               type: array
               items:
-                $ref: '#/components/schemas/RoleList'
-    Roleresponse:
+                $ref: '#/components/schemas/roleRoleList'
+    roleRoleresponse:
       description: Response of role api
       allOf:
-      - $ref: '#/components/schemas/response'
-      - $ref: '#/components/schemas/ResponseHeader'
-    ResponseHeader:
+      - $ref: '#/components/schemas/roleresponse'
+      - $ref: '#/components/schemas/roleResponseHeader'
+    roleResponseHeader:
       title: ResponseHeader
       type: object
       properties:
@@ -95,12 +95,12 @@ components:
           type: string
           description: API execution timespan
         params:
-          $ref: '#/components/schemas/ResponseParams'
+          $ref: '#/components/schemas/roleResponseParams'
         responseCode:
           type: object
           properties: {}
           description: 'API response code '
-    ResponseParams:
+    roleResponseParams:
       title: Response Parameter
       type: object
       properties:
@@ -119,7 +119,7 @@ components:
         errmsg:
           type: string
           description: Error Message
-    EmptyResult:
+    roleEmptyResult:
       title: Empty Result
       type: object
       properties:
@@ -127,7 +127,7 @@ components:
           type: object
           properties: {}
           description: Empty Result
-    RoleList:
+    roleRoleList:
       title: List of roles
       type: object
       properties:
@@ -151,11 +151,11 @@ components:
                 items:
                   type: string
                   description: list of apis available for this role group
-    ContentCreateErrorResponse:
+    roleContentCreateErrorResponse:
       title: Create Content Error Response
       allOf:
-      - $ref: '#/components/schemas/EmptyResult'
-      - $ref: '#/components/schemas/ResponseHeader'
+      - $ref: '#/components/schemas/roleEmptyResult'
+      - $ref: '#/components/schemas/roleResponseHeader'
   securitySchemes:
     bearer:
       type: apiKey
