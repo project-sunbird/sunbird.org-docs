@@ -155,9 +155,9 @@ paths:
     get:
       tags:
       - categories
-      summary: Get the category details
+      summary: Get the category details by category id
       description: |-
-        This app allow the user to get all the details of categories in nodebb
+        This app allow the user to get all the details of categories using cid in nodebb
           - The endpoint for **Category** is `/category/{cid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/category/{cid}
@@ -195,9 +195,9 @@ paths:
     put:
       tags:
       - categories
-      summary: Updates the already existing catrgory
+      summary: Updates the already existing catrgory details
       description: |-
-        This api can updated the category based on the category id which we created previously
+        This api can updated the category details based on the category id which we created previously
           - The endpoint for **Category** is `/v2/categories/{cid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/categories/{cid}
@@ -344,7 +344,7 @@ paths:
       - categories
       summary: Enable category
       description: |-
-        This app allow the user to delete a topic in nodebb
+        This app allow the user to enable the category(If the category is in disable state)
           - The endpoint for **Category** is `/v2/categories/{cid}/state`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/categories/{cid}/state
@@ -382,9 +382,9 @@ paths:
     delete:
       tags:
       - categories
-      summary: DisableCategories
+      summary: Disable Category
       description: |-
-        This app allow the user to delete a topic in nodebb
+        This api allow the user to disable category in nodebb
           - The endpoint for **Category** is `/v2/categories/{cid}/state`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/categories/{cid}/state
@@ -425,7 +425,7 @@ paths:
       - categories
       summary: Add privileges to category
       description: |-
-        This app allow the user to add privilages to a topic in nodebb
+        This api allow the user to add privilages to category in nodebb.
           - The endpoint for **Category** is `/v2/categories/{cid}/privileges`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/categories/{cid}/privileges
@@ -473,9 +473,9 @@ paths:
     delete:
       tags:
       - categories
-      summary: DisableCategories
+      summary: Remove privileges for a category
       description: |-
-        This app allow the user to delete a topic in nodebb
+        This api allow user to remove privileges for a category in nodebb.
           - The endpoint for **Category** is `/v2/categories/{cid}/state`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/categories/{cid}/privileges
@@ -516,8 +516,8 @@ paths:
       - users
       summary: Fetch nodebb user details
       description: |-
-        This api is used for fetching the user details from Nodebb.
-          - The endpoint for **Category** is `/user/{userslug}`
+        This api is used for fetching the user details based on user slug from Nodebb.
+          - The endpoint for **User** is `/user/{userslug}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/user/{userslug}
       operationId: GetUserDetails
@@ -557,7 +557,7 @@ paths:
       summary: Fetch user upvoted posts list
       description: |-
         This api is used for fetching the user upvote details from Nodebb.
-          - The endpoint for **Category** is `/user/{userslug}/upvoted`
+          - The endpoint for **User** is `/user/{userslug}/upvoted`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/user/{userslug}/upvoted
       operationId: GetUserUpvoteDetails
@@ -597,7 +597,7 @@ paths:
       summary: Fetch user downvoted posts list
       description: |-
         This api is used for fetching the user down vote details from Nodebb.
-          - The endpoint for **Category** is `/user/{userslug}/downvoted`
+          - The endpoint for **User** is `/user/{userslug}/downvoted`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/user/{userslug}/downvoted
       operationId: GetUserDownvoteDetails
@@ -637,7 +637,7 @@ paths:
       summary: Fetch user bookmarked posts
       description: |-
         This api is used for fetching the user bookmark post details from Nodebb.
-          - The endpoint for **Category** is `/user/{userslug}/bookmarks`
+          - The endpoint for **User** is `/user/{userslug}/bookmarks`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/user/{userslug}/bookmarks
       operationId: GetUserBookmarkDetails
@@ -677,7 +677,7 @@ paths:
       summary: Create new user in nodebb
       description: |-
         This api is used for creating the user in Nodebb.
-          - The endpoint for **Category** is `/v2/users`
+          - The endpoint for **User** is `/v2/users`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/users
       operationId: CreateNewUser
@@ -724,7 +724,7 @@ paths:
       summary: Updates a user's profile information
       description: |-
         This api is used for updates user's profile information in Nodebb.
-          - The endpoint for **Category** is `/v2/users/{uid}`
+          - The endpoint for **User** is `/v2/users/{uid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/users/{uid}
       operationId: UpdateUserInfo
@@ -781,7 +781,7 @@ paths:
       summary: Deletes a user from NodeBB
       description: |-
         This api is used for deleting user in Nodebb.
-          - The endpoint for **Category** is `/v2/users/{uid}`
+          - The endpoint for **User** is `/v2/users/{uid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/users/{uid}
       operationId: DeleteUser
@@ -818,9 +818,9 @@ paths:
     post:
       tags:
       - users
-      summary: Create new user in nodebb OIDC
+      summary: Create new user in nodebb Sunbird OIDC
       description: |-
-        This api is used for creating the user in Nodebb.
+        This api is used for creating the user in Nodebb usig Sunbird OIDC plugin.
           - The endpoint for **User** is `/user/v1/create`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/user/v1/create
@@ -880,7 +880,7 @@ paths:
       summary: Get unread topics
       description: |-
         This api allow the user to get all the unread topics in nodebb
-          - The endpoint for **Category** is `/unread`
+          - The endpoint for **Topics** is `/unread`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/unread
       operationId: GetUnreadTopics
@@ -913,7 +913,7 @@ paths:
       summary: Get recent topics
       description: |-
         This api allow the user to get all the recent topics in nodebb
-          - The endpoint for **Category** is `/recent`
+          - The endpoint for **Topics** is `/recent`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/recent
       operationId: GetRecentTopics
@@ -946,7 +946,7 @@ paths:
       summary: Get popular topics
       description: |-
         This api allow the user to get all the popular topics in nodebb
-          - The endpoint for **Category** is `/recent`
+          - The endpoint for **Topics** is `/recent`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/popular
       operationId: GetPopularTopics
@@ -979,7 +979,7 @@ paths:
       summary: Get top topics
       description: |-
         This api allow the user to get all top topics in nodebb
-          - The endpoint for **Category** is `/top`
+          - The endpoint for **Topics** is `/top`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/top
       operationId: GetTopTopics
@@ -1102,7 +1102,7 @@ paths:
       summary: Get Total count
       description: |-
         This api allow the user to get count of topics in nodebb
-          - The endpoint for **Category** is `/unread/total`
+          - The endpoint for **Topics** is `/unread/total`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/unread/total
       operationId: GetCountOfTopics
@@ -1139,8 +1139,8 @@ paths:
       - topics
       summary: Get teaser of topic
       description: |-
-        This api allow the user to get count of topics in nodebb
-          - The endpoint for **Category** is `/topic/teaser/{topic_id}`
+        This api allow the user to get teaser details of topic in nodebb
+          - The endpoint for **Topics** is `/topic/teaser/{topic_id}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/topic/teaser/{topic_id}
       operationId: GetTeaserOfTopics
@@ -1226,7 +1226,7 @@ paths:
       summary: Get topics details
       description: |-
         This api allow the user to get topics details in nodebb
-          - The endpoint for **Category** is `/topic/{topic_id}/{slug}`
+          - The endpoint for **Topics** is `/topic/{topic_id}/{slug}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/topic/{topic_id}/{slug}
       operationId: GetTopicsDetails
@@ -1270,10 +1270,10 @@ paths:
     get:
       tags:
       - topics
-      summary: Get Paginate topics
+      summary: Get Paginate details topics
       description: |-
         This api allow the user to get paginations topics in nodebb
-          - The endpoint for **Category** is `/topic/pagination/{topic_id}`
+          - The endpoint for **Topics** is `/topic/pagination/{topic_id}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/topic/pagination/{topic_id}
       operationId: GetPaginationTopics
@@ -1313,7 +1313,7 @@ paths:
       summary: Create new topic
       description: |-
         This app allow the user to create new topic in nodebb
-          - The endpoint for **Category** is `/v2/topics`
+          - The endpoint for **Topics** is `/v2/topics`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics
       operationId: CreateNewTopic
@@ -1369,7 +1369,7 @@ paths:
       summary: Delete a topic (Soft delete)
       description: |-
         This app allow the user to delete a topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}/state`
+          - The endpoint for **Topics** is `/v2/topics/{tid}/state`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}/state
       operationId: SoftDeleteTopic
@@ -1409,8 +1409,8 @@ paths:
       - topics
       summary: Follow a Post
       description: |-
-        This app allow the user to delete a topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}/state`
+        This api allow the user to follow a topic in nodebb
+          - The endpoint for **Topics** is `/v2/topics/{tid}/state`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}/follow
       operationId: FollowTopic
@@ -1449,7 +1449,7 @@ paths:
       - topics
       summary: UnFollow a Post
       description: |-
-        This app allow the user to unfollow a topic in nodebb
+        This api allow the user to unfollow a topic in nodebb
           - The endpoint for **Category** is `/v2/topics/{tid}/state`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}/follow
@@ -1488,10 +1488,10 @@ paths:
     put:
       tags:
       - topics
-      summary: Follow a Post
+      summary: Add tags for a topic
       description: |-
-        This app allow the user to add tags to a topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}/tags`
+        This api allow the user to add tags to a topic in nodebb
+          - The endpoint for **Topics** is `/v2/topics/{tid}/tags`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}/tags
       operationId: AddTagsToTopic
@@ -1533,13 +1533,13 @@ paths:
     delete:
       tags:
       - topics
-      summary: Follow a Post
+      summary: Delete tags for a topic
       description: |-
-        This app allow the user to add tags to a topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}/tags`
+        This app allow the user to delete tags to a topic in nodebb
+          - The endpoint for **Topics** is `/v2/topics/{tid}/tags`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}/tags
-      operationId: DaleteTagsToTopic
+      operationId: DaleteTagsForTopic
       parameters:
       - name: Authorization
         in: header
@@ -1577,7 +1577,7 @@ paths:
       summary: Pin a Post
       description: |-
         This app allow the user to pin to a topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}/pin`
+          - The endpoint for **Topics** is `/v2/topics/{tid}/pin`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}/pin
       operationId: PinTagsToTopic
@@ -1619,10 +1619,10 @@ paths:
     delete:
       tags:
       - topics
-      summary: Follow a Post
+      summary: Unpin a topic
       description: |-
-        This app allow the user to add tags to a topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}/pin`
+        This api allow the user to unpin a topic in nodebb
+          - The endpoint for **Topics** is `/v2/topics/{tid}/pin`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}/pin
       operationId: UnPinTagsToTopic
@@ -1662,8 +1662,8 @@ paths:
       - topics
       summary: Updates a post in a topic
       description: |-
-        This app allow the user to update topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}`
+        This app allow the user to update topic details in nodebb
+          - The endpoint for **Topics** is `/v2/topics/{tid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}
       operationId: UpdateTopic
@@ -1719,8 +1719,8 @@ paths:
       - topics
       summary: Create new reply topic
       description: |-
-        This app allow the user to create new reply to topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}`
+        This api allow the user to create new reply to topic in nodebb
+          - The endpoint for **Topics** is `/v2/topics/{tid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}
       operationId: CreateNewReplyToTopic
@@ -1771,8 +1771,8 @@ paths:
       - topics
       summary: delete topic
       description: |-
-        This app allow the user to delete topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}`
+        This api allow the user to delete topic in nodebb
+          - The endpoint for **Topics** is `/v2/topics/{tid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}
       operationId: DeleteTopic
@@ -1812,7 +1812,7 @@ paths:
       summary: Get group list
       description: |-
         This api allows the user to get the group list in nodebb
-          - The endpoint for **Category** is `/groups`
+          - The endpoint for **Groups** is `/groups`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/groups
       operationId: GetGroupList
@@ -1842,10 +1842,10 @@ paths:
     get:
       tags:
       - groups
-      summary: Get group list
+      summary: Get group Details
       description: |-
-        This api allows the user to get the group list in nodebb
-          - The endpoint for **Category** is `/groups/{slug}`
+        This api allows the user to get the group details in nodebb
+          - The endpoint for **Groups** is `/groups/{slug}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/groups/{slug}
       operationId: GetGroupDetails
@@ -1884,8 +1884,8 @@ paths:
       - groups
       summary: Create new group
       description: |-
-        This app allow the user to create new group in nodebb
-          - The endpoint for **Category** is `/v2/groups`
+        This api allow the user to create new group in nodebb
+          - The endpoint for **Groups** is `/v2/groups`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/groups
       operationId: CreateNewGroup
@@ -1934,7 +1934,7 @@ paths:
       summary: Deletes a group
       description: |-
         This app allow the user to delete group in nodebb
-          - The endpoint for **Category** is `/v2/groups/{slug}`
+          - The endpoint for **Groups** is `/v2/groups/{slug}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/groups/{slug}
       operationId: DeleteGroup
@@ -1973,8 +1973,8 @@ paths:
       - groups
       summary: Join to group
       description: |-
-        This app allow the user to join to group in nodebb
-          - The endpoint for **Category** is `/v2/groups/{slug}/membership`
+        This api allow the user to join to group in nodebb
+          - The endpoint for **Groups** is `/v2/groups/{slug}/membership`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/groups/{slug}/membership
       operationId: JoinToNewGroup
@@ -2013,8 +2013,8 @@ paths:
       - groups
       summary: Exit from group
       description: |-
-        This app allow the user to Exit from group in nodebb
-          - The endpoint for **Category** is `/v2/groups/{slug}/membership`
+        This api allow the user to Exit from group in nodebb
+          - The endpoint for **Groups** is `/v2/groups/{slug}/membership`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/groups/{slug}/membership
       operationId: ExitFromNewGroup
@@ -2054,8 +2054,8 @@ paths:
       - groups
       summary: Add User to group
       description: |-
-        This app allow the user to Add user to group in nodebb
-          - The endpoint for **Category** is `/v2/groups/{slug}/membership/{uid}`
+        This api allow the user to Add user to group in nodebb
+          - The endpoint for **Groups** is `/v2/groups/{slug}/membership/{uid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/groups/{slug}/membership/{uid}
       operationId: AddUserIntoGroup
@@ -2102,7 +2102,7 @@ paths:
       summary: Remove User from group
       description: |-
         This app allow the user to rempve user from group in nodebb
-          - The endpoint for **Category** is `/v2/groups/{slug}/membership/{uid}`
+          - The endpoint for **Groups** is `/v2/groups/{slug}/membership/{uid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/groups/{slug}/membership/{uid}
       operationId: RemoveUserFromGroup
@@ -2150,7 +2150,7 @@ paths:
       summary: Edits a post by post ID
       description: |-
         This api allows the user to edit post in the nodebb
-          - The endpoint for **Category** is `/v2/posts/{pid}`
+          - The endpoint for **Post** is `/v2/posts/{pid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/posts/{pid}
       operationId: UpdatePost
@@ -2205,7 +2205,7 @@ paths:
       summary: Delete a post by post ID
       description: |-
         This api allows the user to delete post in the nodebb
-          - The endpoint for **Category** is `/v2/posts/{pid}`
+          - The endpoint for **Post** is `/v2/posts/{pid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/posts/{pid}
       operationId: DeletePost
@@ -2245,7 +2245,7 @@ paths:
       summary: Vote a post by post ID
       description: |-
         This api allows the user to vote(Up/down) to post in the nodebb
-          - The endpoint for **Category** is `/v2/posts/{pid}/vote`
+          - The endpoint for **Post** is `/v2/posts/{pid}/vote`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/posts/{pid}/vote
       operationId: VotePost
@@ -2302,7 +2302,7 @@ paths:
       summary: Unvotes a post by post ID
       description: |-
         This api allows the user to delete vote(Up/down) to post in the nodebb
-          - The endpoint for **Category** is `/v2/posts/{pid}/vote`
+          - The endpoint for **Post** is `/v2/posts/{pid}/vote`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/posts/{pid}/vote
       operationId: UnvotesPost
@@ -2342,7 +2342,7 @@ paths:
       summary: Bookmarks a post by post ID
       description: |-
         This api allows the user to Bookmarks a post in the nodebb
-          - The endpoint for **Category** is `/v2/posts/{pid}/bookmark`
+          - The endpoint for **Post** is `/v2/posts/{pid}/bookmark`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/posts/{pid}/bookmark
       operationId: BookmarksPost
@@ -2381,7 +2381,7 @@ paths:
       summary: Unbookmarks a post by post ID
       description: |-
         This api allows the user to Unbookmarks a post in the nodebb
-          - The endpoint for **Category** is `/v2/posts/{pid}/bookmark`
+          - The endpoint for **Post** is `/v2/posts/{pid}/bookmark`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/posts/{pid}/bookmark
       operationId: UnbookmarksPost
@@ -2421,7 +2421,7 @@ paths:
       summary: Restores a post
       description: |-
         This api allows the user to Restores a post in the nodebb
-          - The endpoint for **Category** is `/v2/posts/{pid}/state`
+          - The endpoint for **Post** is `/v2/posts/{pid}/state`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/posts/{pid}/state
       operationId: RestorePost
@@ -2460,7 +2460,7 @@ paths:
       summary: Deletes a post
       description: |-
         This api allows the user to Deletes a post in the nodebb
-          - The endpoint for **Category** is `/v2/posts/{pid}/state`
+          - The endpoint for **Post** is `/v2/posts/{pid}/state`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/v2/posts/{pid}/state
       operationId: SoftDeletePost
@@ -2500,7 +2500,7 @@ paths:
       summary: Get Forum Id
       description: |-
         This app allow the user to get the Forum Id
-          - The endpoint for **Category** is `/forumId/{id}`
+          - The endpoint for **Forum** is `/forumId/{id}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/forum/v2/read
       operationId: GetForumID
@@ -2543,7 +2543,7 @@ paths:
       summary: Create forum id
       description: |-
         This app allow the user to create new Forum Id
-          - The endpoint for **Category** is `/forum`
+          - The endpoint for **Forum** is `/forum`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - Backend Route: http://nodebb-service:4567/discussions/api/forum/v2/create
       operationId: CreateForumID
@@ -2587,7 +2587,7 @@ paths:
       summary: Get list of all tags
       description: |-
         This API is used to fetch tags from NodeBB.
-           - The endpoint for **Category** is `/tags`
+           - The endpoint for **Tags** is `/tags`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
            - Backend Route: http://nodebb-service:4567/discussions/api/tags
       operationId: GetTags
