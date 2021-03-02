@@ -2,28 +2,25 @@ openapi: 3.0.1
 info:
   title: Discussions Forum
   description: |-
-    The discussions forum allows the user to perticipate in multiple discussion.
-      - User can create multiple categories, under each category he can perform multiple discussions.
-      - User can post the questions.
-      - User can reply to the post.
-      - User can upvote or downvote to the posts.
+    The Discussions Forum API allows users to participate in multiple discussions on the forum. They can:
+      - create multiple discussion categories and have many discussions under each category.
+      - post the questions
+      - reply to posts
+      - upvote or downvote posts
   version: 1.0.0
-externalDocs:
-  description: Find out more about Swagger
-  url: http://swagger.io
 servers:
-- url: https://disussionsmw-service:3002/discussion
-- url: http://disussionsmw-service:3002/discussion
+- url: https://staging.sunbirded.org/api
 paths:
-  /categories:
+  /discussion/categories:
     get:
       tags:
       - categories
       summary: Get list of all categories
       description: |-
-        This API is used to fetch categories from NodeBB.
+        This api is used to fetch all categories from nodebb.
            - The endpoint for **Category** is `/categories`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+           - Backend Route: http://nodebb-service:4567/discussions/api/categories
       operationId: GetCategories
       parameters:
       - name: Authorization
@@ -35,30 +32,31 @@ paths:
           type: string
       responses:
         "200":
-          description: successful operation
+          description: Successful operation
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ListOfCategories'
+                  $ref: '#/components/schemas/discussionForumListOfCategories'
                 x-content-type: application/json
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Categories
-  /v2/categories:
+  /discussion/v2/categories:
     post:
       tags:
       - categories
       summary: Add a new category
       description: |-
-        This api allows the user to create new category in the nodebb
+        This api allows the user to create a new category in nodebb
           - The endpoint for **Category** is `/v2/categories`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/categories
       operationId: CreateCategory
       parameters:
       - name: Authorization
@@ -72,7 +70,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Category'
+              $ref: '#/components/schemas/discussionForumCategory'
             examples:
               a:
                 summary: Create simple category
@@ -94,24 +92,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CategoryResponse'
+                $ref: '#/components/schemas/discussionForumCategoryResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Categories
-  /category/{category_id}/{slug}:
+  /discussion/category/{category_id}/{slug}:
     get:
       tags:
       - categories
-      summary: Get the category details
+      summary: Get category details
       description: |-
-        This app allow the user to get all the details of categories in nodebb
+        This api allows the user to get all details of a category by using categoryId and slug from nodebb.
           - The endpoint for **Category** is `/category/{category_id}/{slug}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/category/{category_id}/{slug}
       operationId: GetCategoryDetails
       parameters:
       - name: Authorization
@@ -141,23 +140,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CategoryDetails'
+                $ref: '#/components/schemas/discussionForumCategoryDetails'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Categories
-  /category/{cid}:
+  /discussion/category/{cid}:
     get:
       tags:
       - categories
-      summary: Get the category details
+      summary: Get the category details by category id
       description: |-
-        This app allow the user to get all the details of categories in nodebb
+        This api allow the user to get all the details of categories using categoryId from nodebb
           - The endpoint for **Category** is `/category/{cid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/category/{cid}
       operationId: GetCategoryDetailsById
       parameters:
       - name: Authorization
@@ -180,23 +180,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CategoryDetails'
+                $ref: '#/components/schemas/discussionForumCategoryDetails'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Categories
-  /v2/categories/{cid}:
+  /discussion/v2/categories/{cid}:
     put:
       tags:
       - categories
-      summary: Updates the already existing catrgory
+      summary: Updates already existing catrgory details
       description: |-
-        This api can updated the category based on the category id which we created previously
+        This api can updated the category details based on the category id which we created previously
           - The endpoint for **Category** is `/v2/categories/{cid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/categories/{cid}
       operationId: UpdateCategory
       parameters:
       - name: Authorization
@@ -217,7 +218,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Category'
+              $ref: '#/components/schemas/discussionForumCategory'
             examples:
               a:
                 summary: Update the category
@@ -234,13 +235,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CategoryResponse'
+                $ref: '#/components/schemas/discussionForumCategoryResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Categories
     delete:
@@ -248,9 +249,10 @@ paths:
       - categories
       summary: Delete the Category
       description: |-
-        This api allows the user to delete the existing category in nodebb
+        This api allows the user to delete the existing category by using categoryID from nodebb
           - The endpoint for **Category** is `/v2/categories/{cid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/categories/{cid}
       operationId: DeleteCategory
       parameters:
       - name: Authorization
@@ -273,23 +275,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Categories
-  /v2/categories/{cid}/moderators:
+  /discussion/v2/categories/{cid}/moderators:
     get:
       tags:
       - categories
       summary: Get the moderators list for a category
       description: |-
-        This api can get the category moderators based on the category id which we created previously
+        This api can get the list of category moderators based on the category ID that we created previously
           - The endpoint for **Category** is `/v2/categories/{cid}/moderators`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/categories/{cid}/moderators
       operationId: GetModeratorsList
       parameters:
       - name: Authorization
@@ -312,7 +315,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ModeratorsResponse'
+                $ref: '#/components/schemas/discussionForumModeratorsResponse'
               examples:
                 a:
                   summary: "Success response"
@@ -329,18 +332,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Categories    
-  /v2/categories/{cid}/state:
+  /discussion/v2/categories/{cid}/state:
     put:
       tags:
       - categories
       summary: Enable category
       description: |-
-        This app allow the user to delete a topic in nodebb
+        This api allow the user to enable the category(If the category is in disable state)
           - The endpoint for **Category** is `/v2/categories/{cid}/state`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/categories/{cid}/state
       operationId: EnableCategories
       parameters:
       - name: Authorization
@@ -363,23 +367,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Categories  
     delete:
       tags:
       - categories
-      summary: DisableCategories
+      summary: Disable Category
       description: |-
-        This app allow the user to delete a topic in nodebb
+        This api allow the user to disable category in nodebb
           - The endpoint for **Category** is `/v2/categories/{cid}/state`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/categories/{cid}/state
       operationId: DisableCategories
       parameters:
       - name: Authorization
@@ -402,24 +407,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Categories  
-  /v2/categories/{cid}/privileges:
+  /discussion/v2/categories/{cid}/privileges:
     put:
       tags:
       - categories
       summary: Add privileges to category
       description: |-
-        This app allow the user to add privilages to a topic in nodebb
+        This api allow the user to add privilages for category in nodebb.
           - The endpoint for **Category** is `/v2/categories/{cid}/privileges`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/categories/{cid}/privileges
       operationId: AddPrivilagesToCategories
       parameters:
       - name: Authorization
@@ -440,7 +446,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AddPrivilagesToCategory'
+              $ref: '#/components/schemas/discussionForumAddPrivilagesToCategory'
             examples:
               a:
                 summary: Success operation
@@ -452,23 +458,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Categories  
     delete:
       tags:
       - categories
-      summary: DisableCategories
+      summary: Remove privileges for a category
       description: |-
-        This app allow the user to delete a topic in nodebb
+        This api allow user to remove privileges for a category in nodebb.
           - The endpoint for **Category** is `/v2/categories/{cid}/state`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/categories/{cid}/privileges
       operationId: RemovePrivilagesCategories
       parameters:
       - name: Authorization
@@ -491,24 +498,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Categories      
-  /user/{userslug}:
+  /discussion/user/{userslug}:
     get:
       tags:
       - users
       summary: Fetch nodebb user details
       description: |-
-        This api is used for fetching the user details from Nodebb.
-          - The endpoint for **Category** is `/user/{userslug}`
+        This api is used for fetching the user details based on user slug from nodebb.
+          - The endpoint for **User** is `/user/{userslug}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/user/{userslug}
       operationId: GetUserDetails
       parameters:
       - name: Authorization
@@ -531,23 +539,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDetails'
+                $ref: '#/components/schemas/discussionForumUserDetails'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Users
-  /user/{userslug}/upvoted:
+  /discussion/user/{userslug}/upvoted:
     get:
       tags:
       - users
       summary: Fetch user upvoted posts list
       description: |-
-        This api is used for fetching the user upvote details from Nodebb.
-          - The endpoint for **Category** is `/user/{userslug}/upvoted`
+        This api is used for fetching the user upvote details from nodebb.
+          - The endpoint for **User** is `/user/{userslug}/upvoted`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/user/{userslug}/upvoted
       operationId: GetUserUpvoteDetails
       parameters:
       - name: Authorization
@@ -570,23 +579,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDetails'
+                $ref: '#/components/schemas/discussionForumUserDetails'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Users
-  /user/{userslug}/downvoted:
+  /discussion/user/{userslug}/downvoted:
     get:
       tags:
       - users
       summary: Fetch user downvoted posts list
       description: |-
-        This api is used for fetching the user down vote details from Nodebb.
-          - The endpoint for **Category** is `/user/{userslug}/downvoted`
+        This api is used for fetching the user down vote details from nodebb.
+          - The endpoint for **User** is `/user/{userslug}/downvoted`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/user/{userslug}/downvoted
       operationId: GetUserDownvoteDetails
       parameters:
       - name: Authorization
@@ -609,23 +619,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDetails'
+                $ref: '#/components/schemas/discussionForumUserDetails'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Users
-  /user/{userslug}/bookmarks:
+  /discussion/user/{userslug}/bookmarks:
     get:
       tags:
       - users
       summary: Fetch user bookmarked posts
       description: |-
-        This api is used for fetching the user bookmark post details from Nodebb.
-          - The endpoint for **Category** is `/user/{userslug}/bookmarks`
+        This api is used for fetching the user bookmark post details from nodebb.
+          - The endpoint for **User** is `/user/{userslug}/bookmarks`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/user/{userslug}/bookmarks
       operationId: GetUserBookmarkDetails
       parameters:
       - name: Authorization
@@ -648,23 +659,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDetails'
+                $ref: '#/components/schemas/discussionForumUserDetails'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Users
-  /v2/users:
+  /discussion/v2/users:
     post:
       tags:
       - users
-      summary: Create new user in nodebb
+      summary: Create new user in nodebb using write api plugin
       description: |-
-        This api is used for creating the user in Nodebb.
-          - The endpoint for **Category** is `/v2/users`
+        This api is used for creating the user in nodebb using write api plugin.
+          - The endpoint for **User** is `/v2/users`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/users
       operationId: CreateNewUser
       parameters:
       - name: Authorization
@@ -678,7 +690,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateUser'
+              $ref: '#/components/schemas/discussionForumCreateUser'
             examples:
               a:
                 summary: Create user
@@ -693,24 +705,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateUserResponse'
+                $ref: '#/components/schemas/discussionForumCreateUserResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Users
-  /v2/users/{uid}:
+  /discussion/v2/users/{uid}:
     put:
       tags:
       - users
       summary: Updates a user's profile information
       description: |-
-        This api is used for updates user's profile information in Nodebb.
-          - The endpoint for **Category** is `/v2/users/{uid}`
+        This api is used to update user's profile information in nodebb.
+          - The endpoint for **User** is `/v2/users/{uid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/users/{uid}
       operationId: UpdateUserInfo
       parameters:
       - name: Authorization
@@ -731,7 +744,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateUserInfo'
+              $ref: '#/components/schemas/discussionForumUpdateUserInfo'
             examples:
               a:
                 summary: Update user info
@@ -750,23 +763,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PostOperationResponse'
+                $ref: '#/components/schemas/discussionForumPostOperationResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Users
     delete:
       tags:
       - users
-      summary: Deletes a user from NodeBB
+      summary: Deletes a user from nodebb
       description: |-
-        This api is used for deleting user in Nodebb.
-          - The endpoint for **Category** is `/v2/users/{uid}`
+        This api is used for deleting user in nodebb.
+          - The endpoint for **User** is `/v2/users/{uid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/users/{uid}
       operationId: DeleteUser
       parameters:
       - name: Authorization
@@ -789,23 +803,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PostOperationResponse'
+                $ref: '#/components/schemas/discussionForumPostOperationResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Users
-  /user/v1/create:
+  /discussion/user/v1/create:
     post:
       tags:
       - users
-      summary: Create new user in nodebb OIDC
+      summary: Create new user in nodebb Sunbird OIDC
       description: |-
-        This api is used for creating the user in Nodebb.
+        This api is used for creating the user in nodebb usig Sunbird OIDC plugin.
           - The endpoint for **User** is `/user/v1/create`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/user/v1/create
       operationId: CreateNewUserUsingOIDC
       parameters:
       - name: Authorization
@@ -819,7 +834,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateUserOIDC'
+              $ref: '#/components/schemas/discussionForumCreateUserOIDC'
             examples:
               a:
                 summary: Create user
@@ -846,24 +861,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateUserResponseOIDC'
+                $ref: '#/components/schemas/discussionForumCreateUserResponseOIDC'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Users
-  /unread:
+  /discussion/unread:
     get:
       tags:
       - topics
       summary: Get unread topics
       description: |-
         This api allow the user to get all the unread topics in nodebb
-          - The endpoint for **Category** is `/unread`
+          - The endpoint for **Topics** is `/unread`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/unread
       operationId: GetUnreadTopics
       parameters:
       - name: Authorization
@@ -879,23 +895,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TopicResponse'
+                $ref: '#/components/schemas/discussionForumTopicResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Topics
-  /recent:
+  /discussion/recent:
     get:
       tags:
       - topics
       summary: Get recent topics
       description: |-
         This api allow the user to get all the recent topics in nodebb
-          - The endpoint for **Category** is `/recent`
+          - The endpoint for **Topics** is `/recent`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/recent
       operationId: GetRecentTopics
       parameters:
       - name: Authorization
@@ -911,23 +928,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TopicResponse'
+                $ref: '#/components/schemas/discussionForumTopicResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Topics
-  /popular:
+  /discussion/popular:
     get:
       tags:
       - topics
       summary: Get popular topics
       description: |-
         This api allow the user to get all the popular topics in nodebb
-          - The endpoint for **Category** is `/recent`
+          - The endpoint for **Topics** is `/recent`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/popular
       operationId: GetPopularTopics
       parameters:
       - name: Authorization
@@ -943,23 +961,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TopicResponse'
+                $ref: '#/components/schemas/discussionForumTopicResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Topics
-  /top:
+  /discussion/top:
     get:
       tags:
       - topics
       summary: Get top topics
       description: |-
         This api allow the user to get all top topics in nodebb
-          - The endpoint for **Category** is `/top`
+          - The endpoint for **Topics** is `/top`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/top
       operationId: GetTopTopics
       parameters:
       - name: Authorization
@@ -975,7 +994,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TopTopicResponse'
+                $ref: '#/components/schemas/discussionForumTopTopicResponse'
               examples:
                 a:
                   summary: 'Success response'
@@ -1071,17 +1090,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Topics    
-  /unread/total:
+  /discussion/unread/total:
     get:
       tags:
       - topics
-      summary: Get Total count
+      summary: Get total count
       description: |-
-        This api allow the user to get count of topics in nodebb
-          - The endpoint for **Category** is `/unread/total`
+        This api allow the user to get count of unread topics in nodebb
+          - The endpoint for **Topics** is `/unread/total`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/unread/total
       operationId: GetCountOfTopics
       parameters:
       - name: Authorization
@@ -1097,7 +1117,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CountOfTopic'
+                $ref: '#/components/schemas/discussionForumCountOfTopic'
               examples:
                 a:
                   summary: "success response"
@@ -1108,17 +1128,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Topics    
-  /topic/teaser/{topic_id}:
+  /discussion/topic/teaser/{topic_id}:
     get:
       tags:
       - topics
       summary: Get teaser of topic
       description: |-
-        This api allow the user to get count of topics in nodebb
-          - The endpoint for **Category** is `/topic/teaser/{topic_id}`
+        This api allow the user to get teaser details of topic in nodebb
+          - The endpoint for **Topics** is `/topic/teaser/{topic_id}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/topic/teaser/{topic_id}
       operationId: GetTeaserOfTopics
       parameters:
       - name: Authorization
@@ -1141,7 +1162,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TeaserTopicDetails'
+                $ref: '#/components/schemas/discussionForumTeaserTopicDetails'
               examples:
                 a:
                   summary: "success response"
@@ -1193,17 +1214,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Topics    
-  /topic/{topic_id}/{slug}:
+  /discussion/topic/{topic_id}/{slug}:
     get:
       tags:
       - topics
       summary: Get topics details
       description: |-
-        This api allow the user to get topics details in nodebb
-          - The endpoint for **Category** is `/topic/{topic_id}/{slug}`
+        This api allow the user to get topics details by using topicId ad slug from nodebb
+          - The endpoint for **Topics** is `/topic/{topic_id}/{slug}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/topic/{topic_id}/{slug}
       operationId: GetTopicsDetails
       parameters:
       - name: Authorization
@@ -1233,23 +1255,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TopicDetails'
+                $ref: '#/components/schemas/discussionForumTopicDetails'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Topics
-  /topic/pagination/{topic_id}:
+  /discussion/topic/pagination/{topic_id}:
     get:
       tags:
       - topics
-      summary: Get Paginate topics
+      summary: Get Paginate details topics
       description: |-
         This api allow the user to get paginations topics in nodebb
-          - The endpoint for **Category** is `/topic/pagination/{topic_id}`
+          - The endpoint for **Topics** is `/topic/pagination/{topic_id}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/topic/pagination/{topic_id}
       operationId: GetPaginationTopics
       parameters:
       - name: Authorization
@@ -1272,23 +1295,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TopicPaginationResponse'
+                $ref: '#/components/schemas/discussionForumTopicPaginationResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Topics
-  /v2/topics:
+  /discussion/v2/topics:
     post:
       tags:
       - topics
       summary: Create new topic
       description: |-
-        This app allow the user to create new topic in nodebb
-          - The endpoint for **Category** is `/v2/topics`
+        This api allow the user to create new topic in nodebb
+          - The endpoint for **Topics** is `/v2/topics`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics
       operationId: CreateNewTopic
       parameters:
       - name: Authorization
@@ -1302,7 +1326,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateTopicBody'
+              $ref: '#/components/schemas/discussionForumCreateTopicBody'
             examples:
               a:
                 summary: Create simple topic
@@ -1326,24 +1350,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateTopicResponse'
+                $ref: '#/components/schemas/discussionForumCreateTopicResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Topics
-  /v2/topics/{tid}/state:
+  /discussion/v2/topics/{tid}/state:
     put:
       tags:
       - topics
       summary: Delete a topic (Soft delete)
       description: |-
-        This app allow the user to delete a topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}/state`
+        This api allow the user to delete a topic in nodebb
+          - The endpoint for **Topics** is `/v2/topics/{tid}/state`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}/state
       operationId: SoftDeleteTopic
       parameters:
       - name: Authorization
@@ -1366,24 +1391,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Topics
-  /v2/topics/{tid}/follow:
+  /discussion/v2/topics/{tid}/follow:
     put:
       tags:
       - topics
-      summary: Follow a Post
+      summary: Follow a topic
       description: |-
-        This app allow the user to delete a topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}/state`
+        This api allow the user to follow a topic in nodebb
+          - The endpoint for **Topics** is `/v2/topics/{tid}/state`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}/follow
       operationId: FollowTopic
       parameters:
       - name: Authorization
@@ -1406,13 +1432,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Topics
     delete:
@@ -1420,9 +1446,10 @@ paths:
       - topics
       summary: UnFollow a Post
       description: |-
-        This app allow the user to unfollow a topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}/state`
+        This api allow the user to unfollow a topic in nodebb
+          - The endpoint for **Topics** is `/v2/topics/{tid}/state`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}/follow
       operationId: UnFollowTopic
       parameters:
       - name: Authorization
@@ -1445,24 +1472,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Topics 
-  /v2/topics/{tid}/tags:
+  /discussion/v2/topics/{tid}/tags:
     put:
       tags:
       - topics
-      summary: Follow a Post
+      summary: Add tags for a topic
       description: |-
-        This app allow the user to add tags to a topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}/tags`
+        This api allow the user to add tags to a topic in nodebb
+          - The endpoint for **Topics** is `/v2/topics/{tid}/tags`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}/tags
       operationId: AddTagsToTopic
       parameters:
       - name: Authorization
@@ -1483,31 +1511,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AddTagsToTopic'
+              $ref: '#/components/schemas/discussionForumAddTagsToTopic'
       responses:
         "200":
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Topics  
     delete:
       tags:
       - topics
-      summary: Follow a Post
+      summary: Delete tags for a topic
       description: |-
-        This app allow the user to add tags to a topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}/tags`
+        This api allow the user to delete tags for a topic in nodebb
+          - The endpoint for **Topics** is `/v2/topics/{tid}/tags`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: DaleteTagsToTopic
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}/tags
+      operationId: DaleteTagsForTopic
       parameters:
       - name: Authorization
         in: header
@@ -1529,24 +1558,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Topics  
-  /v2/topics/{tid}/pin:
+  /discussion/v2/topics/{tid}/pin:
     put:
       tags:
       - topics
-      summary: Pin a Post
+      summary: Pin a topic
       description: |-
-        This app allow the user to pin to a topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}/pin`
+        This api allow the user to pin to a topic in nodebb
+          - The endpoint for **Topics** is `/v2/topics/{tid}/pin`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}/pin
       operationId: PinTagsToTopic
       parameters:
       - name: Authorization
@@ -1567,30 +1597,31 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AddTagsToTopic'
+              $ref: '#/components/schemas/discussionForumAddTagsToTopic'
       responses:
         "200":
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Topics  
     delete:
       tags:
       - topics
-      summary: Follow a Post
+      summary: Unpin a topic
       description: |-
-        This app allow the user to add tags to a topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}/pin`
+        This api allow the user to unpin a topic in nodebb
+          - The endpoint for **Topics** is `/v2/topics/{tid}/pin`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}/pin
       operationId: UnPinTagsToTopic
       parameters:
       - name: Authorization
@@ -1613,24 +1644,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Topics      
-  /v2/topics/{tid}:
+  /discussion/v2/topics/{tid}:
     put:
       tags:
       - topics
-      summary: Updates a post in a topic
+      summary: Updates topic details
       description: |-
-        This app allow the user to update topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}`
+        This api allow the user to update topic details in nodebb
+          - The endpoint for **Topics** is `/v2/topics/{tid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}
       operationId: UpdateTopic
       parameters:
       - name: Authorization
@@ -1651,7 +1683,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateTopicBody'
+              $ref: '#/components/schemas/discussionForumUpdateTopicBody'
             examples:
               a:
                 summary: Update topic
@@ -1670,23 +1702,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateTopicResponse'
+                $ref: '#/components/schemas/discussionForumCreateTopicResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Topics
     post:
       tags:
       - topics
-      summary: Create new reply topic
+      summary: Create new reply to topic
       description: |-
-        This app allow the user to create new reply to topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}`
+        This api allow the user to create new reply to topic in nodebb
+          - The endpoint for **Topics** is `/v2/topics/{tid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}
       operationId: CreateNewReplyToTopic
       parameters:
       - name: Authorization
@@ -1707,7 +1740,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateReplyBody'
+              $ref: '#/components/schemas/discussionForumCreateReplyBody'
             examples:
               a:
                 summary: Create Reply
@@ -1721,13 +1754,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateTopicResponse'
+                $ref: '#/components/schemas/discussionForumCreateTopicResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Topics
     delete:
@@ -1735,9 +1768,10 @@ paths:
       - topics
       summary: delete topic
       description: |-
-        This app allow the user to delete topic in nodebb
-          - The endpoint for **Category** is `/v2/topics/{tid}`
+        This api allow the user to delete topic in nodebb
+          - The endpoint for **Topics** is `/v2/topics/{tid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/topics/{tid}
       operationId: DeleteTopic
       parameters:
       - name: Authorization
@@ -1760,23 +1794,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateTopicResponse'
+                $ref: '#/components/schemas/discussionForumCreateTopicResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Topics
-  /groups:
+  /discussion/groups:
     get:
       tags:
       - groups
       summary: Get group list
       description: |-
-        This api allows the user to get the group list in nodebb
-          - The endpoint for **Category** is `/groups`
+        This api allows the user to get the groups list in nodebb
+          - The endpoint for **Groups** is `/groups`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/groups
       operationId: GetGroupList
       parameters:
       - name: Authorization
@@ -1792,23 +1827,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GroupListResponse'
+                $ref: '#/components/schemas/discussionForumGroupListResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Groups
-  /groups/{slug}:
+  /discussion/groups/{slug}:
     get:
       tags:
       - groups
-      summary: Get group list
+      summary: Get group Details
       description: |-
-        This api allows the user to get the group list in nodebb
-          - The endpoint for **Category** is `/groups/{slug}`
+        This api allows the user to get the group details in nodebb
+          - The endpoint for **Groups** is `/groups/{slug}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/groups/{slug}
       operationId: GetGroupDetails
       parameters:
       - name: Authorization
@@ -1831,23 +1867,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GroupDetailsResponse'
+                $ref: '#/components/schemas/discussionForumGroupDetailsResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Groups
-  /v2/groups:
+  /discussion/v2/groups:
     post:
       tags:
       - groups
       summary: Create new group
       description: |-
-        This app allow the user to create new group in nodebb
-          - The endpoint for **Category** is `/v2/groups`
+        This api allow the user to create new group in nodebb
+          - The endpoint for **Groups** is `/v2/groups`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/groups
       operationId: CreateNewGroup
       parameters:
       - name: Authorization
@@ -1861,7 +1898,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GroupRequestBody'
+              $ref: '#/components/schemas/discussionForumGroupRequestBody'
             examples:
               a:
                 summary: Create group
@@ -1878,24 +1915,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GroupResponse'
+                $ref: '#/components/schemas/discussionForumGroupResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Groups
-  /v2/groups/{slug}:
+  /discussion/v2/groups/{slug}:
     delete:
       tags:
       - groups
       summary: Deletes a group
       description: |-
-        This app allow the user to delete group in nodebb
-          - The endpoint for **Category** is `/v2/groups/{slug}`
+        This api allow the user to delete group in nodebb
+          - The endpoint for **Groups** is `/v2/groups/{slug}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/groups/{slug}
       operationId: DeleteGroup
       parameters:
       - name: Authorization
@@ -1918,23 +1956,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PostOperationResponse'
+                $ref: '#/components/schemas/discussionForumPostOperationResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Groups
-  /v2/groups/{slug}/membership:
+  /discussion/v2/groups/{slug}/membership:
     put:
       tags:
       - groups
       summary: Join to group
       description: |-
-        This app allow the user to join to group in nodebb
-          - The endpoint for **Category** is `/v2/groups/{slug}/membership`
+        This api allow the user to join to group in nodebb
+          - The endpoint for **Groups** is `/v2/groups/{slug}/membership`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/groups/{slug}/membership
       operationId: JoinToNewGroup
       parameters:
       - name: Authorization
@@ -1957,13 +1996,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Groups
     delete:
@@ -1971,9 +2010,10 @@ paths:
       - groups
       summary: Exit from group
       description: |-
-        This app allow the user to Exit from group in nodebb
-          - The endpoint for **Category** is `/v2/groups/{slug}/membership`
+        This api allow the user to Exit from group in nodebb
+          - The endpoint for **Groups** is `/v2/groups/{slug}/membership`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/groups/{slug}/membership
       operationId: ExitFromNewGroup
       parameters:
       - name: Authorization
@@ -1996,24 +2036,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Groups 
-  /v2/groups/{slug}/membership/{uid}:
+  /discussion/v2/groups/{slug}/membership/{uid}:
     put:
       tags:
       - groups
       summary: Add User to group
       description: |-
-        This app allow the user to Add user to group in nodebb
-          - The endpoint for **Category** is `/v2/groups/{slug}/membership/{uid}`
+        This api allow the user to Add user to group in nodebb
+          - The endpoint for **Groups** is `/v2/groups/{slug}/membership/{uid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/groups/{slug}/membership/{uid}
       operationId: AddUserIntoGroup
       parameters:
       - name: Authorization
@@ -2043,23 +2084,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Groups
     delete:
       tags:
       - groups
-      summary: Remove User from group
+      summary: Remove user from group
       description: |-
-        This app allow the user to rempve user from group in nodebb
-          - The endpoint for **Category** is `/v2/groups/{slug}/membership/{uid}`
+        This api allow the user to remove user from group in nodebb
+          - The endpoint for **Groups** is `/v2/groups/{slug}/membership/{uid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/groups/{slug}/membership/{uid}
       operationId: RemoveUserFromGroup
       parameters:
       - name: Authorization
@@ -2089,24 +2131,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Groups    
-  /v2/posts/{pid}:
+  /discussion/v2/posts/{pid}:
     put:
       tags:
       - Posts
       summary: Edits a post by post ID
       description: |-
         This api allows the user to edit post in the nodebb
-          - The endpoint for **Category** is `/v2/posts/{pid}`
+          - The endpoint for **Post** is `/v2/posts/{pid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/posts/{pid}
       operationId: UpdatePost
       parameters:
       - name: Authorization
@@ -2127,7 +2170,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdatePostBody'
+              $ref: '#/components/schemas/discussionForumUpdatePostBody'
             examples:
               a:
                 summary: Edit post
@@ -2144,23 +2187,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PostOperationResponse'
+                $ref: '#/components/schemas/discussionForumPostOperationResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Posts
     delete:
       tags:
       - Posts
-      summary: Delete a post by post ID
+      summary: Delete a post by postID
       description: |-
         This api allows the user to delete post in the nodebb
-          - The endpoint for **Category** is `/v2/posts/{pid}`
+          - The endpoint for **Post** is `/v2/posts/{pid}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/posts/{pid}
       operationId: DeletePost
       parameters:
       - name: Authorization
@@ -2183,23 +2227,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PostOperationResponse'
+                $ref: '#/components/schemas/discussionForumPostOperationResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Posts
-  /v2/posts/{pid}/vote:
+  /discussion/v2/posts/{pid}/vote:
     post:
       tags:
       - Posts
-      summary: Vote a post by post ID
+      summary: Vote a post by postID
       description: |-
         This api allows the user to vote(Up/down) to post in the nodebb
-          - The endpoint for **Category** is `/v2/posts/{pid}/vote`
+          - The endpoint for **Post** is `/v2/posts/{pid}/vote`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/posts/{pid}/vote
       operationId: VotePost
       parameters:
       - name: Authorization
@@ -2217,12 +2262,12 @@ paths:
         schema:
           type: integer
       requestBody:
-        description: delta must be a number. If delta > 0, it's considered an upvote;
-          if delta < 0, it's considered a downvote; otherwise, it's an unvote.
+        description: The delta must be a number. If delta is > 0, it's considered an upvote;
+          if delta is < 0, it's considered a downvote; otherwise, it's an unvote.
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VotePostBody'
+              $ref: '#/components/schemas/discussionForumVotePostBody'
             examples:
               a:
                 summary: Up vote
@@ -2239,23 +2284,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PostOperationResponse'
+                $ref: '#/components/schemas/discussionForumPostOperationResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-codegen-request-body-name: body
       x-swagger-router-controller: Posts
     delete:
       tags:
       - Posts
-      summary: Unvotes a post by post ID
+      summary: Remove votes for a post by postID
       description: |-
         This api allows the user to delete vote(Up/down) to post in the nodebb
-          - The endpoint for **Category** is `/v2/posts/{pid}/vote`
+          - The endpoint for **Post** is `/v2/posts/{pid}/vote`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/posts/{pid}/vote
       operationId: UnvotesPost
       parameters:
       - name: Authorization
@@ -2278,23 +2324,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PostOperationResponse'
+                $ref: '#/components/schemas/discussionForumPostOperationResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Posts
-  /v2/posts/{pid}/bookmark:
+  /discussion/v2/posts/{pid}/bookmark:
     post:
       tags:
       - Posts
-      summary: Bookmarks a post by post ID
+      summary: Bookmarks a post by postID
       description: |-
-        This api allows the user to Bookmarks a post in the nodebb
-          - The endpoint for **Category** is `/v2/posts/{pid}/bookmark`
+        This api allows the user to bookmarks a post in the nodebb
+          - The endpoint for **Post** is `/v2/posts/{pid}/bookmark`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/posts/{pid}/bookmark
       operationId: BookmarksPost
       parameters:
       - name: Authorization
@@ -2317,22 +2364,23 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PostOperationResponse'
+                $ref: '#/components/schemas/discussionForumPostOperationResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Posts
     delete:
       tags:
       - Posts
-      summary: Unbookmarks a post by post ID
+      summary: Removes bookmarks for a post by postID
       description: |-
         This api allows the user to Unbookmarks a post in the nodebb
-          - The endpoint for **Category** is `/v2/posts/{pid}/bookmark`
+          - The endpoint for **Post** is `/v2/posts/{pid}/bookmark`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/posts/{pid}/bookmark
       operationId: UnbookmarksPost
       parameters:
       - name: Authorization
@@ -2355,23 +2403,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PostOperationResponse'
+                $ref: '#/components/schemas/discussionForumPostOperationResponse'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Posts
-  /v2/posts/{pid}/state:
+  /discussion/v2/posts/{pid}/state:
     put:
       tags:
       - Posts
       summary: Restores a post
       description: |-
         This api allows the user to Restores a post in the nodebb
-          - The endpoint for **Category** is `/v2/posts/{pid}/state`
+          - The endpoint for **Post** is `/v2/posts/{pid}/state`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/posts/{pid}/state
       operationId: RestorePost
       parameters:
       - name: Authorization
@@ -2394,13 +2443,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Posts
     delete:
       tags:
@@ -2408,8 +2457,9 @@ paths:
       summary: Deletes a post
       description: |-
         This api allows the user to Deletes a post in the nodebb
-          - The endpoint for **Category** is `/v2/posts/{pid}/state`
+          - The endpoint for **Post** is `/v2/posts/{pid}/state`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/v2/posts/{pid}/state
       operationId: SoftDeletePost
       parameters:
       - name: Authorization
@@ -2432,23 +2482,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteCategory'
+                $ref: '#/components/schemas/discussionForumDeleteCategory'
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Posts    
-  /forum/v2/read:
+  /discussion/forum/v2/read:
     post:
       tags:
       - Forum
       summary: Get Forum Id
       description: |-
-        This app allow the user to get the Forum Id
-          - The endpoint for **Category** is `/forumId/{id}`
+        This api allow the user to get the forum id
+          - The endpoint for **Forum** is `/forum/v2/read`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/forum/v2/read
       operationId: GetForumID
       parameters:
       - name: Authorization
@@ -2462,7 +2513,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ReadForumCID'
+              $ref: '#/components/schemas/discussionForumReadForumCID'
             examples:
               a:
                 summary: Create group
@@ -2479,18 +2530,19 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ForumResponse'
+                  $ref: '#/components/schemas/discussionForumForumResponse'
                 x-content-type: application/json
       x-swagger-router-controller: Forum
-  /forum/v2/create:
+  /discussion/forum/v2/create:
     post:
       tags:
       - Forum
       summary: Create forum id
       description: |-
-        This app allow the user to create new Forum Id
-          - The endpoint for **Category** is `/forum`
+        This api allow the user to create new forum id
+          - The endpoint for **Forum** is `/forum/v2/create`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/forum/v2/create
       operationId: CreateForumID
       parameters:
       - name: Authorization
@@ -2504,7 +2556,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateForumCID'
+              $ref: '#/components/schemas/discussionForumCreateForumCID'
             examples:
               a:
                 summary: Create forumID
@@ -2521,19 +2573,20 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ForumResponse'
+                  $ref: '#/components/schemas/discussionForumForumResponse'
                 x-content-type: application/json
       x-codegen-request-body-name: body
       x-swagger-router-controller: Forum
-  /tags:
+  /discussion/tags:
     get:
       tags:
       - tags
       summary: Get list of all tags
       description: |-
-        This API is used to fetch tags from NodeBB.
-           - The endpoint for **Category** is `/tags`
+        This api is used to fetch tags from nodebb.
+           - The endpoint for **Tags** is `/tags`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+           - Backend Route: http://nodebb-service:4567/discussions/api/tags
       operationId: GetTags
       parameters:
       - name: Authorization
@@ -2551,18 +2604,18 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ListOfTags'
+                  $ref: '#/components/schemas/discussionForumListOfTags'
                 x-content-type: application/json
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Categories    
+                $ref: '#/components/schemas/discussionForumError'
+      x-swagger-router-controller: tags    
 components:
   schemas:
-    Category:
+    discussionForumCategory:
       required:
       - bgColor
       - class
@@ -2584,7 +2637,7 @@ components:
           type: integer
         class:
           type: string
-    DeleteCategory:
+    discussionForumDeleteCategory:
       type: object
       properties:
         code:
@@ -2596,7 +2649,7 @@ components:
       example:
         code: code
         payload: {}
-    CreateUser:
+    discussionForumCreateUser:
       type: object
       properties:
         username:
@@ -2605,13 +2658,13 @@ components:
           type: string
         password:
           type: string
-    CategoryResponse:
+    discussionForumCategoryResponse:
       type: object
       properties:
         code:
           type: string
         payload:
-          $ref: '#/components/schemas/CategoryResponse_payload'
+          $ref: '#/components/schemas/discussionForumCategoryResponse_payload'
       example:
         code: code
         payload:
@@ -2633,7 +2686,7 @@ components:
           slug: slug
           cid: 0
           order: order
-    ListOfCategories:
+    discussionForumListOfCategories:
       type: object
       properties:
         cid:
@@ -2675,7 +2728,7 @@ components:
         posts:
           type: array
           items:
-            $ref: '#/components/schemas/ListOfCategories_posts'
+            $ref: '#/components/schemas/discussionForumListOfCategories_posts'
         children:
           type: array
           items:
@@ -2763,7 +2816,7 @@ components:
         post_count: post_count
         isSection: isSection
         cid: 0
-    UserDetails:
+    discussionForumUserDetails:
       type: object
       properties:
         uid:
@@ -2921,15 +2974,15 @@ components:
         posts:
           type: array
           items:
-            $ref: '#/components/schemas/UserDetails_posts'
+            $ref: '#/components/schemas/discussionForumUserDetails_posts'
         latestPosts:
           type: array
           items:
-            $ref: '#/components/schemas/UserDetails_posts'
+            $ref: '#/components/schemas/discussionForumUserDetails_posts'
         bestPosts:
           type: array
           items:
-            $ref: '#/components/schemas/UserDetails_posts'
+            $ref: '#/components/schemas/discussionForumUserDetails_posts'
         breadcrumbs:
           type: array
           items:
@@ -3145,7 +3198,7 @@ components:
         age: 7
         theirid: 1
         username: username
-    CategoryDetails:
+    discussionForumCategoryDetails:
       type: object
       properties:
         bgColor:
@@ -3207,7 +3260,7 @@ components:
         topics:
           type: array
           items:
-            $ref: '#/components/schemas/CategoryDetails_topics'
+            $ref: '#/components/schemas/discussionForumCategoryDetails_topics'
         isWatched:
           type: boolean
         isNotWatched:
@@ -3376,7 +3429,7 @@ components:
         - {}
         - {}
         cid: 0
-    TopicResponse:
+    discussionForumTopicResponse:
       type: object
       properties:
         nextStart:
@@ -3386,7 +3439,7 @@ components:
         topics:
           type: array
           items:
-            $ref: '#/components/schemas/TopicResponse_topics'
+            $ref: '#/components/schemas/discussionForumTopicResponse_topics'
         tids:
           type: array
           items:
@@ -3400,7 +3453,7 @@ components:
         categories:
           type: array
           items:
-            $ref: '#/components/schemas/TopicResponse_categories'
+            $ref: '#/components/schemas/discussionForumTopicResponse_categories'
         allCategoriesUrl:
           type: string
         selectedCategory:
@@ -3619,7 +3672,7 @@ components:
         breadcrumbs:
         - {}
         - {}
-    TopicDetails:
+    discussionForumTopicDetails:
       type: object
       properties:
         cid:
@@ -3875,7 +3928,7 @@ components:
         - {}
         - {}
         merger: {}
-    GroupListResponse:
+    discussionForumGroupListResponse:
       type: object
       properties:
         groups:
@@ -3933,7 +3986,7 @@ components:
         - {}
         - {}
         url: url
-    GroupDetailsResponse:
+    discussionForumGroupDetailsResponse:
       type: object
       properties:
         title:
@@ -4001,13 +4054,13 @@ components:
         - {}
         - {}
         group: {}
-    CreateTopicResponse:
+    discussionForumCreateTopicResponse:
       type: object
       properties:
         code:
           type: string
         payload:
-          $ref: '#/components/schemas/CreateTopicResponse_payload'
+          $ref: '#/components/schemas/discussionForumCreateTopicResponse_payload'
       example:
         code: code
         payload:
@@ -4063,7 +4116,7 @@ components:
             user: {}
             timestamp: 5
             cid: 9
-    CreateTopicBody:
+    discussionForumCreateTopicBody:
       required:
       - cid
       - content
@@ -4076,7 +4129,7 @@ components:
           type: string
         content:
           type: string
-    CreateReplyBody:
+    discussionForumCreateReplyBody:
       required:
       - content
       type: object
@@ -4085,7 +4138,7 @@ components:
           type: string
         toPid:
           type: integer
-    UpdateTopicBody:
+    discussionForumUpdateTopicBody:
       required:
       - content
       - pid
@@ -4105,7 +4158,7 @@ components:
           type: array
           items:
             type: string
-    UpdatePostBody:
+    discussionForumUpdatePostBody:
       required:
       - content
       type: object
@@ -4120,7 +4173,7 @@ components:
           type: array
           items:
             type: string
-    VotePostBody:
+    discussionForumVotePostBody:
       required:
       - delta
       type: object
@@ -4129,7 +4182,7 @@ components:
           type: integer
           description: delta must be a number. If delta > 0, it's considered an upvote;
             if delta < 0, it's considered a downvote; otherwise, it's an unvote.
-    PostOperationResponse:
+    discussionForumPostOperationResponse:
       type: object
       properties:
         code:
@@ -4141,7 +4194,7 @@ components:
       example:
         code: code
         payload: {}
-    UpdateUserInfo:
+    discussionForumUpdateUserInfo:
       type: object
       properties:
         username:
@@ -4158,7 +4211,7 @@ components:
           type: string
         signature:
           type: string
-    ForumResponse:
+    discussionForumForumResponse:
       type: object
       properties:
         type:
@@ -4171,7 +4224,7 @@ components:
         identifier: identifier
         type: type
         cid: 0
-    ForumIdRequestBody:
+    discussionForumForumIdRequestBody:
       type: object
       properties:
         type:
@@ -4180,7 +4233,7 @@ components:
           type: string
         cid:
           type: integer
-    GroupRequestBody:
+    discussionForumGroupRequestBody:
       required:
       - name
       type: object
@@ -4195,13 +4248,13 @@ components:
           type: boolean
         ownerUid:
           type: integer
-    GroupResponse:
+    discussionForumGroupResponse:
       type: object
       properties:
         code:
           type: string
         payload:
-          $ref: '#/components/schemas/GroupResponse_payload'
+          $ref: '#/components/schemas/discussionForumGroupResponse_payload'
       example:
         code: code
         payload:
@@ -4217,18 +4270,18 @@ components:
           description: description
           disableJoinRequests: 7
           slug: slug
-    CreateUserResponse:
+    discussionForumCreateUserResponse:
       type: object
       properties:
         code:
           type: string
         payload:
-          $ref: '#/components/schemas/CreateUserResponse_payload'
+          $ref: '#/components/schemas/discussionForumCreateUserResponse_payload'
       example:
         code: code
         payload:
           uid: 0
-    Error:
+    discussionForumError:
       type: object
       properties:
         code:
@@ -4238,7 +4291,7 @@ components:
         params:
           type: object
           properties: {}
-    CategoryResponse_payload:
+    discussionForumCategoryResponse_payload:
       type: object
       properties:
         cid:
@@ -4296,7 +4349,7 @@ components:
         slug: slug
         cid: 0
         order: order
-    ListOfCategories_user:
+    discussionForumListOfCategories_user:
       type: object
       properties:
         uid:
@@ -4318,7 +4371,7 @@ components:
         userslug: userslug
         picture: picture
         username: username
-    ListOfCategories_topic:
+    discussionForumListOfCategories_topic:
       type: object
       properties:
         slug:
@@ -4328,7 +4381,7 @@ components:
       example:
         title: title
         slug: slug
-    ListOfCategories_posts:
+    discussionForumListOfCategories_posts:
       type: object
       properties:
         pid:
@@ -4340,7 +4393,7 @@ components:
         timestampISO:
           type: string
         user:
-          $ref: '#/components/schemas/ListOfCategories_user'
+          $ref: '#/components/schemas/discussionForumListOfCategories_user'
         index:
           type: integer
         cid:
@@ -4348,7 +4401,7 @@ components:
         parentCid:
           type: integer
         topic:
-          $ref: '#/components/schemas/ListOfCategories_topic'
+          $ref: '#/components/schemas/discussionForumListOfCategories_topic'
       example:
         parentCid: 9
         index: 2
@@ -4367,7 +4420,7 @@ components:
         content: content
         timestamp: 5
         cid: 7
-    UserDetails_user:
+    discussionForumUserDetails_user:
       type: object
       properties:
         uid:
@@ -4394,7 +4447,7 @@ components:
         picture: {}
         username: username
         status: status
-    UserDetails_topic:
+    discussionForumUserDetails_topic:
       type: object
       properties:
         uid:
@@ -4430,7 +4483,7 @@ components:
         tid: 9
         slug: slug
         cid: 6
-    UserDetails_category:
+    discussionForumUserDetails_category:
       type: object
       properties:
         cid:
@@ -4463,7 +4516,7 @@ components:
         slug: slug
         cid: 2
         imageClass: imageClass
-    UserDetails_posts:
+    discussionForumUserDetails_posts:
       type: object
       properties:
         pid:
@@ -4487,11 +4540,11 @@ components:
         timestampISO:
           type: string
         user:
-          $ref: '#/components/schemas/UserDetails_user'
+          $ref: '#/components/schemas/discussionForumUserDetails_user'
         topic:
-          $ref: '#/components/schemas/UserDetails_topic'
+          $ref: '#/components/schemas/discussionForumUserDetails_topic'
         category:
-          $ref: '#/components/schemas/UserDetails_category'
+          $ref: '#/components/schemas/discussionForumUserDetails_category'
         isMainPost:
           type: boolean
       example:
@@ -4535,7 +4588,7 @@ components:
           username: username
           status: status
         timestamp: 4
-    CategoryDetails_topics:
+    discussionForumCategoryDetails_topics:
       type: object
       properties:
         cid:
@@ -4649,7 +4702,7 @@ components:
         user: {}
         cid: 1
         teaser: {}
-    TopicResponse_topics:
+    discussionForumTopicResponse_topics:
       type: object
       properties:
         cid:
@@ -4697,9 +4750,9 @@ components:
           properties: {}
           example: {}
         category:
-          $ref: '#/components/schemas/UserDetails_category'
+          $ref: '#/components/schemas/discussionForumUserDetails_category'
         user:
-          $ref: '#/components/schemas/UserDetails_user'
+          $ref: '#/components/schemas/discussionForumUserDetails_user'
         teaser:
           type: object
           properties: {}
@@ -4775,7 +4828,7 @@ components:
           status: status
         cid: 1
         teaser: {}
-    TopicResponse_categories:
+    discussionForumTopicResponse_categories:
       type: object
       properties:
         cid:
@@ -4806,7 +4859,7 @@ components:
         selected: true
         cid: 4
         imageClass: imageClass
-    CreateTopicResponse_payload_topicData:
+    discussionForumCreateTopicResponse_payload_topicData:
       type: object
       properties:
         cid:
@@ -4922,7 +4975,7 @@ components:
         user: {}
         cid: 0
         teaser: {}
-    CreateTopicResponse_payload_postData:
+    discussionForumCreateTopicResponse_payload_postData:
       type: object
       properties:
         pid:
@@ -4984,13 +5037,13 @@ components:
         user: {}
         timestamp: 5
         cid: 9
-    CreateTopicResponse_payload:
+    discussionForumCreateTopicResponse_payload:
       type: object
       properties:
         topicData:
-          $ref: '#/components/schemas/CreateTopicResponse_payload_topicData'
+          $ref: '#/components/schemas/discussionForumCreateTopicResponse_payload_topicData'
         postData:
-          $ref: '#/components/schemas/CreateTopicResponse_payload_postData'
+          $ref: '#/components/schemas/discussionForumCreateTopicResponse_payload_postData'
       example:
         topicData:
           pinned: 4
@@ -5044,7 +5097,7 @@ components:
           user: {}
           timestamp: 5
           cid: 9
-    GroupResponse_payload:
+    discussionForumGroupResponse_payload:
       type: object
       properties:
         name:
@@ -5084,14 +5137,14 @@ components:
         description: description
         disableJoinRequests: 7
         slug: slug
-    CreateUserResponse_payload:
+    discussionForumCreateUserResponse_payload:
       type: object
       properties:
         uid:
           type: integer
       example:
         uid: 0
-    ReadForumCID:
+    discussionForumReadForumCID:
       type: object
       properties:
         request: 
@@ -5101,7 +5154,7 @@ components:
               type: 'string'
             identifier:
               type: 'string'
-    CreateForumCID:
+    discussionForumCreateForumCID:
       type: object
       properties:
         request: 
@@ -5113,7 +5166,7 @@ components:
               type: 'string'
             cid:
               type: integer
-    ListOfTags:
+    discussionForumListOfTags:
       type: object
       properties:
         value :
@@ -5132,7 +5185,7 @@ components:
        valueEscaped : learning
        color : "#FFF"
        bgColor : "#EEE"
-    CreateUserOIDC:
+    discussionForumCreateUserOIDC:
       type: object
       properties:
         request: 
@@ -5142,7 +5195,7 @@ components:
               type: string
             identifier:
               type: string
-    CreateUserResponseOIDC:
+    discussionForumCreateUserResponseOIDC:
       type: object
       properties:
         id :
@@ -5174,7 +5227,7 @@ components:
               type : string
             userName :
               type : string
-    ModeratorsResponse:
+    discussionForumModeratorsResponse:
       type: object
       properties:
         uid :
@@ -5191,7 +5244,7 @@ components:
          type: string
         icon:bgColor :
          type: string
-    TopTopicResponse:
+    discussionForumTopTopicResponse:
       type: object
       properties:
         nextStart :
@@ -5201,7 +5254,7 @@ components:
         topics :
          type: array
          items:
-          $ref: '#/components/schemas/TopicDetails'
+          $ref: '#/components/schemas/discussionForumTopicDetails'
         tids :
           type: object
         canPost :
@@ -5250,9 +5303,9 @@ components:
          type: object
         widgets :
          type: object
-    CountOfTopic:
+    discussionForumCountOfTopic:
       type: integer
-    TeaserTopicDetails:
+    discussionForumTeaserTopicDetails:
       type: object
       properties:
         pid :
@@ -5342,7 +5395,7 @@ components:
            type: string
         isMainPost :
          type: object
-    TopicPaginationResponse:
+    discussionForumTopicPaginationResponse:
       type: object
       properties:
         pagination:
@@ -5384,11 +5437,11 @@ components:
              type: integer
             pageCount :
              type: integer
-    AddTagsToTopic:
+    discussionForumAddTagsToTopic:
       type: array
       items:
         type: string
-    AddPrivilagesToCategory:
+    discussionForumAddPrivilagesToCategory:
       type: array
       items:
         type: string

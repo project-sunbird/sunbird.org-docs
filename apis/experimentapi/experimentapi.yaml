@@ -13,13 +13,12 @@ info:
   contact: {}
   version: '1.0'
 servers:
-  - url: 'https://staging.open-sunbird.org/api/data/v1/experiement'
-    variables: {}
+  - url: 'https://staging.open-sunbird.org/api'
 paths:
   /data/v1/experiement/create:
     post:
       tags:
-        - V1
+        - expirement V1
       summary: CreateExperiment
       description:  |-
         This API is used for create a new experiment based on particular user filters such as organisation, board, medium etc. or device filters such as device id, device location state/district, first access dates etc.
@@ -31,7 +30,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateExperiment'
+              $ref: '#/components/schemas/experimentapiCreateExperiment'
         required: true
       responses:
         '200':
@@ -40,7 +39,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateExperiment-SuccessResponse'
+                $ref: '#/components/schemas/experimentapiCreateExperiment-SuccessResponse'
               examples:
                 New_Experiment:
                   summary: 'With new experiment id'
@@ -82,13 +81,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateExperiment-FailedResponse'
+                $ref: '#/components/schemas/experimentapiCreateExperiment-FailedResponse'
               examples:
                 EmptyRequest:
                   summary: 'With no request field in body'
                   description: Response example when request is missing
                   value:
-                    $ref: '#/components/schemas/CreateExperiment-FailedResponse/example'
+                    $ref: '#/components/schemas/experimentapiCreateExperiment-FailedResponse/example'
                 RequiredRequestFieldsEmpty:
                   summary: 'With empty request fields- ex: request-{}'
                   description: Response example when requried fields expId, name, data etc in the request field are missing 
@@ -162,7 +161,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExperimentAPI-InternalServerError'
+                $ref: '#/components/schemas/experimentapiExperimentAPI-InternalServerError'
               example:
                 id: ekstep.analytics.experiment.create
                 ver: v1
@@ -180,7 +179,7 @@ paths:
   /data/v1/experiement/get/'{experiment-id}':
     get:
       tags:
-        - V1
+        - expirement V1
       summary: GetExperiment
       description:  |-
         The get experiment API is used for retrieving the details about an existing experiment using the experiment id
@@ -202,7 +201,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetExperiment-SuccessResponse'
+                $ref: '#/components/schemas/experimentapiGetExperiment-SuccessResponse'
               examples:
                 Existing_Experiment:
                   summary: With available experiment id
@@ -267,7 +266,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExperimentAPI-InternalServerError'
+                $ref: '#/components/schemas/experimentapiExperimentAPI-InternalServerError'
               example:
                 id: ekstep.analytics.experiment.submit
                 ver: v1
@@ -291,7 +290,7 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
-    Params:
+    experimentapiParams:
       title: Params
       required:
         - resmsgid
@@ -306,7 +305,7 @@ components:
           type: string
         status:
           type: string
-    ErrorParams:
+    experimentapiErrorParams:
       title: ErrorParams
       required:
         - resmsgid
@@ -326,14 +325,14 @@ components:
           properties:
             status:
               type: string
-    CreateExperiment:
+    experimentapiCreateExperiment:
       title: CreateExperiment
       required:
         - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/Experiment-Request'
+          $ref: '#/components/schemas/experimentapiExperiment-Request'
       example:
         request:
           expId: U1234
@@ -350,7 +349,7 @@ components:
             key: 'ASDSDFDK23SDFKJDK'
             client: app
             
-    Experiment-Request:
+    experimentapiExperiment-Request:
       title: Experiment-Request
       required:
        - expId
@@ -374,10 +373,10 @@ components:
          type: string
          description: Short description about the experiment
         criteria:
-          $ref: '#/components/schemas/Criteria'
+          $ref: '#/components/schemas/experimentapiCriteria'
         data:
-          $ref: '#/components/schemas/Data'
-    Criteria:
+          $ref: '#/components/schemas/experimentapiData'
+    experimentapiCriteria:
      title: Criteria
      description: Criteria of the experiment
      required:
@@ -395,7 +394,7 @@ components:
        filters: {
          organisations: sunbird
         }
-    Data:
+    experimentapiData:
       title: Data
       description: Data describing the experiment
       required:
@@ -426,7 +425,7 @@ components:
         client: 'portal'
         modulus: 10
          
-    CreateExperiment-SuccessResponse:
+    experimentapiCreateExperiment-SuccessResponse:
       title: CreateExperiment-SuccessResponse
       required:
         - id
@@ -444,11 +443,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/experimentapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Experiment-Response'
+          $ref: '#/components/schemas/experimentapiExperiment-Response'
       example:
         id: ekstep.analytics.experiment.submit
         ver: v1
@@ -458,9 +457,9 @@ components:
           status: successful
         responseCode: OK
         result:
-          $ref: '#/components/schemas/Experiment-Response/example'
+          $ref: '#/components/schemas/experimentapiExperiment-Response/example'
             
-    Experiment-Response:
+    experimentapiExperiment-Response:
       title: Experiment-Response
       required:
         - stats
@@ -471,7 +470,7 @@ components:
         stats:
           type: object
         request:
-          $ref: '#/components/schemas/Experiment-Request'
+          $ref: '#/components/schemas/experimentapiExperiment-Request'
         status:
           type: string
         status_msg:
@@ -487,7 +486,7 @@ components:
         last_updated: 1606818148268
         status: SUBMITTED
         status_msg: Experiment successfully submitted
-    CreateExperiment-FailedResponse:
+    experimentapiCreateExperiment-FailedResponse:
       title: CreateExperiment-FailedResponse
       required:
         - id
@@ -505,7 +504,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/ErrorParams'
+          $ref: '#/components/schemas/experimentapiErrorParams'
         responseCode:
           type: string
         result:
@@ -523,7 +522,7 @@ components:
             request: Request should not be empty
         responseCode: CLIENT_ERROR
         result: null
-    ExperimentAPI-InternalServerError:
+    experimentapiExperimentAPI-InternalServerError:
             title: ExperimentAPI-InternalServerError
             required:
               - id
@@ -541,7 +540,7 @@ components:
               ts:
                 type: string
               params:
-                $ref: '#/components/schemas/ErrorParams'
+                $ref: '#/components/schemas/experimentapiErrorParams'
               responseCode:
                 type: string
               result:
@@ -558,7 +557,7 @@ components:
                 errmsg: 'Process failed,please try again later.'
               responseCode: SERVER_ERROR
               result: {}          
-    GetExperiment-SuccessResponse:
+    experimentapiGetExperiment-SuccessResponse:
       title: GetExperiment-SuccessResponse
       required:
         - id
@@ -576,11 +575,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/experimentapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Experiment-Request'
+          $ref: '#/components/schemas/experimentapiExperiment-Request'
       example:
         id: ekstep.analytics.experiement.get
         ver: v1
@@ -624,5 +623,5 @@ components:
         status: ACTIVE
         status_msg: Experiment Mapped Sucessfully
 tags:
-  - name: V1
+  - name: expirement V1
     description: ''

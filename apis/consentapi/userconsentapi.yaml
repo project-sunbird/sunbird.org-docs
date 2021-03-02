@@ -67,7 +67,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/userconsentupdaterequest'
+              $ref: '#/components/schemas/userconsentapiuserconsentupdaterequest'
             examples:
               RequestUpdateConsentToActiveForCourse: 
                 value:
@@ -112,7 +112,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConsentUpdateSuccess'
+                $ref: '#/components/schemas/userconsentapiConsentUpdateSuccess'
               example:
                 id: api.user.consent.update
                 ver: v1
@@ -133,7 +133,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Unauthorized'
+                $ref: '#/components/schemas/userconsentapiUnauthorized'
               example:
                 id: api.user.consent.update
                 ver: v1
@@ -161,7 +161,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResourceNotFound'
+                $ref: '#/components/schemas/userconsentapiResourceNotFound'
               example:
                 id: api.user.consent.update
                 ver: v1
@@ -182,7 +182,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServerError'
+                $ref: '#/components/schemas/userconsentapiServerError'
               example:
                 id: api.user.consent.update
                 ver: v1
@@ -248,7 +248,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/userconsentreadrequest'
+              $ref: '#/components/schemas/userconsentapiuserconsentreadrequest'
             examples:
               RequestReadConsentForCourse: 
                 value:
@@ -273,7 +273,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConsentReadSuccess'
+                $ref: '#/components/schemas/userconsentapiConsentReadSuccess'
               examples:
                 ReadConsentResponseForCourse: 
                   value:
@@ -318,7 +318,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedRead'
+                $ref: '#/components/schemas/userconsentapiUnauthorizedRead'
               example:
                 id: api.user.consent.read
                 ver: v1
@@ -346,7 +346,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResourceNotFoundRead'
+                $ref: '#/components/schemas/userconsentapiResourceNotFoundRead'
               example:
                 id: api.user.consent.read
                 ver: v1
@@ -367,7 +367,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServerErrorRead'
+                $ref: '#/components/schemas/userconsentapiServerErrorRead'
               example:
                 id: api.user.consent.read
                 ver: v1
@@ -383,14 +383,14 @@ paths:
       deprecated: false
 components:
   schemas:
-    userconsentupdaterequest:
+    userconsentapiuserconsentupdaterequest:
       title: ConsentUpdateRequestForCourses
       required:
       - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/Request'
+          $ref: '#/components/schemas/userconsentapiRequest'
       example:
         request:
           consent:
@@ -399,14 +399,14 @@ components:
             consumerId: 0126632859575746566
             objectId: do_31313966505806233613406
             objectType: Collection
-    Request:
+    userconsentapiRequest:
       title: RequestinConsentUpdateForCourses
       required:
       - consent
       type: object
       properties:
         consent:
-          $ref: '#/components/schemas/Consent'
+          $ref: '#/components/schemas/userconsentapiConsent'
       example:
         consent:
           status: ACTIVE
@@ -414,7 +414,7 @@ components:
           consumerId: 0126632859575746566
           objectId: do_31313966505806233613406
           objectType: Collection
-    Consent:
+    userconsentapiConsent:
       title: ConsentinConsentUpdateForCourses
       required:
       - status
@@ -445,7 +445,7 @@ components:
         consumerId: 0126632859575746566
         objectId: do_31313966505806233613406
         objectType: Collection
-    ConsentUpdateSuccess:
+    userconsentapiConsentUpdateSuccess:
       title: ConsentUpdateSuccess
       required:
       - id
@@ -463,11 +463,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/userconsentapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Result'
+          $ref: '#/components/schemas/userconsentapiResult'
       example:
         id: api.user.consent.update
         ver: v1
@@ -483,7 +483,7 @@ components:
           consent:
             userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
           message: User Consent updated successfully.
-    Params:
+    userconsentapiParams:
       title: ParamsinConsentResponse
       required:
       - resmsgid
@@ -512,7 +512,7 @@ components:
         err: 
         status: success
         errmsg: 
-    Result:
+    userconsentapiResult:
       title: ResultinConsentUpdateSuccess
       required:
       - consent
@@ -520,14 +520,14 @@ components:
       type: object
       properties:
         consent:
-          $ref: '#/components/schemas/Consent1'
+          $ref: '#/components/schemas/userconsentapiConsent1'
         message:
           type: string
       example:
         consent:
           userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
         message: User Consent updated successfully.
-    Consent1:
+    userconsentapiConsent1:
       title: ConsentinConsentUpdateSuccess
       required:
       - userId
@@ -537,7 +537,7 @@ components:
           type: string
       example:
         userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
-    Unauthorized:
+    userconsentapiUnauthorized:
       title: UnauthorizedinUpdateConsent
       required:
       - id
@@ -555,7 +555,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params1'
+          $ref: '#/components/schemas/userconsentapiParams1'
         responseCode:
           type: string
         result:
@@ -572,7 +572,7 @@ components:
           errmsg: You are not authorized.
         responseCode: CLIENT_ERROR
         result: {}
-    UnauthorizedRead:
+    userconsentapiUnauthorizedRead:
       title: UnauthorizedinReadConsent
       required:
       - id
@@ -590,7 +590,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params1'
+          $ref: '#/components/schemas/userconsentapiParams1'
         responseCode:
           type: string
         result:
@@ -607,7 +607,7 @@ components:
           errmsg: You are not authorized.
         responseCode: CLIENT_ERROR
         result: {}
-    Params1:
+    userconsentapiParams1:
       title: ParamsinUnauthorized
       required:
       - resmsgid
@@ -634,7 +634,7 @@ components:
         err: UNAUTHORIZED_USER
         status: SERVER_ERROR
         errmsg: You are not authorized.
-    ServerError:
+    userconsentapiServerError:
       title: ServerErrorinUpdateConsent
       required:
       - id
@@ -652,7 +652,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params1ServerError'
+          $ref: '#/components/schemas/userconsentapiParams1ServerError'
         responseCode:
           type: string
         result:
@@ -669,7 +669,7 @@ components:
           errmsg: INTERNAL_SERVER_ERROR
         responseCode: SERVER_ERROR
         result: {}
-    ServerErrorRead:
+    userconsentapiServerErrorRead:
       title: ServerErrorinReadConsent
       required:
       - id
@@ -687,7 +687,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params1ServerError'
+          $ref: '#/components/schemas/userconsentapiParams1ServerError'
         responseCode:
           type: string
         result:
@@ -704,7 +704,7 @@ components:
           errmsg: INTERNAL_SERVER_ERROR
         responseCode: SERVER_ERROR
         result: {}
-    Params1ServerError:
+    userconsentapiParams1ServerError:
       title: ParamsinServerError
       required:
       - resmsgid
@@ -731,7 +731,7 @@ components:
         err: INTERNAL_SERVER_ERROR
         status: INTERNAL_SERVER_ERROR
         errmsg: INTERNAL_SERVER_ERROR
-    ResourceNotFound:
+    userconsentapiResourceNotFound:
       title: ResourceNotFoundinUpdateConsent
       required:
       - id
@@ -749,7 +749,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params1ResourceNotFound'
+          $ref: '#/components/schemas/userconsentapiParams1ResourceNotFound'
         responseCode:
           type: string
         result:
@@ -766,7 +766,7 @@ components:
           errmsg: INVALID_ORG_ID
         responseCode: RESOURCE_NOT_FOUND
         result: {}
-    ResourceNotFoundRead:
+    userconsentapiResourceNotFoundRead:
       title: ResourceNotFoundinReadConsent
       required:
       - id
@@ -784,7 +784,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params1ResourceNotFound'
+          $ref: '#/components/schemas/userconsentapiParams1ResourceNotFound'
         responseCode:
           type: string
         result:
@@ -801,7 +801,7 @@ components:
           errmsg: User consent not found.
         responseCode: RESOURCE_NOT_FOUND
         result: {}
-    Params1ResourceNotFound:
+    userconsentapiParams1ResourceNotFound:
       title: ParamsinResourceNotFound
       required:
       - resmsgid
@@ -828,14 +828,14 @@ components:
         err: USER_CONSENT_NOT_FOUND
         status: USER_CONSENT_NOT_FOUND
         errmsg: User consent not found.    
-    userconsentreadrequest:
+    userconsentapiuserconsentreadrequest:
       title: UserConsentReadRequest
       required:
       - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/Request1'
+          $ref: '#/components/schemas/userconsentapiRequest1'
       example:
         request:
           consent:
@@ -843,34 +843,34 @@ components:
               userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
               consumerId: 0126632859575746566
               objectId: 0126632859575746566
-    Request1:
+    userconsentapiRequest1:
       title: RequestinConsentReadRequest
       required:
       - consent
       type: object
       properties:
         consent:
-          $ref: '#/components/schemas/Consent2'
+          $ref: '#/components/schemas/userconsentapiConsent2'
       example:
         consent:
           filters:
             userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
             consumerId: 0126632859575746566
             objectId: 0126632859575746566
-    Consent2:
+    userconsentapiConsent2:
       title: ConsentinConsentReadRequest
       required:
       - filters
       type: object
       properties:
         filters:
-          $ref: '#/components/schemas/Filters'
+          $ref: '#/components/schemas/userconsentapiFilters'
       example:
         filters:
           userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
           consumerId: 0126632859575746566
           objectId: 0126632859575746566
-    Filters:
+    userconsentapiFilters:
       title: FiltersinConsentReadRequest
       required:
       - userId
@@ -891,7 +891,7 @@ components:
         userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
         consumerId: 0126632859575746566
         objectId: 0126632859575746566
-    ConsentReadSuccess:
+    userconsentapiConsentReadSuccess:
       title: ConsentReadSuccess
       required:
       - id
@@ -909,11 +909,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/userconsentapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Result1'
+          $ref: '#/components/schemas/userconsentapiResult1'
       example:
         id: api.user.consent.read
         ver: v1
@@ -932,7 +932,7 @@ components:
             status: REVOKED
             objectType: Collection
             objectId: do_31313966505806233613406
-    Result1:
+    userconsentapiResult1:
       title: ResultinConsentReadSuccess
       required:
       - consents
@@ -941,7 +941,7 @@ components:
         consents:
           type: array
           items:
-            $ref: '#/components/schemas/Consent'
+            $ref: '#/components/schemas/userconsentapiConsent'
           description: ''
       example:
         consents:

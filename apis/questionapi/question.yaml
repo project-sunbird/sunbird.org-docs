@@ -1,0 +1,2616 @@
+openapi: 3.0.1
+info:
+  title: Question Management API(s)
+  description: >-
+    The Question Management APIs allow you to manage all operations related to Questions and Question Sets over the Sunbird platform.  
+    Each endpoint serves a different purpose. Hence, you may choose to use the one that suits your need. These APIs allow you to
+    perform the standard CRUD (Create, Update, Read and Delete) operations, and others such as review, publish, reject, etc. 
+
+    - The URL for Sunbird Question API(s) is `question/v1` and `questionset/v1`
+
+    - [TestCases](https://www.getpostman.com/collections/0b9f50245326b4fccd0b)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  contact:
+    email: info@sunbird.org
+  version: "1.0"
+servers:
+- url: https://staging.open-sunbird.org/api
+paths:
+  /question/v1/create:
+    post:
+      tags:
+        - Question APIs
+      summary: Create Question
+      description: |-
+        This API is used to create Questions on the Sunbird Platform.
+          - The endpoint for **Create Question** is `/question/v1/create`
+          - It points to the assessment-service - `question/v4/create`
+          - All parameters marked with * are mandatory. You must provide values for these parameters. 
+          - Mandatory fields cannot be null or empty.
+      operationId: Create Question
+      parameters:
+        - name: Content-Type
+          in: header
+          description: >-
+            The Content Type entity is the media type of the resource. The possible
+            media types can be:- 
+              - Application/json
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            You require authorization to make use of the API. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload
+           - JSON 
+          The body is the representation of the resource object for creating
+          questions, which is an array of parameters that describes the question 
+          - Click the link to refer the supported
+          [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.7.0/schemas/question/1.0/schema.json)
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/questionCreateQuestionRequest'
+            example:
+              request:
+                question:
+                  name: question_1
+                  visibility: Default
+                  code: question.code
+                  editorState: Random stuff
+                  mimeType: application/vnd.sunbird.question
+                  primaryCategory: Multiple Choice Question
+        required: true
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Create Question** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionCreateSuccessResponse'
+              example:
+                id: api.question.create
+                ver: '3.0'
+                ts: '2021-02-02T19:28:24ZZ'
+                params:
+                  resmsgid: 8b75d237-1028-4e38-a94a-9ff4ca784d76
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_11320791330308096015
+                  versionKey: '1612294104382'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Create Question** operation failed. You may have
+            missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              examples:
+                a:
+                  summary: Error Response - Invalid MimeType
+                  value:
+                    id: api.question.create
+                    ver: '3.0'
+                    ts: '2021-02-02T19:41:56ZZ'
+                    params:
+                      resmsgid: 86481a2f-513e-4fd4-a1dd-46a7ebcb1e65
+                      msgid: null
+                      err: CLIENT_ERROR
+                      status: failed
+                      errmsg: Validation Errors
+                    responseCode: CLIENT_ERROR
+                    result:
+                      messages:
+                        - 'Metadata mimeType should be one of: [application/vnd.sunbird.question]'
+                b:
+                  summary: Error Response - Primary Category Not Set
+                  value:
+                    id: api.question.create
+                    ver: '3.0'
+                    ts: '2021-02-02T19:42:26ZZ'
+                    params:
+                      resmsgid: bad9792a-0551-4eac-be9c-0e1b79e06581
+                      msgid: null
+                      err: CLIENT_ERROR
+                      status: failed
+                      errmsg: Validation Errors
+                    responseCode: CLIENT_ERROR
+                    result:
+                      messages:
+                        - Required Metadata primaryCategory not set
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.create
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /question/v1/update/{Question_Id}:
+    patch:
+      description: |-
+        This API is associated with updating Questions on the Sunbird Platform .
+          - **_/Update/_** endpoint executes the "Update Question" request based on parameters provided as metadata in the request body.
+          - The endpoint for **Update Question** is `/question/v1/update`
+          - It points to assessment-service - `/question/v4/update`
+          - {...}refers to a section of review endpoint URL path that needs to be replaced with the appropriate ID.
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Update Question
+      tags:
+        - Question APIs
+      operationId: Update Question
+      parameters:
+        - in: path
+          name: Question_Id
+          required: true
+          description: Append a valid Question ID To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All question APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/questionUpdateQuestionRequest'
+            example:
+              request:
+                question:
+                  description: Updated description
+                  versionKey: '1612295414767'
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the question to be updated.
+            - Click link to refer to the supported [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/question/1.0/schema.json)
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation. The 'Update Question' operation was successfuly
+            executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionCreateSuccessResponse'
+              example:
+                id: api.question.update
+                ver: '3.0'
+                ts: '2021-02-02T19:55:07ZZ'
+                params:
+                  resmsgid: 9d9d4824-cc40-4ac7-a3d6-6da61c0240e9
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_113207924037746688110
+                  versionKey: '1612295707004'
+        '400':
+          description: >-
+            BAD REQUEST. The 'Update Question' operation failed ! The possible
+            reason for failure is that you may have missed providing input for a
+            mandatory parameter. 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.update
+                ver: '3.0'
+                ts: '2021-02-02T19:56:20ZZ'
+                params:
+                  resmsgid: fcfcf6d6-84f1-43f5-b573-c3b6cf69ef53
+                  msgid: null
+                  err: CLIENT_ERROR
+                  status: failed
+                  errmsg: Invalid version Key
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,The **UpdateQuestion** operation failed!The possible
+            reason for failure is that you may have provided wrong question ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.update
+                ver: '3.0'
+                ts: '2021-02-02T19:57:35ZZ'
+                params:
+                  resmsgid: 2b139ee9-f091-4cca-b466-32af45f49a65
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1132079240377466881101'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact info@sunbird.org. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /question/v1/read/{Question_Id}:
+    get:
+      description: >-
+        This API is associated with viewing and reading the question on the
+        Sunbird Platform .
+          - The **_/read/{Question_Id}_** endpoint executes the request to fetch the question to be viewed and read based on parameters provided as metadata in the request body.
+          - The endpoint for **Read Question** is `/question/v1/read`
+          - It points to assessment-service - `/question/v4/read`
+          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
+          - You need to provide a valid Question Id value in {Question_Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      summary: Read Question
+      tags:
+        - Question APIs
+      operationId: Read Question
+      parameters:
+        - in: path
+          name: Question_Id
+          required: true
+          description: Append a valid Question ID To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation.The "Read Question" operation was successfully
+            executed. Click link to refer to the supported
+            [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/question/1.0/schema.json)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionReadSuccessResponse'
+              example:
+                id: api.question.read
+                ver: '3.0'
+                ts: '2021-02-02T20:00:17ZZ'
+                params:
+                  resmsgid: 6d95dd1b-09d3-457a-8f60-f0c234bc7991
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  question:
+                    allowAnonymousAccess: 'Yes'
+                    identifier: do_113207924037746688110
+                    lastStatusChangedOn: '2021-02-02T19:50:14.767+0000'
+                    code: question.code
+                    visibility: Default
+                    showTimer: 'No'
+                    consumerId: fa13b438-8a3d-41b1-8278-33b0c50210e4
+                    language:
+                      - English
+                    mimeType: application/vnd.sunbird.question
+                    languageCode:
+                      - en
+                    createdOn: '2021-02-02T19:50:14.767+0000'
+                    version: 1
+                    objectType: Question
+                    versionKey: '1612295828197'
+                    showFeedback: 'No'
+                    license: CC BY 4.0
+                    primaryCategory: Multiple Choice Question
+                    compatibilityLevel: 4
+                    name: Updated value
+                    contentDisposition: inline
+                    lastUpdatedOn: '2021-02-02T19:57:08.197+0000'
+                    contentEncoding: gzip
+                    status: Draft
+                    showSolutions: 'No'
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Question Read** operation failed !The possible
+            reason for failure is that you may have provided the wrong question ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.read
+                ver: '3.0'
+                ts: '2021-02-02T20:01:13ZZ'
+                params:
+                  resmsgid: 815b341a-7984-45a1-b1f9-4335da18985e
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1132079240377466881101'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact info@sunbird.org. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /question/v1/review/{Question_Id}:
+    post:
+      description: >-
+        >- This API is associated with Submitting questions for Review  on the
+        Sunbird Platform .
+          - The**_/review/{Question_Id}_** endpoint executes "Submit for Review" request based on parameters provided as metadata in the request body.
+          - The endpoint for **Review Question** is `/question/v1/review`
+          - It points to assessment-service - `/question/v4/review`
+          - {...}refers to a section of the review endpoint URL path that needs to be replaced with the appropriate ID.
+          - You need to provide a valid content ID value in {Question_Id} field of the API URL.
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      summary: Submit for Review
+      tags:
+        - Question APIs
+      operationId: Submit Questions for Review
+      parameters:
+        - in: path
+          name: Question_Id
+          required: true
+          description: Please append a valid Question ID To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All content APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the question to be sent for review.
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation. Question sent for review operation was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionCreateSuccessResponse'
+              example:
+                id: api.question.review
+                ver: '3.0'
+                ts: '2021-02-02T20:06:22ZZ'
+                params:
+                  resmsgid: 6a00ef94-b63d-4fb6-818a-8dfc66680577
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_113207931921555456111
+                  versionKey: '1612296382041'
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Question Send for Review** operation failed !The
+            possible reason for failure is that you may have provided wrong
+            question ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.review
+                ver: '3.0'
+                ts: '2021-02-02T20:07:24ZZ'
+                params:
+                  resmsgid: 852b878c-a607-4d72-9458-6239e36adb9e
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) does not Exist. | [Invalid Node Id.]: do_1132079319215554561111'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '400':
+          description: >-
+            BAD REQUEST. The 'Review Question' operation failed ! The possible
+            reason for failure is that you may have missed providing input for a
+            mandatory parameter. 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.review
+                ver: '3.0'
+                ts: '2021-02-02T20:09:24ZZ'
+                params:
+                  resmsgid: db7fd0f9-4aa5-4f06-b43b-1b89bec45c50
+                  msgid: null
+                  err: ERR_QUESTION_REVIEW
+                  status: failed
+                  errmsg: Question with status other than Draft can't be sent for review.
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! We track
+            these errors automatically, but if the problem persists feel free to
+            contact info@sunbird.org. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /question/v1/publish/{Question_Id}:
+    post:
+      description: |-
+        This API is associated with publishing questions on the Sunbird Platform .
+          - **_/publish/_** endpoint executes the "Publish Question" request based on parameters provided as metadata in the request body.
+          - The endpoint for **Publish Question** is `/question/v1/publish`
+          - It points to assessment-service - `/question/v4/publish`
+          -  {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Publish Question
+      tags:
+        - Question APIs
+      operationId: Publish Question
+      parameters:
+        - in: path
+          name: Question_Id
+          required: true
+          description: The Question ID to be published
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: All content APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the question to be published.
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation.The **Publish Question** operation was
+            successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionPublishSuccessResponse'
+              example:
+                id: api.question.publish
+                ver: '3.0'
+                ts: '2021-02-02T20:15:02ZZ'
+                params:
+                  resmsgid: 9c64cc9c-bed5-44c7-85bf-4918c3a42f58
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  message: Question is successfully sent for Publish
+                  identifier: do_113207931921555456111
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Publish Question** operation failed! The possible reason for failure is that you may have provided wrong question ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.publish
+                ver: '3.0'
+                ts: '2021-02-02T20:15:32ZZ'
+                params:
+                  resmsgid: b084af8b-706b-4079-8ec2-0beb0753931c
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1132079319215554561111'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! We track
+            these errors automatically, but if the problem persists feel free to
+            contact info@sunbird.org. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /question/v1/retire/{Question_Id}:
+    delete:
+      description: |-
+        This API is associated with retiring Questions on the Sunbird Platform .
+          - The **_/retire/{Question_Id}_** endpoint executes the "Retire Question" request based on the Question_Id. It deletes the specific question.
+          - The endpoint for **Retire Content** is `/question/v1/retire`
+          - It points to assessment-service - `/question/v4/retire`
+          - {...}refers to a section of retire endpoint URL path that needs to be replaced by appropriate ID.
+          - It is mandatory to provide values for parameters.
+          - Mandatory fields cannot be null or empty.
+      summary: Retire Question
+      tags:
+        - Question APIs
+      operationId: Retire Question
+      parameters:
+        - in: path
+          name: Question_Id
+          required: true
+          description: Please append a valid Question ID To the request URL
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All question APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation.The **Delete Question** operation was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionCreateSuccessResponse'
+              example:
+                id: api.question.retire
+                ver: '3.0'
+                ts: '2021-02-02T20:20:56ZZ'
+                params:
+                  resmsgid: 98c9f97d-f9d6-4da9-be88-2852294c2aaa
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_113207939069968384112
+                  versionKey: '1612297249754'
+        '400':
+          description: ERROR RETIRE QUESTION! Question is already retired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.retire
+                ver: '3.0'
+                ts: '2021-02-02T20:21:26ZZ'
+                params:
+                  resmsgid: 0608b59d-dfb9-4c0e-807f-1a19c9a163fe
+                  msgid: null
+                  err: ERR_QUESTION_RETIRE
+                  status: failed
+                  errmsg: 'Question with identifier : do_113207939069968384112 is already Retired.'
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '404':
+          description: >-
+            RESOURCE NOT FOUND. The **Retire Question** operation failed! The possible reason for failure is that you may have provided the wrong question ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.retire
+                ver: '3.0'
+                ts: '2021-02-02T20:22:03ZZ'
+                params:
+                  resmsgid: da7af22e-bdce-48f0-8743-f50fa6c2cd21
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) does not Exist. | [Invalid Node Id.]: do_1132079390699683841121'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact . In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /questionset/v1/create:
+    post:
+      tags:
+        - QuestionSet APIs
+      summary: Create QuestionSet
+      description: |-
+        This API is associated with creating QuestionSet on the Sunbird Platform.
+          - The endpoint for **Create QuestionSet** is `/questionset/v1/create`
+          - It points to assessment-service - `questionset/v4/create`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: Create QuestionSet
+      parameters:
+        - name: Content-Type
+          in: header
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload
+           - JSON 
+          The body is the representation of the resource object for creating
+          questionset (an array of parameters which describes the question) 
+          - Click the link to refer to supported
+          [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.7.0/schemas/questionset/1.0/schema.json)
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/questionCreateQuestionsetRequest'
+            example:
+              request:
+                questionset:
+                  code: finemanfine
+                  navigationMode: linear
+                  allowSkip: 'Yes'
+                  requiresSubmit: 'Yes'
+                  shuffle: 'Yes'
+                  showFeedback: 'Yes'
+                  showSolutions: 'Yes'
+                  summaryType: Complete
+                  mimeType: application/vnd.sunbird.questionset
+                  primaryCategory: Practice Question Set
+                  name: Test Question Set
+                  visibility: Default
+                  description: Questionset description
+        required: true
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Create QuestionSet** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetCreateSuccessResponse'
+              example:
+                id: api.questionset.create
+                ver: '3.0'
+                ts: '2021-02-03T08:17:28ZZ'
+                params:
+                  resmsgid: 4c45a5e2-c3b4-47c1-95a2-3a31f7e7c1ca
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_113208291312132096114
+                  versionKey: '1612340248069'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Create QuestionSet** operation failed. You may have
+            missed input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              examples:
+                a:
+                  summary: Error Response - Invalid MimeType
+                  value:
+                    id: api.questionset.create
+                    ver: '3.0'
+                    ts: '2021-02-03T08:22:49ZZ'
+                    params:
+                      resmsgid: 6cc7bb1c-330e-4da5-9075-1ac69cddf225
+                      msgid: null
+                      err: CLIENT_ERROR
+                      status: failed
+                      errmsg: Validation Errors
+                    responseCode: CLIENT_ERROR
+                    result:
+                      messages:
+                        - 'Metadata mimeType should be one of: [application/vnd.sunbird.questionset]'
+                b:
+                  summary: Error Response - Primary Category Not Set
+                  value:
+                    id: api.questionset.create
+                    ver: '3.0'
+                    ts: '2021-02-03T08:23:40ZZ'
+                    params:
+                      resmsgid: d25ad9ab-5863-4e1b-95f3-2ef6645642de
+                      msgid: null
+                      err: CLIENT_ERROR
+                      status: failed
+                      errmsg: Validation Errors
+                    responseCode: CLIENT_ERROR
+                    result:
+                      messages:
+                        - Required Metadata primaryCategory not set
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              example:
+                id: api.questionset.create
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /questionset/v1/update/{QuestionSet_Id}:
+    patch:
+      description: |-
+        This API is associated with updating questionset on the Sunbird Platform .
+          - **_/Update/_** endpoint executes the "Update QuestionSet" request based on parameters provided as metadata in the request body.
+          - The endpoint for **Update QuestionSet** is `/questionset/v1/update`
+          - It points to assessment-service - `/questionset/v4/update`
+          - {...}refers to a section of update endpoint URL path that needs to be replaced with the appropriate ID.
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Update QuestionSet
+      tags:
+        - QuestionSet APIs
+      operationId: Update QuestionSet
+      parameters:
+        - in: path
+          name: QuestionSet_Id
+          required: true
+          description: Append a valid QuestionSet Id To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All question APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/questionUpdateQuestionsetRequest'
+            example:
+              request:
+                questionset:
+                  description: Updated description
+                  versionKey: '1612295414767'
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the questionset to be updated.
+            - Click the link to refer to the supported [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/questionset/1.0/schema.json)
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation. The **Update Question Set** operation was successfuly
+            executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetCreateSuccessResponse'
+              example:
+                id: api.questionset.update
+                ver: '3.0'
+                ts: '2021-02-02T19:55:07ZZ'
+                params:
+                  resmsgid: 9d9d4824-cc40-4ac7-a3d6-6da61c0240e9
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_113207924037746688110
+                  versionKey: '1612295707004'
+        '400':
+          description: >-
+            BAD REQUEST. The 'Update QuestionSet' operation failed ! The possible
+            reason for failure is that you may have missed providing input for a
+            mandatory parameter. 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              example:
+                id: api.questionset.update
+                ver: '3.0'
+                ts: '2021-02-02T19:56:20ZZ'
+                params:
+                  resmsgid: fcfcf6d6-84f1-43f5-b573-c3b6cf69ef53
+                  msgid: null
+                  err: CLIENT_ERROR
+                  status: failed
+                  errmsg: Invalid version Key
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,The **Update Question Set** operation failed !The possible
+            reason for failure is that you may have provided wrong question ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              example:
+                id: api.questionset.update
+                ver: '3.0'
+                ts: '2021-02-02T19:57:35ZZ'
+                params:
+                  resmsgid: 2b139ee9-f091-4cca-b466-32af45f49a65
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) does not exist. | [Invalid Node Id.]: do_1132079240377466881101'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact info@sunbird.org. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /questionset/v1/read/{QuestionSet_Id}:
+    get:
+      description: >-
+        This API is associated with viewing and reading out the questionset on the Sunbird Platform .
+          - The **_/read/{QuestionSet_Id}_** endpoint executes request for fetching the question to be viewed and read.
+          - The endpoint for **Read QuestionSet** is `/questionset/v1/read`
+          - It points to assessment-service - `/questionset/v4/read`
+          - {...}refers to a section of read endpoint URL path that needs to be replaced by appropriate Id.
+          - You need to provide a valid QuestionSet Id value in {QuestionSet_Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      summary: Read QuestionSet
+      tags:
+        - QuestionSet APIs
+      operationId: Read QuestionSet
+      parameters:
+        - in: path
+          name: QuestionSet_Id
+          required: true
+          description: Append a valid Question Set Id To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation.The "Read Question Set" operation was successfully
+            executed. Click link to refer to the [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/questionset/1.0/schema.json)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetReadSuccessResponse'
+              example:
+                id: api.questionset.read
+                ver: '3.0'
+                ts: '2021-02-03T09:23:51ZZ'
+                params:
+                  resmsgid: e9e05900-793b-4231-af75-ffa1a7a0b4c6
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  questionset:
+                    code: finemanfine
+                    allowSkip: 'Yes'
+                    containsUserData: 'No'
+                    description: hey
+                    language:
+                      - English
+                    mimeType: application/vnd.sunbird.questionset
+                    showHints: 'No'
+                    createdOn: '2021-02-03T09:23:34.060+0000'
+                    objectType: QuestionSet
+                    primaryCategory: Practice Question Set
+                    contentDisposition: inline
+                    lastUpdatedOn: '2021-02-03T09:23:34.060+0000'
+                    contentEncoding: gzip
+                    showSolutions: 'Yes'
+                    allowAnonymousAccess: 'Yes'
+                    identifier: do_113208323801554944120
+                    lastStatusChangedOn: '2021-02-03T09:23:34.060+0000'
+                    requiresSubmit: 'Yes'
+                    visibility: Default
+                    showTimer: 'No'
+                    summaryType: Complete
+                    consumerId: fa13b438-8a3d-41b1-8278-33b0c50210e4
+                    setType: materialised
+                    languageCode:
+                      - en
+                    version: 1
+                    versionKey: '1612344214060'
+                    showFeedback: 'Yes'
+                    license: CC BY 4.0
+                    compatibilityLevel: 4
+                    name: Test Question Set
+                    navigationMode: linear
+                    shuffle: 'Yes'
+                    status: Draft
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,The **Read Question Set** operation failed! The possible
+            reason for failure is that you may have provided wrong question set ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              example:
+                id: api.questionset.read
+                ver: '3.0'
+                ts: '2021-02-02T20:01:13ZZ'
+                params:
+                  resmsgid: 815b341a-7984-45a1-b1f9-4335da18985e
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) does not exist. | [Invalid Node Id.]: do_1132083238015549441201'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact info@sunbird.org. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /questionset/v1/review/{QuestionSet_Id}:
+    post:
+      description: >-
+        This API is associated with submitting the question set for review  on the Sunbird Platform .
+          - The**_/review/{QuestionSet_Id}_** endpoint executes "Submit for Review" request based on parameters provided as metadata in the request body.
+          - The endpoint for **Review QuestionSet** is `/questionset/v1/review`
+          - It points to assessment-service - `/questionset/v4/review`
+          - {...}refers to a section of the review endpoint URL path that needs to be replaced by appropriate ID.
+          - You need to provide a valid QuestionSet Id value in {QuestionSet_Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      summary: Review QuestionSet
+      tags:
+        - QuestionSet APIs
+      operationId: Review QuestionSet
+      parameters:
+        - in: path
+          name: QuestionSet_Id
+          required: true
+          description: Append a valid QuestionSet ID To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All content APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the question set to be sent for review.
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation. The ** Review Question Set** operation was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetCreateSuccessResponse'
+              example:
+                id: api.questionset.review
+                ver: '3.0'
+                ts: '2021-02-03T09:30:21ZZ'
+                params:
+                  resmsgid: 679a458f-cd12-4dee-a6b4-5aea11fbe426
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_113208323801554944120
+                  versionKey: '1612344214060'
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,The **Send Question Set for Review** operation failed! The
+            possible reason for failure is that you may have provided wrong question set ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              example:
+                id: api.questionset.review
+                ver: '3.0'
+                ts: '2021-02-02T20:07:24ZZ'
+                params:
+                  resmsgid: 852b878c-a607-4d72-9458-6239e36adb9e
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) does not exist. | [Invalid Node Id.]: do_1132079319215554561111'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '400':
+          description: >-
+            BAD REQUEST. The 'Review Question Set' operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter. 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              example:
+                id: api.questionset.review
+                ver: '3.0'
+                ts: '2021-02-03T09:33:32ZZ'
+                params:
+                  resmsgid: 95670d2a-764c-489f-bf27-b4acedc4b465
+                  msgid: null
+                  err: ERR_QUESTION_SET_REVIEW
+                  status: failed
+                  errmsg: A question set with status other than Draft can't be sent for review.
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! We track
+            these errors automatically, but if the problem persists feel free to
+            contact info@sunbird.org. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /questionset/v1/reject/{QuestionSet_Id}:
+    post:
+      description: >-
+        This API is associated with rejecting the Question Set Review  on the Sunbird Platform .
+          - The**_/reject/{QuestionSet_Id}_** endpoint executes "Rejecting QuestionSet for Review" request based on parameters provided as metadata in the request body.
+          - The endpoint for **Reject QuestionSet Review** is `/questionset/v1/reject`
+          - It points to assessment-service - `/questionset/v4/reject`
+          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
+          - You need to provide a valid QuestionSet Id value in {QuestionSet_Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      summary: Reject QuestionSet
+      tags:
+        - QuestionSet APIs
+      operationId: Reject QuestionSet
+      parameters:
+        - in: path
+          name: QuestionSet_Id
+          required: true
+          description: ppend a valid QuestionSet Id To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All content APIs require authorization for use. Specify theauthorization key received from the administrator when placing the request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the questionset to be sent for review.
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation. Reject QuestionSet review operation was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetCreateSuccessResponse'
+              example:
+                id: api.questionset.reject
+                ver: '3.0'
+                ts: '2021-02-03T12:11:35ZZ'
+                params:
+                  resmsgid: a505a723-616f-4e3f-9a52-2f0d9924f732
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_113208406116417536122
+                  versionKey: '1612354279918'
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**QuestionSet Send for Review Reject** operation failed !The possible reason for failure is that you may have provided wrong questionset id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              example:
+                id: api.questionset.reject
+                ver: '3.0'
+                ts: '2021-02-03T12:15:36ZZ'
+                params:
+                  resmsgid: 6fc0bd55-e99e-4ae1-80e2-7275458258ab
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1132084061164175361221'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '400':
+          description: >-
+            BAD REQUEST. The 'Review Reject QuestionSet' operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter. 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              example:
+                id: api.questionset.reject
+                ver: '3.0'
+                ts: '2021-02-03T12:16:59ZZ'
+                params:
+                  resmsgid: cbcaa290-e132-47e6-b4d9-94212037195d
+                  msgid: null
+                  err: ERR_QUESTION_SET_REJECT
+                  status: failed
+                  errmsg: 'QuestionSet is not in ''Review'' state for identifier: do_113208406116417536122'
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! We track
+            these errors automatically, but if the problem persists feel free to
+            contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /questionset/v1/publish/{QuestionSet_Id}:
+    post:
+      description: |-
+        This API is associated with publishing questionset on the Sunbird Platform .
+          - **_/publish/_** endpoint executes the "Publish QuestionSet" request based on parameters provided as metadata in the request body.
+          - The endpoint for **Publish QuestionSet** is `/questionset/v1/publish`
+          - It points to assessment-service - `/questionset/v4/publish`
+          -  {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Publish QuestionSet
+      tags:
+        - QuestionSet APIs
+      operationId: Publish QuestionSet
+      parameters:
+        - in: path
+          name: QuestionSet_Id
+          required: true
+          description: QuestionSet Id to be published
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: Authorizing user in order to grant access.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the questionset to be published.
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation.**QuestionSet publish** operation was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetPublishSuccessResponse'
+              example:
+                id: api.questionset.publish
+                ver: '3.0'
+                ts: '2021-02-03T09:39:14ZZ'
+                params:
+                  resmsgid: 62f7e310-39e1-4287-bc9f-f8e6ac5f5bd3
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  message: Question is successfully sent for Publish
+                  identifier: do_113208323801554944120
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**QuestionSet Send for publish** operation failed !The possible reason for failure is that you may have provided wrong questionset id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              example:
+                id: api.questionset.publish
+                ver: '3.0'
+                ts: '2021-02-03T09:40:03ZZ'
+                params:
+                  resmsgid: 5973c551-857e-40a4-8ebf-c70af953aeba
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1132083238015549441201'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /questionset/v1/retire/{QuestionSet_Id}:
+    delete:
+      description: |-
+        This API is associated with retiring QuestionSet on the Sunbird Platform .
+          - The **_/retire/{QuestionSet_Id}_** endpoint executes  "Retire QuestionSet" request based on QuestionSet_Id to delete the specific QuestionSet.'
+          - The endpoint for **Retire QuestionSet** is `/questionset/v1/retire`
+          - It points to assessment-service - `/questionset/v4/retire`
+          - {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
+          - It is mandatory to provide values for parameters.
+          - Mandatory fields cannot be null or empty.
+      summary: Retire QuestionSet
+      tags:
+        - QuestionSet APIs
+      operationId: Retire QuestionSet
+      parameters:
+        - in: path
+          name: QuestionSet_Id
+          required: true
+          description: Please append a valid QuestionSet Id To the Request URL
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All questionset APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation.**QuestionSet deletion** operation was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetCreateSuccessResponse'
+              example:
+                id: api.questionset.retire
+                ver: '3.0'
+                ts: '2021-02-02T20:20:56ZZ'
+                params:
+                  resmsgid: 98c9f97d-f9d6-4da9-be88-2852294c2aaa
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_113207939069968384112
+                  versionKey: '1612297249754'
+        '400':
+          description: ERR QUESTIONSET RETIRE! QuestionSet is already retired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              example:
+                id: api.questionset.retire
+                ver: '3.0'
+                ts: '2021-02-02T20:21:26ZZ'
+                params:
+                  resmsgid: 0608b59d-dfb9-4c0e-807f-1a19c9a163fe
+                  msgid: null
+                  err: ERR_QUESTION_RETIRE
+                  status: failed
+                  errmsg: 'QuestionSet with identifier : do_113207939069968384112 is already Retired.'
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**QuestionSet Send for Retire** operation failed! The possible reason for failure is that you may have provided wrong questionset id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              example:
+                id: api.questionset.retire
+                ver: '3.0'
+                ts: '2021-02-02T20:22:03ZZ'
+                params:
+                  resmsgid: da7af22e-bdce-48f0-8743-f50fa6c2cd21
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1132079390699683841121'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /questionset/v1/hierarchy/update:
+    patch:
+      description: |-
+        This API is associated with updating questionset hierarchy on the Sunbird Platform .
+          - **_/Hierarchy Update/_** endpoint executes the "Update Hierarchy QuestionSet" request based on parameters provided as metadata in the request body.
+          - The endpoint for **Update Hierarchy QuestionSet** is `questionset/v1/hierarchy/update`
+          - It points to assessment-service - `questionset/v4/hierarchy/update`
+          - {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Update Hierarchy QuestionSet
+      tags:
+        - QuestionSet APIs
+      operationId: Update Hierarchy QuestionSet
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All question APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/questionUpdateHierarchyQuestionsetRequest'
+            example:
+              request:
+                data:
+                  nodesModified:
+                    do_113208431570984960123:
+                      metadata:
+                        description: updated_code_of_root
+                      root: true
+                      isNew: false
+                    QS_Visibility_Parent:
+                      metadata:
+                        mimeType: application/vnd.sunbird.questionset
+                        name: QS_Visibility_Parent
+                        description: QS_Visibility_Parent
+                        primaryCategory: Practice Question Set
+                      root: false
+                      objectType: QuestionSet
+                      isNew: true
+                    Q_Visibility_Parent:
+                      metadata:
+                        name: MCQ
+                        body: <div class="question-body"><div class="mcq-title"><p>color of sky is?</p></div><div data-choice-interaction="response1" class="mcq-vertical"></div></div>
+                        qType: MCQ
+                        mimeType: application/vnd.sunbird.question
+                        primaryCategory: Multiple Choice Question
+                      root: false
+                      objectType: Question
+                      isNew: true
+                  hierarchy:
+                    do_113208431570984960123:
+                      children:
+                        - QS_Visibility_Parent
+                      root: true
+                    QS_Visibility_Parent:
+                      children:
+                        - Q_Visibility_Parent
+                      root: false
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata and hierarchy about the questionset to be updated.
+            - Please refer for supported [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/questionset/1.0/schema.json)
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation.QuestionSet update hierarchy operation was successfuly
+            executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetUpdateHierarchySuccessResponse'
+              example:
+                id: api.questionset.hierarchy.update
+                ver: '3.0'
+                ts: '2021-02-03T13:06:12ZZ'
+                params:
+                  resmsgid: 221f9cdb-c220-4d3f-a579-4e7b82facf89
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_113208431570984960123
+                  identifiers:
+                    QS_Visibility_Parent: do_113208433229889536126
+                    Q_Visibility_Parent: do_113208433229873152124
+        '400':
+          description: >-
+            BAD REQUEST. The 'Update Hierarchy QuestionSet' operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter. 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              examples:
+                a:
+                  summary: Error Response - Invalid ObjectType in Hierarchy
+                  value:
+                    id: api.questionset.hierarchy.update
+                    ver: '3.0'
+                    ts: '2021-02-03T13:11:14ZZ'
+                    params:
+                      resmsgid: 04e218fc-76bc-4fd3-b98d-5ed947a30b8b
+                      msgid: null
+                      err: ERR_QS_UPDATE_HIERARCHY
+                      status: failed
+                      errmsg: Question cannot have children in hierarchy
+                    responseCode: CLIENT_ERROR
+                    result:
+                      messages: null
+                b:
+                  summary: Error Response - ObjectType mandatory field in nodesModified objects 
+                  value:
+                    id: api.questionset.hierarchy.update
+                    ver: '3.0'
+                    ts: '2021-02-03T13:25:27ZZ'
+                    params:
+                      resmsgid: 69f90d05-30f5-427b-8e7f-c44cbbc337d0
+                      msgid: null
+                      err: ERR_UPDATE_QS_HIERARCHY
+                      status: failed
+                      errmsg: 'Object Type is mandatory for creation of node with id: QS_Visibility_Parent'
+                    responseCode: CLIENT_ERROR
+                    result:
+                      messages: null
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**QuestionSet Update Hierarchy** operation failed !The possible reason for failure is that you may have provided wrong questionset id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              example:
+                id: api.questionset.hierarchy.update
+                ver: '3.0'
+                ts: '2021-02-03T13:27:12ZZ'
+                params:
+                  resmsgid: 0fbe77de-a612-4406-bcd2-a63de5b29b6d
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1132084315709849601231'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /questionset/v1/hierarchy/{QuestionSet_Id}:
+    get:
+      description: >-
+        This API is associated with viewing and reading out the questionset hierarchy on the Sunbird Platform .
+          - The **_/hierarchy/{QuestionSet_Id}_** endpoint executes request for fetching the questionset to be viewed and read hierarchy.
+          - The endpoint for **Read QuestionSet Hierarchy** is `/questionset/v1/hierarchy`
+          - It points to assessment-service - `/questionset/v4/hierarchy`
+          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
+          - You need to provide a valid QuestionSet Id value in {QuestionSet_Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      summary: Read QuestionSet Hierarchy
+      tags:
+        - QuestionSet APIs
+      operationId: Read QuestionSet Hierarchy
+      parameters:
+        - in: path
+          name: QuestionSet_Id
+          required: true
+          description: Please append a valid QuestionSet Id To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation."Read QuestionSet Hierarchy" operation was successfully executed. For all possible metadata, please
+              [refer](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/questionset/1.0/schema.json)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetReadHierarchySuccessResponse'
+              examples:
+                a:
+                  summary: Read Success Response - Draft Version of Hierarchy
+                  value:
+                    id: api.questionset.hierarchy.get
+                    ver: '3.0'
+                    ts: '2021-02-03T13:55:21ZZ'
+                    params:
+                      resmsgid: b810c4fd-231e-4b26-9be6-6345c49bde14
+                      msgid: null
+                      err: null
+                      status: successful
+                      errmsg: null
+                    responseCode: OK
+                    result:
+                      questionSet:
+                        code: finemanfine
+                        allowSkip: 'Yes'
+                        containsUserData: 'No'
+                        description: updated_code_of_root
+                        language:
+                          - English
+                        mimeType: application/vnd.sunbird.questionset
+                        showHints: 'No'
+                        createdOn: '2021-02-03T13:02:49.507+0000'
+                        objectType: QuestionSet
+                        primaryCategory: Practice Question Set
+                        children:
+                          - parent: do_113208431570984960123
+                            code: QS_Visibility_Parent
+                            allowSkip: 'Yes'
+                            containsUserData: 'No'
+                            description: QS_Visibility_Parent
+                            language:
+                              - English
+                            mimeType: application/vnd.sunbird.questionset
+                            showHints: 'No'
+                            createdOn: '2021-02-03T13:47:27.074+0000'
+                            objectType: QuestionSet
+                            primaryCategory: Practice Question Set
+                            children:
+                              - parent: do_113208453505630208144
+                                code: Q_Visibility_Parent
+                                language:
+                                  - English
+                                mimeType: application/vnd.sunbird.question
+                                createdOn: '2021-02-03T13:47:27.072+0000'
+                                objectType: Question
+                                primaryCategory: Multiple Choice Question
+                                contentDisposition: inline
+                                lastUpdatedOn: '2021-02-03T13:47:27.072+0000'
+                                contentEncoding: gzip
+                                showSolutions: 'No'
+                                allowAnonymousAccess: 'Yes'
+                                identifier: do_113208453505613824142
+                                lastStatusChangedOn: '2021-02-03T13:47:27.072+0000'
+                                visibility: Parent
+                                showTimer: 'No'
+                                index: 1
+                                qType: MCQ
+                                languageCode:
+                                  - en
+                                version: 1
+                                versionKey: '1612360047074'
+                                showFeedback: 'No'
+                                license: CC BY 4.0
+                                depth: 2
+                                compatibilityLevel: 4
+                                name: MCQ
+                                status: Draft
+                            contentDisposition: inline
+                            lastUpdatedOn: '2021-02-03T13:47:27.074+0000'
+                            contentEncoding: gzip
+                            showSolutions: 'No'
+                            allowAnonymousAccess: 'Yes'
+                            identifier: do_113208453505630208144
+                            lastStatusChangedOn: '2021-02-03T13:47:27.074+0000'
+                            requiresSubmit: 'No'
+                            visibility: Parent
+                            showTimer: 'No'
+                            index: 1
+                            setType: materialised
+                            languageCode:
+                              - en
+                            version: 1
+                            versionKey: '1612360047074'
+                            showFeedback: 'No'
+                            license: CC BY 4.0
+                            depth: 1
+                            compatibilityLevel: 4
+                            name: QS_Visibility_Parent
+                            navigationMode: non-linear
+                            shuffle: 'Yes'
+                            status: Draft
+                        contentDisposition: inline
+                        lastUpdatedOn: '2021-02-03T13:47:27.108+0000'
+                        contentEncoding: gzip
+                        showSolutions: 'Yes'
+                        allowAnonymousAccess: 'Yes'
+                        identifier: do_113208431570984960123
+                        lastStatusChangedOn: '2021-02-03T13:02:49.507+0000'
+                        requiresSubmit: 'Yes'
+                        visibility: Default
+                        showTimer: 'No'
+                        summaryType: Complete
+                        consumerId: fa13b438-8a3d-41b1-8278-33b0c50210e4
+                        childNodes:
+                          - do_113208453505613824142
+                          - do_113208453505630208144
+                        setType: materialised
+                        languageCode:
+                          - en
+                        version: 1
+                        versionKey: '1612360047108'
+                        showFeedback: 'Yes'
+                        license: CC BY 4.0
+                        depth: 0
+                        compatibilityLevel: 4
+                        name: Test Question Set
+                        navigationMode: linear
+                        shuffle: 'Yes'
+                        status: Draft
+                b:
+                  summary: Read Success Response - Live Version of Hierarchy
+                  value:
+                    id: api.questionset.hierarchy.get
+                    ver: '3.0'
+                    ts: '2021-02-03T14:04:59ZZ'
+                    params:
+                      resmsgid: 721f2a8d-1d2e-4e0c-b297-42f3944b4d34
+                      msgid: null
+                      err: null
+                      status: successful
+                      errmsg: null
+                    responseCode: OK
+                    result:
+                      questionSet:
+                        lastStatusChangedOn: '2021-01-28T09:42:55.557+0000'
+                        children:
+                          - lastStatusChangedOn: '2021-01-28T09:47:40.311+0000'
+                            parent: do_113204086583754752115
+                            name: Multiple Choice
+                            createdOn: '2021-01-28T09:47:40.311+0000'
+                            lastUpdatedOn: '2021-01-28T09:47:40.313+0000'
+                            showTimer: 'No'
+                            IL_FUNC_OBJECT_TYPE: Question
+                            compatibilityLevel: 4
+                            primaryCategory: Multiple Choice Question
+                            IL_SYS_NODE_TYPE: DATA_NODE
+                            interactionTypes:
+                              - choice
+                            versionKey: '1611827260313'
+                            mimeType: application/vnd.sunbird.question
+                            code: UUID
+                            license: CC BY 4.0
+                            version: 1
+                            templateId: mcq-vertical
+                            language:
+                              - English
+                            showFeedback: 'No'
+                            objectType: Question
+                            status: Draft
+                            contentEncoding: gzip
+                            depth: 1
+                            IL_UNIQUE_ID: do_113204088916467712116
+                            allowAnonymousAccess: 'Yes'
+                            contentDisposition: inline
+                            visibility: Parent
+                            qType: MCQ
+                            showSolutions: 'No'
+                            index: 1
+                          - lastStatusChangedOn: '2021-01-28T09:48:50.745+0000'
+                            parent: do_113204086583754752115
+                            name: Subjective
+                            createdOn: '2021-01-28T09:48:50.745+0000'
+                            lastUpdatedOn: '2021-01-28T09:48:50.747+0000'
+                            showTimer: 'No'
+                            IL_FUNC_OBJECT_TYPE: Question
+                            compatibilityLevel: 4
+                            primaryCategory: Subjective Question
+                            IL_SYS_NODE_TYPE: DATA_NODE
+                            versionKey: '1611827330747'
+                            mimeType: application/vnd.sunbird.question
+                            code: UUID
+                            license: CC BY 4.0
+                            version: 1
+                            language:
+                              - English
+                            showFeedback: 'No'
+                            objectType: Question
+                            status: Draft
+                            contentEncoding: gzip
+                            depth: 1
+                            IL_UNIQUE_ID: do_113204089493463040118
+                            allowAnonymousAccess: 'Yes'
+                            contentDisposition: inline
+                            visibility: Parent
+                            qType: SA
+                            showSolutions: 'No'
+                            index: 2
+                        name: Test Question Set
+                        navigationMode: linear
+                        createdOn: '2021-01-28T09:42:55.557+0000'
+                        pdfUrl: 'https://dockstorage.blob.core.windows.net/sunbird-content-dock/questionset/do_113204086583754752115/do_113204086583754752115_pdf_1612191619805.pdf'
+                        lastUpdatedOn: '2021-01-28T09:48:50.815+0000'
+                        showTimer: 'No'
+                        IL_FUNC_OBJECT_TYPE: QuestionSet
+                        publishError: null
+                        identifier: do_113204086583754752115
+                        description: hey
+                        containsUserData: 'No'
+                        allowSkip: 'Yes'
+                        compatibilityLevel: 5
+                        primaryCategory: Practice Question Set
+                        setType: materialised
+                        IL_SYS_NODE_TYPE: DATA_NODE
+                        downloadUrl: 'https://dockstorage.blob.core.windows.net/sunbird-content-dock/questionset/do_113204086583754752115/test-question-set_1612191618716_do_113204086583754752115_1_SPINE.ecar'
+                        versionKey: '1611827330815'
+                        mimeType: application/vnd.sunbird.questionset
+                        code: finemanfine
+                        license: CC BY 4.0
+                        version: 1
+                        showHints: 'No'
+                        summaryType: Complete
+                        language:
+                          - English
+                        showFeedback: 'Yes'
+                        lastPublishedOn: '2021-02-01T15:00:18.706+0000'
+                        objectType: QuestionSet
+                        status: Live
+                        requiresSubmit: 'Yes'
+                        shuffle: 'Yes'
+                        contentEncoding: gzip
+                        depth: 0
+                        consumerId: fa13b438-8a3d-41b1-8278-33b0c50210e4
+                        IL_UNIQUE_ID: do_113204086583754752115
+                        allowAnonymousAccess: 'Yes'
+                        contentDisposition: inline
+                        previewUrl: 'https://dockstorage.blob.core.windows.net/sunbird-content-dock/questionset/do_113204086583754752115/do_113204086583754752115_html_1612191618801.html'
+                        childNodes:
+                          - do_113204088916467712116
+                          - do_113204089493463040118
+                        visibility: Default
+                        showSolutions: 'Yes'
+                        variants:
+                          spine: 'https://dockstorage.blob.core.windows.net/sunbird-content-dock/questionset/do_113204086583754752115/test-question-set_1612191618716_do_113204086583754752115_1_SPINE.ecar'
+                          online: 'https://dockstorage.blob.core.windows.net/sunbird-content-dock/questionset/do_113204086583754752115/test-question-set_1612191618770_do_113204086583754752115_1_ONLINE.ecar'
+                        pkgVersion: 1
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**QuestionSet Read Hierarchy** operation failed !The possible reason for failure is that you may have provided wrong question id or the questionset is not published.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              example:
+                id: api.questionset.hierarchy.get
+                ver: '3.0'
+                ts: '2021-02-03T13:56:54ZZ'
+                params:
+                  resmsgid: db5bcf74-d151-46f5-85b1-8512053923cb
+                  msgid: null
+                  err: RESOURCE_NOT_FOUND
+                  status: failed
+                  errmsg: rootId do_113208431570984960123 does not exist
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+    questionCreateQuestionRequest:
+      title: Request
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/questionQuestionCreateRequestQuestion'
+    questionQuestionCreateRequestQuestion:
+      title: Question
+      required:
+        - question
+      type: object
+      properties:
+        question:
+          $ref: '#/components/schemas/questionQuestionCreateRequestQuestionObject'
+    questionQuestionCreateRequestQuestionObject:
+      title: Object
+      required:
+        - code
+        - mimeType
+        - name
+        - primaryCategory
+      type: object
+      properties:
+        name:
+          type: string
+          description: Represents the name of the question
+        code:
+          type: string
+          description: Represents the unique code for the question
+        mimeType:
+          type: string
+          description: Question mime type
+        primaryCategory:
+          type: string
+          description: PrimaryCategory agains which question schema will be validated
+    questionUpdateQuestionRequest:
+      title: Request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/questionQuestionUpdateRequestQuestion'
+      required:
+        - request
+    questionQuestionUpdateRequestQuestion:
+      title: Question
+      type: object
+      properties:
+        question:
+          $ref: '#/components/schemas/questionQuestionUpdateRequestQuestionObject'
+      required:
+        - question
+    questionQuestionUpdateRequestQuestionObject:
+      title: Object
+      required:
+        - versionKey
+      type: object
+      properties:
+        versionKey:
+          type: string
+          description: Represents the transaction update version key of the Question
+        description:
+          type: string
+          description: Represents the description for the Question
+    questionCreateQuestionsetRequest:
+      title: Request
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/questionQuestionsetCreateRequestQuestionset'
+    questionQuestionsetCreateRequestQuestionset:
+      title: Questionset
+      required:
+        - questionset
+      type: object
+      properties:
+        questionset:
+          $ref: '#/components/schemas/questionQuestionsetCreateRequestQuestionsetObject'
+    questionQuestionsetCreateRequestQuestionsetObject:
+      title: Object
+      required:
+        - code
+        - mimeType
+        - name
+        - primaryCategory
+      type: object
+      properties:
+        name:
+          type: string
+          description: Represents the name of the questionset
+        code:
+          type: string
+          description: Represents the unique code for the questionset
+        mimeType:
+          type: string
+          description: questionset mime type
+        primaryCategory:
+          type: string
+          description: PrimaryCategory agains which questionset schema will be validated
+    questionUpdateQuestionsetRequest:
+      title: Request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/questionQuestionsetUpdateRequestQuestionset'
+      required:
+        - request
+    questionQuestionsetUpdateRequestQuestionset:
+      title: Questionset
+      type: object
+      properties:
+        questionset:
+          $ref: '#/components/schemas/questionQuestionsetUpdateRequestQuestionsetObject'
+      required:
+        - question
+    questionQuestionsetUpdateRequestQuestionsetObject:
+      title: Object
+      required:
+        - versionKey
+      type: object
+      properties:
+        versionKey:
+          type: string
+          description: Represents the transaction update version key of the Questionset
+        description:
+          type: string
+          description: Represents the description for the Questionset
+    questionUpdateHierarchyQuestionsetRequest:
+      title: Request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/questionQuestionsetUpdateHierarchyRequestQuestionset'
+      required:
+        - request
+    questionQuestionsetUpdateHierarchyRequestQuestionset:
+      title: Data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/questionQuestionsetUpdateHierarchyRequest'
+      required:
+        - data
+    questionQuestionsetUpdateHierarchyRequest:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/questionQuestionsetNodesModifiedRequest'
+        - $ref: '#/components/schemas/questionQuestionsetHierarchyObjectRequest'
+    questionQuestionsetNodesModifiedRequest:
+      title: NodesModified
+      type: object
+      properties:
+        nodesModified:
+          description: objects details to be created or updated
+          type: object
+      required:
+        - nodesModified
+    questionQuestionsetHierarchyObjectRequest:
+      title: Hierarchy
+      type: object
+      properties:
+        hierarchy:
+          description: objects hierarchy details
+          type: object
+      required:
+        - hierarchy
+    questionQuestionCreateSuccessResponse:
+      description: Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/questionResultWithQuestionId'
+        - $ref: '#/components/schemas/questionResponseHeader'
+    questionResultWithQuestionId:
+      title: Result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/questionQuestionId'
+    questionQuestionId:
+      title: Result
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Question Identifier
+        versionKey:
+          type: string
+          description: Question versionKey
+    questionQuestionReadSuccessResponse:
+      description: Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/questionResultWithQuestionMetadata'
+        - $ref: '#/components/schemas/questionResponseHeader'
+    questionResultWithQuestionMetadata:
+      title: Result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/questionResultWithQuestion'
+    questionResultWithQuestion:
+      title: Question
+      type: object
+      properties:
+        question:
+          $ref: '#/components/schemas/questionQuestionWithMetadata'
+    questionQuestionWithMetadata:
+      title: Object
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Question Identifier
+        name:
+          type: string
+          description: Question name
+        versionKey:
+          type: string
+          description: Question versionKey
+        code:
+          type: string
+          description: Question code
+        lastStatusChangedOn:
+          type: string
+          description: Last status changed time
+        visibility:
+          type: string
+          description: Question visibility
+        mimeType:
+          type: string
+          description: Question mimeType
+        createdOn:
+          type: string
+          description: Question createdOn
+        objectType:
+          type: string
+          description: Question objectType
+        primaryCategory:
+          type: string
+          description: Question primaryCategory
+        lastUpdatedOn:
+          type: string
+          description: Question lastUpdatedOn
+        status:
+          type: string
+          description: Question status
+    questionQuestionPublishSuccessResponse:
+      description: Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/questionPublishResultWithQuestion'
+        - $ref: '#/components/schemas/questionResponseHeader'
+    questionPublishResultWithQuestion:
+      title: Result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/questionPublishQuestion'
+    questionPublishQuestion:
+      title: Result
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Question Identifier
+        message:
+          type: string
+          description: Publish message
+    questionQuestionsetCreateSuccessResponse:
+      description: Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/questionResultWithQuestionsetId'
+        - $ref: '#/components/schemas/questionResponseHeader'
+    questionResultWithQuestionsetId:
+      title: Result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/questionQuestionsetId'
+    questionQuestionsetId:
+      title: Result
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Questionset Identifier
+        versionKey:
+          type: string
+          description: Questionset versionKey
+    questionQuestionsetReadSuccessResponse:
+      description: Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/questionResultWithQuestionsetMetadata'
+        - $ref: '#/components/schemas/questionResponseHeader'
+    questionResultWithQuestionsetMetadata:
+      title: Result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/questionResultWithQuestionset'
+    questionResultWithQuestionset:
+      title: Questionset
+      type: object
+      properties:
+        question:
+          $ref: '#/components/schemas/questionQuestionsetWithMetadata'
+    questionQuestionsetWithMetadata:
+      title: Object
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Questionset Identifier
+        name:
+          type: string
+          description: Questionset name
+        versionKey:
+          type: string
+          description: Questionset versionKey
+        code:
+          type: string
+          description: Questionset code
+        lastStatusChangedOn:
+          type: string
+          description: Last status changed time
+        visibility:
+          type: string
+          description: Questionset visibility
+        mimeType:
+          type: string
+          description: Questionset mimeType
+        createdOn:
+          type: string
+          description: Questionset createdOn
+        objectType:
+          type: string
+          description: Questionset objectType
+        primaryCategory:
+          type: string
+          description: Questionset primaryCategory
+        lastUpdatedOn:
+          type: string
+          description: Questionset lastUpdatedOn
+        status:
+          type: string
+          description: Questionset status
+    questionQuestionsetPublishSuccessResponse:
+      description: Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/questionPublishResultWithQuestionset'
+        - $ref: '#/components/schemas/questionResponseHeader'
+    questionPublishResultWithQuestionset:
+      title: Result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/questionPublishQuestionset'
+    questionPublishQuestionset:
+      title: Result
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Questionset Identifier
+        message:
+          type: string
+          description: Publish message
+    questionQuestionsetUpdateHierarchySuccessResponse:
+      description: Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/questionResultWithQuestionsetHierarchy'
+        - $ref: '#/components/schemas/questionResponseHeader'
+    questionResultWithQuestionsetHierarchy:
+      title: Result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/questionQuestionsetHierarchy'
+    questionQuestionsetHierarchy:
+      title: Result
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Questionset Identifier
+        identifiers:
+          type: object
+          description: Object mapping i.e. created or updated
+    questionQuestionsetReadHierarchySuccessResponse:
+      description: Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/questionResultWithQuestionsetHierarchyMetadata'
+        - $ref: '#/components/schemas/questionResponseHeader'
+    questionResultWithQuestionsetHierarchyMetadata:
+      title: Result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/questionResultWithQuestionsetReadHierarchy'
+    questionResultWithQuestionsetReadHierarchy:
+      title: Questionset
+      type: object
+      properties:
+        questionset:
+          $ref: '#/components/schemas/questionQuestionsetWithMetadataHierarchy'
+    questionQuestionsetWithMetadataHierarchy:
+      title: Object
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Questionset Identifier
+        name:
+          type: string
+          description: Questionset name
+        versionKey:
+          type: string
+          description: Questionset versionKey
+        code:
+          type: string
+          description: Questionset code
+        lastStatusChangedOn:
+          type: string
+          description: Last status changed time
+        visibility:
+          type: string
+          description: Questionset visibility
+        mimeType:
+          type: string
+          description: Questionset mimeType
+        createdOn:
+          type: string
+          description: Questionset createdOn
+        objectType:
+          type: string
+          description: Questionset objectType
+        primaryCategory:
+          type: string
+          description: Questionset primaryCategory
+        lastUpdatedOn:
+          type: string
+          description: Questionset lastUpdatedOn
+        status:
+          type: string
+          description: Questionset status
+        children:
+          type: object
+          description: Children of Questionset
+    questionQuestionErrorResponse:
+      description: Error Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/questionEmptyResult'
+        - $ref: '#/components/schemas/questionResponseHeader'
+    questionQuestionsetErrorResponse:
+      description: Error Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/questionEmptyResult'
+        - $ref: '#/components/schemas/questionResponseHeader'
+    questionEmptyResult:
+      title: Result
+      type: object
+      properties:
+        result:
+          type: object
+          description: Result
+    questionResponseHeader:
+      title: Response
+      type: object
+      properties:
+        id:
+          type: string
+          description: API Identifier
+        ver:
+          type: string
+          description: API version information
+        ts:
+          type: string
+          description: API execution timespan
+        params:
+          $ref: '#/components/schemas/questionResponseParams'
+        responseCode:
+          type: string
+          description: 'API response code '
+    questionResponseParams:
+      title: Params
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          description: Response Message Id
+        msgid:
+          type: string
+          description: Message Id
+        err:
+          type: string
+          description: Error Code
+        status:
+          type: string
+          description: Response Status
+        errmsg:
+          type: string
+          description: Error Message
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header

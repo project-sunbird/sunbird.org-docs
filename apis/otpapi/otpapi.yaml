@@ -40,7 +40,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/generateOtpRequest'
+              $ref: '#/components/schemas/otpapigenerateOtpRequest'
         required: true
       responses:
         200:
@@ -49,7 +49,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
+                $ref: '#/components/schemas/otpapiContentCreateResponse'
               example:
                 id: api.otp.generate
                 ver: v1
@@ -70,7 +70,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/otpapiContentCreateErrorResponse'
               example:
                 id: api.otp.generate
                 ver: v1
@@ -90,7 +90,7 @@ paths:
           content: 
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/otpapiContentCreateErrorResponse'
               example:
                 id: api.otp.generate
                 ver: v1
@@ -130,7 +130,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/verifyOtpRequest'
+              $ref: '#/components/schemas/otpapiverifyOtpRequest'
         required: true
       responses:
         200:
@@ -139,7 +139,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
+                $ref: '#/components/schemas/otpapiContentCreateResponse'
               example:
                 id: api.otp.generate
                 ver: v1
@@ -160,7 +160,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/otpapiContentCreateErrorResponse'
         500:
           description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel free
@@ -168,7 +168,7 @@ paths:
           content: 
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/otpapiContentCreateErrorResponse'
               example:
                 id: api.otp.verify
                 ver: v1
@@ -183,20 +183,20 @@ paths:
                 result: {}
 components:
   schemas:
-    generateOtpRequest:
+    otpapigenerateOtpRequest:
       title: Request structure for sending OTP
       required:
       - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/genOtpRequest'
+          $ref: '#/components/schemas/otpapigenOtpRequest'
       example:
         request:
           userId: 372175df-7f44-48df-8aa5-4t6228996b06s
           key: amit@gmail.com
           type: email
-    genOtpRequest:
+    otpapigenOtpRequest:
       title: Request
       required:
       - key
@@ -212,21 +212,21 @@ components:
         type:
           type: string
           description: Contents of mail body
-    verifyOtpRequest:
+    otpapiverifyOtpRequest:
       title: Request structure for verifying OTP
       required:
       - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/verOtpRequest'
+          $ref: '#/components/schemas/otpapiverOtpRequest'
       example:
         request:
           userId: 372175df-7f44-48df-8aa5-4t6228996b06s
           key: amit@gmail.com
           type: email
           otp: "79562"
-    verOtpRequest:
+    otpapiverOtpRequest:
       title: Request
       required:
       - key
@@ -246,18 +246,18 @@ components:
         otp:
           type: string
           description: OTP
-    ContentCreateResponse:
+    otpapiContentCreateResponse:
       description: Create Content Response
       allOf:
-      - $ref: '#/components/schemas/ResultWithNodeId'
-      - $ref: '#/components/schemas/ResponseHeader'
-    ResultWithNodeId:
+      - $ref: '#/components/schemas/otpapiResultWithNodeId'
+      - $ref: '#/components/schemas/otpapiResponseHeader'
+    otpapiResultWithNodeId:
       title: Result Body
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/SendOtpResult'
-    ResponseHeader:
+          $ref: '#/components/schemas/otpapiSendOtpResult'
+    otpapiResponseHeader:
       title: ResponseHeader
       type: object
       properties:
@@ -271,19 +271,19 @@ components:
           type: string
           description: API execution timespan
         params:
-          $ref: '#/components/schemas/ResponseParams'
+          $ref: '#/components/schemas/otpapiResponseParams'
         responseCode:
           type: object
           properties: {}
           description: 'API response code '
-    SendOtpResult:
+    otpapiSendOtpResult:
       title: Send Otp Result
       type: object
       properties:
         response:
           type: string
           description: It will contain "SUCCESS" as a value,if the Otp is generated and send successfully to the user otherwise user id with reason of failure.
-    ResponseParams:
+    otpapiResponseParams:
       title: Response Parameter
       type: object
       properties:
@@ -302,12 +302,12 @@ components:
         errmsg:
           type: string
           description: Error Message
-    ContentCreateErrorResponse:
+    otpapiContentCreateErrorResponse:
       title: Create Content Error Response
       allOf:
-      - $ref: '#/components/schemas/EmptyResult'
-      - $ref: '#/components/schemas/ResponseHeader'
-    EmptyResult:
+      - $ref: '#/components/schemas/otpapiEmptyResult'
+      - $ref: '#/components/schemas/otpapiResponseHeader'
+    otpapiEmptyResult:
       title: Empty Result
       type: object
       properties:

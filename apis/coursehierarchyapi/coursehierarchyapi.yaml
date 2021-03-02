@@ -15,7 +15,6 @@ info:
   version: '1.0'
 servers:
   - url: 'https://staging.open-sunbird.org/api'
-    variables: {}
 paths:
   '/course/v1/hierarchy/{course-id}':
     get:
@@ -68,7 +67,7 @@ paths:
           content:
             application/json; charset=utf-8:
               schema:
-                $ref: '#/components/schemas/Coursegethierarchy-Success'
+                $ref: '#/components/schemas/coursehierarchyapiCoursegethierarchy-Success'
               example:
                 id: api.course.hierarchy
                 ver: 1.0
@@ -627,7 +626,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Coursegethierarchy-404NotFound'
+                $ref: '#/components/schemas/coursehierarchyapiCoursegethierarchy-404NotFound'
               example:
                 id: api.course.hierarchy
                 ver: 1.0
@@ -645,7 +644,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UpdateCourseHierarchy-500InternalServerError'
+                $ref: '#/components/schemas/coursehierarchyapiUpdateCourseHierarchy-500InternalServerError'
               example:
                 id: app.error
                 ver: 1.0
@@ -704,7 +703,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateCourseHierarchyRequest'
+              $ref: '#/components/schemas/coursehierarchyapiUpdateCourseHierarchyRequest'
             example:
               request:
                 data:
@@ -751,7 +750,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UpdateCourseHierarchy-success'
+                $ref: '#/components/schemas/coursehierarchyapiUpdateCourseHierarchy-success'
               example:
                 id: api.course.hierarchy.update
                 ver: 3.0
@@ -773,7 +772,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UpdateCourseHierarchy-404NotFound'
+                $ref: '#/components/schemas/coursehierarchyapiUpdateCourseHierarchy-404NotFound'
               example:
                 id: api.course.hierarchy.update
                 ver: 3.0
@@ -792,7 +791,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UpdateCourseHierarchy-500InternalServerError'
+                $ref: '#/components/schemas/coursehierarchyapiUpdateCourseHierarchy-500InternalServerError'
               example:
                 id: api.course.hierarchy.update
                 ver: 3.0
@@ -810,7 +809,7 @@ paths:
         - bearer: []
 components:
   schemas:
-    Params:
+    coursehierarchyapiParams:
       title: Params
       required:
         - resmsgid
@@ -832,7 +831,7 @@ components:
           type: string
         errmsg:
           type: string
-    Coursegethierarchy-404NotFound:
+    coursehierarchyapiCoursegethierarchy-404NotFound:
       title: Coursegethierarchy-404NotFound
       required:
         - id
@@ -850,12 +849,12 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params1'
+          $ref: '#/components/schemas/coursehierarchyapiParams1'
         responseCode:
           type: string
         result:
           type: object
-    Params1:
+    coursehierarchyapiParams1:
       title: Params1
       required:
         - resmsgid
@@ -876,7 +875,7 @@ components:
           type: string
         errmsg:
           type: string
-    Coursegethierarchy-Success:
+    coursehierarchyapiCoursegethierarchy-Success:
       title: Coursegethierarchy-Success
       required:
         - id
@@ -894,12 +893,12 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params2'
+          $ref: '#/components/schemas/coursehierarchyapiParams2'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Result'
-    Params2:
+          $ref: '#/components/schemas/coursehierarchyapiResult'
+    coursehierarchyapiParams2:
       title: Params2
       required:
         - resmsgid
@@ -921,15 +920,15 @@ components:
         errmsg:
           type: string
           nullable: true
-    Result:
+    coursehierarchyapiResult:
       title: Result
       required:
         - content
       type: object
       properties:
         content:
-          $ref: '#/components/schemas/Content'
-    Content:
+          $ref: '#/components/schemas/coursehierarchyapiContent'
+    coursehierarchyapiContent:
       title: Content
       type: object
       properties:
@@ -978,7 +977,7 @@ components:
         children:
           type: array
           items:
-            $ref: '#/components/schemas/Child'
+            $ref: '#/components/schemas/coursehierarchyapiChild'
           description: ''
         primaryCategory:
           type: string
@@ -1006,7 +1005,7 @@ components:
             type: object
           description: 'List of objects'
         trackable:
-          $ref: '#/components/schemas/Trackable'
+          $ref: '#/components/schemas/coursehierarchyapiTrackable'
         identifier:
           type: string
         lastUpdatedBy:
@@ -1054,7 +1053,7 @@ components:
         code:
           type: string
         credentials:
-          $ref: '#/components/schemas/Credentials'
+          $ref: '#/components/schemas/coursehierarchyapiCredentials'
         prevStatus:
           type: string
         description:
@@ -1068,7 +1067,7 @@ components:
         batches:
           type: array
           items:
-            $ref: '#/components/schemas/Batch'
+            $ref: '#/components/schemas/coursehierarchyapiBatch'
           description: ''
         copyrightYear:
           type: integer
@@ -1126,17 +1125,17 @@ components:
         c_sunbird_dev_open_batch_count:
           type: integer
           format: int32
-    Child:
+    coursehierarchyapiChild:
       title: Child
       type: object
       description: Child Object metadata
-    Credentials:
+    coursehierarchyapiCredentials:
       title: Credentials
       type: object
       properties:
         enabled:
           type: string
-    Trackable:
+    coursehierarchyapiTrackable:
       title: Trackable
       type: object
       properties:
@@ -1144,7 +1143,7 @@ components:
           type: string
         autoBatch:
           type: string
-    Batch:
+    coursehierarchyapiBatch:
       title: Batch
       type: object
       properties:
@@ -1170,23 +1169,23 @@ components:
         status:
           type: integer
           format: int32
-    UpdateCourseHierarchyRequest:
+    coursehierarchyapiUpdateCourseHierarchyRequest:
       title: UpdateCourseHierarchyRequest
       required:
         - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/Request'
-    Request:
+          $ref: '#/components/schemas/coursehierarchyapiRequest'
+    coursehierarchyapiRequest:
       title: Request
       required:
         - data
       type: object
       properties:
         data:
-          $ref: '#/components/schemas/Data'
-    Data:
+          $ref: '#/components/schemas/coursehierarchyapiData'
+    coursehierarchyapiData:
       title: Data
       required:
         - nodesModified
@@ -1194,18 +1193,18 @@ components:
       type: object
       properties:
         nodesModified:
-          $ref: '#/components/schemas/NodesModified'
+          $ref: '#/components/schemas/coursehierarchyapiNodesModified'
         hierarchy:
-          $ref: '#/components/schemas/Hierarchy'
-    NodesModified:
+          $ref: '#/components/schemas/coursehierarchyapiHierarchy'
+    coursehierarchyapiNodesModified:
       title: NodesModified
       type: object
       properties:
-        dummy-id-1:
-          $ref: '#/components/schemas/dummy-id-1'
-        dummy-id-2:
-          $ref: '#/components/schemas/dummy-id-2'
-    dummy-id-1:
+        coursehierarchyapidummy-id-1:
+          $ref: '#/components/schemas/coursehierarchyapidummy-id-1'
+        coursehierarchyapidummy-id-2:
+          $ref: '#/components/schemas/coursehierarchyapidummy-id-2'
+    coursehierarchyapidummy-id-1:
       title: dummy-id-1
       description: 'Dummy id'
       required:
@@ -1219,8 +1218,8 @@ components:
         root:
           type: boolean
         metadata:
-          $ref: '#/components/schemas/Metadata'
-    Metadata:
+          $ref: '#/components/schemas/coursehierarchyapiMetadata'
+    coursehierarchyapiMetadata:
       title: Metadata
       type: object
       properties:
@@ -1241,7 +1240,7 @@ components:
           items:
             type: string
           description: ''
-    dummy-id-2:
+    coursehierarchyapidummy-id-2:
       title: dummy-id-2
       description: 'Dummy id'
       required:
@@ -1255,16 +1254,16 @@ components:
         root:
           type: boolean
         metadata:
-          $ref: '#/components/schemas/Metadata'
-    Hierarchy:
+          $ref: '#/components/schemas/coursehierarchyapiMetadata'
+    coursehierarchyapiHierarchy:
       title: Hierarchy
       type: object
       properties:
-        root-id:
-          $ref: '#/components/schemas/root-id'
-        dummy-id-1:
-          $ref: '#/components/schemas/dummy-id-1-hierarchy'
-    root-id:
+        coursehierarchyapiroot-id:
+          $ref: '#/components/schemas/coursehierarchyapiroot-id'
+        coursehierarchyapidummy-id-1:
+          $ref: '#/components/schemas/coursehierarchyapidummy-id-1-hierarchy'
+    coursehierarchyapiroot-id:
       title: root-id
       required:
         - root
@@ -1277,7 +1276,7 @@ components:
           description: ''
         root:
           type: boolean
-    dummy-id-1-hierarchy:
+    coursehierarchyapidummy-id-1-hierarchy:
       title: dummy-id-1-hierarchy
       required:
         - root
@@ -1290,7 +1289,7 @@ components:
           description: ''
         root:
           type: boolean
-    UpdateCourseHierarchy-500InternalServerError:
+    coursehierarchyapiUpdateCourseHierarchy-500InternalServerError:
       title: UpdateCourseHierarchy-500InternalServerError
       required:
         - id
@@ -1308,12 +1307,12 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/coursehierarchyapiParams'
         responseCode:
           type: string
         result:
           type: object
-    UpdateCourseHierarchy-success:
+    coursehierarchyapiUpdateCourseHierarchy-success:
       title: UpdateCourseHierarchy-success
       required:
         - id
@@ -1331,12 +1330,12 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params4'
+          $ref: '#/components/schemas/coursehierarchyapiParams4'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Result1'
-    Params4:
+          $ref: '#/components/schemas/coursehierarchyapiResult1'
+    coursehierarchyapiParams4:
       title: Params4
       required:
         - resmsgid
@@ -1359,7 +1358,7 @@ components:
         errmsg:
           type: string
           nullable: true
-    Result1:
+    coursehierarchyapiResult1:
       title: Result1
       required:
         - content_id
@@ -1369,8 +1368,8 @@ components:
         content_id:
           type: string
         identifiers:
-          $ref: '#/components/schemas/Identifiers'
-    Identifiers:
+          $ref: '#/components/schemas/coursehierarchyapiIdentifiers'
+    coursehierarchyapiIdentifiers:
       title: Identifiers
       required:
         - b9a50833-eff6-4ef5-a2a4-2413f2d51f6c
@@ -1381,7 +1380,7 @@ components:
           type: string
         b9a50833-eff6-4ef5-a2a4-2413f2d51f6d:
           type: string
-    UpdateCourseHierarchy-404NotFound:
+    coursehierarchyapiUpdateCourseHierarchy-404NotFound:
       title: UpdateCourseHierarchy-404NotFound
       required:
         - id
@@ -1399,12 +1398,12 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params1'
+          $ref: '#/components/schemas/coursehierarchyapiParams1'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Result2'
-    Result2:
+          $ref: '#/components/schemas/coursehierarchyapiResult2'
+    coursehierarchyapiResult2:
       title: Result2
       required:
         - messages

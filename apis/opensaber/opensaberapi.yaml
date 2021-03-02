@@ -9,12 +9,11 @@ info:
 
 servers:
 - url: https://staging.sunbirded.org/api
-  variables: {}
 paths:
   /add:
     post:
       tags:
-      - Misc
+      - opensaber Misc
       summary: Add Registry Record
       description: >-
         This api is used to create a record in registry based on the schema configuration.
@@ -36,7 +35,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AddRegistryRecordRequest'
+              $ref: '#/components/schemas/opensaberapiAddRegistryRecordRequest'
             examples:
              a:
               $ref: '#/components/examples/addTeacherRegistry'
@@ -50,7 +49,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddRegistryRecord'
+                $ref: '#/components/schemas/opensaberapiAddRegistryRecord'
               examples:
                 a:
                  $ref: '#/components/examples/addTeacherRegistryResponse'
@@ -68,7 +67,7 @@ paths:
   /read:
     post:
       tags:
-      - Misc
+      - opensaber Misc
       summary: Read Registry Record
       description: >-
         This api is used to read the registry record
@@ -82,7 +81,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ReadRegistryRecordRequest'
+              $ref: '#/components/schemas/opensaberapiReadRegistryRecordRequest'
             examples:
               a:
                $ref: '#/components/examples/ReadTeacherRegistryRequest'
@@ -99,7 +98,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReadRegistryRecord'
+                $ref: '#/components/schemas/opensaberapiReadRegistryRecord'
               examples:
                 a:
                  $ref: '#/components/examples/ReadTeacherRegistryResponse'
@@ -119,7 +118,7 @@ paths:
   /update:
     post:
       tags:
-      - Misc
+      - opensaber Misc
       summary: Update Registry Record
       description: >-
         This api is used to Update a record in registry
@@ -132,7 +131,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateRegistryRecordRequest'
+              $ref: '#/components/schemas/opensaberapiUpdateRegistryRecordRequest'
             examples:
               a:
                $ref: '#/components/examples/UpdateRequestExample1'
@@ -144,7 +143,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UpdateRegistryRecord'
+                $ref: '#/components/schemas/opensaberapiUpdateRegistryRecord'
               examples:
                a:
                 $ref: '#/components/examples/UpdateRequestResponse'
@@ -159,7 +158,7 @@ paths:
   /delete:
     post:
       tags:
-      - Misc
+      - opensaber Misc
       summary: Delete Registry Record
       description: >-
         This api is used to delete a record in registry
@@ -173,7 +172,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DeleteRegistryRecordRequest'
+              $ref: '#/components/schemas/opensaberapiDeleteRegistryRecordRequest'
             examples:
              a:
               summary: Delete Person Record
@@ -187,7 +186,7 @@ paths:
                 key: ''
                 msgid: ''
                request:
-                Person:
+                opensaberapiPerson:
                   osid: 1-d6844c76-b128-43cc-bbba-74edfd09c716
         required: true
       responses:
@@ -196,7 +195,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteRegistryRecord'
+                $ref: '#/components/schemas/opensaberapiDeleteRegistryRecord'
               examples:
                 a:
                  $ref: '#/components/examples/SuccessDeleteResponse'
@@ -211,7 +210,7 @@ paths:
   /search:
     post:
       tags:
-      - Misc
+      - opensaber Misc
       summary: Search Registry Records
       description: >-
         This api is used to Search a record in registry
@@ -225,7 +224,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SearchRegistryRecordsRequest'
+              $ref: '#/components/schemas/opensaberapiSearchRegistryRecordsRequest'
             examples:
              a:
               $ref: '#/components/examples/SearchRequest1'
@@ -240,7 +239,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SearchRegistryRecords'
+                $ref: '#/components/schemas/opensaberapiSearchRegistryRecords'
               examples:
                 a:
                  $ref: '#/components/examples/SearchResultsResponse1'
@@ -255,7 +254,7 @@ paths:
   /audit:
     post:
       tags:
-      - Misc
+      - opensaber Misc
       summary: Search Audit Records
       description: >-
         This api is used to Search audit records in registry
@@ -270,7 +269,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SearchAuditRecordsRequest'
+              $ref: '#/components/schemas/opensaberapiSearchAuditRecordsRequest'
             examples:
              a: 
               $ref: '#/components/examples/TeacherSearchAuditEmptyFilterRequest'
@@ -283,7 +282,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuditResponseSchema'
+                $ref: '#/components/schemas/opensaberapiAuditResponseSchema'
               examples:
                 a:
                  $ref: '#/components/examples/SearchAuditRecordsResponse'
@@ -293,7 +292,7 @@ paths:
       deprecated: false
 components:
   schemas:
-    AddRegistryRecordRequest:
+    opensaberapiAddRegistryRecordRequest:
       title: AddRegistryRecordRequest
       description: >-
             Contains schema representation for entity available such as **Teacher.json, Person.json** available by default in **public/_schema** directory under resources folder. Teacher or Person will represent the entity and other fields under Teacher or Person will represent the schema definition.A new entity can be added by adding **`<ENTITY>.json`** under schema directory by following the json schema definition.
@@ -309,13 +308,13 @@ components:
         ets:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/opensaberapiParams'
         request:
           oneOf:
-          - $ref: '#/components/schemas/TeacherRequest'
-          - $ref: '#/components/schemas/PersonRequest'
+          - $ref: '#/components/schemas/opensaberapiTeacherRequest'
+          - $ref: '#/components/schemas/opensaberapiPersonRequest'
       
-    Params:
+    opensaberapiParams:
       title: Params
       type: object
       properties:
@@ -329,23 +328,23 @@ components:
         did: 'deviceId'
         key: 'key'
         msgid: 'msgid'
-    TeacherRequest:
+    opensaberapiTeacherRequest:
       title: TeacherRequest
       required:
       - Teacher
       type: object
       properties:
-        Teacher:
-          $ref: '#/components/schemas/Teacher'
-    PersonRequest:
+        opensaberapiTeacher:
+          $ref: '#/components/schemas/opensaberapiTeacher'
+    opensaberapiPersonRequest:
       title: PersonRequest
       required:
       - Person
       type: object
       properties:
-        Person:
-          $ref: '#/components/schemas/Person'
-    Teacher:
+        opensaberapiPerson:
+          $ref: '#/components/schemas/opensaberapiPerson'
+    opensaberapiTeacher:
       title: Teacher
       required:
       - signatures
@@ -374,7 +373,7 @@ components:
         signatures:
           type: array
           items:
-            $ref: '#/components/schemas/Signature'
+            $ref: '#/components/schemas/opensaberapiSignature'
           description: ''
         serialNum:
           type: integer
@@ -398,21 +397,21 @@ components:
         yearOfJoiningService:
           type: string
         teachingRole:
-          $ref: '#/components/schemas/TeachingRole'
+          $ref: '#/components/schemas/opensaberapiTeachingRole'
         inServiceTeacherTrainingFromBRC:
-          $ref: '#/components/schemas/InServiceTeacherTrainingFromBRC'
+          $ref: '#/components/schemas/opensaberapiInServiceTeacherTrainingFromBRC'
         inServiceTeacherTrainingFromCRC:
-          $ref: '#/components/schemas/InServiceTeacherTrainingFromCRC'
+          $ref: '#/components/schemas/opensaberapiInServiceTeacherTrainingFromCRC'
         inServiceTeacherTrainingFromDIET:
-          $ref: '#/components/schemas/InServiceTeacherTrainingFromDIET'
+          $ref: '#/components/schemas/opensaberapiInServiceTeacherTrainingFromDIET'
         inServiceTeacherTrainingFromOthers:
-          $ref: '#/components/schemas/InServiceTeacherTrainingFromOthers'
+          $ref: '#/components/schemas/opensaberapiInServiceTeacherTrainingFromOthers'
         nonTeachingAssignmentsForAcademicCalendar:
-          $ref: '#/components/schemas/NonTeachingAssignmentsForAcademicCalendar'
+          $ref: '#/components/schemas/opensaberapiNonTeachingAssignmentsForAcademicCalendar'
         basicProficiencyLevel:
           type: array
           items:
-            $ref: '#/components/schemas/BasicProficiencyLevel'
+            $ref: '#/components/schemas/opensaberapiBasicProficiencyLevel'
           description: ''
         disabilityType:
           type: string
@@ -434,7 +433,7 @@ components:
         disabilityType: DisabilityCode-NA
         trainedForChildrenSpecialNeeds: YesNoCode-YES
         trainedinUseOfComputer: YesNoCode-YES
-    Person:
+    opensaberapiPerson:
       title: Person
       required:
       - nationalIdentifier
@@ -446,7 +445,7 @@ components:
         signatures:
           type: array
           items:
-            $ref: '#/components/schemas/Signature'
+            $ref: '#/components/schemas/opensaberapiSignature'
           description: ''
         nationalIdentifier:
           type: string
@@ -468,7 +467,7 @@ components:
         vehicles:
           type: array
           items:
-            $ref: '#/components/schemas/Vehicle'
+            $ref: '#/components/schemas/opensaberapiVehicle'
       example:
         nationalIdentifier: 1234567890123456
         name: John
@@ -477,7 +476,7 @@ components:
         dob: "1990-12-01"
         hasDrivingLicense: true
         
-    Vehicle:
+    opensaberapiVehicle:
       title: Vehicle
       required:
       - registrationNumber
@@ -489,7 +488,7 @@ components:
         signatures:
           type: array
           items:
-            $ref: '#/components/schemas/Signature'
+            $ref: '#/components/schemas/opensaberapiSignature'
           description: ''
         registrationNumber:
           type: string
@@ -514,7 +513,7 @@ components:
         manufacturer: "Hero"
         yearManufactured: "2016"
         kerbWeight: 130.5
-    Signature:
+    opensaberapiSignature:
       title: Signature
       required:
       - '@type'
@@ -544,7 +543,7 @@ components:
         created: 2017-09-23T20:21:34Z
         nonce: 2bbgh3dgjg2302d-d2b3gi423d42
         signatureValue: eyiOiJKJ0eXA...OEjgFWFXk
-    TeachingRole:
+    opensaberapiTeachingRole:
       title: TeachingRole
       required:
       - '@type'
@@ -583,7 +582,7 @@ components:
         - SubjectCode-SOCIALSTUDIES
         - SubjectCode-ENGLISH
         appointmentYear: 2015
-    InServiceTeacherTrainingFromBRC:
+    opensaberapiInServiceTeacherTrainingFromBRC:
       title: InServiceTeacherTrainingFromBRC
       required:
       - daysOfInServiceTeacherTraining
@@ -593,7 +592,7 @@ components:
           type: string
       example:
         daysOfInServiceTeacherTraining: "10"
-    InServiceTeacherTrainingFromCRC:
+    opensaberapiInServiceTeacherTrainingFromCRC:
       title: InServiceTeacherTrainingFromCRC
       required:
       - daysOfInServiceTeacherTraining
@@ -603,7 +602,7 @@ components:
           type: string
       example:
         daysOfInServiceTeacherTraining: "2"
-    InServiceTeacherTrainingFromDIET:
+    opensaberapiInServiceTeacherTrainingFromDIET:
       title: InServiceTeacherTrainingFromDIET
       required:
       - daysOfInServiceTeacherTraining
@@ -613,7 +612,7 @@ components:
           type: string
       example:
         daysOfInServiceTeacherTraining: "5.5"
-    InServiceTeacherTrainingFromOthers:
+    opensaberapiInServiceTeacherTrainingFromOthers:
       title: InServiceTeacherTrainingFromOthers
       required:
       - '@type'
@@ -627,7 +626,7 @@ components:
       example:
         '@type': InServiceTeacherTrainingFromOthers
         daysOfInServiceTeacherTraining: "3.5"
-    NonTeachingAssignmentsForAcademicCalendar:
+    opensaberapiNonTeachingAssignmentsForAcademicCalendar:
       title: NonTeachingAssignmentsForAcademicCalendar
       required:
       - '@type'
@@ -642,7 +641,7 @@ components:
       example:
         '@type': NonTeachingAssignmentsForAcademicCalendar
         daysOfNonTeachingAssignments: 6
-    BasicProficiencyLevel:
+    opensaberapiBasicProficiencyLevel:
       title: BasicProficiencyLevel
       required:
       - '@type'
@@ -660,7 +659,7 @@ components:
         '@type': BasicProficiencyLevel
         proficiencySubject: SubjectCode-MATH
         proficiencyAcademicQualification: AcademicQualificationTypeCode-PHD
-    AddRegistryRecord:
+    opensaberapiAddRegistryRecord:
       title: AddRegistryRecord
       required:
       - id
@@ -678,20 +677,20 @@ components:
         ets:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/opensaberapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Result'
-    Result:
+          $ref: '#/components/schemas/opensaberapiResult'
+    opensaberapiResult:
       title: Result
       required:
       - Teacher
       type: object
       properties:
-        Teacher:
-          $ref: '#/components/schemas/AddTeacherResponseSchema'
-    AddTeacherResponseSchema:
+        opensaberapiTeacher:
+          $ref: '#/components/schemas/opensaberapiAddTeacherResponseSchema'
+    opensaberapiAddTeacherResponseSchema:
       title: AddTeacherResponseSchema
       required:
       - osid
@@ -700,7 +699,7 @@ components:
         osid:
           type: string
     
-    ReadRegistryRecordRequest:
+    opensaberapiReadRegistryRecordRequest:
       title: ReadRegistryRecordRequest
       required:
       - id
@@ -714,20 +713,20 @@ components:
         ets:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/opensaberapiParams'
         request:
           oneOf:
-          - $ref: '#/components/schemas/TeacherReadRequest'
-          - $ref: '#/components/schemas/PersonReadRequest'
-    TeacherReadRequest:
+          - $ref: '#/components/schemas/opensaberapiTeacherReadRequest'
+          - $ref: '#/components/schemas/opensaberapiPersonReadRequest'
+    opensaberapiTeacherReadRequest:
       title: TeacherRequest
       required:
       - Teacher
       type: object
       properties:
-        Teacher:
-          $ref: '#/components/schemas/TeacherRead'
-    TeacherRead:
+        opensaberapiTeacher:
+          $ref: '#/components/schemas/opensaberapiTeacherRead'
+    opensaberapiTeacherRead:
       title: TeacherRead
       required:
       - osid
@@ -740,15 +739,15 @@ components:
       example:
         osid: 1-610ffc0f-6d91-4bc6-a039-087d4a881164
         includeSignatures: true
-    PersonReadRequest:
+    opensaberapiPersonReadRequest:
       title: PersonRequest
       required:
       - Person
       type: object
       properties:
-        Person:
-          $ref: '#/components/schemas/PersonR'
-    PersonR:
+        opensaberapiPerson:
+          $ref: '#/components/schemas/opensaberapiPersonR'
+    opensaberapiPersonR:
       title: Person
       required:
       - osid
@@ -759,7 +758,7 @@ components:
       example:
         osid: 1-610ffc0f-6d91-4bc6-a039-087d4a881164
        
-    ReadRegistryRecord:
+    opensaberapiReadRegistryRecord:
       title: ReadRegistryRecord
       required:
       - id
@@ -777,21 +776,21 @@ components:
         ets:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/opensaberapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Result'
-    Result1:
+          $ref: '#/components/schemas/opensaberapiResult'
+    opensaberapiResult1:
       title: Result1
       required:
       - Teacher
       type: object
       properties:
-        Teacher:
-          $ref: '#/components/schemas/Teacher3'
+        opensaberapiTeacher:
+          $ref: '#/components/schemas/opensaberapiTeacher3'
       example:
-        Teacher:
+        opensaberapiTeacher:
           disabilityType: DisabilityCode-NA
           highestTeacherQualification: TeacherQualificationTypeCode-MED
           gender: GenderTypeCode-MALE
@@ -867,7 +866,7 @@ components:
             osCreatedAt: 2020-11-23T09:58:56.559Z
             daysOfInServiceTeacherTraining: 5.5
           trainedForChildrenSpecialNeeds: YesNoCode-YES
-    Teacher3:
+    opensaberapiTeacher3:
       title: Teacher3
       required:
       - disabilityType
@@ -902,9 +901,9 @@ components:
         socialCategory:
           type: string
         inServiceTeacherTrainingFromCRC:
-          $ref: '#/components/schemas/InServiceTeacherTrainingFromCRC1'
+          $ref: '#/components/schemas/opensaberapiInServiceTeacherTrainingFromCRC1'
         inServiceTeacherTrainingFromBRC:
-          $ref: '#/components/schemas/InServiceTeacherTrainingFromBRC1'
+          $ref: '#/components/schemas/opensaberapiInServiceTeacherTrainingFromBRC1'
         osid:
           type: string
         yearOfJoiningService:
@@ -912,10 +911,10 @@ components:
         signatures:
           type: array
           items:
-            $ref: '#/components/schemas/Signature1'
+            $ref: '#/components/schemas/opensaberapiSignature1'
           description: ''
         teachingRole:
-          $ref: '#/components/schemas/TeachingRole1'
+          $ref: '#/components/schemas/opensaberapiTeachingRole1'
         osUpdatedAt:
           type: string
         serialNum:
@@ -926,10 +925,10 @@ components:
         basicProficiencyLevel:
           type: array
           items:
-            $ref: '#/components/schemas/BasicProficiencyLevel1'
+            $ref: '#/components/schemas/opensaberapiBasicProficiencyLevel1'
           description: ''
         nonTeachingAssignmentsForAcademicCalendar:
-          $ref: '#/components/schemas/NonTeachingAssignmentsForAcademicCalendar1'
+          $ref: '#/components/schemas/opensaberapiNonTeachingAssignmentsForAcademicCalendar1'
         trainedinUseOfComputer:
           type: string
         osCreatedAt:
@@ -937,9 +936,9 @@ components:
         highestAcademicQualification:
           type: string
         inServiceTeacherTrainingFromOthers:
-          $ref: '#/components/schemas/InServiceTeacherTrainingFromOthers1'
+          $ref: '#/components/schemas/opensaberapiInServiceTeacherTrainingFromOthers1'
         inServiceTeacherTrainingFromDIET:
-          $ref: '#/components/schemas/InServiceTeacherTrainingFromDIET1'
+          $ref: '#/components/schemas/opensaberapiInServiceTeacherTrainingFromDIET1'
         trainedForChildrenSpecialNeeds:
           type: string
       example:
@@ -1018,7 +1017,7 @@ components:
           osCreatedAt: 2020-11-23T09:58:56.559Z
           daysOfInServiceTeacherTraining: 5.5
         trainedForChildrenSpecialNeeds: YesNoCode-YES
-    InServiceTeacherTrainingFromCRC1:
+    opensaberapiInServiceTeacherTrainingFromCRC1:
       title: InServiceTeacherTrainingFromCRC1
       required:
       - osid
@@ -1040,7 +1039,7 @@ components:
         osUpdatedAt: 2020-11-23T09:58:56.559Z
         osCreatedAt: 2020-11-23T09:58:56.559Z
         daysOfInServiceTeacherTraining: 2
-    InServiceTeacherTrainingFromBRC1:
+    opensaberapiInServiceTeacherTrainingFromBRC1:
       title: InServiceTeacherTrainingFromBRC1
       required:
       - osid
@@ -1062,7 +1061,7 @@ components:
         osUpdatedAt: 2020-11-23T09:58:56.559Z
         osCreatedAt: 2020-11-23T09:58:56.559Z
         daysOfInServiceTeacherTraining: 10
-    Signature1:
+    opensaberapiSignature1:
       title: Signature1
       required:
       - signatureFor
@@ -1100,7 +1099,7 @@ components:
         osid: 1-e019c0fd-2060-451c-9d61-f7d9b5034ac4
         nonce: 2bbgh3dgjg2302d-d2b3gi423d42
         signatureValue: eyiOiJKJ0eXA...OEjgFWFXk
-    TeachingRole1:
+    opensaberapiTeachingRole1:
       title: TeachingRole1
       required:
       - osid
@@ -1147,7 +1146,7 @@ components:
         appointmentYear: 2015
         classesTaught: ClassTypeCode-SECONDARYANDHIGHERSECONDARY
         appointedForSubjects: SubjectCode-ENGLISH
-    BasicProficiencyLevel1:
+    opensaberapiBasicProficiencyLevel1:
       title: BasicProficiencyLevel1
       required:
       - osUpdatedAt
@@ -1173,7 +1172,7 @@ components:
         proficiencyAcademicQualification: AcademicQualificationTypeCode-PHD
         osCreatedAt: 2020-11-23T09:58:56.559Z
         osid: 1-03f2c43c-e275-4c33-b4d4-630c979dfa84
-    NonTeachingAssignmentsForAcademicCalendar1:
+    opensaberapiNonTeachingAssignmentsForAcademicCalendar1:
       title: NonTeachingAssignmentsForAcademicCalendar1
       required:
       - osid
@@ -1196,7 +1195,7 @@ components:
         osUpdatedAt: 2020-11-23T09:58:56.559Z
         osCreatedAt: 2020-11-23T09:58:56.559Z
         daysOfNonTeachingAssignments: 6
-    InServiceTeacherTrainingFromOthers1:
+    opensaberapiInServiceTeacherTrainingFromOthers1:
       title: InServiceTeacherTrainingFromOthers1
       required:
       - osid
@@ -1218,7 +1217,7 @@ components:
         osUpdatedAt: 2020-11-23T09:58:56.559Z
         osCreatedAt: 2020-11-23T09:58:56.559Z
         daysOfInServiceTeacherTraining: 3.5
-    InServiceTeacherTrainingFromDIET1:
+    opensaberapiInServiceTeacherTrainingFromDIET1:
       title: InServiceTeacherTrainingFromDIET1
       required:
       - osid
@@ -1240,7 +1239,7 @@ components:
         osUpdatedAt: 2020-11-23T09:58:56.559Z
         osCreatedAt: 2020-11-23T09:58:56.559Z
         daysOfInServiceTeacherTraining: 5.5
-    UpdateRegistryRecordRequest:
+    opensaberapiUpdateRegistryRecordRequest:
       title: UpdateRegistryRecordRequest
       required:
       - id
@@ -1254,9 +1253,9 @@ components:
         ets:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/opensaberapiParams'
         request:
-          $ref: '#/components/schemas/updaterequest'
+          $ref: '#/components/schemas/opensaberapiupdaterequest'
       example:
         id: open-saber.registry.update
         ver: 1.0
@@ -1266,18 +1265,18 @@ components:
           key: ''
           msgid: ''
         request:
-          entity:
+          opensaberapientity:
             osid: 1-d6844c76-b128-43cc-bbba-74edfd09c716
             propertyName: "<Value>"
-    updaterequest:
+    opensaberapiupdaterequest:
       title: updaterequest
       required:
       - entity
       type: object
       properties:
-        entity:
-          $ref: '#/components/schemas/entity'
-    entity:
+        opensaberapientity:
+          $ref: '#/components/schemas/opensaberapientity'
+    opensaberapientity:
       title: entity
       required:
       - osid
@@ -1289,7 +1288,7 @@ components:
       example:
         osid: 1-d6844c76-b128-43cc-bbba-74edfd09c716
         propertyName: "<Value>"
-    UpdateRegistryRecord:
+    opensaberapiUpdateRegistryRecord:
       title: UpdateRegistryRecord
       required:
       - id
@@ -1304,7 +1303,7 @@ components:
           type: integer
           format: int64
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/opensaberapiParams'
         responseCode:
           type: string
       example:
@@ -1318,7 +1317,7 @@ components:
           status: SUCCESSFUL
           errmsg: ''
         responseCode: OK
-    DeleteRegistryRecordRequest:
+    opensaberapiDeleteRegistryRecordRequest:
       title: DeleteRegistryRecordRequest
       required:
       - id
@@ -1332,9 +1331,9 @@ components:
         ets:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/opensaberapiParams'
         request:
-          $ref: '#/components/schemas/PersonR'
+          $ref: '#/components/schemas/opensaberapiPersonR'
       example:
         id: open-saber.registry.delete
         ver: "1.0"
@@ -1344,9 +1343,9 @@ components:
           key: ''
           msgid: ''
         request:
-          Person:
+          opensaberapiPerson:
             osid: 1-d6844c76-b128-43cc-bbba-74edfd09c716
-    DeleteRegistryRecord:
+    opensaberapiDeleteRegistryRecord:
       title: DeleteRegistryRecord
       required:
       - id
@@ -1364,7 +1363,7 @@ components:
           type: integer
           format: int64
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/opensaberapiParams'
         responseCode:
           type: string
       example:
@@ -1378,7 +1377,7 @@ components:
           status: SUCCESSFUL
           errmsg: ''
         responseCode: OK
-    SearchRegistryRecordsRequest:
+    opensaberapiSearchRegistryRecordsRequest:
       title: SearchRegistryRecordsRequest
       required:
       - id
@@ -1392,9 +1391,9 @@ components:
         ets:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/opensaberapiParams'
         request:
-          $ref: '#/components/schemas/SearchRequest'
+          $ref: '#/components/schemas/opensaberapiSearchRequest'
       example:
         id: open-saber.registry.search
         ver: 1.0
@@ -1404,48 +1403,48 @@ components:
           key: ''
           msgid: ''
         request:
-          entityType:
+          opensaberapientityType:
           - Teacher
-          filters:
+          opensaberapifilters:
             gender:
               eq: GenderTypeCode-MALE
-    SearchRequest:
+    opensaberapiSearchRequest:
       title: SearchRequest
       required:
       - entityType
       - filters
       type: object
       properties:
-        entityType:
+        opensaberapientityType:
           type: array
           items:
             type: string
           description: ''
-        filters:
-          $ref: '#/components/schemas/Filters'
+        opensaberapifilters:
+          $ref: '#/components/schemas/opensaberapiFilters'
       example:
-        entityType:
+        opensaberapientityType:
         - Teacher
-        filters:
+        opensaberapifilters:
           gender:
             eq: GenderTypeCode-MALE
-    Filters:
+    opensaberapiFilters:
       title: Filters
       type: object
       properties:
         fieldName:
-          $ref: '#/components/schemas/operator'
+          $ref: '#/components/schemas/opensaberapioperator'
       example:
         fieldName:
-          operator: fieldValue
-    operator:
+          opensaberapioperator: fieldValue
+    opensaberapioperator:
       title: operator
       type: object
       properties:
-        operator:
+        opensaberapioperator:
           type: string
 
-    SearchRegistryRecords:
+    opensaberapiSearchRegistryRecords:
       title: SearchRegistryRecords
       required:
       - id
@@ -1461,11 +1460,11 @@ components:
           type: integer
           format: int64
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/opensaberapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/SearchRegistryResponseSchema'
+          $ref: '#/components/schemas/opensaberapiSearchRegistryResponseSchema'
       example:
         id: open-saber.registry.search
         ver: 1.0
@@ -1478,7 +1477,7 @@ components:
           errmsg: ''
         responseCode: OK
         result:
-          Teacher:
+          opensaberapiTeacher:
           - disabilityType: DisabilityCode-NA
             highestTeacherQualification: TeacherQualificationTypeCode-MED
             gender: GenderTypeCode-MALE
@@ -1539,22 +1538,22 @@ components:
             inServiceTeacherTrainingFromDIET:
               osid: 1-ffb13cec-ce2f-475d-9d91-c19274448702
             trainedForChildrenSpecialNeeds: YesNoCode-YES
-    SearchRegistryResponseSchema:
+    opensaberapiSearchRegistryResponseSchema:
       title: SearchRegistryResponseSchema
       required:
       - entityType
       type: object
       properties:
-        entityType:
+        opensaberapientityType:
           type: array
           items:
-            $ref: '#/components/schemas/entityType'
+            $ref: '#/components/schemas/opensaberapientityType'
           description: ''
 
-    entityType:
+    opensaberapientityType:
      title: entityTypeObject
      type: object
-    SearchAuditRecordsRequest:
+    opensaberapiSearchAuditRecordsRequest:
       title: SearchAuditRecordsRequest
       required:
       - id
@@ -1568,9 +1567,9 @@ components:
         ets:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/opensaberapiParams'
         request:
-          $ref: '#/components/schemas/SearchRequestFilter'
+          $ref: '#/components/schemas/opensaberapiSearchRequestFilter'
       example:
         id: open-saber.registry.audit
         ver: 1.0
@@ -1580,42 +1579,42 @@ components:
          key: ''
          msgid: ''
         request:
-         entityType:
-          filters:
+         opensaberapientityType:
+          opensaberapifilters:
            fieldName:
-            operator: fieldValue
+            opensaberapioperator: fieldValue
             
-    SearchRequestFilter:
+    opensaberapiSearchRequestFilter:
       title: SearchRequestFilter
       required:
       - entityType
       type: object
       properties:
-        entityType:
-          $ref: '#/components/schemas/filters'
+        opensaberapientityType:
+          $ref: '#/components/schemas/opensaberapifilters'
       example:
-        Teacher:
-    filters:
+        opensaberapiTeacher:
+    opensaberapifilters:
       title: filter
       required:
       - filters
       type: object
       properties:
-        filters:
+        opensaberapifilters:
           type: object
         limit:
           type: integer
         offset:
           type: integer
       example:
-        filters: 
+        opensaberapifilters: 
           field:
-           operator: value
+           opensaberapioperator: value
         limit: 1,
         offset: 0
     
     
-    AuditResponseSchema:
+    opensaberapiAuditResponseSchema:
       title: AuditResponseSchema
       required:
       - Teacher_Audit
@@ -1624,7 +1623,7 @@ components:
         Teacher_Audit:
           type: array
           items:
-            $ref: '#/components/schemas/TeacherAudit'
+            $ref: '#/components/schemas/opensaberapiTeacherAudit'
           description: ''
       example:
         Teacher_Audit:
@@ -1636,13 +1635,13 @@ components:
           osUpdatedAt: 2020-11-24T07:31:19.304Z
           osCreatedAt: 2020-11-24T07:31:19.304Z
           '@type': Teacher_Audit
-          entityType: Teacher
+          opensaberapientityType: Teacher
           action: READ
           osid: 1-5e37fc11-1c97-49b5-8449-8ead99f40302
           transactionId:
           - 970121863
           timestamp: 1606203079255
-    TeacherAudit:
+    opensaberapiTeacherAudit:
       title: TeacherAudit
       required:
       - recordId
@@ -1665,7 +1664,7 @@ components:
         auditInfo:
           type: array
           items:
-            $ref: '#/components/schemas/AuditInfo'
+            $ref: '#/components/schemas/opensaberapiAuditInfo'
           description: ''
         osUpdatedAt:
           type: string
@@ -1673,7 +1672,7 @@ components:
           type: string
         '@type':
           type: string
-        entityType:
+        opensaberapientityType:
           type: string
         action:
           type: string
@@ -1696,13 +1695,13 @@ components:
         osUpdatedAt: 2020-11-24T07:31:19.304Z
         osCreatedAt: 2020-11-24T07:31:19.304Z
         '@type': Teacher_Audit
-        entityType: Teacher
+        opensaberapientityType: Teacher
         action: READ
         osid: 1-5e37fc11-1c97-49b5-8449-8ead99f40302
         transactionId:
         - 970121863
         timestamp: 1606203079255
-    AuditInfo:
+    opensaberapiAuditInfo:
       title: AuditInfo
       required:
       - op
@@ -1731,7 +1730,7 @@ components:
       key: ''
       msgid: ''
      request:
-      Teacher:
+      opensaberapiTeacher:
         signatures:
         - '@type': sc:GraphSignature2012
           signatureFor: http://localhost:8080/serialNum
@@ -1797,7 +1796,7 @@ components:
       key: ''
       msgid: ''
      request:
-      Person:
+      opensaberapiPerson:
        nationalIdentifier: "1234567890123456"
        name: John
        gender: MALE
@@ -1824,7 +1823,7 @@ components:
         errmsg: ''
       responseCode: OK
       result:
-        Teacher:
+        opensaberapiTeacher:
           osid: 1-d6844c76-b128-43cc-bbba-74edfd09c716
    addPersonRegistryResponse:
      summary: "Person Registry Response"
@@ -1841,7 +1840,7 @@ components:
         errmsg: ''
       responseCode: OK
       result:
-        Person:
+        opensaberapiPerson:
           osid: 1-f09e2d35-3410-4c73-b1c2-7ff0b116e05d
    schemaInvalidErrorResponse:
      summary: "Invalid Schema Error Response"
@@ -1953,7 +1952,7 @@ components:
        key: ''
        msgid: ''
       request:
-       Teacher:
+       opensaberapiTeacher:
          osid: 1-d6844c76-b128-43cc-bbba-74edfd09c716
          includeSignatures: true
    
@@ -1973,7 +1972,7 @@ components:
        key: ''
        msgid: ''
       request:
-       Person:
+       opensaberapiPerson:
          osid: 1-f09e2d35-3410-4c73-b1c2-7ff0b116e05d
        viewTemplateId: "6ccd3400-4745-11ea-b77f-2e728ce88125.json"  
        
@@ -1993,7 +1992,7 @@ components:
        key: ''
        msgid: ''
       request:
-       Person:
+       opensaberapiPerson:
          osid: 1-f09e2d35-3410-4c73-b1c2-7ff0b116e05d
        viewTemplate:
         fields: 
@@ -2014,7 +2013,7 @@ components:
        key: ''
        msgid: ''
       request:
-       Person:
+       opensaberapiPerson:
          osid: 1-f09e2d35-3410-4c73-b1c2-7ff0b116e05d
    ReadTeacherRegistryResponse:
      summary: "Teacher Registry Read Response"
@@ -2032,7 +2031,7 @@ components:
          errmsg: ''
        responseCode: OK
        result:
-         Teacher:
+         opensaberapiTeacher:
            disabilityType: DisabilityCode-NA
            highestTeacherQualification: TeacherQualificationTypeCode-MED
            gender: GenderTypeCode-MALE
@@ -2125,7 +2124,7 @@ components:
       errmsg: ''
      responseCode: OK
      result:
-      Person:
+      opensaberapiPerson:
        osUpdatedAt: "2020-11-26T09:24:13.893Z"
        osCreatedAt: "2020-11-26T09:24:13.893Z"
        gender: "MALE"
@@ -2159,7 +2158,7 @@ components:
       errmsg: ''
      responseCode: OK
      result:
-      Person:
+      opensaberapiPerson:
        name: "john"
        osid: "1-fa1e3602-18c0-4f5a-950c-281e21c000d6"
        nationalIdentifier: "1234567890123456"
@@ -2182,7 +2181,7 @@ components:
       errmsg: ''
      responseCode: OK
      result:
-      Person:
+      opensaberapiPerson:
        name: "john"
        osid: "1-fa1e3602-18c0-4f5a-950c-281e21c000d6"
        nationalIdentifier: "1234567890123456"
@@ -2255,8 +2254,8 @@ components:
        key: ''
        msgid: ''
      request:
-       Teacher:
-        filters: {}
+       opensaberapiTeacher:
+        opensaberapifilters: {}
    TeacherSearchAuditFilterRequest:
     summary: "Get all the ADD action in the Registry"
     description: "This is an example request to get all the ADD action performed in the registry for the entity Teacher."
@@ -2269,8 +2268,8 @@ components:
        key: ''
        msgid: ''
      request:
-       Teacher:
-        filters:
+       opensaberapiTeacher:
+        opensaberapifilters:
           action:
            eq: "ADD"
            
@@ -2297,7 +2296,7 @@ components:
            osUpdatedAt: "2020-11-24T07:31:19.304Z"
            osCreatedAt: "2020-11-24T07:31:19.304Z"
            '@type': Teacher_Audit
-           entityType: Teacher
+           opensaberapientityType: Teacher
            action: ADD
            osid: 1-5e37fc11-1c97-49b5-8449-8ead99f40302
            transactionId:
@@ -2311,7 +2310,7 @@ components:
            osUpdatedAt: "2020-11-24T07:31:19.304Z"
            osCreatedAt: "2020-11-24T07:31:19.304Z"
            '@type': Teacher_Audit
-           entityType: Teacher
+           opensaberapientityType: Teacher
            action: READ
            osid: 1-5e37fc11-1c97-49b5-8449-8ead99f40302
            transactionId:
@@ -2340,7 +2339,7 @@ components:
            osUpdatedAt: "2020-11-24T07:31:19.304Z"
            osCreatedAt: "2020-11-24T07:31:19.304Z"
            '@type': Teacher_Audit
-           entityType: Teacher
+           opensaberapientityType: Teacher
            action: ADD
            osid: 1-5e37fc11-1c97-49b5-8449-8ead99f40302
            transactionId:
@@ -2357,9 +2356,9 @@ components:
         key: ''
         msgid: ''
       request:
-        entityType:
+        opensaberapientityType:
           - Teacher
-        filters:
+        opensaberapifilters:
          gender:
            eq: GenderTypeCode-MALE
    SearchRequest2:
@@ -2373,9 +2372,9 @@ components:
         key: ''
         msgid: ''
       request:
-        entityType:
+        opensaberapientityType:
           - Teacher
-        filters:
+        opensaberapifilters:
          teacherName:
            startsWith: "Marvin"
    SearchRequest3:
@@ -2389,9 +2388,9 @@ components:
         key: ''
         msgid: ''
       request:
-        entityType:
+        opensaberapientityType:
           - Teacher
-        filters:
+        opensaberapifilters:
          teacherName:
            or: 
             - "Mahir"
@@ -2410,7 +2409,7 @@ components:
         errmsg: ''
       responseCode: OK
       result:
-        Teacher:
+        opensaberapiTeacher:
           - disabilityType: DisabilityCode-NA
             highestTeacherQualification: TeacherQualificationTypeCode-MED
             gender: GenderTypeCode-MALE
@@ -2514,7 +2513,7 @@ components:
         errmsg: ""
       responseCode: OK
       result:
-       Teacher: []
+       opensaberapiTeacher: []
    UpdateRequestExample1:
      summary: "Update Teacher's name and Appointment year"
      value:
@@ -2526,7 +2525,7 @@ components:
         key: ''
         msgid: ''
       request:
-        Teacher:
+        opensaberapiTeacher:
           osid: 1-d6844c76-b128-43cc-bbba-74edfd09c716
           teachingRole:
             osid: 1-c8d28fca-1cdf-4958-9d0c-bc94e0927e8b
@@ -2597,5 +2596,5 @@ components:
 security:
 - httpBearer: []
 tags:
-- name: Misc
+- name: opensaber Misc
   description: ''

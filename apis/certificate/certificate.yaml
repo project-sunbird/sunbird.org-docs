@@ -21,7 +21,7 @@ paths:
            - Response returns , id ( The unique identifier to this certificate) jsonUrl, pdfUrl, data (raw certificate json), accesCode (code to access the certificate)
            - Backend Route: http://cert-service:9000/v1/certs/generate
            
-      operationId: GeneratePost
+      operationId: GeneratePost for certs
       parameters:
       - name: X-Channel-ID
         in: header
@@ -46,8 +46,8 @@ paths:
           application/json:
             schema:
               allOf:
-              - $ref: '#/components/schemas/ApiRequest'
-              - $ref: '#/components/schemas/GenerateCertificateRequest'
+              - $ref: '#/components/schemas/certificateApiRequest'
+              - $ref: '#/components/schemas/certificateGenerateCertificateRequest'
             examples:
               a:
                summary: "Certificate Generate Request"
@@ -146,7 +146,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateResponse'
+                $ref: '#/components/schemas/certificateContentCreateResponse'
               example:
                 id: v1.certs.generate
                 ver: v1
@@ -204,7 +204,7 @@ paths:
                           type:
                             - hosted
                         revoked: false
-                        signatory:
+                        certificatesignatory:
                           - identity: CEO
                             type:
                               - Extension
@@ -224,7 +224,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/certificateContentCreateErrorResponse'
               examples:
                a:
                 summary: Mandatory Param htmlTemplate Missing Res
@@ -252,7 +252,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                - $ref: '#/components/schemas/500ServerError'
+                - $ref: '#/components/schemas/certificate500ServerError'
               example:
                 id: api.certs.registry.validate
                 ver: v1
@@ -306,8 +306,8 @@ paths:
           application/json:
             schema:
               allOf:
-              - $ref: '#/components/schemas/ApiRequest'
-              - $ref: '#/components/schemas/GenerateCertificateV2Request'
+              - $ref: '#/components/schemas/certificateApiRequest'
+              - $ref: '#/components/schemas/certificateGenerateCertificateV2Request'
             examples:
               a:
                summary: "Certificate Generate V2 Request"
@@ -405,7 +405,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CertificateGenerateV2Response'
+                $ref: '#/components/schemas/certificateCertificateGenerateV2Response'
               example:
                 id: v2.certs.generate
                 ver: v2
@@ -463,7 +463,7 @@ paths:
                           type:
                             - hosted
                         revoked: false
-                        signatory:
+                        certificatesignatory:
                           - identity: CEO
                             type:
                               - Extension
@@ -482,7 +482,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentCreateErrorResponse'
+                $ref: '#/components/schemas/certificateContentCreateErrorResponse'
               examples:
                a:
                 summary: Mandatory Param svgTemplate Missing Res
@@ -510,7 +510,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                - $ref: '#/components/schemas/500ServerError'
+                - $ref: '#/components/schemas/certificate500ServerError'
               example:
                 id: api.certs.registry.validate
                 ver: v1
@@ -527,15 +527,15 @@ paths:
       - bearer: []
 components:
   schemas:
-    GenerateCertificateRequest:
+    certificateGenerateCertificateRequest:
       title: Generate certificate request
       required:
       - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/Request'
-    GenerateCertificateV2Request:
+          $ref: '#/components/schemas/certificateRequest'
+    certificateGenerateCertificateV2Request:
       title: SVG Generate certificate request
       required:
       - request
@@ -548,16 +548,16 @@ components:
          type: object
          properties:
            certificate:
-             $ref: '#/components/schemas/CertificateV2'
-    Request:
+             $ref: '#/components/schemas/certificateCertificateV2'
+    certificateRequest:
       title: Request
       required:
       - certificate
       type: object
       properties:
         certificate:
-          $ref: '#/components/schemas/Certificate'
-    Certificate:
+          $ref: '#/components/schemas/certificateCertificate'
+    certificateCertificate:
       title: Certificate
       type: object
       required: 
@@ -571,7 +571,7 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/courseRecipientData'
+            $ref: '#/components/schemas/certificatecourseRecipientData'
         courseName:
           type: string
           description: name of the course
@@ -597,11 +597,11 @@ components:
           type: string
           description: ""
         issuer:
-          $ref: '#/components/schemas/issuerData'
+          $ref: '#/components/schemas/certificateissuerData'
         signatoryList:
           type: array
           items:
-            $ref: '#/components/schemas/signatory'
+            $ref: '#/components/schemas/certificatesignatory'
         criteria:
          type: object
          required: 
@@ -617,7 +617,7 @@ components:
           properties:
             id:
               type: string
-    CertificateV2:
+    certificateCertificateV2:
       title: Certificate
       type: object
       required: 
@@ -631,7 +631,7 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/courseRecipientData'
+            $ref: '#/components/schemas/certificatecourseRecipientData'
         courseName:
           type: string
           description: name of the course
@@ -657,11 +657,11 @@ components:
           type: string
           description: ""
         issuer:
-          $ref: '#/components/schemas/issuerData'
+          $ref: '#/components/schemas/certificateissuerData'
         signatoryList:
           type: array
           items:
-            $ref: '#/components/schemas/signatory'
+            $ref: '#/components/schemas/certificatesignatory'
         criteria:
          type: object
          required: 
@@ -677,7 +677,7 @@ components:
           properties:
             id:
               type: string
-    courseRecipientData:
+    certificatecourseRecipientData:
       title: Recipient data
       type: object
       required: 
@@ -704,7 +704,7 @@ components:
         oldId:
           type: string
           description: old user id , required if u want to regenerate certificate
-    issuerData:
+    certificateissuerData:
       title: issuer data
       type: object
       required: 
@@ -722,7 +722,7 @@ components:
         url:
           type: string
           description: issuer valid url
-    signatory:
+    certificatesignatory:
       title: signatory data
       type: object
       required: 
@@ -739,7 +739,7 @@ components:
         id:
           type: string
           description: identifier
-    ResultWithNodeId:
+    certificateResultWithNodeId:
       title: certificate creation response
       type: object
       properties:
@@ -749,18 +749,18 @@ components:
             response:
               type: array
               items:
-                $ref: '#/components/schemas/certificateResponse'
-    ContentCreateResponse:
+                $ref: '#/components/schemas/certificatecertificateResponse'
+    certificateContentCreateResponse:
       description: Certificate Response
       allOf:
-      - $ref: '#/components/schemas/ResponseHeader'
-      - $ref: '#/components/schemas/ResultWithNodeId'
-    CertificateGenerateV2Response:
+      - $ref: '#/components/schemas/certificateResponseHeader'
+      - $ref: '#/components/schemas/certificateResultWithNodeId'
+    certificateCertificateGenerateV2Response:
       description: Certificate Response
       allOf:
-      - $ref: '#/components/schemas/ResponseHeader'
-      - $ref: '#/components/schemas/ResultWithNodeIdV2'
-    ResponseHeader:
+      - $ref: '#/components/schemas/certificateResponseHeader'
+      - $ref: '#/components/schemas/certificateResultWithNodeIdV2'
+    certificateResponseHeader:
       title: Response
       type: object
       properties:
@@ -774,12 +774,12 @@ components:
           type: string
           description: API execution timespan
         params:
-          $ref: '#/components/schemas/ResponseParams'
+          $ref: '#/components/schemas/certificateResponseParams'
         responseCode:
           type: object
           properties: {}
           description: 'API response code '
-    ResponseParams:
+    certificateResponseParams:
       title: Response Parameter
       type: object
       properties:
@@ -798,7 +798,7 @@ components:
         errmsg:
           type: string
           description: Error Message
-    EmptyResult:
+    certificateEmptyResult:
       title: Empty Result
       type: object
       properties:
@@ -808,7 +808,7 @@ components:
             message:
               type: string
           description: Empty Result
-    certificateResponse:
+    certificatecertificateResponse:
       title: Response of certificate creation
       type: object
       properties:
@@ -829,7 +829,7 @@ components:
         jsonUrl:
           type: string
           description: certificate json url
-    ResultWithNodeIdV2:
+    certificateResultWithNodeIdV2:
       title: certificate creation response
       type: object
       properties:
@@ -839,8 +839,8 @@ components:
             response:
               type: array
               items:
-                $ref: '#/components/schemas/certificateV2Response'    
-    certificateV2Response:
+                $ref: '#/components/schemas/certificatecertificateV2Response'    
+    certificatecertificateV2Response:
       title: Response of certificate creation
       type: object
       properties:
@@ -858,12 +858,12 @@ components:
         jsonUrl:
           type: string
           description: json Url , certificate is uploaded to cloud
-    ContentCreateErrorResponse:
+    certificateContentCreateErrorResponse:
       title: Create Content Error Response
       allOf:
-      - $ref: '#/components/schemas/EmptyResult'
-      - $ref: '#/components/schemas/ResponseHeader'
-    ApiRequest:
+      - $ref: '#/components/schemas/certificateEmptyResult'
+      - $ref: '#/components/schemas/certificateResponseHeader'
+    certificateApiRequest:
       type: object
       properties:
         id:
@@ -886,7 +886,7 @@ components:
             did:
               type: string
               description: Represents the device UUID from which API is called
-    500ServerError:
+    certificate500ServerError:
       title: 500ServerError
       required:
         - id

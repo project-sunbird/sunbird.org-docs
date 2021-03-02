@@ -13,7 +13,6 @@ info:
   version: '1.0'
 servers:
   - url: 'https://staging.open-sunbird.org/api'
-    variables: {}
 paths:
   '/course/v1/batch/read/{batch-id}':
     get:
@@ -68,7 +67,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CourseBatchRead-200OK'
+                $ref: '#/components/schemas/coursebatchmanapiCourseBatchRead-200OK'
               example:
                 id: api.course.batch.read
                 ver: v1
@@ -169,7 +168,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CourseBatchCreate-400BadRequest-InvalidCourseId'
+                $ref: '#/components/schemas/coursebatchmanapiCourseBatchCreate-400BadRequest-InvalidCourseId'
               example:
                 id: api.course.batch.read
                 ver: v1
@@ -229,7 +228,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CourseBatchUpdateRequest'
+              $ref: '#/components/schemas/coursebatchmanapiCourseBatchUpdateRequest'
             example:
               request:
                 enrollmentType: open
@@ -246,7 +245,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CourseBatchUpdate-200OK'
+                $ref: '#/components/schemas/coursebatchmanapiCourseBatchUpdate-200OK'
               example:
                 id: api.course.batch.update
                 ver: v1
@@ -266,7 +265,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CourseBatchCreate-400BadRequest-InvalidCourseId'
+                $ref: '#/components/schemas/coursebatchmanapiCourseBatchCreate-400BadRequest-InvalidCourseId'
               example:
                 id: api.course.batch.update
                 ver: v1
@@ -284,7 +283,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CourseBatchCreate-500InternalServerError'
+                $ref: '#/components/schemas/coursebatchmanapiCourseBatchCreate-500InternalServerError'
               example:
                 id: api.course.batch.update
                 ver: v1
@@ -315,8 +314,9 @@ paths:
         - in: query
           name: orgdetails
           description: 'Extra data can be passed in query parameter with above mentioned key and comma separated value. Example,?orgdetails=email,name. Sunbird will take this query parameter and pass to content service as it is, and content service does the needful.'
-          type: string
-          required: false
+          schema:
+            type: string
+          required: true
         - name: Content-Type
           in: header
           description: 'The Content Type entity is the media type of the resource.Possible\
@@ -349,7 +349,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CourseBatchSearchRequest'
+              $ref: '#/components/schemas/coursebatchmanapiCourseBatchSearchRequest'
             example:
               request:
                 filters:
@@ -363,7 +363,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CourseBatchSearch-200OK'
+                $ref: '#/components/schemas/coursebatchmanapiCourseBatchSearch-200OK'
               example:
                 id: api.course.batch.search
                 ver: v1
@@ -464,7 +464,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CourseBatchCreate-500InternalServerError'
+                $ref: '#/components/schemas/coursebatchmanapiCourseBatchCreate-500InternalServerError'
               example:
                 id: api.course.batch.search
                 ver: v1
@@ -524,7 +524,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CourseBatchCreateRequest'
+              $ref: '#/components/schemas/coursebatchmanapiCourseBatchCreateRequest'
             example:
               request:
                 courseId: '{{course-id}}'
@@ -541,7 +541,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CourseBatchCreate-200OK'
+                $ref: '#/components/schemas/coursebatchmanapiCourseBatchCreate-200OK'
               example:
                 id: api.course.batch.create
                 ver: v1
@@ -563,7 +563,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CourseBatchCreate-400BadRequest-InvalidCourseId'
+                $ref: '#/components/schemas/coursebatchmanapiCourseBatchCreate-400BadRequest-InvalidCourseId'
               examples:
                 a:
                   summary: Invalid_CourseId
@@ -630,7 +630,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CourseBatchCreate-500InternalServerError'
+                $ref: '#/components/schemas/coursebatchmanapiCourseBatchCreate-500InternalServerError'
               example:
                 id: api.course.batch.create
                 ver: v1
@@ -648,7 +648,7 @@ paths:
         - bearer: []
 components:
   schemas:
-    CourseBatchRead-200OK:
+    coursebatchmanapiCourseBatchRead-200OK:
       title: CourseBatchRead-200OK
       required:
         - id
@@ -666,11 +666,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params1'
+          $ref: '#/components/schemas/coursebatchmanapiParams1'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Result'
+          $ref: '#/components/schemas/coursebatchmanapiResult'
       example:
         id: api.course.batch.read
         ver: v1
@@ -766,7 +766,7 @@ components:
             collectionId: do_1131396442662912001425
             startDate: 2020-11-04
             status: 1
-    CourseBatchRead-200InvalidBatchID:
+    coursebatchmanapiCourseBatchRead-200InvalidBatchID:
       title: CourseBatchRead-200InvalidBatchID
       required:
         - id
@@ -784,11 +784,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/coursebatchmanapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Result'
+          $ref: '#/components/schemas/coursebatchmanapiResult'
       example:
         id: api.course.batch.read
         ver: v1
@@ -802,7 +802,7 @@ components:
         responseCode: OK
         result:
           response: {}
-    Params:
+    coursebatchmanapiParams:
       title: Params
       required:
         - resmsgid
@@ -831,7 +831,7 @@ components:
         err: null
         status: success
         errmsg: null
-    Result:
+    coursebatchmanapiResult:
       title: Result
       required:
         - response
@@ -841,7 +841,7 @@ components:
           type: object
       example:
         response: {}
-    Params1:
+    coursebatchmanapiParams1:
       title: Params1
       required:
         - resmsgid
@@ -862,14 +862,14 @@ components:
           type: string
         errmsg:
           type: string
-    CourseBatchUpdateRequest:
+    coursebatchmanapiCourseBatchUpdateRequest:
       title: CourseBatchUpdateRequest
       required:
         - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/Request'
+          $ref: '#/components/schemas/coursebatchmanapiRequest'
       example:
         request:
           enrollmentType: open
@@ -878,7 +878,7 @@ components:
           status: 1
           courseId: '{{course-id}}'
           id: '{{batch-id}}'
-    Request:
+    coursebatchmanapiRequest:
       title: Request
       required:
         - startDate
@@ -916,7 +916,7 @@ components:
         status: 1
         courseId: '{{course-id}}'
         id: '{{batch-id}}'
-    Params2:
+    coursebatchmanapiParams2:
       title: Params2
       required:
         - resmsgid
@@ -938,7 +938,7 @@ components:
           type: string
         errmsg:
           type: string
-    CourseBatchUpdate-200OK:
+    coursebatchmanapiCourseBatchUpdate-200OK:
       title: CourseBatchUpdate-200OK
       required:
         - id
@@ -956,7 +956,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/coursebatchmanapiParams'
         responseCode:
           type: string
         result:
@@ -973,20 +973,20 @@ components:
           errmsg: null
         responseCode: OK
         result: {}
-    CourseBatchSearchRequest:
+    coursebatchmanapiCourseBatchSearchRequest:
       title: CourseBatchSearchRequest
       required:
         - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/Request1'
+          $ref: '#/components/schemas/coursebatchmanapiRequest1'
       example:
         request:
           filters:
             courseId: '{{course-id}}'
           limit: 2
-    Request1:
+    coursebatchmanapiRequest1:
       title: Request1
       required:
         - filters
@@ -996,7 +996,7 @@ components:
           type: string
           description: 'any text, it will do free text search eg. creatorDetails&orgDetails'
         filters:
-          $ref: '#/components/schemas/Filters'
+          $ref: '#/components/schemas/coursebatchmanapiFilters'
         limit:
           type: integer
           description: 'Number of batch user want in response'
@@ -1005,7 +1005,7 @@ components:
         filters:
           courseId: '{{course-id}}'
         limit: 2
-    Filters:
+    coursebatchmanapiFilters:
       title: Filters
       required:
         - courseId
@@ -1016,7 +1016,7 @@ components:
           type: string
       example:
         courseId: '{{course-id}}'
-    CourseBatchSearch-200OK:
+    coursebatchmanapiCourseBatchSearch-200OK:
       title: CourseBatchSearch-200OK
       required:
         - id
@@ -1034,11 +1034,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/coursebatchmanapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Result1'
+          $ref: '#/components/schemas/coursebatchmanapiResult1'
       example:
         id: api.course.batch.search
         ver: v1
@@ -1134,14 +1134,14 @@ components:
                 collectionId: do_1131396442662912001425
                 startDate: '2020-11-04'
                 status: 1
-    Result1:
+    coursebatchmanapiResult1:
       title: Result1
       required:
         - response
       type: object
       properties:
         response:
-          $ref: '#/components/schemas/Response'
+          $ref: '#/components/schemas/coursebatchmanapiResponse'
       example:
         response:
           count: 15
@@ -1226,7 +1226,7 @@ components:
               collectionId: do_1131396442662912001425
               startDate: '2020-11-04'
               status: 1
-    Response:
+    coursebatchmanapiResponse:
       title: Response
       required:
         - count
@@ -1239,7 +1239,7 @@ components:
         content:
           type: array
           items:
-            $ref: '#/components/schemas/Content'
+            $ref: '#/components/schemas/coursebatchmanapiContent'
           description: ''
       example:
         count: 15
@@ -1324,7 +1324,7 @@ components:
             collectionId: do_1131396442662912001425
             startDate: '2020-11-04'
             status: 1
-    Content:
+    coursebatchmanapiContent:
       title: Content
       required:
         - identifier
@@ -1363,7 +1363,7 @@ components:
           type: string
           nullable: true
         cert_templates:
-          $ref: '#/components/schemas/CertTemplates'
+          $ref: '#/components/schemas/coursebatchmanapiCertTemplates'
         batchId:
           type: string
         tandc:
@@ -1437,14 +1437,14 @@ components:
         collectionId: do_1131396442662912001425
         startDate: '2020-11-04'
         status: 1
-    CertTemplates:
+    coursebatchmanapiCertTemplates:
       title: CertTemplates
       required:
         - Test_Template_prad
       type: object
       properties:
         Test_Template_prad:
-          $ref: '#/components/schemas/TestTemplatePrad'
+          $ref: '#/components/schemas/coursebatchmanapiTestTemplatePrad'
       example:
         Test_Template_prad:
           identifier: Test_Template_prad
@@ -1467,7 +1467,7 @@ components:
               name: CEO Gujarat
               id: CEO
               designation: CEO
-    TestTemplatePrad:
+    coursebatchmanapiTestTemplatePrad:
       title: TestTemplatePrad
       required:
         - identifier
@@ -1482,19 +1482,19 @@ components:
         identifier:
           type: string
         criteria:
-          $ref: '#/components/schemas/Criteria'
+          $ref: '#/components/schemas/coursebatchmanapiCriteria'
         name:
           type: string
         notifyTemplate:
-          $ref: '#/components/schemas/NotifyTemplate'
+          $ref: '#/components/schemas/coursebatchmanapiNotifyTemplate'
         issuer:
-          $ref: '#/components/schemas/Issuer'
+          $ref: '#/components/schemas/coursebatchmanapiIssuer'
         url:
           type: string
         signatoryList:
           type: array
           items:
-            $ref: '#/components/schemas/SignatoryList'
+            $ref: '#/components/schemas/coursebatchmanapiSignatoryList'
           description: ''
       example:
         identifier: Test_Template_prad
@@ -1517,18 +1517,18 @@ components:
             name: CEO Gujarat
             id: CEO
             designation: CEO
-    Criteria:
+    coursebatchmanapiCriteria:
       title: Criteria
       required:
         - enrollment
       type: object
       properties:
         enrollment:
-          $ref: '#/components/schemas/Enrollment'
+          $ref: '#/components/schemas/coursebatchmanapiEnrollment'
       example:
         enrollment:
           status: 2
-    Enrollment:
+    coursebatchmanapiEnrollment:
       title: Enrollment
       required:
         - status
@@ -1539,7 +1539,7 @@ components:
           format: int32
       example:
         status: 2
-    NotifyTemplate:
+    coursebatchmanapiNotifyTemplate:
       title: NotifyTemplate
       required:
         - emailTemplateType
@@ -1565,7 +1565,7 @@ components:
         stateImgUrl: 'https://sunbirddev.blob.core.windows.net/orgemailtemplate/img/File-0128212938260643843.png'
         regards: Minister of Gujarat
         regardsperson: Chairperson
-    Issuer:
+    coursebatchmanapiIssuer:
       title: Issuer
       required:
         - name
@@ -1579,7 +1579,7 @@ components:
       example:
         name: Gujarat Council of Educational Research and Training
         url: 'https://gcert.gujarat.gov.in/gcert/'
-    SignatoryList:
+    coursebatchmanapiSignatoryList:
       title: SignatoryList
       required:
         - image
@@ -1601,14 +1601,14 @@ components:
         name: CEO Gujarat
         id: CEO
         designation: CEO
-    CourseBatchCreateRequest:
+    coursebatchmanapiCourseBatchCreateRequest:
       title: CourseBatchCreateRequest
       required:
         - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/CourseBatchCreate-Request'
+          $ref: '#/components/schemas/coursebatchmanapiCourseBatchCreate-Request'
       example:
         request:
           courseId: '{{course-id}}'
@@ -1617,7 +1617,7 @@ components:
           enrollmentType: open
           startDate: '2020-11-23'
           endDate: '2021-12-30'
-    CourseBatchCreate-Request:
+    coursebatchmanapiCourseBatchCreate-Request:
       title: CourseBatchCreate-Request
       required:
         - courseId
@@ -1663,7 +1663,7 @@ components:
         enrollmentType: open
         startDate: '2020-11-23'
         endDate: '2021-12-30'
-    CourseBatchCreate-400BadRequest-InvalidCourseId:
+    coursebatchmanapiCourseBatchCreate-400BadRequest-InvalidCourseId:
       title: CourseBatchCreate-400BadRequest-InvalidCourseId
       description: CourseBatchCreate-400BadRequest-InvalidCourseId
       required:
@@ -1682,7 +1682,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params1'
+          $ref: '#/components/schemas/coursebatchmanapiParams1'
         responseCode:
           type: string
         result:
@@ -1699,7 +1699,7 @@ components:
           errmsg: Course doesnot exist. Please provide a valid course identifier
         responseCode: CLIENT_ERROR
         result: {}
-    CourseBatchCreate-500InternalServerError:
+    coursebatchmanapiCourseBatchCreate-500InternalServerError:
       title: CourseBatchCreate-500InternalServerError
       required:
         - id
@@ -1717,7 +1717,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params2'
+          $ref: '#/components/schemas/coursebatchmanapiParams2'
         responseCode:
           type: string
         result:
@@ -1734,7 +1734,7 @@ components:
           errmsg: 'Process failed,please try again later.'
         responseCode: SERVER_ERROR
         result: {}
-    CourseBatchCreate-200OK:
+    coursebatchmanapiCourseBatchCreate-200OK:
       title: CourseBatchCreate-200OK
       required:
         - id
@@ -1752,11 +1752,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/coursebatchmanapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/CourseBatchCreate-Result'
+          $ref: '#/components/schemas/coursebatchmanapiCourseBatchCreate-Result'
       example:
         id: api.course.batch.create
         ver: v1
@@ -1771,7 +1771,7 @@ components:
         result:
           response: SUCCESS
           batchId: 01315728917531852810
-    CourseBatchCreate-Result:
+    coursebatchmanapiCourseBatchCreate-Result:
       title: Result2
       required:
         - response

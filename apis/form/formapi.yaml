@@ -50,7 +50,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/formcreateRequest'
+              $ref: '#/components/schemas/formapiformcreateRequest'
         required: true
       responses:
         '200':
@@ -58,7 +58,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/createResponse'
+                $ref: '#/components/schemas/formapicreateResponse'
               examples:
                 Course Unit:
                   value: |-
@@ -83,7 +83,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FailedResponseHeader'
+                $ref: '#/components/schemas/formapiFailedResponseHeader'
         '500':
           description: >-
             INTERNAL SERVER ERROR. We track these errors automatically and try
@@ -92,7 +92,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FailedResponseHeader'
+                $ref: '#/components/schemas/formapiFailedResponseHeader'
       security:
         - bearer: []
       x-codegen-request-body-name: Body
@@ -136,7 +136,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/formcreateRequest'
+              $ref: '#/components/schemas/formapiformcreateRequest'
         required: true
       responses:
         '200':
@@ -144,7 +144,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/createResponse'
+                $ref: '#/components/schemas/formapicreateResponse'
               examples:
                 Update Course Unit:
                   value: |-
@@ -175,7 +175,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FailedResponseHeader'
+                $ref: '#/components/schemas/formapiFailedResponseHeader'
         '500':
           description: >-
             INTERNAL SERVER ERROR. We track these errors automatically and try
@@ -184,7 +184,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FailedResponseHeader'
+                $ref: '#/components/schemas/formapiFailedResponseHeader'
       security:
         - bearer: []
       x-codegen-request-body-name: Body
@@ -228,7 +228,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/formReadRequest'
+              $ref: '#/components/schemas/formapiformReadRequest'
         required: true
       responses:
         '200':
@@ -236,7 +236,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/readResponse'
+                $ref: '#/components/schemas/formapireadResponse'
               examples:
                 Course Unit:
                   value: |-
@@ -331,7 +331,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FailedResponseHeader'
+                $ref: '#/components/schemas/formapiFailedResponseHeader'
         '500':
           description: >-
             INTERNAL SERVER ERROR. We track these errors automatically and try
@@ -340,13 +340,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FailedResponseHeader'
+                $ref: '#/components/schemas/formapiFailedResponseHeader'
       security:
         - bearer: []
       x-codegen-request-body-name: Body
 components:
   schemas:
-    readRequest:
+    formapireadRequest:
       title: Form read API request object
       type: object
       properties:
@@ -369,17 +369,17 @@ components:
               type: string
             rootOrgId:
               type: string
-    formReadRequest:
+    formapiformReadRequest:
       title: The Read Form API request body
       allOf:
-        - $ref: '#/components/schemas/ApiRequest'
-        - $ref: '#/components/schemas/readRequest'
-    formcreateRequest:
+        - $ref: '#/components/schemas/formapiApiRequest'
+        - $ref: '#/components/schemas/formapireadRequest'
+    formapiformcreateRequest:
       title: The Create and Update form API request body
       allOf:
-        - $ref: '#/components/schemas/ApiRequest'
-        - $ref: '#/components/schemas/createRequest'
-    createRequest:
+        - $ref: '#/components/schemas/formapiApiRequest'
+        - $ref: '#/components/schemas/formapicreateRequest'
+    formapicreateRequest:
       title: Represents the request object of Create and Update Form request object
       type: object
       properties:
@@ -404,18 +404,18 @@ components:
             rootOrgId:
               type: string
             data:
-              $ref: '#/components/schemas/dataFields'
-    readResponse:
+              $ref: '#/components/schemas/formapidataFields'
+    formapireadResponse:
       title: The basic reponse object for read form
       allOf:
-        - $ref: '#/components/schemas/ApiResponse'
-        - $ref: '#/components/schemas/readResult'
-    createResponse:
+        - $ref: '#/components/schemas/formapiApiResponse'
+        - $ref: '#/components/schemas/formapireadResult'
+    formapicreateResponse:
       title: The response object for create and update form
       allOf:
-        - $ref: '#/components/schemas/ApiResponse'
-        - $ref: '#/components/schemas/createResult'
-    readResult:
+        - $ref: '#/components/schemas/formapiApiResponse'
+        - $ref: '#/components/schemas/formapicreateResult'
+    formapireadResult:
       title: The response object of read(Reading result)
       type: object
       properties:
@@ -436,8 +436,8 @@ components:
                 rootOrgId:
                   type: string
                 data:
-                  $ref: '#/components/schemas/dataFields'
-    createResult:
+                  $ref: '#/components/schemas/formapidataFields'
+    formapicreateResult:
       title: The response object of create and update (Result)
       type: object
       properties:
@@ -453,7 +453,7 @@ components:
                   type: string
                 status:
                   type: string
-    FailedResponseHeader:
+    formapiFailedResponseHeader:
       title: Failure Response
       type: object
       properties:
@@ -467,7 +467,7 @@ components:
           type: string
           description: ETA for API execution
         params:
-          $ref: '#/components/schemas/FailedResponseParams'
+          $ref: '#/components/schemas/formapiFailedResponseParams'
         responseCode:
           type: string
           description: It is the response code that comes on execution of API
@@ -477,7 +477,7 @@ components:
             result:
               type: string
               description: result
-    FailedResponseParams:
+    formapiFailedResponseParams:
       title: Failed Response Parameter
       type: object
       properties:
@@ -496,7 +496,7 @@ components:
         errmsg:
           type: string
           description: Represents the error message after the execution of the API
-    dataFields:
+    formapidataFields:
       type: object
       properties:
         templateName:
@@ -557,7 +557,7 @@ components:
                 type: object
                 properties: {}
                 description: Quick tips on the rendering of the form
-    ApiRequest:
+    formapiApiRequest:
       type: object
       properties:
         id:
@@ -579,7 +579,7 @@ components:
             did:
               type: string
               description: Represents the device UUID from which API is called
-    ApiResponse:
+    formapiApiResponse:
       required:
         - ets
         - id
