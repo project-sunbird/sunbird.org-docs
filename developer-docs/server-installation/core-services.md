@@ -74,7 +74,7 @@ Update **core_vault_sunbird_api_auth_token**, **core_vault_kong__test_jwt** and 
 | (Provision) Cassandra |Provisions Cassandra and create keyspaces required for Sunbird Core | Provisions Cassandra and creates keyspaces and performs migration | release-3.5.0|
 | Cassandra | Performs keyspace schema migration | Performs migration if required. Deploy this thrice by choosing different zip files using the build_number parameter. Ensure that you get a success message for the Cassandra migration on the Jenkins console output. Do not rely only on the red or green status indicator on Jenkins job | release-3.5.0
 |(Provision) Keycloak | Install dependencies for keycloak | Provisions Keycloak by installing prerequisites like Java and environment variables | release-3.5.0
-| Keycloak | Deploys Keycloak service to VM | Centralized user management for sunbird | release-3.5.0
+| Keycloak | Deploys Keycloak service to VM | Centralized user management for sunbird | keycloak-3.2.0
 | KeycloakRealm(Core folder) |  User management -Creates sunbird realm | Creates a Sunbird Realm. After the Sunbird realm is created, configure Keycloak by using the steps mentioned in the **Keycloak Configuration** section | release-3.5.0
 |Adminutil | Deploys the Adminutil container | Creates tokens for the sunbird devices | release-3.5.0
 | Player |  UI for sunbird  | Deploys portal UI | release-3.5.0
@@ -147,15 +147,15 @@ Migration Completed at ==1571996508540`
       {
         "id": "1234567890",
         "channel": "default",
-        "orgname": "default",
-        "hashtagid": "1234567890",
-        "isrootorg": true
-      }
+        "orgName": "default",
+        "hashTagId": "1234567890",
+        "isRootOrg": true
+      }'
       
       #cqlsh
       # Insert in to system settings
       INSERT INTO sunbird.system_settings (id,field,value) values ('custodianOrgId','custodianOrgId','1234567890');
-      INSERT INTO sunbird.system_settings (id,field,value) values ('custodianOrgChannel','custodianOrgChannel','1234567890');
+      INSERT INTO sunbird.system_settings (id,field,value) values ('custodianOrgChannel','custodianOrgChannel','default');
 
 ```
 
