@@ -15,12 +15,12 @@ Switch to the `Build` folder and run all jobs in the below sequence. For the val
 
 |Operation Name    | Function              | CURRENT RELEASE TAG |
 | --------------   | --------------------- | -------------------
-| CassandraTrigger | Generate the jar file for cassandraTrigger | release-3.5.0
-| KnowledgePlatform| Generate the artefacts for knowledge Platform | release-3.5.0
-| Neo4j            | Generate the Neo4j jar file| release-3.5.0
-| Yarn             | Generate the artefacts for Samza job | release-3.5.0
+| CassandraTrigger | Generate the jar file for cassandraTrigger | release-3.6.0_RC8
+| KnowledgePlatform| Generate the artefacts for knowledge Platform | release-3.6.0_RC8
+| Neo4j            | Generate the Neo4j jar file| release-3.6.0_RC8
+| Yarn             | Generate the artefacts for Samza job | release-3.6.0_RC8
 | Dial             | Generate the artifacts for dial service | release-3.3.0
-| FlinkJobs        | Generate the artifacts for flink jobs   | relelase-3.5.0
+| FlinkJobs        | Generate the artifacts for flink jobs   | release-3.6.0_RC8
 
 
 
@@ -43,13 +43,13 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
     
 | Operation Name | Function              | Description | CURRENT RELEASE TAG |
 | -------------- | --------------------- |-------------|  -----------------
-| CompositeSearch| Installs the ElasticSearch | Installs dependencies for elastic search and starts elastic search service | release-3.5.0
-| Neo4j          | Installs the Neo4j and Logstash | Installs Neo4j and its dependencies | relesae-3.5.0|
-|zookeeper          | Installs the zookeper | zookeeper installation | release-3.5.0
-| Kafka          | Installs the Kafka | Kafka installation | release-3.5.0
-| Learning       | Installs the dependency to run the learning application | Creates learning user and installs dependencies(java, tomcat, logstash, ffmpeg,imagemagick) | release-3.5.0
-| Redis          | Installs the Redis database | Download and installs Redis | release-3.5.0
-| Dial           | Installs the dependency to run the dial service | install logstash and other dependencies | release-3.5.0
+| CompositeSearch| Installs the ElasticSearch | Installs dependencies for elastic search and starts elastic search service | release-3.6.0_RC8
+| Neo4j          | Installs the Neo4j and Logstash | Installs Neo4j and its dependencies | release-3.6.0_RC8|
+|zookeeper          | Installs the zookeper | zookeeper installation | release-3.6.0_RC8
+| Kafka          | Installs the Kafka | Kafka installation | release-3.6.0_RC8
+| Learning       | Installs the dependency to run the learning application | Creates learning user and installs dependencies(java, tomcat, logstash, ffmpeg,imagemagick) | release-3.6.0_RC8
+| Redis          | Installs the Redis database | Download and installs Redis | release-3.6.0_RC8
+| Dial           | Installs the dependency to run the dial service | install logstash and other dependencies | release-3.6.0_RC8
 
 ## Deploy
 
@@ -57,23 +57,70 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
  
 | Operation Name      | Function              | CURRENT RELEASE TAG |
 | --------------      | --------------------- | -------------------
-| CassandraTrigger    | Deploys the CassandraTrigger jar file and installs the logstash | release-3.5.0
-| CassandraDbUpdate   | Creates the Cassandra keyspace and update| release-3.5.0
-| Neo4j               | Deploys the Neo4j artefacts | release-3.5.0
-| StartNeo4jCluster   | Starts the Neo4j process| release-3.5.0
-| Learning            | Deploys the learning service artefacts and starts the learning service | release-3.5.0
-| Neo4DefinitionUpdate| Updates Neo4j definition | release-3.5.0
-| KafkaSetup          | Creates the Kafka Topics| release-3.5.0
-| Yarn                | Deploys the Samza jobs | release-3.5.0
-| Dial                | Deploys and starts dial service | release-3.5.0
-| FlinkJobs           | Deploys flink jobs | release-3.5.0
+| CassandraTrigger    | Deploys the CassandraTrigger jar file and installs the logstash | release-3.6.0_RC8
+| CassandraDbUpdate   | Creates the Cassandra keyspace and update| release-3.6.0_RC8
+| Neo4j               | Deploys the Neo4j artefacts | release-3.6.0_RC8
+| StartNeo4jCluster   | Starts the Neo4j process| release-3.6.0_RC8
+| Learning            | Deploys the learning service artefacts and starts the learning service | release-3.6.0_RC8
+| Neo4DefinitionUpdate| Updates Neo4j definition | release-3.6.0_RC8
+| KafkaSetup          | Creates the Kafka Topics| release-3.6.0_RC8
+| Yarn                | Deploys the Samza jobs | release-3.6.0_RC8
+| Dial                | Deploys and starts dial service | release-3.6.0_RC8
+| FlinkJobs           | Deploys flink jobs | release-3.6.0_RC8
 
 
 ## Create master framework category
         
 1.Make sure learning services is running and healthy, command to check learning service health **http://localhost:8080/learning-service/health**
 
-2.Run the below curl command from learning vm:
+2.Run the below curl command from learning vm to create the master Category:
+
+ ```
+   curl --location --request POST 'http://localhost:8080/learning-service/framework/v3/category/master/create' \
+                  --header 'Content-Type: application/json' \
+                  --data-raw '{
+                     "request": {
+                        "category":{
+                            "name":"Board",
+                            "description":"board",
+                            "code":"board"
+                        }
+                      }
+                  }'
+
+ ```   
+
+ ```
+   curl --location --request POST 'http://localhost:8080/learning-service/framework/v3/category/master/create' \
+                  --header 'Content-Type: application/json' \
+                  --data-raw '{
+                     "request": {
+                        "category":{
+                            "name":"Medium",
+                            "description":"medium",
+                            "code":"medium"
+                        }
+                      }
+                  }'
+
+ ```
+
+
+ ```
+   curl --location --request POST 'http://localhost:8080/learning-service/framework/v3/category/master/create' \
+                  --header 'Content-Type: application/json' \
+                  --data-raw '{
+                     "request": {
+                        "category":{
+                            "name":"Class",
+                            "description":"Class",
+                            "code":"gradeLevel"
+                        }
+                      }
+                  }'
+
+ ```
+
 
  ```
    curl --location --request POST 'http://localhost:8080/learning-service/framework/v3/category/master/create' \
@@ -88,6 +135,9 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
                       }
                   }'
 
- ```   
+ ```
+
+Refer [How to Create Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird){:target="_blank"}, [How to Create Schemas for Knowledge Platform Objects](developer-docs/server-installation/knowledge-platform-object-schema){:target="_blank"}
+
 
 Refer [How to Create Framework](developer-docs/how-to-guide/how_to_create_framework_in_sunbird){:target="_blank"}, [How to Create Schemas for Knowledge Platform Objects](developer-docs/server-installation/knowledge-platform-object-schema){:target="_blank"}
