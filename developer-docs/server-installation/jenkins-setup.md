@@ -16,7 +16,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 
  ```
     - git clone [https://github.com/project-sunbird/sunbird-devops.git](https://github.com/project-sunbird/sunbird-devops.git) 
-    - cd sunbird-devops && git checkout tags/release-3.5.0 -b release-3.5.0
+    - cd sunbird-devops && git checkout tags/release-3.6.0_RC8 -b release-3.6.0
     - cd deploy/jenkins
     - sudo bash jenkins-server-setup.sh
 
@@ -80,7 +80,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 |**private_repo_branch**|The branch name in the private repository which you would like to use. This branch has the inventory and secrets| 
 |**private_repo_credentials**|The unique string which you provided for ID field while entering the GitHub repo credentials. Example: **private-repo-creds**| 
 |**private_repo_url**|The GitHub URL to your private repo. To get the URL of your private repository, go to your private repository and click the **Clone** button. The https URL of your private repository is displayed. Currently, Sunbird supports only https URLs| 
-|**public_repo_branch**|This is the branch or tag to pick the Jenkins file. You can set this value as refs/tags/release-3.5.0 if you want to build from tags or provide the value of the development branch, for example, release-3.5.0. Changing this value is not recommended since development branches are not stable. |
+|**public_repo_branch**|This is the branch or tag to pick the Jenkins file. You can set this value as refs/tags/release-3.6.0_RC8 if you want to build from tags or provide the value of the development branch, for example, release-3.6.0. Changing this value is not recommended since development branches are not stable. |
 |**override_private_branch**|true|
 |**override_public_branch**|true| 
 |**java11_home**|/usr/lib/jvm/java-11-openjdk-amd64/|
@@ -90,7 +90,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 |**Name**|**Value**| 
 |-------|--------| 
 |**Library Name**|deploy-conf| 
-|**Default version**|Tag name of the Jenkins shared library. This should be the same version of the release you are going to build and deploy. For example, if you decide to use tag release-3.5.0 as your base, the Jenkins shared library tag is shared-lib. When you upgrade to tag will differ.
+|**Default version**|Tag name of the Jenkins shared library is shared-lib.
 |**Retrieval method**|Modern SCM| 
 |**Source Code Management**|Git| 
 |**Project Repository**|https://github.com/project-sunbird/sunbird-devops.git| 

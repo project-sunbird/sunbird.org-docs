@@ -12,7 +12,15 @@ This page explains the jobs to be run to build and deploy plugins. In order to d
 
 ## Build
 
-Switch to the `Build/Plugins` folder and run all jobs. Ensure all ArtifactUpload jobs are sucessful after the build. For the value of the **github_release_tag**, refer to [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs){:target="_blank"}
+Run all the below build jobs and ensure all ArtifactUpload jobs are sucessful after the build. For the value of the **github_release_tag**, refer to [Current Release Tags and Jenkins Jobs Reference](developer-docs/server-installation/current_release_tags_n_jenkins_jobs){:target="_blank"}
+
+| Build Name | Function (Builds) | CURRENT RELEASE TAG |
+|--------------------|-----------| ------------------- 
+| CollectionEditor |  | release-3.6.0_RC1
+| ContentEditor || release-3.6.0_RC2
+| ContentPlayer | | release-3.6.0_RC3
+| ContentPlugins |  |  release-3.6.0_RC3
+| GenericEditor | | release-3.6.0_RC1 |
 
 ### Prerequisites Before Deployment
 
