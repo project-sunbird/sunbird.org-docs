@@ -47,7 +47,7 @@ var widgetsData = {
          "desc":"",
          "releaseDate":"3rd October 2020",
          "latest":false,
-         "published":true
+         "published":false
       },
       {  
          "title":"2.10.0",
