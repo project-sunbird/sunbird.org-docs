@@ -29,15 +29,17 @@ The following is the list of jobs required to be built and deployed :
 
 Order: Top down per column
 
-| Knowledge Platform Build | Knowledge Platform Deploy | DataPipeline Build | DataPipeline Deploy    | Core Build       | Core Deploy | Plugins |
-|--------------------------|---------------------------|--------------------|------------------------|------------------|-------------|---------|
-| FlinkJobs                | FlinkJobs                 | FlinkPipelineJobs  | FlinkPipelineJobs      | Cert             | Cert        | CollectionEditor|
-| Learning                 | Learning                  | AnalyticsCore      | AnalyticsCore          | Content          | Content     | ContentEditor   |
-| Yarn                     | Yarn                      | EdDataProducts     | EdDataProducts         | Learner          | Learner     | ContentPlayer   |
-                                                                                                     | Lms              | Lms         | GenericEditor   |
-                                                                                                     | Player           | Player      | ContentPlugins  |
-                                                                                                     |                  | nginx-public-ingress|         |
-                                                                                                     
+| Knowledge Platform Build and Deploy | DataPipeline Build | DatePipeline Deploy | Core Build and Deploy | Plugins Build and Deploy|
+|-------------------------------------|--------------------|---------------------|-----------------------|-------------------------|
+| Learning                            | AnalyticsCore      | AnalyticsCore       |Cassandra              | CollectionEditor|
+| Yarn                                | CoreDataproducts   | CoreDataproducts    | Keycloak              | ContentEditor   |
+|                                     | EdDataProducts     | EdDataProducts      | Content               | ContentPlayer   |
+|                                     | ETLJobs            | ETLJobs             | KnowledgeMW           | GenericEditor   |
+|                                     | FlinkPipelineJobs  | FlinkPipelineJobs   | Lms                   | ContentPlugins  |
+|                                     |                    | KafkaIndexer        | Player                |    |
+|                                     |      |                                   | Search                |    |
+|                                     |      |                                   | Taxonomy              |    |
+|                                     |      |                                   | Learner               |    |                                                                                                                                               
 
 **Create License and update Channel default License set and Content License migration based on channel**
 

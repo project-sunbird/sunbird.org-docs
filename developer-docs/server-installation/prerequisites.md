@@ -28,7 +28,7 @@ Before you start the installation process, ensure that you provision for servers
 | KP        | 4core 16G 60G HDD | 1   |
 | DP        | 4core 16G 60G HDD | 1   |
 | DB        | 4core 16G 60G HDD   | 1   |
-| Yarn      | 4core 16G 60G HDD | 2   |
+| Yarn      | 4core 16G 60G HDD | 1   |
 | Druid     | 4core 16G 60G HDD | 1  |
 | Load Balancers         |  -   | 2 (Optional)   |
 
@@ -83,8 +83,8 @@ Before you start the installation process, ensure that you provision for servers
     <td>processing-cluster-kafka, processing-cluster-zookeepers, kafka-ps, kafka-1, ingestion-cluster-kafka</td>
   </tr>
   <tr>
-    <td rowspan="8">Data Pipeline</td>
-    <td rowspan="8">Server-4 (DP Services)</td>
+    <td rowspan="7">Data Pipeline</td>
+    <td rowspan="7">Server-4 (DP Services)</td>
     <td>Spark</td>
     <td>spark</td>
   </tr>
@@ -101,10 +101,6 @@ Before you start the installation process, ensure that you provision for servers
     <td>influxdb</td>
   </tr>
   <tr>
-  <td>Docker Manager and Worker</td>
-    <td>swarm-manager-1, swarm-agent-for-prometheus-1, swarm-agent-for-alertmanager-1, swarm-bootstrap-manager, swarm-node-1 , swarm-agent-dashboard-1, swarm-dashboard-1</td>
-  </tr>
-  <tr>
     <td>Keycloak</td>
     <td>Keycloak</td>
   </tr>
@@ -116,19 +112,14 @@ Before you start the installation process, ensure that you provision for servers
     <td>secor, secor-ps</td>
   </tr>
   <tr>
-    <td rowspan="2">Yarn</td>
-    <td>Server-5 (Yarn Master)</td>
-    <td>Yarn Master Slave 1</td>
-    <td>yarn-master, yarn-slave, yarn-ps</td>
-  </tr>
-  <tr>
-    <td>Server-6 (Yarn Slave)</td>
-    <td>Yarn Master Slave 2</td>
+    <td rowspan="1">Yarn</td>
+    <td>Server-5 </td>
+    <td>Yarn Master Slave </td>
     <td>yarn-master, yarn-slave, yarn-ps</td>
   </tr>
   <tr>
     <td>Druid</td>
-    <td>Server-7</td>
+    <td>Server-6</td>
     <td>druid servicer</td>
     <td> druid-postgres,raw-coordinator,raw-overlord,raw-broker,raw-historical,raw-middlemanager,raw-graphite,raw-zookeeper
     </td>

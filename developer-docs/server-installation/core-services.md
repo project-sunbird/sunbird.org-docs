@@ -44,7 +44,7 @@ This page explains the jobs to be run to bring up the Core services.
 | EncService | Envservice docker image | release-1.1.1
 | Proxy | Proxy docker image | release-3.6.0_RC8
 | Telemetry | Telemetry docker image | release-2.1.0
-| Keycloak | Keycloak zip file | release-1.15_RC9|
+| Keycloak | Keycloak zip file | release-3.6.0_RC1|
 | Analytics | Analytics service docker image |  release-3.4.0
 | Taxonomy  | Taxonomy service docker image | ​release-3.6.0_RC5
 
