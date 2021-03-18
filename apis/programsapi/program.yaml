@@ -8265,7 +8265,7 @@ components:
         eq: 18180aff-07ba-4f50-bf4a-04ace80f303b
     Contributorsearch200:
       title: Contributorsearch200
-      description:
+      description: Contributor search result
       required:
       - id
       - ts
@@ -8281,12 +8281,12 @@ components:
           type: string
           description: Represents the EPOCH epoch time in milliseconds
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/ContributorSearchParams'
         responseCode:
           type: string
           description: Represents the api response code
         result:
-          $ref: '#/components/schemas/Result'
+          $ref: '#/components/schemas/ContributorSearchResult'
       example:
         id: api.contributor.search
         ts: 2021-03-18T08:27:48.088Z
@@ -8390,8 +8390,8 @@ components:
               orgId: 18180aff-07ba-4f50-bf4a-04ace80f303b
             selectedRole: sourcing_reviewer
           count: 1
-    Params:
-      title: Params
+    ContributorSearchParams:
+      title: Contributor search params
       required:
       - resmsgid
       - msgid
@@ -8423,8 +8423,8 @@ components:
         status: successful
         err: ''
         errmsg: ''
-    Result:
-      title: Result
+    ContributorSearchResult:
+      title: Contributor search result
       required:
       - contributor
       - count
@@ -8433,7 +8433,7 @@ components:
         contributor:
           type: array
           items:
-            $ref: '#/components/schemas/Contributor'
+            $ref: '#/components/schemas/ContributorSearchList'
           description: ''
         count:
           type: integer
@@ -8531,8 +8531,8 @@ components:
             orgId: 18180aff-07ba-4f50-bf4a-04ace80f303b
           selectedRole: sourcing_reviewer
         count: 1
-    Contributor:
-      title: Contributor
+    ContributorSearchList:
+      title: Contributor search list
       type: object
       properties:
         lastName:
@@ -8699,9 +8699,9 @@ components:
           type: string
           description: 'Represents the full name'
         User:
-          $ref: '#/components/schemas/User'
+          $ref: '#/components/schemas/ContributorUser'
         User_Org:
-          $ref: '#/components/schemas/UserOrg1'
+          $ref: '#/components/schemas/ContributorUserOrg'
         selectedRole:
           type: string
           description: 'Represents the roles'
@@ -8797,6 +8797,7 @@ components:
         selectedRole: sourcing_reviewer
     Organisation:
       title: Organisation
+      description: Contributor organisation details
       required:
       - updatedBy
       - organisationId
@@ -8911,8 +8912,9 @@ components:
         orgjoindate: 2020-08-18 11:33:06:859+0000
         isApproved: ''
         orgLeftDate: ''
-    User:
+    ContributorUser:
       title: User
+      description: Contributor profile details
       required:
       - lastName
       - osUpdatedAt
@@ -8961,8 +8963,9 @@ components:
         channel: 013088773085405184115
         osid: 4a409368-e6c5-46a1-b8ab-b9fdad5fc8f3
         userId: ee44960b-a95a-4f23-80dc-7cdacf778081
-    UserOrg1:
-      title: UserOrg1
+    ContributorUserOrg:
+      title: Contributor user org
+      description: Contributor User org
       required:
       - osUpdatedAt
       - osCreatedAt
