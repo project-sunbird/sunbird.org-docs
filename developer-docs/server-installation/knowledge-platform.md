@@ -16,9 +16,9 @@ Switch to the `Build` folder and run all jobs in the below sequence. For the val
 |Operation Name    | Function              | CURRENT RELEASE TAG |
 | --------------   | --------------------- | -------------------
 | CassandraTrigger | Generate the jar file for cassandraTrigger | release-3.6.0_RC8
-| KnowledgePlatform| Generate the artefacts for knowledge Platform | release-3.6.0_RC8
+| KnowledgePlatform| Generate the artefacts for knowledge Platform | release-3.6.0_RC1
 | Neo4j            | Generate the Neo4j jar file| release-3.6.0_RC8
-| Yarn             | Generate the artefacts for Samza job | release-3.6.0_RC8
+| Yarn             | Generate the artefacts for Samza job | release-3.6.0_RC6
 | Dial             | Generate the artifacts for dial service | release-3.3.0
 | FlinkJobs        | Generate the artifacts for flink jobs   | release-3.6.0_RC8
 
@@ -47,7 +47,7 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
 | Neo4j          | Installs the Neo4j and Logstash | Installs Neo4j and its dependencies | release-3.6.0_RC8|
 |zookeeper          | Installs the zookeper | zookeeper installation | release-3.6.0_RC8
 | Kafka          | Installs the Kafka | Kafka installation | release-3.6.0_RC8
-| Learning       | Installs the dependency to run the learning application | Creates learning user and installs dependencies(java, tomcat, logstash, ffmpeg,imagemagick) | release-3.6.0_RC8
+| Learning       | Installs the dependency to run the learning application | Creates learning user and installs dependencies(java, tomcat, logstash, ffmpeg,imagemagick) |release-3.6.0_RC2
 | Redis          | Installs the Redis database | Download and installs Redis | release-3.6.0_RC8
 | Dial           | Installs the dependency to run the dial service | install logstash and other dependencies | release-3.6.0_RC8
 
@@ -64,7 +64,7 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
 | Learning            | Deploys the learning service artefacts and starts the learning service | release-3.6.0_RC8
 | Neo4DefinitionUpdate| Updates Neo4j definition | release-3.6.0_RC8
 | KafkaSetup          | Creates the Kafka Topics| release-3.6.0_RC8
-| Yarn                | Deploys the Samza jobs | release-3.6.0_RC8
+| Yarn                | Deploys the Samza jobs | ​release-3.6.0_RC6
 | Dial                | Deploys and starts dial service | release-3.6.0_RC8
 | FlinkJobs           | Deploys flink jobs | release-3.6.0_RC8
 

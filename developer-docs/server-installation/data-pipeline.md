@@ -19,10 +19,10 @@ Switch to the `Build` folder and run all jobs. For the value of the **github_rel
 | Operation Name | Function  |Description | CURRENT RELEASE TAG |
 | -------------- | --------- |------------|---------------------|
 | AnalyticsCore  | Builds the analytics framework|Creates analytics framework artifact|release-3.6.0_RC4
-| Core Data Product| Builds analytics core data products| Creates analytics core data products artifact| release-3.6.0_RC2
-|EdDataProducts| ---|---| release-3.6.0_RC13|
-|FlinkPipelineJobs| ---|---| release-3.6.0_RC22|
-|ETLJobs | Builds adhoc scripts which includes content snapshot druid indexer, dialcode redis indexer| Creates jar out of adhoc scripts| release-3.6.0_RC13|
+| Core Data Product| Builds analytics core data products| Creates analytics core data products artifact| release-3.6.0_RC1
+|EdDataProducts| ---|---| release-3.6.0_RC9|
+|FlinkPipelineJobs| ---|---| ​release-3.6.0_RC17|
+|ETLJobs | Builds adhoc scripts which includes content snapshot druid indexer, dialcode redis indexer| Creates jar out of adhoc scripts| ​release-3.6.0_RC5|
 
 
 ## DevOps Administration
@@ -53,15 +53,15 @@ Switch to `Deploy/<env>/DataPipeline` and run the jobs in the following sequence
 
 | Operation Name | Function              | Description | CURRENT RELEASE TAG|
 | -------------- | --------------------- |-------------- |------------------|
-| AnalyticsCore | Deploys Analytics framework jars |Copies analytics framework artifact to spark server| release-3.6.0_RC22|
-| CoreDataProducts | Deploys core data products  |Copies core data products artifact to spark server| release-3.6.0_RC22|
-| EdDataProducts | ---  |---| release-3.6.0_RC22|
-| KafkaIndexer | Deploys logstash configurations and starts process  |Used for pushing pipeline metrics to influxDB| release-3.6.0_RC22|
+| AnalyticsCore | Deploys Analytics framework jars |Copies analytics framework artifact to spark server| release-3.6.0_RC16|
+| CoreDataProducts | Deploys core data products  |Copies core data products artifact to spark server| release-3.6.0_RC16|
+| EdDataProducts | ---  |---| release-3.6.0_RC16|
+| KafkaIndexer | Deploys logstash configurations and starts process  |Used for pushing pipeline metrics to influxDB| release-3.6.0_RC14|
 | KafkaSetup | Setup kafka for pipeline  |Creates kafka topic and updates topic configurations| release-3.6.0_RC22|
-| FlinkPipelineJobs | --- | --- | release-3.6.0_RC22 |
+| FlinkPipelineJobs | --- | --- | release-3.6.0_RC9 |
 | DruidIngestion | --- | --- | release-3.6.0_RC22 |
-| ETLJobs | --- | --- | release-3.6.0_RC22 |
-| ETLUserCacheIndexer | ---  |---| release-3.6.0_RC22|
+| ETLJobs | --- | --- | release-3.6.0_RC10 |
+| ETLUserCacheIndexer | ---  |---| release-3.6.0_RC10|
 
 
 
