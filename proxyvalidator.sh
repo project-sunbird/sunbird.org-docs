@@ -1,7 +1,7 @@
 #!/bin/bash
-# wget https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64
-# chmod +x yq_linux_amd64
-# mv yq_linux_amd64 yq
+wget https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64
+chmod +x yq_linux_amd64
+mv yq_linux_amd64 yq
 echo -e "Generating the proxy validator yaml by merging all the API definition into 1"
 yaml-merge $(find apis -name *.yaml | tr "\n" " ") > intermediate-1.yml
 # Remove the unwanted fields from the proxyvalidator
