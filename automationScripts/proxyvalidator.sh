@@ -2,10 +2,11 @@
 # Author S M Y ALTAMASH <smy.altamash@gmail.com>
 
 directoryLocation=$(readlink -f $0| rev | cut -d '/' -f2- | rev)
+cd ${directoryLocation}
 echo -e "Generating the proxy validator yaml by merging all the API definition into 1"
-completeFile=$(yaml-merge $(find ${directoryLocation}/apis -name *.yaml | tr "\n" " "))
+completeFile=$(yaml-merge $(find ${directoryLocation}/../apis -name *.yaml | tr "\n" " "))
 
-echo "$completeFile" > main.yml
+echo "$completeFile" > completeOpenApiSpecFile.yml
 tmpFile=""
 
 # Patterns to delete from the spec file
