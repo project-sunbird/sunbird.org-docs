@@ -1,12 +1,15 @@
 #!/bin/bash
 # Author S M Y ALTAMASH <smy.altamash@gmail.com>
 
+directoryLocation=$(readlink -f $0| rev | cut -d '/' -f2- | rev)
 echo -e "Generating the proxy validator yaml by merging all the API definition into 1"
-completeFile=$(yaml-merge $(find apis -name *.yaml | tr "\n" " "))
+completeFile=$(yaml-merge $(find ${directoryLocation}/apis -name *.yaml | tr "\n" " "))
+
 echo "$completeFile" > main.yml
 tmpFile=""
-patterns=("servers" "paths.*.*.description" "paths.*.*.operationId" "paths.*.*.tags" "paths.*.*.responses.*.content.*.example" "paths.*.*.responses.*.content.*.examples" "tags" "security" "externalDocs" "paths.*.*.requestBody.content.*.examples" "paths.*.*.requestBody.content.*.example")
 
+# Patterns to delete from the spec file
+patterns=("servers" "paths.*.*.description" "paths.*.*.operationId" "paths.*.*.tags" "paths.*.*.responses.*.content.*.example" "paths.*.*.responses.*.content.*.examples" "tags" "security" "externalDocs" "paths.*.*.requestBody.content.*.examples" "paths.*.*.requestBody.content.*.example")
 
 # Remove the unwanted fields from the proxyvalidator
 # Now clean the intermediate file
