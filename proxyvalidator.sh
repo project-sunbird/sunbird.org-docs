@@ -22,5 +22,3 @@ done
 
 echo "$completeFile" > spec_for.yml
 echo -e "Find the final validated file \"spec.yml\""
-mv intermediate-12.yml spec.yml
-rm -rf intermediate-*.yml
