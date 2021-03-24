@@ -20,17 +20,6 @@ do
   completeFile=$tmpFile
 done
 
-#./yq delete intermediate-1.yml servers > intermediate-2.yml
-#./yq delete intermediate-2.yml paths.*.*.description > intermediate-3.yml
-#./yq delete intermediate-3.yml paths.*.*.operationId > intermediate-4.yml
-#./yq delete intermediate-4.yml paths.*.*.tags > intermediate-5.yml
-#./yq delete intermediate-5.yml paths.*.*.responses.*.content.*.example > intermediate-6.yml
-#./yq delete intermediate-6.yml paths.*.*.responses.*.content.*.examples > intermediate-7.yml
-#./yq delete intermediate-7.yml tags > intermediate-8.yml
-#./yq delete intermediate-8.yml security > intermediate-9.yml
-#./yq delete intermediate-9.yml externalDocs > intermediate-10.yml
-#./yq delete intermediate-10.yml paths.*.*.requestBody.content.*.examples > intermediate-11.yml
-#./yq delete intermediate-11.yml paths.*.*.requestBody.content.*.example > intermediate-12.yml
 echo "$completeFile" > spec_for.yml
 echo -e "Find the final validated file \"spec.yml\""
 mv intermediate-12.yml spec.yml
