@@ -1,4 +1,6 @@
 #!/bin/bash
+# Author S M Y ALTAMASH <smy.altamash@gmail.com>
+
 
 echo -e "Generating the proxy validator yaml by merging all the API definition into 1"
 completeFile=$(yaml-merge $(find apis -name *.yaml | tr "\n" " "))
