@@ -20,5 +20,5 @@ do
   completeFile=$tmpFile
 done
 
-echo "$completeFile" > spec_for.yml
+echo "$completeFile" > spec.yml
 echo -e "Find the final validated file \"spec.yml\""
