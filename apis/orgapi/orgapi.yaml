@@ -9,15 +9,15 @@ info:
     email: info@sunbird.org
   version: '3.0'
 externalDocs:
-  description: "Testcases"
-  url: "https://www.getpostman.com/collections/ad86fc520425abd74bef"
+ description: "Testcases"
+ url: "https://www.getpostman.com/collections/ad86fc520425abd74bef"
 servers:
-  - url: https://staging.sunbirded.org/api
+- url: https://staging.sunbirded.org/api
 paths:
   /org/v1/create:
     post:
       tags:
-        - Org APIs
+      - Org APIs
       summary: Create a new Organisation
       description: |-
         This API is for creation of a new Organisation on the Sunbird Platform.
@@ -25,30 +25,29 @@ paths:
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: Organisation Create
       parameters:
-        - name: ts
-          in: header
-          description: Timestamp at which given API request is sent.
-          schema:
-            type: string
-        - name: X-msgid
-          in: header
-          description: This ID uniquely identifies a request if the same API is executed
-            multiple times.
-          schema:
-            type: string
-        - name: X-Authenticated-User-Token
-          in: header
-          description: Access token of registered user performing given API request.
-          required: true
-          schema:
-            type: string
-        - name: Authorization
-          in: header
-          description: 'Specify authorization key (format: Bearer api-key) received
+      - name: ts
+        in: header
+        description: Timestamp at which given API request is sent.
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: This ID uniquely identifies a request if the same API is executed multiple times.
+        schema:
+          type: string
+      - name: X-Authenticated-User-Token
+        in: header
+        description: Access token of registered user performing given API request.
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'Specify authorization key (format: Bearer api-key) received
           from administrator when performing given API request.'
-          required: true
-          schema:
-            type: string
+        required: true
+        schema:
+          type: string
       requestBody:
         description: The body contains metadata about the new Organisation to be created.
         content:
@@ -70,7 +69,9 @@ paths:
             name is mandatory. Invalid property <name>. Channel is mandatory for root
             organisation. Either "organisationId" or "provider" and "externalId" values
             are required for the operation. Channel value already used by another
-            organisation. Provide different value for channel."organisationType" and "isTenant" are mandatory. Provide valid "organisationType" values.'
+            organisation. Provide different value for channel.
+            "organisationType" and "isTenant" are mandatory. Provide valid
+            "organisationType" values.'
           content:
             application/json:
               schema:
@@ -84,12 +85,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/orgapiOrgCreateErrorResponse'
       security:
-        - bearer: []
+      - bearer: []
       x-codegen-request-body-name: Body
   /org/v1/read:
     post:
       tags:
-        - Org APIs
+      - Org APIs
       summary: Read Organisation details
       description: |-
         This API is for viewing details of an existing Organisation on the Sunbird Platform.
@@ -97,24 +98,24 @@ paths:
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: Organisation Get
       parameters:
-        - name: ts
-          in: header
-          description: Timestamp at which given API request is sent.
-          schema:
-            type: string
-        - name: X-msgid
-          in: header
-          description: This ID uniquely identifies a request if the same API is executed
-            multiple times.
-          schema:
-            type: string
-        - name: Authorization
-          in: header
-          description: 'Specify authorization key (format: Bearer api-key) received
+      - name: ts
+        in: header
+        description: Timestamp at which given API request is sent.
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: This ID uniquely identifies a request if the same API is executed
+          multiple times.
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'Specify authorization key (format: Bearer api-key) received
           from administrator when performing given API request.'
-          required: true
-          schema:
-            type: string
+        required: true
+        schema:
+          type: string
       requestBody:
         description: The body contains metadata about the Organisation whose details
           are required to be viewed.
@@ -155,12 +156,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/orgapiOrgReadServerErrorResponse'
       security:
-        - bearer: []
+      - bearer: []
       x-codegen-request-body-name: Body
   /org/v1/search:
     post:
       tags:
-        - Org APIs
+      - Org APIs
       summary: Search for an Organisation
       description: |-
         This API is for searching for Organisations on the Sunbird Platform.
@@ -168,30 +169,30 @@ paths:
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: Organisation Search
       parameters:
-        - name: ts
-          in: header
-          description: Timestamp at which given API request is sent.
-          schema:
-            type: string
-        - name: X-msgid
-          in: header
-          description: This ID uniquely identifies a request if the same API is executed
-            multiple times.
-          schema:
-            type: string
-        - name: X-Authenticated-User-Token
-          in: header
-          description: Access token of registered user performing given API request.
-          required: true
-          schema:
-            type: string
-        - name: Authorization
-          in: header
-          description: 'Specify authorization key (format: Bearer api-key) received
+      - name: ts
+        in: header
+        description: Timestamp at which given API request is sent.
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: This ID uniquely identifies a request if the same API is executed
+          multiple times.
+        schema:
+          type: string
+      - name: X-Authenticated-User-Token
+        in: header
+        description: Access token of registered user performing given API request.
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'Specify authorization key (format: Bearer api-key) received
           from administrator when performing given API request.'
-          required: true
-          schema:
-            type: string
+        required: true
+        schema:
+          type: string
       requestBody:
         description: The body contains metadata about filters that can be used in
           Organisation search.
@@ -224,12 +225,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/orgapiOrgSearchServerErrorResponse'
       security:
-        - bearer: []
+      - bearer: []
       x-codegen-request-body-name: Body
   /org/v1/update:
     patch:
       tags:
-        - Org APIs
+      - Org APIs
       summary: Update particulars of an existing Organisation
       description: |-
         This API is for updating details of an existing Organisation on the Sunbird Platform.
@@ -237,30 +238,30 @@ paths:
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: Organisation Update
       parameters:
-        - name: ts
-          in: header
-          description: Timestamp at which given API request is sent.
-          schema:
-            type: string
-        - name: X-msgid
-          in: header
-          description: This ID uniquely identifies a request if the same API is executed
-            multiple times.
-          schema:
-            type: string
-        - name: X-Authenticated-User-Token
-          in: header
-          description: Access token of registered user performing given API request.
-          required: true
-          schema:
-            type: string
-        - name: Authorization
-          in: header
-          description: 'Specify authorization key (format: Bearer api-key) received
+      - name: ts
+        in: header
+        description: Timestamp at which given API request is sent.
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: This ID uniquely identifies a request if the same API is executed
+          multiple times.
+        schema:
+          type: string
+      - name: X-Authenticated-User-Token
+        in: header
+        description: Access token of registered user performing given API request.
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'Specify authorization key (format: Bearer api-key) received
           from administrator when performing given API request.'
-          required: true
-          schema:
-            type: string
+        required: true
+        schema:
+          type: string
       requestBody:
         description: The body contains metadata about an existing Organisation to
           be updated.
@@ -294,12 +295,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/orgapiOrgUpdateServerErrorResponse'
       security:
-        - bearer: []
+      - bearer: []
       x-codegen-request-body-name: Body
   /org/v1/status/update:
     patch:
       tags:
-        - Org APIs
+      - Org APIs
       summary: Organisation update status
       description: |-
         This API is for updating status of an existing Organisation on the Sunbird Platform.
@@ -307,30 +308,30 @@ paths:
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: Organisation Status Update
       parameters:
-        - name: ts
-          in: header
-          description: Timestamp at which given API request is sent.
-          schema:
-            type: string
-        - name: X-msgid
-          in: header
-          description: This ID uniquely identifies a request if the same API is executed
-            multiple times.
-          schema:
-            type: string
-        - name: X-Authenticated-User-Token
-          in: header
-          description: Access token of registered user performing given API request.
-          required: true
-          schema:
-            type: string
-        - name: Authorization
-          in: header
-          description: 'Specify authorization key (format: Bearer api-key) received
+      - name: ts
+        in: header
+        description: Timestamp at which given API request is sent.
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: This ID uniquely identifies a request if the same API is executed
+          multiple times.
+        schema:
+          type: string
+      - name: X-Authenticated-User-Token
+        in: header
+        description: Access token of registered user performing given API request.
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'Specify authorization key (format: Bearer api-key) received
           from administrator when performing given API request.'
-          required: true
-          schema:
-            type: string
+        required: true
+        schema:
+          type: string
       requestBody:
         description: The body contains metadata about an existing Organisation whose
           status is required to be updated.
@@ -367,36 +368,36 @@ paths:
   /org/v1/assign/key:
     post:
       tags:
-        - Org APIs
+      - Org APIs
       summary: Create New Organisation Type
       description: |-
         This API is for creation/Addition of keysto a Organisation
       operationId: Assign Key to Org
       parameters:
-        - name: ts
-          in: header
-          description: Timestamp at which given API request is sent.
-          schema:
-            type: string
-        - name: X-msgid
-          in: header
-          description: This ID uniquely identifies a request if the same API is executed
-            multiple times.
-          schema:
-            type: string
-        - name: X-Authenticated-User-Token
-          in: header
-          description: Access token of registered user performing given API request.
-          required: true
-          schema:
-            type: string
-        - name: Authorization
-          in: header
-          description: 'Specify authorization key (format: Bearer api-key) received
+      - name: ts
+        in: header
+        description: Timestamp at which given API request is sent.
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: This ID uniquely identifies a request if the same API is executed
+          multiple times.
+        schema:
+          type: string
+      - name: X-Authenticated-User-Token
+        in: header
+        description: Access token of registered user performing given API request.
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'Specify authorization key (format: Bearer api-key) received
           from administrator when performing given API request.'
-          required: true
-          schema:
-            type: string
+        required: true
+        schema:
+          type: string
       requestBody:
         description: The body contains metadata about the new Organisation Type to
           be created.
@@ -551,19 +552,19 @@ components:
     orgapiOrgCreateResponse:
       title: Organisation Create API response format
       allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties:
-                organisationId:
-                  type: string
-                  description: ID of the newly created organisation
-                response:
-                  type: string
-                  description: Response message for successfully created organisation
-          example:
+      - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties:
+              organisationId:
+                type: string
+                description: ID of the newly created organisation
+              response:
+                type: string
+                description: Response message for successfully created organisation
+        example:
             id: api.org.create
             ver: v1
             ts: 2020-11-23 10:03:39:935+0000
@@ -580,13 +581,13 @@ components:
     orgapiOrgCreateErrorResponse:
       title: Server error response for create Organisation API
       allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: {}
-          example:
+      - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties: {}
+        example:
             id: api.org.create
             ver: v1
             ts: 2020-11-23 10:03:39:935+0000
@@ -601,13 +602,13 @@ components:
     orgapiOrgCreateClientErrorResponse:
       title: Client error response for create Organisation API
       allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: {}
-          example:
+      - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties: {}
+        example:
             id: api.org.create
             ver: v1
             ts: 2020-11-23 10:03:39:935+0000
@@ -622,21 +623,21 @@ components:
     orgapiOrgGetRequest:
       title: Organisation Get API request format
       allOf:
-        - type: object
-          properties:
-            request:
-              $ref: '#/components/schemas/orgapiOrgReadReq'
-          example:
-            request:
-              organisationId : "0131630445447741440"
+      - type: object
+        properties:
+          request:
+            $ref: '#/components/schemas/orgapiOrgReadReq'
+        example:
+          request:
+            organisationId : "0131630445447741440"
     orgapiOrgReadReq:
-      required:
-        - organisationId
-      type: object
-      properties:
-        organisationId:
-          type: string
-          description: ID of the organisation whose details to be viewed
+            required:
+            - organisationId
+            type: object
+            properties:
+              organisationId:
+                type: string
+                description: ID of the organisation whose details to be viewed
     orgapiOrganisation:
       type: object
       properties:
@@ -737,78 +738,78 @@ components:
     orgapiOrgGetResponse:
       title: Organisation Get API response format
       allOf:
-        - type: object
-          properties:
-            result:
-              type: object
-              properties:
-                response:
-                  $ref: '#/components/schemas/orgapiOrganisation'
-              example:
-                id: api.org.read
-                ver: v1
-                ts: 2020-11-23 10:03:39:935+0000
-                params:
-                  resmsgid:
-                  msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-                  err:
-                  status: success
-                  errmsg:
-                responseCode: OK
-                result:
-                  dateTime: null
-                  preferredLanguage: null
-                  keys: {}
-                  channel": dikshaChannelNew
-                  approvedBy: null
-                  description: Updated Description
-                  updatedDate: 2020-12-01 10:29:49:496+0000
-                  addressId: "0131630420489011201"
-                  provider: dikshachannelnew
-                  orgCode: null
-                  locationId: null
-                  orgLocation: null
-                  organisationType: school
-                  theme: null
-                  id: "0131630445447741440"
-                  isApproved: null
-                  isTenant: true
-                  communityId: null
-                  slug: dikshachannelnew
-                  email: info@diksha.org
-                  isSSOEnabled: false
-                  identifier: "0131630445447741440"
-                  thumbnail: null
-                  updatedBy": null
-                  orgName: Diksha Org Name
-                  address: {}
-                  externalId: dikshaextid
-                  isRootOrg: true
-                  rootOrgId: "0131630445447741440"
-                  imgUrl: null
-                  approvedDate: null
-                  homeUrl: null
-                  isDefault: null
-                  createdDate: 2020-12-01 09:52:46:962+0000
-                  createdBy: null
-                  hashTagId: "0131630445447741440"
-                  noOfMembers: null
-                  status: 0
-                  locationIds: [
-                      "bc75cc99-9205-463e-a722-5326857838f8",
-                      "aecac7ab-15e4-45c9-ac7b-d716444cd652",
-                      "3f286755-a36f-45bb-9505-ffeeee5aa723"
-                  ]
+      - type: object
+        properties:
+          result:
+            type: object
+            properties:
+              response:
+                $ref: '#/components/schemas/orgapiOrganisation'
+            example:
+              id: api.org.read
+              ver: v1
+              ts: 2020-11-23 10:03:39:935+0000
+              params:
+                resmsgid:
+                msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
+                err:
+                status: success
+                errmsg:
+              responseCode: OK
+              result:
+                 dateTime: null
+                 preferredLanguage: null
+                 keys: {}
+                 channel": dikshaChannelNew
+                 approvedBy: null
+                 description: Updated Description
+                 updatedDate: 2020-12-01 10:29:49:496+0000
+                 addressId: "0131630420489011201"
+                 provider: dikshachannelnew
+                 orgCode: null
+                 locationId: null
+                 theme: null
+                 id: "0131630445447741440"
+                 isApproved: null
+                 communityId: null
+                 slug: dikshachannelnew
+                 email: info@diksha.org
+                 isSSOEnabled: false
+                 identifier: "0131630445447741440"
+                 thumbnail: null
+                 updatedBy": null
+                 orgName: Diksha Org Name
+                 address: {}
+                 externalId: dikshaextid
+                 isRootOrg: true
+                 rootOrgId: "0131630445447741440"
+                 imgUrl: null
+                 approvedDate: null
+                 homeUrl: null
+                 isDefault: null
+                 createdDate: 2020-12-01 09:52:46:962+0000
+                 createdBy: null
+                 hashTagId: "0131630445447741440"
+                 noOfMembers: null
+                 status: 0
+                 locationIds: [
+                    "bc75cc99-9205-463e-a722-5326857838f8",
+                    "aecac7ab-15e4-45c9-ac7b-d716444cd652",
+                    "3f286755-a36f-45bb-9505-ffeeee5aa723"
+                ]
+                 isTenant: true
+                 orgLocation: null
+                 organisationType: school
     orgapiOrgReadClientErrorResponse:
       title: Client error response for get Organisation Details API
       allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: {}
-          example:
+      - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties: {}
+        example:
             id: api.org.read
             ver: v1
             ts: 2020-11-23 10:03:39:935+0000
@@ -823,13 +824,13 @@ components:
     orgapiOrgReadNotFoundResponse:
       title: Not Found error response for read Organisation API
       allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: {}
-          example:
+      - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties: {}
+        example:
             id: api.org.read
             ver: v1
             ts: 2020-11-23 10:03:39:935+0000
@@ -844,13 +845,13 @@ components:
     orgapiOrgReadServerErrorResponse:
       title: Server error response for read Organisation API
       allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: {}
-          example:
+      - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties: {}
+        example:
             id: api.org.read
             ver: v1
             ts: 2020-11-23 10:03:39:935+0000
@@ -865,74 +866,74 @@ components:
     orgapiOrgUpdateRequest:
       title: Organisation Update API request format
       allOf:
-        - type: object
-          properties:
-            request:
-              $ref: '#/components/schemas/orgapiOrgUpdateReq'
-          example:
-            request:
-              organisationId : 0131630445447741440,
-              description : updated description,
-              orgName : Updated Org Name,
-              locationIds : ["3f286755-a36f-45bb-9505-ffeeee5aa723",
-                             "aecac7ab-15e4-45c9-ac7b-d716444cd652"]
+      - type: object
+        properties:
+          request:
+            $ref: '#/components/schemas/orgapiOrgUpdateReq'
+        example:
+          request:
+            organisationId : 0131630445447741440,
+            description : updated description,
+            orgName : Updated Org Name,
+            locationIds : ["3f286755-a36f-45bb-9505-ffeeee5aa723",
+            "aecac7ab-15e4-45c9-ac7b-d716444cd652"]
     orgapiOrgUpdateReq:
-      required:
-        - organisationId
-      type: object
-      properties:
-        organisationId:
-          type: string
-          description: ID of organisation(mandatory) whose details are required
-            to be updated
-        description:
-          type: string
-          description: Organisation description
-        orgLocation:
-          type: string
-          description: Location of the organisation.
-        locationIds:
-          type: array
-          description: ID of location returned using Location Create API , you
-            can either pass locationIds or locationCode.During update you need
-            to pass complete data, it will directly replace with stored locations
-          items:
-            type: string
-        orgName:
-          type: string
-          description: Organisation name
-        organisationType:
-          type: string
-          description: Organisation type
-        email:
-          type: string
-          description: Contact email of organisation
-        license:
-          type: string
-          description: This attribute will be used for rootOrg create/update
-            time only. License attribute will be used for content creation time.
-            User will be always part of one rootOrg, so during content creation
-            time he/she can see what license value set by his/her rootOrg.
-        isSSOEnabled:
-          type: boolean
-          description: This attribute is used for root org only. if any rootOrg
-            is suing sso then they can update this attribute value as true
+            required:
+            - organisationId
+                type: object
+                properties:
+                  organisationId:
+                    type: string
+                    description: ID of organisation(mandatory) whose details are required
+                      to be updated
+                  description:
+                    type: string
+                    description: Organisation description
+                  orgLocation:
+                    type: string
+                    description: Location of the organisation.
+                  locationIds:
+                    type: array
+                    description: ID of location returned using Location Create API , you
+                      can either pass locationIds or locationCode.During update you need
+                      to pass complete data, it will directly replace with stored locations
+                    items:
+                      type: string
+                  orgName:
+                    type: string
+                    description: Organisation name
+                  organisationType:
+                    type: string
+                    description: Organisation type
+                  email:
+                    type: string
+                    description: Contact email of organisation
+                  license:
+                    type: string
+                    description: This attribute will be used for rootOrg create/update
+                      time only. License attribute will be used for content creation time.
+                      User will be always part of one rootOrg, so during content creation
+                      time he/she can see what license value set by his/her rootOrg.
+                  isSSOEnabled:
+                    type: boolean
+                    description: This attribute is used for root org only. if any rootOrg
+                      is suing sso then they can update this attribute value as true
     orgapiOrgUpdateResponse:
       title: Organisation Update API response format
       allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties:
-                organisationId:
-                  type: string
-                  description: ID of the updated organisation
-                response:
-                  type: string
-                  description: Response message for successfully updated organisation
-          example:
+      - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties:
+              organisationId:
+                type: string
+                description: ID of the updated organisation
+              response:
+                type: string
+                description: Response message for successfully updated organisation
+        example:
             id: api.org.update
             ver: v1
             ts: 2020-11-23 10:03:39:935+0000
@@ -949,13 +950,13 @@ components:
     orgapiOrgUpdateClientErrorResponse:
       title: Client error response for get Organisation Details API
       allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: {}
-          example:
+      - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties: {}
+        example:
             id: api.org.update
             ver: v1
             ts: 2020-11-23 10:03:39:935+0000
@@ -970,13 +971,13 @@ components:
     orgapiOrgUpdateServerErrorResponse:
       title: Server error response for read Organisation API
       allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: {}
-          example:
+      - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties: {}
+        example:
             id: api.org.update
             ver: v1
             ts: 2020-11-23 10:03:39:935+0000
@@ -991,45 +992,45 @@ components:
     orgapiOrgStatusUpdateRequest:
       title: Organisation Status Update API request format
       allOf:
-        - type: object
-          properties:
-            request:
-              $ref: '#/components/schemas/orgapiOrgStatusUpdateReq'
-          example:
+      - type: object
+        properties:
+          request:
+            $ref: '#/components/schemas/orgapiOrgStatusUpdateReq'
+        example:
             request:
               filters:
                 organisationId : "0131630445447741440"
                 status : 0
     orgapiOrgStatusUpdateReq:
-      required:
-        - organisationId
-        - status
-      type: object
-      properties:
-        organisationId:
-          type: string
-          description: ID of organisation whose details are required to be updated
-        status:
-          type: integer
-          description: 'Organisation status (0: inactive, 1: active, 2: blocked,
+            required:
+            - organisationId
+            - status
+            type: object
+            properties:
+              organisationId:
+                type: string
+                description: ID of organisation whose details are required to be updated
+              status:
+                type: integer
+                description: 'Organisation status (0: inactive, 1: active, 2: blocked,
                   3: retired)'
     orgapiOrgStatusUpdateResponse:
       title: Organisation Status Update API response format
       allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties:
-                organisationId:
-                  type: string
-                  description: ID of the updated organisation
-                response:
-                  type: string
-                  description: Response message for successfully updated organisation
-                    status
-          example:
+      - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties:
+              organisationId:
+                type: string
+                description: ID of the updated organisation
+              response:
+                type: string
+                description: Response message for successfully updated organisation
+                  status
+        example:
             id: api.org.status.update
             ver: v1
             ts: 2020-11-23 10:03:39:935+0000
@@ -1046,13 +1047,13 @@ components:
     orgapiOrgUStatusUpdateClientErrorResponse:
       title: Client error response for get Organisation Details API
       allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: {}
-          example:
+      - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties: {}
+        example:
             id: api.org.status.update
             ver: v1
             ts: 2020-11-23 10:03:39:935+0000
@@ -1067,13 +1068,13 @@ components:
     orgapiOrgStatusUpdateServerErrorResponse:
       title: Server error response for read Organisation API
       allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: {}
-          example:
+      - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties: {}
+        example:
             id: api.org.status.update
             ver: v1
             ts: 2020-11-23 10:03:39:935+0000
@@ -1088,49 +1089,49 @@ components:
     orgapiOrgAssignKeyRequest:
       title: Organisation Assign Key API request format
       allOf:
-        - type: object
-          properties:
-            request:
-              $ref: '#/components/schemas/orgapiOrgAssignKeyReq'
-          example:
+      - type: object
+        properties:
+          request:
+            $ref: '#/components/schemas/orgapiOrgAssignKeyReq'
+        example:
             request:
               id : "0131630445447741440"
               signKeys : [
-                  "S1","S2"
-              ]
+                "S1","S2"
+                ]
               encKeys: [
-                  "E1","E2"
-              ]
+                "E1","E2"
+                ]
     orgapiOrgAssignKeyReq:
-      required:
-        - id
-        - signKeys
-        - encKeys
-      type: object
-      properties:
-        id:
-          type: string
-          description: ID of organisation whose details are required to be updated
-        signKeys:
-          type: string
-          description: 'signed keys'
-        encKeys:
-          type: string
-          description: 'encryption keys'
+            required:
+            - id
+            - signKeys
+            - encKeys
+            type: object
+            properties:
+              id:
+                type: string
+                description: ID of organisation whose details are required to be updated
+              signKeys:
+                type: string
+                description: 'signed keys'
+              encKeys:
+                type: string
+                description: 'encryption keys'
     orgapiOrgAssignKeyResponse:
       title: Organisation Assign Key API response format
       allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties:
-                response:
-                  type: string
-                  description: Response message for successfully updated organisation
-                    status
-          example:
+      - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties:
+              response:
+                type: string
+                description: Response message for successfully updated organisation
+                  status
+        example:
             id: api.org.assign.key
             ver: v1
             ts: 2020-11-23 10:03:39:935+0000
@@ -1146,13 +1147,13 @@ components:
     orgapiOrgAssignKeyClientErrorResponse:
       title: Client error response for get Organisation Details API
       allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: {}
-          example:
+      - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties: {}
+        example:
             id: api.org.assign.key
             ver: v1
             ts: 2020-11-23 10:03:39:935+0000
@@ -1167,13 +1168,13 @@ components:
     orgapiOrgAssignKeyServerErrorResponse:
       title: Server error response for read Organisation API
       allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: {}
-          example:
+      - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties: {}
+        example:
             id: api.org.assign.key
             ver: v1
             ts: 2020-11-23 10:03:39:935+0000
@@ -1257,12 +1258,10 @@ components:
                 communityId: null
                 slug: dikshachannelnew
                 email: info@diksha.org
-                organisationType: school
                 isSSOEnabled: false
-                isTenant: true
                 identifier: "0131630445447741440"
                 thumbnail: null
-                orgLocation: null
+
                 updatedBy": null
                 orgName: Diksha Org Name
                 address: {}
@@ -1279,19 +1278,22 @@ components:
                 noOfMembers: null
                 status: 0
                 locationIds: [
-                    "bc75cc99-9205-463e-a722-5326857838f8",
-                    "aecac7ab-15e4-45c9-ac7b-d716444cd652",
-                    "3f286755-a36f-45bb-9505-ffeeee5aa723"
+                  "bc75cc99-9205-463e-a722-5326857838f8",
+                  "aecac7ab-15e4-45c9-ac7b-d716444cd652",
+                  "3f286755-a36f-45bb-9505-ffeeee5aa723"
                 ]
+                organisationType: school
+                isTenant: true
+                orgLocation: null
 
     orgapiOrgSearchClientErrorResponse:
       title: Client error response for get Organisation Details API
       allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
+      - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
               properties: {}
           example:
             id: api.org.search
@@ -1308,13 +1310,13 @@ components:
     orgapiOrgSearchServerErrorResponse:
       title: Server error response for read Organisation API
       allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: {}
-          example:
+      - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      - type: object
+        properties:
+          result:
+            type: object
+            properties: {}
+        example:
             id: api.org.search
             ver: v1
             ts: 2020-11-23 10:03:39:935+0000
@@ -1328,10 +1330,10 @@ components:
             result: {}
     orgapiorgapiApiResponse:
       required:
-        - ets
-        - id
-        - params
-        - ver
+      - ets
+      - id
+      - params
+      - ver
       type: object
       properties:
         id:
@@ -1361,8 +1363,8 @@ components:
             status:
               type: string
               enum:
-                - success
-                - error
+              - success
+              - error
         responseCode:
           type: string
   securitySchemes:
