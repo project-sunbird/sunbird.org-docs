@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eo pipefail
 # Author S M Y ALTAMASH <smy.altamash@gmail.com>
 
 directoryLocation=$(readlink -f $0| rev | cut -d '/' -f2- | rev)
