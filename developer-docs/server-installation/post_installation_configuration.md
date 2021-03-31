@@ -73,21 +73,27 @@ curl -X POST \
         }
     }
 }'
-```
-
 
 Run these commands
+
 sh -x create_license CC\ BY-NC-SA\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial-ShareAlike https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+
 sh -x create_license CC\ BY-NC\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial  https://creativecommons.org/licenses/by-nc/4.0/legalcode
+
 sh -x create_license CC\ BY-SA\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-ShareAlike https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
 sh -x create_license CC\ BY\ 4.0 This\ is\ the\ standard\ license\ of\ any\ Youtube\ content https://creativecommons.org/licenses/by/4.0/legalcode
+
 sh -x create_license Standard\ YouTube\ License This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial-ShareAlike https://www.youtube.com/
+
 ```
 
 2.Run the above script from learning server to update the Channel-default license .  
 
+
 ```
 Copy below code and save file name as channel_license.sh
+
 #!/bin/bash
 echo "Channel Id: 0132167222260449280"
 echo "Default License: CC BY-NC 4.0"
@@ -103,10 +109,12 @@ curl -X PATCH \
     }
 }'
 
-Run the Command
 ./channel_license.sh <channle_Id> <license_name>
 
+
+
 license_name can be choosen from the list which was created in the 1st Step.
+
 ```
 
 3.Update content with channel specific default license, Run the below query in neo4j
