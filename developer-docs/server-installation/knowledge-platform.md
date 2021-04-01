@@ -48,7 +48,6 @@ The URL for this path will look like this - https://{{storage_account_name}}.blo
 | Kafka          | Installs the Kafka | Kafka installation | release-3.7.0_RC6
 | Learning       | Installs the dependency to run the learning application | Creates learning user and installs dependencies(java, tomcat, logstash, ffmpeg,imagemagick) |release-3.7.0_RC6
 | Redis          | Installs the Redis database | Download and installs Redis | release-3.7.0_RC6
-| Dial           | Installs the dependency to run the dial service | install logstash and other dependencies | release-3.7.0_RC6
 
 ## Deploy
 

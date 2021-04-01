@@ -81,7 +81,8 @@ Update **core_vault_sunbird_api_auth_token**, **core_vault_kong__test_jwt** and 
 | Player |  UI for sunbird  | Deploys portal UI | release-3.7.0_RC5
 | Learner | Deploys the Learner Service |  Handles user management and helps to search org | release-3.7.0_RC4 **before deploying learner service Create root org by using the steps mentioned in the Create Org section below**
 | Content | Deploys content service | Helps to create content | release-3.7.0_RC4
-| Search              | Deploys the search service artefacts and starts the search service | |release-3.7.0_RC15
+| Search              | Deploys the search service artefacts and starts the search service | |release-3.7.0_RC15|
+| Dial              | Installs the dependency to run the dial service | |release-3.7.0_RC4
 | KnowledgeMW | Deploys knowledgemw service | Deploys the knowledgemw service | release-3.7.0_RC4
 | Lms | Deploys LMS Service | Provides the APIs for LMS functionality of Sunbird| release-3.7.0_RC4
 | EncService | Deploys enc service | Encrypts and decrypt the keys to generate certificate | release-3.7.0_RC15
