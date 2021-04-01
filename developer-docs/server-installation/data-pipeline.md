@@ -18,11 +18,11 @@ Switch to the `Build` folder and run all jobs. For the value of the **github_rel
 
 | Operation Name | Function  |Description | CURRENT RELEASE TAG |
 | -------------- | --------- |------------|---------------------|
-| AnalyticsCore  | Builds the analytics framework|Creates analytics framework artifact|release-3.6.0_RC4
-| Core Data Product| Builds analytics core data products| Creates analytics core data products artifact| release-3.6.0_RC1
-|EdDataProducts| ---|---| release-3.6.0_RC9|
-|FlinkPipelineJobs| ---|---| ​release-3.6.0_RC17|
-|ETLJobs | Builds adhoc scripts which includes content snapshot druid indexer, dialcode redis indexer| Creates jar out of adhoc scripts| ​release-3.6.0_RC5|
+| AnalyticsCore  | Builds the analytics framework|Creates analytics framework artifact|release-3.7.0_RC1
+| Core Data Product| Builds analytics core data products| Creates analytics core data products artifact|  ​release-3.7.0_RC2
+|EdDataProducts| ---|---| release-3.7.0_RC4|
+|FlinkPipelineJobs| ---|---| release-3.7.0_RC6|
+|ETLJobs | Builds adhoc scripts which includes content snapshot druid indexer, dialcode redis indexer| Creates jar out of adhoc scripts| ​release-3.7.0_RC4|
 
 
 ## DevOps Administration
@@ -38,11 +38,11 @@ Switch to `Provision/<env>/DataPipeline` and run the jobs in the following seque
 
 | Operation Name | Function              | Description| CURRENT RELEASE TAG|	
 | -------------- | --------------------- |-------------|------------------|
-| AnalyticsSpark | Provision the server to run the data products jobs| Creates the analyticsuser required folders and installs the dependencies to run spark| release-3.6.0_RC22
-| Postgres       | Provision the Postgres database| Installs the dependencies like java and install the Postgres database| release-3.6.0_RC22
-| postgres-managed          | --- | ---| release-3.6.0_RC22|
-| Yarn           | Provision the Yarn cluster | Install the dependencies required to create the yarn cluster and creates the yarn cluster to run samza jobs| release-3.6.0_RC22
-| Influxdb       | Provision the influxdb database| Install the dependencies like java and install the influxdb database| release-3.6.0_RC22
+| AnalyticsSpark | Provision the server to run the data products jobs| Creates the analyticsuser required folders and installs the dependencies to run spark| release-3.7.0_RC6
+| Postgres       | Provision the Postgres database| Installs the dependencies like java and install the Postgres database| release-3.7.0_RC6
+| postgres-managed          | --- | ---| release-3.7.0_RC6|
+| Yarn           | Provision the Yarn cluster | Install the dependencies required to create the yarn cluster and creates the yarn cluster to run samza jobs| release-3.7.0_RC6
+| Influxdb       | Provision the influxdb database| Install the dependencies like java and install the influxdb database| release-3.7.0_RC6
 | Druid          | deploy and start druid services
 
 
@@ -53,15 +53,15 @@ Switch to `Deploy/<env>/DataPipeline` and run the jobs in the following sequence
 
 | Operation Name | Function              | Description | CURRENT RELEASE TAG|
 | -------------- | --------------------- |-------------- |------------------|
-| AnalyticsCore | Deploys Analytics framework jars |Copies analytics framework artifact to spark server| release-3.6.0_RC16|
-| CoreDataProducts | Deploys core data products  |Copies core data products artifact to spark server| release-3.6.0_RC16|
-| EdDataProducts | ---  |---| release-3.6.0_RC16|
-| KafkaIndexer | Deploys logstash configurations and starts process  |Used for pushing pipeline metrics to influxDB| release-3.6.0_RC14|
-| KafkaSetup | Setup kafka for pipeline  |Creates kafka topic and updates topic configurations| release-3.6.0_RC22|
-| FlinkPipelineJobs | --- | --- | release-3.6.0_RC9 |
-| DruidIngestion | --- | --- | release-3.6.0_RC22 |
-| ETLJobs | --- | --- | release-3.6.0_RC10 |
-| ETLUserCacheIndexer | ---  |---| release-3.6.0_RC10|
+| AnalyticsCore | Deploys Analytics framework jars |Copies analytics framework artifact to spark server| release-3.7.0_RC4|
+| CoreDataProducts | Deploys core data products  |Copies core data products artifact to spark server| release-3.7.0_RC5|
+| EdDataProducts | ---  |---| release-3.7.0_RC5|
+| KafkaIndexer | Deploys logstash configurations and starts process  |Used for pushing pipeline metrics to influxDB| release-3.7.0_RC6|
+| KafkaSetup | Setup kafka for pipeline  |Creates kafka topic and updates topic configurations| release-3.7.0_RC6|
+| FlinkPipelineJobs | --- | --- | release-3.7.0_RC6 |
+| DruidIngestion | --- | --- | release-3.7.0_RC15 |
+| ETLJobs | --- | --- | ​release-3.7.0_RC6 |
+| ETLUserCacheIndexer | ---  |---| release-3.7.0_RC6|
 
 
 

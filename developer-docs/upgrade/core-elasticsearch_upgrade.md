@@ -4,7 +4,7 @@ page_title: Core Elastic Search
 description:  Core Elasticsearch Upgrade
 published: true
 allowSearch: true
-keywords: Upgrade, Sunbird 2.0.0, Core, elasticsearch
+keywords: Upgrade, Sunbird 3.7.0, Core, elasticsearch
 ---
 
 ## Overview

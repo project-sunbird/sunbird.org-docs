@@ -4,12 +4,12 @@ page_title: Build and Deploy
 description: Build and Deploy
 published: true
 allowSearch: true
-keywords: Upgrade, Sunbird 3.5.0, Core, elasticsearch
+keywords: Upgrade, Sunbird 3.7.0, Core, elasticsearch
 ---
 
 ## Overview
 
-This page details out the jobs required to be run as part of the upgrade from Sunbird release 3.4.0 to release 3.5.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. 
+This page details out the jobs required to be run as part of the upgrade from Sunbird release 3.6.0 to release 3.7.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. 
 
 ## Running the Builds 
 
@@ -29,21 +29,23 @@ The following is the list of jobs required to be built and deployed :
 
 Order: Top down per column
 
-| Knowledge Platform Build and Deploy | DataPipeline Build | DatePipeline Deploy | Core Build and Deploy | Plugins Build and Deploy|
-|-------------------------------------|--------------------|---------------------|-----------------------|-------------------------|
-| Learning                            | AnalyticsCore      | AnalyticsCore       |Cassandra              | CollectionEditor|
-| Yarn                                | CoreDataproducts   | CoreDataproducts    | Keycloak              | ContentEditor   |
-|                                     | EdDataProducts     | EdDataProducts      | Content               | ContentPlayer   |
-|                                     | ETLJobs            | ETLJobs             | KnowledgeMW           | GenericEditor   |
-|                                     | FlinkPipelineJobs  | FlinkPipelineJobs   | Lms                   | ContentPlugins  |
-|                                     |                    | KafkaIndexer        | Player                |    |
-|                                     |      |                                   | Search                |    |
-|                                     |      |                                   | Taxonomy              |    |
-|                                     |      |                                   | Learner               |    |                                                                                                                                               
+| KP Build | KP Deploy         | DataPipeline Build | DatePipeline Deploy | Core Build and Deploy | Plugins Build and Deploy|
+|----------|-------------------|--------------------|---------------------|-----------------------|-------------------------|
+| Learning | CassandraDbUpdate | AnalyticsCore      | AnalyticsCore       | Cassandra             | ContentPlayer   |
+| Yarn     | Neo4jDefinitionUpdate| CoreDataproducts| CoreDataproducts    | Content               ||
+| FlinkJob | Learning          | EdDataProducts     | EdDataProducts      | Dial                  | |
+|          | KafkaSetup        | FlinkPipelineJobs  | FlinkPipelineJobs   | Groups                | |
+|          | Yarn              |                    |                     | Learner               | |
+|          |  FlinkJob         |                    |                     | LMS                   |    |
+|          |                   |      |                                   | KnowledgeMW           |    |
+|          |                   |      |                                   | Player                |    |
+|          |                   |      |                                   | Keycloak              |    |                                                                                                                                               
+|          |                   |      |                                   | nginx-public-ingress  |    |
+|          |                   |      |                                   | nginx-private-ingress  |    |
 
 **Create License and update Channel default License set and Content License migration based on channel**
 
-1.Run the following script on the content-service  to create License .
+1.Run the following script on the content-service Pod to create License .
  
 ```
 "Copy below code and save file name as create_license"

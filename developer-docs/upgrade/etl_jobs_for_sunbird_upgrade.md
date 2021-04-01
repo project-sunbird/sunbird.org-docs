@@ -4,7 +4,7 @@ page_title:  ETL Jobs for Sunbird Upgrades
 description:  ETL Jobs for Sunbird Upgrades
 published: true
 allowSearch: true
-keywords: Upgrade, Sunbird 2.6.0, etl jobs
+keywords: Upgrade, Sunbird 3.7.0, etl jobs
 ---
 
 ## Overview
