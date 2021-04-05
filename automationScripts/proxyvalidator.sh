@@ -5,7 +5,6 @@ set -eo pipefail
 directoryLocation=$(readlink -f $0| rev | cut -d '/' -f2- | rev)
 cd ${directoryLocation}
 echo -e "Generating the proxy validator yaml by merging all the API definition into 1"
-pip install yaml-merge
 completeFile=$(yaml-merge $(find ${directoryLocation}/../apis -name *.yaml | tr "\n" " "))
 
 echo "$completeFile" > completeOpenApiSpecFile.yml
