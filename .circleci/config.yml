@@ -85,8 +85,15 @@ jobs:
           fileapi=${file//$fileremove/}
           url='- http://'$CIRCLE_PR_NUMBER'.qa.docs.sunbird.org/'$branch'/'$fileapi'/ <br /> '
           updatedfileslist=$updatedfileslist$url
-          # CHecking the yaml files for YAML Linting.
+          
+          # Checking the yaml files for YAML Linting.
           ./automationScripts/yq r $file > /dev/null
+          
+          # Performing merge of all the API files to have it run in proxy validator
+          ./automationScripts/proxyvalidator.sh
+
+          # Validate the merged file for syntax errors.
+
           echo $url
           fi
           if [[ "$file" == _includes/* ]]
