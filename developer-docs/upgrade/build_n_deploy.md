@@ -17,7 +17,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 
 | Variable Name| Service Name| Default Public Value |Private Value Override | Comments              |
-|--------------|-------------|----------------------|--------------------|------------------
+|--------------|-------------|----------------------|--------------------|------------------|
 | sunbird_portal_offline_supported_languages | player service|  | | This variable should be removed from private devops repo |
 | adminutil_refresh_token_secret_key | Adminutils | NA |NA | <ul><li>Go to http://{{KEYCLOAK_IP}}/auth/admin/master/console/#/realms/sunbird/keys</li><li>Get this secret value from DB, by loging into the keycloak 7 postgres DB and run the query: `SELECT value FROM component_config CC INNER JOIN component C ON(CC.component_id = C.id) WHERE C.realm_id = 'sunbird' and provider_id = 'hmac-generated' AND CC.name = 'secret';`</li><li>More details with pictures are updated in this link (https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/2281734145/Keycloak+Upgrade+from+3.2.0+to+7.0.1)</li><li>Done as part of release-3.7.0 hotfix</li></ul>|
 
@@ -62,14 +62,16 @@ Build and Deploy all the services mentioned in the table below.
 
 
 ### Manual Configurations
+
+
 | Manual Step | Instruction |
 | -------------------- | -------------------- |
-| Update jenkins job|Refer [PR1](https://github.com/project-sunbird/sunbird-devops/pull/2322) [PR2](https://github.com/project-sunbird/sunbird-devops/pull/2407) |
-| ES Re-indexing|[Run this before deploing learner service](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2346156058/SC-2190+ES+scaling+-+reindexing+Org+index) |
-| Delete old user index|`curl --location --request DELETE 'localhost:9200/user?pretty'` |
-| Delete old org index|`curl --location --request DELETE 'localhost:9200/org?pretty'` |
-| User and Org Sync|[Confluence Link](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2437480455/SC-2190+sync+tool+for+learner-service) |
-| Delete all content and collection entry from KnowledgePlatform redis cache|<ul><li>`redis-cli --scan --pattern do_* \| xargs redis-cli del`</li><li>`redis-cli --scan --pattern hierarchy_do_* \| xargs redis-cli del`</li></ul> |
+| Update jenkins job | Refer [PR1](https://github.com/project-sunbird/sunbird-devops/pull/2322) [PR2](https://github.com/project-sunbird/sunbird-devops/pull/2407) |
+| ES Re-indexing | [Run this before deploing learner service](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2346156058/SC-2190+ES+scaling+-+reindexing+Org+index) |
+| Delete old user index | `curl --location --request DELETE 'localhost:9200/user?pretty'` |
+| Delete old org index | `curl --location --request DELETE 'localhost:9200/org?pretty'` |
+| User and Org Sync | [Confluence Link](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2437480455/SC-2190+sync+tool+for+learner-service) |
+| Delete all content and collection entry from KnowledgePlatform redis cache | <ul><li>`redis-cli --scan --pattern do_* \| xargs redis-cli del`</li><li>`redis-cli --scan --pattern hierarchy_do_* \| xargs redis-cli del`</li></ul> |
 | Update the forms | Jira Links - [SB-23481](https://project-sunbird.atlassian.net/browse/SB-23481) [SB-23627](https://project-sunbird.atlassian.net/browse/SB-23627) [SB-23671](https://project-sunbird.atlassian.net/browse/SB-23671) [SB-23859](https://project-sunbird.atlassian.net/browse/SB-23859) [SB-22505](https://project-sunbird.atlassian.net/browse/SB-22505) |
 | Run cateogory definition update api | [Confluence Link](https://project-sunbird.atlassian.net/wiki/spaces/SingleSource/pages/2364964876/Course+primaryCategory+Config) |
 | Run neo4j cypher script | [Script Link](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-3.8.0/docs/cypher-scripts/release-3.8.0.cypher) |
