@@ -64,12 +64,12 @@ Build and Deploy all the services mentioned in the table below.
 ### Manual Configurations
 |Manual Step|Instruction|
 |--------------------|--------------------|
-|Update jenkins job|[PR1](https://github.com/project-sunbird/sunbird-devops/pull/2322) [PR2](https://github.com/project-sunbird/sunbird-devops/pull/2407)|
-|ES Re-indexing|[Confluence Link](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2346156058/SC-2190+ES+scaling+-+reindexing+Org+index) Please run this before deploing learner service.|
+|Update jenkins job|Refer [PR1](https://github.com/project-sunbird/sunbird-devops/pull/2322) [PR2](https://github.com/project-sunbird/sunbird-devops/pull/2407)|
+|ES Re-indexing|[Run this before deploing learner service](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2346156058/SC-2190+ES+scaling+-+reindexing+Org+index)|
 |Delete old user index|`curl --location --request DELETE 'localhost:9200/user?pretty'`|
 |Delete old org index|`curl --location --request DELETE 'localhost:9200/org?pretty'`|
 |User and Org Sync|[Confluence Link](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2437480455/SC-2190+sync+tool+for+learner-service)|
 |Delete all content and collection entry from KnowledgePlatform redis cache|<ul><li>`redis-cli --scan --pattern do_* \| xargs redis-cli del`</li><li>`redis-cli --scan --pattern hierarchy_do_* \| xargs redis-cli del`</li></ul>|
-|Update the forms|[SB-23481](https://project-sunbird.atlassian.net/browse/SB-23481) [SB-23627](https://project-sunbird.atlassian.net/browse/SB-23627) [SB-23671](https://project-sunbird.atlassian.net/browse/SB-23671) [SB-23859](https://project-sunbird.atlassian.net/browse/SB-23859) [SB-22505](https://project-sunbird.atlassian.net/browse/SB-22505)
+|Update the forms|Jira Links - [SB-23481](https://project-sunbird.atlassian.net/browse/SB-23481) [SB-23627](https://project-sunbird.atlassian.net/browse/SB-23627) [SB-23671](https://project-sunbird.atlassian.net/browse/SB-23671) [SB-23859](https://project-sunbird.atlassian.net/browse/SB-23859) [SB-22505](https://project-sunbird.atlassian.net/browse/SB-22505)
 |Run cateogory definition update api|[Confluence Link](https://project-sunbird.atlassian.net/wiki/spaces/SingleSource/pages/2364964876/Course+primaryCategory+Config)|
 |Run neo4j cypher script|[Script Link](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-3.8.0/docs/cypher-scripts/release-3.8.0.cypher)|
