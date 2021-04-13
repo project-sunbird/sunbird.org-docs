@@ -19,7 +19,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | Variable Name| Service Name| Default Public Value |Private Value Override | Comments              |
 |--------------|-------------|----------------------|--------------------|------------------|
 | sunbird_portal_offline_supported_languages | player service|  | | This variable should be removed from private devops repo |
-| adminutil_refresh_token_secret_key | Adminutils | NA |NA | * Go to http://{{KEYCLOAK_IP}}/auth/admin/master/console/#/realms/sunbird/keys<br> * Get this secret value from DB, by loging into the keycloak 7 postgres DB and run the query: `SELECT value FROM component_config CC INNER JOIN component C ON(CC.component_id = C.id) WHERE C.realm_id = 'sunbird' and provider_id = 'hmac-generated' AND CC.name = 'secret';`<br> * More details with pictures are updated in this link (https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/2281734145/Keycloak+Upgrade+from+3.2.0+to+7.0.1)<br> * This was done as part of release-3.7.0 hotfix|
+| adminutil_refresh_token_secret_key | Adminutils | NA |NA | - Go to http://KEYCLOAK_IP:8080/auth/admin/master/console/#/realms/sunbird/keys<br> - Get this secret value from DB, by loging into the keycloak 7 postgres DB and run the query: `SELECT value FROM component_config CC INNER JOIN component C ON(CC.component_id = C.id) WHERE C.realm_id = 'sunbird' and provider_id = 'hmac-generated' AND CC.name = 'secret';`<br> - [More details with pictures are here](https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/2281734145/Keycloak+Upgrade+from+3.2.0+to+7.0.1)<br> - This was done as part of release-3.7.0 hotfix|
 
 Build and Deploy all the services mentioned in the table below.
 
@@ -46,7 +46,7 @@ Build and Deploy all the services mentioned in the table below.
 | Build/Core/Content | release-3.8.0_RC3 | Deploy/staging/Kubernetes/Content | release-3.8.0||
 | Build/Core/DiscussionsMW | release-3.8.0_RC2 | Deploy/staging/Kubernetes/DiscussionsMW |release-3.8.0||
 | Build/Core/Groups | release-3.7.0_RC5 | Deploy/staging/Kubernetes/Groups| release-3.8.0||
-| Build/Core/Keycloak | keycloak7 | Deploy/staging/Kubernetes/Keycloak | keycloak7 | private branch: keycloak7||
+| Build/Core/Keycloak | release-3.8.0_RC1 | Deploy/staging/Kubernetes/Keycloak | release-3.8.0 ||
 | Build/Core/KnowledgeMW | release-3.8.0_RC3 | Deploy/staging/Kubernetes/KnowledgeMW | release-3.8.0||
 | Build/Core/Learner | release-3.8.0_RC9 | Deploy/staging/Kubernetes/Learner | release-3.8.0||
 | Build/Core/Lms| release-3.8.0_RC5 | Deploy/staging/Kubernetes/Lms| release-3.8.0||
@@ -71,7 +71,7 @@ Build and Deploy all the services mentioned in the table below.
 | Delete old user index | `curl --location --request DELETE 'localhost:9200/user?pretty'` |
 | Delete old org index | `curl --location --request DELETE 'localhost:9200/org?pretty'` |
 | User and Org Sync | [Confluence Link](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2437480455/SC-2190+sync+tool+for+learner-service) |
-| Delete all content and collection entry from KnowledgePlatform redis cache | * <code>redis-cli --scan --pattern do_* &#124; xargs redis-cli del</code><br> * <code>redis-cli --scan --pattern hierarchy_do_* &#124; xargs redis-cli del</code><br> |
+| Delete all content and collection entry from KnowledgePlatform redis cache | - <code>redis-cli --scan --pattern do_* &#124; xargs redis-cli del</code><br> - <code>redis-cli --scan --pattern hierarchy_do_* &#124; xargs redis-cli del</code><br> |
 | Update the forms | Jira Links - [SB-23481](https://project-sunbird.atlassian.net/browse/SB-23481) [SB-23627](https://project-sunbird.atlassian.net/browse/SB-23627) [SB-23671](https://project-sunbird.atlassian.net/browse/SB-23671) [SB-23859](https://project-sunbird.atlassian.net/browse/SB-23859) [SB-22505](https://project-sunbird.atlassian.net/browse/SB-22505) |
 | Run cateogory definition update api | [Confluence Link](https://project-sunbird.atlassian.net/wiki/spaces/SingleSource/pages/2364964876/Course+primaryCategory+Config) |
 | Run neo4j cypher script | [Script Link](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-3.8.0/docs/cypher-scripts/release-3.8.0.cypher) |
