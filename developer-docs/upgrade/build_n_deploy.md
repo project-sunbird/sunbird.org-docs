@@ -11,58 +11,51 @@ keywords: Upgrade, Sunbird 3.8.0
 
 This page details out the jobs required to be run as part of the upgrade from Sunbird release 3.7.0 to release 3.8.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. 
 
-## Running the Builds 
+### Variables
 
-**IMPORTANT**: 
+|Variable Name|Service Name|Comments|
+|-------------|------------|--------|
+|sunbird_portal_offline_supported_languages|Player Service|This variable should be removed from private <code>Core/common.yml</code> if defined|
+|adminutil_refresh_token_secret_key        |Adminutils    |- Go to http://KEYCLOAK_IP:8080/auth/admin/master/console/#/realms/sunbird/keys<br> - Get this secret value from DB, by loging into the keycloak 7 postgres DB and run the query: `SELECT value FROM component_config CC INNER JOIN component C ON(CC.component_id = C.id) WHERE C.realm_id = 'sunbird' and provider_id = 'hmac-generated' AND CC.name = 'secret';`<br> - [More details with pictures are here](https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/2281734145/Keycloak+Upgrade+from+3.2.0+to+7.0.1)<br> - This was done as part of release-3.7.0 hotfix|
 
+### Build and Deploy
 
-| Variable Name| Service Name| Default Public Value |Private Value Override | Comments              |
-|--------------|-------------|----------------------|--------------------|------------------|
-| sunbird_portal_offline_supported_languages | player service|  | | This variable should be removed from private devops repo |
-| adminutil_refresh_token_secret_key | Adminutils | NA |NA | - Go to http://KEYCLOAK_IP:8080/auth/admin/master/console/#/realms/sunbird/keys<br> - Get this secret value from DB, by loging into the keycloak 7 postgres DB and run the query: `SELECT value FROM component_config CC INNER JOIN component C ON(CC.component_id = C.id) WHERE C.realm_id = 'sunbird' and provider_id = 'hmac-generated' AND CC.name = 'secret';`<br> - [More details with pictures are here](https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/2281734145/Keycloak+Upgrade+from+3.2.0+to+7.0.1)<br> - This was done as part of release-3.7.0 hotfix|
-
-Build and Deploy all the services mentioned in the table below.
-
-
-| Service to be Build| Build Tag   | Service to Deploy |Deploy Tag  | Comments |
-|--------------------|-------------|-------------------|------------|----------|
-| Build/KnowledgePlatform/FlinkJobs       |release-3.8.0_RC4|Deploy/staging/KnowledgePlatform/FlinkJobs       |release-3.8.0||
-|         |                 | Deploy/staging/KnowledgePlatform/KafkaSetup    |release-3.8.0||
-| Build/KnowledgePlatform/KnowledgePlatform           |release-3.8.0_RC9| Deploy/staging/KnowledgePlatform/Learning      |release-3.8.0|
-| |                 | Deploy/staging/KnowledgePlatform/LoggingFileBeatsVM|release-3.8.0||
-| Build/KnowledgePlatform/Yarn|release-3.8.0_RC9| Deploy/staging/KnowledgePlatform/Yarn          |release-3.8.0||
-|                    |                 | analytics spark provision  |||
-| Build/DataPipeline/AnalyticsCore      | release-3.8.0_RC1| Deploy/staging/DataPipeline/AnalyticsCore|release-3.8.0||
-| |                 |Deploy/staging/DataPipeline/AnalyticsFetchLogs|release-3.8.0||
-| Build/DataPipeline/CoreDataProducts   | release-3.8.0_RC1|Deploy/staging/DataPipeline/CoreDataProducts |release-3.8.0||
-| Build/DataPipeline/ETLJobs            | release-3.8.0_RC4| Deploy/staging/DataPipeline/ETLJobs      | release-3.8.0||
-| Build/DataPipeline/ETLUserCacheIndexer| release-3.8.0_RC4| Deploy/staging/DataPipeline/ETLUserCacheIndexer|release-3.8.0||
-| Build/DataPipeline/EdDataProducts | release-3.8.0_RC5 | Deploy/staging/DataPipeline/EdDataProducts |release-3.8.0||
-| Build/DataPipeline/FlinkPipelineJobs | release-3.8.0_RC4 | Deploy/staging/DataPipeline/FlinkPipelineJobs |release-3.8.0||
-| Build/Core/OfflineInstaller | release-3.8.0| Deploy/staging/Core/OfflineInstaller |release-3.5.0||
-| Build/Core/AdminUtils| release-3.7.0_RC1 | Deploy/staging/Kubernetes/AdminUtils | release-3.8.0||
-| Build/Core/Assessment | release-3.8.0_RC2 | Deploy/staging/Kubernetes/Assessment | release-3.8.0||
-| Build/Core/Bot | release-3.8.0_RC1 |  Deploy/staging/Kubernetes/Bot |release-3.8.0||
-| Build/Core/Content | release-3.8.0_RC3 | Deploy/staging/Kubernetes/Content | release-3.8.0||
-| Build/Core/DiscussionsMW | release-3.8.0_RC2 | Deploy/staging/Kubernetes/DiscussionsMW |release-3.8.0||
-| Build/Core/Groups | release-3.7.0_RC5 | Deploy/staging/Kubernetes/Groups| release-3.8.0||
-| Build/Core/Keycloak | release-3.8.0_RC1 | Deploy/staging/Kubernetes/Keycloak | release-3.8.0 ||
-| Build/Core/KnowledgeMW | release-3.8.0_RC3 | Deploy/staging/Kubernetes/KnowledgeMW | release-3.8.0||
-| Build/Core/Learner | release-3.8.0_RC9 | Deploy/staging/Kubernetes/Learner | release-3.8.0||
-| Build/Core/Lms| release-3.8.0_RC5 | Deploy/staging/Kubernetes/Lms| release-3.8.0||
-| |  | Deploy/staging/Kubernetes/LoggingFileBeatsVM | release-3.8.0||
-| |  | Deploy/staging/Kubernetes/Monitoring |release-3.8.0||
-| Build/Core/Nodebb | release-3.7.0_RC6 | Deploy/staging/Kubernetes/Nodebb| release-3.8.0||
-| |  | Deploy/staging/Kubernetes/OnboardAPIs| release-3.8.0||
-| Build/Core/Player | release-3.8.0_RC9 | Deploy/staging/Kubernetes/Player| release-3.8.0||
-| Build/Core/Router | release-3.8.0_RC1 | Deploy/staging/Kubernetes/Router | release-3.8.0||
-| Build/Core/Taxonomy | release-3.6.0_RC3 | Deploy/staging/Kubernetes/Taxonomy| release-3.8.0||
-| UploadSchemas | knowledge-platform : release-3.8.0_RC2 | Deploy/staging/Kubernetes/UploadSchemas | release-3.8.0||
-| Build/Core/Cassandra | sunbird-utils : release-3.8.0_RC1| Deploy/staging/Kubernetes/Cassandra| release-3.8.0||
-
+|Service to be Build|Build Tag|Service to Deploy|Deploy Tag|Comments|
+|-------------------|---------|-----------------|----------|--------|
+|Build/KnowledgePlatform/FlinkJobs|release-3.8.0_RC4|Deploy/KnowledgePlatform/FlinkJobs|release-3.8.0||
+|||Deploy/KnowledgePlatform/KafkaSetup|release-3.8.0||
+|Build/KnowledgePlatform/KnowledgePlatform|release-3.8.0_RC9|Deploy/KnowledgePlatform/Learning|release-3.8.0||
+|||Deploy/KnowledgePlatform/LoggingFileBeatsVM|release-3.8.0||
+|Build/KnowledgePlatform/Yarn|release-3.8.0_RC9|Deploy/KnowledgePlatform/Yarn|release-3.8.0||
+|||Provision/AnalyticsSpark|release-3.8.0||
+|Build/DataPipeline/AnalyticsCore|release-3.8.0_RC1|Deploy/DataPipeline/AnalyticsCore|release-3.8.0||
+|||Deploy/DataPipeline/AnalyticsFetchLogs|release-3.8.0||
+|Build/DataPipeline/CoreDataProducts|release-3.8.0_RC1|Deploy/DataPipeline/CoreDataProducts|release-3.8.0||
+|Build/DataPipeline/ETLJobs|release-3.8.0_RC4|Deploy/DataPipeline/ETLJobs| release-3.8.0||
+|Build/DataPipeline/ETLUserCacheIndexer|release-3.8.0_RC4|Deploy/DataPipeline/ETLUserCacheIndexer|release-3.8.0||
+|Build/DataPipeline/EdDataProducts|release-3.8.0_RC5|Deploy/DataPipeline/EdDataProducts|release-3.8.0||
+|Build/DataPipeline/FlinkPipelineJobs|release-3.8.0_RC4|Deploy/DataPipeline/FlinkPipelineJobs|release-3.8.0||
+|Build/Core/AdminUtils|release-3.7.0_RC1|Deploy/Kubernetes/AdminUtils|release-3.8.0||
+|Build/Core/Assessment|release-3.8.0_RC2|Deploy/Kubernetes/Assessment|release-3.8.0||
+|Build/Core/Bot|release-3.8.0_RC1|Deploy/Kubernetes/Bot|release-3.8.0||
+|Build/Core/Content|release-3.8.0_RC3|Deploy/Kubernetes/Content|release-3.8.0||
+|Build/Core/DiscussionsMW|release-3.8.0_RC2|Deploy/Kubernetes/DiscussionsMW|release-3.8.0||
+|Build/Core/Groups|release-3.7.0_RC5|Deploy/Kubernetes/Groups|release-3.8.0||
+|Build/Core/Keycloak|release-3.8.0_RC1|Deploy/Kubernetes/Keycloak|release-3.8.0||
+|Build/Core/KnowledgeMW|release-3.8.0_RC3|Deploy/Kubernetes/KnowledgeMW|release-3.8.0||
+|Build/Core/Learner|release-3.8.0_RC9|Deploy/Kubernetes/Learner|release-3.8.0||
+|Build/Core/Lms|release-3.8.0_RC5|Deploy/Kubernetes/Lms|release-3.8.0||
+|||Deploy/Kubernetes/LoggingFileBeatsVM|release-3.8.0||
+|||Deploy/Kubernetes/Monitoring|release-3.8.0||
+|Build/Core/Nodebb|release-3.7.0_RC6|Deploy/Kubernetes/Nodebb|release-3.8.0||
+|||Deploy/Kubernetes/OnboardAPIs|release-3.8.0||
+|Build/Core/Player|release-3.8.0_RC9|Deploy/Kubernetes/Player|release-3.8.0||
+|Build/Core/Router|release-3.8.0_RC1|Deploy/Kubernetes/Router|release-3.8.0||
+|Build/Core/Taxonomy|release-3.6.0_RC3|Deploy/Kubernetes/Taxonomy|release-3.8.0||
+|||Deploy/Kubernetes/UploadSchemas|release-3.8.0||
+|Build/Core/Cassandra|release-3.8.0_RC1|Deploy/Kubernetes/Cassandra|release-3.8.0||
 
 ### Manual Configurations
-
 
 | Manual Step | Instruction |
 | -------------------- | -------------------- |
