@@ -1,6 +1,9 @@
 #!/bin/bash
-set -eo pipefail
 # Author S M Y ALTAMASH <smy.altamash@gmail.com>
+set -eo pipefail
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 directoryLocation=$(readlink -f $0| rev | cut -d '/' -f2- | rev)
 cd ${directoryLocation}
