@@ -1,13 +1,13 @@
 #!/bin/bash
-set -eo pipefail
 # Author S M Y ALTAMASH <smy.altamash@gmail.com>
+set -eo pipefail
 
 directoryLocation=$(readlink -f $0| rev | cut -d '/' -f2- | rev)
 cd ${directoryLocation}
 echo -e "Generating the proxy validator yaml by merging all the API definition into 1"
 
 # Install yaml-merge for merging all the yaml files
-npm install -g @alexlafroscia/yaml-merge
+# npm install @alexlafroscia/yaml-merge
 
 completeFile=$(yaml-merge $(find ${directoryLocation}/../apis -name *.yaml | tr "\n" " "))
 
