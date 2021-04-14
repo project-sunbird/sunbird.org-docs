@@ -44,7 +44,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Core/Learner|release-3.8.0_RC27|Deploy/Kubernetes/Learner|release-3.8.0_RC9||
 |Build/Core/Lms|release-3.8.0_RC7|Deploy/Kubernetes/Lms|release-3.8.0_RC9||
 |Build/Core/Nodebb|release-3.8.0_RC1|Deploy/Kubernetes/Nodebb|release-3.8.0_RC9||
-|Build/Core/Player|release-3.8.0_RC51|Deploy/Kubernetes/Player|release-3.8.0_RC9||
+|Build/Core/Player|release-3.8.0_RC52|Deploy/Kubernetes/Player|release-3.8.0_RC9||
 |Build/Core/Router|release-3.8.0_RC1|Deploy/Kubernetes/Router|release-3.8.0_RC9||
 |Build/Core/Search|release-3.6.0_RC6|Deploy/Kubernetes/Search|release-3.8.0_RC9||
 |Build/Core/Taxonomy|release-3.6.0_RC6|Deploy/Kubernetes/Taxonomy|release-3.8.0_RC9||
