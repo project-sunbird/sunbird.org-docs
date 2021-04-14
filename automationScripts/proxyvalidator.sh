@@ -7,8 +7,7 @@ cd ${directoryLocation}
 echo -e "Generating the proxy validator yaml by merging all the API definition into 1"
 
 # Install yaml-merge for merging all the yaml files
-source ~/.bashrc
-npm install -g @alexlafroscia/yaml-merge
+npm install @alexlafroscia/yaml-merge
 
 completeFile=$(yaml-merge $(find ${directoryLocation}/../apis -name *.yaml | tr "\n" " "))
 
