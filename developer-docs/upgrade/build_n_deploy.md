@@ -26,7 +26,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |||Provision/DataPipeline/AnalyticsSpark|release-3.8.0_RC6||
 |||OpsAdministration/Core/ESMapping|release-3.8.0_RC9|Choose `userv1,orgv2` for jenkins job parameter `indices_name`|
 |Build/Core/Cassandra|release-3.8.0_RC2|Deploy/Kubernetes/Cassandra|release-3.8.0_RC9||
-|||Deploy/Kubernetes/UploadSchemas|release-3.8.0_RC9||
+|||Deploy/Kubernetes/UploadSchemas|release-3.8.0_RC9|Provide value as `release-3.8.0_RC6` for the jenkins job paramater `kp_branch_or_tag`|
 |||Deploy/Kubernetes/APIManager|release-3.8.0_RC9|- You should see annotations in APIManager pods as `fluentbit.io/parser: kong`|
 |||Deploy/Kubernetes/OnboardAPIs|release-3.8.0_RC9||
 |||Deploy/Kubernetes/OnboardConsumers|release-3.8.0_RC9||
@@ -49,7 +49,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Core/Search|release-3.8.0_RC6|Deploy/Kubernetes/Search|release-3.8.0_RC9||
 |Build/Core/Taxonomy|release-3.8.0_RC6|Deploy/Kubernetes/Taxonomy|release-3.8.0_RC9||
 |Build/KnowledgePlatform/KnowledgePlatform|release-3.8.0_RC10|Deploy/KnowledgePlatform/Learning|release-3.8.0_RC10||
-|Build/KnowledgePlatform/Yarn|release-3.8.0_RC10|Deploy/KnowledgePlatform/Yarn|release-3.8.0_RC10||
+|Build/KnowledgePlatform/Yarn|release-3.8.0_RC10|Deploy/KnowledgePlatform/Yarn|release-3.8.0_RC10|Kill `course-batch-updater` samza job, delete its tar file and it's extracted folder in the Yarn Master before deployment|
 |Build/KnowledgePlatform/FlinkJobs|release-3.8.0_RC5|Deploy/KnowledgePlatform/FlinkJobs|release-3.8.0_RC10|- Kill `composite-search-indexer` and `post-publish-processor` samza job before deployment<br>- Choose `enrolment-reconciliation` `post-publish-processor` `search-indexer` and `questionset-publish` for jenkins job parameter `job_names_to_deploy`|
 |Build/DataPipeline/AnalyticsCore|release-3.8.0_RC1|Deploy/DataPipeline/AnalyticsCore|release-3.8.0_RC6||
 |Build/DataPipeline/CoreDataProducts|release-3.8.0_RC1|Deploy/DataPipeline/CoreDataProducts|release-3.8.0_RC6||
