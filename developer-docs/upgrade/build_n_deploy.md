@@ -9,7 +9,7 @@ keywords: Upgrade, Sunbird 3.8.0
 
 ## Overview
 
-This page details out the jobs required to be run as part of the upgrade from Sunbird release 3.7.0 to release 3.8.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs.
+This page details out the jobs required to be run as part of the upgrade from Sunbird release 3.7.0 to release 3.8.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.
 
 ### Variables
 
@@ -53,11 +53,11 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/KnowledgePlatform/FlinkJobs|release-3.8.0_RC5|Deploy/KnowledgePlatform/FlinkJobs|release-3.8.0_RC10|- Kill `composite-search-indexer` and `post-publish-processor` samza job before deployment<br>- Choose `enrolment-reconciliation` `post-publish-processor` `search-indexer` and `questionset-publish` for jenkins job parameter `job_names_to_deploy`|
 |Build/DataPipeline/AnalyticsCore|release-3.8.0_RC1|Deploy/DataPipeline/AnalyticsCore|release-3.8.0_RC6||
 |Build/DataPipeline/CoreDataProducts|release-3.8.0_RC1|Deploy/DataPipeline/CoreDataProducts|release-3.8.0_RC6||
-|Build/DataPipeline/EdDataProducts|release-3.8.0_RC6|Deploy/DataPipeline/EdDataProducts|release-3.8.0_RC6|- The deploy jobs needs to be run two times<br>- Deploy using default jenkins job parameter values first time<br>- Type `cronjobs` for jenkins job paramater `module` in the second deployment to enable `course-batch-status-updater` cronjob to run every 30 minutes once|
 |Build/DataPipeline/ETLJobs|release-3.8.0_RC4|Deploy/DataPipeline/ETLJobs|release-3.8.0_RC6||
-|||Deploy/DataPipeline/ETLDruidContentIndexer|release-3.8.0_RC6||
-|||Deploy/DataPipeline/ETLUserCacheIndexer|release-3.8.0_RC6|- Take the record count of index 12 from metadata redis before deploying<br>- Tail the logs using `tail -f /mount/data/analytics/content-snapshot/logs/<today's-date>-task-execution.log`<br>- Deploy the job<br> - Watchout for these keywords in the logs `Time taken for complete script` and `Time taken for indiviual steps`|
-|Build/DataPipeline/FlinkPipelineJobs|release-3.8.0_RC4|Deploy/DataPipeline/FlinkPipelineJobs|release-3.8.0_RC6|- Change Jenkinsfile path to `kubernetes/pipelines/deploy/flink-jobs/Jenkinsfile`<br>- Choose `user-cache-updater-v2` for jenkins parameter `job_names_to_deploy`|
+|||Deploy/DataPipeline/ETLDruidContentIndexer|release-3.8.0_RC6|This job needs to be run after all the migrations mentioned in the manual configuration section|
+|||Deploy/DataPipeline/ETLUserCacheIndexer|release-3.8.0_RC6|- Take the record count of index 12 from metadata redis before deploying<br>- Tail the logs using `tail -f /mount/data/analytics/content-snapshot/logs/<today's-date>-task-execution.log`<br>- Deploy the job<br> - Watchout for these keywords in the logs `Time taken for complete script` and `Time taken for indiviual steps`<br>- This job needs to be run after all the migrations mentioned in the manual configuration section|
+|Build/DataPipeline/FlinkPipelineJobs|release-3.8.0_RC4|Deploy/DataPipeline/FlinkPipelineJobs|release-3.8.0_RC6|- Change Jenkinsfile path to `kubernetes/pipelines/deploy/flink-jobs/Jenkinsfile`<br>- Choose `user-cache-updater-v2` for jenkins parameter `job_names_to_deploy`<br>- This job needs to be run after all the migrations mentioned in the manual configuration section|
+|Build/DataPipeline/EdDataProducts|release-3.8.0_RC6|Deploy/DataPipeline/EdDataProducts|release-3.8.0_RC6|- The deploy jobs needs to be run two times<br>- Deploy using default jenkins job parameter values first time<br>- Type `cronjobs` for jenkins job paramater `module` in the second deployment to enable `course-batch-status-updater` cronjob to run every 30 minutes once<br>- This job needs to be run after all the migrations mentioned in the manual configuration section|
 |||Deploy/Kubernetes/Monitoring|release-3.8.0_RC9|Choose `all` for jenkins job paramater `tag`|
 |||Deploy/Kubernetes/LoggingFileBeatsVM|release-3.8.0_RC9|Select all hosts for the jenkins job paramater `hosts` and choose `default` for the jenkins job paramater `tags`|
 |||Deploy/KnowledgePlatform/LoggingFileBeatsVM|release-3.8.0_RC9|Select all hosts for the jenkins job paramater `hosts` and choose `default` for the jenkins job paramater `tags`|
