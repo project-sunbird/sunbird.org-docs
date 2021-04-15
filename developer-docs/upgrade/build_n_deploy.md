@@ -43,7 +43,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Core/KnowledgeMW|release-3.8.0_RC3|Deploy/Kubernetes/KnowledgeMW|release-3.8.0_RC9||
 |Build/Core/Learner|release-3.8.0_RC27|Deploy/Kubernetes/Learner|release-3.8.0_RC9||
 |Build/Core/Lms|release-3.8.0_RC7|Deploy/Kubernetes/Lms|release-3.8.0_RC9||
-|Build/Core/Nodebb|release-3.8.0_RC1|Deploy/Kubernetes/Nodebb|release-3.8.0_RC9|Provide value as `master` for the jenkins job parameter `nodebb_branch` in the build phase|
+|Build/Core/Nodebb|release-3.8.0_RC1|Deploy/Kubernetes/Nodebb|release-3.8.0_RC9|Provide value as `v1.16.0` for the jenkins job parameter `nodebb_branch` in the build phase|
 |Build/Core/Player|release-3.8.0_RC52|Deploy/Kubernetes/Player|release-3.8.0_RC9||
 |Build/Core/Router|release-3.8.0_RC1|Deploy/Kubernetes/Router|release-3.8.0_RC1||
 |Build/Core/Search|release-3.8.0_RC6|Deploy/Kubernetes/Search|release-3.8.0_RC9||
