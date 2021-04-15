@@ -17,7 +17,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |-------------|------------|--------|
 |sunbird_portal_offline_supported_languages|Player Service|This variable should be removed from private <code>Core/common.yml</code> if defined|
 |adminutil_refresh_token_secret_key       |Adminutils   |- Go to http://KEYCLOAK_IP:8080/auth/admin/master/console/#/realms/sunbird/keys<br> - Get this secret value from DB, by loging into the keycloak 7 postgres DB and run the query: `SELECT value FROM component_config CC INNER JOIN component C ON(CC.component_id = C.id) WHERE C.realm_id = 'sunbird' and provider_id = 'hmac-generated' AND CC.name = 'secret';`<br> - [More details with pictures are here](https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/2281734145/Keycloak+Upgrade+from+3.2.0+to+7.0.1)<br> - This was done as part of release-3.7.0 hotfix and is not required if you are already on Keycloak 7|
-|kp_schema_base_path       |Flink Job   |This variable should be added in private <code>Core/common.yml</code> if defined|
+|kp_schema_base_path       |Flink Job   |- This variable should be added in private repo under `Core/common.yml` and `KnowledgePlatform/common.yml`<br> - <code>kp_schema_base_path: "{{proto}}://{{sunbird_public_storage_account_name}}.blob.core.windows.net/{{plugin_container_name}}/schemas/local"</code>|
 
 ### Build and Deploy
 
