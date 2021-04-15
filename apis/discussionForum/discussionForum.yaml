@@ -188,6 +188,53 @@ paths:
               schema:
                 $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Categories
+  /discussion/category/list:
+    post:
+      tags:
+      - categories
+      summary: Get List of category details
+      description: |-
+        This api allow the user to get all the details of categories based on cid mentioned in array from nodebb
+          - The endpoint for **Category** is `/category/list`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/category/list
+      operationId: GetListOfCategoryDetails
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/discussionForumCategoryList'
+            examples:
+              a:
+                summary: Get category details of cid mention in array
+                value:
+                  request: 
+                    cids: 
+                      - 2
+                      - 3
+        required: true    
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discussionForumCategoryListResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discussionForumError'
+      x-swagger-router-controller: Categories    
   /discussion/v2/categories/{cid}:
     put:
       tags:
@@ -2577,6 +2624,292 @@ paths:
                 x-content-type: application/json
       x-codegen-request-body-name: body
       x-swagger-router-controller: Forum
+  /discussion/forum/v2/remove:
+    post:
+      tags:
+      - Forum
+      summary: Remove forum id
+      description: |-
+        This api allow the user to remove forum id
+          - The endpoint for **Forum** is `/forum/v2/remove`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/forum/v2/remove
+      operationId: RemoveForumID
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/discussionForumCreateForumCID'
+            examples:
+              a:
+                summary: Create forumID
+                value:
+                  sbType: course
+                  cid: 
+                    - 2
+                  sbIdentifier: do_123456789
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/discussionForumRemoveContext'
+                x-content-type: application/json
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Forum 
+  /discussion/forum/v2/uids:
+    post:
+      tags:
+      - Forum
+      summary: Get nodebb uids based on sunbird id
+      description: |-
+        This api allow the user to get nodebb id bypassing sunbird id
+          - The endpoint for **Forum** is `/forum/v2/uids`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/forum/v2/uids
+      operationId: GetNodebbUidByUsingSbIdentifier
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/discussionForumNodebbUids'
+            examples:
+              a:
+                summary: Get nodebbuids by sending sunbird uids
+                value:
+                  request:
+                    sbIdentifiers:
+                      - '08631a74-4b94-4cf7-a818-831135248a4a'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/discussionForumNodebbUidsResponse'
+                x-content-type: application/json
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Forum
+  /discussion/forum/v3/groups/users:
+    post:
+      tags:
+      - Forum
+      summary: Get nodebb users added for a category
+      description: |-
+        This api allow the user to get nodebb users added for a category
+          - The endpoint for **Forum** is `/forum/v3/groups/users`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/forum/v3/groups/users
+      operationId: GetNodebbUsersAddedInCategory
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/discussionForumNodebbUsersList'
+            examples:
+              a:
+                summary: Get nodebb users added for a category
+                value:
+                  request:
+                    cid: 268
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/discussionForumNodebbUsersListResponse'
+                x-content-type: application/json
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Forum
+  /discussion/forum/v3/group/membership:
+    post:
+      tags:
+      - Forum
+      summary: Add sunbird users into nodebb group
+      description: |-
+        This api allow the user to add sunbird users into nodebb group
+          - The endpoint for **Forum** is `/forum/v3/groups/membership`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/forum/v3/groups/membership
+      operationId: AddUsersIntoGroups
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/discussionForumAddUsersIntoGroup'
+            examples:
+              a:
+                summary: Get nodebb users added for a category
+                value:
+                  request:
+                    groups:
+                      - Category Owner
+                    members:
+                      - sbUserName: content_reviewer_tn1970
+                        sbUid: '08631a74-4b94-4cf7-a818-831135248a4a'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/discussionForumAddUsersIntoGroupResponse'
+                x-content-type: application/json
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Forum    
+  /discussion/forum/v3/category/{cid}/privileges:
+    post:
+      tags:
+      - Forum
+      summary: Get nodebb privileges added for a category
+      description: |-
+        This api allow the user to get nodebb privileges added for a category
+          - The endpoint for **Forum** is `/forum/v3/category/{cid}/privileges`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/forum/v3/category/{cid}/privileges
+      operationId: GetNodebbPrivilegesAddedInCategory
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: cid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer    
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/discussionForumNodebbCategoryPrivileges'
+            examples:
+              a:
+                summary: Get nodebb privileges added for a category
+                value:
+                  request:
+                    groups:
+                      - Category Owner
+                      - registered-users
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/discussionForumNodebbCategoryPrivilegesResponse'
+                x-content-type: application/json
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Forum       
+  /discussion/forum/v3/create:
+    post:
+      tags:
+      - Forum
+      summary: Attaching category for context
+      description: |-
+        This api allow the user to attaching category id with a context
+          - The endpoint for **Forum** is `/forum/v3/create`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/forum/v3/create
+      operationId: AttachingCategoryWithContext
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/discussionForumAttachCid'
+            examples:
+              a:
+                summary: Attach category with context
+                value:
+                  category: 
+                    name: "Batch 1"
+                    pid: 567
+                    description: "Mentors can start discussions"
+                    privileges:
+                      copyFromCategory: 268
+                    context: 
+                    - type: batch
+                      identifier: "01307806402750054416"
+                    subcategories: 
+                      - name: Annoucements
+                        description: Only creators can make annoucements
+                        privileges:
+                         copyFromParent: true
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/discussionForumForumontextResponse'
+                x-content-type: application/json
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Forum    
   /discussion/tags:
     get:
       tags:
@@ -2613,6 +2946,100 @@ paths:
               schema:
                 $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: tags    
+  /discussion/tags/list:
+    post:
+      tags:
+      - tags
+      summary: Get List of category details for based on tag name and cid.
+      description: |-
+        This api allow the user to get all the details of category based on tag name and cid mentioned in array from nodebb
+          - The endpoint for **Tag** is `/tags/list`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/tags/list
+      operationId: GetListOfTagDetails
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/discussionForumTagList'
+            examples:
+              a:
+                summary: Get category details based on tag name and cid mention in array
+                value:
+                  request:
+                    tag: "nodebb"
+                    cid: 
+                      - 2
+                      - 3
+        required: true    
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discussionForumCategoryListResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discussionForumError'
+      x-swagger-router-controller: Tags 
+  /discussion/privileges/v2/copy:
+    post:
+      tags:
+      - privileges
+      summary: Copy privileges from one category to another category 
+      description: |-
+        This api allow the user to copy all privileges from one category to another category.
+          - The endpoint for **Privileges** is `/privileges/v2/copy`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/privileges/v2/copy
+      operationId: CopyPrivilegesFromOneToOther
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/discussionForumCopyPrivileges'
+            examples:
+              a:
+                summary: Copy privileges from on category to other category 
+                value:
+                  request:
+                    pid: 2
+                    cid: 3
+        required: true    
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discussionForumcopyPrivilegesResponse'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discussionForumError'
+      x-swagger-router-controller: Privileges     
 components:
   schemas:
     discussionForumCategory:
@@ -5445,4 +5872,371 @@ components:
       type: array
       items:
         type: string
-        
+    discussionForumAttachCid:
+      type: object
+      properties:
+        category:
+          type: object
+          properties:
+            name:
+             type: string
+            pid:
+             type: string
+            description:
+             type: string
+            context:
+              type: array
+              items:
+               type: object
+               properties:
+                type:
+                 type: string
+                identifier:
+                 type: string
+            privileges:
+             type: object
+             properties:
+               copyFromCategory:
+                type: string
+            subcategories:
+             type: array
+             items:
+              type: object
+              properties:
+                name:
+                 type: string
+                description:
+                 type: string
+                privileges:
+                 type: object
+                 properties:
+                  copyFromCategory:
+                    type: string
+    discussionForumForumontextResponse:
+      type: object
+      properties:
+        result: 
+          type: object
+          properties: 
+            forums:
+              type: array
+              items:
+                type: object
+                properties:
+                  sbType:
+                    type: string
+                  sbIdentifier:
+                    type: string
+                  newCid: 
+                    type: number
+                  cids: 
+                    type: array
+                    items: 
+                      type: number
+            groups:
+              type: array
+              items: 
+                type: object
+                properties: 
+                  name: 
+                    type: string
+                  members:
+                    type: array
+                    items: 
+                      type: object
+            subcategories:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  cid: 
+                    type: number
+                  pid:
+                    type: number
+                  groups:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name: 
+                          type: string
+                        members: 
+                          type: array
+                          items: 
+                            type: object
+      example:
+        forums:
+          - sbType: "batch"
+            sbIdentifier: "01307806402750054416"
+            newCid: 580
+            cids:
+              - 580
+        groups:
+          - name: "registered-users"
+            members:
+              - uid: 29
+                userName: "content_reviewer_tn1970"
+                sbUid: "08631a74-4b94-4cf7-a818-831135248a4a"
+        subcategories:
+          - name: "Annoucements"
+            cid: 581
+            pid: 580
+            groups:
+              - name: "registered-users"
+                members:
+                  - uid: 29
+                    userName: "content_reviewer_tn1970"
+                    sbUid: "08631a74-4b94-4cf7-a818-831135248a4a"
+    discussionForumRemoveContext: 
+      type: object
+      properties:
+        id:
+         type: string
+        ver:
+         type: string
+        ets:
+         type: number
+        params:
+         type: object
+         properties:
+          resmsgid:
+           type: string
+          msgid:
+           type: string
+          status:
+           type: string
+        responseCode:
+         type: string
+        result:
+         type: string
+      example:
+        id: "api.forum.v2.remove"
+        ver: '1.0'
+        ets: 1618421469097
+        params:
+          resmsgid: "01d3023f-e68f-4e5a-84dc-e67aa69dfd48"
+          msgid: ''
+          status: Success
+        responseCode: OK
+        result: "Forum remove for context success"
+    discussionForumCategoryList:
+      type: object
+      properties:
+        request: 
+          type: object
+          properties: 
+            cids: 
+              type: array
+              items: 
+                type: number
+      example: 
+        request:
+          cids:
+            - 2
+    discussionForumCategoryListResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/discussionForumCategoryDetails'    
+    discussionForumTagList:
+      type: object
+      properties:
+        request: 
+          type: object
+          properties: 
+            tag:
+              type: string
+            cid: 
+              type: array
+              items: 
+                type: number
+      example: 
+        request:
+          tag: nodebb
+          cid:
+            - 2
+    discussionForumCopyPrivileges:
+      type: object
+      properties: 
+        result: 
+          type: object
+          properties: 
+            cid:
+              type: number
+            pid:
+              type: number
+      example:
+        request:
+          pid: 265
+          cid: 2
+    discussionForumcopyPrivilegesResponse: 
+      type: object
+      properties:
+        id:
+         type: string
+        ver:
+         type: string
+        ets:
+         type: number
+        params:
+         type: object
+         properties:
+          resmsgid:
+           type: string
+          msgid:
+           type: string
+          status:
+           type: string
+        responseCode:
+         type: string
+        result:
+         type: string
+      example:
+        id: "api.forum.v2.remove"
+        ver: '1.0'
+        ets: 1618421469097
+        params:
+          resmsgid: "01d3023f-e68f-4e5a-84dc-e67aa69dfd48"
+          msgid: ''
+          status: Success
+        responseCode: OK
+        result: "Privileges copied successfuly"    
+    discussionForumNodebbUids:
+      type: object
+      properties:
+        request:
+          type: object
+          properties:
+            sbIdentifiers:
+              type: array
+              items: 
+                type: string
+    discussionForumNodebbUidsResponse:
+      type: object
+      properties: 
+        result: 
+          type: object
+          properties:
+            userIds:
+              type: array
+              items: 
+                type: object
+                properties: 
+                  nodebbUid:
+                    type: number
+                  sbUid:
+                    type: string
+      example:
+        id: .api.forum.v2.uids
+        ver: '1.0'
+        ets: 1618428120524
+        params:
+          resmsgid: 3bf46d2d-6dd4-49e5-a2e7-6b7fa16101b3
+          msgid: ''
+          status: Success
+        responseCode: OK
+        result:
+          userIds:
+            - nodebbUid: 29
+              sbUid: 08631a74-4b94-4cf7-a818-831135248a4a
+    discussionForumNodebbUsersList:
+      type: object
+      properties:
+        request:
+          type: object
+          properties:
+            cid:
+              type: number                   
+    discussionForumNodebbUsersListResponse:
+      type: object
+      properties: 
+        result: 
+          type: object
+          properties:
+            groups:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  members:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        uid:
+                          type: number
+                        userName:
+                          type: string
+                        sbUid:
+                          type: string      
+    discussionForumNodebbCategoryPrivileges:
+      type: object
+      properties:
+        request:
+          type: object
+          properties:
+            groups:
+              type: array
+              items:
+                 type: string
+    discussionForumNodebbCategoryPrivilegesResponse:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              nameEscaped:
+                type: string
+              privileges:
+                type: object    
+              isPrivate:
+                type: boolean
+              isSystem:
+                type: boolean  
+    discussionForumAddUsersIntoGroup:
+      type: object
+      properties:
+        request:
+          type: object
+          properties:
+            groups:
+              type: array
+              items:
+                type: string
+            members:
+              type: array
+              items:
+                type: object
+                properties:
+                  sbUserName:
+                    type: string
+                  sbUid:
+                    type: string      
+    discussionForumAddUsersIntoGroupResponse:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              members:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    uid:
+                      type: number
+                    userName: 
+                      type: string
+                    sbUid:
+                      type: string        
