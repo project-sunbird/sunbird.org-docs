@@ -2802,7 +2802,52 @@ paths:
                   $ref: '#/components/schemas/discussionForumAddUsersIntoGroupResponse'
                 x-content-type: application/json
       x-codegen-request-body-name: body
-      x-swagger-router-controller: Forum    
+      x-swagger-router-controller: Forum
+  /discussion/forum/tags:
+    post:
+      tags:
+      - Forum
+      summary: Get context based tags
+      description: |-
+        This api allow the user to get context based tags
+          - The endpoint for **Forum** is `/forum/tags`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/forum/tags
+      operationId: GetContextBasedTags
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/discussionForumContextBasedTags'
+            examples:
+              a:
+                summary: Context based tags discussions
+                value:
+                  request:
+                    cids:
+                      - 2
+                      - 3
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/discussionForumContextBasedTagsResponse'
+                x-content-type: application/json
+      x-codegen-request-body-name: body
+      x-swagger-router-controller: Forum        
   /discussion/forum/v3/category/{cid}/privileges:
     post:
       tags:
@@ -6240,3 +6285,26 @@ components:
                       type: string
                     sbUid:
                       type: string        
+    discussionForumContextBasedTags:
+      type: object
+      properties:
+        request:
+          type: object
+          properties:
+            cids:
+              type: array
+              items:
+                type: number
+    discussionForumContextBasedTagsResponse:
+      type: object
+      properties:
+        value:
+          type: string
+        valueEscaped:
+          type: string
+        color:
+          type: string
+        bgColor:
+          type: string
+        score:
+          type: number         
