@@ -35,7 +35,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Core/AdminUtils|release-3.7.0_RC1|Deploy/Kubernetes/AdminUtils|release-3.8.0_RC9|This was done as part of release-3.7.0 hotfix and is not required if you are already on Keycloak 7|
 |Build/Core/Analytics|release-3.8.0_RC1|Deploy/Kubernetes/Analytics|release-3.8.0_RC9||
 |Build/Core/Assessment|release-3.8.0_RC6|Deploy/Kubernetes/Assessment|release-3.8.0_RC9||
-|Build/Core/Bot|release-3.8.0_RC1|Deploy/Kubernetes/Bot|release-3.8.0_RC9||
+|Build/Core/Bot|release-3.8.0_RC1|Deploy/Kubernetes/Bot|release-3.8.0_RC1||
 |Build/Core/Content|release-3.8.0_RC6|Deploy/Kubernetes/Content|release-3.8.0_RC9||
 |Build/Core/DiscussionsMW|release-3.8.0_RC2|Deploy/Kubernetes/DiscussionsMW|release-3.8.0_RC9||
 |Build/Core/Groups|release-3.8.0_RC1|Deploy/Kubernetes/Groups|release-3.8.0_RC9||
@@ -45,7 +45,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Core/Lms|release-3.8.0_RC7|Deploy/Kubernetes/Lms|release-3.8.0_RC9||
 |Build/Core/Nodebb|release-3.8.0_RC1|Deploy/Kubernetes/Nodebb|release-3.8.0_RC9||
 |Build/Core/Player|release-3.8.0_RC52|Deploy/Kubernetes/Player|release-3.8.0_RC9||
-|Build/Core/Router|release-3.8.0_RC1|Deploy/Kubernetes/Router|release-3.8.0_RC9||
+|Build/Core/Router|release-3.8.0_RC1|Deploy/Kubernetes/Router|release-3.8.0_RC1||
 |Build/Core/Search|release-3.6.0_RC6|Deploy/Kubernetes/Search|release-3.8.0_RC9||
 |Build/Core/Taxonomy|release-3.6.0_RC6|Deploy/Kubernetes/Taxonomy|release-3.8.0_RC9||
 |Build/KnowledgePlatform/KnowledgePlatform|release-3.8.0_RC10|Deploy/KnowledgePlatform/Learning|release-3.8.0_RC10||
