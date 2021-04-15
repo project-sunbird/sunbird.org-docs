@@ -46,8 +46,8 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Core/Nodebb|release-3.8.0_RC1|Deploy/Kubernetes/Nodebb|release-3.8.0_RC9||
 |Build/Core/Player|release-3.8.0_RC52|Deploy/Kubernetes/Player|release-3.8.0_RC9||
 |Build/Core/Router|release-3.8.0_RC1|Deploy/Kubernetes/Router|release-3.8.0_RC1||
-|Build/Core/Search|release-3.6.0_RC6|Deploy/Kubernetes/Search|release-3.8.0_RC9||
-|Build/Core/Taxonomy|release-3.6.0_RC6|Deploy/Kubernetes/Taxonomy|release-3.8.0_RC9||
+|Build/Core/Search|release-3.8.0_RC6|Deploy/Kubernetes/Search|release-3.8.0_RC9||
+|Build/Core/Taxonomy|release-3.8.0_RC6|Deploy/Kubernetes/Taxonomy|release-3.8.0_RC9||
 |Build/KnowledgePlatform/KnowledgePlatform|release-3.8.0_RC10|Deploy/KnowledgePlatform/Learning|release-3.8.0_RC10||
 |Build/KnowledgePlatform/Yarn|release-3.8.0_RC10|Deploy/KnowledgePlatform/Yarn|release-3.8.0_RC10||
 |Build/KnowledgePlatform/FlinkJobs|release-3.8.0_RC5|Deploy/KnowledgePlatform/FlinkJobs|release-3.8.0_RC10|- Kill `composite-search-indexer` and `post-publish-processor` samza job before deployment<br>- Choose `enrolment-reconciliation` `post-publish-processor` `search-indexer` and `questionset-publish` for jenkins job parameter `job_names_to_deploy`|
