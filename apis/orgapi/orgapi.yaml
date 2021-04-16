@@ -7,10 +7,10 @@ info:
   termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
   contact:
     email: info@sunbird.org
-  version: '3.0'
+  version: "1.0"
 externalDocs:
  description: "Testcases"
- url: "https://www.getpostman.com/collections/0ad0967b78fb7e967030"
+ url: "https://www.getpostman.com/collections/ad86fc520425abd74bef"
 servers:
 - url: https://staging.sunbirded.org/api
 paths:
@@ -70,9 +70,7 @@ paths:
             name is mandatory. Invalid property <name>. Channel is mandatory for root
             organisation. Either "organisationId" or "provider" and "externalId" values
             are required for the operation. Channel value already used by another
-            organisation. Provide different value for channel.
-            "organisationType" and "isTenant" are mandatory. Provide valid
-            "organisationType" values.'
+            organisation. Provide different value for channel.'
           content:
             application/json:
               schema:
@@ -225,75 +223,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/orgapiOrgSearchServerErrorResponse'
-      security:
-      - bearer: []
-      x-codegen-request-body-name: Body
-  /org/v2/search:
-    post:
-      tags:
-        - Org APIs
-      summary: Search for an Organisation V2
-      description: |-
-        This API is for searching for Organisations on the Sunbird Platform.
-          - The endpoint for **Search for an Organisation** is `/org/v2/search`
-          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: Organisation Search V2
-      parameters:
-        - name: ts
-          in: header
-          description: Timestamp at which given API request is sent.
-          schema:
-            type: string
-        - name: X-msgid
-          in: header
-          description: This ID uniquely identifies a request if the same API is executed
-            multiple times.
-          schema:
-            type: string
-        - name: X-Authenticated-User-Token
-          in: header
-          description: Access token of registered user performing given API request.
-          required: true
-          schema:
-            type: string
-        - name: Authorization
-          in: header
-          description: 'Specify authorization key (format: Bearer api-key) received
-          from administrator when performing given API request.'
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: The body contains metadata about filters that can be used in
-          Organisation search.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/orgapiOrgSearchRequest'
-        required: true
-      responses:
-        200:
-          description: OK. Successful operation. The requested operation was successfully
-            executed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/orgapiOrgSearchResponseV2'
-        400:
-          description: '''CLIENT_ERROR. The requested operation failed due to bad
-            request from client. Possible reasons for failure: Either "organisationId"
-            or "provider" and "externalId" values are required for the operation.'''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/orgapiOrgSearchClientErrorResponseV2'
-        500:
-          description: '''INTERNAL SERVER ERROR. The requested operation failed due
-            to a server error.'''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/orgapiOrgSearchServerErrorResponseV2'
       security:
         - bearer: []
       x-codegen-request-body-name: Body
@@ -535,7 +464,7 @@ components:
       - type: object
         properties:
           request:
-           $ref: '#/components/schemas/orgapiOrgReqV1'
+            $ref: '#/components/schemas/orgapiOrgReqV1'
         example:
           request:
             orgName : Diksha Org Name
@@ -545,14 +474,10 @@ components:
             isRootOrg: true
             email: info@diksha.org
             isSSOEnabled: true
-            organisationType: school
-            isTenant: true
     orgapiOrgReqV1:
             required:
             - channel
             - orgName
-            - organisationType
-            - isTenant
             type: object
             properties:
               channel:
@@ -591,6 +516,13 @@ components:
               orgName:
                 type: string
                 description: Organisation name
+              orgType:
+                type: string
+                description: Organisation type
+              orgTypeId:
+                type: string
+                description: ID of organisation type returned using Organisation Type
+                  Create API
               rootOrgId:
                 type: string
                 description: Root organisation ID
@@ -610,15 +542,6 @@ components:
                   true. incase of disable pass this as false
               address:
                 $ref: '#/components/schemas/orgapiAddressCreateRequest'
-              isTenant:
-                type: boolean
-                description: set to true or false
-              organisationType:
-                type: string
-                description: Organisation type
-              orgLocation:
-                type: string
-                description: Location of the organisation
     orgapiOrgCreateResponse:
       title: Organisation Create API response format
       allOf:
@@ -768,9 +691,15 @@ components:
         orgName:
           type: string
           description: Organisation name
-        organisationType:
+        orgType:
           type: string
           description: Organisation type
+        orgTypeId:
+          type: string
+          description: ID of organisation type
+        parentOrgId:
+          type: string
+          description: Parent organisation ID
         preferredLanguage:
           type: string
           description: Preferred language
@@ -835,6 +764,7 @@ components:
                  description: Updated Description
                  updatedDate: 2020-12-01 10:29:49:496+0000
                  addressId: "0131630420489011201"
+                 orgType: null
                  provider: dikshachannelnew
                  orgCode: null
                  locationId: null
@@ -855,9 +785,11 @@ components:
                  rootOrgId: "0131630445447741440"
                  imgUrl: null
                  approvedDate: null
+                 orgTypeId: null
                  homeUrl: null
                  isDefault: null
                  createdDate: 2020-12-01 09:52:46:962+0000
+                 parentOrgId: null
                  createdBy: null
                  hashTagId: "0131630445447741440"
                  noOfMembers: null
@@ -867,9 +799,6 @@ components:
                     "aecac7ab-15e4-45c9-ac7b-d716444cd652",
                     "3f286755-a36f-45bb-9505-ffeeee5aa723"
                 ]
-                 isTenant: true
-                 orgLocation: null
-                 organisationType: school
     orgapiOrgReadClientErrorResponse:
       title: Client error response for get Organisation Details API
       allOf:
@@ -982,12 +911,6 @@ components:
                 type: boolean
                 description: This attribute is used for root org only. if any rootOrg
                   is suing sso then they can update this attribute value as true
-              orgLocation:
-                type: string
-                description: Location of the organisation.
-              organisationType:
-                type: string
-                description: Organisation type
     orgapiOrgUpdateResponse:
       title: Organisation Update API response format
       allOf:
@@ -1319,6 +1242,7 @@ components:
                 description: Updated Description
                 updatedDate: 2020-12-01 10:29:49:496+0000
                 addressId: "0131630420489011201"
+                orgType: null
                 provider: dikshachannelnew
                 orgCode: null
                 locationId: null
@@ -1339,9 +1263,11 @@ components:
                 rootOrgId: "0131630445447741440"
                 imgUrl: null
                 approvedDate: null
+                orgTypeId: null
                 homeUrl: null
                 isDefault: null
                 createdDate: 2020-12-01 09:52:46:962+0000
+                parentOrgId: null
                 createdBy: null
                 hashTagId: "0131630445447741440"
                 noOfMembers: null
@@ -1351,60 +1277,7 @@ components:
                   "aecac7ab-15e4-45c9-ac7b-d716444cd652",
                   "3f286755-a36f-45bb-9505-ffeeee5aa723"
                 ]
-                organisationType: school
-                isTenant: true
-                orgLocation: null
-    orgapiOrgSearchResponseV2:
-      type: object
-      properties:
-        id:
-          type: string
-        ver:
-          type: string
-        ts:
-          type: string
-        responseCode:
-          type: string
-        result:
-          $ref: '#/components/schemas/orgapiorgapiApiResponse'
-      example:
-        id: api.org.search
-        ver: v2
-        ts: 2020-11-23 09:16:58:628+0000
-        params:
-          resmsgid:
-          msgid: ad7135b8-ef64-44bd-adaa-0b131a657689
-          err:
-          status: success
-          errmsg:
-        responseCode: OK
-        result:
-          response:
-            count: 1
-            content:
-              - keys: {}
-                channel": dikshaChannelNew
-                description: Updated Description
-                updatedDate: 2020-12-01 10:29:49:496+0000
-                provider: dikshachannelnew
-                id: "0131630445447741440"
-                slug: dikshachannelnew
-                email: info@diksha.org
-                isSSOEnabled: false
-                identifier: "0131630445447741440"
-                updatedBy": null
-                orgName: Diksha Org Name
-                address: {}
-                externalId: dikshaextid
-                isRootOrg: true
-                rootOrgId: "0131630445447741440"
-                createdDate: 2020-12-01 09:52:46:962+0000
-                createdBy: null
-                hashTagId: "0131630445447741440"
-                status: 0
-                organisationType: school
-                isTenant: true
-                orgLocation: null
+
     orgapiOrgSearchClientErrorResponse:
       title: Client error response for get Organisation Details API
       allOf:
@@ -1426,27 +1299,6 @@ components:
               errmsg: Mandatory parameter filters is missing.
             responseCode: CLIENT_ERROR
             result: {}
-    orgapiOrgSearchClientErrorResponseV2:
-      title: Client error response for get Organisation Details API
-      allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: {}
-          example:
-            id: api.org.search
-            ver: v2
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid:
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: MANDATORY_PARAMETER_MISSING
-              status: MANDATORY_PARAMETER_MISSING
-              errmsg: Mandatory parameter filters is missing.
-            responseCode: CLIENT_ERROR
-            result: {}
     orgapiOrgSearchServerErrorResponse:
       title: Server error response for read Organisation API
       allOf:
@@ -1459,27 +1311,6 @@ components:
         example:
             id: api.org.search
             ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid:
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INTERNAL_ERROR
-              status: INTERNAL_ERROR
-              errmsg: Process failed,please try again later.
-            responseCode: SERVER_ERROR
-            result: {}
-    orgapiOrgSearchServerErrorResponseV2:
-      title: Server error response for read Organisation API
-      allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: {}
-          example:
-            id: api.org.search
-            ver: v2
             ts: 2020-11-23 10:03:39:935+0000
             params:
               resmsgid:
