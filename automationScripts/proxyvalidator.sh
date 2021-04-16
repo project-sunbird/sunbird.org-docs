@@ -15,7 +15,7 @@ echo "$completeFile" > completeOpenApiSpecFile.yml
 tmpFile=""
 
 # Patterns to delete from the spec file
-patterns=("servers" "paths.*.*.description" "paths.*.*.operationId" "paths.*.*.tags" "paths.*.*.responses.*.content.*.example" "paths.*.*.responses.*.content.*.examples" "tags" "security" "externalDocs" "paths.*.*.requestBody.content.*.examples" "paths.*.*.requestBody.content.*.example")
+patterns=("servers" "paths.*.*.description" "paths.*.*.operationId" "paths.*.*.tags" "paths.*.*.responses.*.content.*.example" "paths.*.*.responses.*.content.*.examples" "tags" "security" "externalDocs" "paths.*.*.requestBody.content.*.examples" "paths.*.*.requestBody.content.*.example" "info.externalDocs")
 
 # Remove the unwanted fields from the proxyvalidator
 # Now clean the intermediate file
