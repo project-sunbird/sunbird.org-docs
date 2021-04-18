@@ -1,463 +1,1703 @@
-swagger: '2.0'
+openapi: 3.0.1
 info:
-  version: '1.0'
-  title: Certificate api
-  description: >-
-    This API is used to store,download and validate the course certificate.
-host: staging.open-sunbird.org
-basePath:  /api
-securityDefinitions:
-  bearer:
-    type: apiKey  # An arbitrary name for the security scheme
-    in: header # The security scheme parameter is in "header"
-    name: Authorization # name of the header, query parameter or cookie
-  userToken:
-    type: apiKey  # An arbitrary name for the security scheme
-    in: header # The security scheme parameter is in "header"
-    name: x-authenticated-user-token # The name of the header, query parameter or cookie
-schemes:
-  - https
-consumes:
-  - application/json
-produces:
-  - application/json
+  title: Certificate Registry API's
+  description: |- 
+     This API is used to store,download and validate the course certificate.
+      - [TestCases](https://app.getpostman.com/run-collection/6a5a786f8a0cfce13d0)
+  version: "1.0"
+servers:
+- url: https://staging.open-sunbird.org/api
 paths:
-  /certreg/v1/certs/download:
+  /certreg/v1/certs/add:
     post:
-      description:  >-
-        This API allows you to download digitally generated certificates. The **_/certreg/v1/certs/download_** endpoint executes the **download certificate** request based on parameters provided in the request body.
-           - All fields marked with an * are mandatory
-           - The mandatory fields cannot be null or empty
-      summary: Downloading the certificate
       tags:
-        - Download Certificate API
-      operationId: download certificate
-      produces:
-        - application/json
-      parameters:
-        - name: Body
-          in: body
-          required: true
-          description: >-
-            The body refers to the format of the request. The body contains metadata about the request to download the certificate.
-          schema:
-            allOf :
-              - $ref: '#/definitions/CertificateDownloadRequest'
-        - name: ts
-          in: header
-          required: true
-          type: string
-          description: 'The timestamp at which the **download certificate** request was sent. '
-        - name: X-msgid
-          in: header
-          required: true
-          type: string
-          description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
-        - name: Authorization
-          in: header
-          required: true
-          type: string
-          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-      responses:
-        '200':
-          description: 'OK ! Operation successful."Certificate download" operation was executed successfully.'
-          schema:
-            allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/CertificateDownloadResponse'
-        '400':
-          description: 'BAD REQUEST. The "Certificate generation" operation failed. You may have missed input for a mandatory parameter.'
-          schema:
-            $ref: '#/definitions/IssueCertificateErrorResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact us at info.sunbird.org.'
-  /certreg/v1/certs/validate:
-    post:
-      description:  >-
-        This API is allows you to validatedigitally generated certificates.
-           - The **_/certreg/v1/certs/validate_** endpoint executes the "validate certificate" request based on parameters provided in the request body.
+      - Add Certificate
+      summary: adding of certificate
+      description: |-
+        This API allows you to add the  digitally generated certificates into the certificate registry.
            - All fields marked with an * are mandatory
            - Mandatory fields cannot be null or empty
-      summary: Certificate validation
-      tags:
-        - Validate Certificate API
-      operationId: validate certificate
-      produces:
-        - application/json
+           - The request accepts id, accessCode , jsonData(the raw certificate json,generated using cert/generate api ),related (courseId, batchId, type of the certificate, templateId(optional), pdfUrl) . If certificate should be reissused provide oldId
+           - Backend route : http://cert-registry-service:9000/certs/v1/registry/add 
+      operationId: AddCertificateV1
       parameters:
-        - name: Body
-          in: body
-          required: true
-          description: >-
-            The body refers to the format of the request. The body contains metadata about the request to validate the certificate.
-          schema:
-            allOf :
-              - $ref: '#/definitions/CertificateValidateRequest'
-        - name: ts
-          in: header
-          required: true
+      - name: ts
+        in: header
+        description: 'The timestamp at which the **add certificate** request was sent. '
+        required: false
+        schema:
           type: string
-          description: 'The timestamp at which the **validating certificate** request was sent. '
-        - name: X-msgid
-          in: header
-          required: true
-          type: string
-          description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
-        - name: Authorization
-          in: header
-          required: true
-          type: string
-          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      security: 
+        - bearer: []
+      requestBody:
+        description: The body refers to the format of the request. The body contains
+          metadata about the request to add the certificate.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/certificateregistryapiCertificateAddRequest'
+            examples:
+             a:
+              summary: "Add Certifiate Request"
+              description: "Deposits a certificate to the user. Request should contain unique id, accesscode, jsonData( raw certificate json), related params of certificate like type courseId, batchId,jsonUrl, pdfUrl "
+              value: 
+               request:
+                id: 8a6d6cc2-16ee-4e7a-a4d1-de74d75234243
+                accessCode: H9W9S4
+                recipientType: individual
+                recipientId: 8a6d6cc2-16ee-4e7a-a4d1-d74d752344343
+                recipientName: UserName
+                oldId: 8a6d6cc2-16ee-4e7a-a4d1-d74d7523424
+                related:
+                  courseId: course-ids
+                  type: course-completion
+                  batchId: batchId
+                jsonData:
+                  id: https://staging.open-sunbird.org/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243
+                  type:
+                  - Assertion
+                  - Extension
+                  - extensions:CertificateExtension
+                  issuedOn: 2019-08-21T00:00:00Z
+                  recipient:
+                    type:
+                    - id
+                    hashed: false
+                    name: userName
+                    '@context': https://staging.open-sunbird.org/certs/v1/context.json
+                  badge:
+                    id: https://staging.open-sunbird.org/certs/0125450863553740809/Badge.json
+                    type:
+                    - BadgeClass
+                    name: Course Name
+                    criteria:
+                      type:
+                      - Criteria
+                      narrative: course completion certificate
+                    issuer:
+                      context: https://staging.open-sunbird.org/certs/v1/context.json
+                      id: https://staging.open-sunbird.org/certs/Issuer.json
+                      type:
+                      - Issuer
+                      name: issuer name
+                      url: https://gcert.gujarat.gov.in/gcert/
+                    '@context': https://staging.open-sunbird.org/certs/v1/context.json
+                  evidence:
+                    id: https://staging.open-sunbird.org/certs/Evidence.json
+                    type:
+                    - Evidence
+                    - Extension
+                    - extensions:TrainingEvidence
+                    name: Course name
+                    '@context': https://staging.open-sunbird.org/certs/v1/context.json
+                  verification:
+                    type:
+                    - hosted
+                  revoked: false
+                  signatory:
+                  - identity: CEO
+                    type:
+                    - Extension
+                    - extensions:SignatoryExtension
+                    hashed: false
+                    designation: CEO
+                    image: https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg
+                    '@context': https://staging.open-sunbird.org/certs/v1/extensions/SignatoryExtension/context.json
+                  '@context': https://staging.open-sunbird.org/certs/v1/context.json
+                jsonUrl: https://staging.open-sunbird.org/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243.json
+                pdfUrl: https://staging.open-sunbird.org/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243.pdf
+             b:
+              summary: "Mandatory Param Missing Request"
+              description: some fields are mandatory. in the above example json data is missing. if jsondata is not provide , will get 400 bad request in the response
+              value: 
+               request:
+                id: 8a6d6cc2-16ee-4e7a-a4d1-d7d752342
+                accessCode: ABC123
+                recipientName: UserName
+                recipientId: 8a6d6cc2-16ee-4e7a-a4d1-d7d7
+                related:
+                  courseId: do_31312968239031910412799
+                  type: completion certificate
+                  batchId: 0130533172574371843
+                pdfUrl: pdf url
+        required: true
       responses:
-        '200':
-          description: 'OK ! Operation successful."Certificate Validation" operation was executed successfully.'
-          schema:
-            allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/CertificateValidateResponse'
-        '400':
-          description: 'BAD REQUEST. The "Certificate validation" operation failed. Input for a mandatory parameter may be missing.'
-          schema:
-            $ref: '#/definitions/IssueCertificateErrorResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact us at info@sunbird.org.'
+        200:
+          description: OK ! Operation successful."Certificate addition" operation was executed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  certificateregistryapiApiResponse:
+                    $ref: '#/components/schemas/certificateregistryapiApiResponse'
+                  certificateregistryapiCertificateAddResponse:
+                    $ref: '#/components/schemas/certificateregistryapiCertificateAddResponse'
+              example:
+                id: api.certs.registry.add
+                ver: v1
+                ts: 1601451354559
+                params: 
+                  msgid: "string"
+                  status: "string"
+                  resmsgid: string
+                responseCode: OK
+                result:
+                  id: certificate id
+        400:
+          description: BAD REQUEST. The "Certificate addition" operation failed. Input
+            for a mandatory parameter may be missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificateregistryapiBadRequestResponse'
+              examples:
+               a:
+                summary: Mandatory Param jsonData Missing Res
+                description: provide all the mandatory params for the request.
+                value:
+                 id: api.certs.registry.add
+                 ver: v1
+                 ts: 1605695233845
+                 params: 
+                 responseCode: CLIENT_ERROR
+                 result:
+                  message: value can not be empty for mandatory param jsonData
+               b:
+                summary: Mandatory Param accessCode Missing Res
+                description: provide all the mandatory params for the request.
+                value:
+                 id: api.certs.registry.add
+                 ver: v1
+                 ts: 1605695233845
+                 params: 
+                 responseCode: CLIENT_ERROR
+                 result:
+                  message: value can not be empty for mandatory param accesCode
+               c:
+                summary: Certiifvat Id Uniqueness check Res
+                description: certificate id should be always unique
+                value:
+                 id: api.certs.registry.add
+                 ver: v1
+                 ts: 1605695233845
+                 params: 
+                 responseCode: CLIENT_ERROR
+                 result:
+                  message: Please provide unique certificate id
+               d:
+                summary: Invalid DataType Response
+                description: value for for id is string, if the interger is provided then the error is thrown
+                value:
+                 id: api.certs.registry.add
+                 ver: v1
+                 ts: 1605695233845
+                 params: 
+                 responseCode: CLIENT_ERROR
+                 result:
+                  message: id PARAM SHOULD BE OF TYPE string
+        500:
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org. '
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/certificateregistryapi500ServerError'
+              example:
+                id: api.certs.registry.add
+                ver: v1
+                ts: 1601451354559
+                params: 
+                  msgid: "string"
+                  status: "string"
+                  resmsgid: string
+                responseCode: SERVER_ERROR
+                result:
+                  message: Process failed,please try again later.
+  /certreg/v2/certs/add:
+    post:
+      tags:
+      - Add Certificate
+      summary: Add Certificate (v2)
+      description: >-
+        This API allows you to add the  digitally generated certificates into the certificate registry.
+           - All fields marked with an * are mandatory
+           - Mandatory fields cannot be null or empty
+           - The request accepts id, accessCode , jsonUrl, jsonData(the raw certificate json),related (courseId, batchId, type of the certificate, templateId(optional)). The difference between v1 and v2 are v1 expects pdfurl and v2 expects printUri(materialised svg string) in the jsonData
+           - Backend route : http://cert-registry-service:9000/certs/v2/registry/add 
+
+      operationId: AddCertificateV2
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/certificateregistryapiAddCertificateV2Request'
+            examples:
+             a:
+              summary: "Add V2 Certifiate Request"
+              value:
+               request:
+                id: 8a6d6cc2-16ee-4e7a-a4d1-de74d75234243
+                accessCode: H9W9S4
+                recipientType: individual
+                recipientId: 8a6d6cc2-16ee-4e7a-a4d1-d74d752344343
+                recipientName: UserName
+                oldId: 8a6d6cc2-16ee-4e7a-a4d1-d74d7523424
+                related:
+                  courseId: course-ids
+                  type: course-completion
+                  batchId: batchId
+                  templateId: templateId
+                  completionUrl: completionUrl
+                jsonData:
+                  id: https://staging.open-sunbird.org/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243
+                  type:
+                  - Assertion
+                  - Extension
+                  - extensions:CertificateExtension
+                  issuedOn: 2019-08-21T00:00:00Z
+                  recipient:
+                    type:
+                    - id
+                    hashed: false
+                    name: userName
+                    '@context': https://staging.open-sunbird.org/certs/v1/context.json
+                  badge:
+                    id: https://staging.open-sunbird.org/certs/0125450863553740809/Badge.json
+                    type:
+                    - BadgeClass
+                    name: CourseName
+                    criteria:
+                      type:
+                      - Criteria
+                      narrative: course completion certificate
+                    issuer:
+                      context: https://staging.open-sunbird.org/certs/v1/context.json
+                      id: https://staging.open-sunbird.org/certs/Issuer.json
+                      type:
+                      - Issuer
+                      name: issure name
+                      url: https://gcert.gujarat.gov.in/gcert/
+                      publicKey: []
+                    '@context': https://staging.open-sunbird.org/certs/v1/context.json
+                  evidence:
+                    id: https://staging.open-sunbird.org/certs/Evidence.json
+                    type:
+                    - Evidence
+                    - Extension
+                    - extensions:TrainingEvidence
+                    name: CourseName
+                    '@context': https://staging.open-sunbird.org/certs/v1/context.json
+                  verification:
+                    type:
+                    - hosted
+                  revoked: false
+                  signatory:
+                  - identity: CEO
+                    type:
+                    - Extension
+                    - extensions:SignatoryExtension
+                    hashed: false
+                    designation: CEO
+                    image: https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg
+                    '@context': https://staging.open-sunbird.org/certs/v1/extensions/SignatoryExtension/context.json
+                  printUri: ''
+                  '@context': https://staging.open-sunbird.org/certs/v1/context.json
+                jsonUrl: https://staging.open-sunbird.org/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243.json
+             b:
+              summary: "Mandatory Param Missing Request"
+              value: 
+               request:
+                id: 8a6d6cc2-16ee-4e7a-a4d1-d7d752342
+                accessCode: ABC123
+                recipientName: UserName
+                recipientId: 8a6d6cc2-16ee-4e7a-a4d1-d7d7
+                jsonData: {}
+                related:
+                  courseId: do_31312968239031910412799
+                  type: completion certificate
+                  batchId: 0130533172574371843
+                json: json url
+        required: true
+      responses:
+        200:
+          description: 'OK ! Operation successful."Certificate addition" operation was executed successfully.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  certificateregistryapiApiResponse:
+                    $ref: '#/components/schemas/certificateregistryapiApiResponse'
+                  certificateregistryapiCertificateAddResponse:
+                    $ref: '#/components/schemas/certificateregistryapiCertificateAddResponse'
+              example:
+                id: api.certs.registry.add
+                ver: v2
+                ts: 1601971810845
+                params: 
+                responseCode: OK
+                result:
+                  id: string
+        400:
+          description: BAD REQUEST. The "Certificate addition" operation failed. Input
+            for a mandatory parameter may be missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificateregistryapiBadRequestResponse'
+              examples:
+               a:
+                summary: Mandatory Param jsonData Missing Res
+                description: provide all the mandatory params for the request.
+                value:
+                 id: api.certs.registry.add
+                 ver: v2
+                 ts: 1605695233845
+                 params: 
+                 responseCode: CLIENT_ERROR
+                 result:
+                  message: value can not be empty for mandatory param jsonData
+               b:
+                summary: Mandatory Param accessCode Missing Res
+                description: provide all the mandatory params for the request.
+                value:
+                 id: api.certs.registry.add
+                 ver: v2
+                 ts: 1605695233845
+                 params: 
+                 responseCode: CLIENT_ERROR
+                 result:
+                  message: value can not be empty for mandatory param accesCode
+               c:
+                summary: Certiifvat Id Uniqueness check Res
+                description: certificate id should be always unique
+                value:
+                 id: api.certs.registry.add
+                 ver: v2
+                 ts: 1605695233845
+                 params: 
+                 responseCode: CLIENT_ERROR
+                 result:
+                  message: Please provide unique certificate id
+               d:
+                summary: Invalid DataType Response
+                description: value for for id is string, if the interger is provided then the error is thrown
+                value:
+                 id: api.certs.registry.add
+                 ver: v2
+                 ts: 1605695233845
+                 params: 
+                 responseCode: CLIENT_ERROR
+                 result:
+                  message: id PARAM SHOULD BE OF TYPE string
+        500:
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org. '
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/certificateregistryapi500ServerError'
+              example:
+                id: api.certs.registry.add
+                ver: v2
+                ts: 1601451354559
+                params: 
+                  msgid: "string"
+                  status: "string"
+                  resmsgid: string
+                responseCode: SERVER_ERROR
+                result:
+                  message: Process failed,please try again later.
+      deprecated: false
+      security:
+      - bearer: []
+        
+  /certreg/v1/certs/download:
+    post:
+      tags:
+      - Download Certificate API
+      summary: Downloading the certificate
+      description: |-
+         This API allows you to download digitally generated certificates.
+           - All fields marked with an * are mandatory
+           - The mandatory fields cannot be null or empty
+           - the request accepts pdfUrl , during certificate generation pdfUrl will generated, and returns signed url
+           - Backend route: http://cert-registry-service:9000/certs/v1/registry/download
+      operationId: download certificate
+      parameters:
+      - name: ts
+        in: header
+        description: 'The timestamp at which the **download certificate** request
+          was sent. '
+        required: false
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: A unique ID that identifies the request, in case the same API
+          is executed multiple times.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        description: The body refers to the format of the request. The body contains
+          metadata about the request to download the certificate.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/certificateregistryapiCertificateDownloadRequest'
+            examples:
+              a:
+               summary: "Download Certificate Request"
+               description: "Provide pdf Url, Get from certificate generate response "
+               value:
+                request:
+                  pdfUrl: 'https://staging.open-sunbird.org/certs/0125450863553740809/0baa0938-f814-460a-bddb-09519507b6e1.pdf'
+              b:
+               summary: "Mandatory Param pdfUrl Missing"
+               description: "PdfUrl is mandatory"
+               value:
+                request:
+                  pdfUrl: ''
+        required: true
+      responses:
+        200:
+          description: OK ! Operation successful."Certificate download" operation
+            was executed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  certificateregistryapiApiResponse:
+                    $ref: '#/components/schemas/certificateregistryapiApiResponse'
+                  result:
+                    $ref: '#/components/schemas/certificateregistryapiCertificateDownloadResponse'
+              example:
+                id: "api.certs.registry.download"
+                ver: "v1"
+                ts: "1606222737453"
+                responseCode: "OK"
+                result:
+                  signedUrl: signed string value
+        400:
+          description: BAD REQUEST. The "Certificate Download" operation failed.
+            You may have missed input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificateregistryapiIssueCertificateErrorResponse'
+              example:
+                id: "api.certs.registry.download"
+                ver: "v1"
+                ts: "1606222737453"
+                responseCode: "CLIENT_ERROR"
+                result:
+                  message: "MANDATORY PARAM pdfUrl IS MISSING"
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact us at info.sunbird.org.
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/certificateregistryapi500ServerError'
+              example:
+                id: api.certs.registry.download
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      security:
+      - bearer: []
+
+  /certreg/v2/certs/download/{certId}:
+    get:
+      tags:
+      - Download Certificate API
+      summary: Download Certificate (v2)
+      description: >-
+        This API allows you to download digitally generated certificates.
+           - All fields marked with an * are mandatory
+           - The mandatory fields cannot be null or empty
+           - Based on Id provided in the url, returns printUri (materialised svg string)
+           - Backend route: http://cert-registry-service:9000/certs/v2/registry/download
+
+      operationId: DownloadCertificate(v2)
+      parameters:
+      - name: certId
+        in: path
+        description: 'Certificate Id'
+        required: true
+        style: simple
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: false
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      responses:
+        200:
+          description: 'OK ! Operation successful."Certificate read" operation was executed successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificateregistryapiCertificateDownloadV2Response'
+              example:
+                id: api.certs.registry.download
+                ver: v2
+                ts: 1604044379151
+                params: ''
+                responseCode: OK
+                result:
+                  printUri: "materialized svg string"
+          headers: {}
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificateregistryapiIssueCertificateErrorResponse'
+              example:
+                id: api.certs.registry.read
+                ver: v1
+                ts: 1604044379151
+                params: ''
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  message: Certificate not found
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact us at info.sunbird.org.
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/certificateregistryapi500ServerError'
+              example:
+                id: api.certs.registry.download
+                ver: v2
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security:
+      - bearer: []
+      
+  /certreg/v1/certs/read/{certId}: 
+    get:
+      tags:
+      - Read Certificate API
+      summary: Read the certificate
+      description: |-
+        This API allows you to read digitally generated certificates. The **_/certreg/v1/certs/Read/{id}_** endpoint executes the **Read certificate** request based on path parameters provided.
+           - All fields marked with an * are mandatory
+           - The mandatory fields cannot be null or empty
+           - Returns certificate json data, pdfUrl, related params
+           - Backend route : http://cert-registry-service:9000/certs/v1/registry/read/:certId
+      operationId: Read certificate
+      parameters:
+      - name: certId
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      - name: ts
+        in: header
+        description: 'The timestamp at which the **download certificate** request
+          was sent. '
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: A unique ID that identifies the request, in case the same API
+          is executed multiple times.
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK! Operation successful."Certificate read" operation was executed
+            successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  certificateregistryapiCertificateReadResponse:
+                    $ref: '#/components/schemas/certificateregistryapiCertificateReadResponse'
+              example:
+                id: api.certs.registry.read
+                ver: v1
+                ts: 1604044379151
+                params: ''
+                responseCode: OK
+                result:
+                  response:
+                    data: {}
+                    jsonUrl: string
+                    createdAt: timestamp
+                    pdfUrl: string
+                    related:
+                      courseId: string
+                      type: string
+                      batchId: string
+                    accessCode: string
+                    recipient:
+                      name: string
+                      id: string
+                      type: string
+                    id: string
+                    isrevoked: false
+        404:
+          description: 'RESOURCE NOT FOUND. The "Certificate read" operation failed.
+            You may have provided an invalid certificate ID. '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificateregistryapiIssueCertificateErrorResponse'
+              example:
+                id: api.certs.registry.read
+                ver: v1
+                ts: 1601006936286
+                params: 
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  message: Certificate not found
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact us at info.sunbird.org.
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/certificateregistryapi500ServerError'
+              example:
+                id: api.certs.registry.read
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      security:
+      - bearer: []
+      deprecated: false
+      
+  /certreg/v1/certs/validate:
+    post:
+      tags:
+      - Validate Certificate API
+      summary: Certificate validation
+      description: |-
+        This API is allows you to validatedigitally generated certificates.
+           - All fields marked with an * are mandatory
+           - Mandatory fields cannot be null or empty
+           - Request body expects certificate id and accesscode, Validates the certificate id matches the access code supplied and if matches  returns raw certificate json data else returns error message
+           - Backend route : http://cert-registry-service:9000/certs/v1/registry/validate
+
+      operationId: validate certificate
+      requestBody:
+        description: The body refers to the format of the request. The body contains
+          metadata about the request to validate the certificate.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/certificateregistryapiCertificateValidateRequest'
+            examples:
+             a:
+              summary: Certificate Validate Request
+              value:
+               request:
+                certId: 8a6d6cc2-16ee-4e7a-a4d1-d7d7571f77a1
+                accessCode: ABC123
+             b:
+              summary: Invalid AccessCode Request
+              value:
+               request:
+                certId: 8a6d6cc2-16ee-4e7a-a4d1-d7d7571f77a1
+                accessCode: InvalidCode
+             c:
+              summary: Mandatory Param accessCode Missing
+              value:
+                request:
+                 certId: 8a6d6cc2-16ee-4e7a-a4d1-d7d7571f77a1
+                 accessCode: ''
+        required: true
+      responses:
+        200:
+          description: OK ! Operation successful."Certificate Validation" operation
+            was executed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  certificateregistryapiApiResponse:
+                    $ref: '#/components/schemas/certificateregistryapiApiResponse'
+                  certificateregistryapiCertificateValidateResponse:
+                    $ref: '#/components/schemas/certificateregistryapiCertificateValidateResponse'
+              example:
+                id: api.certs.registry.validate
+                ver: v1
+                ts: 1604989972001
+                params: 
+                responseCode: OK
+                result:
+                  response:
+                    related: object
+                    json: object
+        400:
+          description: BAD REQUEST. The "Certificate validation" operation failed.
+            Input for a mandatory parameter may be missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificateregistryapiIssueCertificateErrorResponse'
+              examples:
+               a:
+                summary: Mandatory Param Missing Res
+                value:
+                  id: api.certs.registry.validate
+                  ver: v1
+                  ts: timestamp
+                  responseCode: CLIENT_ERROR
+                  result: 
+                   message: value can not be empty for mandatory param accessCode
+               b:
+                summary: Invalid AccessCode Response
+                description: Validates the certificate id matches the access code supplied. If accessCode is invalid , error is thrown
+                value:
+                  id: api.certs.registry.validate
+                  ver: v1
+                  ts: '2020-11-23 15:15:18:331+0000'
+                  responseCode: CLIENT_ERROR
+                  result: 
+                   message: PROVIDED ID {certId} AND ACCESS CODE {accesCode} COMBINATION DOES NOT EXISTS"
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact us at info.sunbird.org.
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/certificateregistryapi500ServerError'
+              example:
+                id: api.certs.registry.validate
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      security:
+      - bearer: []
+  
   /certreg/v1/certs/verify:
     post:
-      description:  >-
+      tags:
+      - Verify Certificate Api
+      summary: verify of certificate
+      description: |-
         This API allows you to verify digitally generated certificates.
            - The **_/certreg/v1/certs/verify** endpoint executes the "verify certificate" request based on parameters provided in the request body.
            - All fields marked with an * are mandatory
            - Required fields cannot be null or empty
-      summary: verify of certificate
-      tags:
-        - Verify Certificate Api
+           - Request expects raw certificate data and id . This is to verify the JSON certificate data. Verifies certificate signature value and expiry date.
+           - The certificate contains a signature in the signature field. The signature is encrypted using the awarding body's(Issuer) private key. Signature is verified by using encryption service verify API which takes signature value, issuer's public key id, and certificate object in the request and returns "true" if the signature is valid else "false"
+           - If a certificate contains an expiry date, The expiry date is compared with the current date. and checks whether the certificate is expired or not
+           - Backend route : http://cert-registry-service:9000/certs/v1/registry/verify
+
       operationId: verify certificate
-      produces:
-        - application/json
       parameters:
-        - name: Body
-          in: body
-          required: true
-          description: >-
-            The body refers to the format of the request. The body contains metadata about the request to verify the certificate.
-          schema:
-            allOf :
-              - $ref: '#/definitions/CertificateVerifyRequest'
-        - name: ts
-          in: header
-          required: true
+      - name: ts
+        in: header
+        description: 'The timestamp at which the **verify certificate** request was
+          sent. '
+        required: false
+        schema:
           type: string
-          description: 'The timestamp at which the **verify certificate** request was sent. '
-        - name: X-msgid
-          in: header
-          required: true
+      - name: X-msgid
+        in: header
+        description: A unique ID that identifies the request, in case the same API
+          is executed multiple times.
+        required: false
+        schema:
           type: string
-          description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
-        - name: Authorization
-          in: header
-          required: true
-          type: string
-          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      requestBody:
+        description: The body refers to the format of the request. The body contains
+          metadata about the request to verify the certificate.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/certificateregistryapiCertificateVerifyRequest'
+            examples:
+             a:
+              summary: Verify Certificate Request
+              value:
+               request:
+                id:  https://staging.sunbirded.org/certs/0125450863553740809/15ccd968-8a19-4c0c-ab0b-cef953d7a924.json
+             b:
+              summary: Mandatory Param Missing Request
+              value:
+                request:
+                 id:  ''
+             c:
+              summary: Invalid certificate Id Request
+              value:
+                request:
+                 id:  'Invalid Id'
+        required: true
       responses:
-        '200':
-          description: 'OK ! Operation successful."Certificate Verify" operation was executed successfully.'
-          schema:
-            allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/CertificateVerifyResponse'
-        '400':
-          description: 'BAD REQUEST. The "Certificate validation" operation failed. Input for a mandatory parameter may be missing.'
-          schema:
-            $ref: '#/definitions/IssueCertificateErrorResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact us at info@sunbird.org. '
-
-  /certreg/v1/certs/add:
+        200:
+          description: OK ! Operation successful."Certificate Verify" operation was
+            executed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  certificateregistryapiApiResponse:
+                    $ref: '#/components/schemas/certificateregistryapiApiResponse'
+                  certificateregistryapiCertificateVerifyResponse:
+                    $ref: '#/components/schemas/certificateregistryapiCertificateVerifyResponse'
+              examples:
+               a:
+                summary: Response For Valid Certificate
+                value:
+                 id: certs.v1.registry.verify
+                 ver: v1
+                 ts: 1590583013778
+                 params: 
+                 responseCode: OK
+                 result:
+                  response:
+                    valid: true
+                    messages: []
+                    errorCount: 0
+               b:
+                summary: Response For InValid Certificate
+                description: certifiacte is expired and signature of certificate is invalid 
+                value:
+                 id: certs.v1.registry.verify
+                 ver: v1
+                 ts: 1590583013778
+                 params: 
+                 responseCode: OK
+                 result:
+                  response:
+                    valid: false
+                    messages: [
+                      "ERROR: Assertion.signature - certificate is not valid , signature verification failed",
+                "ERROR: Assertion.expires - certificate has been expired"]
+                    errorCount: 2
+        400:
+          description: BAD REQUEST. The "Certificate validation" operation failed.
+            Input for a mandatory parameter may be missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificateregistryapiIssueCertificateErrorResponse'
+              examples:
+               MandatoryParamMissing:
+                value:
+                 id: "api.certs.registry.verify"
+                 ver: "v1"
+                 ts: "1606222737453"
+                 responseCode: "CLIENT_ERROR"
+                 result:
+                  message: "MANDATORY PARAM either:data:or:id IS MISSING"
+               InvalidParamValue:
+                 value:
+                  id: "api.certs.registry.verify"
+                  ver: "v1"
+                  ts: "1606222737453"
+                  responseCode: "CLIENT_ERROR"
+                  result:
+                  message: "Invalid value {{id}} for parameter id."
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact us at info.sunbird.org.
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/certificateregistryapi500ServerError'
+      security:
+      - bearer: [] 
+  
+  /certreg/v1/certs/search:
     post:
-      description:  >-
-        This API allows you to add the  digitally generated certificates into the certificate registry.
-           - The **_/certreg/v1/certs/add_** endpoint executes the "validate certificate" request based on parameters provided in the request body.
-           - All fields marked with an * are mandatory
-           - Mandatory fields cannot be null or empty
-      summary: adding of certificate
       tags:
-        - Add Certificate API
-      operationId: add certificate
-      produces:
-        - application/json
+      - Search Certificate API
+      summary: Search the certificate
+      description: "This API allows you to search digitally generated certificates.\
+        \ The **_/certreg/v1/certs/search_** endpoint executes the **search certificate**\
+        \ request based on parameters provided in the request body.\n   - All fields\
+        \ marked with an * are mandatory\n   - The mandatory fields cannot be null\
+        \ or empty\n   - This API is a wrapper for ElasticSearch. Hence, the manner\
+        \ in which the search request is sent to ElasticSearch, the same way it is\
+        \ sent to the search API inside the request object.\n   - The system does\
+        \ not validate the request.  \n - Backend route : http://cert-registry-service:9000/certs/v1/registry/validate"
+
+      operationId: Search certificate
       parameters:
-        - name: Body
-          in: body
-          required: true
-          description: >-
-            The body refers to the format of the request. The body contains metadata about the request to add the certificate.
-          schema:
-            allOf :
-              - $ref: '#/definitions/CertificateAddRequest'
-        - name: ts
-          in: header
-          required: true
+      - name: ts
+        in: header
+        description: 'The timestamp at which the **search certificate** request was
+          sent. '
+        schema:
           type: string
-          description: 'The timestamp at which the **add certificate** request was sent. '
-        - name: X-msgid
-          in: header
-          required: true
+      - name: X-msgid
+        in: header
+        description: A unique ID that identifies the request, in case the same API
+          is executed multiple times.
+        schema:
           type: string
-          description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
-        - name: Authorization
-          in: header
-          required: true
-          type: string
-          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+      requestBody:
+        description: The body refers to the format of the request. The body contains
+          metadata about the request to download the certificate.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/certificateregistryapiCertificateSearchRequest'
+            example:
+              request:
+                _source:
+                - data.badge.issuer.name
+                - pdfUrl
+                - data.issuedOn
+                - recipient
+                - related
+                - data
+                query:
+                  match_phrase:
+                    recipient.id: string
+        required: true
       responses:
-        '200':
-          description: 'OK ! Operation successful."Certificate addition" operation was executed successfully.'
-          schema:
-            allOf:
-              - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-              - $ref: '#/definitions/CertificateAddResponse'
-        '400':
-          description: 'BAD REQUEST. The "Certificate addition" operation failed. Input for a mandatory parameter may be missing.'
-          schema:
-            $ref: '#/definitions/BadRequestResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact info@sunbird.org. '
-
-
-definitions:
-  CertificateDownloadRequest:
-    title: Certificate Download request
-    type: object
-    properties:
-      request:
-        $ref: '#/definitions/Request'
-    required:
-      - request
-
-  Request:
-    type: object
-    properties:
-      pdfUrl:
-        description: The relative URL of the generated pdf certificate
-        type: string
-    required:
-      - pdfUrl
-
-  CertificateDownloadResponse:
-    type: object
-    properties:
-      result:
-        properties:
-          signedUrl:
-            description: The complete URL of the certificate pdf file
-            type: string
-
-  CertificateValidateRequest:
-    title: Certificate Validate request
-    type: object
-    properties:
-      request:
-        $ref: '#/definitions/validateRequest'
-    required:
-      - request
-
-  CertificateVerifyRequest:
-    title: Certificate Verify request
-    type: object
-    properties:
-      request:
-        $ref: '#/definitions/verifyRequest'
-    required:
-      - request
-
-  verifyRequest:
-    type: object
-    description: Either the data or ID of the certificate. This is required to verify the certificate
-    properties:
-      id:
-        description: The certificate's URL to be used as the ID
-        type: string
-      data:
-        description: The raw data of the certificate
-        type: object
-    required:
+        200:
+          description: OK! Operation successful."Certificate Search" operation was
+            executed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  certificateregistryapiApiResponse:
+                    $ref: '#/components/schemas/certificateregistryapiApiResponse'
+                  certificateregistryapiCertificateSearchResponse:
+                    $ref: '#/components/schemas/certificateregistryapiCertificateSearchResponse'
+              example:
+                id: api.certs.registry.search
+                ver: v1
+                ts: 1605779119142
+                params: 
+                responseCode: OK
+                result:
+                  response:
+                    content:
+                    - _index: certv3
+                      _type: _doc
+                      _source:
+                        pdfUrl: pdfURl
+                        related:
+                          type: completion certificate
+                          batchId: batchId
+                          courseId: batchId
+                      _id: 8a6d6cc2-16ee-4e7a-a4d1-d74d7523424
+                      _score: 55.460940000000001
+                    - _index: certv3
+                      _type: _doc
+                      _source:
+                        pdfUrl: string
+                        related:
+                          type: completion certificate
+                          batchId: batchId
+                          courseId: batchId
+                      _id: 8a6d6cc2-16ee-4e7a-a4d1-d74d7523222
+                      _score: 55.460940000000001
+                    count: 2
+        400:
+          description: BAD REQUEST. The "Certificate Search" operation failed. You
+            may have missed input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificateregistryapiIssueCertificateErrorResponse'
+        500:
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org. '
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/certificateregistryapi500ServerError'
+      security:
+      - bearer: []
+components:
+  schemas:
+    certificateregistryapiReadCertificateRes404:
+      title: ReadCertificateRes(404)
+      required:
       - id
-      - data
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          default: RESOURCE_NOT_FOUND
+        result:
+          type: object
+          properties:
+            message:
+              type: string
+              example:
+                message: Certificate not found
+      example:
+        id: api.certs.registry.read
+        ver: v1
+        ts: 1601006936286
+        params: 
+        responseCode: RESOURCE_NOT_FOUND
+        result:
+          message: Certificate not found
 
-  validateRequest:
-    type: object
-    properties:
-      certId:
-        description: The certificate ID
-        type: string
-      accessCode:
-        description: The certificate access code
-        type: string
-    required:
+    certificateregistryapiCertificateDownloadRequest:
+      title: Certificate Download request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/certificateregistryapiRequest'
+    certificateregistryapiCertificateSearchRequest:
+      title: Certificate Search request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/certificateregistryapisearchRequest'
+    certificateregistryapisearchRequest:
+      required:
+      - query
+      type: object
+      properties:
+        query:
+          type: object
+          properties:
+            match_phrase:
+              type: object
+              properties:
+                recipient.id:
+                  type: string
+                related.type:
+                  type: string
+                recipient.type:
+                  type: string
+                id:
+                  type: string
+          description: The relative URL of the generated pdf certificate
+    certificateregistryapiRequest:
+      required:
+      - pdfUrl
+      type: object
+      properties:
+        pdfUrl:
+          type: string
+          description: The relative URL of the generated pdf certificate
+    certificateregistryapiCertificateDownloadResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            signedUrl:
+              type: string
+              description: The complete URL of the certificate pdf file
+    certificateregistryapiCertificateDownloadV2Response:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            printUri:
+              type: string
+              description: Materialised svg String
+    certificateregistryapiCertificateValidateRequest:
+      title: Certificate Validate request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/certificateregistryapivalidateRequest'
+    certificateregistryapiCertificateVerifyRequest:
+      title: Certificate Verify request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/certificateregistryapiverifyRequest'
+    certificateregistryapiverifyRequest:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: The certificate's URL (jsonUrl) to be used as the ID
+        data:
+          type: object
+          properties: {}
+          description: The raw data of the certificate
+      description: Contains ither the data or ID of the certificate. This is required
+        to verify the certificate
+    certificateregistryapivalidateRequest:
+      required:
+      - accessCode
       - certId
-      - accessCode
-
-  CertificateAddRequest:
-    title: Certificate Add request
-    type: object
-    properties:
-      request:
-        $ref: '#/definitions/addRequest'
-    required:
+      type: object
+      properties:
+        certId:
+          type: string
+          description: The certificate ID
+        accessCode:
+          type: string
+          description: The certificate access code
+    certificateregistryapiCertificateAddRequest:
+      title: Certificate Add request
+      required:
       - request
-
-  addRequest:
-    type: object
-    properties:
-      recipientId:
-        description: Specify either the email address, phone number, user ID, or User External ID, that uniquely identifies the recipient
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/certificateregistryapiaddRequest'
+    certificateregistryapiCertificateReadResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          default: api.certs.registry.read
+        ver:
+          type: string
+          default: v1
+        responseCode:
+          type: string
+          default: OK
+        result:
+          type: object
+          properties:
+            response:
+              type: object
+              properties:
+                id:
+                 type: string
+                 description: unique id generated while creating certificate
+                recipient: 
+                  $ref: '#/components/schemas/certificateregistryapiRecipient'
+                related:
+                  $ref: '#/components/schemas/certificateregistryapiRelated'
+                pdfUrl:
+                  type: string
+                jsonUrl:
+                  type: string
+                accessCode:
+                  type: string
+                createdAt:
+                  type: string
+                  description: timestamp
+    certificateregistryapiRelated:
+      title: Related
+      required:
+      - courseId
+      - type
+      - batchId
+      type: object
+      properties:
+        courseId:
+          type: string
+        type:
+          type: string
+        batchId:
+          type: string
+      example:
+        courseId: string
         type: string
-      recipientName:
-        description: The recipient's name
-        type: string
-      id:
-        description: The certificate ID. This is an auto-generated identifier when the certificate is generated
-        type: string
-      accessCode:
-        description: The certificate access code. This is returned in response when the certificate is generated
-        type: string
-      recipientType:
-        description: The type of certificate recipient. This can only either be individual(for recipient) or entity(for organisation)
-        type: string
-        enum: [individual,entity]
-      pdfUrl:
-        description: The relative URL of the generated pdf file
-        type: string
-      jsonUrl:
-        description: The relative json URL of the generated pdf file
-        type: string
-      revoked:
-        description: The user certificate is been revoked or not
-        type: boolean
-      reason:
-        description: The reason why user certificate is been revoked
-        type: string
-      jsonData:
-        description: The raw json data used to generate the certificate
-        type: object
-      related:
-        type: object
-        description: The raw property bag to store some identifiable information about certificates. This is intended to be used for reporting and search.
-        properties:
-          type:
-            type: string
-
-    required:
+        batchId: string            
+    certificateregistryapiRecipient:
+      title: Recipient
+      required:
+      - name
       - id
+      - type
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          type: string
+        type:
+          type: string
+      example:
+        name: string
+        id: string
+        type: string           
+    certificateregistryapiCertificateSearchResponse:
+      title: Certificate Add request
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            response:
+              type: object
+              properties:
+                hits:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/certificateregistryapiaddRequest'
+    certificateregistryapiaddRequest:
+      required:
       - accessCode
+      - id
       - pdfUrl
-
-
-  CertificateValidateResponse:
-    description: Certificate validate Response
-    type: object
-    properties:
-      result:
-        description: The response details
-        type: object
-        properties:
-          pdf:
-            description: The url of the pdf certificate
+      - jsonData
+      type: object
+      properties:
+        recipientId:
+          type: string
+          description: Specify either the email address, phone number, user ID, or
+            User External ID, that uniquely identifies the recipient
+        recipientName:
+          type: string
+          description: The recipient's name
+        id:
+          type: string
+          description: The certificate ID. This is an auto-generated identifier when
+            the certificate is generated
+        oldId:
+         type: string
+         description: If the certificate should be reissued , provide old certificate id.
+        accessCode:
+          type: string
+          description: The certificate access code. This is returned in response when
+            the certificate is generated
+        recipientType:
+          type: string
+          description: The type of certificate recipient. This can only either be
+            individual(for recipient) or entity(for organisation)
+          enum:
+          - individual
+          - entity
+        pdfUrl:
+          type: string
+          description: The relative URL of the generated pdf file
+        jsonUrl:
+          type: string
+          description: The relative json URL of the generated pdf file
+        revoked:
+          type: boolean
+          description: Check to understand if the user certificate has been revoked
+        reason:
+          type: string
+          description: The reason why the user certificate has been revoked
+        jsonData:
+          type: object
+          properties: {}
+          description: The raw certificate json data used to generate the certificate
+        related:
+          type: object
+          required:
+           - type
+          properties:
+            type:
+              type: string
+            courseId: 
+              type: string
+            batchId:
+              type: string
+          description: The raw property bag to store identifiable information about
+            certificates. This is used for reporting and search functions.
+    certificateregistryapiaddV2Request:
+      required:
+      - accessCode
+      - id
+      - jsonUrl
+      - jsonData
+      type: object
+      properties:
+        recipientId:
+          type: string
+          description: Specify either the email address, phone number, user ID, or
+            User External ID, that uniquely identifies the recipient
+        recipientName:
+          type: string
+          description: The recipient's name
+        id:
+          type: string
+          description: The certificate ID. This is an auto-generated identifier when
+            the certificate is generated
+        accessCode:
+          type: string
+          description: The certificate access code. This is returned in response when
+            the certificate is generated
+        oldId:
+         type: string
+         description: If the certificate should be reissued , provide old certificate id.
+        recipientType:
+          type: string
+          description: The type of certificate recipient. This can only either be
+            individual(for recipient) or entity(for organisation)
+          enum:
+          - individual
+          - entity
+        pdfUrl:
+          type: string
+          description: The relative URL of the generated pdf file
+        jsonUrl:
+          type: string
+          description: The relative json URL of the generated pdf file
+        revoked:
+          type: boolean
+          description: Check to understand if the user certificate has been revoked
+        reason:
+          type: string
+          description: The reason why the user certificate has been revoked
+        jsonData:
+          type: object
+          properties: {}
+          description: The raw certificate json data used to generate the certificate
+        related:
+          type: object
+          required:
+            - type
+          properties:
+            type:
+              type: string
+            courseId:
+              type: string
+            batchId:
+              type: string
+          description: The raw property bag to store identifiable information about
+            certificates. This is used for reporting and search functions.
+            
+    certificateregistryapiCertificateValidateResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            pdf:
+              type: string
+              description: The url of the pdf certificate
+            json:
+              type: object
+              properties: {}
+              description: The raw json data to generate the certificate
+            related:
+              type: object
+              properties: {}
+              description: The name of the certificate to be issued
+          description: The response details
+      description: Certificate validate Response
+    certificateregistryapiCertificateVerifyResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            pdf:
+              type: string
+              description: The url of the pdf certificate
+            json:
+              type: object
+              properties: {}
+              description: The raw json data to generate the certificate
+            related:
+              type: object
+              properties: {}
+              description: The name of the certificate to be validated
+          description: The response details
+      description: Certificate verify response
+    certificateregistryapiCertificateAddResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The certificate ID is returned in response
+          description: The response details
+      description: Certificate add response
+    certificateregistryapiResponseHeader:
+      title: ResponseHeader
+      type: object
+      properties:
+        id:
+          type: string
+          description: The API Identifier
+        ver:
+          type: string
+          description: API version information
+        ts:
+          type: string
+          description: API execution timestamp
+        params:
+          $ref: '#/components/schemas/certificateregistryapiResponseParams'
+        responseCode:
+          type: string
+          description: 'API response code '
+    certificateregistryapiResponseParams:
+      title: Response Parameter
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          description: Represents the response Message ID
+        msgid:
+          type: string
+          description: Represents the error Message ID
+        err:
+          type: string
+          description: Represents the Error Code
+        status:
+          type: string
+          description: Response Status
+        errmsg:
+          type: string
+          description: Error Message
+    certificateregistryapiBadRequestResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            message:
+              type: string
+              description: The message string. If the message ID is provided, the
+                string is picked up from the existing .
+    certificateregistryapiEmptyResult:
+      title: Empty Result
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            message:
+              type: string
+          description: Empty Result
+          
+    certificateregistryapiIssueCertificateErrorResponse:
+      title: Create Content Error Response
+      allOf:
+      - $ref: '#/components/schemas/certificateregistryapiEmptyResult'
+      - $ref: '#/components/schemas/certificateregistryapiResponseHeader'
+    certificateregistryapi500ServerError:
+      title: 500ServerError
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          type: string
+        responseCode:
+          type: string
+        result:
+          type: object
+          properties:
+           message:
             type: string
-          json:
-            description: The raw json data to generate the certificate
-            type: object
+    certificateregistryapiApiResponse:
+      required:
+      - ets
+      - id
+      - params
+      - ver
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents the ID of the request which was made
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          required:
+          - msgid
+          - resmsgid
+          - status
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the ID of the message sent
+            resmsgid:
+              type: string
+              description: Represents the ID of the response message
+            status:
+              type: string
+              enum:
+              - success
+              - error
+        responseCode:
+          type: string
+    certificateregistryapiAddCertificateV2Request:
+      title: AddCertificateV2Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/certificateregistryapiaddV2Request'
+      example:
+        request:
+          id: 8a6d6cc2-16ee-4e7a-a4d1-de74d75234243
+          accessCode: H9W9S4
+          recipientType: individual
+          recipientId: 8a6d6cc2-16ee-4e7a-a4d1-d74d752344343
+          recipientName: UserName
+          oldId: 8a6d6cc2-16ee-4e7a-a4d1-d74d7523424
           related:
-            description: The name of the certificate to be issued
-            type: object
-  CertificateVerifyResponse:
-    description: Certificate verify response
-    type: object
-    properties:
-      response:
-        description: The response details
-        type: object
-        properties:
-          pdf:
-            description: The url of the pdf certificate
-            type: string
-          json:
-            description: The raw json data to generate the certificate
-            type: object
-          related:
-            description: The name of the certificate to be validated
-            type: object
-
-  CertificateAddResponse:
-    description: Certificate add response
-    type: object
-    properties:
-      result:
-        description: The response details
-        type: object
-        properties:
-          id:
-            description: The certificate ID is returned in response
-            type: string
-
-  ResponseHeader:
-    title: ResponseHeader
-    type: object
-    properties:
-      id:
-        type: string
-        description: The API Identifier
-      ver:
-        type: string
-        description: API version information
-      ts:
-        type: string
-        description: API execution timestamp
-      params:
-        $ref: '#/definitions/ResponseParams'
-      responseCode:
-        type: object
-        description: 'API response code '
-  ResponseParams:
-    title: Response Parameter
-    type: object
-    properties:
-      resmsgid:
-        type: string
-        description: Represents the response Message ID
-      msgid:
-        type: string
-        description: Represents the error Message ID
-      err:
-        type: string
-        description: Represents the Error Code
-      status:
-        type: string
-        description: Response Status
-      errmsg:
-        type: string
-        description: Error Message
-
-  BadRequestResponse:
-    type: object
-    properties:
-      result:
-        type: object
-        properties:
-          message:
-            type: string
-            description: The message string. If the message ID is provided, the string is picked up from the existing .
-
-  EmptyResult:
-    title: Empty Result
-    type: object
-    properties:
-      result:
-        type: object
-        description: Empty Result
-  IssueCertificateErrorResponse:
-    title: Create Content Error Response
-    type: object
-    allOf:
-      - $ref: '#/definitions/EmptyResult'
-      - $ref: '#/definitions/ResponseHeader'
+            courseId: course-ids
+            type: course-completion
+            batchId: batchId
+            templateId: templateId
+            completionUrl: completionUrl
+          jsonData:
+            id: https://staging.open-sunbird.org/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243
+            type:
+            - Assertion
+            - Extension
+            - extensions:CertificateExtension
+            issuedOn: 2019-08-21T00:00:00Z
+            recipient:
+              type:
+              - id
+              hashed: false
+              name: userName
+              '@context': https://staging.open-sunbird.org/certs/v1/context.json
+            badge:
+              id: https://staging.open-sunbird.org/certs/0125450863553740809/Badge.json
+              type:
+              - BadgeClass
+              name: Course Name
+              criteria:
+                type:
+                - Criteria
+                narrative: course completion certificate
+              issuer:
+                context: https://staging.open-sunbird.org/certs/v1/context.json
+                id: https://staging.open-sunbird.org/certs/Issuer.json
+                type:
+                - Issuer
+                name: issuer name
+                url: https://gcert.gujarat.gov.in/gcert/
+                publicKey: []
+              '@context': https://staging.open-sunbird.org/certs/v1/context.json
+            evidence:
+              id: https://staging.open-sunbird.org/certs/Evidence.json
+              type:
+              - Evidence
+              - Extension
+              - extensions:TrainingEvidence
+              name: CourseName
+              '@context': https://staging.open-sunbird.org/certs/v1/context.json
+            verification:
+              type:
+              - hosted
+            revoked: false
+            signatory:
+            - identity: CEO
+              type:
+              - Extension
+              - extensions:SignatoryExtension
+              hashed: false
+              designation: CEO
+              image: https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg
+              '@context': https://staging.open-sunbird.org/certs/v1/extensions/SignatoryExtension/context.json
+            printUri: ''
+            '@context': https://staging.open-sunbird.org/certs/v1/context.json
+          jsonUrl: https://staging.open-sunbird.org/certs/0125450863553740809/cc9eccab-56a1-47ba-ab10-27565f864243.json
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+    userToken:
+      type: apiKey
+      name: x-authenticated-user-token
+      in: header

@@ -1,117 +1,1343 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
-  version: '1.0'
-  title: User Feed  API
+  title: User-Feed API's
   description: >-
+    - The User-Feed API's resources are used to manage users feeds, these resources allow you to add feeds, update, read and delete user feeds.
     - The User Feed APIs  are used to store all alerts that could be presented to users. They also include alerts sent to users while migrating from one channel to another.
-host: staging.open-sunbird.org
-basePath: /api/
-securityDefinitions:
-  bearer:
-    type: apiKey  # The arbitrary concatenated string value for the security scheme. This is provided to the user, when the user sends a request for the API key.    
-    in: header # The security scheme parameter is in "header"
-    name: Authorization # The name of the header, query parameter or cookie
-  userToken:
-    type: apiKey  # The arbitrary concatenated string value for the security scheme. This is provided to the user, when the user sends a request for the API key. 
-    in: header # The secrity scheme parameter is in "header"
-    name: x-authenticated-user-token # The name of the header, query parameter or cookie
-schemes:
-  - https
+  contact: {}
+  version: '1.0'
+servers:
+- url: http://staging.open-sunbird.org/api
 paths:
-  /user/v1/feed/{User_ID}:
-    get:
-      description: >-
-        This API gets all pending feeds for a user as identified by the User ID.
-
-      summary: Get user feed by User ID
+  /user/feed/v1/create:
+    post:
       tags:
-        - User Feed APIs
-      operationId: Get user by User ID
-      consumes:
-        - application/json
-      produces:
-        - application/json
+      - User-Feed API's
+      summary: Create Feed
+      description: >-
+        This API is used to create feed for the user
+           - The endpoint for **Create User** is `/user/feed/v1/create`  
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: Create-Feed
       parameters:
-        - in: path
-          name: User_ID
+      - name: x-authenticated-user-token
+        in: header
+        description: >-
+            It is a unique token/key to authenticate the user each time an API is called. For corresponding sessions this token is used, not your actual username/password
+        required: true
+        style: simple
+        schema:
           type: string
-          required: true
-          description: 'Append a valid User ID To the Request URL.'
-        - name: ts
-          in: header
-          required: false
+          example: '{{user_token}}'
+      - name: Authorization
+        in: header
+        description: 'To make use of any User-Feed API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        required: true
+        style: simple
+        schema:
           type: string
-          description: 'Timestamp at which given API request is sent.'
-        - name: X-msgid
-          in: header
-          required: false
+          example: '{{authorization}}'
+      - name: ts
+        in: header
+        required: false
+        style: simple
+        schema:
           type: string
-          description: 'This ID uniquely identifies a request, if the same API is executed multiple times.'
-        - name: Authorization
-          in: header
-          required: true
+        description: 'Timestamp at which given API request is sent.'
+      - name: X-msgid
+        in: header
+        required: false
+        style: simple
+        schema:
           type: string
-          description: 'Specify the authorization key (format: Bearer api-key) as received from the administrator while sending the  given API request.'
-        - name: X-Authenticated-User-Token
-          in: header
-          required: true
-          type: string
-          description: >-
-            The access token of the registered user sending the given API request.
+        description: 'This ID uniquely identifies a request if the same API is executed multiple times.'
+      requestBody:
+        description: >-
+          - The body payload comprises of the metadata of the user feed being created.
+          - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
+               - JSON
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/feedapiCreate-Feed-Request'
+            example:
+              request:
+                userId: 37634e84-70db-421e-898e-06e6554c4483
+                category: user-feed
+                priority: 1
+                data:
+                  dataValue: yes
+        required: true
       responses:
-        '200':
-          description: 'SUCCESS. The **Get User by User ID** operation was successful.'
-          schema:
-            $ref: '#/definitions/CreateUserSingleResp'
-        '400':
-          description: 'BAD REQUEST. The **Get User by User ID** operation failed. You may have missed input for a mandatory parameter.'
-          schema:
-            $ref: '#/definitions/UserErrorResponse'
-        '404':
-          description: 'Resource not found'
-          schema:
-            $ref: '#/definitions/UserErrorResponse'
-        '500':
+        200:
+          description: 'SUCCESS. The **Create-Feed** operation was successful.'
+          headers:
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: origin-when-cross-origin, strict-origin-when-cross-origin
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1; mode=block
+            x-response-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 22
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: master-only
+            content-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 246
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 19 Nov 2020 05:37:08 GMT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/feedapiCreate_Feed_With_Success'
+              example:
+                id: api.user.feed.create
+                ver: v1
+                ts: 2020-11-19 11:07:08:428+0530
+                params:
+                  resmsgid: 
+                  msgid: 0a5ba3fb-554f-4ef6-a5dc-15b97d18e39a
+                  err: 
+                  status: success
+                  errmsg: 
+                responseCode: OK
+                result:
+                  response: SUCCESS
+        400:
+          description: 'BAD REQUEST. The **Create User Feed** operation failed. You may have missed input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/feedapiDelete_Feed_With_400_Response'
+              example:
+                id: api.user.feed.create
+                ver: v1
+                ts: 2020-11-19 11:09:27:659+0530
+                params:
+                  resmsgid: 
+                  msgid: 659e36df-9ccf-4657-bdad-c836abfeb7e1
+                  err: MANDATORY_PARAMETER_MISSING
+                  status: MANDATORY_PARAMETER_MISSING
+                  errmsg: Mandatory parameter category is missing.
+                responseCode: CLIENT_ERROR
+                result: {}
+        500:
           description: >-
             'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
-          schema:
-            $ref: '#/definitions/UserErrorResponse'
-      security:
-        - bearer: []
-
-definitions:
-  UnAuthorizedResponse:
-    allOf:
-      - $ref: '#/definitions/ResultWithEmptyBody'
-      - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-  ResultStatus:
-    type: object
-    properties:
-      status:
-        type: string
-        description: Success or Failure
-  EmptyResult:
-    type: object
-    properties:
-      result:
-        type: object
-        description: Empty Result
-  UserErrorResponse:
-    type: object
-    allOf:
-      - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-      - $ref: '#/definitions/EmptyResult'
-  ResultWithEmptyBody:
-    type: object
-    properties:
-      result:
-        $ref: '#/definitions/ResultStatus'
-  CreateUserSingleResp:
-    description: Represents the  hold single userObject request
-    type: object
-    properties:
-      request:
-        type: object
-        allOf:
-          - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
-
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/feedapiRead_Feed_With_500_Server_Error'
+              example:
+                id: api.user.feed.create
+                ver: v1
+                ts: 2020-11-19 15:58:19:713+0530
+                params:
+                  resmsgid: 
+                  msgid: c9bd2899-0c46-4bec-8ef0-759e352d9363
+                  err: 
+                  status: SERVER_ERROR
+                  errmsg: 
+                responseCode: SERVER_ERROR
+                result: {}        
+      deprecated: false
+      security: []
+  /user/feed/v1/update:
+    patch:
+      tags:
+      - User-Feed API's
+      summary: Update Feed
+      description:  >-
+        This API is used to to update the user-related feed based on the feed-id, category and userId
+           - The endpoint for **Update user feed** is `/user/feed/v1/update`  
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: Update-Feed
+      parameters:
+      - name: x-authenticated-user-token
+        in: header
+        description: >-
+            It is a unique token/key to authenticate the user-feed each time an API is called. For corresponding sessions this token is used, not your actual username/password
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{user_token}}'
+      - name: Authorization
+        in: header
+        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{authorization}}'
+      - name: ts
+        in: header
+        required: false
+        style: simple
+        schema:
+          type: string
+        description: 'Timestamp at which given API request is sent.'
+      - name: X-msgid
+        in: header
+        required: false
+        style: simple
+        schema:
+          type: string
+        description: 'This ID uniquely identifies a request if the same API is executed multiple times.'    
+      requestBody:
+        description: >-
+          - The body payload comprises of the metadata of the user feed being updated.
+          - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
+               - JSON
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/feedapiUpdate-Feed-Request'
+            example:
+              request:
+                userId: 37634e84-70db-421e-898e-06e6554c4483
+                category: user-feed
+                feedId: 22ba004f-3b07-429e-bb9a-0bd3dfb21d2b
+        required: true
+      responses:
+        200:
+          description: 'SUCCESS. The **Update-Feed** operation was successful.'
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 19 Nov 2020 11:52:08 GMT
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 242
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            X-RateLimit-Limit-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 30000
+            X-RateLimit-Remaining-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 29997
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: origin-when-cross-origin, strict-origin-when-cross-origin
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1; mode=block
+            x-response-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 22
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: master-only
+            X-Kong-Upstream-Latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 2719
+            X-Kong-Proxy-Latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 61
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: kong/0.14.1
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/feedapiUpdate_Feed_With_Success_Response'
+              example:
+                id: api.user.feed.update
+                ver: v1
+                ts: 2020-11-19 11:52:08:786+0000
+                params:
+                  resmsgid: 
+                  msgid: f4c94ce48d50877ab32bd6e46fb3a315
+                  err: 
+                  status: success
+                  errmsg: 
+                responseCode: OK
+                result:
+                  response: SUCCESS
+        400:
+          description: 'BAD REQUEST. The **Update User Feed** operation failed. You may have missed input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/feedapiDelete_Feed_With_400_Response'
+              example:
+                id: api.user.feed.update
+                ver: v1
+                ts: 2020-11-19 12:11:27:977+0000
+                params:
+                  resmsgid: 
+                  msgid: 696b179ccac2e0f94b5d39ee111e8c6d
+                  err: MANDATORY_PARAMETER_MISSING
+                  status: MANDATORY_PARAMETER_MISSING
+                  errmsg: Mandatory parameter category is missing.
+                responseCode: CLIENT_ERROR
+                result: {}
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/feedapiDelete_Feed_With_400_Response'
+              example:
+                id: api.user.feed.update
+                ver: v1
+                ts: 2020-11-19 11:50:07:319+0000
+                params:
+                  resmsgid: 
+                  msgid: e0d0790e5c1e1fb2b59761b6d6281c98
+                  err: UNAUTHORIZED_USER
+                  status: UNAUTHORIZED_USER
+                  errmsg: You are not authorized.
+                responseCode: UNAUTHORIZED
+                result: {}
+        500:
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/feedapiRead_Feed_With_500_Server_Error'
+              example:
+                id: api.user.feed.update
+                ver: v1
+                ts: 2020-11-19 15:58:19:713+0530
+                params:
+                  resmsgid: 
+                  msgid: c9bd2899-0c46-4bec-8ef0-759e352d9363
+                  err: 
+                  status: SERVER_ERROR
+                  errmsg: 
+                responseCode: SERVER_ERROR
+                result: {}        
+      deprecated: false
+      security: []
+  /user/v1/feed/{userId}:
+    get:
+      tags:
+      - User-Feed API's
+      summary: Get user feed by User ID
+      description: >-
+        This API is used to to read the user-related feed based on the user-id
+           - The endpoint for **Read user feed** is `/user/v1/feed/{userId}`  
+      operationId: Read-Feed
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{authorization}}'
+      - name: X-Authenticated-User-Token
+        in: header
+        description: >-
+            It is a unique token/key to authenticate the user-feed each time an API is called. For corresponding sessions this token is used, not your actual username/password
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{user_token}}'
+      - name: ts
+        in: header
+        required: false
+        style: simple
+        schema:
+          type: string
+        description: 'Timestamp at which given API request is sent.'
+      - name: X-msgid
+        in: header
+        required: false
+        style: simple
+        schema:
+          type: string
+        description: 'This ID uniquely identifies a request if the same API is executed multiple times.'    
+      - name: userId
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        200:
+          description: 'SUCCESS. The **Get User by User ID** operation was successful.'
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Fri, 20 Nov 2020 05:57:53 GMT
+            Transfer-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: chunked
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Vary:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Accept-Encoding
+            X-RateLimit-Limit-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 30000
+            X-RateLimit-Remaining-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 29999
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: origin-when-cross-origin, strict-origin-when-cross-origin
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1; mode=block
+            x-response-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 533
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: master-only
+            X-Kong-Upstream-Latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 26
+            X-Kong-Proxy-Latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 10
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: kong/0.14.1
+            Content-Encoding:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: gzip
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/feedapiRead_Feed_With_Success_Response'
+              example:
+                id: api.user.feed
+                ver: v1
+                ts: 2020-11-20 05:57:53:209+0000
+                params:
+                  resmsgid: 
+                  msgid: 02119170c396bfff28a5beed2c67bf51
+                  err: 
+                  status: success
+                  errmsg: 
+                responseCode: OK
+                result:
+                  response:
+                    userFeed:
+                    - identifier: a92cd18a-9e5a-406b-ade0-ccf465e85076
+                      data:
+                        dataValue: yes
+                      id: a92cd18a-9e5a-406b-ade0-ccf465e85076
+                      category: user-feed
+                      priority: 1
+                      userId: 37634e84-70db-421e-898e-06e6554c4483
+                      createdOn: 1605787188737
+                      status: unread
+                    - identifier: be330602-5ed7-400b-a9ad-c0182ec06492
+                      data:
+                        dataValue: yes
+                      id: be330602-5ed7-400b-a9ad-c0182ec06492
+                      category: user-feed
+                      priority: 1
+                      userId: 37634e84-70db-421e-898e-06e6554c4483
+                      createdOn: 1605787210529
+                      status: unread
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/feedapiDelete_Feed_With_400_Response'
+              example:
+                id: api.user.feed
+                ver: v1
+                ts: 2020-11-19 15:38:09:622+0530
+                params:
+                  resmsgid: 
+                  msgid: fda3921a-def3-41d9-a094-6769b6c3849d
+                  err: UNAUTHORIZED_USER
+                  status: UNAUTHORIZED_USER
+                  errmsg: You are not authorized.
+                responseCode: UNAUTHORIZED
+                result: {}
+        500:
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/feedapiRead_Feed_With_500_Server_Error'
+              example:
+                id: api.user.feed
+                ver: v1
+                ts: 2020-11-19 15:58:19:713+0530
+                params:
+                  resmsgid: 
+                  msgid: c9bd2899-0c46-4bec-8ef0-759e352d9363
+                  err: 
+                  status: SERVER_ERROR
+                  errmsg: 
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: []
+  /user/feed/v1/delete:
+    post:
+      tags:
+      - User-Feed API's
+      summary: Delete   Feed
+      description: >-
+        This API is used to to delete the user-related feed based on the feed-id
+           - The endpoint for **Delete user feed** is `/user/feed/v1/delete`  
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.Delete-Feed api
+      operationId: Delete-Feed
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{authorization}}'
+      - name: X-Authenticated-User-Token
+        in: header
+        description: >-
+            It is a unique token/key to authenticate the user each time an API is called. For corresponding sessions this token is used, not your actual username/password
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: '{{user_token}}'
+      - name: ts
+        in: header
+        required: false
+        style: simple
+        schema:
+          type: string
+        description: 'Timestamp at which given API request is sent.'
+      - name: X-msgid
+        in: header
+        required: false
+        style: simple
+        schema:
+          type: string
+        description: 'This ID uniquely identifies a request if the same API is executed multiple times.'    
+      requestBody:
+        description: >-
+          - The body payload comprises of the metadata of the user feed being deleted.
+          - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
+               - JSON
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/feedapiDelete-Feed-Request'
+            example:
+              request:
+                userId: 37634e84-70db-421e-898e-06e6554c4483
+                category: user-feed
+                feedId: 22ba004f-3b07-429e-bb9a-0bd3dfb21d2b
+        required: true
+      responses:
+        200:
+          description: 'SUCCESS. The **Delete-Feed** operation was successful.'
+          headers:
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Thu, 19 Nov 2020 12:21:22 GMT
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 242
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            X-RateLimit-Limit-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 30000
+            X-RateLimit-Remaining-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 29998
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: origin-when-cross-origin, strict-origin-when-cross-origin
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1; mode=block
+            x-response-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 22
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: master-only
+            X-Kong-Upstream-Latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 14
+            X-Kong-Proxy-Latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 35
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: kong/0.14.1
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/feedapiDelete_Feed_With_Success_Response'
+              example:
+                id: api.user.feed.delete
+                ver: v1
+                ts: 2020-11-19 12:21:22:090+0000
+                params:
+                  resmsgid: 
+                  msgid: 008b91a183c2d15f6c0cf9285b6b1f01
+                  err: 
+                  status: success
+                  errmsg: 
+                responseCode: OK
+                result:
+                  response: SUCCESS
+        400:
+          description: 'BAD REQUEST. The **Delete User Feed** operation failed. You may have missed input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/feedapiDelete_Feed_With_400_Response'
+              example:
+                id: api.user.feed.delete
+                ver: v1
+                ts: 2020-11-19 12:20:09:062+0000
+                params:
+                  resmsgid: 
+                  msgid: 68353252308d3c652589faaa505349d2
+                  err: MANDATORY_PARAMETER_MISSING
+                  status: MANDATORY_PARAMETER_MISSING
+                  errmsg: Mandatory parameter category is missing.
+                responseCode: CLIENT_ERROR
+                result: {}
+        500:
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/feedapiRead_Feed_With_500_Server_Error'
+              example:
+                id: api.user.feed.delete
+                ver: v1
+                ts: 2020-11-19 15:58:19:713+0530
+                params:
+                  resmsgid: 
+                  msgid: c9bd2899-0c46-4bec-8ef0-759e352d9363
+                  err: 
+                  status: SERVER_ERROR
+                  errmsg: 
+                responseCode: SERVER_ERROR
+                result: {}        
+      deprecated: false
+      security: []
+components:
+  schemas:
+    feedapiCreate-Feed-Request:
+      title: Create-Feed-Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/feedapiFeedCreateRequest'
+      example:
+        request:
+          userId: 37634e84-70db-421e-898e-06e6554c4483
+          category: user-feed
+          priority: 1
+          data:
+            dataValue: yes
+    feedapiFeedCreateRequest:
+      title: FeedCreateRequest
+      required:
+      - userId
+      - category
+      - priority
+      - data
+      type: object
+      properties:
+        userId:
+          type: string
+        category:
+          type: string
+        priority:
+          type: integer
+          format: int32
+        data:
+          $ref: '#/components/schemas/feedapiData'
+      example:
+        userId: 37634e84-70db-421e-898e-06e6554c4483
+        category: user-feed
+        priority: 1
+        data:
+          dataValue: yes
+    feedapiData:
+      title: Data
+      description: >-
+          Data is Map object, it can contain any number of key-value pairs which is related to the feed.
+      type: object
+      properties:
+        dataValue:
+          type: string
+      example:
+        dataValue: yes
+    feedapiParams:
+      title: Params
+      required:
+      - resmsgid
+      - msgid
+      - err
+      - status
+      - errmsg
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          nullable: true
+        msgid:
+          type: string
+        err:
+          type: string
+        status:
+          type: string
+        errmsg:
+          type: string
+      example:
+        resmsgid: 
+        msgid: 659e36df-9ccf-4657-bdad-c836abfeb7e1
+        err: MANDATORY_PARAMETER_MISSING
+        status: MANDATORY_PARAMETER_MISSING
+        errmsg: Mandatory parameter category is missing.
+    feedapiCreate_Feed_With_Success:
+      title: Create_Feed_With_Success
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/feedapiParamsRequest'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/feedapiResult'
+      example:
+        id: api.user.feed.create
+        ver: v1
+        ts: 2020-11-19 11:07:08:428+0530
+        params:
+          resmsgid: 
+          msgid: 0a5ba3fb-554f-4ef6-a5dc-15b97d18e39a
+          err: 
+          status: success
+          errmsg: 
+        responseCode: OK
+        result:
+          response: SUCCESS
+    feedapiParamsRequest:
+      title: ParamsRequest
+      required:
+      - resmsgid
+      - msgid
+      - err
+      - status
+      - errmsg
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          nullable: true
+        msgid:
+          type: string
+        err:
+          type: string
+          nullable: true
+        status:
+          type: string
+        errmsg:
+          type: string
+          nullable: true
+      example:
+        resmsgid: 
+        msgid: 0a5ba3fb-554f-4ef6-a5dc-15b97d18e39a
+        err: 
+        status: success
+        errmsg: 
+    feedapiResult:
+      title: Result
+      required:
+      - response
+      type: object
+      properties:
+        response:
+          type: string
+      example:
+        response: SUCCESS
+    feedapiUpdate-Feed-Request:
+      title: Update-Feed-Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/feedapiFeedUpdateRequest'
+      example:
+        request:
+          userId: 37634e84-70db-421e-898e-06e6554c4483
+          category: user-feed
+          feedId: 22ba004f-3b07-429e-bb9a-0bd3dfb21d2b
+    feedapiFeedUpdateRequest:
+      title: FeedUpdateRequest
+      required:
+      - userId
+      - category
+      - feedId
+      type: object
+      properties:
+        userId:
+          type: string
+        category:
+          type: string
+        feedId:
+          type: string
+      example:
+        userId: 37634e84-70db-421e-898e-06e6554c4483
+        category: user-feed
+        feedId: 22ba004f-3b07-429e-bb9a-0bd3dfb21d2b
+    feedapiUpdate_Feed_With_Success_Response:
+      title: Update_Feed_With_Success_Response
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/feedapiParamsRequest'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/feedapiResult'
+      example:
+        id: api.user.feed.update
+        ver: v1
+        ts: 2020-11-19 11:52:08:786+0000
+        params:
+          resmsgid: 
+          msgid: f4c94ce48d50877ab32bd6e46fb3a315
+          err: 
+          status: success
+          errmsg: 
+        responseCode: OK
+        result:
+          response: SUCCESS
+    feedapiRead_Feed_With_Success_Response:
+      title: Read_Feed_With_Success_Response
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/feedapiParamsRequest'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/feedapiUserReadResult'
+      example:
+        id: api.user.feed
+        ver: v1
+        ts: 2020-11-20 05:57:53:209+0000
+        params:
+          resmsgid: 
+          msgid: 02119170c396bfff28a5beed2c67bf51
+          err: 
+          status: success
+          errmsg: 
+        responseCode: OK
+        result:
+          response:
+            userFeed:
+            - identifier: a92cd18a-9e5a-406b-ade0-ccf465e85076
+              data:
+                dataValue: yes
+              id: a92cd18a-9e5a-406b-ade0-ccf465e85076
+              category: user-feed
+              priority: 1
+              userId: 37634e84-70db-421e-898e-06e6554c4483
+              createdOn: 1605787188737
+              status: unread
+            - identifier: be330602-5ed7-400b-a9ad-c0182ec06492
+              data:
+                dataValue: yes
+              id: be330602-5ed7-400b-a9ad-c0182ec06492
+              category: user-feed
+              priority: 1
+              userId: 37634e84-70db-421e-898e-06e6554c4483
+              createdOn: 1605787210529
+              status: unread
+    feedapiUserReadResult:
+      title: UserReadResult
+      required:
+      - response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/feedapiUserReadResponse'
+      example:
+        response:
+          userFeed:
+          - identifier: a92cd18a-9e5a-406b-ade0-ccf465e85076
+            data:
+              dataValue: yes
+            id: a92cd18a-9e5a-406b-ade0-ccf465e85076
+            category: user-feed
+            priority: 1
+            userId: 37634e84-70db-421e-898e-06e6554c4483
+            createdOn: 1605787188737
+            status: unread
+          - identifier: be330602-5ed7-400b-a9ad-c0182ec06492
+            data:
+              dataValue: yes
+            id: be330602-5ed7-400b-a9ad-c0182ec06492
+            category: user-feed
+            priority: 1
+            userId: 37634e84-70db-421e-898e-06e6554c4483
+            createdOn: 1605787210529
+            status: unread
+    feedapiUserReadResponse:
+      title: UserReadResponse
+      required:
+      - userFeed
+      type: object
+      properties:
+        userFeed:
+          type: array
+          items:
+            $ref: '#/components/schemas/feedapiUserFeed'
+          description: ''
+      example:
+        userFeed:
+        - identifier: a92cd18a-9e5a-406b-ade0-ccf465e85076
+          data:
+            dataValue: yes
+          id: a92cd18a-9e5a-406b-ade0-ccf465e85076
+          category: user-feed
+          priority: 1
+          userId: 37634e84-70db-421e-898e-06e6554c4483
+          createdOn: 1605787188737
+          status: unread
+        - identifier: be330602-5ed7-400b-a9ad-c0182ec06492
+          data:
+            dataValue: yes
+          id: be330602-5ed7-400b-a9ad-c0182ec06492
+          category: user-feed
+          priority: 1
+          userId: 37634e84-70db-421e-898e-06e6554c4483
+          createdOn: 1605787210529
+          status: unread
+    feedapiUserFeed:
+      title: UserFeed
+      required:
+      - identifier
+      - data
+      - id
+      - category
+      - priority
+      - userId
+      - createdOn
+      - status
+      type: object
+      properties:
+        identifier:
+          type: string
+        data:
+          $ref: '#/components/schemas/feedapiData'
+        id:
+          type: string
+        category:
+          type: string
+        priority:
+          type: integer
+          format: int32
+        userId:
+          type: string
+        createdOn:
+          type: integer
+          format: int64
+        status:
+          type: string
+      example:
+        identifier: a92cd18a-9e5a-406b-ade0-ccf465e85076
+        data:
+          dataValue: yes
+        id: a92cd18a-9e5a-406b-ade0-ccf465e85076
+        category: user-feed
+        priority: 1
+        userId: 37634e84-70db-421e-898e-06e6554c4483
+        createdOn: 1605787188737
+        status: unread
+    feedapiRead_Feed_With_500_Server_Error:
+      title: Read_Feed_With_500_Server_Error
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/feedapiParamsRequest'
+        responseCode:
+          type: string
+        result:
+          type: object
+      example:
+        id: api.user.feed
+        ver: v1
+        ts: 2020-11-19 15:58:19:713+0530
+        params:
+          resmsgid: 
+          msgid: c9bd2899-0c46-4bec-8ef0-759e352d9363
+          err: 
+          status: SERVER_ERROR
+          errmsg: 
+        responseCode: SERVER_ERROR
+        result: {}
+    feedapiDelete-Feed-Request:
+      title: Delete-Feed-Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/feedapiFeedUpdateRequest'
+      example:
+        request:
+          userId: 37634e84-70db-421e-898e-06e6554c4483
+          category: user-feed
+          feedId: 22ba004f-3b07-429e-bb9a-0bd3dfb21d2b
+    feedapiDelete_Feed_With_400_Response:
+      title: Delete_Feed_With_400_Response
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/feedapiParams'
+        responseCode:
+          type: string
+        result:
+          type: object
+      example:
+        id: api.user.feed.delete
+        ver: v1
+        ts: 2020-11-19 12:20:09:062+0000
+        params:
+          resmsgid: 
+          msgid: 68353252308d3c652589faaa505349d2
+          err: MANDATORY_PARAMETER_MISSING
+          status: MANDATORY_PARAMETER_MISSING
+          errmsg: Mandatory parameter category is missing.
+        responseCode: CLIENT_ERROR
+        result: {}
+    feedapiDelete_Feed_With_Success_Response:
+      title: Delete_Feed_With_Success_Response
+      required:
+      - id
+      - ver
+      - ts
+      - params
+      - responseCode
+      - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/feedapiParamsRequest'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/feedapiResult'
+      example:
+        id: api.user.feed.delete
+        ver: v1
+        ts: 2020-11-19 12:21:22:090+0000
+        params:
+          resmsgid: 
+          msgid: 008b91a183c2d15f6c0cf9285b6b1f01
+          err: 
+          status: success
+          errmsg: 
+        responseCode: OK
+        result:
+          response: SUCCESS
+tags:
+- name: User-Feed API's
+  description: ''

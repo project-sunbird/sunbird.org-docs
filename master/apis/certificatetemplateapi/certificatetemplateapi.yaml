@@ -1,407 +1,617 @@
-swagger: '2.0'
+openapi: 3.0.1
 info:
-  version: '1.0'
   title: Certificate Template API
-  description: >-
-    These apis are used to create, update and fetch certificate templates.
-host: staging.open-sunbird.org
-basePath:  /api/cert/v1
-securityDefinitions:
-  bearer:
-      type: apiKey  # The arbitrary concatenated string value for the security scheme. This is provided to the user, when the user sends a request for the API key.
-      in: header # The security scheme parameter is in "header"
-      name: Authorization # name of the header, query parameter or cookie
-  userToken:
-      type: apiKey  # # The arbitrary concatenated string value for the security scheme. This is provided to the user, when the user sends a request for the API key.
-      in: header # The security scheme parameter is in "header"
-      name: x-authenticated-user-token # name of the header, query parameter or cookie
-schemes:
-  - https
-consumes:
-  - application/json
-produces:
-  - application/json
+  description: These apis are used to create, update and fetch certificate templates.
+              - [TestCases](https://app.getpostman.com/run-collection/9d9053de65748c341609)
+  version: "1.0"
+servers:
+- url: https://staging.open-sunbird.org/api
 paths:
-  /template/create:
+  /cert/v1/template/create:
     post:
-      description:  >-
-       This API creates the certificate templates.
-          - The **_ /template/create_** endpoint creates a certificate template in the system.
-          - All fields marked with an * are mandatory
-          - Required fields cannot be null or empty
+      tags:
+      - Certificate Template API
       summary: Create certificate template
-      tags:
-      - Certificate Template API
+      description: |-
+        This API creates the certificate templates.
+           - The **_ /template/create_** endpoint creates a certificate template in the system.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
+           - Accepts certificate template name , template , description etc
+           - Backend Route: http://cert-service:9000/cert/v1/template/create
       operationId: CreateCertificateTemplate
-      produces:
-      - application/json
       parameters:
-      - name: Body
-        in: body
+      - name: Content-Type
+        in: header
+        description: The content type entity is the media type of the resource. Possible
+          media types can be Application/json
         required: true
-        description: >-
-            The body refers to the format of the request. The body contains metadata about the request to add the certificate template.
         schema:
-          allOf :
-            - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
-            - $ref: '#/definitions/AddCertificateTemplateRequest'
-      - name: Content-Type
-        in: header
-        required: true
-        type: string
-        description: >-
-            The content type entity is the media type of the resource. Possible media types can be Application/json
-      - name: ts
-        in: header
-        required: true
-        type: string
-        description: 'The timestamp at which the **Create certificate template** request was sent. '
-      - name: X-msgid
-        in: header
-        required: true
-        type: string
-        description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
-      - name: x-authenticated-user-token
-        in: header
-        required: true
-        type: string
-        description: 'The access token of the registered user sending the given API request. This is an alphanumeric string.'
-      - name: Authorization
-        in: header
-        required: true
-        type: string
-        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-      responses:
-        '200':
-          description: 'OK ! Operation successful. The **Create certificate template** operation was executed successfully.'
-          schema:
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/SuccessResponse'
-        '400':
-          description: 'BAD REQUEST. The "Create certificate template" operation failed. Input for a mandatory parameter may be missing.'
-          schema:
-            $ref: '#/definitions/AddCertificateTemplateErrorResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact info@sunbird.org.'
-  /template/update/{templateId}:
-    patch:
-      description:  >-
-       This API updates the certificate templates.
-          - The **_ /template/update_** endpoint updates the certificate template.
-          - All fields marked with an * are mandatory
-          - Required fields cannot be null or empty
-      summary: update the certificate template
-      tags:
-      - Certificate Template API
-      operationId: UpdateCertificateTemplate
-      produces:
-      - application/json
-      parameters:
-      - in: path
-        name: templateId
-        type: string
-        required: true
-        description: 'Append a valid template ID To the Request URL'
-      - name: Body
-        in: body
-        required: true
-        description: >-
-            The body refers to the format of the request. The body contains metadata about the request to update the certificate template.
-        schema:
-          allOf :
-            - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiRequest'
-            - $ref: '#/definitions/UpdateCertificateTemplateRequest'
-      - name: Content-Type
-        in: header
-        required: true
-        type: string
-        description: >-
-            The Content Type entity is the media type of the resource.Possible media types can be Application/json
-      - name: ts
-        in: header
-        required: true
-        type: string
-        description: 'The timestamp at which the **update certificate template** request was sent. '
-      - name: X-msgid
-        in: header
-        required: true
-        type: string
-        description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
-      - name: x-authenticated-user-token
-        in: header
-        required: true
-        type: string
-        description: 'The access token of the registered user sending the given API request. This is an alphanumeric string.'
-      - name: Authorization
-        in: header
-        required: true
-        type: string
-        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-      responses:
-        '200':
-          description: 'OK ! Operation successful."Update Certificate template" operation was executed successfully.'
-          schema:
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/SuccessResponse'
-        '400':
-          description: 'BAD REQUEST. The "Update Certificate template" operation failed. Input for a mandatory parameter may be missing.'
-          schema:
-            $ref: '#/definitions/UpdateCertificateTemplateErrorResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact info@sunbird.org.'          
-  /template/read/{templateId}:
-    get:
-      description:  >-
-       This API fetches the certificate templates.
-          - The **_ /template/read_** endpoint fetches the certificate template.
-          - All fields marked with an * are mandatory
-          - Required fields cannot be null or empty
-      summary: read the certificate template
-      tags:
-      - Certificate Template API
-      operationId: GetCertificateTemplate
-      produces:
-      - application/json
-      parameters:
-      - in: path
-        name: templateId
-        type: string
-        required: true
-        description: 'Append a valid template ID To the Request URL'
-      - name: Content-Type
-        in: header
-        required: true
-        type: string
-        description: >-
-            The Content Type entity is the media type of the resource.Possible media types can be Application/json
-      - name: ts
-        in: header
-        required: true
-        type: string
-        description: 'The timestamp at which the **read certificate template** request was sent. '
-      - name: X-msgid
-        in: header
-        required: true
-        type: string
-        description: 'A unique ID that identifies the request, in case the same API is executed multiple times.'
-      - name: x-authenticated-user-token
-        in: header
-        required: true
-        type: string
-        description: 'The access token of the registered user sending the given API request. This is an alphanumeric string.'
-      - name: Authorization
-        in: header
-        required: true
-        type: string
-        description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-      responses:
-        '200':
-          description: 'OK ! Operation successful."Read Certificate template" operation was executed successfully.'
-          schema:
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-             - $ref: '#/definitions/GetCertificateTemplateResponse'
-        '400':
-          description: 'BAD REQUEST. The "Read Certificate template" operation failed. Input for a mandatory parameter may be missing.'
-          schema:
-            $ref: '#/definitions/ReadCertificateTemplateErrorResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These errors are tracked automatically. Try refreshing the page. If the problem persists, contact info@sunbird.org.'          
-definitions:
-  AddCertificateTemplateRequest:
-    title: AddCertificateTemplateRequest
-    type: object
-    properties:
-      request:
-        $ref: '#/definitions/AddTemplateRequest'
-    required:
-    - request
-  AddTemplateRequest:
-    title: AddTemplateRequest
-    type: object
-    properties:
-      certificate:
-        description: wrapper which holds the template details
-        type: object
-        properties:
-          template:
-            description: The template details
-            type: object
-            properties:
-              identifier:
-                description: Teh pre-defined tempalte ID
-                type: string
-              name:
-                description: The name for the template
-                type: string
-              template:
-                description: url for the template zip
-                type: string
-              params:
-                description: The parameters attached to the template
-                type: array
-                items:
-                  type: string
-    required:    
-    - certificate
-    - certificate.template.name
-  UpdateCertificateTemplateRequest:
-    title: UpdateCertificateTemplateRequest
-    type: object
-    properties:
-      request:
-        $ref: '#/definitions/UpdateTemplateRequest'
-    required:
-    - request
-  UpdateTemplateRequest:
-    title: UpdateTemplateRequest
-    type: object
-    properties:
-      certificate:
-        description: wrapper which holds the template details
-        type: object
-        properties:
-          template:
-            description: template detail
-            type: object
-            properties:
-              template:
-                description: url for the template zip
-                type: string
-              params:
-                description: parameters attached to the template
-                type: array
-                items:
-                  type: string
-    required:    
-    - certificate
-  GetCertificateTemplateResponse:
-    title: GetCertificateTemplateResponse
-    type: object
-    properties:
-      result:
-        $ref: '#/definitions/GetTemplateResponse'
-    required:
-    - result
-  GetTemplateResponse:
-    title: GetTemplateResponse
-    type: object
-    properties:
-      certificate:
-        description: wrapper which holds the template details
-        type: object
-        properties:
-          template:
-            description: template details
-            type: object
-            properties:
-              name:
-                description: name for template
-                type: string
-              template:
-                description: url for the template zip
-                type: string
-              params:
-                description: parameters attached to the template
-                type: array
-                items:
-                  type: string  
-  ResponseHeader:
-    title: ResponseHeader
-    type: object
-    properties:
-      id:
-        type: string
-        description: API Identifier
-      ver:
-        type: string
-        description: API version information
-      ts:
-        type: string
-        description: API execution timestamp
-      params:
-        $ref: '#/definitions/ResponseParams'
-      responseCode:
-        type: string
-        description: 'API response code '
-  ResponseParams:
-    title: Response Parameter
-    type: object
-    properties:
-      resmsgid:
-        type: string
-        description: Represents the response message ID
-      msgid:
-        type: string
-        description: Represents the error message ID
-      err:
-        type: string
-        description: Represents the error code
-      status:
-        type: string
-        description: The response status
-      errmsg:
-        type: string
-        description: The error message
-  CreateErrorResponse:
-    title: Error Response
-    type: object
-    properties:
-      result:
-        type: object
-        description: Error Result
-        properties:
-          message:
-            description: detail of the error message
-            example: 'name or template missing in request.'
-  UpdateErrorResponse:
-    title: Error Response
-    type: object
-    properties:
-      result:
-        type: object
-        description: Error Result
-        properties:
-          message:
-            description: detail of the error message
-            example: 'template has invalid properties: [templateUrl]'
-  ReadErrorResponse:
-    title: Error Response
-    type: object
-    properties:
-      result:
-        type: object
-        description: Error Result
-        properties:
-          message:
-            description: detail of the error message
-            example: 'Cert template not found for the given identifier: template_011'
-  SuccessResponse:
-    description: 'contains success response'
-    type: object
-    properties:
-      result:
-       type: object
-       properties:
-        identifier: 
           type: string
-  AddCertificateTemplateErrorResponse:
-    title: Add Certificate Template Error Response
-    type: object
-    allOf:
-      - $ref: '#/definitions/ResponseHeader'
-      - $ref: '#/definitions/CreateErrorResponse'
-  UpdateCertificateTemplateErrorResponse:
-    title: Update Certificate Template Error Response
-    type: object
-    allOf:
-      - $ref: '#/definitions/ResponseHeader'
-      - $ref: '#/definitions/UpdateErrorResponse'
-  ReadCertificateTemplateErrorResponse:
-    title: Update Certificate Template Error Response
-    type: object
-    allOf:
-      - $ref: '#/definitions/ResponseHeader'
-      - $ref: '#/definitions/ReadErrorResponse'
+      requestBody:
+        description: The body refers to the format of the request. The body contains
+          metadata about the request to add the certificate template.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/certificatetemplateapiApiRequest'
+              - $ref: '#/components/schemas/certificatetemplateapiAddCertificateTemplateRequest'
+            examples:
+             a:
+              summary: Template Create Request
+              value:
+                request:
+                  certificate:
+                    template:
+                      identifier: template_01_pdf_stag
+                      name: Course completion pdf certificate staging
+                      template: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_stag/artifact/cbse-certificate.zip
+                      params:
+                      - issuer.name
+                      - issuer.url
+             b:
+              summary: Mandatory Param Missing Request
+              value:
+                request:
+                  certificate:
+                    template:
+                      identifier: template_01_pdf_stag
+                      params:
+                      - issuer.name
+                      - issuer.url
+        required: true
+      responses:
+        200:
+          description: OK ! Operation successful. The **Create certificate template**
+            operation was executed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  certificatetemplateapiApiResponse:
+                    $ref: '#/components/schemas/certificatetemplateapiApiResponse'
+                  certificatetemplateapiSuccessResponse:
+                    $ref: '#/components/schemas/certificatetemplateapiSuccessResponse'
+              example:
+                id: 
+                ver: 
+                ts: 
+                params: 
+                responseCode: OK
+                result:
+                  identifier: templateId
+        400:
+          description: BAD REQUEST. The "Create certificate template" operation failed.
+            Input for a mandatory parameter may be missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificatetemplateapiAddCertificateTemplateErrorResponse'
+              examples:
+                a: 
+                 summary: Mandatory Param Missing Response
+                 value:
+                  id: cert.v1.template.create
+                  ver: v1
+                  ts: 1606719505532
+                  responseCode: CLIENT_ERROR
+                  result:
+                    message: Request is empty.
+                b: 
+                 summary: Mandatory Param Name Missing Response
+                 value:
+                  id: cert.v1.template.create
+                  ver: v1
+                  ts: 1606719505532
+                  responseCode: CLIENT_ERROR
+                  result:
+                    message: name or template missing in request.
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org.
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/certificatetemplateapi500ServerError'
+              example:
+                id: cert.v1.template.create
+                ver: v1
+                ts: 1601451354559
+                params: 
+                  msgid: "string"
+                  status: "string"
+                  resmsgid: string
+                responseCode: SERVER_ERROR
+                result:
+                  message: Process failed,please try again later.
+      security:
+      - bearer: []
+
+  /cert/v1/template/update/{templateId}:
+    patch:
+      tags:
+      - Certificate Template API
+      summary: update the certificate template
+      description: |-
+        This API updates the certificate templates.
+           - The **_ /template/update_** endpoint updates the certificate template.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
+           - Backend Route: http://cert-service:9000/cert/v1/template/update/:templateId
+           
+      operationId: UpdateCertificateTemplate
+      parameters:
+      - name: templateId
+        in: path
+        description: Append a valid template ID To the Request URL
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: The Content Type entity is the media type of the resource.Possible
+          media types can be Application/json
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The body refers to the format of the request. The body contains
+          metadata about the request to update the certificate template.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/certificatetemplateapiApiRequest'
+              - $ref: '#/components/schemas/certificatetemplateapiUpdateCertificateTemplateRequest'
+            example:
+              request:
+                certificate:
+                  template:
+                    name: Course completion pdf certificate staging
+                    template: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_stag/artifact/cbse-certificate.zip
+                    params:
+                    - issuer.name
+                    - issuer.url
+        required: true
+      responses:
+        200:
+          description: OK ! Operation successful."Update Certificate template" operation
+            was executed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  certificatetemplateapiApiResponse:
+                    $ref: '#/components/schemas/certificatetemplateapiApiResponse'
+                  certificatetemplateapiSuccessResponse:
+                    $ref: '#/components/schemas/certificatetemplateapiSuccessResponse'
+              example:
+                id: 
+                ver: 
+                ts: 
+                params: 
+                responseCode: OK
+                result:
+                  identifier: template_01_pdf_stag
+        400:
+          description: BAD REQUEST. The "Update Certificate template" operation failed.
+            Input for a mandatory parameter may be missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificatetemplateapiUpdateCertificateTemplateErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org.
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/certificatetemplateapi500ServerError'
+              example:
+                id: cert.v1.template.update
+                ver: v1
+                ts: 1601451354559
+                params: 
+                  msgid: "string"
+                  status: "string"
+                  resmsgid: string
+                responseCode: SERVER_ERROR
+                result:
+                  message: Process failed,please try again later.
+      security:
+      - bearer: []
+
+  /cert/v1/template/read/{templateId}:
+    get:
+      tags:
+      - Certificate Template API
+      summary: read the certificate template
+      description: |-
+        This API fetches the certificate templates.
+           - The **_ /template/read_** endpoint fetches the certificate template.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
+           - Backend Route: http://cert-service:9000/cert/v1/template/read/:templateId
+      operationId: GetCertificateTemplate
+      parameters:
+      - name: templateId
+        in: path
+        description: Append a valid template ID To the Request URL
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: The Content Type entity is the media type of the resource.Possible
+          media types can be Application/json
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK ! Operation successful."Read Certificate template" operation
+            was executed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  certificatetemplateapiApiResponse:
+                    $ref: '#/components/schemas/certificatetemplateapiApiResponse'
+                  certificatetemplateapiGetCertificateTemplateResponse:
+                    $ref: '#/components/schemas/certificatetemplateapiGetCertificateTemplateResponse'
+              example:
+                id: 
+                ver: 
+                ts: 
+                params: 
+                responseCode: OK
+                result:
+                  certificate:
+                    template:
+                      template: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/test_template_stag/artifact/cbse-certificate.zip
+                      identifier: template_01_pdf_stag
+                      name: ''
+                      params:
+                      - issuer.name
+                      - issuer.url
+        400:
+          description: BAD REQUEST. The "Read Certificate template" operation failed.
+            Input for a mandatory parameter may be missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificatetemplateapiReadCertificateTemplateErrorResponse'
+              example:
+                id: 
+                ver: 
+                ts: 
+                params: 
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  message: 'Cert template not found for the given identifier: do_213149680075849728113'
+                   
+                 
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org.
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/certificatetemplateapi500ServerError'
+              example:
+                id: cert.v1.template.read
+                ver: v1
+                ts: 1601451354559
+                params: 
+                  msgid: "string"
+                  status: "string"
+                  resmsgid: string
+                responseCode: SERVER_ERROR
+                result:
+                  message: Process failed,please try again later.
+      security:
+      - bearer: []        
+
+components:
+  schemas:
+    certificatetemplateapiAddCertificateTemplateRequest:
+      title: AddCertificateTemplateRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/certificatetemplateapiAddTemplateRequest'
+    certificatetemplateapiAddTemplateRequest:
+      title: AddTemplateRequest
+      required:
+      - certificate
+      type: object
+      properties:
+        certificate:
+          type: object
+          properties:
+            template:
+              type: object
+              properties:
+                identifier:
+                  type: string
+                  description: Teh pre-defined tempalte ID
+                name:
+                  type: string
+                  description: The name for the template
+                template:
+                  type: string
+                  description: url for the template zip
+                params:
+                  type: array
+                  description: The parameters attached to the template
+                  items:
+                    type: string
+              description: The template details
+          description: wrapper which holds the template details
+    certificatetemplateapiUpdateCertificateTemplateRequest:
+      title: UpdateCertificateTemplateRequest
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/certificatetemplateapiUpdateTemplateRequest'
+    certificatetemplateapiUpdateTemplateRequest:
+      title: UpdateTemplateRequest
+      required:
+      - certificate
+      type: object
+      properties:
+        certificate:
+          type: object
+          properties:
+            template:
+              type: object
+              properties:
+                template:
+                  type: string
+                  description: url for the template zip
+                params:
+                  type: array
+                  description: parameters attached to the template
+                  items:
+                    type: string
+              description: template detail
+          description: wrapper which holds the template details
+    certificatetemplateapiGetCertificateTemplateResponse:
+      title: GetCertificateTemplateResponse
+      required:
+      - result
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/certificatetemplateapiGetTemplateResponse'
+    certificatetemplateapiGetTemplateResponse:
+      title: GetTemplateResponse
+      type: object
+      properties:
+        certificate:
+          type: object
+          properties:
+            template:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: name for template
+                template:
+                  type: string
+                  description: url for the template zip
+                params:
+                  type: array
+                  description: parameters attached to the template
+                  items:
+                    type: string
+              description: template details
+          description: wrapper which holds the template details
+    certificatetemplateapiResponseHeader:
+      title: ResponseHeader
+      type: object
+      properties:
+        id:
+          type: string
+          description: API Identifier
+        ver:
+          type: string
+          description: API version information
+        ts:
+          type: string
+          description: API execution timestamp
+        params:
+          $ref: '#/components/schemas/certificatetemplateapiResponseParams'
+        responseCode:
+          type: string
+          description: 'API response code '
+    certificatetemplateapiResponseParams:
+      title: Response Parameter
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          description: Represents the response message ID
+        msgid:
+          type: string
+          description: Represents the error message ID
+        err:
+          type: string
+          description: Represents the error code
+        status:
+          type: string
+          description: The response status
+        errmsg:
+          type: string
+          description: The error message
+    certificatetemplateapiCreateErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            message:
+              type: object
+              description: detail of the error message
+              example: name or template missing in request.
+          description: Error Result
+    certificatetemplateapiUpdateErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            message:
+              type: object
+              description: detail of the error message
+              example: 'template has invalid properties: [templateUrl]'
+          description: Error Result
+    certificatetemplateapiReadErrorResponse:
+      title: Error Response
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            message:
+              type: object
+              description: detail of the error message
+              example: 'Cert template not found for the given identifier: template_011'
+          description: Error Result
+    certificatetemplateapiSuccessResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            identifier:
+              type: string
+      description: contains success response
+    certificatetemplateapiAddCertificateTemplateErrorResponse:
+      title: Add Certificate Template Error Response
+      allOf:
+      - $ref: '#/components/schemas/certificatetemplateapiResponseHeader'
+      - $ref: '#/components/schemas/certificatetemplateapiCreateErrorResponse'
+    certificatetemplateapiUpdateCertificateTemplateErrorResponse:
+      title: Update Certificate Template Error Response
+      allOf:
+      - $ref: '#/components/schemas/certificatetemplateapiResponseHeader'
+      - $ref: '#/components/schemas/certificatetemplateapiUpdateErrorResponse'
+    certificatetemplateapiReadCertificateTemplateErrorResponse:
+      title: Certificate Template Error Response
+      allOf:
+      - $ref: '#/components/schemas/certificatetemplateapiResponseHeader'
+      - $ref: '#/components/schemas/certificatetemplateapiReadErrorResponse'
+    certificatetemplateapiApiRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents an API uniquely
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the unique ID of the message being sent
+            did:
+              type: string
+              description: Represents the device UUID from which API is called
+    certificatetemplateapiApiResponse:
+      required:
+      - ets
+      - id
+      - params
+      - ver
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents the ID of the request which was made
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          required:
+          - msgid
+          - resmsgid
+          - status
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the ID of the message sent
+            resmsgid:
+              type: string
+              description: Represents the ID of the response message
+            status:
+              type: string
+              enum:
+              - success
+              - error
+        responseCode:
+          type: string
+    certificatetemplateapi500ServerError:
+      title: 500ServerError
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          type: string
+        responseCode:
+          type: string
+        result:
+          type: object
+          properties:
+           message:
+            type: string
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+    userToken:
+      type: apiKey
+      name: x-authenticated-user-token
+      in: header
