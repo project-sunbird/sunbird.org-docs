@@ -228,75 +228,6 @@ paths:
       security:
       - bearer: []
       x-codegen-request-body-name: Body
-  /org/v2/search:
-    post:
-      tags:
-        - Org APIs
-      summary: Search for an Organisation V2
-      description: |-
-        This API is for searching for Organisations on the Sunbird Platform.
-          - The endpoint for **Search for an Organisation** is `/org/v2/search`
-          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: Organisation Search V2
-      parameters:
-        - name: ts
-          in: header
-          description: Timestamp at which given API request is sent.
-          schema:
-            type: string
-        - name: X-msgid
-          in: header
-          description: This ID uniquely identifies a request if the same API is executed
-            multiple times.
-          schema:
-            type: string
-        - name: X-Authenticated-User-Token
-          in: header
-          description: Access token of registered user performing given API request.
-          required: true
-          schema:
-            type: string
-        - name: Authorization
-          in: header
-          description: 'Specify authorization key (format: Bearer api-key) received
-          from administrator when performing given API request.'
-          required: true
-          schema:
-            type: string
-      requestBody:
-        description: The body contains metadata about filters that can be used in
-          Organisation search.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/orgapiOrgSearchRequest'
-        required: true
-      responses:
-        200:
-          description: OK. Successful operation. The requested operation was successfully
-            executed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/orgapiOrgSearchResponseV2'
-        400:
-          description: '''CLIENT_ERROR. The requested operation failed due to bad
-            request from client. Possible reasons for failure: Either "organisationId"
-            or "provider" and "externalId" values are required for the operation.'''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/orgapiOrgSearchClientErrorResponseV2'
-        500:
-          description: '''INTERNAL SERVER ERROR. The requested operation failed due
-            to a server error.'''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/orgapiOrgSearchServerErrorResponseV2'
-      security:
-        - bearer: []
-      x-codegen-request-body-name: Body
   /org/v1/update:
     patch:
       tags:
@@ -439,10 +370,10 @@ paths:
     post:
       tags:
       - Org APIs
-      summary: Create New Organisation Type
+      summary: Assign Key to an Organisation
       description: |-
-        This API is for creation/Addition of keysto a Organisation
-      operationId: Assign Key to Org
+        This API is for creation/addition of keys to an Organisation
+      operationId: Assign Key to an Org
       parameters:
       - name: ts
         in: header
@@ -542,7 +473,6 @@ components:
             channel : Channel
             description: Description
             externalId: ExtId
-            isRootOrg: true
             email: info@org.org
             isSSOEnabled: true
             organisationType: school
@@ -567,15 +497,6 @@ components:
                 type: string
                 description: Organisation specific ID. This parameter is required
                   if provider is given.
-              isRootOrg:
-                type: boolean
-                description: Set to true for root organisation only
-              locationIds:
-                type: array
-                description: ID of location returned using Location Create API , you
-                  can either pass locationIds or locationCode
-                items:
-                  type: string
               locationCode:
                 type: array
                 description: Code of created state,district,block etc, you can either
@@ -617,8 +538,10 @@ components:
                 type: string
                 description: Organisation type
               orgLocation:
-                type: string
-                description: Location of the organisation
+                type: array
+                description: Contains locationId and type
+                items:
+                  type: string
     orgapiOrgCreateResponse:
       title: Organisation Create API response format
       allOf:
@@ -802,9 +725,6 @@ components:
         imgUrl:
           type: string
           description: Organisation image URL
-        isRootOrg:
-          type: boolean
-          description: Set to true for root organisation
         locationId:
           type: string
           description: ID of location
@@ -901,7 +821,7 @@ components:
               status: INVALID_REQUESTED_DATA
               errmsg: Requested data for this operation is not valid.
             responseCode: CLIENT_ERROR
-            result: { }
+            result: {}
     orgapiOrgGetResponse:
       title: Organisation Get API response format
       allOf:
@@ -948,7 +868,6 @@ components:
                  orgName: Org Name
                  address: {}
                  externalId: extid
-                 isRootOrg: true
                  rootOrgId: "0131630445447741440"
                  imgUrl: null
                  approvedDate: null
@@ -959,13 +878,14 @@ components:
                  hashTagId: "0131630445447741440"
                  noOfMembers: null
                  status: 0
-                 locationIds: [
-                    "bc75cc99-9205-463e-a722-5326857838f8",
-                    "aecac7ab-15e4-45c9-ac7b-d716444cd652",
-                    "3f286755-a36f-45bb-9505-ffeeee5aa723"
-                ]
+                 orgLocation:
+                   - id: 6dd69f1c-ba40-4b3b-8981-4fb6813c5e71
+                     type: district
+                   - id: e9207c22-41cf-4a0d-81fb-1fbe3e34ae24
+                     type: cluster
+                   - id: ccc7be29-8e40-4d0a-915b-26ec9228ac4a
+                     type: state
                  isTenant: true
-                 orgLocation: null
                  organisationType: school
     orgapiOrgReadClientErrorResponse:
       title: Client error response for get Organisation Details API
@@ -1042,8 +962,13 @@ components:
             organisationId : 0131630445447741440,
             description : updated description,
             orgName : Updated Org Name,
-            locationIds : ["3f286755-a36f-45bb-9505-ffeeee5aa723",
-            "aecac7ab-15e4-45c9-ac7b-d716444cd652"]
+            orgLocation:
+              - id: 6dd69f1c-ba40-4b3b-8981-4fb6813c5e71
+                type: district
+              - id: e9207c22-41cf-4a0d-81fb-1fbe3e34ae24
+                type: cluster
+              - id: ccc7be29-8e40-4d0a-915b-26ec9228ac4a
+                type: state
     orgapiOrgUpdateReq:
             required:
             - organisationId
@@ -1056,13 +981,6 @@ components:
               description:
                 type: string
                 description: Organisation description
-              locationIds:
-                type: array
-                description: ID of location returned using Location Create API , you
-                  can either pass locationIds or locationCode.During update you need
-                  to pass complete data, it will directly replace with stored locations
-                items:
-                  type: string
               orgName:
                 type: string
                 description: Organisation name
@@ -1080,8 +998,11 @@ components:
                 description: This attribute is used only for the root org. If any rootOrg
                   uses SSO, then they should update this attribute value as true
               orgLocation:
-                type: string
-                description: Location of the organisation.
+                type: array
+                description: Contains locationId and type. During update you need
+                  to pass complete data, it will directly replace with stored locations
+                items:
+                  type: string
               organisationType:
                 type: string
                 description: Organisation type
@@ -1341,7 +1262,6 @@ components:
                 orgName: Org Name
                 address: {}
                 externalId: extid
-                isRootOrg: true
                 rootOrgId: "0131630445447741440"
                 imgUrl: null
                 approvedDate: null
@@ -1352,65 +1272,15 @@ components:
                 hashTagId: "0131630445447741440"
                 noOfMembers: null
                 status: 0
-                locationIds: [
-                  "bc75cc99-9205-463e-a722-5326857838f8",
-                  "aecac7ab-15e4-45c9-ac7b-d716444cd652",
-                  "3f286755-a36f-45bb-9505-ffeeee5aa723"
-                ]
+                orgLocation:
+                  - id: 6dd69f1c-ba40-4b3b-8981-4fb6813c5e71
+                    type: district
+                  - id: e9207c22-41cf-4a0d-81fb-1fbe3e34ae24
+                    type: cluster
+                  - id: ccc7be29-8e40-4d0a-915b-26ec9228ac4a
+                    type: state
                 organisationType: school
                 isTenant: true
-                orgLocation: null
-    orgapiOrgSearchResponseV2:
-      type: object
-      properties:
-        id:
-          type: string
-        ver:
-          type: string
-        ts:
-          type: string
-        responseCode:
-          type: string
-        result:
-          $ref: '#/components/schemas/orgapiorgapiApiResponse'
-      example:
-        id: api.org.search
-        ver: v2
-        ts: 2020-11-23 09:16:58:628+0000
-        params:
-          resmsgid:
-          msgid: ad7135b8-ef64-44bd-adaa-0b131a657689
-          err:
-          status: success
-          errmsg:
-        responseCode: OK
-        result:
-          response:
-            count: 1
-            content:
-              - keys: {}
-                channel": ChannelNew
-                description: Updated Description
-                updatedDate: 2020-12-01 10:29:49:496+0000
-                provider: channelnew
-                id: "0131630445447741440"
-                slug: channelnew
-                email: info@org.org
-                isSSOEnabled: false
-                identifier: "0131630445447741440"
-                updatedBy": null
-                orgName: Org Name
-                address: {}
-                externalId: extid
-                isRootOrg: true
-                rootOrgId: "0131630445447741440"
-                createdDate: 2020-12-01 09:52:46:962+0000
-                createdBy: null
-                hashTagId: "0131630445447741440"
-                status: 0
-                organisationType: school
-                isTenant: true
-                orgLocation: null
     orgapiOrgSearchClientErrorResponse:
       title: Client error response for get Organisation Details API
       allOf:
@@ -1432,27 +1302,6 @@ components:
               errmsg: Mandatory parameter filters is missing.
             responseCode: CLIENT_ERROR
             result: {}
-    orgapiOrgSearchClientErrorResponseV2:
-      title: Client error response for get Organisation Details API
-      allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: {}
-          example:
-            id: api.org.search
-            ver: v2
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid:
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: MANDATORY_PARAMETER_MISSING
-              status: MANDATORY_PARAMETER_MISSING
-              errmsg: Mandatory parameter filters is missing.
-            responseCode: CLIENT_ERROR
-            result: {}
     orgapiOrgSearchServerErrorResponse:
       title: Server error response for read Organisation API
       allOf:
@@ -1465,27 +1314,6 @@ components:
         example:
             id: api.org.search
             ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid:
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INTERNAL_ERROR
-              status: INTERNAL_ERROR
-              errmsg: Process failed,please try again later.
-            responseCode: SERVER_ERROR
-            result: {}
-    orgapiOrgSearchServerErrorResponseV2:
-      title: Server error response for read Organisation API
-      allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: {}
-          example:
-            id: api.org.search
-            ver: v2
             ts: 2020-11-23 10:03:39:935+0000
             params:
               resmsgid:
