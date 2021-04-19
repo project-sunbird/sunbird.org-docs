@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2021-04-05 13:03:53 +0530">
+<meta name="last-modified" content="2021-04-19 14:54:56 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="3201" />
+<meta name="buildNo" content="3287" />
 <meta name="version" id="docsVersion" content="3.8.0" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?05042021"  />
+<link rel="stylesheet" href="/css/style.css?19042021"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?05042021"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?05042021"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?05042021"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?05042021"></script>
-<script type="text/javascript" src="/js/widgets-data.js?05042021"></script>
-<script type="text/javascript" src="/js/widgets.js?05042021"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?19042021"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?19042021"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?19042021"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?19042021"></script>
+<script type="text/javascript" src="/js/widgets-data.js?19042021"></script>
+<script type="text/javascript" src="/js/widgets.js?19042021"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -1411,9 +1411,17 @@ resetBase();
           <ul>
             <li class="toc_level-1 toc_section-1">
               <a href="#overview"><span class="tocnumber">1 .</span> <span class="toctext">Overview</span></a>
-            </li>
-            <li class="toc_level-1 toc_section-2">
-              <a href="#running-the-builds"><span class="tocnumber">2 .</span> <span class="toctext">Running the Builds</span></a>
+              <ul>
+                <li class="toc_level-2 toc_section-2">
+                  <a href="#variables"><span class="tocnumber">1.1 .</span> <span class="toctext">Variables</span></a>
+                </li>
+                <li class="toc_level-2 toc_section-3">
+                  <a href="#build-and-deploy"><span class="tocnumber">1.2 .</span> <span class="toctext">Build and Deploy</span></a>
+                </li>
+                <li class="toc_level-2 toc_section-4">
+                  <a href="#manual-configurations"><span class="tocnumber">1.3 .</span> <span class="toctext">Manual Configurations</span></a>
+                </li>
+              </ul>
             </li>
           </ul>
         </td>
@@ -1422,369 +1430,388 @@ resetBase();
   </table>
 </div><h2 id="overview">Overview</h2>
 
-<p>This page details out the jobs required to be run as part of the upgrade from Sunbird release 3.4.0 to release 3.5.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade.</p>
+<p>This page details out the jobs required to be run as part of the upgrade from Sunbird release 3.7.0 to release 3.8.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.</p>
 
-<h2 id="running-the-builds">Running the Builds</h2>
-
-<p><strong>IMPORTANT</strong>:</p>
-
-<ol>
-  <li>
-    <p>Take a backup of all your databases by running backup jobs located under OpsAdministration → Core / KnowledgePlatform / DataPipeline → BackupJobs OR You can use VM Disk Snapshots from your cloud provider.</p>
-  </li>
-  <li>
-    <p>Once all the variables and Jenkins configurations are complete, you can start to build and deploy services.</p>
-  </li>
-  <li>
-    <p>Build and deploy the plugins. For details, refer to the  <a href="developer-docs/server-installation/plugins" target="_blank">Plugins</a> page</p>
-  </li>
-  <li>
-    <p>After the plugins build and deploy, provide the blob url of the plugins zip file in the Player build. For details, refer to the Player build job on the <a href="developer-docs/server-installation/artifactupload-job/core-services" target="_blank">Core Services</a> page.</p>
-  </li>
-  <li>
-    <p>Build all the services mentioned in the table below. Refer to <a href="developer-docs/server-installation/current_release_tags_n_jenkins_jobs/index.html" target="_blank">Current Release Tags and Jenkins Jobs Reference</a></p>
-  </li>
-</ol>
-
-<p>The following is the list of jobs required to be built and deployed :</p>
-
-<p>Order: Top down per column</p>
+<h3 id="variables">Variables</h3>
 
 <table>
   <thead>
     <tr>
-      <th>Knowledge Platform Build</th>
-      <th>Knowledge Platform Deploy</th>
-      <th>DataPipeline Build</th>
-      <th>DataPipeline Deploy</th>
-      <th>Core Build</th>
-      <th>Core Deploy</th>
-      <th>Plugins</th>
+      <th>Variable Name</th>
+      <th>Service Name</th>
+      <th>Comments</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>FlinkJobs</td>
-      <td>FlinkJobs</td>
-      <td>FlinkPipelineJobs</td>
-      <td>FlinkPipelineJobs</td>
-      <td>Cert</td>
-      <td>Cert</td>
-      <td>CollectionEditor</td>
+      <td>sunbird_portal_offline_supported_languages</td>
+      <td>Player Service</td>
+      <td>This variable should be removed from private <code>Core/common.yml</code> if defined</td>
     </tr>
     <tr>
-      <td>Learning</td>
-      <td>Learning</td>
-      <td>AnalyticsCore</td>
-      <td>AnalyticsCore</td>
-      <td>Content</td>
-      <td>Content</td>
-      <td>ContentEditor</td>
+      <td>adminutil_refresh_token_secret_key</td>
+      <td>Adminutils</td>
+      <td>- Go to http://KEYCLOAK_IP:8080/auth/admin/master/console/#/realms/sunbird/keys<br /> - Get this secret value from DB, by loging into the keycloak 7 postgres DB and run the query: <code>SELECT value FROM component_config CC INNER JOIN component C ON(CC.component_id = C.id) WHERE C.realm_id = 'sunbird' and provider_id = 'hmac-generated' AND CC.name = 'secret';</code><br /> - <a href="https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/2281734145/Keycloak+Upgrade+from+3.2.0+to+7.0.1">More details with pictures are here</a><br /> - This was done as part of release-3.7.0 hotfix and is not required if you are already on Keycloak 7</td>
     </tr>
     <tr>
-      <td>Yarn</td>
-      <td>Yarn</td>
-      <td>EdDataProducts</td>
-      <td>EdDataProducts</td>
-      <td>Learner</td>
-      <td>Learner</td>
-      <td>ContentPlayer</td>
-    </tr>
-    <tr>
-      <td>Lms</td>
-      <td>Lms</td>
-      <td>GenericEditor</td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Player</td>
-      <td>Player</td>
-      <td>ContentPlugins</td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td>nginx-public-ingress</td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
+      <td>kp_schema_base_path</td>
+      <td>Flink Job</td>
+      <td>- This variable should be added in private repo under <code>Core/common.yml</code> and <code>KnowledgePlatform/common.yml</code><br /> - <code>kp_schema_base_path: "{{proto}}://{{sunbird_public_storage_account_name}}.blob.core.windows.net/{{plugin_container_name}}/schemas/local"</code></td>
     </tr>
   </tbody>
 </table>
 
-<p>
-  <strong>Create License and update Channel default License set and Content License migration based on channel</strong>
-</p>
+<h3 id="build-and-deploy">Build and Deploy</h3>
 
-<p>1.Run the following script on the content-service  to create License .</p>
+<table>
+  <thead>
+    <tr>
+      <th>Service to be Build</th>
+      <th>Build Tag</th>
+      <th>Service to Deploy</th>
+      <th>Deploy Tag</th>
+      <th>Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Provision/Core/Keycloak</td>
+      <td>release-3.8.0_RC9</td>
+      <td>This was done as part of release-3.7.0 hotfix and is not required if you are already on Keycloak 7</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Provision/DataPipeline/AnalyticsSpark</td>
+      <td>release-3.8.0_RC6</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>OpsAdministration/Core/ESMapping</td>
+      <td>release-3.8.0_RC9</td>
+      <td>Choose <code>userv1,orgv2</code> for jenkins job parameter <code>indices_name</code></td>
+    </tr>
+    <tr>
+      <td>Build/Core/Cassandra</td>
+      <td>release-3.8.0_RC2</td>
+      <td>Deploy/Kubernetes/Cassandra</td>
+      <td>release-3.8.0_RC9</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/UploadSchemas</td>
+      <td>release-3.8.0_RC9</td>
+      <td>Provide value as <code>release-3.8.0_RC6</code> for the jenkins job paramater <code>kp_branch_or_tag</code></td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/APIManager</td>
+      <td>release-3.8.0_RC9</td>
+      <td>- You should see annotations in APIManager pods as <code>fluentbit.io/parser: kong</code></td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/OnboardAPIs</td>
+      <td>release-3.8.0_RC9</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/OnboardConsumers</td>
+      <td>release-3.8.0_RC9</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/KnowledgePlatform/KafkaSetup</td>
+      <td>release-3.8.0_RC10</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/KnowledgePlatform/Neo4jDefinitionUpdate</td>
+      <td>release-3.8.0_RC10</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Core/AdminUtils</td>
+      <td>release-3.7.0_RC1</td>
+      <td>Deploy/Kubernetes/AdminUtils</td>
+      <td>release-3.8.0_RC9</td>
+      <td>This was done as part of release-3.7.0 hotfix and is not required if you are already on Keycloak 7</td>
+    </tr>
+    <tr>
+      <td>Build/Core/Analytics</td>
+      <td>release-3.8.0_RC1</td>
+      <td>Deploy/Kubernetes/Analytics</td>
+      <td>release-3.8.0_RC9</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Core/Assessment</td>
+      <td>release-3.8.0_RC6</td>
+      <td>Deploy/Kubernetes/Assessment</td>
+      <td>release-3.8.0_RC9</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Core/Bot</td>
+      <td>release-3.8.0_RC1</td>
+      <td>Deploy/Kubernetes/Bot</td>
+      <td>release-3.8.0_RC1</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Core/Content</td>
+      <td>release-3.8.0_RC6</td>
+      <td>Deploy/Kubernetes/Content</td>
+      <td>release-3.8.0_RC9</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Core/DiscussionsMW</td>
+      <td>release-3.8.0_RC2</td>
+      <td>Deploy/Kubernetes/DiscussionsMW</td>
+      <td>release-3.8.0_RC9</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Core/Groups</td>
+      <td>release-3.8.0_RC1</td>
+      <td>Deploy/Kubernetes/Groups</td>
+      <td>release-3.8.0_RC9</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Core/Keycloak</td>
+      <td>release-3.8.0_RC1</td>
+      <td>Deploy/Kubernetes/Keycloak</td>
+      <td>release-3.8.0_RC9</td>
+      <td>This was done as part of release-3.7.0 hotfix. In this release we have only changed telemetry pdata version, so only a redeploy is required if you are already on Keycloak 7</td>
+    </tr>
+    <tr>
+      <td>Build/Core/KnowledgeMW</td>
+      <td>release-3.8.0_RC3</td>
+      <td>Deploy/Kubernetes/KnowledgeMW</td>
+      <td>release-3.8.0_RC9</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Core/Learner</td>
+      <td>release-3.8.0_RC27</td>
+      <td>Deploy/Kubernetes/Learner</td>
+      <td>release-3.8.0_RC9</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Core/Lms</td>
+      <td>release-3.8.0_RC7</td>
+      <td>Deploy/Kubernetes/Lms</td>
+      <td>release-3.8.0_RC9</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Core/Nodebb</td>
+      <td>release-3.8.0_RC1</td>
+      <td>Deploy/Kubernetes/Nodebb</td>
+      <td>release-3.8.0_RC9</td>
+      <td>Provide value as <code>v1.16.0</code> for the jenkins job parameter <code>nodebb_branch</code> in the build phase</td>
+    </tr>
+    <tr>
+      <td>Build/Core/Player</td>
+      <td>release-3.8.0_RC52</td>
+      <td>Deploy/Kubernetes/Player</td>
+      <td>release-3.8.0_RC9</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Core/Router</td>
+      <td>release-3.8.0_RC1</td>
+      <td>Deploy/Kubernetes/Router</td>
+      <td>release-3.8.0_RC1</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Core/Search</td>
+      <td>release-3.8.0_RC6</td>
+      <td>Deploy/Kubernetes/Search</td>
+      <td>release-3.8.0_RC9</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Core/Taxonomy</td>
+      <td>release-3.8.0_RC6</td>
+      <td>Deploy/Kubernetes/Taxonomy</td>
+      <td>release-3.8.0_RC9</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/KnowledgePlatform/KnowledgePlatform</td>
+      <td>release-3.8.0_RC10</td>
+      <td>Deploy/KnowledgePlatform/Learning</td>
+      <td>release-3.8.0_RC10</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/KnowledgePlatform/Yarn</td>
+      <td>release-3.8.0_RC10</td>
+      <td>Deploy/KnowledgePlatform/Yarn</td>
+      <td>release-3.8.0_RC10</td>
+      <td>Kill <code>course-batch-updater</code> samza job, delete its tar file and it’s extracted folder in the Yarn Master before deployment</td>
+    </tr>
+    <tr>
+      <td>Build/KnowledgePlatform/FlinkJobs</td>
+      <td>release-3.8.0_RC5</td>
+      <td>Deploy/KnowledgePlatform/FlinkJobs</td>
+      <td>release-3.8.0_RC10</td>
+      <td>- Kill <code>composite-search-indexer</code> and <code>post-publish-processor</code> samza job before deployment<br />- Choose <code>enrolment-reconciliation</code> <code>post-publish-processor</code> <code>search-indexer</code> and <code>questionset-publish</code> for jenkins job parameter <code>job_names_to_deploy</code></td>
+    </tr>
+    <tr>
+      <td>Build/DataPipeline/AnalyticsCore</td>
+      <td>release-3.8.0_RC1</td>
+      <td>Deploy/DataPipeline/AnalyticsCore</td>
+      <td>release-3.8.0_RC6</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/DataPipeline/CoreDataProducts</td>
+      <td>release-3.8.0_RC1</td>
+      <td>Deploy/DataPipeline/CoreDataProducts</td>
+      <td>release-3.8.0_RC6</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/DataPipeline/ETLJobs</td>
+      <td>release-3.8.0_RC4</td>
+      <td>Deploy/DataPipeline/ETLJobs</td>
+      <td>release-3.8.0_RC6</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/DataPipeline/ETLDruidContentIndexer</td>
+      <td>release-3.8.0_RC6</td>
+      <td>This job needs to be run after all the migrations mentioned in the manual configuration section</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/DataPipeline/ETLUserCacheIndexer</td>
+      <td>release-3.8.0_RC6</td>
+      <td>- Take the record count of index 12 from metadata redis before deploying<br />- Tail the logs using <code>tail -f /mount/data/analytics/content-snapshot/logs/&lt;today's-date&gt;-task-execution.log</code><br />- Deploy the job<br /> - Watchout for these keywords in the logs <code>Time taken for complete script</code> and <code>Time taken for indiviual steps</code><br />- This job needs to be run after all the migrations mentioned in the manual configuration section</td>
+    </tr>
+    <tr>
+      <td>Build/DataPipeline/FlinkPipelineJobs</td>
+      <td>release-3.8.0_RC4</td>
+      <td>Deploy/DataPipeline/FlinkPipelineJobs</td>
+      <td>release-3.8.0_RC6</td>
+      <td>- Change Jenkinsfile path to <code>kubernetes/pipelines/deploy/flink-jobs/Jenkinsfile</code><br />- Choose <code>user-cache-updater-v2</code> for jenkins parameter <code>job_names_to_deploy</code><br />- This job needs to be run after all the migrations mentioned in the manual configuration section</td>
+    </tr>
+    <tr>
+      <td>Build/DataPipeline/EdDataProducts</td>
+      <td>release-3.8.0_RC6</td>
+      <td>Deploy/DataPipeline/EdDataProducts</td>
+      <td>release-3.8.0_RC6</td>
+      <td>- The deploy jobs needs to be run two times<br />- Deploy using default jenkins job parameter values first time<br />- Type <code>cronjobs</code> for jenkins job paramater <code>module</code> in the second deployment to enable <code>course-batch-status-updater</code> cronjob to run every 30 minutes once<br />- This job needs to be run after all the migrations mentioned in the manual configuration section</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/Monitoring</td>
+      <td>release-3.8.0_RC9</td>
+      <td>Choose <code>all</code> for jenkins job paramater <code>tag</code></td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/LoggingFileBeatsVM</td>
+      <td>release-3.8.0_RC9</td>
+      <td>Select all hosts for the jenkins job paramater <code>hosts</code> and choose <code>default</code> for the jenkins job paramater <code>tags</code></td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/KnowledgePlatform/LoggingFileBeatsVM</td>
+      <td>release-3.8.0_RC9</td>
+      <td>Select all hosts for the jenkins job paramater <code>hosts</code> and choose <code>default</code> for the jenkins job paramater <code>tags</code></td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/DataPipeline/LoggingFileBeatsVM</td>
+      <td>release-3.8.0_RC9</td>
+      <td>Select all hosts for the jenkins job paramater <code>hosts</code> and choose <code>default</code> for the jenkins job paramater <code>tags</code></td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/Logging</td>
+      <td>release-3.8.0_RC9</td>
+      <td>- Choose <code>fluent-bit</code> for jenkins job paramater <code>chartname</code><br />- Go to Kibana -&gt; Management -&gt; Index Patterns -&gt; Click on <code>logstash-2</code> -&gt; Refresh<br />- Verify nginx and kong logs are being parsed using the below search queries<br />- <code>kubernetes_labels_app: "nginx-public-ingress" (you should see fields starting with n_)</code><br />- <code>kubernetes_labels_app: "apimanager" (you should see fields starting with k_)</code><br />- All <code>.</code> notation are replaced with <code>_</code> notation for search queries<br />- Old: <code>kubernetes.labels.app</code>, New: <code>kubernetes_labels_app</code></td>
+    </tr>
+  </tbody>
+</table>
 
-<pre>
-  <code>"Copy below code and save file name as create_license"
-#!/bin/bash
-echo ""License name: $1""
-echo ""License descripition: $2""
-echo ""License url: $3""
-curl -X POST \
-  http://localhost:9000/license/v3/create \
-  -H 'Content-Type: application/json' \
-  -d '{
-    ""request"":{
-        ""license"":{
-            ""name"": ""'$1'"",
-            ""description"": ""'$2'"",
-            ""url"": ""'$3'""
-        }
-    }
-}'
+<h3 id="manual-configurations">Manual Configurations</h3>
 
-Run these commands
-bash -x script CC\ BY-NC-SA\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial-ShareAlike https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
-bash -x script CC\ BY-NC\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial  https://creativecommons.org/licenses/by-nc/4.0/legalcode
-bash -x script CC\ BY-SA\ 4.0 This\ license\ is\ Creative\ Commons\ Attribution-ShareAlike https://creativecommons.org/licenses/by-sa/4.0/legalcode
-bash -x script CC\ BY\ 4.0 This\ is\ the\ standard\ license\ of\ any\ Youtube\ content https://creativecommons.org/licenses/by/4.0/legalcode
-bash -x script Standard\ YouTube\ License This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial-ShareAlike https://www.youtube.com/"        
-</code>
-</pre>
-
-<p>2.Update all content with valid license .</p>
-
-<pre>
-  <code>CREATE INDEX ON :domain(mimeType);
-CREATE INDEX ON :domain(license);
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.license='Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)' SET n.license='CC BY-NC 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.license='Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)' SET n.license='CC BY-NC 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.license='Creative Commons Attribution-ShareAlike (CC BY-SA)' SET n.license='CC BY-SA 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.license='Creative Commons Attribution-ShareAlike (CC BY-SA)' SET n.license='CC BY-SA 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/vnd.ekstep.ecml-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/vnd.ekstep.html-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/vnd.android.package-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/vnd.ekstep.content-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/vnd.ekstep.content-collection' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/vnd.ekstep.plugin-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/vnd.ekstep.h5p-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/epub' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='text/x-url' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/x-youtube' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/octet-stream' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/msword' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='application/pdf' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='image/jpeg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='image/jpg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='image/png' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='image/tiff' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='image/bmp' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='image/gif' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='image/svg+xml' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/avi' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/mpeg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/quicktime' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/3gpp' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/mpeg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/mp4' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/ogg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='video/webm' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='audio/mp3' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='audio/mp4' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='audio/mpeg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='audio/ogg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='audio/webm' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='audio/x-wav' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where n.mimeType='audio/wav' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/vnd.ekstep.ecml-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/vnd.ekstep.html-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/vnd.android.package-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/vnd.ekstep.content-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/vnd.ekstep.content-collection' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/vnd.ekstep.plugin-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/vnd.ekstep.h5p-archive' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/epub' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='text/x-url' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/x-youtube' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/octet-stream' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/msword' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='application/pdf' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='image/jpeg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='image/jpg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='image/png' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='image/tiff' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='image/bmp' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='image/gif' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='image/svg+xml' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/avi' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/mpeg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/quicktime' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/3gpp' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/mpeg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/mp4' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/ogg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='video/webm' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='audio/mp3' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='audio/mp4' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='audio/mpeg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='audio/ogg' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='audio/webm' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='audio/x-wav' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where n.mimeType='audio/wav' AND not(n.license in ['CC BY-NC 4.0', 'CC BY-SA 4.0', 'Standard YouTube License']) SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.ecml-archive' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.html-archive' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/vnd.android.package-archive' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.content-archive' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.content-collection' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.plugin-archive' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.h5p-archive' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/epub' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='text/x-url' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/x-youtube' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/octet-stream' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/msword' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='application/pdf' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='image/jpeg' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='image/jpg' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='image/png' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='image/tiff' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='image/bmp' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='image/gif' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='image/svg+xml' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/avi' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/mpeg' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/quicktime' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/3gpp' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/mpeg' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/mp4' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/ogg' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='video/webm' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='audio/mp3' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='audio/mp4' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='audio/mpeg' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='audio/ogg' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='audio/webm' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='audio/x-wav' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'Content'}) where not(exists(n.license)) AND n.mimeType='audio/wav' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.ecml-archive' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.html-archive' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/vnd.android.package-archive' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.content-archive' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.content-collection' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.plugin-archive' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/vnd.ekstep.h5p-archive' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/epub' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='text/x-url' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/x-youtube' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/octet-stream' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/msword' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='application/pdf' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='image/jpeg' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='image/jpg' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='image/png' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='image/tiff' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='image/bmp' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='image/gif' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='image/svg+xml' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/avi' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/mpeg' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/quicktime' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/3gpp' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/mpeg' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/mp4' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/ogg' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='video/webm' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='audio/mp3' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='audio/mp4' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='audio/mpeg' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='audio/ogg' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='audio/webm' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='audio/x-wav' SET n.license='CC BY 4.0';
-match (n:domain{IL_FUNC_OBJECT_TYPE:'ContentImage'}) where not(exists(n.license)) AND n.mimeType='audio/wav' SET n.license='CC BY 4.0';
-match (n:domain{}) where n.IL_FUNC_OBJECT_TYPE in ['Content', 'ContentImage'] return n.license, count(n);
-DROP INDEX ON :domain(mimeType);
-DROP INDEX ON :domain(license);
-</code>
-</pre>
-<p>Copy above code and save it as migration.txt in neo4j server in tha path /home/learning/neo4j-learning/neo4j-enterprise-3.3.0/bin</p>
-
-<p>run the command to update content with valid license</p>
-<pre>
-  <code>cat migration.txt | ./cypher-shell
-</code>
-</pre>
-
-<p>3.Run the above script from learning server to update the Channel-default license .</p>
-
-<pre>
-  <code>Copy below code and save file name as channel_license.sh
-#!/bin/bash
-echo "Channel Id: $1"
-echo "Default License: $2"
-IFS=,
-curl -X PATCH \
-"http://localhost:8080/channel/v3/update/"$1 \
--H 'Content-Type: application/json' \
--d '{
-   "request": {
-      "channel": {
-        "defaultLicense":"'$2'"
-      }
-    }
-}'
-
-Run the Command
-./channel_license.sh &lt;channle_Id&gt; &lt;license_name&gt;
-
-license_name can be choosen from the list which was created in the 1st Step.
-</code>
-</pre>
-
-<p>4.Update content with channel specific default license, Run the below query in neo4j</p>
-
-<pre>
-  <code>match (n:domain{}) WHERE n.IL_FUNC_OBJECT_TYPE IN ["Content", "ContentImage"] AND n.channel="&lt;channel id&gt;" AND n.license&lt;&gt;"Standard YouTube License" SET n.license="&lt;channel defaultLicense&gt;";
-</code>
-</pre>
-
-<p>
-  <strong>Clear Redis cache</strong>
-</p>
-
-<p>Run the below command in LP redis server</p>
-
-<pre>
-  <code>cd /home/learning/redis-stable/src
-./redis-cli keys do_* | xargs ./redis-cli del
-</code>
-</pre>
-<p>5.Kong 9-14 migration</p>
-
-<pre>
-  <code>export PG_DB="api_manager_kong14"
-
-docker container rm kong-migration
-
-docker run -it --name kong-migration \
--e ""KONG_DATABASE=postgres"" \
--e ""KONG_PG_DATABASE=$PG_DB"" \
--e ""KONG_PG_HOST=$PG_HOST"" \
--e ""KONG_PG_PASSWORD=$PGPASSWORD"" \
--e ""KONG_PG_USER=$PG_USER"" \
--e ""KONG_PROXY_ACCESS_LOG=/dev/stdout"" \
--e ""KONG_ADMIN_ACCESS_LOG=/dev/stdout"" \
--e ""KONG_PROXY_ERROR_LOG=/dev/stderr"" \
--e ""KONG_ADMIN_ERROR_LOG=/dev/stderr"" \
--e ""KONG_ADMIN_LISTEN=0.0.0.0:8001"" \
--p 8000:8000 \
--p 8001:8001 \
-kong:0.14.1 kong migrations up --vv
-
-</code>
-</pre>
-
+<table>
+  <thead>
+    <tr>
+      <th>Manual Step</th>
+      <th>Instruction</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Update jenkins job</td>
+      <td>Refer <a href="https://github.com/project-sunbird/sunbird-devops/pull/2322">PR1</a> <a href="https://github.com/project-sunbird/sunbird-devops/pull/2407">PR2</a></td>
+    </tr>
+    <tr>
+      <td>Delete old user index</td>
+      <td><code>curl --location --request DELETE 'localhost:9200/user?pretty'</code></td>
+    </tr>
+    <tr>
+      <td>ES Re-Indexing</td>
+      <td>Run this after ESMapping job and before deploying Learner Service <a href="https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2346156058/SC-2190+ES+scaling+-+reindexing+Org+index">ES-Reindexing Steps</a></td>
+    </tr>
+    <tr>
+      <td>Org and User Migrations</td>
+      <td>Run this after deploying Learner Service <a href="https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2341339139/SC-2220+Data+Migration+on+Organisation+Table">Org Migration Script</a> <a href="https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2316271628/SC-2224+Migration+of+existing+data+to+the+new+columns+in+user+table">User Migration Script</a></td>
+    </tr>
+    <tr>
+      <td>User and Org Sync</td>
+      <td>Run this after Org and User Migrations Scripts <a href="https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2437480455/SC-2190+sync+tool+for+learner-service">Script Link</a></td>
+    </tr>
+    <tr>
+      <td>Update the forms</td>
+      <td>Jira Links - <a href="https://project-sunbird.atlassian.net/browse/SB-23481">SB-23481</a> <a href="https://project-sunbird.atlassian.net/browse/SB-23627">SB-23627</a> <a href="https://project-sunbird.atlassian.net/browse/SB-23671">SB-23671</a> <a href="https://project-sunbird.atlassian.net/browse/SB-23859">SB-23859</a> <a href="https://project-sunbird.atlassian.net/browse/SB-22505">SB-22505</a></td>
+    </tr>
+    <tr>
+      <td>Run neo4j cypher script</td>
+      <td>Run this at the end of deployment <a href="https://github.com/project-sunbird/sunbird-learning-platform/blob/release-3.8.0/docs/cypher-scripts/release-3.8.0.cypher">Script Link</a></td>
+    </tr>
+    <tr>
+      <td>Delete all content and collection entry from KnowledgePlatform redis cache</td>
+      <td>- Run this after running the neo4j cypher script<br /> - <code>redis-cli --scan --pattern do_* | xargs redis-cli del</code><br /> - <code>redis-cli --scan --pattern hierarchy_do_* | xargs redis-cli del</code><br /></td>
+    </tr>
+    <tr>
+      <td>Run Cateogory Definition Update API</td>
+      <td>Run this post deployment and restart Content and Assessment Service post successful API execution <a href="https://project-sunbird.atlassian.net/wiki/spaces/SingleSource/pages/2364964876/Course+primaryCategory+Config">Course Primary Category API</a> <a href="https://project-sunbird.atlassian.net/wiki/spaces/SingleSource/pages/2400616475/Practice+Question+Set+primaryCategory+Config">Practice Questionset Primary Category API</a></td>
+    </tr>
+  </tbody>
+</table>
 
           
           <hr />
