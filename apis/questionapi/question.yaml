@@ -970,6 +970,147 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  /question/v1/import:
+    post:
+      tags:
+        - Question APIs
+      summary: Import Question
+      description: |-
+        This API is used to import Questions on the Sunbird Platform.
+          - The endpoint for **Import Question** is `/question/v1/import`
+          - It points to the assessment-service - `/question/v4/import`
+          - All parameters marked with * are mandatory. You must provide values for these parameters. 
+          - Mandatory fields cannot be null or empty.
+      operationId: Import Question
+      parameters:
+        - name: Content-Type
+          in: header
+          description: >-
+            The Content Type entity is the media type of the resource. The possible
+            media types can be:- 
+              - Application/json
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            You require authorization to make use of the API. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload
+           - JSON 
+           The body is the representation of the resource object for creating questions, which is an array of parameters that describes the question 
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/questionImportQuestionRequest'
+            example:
+              request:
+                question:
+                  - source: 'https://dock.sunbirded.org/api/question/v1/read/do_1132390225275781121622'
+                    metadata:
+                      framework: ekstep_ncert_k-12
+                      channel: 01309282781705830427
+                      name: LearningHTML
+                      code: 9ae33d1e-a682-f30c-04b5-9bda236650ac
+                      mimeType: application/vnd.ekstep.html-archive
+                      contentType: PreviousBoardExamPapers
+                      lastPublishedBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+                    collection:
+                      - identifier: do_11324642736155033614
+                        unitId: do_11324642761348710417
+                    stage: Review
+        required: true
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Import Question** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionapiQuestionImportSuccessResponse'
+              example:
+                id: api.question.import
+                ver: '3.0'
+                ts: '2020-12-17T16:29:11ZZ'
+                params:
+                  resmsgid: 7cce8934-0a2f-46bf-a0ee-be5f49874cae
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  processId: 80a765c7-2202-4b3f-b473-448b5c2cd20e
+        '400':
+          description: >-
+            'BAD REQUEST. The **Import Question** operation failed. You may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              examples:
+                a:
+                  summary: Error Response - Invalid metadata
+                  value:
+                    id: api.question.import
+                    ver: '3.0'
+                    ts: '2020-12-17T16:30:16ZZ'
+                    params:
+                      resmsgid: 31f88a39-2514-4d86-b424-240166e315be
+                    msgid: null
+                    err: ERR_REQUIRED_PROPS_VALIDATION
+                    status: failed
+                    errmsg: 'Validation Failed! Mandatory Properties Are [name, code, mimeType, primaryCategory, framework]'
+                    responseCode: CLIENT_ERROR
+                    result:
+                      messages: null
+                b:
+                  summary: Error Response - Max limit exceeded
+                  value:
+                    id: api.question.import
+                    ver: '3.0'
+                    ts: '2021-02-02T19:42:26ZZ'
+                    params:
+                      resmsgid: bad9792a-0551-4eac-be9c-0e1b79e06581
+                      msgid: null
+                      err: ERR_REQUEST_LIMIT_EXCEED
+                      status: failed
+                      errmsg: Request Limit Exceeded. Maximum Allowed Objects In Single Request is 200
+                    responseCode: CLIENT_ERROR
+                    result:
+                      messages:
+                        messages: null
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.import
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security:
+        - bearer: []
   /questionset/v1/create:
     post:
       tags:
@@ -2320,8 +2461,251 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  /questionset/v1/import:
+    post:
+      tags:
+        - QuestionSet APIs
+      summary: Import QuestionSet
+      description: |-
+        This API is used to import QuestionSet on the Sunbird Platform.
+          - The endpoint for **Import QuestionSet** is `/questionset/v1/import`
+          - It points to the assessment-service - `/questionset/v4/import`
+          - All parameters marked with * are mandatory. You must provide values for these parameters. 
+          - Mandatory fields cannot be null or empty.
+      operationId: Import QuestionSet
+      parameters:
+        - name: Content-Type
+          in: header
+          description: >-
+            The Content Type entity is the media type of the resource. The possible
+            media types can be:- 
+              - Application/json
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            You require authorization to make use of the API. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload
+           - JSON 
+           The body is the representation of the resource object for creating questions, which is an array of parameters that describes the question 
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/questionsetImportQuestionsetRequest'
+            example:
+              request:
+                questionset:
+                  - source: 'https://dock.sunbirded.org/api/questionset/v1/read/do_1132613027022684161119'
+                    metadata:
+                      framework: ekstep_ncert_k-12
+                      channel: 01309282781705830427
+                      name: LearningHTML
+                      code: 9ae33d1e-a682-f30c-04b5-9bda236650ac
+                      mimeType: application/vnd.ekstep.html-archive
+                      contentType: PreviousBoardExamPapers
+                      lastPublishedBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+                    collection:
+                      - identifier: do_11324642736155033614
+                        unitId: do_11324642761348710417
+                    stage: Review
+        required: true
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **Import QuestionSet** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionsetapiQuestionsetImportSuccessResponse'
+              example:
+                id: api.questionset.import
+                ver: '3.0'
+                ts: '2020-12-17T16:29:11ZZ'
+                params:
+                  resmsgid: 7cce8934-0a2f-46bf-a0ee-be5f49874cae
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  processId: 80a765c7-2202-4b3f-b473-448b5c2cd20e
+        '400':
+          description: >-
+            'BAD REQUEST. The **Import QuestionSet** operation failed. You may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              examples:
+                a:
+                  summary: Error Response - Invalid metadata
+                  value:
+                    id: api.questionset.import
+                    ver: '3.0'
+                    ts: '2020-12-17T16:30:16ZZ'
+                    params:
+                      resmsgid: 31f88a39-2514-4d86-b424-240166e315be
+                    msgid: null
+                    err: ERR_REQUIRED_PROPS_VALIDATION
+                    status: failed
+                    errmsg: 'Validation Failed! Mandatory Properties Are [name, code, mimeType, primaryCategory, framework]'
+                    responseCode: CLIENT_ERROR
+                    result:
+                      messages: null
+                b:
+                  summary: Error Response - Max limit exceeded
+                  value:
+                    id: api.questionset.import
+                    ver: '3.0'
+                    ts: '2021-02-02T19:42:26ZZ'
+                    params:
+                      resmsgid: bad9792a-0551-4eac-be9c-0e1b79e06581
+                      msgid: null
+                      err: ERR_REQUEST_LIMIT_EXCEED
+                      status: failed
+                      errmsg: Request Limit Exceeded. Maximum Allowed Objects In Single Request is 200
+                    responseCode: CLIENT_ERROR
+                    result:
+                      messages:
+                        messages: null
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.import
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security:
+        - bearer: []
 components:
   schemas:
+    questionapiQuestionImportSuccessResponse:
+      description: Create Import Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/questionapiResultImportQuestion'
+        - $ref: '#/components/schemas/questionResponseHeader'
+    questionapiResultImportQuestion:
+      title: Result Import Question
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/questionapiImportQuestion'
+    questionapiImportQuestion:
+      title: Import Question
+      type: object
+      properties:
+        processId:
+          type: object
+          description: Represents Process id against which Question import process started
+    questionImportQuestionRequest:
+      title: Request
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/questionQuestionImportRequestQuestion'
+    questionQuestionImportRequestQuestion:
+      title: Question
+      required:
+        - question
+      type: object
+      properties:
+        question:
+          $ref: '#/components/schemas/questionQuestionImportRequestQuestionObject'
+    questionQuestionImportRequestQuestionObject:
+      title: Object
+      type: object
+      properties:
+        source:
+          type: string
+          description: Represents the source of question object
+        metadata:
+          type: string
+          description: Represents the additional metadata for the question object
+        collection:
+          type: string
+          description: Represents the collection with which Question can be linked.
+        stage:
+          type: string
+          description: Represents the stage of creation
+    questionsetImportQuestionsetRequest:
+      title: Request
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/questionsetQuestionImportRequestQuestionset'
+    questionsetQuestionImportRequestQuestionset:
+      title: QuestionSet
+      required:
+        - questionset
+      type: object
+      properties:
+        question:
+          $ref: '#/components/schemas/questionsetQuestionsetImportRequestQuestionsetObject'
+    questionsetQuestionsetImportRequestQuestionsetObject:
+      title: Object
+      type: object
+      properties:
+        source:
+          type: string
+          description: Represents the source of questionset object
+        metadata:
+          type: string
+          description: Represents the additional metadata for the questionset object
+        collection:
+          type: string
+          description: Represents the collection with which Questionset can be linked.
+        stage:
+          type: string
+          description: Represents the stage of creation
+    questionsetapiQuestionsetImportSuccessResponse:
+      description: Create Import Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/questionsetapiResultImportQuestionset'
+        - $ref: '#/components/schemas/questionResponseHeader'
+    questionsetapiResultImportQuestionset:
+      title: Result Import QuestionSet
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/questionsetapiImportQuestionset'
+    questionsetapiImportQuestionset:
+      title: Import QuestionSet
+      type: object
+      properties:
+        processId:
+          type: object
+          description: Represents Process id against which QuestionSet import process started
     questionCreateQuestionRequest:
       title: Request
       required:
