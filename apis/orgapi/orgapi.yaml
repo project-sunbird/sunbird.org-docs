@@ -441,10 +441,10 @@ paths:
     post:
       tags:
       - Org APIs
-      summary: Create New Organisation Type
+      summary: Assign Key to an Organisation
       description: |-
-        This API is for creation/Addition of keysto a Organisation
-      operationId: Assign Key to Org
+        This API is for creation/addition of keys to an Organisation
+      operationId: Assign Key to an Org
       parameters:
       - name: ts
         in: header
@@ -471,7 +471,7 @@ paths:
         schema:
           type: string
       requestBody:
-        description: The body contains metadata about the new Organisation Type to
+        description: The body contains metadata about the new keys to
           be created.
         content:
           application/json:
@@ -480,7 +480,7 @@ paths:
         required: true
       responses:
         200:
-          description: OK. Successful operation. The Organisation Create operation
+          description: OK. Successful operation. The Assign key to an Organisation operation
             was successfully executed.
           content:
             application/json:
@@ -488,7 +488,7 @@ paths:
                 $ref: '#/components/schemas/orgapiOrgAssignKeyResponse'
         400:
           description: '''CLIENT_ERROR. The requested operation failed due to bad
-            request from client. Possible reasons for failure: Organisation type name
+            request from client. Possible reasons for failure: signKey
             is mandatory.'''
           content:
             application/json:
@@ -544,7 +544,6 @@ components:
             channel : Channel
             description: Description
             externalId: ExtId
-            isRootOrg: true
             email: info@org.org
             isSSOEnabled: true
             organisationType: school
@@ -569,22 +568,6 @@ components:
                 type: string
                 description: Organisation specific ID. This parameter is required
                   if provider is given.
-              isRootOrg:
-                type: boolean
-                description: Set to true for root organisation only
-              locationIds:
-                type: array
-                description: ID of location returned using Location Create API , you
-                  can either pass locationIds or locationCode
-                items:
-                  type: string
-              locationCode:
-                type: array
-                description: Code of created state,district,block etc, you can either
-                  pass locationIds or locationCode.
-                items:
-                  type: string
-                  description: '["BH"]'
               provider:
                 type: string
                 description: Specified by sub-organisations to identify channel of
@@ -619,8 +602,10 @@ components:
                 type: string
                 description: Organisation type
               orgLocation:
-                type: string
-                description: Location of the organisation
+                type: array
+                description: Contains locationId and type
+                items:
+                  type: string
     orgapiOrgCreateResponse:
       title: Organisation Create API response format
       allOf:
@@ -758,9 +743,6 @@ components:
         imgUrl:
           type: string
           description: Organisation image URL
-        isRootOrg:
-          type: boolean
-          description: Set to true for root organisation
         locationId:
           type: string
           description: ID of location
@@ -853,7 +835,6 @@ components:
                  orgName: Org Name
                  address: {}
                  externalId: extid
-                 isRootOrg: true
                  rootOrgId: "0131630445447741440"
                  imgUrl: null
                  approvedDate: null
@@ -864,13 +845,14 @@ components:
                  hashTagId: "0131630445447741440"
                  noOfMembers: null
                  status: 0
-                 locationIds: [
-                    "bc75cc99-9205-463e-a722-5326857838f8",
-                    "aecac7ab-15e4-45c9-ac7b-d716444cd652",
-                    "3f286755-a36f-45bb-9505-ffeeee5aa723"
-                ]
+                 orgLocation:
+                   - id: 6dd69f1c-ba40-4b3b-8981-4fb6813c5e71
+                     type: district
+                   - id: e9207c22-41cf-4a0d-81fb-1fbe3e34ae24
+                     type: cluster
+                   - id: ccc7be29-8e40-4d0a-915b-26ec9228ac4a
+                     type: state
                  isTenant: true
-                 orgLocation: null
                  organisationType: school
     orgapiOrgStatusUpdateReq:
       required:
@@ -1002,8 +984,13 @@ components:
             organisationId : 0131630445447741440,
             description : updated description,
             orgName : Updated Org Name,
-            locationIds : ["3f286755-a36f-45bb-9505-ffeeee5aa723",
-            "aecac7ab-15e4-45c9-ac7b-d716444cd652"]
+            orgLocation:
+              - id: 6dd69f1c-ba40-4b3b-8981-4fb6813c5e71
+                type: district
+              - id: e9207c22-41cf-4a0d-81fb-1fbe3e34ae24
+                type: cluster
+              - id: ccc7be29-8e40-4d0a-915b-26ec9228ac4a
+                type: state
     orgapiOrgStatusUpdateRequest:
       title: Organisation Status Update API request format
       allOf:
@@ -1058,13 +1045,6 @@ components:
               description:
                 type: string
                 description: Organisation description
-              locationIds:
-                type: array
-                description: ID of location returned using Location Create API , you
-                  can either pass locationIds or locationCode.During update you need
-                  to pass complete data, it will directly replace with stored locations
-                items:
-                  type: string
               orgName:
                 type: string
                 description: Organisation name
@@ -1082,8 +1062,11 @@ components:
                 description: This attribute is used only for the root org. If any rootOrg
                   uses SSO, then they should update this attribute value as true
               orgLocation:
-                type: string
-                description: Location of the organisation.
+                type: array
+                description: Contains locationId and type. During update you need
+                  to pass complete data, it will directly replace with stored locations
+                items:
+                  type: string
               organisationType:
                 type: string
                 description: Organisation type
@@ -1102,8 +1085,6 @@ components:
               response:
                 type: string
                 description: Response message for successfully updated organisation
-
-                  status
         example:
             id: api.org.status.update
             ver: v1
@@ -1207,8 +1188,7 @@ components:
             properties:
               response:
                 type: string
-                description: Response message for successfully updated organisation
-                  status
+                description: Response message for successfully created/added the assign keys to an organisation
         example:
             id: api.org.assign.key
             ver: v1
@@ -1343,7 +1323,6 @@ components:
                 orgName: Org Name
                 address: {}
                 externalId: extid
-                isRootOrg: true
                 rootOrgId: "0131630445447741440"
                 imgUrl: null
                 approvedDate: null
@@ -1354,14 +1333,15 @@ components:
                 hashTagId: "0131630445447741440"
                 noOfMembers: null
                 status: 0
-                locationIds: [
-                  "bc75cc99-9205-463e-a722-5326857838f8",
-                  "aecac7ab-15e4-45c9-ac7b-d716444cd652",
-                  "3f286755-a36f-45bb-9505-ffeeee5aa723"
-                ]
+                orgLocation:
+                  - id: 6dd69f1c-ba40-4b3b-8981-4fb6813c5e71
+                    type: district
+                  - id: e9207c22-41cf-4a0d-81fb-1fbe3e34ae24
+                    type: cluster
+                  - id: ccc7be29-8e40-4d0a-915b-26ec9228ac4a
+                    type: state
                 organisationType: school
                 isTenant: true
-                orgLocation: null
     orgapiOrgSearchResponseV2:
       type: object
       properties:
@@ -1412,7 +1392,6 @@ components:
                     type: district
                   - id: 4ff2bff2-745a-46d6-971c-e6cf53853209
                     type: block
-                isRootOrg: true
                 rootOrgId: "0131630445447741440"
                 contactDetail: null
                 createdDate: 2020-12-01 09:52:46:962+0000
