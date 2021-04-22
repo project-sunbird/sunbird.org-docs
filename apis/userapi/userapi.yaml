@@ -699,7 +699,6 @@ paths:
                 email: selfdeclaredev4@yopmail.com
                 lastName: selfdeclaredev4
                 userName: selfdeclaredev4
-                emailVerified: true
         required: true
       responses:
         200:
@@ -1093,7 +1092,6 @@ paths:
                 email: selfdeclaredev4@yopmail.com
                 lastName: selfdeclaredev4
                 userName: selfdeclaredev4
-                emailVerified: true
         required: true
       responses:
         200:
@@ -2201,7 +2199,6 @@ paths:
                   request:
                     userId: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
                     phone: 8888888888
-                    phoneVerified: true
               b:
                 summary: Update location details of user
                 value:
@@ -4211,12 +4208,13 @@ paths:
         This API is used for searching a specific user, the user search is based on the unique ID of the user
           - The endpoint for **Get User by User ID** is `/user/v4/read/{User_ID}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-          - User can pass an optional query parameter 'fields'. The value is a comma separated list of fields whose information is required in response. e.g. fields=completeness,missingFields,topic,organisations,roles
+          - User can pass an optional query parameter 'fields'. The value is a comma separated list of fields whose information is required in response. e.g. fields=completeness,missingFields,topic,organisations,roles,locations
           - 'completeness' is to return profile completeness percentage.
           - 'missingFields' is to return fields that are missing to achieve 100% profile completeness.
           - 'topic' is to return list of topics that are used for announcements.
           - 'organisations' is to return organisation and location details.
           - 'roles' is to return list of roles with name and ID details.
+          - 'locations' is to return profileLocation
       operationId: Read_User_V4
       parameters:
         - name: ts
@@ -7327,11 +7325,6 @@ components:
         email:
           type: string
           description: ' The email address of the user'
-        emailVerified:
-          type: boolean
-          description: >-
-            This key is required with value as true, if you pass the values for email
-            - But incase of create user either email or phone is required
         firstName:
           type: string
         lastName:
@@ -7342,11 +7335,6 @@ components:
           type: string
         phone:
           type: string
-        phoneVerified:
-          type: boolean
-          description: >-
-            This key is required with value as true, if you pass the values for both phone and provider
-            But while creating a user, either the email or phone is required
         channel:
           type: string
           description: >-
@@ -7367,7 +7355,9 @@ components:
               - $ref: '#/components/schemas/userapiAddress'
           description: 'Represents the address, it contains list of address object'
         profileLocation:
-          type: string
+          type: array
+          items:
+            type: object
           description: 'Represent the location code and type of User'
           example:
             profileLocation:
@@ -7376,7 +7366,7 @@ components:
               - code: '1310'
                 type: district
         profileUserType:
-          type: string
+          type: object
           description: 'Represent the type and subType of User'
           example:
             profileUserType:
@@ -7395,11 +7385,6 @@ components:
         email:
           type: string
           description: ' The email address of the user'
-        emailVerified:
-          type: boolean
-          description: >-
-            This key is required with value as true, if you pass the values for email
-            - But incase of create user either email or phone is required
         firstName:
           type: string
         lastName:
@@ -7410,11 +7395,6 @@ components:
           type: string
         phone:
           type: string
-        phoneVerified:
-          type: boolean
-          description: >-
-            This key is required with value as true, if you pass the values for both phone and provider
-            But while creating a user, either the email or phone is required
         channel:
           type: string
           description: >-
@@ -7437,7 +7417,7 @@ components:
               - $ref: '#/components/schemas/userapiAddress'
           description: 'Represents the address, it contains list of address object'
         profileUserType:
-          type: string
+          type: object
           description: 'Represent the type and subType of User'
           example:
             profileUserType:
@@ -7448,8 +7428,6 @@ components:
         - firstName
         - email
         - phone
-        - emailVerified
-        - phoneVerified
         - userName
     userapiUser_Create_V2_With_Success:
       title: User_Create_V2_With_Success
@@ -7517,7 +7495,6 @@ components:
           firstName: selfdeclaredev4
           email: selfdeclaredev4@yopmail.com
           lastName: selfdeclaredev4
-          emailVerified: true
           channel: somechannel
     userapiSsoUser-Create-V1-Request:
       title: SsoUser-Create-V1-Request
@@ -7532,7 +7509,6 @@ components:
           firstName: selfdeclaredev4
           email: selfdeclaredev4@yopmail.com
           lastName: selfdeclaredev4
-          emailVerified: true
           channel: somechannel
     userapiUser_Create_V3_With_Success_Response:
       title: User_Create_V3_With_Success_Response
@@ -7665,7 +7641,9 @@ components:
         managedBy:
           type: string
         profileLocation:
-          type: string
+          type: array
+          items:
+            type: object
           example:
             profileLocation:
               - code: '32'
@@ -7914,6 +7892,7 @@ components:
                     hashTagId: 0126796199493140480
                     isRejected:
                     position:
+                    isSchool: true
                     id: 0131573015167221767
                     orgjoindate: 2020-11-23 07:02:43:194+0000
                     isApproved:
@@ -7992,6 +7971,7 @@ components:
                   hashTagId: 0126796199493140480
                   isRejected:
                   position:
+                  isSchool: true
                   id: 0131573015167221767
                   orgjoindate: 2020-11-23 07:02:43:194+0000
                   isApproved:
@@ -8076,6 +8056,7 @@ components:
                 hashTagId: 0126796199493140480
                 isRejected:
                 position:
+                isSchool: true
                 id: 0131573015167221767
                 orgjoindate: 2020-11-23 07:02:43:194+0000
                 isApproved:
@@ -8421,6 +8402,7 @@ components:
         - stateValidated
         - isDeleted
         - organisations
+        - isSchool
         - provider
         - countryCode
         - maskedEmail
@@ -8969,7 +8951,6 @@ components:
         request:
           userId: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
           phone: 8888888888
-          phoneVerified: true
     userapiUserUpdateReqV2:
       title: UserUpdateReqV1
       required:
@@ -8994,7 +8975,9 @@ components:
             type: string
         profileLocation:
           description:  The user's preferred locations
-          type: string
+          type: array
+          items:
+            type: object
           example:
             profileLocation:
               - code: '32'
@@ -9023,7 +9006,7 @@ components:
           allOf:
             - $ref: '#/components/schemas/userapiFrameworkData'
         profileUserType:
-          type: string
+          type: object
           description: 'Represent the type and subType of User'
           example:
             profileUserType:
@@ -9032,7 +9015,6 @@ components:
       example:
         userId: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
         phone: 8888888888
-        phoneVerified: true
     userapiExternalIdUpdate:
       description : The user request to update the external ID in the profile
       type: object
@@ -9142,6 +9124,7 @@ components:
                 isRejected: false
                 id: 0132515448920719360
                 position: null
+                isSchool: true
                 isApproved: false
                 orgjoindate: '2021-04-05 16:17:14:002+0530'
                 orgLeftDate: null
@@ -9235,6 +9218,7 @@ components:
               hashTagId: 0126796199493140480
               isRejected:
               position:
+              isSchool: true
               id: 0131573015167221767
               orgjoindate: 2020-11-23 07:02:43:194+0000
               isApproved:
@@ -9331,6 +9315,7 @@ components:
         - stateValidated
         - isDeleted
         - organisations
+        - isSchool
         - provider
         - countryCode
         - tncLatestVersionUrl
