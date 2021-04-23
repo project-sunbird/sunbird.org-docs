@@ -24,7 +24,7 @@ paths:
         This API is associated with viewing and reading out the integration app on the
         Sunbird Platform .
           - The **_/read/{contentId}_** endpoint executes request for fetching the integration app to be viewed and read.
-          - The endpoint for **Read Content** is `/content/v1/read`
+          - The endpoint for **Read Content** is `/app/v1/read`
           - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
           - You need to provide a valid Integration app Id value in {Integration App Id} field of API URL.
           - It is mandatory to provide values for parameters marked with *. 
@@ -121,13 +121,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+                $ref: '#/components/schemas/appApiContentCreateErrorResponse'
       deprecated: false
       security:
         - bearer: []
 components:
   schemas:
-    contentapiResponseHeader:
+    appApiResponseHeader:
       title: ResponseHeader
       type: object
       properties:
@@ -141,11 +141,11 @@ components:
           type: string
           description: API execution timespan
         params:
-          $ref: '#/components/schemas/contentapiResponseParams'
+          $ref: '#/components/schemas/appApiResponseParams'
         responseCode:
           type: string
           description: 'API response code '
-    contentapiResponseParams:
+    appApiResponseParams:
       title: Response Parameter
       type: object
       properties:
@@ -164,7 +164,7 @@ components:
         errmsg:
           type: string
           description: Error Message
-    contentapiEmptyResult:
+    appApiEmptyResult:
       title: Empty Result
       type: object
       properties:
@@ -176,7 +176,7 @@ components:
       type: object
       allOf:
         - $ref: '#/components/schemas/appApiResultWithContentMetadata'
-        - $ref: '#/components/schemas/contentapiResponseHeader'
+        - $ref: '#/components/schemas/appApiResponseHeader'
     appApiResultWithContentMetadata:
       title: Result Containing App Id and other metadata
       type: object
@@ -209,11 +209,11 @@ components:
       description: Create Content Error Response
       type: object
       allOf:
-        - $ref: '#/components/schemas/contentapiEmptyResult'
-        - $ref: '#/components/schemas/contentapiResponseHeader'
-    contentapiContentCreateErrorResponse:
+        - $ref: '#/components/schemas/appApiEmptyResult'
+        - $ref: '#/components/schemas/appApiResponseHeader'
+    appApiContentCreateErrorResponse:
       description: Create Content Error Response
       type: object
       allOf:
-        - $ref: '#/components/schemas/contentapiEmptyResult'
-        - $ref: '#/components/schemas/contentapiResponseHeader'
+        - $ref: '#/components/schemas/appApiEmptyResult'
+        - $ref: '#/components/schemas/appApiResponseHeader'
