@@ -125,3 +125,82 @@ paths:
       deprecated: false
       security:
         - bearer: []
+components:
+  schemas:
+    contentapiResponseHeader:
+      title: ResponseHeader
+      type: object
+      properties:
+        id:
+          type: string
+          description: API Identifier
+        ver:
+          type: string
+          description: API version information
+        ts:
+          type: string
+          description: API execution timespan
+        params:
+          $ref: '#/components/schemas/contentapiResponseParams'
+        responseCode:
+          type: string
+          description: 'API response code '
+    contentapiResponseParams:
+      title: Response Parameter
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          description: Response Message Id
+        msgid:
+          type: string
+          description: Message Id
+        err:
+          type: string
+          description: Error Code
+        status:
+          type: string
+          description: Response Status
+        errmsg:
+          type: string
+          description: Error Message
+    appApiContentGetSuccessResponse:
+      description: Get App Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/appApiResultWithContentMetadata'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    appApiResultWithContentMetadata:
+      title: Result Containing App Id and other metadata
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/appApiContentIdWithMetadata'
+    appApiContentIdWithMetadata:
+      title: Integration App Metadata
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Integration App Identifier
+        name:
+          type: string
+          description: Integration App name
+        versionKey:
+          type: string
+          description: Integration App versionKey
+        osType:
+          type: string
+          description: Integration App osType
+        logo:
+          type: string
+          description: Integration App logo
+        status:
+          type: string
+          description: Integration App status
+    appApiContentCreateErrorResponse:
+      description: Create Content Error Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiEmptyResult'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
