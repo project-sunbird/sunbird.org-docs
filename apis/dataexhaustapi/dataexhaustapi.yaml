@@ -1,530 +1,1288 @@
-swagger: '2.0'
+openapi: 3.0.1
 info:
-  description: >-
-    Data exhaust API resource refers to the data generated as trails or information byproducts resulting from all user activities.
-      - These resources are used to improve online processes based on
-      the behaviors of users 
-      - Also these resources are used to minimize required actions and find areas to optimize, improve or change outright 
-      - Data exhaust also helps in data mining analytics
-      - The URL for Data Exhaust API(s) is `/data/v1/dataset/request`
   title: Data Exhaust API(s)
-  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  description: The data exhaust requests are run as a scheduled job with a turn around time of 24 hours. The data exhaust apis enable aggregation across multiple sources and can result in huge data size. The following set of apis are used to submit a data exhaust request.
+  
+    - The endpoint for On Demand Data Exhaust API(s) is `dataset/v1/request`
+    
+    - The endpoint for Standard Data Exhaust API(s) is `data/v3/dataset`
+    
+    - The endpoint for Public Data Exhaust API(s) is `dataset/get`
+
+    - Postman collection for different testcases - [Test Cases](https://www.getpostman.com/collections/691e2029e58d4c1e6ba5)
+    
+  termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
   contact:
     email: info@sunbird.org
   version: "1.0"
-host: staging.open-sunbird.org
-basePath: /api/data/v1/dataset/request/
-securityDefinitions:
-  bearer:
-      type: apiKey  # arbitrary name for the security scheme
-      in: header # The secrity scheme parameter is in "header"
-      name: Authorization # name of the header, query parameter or cookie
-  userToken:
-      type: apiKey  # arbitrary name for the security scheme
-      in: header # The secrity scheme parameter is in "header"
-      name: x-authenticated-user-token # name of the header, query parameter or cookie
-schemes:
-  - https
+servers:
+- url: https://staging.open-sunbird.org/api
 paths:
-   /submit:
+  /dataset/v1/request/submit:
     post:
-      description: >-
-        This API is used to submit the data request to get the exhaust data 
-          - The response of the request initiates with the creation of a data file
-          - This data file can be downloaded and used for analytics etc.
-          - The endpoint for **Submit Data Request** is `/submit`
-          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      tags:
+      - On Demand Data Exhaust API(s)
+      description: API to submit a job request. The job status will be in the submitted state.
+      
+        - The endpoint for **Submit Data Request** is `/submit`
+        
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: Submit Data Request
-      produces:
-        - application/json
-      tags:
-        - Data Exhaust API(s)
       parameters:
-        - name: Authorization
-          in: header
-          description: 'To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
-          required: true
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
           type: string
-        - name: Body
-          in: body
-          description: >-
-            The body refers to the format of the request.
-              - The body contains metadata about the data request to be sent
-          required: true
-          x-is-map: false
-          schema:
-            $ref: '#/definitions/dataRequestBody'
+      - name: Content-Type
+        in: header
+        description: "The Content Type request header denotes the data type of the request body.
+          \ Types are:- \n  - Application/json"
+        required: true
+        schema:
+          type: string    
+      - name: X-Channel-ID
+        in: header
+        description: The organization id of the tenant/state
+        required: true
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: The user specific token for accessing the API
+        schema:
+          type: string
+        example: '{{authToken}}'  
+      - name: X-Authenticated-Userid
+        in: header
+        description: The user id 
+        schema:
+          type: string    
+      requestBody:
+        description: |-
+          Request json object in the request has below requied fields -
+          
+          - **tag** - Unique identifier to identify request submitted.
+          - **dataset** - The job/dataset id the request is for.
+          - **datasetConfig** - Dataset config to fetch the data.
+          
+          Supported predefined dataset ids are -
+          - **progress-exhaust** - course progress/completion and certification issued information for specific batch 
+          - **response-exhaust** - attempt information of assessments for specific batch 
+          - **userinfo-exhaust** - all the users personal information wrt userConsent for specific batch
+          
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dataexhaustapidataRequestBody'
+            examples:
+             a:
+              summary: "Request for course progress data exhaust for a given batch"
+              description: Valid request with all required fields for course progress report for specific batch
+              value: 
+               request:
+                  tag: course-001_batch-001
+                  dataset: progress-exhaust
+                  datasetConfig:
+                    batchId: batch-001
+                  requestedBy: user-001  
+             b:
+              summary: "Request for response data exhaust for a given batch"
+              description: Valid request with all required fields for response exhaust report for specific batch
+              value: 
+               request:
+                  tag: course-001_batch-001
+                  dataset: response-exhaust
+                  datasetConfig:
+                    batchId: batch-001
+                  requestedBy: user-001       
+             c:
+              summary: "Request for userinfo data exhaust for a given batch"
+              description: Valid request with all required fields for  userinfo report for specific batch
+              value: 
+               request:
+                  tag: course-001_batch-001
+                  dataset: userinfo-exhaust
+                  datasetConfig:
+                    batchId: batch-001
+                  requestedBy: user-001
+                  encryptionKey: axx-xxx-xxg
+             d:
+              summary: "Request with missing mandatory fields"
+              description: Invalid request one/few missing fields
+              value: 
+               request:
+                  tag: course-001_batch-001
+                  dataset: progress-exhaust
+                  requestedBy: user-001
+             e:
+              summary: "Request with invalid dataset id"
+              description: Request for invalid dataset. Request will be submitted successfully but report will never get generated for such requests
+              value: 
+               request:
+                  tag: course-001_batch-001
+                  dataset: collection-exhaust
+                  datasetConfig:
+                    batchId: batch-001
+                  requestedBy: user-001      
+        required: true
       responses:
-        '200':
-          description: 'SUCCESS. The **Submit Data Request** operation was successful!'
-          schema:
-            $ref: '#/definitions/dataExhaustResponse'
-        '400':
-          description:  'BAD REQUEST,**Submit Data Request** operation failed !The possible reason for failure is that you may have missed providing input for a mandatory parameter' 
-          schema:  
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
-      security: []
-   /list/{client_key}:
+        200:
+          description: SUCCESS. The **Submit Data Request** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dataexhaustapidataExhaustResponse'
+              examples:
+               a:
+                summary: Request in SUBMITTED state
+                description: Request details returned once submitted
+                value:
+                 request:
+                  attempts: 0
+                  lastUpdated: 1600845394119
+                  tag: "course001_batch001:ORG_001"
+                  expiresAt: 
+                  datasetConfig:
+                    batchId: "batch001"
+                  downloadUrls: []
+                  requestedBy: "user001"
+                  jobStats:
+                    dtJobSubmitted: 1600845394119
+                    dtJobCompleted: 
+                    executionTime: 
+                  status: "SUBMITTED"
+                  dataset: "progress-exhaust"
+                  requestId: "AF7B9BE5D0D075EA0DB8C6D12E192D5F"
+                  requestedChannel: "ORG_001"
+               b:
+                summary: Request in SUCCESS state
+                description: Request details returned when tried submitting same request which is already SUCCESS
+                value:
+                 request:
+                  attempts: 0
+                  lastUpdated: 1600845394119
+                  tag: "course001_batch001:ORG_001"
+                  expiresAt: 1598632215685
+                  datasetConfig:
+                    batchId: "batch001"
+                  downloadUrls: [
+                    "Signled URL of the data exhaust report file on blob storage with an expiry. The report file URL will be automatically invalidated after the expiry."
+                  ]
+                  requestedBy: "user001"
+                  jobStats:
+                    dtJobSubmitted: 1600845394119
+                    dtJobCompleted: 1600845394119
+                    executionTime: 200
+                  status: "SUCCESS"
+                  dataset: "progress-exhaust"
+                  requestId: "AF7B9BE5D0D075EA0DB8C6D12E192D5F"
+                  requestedChannel: "ORG_001"
+        400:
+          description: BAD REQUEST, **Submit Data Request** operation failed! The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/dataexhaustapiApiResponse'
+              examples:
+               a:
+                summary: For missing dataset config in request
+                description: Provided request is invalid with missing datasetConfig
+                value:
+                 id: analytics.dataset.request.submit
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: datasetConfig is empty
+                 responseCode: CLIENT_ERROR
+               b:
+                summary: For missing dataset id in request
+                description: Provided request is invalid with missing dataset id
+                value:
+                 id: analytics.dataset.request.submit
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: dataset is empty
+                 responseCode: CLIENT_ERROR
+               c:
+                summary: For missing tag in request
+                description: Provided request is invalid with missing tag
+                value:
+                 id: analytics.dataset.request.submit
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: tag is empty
+                 responseCode: CLIENT_ERROR   
+        401:
+          description: Unauthorized, **Submit Data Request** operation failed! The possible
+            reason for failure is that you may have missed providing authorization token in header
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+        403:
+          description: FORBIDDEN, **Submit Data Request** operation failed! The possible
+            reason for failure is that you may not authorized to submit request or provided user auth token in header may be incorrect/invalid 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: analytics.dataset.request.submit
+                  ver:
+                    type: string
+                    example: "1.0"
+                  ts:
+                    type: string
+                    example: "2020-11-30T11:07:38.895+00:00"
+                  params:
+                    type: object
+                    properties:
+                      resmsgid:
+                        type: string
+                        example: "3869f5e7-ca5c-47bf-b67b-176305f5a775"
+                      err:
+                        type: string
+                        example: FORBIDDEN
+                      status:
+                        type: string
+                        example: failed
+                      errmsg:
+                        type: string
+                        example: You are not authorized.
+                  responseCode:
+                    type: string 
+                    example: FORBIDDEN
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content: 
+            text/plain:
+              schema:
+                type: string
+                example: An unexpected error occurred
+  /dataset/v1/request/list/{tag}:
     get:
-      description: >-
-        This API is used to list the status messages and other data  related activities that are specific to a channel
-          - The endpoint for **List Requests** is `/list/{client_key}`
-          - {...} represents a variable value which is your channel ID, append a valid channel ID to the request URL 
-          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      tags:
+      - On Demand Data Exhaust API(s)
+      description: This API is used to list all the requests that are specific to a tag
+        
+        - The endpoint for **List Requests**  `/list/{tag}` 
+        
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: List Requests
-      produces:
-        - application/json
-      tags:
-        - Data Exhaust API(s)
       parameters:
-        - in: path
-          name: client_key
-          description: 'Unique key/ID of the requester. In case of partners, the value can be partner_key'
-          required: true
+      - name: tag
+        in: path
+        description: "Unique identifier to identify request submitted. e.g.: BatchId"
+        required: true
+        schema:
           type: string
-        - in: query
-          name: limit
-          description: 'Represents the limit of result entries, default limit is set to 100' 
-          required: false
+      - name: limit
+        in: query
+        description: Represents the limit of result entries, default limit is set to 100
+        schema:
+          type: string    
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      - name: X-Channel-ID
+        in: header
+        description: The organization id of the tenant/state
+        required: true
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: The user specific token for accessing the API
+        schema:
+          type: string
+        example: '{{authToken}}'  
+      - name: X-Authenticated-Userid
+        in: header
+        description: User id 
+        schema:
           type: string
       responses:
-        '200':
-          description: 'SUCCESS. The **list status** operation was successful!'
-          schema:
-            $ref: '#/definitions/JobListResponse'
-        '400':
-          description:  'BAD REQUEST,**list status** operation failed !The possible reason for failure is that you may have missed providing input for a mandatory parameter' 
-          schema:  
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
-      security: []
-   /read/{client_key}/{request_ID}:
+        200:
+          description: SUCCESS. The **list status** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dataexhaustapiJobListResponse'
+              examples:
+               a:
+                summary: List of requests
+                description: Returns request details for provided tag
+                value:
+                 request:
+                  count: 3
+                  jobs:
+                    - attempts: 0
+                      lastUpdated: 1600845394119
+                      tag: "course001_batch001:ORG_001"
+                      expiresAt: 
+                      datasetConfig:
+                      batchId: "batch001"
+                      downloadUrls: []
+                      requestedBy: "user001"
+                      jobStats:
+                        dtJobSubmitted: 1600845394119
+                        dtJobCompleted: 
+                        executionTime: 
+                      status: "SUBMITTED"
+                      dataset: "progress-exhaust"
+                      requestId: "AF7B9BE5D0D075EA0DB8C6D12E192D5F"
+                      requestedChannel: "ORG_001"
+                    - attempts: 0
+                      lastUpdated: 1600845394119
+                      tag: "course001_batch001:ORG_001"
+                      expiresAt: 1598632215685
+                      datasetConfig:
+                        batchId: "batch001"
+                      downloadUrls: [
+                        "Signled URL of the data exhaust report file on blob storage with an expiry. The report file URL will be automatically invalidated after the expiry."
+                      ]
+                      requestedBy: "user001"
+                      jobStats:
+                        dtJobSubmitted: 1600845394119
+                        dtJobCompleted: 1600845394119
+                        executionTime: 200
+                      status: "SUCCESS"
+                      dataset: "progress-exhaust"
+                      requestId: "AF7B9BE5D0D075EA0DB8C6D12E192D5F"
+                      requestedChannel: "ORG_001"
+                    - attempts: 0
+                      lastUpdated: 1600845394119
+                      tag: "course001_batch001:ORG_001"
+                      expiresAt: 1598632215685
+                      datasetConfig:
+                        batchId: "batch001"
+                      downloadUrls: []
+                      requestedBy: "user001"
+                      jobStats:
+                        dtJobSubmitted: 1600845394119
+                        dtJobCompleted: 1600845394119
+                        executionTime: 200
+                      status: "FAILED"
+                      statusMessage: "No data found"
+                      dataset: "progress-exhaust"
+                      requestId: "AF7B9BE5D0D075EA0DB8C6D12E192D5F"
+                      requestedChannel: "ORG_001"  
+               b:
+                summary: Empty list
+                description: Empty list for provided tag if no requests are submitted
+                value:
+                 request:
+                  count: 0
+                  jobs:
+                    []
+        401:
+          description: Unauthorized, **List Requests** operation failed! The possible
+            reason for failure is that you may have missed providing authorization token in header
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+        403:
+          description: FORBIDDEN, **List Requests** operation failed! The possible
+            reason for failure is that you may not authorized to submit request or provided user auth token in header may be incorrect/invalid 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: analytics.dataset.request.submit
+                  ver:
+                    type: string
+                    example: "1.0"
+                  ts:
+                    type: string
+                    example: "2020-11-30T11:07:38.895+00:00"
+                  params:
+                    type: object
+                    properties:
+                      resmsgid:
+                        type: string
+                        example: "3869f5e7-ca5c-47bf-b67b-176305f5a775"
+                      err:
+                        type: string
+                        example: FORBIDDEN
+                      status:
+                        type: string
+                        example: failed
+                      errmsg:
+                        type: string
+                        example: You are not authorized.
+                  responseCode:
+                    type: string 
+                    example: FORBIDDEN
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content: 
+            text/plain:
+              schema:
+                type: string
+                example: An unexpected error occurred
+  /dataset/v1/request/read/{tag}:
     get:
-      description: >-
-        This API is used to fetch and view the current status of the data that gets generated by user interaction and activities. 
-          - The endpoint for **Get Request Details** is `/read/{channel_key}/{request_ID}`
-          - {...} represents a variable value which is your channel ID and the request ID, append a valid channel ID, Request ID to the request URL 
-          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: Get Request Details
-      produces:
-        - application/json
       tags:
-        - Data Exhaust API(s)
+      - On Demand Data Exhaust API(s)
+      description: This API is used to get all the details of specific request and a tag
+      
+        - The end point for **Get Request Details** is `/read/{tag}?requestId={requestId}`
+        
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: Get Request Details
       parameters:
-        - in: path
-          name: client_key
-          description: 'Unique key/ID of the requester. In case of partners, the value can be partner_key'
-          required: true
+      - name: tag
+        in: path
+        description: "Unique identifier to identify request submitted. e.g.: BatchId"
+        required: true
+        schema:
           type: string
-        - in: path
-          name: request_ID
-          description: >-
-            Request ID provided in the response when the job execution request is made.
-          required: true
+      - name: requestId
+        in: query
+        description: Request ID provided in the response when the job execution request
+          is made.
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      - name: X-Channel-ID
+        in: header
+        description: The organization id of the tenant/state
+        required: true
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: The user specific token for accessing the API
+        schema:
+          type: string
+        example: '{{authToken}}'  
+      - name: X-Authenticated-Userid
+        in: header
+        description: The user id 
+        schema:
+          type: string    
+      responses:
+        200:
+          description: SUCCESS. The **fetch current status** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dataexhaustapiJobInfoResponse'
+              examples:
+               a:
+                summary: Success request
+                description: Returns request details for provided tag & request_id
+                value:
+                 request:
+                  attempts: 0
+                  lastUpdated: 1600845394119
+                  tag: "course001_batch001:ORG_001"
+                  expiresAt: 1598632215685
+                  datasetConfig:
+                    batchId: "batch001"
+                  downloadUrls: [
+                    "Signled URL of the data exhaust report file on blob storage with an expiry. The report file URL will be automatically invalidated after the expiry."
+                  ]
+                  requestedBy: "user001"
+                  jobStats:
+                    dtJobSubmitted: 1600845394119
+                    dtJobCompleted: 1600845394119
+                    executionTime: 200
+                  status: "SUCCESS"
+                  dataset: "progress-exhaust"
+                  requestId: "AF7B9BE5D0D075EA0DB8C6D12E192D5F"
+                  requestedChannel: "ORG_001"
+               b:
+                summary: Failed request
+                description: Returns request details for provided tag & request_id
+                value:
+                 request:
+                  attempts: 0
+                  lastUpdated: 1600845394119
+                  tag: "course001_batch001:ORG_001"
+                  expiresAt: 1598632215685
+                  datasetConfig:
+                    batchId: "batch001"
+                  downloadUrls: []
+                  requestedBy: "user001"
+                  jobStats:
+                    dtJobSubmitted: 1600845394119
+                    dtJobCompleted: 1600845394119
+                    executionTime: 200
+                  status: "FAILED"
+                  statusMessage: "No data found"
+                  dataset: "progress-exhaust"
+                  requestId: "AF7B9BE5D0D075EA0DB8C6D12E192D5F"
+                  requestedChannel: "ORG_001"  
+               c:
+                summary: Submitted request
+                description: Returns request details for provided tag & request_id
+                value:
+                 request:
+                  attempts: 0
+                  lastUpdated: 1600845394119
+                  tag: "course001_batch001:ORG_001"
+                  expiresAt: 
+                  datasetConfig:
+                    batchId: "batch001"
+                  downloadUrls: []
+                  requestedBy: "user001"
+                  jobStats:
+                    dtJobSubmitted: 1600845394119
+                    dtJobCompleted: 
+                    executionTime: 
+                  status: "SUBMITTED"
+                  dataset: "progress-exhaust"
+                  requestId: "AF7B9BE5D0D075EA0DB8C6D12E192D5F"
+                  requestedChannel: "ORG_001"  
+               d:
+                summary: No request found
+                description: Response with message, if no requests are submitted with provided tag and request id
+                value:
+                  id: analytics.dataset.request.submit
+                  ver: "1.0"
+                  ts: "2020-11-27T12:33:27.115+00:00"
+                  params: 
+                    resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                    status: "failed"
+                    err: OK
+                    errmsg: no job available with the given request_id and tag
+                  responseCode: OK  
+        401:
+          description: Unauthorized, **Get Request** operation failed! The possible
+            reason for failure is that you may have missed providing authorization token in header
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+        403:
+          description: FORBIDDEN, **Get Request** operation failed! The possible
+            reason for failure is that you may not authorized to submit request or provided user auth token in header may be incorrect/invalid 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: analytics.dataset.request.submit
+                  ver:
+                    type: string
+                    example: "1.0"
+                  ts:
+                    type: string
+                    example: "2020-11-30T11:07:38.895+00:00"
+                  params:
+                    type: object
+                    properties:
+                      resmsgid:
+                        type: string
+                        example: "3869f5e7-ca5c-47bf-b67b-176305f5a775"
+                      err:
+                        type: string
+                        example: FORBIDDEN
+                      status:
+                        type: string
+                        example: failed
+                      errmsg:
+                        type: string
+                        example: You are not authorized.
+                  responseCode:
+                    type: string 
+                    example: FORBIDDEN
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content: 
+            text/plain:
+              schema:
+                type: string
+                example: An unexpected error occurred
+  /data/v3/dataset/get/{dataset_id}:
+    get:
+      tags:
+      - Standard Data Exhaust API(s)
+      description: This API is used to get exhaust data(raw/summary-rollup/summary-channel data) for specific channel that gets generated by user interaction and activities.
+      
+        - The endpoint for **Get Exhaust Details** is `/get/{dataset_id}/`
+        
+        - The fieldsmarked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: Get Standard Exhaust Details
+      parameters:
+      - name: dataset_id
+        in: path
+        description: "Data type id. Available options are: **raw**, **summary-channel-exhaust** and **summary-rollup**."
+        required: true
+        schema:
+          type: string
+      - name: from
+        in: query
+        description: Start date of the data exhaust in YYYY-MM-DD format. Default will take as yesterday
+        schema:
+          type: string
+      - name: to
+        in: query
+        description: End date of the data exhaust in YYYY-MM-DD format. Default will take as today
+        schema:
+          type: string
+      - name: since
+        in: query
+        description: "From date of the data exhaust in YYYY-MM-DD format till current date. e.g.: since can be provided instead of from and to when requesting for last x days"
+        schema:
+          type: string 
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      - name: X-Channel-ID
+        in: header
+        description: The organization slug value of the tenant/states. Slug is nothing but specific code for the tenant/states.
+        required: true
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: The user specific token for accessing the API
+        schema:
+          type: string
+        example: '{{authToken}}'  
+      - name: X-Authenticated-Userid
+        in: header
+        description: The user id 
+        schema:
+          type: string    
+      responses:
+        200:
+          description: SUCCESS. The **fetch current status** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dataexhaustapiDatasetResponse'
+              examples:
+                a:
+                  summary: Success response with files
+                  description: Returns response with files for given slug and dates
+                  value:
+                    request:
+                      expiresAt: 1600845394119
+                      files: [
+                        2020-12-01-file1.csv,
+                        2020-12-02-file1.csv,
+                        2020-12-03-file1.csv
+                      ]
+                      periodWiseFiles:
+                        "2020-12-01": [
+                          2020-12-01-file1.csv
+                        ]
+                        "2020-12-02": [
+                          2020-12-02-file1.csv
+                        ]
+                        "2020-12-03": [
+                          2020-12-03-file1.csv
+                        ]
+                b:
+                  summary: Success response with empty list
+                  description: Returns empty response if no files are found for given slug and dates
+                  value:
+                    request:
+                      expiresAt: 0
+                      files: [
+                      ]
+                      periodWiseFiles: {}
+        400:
+          description: BAD REQUEST, **Get Request** operation failed! The possible reason for failure is that you may have incorrectly provided input query parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/dataexhaustapiApiResponse'
+              examples:
+               a:
+                summary: For date range greater than 10 days
+                description: Provided request has date range of more than 10 days.
+                value:
+                 id: analytics.telemetry
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: Date range should be < 10 days
+                 responseCode: CLIENT_ERROR
+               b:
+                summary: For negative date range
+                description: Provided request has from date greater than to date
+                value:
+                 id: analytics.telemetry
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: "Date range should not be -ve. Please check your 'from' & 'to'"
+                 responseCode: CLIENT_ERROR
+               c:
+                summary: For future dates
+                description: Provided request has to date greater than current date i.e., to has future dates
+                value:
+                 id: analytics.telemetry
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: "'to' should be LESSER OR EQUAL TO today's date.."
+                 responseCode: CLIENT_ERROR                      
+        401:
+          description: Unauthorized, **Get Request** operation failed! The possible
+            reason for failure is that you may have missed providing authorization token in header
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+        403:
+          description: FORBIDDEN, **Get Request** operation failed! The possible
+            reason for failure is that you may not authorized to submit request or provided user auth token in header may be incorrect/invalid 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: analytics.telemetry
+                  ver:
+                    type: string
+                    example: "1.0"
+                  ts:
+                    type: string
+                    example: "2020-11-30T11:07:38.895+00:00"
+                  params:
+                    type: object
+                    properties:
+                      resmsgid:
+                        type: string
+                        example: "3869f5e7-ca5c-47bf-b67b-176305f5a775"
+                      err:
+                        type: string
+                        example: FORBIDDEN
+                      status:
+                        type: string
+                        example: failed
+                      errmsg:
+                        type: string
+                        example: "You are not authorized. or Given X-Consumer-ID='consumer-id' and X-Channel-ID='slug' are not authorized"
+                  responseCode:
+                    type: string 
+                    example: FORBIDDEN
+              examples:
+                a:
+                  summary: Unauthorized user
+                  description: Response when user with provided token is not authorized
+                  value:
+                    id: analytics.telemetry
+                    ver: "1.0"
+                    ts: "2020-11-27T12:33:27.115+00:00"
+                    params: 
+                      resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                      status: "failed"
+                      err: FORBIDDEN
+                      errmsg: You are not authorized
+                    responseCode: FORBIDDEN
+                b:
+                  summary: Unauthorized consumer
+                  description: Response when consumer is not authorized
+                  value:
+                    id: analytics.telemetry
+                    ver: "1.0"
+                    ts: "2020-11-27T12:33:27.115+00:00"
+                    params: 
+                      resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                      status: "failed"
+                      err: FORBIDDEN
+                      errmsg: "Given X-Consumer-ID='consumer-id' and X-Channel-ID='slug' are not authorized"
+                    responseCode: FORBIDDEN   
+                    
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content: 
+            text/plain:
+              schema:
+                type: string
+                example: An unexpected error occurred
+  /dataset/get/{dataset_id}:
+    get:
+      tags:
+      - Public Data Exhaust API(s)
+      description: This API is used to get public exhaust data that gets generated by user interaction and activities.
+      
+        - The endpoint for **Get Exhaust Details** is `/get/{dataset_id}/`
+        
+        - The fieldsmarked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: Get Public Exhaust Details
+      parameters:
+      - name: dataset_id
+        in: path
+        description: "Dataset type id."
+        required: true
+        schema:
+          type: string
+      - name: from
+        in: query
+        description: Start date of the data exhaust in YYYY-MM-DD format. Default will take as yesterday
+        schema:
+          type: string
+      - name: to
+        in: query
+        description: End date of the data exhaust in YYYY-MM-DD format. Default will take as today
+        schema:
+          type: string
+      - name: since
+        in: query
+        description: "From date of the data exhaust in YYYY-MM-DD format till current date. e.g.: since can be provided instead of from and to when requesting for last x days"
+        schema:
+          type: string 
+      - name: date
+        in: query
+        description: Specific date of the data exhaust in YYYY-MM-DD format. Default will take as yesterday
+        schema:
+          type: string
+      - name: date_range
+        in: query
+        description: "Date range format. Available options are: **LAST_DAY**, **LAST_2_DAYS**, **LAST_7_DAYS**, **LAST_14_DAYS**, **LAST_30_DAYS**, **LAST_WEEK**"
+        schema:
           type: string
       responses:
-        '200':
-          description: 'SUCCESS. The **fetch current status** operation was successful!'
-          schema:
-            $ref: '#/definitions/JobInfoResponse'
-        '400':
-          description:  'BAD REQUEST,**fetch current status** operation failed !The possible reason for failure is that you may have missed providing input for a mandatory parameter' 
-          schema:  
-            allOf:
-             - $ref: 'https://raw.githubusercontent.com/project-sunbird/project-sunbird.github.io/dev/apis/definitions/envelope.yaml#/ApiResponse'
-        '500':
-          description: 'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'
-      security: []
-definitions:
-  dataRequestBody:
-    title: DataExhaust - Data Request
-    type: object
-    properties:
-      id:
-        x-go-name: ID
-        type: string
-        description: unique API ID=data_exhaust_dataset_service
-      ver:
-        x-go-name: Ver
-        type: string
-        description: API version=1.0
-      ts:
-        x-go-name: Ts
-        type: string
-        description: 'request timestamp in format: YYYY-MM-DDThh:mm:ss+/-nn:nn'
-      params:
-        $ref: '#/definitions/RequestParams'
-      request:
-        $ref: '#/definitions/DataExhaustRequest'
-    required:
+        200:
+          description: SUCCESS. The **fetch current status** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dataexhaustapiDatasetResponse'
+              examples:
+                a:
+                  summary: Success response with files
+                  description: Returns response with files for given slug and dates
+                  value:
+                    request:
+                      files: [
+                        "https://data.staging.open-sunbird.org/datasets/2020-12-01.csv",
+                        "https://data.staging.open-sunbird.org/datasets/2020-12-02.csv",
+                        "https://data.staging.open-sunbird.org/datasets/2020-12-03.csv"
+                      ]
+                      periodWiseFiles:
+                        "2020-12-01": [
+                          "https://data.staging.open-sunbird.org/datasets/2020-12-01.csv"
+                        ]
+                        "2020-12-02": [
+                          "https://data.staging.open-sunbird.org/datasets/2020-12-02.csv"
+                        ]
+                        "2020-12-03": [
+                          "https://data.staging.open-sunbird.org/datasets/2020-12-03.csv"
+                        ]
+                b:
+                  summary: Success response with empty list
+                  description: Returns empty response if no files are found for given slug and dates
+                  value:
+                    request:
+                      message: "Files are not available for requested date. Might not yet generated. Please come back later"
+        400:
+          description: BAD REQUEST, **Get Request** operation failed! The possible reason for failure is that you may have incorrectly provided input query parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/dataexhaustapiApiResponse'
+              examples:
+               a:
+                summary: For invalid datasetId
+                description: Provided request has invalid datasetId
+                value:
+                 id: analytics.telemetry
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: "Provided dataset is invalid. Please use any one from this list - [] "
+                 responseCode: CLIENT_ERROR
+               b:
+                summary: For negative date range
+                description: Provided request has from date greater than to date
+                value:
+                 id: analytics.telemetry
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: "Date range should not be -ve. Please check your 'from' & 'to'"
+                 responseCode: CLIENT_ERROR
+               c:
+                summary: For future dates
+                description: Provided request has to date greater than current date i.e., to has future dates
+                value:
+                 id: analytics.telemetry
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: "'to' should be LESSER OR EQUAL TO today's date.."
+                 responseCode: CLIENT_ERROR 
+               d:
+                summary: For invalid date_range value
+                description: Provided request has invalid date_range
+                value:
+                 id: analytics.telemetry
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: "Provided dateRange LAST_20_DAYS is not valid. Please use any one from this list - List(LAST_DAY, LAST_2_DAYS, LAST_7_DAYS, LAST_14_DAYS, LAST_30_DAYS, LAST_WEEK)"
+                 responseCode: CLIENT_ERROR
+               e:
+                summary: For days between date range(from and to) more than 30 days
+                description: Provided request has more than 30 days between from & to / date range.
+                value:
+                 id: analytics.telemetry
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: "Date range should be < 30 days"
+                 responseCode: CLIENT_ERROR 
+               f:
+                summary: From date older than 6 months
+                description: Provided request has from date older than 6 months.
+                value:
+                 id: analytics.telemetry
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: "Date range cannot be older than 6 months"
+                 responseCode: CLIENT_ERROR   
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content: 
+            text/plain:
+              schema:
+                type: string
+                example: An unexpected error occurred            
+                
+components:
+  schemas:
+    dataexhaustapidataRequestBody:
+      title: DataExhaust - Data Request
+      required:
       - id
-      - ver
-      - ts
       - params
       - request
-  DataExhaustJobStats:
-    title: JobState
-    type: object
-    properties:
-      dt_job_submitted:
-        type: integer
-        description: DateTime when the job is submitted
-      dt_job_processing:
-        type: integer
-        description: DateTime when the job is picked up for processing
-      dt_job_completed:
-        type: integer
-        description: DateTime when the job is complete
-      input_events:
-        type: integer
-        description: Total input events processed
-      output_events:
-        type: integer
-        description: Total output events produced
-      latency:
-        type: integer
-        description: >-
-          Latency in seconds from the time the job is submitted before picked up
-          for processing
-      execution_time:
-        type: integer
-        description: Total time taken for processing excluding latency
-  dataExhaustResponse:
-    type: object
-    properties:
-      id:
-        type: string
-      ver:
-        type: string
-      ts:
-        type: string
-      params:
-        $ref: '#/definitions/ResponseParams'
-      responseCode:
-        type: string
-      result:
-        $ref: '#/definitions/dataExhaustResult'
-  RequestParams:
-    title: Params
-    type: object
-    properties:
-      msgid:
-        type: string
-        x-go-name: MsgID
-        description: 'unique request message id, UUID, for handling API idempotency'
-      client_key:
-        type: string
-        x-go-name: Client_Key
-        description: Unique ID of the requestor. In partner case the partner id
-    required:
-      - client_key
-  DataExhaustRequest:
-    title: Request
-    type: object
-    properties:
-      dataset_id:
-        x-go-name: dataset_id
-        type: string
-        description: To identify the dataset to fetch the data. 
-        # `Valid values for dataset_id are`: `eks-consumption-raw, eks-consumption-summary, eks-consumption-metrics, eks-creation-raw, eks-creation-summary, eks-creation-metrics`
-      filter:
-        $ref: '#/definitions/DataExhaustFilter'
-      output_format:
-        type: string
-        description: Output format should be either json or csv. Default value is json
-    required:
-      - filter
-      - dataset_id
-  DataExhaustFilter:
-    title: Filter
-    type: object
-    properties:
-      start_date:
-        type: string
-        description: Start date of the data exhaust in YYYY-MM-DD format
-      end_date:
-        type: string
-        description: End date of the data exhaust in YYYY-MM-DD format
-      app_id:
-        type: string
-        description: Filter by app_id. (Optional)
-      channel:
-        type: string
-        description: Filter by channel_id.(Optional)
-      events:
-        type: array
-        items:
-          type: string
-          description: List of events to filter and return. Event name should be in all upper case. Any event from the telemetry event specification as on Sunbird.org website.(Optional)
-      tags:
-        type: array
-        items:
-          type: string
-          description: Filter by tag. (Optional)
-    required:
-      - start_date
-      - end_date
-  JobListResponse:
-    type: object
-    properties:
-      id:
-        type: string
-      ver:
-        type: string
-      ts:
-        type: string
-      params:
-        $ref: '#/definitions/ResponseParams'
-      responseCode:
-        type: string
-      result:
-        $ref: '#/definitions/JobListResult'
-  JobInfoResponse:
-    type: object
-    properties:
-      id:
-        type: string
-      ver:
-        type: string
-      ts:
-        type: string
-      params:
-        $ref: '#/definitions/ResponseParams'
-      responseCode:
-        type: string
-      result:
-        $ref: '#/definitions/JobResult'
-  ResponseParams:
-    title: Params
-    type: object
-    properties:
-      resmsgid:
-        type: string
-      status:
-        type: string
-  dataExhaustResult:
-    type: object
-    properties:
-      job_stats:
-        $ref: '#/definitions/DataExhaustJobStats'
-      last_updated:
-        type: integer
-      status:
-        type: string
-      request_id:
-        type: string
-      output:
-        $ref: '#/definitions/DataExhaustOutputResult'
-      request_data:
-        $ref: '#/definitions/DataExhaustRequest'
-  associateResponse:
-    type: object
-    description: The response when license key is successfully associated with a resource
-    properties:
-      id:
-        type: string
-        description: unique API ID=ekstep.data_exhaust_resource_associate
-      ts:
-        type: string
-        description: 'response timestamp YYYY-MM-DDThh:mm:ss+/-nn:nn'
-      ver:
-        type: string
-        description: API version=1.0
-      params:
-        $ref: '#/definitions/responseParams'
-  responseParams:
-    type: object
-    properties:
-      resmsgid:
-        description: unique response message id (UUID)
-        type: string
-        x-go-name: ResMsgId
-      msgid:
-        description: message id of the request
-        type: string
-        x-go-name: MsgId
-      status:
-        description: 'status of request e.g: successful, failed etc'
-        type: string
-        x-go-name: Status
-      err:
-        description: error code if any
-        type: string
-        x-go-name: ErrorCode
-      errmsg:
-        description: default English error message
-        type: string
-        x-go-name: ErrorMessage
-    x-go-package: ecosystem-platform-api/api
-  registerErrorResponse:
-    type: object
-    properties:
-      resmsgid:
-        description: unique response message id (UUID)
-        type: string
-        x-go-name: ResMsgId
-      msgid:
-        description: message id of the request
-        type: string
-        x-go-name: MsgId
-      status:
-        description: failed
-        type: string
-        x-go-name: Key
-      err:
-        description: one of the following error codes
-        type: string
-        x-go-name: ErrorCode
-        enum:
-          - INVALID_DATA_ERROR - Request JSON is not parsable
-          - INTERNAL_ERROR - Technical error in the API
-      errmsg:
-        description: default English error message
-        type: string
-        x-go-name: ErrorMessage
-  authenticateErrorResponse:
-    type: object
-    properties:
-      resmsgid:
-        description: unique response message id (UUID)
-        type: string
-        x-go-name: ResMsgId
-      msgid:
-        description: message id of the request
-        type: string
-        x-go-name: MsgId
-      status:
-        description: failed
-        type: string
-        x-go-name: Key
-      err:
-        description: one of the following error codes
-        type: string
-        x-go-name: ErrorCode
-        enum:
-          - INVALID_DATA_ERROR - Request JSON is not parsable
-          - LOGIN_FAILED - License key is invalid
-          - INTERNAL_ERROR - Technical error in the API
-      errmsg:
-        description: default English error message
-        type: string
-        x-go-name: ErrorMessage
-  DataExhaustOutputResult:
-    title: Output
-    type: object
-    properties:
-      dt_file_created:
-        type: string
-      dt_first_event:
-        type: integer
-      dt_last_event:
-        type: integer
-  authorizeErrorResponse:
-    type: object
-    properties:
-      resmsgid:
-        description: unique response message id (UUID)
-        type: string
-        x-go-name: ResMsgId
-      msgid:
-        description: message id of the request
-        type: string
-        x-go-name: MsgId
-      status:
-        description: failed
-        type: string
-        x-go-name: Key
-      err:
-        description: one of the following error codes
-        type: string
-        x-go-name: ErrorCode
-        enum:
-          - INVALID_DATA_ERROR - Request JSON is not parsable
-          - >-
-            AUTHORIZATION_FAILED - User does not have access to the given
-            dataset or resource
-          - LOGIN_FAILED - License key is invalid
-          - INTERNAL_ERROR - Technical error in the API
-      errmsg:
-        description: default English error message
-        type: string
-        x-go-name: ErrorMessage
-  JobResult:
-    type: array
-    items:
+      - ts
+      - ver
       type: object
       properties:
-        request_id:
+        id:
+          type: string
+          description: unique API ID=data_exhaust_dataset_service
+          x-go-name: ID
+        ver:
+          type: string
+          description: API version=1.0
+          x-go-name: Ver
+        ts:
+          type: string
+          description: 'request timestamp in format: YYYY-MM-DDThh:mm:ss+/-nn:nn'
+          x-go-name: Ts
+        params:
+          $ref: '#/components/schemas/dataexhaustapiRequestParams'
+        request:
+          $ref: '#/components/schemas/dataexhaustapiDataExhaustRequest'
+    dataexhaustapiDataExhaustJobStats:
+      title: JobState
+      type: object
+      properties:
+        dtJobSubmitted:
+          type: integer
+          description: DateTime when the job is submitted
+        dtJobCompleted:
+          type: integer
+          description: DateTime when the job is complete
+        executionTime:
+          type: integer
+          description: Total time taken for processing request
+    dataexhaustapidataExhaustResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/dataexhaustapiResponseParams'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/dataexhaustapidataExhaustResult'
+    dataexhaustapiRequestParams:
+      title: Params
+      type: object
+      properties:
+        msgid:
+          type: string
+          description: unique request message id, UUID, for handling API idempotency
+          x-go-name: MsgID
+    dataexhaustapiDataExhaustRequest:
+      title: Request
+      required:
+      - tag
+      - dataset
+      - datasetConfig
+      type: object
+      properties:
+        tag:
+          type: string
+          description: "Unique identifier to identify request submitted. e.g.: CourseId/BatchId"
+        requestedBy:
+          type: string
+          description: Requester id for submitted request
+        dataset:
+          type: string
+          description: "The job/dataset id the request is for. Available ids: progress-exhaust, userinfo-exhaust & response-exhaust"
+        datasetConfig:
+          type: string
+          description: Dataset config to fetch the data.
+        encryptionKey:
+          type: string
+          description: Encryption key for the data exhaust file.
+    dataexhaustapiJobListResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/dataexhaustapiResponseParams'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/dataexhaustapiJobListResult'
+    dataexhaustapiJobInfoResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/dataexhaustapiResponseParams'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/dataexhaustapidataExhaustResult'
+    dataexhaustapidataExhaustResult:
+      type: object
+      properties:
+        requestId:
+          type: string
+        tag:
+          type: string
+        dataset:
+          type: string
+        requestedBy:
+          type: string
+        requestedChannel:
           type: string
         status:
           type: string
-        last_updated:
+        lastUpdated:
           type: integer
-        request_data:
-          $ref: '#/definitions/DataExhaustRequest'
-        output:
+        datasetConfig:
+          type: object
+        downloadUrls:
           type: array
           items:
-            $ref: '#/definitions/DataExhaustOutputResult'
-        job_stats:
-          $ref: '#/definitions/DataExhaustJobStats'
-  JobListResult:
-    type: object
-    properties:
-      count:
-        type: integer
-      jobs:
-        $ref: '#/definitions/JobResult'
-  associateErrorResponse:
-    type: object
-    properties:
-      resmsgid:
-        description: unique response message id (UUID)
-        type: string
-        x-go-name: ResMsgId
-      msgid:
-        description: message id of the request
-        type: string
-        x-go-name: MsgId
-      status:
-        description: failed
-        type: string
-        x-go-name: Key
-      err:
-        description: one of the following error codes
-        type: string
-        x-go-name: ErrorCode
-        enum:
-          - INVALID_DATA_ERROR - Request JSON is not parsable
-          - LOGIN_FAILED - License key is invalid
-          - INTERNAL_ERROR - Technical error in the API
-      errmsg:
-        description: default English error message
-        type: string
-        x-go-name: ErrorMessage
-responses:
-  AssociateResponse:
-    description: Success response associating resource with license key
-    schema:
-      $ref: '#/definitions/associateResponse'
-  RegisterErrorResponse:
-    description: Error responses when data exhaust apis fail
-    schema:
-      $ref: '#/definitions/registerErrorResponse'
-  AuthenticateErrorResponse:
-    description: Error responses when data exhaust apis fail
-    schema:
-      $ref: '#/definitions/authenticateErrorResponse'
-  AuthorizeErrorResponse:
-    description: Error responses when data exhaust apis fail
-    schema:
-      $ref: '#/definitions/authorizeErrorResponse'
-  AssociateErrorResponse:
-    description: Error responses when data exhaust apis fail
-    schema:
-      $ref: '#/definitions/associateErrorResponse'
+            type: string
+        expiresAt:
+          type: integer
+        jobStats:
+          $ref: '#/components/schemas/dataexhaustapiDataExhaustJobStats'
+        attempts:
+          type: integer
+    dataexhaustapiResponseParams:
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          description: unique response message id (UUID)
+          x-go-name: ResMsgId
+        msgid:
+          type: string
+          description: message id of the request
+          x-go-name: MsgId
+        status:
+          type: string
+          description: 'status of request e.g: success, failed etc'
+          x-go-name: Status
+        err:
+          type: string
+          description: error code if any
+          x-go-name: ErrorCode
+        errmsg:
+          type: string
+          description: default English error message
+          x-go-name: ErrorMessage
+      x-go-package: ecosystem-platform-api/api
+    dataexhaustapiJobListResult:
+      type: object
+      properties:
+        count:
+          type: integer
+        jobs:
+          type: array
+          items:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/dataexhaustapidataExhaustResult'
+    dataexhaustapiDatasetResponse:
+      title: DatasetGetResponse
+      allOf:
+      - $ref: '#/components/schemas/dataexhaustapiApiResponse'
+      - $ref: '#/components/schemas/dataexhaustapiDatasetResult'
+    dataexhaustapiDatasetResult:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+        periodWiseFiles:
+          type: object
+        expiresAt:
+          type: integer
+          description: Represents expire EPOCH (UTC) timestamp in milliseconds
+    dataexhaustapiApiResponse:
+      required:
+      - ts
+      - id
+      - params
+      - ver
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique API ID=data_exhaust_dataset_service
+          x-go-name: ID
+        ver:
+          type: string
+          description: API version=1.0
+          x-go-name: Ver
+        ts:
+          type: string
+          description: 'request timestamp in format: YYYY-MM-DDThh:mm:ss+/-nn:nn'
+          x-go-name: Ts
+        params:
+          $ref: '#/components/schemas/dataexhaustapiResponseParams'
+        responseCode:
+          type: string
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+    userToken:
+      type: apiKey
+      name: x-authenticated-user-token
+      in: header

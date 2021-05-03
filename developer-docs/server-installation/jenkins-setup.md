@@ -16,7 +16,7 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 
  ```
     - git clone [https://github.com/project-sunbird/sunbird-devops.git](https://github.com/project-sunbird/sunbird-devops.git) 
-    - cd sunbird-devops && git checkout tags/release-3.1.0 -b release-3.1.0
+    - cd sunbird-devops && git checkout tags/release-3.5.0 -b release-3.5.0
     - cd deploy/jenkins
     - sudo bash jenkins-server-setup.sh
 
@@ -80,27 +80,28 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 |**private_repo_branch**|The branch name in the private repository which you would like to use. This branch has the inventory and secrets| 
 |**private_repo_credentials**|The unique string which you provided for ID field while entering the GitHub repo credentials. Example: **private-repo-creds**| 
 |**private_repo_url**|The GitHub URL to your private repo. To get the URL of your private repository, go to your private repository and click the **Clone** button. The https URL of your private repository is displayed. Currently, Sunbird supports only https URLs| 
-|**public_repo_branch**|This is the branch or tag to pick the Jenkins file. You can set this value as refs/tags/release-3.1.0 if you want to build from tags or provide the value of the development branch, for example, release-3.1.0. Changing this value is not recommended since development branches are not stable. |
+|**public_repo_branch**|This is the branch or tag to pick the Jenkins file. You can set this value as refs/tags/release-3.5.0 if you want to build from tags or provide the value of the development branch, for example, release-3.5.0. Changing this value is not recommended since development branches are not stable. |
 |**override_private_branch**|true|
 |**override_public_branch**|true| 
+|**java11_home**|/usr/lib/jvm/java-11-openjdk-amd64/|
  
 21.Scroll to the **Global Pipeline Libraries** section and click **Add**. Provide the values as below:
 
 |**Name**|**Value**| 
 |-------|--------| 
 |**Library Name**|deploy-conf| 
-|**Default version**|Tag name of the Jenkins shared library. This should be the same version of the release you are going to build and deploy. For example, if you decide to use tag release-3.1.0 as your base, the Jenkins shared library tag is shared-lib. When you upgrade to tag will differ.
+|**Default version**|Tag name of the Jenkins shared library. This should be the same version of the release you are going to build and deploy. For example, if you decide to use tag release-3.5.0 as your base, the Jenkins shared library tag is shared-lib. When you upgrade to tag will differ.
 |**Retrieval method**|Modern SCM| 
 |**Source Code Management**|Git| 
 |**Project Repository**|https://github.com/project-sunbird/sunbird-devops.git| 
 
 22.Click **Save** and go to **Manage Jenkins** -> **Configure global security** 
 
-23.Choose the **Markup Formatter** as **Safe HTML**
+23.Choose the **Markup Formatter** as **Safe HTML** and Under **Copy Artifact Compatibility mode**  choose **Migration**
 
-24.Go to **Manage Jenkins** -> **Manager Nodes** -> Click **master** -> Click **Configure** -> Provide **labels**. Provide the label as `build-slave`, `jenkin-slave11`
+24.Go to **Manage Jenkins** -> **Manager Nodes** -> Click **master** -> Click **Configure** -> Provide **labels**. Provide the label as `build-slave jenkin-slave11`
 
-25.Set the number of executors. For example, if your system configuration is: RAM - 16 GB and CPU - 4 core, set the number as 15. Adjust this number based on your system configuration 
+25.Set the number of executors. The executors must be equal to number of cores. 
 
 26.Restart Jenkins using the command `sudo service jenkins restart` 
 
@@ -124,9 +125,19 @@ This page provides you with step-by-step instructions to set up the Jenkins serv
 
 32.Copy the contents of the `deployer_ssh_key` into `/var/lib/jenkins/secrets/deployer_ssh_key`  
 
-33.If your private GitHub repository has Ansible encrypted files, then enter the decryption password in `/var/lib/jenkins/secrets/vault-pass`. If there are no encrypted files, then enter a random value like **12345** into the `vault-pass` file. This file cannot be empty
+33.Copy the Kubernetes config file `k8s.yaml` into `/var/lib/jenkins/secrets/k8s.yaml`
 
-34.Restart the Jenkins server
+34.If your private GitHub repository has Ansible encrypted files, then enter the decryption password in `/var/lib/jenkins/secrets/vault-pass`. If there are no encrypted files, then enter a random value like **12345** into the `vault-pass` file. This file cannot be empty
+
+35.give sudo access to jenkins user 
+ ```
+    sudo visudo
+    addd below line in visudo
+    jenkins ALL=(ALL) NOPASSWD:ALL   
+
+ ``` 
+
+36.Restart the Jenkins server
 
 
 > Note: 

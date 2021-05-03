@@ -16,7 +16,7 @@ Use the following Git commands sequentially to clone and update your private Git
 
 1. `git clone` <a href="https://project-sunbird/sunbird-devops">https://github.com/project-sunbird/sunbird-devops</a>
 
-2. `cd sunbird-devops; git checkout tags/release-3.1.0 -b release-3.1.0`
+2. `cd sunbird-devops; git checkout tags/release-3.5.0 -b release-3.5.0`
 
 3. Copy the directory `sunbird-devops/private_repo/ansible` to your private repo location
 
