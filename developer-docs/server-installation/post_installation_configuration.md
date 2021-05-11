@@ -83,7 +83,7 @@ bash -x create_license CC\ BY\ 4.0 This\ is\ the\ standard\ license\ of\ any\ Yo
 bash -x create_license Standard\ YouTube\ License This\ license\ is\ Creative\ Commons\ Attribution-NonCommercial-ShareAlike https://www.youtube.com/
 ```
 
-2.Run the above script from learning server to update the Channel-default license .  
+2.Run the above script from content-service to update the Channel-default license .  
 
 ```
 Copy below code and save file name as channel_license.sh
@@ -92,7 +92,7 @@ echo "Channel Id: $1"
 echo "Default License: $2"
 IFS=,
 curl -X PATCH \
-"http://localhost:8080/channel/v3/update/"$1 \
+"http://localhost:9000/channel/v3/update/"$1 \
 -H 'Content-Type: application/json' \
 -d '{
    "request": {
