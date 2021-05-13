@@ -1,0 +1,2798 @@
+openapi: 3.0.1
+info:
+  title: Assessment Service API(s)s
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  description: >-
+    - The Sunrdb Service is intermediate service to access the sunbird service api's. Apis perform operations related to user management, organisation management and learning resources etc 
+    
+    - The URL for sunbird service API(s) is `sunbird/api`
+
+    - <b>Note:</b> These resources can be used in other services 
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://staging.open-sunbird.org/sunbird/api
+  variables: {}
+paths: 
+   /v2/observations/assessment/{observationId}:
+    get:
+      tags:
+      - Observations Details
+      summary: To get observations details
+      description: This api is used for to get observations details
+           - The endpoint for **Observations assessment V2** is `/observations/assessment/`  
+      operationId: To Activate User
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: entityId
+          required: true
+          description: Entity Id
+          schema:
+            type: string 
+        - in: query
+          name: submissionNumber
+          required: true
+          description: Submission Number
+          schema: 
+            type: string
+        - in: path
+          name: observationId
+          required: true
+          description: Observation Id
+          schema:
+            type: string            
+      responses:
+        200:
+          description: "Observation assessment information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationsAssessmentResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observations400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v2/observations/create:
+    post:
+      tags:
+      - Create Observations
+      summary: To Create Observations
+      description: This api is used for to create observation
+           - The endpoint for **Observations Create V2** is `/observations/create/`  
+      operationId: To create observation
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the access token
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/observationCreateRequest"
+              
+      responses:
+        200:
+          description: "Observation create information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationCreateResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observations400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v2/observations/searchEntities:
+    get:
+      tags:
+      - Search Entities
+      summary: Search Entities based on observationId or solutionId
+      description: This api is used to Search Entities
+           - The endpoint for **Observation Submission List V2** is `/observations/searchEntities/`  
+      operationId: Search Entities
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: observationId
+          required: false
+          description: Observation Id
+          schema:
+            type: string 
+        - in: query
+          name: solutionId
+          required: false
+          description: solution Id
+          schema:
+            type: string 
+        - in: query
+          name: search
+          required: false
+          description: search
+          schema:
+            type: string
+        - in: query
+          name: parentEntityId
+          required: false
+          description: parent entity id
+          schema:
+            type: string
+      responses:
+        200:
+          description: "Entities Details"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationsSearchEntitiesResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationsSearchEntities400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v2/surveys/details/{surveyId}:
+     post:
+      tags:
+      - Survey details
+      summary: Get Survey details
+      description: This api is used for to get survey details
+           - The endpoint for **surveys details V2** is `/surveys/details/`  
+      operationId: Get survey details
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: solutionId
+          in: query
+          description: solution id
+          required: false
+          schema:
+            type: string
+        - name: surveyId
+          in: path
+          description: survey id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the access token
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/observationSubmissionsSolutionListRequest"
+      
+      responses:
+        200:
+          description: "response consist of survey details"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/surveyDetailsResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/surveyDetailsResponse400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v1/observations/delete/{observationId}:
+    get:
+      tags:
+      - Delete an observation
+      summary: To delete an observation
+      description: This api is used for to delete an observation
+           - The endpoint for **Observation Delete V1** is `/observations/delete/`  
+      operationId: To delete observation
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: observationId
+          required: true
+          description: Observation Id
+          schema:
+            type: string            
+      responses:
+        200:
+          description: "observation delete details"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationsDeleteResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationDelete400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v1/observations/addEntityToObservation/{observationId}:
+    post:
+      tags:
+      - Map entities to observations
+      summary: To map entities to observations
+      description: This api is used to map entities to observations 
+           - The endpoint for **Observations add Entity To Observation V1** is `/observations/addEntityToObservation/`  
+      operationId: To map entities to observations
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: observationId
+          required: true
+          description: Observation Id
+          schema:
+            type: string 
+      requestBody:
+        description: >-
+            - The body payload comprises of the data it contains array of entities 
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MapEntitiesToObservationRequest"
+              
+      responses:
+        200:
+          description: "Map entities observation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MapEntitiesToObservationResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MapEntitiesToObservation400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v1/observations/removeEntityFromObservation/{observationId}:
+    post:
+      tags:
+      - Un Map entities to observations
+      summary: To un map entities from observations
+      description: This api is used to map entities to observations 
+           - The endpoint for **Observations Un Map Entity To Observation V1** is `/observations/removeEntityFromObservation/`  
+      operationId: To un map entities to observations
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: observationId
+          required: true
+          description: Observation Id
+          schema:
+            type: string 
+      requestBody:
+        description: >-
+            - The body payload comprises of the data it contains array of entities 
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UnMapEntitiesToObservationRequest"
+              
+      responses:
+        200:
+          description: "Un map entities observation response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnMapEntitiesToObservationResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnMapEntitiesToObservation400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v1/observationSubmissions/create/{observationId}:
+    get:
+      tags:
+      - Create A New Observation Submission
+      summary: To create a new observation Submission
+      description: This api is used to create new submmision for the observation
+           - The endpoint for **Create Observation Submission V1** is `/observationSubmissions/create/`  
+      operationId: To create observation submission
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: observationId
+          required: true
+          description: Observation Id
+          schema:
+            type: string 
+        - in: query
+          name: entityId
+          required: true
+          description: entity Id
+          schema:
+            type: string 
+      responses:
+        200:
+          description: "Un map entities observation response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationSubmissionsCreateResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationSubmissions400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []      
+   /v1/observationSubmissions/make/{submissionId}:   
+    post:
+      tags:
+      - To Create Observation Submission
+      summary: To Create Observation Submission
+      description: This api is used to create observation submission
+           - The endpoint for **Observations Create Observation V1** is `/observations/make/`  
+      operationId: To make observation submission
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: submissionId
+          required: true
+          description: submission Id
+          schema:
+            type: string 
+      requestBody:
+        description: >-
+            - The body payload comprises of the data it contains array of entities 
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/observationSubmissionsMakeRequest"
+              
+      responses:
+        200:
+          description: "Un map entities observation response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationSubmissionsMakeResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationSubmissionsMake400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v1/observationSubmissions/isAllowed/{observationSubmissionId}:
+    get:
+      tags:
+      - Check Submissions Status
+      summary: To Check Submissions Status
+      description: This api is used for to get the status of the submission
+           - The endpoint for **Observations submission Allowed** is `/observationSubmissions/isAllowed/`  
+      operationId: To check submission status
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: evidenceId
+          required: true
+          description: evidence Id
+          schema:
+            type: string 
+        - in: path
+          name: observationSubmissionId
+          required: true
+          description: Observation Submission Id
+          schema:
+            type: string     
+            
+      responses:
+        200:
+          description: "Observation Submission information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationsSubmissionStatusResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationsSubmissionStatus400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v1/observationSubmissions/delete/{observationSubmissionId}:
+    get:
+      tags:
+      - Delete an observation submission
+      summary: To delete an observation
+      description: This api is used for to delete an observation
+           - The endpoint for **Observation Submission Delete V1** is `/observationSubmissions/delete/`  
+      operationId: To delete observation submission
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: observationSubmissionId
+          required: true
+          description: Observation Submission Id
+          schema:
+            type: string            
+      responses:
+        200:
+          description: "observation submission delete details"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationsSubmissionDeleteResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationsSubmissionDelete400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v1/observationSubmissions/title/{observationSubmissionId}:
+    post:
+      tags:
+      -  Set Observation Submission Title
+      summary: To set observation submission title
+      description: This api is used to set observation submission title 
+           - The endpoint for **Observation Submission Title Set V1** is `/observationSubmissions/title/`  
+      operationId: observation submission title
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: observationSubmissionId
+          required: true
+          description: Observation SubmissionId Id
+          schema:
+            type: string 
+      requestBody:
+        description: >-
+            - The body payload comprises of the title
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/observationSubmissionTitleRequest"
+              
+      responses:
+        200:
+          description: "Un map entities observation response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationSubmissionTitleResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationSubmissionTitle400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v1/observationSubmissions/list/{observationId}:
+    get:
+      tags:
+      - List Observation Submissions
+      summary: To get list of observation submissions
+      description: This api is used to list the observasion submission
+           - The endpoint for **Observation Submission List V1** is `/observationSubmissions/list/`  
+      operationId: observation submissions list
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: observationId
+          required: true
+          description: Observation Id
+          schema:
+            type: string 
+        - in: query
+          name: entityId
+          required: true
+          description: entity Id
+          schema:
+            type: string 
+      responses:
+        200:
+          description: "observation submission list"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationsSubmissionListResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationsSubmissionList400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v1/observations/updateEntities/{observationId}:
+    post:
+      tags:
+      - Map entities to observations
+      summary: To map entities to observations
+      description: This api is used for to update observations entities
+           - The endpoint for **Observations updateEntities V1** is `/observations/updateEntities/`  
+      operationId: To map entities
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: observationId
+          required: true
+          description: Observation Id
+          schema:
+            type: string 
+      requestBody:
+        description: >-
+            - The body payload comprises of the access token
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/updateEntitiesRequest"
+      
+      responses:
+        200:
+          description: "regarding either entity is added to observation or not."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateEntitiesResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observations400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+      - To remove entities from observations
+      summary: To map entities to observations
+      description: This api is used for to remove observations entities
+           - The endpoint for **Observations updateEntities V1** is `/observations/updateEntities/`  
+      operationId: To update entities
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: observationId
+          required: true
+          description: Observation Id
+          schema:
+            type: string 
+      
+      responses:
+        200:
+          description: "regarding either entity is removed from observation or not."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateEntitiesDeleteResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observations400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v1/observationSubmissions/update/{observationSubmissionId}:
+    post:
+      tags:
+      - To Update Observation Submission
+      summary: Api is used to Update Observation Submission
+      description: This api is used for to update observation submission details
+           - The endpoint for **observationSubmissions update V1** is `/observationSubmissions/update/`  
+      operationId: Update Observation Submission
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: observationSubmissionId
+          required: true
+          description: observationSubmissionId
+          schema:
+            type: string 
+      requestBody:
+        description: >-
+            - The body payload comprises of the access token
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/observationSubmissionsUpdateRequest"
+      
+      responses:
+        200:
+          description: "regarding either to update observation submission"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationSubmissionsUpdateResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observations400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+        
+    delete:
+        tags:
+        - To remove observation submission
+        summary: To remove observation submission
+        description: This api is used for to delete observations observation submissions
+             - The endpoint for **observationSubmissions update V1** is `/observationSubmissions/update/`  
+        operationId: To  remove observation submission
+        parameters:
+          - name: X-authenticated-user-token
+            in: header
+            description: Represents the authorized User token to execute the API.
+            required: true
+            schema:
+              type: string
+          - in: path
+            name: observationSubmissionId
+            required: true
+            description: observationSubmissionId
+            schema:
+              type: string 
+      
+        responses:
+          200:
+            description: "regarding either to remove observation submission"
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/observationSubmissionsDeleteResponse'
+                  
+          500:
+            description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/500Error'
+          400:
+            description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/observations400Error'
+          
+        deprecated: false
+        security:
+          - bearer: []
+   /v1/observationSubmissions/solutionList:
+    post:
+      tags:
+      - Get Observation Submission solutions
+      summary: Get list of Observation Submission solutions
+      description: This api is used for to Get Observation Submission solutions
+           - The endpoint for **observationSubmissions solutionList V1** is `/observationSubmissions/solutionList/`  
+      operationId: Get Observation Submission solutions
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the access token
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/observationSubmissionsSolutionListRequest"
+      
+      responses:
+        200:
+          description: "response consist of solution list"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationSubmissionsSolutionListResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationsSubmissionSolutionList400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  
+   /v1/surveySubmissions/isAllowed/{surveySubmissionId}:
+    get:
+      tags:
+      - Check Submissions Status 
+      summary: To check submissions status 
+      description: This api is used to check submissions status
+           - The endpoint for **surveySubmissions isAllowed V1** is `/surveySubmissions/isAllowed/`  
+      operationId: submission status
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: surveySubmissionId
+          required: true
+          description: Survey SubmissionId
+          schema:
+            type: string 
+        - in: query
+          name: evidenceId
+          required: false
+          description: Evidence Id
+          schema:
+            type: string
+      responses:
+        200:
+          description: "Submission status check details"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/surveySubmissionsIsAllowedResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/surveySubmissionsIsAllowed400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v1/observations/entities/{observationId}:
+    get:
+      tags:
+      -  List of observations entities 
+      summary: To get list of observations entities 
+      description: This api is used to get list of observations entities
+           - The endpoint for **surveySubmissions isAllowed V1** is `/observations/entities/`  
+      operationId: observations entities 
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: observationId
+          required: true
+          description: Observation Id
+          schema:
+            type: string 
+        - in: query
+          name: solutionId
+          required: false
+          description: Solution Id
+          schema:
+            type: string
+      responses:
+        200:
+          description: "List of Observations entities"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationsEntitiesResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationsEntities400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v1/surveys/getDetailsByLink/{link}:
+    post:
+      tags:
+      -  Get the survey details by link
+      summary: To Get the survey details by link 
+      description: This api is used to get the survey details by link
+           - The endpoint for **surveySubmissions isAllowed V1** is `/observations/entities/`  
+      operationId: Get the survey details by link
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: link
+          required: true
+          description: link
+          schema:
+            type: string 
+      requestBody:
+        description: >-
+            - The body payload comprises of the access token
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/surveysGetDetailsByLinkRequest"            
+    
+      responses:
+        200:
+          description: "Survey details"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/surveysGetDetailsByLinkResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/surveysGetDetailsByLink400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v2/surveys/details/{surveyId}:
+     post:
+      tags:
+      - Survey details
+      summary: Get Survey details
+      description: This api is used for to get survey details
+           - The endpoint for **surveys details V2** is `/surveys/details/`  
+      operationId: Get survey details
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: solutionId
+          in: query
+          description: solution id
+          required: false
+          schema:
+            type: string
+        - name: surveyId
+          in: path
+          description: survey id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the access token
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/observationSubmissionsSolutionListRequest"
+      
+      responses:
+        200:
+          description: "response consist of survey details"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/surveyDetailsResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/surveyDetailsResponse400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v1/solutions/verifyLink/{linkId}:
+     post:
+      tags:
+      - Verify Observation Solution Link
+      summary: To Verify Observation Solution Link
+      description: This api is used for to verify observation solution Link
+           - The endpoint for **solutions verifyLink V1** is `/solutions/verifyLink/`  
+      operationId: Verify Observation Solution Link
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: linkId
+          in: path
+          description: linkId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the access token
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/observationSubmissionsSolutionListRequest"
+      
+      responses:
+        200:
+          description: "response consist of Observation solution link verified details"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/solutionsVerifyLinkResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/solutionsVerifyLink400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+   
+    observations400Error:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: params
+              param: 
+                type: string
+                example: _id
+              msg: 
+                type: string
+                example: required observation id
+          
+    500Error:
+            type: object
+            properties:
+              result:
+                type: boolean
+                example: false
+              message:
+                type: string
+                example: Internal Server Error
+              
+    observationsAssessmentResponse:
+            type: object
+            properties:
+              evidences: 
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    code: 
+                      type: string
+                      example: BL
+                    sections: 
+                      type: array
+                      items: 
+                        type: object
+                        properties: 
+                          code: 
+                            type: string
+                            example: SQ
+                          questions: 
+                            type: array
+                            items: 
+                              type: object
+                              properties: 
+                                _id: 
+                                  type: string
+                                  example: 
+                                question: 
+                                  type: string
+                                  example: 
+                                options: 
+                                  type: string
+                                  example: 
+                                children: 
+                                  type: string
+                                  example: 
+                                questionGroup: 
+                                  type: string
+                                  example: 
+                                fileName: 
+                                  type: string
+                                  example: 
+                                instanceQuestions: 
+                                  type: string
+                                  example: 
+                                deleted: 
+                                  type: string
+                                  example: 
+                                tip: 
+                                  type: string
+                                  example: 
+                                externalId: 
+                                  type: string
+                                  example: 
+                                visibleIf: 
+                                  type: string
+                                  example: 
+                                file: 
+                                  type: string
+                                  example: 
+                                responseType: 
+                                  type: string
+                                  example: pageQuestions
+                                validation: 
+                                  type: string
+                                  example: 
+                                page: 
+                                  type: string
+                                  example: p1
+                                showRemarks: 
+                                  type: string
+                                  example: 
+                                isCompleted: 
+                                  type: string
+                                  example: 
+                                remarks: 
+                                  type: string
+                                  example: 
+                                value: 
+                                  type: string
+                                  example: 
+                                canBeNotApplicable: 
+                                  type: string
+                                  example: 
+                                usedForScoring: 
+                                  type: string
+                                  example: 
+                                modeOfCollection: 
+                                  type: string
+                                  example: 
+                                questionType: 
+                                  type: string
+                                  example: 
+                                accessibility: 
+                                  type: string
+                                  example: 
+                                updatedAt: 
+                                  type: string
+                                  example: 
+                                createdAt: 
+                                  type: string
+                                  example: 
+                                __v: 
+                                  type: string
+                                  example: 
+                                evidenceMethod: 
+                                  type: string
+                                  example: 
+                                payload: 
+                                  type: string
+                                  example: 
+                                startTime: 
+                                  type: string
+                                  example: 
+                                endTime: 
+                                  type: string
+                                  example: 
+                                pageQuestions: 
+                                  type: array
+                                  items: 
+                                    type: object
+                                    properties: 
+                                      _id: 
+                                        type: string
+                                        example: 5be4e40e9a14ba4b5038dcfb
+                                      question: 
+                                        type: array
+                                        items: 
+                                          type: string
+                                          example: "Are all empty rooms and terrace areas locked securely?"
+                                      options: 
+                                        type: array
+                                        items: 
+                                          type: object
+                                          properties: 
+                                            value: 
+                                              type: string
+                                              example: R1
+                                            label: 
+                                              type: string
+                                              example: None
+                                      questionGroup: 
+                                        type: array
+                                        items: 
+                                          type: string
+                                          example: A1
+                                      deleted: 
+                                        type: boolean
+                                      tip: 
+                                        type: string
+                                        example: 
+                                      externalId: 
+                                        type: string
+                                        example: LW/SS/22
+                                      visibleIf: 
+                                        type: string
+                                        example: 
+                                      file: 
+                                        type: string
+                                        example: 
+                                      responseType: 
+                                        type: string
+                                        example: radio
+                                      validation: 
+                                        type: object
+                                        properties: 
+                                          required: 
+                                            type: boolean
+                                      page: 
+                                        type: string
+                                        example: p1
+                                      showRemarks: 
+                                        type: boolean
+                                      isCompleted: 
+                                        type: boolean
+                                      remarks: 
+                                        type: string
+                                        example: 
+                                      value: 
+                                        type: string
+                                        example: 
+                                      canBeNotApplicable: 
+                                        type: string
+                                        example: false
+                                      usedForScoring: 
+                                        type: string
+                                        example: 
+                                      modeOfCollection: 
+                                        type: string
+                                        example: onfield
+                                      questionType: 
+                                        type: string
+                                        example: auto
+                                      accessibility: 
+                                        type: string
+                                        example: local
+                                      updatedAt: 
+                                        type: string
+                                        example: 2018-11-09T01:34:06.839Z
+                                      createdAt: 
+                                        type: string
+                                        example: 2018-11-09T01:34:06.839Z
+                                      __v: 
+                                        type: number
+                                        example: 0
+                                      evidenceMethod: 
+                                        type: string
+                                        example: LW
+                                      payload: 
+                                        type: object
+                                        properties: 
+                                          criteriaId: 
+                                            type: string
+                                            example: 5be1616549e0121f01b2180c
+                                          responseType: 
+                                            type: string
+                                            example: radio
+                                          evidenceMethod: 
+                                            type: string
+                                            example: LW
+                                          rubricLevel: 
+                                            type: string
+                                            example: 
+                                      startTime: 
+                                        type: string
+                                        example: 
+                                      endTime: 
+                                        type: string
+                                        example: 
+                
+                            
+    observationCreateRequest:
+      type: object
+      properties:
+        data: 
+          type: object
+          properties: 
+            name: 
+              type: string
+              example: observation
+            description: 
+              type: string
+              example: school observation
+            startDate: 
+              type: string
+              example: "2018-11-09T01:34:06.839Z"
+            endDate: 
+              type: string
+              example: "2018-11-09T01:34:06.839Z"
+            status: 
+              type: string
+              example: draft
+            entities: 
+              type: array
+              items: 
+                type: string
+                example: 5beaa888af0065f0e0a10515
+                
+    observationCreateResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Successfully created solution
+        status: 
+          type: integer
+          example: 200
+        result: 
+          type: object
+          properties: 
+            _id: 
+              type: string
+              example: 5edf880baf0d3261e4af7f7e
+            externalId: 
+              type: string
+              example: "AFRICA-ME-TEST-FRAMEWORK-TEMPLATE-1591707659674"
+            frameworkExternalId: 
+              type: string
+              example: AFRICA-ME-TEST-FRAMEWORK
+            frameworkId: 
+              type: string
+              example: 5d15adc5fad01368a494cbd7
+            programExternalId: 
+              type: string
+              example: "My program-1591707659613"
+            programId: 
+              type: string
+              example: 5edf880baf0d3261e4af7f7d
+            entityTypeId: 
+              type: string
+              example: 5d15a959e9185967a6d5e8a6
+            entityType: 
+              type: string
+              example: school
+            isAPrivateProgram: 
+              type: boolean
+            observationName: 
+              type: string
+              example: My Solution
+            observationId: 
+              type: string
+              example: 5edf880caf0d3261e4af7f7f
+                
+    observationsDeleteResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Observation deleted successfully.
+        status: 
+          type: integer
+          example: 200
+          
+    observationDelete400Error:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: params
+              param: 
+                type: string
+                example: _id
+              msg: 
+                type: string
+                example: required observation id
+                
+    MapEntitiesToObservationRequest:
+      type: object
+      properties:
+        data: 
+          type: array
+          items: 
+            type: string
+            example: 5beaa888af0065f0e0a10515
+            
+            
+    MapEntitiesToObservationResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Updated successfully.
+        status: 
+          type: integer
+          example: 200
+    
+    MapEntitiesToObservation400Error:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: params
+              param: 
+                type: string
+                example: _id
+              msg: 
+                type: string
+                example: required observation id
+      
+      
+    UnMapEntitiesToObservationRequest:
+      type: object
+      properties:
+        data: 
+          type: array
+          items: 
+            type: string
+            example: 5beaa888af0065f0e0a10515
+            
+            
+    UnMapEntitiesToObservationResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Entity Removed successfully.
+        status: 
+          type: integer
+          example: 200
+    
+    UnMapEntitiesToObservation400Error:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: params
+              param: 
+                type: string
+                example: _id
+              msg: 
+                type: string
+                example: required observation id
+                
+    observationSubmissionsCreateResponse:
+      type: object
+      properties:
+        result: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              _id: 
+                type: string
+                example: 5d1070326f6ed50bc34aec2c
+              entities: 
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    _id: 
+                      type: string
+                      example: 5cebbefe5943912f56cf8e16
+                    submissionStatus: 
+                      type: string
+                      example: pending
+                    name: 
+                      type: string
+                      example: asd
+              status: 
+                type: string
+                example: published
+              endDate: 
+                type: string
+                example: "2019-06-24T00:00:00.000Z"
+              name: 
+                type: string
+                example: asdasd
+              description: 
+                type: string
+                example: asdasdasd
+              solutionId: 
+                type: string
+                example: 5c6bd309af0065f0e0d4223b
+              
+    observationSubmissions400Error:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: params
+              param: 
+                type: string
+                example: _id
+              msg: 
+                type: string
+                example: required observation id
+                
+    observationSubmissionsMakeRequest:
+      type: object
+      properties:
+        evidence: 
+          type: object
+          properties: 
+            externalId: 
+              type: string
+              example: 
+            answers: 
+              type: object
+              properties: 
+                5be442149a14ba4b5038dce4: 
+                  type: object
+                  properties: 
+                    qid: 
+                      type: string
+                      example: 
+                    responseType: 
+                      type: string
+                      example: 
+                    value: 
+                      type: array
+                      items: 
+                        type: object
+                        properties: 
+                          5be442dd9a14ba4b5038dce5: 
+                            type: object
+                            properties: 
+                              qid: 
+                                type: string
+                                example: 
+                              value: 
+                                type: string
+                                example: 
+                              remarks: 
+                                type: string
+                                example: 
+                              payload: 
+                                type: object
+                                properties: 
+                                  question: 
+                                    type: array
+                                    items: 
+                                      type: string
+                                      example: 
+                                  labels: 
+                                    type: array
+                                    items: 
+                                      type: string
+                                      example: 
+                                  responseType: 
+                                    type: string
+                                    example: 
+                              criteriaId: 
+                                type: string
+                                example: 
+                          5be52f5d9a14ba4b5038dd0c: 
+                            type: object
+                            properties: 
+                              qid: 
+                                type: string
+                                example: 
+                              value: 
+                                type: array
+                                items: 
+                                  type: string
+                                  example: String
+                              remarks: 
+                                type: string
+                                example: ""
+                              payload: 
+                                type: object
+                                properties: 
+                                  question: 
+                                    type: array
+                                    items: 
+                                      type: string
+                                      example: 
+                                  labels: 
+                                    type: array
+                                    items: 
+                                      type: string
+                                      example: String
+                                  responseType: 
+                                    type: string
+                                    example: 
+                              criteriaId: 
+                                type: string
+                                example: 
+                    remarks: 
+                      type: string
+                      example: ""
+                    payload: 
+                      type: object
+                      properties: 
+                        question: 
+                          type: array
+                          items: 
+                            type: string
+                            example: String
+                        labels: 
+                          type: array
+                          items: 
+                            type: array
+                            items: 
+                              type: array
+                              items: 
+                                type: object
+                                properties: 
+                                  _id: 
+                                    type: string
+                                    example: 
+                                  question: 
+                                    type: array
+                                    items: 
+                                      type: string
+                                      example: String
+                                  options: 
+                                    type: array
+                                    items: 
+                                      type: object
+                                      properties: 
+                                        value: 
+                                          type: string
+                                          example: 
+                                        label: 
+                                          type: string
+                                          example: 
+                                  questionGroup: 
+                                    type: array
+                                    items: 
+                                      type: string
+                                      example: 
+                                  deleted: 
+                                    type: boolean
+                                    example: false
+                                  tip: 
+                                    type: string
+                                    example: ""
+                                  externalId: 
+                                    type: string
+                                    example: ""
+                                  visibleIf: 
+                                    type: string
+                                    example: ""
+                                  file: 
+                                    type: string
+                                    example: 
+                                  responseType: 
+                                    type: string
+                                    example: 
+                                  validation: 
+                                    type: object
+                                    properties: 
+                                      required: 
+                                        type: boolean
+                                  showRemarks: 
+                                    type: boolean
+                                  isCompleted: 
+                                    type: boolean
+                                  remarks: 
+                                    type: string
+                                    example: 
+                                  value: 
+                                    type: string
+                                    example: 
+                                  canBeNotApplicable: 
+                                    type: string
+                                    example: Boolean
+                                  usedForScoring: 
+                                    type: string
+                                    example: 
+                                  modeOfCollection: 
+                                    type: string
+                                    example: 
+                                  questionType: 
+                                    type: string
+                                    example: 
+                                  accessibility: 
+                                    type: string
+                                    example: 
+                                  updatedAt: 
+                                    type: string
+                                    example: Date
+                                  createdAt: 
+                                    type: string
+                                    example: Date
+                                  __v: 
+                                    type: number
+                                    example: 0
+                                  payload: 
+                                    type: object
+                                    properties: 
+                                      criteriaId: 
+                                        type: string
+                                        example: 
+                        responseType: 
+                          type: string
+                          example: 
+                    criteriaId: 
+                      type: string
+                      example: 
+        startTime: 
+          type: string
+          example: "2019-06-24T00:00:00.000Z"
+        endTime: 
+          type: string
+          example: "2019-06-24T00:00:00.000Z"
+        gpsLocation: 
+          type: string
+          example: ""
+        submittedBy: 
+          type: string
+          example: 
+        isValid: 
+          type: boolean
+    
+    observationSubmissionsMakeResponse:
+      type: object
+      properties:
+        status: 
+          type: string
+          example: draft
+        _id: 
+          type: string
+          example: 12234234234
+        evidencesStatus: 
+          type: string
+          example: draft
+      
+    observationSubmissionsMake400Error:
+      type: object
+      properties:
+        status: 
+          type: number
+          example: 400
+        message: 
+          type: string
+          example: Cannot read property 'externalId' of undefined
+      
+      
+    observationsSubmissionStatusResponse:
+      type: object
+      properties:
+        status: 
+          type: number
+          example: 400
+        message: 
+          type: string
+          example: Cannot read property 'externalId' of undefined
+          
+    observationsSubmissionStatus400Error:
+      type: object
+      properties:
+        result: 
+          type: object
+          properties: 
+            allowed: 
+              type: boolean
+              example: true
+                    
+    observationsSubmissionDeleteResponse:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 200
+        message: 
+          type: string
+          example: Observation submission deleted successfully
+          
+    observationsSubmissionDelete400Error:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: string
+          example: No submission found.
+          
+    observationSubmissionTitleRequest:
+      type: object
+      properties:
+        title: 
+          type: string
+          example: Observation Submission Title
+      
+    observationSubmissionTitleResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Observation submission updated successfully
+        status: 
+          type: integer
+          example: 200
+    
+    observationSubmissionTitle400Error:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: body
+              param: 
+                type: string
+                example: title
+              msg: 
+                type: string
+                example: Invalid value
+                
+                
+    observationsSubmissionList400Error:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: params
+              param: 
+                type: string
+                example: _id
+              msg: 
+                type: string
+                example: required observation id
+
+      
+    observationsSubmissionListResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Successfully fetched observation submissions
+        status: 
+          type: number
+          example: 200
+        result: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              _id: 
+                type: string
+                example: 5d8de379bccbfb51d4450d05
+              entityId: 
+                type: string
+                example: 5bfe53ea1d0c350d61b78d0f
+              entityExternalId: 
+                type: string
+                example: 1208138
+              entityType: 
+                type: string
+                example: school
+              status: 
+                type: string
+                example: started
+              submissionNumber: 
+                type: number
+                example: 1
+              updatedAt: 
+                type: string
+                example: "2019-09-27T10:24:57.182Z"
+              createdAt: 
+                type: string
+                example: "2019-09-27T10:24:57.182Z"
+
+    updateEntitiesResponse:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: string
+          example: Entity Added successfully.
+          
+    updateEntitiesDeleteResponse:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: string
+          example: Entity Removed successfully.
+    
+    updateEntitiesRequest:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: string
+            example: "5beaa888af0065f0e0a10515"
+
+    observationSubmissionsUpdateRequest:
+      type: object
+      properties:
+        title: 
+          type: string
+          example: Observation Submission Title
+          
+    observationSubmissionsUpdateResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Observation submission updated successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+    
+    observationSubmissionsDeleteResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Observation submission removed successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200      
+
+    observationSubmissionsSolutionListRequest:
+      type: object
+      properties:
+        role: 
+          type: string
+          example: HM
+        state: 
+          type: string
+          example: 236f5cff-c9af-4366-b0b6-253a1789766a
+        district: 
+          type: string
+          example: 1dcbc362-ec4c-4559-9081-e0c2864c2931
+        school: 
+          type: string
+          example: c5726207-4f9f-4f45-91f1-3e9e8e84d824  
+          
+    observationSubmissionsSolutionListResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Solutions fetched successfully
+        status: 
+          type: number
+          example: 200
+        result: 
+          type: object
+          properties: 
+            data: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  solutionId: 
+                    type: string
+                    example: 600b21c57ea68a7ed9278873
+                  programId: 
+                    type: string
+                    example: 600ab53cc7de076e6f993724
+                  observationId: 
+                    type: string
+                    example: 60113bcf2d0bbd2f0c3229dc
+                  scoringSystem: 
+                    type: string
+                    format: nullable
+                  isRubricDriven: 
+                    type: boolean
+                  entityType: 
+                    type: string
+                    example: district
+                  entities: 
+                    type: array
+                    items: 
+                      type: object
+                      properties: 
+                        _id: 
+                          type: string
+                          example: 5fd098e2e049735a86b748b7
+                        externalId: 
+                          type: string
+                          example: D_AP-D012
+                        name: 
+                          type: string
+                          example: ANANTAPUR
+                  programName: 
+                    type: string
+                    example: AP-TEST-PROGRAM-3.6.5
+                  name: 
+                    type: string
+                    example: AP-TEST-PROGRAM-3.6.5-OBS-IMP-PROJECT-2-DEO
+            entityType: 
+              type: array
+              items: 
+                type: string
+                example: district
+            count: 
+              type: number
+              example: 1
+      
+          
+    observationsSubmissionSolutionList400Error:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: body
+              param: 
+                type: string
+                example: title
+              msg: 
+                type: string
+                example: request body required
+          
+    observationsSearchEntitiesResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Solutions fetched successfully
+        status: 
+          type: number
+          example: 200
+        result: 
+          type: object
+          properties: 
+            data: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  solutionId: 
+                    type: string
+                    example: 600b21c57ea68a7ed9278873
+                  programId: 
+                    type: string
+                    example: 600ab53cc7de076e6f993724
+                  observationId: 
+                    type: string
+                    example: 60113bcf2d0bbd2f0c3229dc
+                  scoringSystem: 
+                    type: string
+                    format: nullable
+                  isRubricDriven: 
+                    type: boolean
+                  entityType: 
+                    type: string
+                    example: district
+                  entities: 
+                    type: array
+                    items: 
+                      type: object
+                      properties: 
+                        _id: 
+                          type: string
+                          example: 5fd098e2e049735a86b748b7
+                        externalId: 
+                          type: string
+                          example: D_AP-D012
+                        name: 
+                          type: string
+                          example: ANANTAPUR
+                  programName: 
+                    type: string
+                    example: AP-TEST-PROGRAM-3.6.5
+                  name: 
+                    type: string
+                    example: AP-TEST-PROGRAM-3.6.5-OBS-IMP-PROJECT-2-DEO
+            entityType: 
+              type: array
+              items: 
+                type: string
+                example: district
+            count: 
+              type: number
+              example: 1
+    observationsSearchEntities400Error:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: params
+              param: 
+                type: string
+                example: observationId
+              msg: 
+                type: string
+                example: required solution or observation Id   
+ 
+    surveySubmissionsIsAllowedResponse:
+      type: object
+      properties:
+        result: 
+          type: object
+          properties: 
+            allowed: 
+              type: boolean
+        
+    surveySubmissionsIsAllowed400Error:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: params
+              param: 
+                type: string
+                example: submissionId
+              msg: 
+                type: string
+                example: required survey submission Id 
+                
+    observationsEntitiesResponse:
+      type: object
+      properties:
+        role: 
+          type: string
+          example: HM
+        state: 
+          type: string
+          example: 236f5cff-c9af-4366-b0b6-253a1789766a
+        district: 
+          type: string
+          example: 1dcbc362-ec4c-4559-9081-e0c2864c2931
+        school: 
+          type: string
+          example: c5726207-4f9f-4f45-91f1-3e9e8e84d824
+    
+    observationsEntities400Error:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: params
+              param: 
+                type: string
+                example: observationId 
+              msg: 
+                type: string
+                example: required observation Id 
+                
+    surveysGetDetailsByLinkResponse:
+      type: object
+      properties:
+        status: 
+          type: number
+          example: 200
+        message: 
+          type: string
+          example: Survey details fetched successfully
+        result: 
+          type: object
+          properties: 
+            solution: 
+              type: object
+              properties: 
+                _id: 
+                  type: string
+                  example: 5f5b38ec45365677f64b2843
+                externalId: 
+                  type: string
+                  example: Test-survey-solution
+                name: 
+                  type: string
+                  example: test survey
+                description: 
+                  type: string
+                  example: Shikshalokam test Survey and feedback solution
+                captureGpsLocationAtQuestionLevel: 
+                  type: boolean
+                enableQuestionReadOut: 
+                  type: boolean
+            program: 
+              type: object
+              properties: 
+                _id: 
+                  type: string
+                  example: 5f5b1df69c70bd2973aee29e
+                externalId: 
+                  type: string
+                  example: Test-survey-program
+                name: 
+                  type: string
+                  example: new survey program
+                description: 
+                  type: string
+                  example: Shikshalokam new survey
+                imageCompression: 
+                  type: object
+                  properties: 
+                    quality: 
+                      type: number
+                      example: 10
+            assessment: 
+              type: object
+              properties: 
+                name: 
+                  type: string
+                  example: test survey
+                description: 
+                  type: string
+                  example: Shikshalokam test Survey and feedback solution
+                externalId: 
+                  type: string
+                  example: Test-survey-solution
+                submissionId: 
+                  type: string
+                  example: 5f5b657f9c3b881d2c711dc0
+                modeOfCollection: 
+                  type: string
+                  example: 
+                canBeNotApplicable: 
+                  type: boolean
+                notApplicable: 
+                  type: boolean
+                canBeNotAllowed: 
+                  type: boolean
+                remarks: 
+                  type: string
+                  example: 
+                isActive: 
+                  type: boolean
+                startTime: 
+                  type: string
+                  example: 
+                endTime: 
+                  type: string
+                  example: 
+           
+          
+    surveysGetDetailsByLinkRequest:
+            type: object
+            properties:
+              role: 
+                type: string
+                example: HM
+              state: 
+                type: string
+                example: 236f5cff-c9af-4366-b0b6-253a1789766a
+              district: 
+                type: string
+                example: 1dcbc362-ec4c-4559-9081-e0c2864c2931
+              school: 
+                type: string
+                example: c5726207-4f9f-4f45-91f1-3e9e8e84d824
+          
+    surveysGetDetailsByLink400Error:
+            type: object
+            properties:
+              status: 
+                type: integer
+                example: 400
+              message: 
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    location: 
+                      type: string
+                      example: params
+                    param: 
+                      type: string
+                      example: link
+                    msg: 
+                      type: string
+                      example: required link    
+
+    surveyDetailsResponse:
+      type: object
+      properties:
+        status: 
+          type: number
+          example: 200
+        message: 
+          type: string
+          example: Survey details fetched successfully
+        result: 
+          type: object
+          properties: 
+            solution: 
+              type: object
+              properties: 
+                _id: 
+                  type: string
+                  example: 5f5b38ec45365677f64b2843
+                externalId: 
+                  type: string
+                  example: Test-survey-solution
+                name: 
+                  type: string
+                  example: test survey
+                description: 
+                  type: string
+                  example: Shikshalokam test Survey and feedback solution
+                captureGpsLocationAtQuestionLevel: 
+                  type: boolean
+                enableQuestionReadOut: 
+                  type: boolean
+            program: 
+              type: object
+              properties: 
+                _id: 
+                  type: string
+                  example: 5f5b1df69c70bd2973aee29e
+                externalId: 
+                  type: string
+                  example: Test-survey-program
+                name: 
+                  type: string
+                  example: new survey program
+                description: 
+                  type: string
+                  example: Shikshalokam new survey
+                imageCompression: 
+                  type: object
+                  properties: 
+                    quality: 
+                      type: number
+                      example: 10
+            assessment: 
+              type: object
+              properties: 
+                name: 
+                  type: string
+                  example: test survey
+                description: 
+                  type: string
+                  example: Shikshalokam test Survey and feedback solution
+                externalId: 
+                  type: string
+                  example: Test-survey-solution
+                submissionId: 
+                  type: string
+                  example: 5f5b657f9c3b881d2c711dc0
+                modeOfCollection: 
+                  type: string
+                  example: 
+                canBeNotApplicable: 
+                  type: boolean
+                notApplicable: 
+                  type: boolean
+                canBeNotAllowed: 
+                  type: boolean
+                remarks: 
+                  type: string
+                  example: 
+                isActive: 
+                  type: boolean
+                startTime: 
+                  type: string
+                  example: 
+                endTime: 
+                  type: string
+                  example: 
+    
+    
+    surveyDetailsResponse400Error:
+      type: object
+      properties:
+              status: 
+                type: integer
+                example: 400
+              message: 
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    location: 
+                      type: string
+                      example: body
+                    param: 
+                      type: string
+                      example: role
+                    msg: 
+                      type: string
+                      example: required role  
+                      
+    solutionsVerifyLinkResponse:
+        type: object
+        properties:
+          message: 
+            type: string
+            example: Observation solution link verified successfully
+          status: 
+            type: number
+            example: 200
+          result: 
+            type: array
+            items: 
+              type: object
+              properties: 
+                _id: 
+                  type: string
+                  example: 5f6853f293734140ccce90cf
+                entities: 
+                  type: array
+                  items: 
+                    type: string
+                    example: 5f636fa2916c13367d8ff835
+                isAPrivateProgram: 
+                  type: boolean
+                deleted: 
+                  type: boolean
+                status: 
+                  type: string
+                  example: published
+                solutionId: 
+                  type: string
+                  example: 5f64651f916c13367d8ff83f
+                solutionExternalId: 
+                  type: string
+                  example: PRIYANKA-3-FRAMWORK-OBSERVATION-1
+                programId: 
+                  type: string
+                  example: 5f634e31577d2ce1ed942c65
+                programExternalId: 
+                  type: string
+                  example: MY-ASSESSMENT-PROGRAM2
+                frameworkId: 
+                  type: string
+                  example: 5f6349c4577d2ce1ed942a56
+                frameworkExternalId: 
+                  type: string
+                  example: PRIYANKA-3-FRAMWORK
+                entityTypeId: 
+                  type: string
+                  example: 5d15a959e9185967a6d5e8a6
+                entityType: 
+                  type: string
+                  example: school
+                createdBy: 
+                  type: string
+                  example: 01c04166-a65e-4e92-a87b-a9e4194e771d
+                startDate: 
+                  type: string
+                  example: 2020-09-21T07:19:14.618Z
+                endDate: 
+                  type: string
+                  example: 2021-09-21T07:19:14.618Z
+                name: 
+                  type: string
+                  example: Priyanka Observation solution
+                description: 
+                  type: string
+                  example: Priyanka Observation description
+                updatedAt: 
+                  type: string
+                  example: 2020-09-21T07:19:14.648Z
+                createdAt: 
+                  type: string
+                  example: 2020-09-21T07:19:14.648Z
+                __v: 
+                  type: number
+                  example: 0
+                link: 
+                  type: string
+                  example: a325411f49158bc21b7f08d33aad5c02    
+                  
+    solutionsVerifyLink400Error:
+      type: object
+      properties:
+              status: 
+                type: integer
+                example: 400
+              message: 
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    location: 
+                      type: string
+                      example: body
+                    param: 
+                      type: string
+                      example: role
+                    msg: 
+                      type: string
+                      example: required role      
+            
+  securitySchemes:
+            bearer:
+              type: apiKey
+              name: Authorization
+              in: header    
+
+  
