@@ -2,12 +2,17 @@ openapi: 3.0.1
 info:
   title: Sunbird Integration App API(s)
   description: >-
-    The Integration App API allows you to manage external apps for feature extension (OR) feature integration of Sunbird Application. 
+    With Sunbird mobile app supporting App (3rd party app) integrations - there is a need for these third party apps to be "registered" with the sunbird implementors app. 
+    **This allows for a few things:**
+    - Whitelisting which apps are recommended by the Sunbird implementors app to extend the current experience
+    - Allowing custom UX/labels on the implementor app based on the "registered" Integration App
+    
+    The Integration App API allows you to manage and integrate 3rd party apps for feature extension (OR) feature integration of Sunbird Application. 
 
     - Each of the endpoints serve a different purpose, so which one to use
     depends on what you want to do
 
-    - The integration app registered by the Sunbird Installation internal team and only the Read API is accessble from the public path.
+    - The integration app registered by the Admin and only the Read API is accessble from the public path.
 
     - The URL for Sunbird Integration App API(s) is `app/v1` 
 
@@ -21,10 +26,10 @@ paths:
   /app/v1/read/{Integration_App_Id}:
     get:
       description: >-
-        This API is associated with viewing and reading out the integration app on the
+        This API is used to read the integration app details on the
         Sunbird Platform .
-          - The **_/read/{contentId}_** endpoint executes request for fetching the integration app to be viewed and read.
-          - The endpoint for **Read Content** is `/app/v1/read`
+          - The **_/read/{Integration_App_Id}_** endpoint executes request for fetching the integration app details to be viewed and read.
+          - The endpoint for **Read Integration App** is `/app/v1/read`
           - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
           - You need to provide a valid Integration app Id value in {Integration App Id} field of API URL.
           - It is mandatory to provide values for parameters marked with *. 
@@ -92,7 +97,7 @@ paths:
 
         '404':
           description: >-
-            RESOURCE NOT FOUND,**Content Read** operation failed !The possible
+            RESOURCE NOT FOUND,**Integration App Read** operation failed !The possible
             reason for failure is that you may have provided wrong app id.
           content:
             application/json:
