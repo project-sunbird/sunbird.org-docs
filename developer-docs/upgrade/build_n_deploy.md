@@ -13,9 +13,9 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 ### Variables
 
-| Variable Name | Service Name | Comments |
-|---------------|--------------|----------|
-|               |              |          |
+| Variable Name                                | Service Name          | Comments                                                  |
+|----------------------------------------------|-----------------------|-----------------------------------------------------------|
+| assessaggregator_scoreaggregator_parallelism | DataPipelineFlinkJobs | value to be same as assessaggregator_consumer_parallelism |
 
 ### Build and Deploy
 
