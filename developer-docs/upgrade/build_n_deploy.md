@@ -56,6 +56,8 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | Neo4j Schema Update           | NA                                            | KnowledgePlatform/Neo4jDefinitionUpdate | sunbird-learning-platform: release-3.9.0_RC10  |                                                                                   |
 | KnowledgePlatform - FlinkJobs | release-3.9.0_RC6                             | All KP Flink Jobs                       | sunbird-learning-platform : release-3.9.0_RC11 |                                                                                   |
 |                               |                                               |                                         |                                                |                                                                                   |
+| DataPipleline fink job        | release-3.9.0_RC5                             | deploy only user-cache-updater-v2      
+| release-3.9.0_RC5                              |                                                                                   |
 
 
 ### Manual Configurations
