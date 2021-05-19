@@ -1,11 +1,11 @@
 openapi: 3.0.1
 info:
-  title: Project Service API(s)
+  title: ML-Project Service API(s)
   termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
   description: >-
-    - The Project Service Apis perform operations related to manage user programs, reports etc 
+    - The ML-Project Service Apis perform operations related to manage user programs, reports etc 
     
-    - The URL for Project Service API(s) is `improvement-project/api`
+    - The URL for ML-Project Service API(s) is `improvement-project/api`
 
     - <b>Note:</b> These resources can be used in other services 
   contact: {}
@@ -14,6 +14,45 @@ servers:
 - url: https://staging.open-sunbird.org/improvement-project/api
   variables: {}
 paths: 
+  /v1/userProjects/details/{projectId}:
+    get:
+      tags:
+      - userProjects APIs
+      summary: Project Details.
+      description: This API is used to get the Project Details.
+           - The endpoint for **details userProjects V1** is `/v1/userProjects/details/{projectId}`  
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: details
+      parameters:
+        - name: projectId
+          in: path
+          description: project Id
+          required: true
+          schema:
+            type: string
+          example: 5f731631e8d7cd3b88ac0659
+      responses:
+        200:
+          description: "Project Details Successful Response"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/DetailsResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorProjectIdMissing'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
   /v1/userProjects/sync/{projectId}:
     post:
       tags:
@@ -56,57 +95,6 @@ paths:
             application/json:
               schema:
                   $ref: '#/components/schemas/SyncResponse'
-        400:
-          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/400ErrorProjectIdMissing'
-        500:
-          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/500Error'
-      deprecated: false
-      security:
-        - bearer: []
-  /v1/userProjects/tasksStatus/{projectId}:
-    post:
-      tags:
-      - userProjects APIs
-      summary: User Project tasks status
-      description: This API is used to get User Project tasks status
-           - The endpoint for **tasksStatus userProjects V1** is `/v1/userProjects/tasksStatus/{projectId}`  
-           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: tasksStatus
-      parameters:
-        - name: projectId
-          in: path
-          description: project Id
-          required: true
-          schema:
-            type: string
-          example: 5f731631e8d7cd3b88ac0659
-        
-      requestBody:
-        required: true
-        description: >-
-            - The body payload comprises of the metadata of the user being created
-            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
-              payload:
-                json
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/TasksStatusRequestBody"
-      responses:
-        200:
-          description: "User Project tasks status Successful Response"
-          content:
-            application/json:
-              schema:
-                  $ref: '#/components/schemas/TasksStatusResponse'
         400:
           description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
           content:
@@ -210,6 +198,57 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  /v1/userProjects/tasksStatus/{projectId}:
+    post:
+      tags:
+      - userProjects APIs
+      summary: User Project tasks status
+      description: This API is used to get User Project tasks status
+           - The endpoint for **tasksStatus userProjects V1** is `/v1/userProjects/tasksStatus/{projectId}`  
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: tasksStatus
+      parameters:
+        - name: projectId
+          in: path
+          description: project Id
+          required: true
+          schema:
+            type: string
+          example: 5f731631e8d7cd3b88ac0659
+        
+      requestBody:
+        required: true
+        description: >-
+            - The body payload comprises of the metadata of the user being created
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TasksStatusRequestBody"
+      responses:
+        200:
+          description: "User Project tasks status Successful Response"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/TasksStatusResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorProjectIdMissing'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
   /v1/userProjects/share/{projectId}:
     get:
       tags:
@@ -241,45 +280,6 @@ paths:
             application/json:
               schema:
                   $ref: '#/components/schemas/ShareResponse'
-        400:
-          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/400ErrorProjectIdMissing'
-        500:
-          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/500Error'
-      deprecated: false
-      security:
-        - bearer: []
-  /v1/userProjects/details/{projectId}:
-    get:
-      tags:
-      - userProjects APIs
-      summary: Project Details.
-      description: This API is used to get the Project Details.
-           - The endpoint for **details userProjects V1** is `/v1/userProjects/details/{projectId}`  
-           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: details
-      parameters:
-        - name: projectId
-          in: path
-          description: project Id
-          required: true
-          schema:
-            type: string
-          example: 5f731631e8d7cd3b88ac0659
-      responses:
-        200:
-          description: "Project Details Successful Response"
-          content:
-            application/json:
-              schema:
-                  $ref: '#/components/schemas/DetailsResponse'
         400:
           description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
           content:
@@ -508,9 +508,6 @@ paths:
       security:
         - bearer: []
 
- 
-  
-                
 components:
   schemas:
     
@@ -526,6 +523,173 @@ components:
       example:
         status: false
         message: oops something went wrong
+    DetailsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: 200
+        message:
+          type: string
+          example: Successfully fetched project details
+        result:
+          type: object
+          properties: 
+            _id: 
+              type: string
+              example: 5f97d2f6bf3a3b1c0116c80a
+            status: 
+              type: string
+              example: notStarted
+            isDeleted: 
+              type: boolean
+            categories: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  _id: 
+                    type: string
+                    example: 5f102331665bee6a740714e8
+                  name: 
+                    type: string
+                    example: Teachers
+                  externalId: 
+                    type: string
+                    example: teachers
+            tasks: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  _id: 
+                    type: string
+                    example: 289d9558-b98f-41cf-81d3-92486f114a49
+                  name: 
+                    type: string
+                    example: Task 1
+                  description: 
+                    type: string
+                    example: Task 1 description
+                  status: 
+                    type: string
+                    example: notStarted
+                  isACustomTask: 
+                    type: boolean
+                  startDate: 
+                    type: string
+                    example: 2020-09-29T09:08:41.667Z
+                  endDate: 
+                    type: string
+                    example: 2020-09-29T09:08:41.667Z
+                  lastModifiedAt: 
+                    type: string
+                    example: 2020-09-29T09:08:41.667Z
+                  type: 
+                    type: string
+                    example: single
+                  isDeleted: 
+                    type: boolean
+                  attachments: 
+                    type: array
+                    items: 
+                      type: object
+                      properties: 
+                        name: 
+                          type: string
+                          example: download(2).jpeg
+                        type: 
+                          type: string
+                          example: image/jpeg
+                        sourcePath: 
+                          type: string
+                          example: projectId/userId/imageName
+                  remarks: 
+                    type: string
+                    example: Tasks completed
+                  assignee: 
+                    type: string
+                    example: Aman
+                  children: 
+                    type: array
+                    items: 
+                      type: object
+                      properties: 
+                        _id: 
+                          type: string
+                          example: 289d9558-b98f-41cf-81d3-92486f114a50
+                        name: 
+                          type: string
+                          example: Task 2
+                        description: 
+                          type: string
+                          example: Task 2 description
+                        status: 
+                          type: string
+                          example: notStarted
+                        children: 
+                          type: array
+                          items:
+                            type: string
+                          example: []
+                        isACustomTask: 
+                          type: boolean
+                        startDate: 
+                          type: string
+                          example: 2020-09-29T09:08:41.667Z
+                        endDate: 
+                          type: string
+                          example: 2020-09-29T09:08:41.667Z
+                        lastModifiedAt: 
+                          type: string
+                          example: 2020-09-29T09:08:41.667Z
+                        type: 
+                          type: string
+                          example: single
+                        isDeleted: 
+                          type: boolean
+                        externalId: 
+                          type: string
+                          example: task 2
+                        isDeletable: 
+                          type: boolean
+                        createdAt: 
+                          type: string
+                          example: 2020-10-28T05:58:24.907Z
+                        updatedAt: 
+                          type: string
+                          example: 2020-10-28T05:58:24.907Z
+                        isImportedFromLibrary: 
+                          type: boolean
+                  externalId: 
+                    type: string
+                    example: task 1
+                  isDeletable: 
+                    type: boolean
+                  createdAt: 
+                    type: string
+                    example: 2020-10-28T05:58:24.907Z
+                  updatedAt: 
+                    type: string
+                    example: 2020-10-28T05:58:24.907Z
+                  isImportedFromLibrary: 
+                    type: boolean 
+            resources: 
+              type: array
+              items:
+                type: string
+              example: []
+            deleted: 
+              type: boolean
+            lastDownloadedAt: 
+              type: string
+              example: 2020-09-29T09:08:41.667Z
+            __v: 
+              type: number
+              example: 0
+            description: 
+              type: string
+              example: Project 1 description
     400ErrorProjectIdMissing:
       type: object
       properties:
@@ -546,6 +710,176 @@ components:
               msg:
                 type: string
                 example: required project Id
+    EntityResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Reports generated successfully.
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: object
+          properties: 
+            data_available: 
+              type: boolean
+            data: 
+              type: object
+              properties: 
+                categories: 
+                  type: object
+                  properties: 
+                    total: 
+                      type: integer
+                      format: int32
+                      example: 2
+                    Community: 
+                      type: integer
+                      format: int32
+                      example: 2
+                    student: 
+                      type: integer
+                      format: int32
+                      example: 1
+                tasks: 
+                  type: object
+                  properties: 
+                    total: 
+                      type: integer
+                      format: int32
+                      example: 18
+                    completed: 
+                      type: integer
+                      format: int32
+                      example: 3
+                    notStarted: 
+                      type: integer
+                      format: int32
+                      example: 10
+                    overdue: 
+                      type: integer
+                      format: int32
+                      example: 1
+                    onGoing: 
+                      type: integer
+                      format: int32
+                      example: 5
+                projects: 
+                  type: object
+                  properties: 
+                    total: 
+                      type: integer
+                      format: int32
+                      example: 1
+                    completed: 
+                      type: integer
+                      format: int32
+                      example: 0
+                    notStarted: 
+                      type: integer
+                      format: int32
+                      example: 0
+                    overdue: 
+                      type: integer
+                      format: int32
+                      example: 0
+                    onGoing: 
+                      type: integer
+                      format: int32
+                      example: 1
+    DetailViewResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Chart report data generated succesfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              title: 
+                type: object
+                properties: 
+                  text: 
+                    type: string
+                    example: title 1 oct
+              series: 
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    data: 
+                      type: array
+                      items: 
+                        type: object
+                        properties: 
+                          name: 
+                            type: string
+                            example: task 1
+                          id: 
+                            type: string
+                            example: 5f7ae023252cc522665b60d6
+                          color: 
+                            type: string
+                            example: 
+                          start: 
+                            type: integer
+                            format: int64
+                            example: 1605100782442
+                          end: 
+                            type: integer
+                            format: int64
+                            example: 1601888291000
+              xAxis: 
+                type: object
+                properties: 
+                  min: 
+                    type: integer
+                    format: int64
+                    example: 1605100782443
+                  max: 
+                    type: integer
+                    format: int64
+                    example: 1601888291000
+    GetProgramsByEntityResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Programs fetched successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: object
+          properties: 
+            data: 
+              type: array
+              items: 
+                oneOf:
+                  - $ref: '#/components/schemas/Result1'
+                  - $ref: '#/components/schemas/Result1'
+            count: 
+              type: integer
+              format: int32
+              example: 2
+    Result1:
+      type: object
+      properties: 
+        name: 
+          type: string
+          example: School Improvement Project
+        _id: 
+          type: string
+          example: 5da5a3af6ee4a93ce5a1987a
     SyncRequestBody:
       type: object
       properties:
@@ -696,142 +1030,6 @@ components:
             programId: 
               type: string
               example: 5fb669f223575a2f0cef3b33
-    TasksStatusRequestBody:
-      type: object
-      properties:
-        taskIds: 
-          type: array
-          items: 
-            type: string
-            example: 2f2ef6dd-24e9-40ab-a681-3b3167fcd2c6
-    TasksStatusResponse:
-      type: object
-      properties:
-        message: 
-          type: string
-          example: Tasks status fetched successfully
-        status: 
-          type: integer
-          format: int32
-          example: 200
-        result: 
-          type: array
-          items: 
-            type: object
-            properties: 
-              type: 
-                type: string
-                example: assessment
-              status: 
-                type: string
-                example: started
-              _id: 
-                type: string
-                example: 2f2ef6dd-24e9-40ab-a681-3b3167fcd2c6
-    SolutionDetailsResponse:
-      type: object
-      properties:
-        message: 
-          type: string
-          example: Solutions details fetched successfully
-        status: 
-          type: integer
-          format: int32
-          example: 200
-        result: 
-          type: object
-          properties: 
-            entityId: 
-              type: string
-              example: 5beaa888af0065f0e0a10515
-            programId: 
-              type: string
-              example: 5fba54dc2a1f7b172f066597
-            observationId: 
-              type: string
-              example: 5d1a002d2dfd8135bc8e1617
-            solutionId: 
-              type: string
-              example: 5d15b0d7463d3a6961f91749
-    EntityResponse:
-      type: object
-      properties:
-        message: 
-          type: string
-          example: Reports generated successfully.
-        status: 
-          type: integer
-          format: int32
-          example: 200
-        result: 
-          type: object
-          properties: 
-            data_available: 
-              type: boolean
-            data: 
-              type: object
-              properties: 
-                categories: 
-                  type: object
-                  properties: 
-                    total: 
-                      type: integer
-                      format: int32
-                      example: 2
-                    Community: 
-                      type: integer
-                      format: int32
-                      example: 2
-                    student: 
-                      type: integer
-                      format: int32
-                      example: 1
-                tasks: 
-                  type: object
-                  properties: 
-                    total: 
-                      type: integer
-                      format: int32
-                      example: 18
-                    completed: 
-                      type: integer
-                      format: int32
-                      example: 3
-                    notStarted: 
-                      type: integer
-                      format: int32
-                      example: 10
-                    overdue: 
-                      type: integer
-                      format: int32
-                      example: 1
-                    onGoing: 
-                      type: integer
-                      format: int32
-                      example: 5
-                projects: 
-                  type: object
-                  properties: 
-                    total: 
-                      type: integer
-                      format: int32
-                      example: 1
-                    completed: 
-                      type: integer
-                      format: int32
-                      example: 0
-                    notStarted: 
-                      type: integer
-                      format: int32
-                      example: 0
-                    overdue: 
-                      type: integer
-                      format: int32
-                      example: 0
-                    onGoing: 
-                      type: integer
-                      format: int32
-                      example: 1
     AddRequestBody:
       type: object
       properties:
@@ -1020,6 +1218,63 @@ components:
             projectId:
               type: string
               example: 5fb669f223575a2f0cef3b33
+    SolutionDetailsResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Solutions details fetched successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: object
+          properties: 
+            entityId: 
+              type: string
+              example: 5beaa888af0065f0e0a10515
+            programId: 
+              type: string
+              example: 5fba54dc2a1f7b172f066597
+            observationId: 
+              type: string
+              example: 5d1a002d2dfd8135bc8e1617
+            solutionId: 
+              type: string
+              example: 5d15b0d7463d3a6961f91749
+    TasksStatusRequestBody:
+      type: object
+      properties:
+        taskIds: 
+          type: array
+          items: 
+            type: string
+            example: 2f2ef6dd-24e9-40ab-a681-3b3167fcd2c6
+    TasksStatusResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Tasks status fetched successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              type: 
+                type: string
+                example: assessment
+              status: 
+                type: string
+                example: started
+              _id: 
+                type: string
+                example: 2f2ef6dd-24e9-40ab-a681-3b3167fcd2c6
     ShareResponse:
       type: object
       properties:
@@ -1039,264 +1294,6 @@ components:
                 downloadUrl:
                   type: string
                   example: "http://localhost:4700/dhiti/api/v1/observations/pdfReportsUrl?id=dG1wLzVhNzZjMTY5LTA5YjAtNGU3Zi04ZmNhLTg0NDc5ZmI2YTNiNC0tODUyOA=="
-    DetailsResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: 200
-        message:
-          type: string
-          example: Successfully fetched project details
-        result:
-          type: object
-          properties: 
-            _id: 
-              type: string
-              example: 5f97d2f6bf3a3b1c0116c80a
-            status: 
-              type: string
-              example: notStarted
-            isDeleted: 
-              type: boolean
-            categories: 
-              type: array
-              items: 
-                type: object
-                properties: 
-                  _id: 
-                    type: string
-                    example: 5f102331665bee6a740714e8
-                  name: 
-                    type: string
-                    example: Teachers
-                  externalId: 
-                    type: string
-                    example: teachers
-            tasks: 
-              type: array
-              items: 
-                type: object
-                properties: 
-                  _id: 
-                    type: string
-                    example: 289d9558-b98f-41cf-81d3-92486f114a49
-                  name: 
-                    type: string
-                    example: Task 1
-                  description: 
-                    type: string
-                    example: Task 1 description
-                  status: 
-                    type: string
-                    example: notStarted
-                  isACustomTask: 
-                    type: boolean
-                  startDate: 
-                    type: string
-                    example: 2020-09-29T09:08:41.667Z
-                  endDate: 
-                    type: string
-                    example: 2020-09-29T09:08:41.667Z
-                  lastModifiedAt: 
-                    type: string
-                    example: 2020-09-29T09:08:41.667Z
-                  type: 
-                    type: string
-                    example: single
-                  isDeleted: 
-                    type: boolean
-                  attachments: 
-                    type: array
-                    items: 
-                      type: object
-                      properties: 
-                        name: 
-                          type: string
-                          example: download(2).jpeg
-                        type: 
-                          type: string
-                          example: image/jpeg
-                        sourcePath: 
-                          type: string
-                          example: projectId/userId/imageName
-                  remarks: 
-                    type: string
-                    example: Tasks completed
-                  assignee: 
-                    type: string
-                    example: Aman
-                  children: 
-                    type: array
-                    items: 
-                      type: object
-                      properties: 
-                        _id: 
-                          type: string
-                          example: 289d9558-b98f-41cf-81d3-92486f114a50
-                        name: 
-                          type: string
-                          example: Task 2
-                        description: 
-                          type: string
-                          example: Task 2 description
-                        status: 
-                          type: string
-                          example: notStarted
-                        children: 
-                          type: array
-                          items:
-                            type: string
-                          example: []
-                        isACustomTask: 
-                          type: boolean
-                        startDate: 
-                          type: string
-                          example: 2020-09-29T09:08:41.667Z
-                        endDate: 
-                          type: string
-                          example: 2020-09-29T09:08:41.667Z
-                        lastModifiedAt: 
-                          type: string
-                          example: 2020-09-29T09:08:41.667Z
-                        type: 
-                          type: string
-                          example: single
-                        isDeleted: 
-                          type: boolean
-                        externalId: 
-                          type: string
-                          example: task 2
-                        isDeletable: 
-                          type: boolean
-                        createdAt: 
-                          type: string
-                          example: 2020-10-28T05:58:24.907Z
-                        updatedAt: 
-                          type: string
-                          example: 2020-10-28T05:58:24.907Z
-                        isImportedFromLibrary: 
-                          type: boolean
-                  externalId: 
-                    type: string
-                    example: task 1
-                  isDeletable: 
-                    type: boolean
-                  createdAt: 
-                    type: string
-                    example: 2020-10-28T05:58:24.907Z
-                  updatedAt: 
-                    type: string
-                    example: 2020-10-28T05:58:24.907Z
-                  isImportedFromLibrary: 
-                    type: boolean 
-            resources: 
-              type: array
-              items:
-                type: string
-              example: []
-            deleted: 
-              type: boolean
-            lastDownloadedAt: 
-              type: string
-              example: 2020-09-29T09:08:41.667Z
-            __v: 
-              type: number
-              example: 0
-            description: 
-              type: string
-              example: Project 1 description
-    DetailViewResponse:
-      type: object
-      properties:
-        message: 
-          type: string
-          example: Chart report data generated succesfully
-        status: 
-          type: integer
-          format: int32
-          example: 200
-        result: 
-          type: array
-          items: 
-            type: object
-            properties: 
-              title: 
-                type: object
-                properties: 
-                  text: 
-                    type: string
-                    example: title 1 oct
-              series: 
-                type: array
-                items: 
-                  type: object
-                  properties: 
-                    data: 
-                      type: array
-                      items: 
-                        type: object
-                        properties: 
-                          name: 
-                            type: string
-                            example: task 1
-                          id: 
-                            type: string
-                            example: 5f7ae023252cc522665b60d6
-                          color: 
-                            type: string
-                            example: 
-                          start: 
-                            type: integer
-                            format: int64
-                            example: 1605100782442
-                          end: 
-                            type: integer
-                            format: int64
-                            example: 1601888291000
-              xAxis: 
-                type: object
-                properties: 
-                  min: 
-                    type: integer
-                    format: int64
-                    example: 1605100782443
-                  max: 
-                    type: integer
-                    format: int64
-                    example: 1601888291000
-    GetProgramsByEntityResponse:
-      type: object
-      properties:
-        message: 
-          type: string
-          example: Programs fetched successfully
-        status: 
-          type: integer
-          format: int32
-          example: 200
-        result: 
-          type: object
-          properties: 
-            data: 
-              type: array
-              items: 
-                oneOf:
-                  - $ref: '#/components/schemas/Result1'
-                  - $ref: '#/components/schemas/Result1'
-            count: 
-              type: integer
-              format: int32
-              example: 2
-    Result1:
-      type: object
-      properties: 
-        name: 
-          type: string
-          example: School Improvement Project
-        _id: 
-          type: string
-          example: 5da5a3af6ee4a93ce5a1987a
     TemplateDetailsResponse:
       type: object
       properties: 
@@ -1669,16 +1666,8 @@ components:
                 type: string
                 example: required project template external id
 
-
-
-
-
-    
-    
   securitySchemes:
     bearer:
       type: apiKey
       name: Authorization
-      in: header    
-      
-    
+      in: header 
