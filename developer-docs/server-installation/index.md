@@ -1,4 +1,3 @@
----
 title: Server Installation
 page_title: Server Installation
 description: Server Installation
@@ -10,21 +9,19 @@ allowSearch: true
 
 Sunbird is an open source repository of learning management microservices architected for scale and designed to support diverse teaching and learning solutions. Sunbird is the open source contribution of the EkStep Foundation and is licensed under the MIT licence.
 
-Sunbird software is containerized. The installation script uses the Kubernetes orchestration engine to run the Sunbird docker images. The Kubernetes consists of manager and agent nodes. The pods run on the agent nodes and the manager nodes manage the pods lifecycle. 
+Sunbird software is containerized. The installation script uses the Kubernetes orchestration engine to run the Sunbird docker images.
 
-Services like Portal, LMS Backend, API Gateway and Proxies etc., are run as Kubernetes pods. Services like learning, Search, Keycloak, Cassandra, PostgreSql, Elasticsearch etc., are run on Virtual Machines (VMs) directly.
+Most of the services on Sunbird run on Kubernetes. Databases and a few other services run on standalone Virtual Machines (VMs). We are in the process of moving all the services to Kubernetes except databases.
 
 This document explains the procedure to set up Sunbird on your cloud infra. This installation has been tested with:
 
-* AKS(azure kubernetes service) cluster
-* 6 VMs running the vanilla Ubuntu 16 image;
-* a Public IP
-* key based ssh possible to the machines
+* AKS (Azure Kubernetes Service)
+* Ubuntu 18 VM's
 
 ## Infrastructure Components
 
 Sunbird consists of 3 major subsystems
 
-  - Knowledge Platform also knows as Learning Platform (Taxonomy, Content and Content Management)
-  - Data-pipeline (Creating insights from telemetry)
-  - Core (User, Organization, Courses, Badges, Content Studio)
+  - Knowledge Platform also knows as Learning Platform (Taxonomy and Content)
+  - Data Pipeline (Data enrichment and Visualizations)
+  - Core Services (User, Organization, Courses, Certificates, UI and Frontend)

@@ -7,25 +7,21 @@ allowSearch: true
 ---
 ## Overview
 
-Sunbird uses Ansible playbooks to manage its three major sub-systems (Knowledge Platform, Data Pipeline and Core Services), to ensure scalability, consistency and reliability of its IT environment. The Ansible variables help server setup, configuration management and automate deployment.   
+Ansible is the configuration management system used in Sunbird. The entire infrastructure setup, build and deployment of services and other configurations is handled primarily through ansible.
 
-    
 ## Updating the Private Repository with Hosts and Variables
 
-Use the following Git commands sequentially to clone and update your private GitHub repository: 
+Use the following git commands sequentially to clone and update your private GitHub repository: 
 
-1. `git clone` <a href="https://project-sunbird/sunbird-devops">https://github.com/project-sunbird/sunbird-devops</a>
+1. `git clone` <a href="https://project-sunbird/sunbird-devops"><https://github.com/project-sunbird/sunbird-devops></a>
 
-2. `cd sunbird-devops; git checkout tags/release-3.5.0 -b release-3.5.0`
+2. `cd sunbird-devops; git checkout tags/release-3.8.0_RC13 -b release-3.8.0_RC13`
 
-3. Copy the directory `sunbird-devops/private_repo/ansible` to your private repo location
+3. Copy the directory `sunbird-devops/private_repo/ansible` to your private repo
 
-4. Update the files `common.yml`, `hosts`, `secrets.yml` under `Core`, `KnowledgePlatform` and `DataPipeline`. After updating, push them to your private repo branch. The structure under the `ansible` directory is shown below.
-
-
-> **Note** The following depicts the folder structure required in the private GitHub repository that contains Ansible hosts, secrets and variables.
+4. Update the files `common.yml`, `hosts`, and `secrets.yml` under `Core`, `KnowledgePlatform` and `DataPipeline` directories. After updating, push them to your private repo branch. Your private repo structure starting from the root path should be exactly as shown below.
   
-```
+```bash
 ansible
 └── inventory
     └── dev
@@ -42,3 +38,8 @@ ansible
             ├── hosts
             └── secrets.yml
 ```
+
+> Note:
+>
+>- The ansible inventory setup is a must before we can start to run jobs from the Provision, ArtifactUpload and Deploy directory in Jenkins. The Build directory on Jenkins does not require on the ansible inventory
+>- It is highly recommended that you complete the ansible inventory updates before proceeding further
