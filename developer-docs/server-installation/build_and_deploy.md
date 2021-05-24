@@ -231,3 +231,4 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/DataPipeline/FlinkPipelineJobs|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys Flink jobs Kubernetes cluster|
 |Deploy/DataPipeline/GraphitePrometheusExporter|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys graphite prometheus exporter in Druid VM|
 |Deploy/Kubernetes/LoggingFileBeatsVM|branch_or_tag: release-3.8.0_RC14, hosts: Select All, tags: default|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys filebeat in all the selected VMs|
+|Deploy/Kubernetes/PostInstallScripts|branch_or_tag: release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the forms, framework, users, channel, license etc to quickly get Sunird up and running. This job will be updated shortly|
