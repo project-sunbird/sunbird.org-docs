@@ -2,183 +2,90 @@
 title: Prerequisites
 page_title: Prerequisites
 description: Prerequisites to set up Sunbird on a server
-keywords: prerequisites, set up, setup, server installation, cloud hosting, hosting, 
+keywords: prerequisites, set up, setup, server installation, cloud hosting, hosting
 allowSearch: true
 ---
 
 ## Overview
 
-Before you install Sunbird in a server environment, make sure that you have the required permissions, servers, hardware, software, accounts and so on. Without these aspects in place, you may face delays that can best be avoided.
+Sunbird is a complex system and the installation is not a simple task. There is no one click button. We are actively working on making the sunbird setup easier and simpler. If you have a query / issue / feedback, connect with us at [Sunbird Community](https://github.com/project-sunbird/sunbird-community/discussions).
 
 ### Recommended Permissions and Experience
 
-To efficiently handle Sunbird installation, you need to have:
-- System administrator permissions on Sunbird and all servers
-- Hands-on experience in administering Linux systems
+To successfully complete Sunbird installation, you need to have:
+
+- System administrator permissions on and all servers
+- Hands-on experience in administering and debugging Linux systems
 - Hands-on experience using Docker and Kubernetes to run containerized services
 
-> **Note:** Sunbird is tested on cloud hosted Linux servers (Azure & AWS). Hence, it is recommended that you use Linux servers. Sunbird and its functionality is not tested on Microsoft® operating systems, or on in-premise infrastructure, like rack mounted servers. The Sunbird installer has a known issue on virtual machines such as those created by VirtualBox or VMWare. 
+> **Note:** Sunbird is tested only on cloud hosted Ubuntu servers in Azure. We do not provide any support for installing Sunbird on other operating systems. Sunbird might work on other cloud providers, feel free to try it out and let us know. We are actively working on achieving cloud neutrality.
 
-## Provisioning Servers 
-Before you start the installation process, ensure that you provision for servers to host applications and set up required accounts and repositories as per details provided.
+### Provisioning Servers
+
+Before you start the installation process, ensure that you have the required infrastructure mentioned below. It is the bare minimum for a full fledged Sunbird setup. Every component in Sunbird can scale horizontally / vertically by adding additional resources.
 
 |Application|  Server           |Count|
 |-----------|-------------------|-----|  
-|Jenkins    | 4core 16G 250G HDD | 1   |
-| KP        | 4core 16G 60G HDD | 1   |
-| DP        | 4core 16G 60G HDD | 1   |
-| DB        | 4core 16G 60G HDD   | 1   |
-| Yarn      | 4core 16G 60G HDD | 2   |
-| Druid     | 4core 16G 60G HDD | 1  |
-| Load Balancers         |  -   | 2 (Optional)   |
+|Jenkins    | 4core 16G 250G HDD | 1 |
+| KP        | 4core 16G 60G HDD | 1 |
+| DP        | 4core 16G 60G HDD | 1 |
+| DB        | 4core 16G 60G HDD   | 1 |
+| Yarn      | 4core 16G 60G HDD | 1 |
+| Other Services | 4core 16G 60G HDD | 1 |
+| Basic Load Balancers | - | 2 (Optional) |
 
-## List of Servers with their Ansible Group Name
-<table>
-  <tr>
-    <th style="width:25%">Module</th>
-    <th style="width:25%">Servers</th>
-    <th style="width:25%">Service</th>
-    <th style="width:25%">Ansible Group Name</th>
-  </tr>
-  <tr>
-    <td>Build and Deploy</td>
-    <td>Server-1 (Jenkins)</td>
-    <td>Jenkins Master</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td rowspan="4">Databases</td>
-    <td rowspan="4">Server-2 (DB's)</td>
-    <td>Cassandra</td>
-    <td>cassandra-1, lp-cassandra, dp-cassandra, core-cassandra, cassandra-node-1, cassandra-ps, cassandra</td>
-  </tr>
-  <tr>
-    <td>Postgres</td>
-    <td>postgresql-master-1, postgresql-slave-1, postgres</td>
-  </tr>
-  <tr>
-    <td>Application Elasticsearch</td>
-    <td>es-1, composite-search-cluster, es-ps, core-es-1</td>
-  </tr>
-  <tr>
-    <td>Neo4j</td>
-    <td>learning-neo4j-node1</td>
-  </tr>
-  <tr>
-    <td rowspan="4">Knowledge Platform</td>
-    <td rowspan="4">Server-3 (KP Services and Kafka)</td>
-    <td>Learning</td>
-    <td>learning1, logstash-ps, learning</td>
-  </tr>
-  <tr>
-    <td>Redis</td>
-    <td>redis1, lp-redis, redis, dp-redis, lms-redis</td>
-  </tr>
-  <tr>
-    <td>dial</td>
-    <td>dial1</td>
-  </tr>
-  <tr>
-    <td>Kafka</td>
-    <td>processing-cluster-kafka, processing-cluster-zookeepers, kafka-ps, kafka-1, ingestion-cluster-kafka</td>
-  </tr>
-  <tr>
-    <td rowspan="8">Data Pipeline</td>
-    <td rowspan="8">Server-4 (DP Services)</td>
-    <td>Spark</td>
-    <td>spark</td>
-  </tr>
-  <tr>
-    <td>Analytics</td>
-    <td>analytics-api, analytics-ps</td>
-  </tr>
-  <tr>
-    <td>Kafka Indexer</td>
-    <td>kafka-indexer</td>
-  </tr>
-  <tr>
-    <td>InfluxDB</td>
-    <td>influxdb</td>
-  </tr>
-  <tr>
-  <td>Docker Manager and Worker</td>
-    <td>swarm-manager-1, swarm-agent-for-prometheus-1, swarm-agent-for-alertmanager-1, swarm-bootstrap-manager, swarm-node-1 , swarm-agent-dashboard-1, swarm-dashboard-1</td>
-  </tr>
-  <tr>
-    <td>Keycloak</td>
-    <td>Keycloak</td>
-  </tr>
-  <tr>
-    <td>Logs Elasticsearch</td>
-    <td>log-es-1</td>
-  </tr>
-    <td>Secor</td>
-    <td>secor, secor-ps</td>
-  </tr>
-  <tr>
-    <td rowspan="2">Yarn</td>
-    <td>Server-5 (Yarn Master)</td>
-    <td>Yarn Master Slave 1</td>
-    <td>yarn-master, yarn-slave, yarn-ps</td>
-  </tr>
-  <tr>
-    <td>Server-6 (Yarn Slave)</td>
-    <td>Yarn Master Slave 2</td>
-    <td>yarn-master, yarn-slave, yarn-ps</td>
-  </tr>
-  <tr>
-    <td>Druid</td>
-    <td>Server-7</td>
-    <td>druid servicer</td>
-    <td> druid-postgres,raw-coordinator,raw-overlord,raw-broker,raw-historical,raw-middlemanager,raw-graphite,raw-zookeeper
-    </td>
-   </tr> 
-</table>
+### Infra Requirements
 
+- Kubernetes Cluster with 4 worker nodes
+- Private GitHub repository to store ansible inventory
+- Fully Qualified Domain Name (FQDN) with SSL
+- Azure Storage account
+- Docker hub account
+- Public IP
+- Google Oauth Credentials
+- Google V3 Recaptcha Credentials
+- A SMTP account (any email provider works, except Gmail for now)
+- All ports must be open for internal communication (Azure Virtual Network or AWS VPC) between the VMs
+- Internet and outbound access from VMs
+- A sms service provider API Token (optional)
+- YouTube API Token (optional)
+- Slack account and slack bot with API Token (optional)
 
+### Creating the AKS cluster
 
-## Infra Requirements
+> **Note**  Follow the steps given below to create the Kubernetes cluster in Azure. For other clouds, please visit the respective cloud provider website
+The AKS cluster and VM's should be in same vnet. If they are in different vnet, you have to peer the vnets. To successfully peer, the IP address of the vnets should not overlap.
 
-1.k8s Cluster  
-2.Private GitHub repository to store Ansible hosts and secrets  
-3.Fully Qualified Domain Name (FQDN) with SSL  
-4.Azure Storage account   
-5.Docker hub account   
-6.A Public IP  
-7.Security:  
-- All ports must be open in internal networks (Azure-Vnet or AWS-VPC) for internal comumnication between the VMs
-- By default, all the outbound ports are allowed for public access from the VM. 
+- Create a service principal and assign contributor role to service principal
+- Get the secrets and client id of service principal
+- Click [here](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli) for more details
+- Create the AKS cluster either via Azure portal or using `az aks` command line
+- Refer to Azure documentation for all the available options
+- Below is a sample command which you can use -
 
-## Creating the AKS cluster
+ ```bash
+az aks create --resource-group <resouse-group-name> --node-resource-group <k8s-resource-group-name> --name <cluster name>  --node-count 4 --admin-username deployer --kubernetes-version 1.19.9 --service-principal "<service principal id>" --node-vm-size Standard_D4s_v3 --client-secret "<client id>" --network-plugin azure --ssh-key-value @deployer.pub -l <region> --vm-set-type VirtualMachineScaleSets --vnet-subnet-id /subscriptions/<subscription id>/resourceGroups/<resouse-group-name>/providers/Microsoft.Network/virtualNetworks/<vnet-name>/subnets/<subnet name>
+```
 
-> **Note**  Follow the steps given below to create the Kubernetes cluster in Azure. Refer to the documents provided by respective cloud providers to create the Kubernetes cluster on any other cloud.
-The AKS cluster and VM's should be in same vnet. If they are in diffrent vnet, you have to peer the vnets. To peer the vnets the IP address of the two vnets should not overlap. 
+> Note: Ensure you have allocated at least 1024 IP's for your Kubernetes subnet (CIDR notation as x.x.x.x/22)
 
-1.Use the following command to create the AKS cluster: (requires az cli and aks-preview)
+Get the kubeconfig file for your cluster with the below command -
 
- ```
-    - create service principal and assign contributor role to service principal, get the secrets and client id of service principal. (https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli)
-    
-    - az aks create --resource-group <resouse-group-name> --node-resource-group <k8s-resource-group-name> --name <cluster name>  --node-count 4 --admin-username deployer --kubernetes-version 1.16.13 --service-principal "<service principal id>" --node-vm-size <vm size> --client-secret "<client id>" --network-plugin azure --ssh-key-value @deployer.pub -l <region> --vm-set-type VirtualMachineScaleSets --vnet-subnet-id /subscriptions/<subscription id>/resourceGroups/<resouse-group-name>/providers/Microsoft.Network/virtualNetworks/<vnet-name>/subnets/<subnet name>
+```bash
+az aks get-credentials --resource-group <resource group name> --name <cluster name> --file  k8s.yaml
+```
 
-    - command to get kube config file for created cluster:
-       az aks get-credentials --resource-group <resource group name> --name <cluster name> --file - > k8s.yaml
+### Configuring the Azure storage account
 
- ```  
+- Update the CORS rule for the storage account as follows:
 
- ## Configuring the Azure storage account
-
- 1.Update the CORS rule for the storage account as follows:
-
- ```
+ ```bash
     Allowed Origins: *
     Allowed Methods: GET,HEAD,OPTIONS, PUT
-    Allowed Headers: Access-Control-Allow-Method,Origin,x-ms-meta-qqfilename,x-ms-blob-type,x-ms-blob-content-type,Content-Type
+    Allowed Headers: Access-Control-Allow-Origin,Access-Control-Allow-Method,Origin,x-ms-meta-qq,x-ms-blob-type,x-ms-blob-content-type,Content-Type
     Exposed Headers: Access-Control-Allow-Origin,Access-Control-Allow-Methods
     Max Age: 200
 
- ``` 
-
- 2.Disable 'Secure transfer required' in storage account configuration
-
- 3.Create the following containers in Storage account with public ACL (dial, termsandcondtions, content)
+ ```
+ 
+- Disable **Secure transfer required** in storage account configuration
