@@ -8,7 +8,7 @@ allowSearch: true
 
 ## Introduction
 
-Sunbird is an open source repository of learning management microservices architected for scale and designed to support diverse teaching and learning solutions. Sunbird is the open source contribution of the EkStep Foundation and is licensed under the MIT licence.
+Sunbird is an open source repository of learning management microservices designed for scale and to support diverse teaching and learning solutions. Sunbird is the open source contribution of the EkStep Foundation and is licensed under the MIT licence.
 
 Sunbird software is containerized. The installation script uses the Kubernetes orchestration engine to run the Sunbird docker images.
 
@@ -17,7 +17,7 @@ Most of the services on Sunbird run on Kubernetes. Databases and a few other ser
 This document explains the procedure to set up Sunbird on your cloud infra. This installation has been tested with:
 
 * AKS (Azure Kubernetes Service)
-* Ubuntu 18 VM's
+* Ubuntu 18.04 VM's
 
 ### Infrastructure Components
 

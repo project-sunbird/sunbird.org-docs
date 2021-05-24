@@ -15,7 +15,7 @@ To install Sunbird `release-3.8.0`, we will need to run many Jenkins jobs and a 
 
 #### Create Plugin Containers / Folder Structure
 
-- We will some folders in azure for storing sunbird plugins
+- We will create few folders in azure for storing sunbird plugins
 - Our deployment job always tries to delete the folder first before uploading, so we need to have the placeholders before running the jobs
 - We will create the folders by uploading random files from a random folder on your PC
 - Create a public container with the name you have set for the variable `sunbird_content_azure_storage_container` and run the below commands
@@ -30,12 +30,21 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 az storage blob upload-batch --destination sunbird_content_azure_storage_container/v3/preview --source some_folder --account-name storage_account_name --account-key storage_account_key
 ```
 
+- Upload the default T&C file to `sunbird_content_azure_storage_container` container in a folder named **terms-and-conditions**. You can get a copy of the sample T&C file from [here](https://sunbirdpublic.blob.core.windows.net/installation/terms-and-conditions/terms-and-conditions-v9.html). You are free to edit the HTML as per your requirements
+- Create a private container named `label` in Azure
+- Run the below command in your Jenkins VM where you cloned the sunbird-devops repo
+
+```bash
+cd sunbird-devops/utils/portal
+az storage blob upload-batch --destination label --source labels --account-name storage_account_name --account-key storage_account_key
+```
+
 
 #### Upload Initial Plugins
 
 - Upload the initial set of plugins to `sunbird_content_azure_storage_container` container
 - Download the initial Plugins from [here](https://sunbirdpublic.blob.core.windows.net/installation/content-plugins.zip)
-- Run the below command from the directory where `content-plugins.zip` is unzipped
+- Run the below command from the directory where **content-plugins.zip** is unzipped
 
 ```bash
 az storage blob upload-batch --destination sunbird_content_azure_storage_container/content-plugins --source content-plugins --account-name storage_account_name --account-key storage_account_key
@@ -48,10 +57,10 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 > **Note**:
 >
 >- Jenkins will have many jobs which may not be documented or is not suitable for adoption yet
->- Jobs listed on this page is sufficient to setup Sunbird
+>- Jobs listed on this page is sufficient to setup Sunbird and not every job present in Jenkins is required to be run
 >- Jobs can be run in parallel to speed up execution. The only exception is you should **NOT** run multiple jobs which clone the code from same repo in parallel
 >- If you get errors in some of the build jobs, rerun the job again
->- The errors are usually maven missing jars or maven repo timeouts
+>- The errors are usually due to missing maven jars or maven repo timeouts
 >- If you get errors even after re-running the job, come back to it later, there are other jobs which would generate dependent jars
 
 |Jenkins Job to Run|Github Tag|Github Repo|Comments|
@@ -141,7 +150,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 - Every job in the **Build** directory has a corresponding job in **ArtifactUpload** directory with the same name
 - These jobs are auto triggered and usually run without issues after the corresponding job in the build directory succeeds 
 - The job will fail if your ansible inventory setup is incorrect or incomplete
-- If the job has failed, rerun the job to upload the artifact / docker image
+- If the job has failed, fix the ansible variables issue and rerun the job to upload the artifact / docker image
 - Ensure the artifact upload jobs are successful before proceeding
 
 #### Code Deploy
@@ -149,7 +158,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 > **Note**:
 >
 >- We will run the jobs which are a pre-requisite for other jobs first
->- These jobs reside in different folders
+>- The pre-requisite jobs reside in different folders so we will be jumping across folders
 >- Jobs in the **Deploy** directory can be run in parallel and don't have any restrictions if the code is from same repo unlike the **Build** directory
 >- Ensure you don't run those jobs in parallel which modify the databases (such as cassandra, neo4j etc)
 
@@ -220,7 +229,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/DataPipeline/AdhocScripts|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys AdHoc scripts in Spark VM|
 |Deploy/DataPipeline/AnalyticsCore|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys jars in Spark VM|
 |Deploy/DataPipeline/CoreDataProducts|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys jars in Spark VM|
-|Deploy/DataPipeline/DruidIngestion|branch_or_tag: release-3.9.0, ingestion_task_names: Select All|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys and starts Druid ingestion tasks. This job will be updated shortly|
+|Deploy/DataPipeline/DruidIngestion|branch_or_tag: release-3.9.0, ingestion_task_names: Select All|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys and starts Druid ingestion tasks. **This job will be updated in a couple of days. Please wait until then**|
 |Deploy/DataPipeline/EdDataProducts|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys jars in Spark VM|
 |Deploy/DataPipeline/ETLJobs|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys ETL scripts in Spark VM|
 |Deploy/DataPipeline/ETLDruidContentIndexer|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys ETLDruidContentIndexer|
@@ -230,19 +239,8 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/DataPipeline/GraphitePrometheusExporter|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys graphite prometheus exporter in Druid VM|
 |Deploy/Kubernetes/LoggingFileBeatsVM|branch_or_tag: release-3.8.0_RC14, hosts: Select All, tags: default|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys filebeat in all the selected VMs|
 
-
 #### Post Installation Steps
-
-- There are a couple pre-requisites we need to do before we run the final job
-- Upload the default T&C file to `sunbird_content_azure_storage_container` container in a folder named **terms-and-conditions**. You can get a copy of the sample T&C file from [here](https://sunbirdpublic.blob.core.windows.net/installation/terms-and-conditions/terms-and-conditions-v9.html). You are free to edit the HTML as per your requirements
-- Create a private container named `label` in Azure
-- Run the below command in your Jenkins VM where you cloned the sunbird-devops repo
-
-```bash
-cd sunbird-devops/utils/portal
-az storage blob upload-batch --destination label --source labels --account-name storage_account_name --account-key storage_account_key
-```
 
 |Jenkins Job to Run|Github Tag|Github Repo|Comments|
 |------------------|----------|-----------|--------|
-|Deploy/Kubernetes/PostInstallScripts|branch_or_tag: release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the default forms, framework, users, channel, licenses etc. This job will be updated shortly|
+|Deploy/Kubernetes/PostInstallScripts|branch_or_tag: release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the default forms, framework, users, channel, licenses etc. **This job will be updated in a couple of days. Please wait until then**|

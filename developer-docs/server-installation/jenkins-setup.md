@@ -9,6 +9,8 @@ allowSearch: true
 
 ## Jenkins Setup
 
+Jenkins is used to build, deploy and setup the infrastructure for Sunbird. Almost everything in Sunbird is automated using Jenkins pipelines which integrates with ansible and other tools.
+
 - SSH to the Jenkins server and enter the following commands -
 
      ```bash
@@ -18,7 +20,7 @@ allowSearch: true
     - sudo bash jenkins-server-setup.sh
      ```
 
-- After running the `jenkins-server-setup.sh` script, open Jenkins UI in a browser by visiting **JENKINS_IP:8080**
+- Open Jenkins UI in a browser by visiting **JENKINS_IP:8080**
 
 - Enter the initial password and follow the on-screen instructions. Choose **Install suggested plugin** and create an admin user
 
@@ -30,7 +32,7 @@ allowSearch: true
     vi envOrder.txt
     ```
 
-- Update the environment list as per your infrastructure in ascending order. For example, if you have only dev, staging and production, your **envOrder.txt** will look like -
+- Update the environment list as per your requirement in ascending order. For example, if you want to have dev, staging and production environments, your **envOrder.txt** will look like -
 
     ```bash
     dev=0
@@ -50,7 +52,7 @@ allowSearch: true
     sudo service jenkins restart
     ```
 
-- Add a credential in Jenkins and choose **_Username with Password_** from the drop down. Enter the username and password of the private github repository. Enter a unique value for the `ID` field like **_private-repo-creds_**
+- Add a credential in Jenkins and choose **_Username with Password_** from the drop down. Enter the username and password of the private github repository. Enter a unique value for the **ID** field like **_private-repo-creds_**
 
 - Go to **Manage Jenkins** -> **Configure System** -> **Environment Variables** and add the following variables
 
@@ -60,22 +62,22 @@ allowSearch: true
     |**ANSIBLE_HOST_KEY_CHECKING**|`false`|
     |**ANSIBLE_STDOUT_CALLBACK**|`debug`|
     |**hub_org**|docker hub organization / username. Example: In `docker pull sunbird/ubuntu:20.04`, the hub_org is `sunbird`|
-    |**private_repo_branch**|private repo branch name where ansible inventory is committed|
-    |**private_repo_credentials**|the unique value which you provided for `ID` while adding the credentials|
-    |**private_repo_url**|The https github url of your private repo| 
+    |**private_repo_branch**|private repo branch name where ansible inventory is present|
+    |**private_repo_credentials**|the unique value which you provided for **ID** field while adding the credentials|
+    |**private_repo_url**|The **https** github url of your private repo| 
     |**public_repo_branch**|`release-3.8.0`|
     |**override_private_branch**|`true`|
     |**override_public_branch**|`true`|
     |**java11_home**|`/usr/lib/jvm/java-11-openjdk-amd64/`|
 
-- Scroll to the **Global Pipeline Libraries** section and click **Add**. Provide the values as below:
+- Scroll down to the **Global Pipeline Libraries** section and click on **Add**. Provide the values as below:
 
     |**Name**|**Value**|
     |-------|--------|
     |**Library Name**|`deploy-conf`|
     |**Default version**|`shared-lib`
     |**Retrieval method**|Modern SCM|
-    |**Source Code Management**|Git|
+    |**Source Code Management**|`Git`|
     |**Project Repository**|`https://github.com/project-sunbird/sunbird-devops.git`|
 
 - Click **Save** and go to **Manage Jenkins** -> **Configure global security**
@@ -84,13 +86,14 @@ allowSearch: true
 
 - Go to **Manage Jenkins** -> **Manage Nodes** -> Click **master** -> Click **Configure** -> Provide **labels**. Provide the label as `build-slave ops-slave`
 
-- Set the number of executors (`cpu cores x 2 = number of executors`)
+- Update the number of executors (`cpu cores x 2 = number of executors`)
 
 - Run the below commands on Jenkins server -
 
     ```bash
     sudo su jenkins
-    mkdir -p /var/lib/jenkins/secrets && cd /var/lib/jenkins/secrets
+    mkdir -p /var/lib/jenkins/secrets
+    cd /var/lib/jenkins/secrets
     touch deployer_ssh_key vault-pass k8s.yaml
     chmod 400 deployer_ssh_key vault-pass k8s.yaml
     ```
@@ -107,4 +110,4 @@ allowSearch: true
     jenkins ALL=(ALL) NOPASSWD:ALL
  ```
 
-- Restart the Jenkins server
+- Reboot the Jenkins VM (`sudo reboot`)

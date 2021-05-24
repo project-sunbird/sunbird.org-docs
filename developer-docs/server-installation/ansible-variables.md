@@ -7,9 +7,9 @@ allowSearch: true
 ---
 ## Overview
 
-Ansible is the configuration management system used in Sunbird. The entire infrastructure setup, build and deployment of services and other configurations is handled primarily through ansible.
+Ansible is the configuration management system used in Sunbird. The infrastructure setup, deployment of services and other configurations is handled primarily through ansible.
 
-## Updating the Private Repository with Hosts and Variables
+### Updating the Private Repository with Hosts and Variables
 
 Use the following git commands sequentially to clone and update your private GitHub repository -
 
@@ -21,7 +21,8 @@ git checkout tags/release-3.8.0_RC13 -b release-3.8.0_RC13
 
 - Copy the directory `sunbird-devops/private_repo/ansible` to your private repo
 
-- Update the files **common.yml**, **hosts**, and **secrets.yml** under **Core**, **KnowledgePlatform** and **DataPipeline** directories. After updating, push them to your private repo branch. Your private repo structure starting from the root path should be exactly as shown below.
+- Update the files **common.yml**, **hosts**, and **secrets.yml** under **Core**, **KnowledgePlatform** and **DataPipeline** directories. After updating, push them to your private repo branch
+- Your private repo structure starting from the root path should be exactly as shown below
   
 ```bash
 ansible
@@ -43,8 +44,8 @@ ansible
 
 > Note:
 >
->- The ansible inventory setup is a must before we can start to run jobs from the **Provision**, **ArtifactUpload** and **Deploy** directory in Jenkins. The **Build** directory on Jenkins does not require the ansible variables
->- It is highly recommended that you complete the ansible inventory update before proceeding further
+>- The ansible inventory setup is a must before we can start to run jobs from the **Provision**, **ArtifactUpload** and **Deploy** directory in Jenkins. The **Build** directory on Jenkins does not depend on the ansible variables
+>- It is highly recommended that you complete the ansible inventory updates before proceeding further
 
 ### List of Servers with their Ansible Group Names
 
@@ -137,5 +138,3 @@ ansible
   </tr>
   <tr></tr>
 </table>
-
-<hr/>

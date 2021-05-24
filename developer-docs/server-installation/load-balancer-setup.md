@@ -8,9 +8,10 @@ allowSearch: true
 
 ## Overview
 
-- Load Balancers are required when you want to scale your applications and have high availability. The LB can distribute traffic to your VMs evenly.
+- Load Balancers are required when you want to scale your applications and have high availability 
+- The LB can distribute traffic to your VMs evenly
 - The LB can be of type Layer 4 or Layer 7
-- We recommend the Layer 4 LB / Basic LB
+- We recommend the Layer 4 LB also know as the basic LB
 
 ### Keycloak
 
