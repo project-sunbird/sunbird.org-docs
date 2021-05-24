@@ -51,7 +51,7 @@ allowSearch: true
     ```
 
 - Add a credential in Jenkins and choose **_Username with Password_** from the drop down. Enter the username and password of the private github repository. Enter a unique value for the `ID` field like **_private-repo-creds_**
- 
+
 - Go to **Manage Jenkins** -> **Configure System** -> **Environment Variables** and add the following variables
 
     |**Name**|**Value**|

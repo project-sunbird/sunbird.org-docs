@@ -36,99 +36,6 @@ Before you start the installation process, ensure that you have all of the below
 | Other Services     | 4core 16G 60G HDD | 1  |
 | Basic Load Balancers         |  -   | 2 (Optional)   |
 
-### List of Servers with their Ansible Group Names
-
-<table>
-  <tr>
-    <th style="width:25%">Module</th>
-    <th style="width:25%">Servers</th>
-    <th style="width:25%">Service</th>
-    <th style="width:25%">Ansible Group Names</th>
-  </tr>
-  <tr>
-    <td>Build and Deploy</td>
-    <td>Server-1</td>
-    <td>Jenkins Master</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td rowspan="5">Databases</td>
-    <td rowspan="5">Server-2</td>
-    <td>Cassandra</td>
-    <td>cassandra-1, lp-cassandra, dp-cassandra, core-cassandra, report-cassandra, cassandra-node-1, cassandra</td>
-  </tr>
-  <tr>
-    <td>Postgres</td>
-    <td>postgresql-master-1, postgresql-master, postgres</td>
-  </tr>
-  <tr>
-    <td>Application Elasticsearch</td>
-    <td>es-1, composite-search-cluster, core-es-1, core-es, es-backup, es</td>
-  </tr>
-  <tr>
-    <td>Neo4j</td>
-    <td>learning-neo4j-node1, learning-neo4j-cluster</td>
-  </tr>
-  <tr>
-    <td>Mongo</td>
-    <td>mongo_master, mongo</td>
-  </tr>
-  <tr>
-    <td rowspan="4">Knowledge Platform</td>
-    <td rowspan="4">Server-3</td>
-    <td>Learning</td>
-    <td>learning1, learning, learningall</td>
-  </tr>
-  <tr>
-    <td>Redis</td>
-    <td>redis1, redis, redis-ps,  redisall, lp-redis, lp-redis-ps, dp-redis, lms-redis, redis-exporter-targets</td>
-  </tr>
-  <tr>
-    <td>Zookeeper</td>
-    <td>processing-cluster-zookeepers, ingestion-cluster-zookeeper, raw-zookeeper, zookeeper</td>
-  </tr>
-  <tr>
-    <td>Kafka</td>
-    <td>processing-cluster-kafka, ingestion-cluster-kafka, kafka-1, kafka</td>
-  </tr>
-  <tr>
-    <td rowspan="4">Data Pipeline</td>
-    <td rowspan="4">Server-4</td>
-    <td>Spark</td>
-    <td>spark</td>
-  </tr>
-  <tr>
-    <td>Kafka Indexer (Logstash)</td>
-    <td>kafka-indexer</td>
-  </tr>
-  <tr>
-    <td>InfluxDB</td>
-    <td>influxdb</td>
-  </tr>
-  <tr>
-    <td>Keycloak</td>
-    <td>keycloak-1, keycloak</td>
-  </tr>
-  <tr>
-    <td rowspan="1">Yarn</td>
-    <td>Server-5</td>
-    <td>Yarn Master and Slave</td>
-    <td>yarn-master, yarn-slave, yarn</td>
-  </tr>
-  <tr>
-    <td rowspan="2">Other Services</td>
-    <td rowspan="2">Server-6</td>
-    <td>Druid</td>
-    <td>druid-postgres, raw-coordinator, raw-overlord, raw-broker, raw-historical, raw-middlemanager, raw-graphite, rollup-coordinator, dp-druid-broker, broker, coordinator, druid-raw</td>
-  </tr>
-  <tr>
-    <td>Logs Elasticsearch</td>
-    <td>log-es-1, log-es-backup, log-es</td>
-  </tr>
-</table>
-
-<hr/>
-
 ### Infra Requirements
 
 - Kubernetes Cluster with 4 worker nodes
@@ -151,8 +58,8 @@ Before you start the installation process, ensure that you have all of the below
 > **Note**  Follow the steps given below to create the Kubernetes cluster in Azure. Refer to the documents provided by respective cloud providers to create the Kubernetes cluster on any other cloud.
 The AKS cluster and VM's should be in same vnet. If they are in diffrent vnet, you have to peer the vnets. To peer the vnets the IP address of the two vnets should not overlap. 
 
-1. Create service principal and assign contributor role to service principal, get the secrets and client id of service principal. Click [here](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli) for more details
-2. Create the AKS cluster either via Azure portal or using az aks command line
+- Create service principal and assign contributor role to service principal, get the secrets and client id of service principal. Click [here](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli) for more details
+- Create the AKS cluster either via Azure portal or using az aks command line
 
 Refer to Azure documentation for all the available options. Here is a command which you can use -
 
@@ -170,7 +77,7 @@ az aks get-credentials --resource-group <resource group name> --name <cluster na
 
 ### Configuring the Azure storage account
 
- 1.Update the CORS rule for the storage account as follows:
+- Update the CORS rule for the storage account as follows:
 
  ```bash
     Allowed Origins: *
@@ -180,6 +87,5 @@ az aks get-credentials --resource-group <resource group name> --name <cluster na
     Max Age: 200
 
  ```
-
- 2.Disable **Secure transfer required** in storage account configuration
  
+- Disable **Secure transfer required** in storage account configuration

@@ -19,7 +19,7 @@ This document explains the procedure to set up Sunbird on your cloud infra. This
 * AKS (Azure Kubernetes Service)
 * Ubuntu 18 VM's
 
-## Infrastructure Components
+### Infrastructure Components
 
 Sunbird consists of 3 major subsystems
 

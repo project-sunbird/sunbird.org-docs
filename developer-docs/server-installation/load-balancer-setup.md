@@ -12,7 +12,7 @@ allowSearch: true
 - The LB can be of type Layer 4 or Layer 7
 - We recommend the Layer 4 LB / Basic LB
 
-## Keycloak
+### Keycloak
 
 Below are the details to setup a LB for Keycloak on Azure
 
@@ -40,7 +40,7 @@ Load Balancing rules
 
 ```
 
-## Knowledge Platform
+### Knowledge Platform
 
 **Learning:**
 
