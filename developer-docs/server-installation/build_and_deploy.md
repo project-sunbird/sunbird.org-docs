@@ -16,19 +16,18 @@ To install Sunbird `release-3.8.0`, we will need to run many Jenkins jobs and a 
 #### Create Plugin Containers / Folder Structure
 
 - We will some folders in azure for storing sunbird plugins
-- Azure does not allow to create empty folders
-- Our deployment job always tries to delete the folder first before uploading, so we need to have some placeholders
+- Our deployment job always tries to delete the folder first before uploading, so we need to have the placeholders before running the jobs
 - We will create the folders by uploading random files from a random folder on your PC
-- Use the value you have set for the variable `sunbird_content_azure_storage_container` in your private repo for the below commands
+- Create a public container with the name you have set for the variable `sunbird_content_azure_storage_container` and run the below commands
 
 ```bash
-az storage blob upload-batch --destination sunbird_content_azure_storage_container/collection-editor --source some_folder --account-name storage_account_name --account-key account_key
+az storage blob upload-batch --destination sunbird_content_azure_storage_container/collection-editor --source some_folder --account-name storage_account_name --account-key storage_account_key
 
-az storage blob upload-batch --destination sunbird_content_azure_storage_container/generic-editor --source some_folder --account-name storage_account_name --account-key account_key
+az storage blob upload-batch --destination sunbird_content_azure_storage_container/generic-editor --source some_folder --account-name storage_account_name --account-key storage_account_key
 
-az storage blob upload-batch --destination sunbird_content_azure_storage_container/content-editor --source some_folder --account-name storage_account_name --account-key account_key
+az storage blob upload-batch --destination sunbird_content_azure_storage_container/content-editor --source some_folder --account-name storage_account_name --account-key storage_account_key
 
-az storage blob upload-batch --destination sunbird_content_azure_storage_container/v3/preview --source some_folder --account-name storage_account_name --account-key account_key
+az storage blob upload-batch --destination sunbird_content_azure_storage_container/v3/preview --source some_folder --account-name storage_account_name --account-key storage_account_key
 ```
 
 
@@ -39,7 +38,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 - Run the below command from the directory where `content-plugins.zip` is unzipped
 
 ```bash
-az storage blob upload-batch --destination sunbird_content_azure_storage_container/content-plugins --source content-plugins --account-name account_name --account-key account_key
+az storage blob upload-batch --destination sunbird_content_azure_storage_container/content-plugins --source content-plugins --account-name storage_account_name --account-key storage_account_key
 ```
 
 - Create a container named `public` in your Azure storage account from thrAzure portal
@@ -154,7 +153,6 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 >- Jobs in the **Deploy** directory can be run in parallel and don't have any restrictions if the code is from same repo unlike the **Build** directory
 >- Ensure you don't run those jobs in parallel which modify the databases (such as cassandra, neo4j etc)
 
-
 |Jenkins Job to Run|Github Tag|Github Repo|Comments|
 |------------------|----------|-----------|--------|
 |Deploy/Kubernetes/BootstrapMinimal|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates namespaces, configmaps and secrets|
@@ -231,4 +229,20 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/DataPipeline/FlinkPipelineJobs|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys Flink jobs Kubernetes cluster|
 |Deploy/DataPipeline/GraphitePrometheusExporter|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys graphite prometheus exporter in Druid VM|
 |Deploy/Kubernetes/LoggingFileBeatsVM|branch_or_tag: release-3.8.0_RC14, hosts: Select All, tags: default|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys filebeat in all the selected VMs|
-|Deploy/Kubernetes/PostInstallScripts|branch_or_tag: release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the forms, framework, users, channel, license etc to quickly get Sunird up and running. This job will be updated shortly|
+
+
+#### Post Installation Steps
+
+- There are a couple pre-requisites we need to do before we run the final job
+- Upload the default T&C file to `sunbird_content_azure_storage_container` container in a folder named `terms-and-conditions`. You can get a copy of the Sunbird T&C file from [here](https://sunbirdpublic.blob.core.windows.net/installation/terms-and-conditions/terms-and-conditions-v9.html). You are free to edit the HTML as per your requirements
+- Create a private container named `label` in Azure
+- Run the below command in your Jenkins VM where you cloned the sunbird-devops repo
+
+```bash
+cd sunbird-devops/utils/portal
+az storage blob upload-batch --destination label --source labels --account-name storage_account_name --account-key storage_account_key
+```
+
+|Jenkins Job to Run|Github Tag|Github Repo|Comments|
+|------------------|----------|-----------|--------|
+|Deploy/Kubernetes/PostInstallScripts|branch_or_tag: release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the default forms, framework, users, channel, licenses etc. This job will be updated shortly|
