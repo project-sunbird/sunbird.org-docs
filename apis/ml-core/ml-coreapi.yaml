@@ -506,6 +506,95 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  /v1/user-extension/programsByPlatformRoles:
+    get:
+      summary: List of Platform programs
+      description: This API is used to get List of Platform programs
+           - The endpoint for **programsByPlatformRoles Aws V1** is `/v1/user-extension/programsByPlatformRoles`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      tags:
+       - User Extension APIs
+      operationId: programsByPlatformRoles
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: role
+          in: query
+          description: role
+          schema:
+            type: string
+          example: PM,PGM
+      responses:
+        200:
+          description: "List of Platform programs Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgramsByPlatformRoleslResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/user-extension/solutions/{programId}:
+    get:
+      summary:  List of solutions
+      description: This API is used to get List of Platform solutions
+           - The endpoint for **solutions Aws V1** is `/v1/user-extension/solutions`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      tags:
+       - User Extension APIs
+      operationId: solutions
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: role
+          in: query
+          description: role
+          schema:
+            type: string
+          example: PM,PGM
+        - name: programId
+          in: path
+          description: program Id
+          required: true
+          schema:
+            type: string
+          example: 5f9288fd5e25636ce6dcad66
+      responses:
+        200:
+          description: "List of Platform solutions Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionsByPlatformRoleslResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/solutionIdMissing400Error'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
 
 components:
   schemas:
@@ -860,6 +949,72 @@ components:
               msg:
                 type: string
                 example: required solution id
+    ProgramsByPlatformRoleslResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Mapped user program fetched successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              _id: 
+                type: string
+                example: 5f34e44681871d939950bca6
+              externalId: 
+                type: string
+                example: TN-Program-1597301830708
+              description: 
+                type: string
+                example: TN01-Mantra4Change-APSWREIS School Leader Feedback
+              name: 
+                type: string
+                example: TN-Program
+              role”: 
+                type: string
+                example: PM
+    SolutionsByPlatformRoleslResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Mapped user program fetched successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              _id: 
+                type: string
+                example: 5f34e44681871d939950bca6
+              externalId: 
+                type: string
+                example: TN-Program-1597301830708
+              description: 
+                type: string
+                example: TN01-Mantra4Change-APSWREIS School Leader Feedback
+              name: 
+                type: string
+                example: TN-Program
+              type: 
+                type: string
+                example: observation
+              subType: 
+                type: string
+                example: school
+              isRubricDriven: 
+                type: boolean
+
   
   securitySchemes:
     bearer:
