@@ -7,7 +7,7 @@ published: true
 allowSearch: true
 ---
 
-Sunbird's developer documentation is meant for its adopters, developers and contributors.   
+Sunbird's developer documentation is meant for its adopters, developers and contributors.
 
 The developer documentation helps you to get familiar with the bare necessities, giving you a quick and clean approach to get you up and running. If you are looking for ways to customize the workflow, or just breaking things down to build them back up, head to the reference section to dig into the mechanics of Sunbird APIs.
 

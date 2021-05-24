@@ -2,7 +2,7 @@
 title: Prerequisites
 page_title: Prerequisites
 description: Prerequisites to set up Sunbird on a server
-keywords: prerequisites, set up, setup, server installation, cloud hosting, hosting, 
+keywords: prerequisites, set up, setup, server installation, cloud hosting, hosting
 allowSearch: true
 ---
 
@@ -92,8 +92,8 @@ Before you start the installation process, ensure that you have all of the below
     <td>processing-cluster-kafka, ingestion-cluster-kafka, kafka-1, kafka</td>
   </tr>
   <tr>
-    <td rowspan="5">Data Pipeline</td>
-    <td rowspan="5">Server-4</td>
+    <td rowspan="4">Data Pipeline</td>
+    <td rowspan="4">Server-4</td>
     <td>Spark</td>
     <td>spark</td>
   </tr>
@@ -106,10 +106,10 @@ Before you start the installation process, ensure that you have all of the below
     <td>influxdb</td>
   </tr>
   <tr>
-  <tr>
     <td>Keycloak</td>
     <td>keycloak-1, keycloak</td>
   </tr>
+  <tr>
     <td rowspan="1">Yarn</td>
     <td>Server-5</td>
     <td>Yarn Master and Slave</td>
@@ -119,8 +119,7 @@ Before you start the installation process, ensure that you have all of the below
     <td rowspan="2">Other Services</td>
     <td rowspan="2">Server-6</td>
     <td>Druid</td>
-    <td> druid-postgres, raw-coordinator, raw-overlord, raw-broker, raw-historical, raw-middlemanager, raw-graphite, rollup-coordinator, dp-druid-broker, broker, coordinator, druid-raw
-    </td>
+    <td>druid-postgres, raw-coordinator, raw-overlord, raw-broker, raw-historical, raw-middlemanager, raw-graphite, rollup-coordinator, dp-druid-broker, broker, coordinator, druid-raw</td>
   </tr>
   <tr>
     <td>Logs Elasticsearch</td>
@@ -128,7 +127,7 @@ Before you start the installation process, ensure that you have all of the below
   </tr>
 </table>
 
-
+<hr/>
 
 ### Infra Requirements
 
@@ -183,3 +182,4 @@ az aks get-credentials --resource-group <resource group name> --name <cluster na
  ```
 
  2.Disable **Secure transfer required** in storage account configuration
+ 

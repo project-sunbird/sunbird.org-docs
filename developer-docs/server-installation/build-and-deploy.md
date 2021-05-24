@@ -1,8 +1,8 @@
 ---
-title: Plugins
-page_title: Plugins
-description: Explains how to build and deploy plugins
-keywords: plugins, content plugins, content framework 
+title: Build and Deploy
+page_title: Build and Deploy
+description: Explains the build and deploy jobs for Sunbird
+keywords: build, deploy, install, sunbird
 allowSearch: true
 
 ---
@@ -234,7 +234,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 #### Post Installation Steps
 
 - There are a couple pre-requisites we need to do before we run the final job
-- Upload the default T&C file to `sunbird_content_azure_storage_container` container in a folder named `terms-and-conditions`. You can get a copy of the Sunbird T&C file from [here](https://sunbirdpublic.blob.core.windows.net/installation/terms-and-conditions/terms-and-conditions-v9.html). You are free to edit the HTML as per your requirements
+- Upload the default T&C file to `sunbird_content_azure_storage_container` container in a folder named **terms-and-conditions**. You can get a copy of the sample T&C file from [here](https://sunbirdpublic.blob.core.windows.net/installation/terms-and-conditions/terms-and-conditions-v9.html). You are free to edit the HTML as per your requirements
 - Create a private container named `label` in Azure
 - Run the below command in your Jenkins VM where you cloned the sunbird-devops repo
 

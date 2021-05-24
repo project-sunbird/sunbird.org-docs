@@ -1,8 +1,8 @@
 ---
-title: Ansible Variables Setup
-page_title: Ansible Variables Setup
+title: Ansible Variables
+page_title: Ansible Variables
 description: Setting up the Ansible variables in the private GitHub repository
-keywords: ansible variables, variables, private GitHub repository, private repo
+keywords: ansible, variables, private github repository, private repo
 allowSearch: true
 ---
 ## Overview

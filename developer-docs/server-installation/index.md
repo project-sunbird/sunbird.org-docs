@@ -1,7 +1,8 @@
-title: Server Installation
-page_title: Server Installation
-description: Server Installation
-keywords: installation, server installation
+---
+title: Sunbird Infra Requirements
+page_title: Sunbird Infra Requirements
+description: Sunbird Infra Requirements
+keywords: sunbird infra, infrastructure, requirements
 allowSearch: true
 ---
 
