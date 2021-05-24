@@ -22,7 +22,7 @@ To successfully complete Sunbird installation, you need to have:
 
 > **Note:** Sunbird is tested only on cloud hosted Ubuntu servers in Azure. We do not provide any support for installing Sunbird on other operating systems. Sunbird might work on other cloud providers, feel free to try it out and let us know. We are actively working on achieving cloud neutrality.
 
-## Provisioning Servers
+### Provisioning Servers
 
 Before you start the installation process, ensure that you have all of the below required infrastructure. This below infrastructure is the bare minimum for a full fledged Sunbird setup. Every component in Sunbird can scale horizontally / vertically by adding more resources.
 
@@ -36,7 +36,7 @@ Before you start the installation process, ensure that you have all of the below
 | Other Services     | 4core 16G 60G HDD | 1  |
 | Basic Load Balancers         |  -   | 2 (Optional)   |
 
-## List of Servers with their Ansible Group Names
+### List of Servers with their Ansible Group Names
 
 <table>
   <tr>
@@ -130,7 +130,7 @@ Before you start the installation process, ensure that you have all of the below
 
 
 
-## Infra Requirements
+### Infra Requirements
 
 - Kubernetes Cluster with 4 worker nodes
 - Private GitHub repository to store ansible inventory
@@ -147,37 +147,39 @@ Before you start the installation process, ensure that you have all of the below
 - Youtube API Token (optional)
 - Slack account and slack bot with API Token (optional)
 
-## Creating the AKS cluster
+### Creating the AKS cluster
 
 > **Note**  Follow the steps given below to create the Kubernetes cluster in Azure. Refer to the documents provided by respective cloud providers to create the Kubernetes cluster on any other cloud.
 The AKS cluster and VM's should be in same vnet. If they are in diffrent vnet, you have to peer the vnets. To peer the vnets the IP address of the two vnets should not overlap. 
 
-1. Create service principal and assign contributor role to service principal, get the secrets and client id of service principal. Click [here]((https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli)) for more details
+1. Create service principal and assign contributor role to service principal, get the secrets and client id of service principal. Click [here](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli) for more details
 2. Create the AKS cluster either via Azure portal or using az aks command line
 
-Refer to Azure documentation to all the available options. Here is a command which you can use -
- ```
+Refer to Azure documentation for all the available options. Here is a command which you can use -
+
+ ```bash
 az aks create --resource-group <resouse-group-name> --node-resource-group <k8s-resource-group-name> --name <cluster name>  --node-count 4 --admin-username deployer --kubernetes-version 1.19.9 --service-principal "<service principal id>" --node-vm-size Standard_D4s_v3 --client-secret "<client id>" --network-plugin azure --ssh-key-value @deployer.pub -l <region> --vm-set-type VirtualMachineScaleSets --vnet-subnet-id /subscriptions/<subscription id>/resourceGroups/<resouse-group-name>/providers/Microsoft.Network/virtualNetworks/<vnet-name>/subnets/<subnet name>
 ```
+
 > Note: Ensure you have allocated at least 1024 IP's for your Kubernetes subnet (CIDR notation as x.x.x.x/22)
 
-
 Get the kubeconfig file for your cluster with the below command -
-```
+
+```bash
 az aks get-credentials --resource-group <resource group name> --name <cluster name> --file  k8s.yaml
 ```
 
- ## Configuring the Azure storage account
+### Configuring the Azure storage account
 
  1.Update the CORS rule for the storage account as follows:
 
- ```
+ ```bash
     Allowed Origins: *
     Allowed Methods: GET,HEAD,OPTIONS, PUT
     Allowed Headers: Access-Control-Allow-Origin,Access-Control-Allow-Method,Origin,x-ms-meta-qq,x-ms-blob-type,x-ms-blob-content-type,Content-Type
     Exposed Headers: Access-Control-Allow-Origin,Access-Control-Allow-Methods
     Max Age: 200
 
- ``` 
+ ```
 
  2.Disable **Secure transfer required** in storage account configuration

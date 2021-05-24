@@ -1,10 +1,10 @@
 title: Server Installation
 page_title: Server Installation
 description: Server Installation
-keywords: installation, server installation 
+keywords: installation, server installation
 allowSearch: true
 ---
- 
+
 ## Introduction
 
 Sunbird is an open source repository of learning management microservices architected for scale and designed to support diverse teaching and learning solutions. Sunbird is the open source contribution of the EkStep Foundation and is licensed under the MIT licence.
@@ -22,6 +22,6 @@ This document explains the procedure to set up Sunbird on your cloud infra. This
 
 Sunbird consists of 3 major subsystems
 
-  - Knowledge Platform also knows as Learning Platform (Taxonomy and Content)
-  - Data Pipeline (Data enrichment and Visualizations)
-  - Core Services (User, Organization, Courses, Certificates, UI and Frontend)
+* Knowledge Platform also knows as Learning Platform (Taxonomy and Content)
+* Data Pipeline (Data enrichment and Visualizations)
+* Core Services (User, Organization, Courses, Certificates, UI and Frontend)

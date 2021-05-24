@@ -19,7 +19,7 @@ Use the following git commands sequentially to clone and update your private Git
 
 3. Copy the directory `sunbird-devops/private_repo/ansible` to your private repo
 
-4. Update the files `common.yml`, `hosts`, and `secrets.yml` under `Core`, `KnowledgePlatform` and `DataPipeline` directories. After updating, push them to your private repo branch. Your private repo structure starting from the root path should be exactly as shown below.
+4. Update the files **common.yml**, **hosts**, and **secrets.yml** under **Core**, **KnowledgePlatform** and **DataPipeline** directories. After updating, push them to your private repo branch. Your private repo structure starting from the root path should be exactly as shown below.
   
 ```bash
 ansible
@@ -41,5 +41,5 @@ ansible
 
 > Note:
 >
->- The ansible inventory setup is a must before we can start to run jobs from the Provision, ArtifactUpload and Deploy directory in Jenkins. The Build directory on Jenkins does not require on the ansible inventory
->- It is highly recommended that you complete the ansible inventory updates before proceeding further
+>- The ansible inventory setup is a must before we can start to run jobs from the **Provision**, **ArtifactUpload** and **Deploy** directory in Jenkins. The **Build** directory on Jenkins does not require the ansible variables
+>- It is highly recommended that you complete the ansible inventory update before proceeding further

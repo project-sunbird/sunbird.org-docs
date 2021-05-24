@@ -17,20 +17,20 @@ allowSearch: true
 Below are the details to setup a LB for Keycloak on Azure
 
 ```bash
-- Frontend IP configuration
+Frontend IP configuration
   - Type: Private
   - Assignment: Static
-- Backend pools
+Backend pools
   - Name: keycloak
   - Attach Keycloak VMs or Availability Set
-- Health Probes
+Health Probes
   - Name: keycloak
   - Protocol: HTTP
   - Port: 8080
   - Path: /auth/
   - Interval: 5
   - Unhealthy threshold: 2
-- Load Balancing rules
+Load Balancing rules
   - Frontend IP address: LB IP
   - Frontend Port: 80
   - Protocol: TCP
@@ -47,20 +47,20 @@ Below are the details to setup a LB for Keycloak on Azure
 Below are the details to setup a LB for Learning service on Azure
 
 ```bash
-- Frontend IP configuration
+Frontend IP configuration
   - Type: Private
   - Assignment: Static
-- Backend pools
+Backend pools
   - Name: learning
   - Attach Learning VMs or Availability Set
-- Health Probes
+Health Probes
   - Name: learning
   - Protocol: HTTP
   - Port: 8080
   - Path: learning-service/health
   - Interval: 5
   - Unhealthy threshold: 2
-- Load Balancing rules
+Load Balancing rules
   - Frontend IP address: LB IP
   - Frontend Port: 8080
   - Protocol: TCP
