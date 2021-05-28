@@ -95,12 +95,12 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Build/Core/Taxonomy|release-3.8.0_RC9|<https://github.com/project-sunbird/knowledge-platform.git>|Handles the taxonomies|
 |Build/Core/Telemetry|release-3.3.0_RC1|<https://github.com/project-sunbird/sunbird-telemetry-service.git>|Handles the telemetry generated|
 |Build/Core/Yarn|release-2.6.0|<https://github.com/project-sunbird/sunbird-lms-jobs.git>|Handles SSO and account merges|
-|Build/KnowledgePlatform/CassandraTrigger|release-3.8.0_RC17|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Creates few Cassandra Triggers|
+|Build/KnowledgePlatform/CassandraTrigger|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Creates few Cassandra Triggers|
 |Build/KnowledgePlatform/FlinkJobs|release-3.8.0_RC7|<https://github.com/project-sunbird/knowledge-platform-jobs.git>|Multiple functions like search indexing, video streaming|
-|Build/KnowledgePlatform/Learning|github_release_tag: release-3.8.0_RC17, profile_id: platform-services|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Handles frameworks|
-|Build/KnowledgePlatform/Neo4j|release-3.8.0_RC17|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Generates neo4j plugins|
-|Build/KnowledgePlatform/SyncTool|release-3.8.0_RC17|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Generates a jar to manually sync contents |
-|Build/KnowledgePlatform/Yarn|release-3.8.0_RC17|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Multiple functions like publishing contents, issuing certificates|
+|Build/KnowledgePlatform/Learning|github_release_tag: release-3.8.0_RC18, profile_id: platform-services|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Handles frameworks|
+|Build/KnowledgePlatform/Neo4j|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Generates neo4j plugins|
+|Build/KnowledgePlatform/SyncTool|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Generates a jar to manually sync contents |
+|Build/KnowledgePlatform/Yarn|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Multiple functions like publishing contents, issuing certificates|
 |Build/DataPipeline/AdhocScripts|release-3.8.0_RC9|<https://github.com/Sunbird-Ed/sunbird-data-products.git>|Generates supporting scripts for reporting|
 |Build/DataPipeline/AnalyticsCore|release-3.8.0_RC4|<https://github.com/project-sunbird/sunbird-analytics-core.git>|Generates core libraries for reporting|
 |Build/DataPipeline/CoreDataProducts|release-3.8.0_RC4|<https://github.com/project-sunbird/sunbird-core-dataproducts.git>|Generates supporting libraries for reporting|
@@ -134,9 +134,9 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Provision/Core/MongodbCluster|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Mongo database|
 |Provision/Core/Postgres|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Postgres database|
 |Provision/Core/PostgresDbUpdate|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates Postgres tables, schema and users|
-|Provision/KnowledgePlatform/Learning|release-3.8.0_RC17|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Install tomcat and other pre-requisites for Learning service|
-|Provision/KnowledgePlatform/Neo4j|release-3.8.0_RC17|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Installs Neo4j database|
-|Provision/KnowledgePlatform/Yarn|release-3.8.0_RC17|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Install Hadoop and other pre-requisites to run Yarn|
+|Provision/KnowledgePlatform/Learning|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Install tomcat and other pre-requisites for Learning service|
+|Provision/KnowledgePlatform/Neo4j|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Installs Neo4j database|
+|Provision/KnowledgePlatform/Yarn|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Install Hadoop and other pre-requisites to run Yarn|
 |Provision/DataPipeline/AnalyticsGeoLocationDBSetup|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Creates tables and schema in Postgres|
 |Provision/DataPipeline/AnalyticsSpark|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Install Apache Spark and other pre-requisites for reporting|
 |Provision/DataPipeline/Druid|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Install Druid|
@@ -171,19 +171,19 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/Kubernetes/BootstrapMinimal|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates namespaces, configmaps and secrets|
 |Deploy/DataPipeline/BootstrapMinimal|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Creates namespaces, configmaps and secrets|
 |Deploy/Kubernetes/CassandraTrigger|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Installs the Cassandra triggers|
-|Deploy/KnowledgePlatform/CassandraTrigger|release-3.8.0_RC17|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Installs the Cassandra triggers|
+|Deploy/KnowledgePlatform/CassandraTrigger|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Installs the Cassandra triggers|
 |Deploy/Kubernetes/CassandraDBUpdate|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates / Updates Cassandra DB schema|
-|Deploy/KnowledgePlatform/CassandraDbUpdate|release-3.8.0_RC17|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Creates / Updates Cassandra DB schema|
+|Deploy/KnowledgePlatform/CassandraDbUpdate|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Creates / Updates Cassandra DB schema|
 |Deploy/Kubernetes/Cassandra|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates / Updates Cassandra DB schema|
 |Deploy/Kubernetes/KafkaSetup|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates / Updates Kafka Topics|
 |Deploy/DataPipeline/KafkaSetup|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Creates / Updates Kafka Topics|
-|Deploy/KnowledgePlatform/KafkaSetup|release-3.8.0_RC17|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Creates / Updates Kafka Topics|
+|Deploy/KnowledgePlatform/KafkaSetup|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Creates / Updates Kafka Topics|
 |Deploy/DataPipeline/AnalyticsPopulatePSQLConsumerChannelMapping|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Creates / Updates Postgres database schema|
-|Deploy/KnowledgePlatform/Learning|release-3.8.0_RC17|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Deploys the Learning service on tomcat|
-|Deploy/KnowledgePlatform/Neo4j|release-3.8.0_RC17|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Deploys the Neo4j plugins|
-|Deploy/KnowledgePlatform/Neo4jDefinitionUpdate|release-3.8.0_RC17|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Creates / Updates the Neo4j database|
-|Deploy/KnowledgePlatform/Yarn|release-3.8.0_RC17|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Deploys the Samza jobs|
-|Deploy/KnowledgePlatform/FlinkJobs|branch_or_tag: release-3.8.0_RC17, job_names_to_deploy: Select All|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Deploys the Flink jobs in Kubernetes cluster|
+|Deploy/KnowledgePlatform/Learning|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Deploys the Learning service on tomcat|
+|Deploy/KnowledgePlatform/Neo4j|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Deploys the Neo4j plugins|
+|Deploy/KnowledgePlatform/Neo4jDefinitionUpdate|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Creates / Updates the Neo4j database|
+|Deploy/KnowledgePlatform/Yarn|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Deploys the Samza jobs|
+|Deploy/KnowledgePlatform/FlinkJobs|branch_or_tag: release-3.8.0_RC18, job_names_to_deploy: Select All|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Deploys the Flink jobs in Kubernetes cluster|
 |Deploy/KnowledgePlatform/LoggingFileBeatsVM|branch_or_tag: release-3.8.0_RC14, hosts: Select All, tags: default|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys filebeat in all the selected VMs|
 |Deploy/Kubernetes/nginx-private-ingress|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys nginx with a private load balancer|
 |Deploy/Kubernetes/APIManager|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Kong, the API gateway |
