@@ -124,7 +124,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |------------------|----------|-----------|--------|
 |OpsAdministration/Core/Bootstrap|hosts: env, branch_or_tag: release-3.8.0_RC14, tag: bootstrap_any,node_exporter|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the deployer user and installs node exporter and python packages for ansible|
 |OpsAdministration/KnowledgePlatform/Bootstrap|hosts: env, branch_or_tag: release-3.8.0_RC14, tag: bootstrap_any,node_exporter|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the deployer user and installs node exporter and python packages for ansible|
-|OpsAdministration/DataPipeline/Bootstrap|hosts: env, branch_or_tag: release-3.8.0_RC14, tag: bootstrap_any,node_exporter|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the deployer user and installs node exporter and python packages for ansibles|
+|OpsAdministration/DataPipeline/Bootstrap|hosts: env, branch_or_tag: release-3.8.0_RC14, tag: bootstrap_any,node_exporter|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the deployer user and installs node exporter and python packages for ansible|
 |Provision/Core/ApplicationElasticSearch|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Elasticsearch used by the applications|
 |Provision/Core/Cassandra|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Cassandra database|
 |Provision/Core/CassandraExporter|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Cassandra prometheus exporter|
