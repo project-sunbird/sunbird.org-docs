@@ -130,7 +130,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Provision/Core/CassandraExporter|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Cassandra prometheus exporter|
 |Provision/Core/ESMapping|indices_name: all, branch_or_tag: release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates Elasticsearch indices and mappings|
 |Provision/Core/Keycloak|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Installs java and other pre-requisites for Keycloak service|
-|Provision/Core/LogES|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Elasticsearch used to store application and VM logs|
+|Provision/Core/LogES|release-3.9.0_RC11|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Elasticsearch used to store application and VM logs|
 |Provision/Core/MongodbCluster|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Mongo database|
 |Provision/Core/Postgres|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Postgres database|
 |Provision/Core/PostgresDbUpdate|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates Postgres tables, schema and users|
