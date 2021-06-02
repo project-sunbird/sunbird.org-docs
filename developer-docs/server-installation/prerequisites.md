@@ -44,6 +44,7 @@ Before you start the installation process, ensure that you have the required inf
 - Public IP
 - Google Oauth Credentials
 - Google V3 Recaptcha Credentials
+- Maxmind city database (free or paid)
 - A SMTP account (any email provider works, except Gmail for now)
 - All ports must be open for internal communication (Azure Virtual Network or AWS VPC) between the VMs
 - Internet and outbound access from VMs
