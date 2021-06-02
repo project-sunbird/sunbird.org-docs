@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2021-06-01 14:12:36 +0530">
+<meta name="last-modified" content="2021-06-02 10:13:51 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="3419" />
+<meta name="buildNo" content="3424" />
 <meta name="version" id="docsVersion" content="3.8.0" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?01062021"  />
+<link rel="stylesheet" href="/css/style.css?02062021"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?01062021"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?01062021"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?01062021"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?01062021"></script>
-<script type="text/javascript" src="/js/widgets-data.js?01062021"></script>
-<script type="text/javascript" src="/js/widgets.js?01062021"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?02062021"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?02062021"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?02062021"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?02062021"></script>
+<script type="text/javascript" src="/js/widgets-data.js?02062021"></script>
+<script type="text/javascript" src="/js/widgets.js?02062021"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -1316,7 +1316,15 @@ az storage blob upload-batch --destination label --source labels --account-name 
 </pre>
 
 <ul>
-  <li>Create a container named <code>public</code> in your Azure storage account from thrAzure portal</li>
+  <li>Create a container named <code>public</code> in your Azure storage account from the Azure portal with public access level</li>
+  <li>Create a container named <code>artifacts</code> in your Azure storage account from the Azure portal with private access level</li>
+</ul>
+
+<h4 id="upload-maxmind-database-to-azure-blob">Upload Maxmind Database to Azure Blob</h4>
+
+<ul>
+  <li>Download the Maxmind city database in zip format from Maxmind website</li>
+  <li>Upload the zip file to the <code>artifacts</code> container in Azure</li>
 </ul>
 
 <h4 id="code-builds">Code Builds</h4>
@@ -1747,7 +1755,7 @@ az storage blob upload-batch --destination label --source labels --account-name 
     </tr>
     <tr>
       <td>Provision/DataPipeline/AnalyticsGeoLocationDBSetup</td>
-      <td>release-3.8.0_RC13</td>
+      <td>release-3.8.0_RC13, geoip_zip_csv_file_name: Enter the maxmind city database zip file name you uploaded to <code>artifacts</code> container</td>
       <td><a href="https://github.com/project-sunbird/sunbird-data-pipeline.git">https://github.com/project-sunbird/sunbird-data-pipeline.git</a></td>
       <td>Creates tables and schema in Postgres</td>
     </tr>
@@ -1759,9 +1767,9 @@ az storage blob upload-batch --destination label --source labels --account-name 
     </tr>
     <tr>
       <td>Provision/DataPipeline/Druid</td>
-      <td>release-3.8.0_RC13</td>
+      <td>release-3.8.0_RC13, service: Select All, remote: raw</td>
       <td><a href="https://github.com/project-sunbird/sunbird-data-pipeline.git">https://github.com/project-sunbird/sunbird-data-pipeline.git</a></td>
-      <td>Install Druid</td>
+      <td>Installs Druid</td>
     </tr>
     <tr>
       <td>Provision/DataPipeline/InfluxDB</td>
