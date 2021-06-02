@@ -39,7 +39,6 @@ cd sunbird-devops/utils/portal
 az storage blob upload-batch --destination label --source labels --account-name storage_account_name --account-key storage_account_key
 ```
 
-
 #### Upload Initial Plugins
 
 - Upload the initial set of plugins to `sunbird_content_azure_storage_container` container
@@ -50,7 +49,14 @@ az storage blob upload-batch --destination label --source labels --account-name 
 az storage blob upload-batch --destination sunbird_content_azure_storage_container/content-plugins --source content-plugins --account-name storage_account_name --account-key storage_account_key
 ```
 
-- Create a container named `public` in your Azure storage account from thrAzure portal
+- Create a container named `public` in your Azure storage account from the Azure portal with public access level
+- Create a container named `artifacts` in your Azure storage account from the Azure portal with private access level
+
+
+#### Upload Maxmind Database to Azure Blob
+
+- Download the Maxmind city database in zip format from Maxmind website
+- Upload the zip file to the `artifacts` container in Azure
 
 #### Code Builds
 
@@ -137,9 +143,9 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Provision/KnowledgePlatform/Learning|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Install tomcat and other pre-requisites for Learning service|
 |Provision/KnowledgePlatform/Neo4j|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Installs Neo4j database|
 |Provision/KnowledgePlatform/Yarn|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Install Hadoop and other pre-requisites to run Yarn|
-|Provision/DataPipeline/AnalyticsGeoLocationDBSetup|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Creates tables and schema in Postgres|
+|Provision/DataPipeline/AnalyticsGeoLocationDBSetup|release-3.8.0_RC13, geoip_zip_csv_file_name: Enter the maxmind city database zip file name you uploaded to `artifacts` container|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Creates tables and schema in Postgres|
 |Provision/DataPipeline/AnalyticsSpark|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Install Apache Spark and other pre-requisites for reporting|
-|Provision/DataPipeline/Druid|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Install Druid|
+|Provision/DataPipeline/Druid|release-3.8.0_RC13, service: Select All, remote: raw|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Installs Druid|
 |Provision/DataPipeline/InfluxDB|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Install Influx DB used by monitoring system|
 |Provision/DataPipeline/Kafka|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Installs Kafka|
 |Provision/DataPipeline/KafkaIndexer|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Install Logstash to read telemetry data from Kafka and index into Log ES|
