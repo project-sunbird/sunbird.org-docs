@@ -15,7 +15,7 @@ Jenkins is used to build, deploy and setup the infrastructure for Sunbird. Almos
 
      ```bash
     - git clone https://github.com/project-sunbird/sunbird-devops.git
-    - cd sunbird-devops && git checkout tags/release-3.8.0_RC13 -b release-3.8.0_RC13
+    - cd sunbird-devops && git checkout tags/release-3.8.0_RC14 -b release-3.8.0_RC14
     - cd deploy/jenkins
     - sudo bash jenkins-server-setup.sh
      ```
