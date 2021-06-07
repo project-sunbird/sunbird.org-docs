@@ -176,6 +176,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |------------------|----------|-----------|--------|
 |Deploy/Kubernetes/BootstrapMinimal|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates namespaces, configmaps and secrets|
 |Deploy/DataPipeline/BootstrapMinimal|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Creates namespaces, configmaps and secrets|
+|Deploy/Kubernetes/Monitoring|branch_or_tag: release-3.8.0_RC14, tag: all|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys the monitoring stack which can be accessed via DOMAIN/grafana/ post nginx-public-ingress deployment|
 |Deploy/Kubernetes/CassandraTrigger|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Installs the Cassandra triggers|
 |Deploy/KnowledgePlatform/CassandraTrigger|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Installs the Cassandra triggers|
 |Deploy/Kubernetes/CassandraDBUpdate|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates / Updates Cassandra DB schema|
@@ -184,7 +185,6 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/Kubernetes/KafkaSetup|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates / Updates Kafka Topics|
 |Deploy/DataPipeline/KafkaSetup|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Creates / Updates Kafka Topics|
 |Deploy/KnowledgePlatform/KafkaSetup|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Creates / Updates Kafka Topics|
-|Deploy/DataPipeline/AnalyticsPopulatePSQLConsumerChannelMapping|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Creates / Updates Postgres database schema|
 |Deploy/KnowledgePlatform/Learning|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Deploys the Learning service on tomcat|
 |Deploy/KnowledgePlatform/Neo4j|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Deploys the Neo4j plugins|
 |Deploy/KnowledgePlatform/Neo4jDefinitionUpdate|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Creates / Updates the Neo4j database|
@@ -226,7 +226,6 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/Kubernetes/Telemetry|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Telemetry service|
 |Deploy/Kubernetes/Yarn|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Samza jobs|
 |Deploy/Kubernetes/LoggingFileBeatsVM|branch_or_tag: release-3.8.0_RC14, hosts: Select All, tags: default|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys filebeat in all the selected VMs|
-|Deploy/Kubernetes/Monitoring|branch_or_tag: release-3.8.0_RC14, tag: all|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys the monitoring stack which can be accessed via DOMAIN/grafana/ post nginx-public-ingress deployment|
 |Deploy/Kubernetes/Logging|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Choose one **chartname** each time - `fluent-bit`, `kibana`, `oauth2-proxy`. Deploys Fluent Bit, Kibana and Oauth2 Proxy respectively. Kibana can accessed via DOMAIN/dashboard/|
 |Deploy/Kubernetes/nginx-public-ingress|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys the nginx web server. Now you can open visit your domain|
 |Deploy/Kubernetes/Nodebb|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys NodeBB service. Now read the comment mentioned in **Core/Secrets.yml** against the variable `discussionsmw_nodebb_authorization_token`|
@@ -254,3 +253,4 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Jenkins Job to Run|Github Tag|Github Repo|Comments|
 |------------------|----------|-----------|--------|
 |Deploy/Kubernetes/PostInstallScripts|branch_or_tag: release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the default forms, framework, users, channel, licenses etc. **This job will be updated in a couple of days. Please wait until then**|
+|Deploy/DataPipeline/AnalyticsPopulatePSQLConsumerChannelMapping|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Creates / Updates Postgres database schema|
