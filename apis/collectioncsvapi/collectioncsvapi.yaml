@@ -4,8 +4,8 @@ info:
   description: |-
     The Collection CSV TOC API resources perform operations related to download and upload of collection type of contents on the Sunbird Platform in csv format. The CSV TOC API(s) operations include uploads and downloads.
 
-    The URL for CSV TOC API(s) is /collection/v1/toc.
-    - The backend URL for CSV TOC API(s) is /v1/collection/toc.
+    The URL for CSV TOC API(s) is /collection/v1/.
+    - The backend URL for CSV TOC API(s) is collection/v4/.
     - [TestCases](https://app.getpostman.com/run-collection/78d9cafb2d26eda89260)
   termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
   contact:
@@ -14,7 +14,7 @@ info:
 servers:
   - url: 'https://staging.open-sunbird.org/api'
 paths:
-  '/collection/v1/toc/upload/{collection-id}':
+  '/collection/v1/import/{collection-id}':
     post:
       tags:
         - CSV TOC APIs
@@ -22,7 +22,7 @@ paths:
       description: |-
         'This API is used to upload TOC with csv format on the Sunbird Platform.
 
-        The endpoint for TOC CSV upload is /collection/v1/toc/upload
+        The endpoint for TOC CSV upload is /collection/v1/import
 
         You can find sample TOC CSV here:
 
@@ -49,7 +49,7 @@ paths:
 
 
         The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.'
-      operationId: TOCUpload
+      operationId: collectionImport
       parameters:
         - name: Content-Type
           in: header
@@ -105,9 +105,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/tocapiTOCUpload-Success'
               example:
-                id: api.collection.toc.upload
+                id: api.collection.import
                 ver: v1
-                ts: '2020-11-27 15:35:56:361+0000'
+                ts: '2021-06-08 15:35:56:361+0000'
                 params:
                   resmsgid: null
                   msgid: b3eb6ee7-108d-48b7-9f9f-0d96c55ac289
@@ -124,7 +124,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/tocapiTOCDownload-Resource_Not_Found'
               example:
-                id: api.collection.toc.upload
+                id: api.collection.import
                 ver: v1
                 ts: '2020-11-27 15:20:24:393+0000'
                 params:
@@ -142,7 +142,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/tocapiTOCDownload-Resource_Not_Found'
               example:
-                id: api.collection.toc.upload
+                id: api.collection.import
                 ver: v1
                 ts: '2020-11-27 15:27:56:969+0000'
                 params:
@@ -160,7 +160,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/tocapiTOCDownload-Resource_Not_Found'
               example:
-                id: api.collection.toc.upload
+                id: api.collection.import
                 ver: v1
                 ts: '2020-11-23 06:48:19:128+0000'
                 params:
@@ -174,7 +174,7 @@ paths:
       deprecated: false
       security:
         - bearer: []
-  '/collection/v1/toc/download/{collection-id}':
+  '/collection/v1/export/{collection-id}':
     get:
       tags:
         - TOC APIs
@@ -182,9 +182,9 @@ paths:
       description: |-
         This API is used to download collection in csv format.
 
-        The endpoint for TOC download is /download
+        The endpoint for TOC download is /export
         The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: TOCDownload
+      operationId: collectionExport
       parameters:
         - name: Content-Type
           in: header
@@ -227,7 +227,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/tocapiTOCDownload-Success'
               example:
-                id: api.collection.toc.download
+                id: api.collection.export
                 ver: v1
                 ts: '2020-11-27 15:47:33:106+0000'
                 params:
@@ -248,7 +248,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/tocapiTOCDownload-Resource_Not_Found'
               example:
-                id: api.collection.toc.download
+                id: api.collection.export
                 ver: v1
                 ts: '2020-11-27 15:49:18:113+0000'
                 params:
@@ -266,7 +266,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/tocapiTOCDownload-Resource_Not_Found'
               example:
-                id: api.collection.toc.download
+                id: api.collection.export
                 ver: v1
                 ts: '2020-11-23 06:48:19:128+0000'
                 params:
@@ -333,7 +333,7 @@ components:
         result:
           $ref: '#/components/schemas/tocapiResult'
       example:
-        id: api.collection.toc.upload
+        id: api.collection.import
         ver: v1
         ts: '2020-11-27 15:35:56:361+0000'
         params:
@@ -408,7 +408,7 @@ components:
         result:
           type: object
       example:
-        id: api.collection.toc.download
+        id: api.collection.export
         ver: v1
         ts: '2020-11-27 15:49:18:113+0000'
         params:
@@ -443,7 +443,7 @@ components:
         result:
           $ref: '#/components/schemas/tocapiResult1'
       example:
-        id: api.collection.toc.download
+        id: api.collection.export
         ver: v1
         ts: '2020-11-27 15:47:33:106+0000'
         params:
