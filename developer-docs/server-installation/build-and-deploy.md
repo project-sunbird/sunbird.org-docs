@@ -136,7 +136,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Provision/Core/CassandraExporter|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Cassandra prometheus exporter|
 |Provision/Core/ESMapping|indices_name: all, branch_or_tag: release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates Elasticsearch indices and mappings|
 |Provision/Core/Keycloak|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Installs java and other pre-requisites for Keycloak service|
-|Provision/Core/LogES|release-3.9.0_RC11|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Elasticsearch used to store application and VM logs|
+|Provision/Core/LogES|release-3.9.0_RC16|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Elasticsearch used to store application and VM logs|
 |Provision/Core/MongodbCluster|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Mongo database|
 |Provision/Core/Postgres|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Postgres database|
 |Provision/Core/PostgresDbUpdate|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates Postgres tables, schema and users|
@@ -200,7 +200,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/Kubernetes/BootstrapMongodb|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the initial token in Mongo database|
 |Deploy/Kubernetes/CertTemplate|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Uploads the certificate templates into Azure blob|
 |Deploy/Kubernetes/UploadChatbotConfig|branch_or_tag: release-3.8.0_RC14, bot_repo_branch: master|<https://github.com/project-sunbird/sunbird-devops.git>|Uploads the chatbot configs to Azure blob|
-|Deploy/Kubernetes/UploadFAQs|branch_or_tag: release-3.8.0_RC14, source_folder: Select All|<https://github.com/project-sunbird/sunbird-devops.git>|Uploads the FAQs to Azure blob|
+|Deploy/Kubernetes/UploadFAQs|branch_or_tag: release-3.9.0_RC16, source_folder: Select All|<https://github.com/project-sunbird/sunbird-devops.git>|Uploads the FAQs to Azure blob|
 |Deploy/Kubernetes/UploadSchema|branch_or_tag: release-3.8.0_RC14, kp_branch_or_tag: release-3.8.0_RC9|<https://github.com/project-sunbird/sunbird-devops.git>|Uploads the Content schemas to Azure blob|
 |Deploy/Kubernetes/AdminUtils|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Adminutils service|
 |Deploy/Kubernetes/Analytics|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Analytics service|
@@ -238,7 +238,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/DataPipeline/AdhocScripts|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys AdHoc scripts in Spark VM|
 |Deploy/DataPipeline/AnalyticsCore|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys jars in Spark VM|
 |Deploy/DataPipeline/CoreDataProducts|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys jars in Spark VM|
-|Deploy/DataPipeline/DruidIngestion|branch_or_tag: release-3.9.0, ingestion_task_names: Select All|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys and starts Druid ingestion tasks. **This job will be updated in a couple of days. Please wait until then**|
+|Deploy/DataPipeline/DruidIngestion|branch_or_tag: release-3.9.0_RC12, ingestion_task_names: Select All|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys and starts Druid ingestion tasks. **This job will be updated in a couple of days. Please wait until then**|
 |Deploy/DataPipeline/EdDataProducts|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys jars in Spark VM|
 |Deploy/DataPipeline/ETLJobs|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys ETL scripts in Spark VM|
 |Deploy/DataPipeline/ETLDruidContentIndexer|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys ETLDruidContentIndexer|
