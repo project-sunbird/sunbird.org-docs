@@ -116,7 +116,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Build/DataPipeline/Secor|secor-0.29_RC2|<https://github.com/project-sunbird/secor.git>|Handlles backup of telemetry data to Azure Blob|
 |Build/Plugins/CollectionEditor|release-3.6.0_RC1|<https://github.com/project-sunbird/sunbird-collection-editor.git>|A bunch of plugins to handle collection editing|
 |Build/Plugins/ContentEditor|release-3.6.0_RC2|<https://github.com/project-sunbird/sunbird-content-editor.git>|A bunch of plugins to edit certain types of content|
-|Build/Plugins/ContentPlayer|release-3.7.0_RC5|<https://github.com/project-sunbird/sunbird-content-player.git>|A bunch of plugins to handle content playback|
+|Build/Plugins/ContentPlayer|release-3.8.1_RC1|<https://github.com/project-sunbird/sunbird-content-player.git>|A bunch of plugins to handle content playback|
 |Build/Plugins/ContentPlugins|release-3.8.1_RC1|<https://github.com/project-sunbird/sunbird-content-plugins.git>|A bunch of base plugins to support the content editors and content player|
 |Build/Plugins/GenericEditor|release-3.6.0_RC1|<https://github.com/project-sunbird/sunbird-generic-editor.git>|A bunch of plugins to edit certain types of content|
 
