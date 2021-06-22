@@ -28,10 +28,11 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |||Deploy/DataPipeline/AnalyticsReplayJobs|release-4.0.0 <br/>cql_query: 0 <br/>job_type: run-job <br/>job_id: userinfo-exhaust <br/>batch_identifier: 01330190903638425684 <br/>start_date: 2017-05-01 <br/>end_date: 2017-07-11 <br/>pause_min: 30 <br/>||
 |Build/DataPipeline/EdDataProducts|release-4.0.0_RC4|Deploy/DataPipeline/EdDataProducts|release-4.0.0||
 |Build/DataPipeline/FlinkPipelineJobs|release-4.0.0_RC4|Deploy/DataPipeline/FlinkPipelineJobs|release-4.0.0 <br/>job_names_to_deploy:Select all jobs||
-|||Deploy/KnowledgePlatform/KafkaSetup|release-4.0.0||
+|||Deploy/KnowledgePlatform/KafkaSetup|release-4.0.0_RC4||
 |||Deploy/DataPipeline/KafkaSetup|release-4.0.0||
+|||Deploy/DataPipeline/Secor|release-4.0.0_RC1|Add error-telemetry-backup to job_names_to_deploy parameter in job and deploy selecting only this|
 |||Deploy/DataPipeline/LoggingFileBeatsVM|release-4.0.0 <br/> tags: default hosts: select all||
-|Build/KnowledgePlatform/FlinkJobs|release-4.0.0_RC7|Deploy/KnowledgePlatform/FlinkJobs|release-4.0.0||
+|Build/KnowledgePlatform/FlinkJobs|release-4.0.0_RC7|Deploy/KnowledgePlatform/FlinkJobs|release-4.0.0|Add "collection-cert-pre-processor", "Add auto-creator-v2", "collection-certificate-generator" to deploy job list<br/>Kill samza jobs: "certificate-pre-processor" and "course-certificate-generator-v2"|
 |Build/KnowledgePlatform/Learning|release-4.0.0_RC4|Deploy/KnowledgePlatform/Learning|release-4.0.0||
 |Build/KnowledgePlatform/Neo4jElasticSearchSyncTool|release-3.9.0_RC12|Deploy/KnowledgePlatform/Neo4jElasticSearchSyncTool|release-4.0.0<br/>command: sync<br/>parameters: --graph domain --objectType ObjectCategoryDefinition||
 |Build/KnowledgePlatform/Yarn|release-4.0.0_RC4|Deploy/KnowledgePlatform/Yarn|release-4.0.0||
@@ -42,6 +43,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Kubernetes/DiscussionsMW|release-4.0.0_RC2|Deploy/Kubernetes/DiscussionsMW|release-4.0.0||
 |Build/Kubernetes/Groups|release-4.0.0_RC10|Deploy/Kubernetes/Groups|release-4.0.0||
 |||Deploy/Kubernetes/Keycloak|release-4.0.0||
+|||kubernetes/uploadSchema|release-4.0.0_RC5|restart taxonomy-service, content-service and assessment-service|
 |Build/Kubernetes/Learner|release-4.0.0_RC18|Deploy/Kubernetes/Learner|release-4.0.0||
 |Build/Kubernetes/Lms|release-4.0.0_RC3|Deploy/Kubernetes/Lms|release-4.0.0||
 |||Deploy/Kubernetes/LoggingFileBeatsVM|release-4.0.0<br/>tags: current<br/>hosts: select all||
