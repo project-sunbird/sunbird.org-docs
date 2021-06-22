@@ -9,21 +9,21 @@ keywords: Upgrade, Sunbird 4.0.0
 
 ## Overview
 
-This page details out the jobs required to be run as part of the upgrade from Sunbird release 3.7.0 to release 4.0.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.
+This page details out the jobs required to be run as part of the upgrade from Sunbird release 3.9.0 to release 4.0.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.
 
 ### Variables
 
 |Variable Name|Service Name|Comments|
 |-------------|------------|--------|
 |sunbird_portal_offline_supported_languages|Player Service|This variable should be removed from private <code>Core/common.yml</code> if defined|
-|adminutil_refresh_token_secret_key       |Adminutils   |- Go to http://KEYCLOAK_IP:8080/auth/admin/master/console/#/realms/sunbird/keys<br> - Get this secret value from DB, by loging into the keycloak 7 postgres DB and run the query: `SELECT value FROM component_config CC INNER JOIN component C ON(CC.component_id = C.id) WHERE C.realm_id = 'sunbird' and provider_id = 'hmac-generated' AND CC.name = 'secret';`<br> - [More details with pictures are here](https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/2281734145/Keycloak+Upgrade+from+3.2.0+to+7.0.1)<br> - This was done as part of release-3.7.0 hotfix and is not required if you are already on Keycloak 7|
+|adminutil_refresh_token_secret_key       |Adminutils   |- Go to http://KEYCLOAK_IP:8080/auth/admin/master/console/#/realms/sunbird/keys<br> - Get this secret value from DB, by loging into the keycloak 7 postgres DB and run the query: `SELECT value FROM component_config CC INNER JOIN component C ON(CC.component_id = C.id) WHERE C.realm_id = 'sunbird' and provider_id = 'hmac-generated' AND CC.name = 'secret';`<br> - [More details with pictures are here](https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/2281734145/Keycloak+Upgrade+from+3.2.0+to+7.0.1)<br> - This was done as part of release-3.9.0 hotfix and is not required if you are already on Keycloak 7|
 |kp_schema_base_path       |Flink Job   |- This variable should be added in private repo under `Core/common.yml` and `KnowledgePlatform/common.yml`<br> - <code>{%raw%}kp_schema_base_path: "{{proto}}://{{sunbird_public_storage_account_name}}.blob.core.windows.net/{{plugin_container_name}}/schemas/local"{%endraw%}</code>|
 
 ### Build and Deploy
 
 |Service to be Build|Build Tag|Service to Deploy|Deploy Tag|Comments|
 |-------------------|---------|-----------------|----------|--------|
-|||Provision/Core/Keycloak|release-4.0.0_RC9|This was done as part of release-3.7.0 hotfix and is not required if you are already on Keycloak 7|
+|||Provision/Core/Keycloak|release-4.0.0_RC9|This was done as part of release-3.9.0 hotfix and is not required if you are already on Keycloak 7|
 |||Provision/DataPipeline/AnalyticsSpark|release-4.0.0_RC6||
 |||OpsAdministration/Core/ESMapping|release-4.0.0_RC9|Choose `userv1,orgv2` for jenkins job parameter `indices_name`|
 |Build/Core/Cassandra|release-4.0.0_RC2|Deploy/Kubernetes/Cassandra|release-4.0.0_RC9||
@@ -33,14 +33,14 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |||Deploy/Kubernetes/OnboardConsumers|release-4.0.0_RC9||
 |||Deploy/KnowledgePlatform/KafkaSetup|release-4.0.0_RC10||
 |||Deploy/KnowledgePlatform/Neo4jDefinitionUpdate|release-4.0.0_RC10||
-|Build/Core/AdminUtils|release-3.7.0_RC1|Deploy/Kubernetes/AdminUtils|release-4.0.0_RC9|This was done as part of release-3.7.0 hotfix and is not required if you are already on Keycloak 7|
+|Build/Core/AdminUtils|release-3.9.0_RC1|Deploy/Kubernetes/AdminUtils|release-4.0.0_RC9|This was done as part of release-3.9.0 hotfix and is not required if you are already on Keycloak 7|
 |Build/Core/Analytics|release-4.0.0_RC1|Deploy/Kubernetes/Analytics|release-4.0.0_RC9||
 |Build/Core/Assessment|release-4.0.0_RC6|Deploy/Kubernetes/Assessment|release-4.0.0_RC9||
 |Build/Core/Bot|release-4.0.0_RC1|Deploy/Kubernetes/Bot|release-4.0.0_RC1||
 |Build/Core/Content|release-4.0.0_RC6|Deploy/Kubernetes/Content|release-4.0.0_RC9||
 |Build/Core/DiscussionsMW|release-4.0.0_RC2|Deploy/Kubernetes/DiscussionsMW|release-4.0.0_RC9||
 |Build/Core/Groups|release-4.0.0_RC1|Deploy/Kubernetes/Groups|release-4.0.0_RC9||
-|Build/Core/Keycloak|release-4.0.0_RC1|Deploy/Kubernetes/Keycloak|release-4.0.0_RC9|This was done as part of release-3.7.0 hotfix. In this release we have only changed telemetry pdata version, so only a redeploy is required if you are already on Keycloak 7|
+|Build/Core/Keycloak|release-4.0.0_RC1|Deploy/Kubernetes/Keycloak|release-4.0.0_RC9|This was done as part of release-3.9.0 hotfix. In this release we have only changed telemetry pdata version, so only a redeploy is required if you are already on Keycloak 7|
 |Build/Core/KnowledgeMW|release-4.0.0_RC3|Deploy/Kubernetes/KnowledgeMW|release-4.0.0_RC9||
 |Build/Core/Learner|release-4.0.0_RC27|Deploy/Kubernetes/Learner|release-4.0.0_RC9||
 |Build/Core/Lms|release-4.0.0_RC7|Deploy/Kubernetes/Lms|release-4.0.0_RC9||
