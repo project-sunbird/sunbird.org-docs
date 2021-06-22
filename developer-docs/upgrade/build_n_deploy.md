@@ -20,9 +20,9 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Service to be Build|Build Tag|Service to Deploy|Deploy Tag|Comments|
 |-------------------|---------|-----------------|----------|--------|
-|||Provision/Core/Keycloak|release-4.0.0_RC9|This was done as part of release-3.9.0 hotfix and is not required if you are already on Keycloak 7|
-|||Provision/DataPipeline/AnalyticsSpark|release-4.0.0_RC6||
-|||OpsAdministration/Core/ESMapping|release-4.0.0_RC9|Choose `userv1,orgv2` for jenkins job parameter `indices_name`|
+|||Provision/DataPipeline/Druid|release-4.0.0 service:router<br/>remote:raw||
+|||OpsAdministration/Core/ESMapping|release-4.0.0 indices_name:userv2||
+|||OpsAdministration/Core/GraylogMongoImport|release-4.0.0 graylog_mongo_collections:all||
 |Build/Core/Cassandra|release-4.0.0_RC2|Deploy/Kubernetes/Cassandra|release-4.0.0_RC9||
 |||Deploy/Kubernetes/UploadSchemas|release-4.0.0_RC9|Provide value as `release-4.0.0_RC6` for the jenkins job paramater `kp_branch_or_tag`|
 |||Deploy/Kubernetes/APIManager|release-4.0.0_RC9|- You should see annotations in APIManager pods as `fluentbit.io/parser: kong`|
