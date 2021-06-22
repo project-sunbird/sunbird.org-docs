@@ -44,12 +44,14 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |||Deploy/Kubernetes/Keycloak|release-4.0.0||
 |Build/Kubernetes/Learner|release-4.0.0_RC18|Deploy/Kubernetes/Learner|release-4.0.0||
 |Build/Kubernetes/Lms|release-4.0.0_RC3|Deploy/Kubernetes/Lms|release-4.0.0||
-|||Deploy/Kubernetes/LoggingFileBeatsVM|release-4.0.0||
-|Build/Core/Router|release-4.0.0_RC1|Deploy/Kubernetes/Router|release-4.0.0_RC1||
-|Build/Core/Search|release-4.0.0_RC6|Deploy/Kubernetes/Search|release-4.0.0_RC9||
-|Build/Core/Taxonomy|release-4.0.0_RC6|Deploy/Kubernetes/Taxonomy|release-4.0.0_RC9||
-|Build/KnowledgePlatform/KnowledgePlatform|release-4.0.0_RC10|Deploy/KnowledgePlatform/Learning|release-4.0.0_RC10||
-|Build/KnowledgePlatform/Yarn|release-4.0.0_RC10|Deploy/KnowledgePlatform/Yarn|release-4.0.0_RC10|Kill `course-batch-updater` samza job, delete its tar file and it's extracted folder in the Yarn Master before deployment|
+|||Deploy/Kubernetes/LoggingFileBeatsVM|release-4.0.0<br/>tags: current<br/>hosts: select all||
+|||Deploy/Kubernetes/Logging|release-4.0.0<br/>chart_name: oauth2_proxy||
+|||Deploy/Kubernetes/nginx-public-ingress|release-4.0.0||
+|||Deploy/Kubernetes/OnboardAPIs|release-4.0.0||
+|||Deploy/Kubernetes/OnboardConsumers|release-4.0.0||
+|Build/Kubernetes/Player|release-4.0.0_RC59|Deploy/Kubernetes/Player|release-4.0.0||
+|Build/Kubernetes/Search|release-4.0.0_RC6|Deploy/Kubernetes/Search|release-4.0.0||
+|Build/Kubernetes/Taxonomy|release-4.0.0_RC6|Deploy/Kubernetes/Taxonomy|release-4.0.0||
 
 ### Manual Configurations
 
