@@ -21,9 +21,9 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Service to be Build|Build Tag|Service to Deploy|Deploy Tag|Comments|
 |-------------------|---------|-----------------|----------|--------|
-|||Provision/DataPipeline/Druid|release-4.0.0 service:router<br/>remote:raw||
-|||OpsAdministration/Core/ESMapping|release-4.0.0 indices_name:userv2||
-|||OpsAdministration/Core/GraylogMongoImport|release-4.0.0 graylog_mongo_collections:all||
+|||Provision/DataPipeline/Druid|release-4.0.0<br/>service:router<br/>remote:raw||
+|||OpsAdministration/Core/ESMapping|release-4.0.0<br/>indices_name:userv2||
+|||OpsAdministration/Core/GraylogMongoImport|release-4.0.0<br/>graylog_mongo_collections:all||
 |Build/Core/OfflineInstaller|release-4.0.0|Deploy/Core/OfflineInstaller|release-4.0.0||
 |Build/DataPipeline/DruidAnomalyDetection|release-4.0.0|Deploy/DataPipeline/DruidAnomalyDetection|release-4.0.0||
 |||Deploy/DataPipeline/AnalyticsReplayJobs|release-4.0.0 <br/>cql_query: 0 <br/>job_type: run-job <br/>job_id: userinfo-exhaust <br/>batch_identifier: 01330190903638425684 <br/>start_date: 2017-05-01 <br/>end_date: 2017-07-11 <br/>pause_min: 30 <br/>||
