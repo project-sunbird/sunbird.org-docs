@@ -23,19 +23,21 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |||Provision/DataPipeline/Druid|release-4.0.0 service:router<br/>remote:raw||
 |||OpsAdministration/Core/ESMapping|release-4.0.0 indices_name:userv2||
 |||OpsAdministration/Core/GraylogMongoImport|release-4.0.0 graylog_mongo_collections:all||
-|Build/Core/Cassandra|release-4.0.0_RC2|Deploy/Kubernetes/Cassandra|release-4.0.0_RC9||
-|||Deploy/Kubernetes/UploadSchemas|release-4.0.0_RC9|Provide value as `release-4.0.0_RC6` for the jenkins job paramater `kp_branch_or_tag`|
-|||Deploy/Kubernetes/APIManager|release-4.0.0_RC9|- You should see annotations in APIManager pods as `fluentbit.io/parser: kong`|
-|||Deploy/Kubernetes/OnboardAPIs|release-4.0.0_RC9||
-|||Deploy/Kubernetes/OnboardConsumers|release-4.0.0_RC9||
-|||Deploy/KnowledgePlatform/KafkaSetup|release-4.0.0_RC10||
-|||Deploy/KnowledgePlatform/Neo4jDefinitionUpdate|release-4.0.0_RC10||
-|Build/Core/AdminUtils|release-3.9.0_RC1|Deploy/Kubernetes/AdminUtils|release-4.0.0_RC9|This was done as part of release-3.9.0 hotfix and is not required if you are already on Keycloak 7|
-|Build/Core/Analytics|release-4.0.0_RC1|Deploy/Kubernetes/Analytics|release-4.0.0_RC9||
-|Build/Core/Assessment|release-4.0.0_RC6|Deploy/Kubernetes/Assessment|release-4.0.0_RC9||
-|Build/Core/Bot|release-4.0.0_RC1|Deploy/Kubernetes/Bot|release-4.0.0_RC1||
-|Build/Core/Content|release-4.0.0_RC6|Deploy/Kubernetes/Content|release-4.0.0_RC9||
-|Build/Core/DiscussionsMW|release-4.0.0_RC2|Deploy/Kubernetes/DiscussionsMW|release-4.0.0_RC9||
+|Build/Core/OfflineInstaller|release-4.0.0|Deploy/Core/OfflineInstaller|release-4.0.0||
+|Build/DataPipeline/DruidAnomalyDetection|release-4.0.0|Deploy/DataPipeline/DruidAnomalyDetection|release-4.0.0||
+|||Deploy/DataPipeline/AnalyticsReplayJobs|release-4.0.0 <br/>cql_query: 0 <br/>job_type: run-job <br/>job_id: userinfo-exhaust <br/>batch_identifier: 01330190903638425684 <br/>start_date: 2017-05-01 <br/>end_date: 2017-07-11 <br/>pause_min: 30 <br/>||
+|Build/DataPipeline/EdDataProducts|release-4.0.0_RC4|Deploy/DataPipeline/EdDataProducts|release-4.0.0||
+|Build/DataPipeline/FlinkPipelineJobs|release-4.0.0_RC4|Deploy/DataPipeline/FlinkPipelineJobs|release-4.0.0 <br/>job_names_to_deploy:Select all jobs||
+|||Deploy/KnowledgePlatform/KafkaSetup|release-4.0.0||
+|||Deploy/DataPipeline/KafkaSetup|release-4.0.0||
+|||Deploy/DataPipeline/LoggingFileBeatsVM|release-4.0.0 <br/> tags: default hosts: select all||
+|Build/KnowledgePlatform/FlinkJobs|release-4.0.0_RC7|Deploy/KnowledgePlatform/FlinkJobs|release-4.0.0||
+|Build/KnowledgePlatform/Learning|release-4.0.0_RC4|Deploy/KnowledgePlatform/Learning|release-4.0.0||
+|Build/KnowledgePlatform/Neo4jElasticSearchSyncTool|release-3.9.0_RC12|Deploy/KnowledgePlatform/Neo4jElasticSearchSyncTool|release-4.0.0<br/>command: sync<br/>parameters: --graph domain --objectType ObjectCategoryDefinition||
+|Build/KnowledgePlatform/Yarn|release-4.0.0_RC4|Deploy/KnowledgePlatform/Yarn|release-4.0.0||
+|Build/Kubernetes/Analytics|release-4.0.0_RC1|Deploy/Kubernetes/Analytics|release-4.0.0||
+|Build/Kubernetes/Assessment|release-4.0.0_RC6|Deploy/Kubernetes/Assessment|release-4.0.0||
+|Build/Kubernetes/Cassandra|release-4.0.0_RC2|Deploy/Kubernetes/Cassandra|release-4.0.0||
 |Build/Core/Groups|release-4.0.0_RC1|Deploy/Kubernetes/Groups|release-4.0.0_RC9||
 |Build/Core/Keycloak|release-4.0.0_RC1|Deploy/Kubernetes/Keycloak|release-4.0.0_RC9|This was done as part of release-3.9.0 hotfix. In this release we have only changed telemetry pdata version, so only a redeploy is required if you are already on Keycloak 7|
 |Build/Core/KnowledgeMW|release-4.0.0_RC3|Deploy/Kubernetes/KnowledgeMW|release-4.0.0_RC9||
@@ -48,19 +50,6 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Core/Taxonomy|release-4.0.0_RC6|Deploy/Kubernetes/Taxonomy|release-4.0.0_RC9||
 |Build/KnowledgePlatform/KnowledgePlatform|release-4.0.0_RC10|Deploy/KnowledgePlatform/Learning|release-4.0.0_RC10||
 |Build/KnowledgePlatform/Yarn|release-4.0.0_RC10|Deploy/KnowledgePlatform/Yarn|release-4.0.0_RC10|Kill `course-batch-updater` samza job, delete its tar file and it's extracted folder in the Yarn Master before deployment|
-|Build/KnowledgePlatform/FlinkJobs|release-4.0.0_RC5|Deploy/KnowledgePlatform/FlinkJobs|release-4.0.0_RC10|- Kill `composite-search-indexer` and `post-publish-processor` samza job before deployment<br>- Choose `enrolment-reconciliation` `post-publish-processor` `search-indexer` and `questionset-publish` for jenkins job parameter `job_names_to_deploy`|
-|Build/DataPipeline/AnalyticsCore|release-4.0.0_RC1|Deploy/DataPipeline/AnalyticsCore|release-4.0.0_RC6||
-|Build/DataPipeline/CoreDataProducts|release-4.0.0_RC1|Deploy/DataPipeline/CoreDataProducts|release-4.0.0_RC6||
-|Build/DataPipeline/ETLJobs|release-4.0.0_RC4|Deploy/DataPipeline/ETLJobs|release-4.0.0_RC6||
-|||Deploy/DataPipeline/ETLDruidContentIndexer|release-4.0.0_RC6|This job needs to be run after all the migrations mentioned in the manual configuration section|
-|||Deploy/DataPipeline/ETLUserCacheIndexer|release-4.0.0_RC6|- Take the record count of index 12 from metadata redis before deploying<br>- Tail the logs using `tail -f /mount/data/analytics/content-snapshot/logs/<today's-date>-task-execution.log`<br>- Deploy the job<br> - Watchout for these keywords in the logs `Time taken for complete script` and `Time taken for indiviual steps`<br>- This job needs to be run after all the migrations mentioned in the manual configuration section|
-|Build/DataPipeline/FlinkPipelineJobs|release-4.0.0_RC4|Deploy/DataPipeline/FlinkPipelineJobs|release-4.0.0_RC6|- Change Jenkinsfile path to `kubernetes/pipelines/deploy/flink-jobs/Jenkinsfile`<br>- Choose `user-cache-updater-v2` for jenkins parameter `job_names_to_deploy`<br>- This job needs to be run after all the migrations mentioned in the manual configuration section|
-|Build/DataPipeline/EdDataProducts|release-4.0.0_RC6|Deploy/DataPipeline/EdDataProducts|release-4.0.0_RC6|- The deploy jobs needs to be run two times<br>- Deploy using default jenkins job parameter values first time<br>- Type `cronjobs` for jenkins job paramater `module` in the second deployment to enable `course-batch-status-updater` cronjob to run every 30 minutes once<br>- This job needs to be run after all the migrations mentioned in the manual configuration section|
-|||Deploy/Kubernetes/Monitoring|release-4.0.0_RC9|Choose `all` for jenkins job paramater `tag`|
-|||Deploy/Kubernetes/LoggingFileBeatsVM|release-4.0.0_RC9|Select all hosts for the jenkins job paramater `hosts` and choose `default` for the jenkins job paramater `tags`|
-|||Deploy/KnowledgePlatform/LoggingFileBeatsVM|release-4.0.0_RC9|Select all hosts for the jenkins job paramater `hosts` and choose `default` for the jenkins job paramater `tags`|
-|||Deploy/DataPipeline/LoggingFileBeatsVM|release-4.0.0_RC9|Select all hosts for the jenkins job paramater `hosts` and choose `default` for the jenkins job paramater `tags`|
-|||Deploy/Kubernetes/Logging|release-4.0.0_RC9|- Choose `fluent-bit` for jenkins job paramater `chartname`<br>- Go to Kibana -> Management -> Index Patterns -> Click on `logstash-2` -> Refresh<br>- Verify nginx and kong logs are being parsed using the below search queries<br>- `kubernetes_labels_app: "nginx-public-ingress" (you should see fields starting with n_)`<br>- `kubernetes_labels_app: "apimanager" (you should see fields starting with k_)`<br>- All `.` notation are replaced with `_` notation for search queries<br>- Old: `kubernetes.labels.app`, New: `kubernetes_labels_app`|
 
 ### Manual Configurations
 
