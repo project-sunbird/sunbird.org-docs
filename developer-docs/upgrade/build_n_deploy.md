@@ -38,13 +38,13 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Kubernetes/Analytics|release-4.0.0_RC1|Deploy/Kubernetes/Analytics|release-4.0.0||
 |Build/Kubernetes/Assessment|release-4.0.0_RC6|Deploy/Kubernetes/Assessment|release-4.0.0||
 |Build/Kubernetes/Cassandra|release-4.0.0_RC2|Deploy/Kubernetes/Cassandra|release-4.0.0||
-|Build/Core/Groups|release-4.0.0_RC1|Deploy/Kubernetes/Groups|release-4.0.0_RC9||
-|Build/Core/Keycloak|release-4.0.0_RC1|Deploy/Kubernetes/Keycloak|release-4.0.0_RC9|This was done as part of release-3.9.0 hotfix. In this release we have only changed telemetry pdata version, so only a redeploy is required if you are already on Keycloak 7|
-|Build/Core/KnowledgeMW|release-4.0.0_RC3|Deploy/Kubernetes/KnowledgeMW|release-4.0.0_RC9||
-|Build/Core/Learner|release-4.0.0_RC27|Deploy/Kubernetes/Learner|release-4.0.0_RC9||
-|Build/Core/Lms|release-4.0.0_RC7|Deploy/Kubernetes/Lms|release-4.0.0_RC9||
-|Build/Core/Nodebb|release-4.0.0_RC1|Deploy/Kubernetes/Nodebb|release-4.0.0_RC9|Provide value as `v1.16.0` for the jenkins job parameter `nodebb_branch` in the build phase|
-|Build/Core/Player|release-4.0.0_RC52|Deploy/Kubernetes/Player|release-4.0.0_RC9||
+|Build/Kubernetes/Content|release-4.0.0_RC6|Deploy/Kubernetes/Content|release-4.0.0||
+|Build/Kubernetes/DiscussionsMW|release-4.0.0_RC2|Deploy/Kubernetes/DiscussionsMW|release-4.0.0||
+|Build/Kubernetes/Groups|release-4.0.0_RC10|Deploy/Kubernetes/Groups|release-4.0.0||
+|||Deploy/Kubernetes/Keycloak|release-4.0.0||
+|Build/Kubernetes/Learner|release-4.0.0_RC18|Deploy/Kubernetes/Learner|release-4.0.0||
+|Build/Kubernetes/Lms|release-4.0.0_RC3|Deploy/Kubernetes/Lms|release-4.0.0||
+|||Deploy/Kubernetes/LoggingFileBeatsVM|release-4.0.0||
 |Build/Core/Router|release-4.0.0_RC1|Deploy/Kubernetes/Router|release-4.0.0_RC1||
 |Build/Core/Search|release-4.0.0_RC6|Deploy/Kubernetes/Search|release-4.0.0_RC9||
 |Build/Core/Taxonomy|release-4.0.0_RC6|Deploy/Kubernetes/Taxonomy|release-4.0.0_RC9||
