@@ -69,12 +69,12 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Manual Step|Instruction|
 |--------------------|--------------------|
-|Update jenkins job|Refer [PR1](https://github.com/project-sunbird/sunbird-devops/pull/2322) [PR2](https://github.com/project-sunbird/sunbird-devops/pull/2407)|
-|Delete old user index|`curl --location --request DELETE 'localhost:9200/user?pretty'`|
-|ES Re-Indexing|Run this after ESMapping job and before deploying Learner Service [ES-Reindexing Steps](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2346156058/SC-2190+ES+scaling+-+reindexing+Org+index)|
+|Delete jenkins job parameter from Keycloak deploy job|Delete sunbird_auth_branch_or_tag|
+|Update the forms|Jira Links - [SB-24836](https://project-sunbird.atlassian.net/browse/SB-24836) [SB-24926](https://project-sunbird.atlassian.net/browse/SB-24926) [SB-24951](https://project-sunbird.atlassian.net/browse/SB-24951)|
+|Created Google auth console for Android app|Jira Link - [SB-21678](https://project-sunbird.atlassian.net/browse/SB-21678)|
+|User table Data Migrations|Run this after deploying Learner Service [User Migration Script](https://project-sunbird.atlassian.net/browse/SB-21678)|
 |Org and User Migrations|Run this after deploying Learner Service [Org Migration Script](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2341339139/SC-2220+Data+Migration+on+Organisation+Table) [User Migration Script](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2316271628/SC-2224+Migration+of+existing+data+to+the+new+columns+in+user+table)|
 |User and Org Sync|Run this after Org and User Migrations Scripts [Script Link](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2437480455/SC-2190+sync+tool+for+learner-service)|
-|Update the forms|Jira Links - [SB-23481](https://project-sunbird.atlassian.net/browse/SB-23481) [SB-23627](https://project-sunbird.atlassian.net/browse/SB-23627) [SB-23671](https://project-sunbird.atlassian.net/browse/SB-23671) [SB-23859](https://project-sunbird.atlassian.net/browse/SB-23859) [SB-22505](https://project-sunbird.atlassian.net/browse/SB-22505)|
 |Run neo4j cypher script|Run this at the end of deployment [Script Link](https://github.com/project-sunbird/sunbird-learning-platform/blob/release-4.0.0/docs/cypher-scripts/release-4.0.0.cypher)|
 |Delete all content and collection entry from KnowledgePlatform redis cache|- Run this after running the neo4j cypher script<br> - <code>redis-cli --scan --pattern do_* &#124; xargs redis-cli del</code><br> - <code>redis-cli --scan --pattern hierarchy_do_* &#124; xargs redis-cli del</code><br>|
 |Run Cateogory Definition Update API|Run this post deployment and restart Content and Assessment Service post successful API execution [Course Primary Category API](https://project-sunbird.atlassian.net/wiki/spaces/SingleSource/pages/2364964876/Course+primaryCategory+Config) [Practice Questionset Primary Category API](https://project-sunbird.atlassian.net/wiki/spaces/SingleSource/pages/2400616475/Practice+Question+Set+primaryCategory+Config)|
