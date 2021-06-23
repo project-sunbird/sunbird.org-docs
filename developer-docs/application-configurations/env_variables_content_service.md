@@ -63,5 +63,5 @@ The page contains the list of environment variables, their descriptions, purpose
 
 **Related Pages**
 
-* [Import External Content](developer-docs/server-configurations/configuring_domain_ext_links)
-* [Content Filtering](developer-docs/server-configurations/content_filtering)
+* [Import External Content](developer-docs/application-configurations/configuring_domain_ext_links)
+* [Content Filtering](developer-docs/application-configurations/content_filtering)
