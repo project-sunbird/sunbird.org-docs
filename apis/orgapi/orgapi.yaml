@@ -476,6 +476,15 @@ components:
             email: info@org.org
             isSSOEnabled: true
             organisationType: school
+            orgLocation:
+              - id: 9541f516-4c01-4322-aa06-4062687a0ce5
+                type: block
+              - id: 6dd69f1c-ba40-4b3b-8981-4fb6813c5e71
+                type: district
+              - id: e9207c22-41cf-4a0d-81fb-1fbe3e34ae24
+                type: cluster
+              - id: ccc7be29-8e40-4d0a-915b-26ec9228ac4a
+                type: state
             isTenant: true
     orgapiOrgReqV1:
             required:
@@ -497,9 +506,6 @@ components:
                 type: string
                 description: Organisation specific ID. This parameter is required
                   if provider is given.
-                items:
-                  type: string
-                  description: '["BH"]'
               provider:
                 type: string
                 description: Specified by sub-organisations to identify channel of
@@ -875,6 +881,8 @@ components:
                  noOfMembers: null
                  status: 0
                  orgLocation:
+                   - id: 9541f516-4c01-4322-aa06-4062687a0ce5
+                     type: block
                    - id: 6dd69f1c-ba40-4b3b-8981-4fb6813c5e71
                      type: district
                    - id: e9207c22-41cf-4a0d-81fb-1fbe3e34ae24
@@ -882,7 +890,21 @@ components:
                    - id: ccc7be29-8e40-4d0a-915b-26ec9228ac4a
                      type: state
                  isTenant: true
-                 organisationType: school
+                 isSchool: true
+                 organisationType: 2
+    orgapiOrgStatusUpdateReq:
+      required:
+        - organisationId
+        - status
+      type: object
+      properties:
+        organisationId:
+          type: string
+          description: ID of organisation whose details are required to be updated
+        status:
+          type: integer
+          description: 'Organisation status (0: inactive, 1: active, 2: blocked,
+                  3: retired)'
     orgapiOrgReadClientErrorResponse:
       title: Client error response for get Organisation Details API
       allOf:
@@ -946,6 +968,48 @@ components:
               errmsg: Process failed,please try again later.
             responseCode: SERVER_ERROR
             result: {}
+    orgapiOrgUpdateClientErrorResponse:
+      title: Client error response for get Organisation Details API
+      allOf:
+        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+        - type: object
+          properties:
+            result:
+              type: object
+              properties: { }
+          example:
+            id: api.org.update
+            ver: v1
+            ts: 2020-11-23 10:03:39:935+0000
+            params:
+              resmsgid:
+              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
+              err: INVALID_REQUESTED_DATA
+              status: INVALID_REQUESTED_DATA
+              errmsg: Requested data for this operation is not valid.
+            responseCode: CLIENT_ERROR
+            result: { }
+    orgapiOrgUpdateServerErrorResponse:
+      title: Server error response for read Organisation API
+      allOf:
+        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+        - type: object
+          properties:
+            result:
+              type: object
+              properties: { }
+          example:
+            id: api.org.update
+            ver: v1
+            ts: 2020-11-23 10:03:39:935+0000
+            params:
+              resmsgid:
+              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
+              err: INTERNAL_ERROR
+              status: INTERNAL_ERROR
+              errmsg: Process failed,please try again later.
+            responseCode: SERVER_ERROR
+            result: { }
     orgapiOrgUpdateRequest:
       title: Organisation Update API request format
       allOf:
@@ -959,12 +1023,56 @@ components:
             description : updated description,
             orgName : Updated Org Name,
             orgLocation:
+              - id: 9541f516-4c01-4322-aa06-4062687a0ce5
+                type: block
               - id: 6dd69f1c-ba40-4b3b-8981-4fb6813c5e71
                 type: district
               - id: e9207c22-41cf-4a0d-81fb-1fbe3e34ae24
                 type: cluster
               - id: ccc7be29-8e40-4d0a-915b-26ec9228ac4a
                 type: state
+    orgapiOrgStatusUpdateRequest:
+      title: Organisation Status Update API request format
+      allOf:
+        - type: object
+          properties:
+            request:
+              $ref: '#/components/schemas/orgapiOrgStatusUpdateReq'
+          example:
+            request:
+              filters:
+                organisationId: "0131630445447741440"
+                status: 0
+    orgapiOrgStatusUpdateResponse:
+      title: Organisation Status Update API response format
+      allOf:
+        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
+        - type: object
+          properties:
+            result:
+              type: object
+              properties:
+                organisationId:
+                  type: string
+                  description: ID of the updated organisation
+                response:
+                  type: string
+                  description: Response message for successfully updated organisation
+                    status
+          example:
+            id: api.org.status.update
+            ver: v1
+            ts: 2020-11-23 10:03:39:935+0000
+            params:
+              resmsgid:
+              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
+              err:
+              status: success
+              errmsg:
+            responseCode: OK
+            result:
+              organisationId: 0131636612466278400
+              response: SUCCESS
     orgapiOrgUpdateReq:
             required:
             - organisationId
@@ -1266,14 +1374,74 @@ components:
                 noOfMembers: null
                 status: 0
                 orgLocation:
+                  - id: 9541f516-4c01-4322-aa06-4062687a0ce5
+                    type: block
                   - id: 6dd69f1c-ba40-4b3b-8981-4fb6813c5e71
                     type: district
                   - id: e9207c22-41cf-4a0d-81fb-1fbe3e34ae24
                     type: cluster
                   - id: ccc7be29-8e40-4d0a-915b-26ec9228ac4a
                     type: state
-                organisationType: school
+                organisationType: 2
+                isSchool: true
                 isTenant: true
+    orgapiOrgSearchResponseV2:
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/orgapiorgapiApiResponse'
+      example:
+        id: api.org.search
+        ver: v2
+        ts: 2020-11-23 09:16:58:628+0000
+        params:
+          resmsgid:
+          msgid: ad7135b8-ef64-44bd-adaa-0b131a657689
+          err:
+          status: success
+          errmsg:
+        responseCode: OK
+        result:
+          response:
+            count: 1
+            content:
+              - keys: {}
+                channel: ChannelNew
+                description: Updated Description
+                updatedDate: 2020-12-01 10:29:49:496+0000
+                organisationType: 2
+                isTenant: true
+                isSchool: true
+                provider: channelnew
+                id: 0131630445447741440
+                email: info@org.org
+                slug: channelnew
+                isSSOEnabled: false
+                identifier: 01274255219981516819144
+                orgName: Org Name
+                updatedBy: null
+                externalId: extid
+                orgLocation:
+                  - id: 1222633c-bef9-4be8-a42d-edffa5a9c7ab
+                    type: state
+                  - id: 60eb8e3a-e492-4da6-9317-a0263eed7aa4
+                    type: district
+                  - id: 4ff2bff2-745a-46d6-971c-e6cf53853209
+                    type: block
+                rootOrgId: "0131630445447741440"
+                contactDetail: null
+                createdDate: 2020-12-01 09:52:46:962+0000
+                createdBy: null
+                hashTagId: "0131630445447741440"
+                status: 0
     orgapiOrgSearchClientErrorResponse:
       title: Client error response for get Organisation Details API
       allOf:

@@ -3,6 +3,8 @@ info:
   title: Data Exhaust API(s)
   description: The data exhaust requests are run as a scheduled job with a turn around time of 24 hours. The data exhaust apis enable aggregation across multiple sources and can result in huge data size. The following set of apis are used to submit a data exhaust request.
   
+    - The endpoint for Data Exhaust Meta API(s) is `dataset/v1`
+    
     - The endpoint for On Demand Data Exhaust API(s) is `dataset/v1/request`
     
     - The endpoint for Standard Data Exhaust API(s) is `data/v3/dataset`
@@ -18,6 +20,287 @@ info:
 servers:
 - url: https://staging.open-sunbird.org/api
 paths:
+  /dataset/v1/add:
+    post:
+      tags:
+      - Data Exhaust Meta API(s)
+      description: API that is invoked when there is an addition to a new dataset.
+      
+        - The endpoint for **Adding Dataset** is `/add`
+        
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: Add Dataset
+      parameters:
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: "The Content Type request header denotes the data type of the request body.
+          \ Types are:- \n  - Application/json"
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          Request json object in the request has below requied fields -
+          
+          - **dataset** - The dataset id.
+          - **datasetConfig** - Dataset config to fetch the data.
+          - **visibility** - To denote whether dataset is public or private.
+          - **datasetType** - Type of dataset. Can be out of On-demand Exhaust, Channel Exhaust or Public Exhaust.
+          - **version** - Version of the dataset.
+          - **authorizedRoles** - List of roles authorized to create a dataset tag.
+          - **availableFrom** - Dataset available from date. Optional - will be defaulted to submitted date.
+          - **sampleRequest** - Sample request JSON as string.
+          - **sampleResponse** - Sample response JSON as string.
+          
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addDatasetRequestBody'
+            examples:
+             a:
+              summary: "Request to add on-demand dataset"
+              description: Valid request with all required fields for adding on-deamand dataset
+              value: 
+               request:
+                  dataset: progress-exhaust
+                  datasetConfig:
+                    batchId: batch-001
+                  visibility: Private
+                  datasetType: On Demand Exhaust
+                  version: 1.0
+                  authorizedRoles: ["portal"]
+             b:
+              summary: "Request to add channel/standard dataset"
+              description: Valid request with all required fields for adding channel/standard dataset
+              value: 
+               request:
+                  dataset: summary-rollup
+                  visibility: Private
+                  datasetType: Standard Channel Exhaust
+                  version: 1.0
+                  authorizedRoles: ["portal"]      
+             c:
+              summary: "Request to add public dataset"
+              description: Valid request with all required fields for adding public dataset
+              value: 
+               request:
+                  dataset: public-data-exhaust
+                  visibility: Public
+                  datasetType: Public Exhaust
+                  version: 1.0
+                  authorizedRoles: ["public"]
+             d:
+              summary: "Request with missing mandatory fields"
+              description: Invalid request one/few missing fields
+              value: 
+               request:
+                  dataset: public-data-exhaust
+                  datasetType: Public Exhaust
+                  version: 1.0
+                  authorizedRoles: ["public"]
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **Add Dataset** operation was successful!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Dataset added successfully
+              examples:
+               a:
+                summary: Response for successful addition of dataset
+                description: Response for addition of dataset when it is success
+                value:
+                 request:
+                  message: "Dataset progress-exhaust added successfully"
+        400:
+          description: BAD REQUEST, **Add Dataset** operation failed! The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/dataexhaustapiApiResponse'
+              examples:
+               a:
+                summary: For missing dataset id in request
+                description: Provided request is invalid with missing dataset
+                value:
+                 id: analytics.dataset.add
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: dataset is empty
+                 responseCode: CLIENT_ERROR
+               b:
+                summary: For missing visibility in request
+                description: Provided request is invalid with missing visibility
+                value:
+                 id: analytics.dataset.add
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: visibility is empty
+                 responseCode: CLIENT_ERROR
+               c:
+                summary: For missing datasetType in request
+                description: Provided request is invalid with missing datasetType
+                value:
+                 id: analytics.dataset.add
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: datasetType is empty
+                 responseCode: CLIENT_ERROR
+               d:
+                summary: For missing version in request
+                description: Provided request is invalid with missing version
+                value:
+                 id: analytics.dataset.add
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: version is empty
+                 responseCode: CLIENT_ERROR
+               e:
+                summary: For missing authorizedRoles in request
+                description: Provided request is invalid with missing authorizedRoles
+                value:
+                 id: analytics.dataset.add
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: authorizedRoles is empty
+                 responseCode: CLIENT_ERROR   
+        401:
+          description: Unauthorized, **Add Dataset** operation failed! The possible
+            reason for failure is that you may have missed providing authorization token in header
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content: 
+            text/plain:
+              schema:
+                type: string
+                example: An unexpected error occurred
+  /dataset/v1/list:
+    get:
+      tags:
+      - Data Exhaust Meta API(s)
+      description: This API is used to list all the datasets that are available
+        
+        - The endpoint for **List Datasets**  `/list` 
+        
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: List Datasets
+      parameters:
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: SUCCESS. The **list dataset** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listDatasetResponse'
+              examples:
+               a:
+                summary: List of datasets
+                description: Returns all available dataset details
+                value:
+                 request:
+                  count: 3
+                  datasets:
+                    - dataset: "progress-exhaust" 
+                      datasetConfig:
+                        batchId: "batch001"
+                      visibility: "Private"
+                      datasetType: "On Demand Exhaust"
+                      version: "1.0"
+                      authorizedRoles: ["portal"]
+                    - dataset: "summary-rollup" 
+                      visibility: "Private"
+                      datasetType: "Channel Exhaust"
+                      version: "1.0"
+                      authorizedRoles: ["portal"]
+                    - dataset: "public-data-exhaust" 
+                      visibility: "Public"
+                      datasetType: "Public Exhaust"
+                      version: "1.0"
+                      authorizedRoles: ["portal"]  
+               b:
+                summary: Empty list
+                description: Empty list for provided tag if no requests are submitted
+                value:
+                 request:
+                  count: 0
+                  datasets:
+                    []
+        401:
+          description: Unauthorized, **List Datasets** operation failed! The possible
+            reason for failure is that you may have missed providing authorization token in header
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content: 
+            text/plain:
+              schema:
+                type: string
+                example: An unexpected error occurred              
   /dataset/v1/request/submit:
     post:
       tags:
@@ -1277,6 +1560,80 @@ components:
           $ref: '#/components/schemas/dataexhaustapiResponseParams'
         responseCode:
           type: string
+    addDatasetRequestBody:
+      title: Dataset - Add
+      required:
+      - id
+      - params
+      - request
+      - ts
+      - ver
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique API ID=data_exhaust_dataset_service
+          x-go-name: ID
+        ver:
+          type: string
+          description: API version=1.0
+          x-go-name: Ver
+        ts:
+          type: string
+          description: 'request timestamp in format: YYYY-MM-DDThh:mm:ss+/-nn:nn'
+          x-go-name: Ts
+        params:
+          $ref: '#/components/schemas/dataexhaustapiRequestParams'
+        request:
+          $ref: '#/components/schemas/datasetAddRequest'
+    datasetAddRequest:
+      title: Request
+      required:
+      - dataset
+      - visibility
+      - datasetType
+      - version
+      - authorizedRoles
+      type: object
+      properties:
+        dataset:
+          type: string
+          description: "The unique identifier for dataset."
+        datasetConfig:
+          type: string
+          description: Dataset config to fetch the data.
+        visibility:
+          type: string
+          description: "To denote whether dataset is public or private"
+        datasetType:
+          type: string
+          description: "Type of dataset. Can be out of On-demand Exhaust, Standard/Channel Exhaust or Public Exhaust"  
+        version:
+          type: string
+          description: Version of the dataset.
+        authorizedRoles:
+          type: string
+          description: List of roles authorized to create a dataset tag.
+        availableFrom:
+          type: string
+          description: "Dataset available from date. Optional - will be defaulted to submitted date."
+        sampleRequest:
+          type: string
+          description: Sample request for reference
+        sampleResponse:
+          type: string
+          description: Sample response for reference     
+    listDatasetResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        datasets:
+          type: array
+          items:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/datasetAddRequest'      
   securitySchemes:
     bearer:
       type: apiKey
