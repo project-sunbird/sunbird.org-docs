@@ -21,15 +21,15 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Service to be Build|Build Tag|Service to Deploy|Deploy Tag|Comments|
 |-------------------|---------|-----------------|----------|--------|
-|||Provision/DataPipeline/postgres-managed|release-4.0.0_RC5||
-|||Provision/DataPipeline/Druid|release-4.0.0<br/>service:router<br/>remote:raw||
-|||OpsAdministration/Core/ESMapping|release-4.0.0<br/>indices_name:userv2||
-|||OpsAdministration/Core/GraylogMongoImport|release-4.0.0<br/>graylog_mongo_collections:all|This was deployed as 3.9.0 hotfix, so its not required to run again if it's already deployed|
+|||Provision/DataPipeline/postgres-managed|release-4.0.0_RC6||
+|||Provision/DataPipeline/Druid|release-4.0.0_RC6<br/>service:router<br/>remote:raw||
+|||OpsAdministration/Core/ESMapping|release-4.0.0_RC4<br/>indices_name:userv2||
+|||OpsAdministration/Core/GraylogMongoImport|release-4.0.0_RC4<br/>graylog_mongo_collections:all|This was deployed as 3.9.0 hotfix, so its not required to run again if it's already deployed|
 |Build/Core/OfflineInstaller|release-4.0.0|Deploy/Core/OfflineInstaller|release-4.0.0_RC4||
 |Build/DataPipeline/AnalyticsCore|release-4.0.0_RC1|Deploy/DataPipeline/AnalyticsCore|release-4.0.0_RC5|
-|Build/DataPipeline/DruidAnomalyDetection|release-4.0.0|Deploy/DataPipeline/DruidAnomalyDetection|release-4.0.0||
+|Build/DataPipeline/DruidAnomalyDetection|release-4.0.0|Deploy/DataPipeline/DruidAnomalyDetection|release-4.0.0_RC6||
 |||Deploy/DataPipeline/AnalyticsReplayJobs|release-4.0.0_RC6 <br/>cql_query: 0 <br/>job_type: run-job <br/>job_id: userinfo-exhaust <br/>batch_identifier: 01330190903638425684 <br/>start_date: 2017-05-01 <br/>end_date: 2017-07-11 <br/>pause_min: 30 <br/>|Not required to be deployed QA team will run on need basis|
-|Build/DataPipeline/EdDataProducts|release-4.0.0_RC5|Deploy/DataPipeline/EdDataProducts|release-4.0.0||
+|Build/DataPipeline/EdDataProducts|release-4.0.0_RC5|Deploy/DataPipeline/EdDataProducts|release-4.0.0_RC6||
 |||Deploy/KnowledgePlatform/KafkaSetup|release-4.0.0_RC5||
 |||Deploy/DataPipeline/KafkaSetup|release-4.0.0_RC6||
 |||Deploy/DataPipeline/Secor|release-4.0.0_RC6|Add error-telemetry-backup to job_names_to_deploy parameter in job and deploy selecting only this, If this is already done, then there is no need of deployment|
