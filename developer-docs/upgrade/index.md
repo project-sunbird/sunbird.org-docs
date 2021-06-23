@@ -21,7 +21,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Service to be Build|Build Tag|Service to Deploy|Deploy Tag|Comments|
 |-------------------|---------|-----------------|----------|--------|
-|||Provision/DataPipeline/postgres-managed|release-4.0.0||
+|||Provision/DataPipeline/postgres-managed|release-4.0.0_RC5||
 |||Provision/DataPipeline/Druid|release-4.0.0<br/>service:router<br/>remote:raw||
 |||OpsAdministration/Core/ESMapping|release-4.0.0<br/>indices_name:userv2||
 |||OpsAdministration/Core/GraylogMongoImport|release-4.0.0<br/>graylog_mongo_collections:all|This was deployed as 3.9.0 hotfix, so its not required to run again if it's already deployed|
