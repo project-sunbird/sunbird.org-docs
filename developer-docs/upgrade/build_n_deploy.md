@@ -23,16 +23,16 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |-------------------|---------|-----------------|----------|--------|
 |||Provision/DataPipeline/Druid|release-4.0.0<br/>service:router<br/>remote:raw||
 |||OpsAdministration/Core/ESMapping|release-4.0.0<br/>indices_name:userv2||
-|||OpsAdministration/Core/GraylogMongoImport|release-4.0.0<br/>graylog_mongo_collections:all||
+|||OpsAdministration/Core/GraylogMongoImport|release-4.0.0<br/>graylog_mongo_collections:all|This was deployed as 3.9.0 hotfix, so its not required to run again if it's already deployed|
 |Build/Core/OfflineInstaller|release-4.0.0|Deploy/Core/OfflineInstaller|release-4.0.0||
 |Build/DataPipeline/DruidAnomalyDetection|release-4.0.0|Deploy/DataPipeline/DruidAnomalyDetection|release-4.0.0||
-|||Deploy/DataPipeline/AnalyticsReplayJobs|release-4.0.0 <br/>cql_query: 0 <br/>job_type: run-job <br/>job_id: userinfo-exhaust <br/>batch_identifier: 01330190903638425684 <br/>start_date: 2017-05-01 <br/>end_date: 2017-07-11 <br/>pause_min: 30 <br/>||
+|||Deploy/DataPipeline/AnalyticsReplayJobs|release-4.0.0 <br/>cql_query: 0 <br/>job_type: run-job <br/>job_id: userinfo-exhaust <br/>batch_identifier: 01330190903638425684 <br/>start_date: 2017-05-01 <br/>end_date: 2017-07-11 <br/>pause_min: 30 <br/>|Not required to be deployed QA team will run on need basis|
 |Build/DataPipeline/EdDataProducts|release-4.0.0_RC4|Deploy/DataPipeline/EdDataProducts|release-4.0.0||
 |Build/DataPipeline/FlinkPipelineJobs|release-4.0.0_RC4|Deploy/DataPipeline/FlinkPipelineJobs|release-4.0.0 <br/>job_names_to_deploy:Select all jobs||
 |||Deploy/KnowledgePlatform/KafkaSetup|release-4.0.0_RC4||
 |||Deploy/DataPipeline/KafkaSetup|release-4.0.0||
 |||Deploy/DataPipeline/Secor|release-4.0.0_RC1|Add error-telemetry-backup to job_names_to_deploy parameter in job and deploy selecting only this|
-|||Deploy/DataPipeline/LoggingFileBeatsVM|release-4.0.0 <br/> tags: default hosts: select all||
+|||Deploy/DataPipeline/LoggingFileBeatsVM|release-4.0.0 <br/> tags: default hosts: select all|This was deployed as 3.9.0 hotfix, so its not required to run again if it's already deployed|
 |Build/KnowledgePlatform/FlinkJobs|release-4.0.0_RC7|Deploy/KnowledgePlatform/FlinkJobs|release-4.0.0|Add "collection-cert-pre-processor", "Add auto-creator-v2", "collection-certificate-generator" to deploy job list<br/>Kill samza jobs: "certificate-pre-processor" and "course-certificate-generator-v2"|
 |Build/KnowledgePlatform/Learning|release-4.0.0_RC4|Deploy/KnowledgePlatform/Learning|release-4.0.0||
 |Build/KnowledgePlatform/Neo4jElasticSearchSyncTool|release-3.9.0_RC12|Deploy/KnowledgePlatform/Neo4jElasticSearchSyncTool|release-4.0.0<br/>command: sync<br/>parameters: --graph domain --objectType ObjectCategoryDefinition||
@@ -47,8 +47,8 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |||kubernetes/uploadSchema|release-4.0.0_RC5|restart taxonomy-service, content-service and assessment-service|
 |Build/Kubernetes/Learner|release-4.0.0_RC18|Deploy/Kubernetes/Learner|release-4.0.0||
 |Build/Kubernetes/Lms|release-4.0.0_RC3|Deploy/Kubernetes/Lms|release-4.0.0||
-|||Deploy/Kubernetes/LoggingFileBeatsVM|release-4.0.0<br/>tags: current<br/>hosts: select all||
-|||Deploy/Kubernetes/Logging|release-4.0.0<br/>chart_name: oauth2_proxy||
+|||Deploy/Kubernetes/LoggingFileBeatsVM|release-4.0.0<br/>tags: current<br/>hosts: select all|This was deployed as 3.9.0 hotfix, so its not required to run again if it's already deployed|
+|||Deploy/Kubernetes/Logging|release-4.0.0<br/>chart_name: oauth2_proxy|This was deployed as 3.9.0 hotfix, so its not required to run again if it's already deployed|
 |||Deploy/Kubernetes/nginx-public-ingress|release-4.0.0||
 |||Deploy/Kubernetes/OnboardAPIs|release-4.0.0||
 |||Deploy/Kubernetes/OnboardConsumers|release-4.0.0||
