@@ -34,7 +34,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |||Deploy/DataPipeline/KafkaSetup|release-4.0.0_RC6||
 |||Deploy/DataPipeline/Secor|release-4.0.0_RC6|Add error-telemetry-backup to job_names_to_deploy parameter in job and deploy selecting only this, If this is already done, then there is no need of deployment|
 |||Deploy/DataPipeline/LoggingFileBeatsVM|release-4.0.0_RC6 <br/> tags: default hosts: select all|This was deployed as 3.9.0 hotfix, so its not required to run again if it's already deployed|
-|Build/KnowledgePlatform/FlinkJobs|release-4.0.0_RC7|Deploy/KnowledgePlatform/FlinkJobs|release-4.0.0_RC5|Add "collection-cert-pre-processor", "Add auto-creator-v2", "collection-certificate-generator" to deploy job list<br/>Kill samza jobs: "certificate-pre-processor" and "course-certificate-generator-v2"|
+|Build/KnowledgePlatform/FlinkJobs|release-4.0.0_RC7|Deploy/KnowledgePlatform/FlinkJobs|release-4.0.0_RC5|Add "collection-cert-pre-processor", "Add auto-creator-v2", "collection-certificate-generator" to deploy job list<br/>Kill samza jobs: "certificate-pre-processor" and "course-certificate-generator-v2", Deploy these jobs from dropdown collection-cert-pre-processor, collection-certificate-generator, asset-enrichment, questionset-publish, auto-creator-v2|
 |Build/KnowledgePlatform/Learning|release-4.0.0_RC4|Deploy/KnowledgePlatform/Learning|release-4.0.0_RC5||
 |Build/KnowledgePlatform/Neo4jElasticSearchSyncTool|release-3.9.0_RC12|Deploy/KnowledgePlatform/Neo4jElasticSearchSyncTool|release-4.0.0_RC5<br/>command: sync<br/>parameters: --graph domain --objectType ObjectCategoryDefinition||
 |Build/KnowledgePlatform/Yarn|release-4.0.0_RC4|Deploy/KnowledgePlatform/Yarn|release-4.0.0_RC5||
