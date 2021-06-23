@@ -1,0 +1,217 @@
+openapi: 3.0.1
+info:
+  title: Sunbird Integration App API(s)
+  description: >-
+    With the Sunbird mobile app supporting thrid party app integrations, it is required that the third party apps "register" themselves with the Sunbird implementor's app. 
+    **The API allows:**
+    - whitelisting apps that are recommended by the Sunbird implementor's app to extend the current experience
+    - custom UX and labels on the Sunbird implementor's app based by the "registered" third party app
+    
+    The Integration App API allows you to manage and integrate third party apps for feature extension (OR) feature integration of the Sunbird application. 
+
+    - Each endpoint serves a different purpose. So, you need to use the endpoint depending on what you want to do
+
+    - The integration app registered by the Admin and only the Read API is accessble from the public path.
+
+    - The URL for Sunbird Integration App API(s) is `app/v1` 
+
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  contact:
+    email: info@sunbird.org
+  version: "1.0"
+servers:
+  - url: 'https://staging.sunbirded.org/api'
+paths:
+  /app/v1/read/{Integration_App_Id}:
+    get:
+      description: >-
+        This API is used to read the integration app details on the
+        Sunbird Platform .
+          - The **_/read/{Integration_App_Id}_** endpoint executes the request to fetch the integration app details to be viewed and read.
+          - The endpoint for **Read Integration App** is `/app/v1/read`
+          - {...}refers to a section of the reject endpoint URL path that needs to be replaced by the appropriate ID.
+          - You need to provide a valid Integration app ID value in {Integration App Id} field of the API URL.
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      summary: Read Integration App
+      tags:
+        - Integration App APIs
+      operationId: Read Integration App
+      parameters:
+        - in: path
+          name: Integration_App_Id
+          required: true
+          description: Append a valid Integration App ID To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            OK! Successful operation."Read Integration App" operation was successfully
+            executed. For all possible metadata, 
+            [refer](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/app/1.0/schema.json)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/appApiContentGetSuccessResponse'
+              example:
+                id: api.app.read
+                ver: '4.0'
+                ts: '2021-04-23T09:40:08ZZ'
+                params:
+                  resmsgid: ab16e5e0-3b27-11eb-b0a2-8d5c9f561887
+                  msgid: ab131550-3b27-11eb-b0a2-8d5c9f561887
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  app:
+                    identifier: do_21316972702362828813477
+                    lastStatusChangedOn: '2020-12-10T20:38:13.315+0000'
+                    name: 'Test Integration App'
+                    osType: Android
+                    lastUpdatedOn: '2021-04-23T09:38:24.138+0000'
+                    status: Draft
+                    objectType: App
+                    versionKey: '1619170704138'
+                    provider:
+                      name: 'Test Provider'
+                      copyright: CC BY 4.0
+                    logo: 'https://ntpstagingall.blob.core.windows.net/ntp-content-staging/content/do_21291553051403878414/artifact/explanation.thumb_1576602846206.png'
+                    osMetadata:
+                      packageId: org.sunbird.integration.test.1
+                      appVersion: '1.0'
+                      compatibilityVer: '1.0'
+                    description: 'To integrate with other sunbird apps.'
+
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Integration App Read** operation failed! The possible
+            reason for failure is that you may have provided the wrong app ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/appApiContentCreateErrorResponse'
+              example:
+                id: api.app.read
+                ver: '4.0'
+                ts: '2021-04-23T09:40:08ZZ'
+                params:
+                  resmsgid: 96a71df0-3b27-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: NOT_FOUND
+                  errmsg: >-
+                    Error! Node(s) doesn't Exists. | [Invalid Node Id.]:
+                    android-org.sunbird.integration.test.1
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/appApiContentCreateErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+    appApiResponseHeader:
+      title: ResponseHeader
+      type: object
+      properties:
+        id:
+          type: string
+          description: API Identifier
+        ver:
+          type: string
+          description: API version information
+        ts:
+          type: string
+          description: API execution timespan
+        params:
+          $ref: '#/components/schemas/appApiResponseParams'
+        responseCode:
+          type: string
+          description: 'API response code '
+    appApiResponseParams:
+      title: Response Parameter
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          description: Response Message ID
+        msgid:
+          type: string
+          description: Message ID
+        err:
+          type: string
+          description: Error Code
+        status:
+          type: string
+          description: Response Status
+        errmsg:
+          type: string
+          description: Error Message
+    appApiEmptyResult:
+      title: Empty Result
+      type: object
+      properties:
+        result:
+          type: object
+          description: Empty Result
+    appApiContentGetSuccessResponse:
+      description: Get App Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/appApiResultWithContentMetadata'
+        - $ref: '#/components/schemas/appApiResponseHeader'
+    appApiResultWithContentMetadata:
+      title: Result Containing App ID and other metadata
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/appApiContentIdWithMetadata'
+    appApiContentIdWithMetadata:
+      title: Integration App Metadata
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Integration App Identifier
+        name:
+          type: string
+          description: Integration App name
+        versionKey:
+          type: string
+          description: Integration App versionKey
+        osType:
+          type: string
+          description: Integration App osType
+        logo:
+          type: string
+          description: Integration App logo
+        status:
+          type: string
+          description: Integration App status
+    appApiContentCreateErrorResponse:
+      description: Create Integration App Error Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/appApiEmptyResult'
+        - $ref: '#/components/schemas/appApiResponseHeader'
