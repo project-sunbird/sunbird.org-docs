@@ -32,7 +32,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/DataPipeline/EdDataProducts|release-4.0.0_RC5|Deploy/DataPipeline/EdDataProducts|release-4.0.0||
 |||Deploy/KnowledgePlatform/KafkaSetup|release-4.0.0_RC4||
 |||Deploy/DataPipeline/KafkaSetup|release-4.0.0||
-|||Deploy/DataPipeline/Secor|release-4.0.0_RC1|Add error-telemetry-backup to job_names_to_deploy parameter in job and deploy selecting only this|
+|||Deploy/DataPipeline/Secor|release-4.0.0_RC1|Add error-telemetry-backup to job_names_to_deploy parameter in job and deploy selecting only this, If this is already done, then there is no need of deployment|
 |||Deploy/DataPipeline/LoggingFileBeatsVM|release-4.0.0 <br/> tags: default hosts: select all|This was deployed as 3.9.0 hotfix, so its not required to run again if it's already deployed|
 |Build/KnowledgePlatform/FlinkJobs|release-4.0.0_RC7|Deploy/KnowledgePlatform/FlinkJobs|release-4.0.0|Add "collection-cert-pre-processor", "Add auto-creator-v2", "collection-certificate-generator" to deploy job list<br/>Kill samza jobs: "certificate-pre-processor" and "course-certificate-generator-v2"|
 |Build/KnowledgePlatform/Learning|release-4.0.0_RC4|Deploy/KnowledgePlatform/Learning|release-4.0.0||
