@@ -21,7 +21,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Service to be Build|Build Tag|Service to Deploy|Deploy Tag|Comments|
 |-------------------|---------|-----------------|----------|--------|
-|||Provision/DataPipeline/postgres-managed|release-4.0.0_RC6|Rename job postgres-managed to PostgresDbUpdate and update the pipeline to "pipelines/provision/postgres-db-update/Jenkinsfile"<br/>PR: https://github.com/project-sunbird/sunbird-devops/tree/release-4.0.0/deploy/jenkins/jobs/Provision/jobs/dev/jobs/DataPipeline/jobs/PostgresDbUpdate|
+|||Provision/DataPipeline/PostgresDbUpdate|release-4.0.0_RC6|Rename job postgres-managed to PostgresDbUpdate and update the pipeline to "pipelines/provision/postgres-db-update/Jenkinsfile"<br/>PR: https://github.com/project-sunbird/sunbird-devops/tree/release-4.0.0/deploy/jenkins/jobs/Provision/jobs/dev/jobs/DataPipeline/jobs/PostgresDbUpdate|
 |||Provision/DataPipeline/Druid|release-4.0.0_RC6<br/>service:router<br/>remote:raw||
 |||OpsAdministration/Core/ESMapping|release-4.0.0_RC4<br/>indices_name:userv2||
 |||OpsAdministration/Core/GraylogMongoImport|release-4.0.0_RC4<br/>graylog_mongo_collections:all|This was deployed as 3.9.0 hotfix, so its not required to run again if it's already deployed|
