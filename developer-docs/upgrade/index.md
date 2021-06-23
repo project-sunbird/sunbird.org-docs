@@ -29,7 +29,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/DataPipeline/AnalyticsCore|release-4.0.0_RC1|Deploy/DataPipeline/AnalyticsCore|release-4.0.0_RC5|
 |Build/DataPipeline/DruidAnomalyDetection|release-4.0.0|Deploy/DataPipeline/DruidAnomalyDetection|release-4.0.0||
 |||Deploy/DataPipeline/AnalyticsReplayJobs|release-4.0.0 <br/>cql_query: 0 <br/>job_type: run-job <br/>job_id: userinfo-exhaust <br/>batch_identifier: 01330190903638425684 <br/>start_date: 2017-05-01 <br/>end_date: 2017-07-11 <br/>pause_min: 30 <br/>|Not required to be deployed QA team will run on need basis|
-|Build/DataPipeline/EdDataProducts|release-4.0.0_RC4|Deploy/DataPipeline/EdDataProducts|release-4.0.0||
+|Build/DataPipeline/EdDataProducts|release-4.0.0_RC5|Deploy/DataPipeline/EdDataProducts|release-4.0.0||
 |||Deploy/KnowledgePlatform/KafkaSetup|release-4.0.0_RC4||
 |||Deploy/DataPipeline/KafkaSetup|release-4.0.0||
 |||Deploy/DataPipeline/Secor|release-4.0.0_RC1|Add error-telemetry-backup to job_names_to_deploy parameter in job and deploy selecting only this|
