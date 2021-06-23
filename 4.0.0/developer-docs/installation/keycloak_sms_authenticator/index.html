@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<base id="baseURL" href="/4.0.0/" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=10, user-scalable=yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<link rel="icon" type="image/png" href="/img/favicon/favicon-16x16.png" sizes="16x16">
+<meta name="msapplication-TileColor" content="#65d3f7">
+<meta name="msapplication-TileImage" content="/img/favicon/mstile-150x150.png">
+
+<title>IUser Authentication via OTP</title>
+<meta name="description" content="Authenticating user based on OTP"/>
+
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="Cache-Control" content="no-store" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta name="last-modified" content="2021-06-23 12:22:27 +0530">
+<meta http-equiv="Expires" content="600" />
+
+<!--Build Details-->
+<meta name="buildVersion" content="" />
+<meta name="buildNo" content="3470" />
+<meta name="version" id="docsVersion" content="4.0.0" />
+<!--/Build Details-->
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?23062021"  />
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?23062021"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?23062021"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?23062021"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?23062021"></script>
+<script type="text/javascript" src="/js/widgets-data.js?23062021"></script>
+<script type="text/javascript" src="/js/widgets.js?23062021"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'UA-106552125-1');
+</script>
+<script>
+function resetBase(){
+	currentURLArray = window.location.pathname.split( '/' );
+    secondLevelLocation = currentURLArray[1];
+    if (secondLevelLocation == 'latest'){
+		baseURL = document.getElementById('baseURL');
+		baseURL.href="/latest/";
+	}
+}
+resetBase();
+</script>
+
+	
+		<meta name="robots" content="index, follow">
+	
+  </head>
+  <body id="body" class="doc-layout">
+  <div class="container inner container-height docs">
+    <header class="logo-container">
+      <div class="logo">
+        <a href="https://www.sunbird.org" target="_blank">
+          <img src="/img/sunbird-logo.png" alt="Sunbird" title="Sunbird">
+        </a>
+      </div>
+      <button type="button" class="dropdown-toggle collapsed" id="dropdown-trigger" data-toggle="collapse" data-target="#mobile-dropdown" aria-expanded="false">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </button>
+    </header>
+    <nav class="sidebar-container" id="mobile-dropdown">
+      <div class="inner__sidebar">
+        
+
+<div id="" class="sidebar-cover">
+	
+	 <div class="search-cover">
+	<form method="get" action="https://www.google.com/search" target="_blank">
+		<input type="text" value="" name="q" placeholder="Search"/ class="search-input" title="Enter keyword to search">
+		<input type="hidden" value="en" name="hl" />
+		<input type="hidden" name="sitesearch" value="http://docs.sunbird.org" />
+		<input type="hidden" value="lang_en" name="lr" />
+		<button type="submit" onclick="submit()" class="search-btn" title="Search">
+			<i class="fa fa-search"></i>
+		</button>
+	</form>
+</div>
+ 
+	<div id="widgetVersionSwitcher"></div>
+	
+	<div class="sidebar-wrapper developer-docs"> 
+		
+			
+				
+				
+				<div class="active">
+					<a href="developer-docs/" >
+						<h4 class="sidebar-group-title">Developer Documentation</h4>
+					</a>
+					
+					<ul class="sidebar-group">
+					
+						<li>
+							
+								<div class="">
+									
+									<a 
+										href="developer-docs/server-installation/" 
+										 
+										class="" 
+										> 
+										Server Installation
+									</a>
+									<ul class="sidebar-group">
+										
+										<li>
+											
+											<a  
+												href="developer-docs/server-installation/prerequisites/" 
+												
+												class="" 
+												>
+												Pre-Requisites
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/server-installation/load-balancer-setup/" 
+												
+												class="" 
+												>
+												Optional Load Balancer Setup
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/server-installation/ansible-variables/" 
+												
+												class="" 
+												>
+												Ansible Variables
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/server-installation/jenkins-setup/" 
+												
+												class="" 
+												>
+												Jenkins Setup
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/server-installation/build-and-deploy/" 
+												
+												class="" 
+												>
+												Build and Deploy
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+									</ul>
+								</div>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="developer-docs/upgrade/" 
+									
+									class="" 
+									>
+									Upgrading Sunbird
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								<div class="">
+									
+									<a 
+										href="developer-docs/application-configurations/" 
+										 
+										class="" 
+										> 
+										Application Configurations
+									</a>
+									<ul class="sidebar-group">
+										
+										<li>
+											
+											<a  
+												href="developer-docs/application-configurations/env_variables_portal/" 
+												
+												class="" 
+												>
+												Portal Service Environment Variables
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/application-configurations/env_variables_content_service/" 
+												
+												class="" 
+												>
+												Content Service Environment Variables
+											</a>
+											<ul class="sidebar-group">
+												
+													<li>
+														
+														<a  
+															href="developer-docs/application-configurations/configuring_domain_ext_links/" 
+															
+															class="" 
+															>
+															Import External Content
+														</a>
+													</li>
+												
+													<li>
+														
+														<a  
+															href="developer-docs/application-configurations/content_filtering/" 
+															
+															class="" 
+															>
+															Content Filtering
+														</a>
+													</li>
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/application-configurations/system_settings/" 
+												
+												class="" 
+												>
+												System Settings
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/application-configurations/configuring_email_notification/" 
+												
+												class="" 
+												>
+												Email Notification Configuration
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/application-configurations/content_checklist_configuration/" 
+												
+												class="" 
+												>
+												Reviewer Checklist
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/application-configurations/metadata_driven_forms/" 
+												
+												class="" 
+												>
+												Metaforms Configuration
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/application-configurations/env_variables_lms/" 
+												
+												class="" 
+												>
+												LMS Service Environment Variables
+											</a>
+											<ul class="sidebar-group">
+												
+													<li>
+														
+														<a  
+															href="developer-docs/application-configurations/sso_otpsms/" 
+															
+															class="" 
+															>
+															OTP based SMS Configuration
+														</a>
+													</li>
+												
+													<li>
+														
+														<a  
+															href="developer-docs/application-configurations/keycloak_admin_config_settings/" 
+															
+															class="" 
+															>
+															Keycloak Admin Configuration
+														</a>
+													</li>
+												
+											</ul>
+										</li>
+										
+									</ul>
+								</div>
+							
+						</li>
+					
+						<li>
+							
+								<div class="">
+									
+									<a 
+										href="developer-docs/developer-installation/" 
+										 
+										class="" 
+										> 
+										Developer Installation
+									</a>
+									<ul class="sidebar-group">
+										
+										<li>
+											
+											<a  
+												href="developer-docs/developer-installation/install_sbportal" 
+												
+												class="" 
+												>
+												Portal
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+									</ul>
+								</div>
+							
+						</li>
+					
+						<li>
+							
+								<div class="">
+									
+									<a 
+										href="developer-docs/mobile-app-installation/" 
+										 
+										class="" 
+										> 
+										Mobile App Installation
+									</a>
+									<ul class="sidebar-group">
+										
+										<li>
+											
+											<a  
+												href="developer-docs/mobile-app-installation/mobile_app_forms" 
+												
+												class="" 
+												>
+												Mobile App forms
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+									</ul>
+								</div>
+							
+						</li>
+					
+						<li>
+							
+								<div class="">
+									
+									<a 
+										href="developer-docs/onboarding/" 
+										 
+										class="" 
+										> 
+										Onboarding
+									</a>
+									<ul class="sidebar-group">
+										
+										<li>
+											
+											<a  
+												href="developer-docs/singlesignon/org_user_creation_sso/" 
+												
+												class="" 
+												>
+												Creating Organizations and Users
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="features-documentation/badging_framework/creating_badges/" 
+												
+												class="" 
+												>
+												Creating Badges
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="features-documentation/badging_framework/badges_users/" 
+												
+												class="" 
+												>
+												Issuing Badges to Users
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/configuring_sunbird/configuring_announcement/" 
+												
+												class="" 
+												>
+												Creating Announcements
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+									</ul>
+								</div>
+							
+						</li>
+					
+						<li>
+							
+								<div class="">
+									
+									<a 
+										href="developer-docs/how-to-guide/overview_howto/" 
+										 
+										class="" 
+										> 
+										How-To-Guides
+									</a>
+									<ul class="sidebar-group">
+										
+										<li>
+											
+											<a  
+												href="developer-docs/how-to-guide/how_to_create_framework_in_sunbird/" 
+												
+												class="" 
+												>
+												Creating Framework
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/how-to-guide/how_to_seeddata_in_framework/" 
+												
+												class="" 
+												>
+												Adding Content to Framework
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/how-to-guide/how_to_create_organization/" 
+												
+												class="" 
+												>
+												Creating Organizations
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/how-to-guide/how_to_create_user/" 
+												
+												class="" 
+												>
+												Creating Users
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/how-to-guide/how_to_create_org_add_user/" 
+												
+												class="" 
+												>
+												Adding User to Organization
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/how-to-guide/how_to_create_course_using_api/" 
+												
+												class="" 
+												>
+												Creating Course
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/how-to-guide/how_to_upload_existing_content/" 
+												
+												class="" 
+												>
+												Uploading Content
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/how-to-guide/how_to_create_badge/" 
+												
+												class="" 
+												>
+												Creating Badges
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/how-to-guide/metadata_driven_forms" 
+												
+												class="" 
+												>
+												Configuring Metaforms
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/how-to-guide/link_dial_code_to_a_book" 
+												
+												class="" 
+												>
+												Linking DIAL Code
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/how-to-guide/telemetry_data_consumption" 
+												
+												class="" 
+												>
+												Consuming Telemetry Data
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/how-to-guide/sync_telemetry_data_captured_from_offline_devices" 
+												
+												class="" 
+												>
+												Syncing Telemetry Data
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+									</ul>
+								</div>
+							
+						</li>
+					
+						<li>
+							
+								<div class="">
+									
+									<a 
+										href="developer-docs/telemetry/overview/" 
+										 
+										class="" 
+										> 
+										Telemetry
+									</a>
+									<ul class="sidebar-group">
+										
+										<li>
+											
+											<a  
+												href="developer-docs/telemetry/specification/" 
+												
+												class="" 
+												>
+												Telemetry Specifications
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/telemetry/sending_telemetry/" 
+												
+												class="" 
+												>
+												Sending Telemetry
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/telemetry/consuming_telemetry/" 
+												
+												class="" 
+												>
+												Consuming Telemetry Data
+											</a>
+											<ul class="sidebar-group">
+												
+													<li>
+														
+														<a  
+															href="developer-docs/telemetry/consuming_telemetry/#mobile-app-workflow" 
+															
+															class="" 
+															>
+															Mobile App Workflow
+														</a>
+													</li>
+												
+													<li>
+														
+														<a  
+															href="developer-docs/telemetry/consuming_telemetry/#web-portal-workflow" 
+															
+															class="" 
+															>
+															Web Portal Workflow
+														</a>
+													</li>
+												
+													<li>
+														
+														<a  
+															href="developer-docs/telemetry/consuming_telemetry/#content-editor-workflow" 
+															
+															class="" 
+															>
+															Content Editor Workflow
+														</a>
+													</li>
+												
+													<li>
+														
+														<a  
+															href="developer-docs/telemetry/consuming_telemetry/#backend-services-workflow" 
+															
+															class="" 
+															>
+															Backend-services Workflow
+														</a>
+													</li>
+												
+											</ul>
+										</li>
+										
+									</ul>
+								</div>
+							
+						</li>
+					
+						<li>
+							
+								<div class="">
+									
+									<a 
+										href="developer-docs/library_reference/" 
+										 
+										class="" 
+										> 
+										Library References
+									</a>
+									<ul class="sidebar-group">
+										
+										<li>
+											
+											<a  
+												href="developer-docs/telemetry/jslibrary/" 
+												
+												class="" 
+												>
+												Standalone JS Library
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/telemetry/htmlinterfacelibrary/" 
+												
+												class="" 
+												>
+												HTML Interface Library
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+										<li>
+											
+											<a  
+												href="developer-docs/telemetry/authtokengenerator_jslibrary/" 
+												
+												class="" 
+												>
+												AuthToken Generator JS Library
+											</a>
+											<ul class="sidebar-group">
+												
+											</ul>
+										</li>
+										
+									</ul>
+								</div>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="developer-docs/troubleshooting/" 
+									
+									class="" 
+									>
+									Troubleshooting
+								</a>
+							
+						</li>
+					
+					</ul>
+					
+				</div>
+			
+				
+				
+				<div class="">
+					<a href="apis/" >
+						<h4 class="sidebar-group-title">API Reference Documentation</h4>
+					</a>
+					
+					<ul class="sidebar-group">
+					
+						<li>
+							
+								
+								<a 
+									href="apis/#content--learning-services" 
+									
+									class="" 
+									>
+									Content & Learning Services
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="apis/#contribution--curation-services" 
+									
+									class="" 
+									>
+									Contribution & Curation Services
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="apis/#taxonomy--tagging-services" 
+									
+									class="" 
+									>
+									Taxonomy & Tagging Services
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="apis/#telemetry--data-analytics-services" 
+									
+									class="" 
+									>
+									Telemetry & Data Analytics Services
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="apis/#registry--discovery-services" 
+									
+									class="" 
+									>
+									Registry & Discovery Services
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="apis/#interaction--collaboration-services" 
+									
+									class="" 
+									>
+									Interaction & Collaboration Services
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="apis/#practice-sensing--assessment-services" 
+									
+									class="" 
+									>
+									Practice, Sensing & Assessment Services
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="apis/#credentialing--badging-services" 
+									
+									class="" 
+									>
+									Credentialing & Badging Services
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="apis/#infra--shared-services" 
+									
+									class="" 
+									>
+									Infra & Shared Services
+								</a>
+							
+						</li>
+					
+					</ul>
+					
+				</div>
+			
+				
+				
+				<div class="">
+					<a href="faqs/" >
+						<h4 class="sidebar-group-title">Frequently asked questions</h4>
+					</a>
+					
+					<ul class="sidebar-group">
+					
+						<li>
+							
+								
+								<a 
+									href="faqs/audience/" 
+									
+									class="" 
+									>
+									Audience
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="faqs/content_format/" 
+									
+									class="" 
+									>
+									Content Format
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="faqs/content_repo/" 
+									
+									class="" 
+									>
+									Content Repositories
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="faqs/contentreviews/" 
+									
+									class="" 
+									>
+									Content Review
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="faqs/content_types/" 
+									
+									class="" 
+									>
+									Content Types
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="faqs/content_upload/" 
+									
+									class="" 
+									>
+									Content Upload
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="faqs/feature/" 
+									
+									class="" 
+									>
+									Features
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="faqs/fixerrors/" 
+									
+									class="" 
+									>
+									Fix Errors
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="faqs/helpsupport/" 
+									
+									class="" 
+									>
+									Help Support
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="faqs/intellectual_propertylicensesstandards/" 
+									
+									class="" 
+									>
+									Intellectual Property Licenses Standards
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="faqs/registrationenrolment/" 
+									
+									class="" 
+									>
+									Registration and Enrollment
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="faqs/signin/" 
+									
+									class="" 
+									>
+									Sign In
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="faqs/taxonomymetadataframework/" 
+									
+									class="" 
+									>
+									Taxonomy Metadata Framework
+								</a>
+							
+						</li>
+					
+						<li>
+							
+								
+								<a 
+									href="faqs/user_rightspermissions/" 
+									
+									class="" 
+									>
+									Users Rights and Permission
+								</a>
+							
+						</li>
+					
+					</ul>
+					
+				</div>
+			
+				
+				
+				<div class="">
+					<a href="glossary/" >
+						<h4 class="sidebar-group-title">Glossary</h4>
+					</a>
+					
+				</div>
+				
+		
+	</div>
+</div>
+
+<script>
+	$("a[href$='developer-docs/installation/keycloak_sms_authenticator/']").addClass("sidebar-link-selected");
+</script>
+
+      </div>
+    </nav>
+    <div class="content">
+      <div class="inner__content header" id="heading">
+        <h1>Authentication </h1>
+      </div>
+
+      <div id="main-content" class="inner__content">
+			<p class="edit-para text-right">
+				<span>
+			<!--<a target="_blank" class="contribute" href="/contributions/contribution_guidelines/">
+				  <i class="fa fa-book" aria-hidden="true"></i> <i>Contribution Guidelines</i>
+			  </a> &nbsp;&nbsp;-->
+			  
+			 <a target="_blank"  title="Edit this page"class="" href="https://github.com/project-sunbird/sunbird.org-docs/edit/4.0.0/developer-docs/installation/keycloak_sms_authenticator.md">
+				  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+			  </a> 
+			  | 
+			  <a target="_blank" href="https://github.com/project-sunbird/sunbird.org-docs/issues" title="Report issue">
+				  <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+				  Report
+			  </a>
+			  </span>
+			</p>
+			<div class="widgetLatestVersionNotification"></div>
+          <p>On Sunbird, if a user forgets the password , generally the reset password link is sent on users registered email but in certain cases where users have registered with phone numbers instead of email address, the SMS based verification is done to authenticate the legitimacy of the user. The reset process is started by sending an One Time Password (OTP) as a SMS to the users registered mobile number. This One Time Password (OTP) is used by the user to validate and reset the password.</p>
+
+<p>Implementation of Keycloak authenticator is rather simple. A user with pre-knowledge about various terms used while implementation process makes the whole process quite simple. For further assistance in setting up Keycloak resource ,<a href="http://www.keycloak.org/docs/latest/server_development/index.html#_auth_spi" target="_blank">visit</a>.Also to get a clear understanding about role of  Authentication SPI and Service Provider Interfaces(SPI) in implementation<a href="http://www.keycloak.org/docs/latest/server_development/index.html#_providers" target="_blank">visit</a></p>
+
+<p>Meanwhile, a thorough understanding of Authentication SPI i.e., authenticating the user with a “Secret Question”, will help in easy implementation of SMS(OTP) authenticatorIts recommended to check the example give in the previous link by importing it into Intellij/Eclipse IDE as an Maven Project and understand what interfaces are to be implemented when developing a custom authenticator.</p>
+
+<p>Once the understanding is clear about how an authenticator is implemented, you can proceed to SMS Authenticator code which can be accessed <a href="https://github.com/project-sunbird/sunbird-auth/tree/master/keycloak" target="_blank">here</a>,its located in the folder “sms-provider”. This code needs to be imported to Intellij/Eclipse IDE as an Maven Project to start building the authenticator.</p>
+
+<h3 id="build-process-for-keycloak-sms-based-authenticator">Build Process for Keycloak SMS Based Authenticator</h3>
+
+<p>To build the complete project and check the working of the SMS Authenticator follow the steps.</p>
+
+<ul>
+  <li>Import the project from <a href="https://github.com/project-sunbird/sunbird-auth/tree/master/keycloak" target="_blank">here</a><br />
+to Intellij/Eclipse as Maven project (preference should be given to Intellij Community Edition) to make the process easy .</li>
+  <li>Build the artifact(jar) using the command <code>mvn clean package</code> from the SMS-provider path in the terminal.</li>
+  <li>The generated artifact will be in the “target” folder in the project, with the same name as project. (ex - keycloak-email-phone-<br />
+authenticator-1.0-SNAPSHOT.jar)</li>
+  <li>
+    <p>Add the jar to the Keycloak server: (“providers” folder will be created in the Keycloak home path if it does not exist)</p>
+
+    <pre>$ cp target/keycloak-sms-authenticator-sns-*.jar _KEYCLOAK_HOME_/providers/</pre>
+  </li>
+  <li>Add three templates to the Keycloak server:</li>
+</ul>
+<pre>
+           $ cp templates/password-reset-email.ftl _KEYCLOAK_HOME_/themes/base/login/
+           $ cp templates/sms-validation.ftl _KEYCLOAK_HOME_/themes/base/login/
+           $ cp templates/sms-validation-error.ftl _KEYCLOAK_HOME_/themes/base/login/
+</pre>
+<ul>
+  <li>
+    <p>Place the credentials file in the “sms-provider” folder within “bin” folder of the <code>_KEYCLOAK_HOME_</code>with the relevant name.</p>
+  </li>
+  <li>
+    <p>The same path has to be provided in the <code>KeycloakSmsAuthenticatorConstants</code> file with the proper name (ex - 
+MSG91_SMS_PROVIDER_CONFIGURATIONS_PATH = “sms-provider/Msg91Creds.json”)</p>
+  </li>
+</ul>
+
+<p>Template of the credentials file will look like , which can be extended to add all the parameters needed for any specific provider.</p>
+
+<pre> {
+
+        	"auth_key": "XXXXXXXXXXXXXX",
+
+        	"sender": "XXXXXX",
+
+        	"country": "XX",
+
+        	"route": "X",
+
+        	"sms_method_type": "XXXX"
+
+  }</pre>
+
+<ul>
+  <li>
+    <p>Configure your REALM to use the SMS Authentication. First create a new REALM (or select a previously created REALM).</p>
+  </li>
+  <li>
+    <p>Under Authentication &gt; Flows:</p>
+
+    <ul>
+      <li>
+        <p>Copy ‘Browse’ flow to ‘Browser with SMS’ flow</p>
+      </li>
+      <li>
+        <p>Click on ‘Actions &gt; Add execution on the ‘Browser with SMS Forms’ line and add the ‘SMS Authentication’</p>
+      </li>
+      <li>
+        <p>Set ‘SMS Authentication’ to ‘REQUIRED’ or ‘ALTERNATIVE’</p>
+      </li>
+      <li>
+        <p>To configure the SMS Authenticator, click on Actions Config and fill in the attributes.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Under Authentication &gt; Bindings:</p>
+
+    <ul>
+      <li>Select ‘Browser with SMS’ as the ‘Browser Flow’ for the REALM.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>The current SMS Authenticator is forked from the github repo <a href="https://github.com/nickpack/keycloak-sms-authenticator-sns">visit</a></p>
+
+          
+          <hr />
+          
+          <p class="edit-para text-right">
+			<a target="_blank" href="https://github.com/project-sunbird/sunbird.org-docs/edit/4.0.0/developer-docs/installation/keycloak_sms_authenticator.md" title="Fix this page">
+				<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a> |
+			<a target="_blank" href="https://github.com/project-sunbird/sunbird.org-docs/issues" title="Report issue">
+				<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Report</a>
+		  </p>
+		  <a href="developer-docs/installation/keycloak_sms_authenticator/#heading" class="scrollup"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
+          
+      </div>
+    </div>
+    <div class="page-footer">
+		<footer class="footer">
+	<div class="footer__top">
+		<div class="container">
+			<div class="row">
+				
+			<div class="col-md-4 col-sm-12">
+			</div>
+			
+			<div class="col-md-2 col-sm-6 ">
+				<ul>
+					<li><a href="http://www.sunbird.org/about/" target="_blank">About Sunbird</a></li>
+					<li><a href="http://www.sunbird.org/contact/" target="_blank">Contact Us</a></li>
+				</ul>
+			</div>
+			
+			<div class="col-md-2 col-sm-6 sideline">
+				<ul>
+					<li><a href="http://www.sunbird.org/privacy-policy/" target="_blank">Privacy Policy</a></li>
+					<li><a href="http://www.sunbird.org/features/" target="_blank">Microservices</a></li>
+				</ul>
+			</div>
+
+			<div class="col-md-2 col-sm-12">
+			</div>
+			
+		</div>
+	</div>
+</footer>
+ 
+
+	</div>
+  </div>
+  <script type="text/javascript">
+	//TOC Toggle
+    $(function() {
+        $.toc.clickHideButton();
+    });
+    //Scroll to top
+    $(document).ready(function () {
+		$(".content").scroll(function () {
+			if ($(this).scrollTop() > 250) {
+				$('.scrollup').fadeIn();
+			} else {
+				$('.scrollup').fadeOut();
+			}
+		});
+	});
+	$('#toc a').each(function(){
+		var url = this.href.replace(baseURL.href, "");
+		this.href = 'developer-docs/installation/keycloak_sms_authenticator/' + url;
+    })
+	$(".zoomcover").click(function(){
+		if (!$(this).hasClass("fullscreen")){
+			$(this).addClass("fullscreen");
+			$(this).find(".zoom").addClass("enabled").elevateZoom({
+				zoomType: "inner",
+				cursor  : "crosshair",
+				scrollZoom: "true"
+			});
+		} else {
+			$(this).removeClass("fullscreen");
+			$(this).find(".zoom").removeClass("enabled");
+			$(".zoomContainer").hide();
+		}
+	});
+	$(document).keyup(function(e) {
+     if (e.keyCode == 27) { 
+		$(".zoomcover").removeClass("fullscreen");
+		$(".zoomcover").find(".zoom").removeClass("enabled");
+		$(".zoomContainer").hide();
+    }
+});
+  </script>
+  <style>
+  .zoom:hover{
+	cursor:url(/img/zoom.png),crosshair;
+  }
+  .zoomWindowContainer:hover div{
+	cursor:url(/img/scroll.png),crosshair !important;
+	height:15px;
+	width:15px;
+  }
+  </style>
+  <div id="templates"></div>
+  </body>
+</html>
