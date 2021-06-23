@@ -64,6 +64,6 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Created Google auth console for Android app|Jira Link - [SB-21678](https://project-sunbird.atlassian.net/browse/SB-21678)|
 |DF TABLE MIGRATIONS|[Migration](https://project-sunbird.atlassian.net/browse/SB-24753)|
 |Run scripts mentioned in link in learning-service | [Script 1](https://github.com/project-sunbird/knowledge-platform/blob/release-4.0.0_RC3/scripts/framework-master-category/framework-master-category) [Script 2](https://github.com/project-sunbird/knowledge-platform/blob/release-4.0.0_RC4/scripts/framework-master-category/framework-master-category)|
-|Add job_id in AnalyticsReplayJob|job_id: cassandra-migration|
+|Add job_id in AnalyticsReplayJob|job_id: cassandra-migration [PR LINK](https://github.com/project-sunbird/sunbird-devops/pull/2635/files)|
 |Sprak Script for user-association|[Script](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2609741876/SB-23200+AssociationType+update+for+user+in+user+organisation+table)|
 |ES Migration Script|[Script](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2632581222/SB-24689+User+mapping+for+roles+changes+Array+of+String+to+Array+of+Map)|
