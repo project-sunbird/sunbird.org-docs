@@ -63,7 +63,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Delete jenkins job parameter from Keycloak deploy job|Delete sunbird_auth_branch_or_tag|
 |Update the forms|Jira Links - [SB-24836](https://project-sunbird.atlassian.net/browse/SB-24836) [SB-24926](https://project-sunbird.atlassian.net/browse/SB-24926) [SB-24951](https://project-sunbird.atlassian.net/browse/SB-24951)|
 |Created Google auth console for Android app|Jira Link - [SB-21678](https://project-sunbird.atlassian.net/browse/SB-21678)|
-|DF TABLE MIGRATIONS|[Migration](https://project-sunbird.atlassian.net/browse/SB-24753)|
+|Discussion Forun TABLE MIGRATIONS|[Migration](https://project-sunbird.atlassian.net/browse/SB-24753)|
 |Run scripts mentioned in link in learning-service | [Script 1](https://github.com/project-sunbird/knowledge-platform/blob/release-4.0.0_RC3/scripts/framework-master-category/framework-master-category) [Script 2](https://github.com/project-sunbird/knowledge-platform/blob/release-4.0.0_RC4/scripts/framework-master-category/framework-master-category)|
 |Add job_id in AnalyticsReplayJob|job_id: cassandra-migration [PR LINK](https://github.com/project-sunbird/sunbird-devops/pull/2635/files)|
 |Sprak Script for user-association|[Script](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2609741876/SB-23200+AssociationType+update+for+user+in+user+organisation+table)|
