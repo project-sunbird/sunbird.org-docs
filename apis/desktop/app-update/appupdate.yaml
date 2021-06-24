@@ -44,7 +44,7 @@ paths:
         content:
           '*/*':
             schema:
-              $ref: '#/components/schemas/Request'
+              $ref: '#/components/schemas/app-updateRequest'
         required: true
       responses:
         200:
@@ -52,7 +52,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetUpdateResponse'
+                $ref: '#/components/schemas/app-updateGetUpdateResponse'
         500:
           description: '''INTERNAL SERVER ERROR. We track these errors automatically
             and try to set it right at the earliest. Try refreshing the page. If the
@@ -60,11 +60,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetUpdateErrorResponse'
+                $ref: '#/components/schemas/app-updateGetUpdateErrorResponse'
       x-codegen-request-body-name: Body
 components:
   schemas:
-    Request:
+    app-updateRequest:
       title: App update Request
       type: object
       properties:
@@ -81,18 +81,18 @@ components:
             arch:
               type: string
               description: Arch of the machine where the app is installed (Example- '64bit')
-    GetUpdateResponse:
+    app-updateGetUpdateResponse:
       description: Get Update Response
       allOf:
-      - $ref: '#/components/schemas/ResponseHeader'
-      - $ref: '#/components/schemas/ResultWithUpdateUrl'
-    ResultWithUpdateUrl:
+      - $ref: '#/components/schemas/app-updateResponseHeader'
+      - $ref: '#/components/schemas/app-updateResultWithUpdateUrl'
+    app-updateResultWithUpdateUrl:
       title: Result Containing update url
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/updateURL'
-    updateURL:
+          $ref: '#/components/schemas/app-updateupdateURL'
+    app-updateupdateURL:
       title: update url
       type: object
       properties:
@@ -105,7 +105,7 @@ components:
         url:
           type: string
           description: Key to get the update url. This is only returned if 'updateAvailable' key is true.
-    ResponseHeader:
+    app-updateResponseHeader:
       title: ResponseHeader
       type: object
       properties:
@@ -119,8 +119,8 @@ components:
           type: string
           description: Represents the current date and time
         params:
-          $ref: '#/components/schemas/ResponseParams'
-    ResponseParams:
+          $ref: '#/components/schemas/app-updateResponseParams'
+    app-updateResponseParams:
       title: Response Parameter
       type: object
       properties:
@@ -139,7 +139,7 @@ components:
         errmsg:
           type: string
           description: Represents the text that is part of response status
-    EmptyResult:
+    app-updateEmptyResult:
       title: Empty Result
       type: object
       properties:
@@ -147,11 +147,11 @@ components:
           type: object
           properties: {}
           description: Empty Result
-    GetUpdateErrorResponse:
+    app-updateGetUpdateErrorResponse:
       title: Get update url Error Response
       allOf:
-      - $ref: '#/components/schemas/EmptyResult'
-      - $ref: '#/components/schemas/ResponseHeader'
+      - $ref: '#/components/schemas/app-updateEmptyResult'
+      - $ref: '#/components/schemas/app-updateResponseHeader'
   securitySchemes:
     bearer:
       type: apiKey

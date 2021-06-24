@@ -3,20 +3,305 @@ info:
   title: Data Exhaust API(s)
   description: The data exhaust requests are run as a scheduled job with a turn around time of 24 hours. The data exhaust apis enable aggregation across multiple sources and can result in huge data size. The following set of apis are used to submit a data exhaust request.
   
+    - The endpoint for Data Exhaust Meta API(s) is `dataset/v1`
+    
     - The endpoint for On Demand Data Exhaust API(s) is `dataset/v1/request`
     
     - The endpoint for Standard Data Exhaust API(s) is `data/v3/dataset`
+    
+    - The endpoint for Public Data Exhaust API(s) is `dataset/get`
 
-    - Postman collection for different testcases - [Test Cases](https://www.getpostman.com/collections/273f2aea59dc2856a033)
+    - Postman collection for different testcases - [Test Cases](https://www.getpostman.com/collections/691e2029e58d4c1e6ba5)
     
   termsOfService: https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE
   contact:
     email: info@sunbird.org
   version: "1.0"
 servers:
-- url: https://staging.open-sunbird.org/api/dataset/v1/request/
+- url: https://staging.open-sunbird.org/api
 paths:
-  /submit:
+  /dataset/v1/add:
+    post:
+      tags:
+      - Data Exhaust Meta API(s)
+      description: API that is invoked when there is an addition to a new dataset.
+      
+        - The endpoint for **Adding Dataset** is `/add`
+        
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: Add Dataset
+      parameters:
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: "The Content Type request header denotes the data type of the request body.
+          \ Types are:- \n  - Application/json"
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          Request json object in the request has below requied fields -
+          
+          - **dataset** - The dataset id.
+          - **datasetConfig** - Dataset config to fetch the data.
+          - **visibility** - To denote whether dataset is public or private.
+          - **datasetType** - Type of dataset. Can be out of On-demand Exhaust, Channel Exhaust or Public Exhaust.
+          - **version** - Version of the dataset.
+          - **authorizedRoles** - List of roles authorized to create a dataset tag.
+          - **availableFrom** - Dataset available from date. Optional - will be defaulted to submitted date.
+          - **sampleRequest** - Sample request JSON as string.
+          - **sampleResponse** - Sample response JSON as string.
+          
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addDatasetRequestBody'
+            examples:
+             a:
+              summary: "Request to add on-demand dataset"
+              description: Valid request with all required fields for adding on-deamand dataset
+              value: 
+               request:
+                  dataset: progress-exhaust
+                  datasetConfig:
+                    batchId: batch-001
+                  visibility: Private
+                  datasetType: On Demand Exhaust
+                  version: 1.0
+                  authorizedRoles: ["portal"]
+             b:
+              summary: "Request to add channel/standard dataset"
+              description: Valid request with all required fields for adding channel/standard dataset
+              value: 
+               request:
+                  dataset: summary-rollup
+                  visibility: Private
+                  datasetType: Standard Channel Exhaust
+                  version: 1.0
+                  authorizedRoles: ["portal"]      
+             c:
+              summary: "Request to add public dataset"
+              description: Valid request with all required fields for adding public dataset
+              value: 
+               request:
+                  dataset: public-data-exhaust
+                  visibility: Public
+                  datasetType: Public Exhaust
+                  version: 1.0
+                  authorizedRoles: ["public"]
+             d:
+              summary: "Request with missing mandatory fields"
+              description: Invalid request one/few missing fields
+              value: 
+               request:
+                  dataset: public-data-exhaust
+                  datasetType: Public Exhaust
+                  version: 1.0
+                  authorizedRoles: ["public"]
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **Add Dataset** operation was successful!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Dataset added successfully
+              examples:
+               a:
+                summary: Response for successful addition of dataset
+                description: Response for addition of dataset when it is success
+                value:
+                 request:
+                  message: "Dataset progress-exhaust added successfully"
+        400:
+          description: BAD REQUEST, **Add Dataset** operation failed! The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/dataexhaustapiApiResponse'
+              examples:
+               a:
+                summary: For missing dataset id in request
+                description: Provided request is invalid with missing dataset
+                value:
+                 id: analytics.dataset.add
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: dataset is empty
+                 responseCode: CLIENT_ERROR
+               b:
+                summary: For missing visibility in request
+                description: Provided request is invalid with missing visibility
+                value:
+                 id: analytics.dataset.add
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: visibility is empty
+                 responseCode: CLIENT_ERROR
+               c:
+                summary: For missing datasetType in request
+                description: Provided request is invalid with missing datasetType
+                value:
+                 id: analytics.dataset.add
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: datasetType is empty
+                 responseCode: CLIENT_ERROR
+               d:
+                summary: For missing version in request
+                description: Provided request is invalid with missing version
+                value:
+                 id: analytics.dataset.add
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: version is empty
+                 responseCode: CLIENT_ERROR
+               e:
+                summary: For missing authorizedRoles in request
+                description: Provided request is invalid with missing authorizedRoles
+                value:
+                 id: analytics.dataset.add
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: authorizedRoles is empty
+                 responseCode: CLIENT_ERROR   
+        401:
+          description: Unauthorized, **Add Dataset** operation failed! The possible
+            reason for failure is that you may have missed providing authorization token in header
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content: 
+            text/plain:
+              schema:
+                type: string
+                example: An unexpected error occurred
+  /dataset/v1/list:
+    get:
+      tags:
+      - Data Exhaust Meta API(s)
+      description: This API is used to list all the datasets that are available
+        
+        - The endpoint for **List Datasets**  `/list` 
+        
+        - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: List Datasets
+      parameters:
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: SUCCESS. The **list dataset** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listDatasetResponse'
+              examples:
+               a:
+                summary: List of datasets
+                description: Returns all available dataset details
+                value:
+                 request:
+                  count: 3
+                  datasets:
+                    - dataset: "progress-exhaust" 
+                      datasetConfig:
+                        batchId: "batch001"
+                      visibility: "Private"
+                      datasetType: "On Demand Exhaust"
+                      version: "1.0"
+                      authorizedRoles: ["portal"]
+                    - dataset: "summary-rollup" 
+                      visibility: "Private"
+                      datasetType: "Channel Exhaust"
+                      version: "1.0"
+                      authorizedRoles: ["portal"]
+                    - dataset: "public-data-exhaust" 
+                      visibility: "Public"
+                      datasetType: "Public Exhaust"
+                      version: "1.0"
+                      authorizedRoles: ["portal"]  
+               b:
+                summary: Empty list
+                description: Empty list for provided tag if no requests are submitted
+                value:
+                 request:
+                  count: 0
+                  datasets:
+                    []
+        401:
+          description: Unauthorized, **List Datasets** operation failed! The possible
+            reason for failure is that you may have missed providing authorization token in header
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content: 
+            text/plain:
+              schema:
+                type: string
+                example: An unexpected error occurred              
+  /dataset/v1/request/submit:
     post:
       tags:
       - On Demand Data Exhaust API(s)
@@ -75,7 +360,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/dataRequestBody'
+              $ref: '#/components/schemas/dataexhaustapidataRequestBody'
             examples:
              a:
               summary: "Request for course progress data exhaust for a given batch"
@@ -133,7 +418,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/dataExhaustResponse'
+                $ref: '#/components/schemas/dataexhaustapidataExhaustResponse'
               examples:
                a:
                 summary: Request in SUBMITTED state
@@ -189,7 +474,7 @@ paths:
                 type: object
                 properties:
                   result:
-                    $ref: '#/components/schemas/ApiResponse'
+                    $ref: '#/components/schemas/dataexhaustapiApiResponse'
               examples:
                a:
                 summary: For missing dataset config in request
@@ -285,7 +570,7 @@ paths:
               schema:
                 type: string
                 example: An unexpected error occurred
-  /list/{tag}:
+  /dataset/v1/request/list/{tag}:
     get:
       tags:
       - On Demand Data Exhaust API(s)
@@ -338,7 +623,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JobListResponse'
+                $ref: '#/components/schemas/dataexhaustapiJobListResponse'
               examples:
                a:
                 summary: List of requests
@@ -461,7 +746,7 @@ paths:
               schema:
                 type: string
                 example: An unexpected error occurred
-  /read/{tag}:
+  /dataset/v1/request/read/{tag}:
     get:
       tags:
       - On Demand Data Exhaust API(s)
@@ -516,7 +801,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JobInfoResponse'
+                $ref: '#/components/schemas/dataexhaustapiJobInfoResponse'
               examples:
                a:
                 summary: Success request
@@ -652,7 +937,7 @@ paths:
               schema:
                 type: string
                 example: An unexpected error occurred
-  /get/{dataset_id}:
+  /data/v3/dataset/get/{dataset_id}:
     get:
       tags:
       - Standard Data Exhaust API(s)
@@ -715,7 +1000,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DatasetResponse'
+                $ref: '#/components/schemas/dataexhaustapiDatasetResponse'
               examples:
                 a:
                   summary: Success response with files
@@ -755,7 +1040,7 @@ paths:
                 type: object
                 properties:
                   result:
-                    $ref: '#/components/schemas/ApiResponse'
+                    $ref: '#/components/schemas/dataexhaustapiApiResponse'
               examples:
                a:
                 summary: For date range greater than 10 days
@@ -879,9 +1164,183 @@ paths:
               schema:
                 type: string
                 example: An unexpected error occurred
+  /dataset/get/{dataset_id}:
+    get:
+      tags:
+      - Public Data Exhaust API(s)
+      description: This API is used to get public exhaust data that gets generated by user interaction and activities.
+      
+        - The endpoint for **Get Exhaust Details** is `/get/{dataset_id}/`
+        
+        - The fieldsmarked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: Get Public Exhaust Details
+      parameters:
+      - name: dataset_id
+        in: path
+        description: "Dataset type id."
+        required: true
+        schema:
+          type: string
+      - name: from
+        in: query
+        description: Start date of the data exhaust in YYYY-MM-DD format. Default will take as yesterday
+        schema:
+          type: string
+      - name: to
+        in: query
+        description: End date of the data exhaust in YYYY-MM-DD format. Default will take as today
+        schema:
+          type: string
+      - name: since
+        in: query
+        description: "From date of the data exhaust in YYYY-MM-DD format till current date. e.g.: since can be provided instead of from and to when requesting for last x days"
+        schema:
+          type: string 
+      - name: date
+        in: query
+        description: Specific date of the data exhaust in YYYY-MM-DD format. Default will take as yesterday
+        schema:
+          type: string
+      - name: date_range
+        in: query
+        description: "Date range format. Available options are: **LAST_DAY**, **LAST_2_DAYS**, **LAST_7_DAYS**, **LAST_14_DAYS**, **LAST_30_DAYS**, **LAST_WEEK**"
+        schema:
+          type: string
+      responses:
+        200:
+          description: SUCCESS. The **fetch current status** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dataexhaustapiDatasetResponse'
+              examples:
+                a:
+                  summary: Success response with files
+                  description: Returns response with files for given slug and dates
+                  value:
+                    request:
+                      files: [
+                        "https://data.staging.open-sunbird.org/datasets/2020-12-01.csv",
+                        "https://data.staging.open-sunbird.org/datasets/2020-12-02.csv",
+                        "https://data.staging.open-sunbird.org/datasets/2020-12-03.csv"
+                      ]
+                      periodWiseFiles:
+                        "2020-12-01": [
+                          "https://data.staging.open-sunbird.org/datasets/2020-12-01.csv"
+                        ]
+                        "2020-12-02": [
+                          "https://data.staging.open-sunbird.org/datasets/2020-12-02.csv"
+                        ]
+                        "2020-12-03": [
+                          "https://data.staging.open-sunbird.org/datasets/2020-12-03.csv"
+                        ]
+                b:
+                  summary: Success response with empty list
+                  description: Returns empty response if no files are found for given slug and dates
+                  value:
+                    request:
+                      message: "Files are not available for requested date. Might not yet generated. Please come back later"
+        400:
+          description: BAD REQUEST, **Get Request** operation failed! The possible reason for failure is that you may have incorrectly provided input query parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/dataexhaustapiApiResponse'
+              examples:
+               a:
+                summary: For invalid datasetId
+                description: Provided request has invalid datasetId
+                value:
+                 id: analytics.telemetry
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: "Provided dataset is invalid. Please use any one from this list - [] "
+                 responseCode: CLIENT_ERROR
+               b:
+                summary: For negative date range
+                description: Provided request has from date greater than to date
+                value:
+                 id: analytics.telemetry
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: "Date range should not be -ve. Please check your 'from' & 'to'"
+                 responseCode: CLIENT_ERROR
+               c:
+                summary: For future dates
+                description: Provided request has to date greater than current date i.e., to has future dates
+                value:
+                 id: analytics.telemetry
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: "'to' should be LESSER OR EQUAL TO today's date.."
+                 responseCode: CLIENT_ERROR 
+               d:
+                summary: For invalid date_range value
+                description: Provided request has invalid date_range
+                value:
+                 id: analytics.telemetry
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: "Provided dateRange LAST_20_DAYS is not valid. Please use any one from this list - List(LAST_DAY, LAST_2_DAYS, LAST_7_DAYS, LAST_14_DAYS, LAST_30_DAYS, LAST_WEEK)"
+                 responseCode: CLIENT_ERROR
+               e:
+                summary: For days between date range(from and to) more than 30 days
+                description: Provided request has more than 30 days between from & to / date range.
+                value:
+                 id: analytics.telemetry
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: "Date range should be < 30 days"
+                 responseCode: CLIENT_ERROR 
+               f:
+                summary: From date older than 6 months
+                description: Provided request has from date older than 6 months.
+                value:
+                 id: analytics.telemetry
+                 ver: "1.0"
+                 ts: "2020-11-27T12:33:27.115+00:00"
+                 params: 
+                  resmsgid: "93aa54f5-03b2-4c82-af3a-acc3ee4071f7"
+                  status: "failed"
+                  err: CLIENT_ERROR
+                  errmsg: "Date range cannot be older than 6 months"
+                 responseCode: CLIENT_ERROR   
+        500:
+          description: INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content: 
+            text/plain:
+              schema:
+                type: string
+                example: An unexpected error occurred            
+                
 components:
   schemas:
-    dataRequestBody:
+    dataexhaustapidataRequestBody:
       title: DataExhaust - Data Request
       required:
       - id
@@ -904,10 +1363,10 @@ components:
           description: 'request timestamp in format: YYYY-MM-DDThh:mm:ss+/-nn:nn'
           x-go-name: Ts
         params:
-          $ref: '#/components/schemas/RequestParams'
+          $ref: '#/components/schemas/dataexhaustapiRequestParams'
         request:
-          $ref: '#/components/schemas/DataExhaustRequest'
-    DataExhaustJobStats:
+          $ref: '#/components/schemas/dataexhaustapiDataExhaustRequest'
+    dataexhaustapiDataExhaustJobStats:
       title: JobState
       type: object
       properties:
@@ -920,7 +1379,7 @@ components:
         executionTime:
           type: integer
           description: Total time taken for processing request
-    dataExhaustResponse:
+    dataexhaustapidataExhaustResponse:
       type: object
       properties:
         id:
@@ -930,12 +1389,12 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/ResponseParams'
+          $ref: '#/components/schemas/dataexhaustapiResponseParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/dataExhaustResult'
-    RequestParams:
+          $ref: '#/components/schemas/dataexhaustapidataExhaustResult'
+    dataexhaustapiRequestParams:
       title: Params
       type: object
       properties:
@@ -943,7 +1402,7 @@ components:
           type: string
           description: unique request message id, UUID, for handling API idempotency
           x-go-name: MsgID
-    DataExhaustRequest:
+    dataexhaustapiDataExhaustRequest:
       title: Request
       required:
       - tag
@@ -966,7 +1425,7 @@ components:
         encryptionKey:
           type: string
           description: Encryption key for the data exhaust file.
-    JobListResponse:
+    dataexhaustapiJobListResponse:
       type: object
       properties:
         id:
@@ -976,12 +1435,12 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/ResponseParams'
+          $ref: '#/components/schemas/dataexhaustapiResponseParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/JobListResult'
-    JobInfoResponse:
+          $ref: '#/components/schemas/dataexhaustapiJobListResult'
+    dataexhaustapiJobInfoResponse:
       type: object
       properties:
         id:
@@ -991,12 +1450,12 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/ResponseParams'
+          $ref: '#/components/schemas/dataexhaustapiResponseParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/dataExhaustResult'
-    dataExhaustResult:
+          $ref: '#/components/schemas/dataexhaustapidataExhaustResult'
+    dataexhaustapidataExhaustResult:
       type: object
       properties:
         requestId:
@@ -1022,10 +1481,10 @@ components:
         expiresAt:
           type: integer
         jobStats:
-          $ref: '#/components/schemas/DataExhaustJobStats'
+          $ref: '#/components/schemas/dataexhaustapiDataExhaustJobStats'
         attempts:
           type: integer
-    ResponseParams:
+    dataexhaustapiResponseParams:
       type: object
       properties:
         resmsgid:
@@ -1049,7 +1508,7 @@ components:
           description: default English error message
           x-go-name: ErrorMessage
       x-go-package: ecosystem-platform-api/api
-    JobListResult:
+    dataexhaustapiJobListResult:
       type: object
       properties:
         count:
@@ -1059,13 +1518,13 @@ components:
           items:
             type: object
             allOf:
-            - $ref: '#/components/schemas/dataExhaustResult'
-    DatasetResponse:
+            - $ref: '#/components/schemas/dataexhaustapidataExhaustResult'
+    dataexhaustapiDatasetResponse:
       title: DatasetGetResponse
       allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - $ref: '#/components/schemas/DatasetResult'
-    DatasetResult:
+      - $ref: '#/components/schemas/dataexhaustapiApiResponse'
+      - $ref: '#/components/schemas/dataexhaustapiDatasetResult'
+    dataexhaustapiDatasetResult:
       type: object
       properties:
         files:
@@ -1077,7 +1536,7 @@ components:
         expiresAt:
           type: integer
           description: Represents expire EPOCH (UTC) timestamp in milliseconds
-    ApiResponse:
+    dataexhaustapiApiResponse:
       required:
       - ts
       - id
@@ -1098,9 +1557,83 @@ components:
           description: 'request timestamp in format: YYYY-MM-DDThh:mm:ss+/-nn:nn'
           x-go-name: Ts
         params:
-          $ref: '#/components/schemas/ResponseParams'
+          $ref: '#/components/schemas/dataexhaustapiResponseParams'
         responseCode:
           type: string
+    addDatasetRequestBody:
+      title: Dataset - Add
+      required:
+      - id
+      - params
+      - request
+      - ts
+      - ver
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique API ID=data_exhaust_dataset_service
+          x-go-name: ID
+        ver:
+          type: string
+          description: API version=1.0
+          x-go-name: Ver
+        ts:
+          type: string
+          description: 'request timestamp in format: YYYY-MM-DDThh:mm:ss+/-nn:nn'
+          x-go-name: Ts
+        params:
+          $ref: '#/components/schemas/dataexhaustapiRequestParams'
+        request:
+          $ref: '#/components/schemas/datasetAddRequest'
+    datasetAddRequest:
+      title: Request
+      required:
+      - dataset
+      - visibility
+      - datasetType
+      - version
+      - authorizedRoles
+      type: object
+      properties:
+        dataset:
+          type: string
+          description: "The unique identifier for dataset."
+        datasetConfig:
+          type: string
+          description: Dataset config to fetch the data.
+        visibility:
+          type: string
+          description: "To denote whether dataset is public or private"
+        datasetType:
+          type: string
+          description: "Type of dataset. Can be out of On-demand Exhaust, Standard/Channel Exhaust or Public Exhaust"  
+        version:
+          type: string
+          description: Version of the dataset.
+        authorizedRoles:
+          type: string
+          description: List of roles authorized to create a dataset tag.
+        availableFrom:
+          type: string
+          description: "Dataset available from date. Optional - will be defaulted to submitted date."
+        sampleRequest:
+          type: string
+          description: Sample request for reference
+        sampleResponse:
+          type: string
+          description: Sample response for reference     
+    listDatasetResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        datasets:
+          type: array
+          items:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/datasetAddRequest'      
   securitySchemes:
     bearer:
       type: apiKey

@@ -10,9 +10,9 @@ info:
     - For request & response samples please refer doc - [Postman Doc](https://documenter.getpostman.com/view/1229135/TVmJiywZ)
   version: "1.0"
 servers:
-- url: https://staging.open-sunbird.org/api/v3/device/
+- url: https://staging.open-sunbird.org/api
 paths:
-  /register/{device-id}:
+  /v3/device/register/{device-id}:
     post:
       tags:
       - Device Register API(s)
@@ -52,15 +52,15 @@ paths:
           application/json:
             schema:
               allOf:
-              - $ref: '#/components/schemas/ApiRequest'
-              - $ref: '#/components/schemas/RegisterDeviceRequest'
+              - $ref: '#/components/schemas/deviceapiApiRequest'
+              - $ref: '#/components/schemas/deviceapiRegisterDeviceRequest'
             examples:
              a:
               summary: "With User Declared location data"
               description: Valid request with both dspec and user declared location data
               value: 
                request:
-                  dspec:
+                  deviceapidspec:
                    idisk: 11
                    cap: []
                    mem: -1
@@ -80,7 +80,7 @@ paths:
               description: Valid request with only dspec
               value: 
                request:
-                  dspec:
+                  deviceapidspec:
                    idisk: 11
                    cap: []
                    mem: -1
@@ -99,7 +99,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeviceRegisterResponse'
+                $ref: '#/components/schemas/deviceapiDeviceRegisterResponse'
         401:
           description: Unauthorized, **Device Register** operation failed! The possible
             reason for failure is that you may have missed providing authorization token in header
@@ -120,7 +120,7 @@ paths:
               schema:
                 type: string
                 example: An unexpected error occurred
-  /profile/{device-id}:
+  /v3/device/profile/{device-id}:
     get:
       tags:
       - Device Profile API(s)
@@ -159,7 +159,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeviceProfileResponse'
+                $ref: '#/components/schemas/deviceapiDeviceProfileResponse'
               examples:
                a:
                 summary: With both user declared and IP resolved data
@@ -249,25 +249,25 @@ paths:
                 example: An unexpected error occurred
 components:
   schemas:
-    RegisterDeviceRequest:
+    deviceapiRegisterDeviceRequest:
       title: register device request
       required:
       - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/Request'
-    Request:
+          $ref: '#/components/schemas/deviceapiRequest'
+    deviceapiRequest:
       title: Request
       required:
       - userId
       type: object
       properties:
-        dspec:
-          $ref: '#/components/schemas/dspec'
+        deviceapidspec:
+          $ref: '#/components/schemas/deviceapidspec'
         userDeclaredLocation:
-          $ref: '#/components/schemas/locationObject'  
-    dspec:
+          $ref: '#/components/schemas/deviceapilocationObject'  
+    deviceapidspec:
       title: This represents the device specification details
       type: object
       properties:
@@ -311,7 +311,7 @@ components:
           type: number
           description: This is device memory info
           example: -1   
-    locationObject:
+    deviceapilocationObject:
       title: userDeclaredLocation
       required:
       - state
@@ -325,12 +325,12 @@ components:
           type: string
           description: This is user decalred district value
           example: BENGALURU URBAN SOUTH
-    DeviceRegisterResponse:
+    deviceapiDeviceRegisterResponse:
       title: This is the response body when a device register API is called
       allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - $ref: '#/components/schemas/RegisterResponseResult'
-    RegisterResponseResult:
+      - $ref: '#/components/schemas/deviceapiApiResponse'
+      - $ref: '#/components/schemas/deviceapiRegisterResponseResult'
+    deviceapiRegisterResponseResult:
       title: Device Register message
       type: object
       properties:
@@ -341,12 +341,12 @@ components:
               type: string
               description: This is device registeration message
               example: Device registered successfully
-    DeviceProfileResponse:
+    deviceapiDeviceProfileResponse:
       title: This is the response body when a device register API is called
       allOf:
-      - $ref: '#/components/schemas/ApiResponse'
-      - $ref: '#/components/schemas/ProfileResponseResult'
-    ProfileResponseResult:
+      - $ref: '#/components/schemas/deviceapiApiResponse'
+      - $ref: '#/components/schemas/deviceapiProfileResponseResult'
+    deviceapiProfileResponseResult:
       title: Device Profile response
       type: object
       properties:
@@ -356,12 +356,12 @@ components:
             userDeclaredLocation:
               type: object
               allOf:
-                - $ref: '#/components/schemas/locationObject'
+                - $ref: '#/components/schemas/deviceapilocationObject'
             ipLocation:  
               type: object
               allOf:
-                - $ref: '#/components/schemas/locationObject'
-    ApiRequest:
+                - $ref: '#/components/schemas/deviceapilocationObject'
+    deviceapiApiRequest:
       type: object
       properties:
         id:
@@ -379,7 +379,7 @@ components:
             msgid:
               type: string
               description: Represents the unique ID of the message being sent
-    ApiResponse:
+    deviceapiApiResponse:
       required:
       - ts
       - id

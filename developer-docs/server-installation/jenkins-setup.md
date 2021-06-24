@@ -7,128 +7,107 @@ allowSearch: true
 ---
 
 
-## Overview
-This page provides you with step-by-step instructions to set up the Jenkins server. This is the first step in the Sunbird installation process.
-
 ## Jenkins Setup
 
-1.SSH to the Jenkins server. Enter the following commands:
+Jenkins is used to build, deploy and setup the infrastructure for Sunbird. Almost everything in Sunbird is automated using Jenkins pipelines which integrates with ansible and other tools.
 
- ```
-    - git clone [https://github.com/project-sunbird/sunbird-devops.git](https://github.com/project-sunbird/sunbird-devops.git) 
-    - cd sunbird-devops && git checkout tags/release-3.1.0 -b release-3.1.0
+- SSH to the Jenkins server and enter the following commands -
+
+     ```bash
+    - git clone https://github.com/project-sunbird/sunbird-devops.git
+    - cd sunbird-devops && git checkout tags/release-3.8.0_RC14 -b release-3.8.0_RC14
     - cd deploy/jenkins
     - sudo bash jenkins-server-setup.sh
+     ```
 
- ```   
-        
-2.After running the `jenkins-server-setup.sh` script, open Jenkins in a browser by typing **domain-name:8080 / public-ip:8080**
+- Open Jenkins UI in a browser by visiting **JENKINS_IP:8080**
 
-3.Enter the initial password and follow the on-screen instructions
+- Enter the initial password and follow the on-screen instructions. Choose **Install suggested plugin** and create an admin user
 
-4.Choose **Install suggested plugin** 
+- Run the below commands on Jenkins server -
 
-5.Create an admin user 
-
-6.Choose the default Jenkins URL. You can either change this to your domain name or public IP. If in doubt, use the name displayed on the screen, as it can be changed later if required, in the Jenkins configuration
-
-7.Switch back to the terminal session on the Jenkins server. Enter the following command, which will install the required plugins:
-
+    ```bash
     sudo bash jenkins-plugins-setup.sh
-   
-8.Go to **Manage Jenkins** -> **Manage Plugins** -> **Update Center** -> **Check status of plugin install**. If any plugins have not been installed, install them manually. To do so, go to the plugins section of Jenkins
+    cp envOrder.txt.sample envOrder.txt
+    vi envOrder.txt
+    ```
 
-9.Switch back to the terminal session on the Jenkins server
-    
-    cp envOrder.txt.sample envOrder.txt 
-    vi envOrder.txt  (Note: you can use :wq after editing the file to save and quit)
-    
+- Update the environment list as per your requirement in ascending order. For example, if you want to have dev, staging and production environments, your **envOrder.txt** will look like -
 
-10.Update the environment list as per your infrastructure in ascending order. For example, if you have only dev and production, your **envOrder.txt**will look like:
-
+    ```bash
     dev=0
-    production=1 
+    staging=1
+    production=2
+    ```
 
-11.Run the `jenkins-jobs-setup.sh` script, using the command,`sudo bash jenkins-jobs-setup.sh`
+- Run the below script on Jenkins server and provide input as required (case sensitive) -
 
-12.Follow the on-screen instructions. Enter **Yes** for all questions, when prompted for a choice. 
+    ```bash
+    sudo bash jenkins-jobs-setup.sh
+    ```
 
-> **Note** The options are case sensitive, the script displays the accepted options 
- 
-13.After the script completes copying the job configurations, go to the browser and restart Jenkins using the command, `public-ip:8080/restart` OR `domain-name:8080/restart` 
- 
-14.Go to **http://(jenkins_domain)/credentials/store/system/domain/_/newCredentials** 
- 
-15.Select **Username with Password** in Kind drop down and enter the username and password in the respected field of the GitHub account where the private repository is hosted
- 
-16.Enter a unique long string for the ID field, for example,**private-repo-creds** 
- 
-17.Specify the description for the repository, for example,**private repo credentails**, and click **OK**
- 
-18.Go to **http://(jenkins_domain)/configure** 
-    
-19.Select the **Environment Variables** check box
- 
-20.Click **Add** and enter the following Name, Value pairs: 
- 
-|**Name**|**Value**| 
-|---|---| 
-|**ANSIBLE_FORCE_COLOR**|true| 
-|**ANSIBLE_HOST_KEY_CHECKING**|false| 
-|**ANSIBLE_STDOUT_CALLBACK**|debug| 
-|**hub_org**|docker hub organization / username. Example: In sunbird/player image, sunbird is the hub_org| 
-|**private_repo_branch**|The branch name in the private repository which you would like to use. This branch has the inventory and secrets| 
-|**private_repo_credentials**|The unique string which you provided for ID field while entering the GitHub repo credentials. Example: **private-repo-creds**| 
-|**private_repo_url**|The GitHub URL to your private repo. To get the URL of your private repository, go to your private repository and click the **Clone** button. The https URL of your private repository is displayed. Currently, Sunbird supports only https URLs| 
-|**public_repo_branch**|This is the branch or tag to pick the Jenkins file. You can set this value as refs/tags/release-3.1.0 if you want to build from tags or provide the value of the development branch, for example, release-3.1.0. Changing this value is not recommended since development branches are not stable. |
-|**override_private_branch**|true|
-|**override_public_branch**|true| 
- 
-21.Scroll to the **Global Pipeline Libraries** section and click **Add**. Provide the values as below:
+- Restart jenkins
 
-|**Name**|**Value**| 
-|-------|--------| 
-|**Library Name**|deploy-conf| 
-|**Default version**|Tag name of the Jenkins shared library. This should be the same version of the release you are going to build and deploy. For example, if you decide to use tag release-3.1.0 as your base, the Jenkins shared library tag is shared-lib. When you upgrade to tag will differ.
-|**Retrieval method**|Modern SCM| 
-|**Source Code Management**|Git| 
-|**Project Repository**|https://github.com/project-sunbird/sunbird-devops.git| 
+    ```bash
+    sudo service jenkins restart
+    ```
 
-22.Click **Save** and go to **Manage Jenkins** -> **Configure global security** 
+- Add a credential in Jenkins and choose **_Username with Password_** from the drop down. Enter the username and password of the private github repository. Enter a unique value for the **ID** field like **_private-repo-creds_**
 
-23.Choose the **Markup Formatter** as **Safe HTML**
+- Go to **Manage Jenkins** -> **Configure System** -> **Environment Variables** and add the following variables
 
-24.Go to **Manage Jenkins** -> **Manager Nodes** -> Click **master** -> Click **Configure** -> Provide **labels**. Provide the label as `build-slave`, `jenkin-slave11`
+    |**Name**|**Value**|
+    |---|---|
+    |**ANSIBLE_FORCE_COLOR**|`true`|
+    |**ANSIBLE_HOST_KEY_CHECKING**|`false`|
+    |**ANSIBLE_STDOUT_CALLBACK**|`debug`|
+    |**hub_org**|docker hub organization / username. Example: In `docker pull sunbird/ubuntu:20.04`, the hub_org is `sunbird`|
+    |**private_repo_branch**|private repo branch name where ansible inventory is present|
+    |**private_repo_credentials**|the unique value which you provided for **ID** field while adding the credentials|
+    |**private_repo_url**|The **https** github url of your private repo| 
+    |**public_repo_branch**|`release-3.8.0`|
+    |**override_private_branch**|`true`|
+    |**override_public_branch**|`true`|
+    |**java11_home**|`/usr/lib/jvm/java-11-openjdk-amd64/`|
 
-25.Set the number of executors. For example, if your system configuration is: RAM - 16 GB and CPU - 4 core, set the number as 15. Adjust this number based on your system configuration 
+- Scroll down to the **Global Pipeline Libraries** section and click on **Add**. Provide the values as below:
 
-26.Restart Jenkins using the command `sudo service jenkins restart` 
+    |**Name**|**Value**|
+    |-------|--------|
+    |**Library Name**|`deploy-conf`|
+    |**Default version**|`shared-lib`
+    |**Retrieval method**|Modern SCM|
+    |**Source Code Management**|`Git`|
+    |**Project Repository**|`https://github.com/project-sunbird/sunbird-devops.git`|
 
-27.Switch back to the terminal session on the Jenkins server using the following commands:
+- Click **Save** and go to **Manage Jenkins** -> **Configure global security**
 
-    sudo su jenkins  
-    mkdir -p /var/lib/jenkins/secrets && cd /var/lib/jenkins/secrets  
-    touch deployer_ssh_key ops_ssh_key vault-pass
-    chmod 400 deployer_ssh_key ops_ssh_key vault-pass 
+- Choose the **Markup Formatter** as **Safe HTML** and Under **Copy Artifact Compatibility mode**  choose **Migration**
 
-28.The key used to login to the Jenkins server will henceforth be named `ops_ssh_key`. Example:
+- Go to **Manage Jenkins** -> **Manage Nodes** -> Click **master** -> Click **Configure** -> Provide **labels**. Provide the label as `build-slave ops-slave`
 
-    ssh -i somekey.pem ubuntu@jenkins-server-ip
-    Here `somekey.pem` is the key you used to login to the Jenkins server. Henceforth it will be named `ops_ssh_key` 
+- Update the number of executors (`cpu cores x 2 = number of executors`)
 
-29.Copy the contents of the key that is used to connect to the VM into the `ops_ssh_key` file 
+- Run the below commands on Jenkins server -
 
-30.Create a new ssh key on local machine or on any server. This key will be used for a different user, for example,**deployer**. The name is as per your liking 
+    ```bash
+    sudo su jenkins
+    mkdir -p /var/lib/jenkins/secrets
+    cd /var/lib/jenkins/secrets
+    touch deployer_ssh_key vault-pass k8s.yaml
+    chmod 400 deployer_ssh_key vault-pass k8s.yaml
+    ```
 
-31.Use the command `ssh-keygen -f deployer_ssh_key`. The passphrase for this user should be empty
+- Copy the contents of your server's private key into `/var/lib/jenkins/secrets/deployer_ssh_key`  
 
-32.Copy the contents of the `deployer_ssh_key` into `/var/lib/jenkins/secrets/deployer_ssh_key`  
+- Copy the kubernetes config file contents into `/var/lib/jenkins/secrets/k8s.yaml`
 
-33.If your private GitHub repository has Ansible encrypted files, then enter the decryption password in `/var/lib/jenkins/secrets/vault-pass`. If there are no encrypted files, then enter a random value like **12345** into the `vault-pass` file. This file cannot be empty
+- If you have encrypted your `secrets.yml` using `ansible-vault`, enter the password to decrypt into `/var/lib/jenkins/secrets/vault-pass`. If you have not encrypted, then enter a random value like **12345**
 
-34.Restart the Jenkins server
+- Run `sudo visudo` on jenkins server and add the below line -
 
+ ```bash
+    jenkins ALL=(ALL) NOPASSWD:ALL
+ ```
 
-> Note: 
-> Open any of the config files from the **Deploy** directory and save it. Without this, some of the parameters will not be visible 
-> After completing the Jenkins setup, follow instructions provided in the [Running Builds, Artifact Uploads and Deployment](developer-docs/server-installation/running-build-artifact-uploads-and-deployments) page to create inventory, secrets and Ansible hosts in the private repository        
+- Reboot the Jenkins VM (`sudo reboot`)

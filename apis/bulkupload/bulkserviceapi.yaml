@@ -14,7 +14,6 @@ externalDocs:
  url: "https://www.getpostman.com/collections/4daecddad18254fb6819"  
 servers:
 - url: https://staging.open-sunbird.org/api
-  variables: {}
 paths:
   /user/v1/upload:
     post:
@@ -173,7 +172,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Success-UploadUsersinBulk'
+                $ref: '#/components/schemas/bulkserviceapiSuccess-UploadUsersinBulk'
               example:
                 id: api.user.upload
                 ver: v1
@@ -194,7 +193,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UploadOrganisationsinBulk-BadRequest'
+                $ref: '#/components/schemas/bulkserviceapiUploadOrganisationsinBulk-BadRequest'
               example:
                 id: api.user.upload
                 ver: v1
@@ -212,7 +211,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UploadOrganisationsinBulk-BadRequest'
+                $ref: '#/components/schemas/bulkserviceapiUploadOrganisationsinBulk-BadRequest'
               example:
                 id: api.user.upload
                 ver: v1
@@ -223,213 +222,6 @@ paths:
                   err: UNAUTHORIZED_USER
                   status: SERVER_ERROR
                   errmsg: You are not authorized.
-                responseCode: CLIENT_ERROR
-                result: {}
-      deprecated: false
-      security: []
-  /user/v2/bulk/upload:
-    post:
-      tags:
-      - upload shadow users and self-declared users
-      summary: Upload Shadow Users in Bulk
-      description: "This API allows you to upload users of an organization from a shadow (temporary) database to a permanent database on the Sunbird platform. Only the org administrator has permissions to upload users. A user becomes eligible for migration from the temporary database to the permanent database, if the user identifier (email,phone) of the temporary database matches the user identifier of the permananent database. \n - The endpoint for **Upload Users in Bulk** is `/user/v2/bulk/upload`\n - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty."
-      operationId: UploadShadowUsersinBulk
-      parameters:
-      - name: Authorization
-        in: header
-        description: '(Required) Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{authorization}}'
-      - name: X-Authenticated-User-Token
-        in: header
-        description: (Required) Access token of registered user performing given API request.
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{user_token}}'
-      - name: Content-Type
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: multipart/form-data
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            encoding: {}
-            schema:
-              required:
-              - user
-              type: object
-              properties:
-                user:
-                  type: string
-                  description: >-
-                    - This is a .csv file.
-                      - Each line of the file is a data record. Each record consists of one or more user fields, separated by commas. Each successfully created user is associated with the root organization of the org administrator.
-                    - The CSV file format for shadow-upload supported is as follows:
-                      - NAME: Name of user(firstName+lastName)
-                      - PHONE: Phone number. Either phone or email is mandatory.
-                      - EMAIL: Email. Either phone or email is mandatory.
-                      - Ext Org id: The organisation ID to which the user must be associated(extOrgId). This is an optional field. If a value is is provided, the user is associated with that organisation, i.e. the sub-organization of the root organization. If not, the user is only associated to the root organization od the org administrator uploading the users.
-                      - Input Status: This is a mandatory attribute. It indicates if the user is active or inactive in the organization.
-                      - Ext User ID: This is a mandatory field. It is the ID provided by the root or sub-organization to users to uniquely identify them.
-                    - The CSV file format for self-declared-user-upload supported is as follows:
-                      - Diksha UUID: It is the identifier of the user.
-                      - Status: This is a mandatory attribute. It indicates if the user is Validated or has any Error showing value.
-                      - State provided ext. ID: This is a mandatory field. It is the ID provided by the root or sub-organization to users to uniquely identify them.
-                      - Channel: Channel of the user belongs to
-                      - Persona: It represents type of the user(person) like teacher/other/student etc.
-        required: false
-      responses:
-        200:
-          description: 'OK ! Successful operation. ** Bulk upload user** operation
-            was successfully executed, with processId that can be used for further
-            communication.'
-          headers:
-            Date:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Fri, 04 Dec 2020 06:45:24 GMT
-            Transfer-Encoding:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: chunked
-            Connection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: keep-alive
-            Vary:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: Accept-Encoding
-            X-RateLimit-Limit-hour:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 5000
-            X-RateLimit-Remaining-hour:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 4999
-            Referrer-Policy:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: origin-when-cross-origin, strict-origin-when-cross-origin
-            X-Frame-Options:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: DENY
-            X-XSS-Protection:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 1; mode=block
-            x-response-length:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 58
-            X-Content-Type-Options:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: nosniff
-            Access-Control-Allow-Origin:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: '*'
-            X-Permitted-Cross-Domain-Policies:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: master-only
-            X-Kong-Upstream-Latency:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 24
-            X-Kong-Proxy-Latency:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: 15
-            Via:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: kong/0.14.1
-            Content-Encoding:
-              content:
-                text/plain:
-                  schema:
-                    type: string
-                  example: gzip
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UploadShadowUsersinBulk'
-              example:
-                id: api.bulk.user.upload
-                ver: v2
-                ts: 2020-12-04 06:45:24:931+0000
-                params:
-                  resmsgid: 
-                  msgid: 5f18f128b083e50a09b137dbac323845
-                  err: 
-                  status: success
-                  errmsg: 
-                responseCode: OK
-                result:
-                  processId: 013165071979683840148
-                  response: SUCCESS
-        400:
-          description: 'BAD REQUEST. The **Bulk upload user** operation failed. You
-            may have missed input for a mandatory parameter.'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UploadOrganisationsinBulk-BadRequest'
-              example:
-                id: api.bulk.user.upload
-                ver: v2
-                ts: 2020-12-07 05:57:57:015+0000
-                params:
-                  resmsgid: 
-                  msgid: f75747ef04d30f7c613d83ad58d64462
-                  err: MANDATORY_PARAMETER_MISSING
-                  status: MANDATORY_PARAMETER_MISSING
-                  errmsg: Mandatory parameter ext user id is missing.
                 responseCode: CLIENT_ERROR
                 result: {}
       deprecated: false
@@ -596,7 +388,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CheckUploadStatus-Success'
+                $ref: '#/components/schemas/bulkserviceapiCheckUploadStatus-Success'
               example:
                 id: api.upload.status
                 ver: v1
@@ -639,7 +431,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UploadOrganisationsinBulk-BadRequest'
+                $ref: '#/components/schemas/bulkserviceapiUploadOrganisationsinBulk-BadRequest'
               example:
                 id: api.upload.status
                 ver: v1
@@ -651,74 +443,6 @@ paths:
                   status: RESOURCE_NOT_FOUND
                   errmsg: Requested resource not found
                 responseCode: RESOURCE_NOT_FOUND
-                result: {}
-      deprecated: false
-      security: []
-  /data/v1/upload/statusDownloadLink/{processId}:
-    get:
-      tags:
-      - Upload status download link
-      summary: Get Upload Status Download Link
-      description: >-
-        This API is used to get the upload status for a given request. For a completed upload request, it will provide a link to a file which has the upload status.
-           - The endpoint for **Get Upload Status Download Link** is `/data/v1/upload/statusDownloadLink/{processId}`
-           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: GetUploadStatusDownloadLink
-      parameters:
-      - name: Content-Type
-        in: header
-        description: (Required) Type of the request data. Set as application/json.
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: <string>
-      - name: Authorization
-        in: header
-        description: '(Required) Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{authorization}}'
-      - name: X-Authenticated-User-Token
-        in: header
-        description: (Required) Access token of registered user performing given API request.
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{user_token}}'
-      - name: processId
-        in: path
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-      responses:
-        200:
-          description: ''
-          headers: {}
-        400:
-          description: >-
-            - Bad Request
-            - CLIENT_ERROR. The requested operation failed due to bad request from client. Possible reasons for failure: Invalid process ID.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UploadOrganisationsinBulk-BadRequest'
-              example:
-                id: api.upload.statusDownloadLink
-                ver: v1
-                ts: 2020-12-04 06:48:17:311+0000
-                params:
-                  resmsgid: 
-                  msgid: 230d210cd14fdbbe184e473e3db9c7b5
-                  err: ERROR_DOWNLOAD_LINK_UNAVAILABLE
-                  status: ERROR_DOWNLOAD_LINK_UNAVAILABLE
-                  errmsg: Download link is unavailable.
-                responseCode: CLIENT_ERROR
                 result: {}
       deprecated: false
       security: []
@@ -885,7 +609,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Success-UploadLocationDatainBulk'
+                $ref: '#/components/schemas/bulkserviceapiSuccess-UploadLocationDatainBulk'
               example:
                 id: api.bulk.location.upload
                 ver: v1
@@ -909,7 +633,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UploadOrganisationsinBulk-BadRequest'
+                $ref: '#/components/schemas/bulkserviceapiUploadOrganisationsinBulk-BadRequest'
               example:
                 id: api.bulk.location.upload
                 ver: v1
@@ -1080,7 +804,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UploadOrganisationsinBulk-Suceess'
+                $ref: '#/components/schemas/bulkserviceapiUploadOrganisationsinBulk-Suceess'
               example:
                 id: api.org.upload
                 ver: v1
@@ -1102,7 +826,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UploadOrganisationsinBulk-BadRequest'
+                $ref: '#/components/schemas/bulkserviceapiUploadOrganisationsinBulk-BadRequest'
               example:
                 id: api.org.upload
                 ver: v1
@@ -1119,7 +843,7 @@ paths:
       security: []
 components:
   schemas:
-    Success-UploadUsersinBulk:
+    bulkserviceapiSuccess-UploadUsersinBulk:
       title: Success-UploadUsersinBulk
       required:
       - id
@@ -1137,11 +861,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/bulkserviceapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/UserBulkUploadResult'
+          $ref: '#/components/schemas/bulkserviceapiUserBulkUploadResult'
       example:
         id: api.user.upload
         ver: v1
@@ -1155,7 +879,7 @@ components:
         responseCode: OK
         result:
           processId: 01316323485186457631
-    Params:
+    bulkserviceapiParams:
       title: Params
       required:
       - resmsgid
@@ -1184,7 +908,7 @@ components:
         err: 
         status: success
         errmsg: 
-    UserBulkUploadResult:
+    bulkserviceapiUserBulkUploadResult:
       title: UserBulkUploadResult
       required:
       - processId
@@ -1194,7 +918,7 @@ components:
           type: string
       example:
         processId: 01316323485186457631
-    FailureParams:
+    bulkserviceapiFailureParams:
       title: FailureParams
       required:
       - resmsgid
@@ -1221,7 +945,7 @@ components:
         err: UNAUTHORIZED_USER
         status: SERVER_ERROR
         errmsg: You are not authorized.
-    UploadShadowUsersinBulk:
+    bulkserviceapiUploadShadowUsersinBulk:
       title: UploadShadowUsersinBulk
       required:
       - id
@@ -1239,11 +963,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/bulkserviceapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/ShadowUserBulkUploadResult'
+          $ref: '#/components/schemas/bulkserviceapiShadowUserBulkUploadResult'
       example:
         id: api.bulk.user.upload
         ver: v2
@@ -1258,7 +982,7 @@ components:
         result:
           processId: 013165071979683840148
           response: SUCCESS
-    ShadowUserBulkUploadResult:
+    bulkserviceapiShadowUserBulkUploadResult:
       title: ShadowUserBulkUploadResult
       required:
       - processId
@@ -1272,7 +996,7 @@ components:
       example:
         processId: 013165071979683840148
         response: SUCCESS
-    Bulk-uploadself-declaredusers:
+    bulkserviceapiBulk-uploadself-declaredusers:
       title: Bulk-uploadself-declaredusers
       required:
       - id
@@ -1290,11 +1014,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/bulkserviceapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/ShadowUserBulkUploadResult'
+          $ref: '#/components/schemas/bulkserviceapiShadowUserBulkUploadResult'
       example:
         id: api.bulk.user.upload
         ver: v2
@@ -1309,7 +1033,7 @@ components:
         result:
           processId: 013165079212539904150
           response: SUCCESS
-    CheckUploadStatus-Success:
+    bulkserviceapiCheckUploadStatus-Success:
       title: CheckUploadStatus-Success
       required:
       - id
@@ -1327,11 +1051,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/bulkserviceapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/CheckUploadStatusResult'
+          $ref: '#/components/schemas/bulkserviceapiCheckUploadStatusResult'
       example:
         id: api.upload.status
         ver: v1
@@ -1365,7 +1089,7 @@ components:
             message: Operation is completed.
             objectType: location
             status: COMPLETED
-    CheckUploadStatusResult:
+    bulkserviceapiCheckUploadStatusResult:
       title: CheckUploadStatusResult
       required:
       - response
@@ -1374,7 +1098,7 @@ components:
         response:
           type: array
           items:
-            $ref: '#/components/schemas/Response'
+            $ref: '#/components/schemas/bulkserviceapiResponse'
           description: ''
       example:
         response:
@@ -1398,7 +1122,7 @@ components:
           message: Operation is completed.
           objectType: location
           status: COMPLETED
-    Response:
+    bulkserviceapiResponse:
       title: Response
       required:
       - failureResult
@@ -1419,7 +1143,7 @@ components:
         successResult:
           type: array
           items:
-            $ref: '#/components/schemas/SuccessResult'
+            $ref: '#/components/schemas/bulkserviceapiSuccessResult'
           description: ''
         message:
           type: string
@@ -1448,7 +1172,7 @@ components:
         message: Operation is completed.
         objectType: location
         status: COMPLETED
-    SuccessResult:
+    bulkserviceapiSuccessResult:
       title: SuccessResult
       required:
       - code
@@ -1482,7 +1206,7 @@ components:
         parentId: 6824e3d3-5512-4344-a481-7bac011edaa8
         id: 333a45f6-ce34-491c-b63b-2187c2df367a
         operation: create
-    Success-UploadLocationDatainBulk:
+    bulkserviceapiSuccess-UploadLocationDatainBulk:
       title: Success-UploadLocationDatainBulk
       required:
       - id
@@ -1500,11 +1224,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/bulkserviceapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/UserBulkUploadResult'
+          $ref: '#/components/schemas/bulkserviceapiUserBulkUploadResult'
       example:
         id: api.bulk.location.upload
         ver: v1
@@ -1518,7 +1242,7 @@ components:
         responseCode: OK
         result:
           processId: 01316326144873267234
-    UploadOrganisationsinBulk-BadRequest:
+    bulkserviceapiUploadOrganisationsinBulk-BadRequest:
       title: UploadOrganisationsinBulk-BadRequest
       required:
       - id
@@ -1536,7 +1260,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/FailureParams'
+          $ref: '#/components/schemas/bulkserviceapiFailureParams'
         responseCode:
           type: string
         result:
@@ -1553,7 +1277,7 @@ components:
           errmsg: Mandatory parameter orgName is missing.
         responseCode: CLIENT_ERROR
         result: {}
-    UploadOrganisationsinBulk-Suceess:
+    bulkserviceapiUploadOrganisationsinBulk-Suceess:
       title: UploadOrganisationsinBulk-Suceess
       required:
       - id
@@ -1571,11 +1295,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/bulkserviceapiParams'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/UserBulkUploadResult'
+          $ref: '#/components/schemas/bulkserviceapiUserBulkUploadResult'
       example:
         id: api.org.upload
         ver: v1

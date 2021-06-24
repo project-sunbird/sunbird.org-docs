@@ -13,7 +13,6 @@ info:
   version: '1.0'
 servers:
   - url: 'https://staging.open-sunbird.org/api'
-    variables: {}
 paths:
   '/textbook/v1/toc/upload/{textbook-id}':
     post:
@@ -88,7 +87,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TOCUpload-Success'
+                $ref: '#/components/schemas/tocapiTOCUpload-Success'
               example:
                 id: api.textbook.toc.upload
                 ver: v1
@@ -107,7 +106,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TOCDownload-Resource_Not_Found'
+                $ref: '#/components/schemas/tocapiTOCDownload-Resource_Not_Found'
               example:
                 id: api.textbook.toc.upload
                 ver: v1
@@ -125,7 +124,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TOCDownload-Resource_Not_Found'
+                $ref: '#/components/schemas/tocapiTOCDownload-Resource_Not_Found'
               example:
                 id: api.textbook.toc.upload
                 ver: v1
@@ -143,7 +142,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TOCDownload-Resource_Not_Found'
+                $ref: '#/components/schemas/tocapiTOCDownload-Resource_Not_Found'
               example:
                 id: api.textbook.toc.upload
                 ver: v1
@@ -210,7 +209,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TOCDownload-Success'
+                $ref: '#/components/schemas/tocapiTOCDownload-Success'
               example:
                 id: api.textbook.toc.download
                 ver: v1
@@ -231,7 +230,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TOCDownload-Resource_Not_Found'
+                $ref: '#/components/schemas/tocapiTOCDownload-Resource_Not_Found'
               example:
                 id: api.textbook.toc.download
                 ver: v1
@@ -249,7 +248,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TOCDownload-Resource_Not_Found'
+                $ref: '#/components/schemas/tocapiTOCDownload-Resource_Not_Found'
               example:
                 id: api.textbook.toc.download
                 ver: v1
@@ -267,7 +266,7 @@ paths:
         - bearer: []
 components:
   schemas:
-    Params:
+    tocapiParams:
       title: Params
       required:
         - resmsgid
@@ -294,7 +293,7 @@ components:
         err: INVALID_TEXTBOOK_NAME
         status: INVALID_TEXTBOOK_NAME
         errmsg: Textbook Name given in the file doesn’t match current Textbook name. Please check and upload again.
-    TOCUpload-Success:
+    tocapiTOCUpload-Success:
       title: TOCUpload-Success
       required:
         - id
@@ -312,11 +311,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params2'
+          $ref: '#/components/schemas/tocapiParams2'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Result'
+          $ref: '#/components/schemas/tocapiResult'
       example:
         id: api.textbook.toc.upload
         ver: v1
@@ -330,7 +329,7 @@ components:
         responseCode: OK
         result:
           response: SUCCESS
-    Params2:
+    tocapiParams2:
       title: Params2
       required:
         - resmsgid
@@ -359,7 +358,7 @@ components:
         err: null
         status: success
         errmsg: null
-    Result:
+    tocapiResult:
       title: Result
       required:
         - response
@@ -369,7 +368,7 @@ components:
           type: string
       example:
         response: SUCCESS
-    TOCDownload-Resource_Not_Found:
+    tocapiTOCDownload-Resource_Not_Found:
       title: TOCDownload-Resource_Not_Found
       required:
         - id
@@ -387,7 +386,7 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params'
+          $ref: '#/components/schemas/tocapiParams'
         responseCode:
           type: string
         result:
@@ -404,7 +403,7 @@ components:
           errmsg: rootId do_11263298042220544900 does not exist
         responseCode: RESOURCE_NOT_FOUND
         result: {}
-    TOCDownload-Success:
+    tocapiTOCDownload-Success:
       title: TOCDownload-Success
       required:
         - id
@@ -422,11 +421,11 @@ components:
         ts:
           type: string
         params:
-          $ref: '#/components/schemas/Params2'
+          $ref: '#/components/schemas/tocapiParams2'
         responseCode:
           type: string
         result:
-          $ref: '#/components/schemas/Result1'
+          $ref: '#/components/schemas/tocapiResult1'
       example:
         id: api.textbook.toc.download
         ver: v1
@@ -442,19 +441,19 @@ components:
           textbook:
             tocUrl: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/textbook/toc/do_11316025504283852811_test-27-nov_1606491356306.csv'
             ttl: '86400'
-    Result1:
+    tocapiResult1:
       title: Result1
       required:
         - textbook
       type: object
       properties:
         textbook:
-          $ref: '#/components/schemas/Textbook'
+          $ref: '#/components/schemas/tocapiTextbook'
       example:
         textbook:
           tocUrl: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/textbook/toc/do_11316025504283852811_test-27-nov_1606491356306.csv'
           ttl: '86400'
-    Textbook:
+    tocapiTextbook:
       title: Textbook
       required:
         - tocUrl
