@@ -11,43 +11,46 @@ allowSearch: true
 Welcome to Sunbird API reference documentation!
 
 Sunbird is built using microservices as building blocks that are mapped to building block types.
-A microservice is defined as 'a **logical unit** of software functionality exposed via a set of **versioned APIs** with well **defined contract**'. Microservices are specific and with a fixed purpose, highly maintainable and testable, independently deployable and organized around functional units. A set of microservices are used to provide a solution. 
+A microservice is defined as 'a **logical unit** of software functionality exposed via a set of **versioned APIs** with well **defined contract**'. Microservices are specific and with a fixed purpose, highly maintainable and testable, independently deployable and organized around functional units. A set of microservices are used to provide a solution.
 
-To explain each part of the microservice definition:   
-- A **logical unit** of work is that which generates value for a user. E.g. The *Content and Collection* microservice is responsible for the lifecycle of content, collections, and assets on the platform.  
-
-- An **Application Programming Interface (API)** is a computing tool (web service, UI component) that implements a set of rules. E.g.*Create Content* is an API within the Content Management microservice. The APIs are enhanced as required with each release and hence there are versions of the API. Sunbird APIs are:  
-    - REST based (JSON over HTTPS)  
-    - Stateless  
-    - Versioned  
+To explain each part of the microservice definition:
+- A **logical unit** of work is that which generates value for a user. E.g. The *Content and Collection* microservice is responsible for the lifecycle of content, collections, and assets on the platform.
+- An **Application Programming Interface (API)** is a computing tool (web service, UI component) that implements a set of rules. E.g.*Create Content* is an API within the Content Management microservice. The APIs are enhanced as required with each release and hence there are versions of the API. Sunbird APIs are:
+    - REST based (JSON over HTTPS)
+    - Stateless
+    - Versioned
 
 The API endpoints follow a common URL structure, viz; https://{host:port}/{module}/{version}/{api_name}
- - The contract of an API consists of a well defined input, output, a set of test cases, along with usage and compatibility rules. Every API has a contract.  
+- The contract of an API consists of a well defined input, output, a set of test cases, along with usage and compatibility rules. Every API has a contract.
 
-This page details Sunbird's building block types, the microservices grouped under each building block type and the APIs for each set of microservice.   
+This page details Sunbird's building block types, the microservices grouped under each building block type and the APIs for each set of microservice.
 
 ## Contribution & Curation
 
 In the **Contribution and Curation**  building block type, Sunbird has microservices to manage the lifecycle of content and collections; create and manage questions and question sets that are useful to assess proficiency of learners; contribution management and contributor registry.
 
 ### Content Service
+
 The **Content and Collection microservice** manages content and collection objects and their lifecycle for a defined taxonomy, in a learning domain. This microservice is dependent on the taxonomy microservice as every content piece must have the appropriate taxonomy tags. The content and collection microservices has the following APIs:
 - [Content APIs](apis/content){:target="_blank"}
 - [Content Lock APIs](apis/coursehierarchyapi){:target="_blank"} 
 - [Textbook APIs](apis/tocapi){:target="_blank"}
 - [Course Hieracrchy APIs](apis/coursehierarchyapi){:target="_blank"}
 
-### Question & Question Set Service 
+### Question & Question Set Service
+
 The **Question and Question set microservice** provides services to create and manage questions and question sets that are useful to assess the  proficiency of learners. The APIs are grouped as:
 - [Question Management APIs](apis/questionapi//){:target="_blank"}
 
-### Contribution Service 
+### Contribution Service
+
 The **Contribution microservice** enables organisations to digitally plan, coordinate and manage crowd sourcing of assets for defined programs. The APIs of this microservice are grouped into:
 - [Program APIs](apis/programsapi/){:target="_blank"}
 - [Bulk Content Approval APIs](apis/bulkapproveapi){:target="_blank"}
 
 ### Contributor Registry
-The contributor management microservice enables a registry of individual contributors and contributing organisations that nominate and contribute digital assets via sourcing projects.
+
+The **Contributor management microservice** enables a registry of individual contributors and contributing organisations that nominate and contribute digital assets via sourcing projects.
 - [Registry APIs](apis/opensaber/){:target="_blank"}
 
 ### Related Microservices and/or APIs 
@@ -60,6 +63,7 @@ The contributor management microservice enables a registry of individual contrib
 In the **Taxonomy and Tagging** building block type, Sunbird has microservices for taxonomy and framework management, and asset category management.
 
 ### Taxonomy Service
+
 The taxonomy and framework management microservice uses two services 
 - the taxonomy and framework service that provides the ability to create, organise and manage taxonomy frameworks in a learning domain; 
 - the license service that manages content licenses. This microservice is domain independent, i.e. it can be used to model the taxonomy of any learning domain, e.g: K-12, Leadership training, Professional training. The APIs in this microservice are grouped as:
