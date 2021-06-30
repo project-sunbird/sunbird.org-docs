@@ -24,7 +24,7 @@ This page details Sunbird's building block types, the microservices grouped unde
 
 In the **Contribution and Curation**  building block type, Sunbird has microservices to manage the lifecycle of content and collections; create and manage questions and question sets that are useful to assess proficiency of learners; contribution management and contributor registry.
 
-### Content Service
+### Content Service {#custom-id}
 
 The **Content and Collection microservice** manages content and collection objects and their lifecycle for a defined taxonomy, in a learning domain. This microservice is dependent on the taxonomy microservice as every content piece must have the appropriate taxonomy tags. The content and collection microservices has the following APIs:
 - [Content APIs](apis/content){:target="_blank"}
@@ -32,18 +32,18 @@ The **Content and Collection microservice** manages content and collection objec
 - [Textbook APIs](apis/tocapi){:target="_blank"}
 - [Course Hieracrchy APIs](apis/coursehierarchyapi){:target="_blank"}
 
-### Question & Question Set Service
+### Question & Question Set Service {#custom-id}
 
 The **Question and Question set microservice** provides services to create and manage questions and question sets that are useful to assess the  proficiency of learners. The APIs are grouped as:
 - [Question Management APIs](apis/questionapi//){:target="_blank"}
 
-### Contribution Service
+### Contribution Service {#custom-id}
 
 The **Contribution microservice** enables organisations to digitally plan, coordinate and manage crowd sourcing of assets for defined programs. The APIs of this microservice are grouped into:
 - [Program APIs](apis/programsapi/){:target="_blank"}
 - [Bulk Content Approval APIs](apis/bulkapproveapi){:target="_blank"}
 
-### Contributor Registry
+### Contributor Registry {#custom-id}
 
 The **Contributor management microservice** enables a registry of individual contributors and contributing organisations that nominate and contribute digital assets via sourcing projects.
 - [Registry APIs](apis/opensaber/){:target="_blank"}
@@ -57,7 +57,7 @@ The **Contributor management microservice** enables a registry of individual con
 ## Taxonomy & Tagging
 In the **Taxonomy and Tagging** building block type, Sunbird has microservices for taxonomy and framework management, and asset category management.
 
-### Taxonomy Service
+### Taxonomy Service {#custom-id}
 
 The taxonomy and framework management microservice uses two services 
 - the taxonomy and framework service that provides the ability to create, organise and manage taxonomy frameworks in a learning domain; 
@@ -65,7 +65,7 @@ The taxonomy and framework management microservice uses two services
  - [Taxonomy Framework Management APIs](apis/framework/){:target="_blank"}
  - [License APIs](apis/license/){:target="_blank"}
 
-### Asset Category Service 
+### Asset Category Service {#custom-id}
 The asset category microservice provides the ability to set rules to create and manage categories for different asset categories, such as content, collection, question set, etc.
 - [Object Category Management APIs](apis/objectcategory/){:target="_blank"}
 
@@ -74,12 +74,16 @@ The asset category microservice provides the ability to set rules to create and 
 * [Question and Question Set Service](#Question & Question Set Service)
 
 ## Discovery & Personalisation 
+
 In the **Discovery & Personalisation** building block type, Sunbird has microservices that manage and implement DIAL codes, and search and discover knowledge assets.
-### DIAL Service
+
+### DIAL Service {#custom-id}
+
 The **DIAL microservice** provides services to manage and implement DIAL (Digital Infrastructure for Augmented Learning) Codes. The APIs are grouped as:
 * [D.I.A.L Code APIs](apis/dialapi/){:target="_blank"} 
 
-### Asset Search Service
+### Asset Search Service {#custom-id}
+
 The **Asset search microservice** provides services to search and discover assets on the platform. The APIs are grouped as:
 * [Composite Search APIs](apis/searchapi/){:target="_blank"} 
 
@@ -88,24 +92,30 @@ The **Asset search microservice** provides services to search and discover asset
 * [Taxonomy Service](#Taxonomy Service)
 
 ## Interaction and Collaboration
+
 In the **Interaction and Collaboration** building block type, Sunbird has microservices that send user notifications through multiple channels such as email, SMS, and OTPs; create and manage groups of registered users and track activities assigned to group members; allow users to participate in multiple categories of discussions and provide chatbot assistance to users.
-### Group Service 
+
+### Group Service {#custom-id} 
+
 The **Group microservice** provides services to create and manage groups of registered users and track activities assigned to group members. The APIs are grouped as:
 - [Group Management APIs](apis/groupapi/){:target="_blank"} 
     - [Group Activity APIs](apis/groupactivityapi/) 
 
-### Discussion Forum Service 
+### Discussion Forum Service {#custom-id}
+
 The **Discussion forum microservice** provides services to allow users to participate in multiple categories of discussions. The APIs are grouped as:
 - [Discussion Forum APIs](apis/discussionForum/){:target="_blank"} 
 
-### Chatbot Service 
+### Chatbot Service {#custom-id}
 The **Chatbot microservice** provides services to provide chatbot assistance to users. The APIs are grouped as:
 - [Chatbot APIs](apis/chatbotapi/){:target="_blank"} 
 
 ## Learn, Do, Practice, Sense & Assess
+
 In the **Learn, Do, Practice, Sense, and Assess** building block type, Sunbird has microservices that helps to manage batches to track progress of participants in trackable learning objects and question sets for various usecases such as Practice, Sense, and Assess.
 
-### Batch & Progress Service
+### Batch & Progress Service {#custom-id}
+
 The **Batch and Progress microservice** provides services to manage course enrolment, content usage, and track progress of trackable learning objects like online courses, course batches, quizzes, and batch certificates. They also include APIs for batch management that allow you to create, view, update and search for course batches.The APIs for this microservice are grouped into:
 - [Course Batch Management APIs](apis/coursebatchmanapi/){:target="_blank"}
 - [Course Enrolment APIs](apis/courseenrolmentapi/){:target="_blank"}
@@ -116,8 +126,11 @@ The **Batch and Progress microservice** provides services to manage course enrol
 * [Question Management APIs](apis/questionapi//){:target="_blank"}
 
 ## Credentialing & Badging
+
 In the **Credentialing & Badging** building block, Sunbird has microservices that issue digital certificates and verify digitally issued certificates.
-### Credential Service 
+
+### Credential Service {#custom-id}
+
 The **Credential microservice** provides services to issue digital certificates as per required specifications and enables the storage and verification of digitally issued certificates. The APIs are grouped as:
 - [Certificate Generation APIs](apis/certificate/){:target="_blank"}   
 - [Certificate Registry APIs](apis/certificateregistry/){:target="_blank"}  
@@ -128,12 +141,16 @@ The **Credential microservice** provides services to issue digital certificates 
 * [Batch and Progress Service](#Batch & Progress Service)]
 
 ## Open Data
+
 For the **Open Data** building block, Sunbird has microservices for public, standard, and on-demand data exhaust.
-### Data Service 
+
+### Data Service {#custom-id}
+
 The **Data microservice** provides services to manage report jobs and data exhausts that enable data aggregation across multiple sources. The APIs are grouped as:
 - [Public Data Exhaust APIs](apis/dataexhaustapi/index.html#tag/Public-Data-Exhaust-API(s)){:target="_blank"} 
 
 ## Learning Infra, Telemetry & Analytics
+
 In the **Learning Infra, Telemetry and Analytics** building block type, Sunbird has microservices to create, capture, enable, validate and manage:
 * user lifecycle, administration, and permissions  
 * registries for users, organisations, geographic locations and devices
@@ -143,7 +160,8 @@ In the **Learning Infra, Telemetry and Analytics** building block type, Sunbird 
 * issue and refresh API tokens of registered mobile and desktop app devices 
 * client application and device error logs 
 
-### User & Org Service 
+### User & Org Service {#custom-id}
+
 The **User and Org microservice** provides services to enable and manage the lifecycle, administration, and permissions of users; registries of users, organisations, geographic locations and devices; to send user notifications through multiple channels such as email, SMS, and OTPs. The APIs are grouped as:
 - [User Management APIs](apis/userapi/){:target="_blank"}   
     - [Bulk Upload Service APIs](apis/bulkupload/){:target="_blank"}  
@@ -158,35 +176,42 @@ The **User and Org microservice** provides services to enable and manage the lif
 - [Notification APIs](apis/notificationapi/){:target="_blank"}  
     - [OTP APIs](apis/otpapi/){:target="_blank"}.
 
-### Telemetry Service 
+### Telemetry Service {#custom-id}
+
 The **Telemetry Service** microservice collects telemetry and ingests the telemetry into the data pipeline for processing.
 
 * [Telemetry Service](./developer-docs/telemetry/overview){:target="_blank"}
 
-### Reports Service 
+### Reports Service {#custom-id} 
+
 The **Reports microservice** creates, reviews and publishes reports to the Diksha portal using the HawkEye framework. The APIs are grouped under the:
 - [Report Service APIs](apis/reports/){:target="_blank"}
 
-### Data Service 
+### Data Service {#custom-id}
+
 The data microservice provides services to manage report jobs and data exhausts that enable data aggregation across multiple source services. The APIs are grouped as:
 - [Data Exhaust APIs](apis/dataexhaustapi){:target="_blank"} 
 - [Druid Report APIs](apis/druidreportapi){:target="_blank"} 
 
-### Configuration Service 
+### Configuration Service {#custom-id}
+
 The **Configuration microservice** provides services to manage system and UI form configurations.
 - [Form APIs](apis/form/){:target="_blank"}  
 - [Page APIs](apis/pagesapi/){:target="_blank"}  
 - [System settings APIs](apis/systemsettingsapi/){:target="_blank"}  
 - [Desktop app update](apis/desktop/app-update/){:target="_blank"} 
 
-### API Management Service
+### API Management Service {#custom-id}
+
 The API management microservice provides services to create, manage and validate API tokens to register mobile and desktop apps, and to issue and refresh API tokens of registered mobile and desktop app devices
 - [Echo API](apis/echoapi/){:target="_blank"}  
 - [Kong register version 1](apis/kongcredentialregisterapiv1/){:target="_blank"}  
 - [Kong register version 2](apis/kongcredentialregisterapiv2/){:target="_blank"}  
 - [Refresh API tokens](apis/refreshtokenapi){:target="_blank"}  
 - [Desktop register API](apis/desktop/device-registry/){:target="_blank"} 
-### Logging Services 
+
+### Logging Services {#custom-id}
+
 The logging microservice provides services to capture and manage client application and device error logs
 - [Client Log APIs](apis/clientlogapi){:target="_blank"}
 
