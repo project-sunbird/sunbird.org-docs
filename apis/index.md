@@ -14,6 +14,19 @@ Welcome to Sunbird API reference documentation!
 Sunbird is built using microservices as building blocks that are mapped to building block types.
 A microservice is defined as 'a **logical unit** of software functionality exposed via a set of **versioned APIs** with well **defined contract**'. Microservices are specific and with a fixed purpose, highly maintainable and testable, independently deployable and organized around functional units. A set of microservices are used to provide a solution.
 
+To explain each part of the microservice definition:
+- A **logical unit** of work is that which generates value for a user. E.g. The *Content and Collection* microservice is responsible for the lifecycle of content, collections, and assets on the platform.
+- An **Application Programming Interface (API)** is a computing tool (web service, UI component) that implements a set of rules. E.g.*Create Content* is an API within the Content Management microservice. The APIs are enhanced as required with each release and hence there are versions of the API. 
+
+Sunbird APIs are:
+    - REST based (JSON over HTTPS)
+    - Stateless
+    - Versioned
+
+The API endpoints follow a common URL structure, viz; https://{host:port}/{module}/{version}/{api_name}
+- The contract of an API consists of a well defined input, output, a set of test cases, along with usage and compatibility rules. Every API has a contract.
+
+This page details Sunbird's building block types, the microservices grouped under each building block type and the APIs for each set of microservice.
 
 ## Contribution & Curation
 
