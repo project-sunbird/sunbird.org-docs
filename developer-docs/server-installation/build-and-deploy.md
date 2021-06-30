@@ -252,5 +252,5 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 
 |Jenkins Job to Run|Github Tag|Github Repo|Comments|
 |------------------|----------|-----------|--------|
-|Deploy/Kubernetes/PostInstallScripts|branch_or_tag: release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the default forms, framework, users, channel, licenses etc. **This job will be updated in a couple of days. Please wait until then**|
-|Deploy/DataPipeline/AnalyticsPopulatePSQLConsumerChannelMapping|release-3.8.0_RC13|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Creates / Updates Postgres database schema|
+|OpsAdministration/Core/PostInstallScript|branch_or_tag: release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the default forms, framework, users, channel, licenses etc. Please ensure you provide all the values that the job requires. You need to also ensure the script is successful by closely inspecting the output line by line on the Jenkins console log. You can also take a look at the script and API's and create your own data if you don't require the default values.|
+|Deploy/DataPipeline/AnalyticsPopulatePSQLConsumerChannelMapping|release-3.8.0_RC13, channel_id: your sunbird organisation id, consumer_id: kong consumer id|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Adds kong consumer in postgres Analytics DB to whitelist some of the API's. You can get the kong cosumer id by querying in postgres on kong db `select * from consumers where username = 'api-admin';`|
