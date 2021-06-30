@@ -14,16 +14,15 @@ var widgetsData = {
          "branch":"3.9.0",
          "desc":"",
          "releaseDate":"4th May 2021",
-         "latest":false,
+         "latest":true,
          "published":true,
-         "prerelease":true
-      },
+         },
       {  
          "title":"3.8.0",
          "branch":"3.8.0",
          "desc":"",
          "releaseDate":"18th April 2021",
-         "latest":true,
+         "latest":false,
          "published":true,
       },
       {  
@@ -48,7 +47,7 @@ var widgetsData = {
          "desc":"",
          "releaseDate":"27th January 2021",
          "latest":false,
-         "published":true
+         "published":false
       },
       {  
          "title":"3.4.0",
