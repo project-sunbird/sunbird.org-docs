@@ -5,20 +5,20 @@ info:
   description: >-
     - The ML-Core Service is a centralised Service to support other services. Apis perform operations related to program entities user solutions etc 
     
-    - The URL for ML-Core API(s) is `kendra/api`
+    - The URL for ML-Core API(s) is `ml-core/api`
 
     - <b>Note:</b> These resources can be used in other services 
   contact: {}
   version: '1.0'
 servers:
-- url: https://staging.open-sunbird.org/kendra/api
+- url: https://staging.open-sunbird.org/ml-core/api
   variables: {}
 paths: 
-  /v1/users/programs:
+  /users/v1/users/programs:
     post:
       summary: List of targeted user programs 
       description: This API is used to get list of targeted user programs
-           - The endpoint for **programs User V1** is `/v1/users/programs`  
+           - The endpoint for **programs User V1** is `/users/v1/users/programs`  
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       tags:
        - User APIs
@@ -30,9 +30,12 @@ paths:
           required: true
           schema:
             type: string
-        - name: internal-access-token
+        - name: Authorization
           in: header
-          description: Represents the authorized internal token.
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
           required: true
           schema:
             type: string
@@ -78,11 +81,11 @@ paths:
       deprecated: false
       security:
         - bearer: []
-  /v1/users/solutions/{programId}:
+  /users/v1/users/solutions/{programId}:
     post:
       summary: User targeted solutions.
       description: This API is used to get user targeted solutions
-           - The endpoint for **solutions User V1** is `/v1/users/solutions`  
+           - The endpoint for **solutions User V1** is `/users/v1/users/solutions`  
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       tags:
        - User APIs
@@ -91,6 +94,15 @@ paths:
         - name: X-Authenticated-User-Token
           in: header
           description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
           required: true
           schema:
             type: string
@@ -154,11 +166,11 @@ paths:
       deprecated: false
       security:
         - bearer: []
-  /v1/solutions/targetedSolutions:
+  /solutions/v1/solutions/targetedSolutions:
     post:
       summary: List of assigned solutions and targetted ones
       description: This API is used to get List of assigned solutions and targetted ones
-           - The endpoint for **targetedSolutions Solution V1** is `/v1/solutions/targetedSolutions`
+           - The endpoint for **targetedSolutions Solution V1** is `/solutions/v1/solutions/targetedSolutions`
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       tags:
        - Solutions APIs
@@ -167,6 +179,15 @@ paths:
         - name: X-Authenticated-User-Token
           in: header
           description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
           required: true
           schema:
             type: string
@@ -236,112 +257,8 @@ paths:
       deprecated: false
       security:
         - bearer: []
-  /v1/solutions/getLink/{solutionId}:
-    get:
-      summary: Get link by solution id
-      description: This API is used to get link by solution id
-           - The endpoint for **getLink Solution V1** is `/v1/solutions/getLink`
-           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      tags:
-       - Solutions APIs
-      operationId: getLink
-      parameters:
-        - name: X-Authenticated-User-Token
-          in: header
-          description: Represents the authorized User ID to execute the API.
-          required: true
-          schema:
-            type: string
-        - name: solutionId
-          in: path
-          description: solution Id
-          required: true
-          schema:
-            type: string
-        - name: appName
-          in: query
-          description: app Name
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: "Get link by solution id Response"
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getLinkResponse'
-        500:
-          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/500Error'
-        400:
-          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SolutionTypeMissing400Error'
-      deprecated: false
-      security:
-        - bearer: []
-  /v1/solutions/getDetailsByLink/{link}:
-    post:
-      summary: Get link by solution id
-      description: This API is used to get Details From Link
-           - The endpoint for **getDetailsByLink Solution V1** is `/v1/solutions/getDetailsByLink`
-           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      tags:
-       - Solutions APIs
-      operationId: getDetailsByLink
-      parameters:
-        - name: X-Authenticated-User-Token
-          in: header
-          description: Represents the authorized User ID to execute the API.
-          required: true
-          schema:
-            type: string
-        - name: link
-          in: path
-          description: link
-          required: true
-          schema:
-            type: string
-      requestBody:
-        required: true
-        description: >-
-            - The body payload comprises of the metadata of the user being created
-            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
-              payload:
-                json
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/userSolutionsRequest"
-      responses:
-        200:
-          description: "Get Details From Link Response"
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getDetailsByLinkResponse'
-        500:
-          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/500Error'
-        400:
-          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LinkMissing400Error'
-      deprecated: false
-      security:
-        - bearer: []
-  /v1/entities/subEntityListBasedOnRoleAndLocation/{locationId}:
+
+  /entities/v1/entities/subEntityListBasedOnRoleAndLocation/{locationId}:
     get:
       summary: Get list of sub entity based on role and location
       description: This API is used to get list of sub entity based on role and location.
@@ -354,6 +271,15 @@ paths:
         - name: X-Authenticated-User-Token
           in: header
           description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
           required: true
           schema:
             type: string
@@ -391,7 +317,7 @@ paths:
       deprecated: false
       security:
         - bearer: []
-  /v1/entities/subEntityList/{entityId}:
+  /entities/v1/entities/subEntityList/{entityId}:
     post:
       summary: Get sub entity list for the given entity
       description: This API is used to get sub entity list for the given entity
@@ -404,6 +330,15 @@ paths:
         - name: X-Authenticated-User-Token
           in: header
           description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
           required: true
           schema:
             type: string
@@ -458,19 +393,28 @@ paths:
       deprecated: false
       security:
         - bearer: []
-  /v1/users/entityTypesByLocationAndRole/{stateLocationId}:
+  /entities/v1/entities/entityTypesByLocationAndRole/{stateLocationId}:
     get:
       summary: List of entity type by location and role
       description: This API is used to get list of entity type by location and role
-           - The endpoint for **entityTypesByLocationAndRole User V1** is `/v1/users/entityTypesByLocationAndRole`  
+           - The endpoint for **subEntityListBasedOnRoleAndLocation User V1** is `/entities/v1/entities/subEntityListBasedOnRoleAndLocation`  
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       tags:
-       - User APIs
+       - Entities APIs
       operationId: List of entity type by location and role
       parameters:
         - name: X-Authenticated-User-Token
           in: header
           description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
           required: true
           schema:
             type: string
@@ -507,11 +451,11 @@ paths:
       deprecated: false
       security:
         - bearer: []
-  /v1/users/targetedEntity/{solutionId}:
+  /users/v1/users/targetedEntity/{solutionId}:
     post:
       summary: Targeted entity
       description: This API is used to get Targeted entity
-           - The endpoint for **targetedEntity User V1** is `/v1/users/targetedEntity`  
+           - The endpoint for **targetedEntity User V1** is `/users/v1/users/targetedEntity`  
            - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       tags:
        - User APIs
@@ -520,6 +464,15 @@ paths:
         - name: X-Authenticated-User-Token
           in: header
           description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
           required: true
           schema:
             type: string
@@ -568,7 +521,7 @@ paths:
       deprecated: false
       security:
         - bearer: []
-  /v1/cloud-services/files/preSignedUrls:
+  /cloud-services/v1/cloud-services/files/preSignedUrls:
     post:
       summary: Get signed URL
       description: This API is used to get signed URL.
@@ -581,6 +534,15 @@ paths:
         - name: X-Authenticated-User-Token
           in: header
           description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
           required: true
           schema:
             type: string
@@ -611,7 +573,7 @@ paths:
       deprecated: false
       security:
         - bearer: []
-  /v1/user-extension/programsByPlatformRoles:
+  /user-extension/v1/user-extension/programsByPlatformRoles:
     get:
       summary: List of Platform programs
       description: This API is used to get List of Platform programs
@@ -624,6 +586,15 @@ paths:
         - name: X-Authenticated-User-Token
           in: header
           description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
           required: true
           schema:
             type: string
@@ -649,7 +620,7 @@ paths:
       deprecated: false
       security:
         - bearer: []
-  /v1/user-extension/solutions/{programId}:
+  /user-extension/v1/user-extension/solutions/{programId}:
     get:
       summary:  List of solutions
       description: This API is used to get List of Platform solutions
@@ -662,6 +633,15 @@ paths:
         - name: X-Authenticated-User-Token
           in: header
           description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
           required: true
           schema:
             type: string
@@ -1119,131 +1099,11 @@ components:
                 example: school
               isRubricDriven: 
                 type: boolean
-    getLinkResponse:
-      type: object
-      properties:
-        message: 
-          type: string
-          example: Solution Link generated successfully
-        status: 
-          type: number
-          example: 200
-        result: 
-          type: string
-          example: https://apps.shikshalokam.org/samiksha/create-observation/38cd93bdb87489c3890fe0ab00e7d406
-    getDetailsByLinkResponse:
-      type: object
-      properties:
-        message: 
-          type: string
-          example: Observation solution link verified successfully
-        status: 
-          type: number
-          example: 200
-        result: 
-          type: array
-          items: 
-            type: object
-            properties: 
-              _id: 
-                type: string
-                example: 5f6853f293734140ccce90cf
-              entities: 
-                type: array
-                items: 
-                  type: string
-                  example: 5f636fa2916c13367d8ff835
-              createdFor: 
-                type: array
-                items: 
-                  type: string
-                example: []
-              rootOrganisations: 
-                type: array
-                items: 
-                  type: string
-                example: []
-              isAPrivateProgram: 
-                type: boolean
-              deleted: 
-                type: boolean
-              status: 
-                type: string
-                example: published
-              solutionId: 
-                type: string
-                example: 5f64651f916c13367d8ff83f
-              solutionExternalId: 
-                type: string
-                example: PRIYANKA-3-FRAMWORK-OBSERVATION-1
-              programId: 
-                type: string
-                example: 5f634e31577d2ce1ed942c65
-              programExternalId: 
-                type: string
-                example: MY-ASSESSMENT-PROGRAM2
-              frameworkId: 
-                type: string
-                example: 5f6349c4577d2ce1ed942a56
-              frameworkExternalId: 
-                type: string
-                example: PRIYANKA-3-FRAMWORK
-              entityTypeId: 
-                type: string
-                example: 5d15a959e9185967a6d5e8a6
-              entityType: 
-                type: string
-                example: school
-              createdBy: 
-                type: string
-                example: 01c04166-a65e-4e92-a87b-a9e4194e771d
-              startDate: 
-                type: string
-                example: 2020-09-21T07:19:14.618Z
-              endDate: 
-                type: string
-                example: 2021-09-21T07:19:14.618Z
-              name: 
-                type: string
-                example: Priyanka Observation solution
-              description: 
-                type: string
-                example: Priyanka Observation description
-              updatedAt: 
-                type: string
-                example: 2020-09-21T07:19:14.648Z
-              createdAt: 
-                type: string
-                example: 2020-09-21T07:19:14.648Z
-              __v: 
-                type: number
-                example: 0
-              link: 
-                type: string
-                example: a325411f49158bc21b7f08d33aad5c02
-    LinkMissing400Error:
-      type: object
-      properties:
-        status:
-          type: integer
-          example: 400
-        message:
-          type: array
-          items:
-            type: object
-            properties:
-              location:
-                type: string
-                example: path
-              param:
-                type: string
-                example: _id
-              msg:
-                type: string
-                example: required link
+    
   
   securitySchemes:
     bearer:
       type: apiKey
       name: Authorization
-      in: header  
+      in: header
+      
