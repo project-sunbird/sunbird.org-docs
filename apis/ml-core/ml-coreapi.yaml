@@ -1,0 +1,1168 @@
+openapi: 3.0.1
+info:
+  title: Sunbird ML-Core Service API(s)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  description: >-
+    - The ML-Core Service is a centralised Service to support other services. Apis perform operations related to program entities user solutions etc 
+    
+    - The URL for ML-Core API(s) is `api`
+
+    - <b>Note:</b> These resources can be used in other services 
+  contact:
+    email: info@sunbird.org
+  version: '1.0'
+servers:
+- url: https://staging.open-sunbird.org/api
+  variables: {}
+paths: 
+  /users/v1/users/programs:
+    post:
+      summary: List of targeted user programs 
+      description: |-
+        This API is used to get list of targeted user programs
+          - The endpoint for **User Programs** is `/users/v1/users/program`
+          - It points to ml-core service - `/users/v1/users/program`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      tags:
+       - User APIs
+      operationId: List of targeted user programs
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Page Number
+          schema:
+            type: string
+          example: 2
+        - name: limit
+          in: query
+          description: Number of objects to be returned
+          schema:
+            type: string
+          example: 100
+        - name: search
+          in: query
+          description: You can search the program based on program name, description and external Id
+          schema:
+            type: string
+          example: apple
+      requestBody:
+        required: true
+        description:  >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body is the representation of the resource object for searching objects
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userapiUserProgramAndSolutionRequest"
+      responses:
+        200:
+          description: "Program Response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userapiProgramResponse"
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /users/v1/users/solutions/{programId}:
+    post:
+      summary: User targeted solutions.
+      description: |-
+        This API is used to get list of targeted user solutions
+          - The endpoint for **User Programs** is `/users/v1/users/solutions`
+          - It points to ml-core service - `/users/v1/users/solutions`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      tags:
+       - User APIs
+      operationId: User targeted solutions
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: internal-access-token
+          in: header
+          description: Represents the authorized internal token.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: programId
+          required: true
+          description: Represents program Id
+          schema:
+            type: string
+          example: 5ff438b04698083dbfab7284
+        - name: page
+          in: query
+          description: Page Number
+          schema:
+            type: string
+          example: 2
+        - name: limit
+          in: query
+          description: Number of objects to be returned
+          schema:
+            type: string
+          example: 100
+        - name: search
+          in: query
+          description: You can search the program based on name, description and external Id
+          schema:
+            type: string
+          example: apple
+      requestBody:
+        required: true
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body is the representation of the resource object for searching objects
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userapiUserProgramAndSolutionRequest"
+      responses:
+        200:
+          description: "Program solutions Response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userSolutionsResponse"
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userSolutions400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /users/v1/users/targetedEntity/{solutionId}:
+    post:
+      summary: Targeted entity
+      description: >-
+        This API is used to get list of targeted entity
+          - The endpoint for **User targetedEntity** is `/users/v1/users/targetedEntity`
+          - It points to ml-core service - `/users/v1/users/targetedEntity`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      tags:
+       - User APIs
+      operationId: targetedEntity
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: internal-access-token
+          in: header
+          description: Represents the authorized internal token.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: solutionId
+          description: Represents the solution Id
+          required: true
+          schema:
+            type: string
+          example: 601d41607d4c835cf8b724ad
+      requestBody:
+        required: true
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body is the representation of the resource object for searching objects
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userapiUserProgramAndSolutionRequest"
+      responses:
+        200:
+          description: "Targeted entity Response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userapiTargetedEntityResponse"
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/solutionIdMissing400Error'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /solutions/v1/solutions/targetedSolutions:
+    post:
+      summary: List of assigned solutions and targetted ones
+      description: |-
+        This API is used to get List of assigned solutions and targetted ones
+          - The endpoint for **Solution targetedSolutions** is `/solutions/v1/solutions/targetedSolutions`
+          - It points to ml-core service - `/solutions/v1/solutions/targetedSolutions`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      tags:
+       - Solutions APIs
+      operationId: targetedSolutions
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: Solution type
+          required: true
+          schema:
+            type: string
+          example: observation
+        - name: page
+          in: query
+          description: Page Number
+          required: true
+          schema:
+            type: string
+          example: 1
+        - name: limit
+          in: query
+          description: Number of objects to be returned
+          required: true
+          schema:
+            type: string
+          example: 5
+        - name: search
+          in: query
+          description: You can search the program based on program name, description and external Id
+          required: true
+          schema:
+            type: string
+          example: apple
+        - name: filter
+          in: query
+          description: Criteria on which data has to be fetched
+          required: false
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: >-
+            - The body payload comprises of the metadata of the user being created
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userapiUserProgramAndSolutionRequest"
+      responses:
+        200:
+          description: "List of assigned solutions and targetted ones Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entityapiTargetedSolutionsResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionTypeMissing400Error'
+      deprecated: false
+      security:
+        - bearer: []
+
+  /entities/v1/entities/subEntityListBasedOnRoleAndLocation/{locationId}:
+    get:
+      summary: Get list of sub entity based on role and location
+      description: |-
+        This API is used to get list of sub entity based on role and location.
+          - The endpoint for **Entities subEntityListBasedOnRoleAndLocation** is `/entities/v1/entities/subEntityListBasedOnRoleAndLocation`
+          - It points to ml-core service - `/entities/v1/entities/subEntityListBasedOnRoleAndLocation`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      tags:
+       - Entities APIs
+      operationId: Get list of sub entity based on role and location
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: locationId
+          in: path
+          description: Represents the Location Id
+          required: true
+          schema:
+            type: string
+          example: 236f5cff-c9af-4366-b0b6-253a1789766a
+        - name: role
+          in: query
+          description: Represents the Role
+          required: true
+          schema:
+            type: string
+          example: HM
+      responses:
+        200:
+          description: "Get list of sub entity based on role and location Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/subEntityListBasedOnRoleAndLocationResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entityIdMissing400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /entities/v1/entities/subEntityList/{entityId}:
+    post:
+      summary: Get sub entity list for the given entity
+      description: |-
+        This API is used to get sub entity list for the given entity
+          - The endpoint for **Entities subEntityList** is `/entities/v1/entities/subEntityList`
+          - It points to ml-core service - `/entities/v1/entities/subEntityList`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      tags:
+       - Entities APIs
+      operationId: Get sub entity list for the given entity
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: entityId
+          in: path
+          description: Represent the entity Id
+          required: true
+          schema:
+            type: string
+          example: 5db173598a8e070bedca6ba1
+        - name: type
+          in: query
+          description: Represents the entity type
+          schema:
+            type: string
+          example: district
+        - name: search
+          in: query
+          description: You can search the entity based on  name, description and external Id
+          required: true
+          schema:
+            type: string
+          example: apple
+        - name: page
+          in: query
+          description: Page Number
+          required: true
+          schema:
+            type: string
+          example: 10
+        - name: limit
+          in: query
+          description: Number of objects to be returned
+          required: true
+          schema:
+            type: string
+          example: 100
+      responses:
+        200:
+          description: "Get sub entity list for the given entity Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entityapisubEntityListResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entityIdMissing400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /entities/v1/entities/entityTypesByLocationAndRole/{stateLocationId}:
+    get:
+      summary: List of entity type by location and role
+      description: |-
+        This API is used to get list of entity type by location and role
+          - The endpoint for **Entities subEntityListBasedOnRoleAndLocation** is `/entities/v1/entities/subEntityListBasedOnRoleAndLocation`
+          - It points to ml-core service - `/entities/v1/entities/subEntityListBasedOnRoleAndLocation`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      tags:
+       - Entities APIs
+      operationId: List of entity type by location and role
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: stateLocationId
+          required: true
+          description: Represents the state Location Id 
+          schema:
+            type: string
+          example: 236f5cff-c9af-4366-b0b6-253a1789766a
+        - name: role
+          in: query
+          description: Represents the role
+          schema:
+            type: string
+          example: HM
+      responses:
+        200:
+          description: "Entity types Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entityapientityTypesByLocationAndRoleResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entityTypesByLocationAndRole400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  
+  /cloud-services/v1/cloud-services/files/preSignedUrls:
+    post:
+      summary: Get signed URL
+      description: |-
+        This API is used to get signed URL
+          - The endpoint for **Files preSignedUrls** is `/cloud-services/v1/cloud-services/files/preSignedUrls`
+          - It points to ml-core service - `/cloud-services/v1/cloud-services/files/preSignedUrls`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      tags:
+       - Files APIs
+      operationId: files Get signed URL
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: >-
+            - The body payload comprises of the metadata of the user being created
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/fileapiFilepreSignedUrlsRequest"
+      responses:
+        200:
+          description: "Get signed URL Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilesGetSignedUrlResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /user-extension/v1/user-extension/programsByPlatformRoles:
+    get:
+      summary: List of Platform programs
+      description: |-
+        This API is used to get list of Platform programs
+          - The endpoint for **UserExtension programsByPlatformRoles** is `/user-extension/v1/user-extension/programsByPlatformRoles`
+          - It points to ml-core service - `/user-extension/v1/user-extension/programsByPlatformRoles`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      tags:
+       - User Extension APIs
+      operationId: programsByPlatformRoles
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: role
+          in: query
+          description: Represents the user role
+          schema:
+            type: string
+          example: PM,PGM
+      responses:
+        200:
+          description: "List of Platform programs Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userextensionapiProgramsByPlatformRoleslResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /user-extension/v1/user-extension/solutions/{programId}:
+    get:
+      summary:  List of solutions
+      description: |-
+        This API is used to get List of Platform solutions
+          - The endpoint for **UserExtension solutions** is `/user-extension/v1/user-extension/solutions`
+          - It points to ml-core service - `/user-extension/v1/user-extension/solutions`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      tags:
+       - User Extension APIs
+      operationId: solutions
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: role
+          in: query
+          description: Represents the role of user
+          schema:
+            type: string
+          example: PM,PGM
+        - name: programId
+          in: path
+          description: Represents the program Id
+          required: true
+          schema:
+            type: string
+          example: 5f9288fd5e25636ce6dcad66
+      responses:
+        200:
+          description: "List of Platform solutions Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userextensionapiSolutionsByPlatformRoleslResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/solutionIdMissing400Error'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+
+components:
+  schemas:
+    userapiUserProgramAndSolutionRequest:
+      title: Request Object
+      type: object
+      required:
+        - role
+        - state
+        - district
+        - school
+      properties:
+        role: 
+          description: 'Represent the role of user'
+          type: string
+          example: HM 
+        state:
+          description: 'Represent the state location id'
+          type: string
+          example: "236f5cff-c9af-4366-b0b6-253a1789766a"
+        district:
+          description: 'Represent the district location id'
+          type: string
+          example: "1dcbc362-ec4c-4559-9081-e0c2864c2931"
+        school:
+          description: 'Represent the school location id'
+          type: string
+          example: "c5726207-4f9f-4f45-91f1-3e9e8e84d824"
+    userapiProgramResponse:
+      title: Request Object
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                example: "5fc3dff14ea9b44f3340afe2"
+              externalId:
+                type: string
+                example: "SCOPE_OBSERVATION_TEST"
+              name:
+                type: string
+                example: "observation testing"
+              solutions:
+                type: string
+                example: 16
+        count:
+          type: string
+          example: 1
+        description:
+          type: string
+          example: View and participate in educational programs active in your location and designed for your role
+    500Error:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: oops something went wrong
+      example:
+        status: false
+        message: oops something went wrong
+    userSolutionsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                example: "5fc3dff14ea9b44f3340afe2"
+              type:
+                type: string
+                example: "observation"
+              externalId:
+                type: string
+                example: "SCOPE_OBSERVATION_TEST"
+              name:
+                type: string
+                example: "observation testing"
+              description:
+                type: string
+                example: "Testing observation"
+        count:
+          type: string
+          example: 1
+        programName:
+          type: string
+          example: TEST_SCOPE_PROGRAM
+        programId:
+          type: string
+          example: "5ff438b04698083dbfab7284"
+        description:
+          type: string
+          example: View and participate in educational programs active in your location and designed for your role
+    userSolutions400Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: programId is required field
+    entityapiTargetedSolutionsResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Solutions fetched successfully
+        status:
+          type: integer
+          example: 200
+        result:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  _id: 
+                    type: string
+                    example: 5f9288fd5e25636ce6dcad66
+                  name: 
+                    type: string
+                    example: obs1
+                  description: 
+                    type: string
+                    example: observation1
+                  solutionId: 
+                    type: string
+                    example: 5f9288fd5e25636ce6dcad65
+                  programId: 
+                    type: string
+                    example: 5d287326652f311044f41dbb
+            count:
+              type: string
+              example: 1
+    SolutionTypeMissing400Error:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: array
+          items:
+            type: object
+            properties:
+              location:
+                type: string
+                example: query
+              param:
+                type: string
+                example: type
+              msg:
+                type: string
+                example: required solution type
+    subEntityListBasedOnRoleAndLocationResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Entities child hierarchy path fetched successfully
+        status:
+          type: string
+          example: 200
+        result:
+          type: array
+          items:
+            type: string
+          example: ["district", "block", "cluster", "school"]
+    entityIdMissing400Error:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: array
+          items:
+            type: object
+            properties:
+              location:
+                type: string
+                example: path
+              param:
+                type: string
+                example: _id
+              msg:
+                type: string
+                example: required Entity id
+    entityapisubEntityListResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: List of entities fetched successfully
+        status:
+          type: string
+          example: 200
+        result:
+          type: object
+          properties:
+            data: 
+              type: array
+              items:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: 5db1dd3e8a8e070bedca6bef
+                  entityType:
+                    type: string
+                    example: school
+                  name:
+                    type: string
+                    example: Sachdeva Convent School, Street No.-5 Sangam Vihar (Wazirabad - Jagatpur Road), Delhi
+                  externalId:
+                    type: string
+                    example: 1207229
+                  addressLine1:
+                    type: string
+                    example: Street No.-5 Sangam Vihar (Wazirabad - Jagatpur Road), Delhi
+                  label:
+                    type: string
+                    example: Sachdeva Convent School, Street No.-5 Sangam Vihar (Wazirabad - Jagatpur Road), Delhi
+                  value:
+                    type: string
+                    example: 5db1dd3e8a8e070bedca6bef
+            count:
+              type: integer
+              example: 6005
+    entityapientityTypesByLocationAndRoleResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Entity types fetched successfully
+        status:
+          type: string
+          example: 200
+        result:
+          type: array
+          items:
+            type: string
+            example: ["district", "block", "cluster"]
+    entityTypesByLocationAndRole400Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: required location id
+    fileapiFilepreSignedUrlsRequest:
+      title: Request Object
+      type: object
+      properties:
+        request: 
+          type: object
+          properties: 
+            5f72f9998925ec7c60f79a91: 
+              type: object
+              properties: 
+                files: 
+                  type: array
+                  items: 
+                    type: string
+                    example: uploadFile.jpg
+        ref: 
+          type: string
+          example: survey
+    FilesGetSignedUrlResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: File upload urls generated successfully.
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: object
+          properties: 
+            5f72f9998925ec7c60f79a91: 
+              type: object
+              properties: 
+                files: 
+                  type: array
+                  items: 
+                    type: object
+                    properties: 
+                      file: 
+                        type: string
+                        example: uploadFile.jpg
+                      url: 
+                        type: string
+                        example: https://storage.googleapis.com/sl-dev-storage/01c04166-a65e-4e92-a87b-a9e4194e771d/5f72f9998925ec7c60f79a91/cd6763c9-a64a-4241-9907-4365970e8d11_uploadFile.jpg?GoogleAccessId=sl-dev-storage%40shikshalokam.iam.gserviceaccount.com&Expires=1605698490&Signature=ej6WHNOyx6EvUbAi81pDcYb3YqM7dkAhNT1Ktsf%2FTiRhwL%2ByhS89E1zRspIYlVOutlzoZXgRAl%2Fd0y%2BQcdryWYgfVAKAZmJVZtK3oVisLxhkFCKYeHAbzZ%2FadkCXdU3e1AVJGyRvKoN04Yr84%2BIa%2F1ApszOYDmVT%2Fn%2FOi4JSScbvzhe82bSe5xEr%2FPDwDq48%2FKgUhAc0faP%2FlAA2Wf7V1Ifuxc3quw9OpzvND8CKuugXZ%2FDZ6mhF0O80IXwP%2BFJOn4u9ydHqwXM3zDRDOO0WMh6VBLuvRFBRwJsrJG3v5zZMw0r5cYOIvkW4Tqo%2FefpXUDsvCVBTlZ9zBEdwx2Jshw%3D%3D
+                      payload: 
+                        type: object
+                        properties: 
+                          sourcePath: 
+                            type: string
+                            example: 01c04166-a65e-4e92-a87b-a9e4194e771d/5f72f9998925ec7c60f79a91/cd6763c9-a64a-4241-9907-4365970e8d11_uploadFile.jpg
+    userapiTargetedEntityResponse:
+      type: object
+      properties: 
+        message: 
+          type: string
+          example: Targeted entity fetched successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: object
+          properties: 
+            _id: 
+              type: string
+              example: 5fd098e2e049735a86b748ad
+            entityType: 
+              type: string
+              example: district
+            entityName: 
+              type: string
+              example: VIZIANAGARAM
+    solutionIdMissing400Error:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: array
+          items:
+            type: object
+            properties:
+              location:
+                type: string
+                example: path
+              param:
+                type: string
+                example: _id
+              msg:
+                type: string
+                example: required solution id
+    userextensionapiProgramsByPlatformRoleslResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Mapped user program fetched successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              _id: 
+                type: string
+                example: 5f34e44681871d939950bca6
+              externalId: 
+                type: string
+                example: TN-Program-1597301830708
+              description: 
+                type: string
+                example: TN01-Mantra4Change-APSWREIS School Leader Feedback
+              name: 
+                type: string
+                example: TN-Program
+              role”: 
+                type: string
+                example: PM
+    userextensionapiSolutionsByPlatformRoleslResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Mapped user program fetched successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              _id: 
+                type: string
+                example: 5f34e44681871d939950bca6
+              externalId: 
+                type: string
+                example: TN-Program-1597301830708
+              description: 
+                type: string
+                example: TN01-Mantra4Change-APSWREIS School Leader Feedback
+              name: 
+                type: string
+                example: TN-Program
+              type: 
+                type: string
+                example: observation
+              subType: 
+                type: string
+                example: school
+              isRubricDriven: 
+                type: boolean
+    
+  
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+      
