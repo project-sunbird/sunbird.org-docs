@@ -1,0 +1,829 @@
+openapi: 3.0.1
+info:
+  title: ML-Project Service API(s)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  description: >-
+    - The ML-Project Service Apis perform operations related to  create and manage user project, template etc 
+    
+    - The URL for ML-Project Service API(s) is `api`
+
+    - <b>Note:</b> These resources can be used in other services 
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://staging.open-sunbird.org/api
+  variables: {}
+paths: 
+  /userProjects/v1/userProjects/details/{projectId}:
+    get:
+      tags:
+      - userProjects APIs
+      summary: Project Details.
+      description: |-
+        This API is used to get the Project Details.
+          - The endpoint for **UserProjects details** is `/userProjects/v1/userProjects/details/`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+
+      operationId: details
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: projectId
+          in: path
+          description: Represents the project Id
+          required: true
+          schema:
+            type: string
+          example: 5f731631e8d7cd3b88ac0659
+      responses:
+        200:
+          description: "Project Details Successful Response"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/userprojectsapiDetailsResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorProjectIdMissing'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /userProjects/v1/userProjects/add:
+    post:
+      tags:
+      - userProjects APIs
+      summary: Add project.
+      description: |-
+        This API is used to create project.
+          - The endpoint for **UserProjects add** is `/userProjects/v1/userProjects/add`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: add
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body is the representation of the resource object for creating
+          project (an array of parameters which describes the project)
+
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userprojectsapiAddRequestBody"
+      responses:
+        200:
+          description: "Add project Successful Response"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/userprojectsapiAddResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorTitleMissing'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  
+  /reports/v1/reports/entity/{_id}:
+    get:
+      tags:
+      - Reports APIs
+      summary: Entity Report.
+      description: |-
+        This API is used to get Entity Report.
+          - The endpoint for **Reports entity** is `/reports/v1/reports/entity`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: entity
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: _id
+          in: path
+          description: Represents the entity Id
+          required: true
+          schema:
+            type: string
+          example: 5f731631e8d7cd3b88ac0659
+        - name: requestPdf
+          in: query
+          description: This key is used for identity the pdf report is requested or not
+          required: true
+          schema:
+            type: boolean
+          example: false
+        - name: reportType
+          in: query
+          description: |-
+            Reports type represnts the type of report for example 
+              - 0 represents the weekly report
+              - 1 represents the monthly report
+              - 2 represents the quarterly report
+          required: true
+          schema:
+            type: string
+          example: 1
+      responses:
+        200:
+          description: "Entity Report Successful Response"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/reportsapiEntityResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorProjectIdMissing'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /reports/v1/reports/detailView/{_id}:
+    get:
+      tags:
+      - Reports APIs
+      summary: Get detail view report.
+      description: |-
+        This API is used to get detail view report.
+          - The endpoint for **Reports entity** is `/reports/v1/reports/detailView`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: detailView
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: _id
+          in: path
+          description: Represents the entity Id
+          required: true
+          schema:
+            type: string
+          example: 5f731631e8d7cd3b88ac0659
+        - name: requestPdf
+          in: query
+          description: This key is used for identity the pdf report is requested or not
+          required: true
+          schema:
+            type: boolean
+          example: false
+        - name: reportType
+          in: query
+          description: |-
+            Reports type represnts the type of report for example 
+              - 0 represents the weekly report
+              - 1 represents the monthly report
+              - 2 represents the quarterly report
+          required: true
+          schema:
+            type: string
+          example: 1
+        - name: programId
+          in: query
+          description: Represents the program Id
+          required: true
+          schema:
+            type: string
+          example: 5f731631e8d7cd3b88ac0659
+      responses:
+        200:
+          description: "detail view report Successful Response"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/reportsapiDetailViewResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorProjectIdMissing'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+    
+    500Error:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: oops something went wrong
+      example:
+        status: false
+        message: oops something went wrong
+    userprojectsapiDetailsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: 200
+        message:
+          type: string
+          example: Successfully fetched project details
+        result:
+          type: object
+          properties: 
+            _id: 
+              type: string
+              example: 5f97d2f6bf3a3b1c0116c80a
+            status: 
+              type: string
+              example: notStarted
+            isDeleted: 
+              type: boolean
+            categories: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  _id: 
+                    type: string
+                    example: 5f102331665bee6a740714e8
+                  name: 
+                    type: string
+                    example: Teachers
+                  externalId: 
+                    type: string
+                    example: teachers
+            tasks: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  _id: 
+                    type: string
+                    example: 289d9558-b98f-41cf-81d3-92486f114a49
+                  name: 
+                    type: string
+                    example: Task 1
+                  description: 
+                    type: string
+                    example: Task 1 description
+                  status: 
+                    type: string
+                    example: notStarted
+                  isACustomTask: 
+                    type: boolean
+                  startDate: 
+                    type: string
+                    example: 2020-09-29T09:08:41.667Z
+                  endDate: 
+                    type: string
+                    example: 2020-09-29T09:08:41.667Z
+                  lastModifiedAt: 
+                    type: string
+                    example: 2020-09-29T09:08:41.667Z
+                  type: 
+                    type: string
+                    example: single
+                  isDeleted: 
+                    type: boolean
+                  attachments: 
+                    type: array
+                    items: 
+                      type: object
+                      properties: 
+                        name: 
+                          type: string
+                          example: download(2).jpeg
+                        type: 
+                          type: string
+                          example: image/jpeg
+                        sourcePath: 
+                          type: string
+                          example: projectId/userId/imageName
+                  remarks: 
+                    type: string
+                    example: Tasks completed
+                  assignee: 
+                    type: string
+                    example: Aman
+                  children: 
+                    type: array
+                    items: 
+                      type: object
+                      properties: 
+                        _id: 
+                          type: string
+                          example: 289d9558-b98f-41cf-81d3-92486f114a50
+                        name: 
+                          type: string
+                          example: Task 2
+                        description: 
+                          type: string
+                          example: Task 2 description
+                        status: 
+                          type: string
+                          example: notStarted
+                        children: 
+                          type: array
+                          items:
+                            type: string
+                          example: []
+                        isACustomTask: 
+                          type: boolean
+                        startDate: 
+                          type: string
+                          example: 2020-09-29T09:08:41.667Z
+                        endDate: 
+                          type: string
+                          example: 2020-09-29T09:08:41.667Z
+                        lastModifiedAt: 
+                          type: string
+                          example: 2020-09-29T09:08:41.667Z
+                        type: 
+                          type: string
+                          example: single
+                        isDeleted: 
+                          type: boolean
+                        externalId: 
+                          type: string
+                          example: task 2
+                        isDeletable: 
+                          type: boolean
+                        createdAt: 
+                          type: string
+                          example: 2020-10-28T05:58:24.907Z
+                        updatedAt: 
+                          type: string
+                          example: 2020-10-28T05:58:24.907Z
+                        isImportedFromLibrary: 
+                          type: boolean
+                  externalId: 
+                    type: string
+                    example: task 1
+                  isDeletable: 
+                    type: boolean
+                  createdAt: 
+                    type: string
+                    example: 2020-10-28T05:58:24.907Z
+                  updatedAt: 
+                    type: string
+                    example: 2020-10-28T05:58:24.907Z
+                  isImportedFromLibrary: 
+                    type: boolean 
+            resources: 
+              type: array
+              items:
+                type: string
+              example: []
+            deleted: 
+              type: boolean
+            lastDownloadedAt: 
+              type: string
+              example: 2020-09-29T09:08:41.667Z
+            __v: 
+              type: number
+              example: 0
+            description: 
+              type: string
+              example: Project 1 description
+    400ErrorProjectIdMissing:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: array
+          items:
+            type: object
+            properties:
+              location:
+                type: string
+                example: path
+              param:
+                type: string
+                example: projectId
+              msg:
+                type: string
+                example: required project Id
+    reportsapiEntityResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Reports generated successfully.
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: object
+          properties: 
+            data_available: 
+              type: boolean
+            data: 
+              type: object
+              properties: 
+                categories: 
+                  type: object
+                  properties: 
+                    total: 
+                      type: integer
+                      format: int32
+                      example: 2
+                    Community: 
+                      type: integer
+                      format: int32
+                      example: 2
+                    student: 
+                      type: integer
+                      format: int32
+                      example: 1
+                tasks: 
+                  type: object
+                  properties: 
+                    total: 
+                      type: integer
+                      format: int32
+                      example: 18
+                    completed: 
+                      type: integer
+                      format: int32
+                      example: 3
+                    notStarted: 
+                      type: integer
+                      format: int32
+                      example: 10
+                    overdue: 
+                      type: integer
+                      format: int32
+                      example: 1
+                    onGoing: 
+                      type: integer
+                      format: int32
+                      example: 5
+                projects: 
+                  type: object
+                  properties: 
+                    total: 
+                      type: integer
+                      format: int32
+                      example: 1
+                    completed: 
+                      type: integer
+                      format: int32
+                      example: 0
+                    notStarted: 
+                      type: integer
+                      format: int32
+                      example: 0
+                    overdue: 
+                      type: integer
+                      format: int32
+                      example: 0
+                    onGoing: 
+                      type: integer
+                      format: int32
+                      example: 1
+    reportsapiDetailViewResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Chart report data generated succesfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              title: 
+                type: object
+                properties: 
+                  text: 
+                    type: string
+                    example: title 1 oct
+              series: 
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    data: 
+                      type: array
+                      items: 
+                        type: object
+                        properties: 
+                          name: 
+                            type: string
+                            example: task 1
+                          id: 
+                            type: string
+                            example: 5f7ae023252cc522665b60d6
+                          color: 
+                            type: string
+                            example: 
+                          start: 
+                            type: integer
+                            format: int64
+                            example: 1605100782442
+                          end: 
+                            type: integer
+                            format: int64
+                            example: 1601888291000
+              xAxis: 
+                type: object
+                properties: 
+                  min: 
+                    type: integer
+                    format: int64
+                    example: 1605100782443
+                  max: 
+                    type: integer
+                    format: int64
+                    example: 1601888291000
+    
+    userprojectsapiAddRequestBody:
+      title: Request Object
+      type: object
+      properties:
+        title: 
+          type: string
+          example: Project 1
+        description: 
+          type: string
+          example: Project 1 description
+        tasks: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              _id: 
+                type: string
+                example: 289d9558-b98f-41cf-81d3-92486f114a49
+              name: 
+                type: string
+                example: Task 1
+              description: 
+                type: string
+                example: Task 1 description
+              status: 
+                type: string
+                example: notStarted
+              isACustomTask: 
+                type: boolean
+              startDate: 
+                type: string
+                example: 2020-09-29T09:08:41.667Z
+              endDate: 
+                type: string
+                example: 2020-09-29T09:08:41.667Z
+              lastModifiedAt: 
+                type: string
+                example: 2020-09-29T09:08:41.667Z
+              type: 
+                type: string
+                example: single
+              isDeleted: 
+                type: boolean
+              attachments: 
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    name: 
+                      type: string
+                      example: download(2).jpeg
+                    type: 
+                      type: string
+                      example: image/jpeg
+                    sourcePath: 
+                      type: string
+                      example: projectId/userId/imageName
+              remarks: 
+                type: string
+                example: Tasks completed
+              assignee: 
+                type: string
+                example: Aman
+              children: 
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    _id: 
+                      type: string
+                      example: 289d9558-b98f-41cf-81d3-92486f114a50
+                    name: 
+                      type: string
+                      example: Task 2
+                    description: 
+                      type: string
+                      example: Task 2 description
+                    status: 
+                      type: string
+                      example: notStarted
+                    children: 
+                      type: array
+                      items:
+                        type: string
+                      example: []
+                    isACustomTask: 
+                      type: boolean
+                      example: false
+                    startDate: 
+                      type: string
+                      example: 2020-09-29T09:08:41.667Z
+                    endDate: 
+                      type: string
+                      example: 2020-09-29T09:08:41.667Z
+                    lastModifiedAt: 
+                      type: string
+                      example: 2020-09-29T09:08:41.667Z
+                    type: 
+                      type: string
+                      example: single/multiple
+                    isDeleted: 
+                      type: boolean
+                      example: false
+        programId: 
+          type: string
+          example: ""
+        programName: 
+          type: string
+          example: New Project Program
+        entityId: 
+          type: string
+          example: 5beaa888af0065f0e0a10515
+        categories: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              value: 
+                type: string
+                example: 5f102331665bee6a740714e8
+              label: 
+                type: string
+                example: teacher
+        status: 
+          type: string
+          example: notStarted/inProgress/completed
+        lastDownloadedAt: 
+          type: string
+          example: 2020-09-29T09:08:41.667Z
+        payload: 
+          type: object
+          properties: 
+            _id: 
+              type: string
+              example: 289d9558-b98f-41cf-81d3-92486f114a51
+        profileInformation: 
+          type: object
+          properties: 
+            role: 
+              type: string
+              example: HM
+            state: 
+              type: string
+              example: 236f5cff-c9af-4366-b0b6-253a1789766a
+            district: 
+              type: string
+              example: 1dcbc362-ec4c-4559-9081-e0c2864c2931
+            school: 
+              type: string
+              example: c5726207-4f9f-4f45-91f1-3e9e8e84d824
+    400ErrorTitleMissing:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: array
+          items:
+            type: object
+            properties:
+              location:
+                type: string
+                example: body
+              param:
+                type: string
+                example: title
+              msg:
+                type: string
+                example: required project title
+    userprojectsapiAddResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Project created successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: object
+          properties: 
+            programId: 
+              type: string
+              example: 5f102331665bee6a740714e8
+            projectId:
+              type: string
+              example: 5fb669f223575a2f0cef3b33
+    
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header 
