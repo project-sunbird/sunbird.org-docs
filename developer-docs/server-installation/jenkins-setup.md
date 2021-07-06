@@ -14,10 +14,10 @@ Jenkins is used to build, deploy and setup the infrastructure for Sunbird. Almos
 - SSH to the Jenkins server and enter the following commands -
 
      ```bash
-    - git clone https://github.com/project-sunbird/sunbird-devops.git
-    - cd sunbird-devops && git checkout tags/release-3.9.0_RC18 -b release-3.9.0_RC18
-    - cd deploy/jenkins
-    - sudo bash jenkins-server-setup.sh
+     git clone https://github.com/project-sunbird/sunbird-devops.git
+     cd sunbird-devops && git checkout tags/release-3.9.0_RC18 -b release-3.9.0_RC18
+     cd deploy/jenkins
+     sudo bash jenkins-server-setup.sh
      ```
 
 - Open Jenkins UI in a browser by visiting **JENKINS_IP:8080**
