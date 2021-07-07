@@ -96,7 +96,7 @@ Jenkins is used to build, deploy and setup the infrastructure for Sunbird. Almos
     mkdir -p /var/lib/jenkins/secrets
     cd /var/lib/jenkins/secrets
     touch deployer_ssh_key vault-pass k8s.yaml
-    chmod 400 deployer_ssh_key vault-pass k8s.yaml
+    chmod 600 deployer_ssh_key vault-pass k8s.yaml
     ```
 
 - Copy the contents of your server's private key into `/var/lib/jenkins/secrets/deployer_ssh_key`  
