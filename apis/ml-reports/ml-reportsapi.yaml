@@ -1,0 +1,469 @@
+openapi: 3.0.1
+info:
+  title: ML-Report Service API(s)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  description: >-
+    - The ML-Report Service Apis generating app reports and pdf reports etc 
+    
+    - The URL for ML-Report service API(s) is `ml-report/api`
+
+    - <b>Note:</b> These resources can be used in other services 
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://staging.open-sunbird.org/ml-report/api
+  variables: {}
+paths: 
+  /observations/v1/observations/listAllEvidences:
+    post:
+      tags:
+      - Observations API's
+      summary: List all evidences of submission 
+      description: |-
+        This API is used to get all the evidences of a question.
+          - The endpoint for **Observations listAllEvidences** is `/observations/v1/observations/listAllEvidences`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: List all evidences of a question
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body is the representation of the resource object for searching
+          project
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/observationapiListAllEvidenceRequest"
+      responses:
+        200:
+          description: "Survey Submission Report"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationapiListAllEvidencesResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationapiListAllEvidence400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  /observations/v1/observations/submissionsCount:
+    post:
+      tags:
+      - Observations API's
+      summary: Number of submissions for the entity / observation
+      description: |-
+        This API is used to get observation submissions count for the entity/ observation
+          - The endpoint for **Observations submissionsCount** is `/observations/v1/observations/submissionsCount`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+          
+      operationId: Get observation submission count
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description:  >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body payload comprises of the entityId and observationId or only observationId
+    
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/observationsapiSubmissionCountRequest"
+      responses:
+        200:
+          description: "Get number of submission count for the given entityId and observationId"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationsapiSubmissionCountResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationapiSubmissionCount400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /surveys/v1/surveys/listAllEvidences:
+    post:
+      tags:
+      - Survey API's
+      summary: List all evidences of question
+      description: |-
+        This API is used to get all the evidences of a question
+          - The endpoint for **Surveys listAllEvidences** is `/surveys/v1/surveys/listAllEvidences`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+          
+      operationId: survey 
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body payload comprises of the entityId and entityType
+             
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/surveyapiListAllEvidenceRequest"
+      responses:
+        200:
+          description: "Survey Submission Report"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationapiListAllEvidencesResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/surveyapiListAllEvidence400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  /surveys/v1/surveys/getAllResponsesOfQuestion:
+    post:
+      tags:
+      - Survey API's
+      summary: Get all responses for the given questionId
+      description: |-
+        This API is used to get all the response of a question.
+          - The endpoint for **Surveys getAllResponsesOfQuestion** is `/surveys/v1/surveys/getAllResponsesOfQuestion`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+       
+      operationId: Get all responses for the given questionId
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body payload comprises of the solutionId, questionExternalId and completedDate
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/surveyapiGetAllResponsesOfQuestionRequest"
+      responses:
+        200:
+          description: "Get All Responses Of a Question"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/surveyapiGetAllResponsesOfQuestionResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/surveyapiGetAllResponsesOfQuestion400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+
+components:
+  schemas:
+   
+    500Error:
+      description: 500 error response
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: Internal Server Error
+    observationapiListAllEvidenceRequest:
+      description: List All Evidence Request Object
+      type: object
+      properties:
+        submissionId:
+          type: string
+          description: Represents the submission Id
+          example: 5efc83b545cfa47ab52d7608
+        entityId:
+          type: string
+          description: Represents the entity Id
+          example: 5ffd83b545cfa47ab52d7609
+        observationId:
+          type: string
+          description: Represents the observation Id
+          example: 5fdb83b545cfa47ab52d7601
+        questionId:
+          type: string
+          description: Represents the question Id
+          example: SA5015-1608719629286
+    observationapiListAllEvidencesResponse:
+      description: List All Evidence Response
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+        data:
+          type: array
+          items: 
+            type: object
+            properties:
+              images:
+                type: array
+                items:
+                  $ref: '#/components/schemas/observationapiEvidenceArray'
+              videos:
+                type: array
+                items:
+                  $ref: '#/components/schemas/observationapiEvidenceArray'
+              documents:
+                type: array
+                items:
+                  $ref: '#/components/schemas/observationapiEvidenceArray'
+              remars:
+                type: array
+                items:
+                  type: string
+                example: [""]
+    observationapiListAllEvidence400Error:
+      description: List All Evidence 400 Error Response
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: questionId and submissionId or entityId and observationId or observationId are required fields
+    observationapiEvidenceArray:
+      type: object
+      properties:
+        url:
+          type: string
+          example: 5f6b0f8626e1b91d91c44bad/tmp_2020-8-22-13850488768898328338.jpg
+        extension:
+          type: string
+          example: jpg
+    surveyapiListAllEvidenceRequest:
+      description : Survey List all evidence request
+      type: object
+      properties:
+        solutionId:
+          description: Represents the solution Id
+          type: string
+          example: 5ffd83b545cfa47ab52d760a
+        submissionId:
+          description: Represents the submission Id
+          type: string
+          example: 5ffd83b545cfa47ab52d760a
+        questionId:
+          description: Represents the question Id
+          type: string
+          example: SA5015-1608719629286
+    surveyapiListAllEvidence400Error:
+      description : Survey List all evidence 400 error response
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: submissionId is a required field
+    surveyapiGetAllResponsesOfQuestionRequest:
+      description : Survey Get All Responses Of Question Request
+      type: object
+      required:
+        - solutionId
+        - questionExternalId
+      properties:
+        solutionId:
+          description: Represents the solution Id
+          type: string
+          example: 5ffd83b545cfa47ab52d760a
+        questionExternalId:
+          description: Represents the question External Id
+          type: string
+          example: SA5015-1608719629286
+        completedDate:
+          type: string
+          description: Represents the completed date
+          example: "2015-07-28T01:00:00.000Z"
+          
+    surveyapiGetAllResponsesOfQuestionResponse:
+      description : Survey Get All Responses Of Question Response
+      type: object
+      properties:
+        question: 
+          type: string
+          example: How many children are there in class
+        answers:
+          type: array
+          items:
+             $ref: ''
+          example: [9,10]
+        completedDate:
+          type: string
+          example: "2015-07-28T01:00:00.000Z"
+          
+    surveyapiGetAllResponsesOfQuestion400Error:
+      description : Survey Get All Responses Of Question 400 Error Response
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: solutionId, questionExternalId and completedDate are required fields
+    observationsapiSubmissionCountRequest:
+      description: Submission Count Request Object
+      type: object
+      properties:
+        entityId:
+          type: string
+          description: Represents the entity Id
+          example: 5efc83b545cfa47ab52d7608
+        observationId:
+          type: string
+          description: Represents the observation Id
+          example: 5cac83b545cfa47ab52d7789
+    observationsapiSubmissionCountResponse:
+      description: Submission Count Response
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            noOfSubmissions:
+              type: integer
+              example: 4
+    observationapiSubmissionCount400Error:
+      description: Submission Count 400 Response
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: entityId and observation or only observationId are required fields.
+  
+  
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header    
+      
