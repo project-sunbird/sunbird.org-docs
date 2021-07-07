@@ -21,7 +21,6 @@ paths:
       description: |-
         This API is used to get list of targeted user programs
           - The endpoint for **User Programs** is `/users/v1/users/program`
-          - It points to ml-core service - `/users/v1/users/program`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       tags:
@@ -96,7 +95,6 @@ paths:
       description: |-
         This API is used to get list of targeted user solutions
           - The endpoint for **User Programs** is `/users/v1/users/solutions`
-          - It points to ml-core service - `/users/v1/users/solutions`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       tags:
@@ -168,7 +166,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/userSolutionsResponse"
+                $ref: "#/components/schemas/userapiSolutionsResponse"
         500:
           description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
           content:
@@ -180,7 +178,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/userSolutions400Error'
+                $ref: '#/components/schemas/userapiSolutions400Error'
       deprecated: false
       security:
         - bearer: []
@@ -190,7 +188,6 @@ paths:
       description: >-
         This API is used to get list of targeted entity
           - The endpoint for **User targetedEntity** is `/users/v1/users/targetedEntity`
-          - It points to ml-core service - `/users/v1/users/targetedEntity`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       tags:
@@ -266,7 +263,6 @@ paths:
       description: |-
         This API is used to get List of assigned solutions and targetted ones
           - The endpoint for **Solution targetedSolutions** is `/solutions/v1/solutions/targetedSolutions`
-          - It points to ml-core service - `/solutions/v1/solutions/targetedSolutions`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       tags:
@@ -362,7 +358,6 @@ paths:
       description: |-
         This API is used to get list of sub entity based on role and location.
           - The endpoint for **Entities subEntityListBasedOnRoleAndLocation** is `/entities/v1/entities/subEntityListBasedOnRoleAndLocation`
-          - It points to ml-core service - `/entities/v1/entities/subEntityListBasedOnRoleAndLocation`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       tags:
@@ -404,7 +399,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/subEntityListBasedOnRoleAndLocationResponse'
+                $ref: '#/components/schemas/entityapisubEntityListBasedOnRoleAndLocationResponse'
         500:
           description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
           content:
@@ -426,7 +421,6 @@ paths:
       description: |-
         This API is used to get sub entity list for the given entity
           - The endpoint for **Entities subEntityList** is `/entities/v1/entities/subEntityList`
-          - It points to ml-core service - `/entities/v1/entities/subEntityList`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       tags:
@@ -510,7 +504,6 @@ paths:
       description: |-
         This API is used to get list of entity type by location and role
           - The endpoint for **Entities subEntityListBasedOnRoleAndLocation** is `/entities/v1/entities/subEntityListBasedOnRoleAndLocation`
-          - It points to ml-core service - `/entities/v1/entities/subEntityListBasedOnRoleAndLocation`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       tags:
@@ -563,7 +556,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/entityTypesByLocationAndRole400Error'
+                $ref: '#/components/schemas/entityapiEntityTypesByLocationAndRole400Error'
       deprecated: false
       security:
         - bearer: []
@@ -574,7 +567,6 @@ paths:
       description: |-
         This API is used to get signed URL
           - The endpoint for **Files preSignedUrls** is `/cloud-services/v1/cloud-services/files/preSignedUrls`
-          - It points to ml-core service - `/cloud-services/v1/cloud-services/files/preSignedUrls`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       tags:
@@ -613,7 +605,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FilesGetSignedUrlResponse'
+                $ref: '#/components/schemas/fileapiFilesGetSignedUrlResponse'
         500:
           description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
           content:
@@ -629,7 +621,6 @@ paths:
       description: |-
         This API is used to get list of Platform programs
           - The endpoint for **UserExtension programsByPlatformRoles** is `/user-extension/v1/user-extension/programsByPlatformRoles`
-          - It points to ml-core service - `/user-extension/v1/user-extension/programsByPlatformRoles`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       tags:
@@ -679,7 +670,6 @@ paths:
       description: |-
         This API is used to get List of Platform solutions
           - The endpoint for **UserExtension solutions** is `/user-extension/v1/user-extension/solutions`
-          - It points to ml-core service - `/user-extension/v1/user-extension/solutions`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       tags:
@@ -740,7 +730,7 @@ paths:
 components:
   schemas:
     userapiUserProgramAndSolutionRequest:
-      title: Request Object
+      description: User program and solution request
       type: object
       required:
         - role
@@ -765,7 +755,7 @@ components:
           type: string
           example: "c5726207-4f9f-4f45-91f1-3e9e8e84d824"
     userapiProgramResponse:
-      title: Request Object
+      description: User program response
       type: object
       properties:
         data:
@@ -792,6 +782,7 @@ components:
           type: string
           example: View and participate in educational programs active in your location and designed for your role
     500Error:
+      description: 500 error response
       type: object
       properties:
         status:
@@ -803,7 +794,8 @@ components:
       example:
         status: false
         message: oops something went wrong
-    userSolutionsResponse:
+    userapiSolutionsResponse:
+      description: User solutions response
       type: object
       properties:
         data:
@@ -838,7 +830,8 @@ components:
         description:
           type: string
           example: View and participate in educational programs active in your location and designed for your role
-    userSolutions400Error:
+    userapiSolutions400Error:
+      description: User solutions 400 error response
       type: object
       properties:
         result:
@@ -848,6 +841,7 @@ components:
           type: string
           example: programId is required field
     entityapiTargetedSolutionsResponse:
+      description: Targeted solutions response
       type: object
       properties:
         message: 
@@ -883,6 +877,7 @@ components:
               type: string
               example: 1
     SolutionTypeMissing400Error:
+      description: solution type missing 400 error response
       type: object
       properties:
         status:
@@ -902,7 +897,8 @@ components:
               msg:
                 type: string
                 example: required solution type
-    subEntityListBasedOnRoleAndLocationResponse:
+    entityapisubEntityListBasedOnRoleAndLocationResponse:
+      description: Sub entity list based on role and location response
       type: object
       properties:
         message:
@@ -917,6 +913,7 @@ components:
             type: string
           example: ["district", "block", "cluster", "school"]
     entityIdMissing400Error:
+      description: Entity Id missing 400 response
       type: object
       properties:
         status:
@@ -937,6 +934,7 @@ components:
                 type: string
                 example: required Entity id
     entityapisubEntityListResponse:
+      description: Sub entity list response
       type: object
       properties:
         message:
@@ -978,6 +976,7 @@ components:
               type: integer
               example: 6005
     entityapientityTypesByLocationAndRoleResponse:
+      description: Entity type by role and location response
       type: object
       properties:
         message: 
@@ -991,7 +990,8 @@ components:
           items:
             type: string
             example: ["district", "block", "cluster"]
-    entityTypesByLocationAndRole400Error:
+    entityapiEntityTypesByLocationAndRole400Error:
+      description: Entity type by role and location 400 response
       type: object
       properties:
         result:
@@ -1001,7 +1001,7 @@ components:
           type: string
           example: required location id
     fileapiFilepreSignedUrlsRequest:
-      title: Request Object
+      description: File presigned url Request Object
       type: object
       properties:
         request: 
@@ -1011,6 +1011,7 @@ components:
               type: object
               properties: 
                 files: 
+                  description: List of file name
                   type: array
                   items: 
                     type: string
@@ -1018,7 +1019,8 @@ components:
         ref: 
           type: string
           example: survey
-    FilesGetSignedUrlResponse:
+    fileapiFilesGetSignedUrlResponse:
+      description: File presigned url Response
       type: object
       properties:
         message: 
@@ -1052,6 +1054,7 @@ components:
                             type: string
                             example: 01c04166-a65e-4e92-a87b-a9e4194e771d/5f72f9998925ec7c60f79a91/cd6763c9-a64a-4241-9907-4365970e8d11_uploadFile.jpg
     userapiTargetedEntityResponse:
+      description: User targeted entity response
       type: object
       properties: 
         message: 
@@ -1074,6 +1077,7 @@ components:
               type: string
               example: VIZIANAGARAM
     solutionIdMissing400Error:
+      description: Solution Id missing 400 response
       type: object
       properties:
         status:
@@ -1094,6 +1098,7 @@ components:
                 type: string
                 example: required solution id
     userextensionapiProgramsByPlatformRoleslResponse:
+      description: Program by platform role response
       type: object
       properties:
         message: 
@@ -1124,6 +1129,7 @@ components:
                 type: string
                 example: PM
     userextensionapiSolutionsByPlatformRoleslResponse:
+      description: Solution by platform role response
       type: object
       properties:
         message: 
