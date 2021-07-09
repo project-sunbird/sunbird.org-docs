@@ -138,3 +138,22 @@ ansible
   </tr>
   <tr></tr>
 </table>
+
+### Updating ansible inventory
+
+- cd in to the private inventory folder 
+  ```
+  cd /path/to/private-repo/
+  cd ansible/inventory/dev
+  ```
+- Change the inventory ips 
+  ```
+  # If you used auzre-provision.yaml for creating the infra, you'll have the information in 
+  # sunbird-devops/deploy/azure-resources.txt
+  
+  sed -i 's/10.1.4.4/DP     vm IP/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,hosts} # DP
+  sed -i 's/10.1.4.5/DB     vm IP/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,hosts} # DB
+  sed -i 's/10.1.4.6/KP     vm IP/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,hosts} # KP
+  sed -i 's/10.1.4.7/Yarn   vm IP/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,hosts} # YARN
+  sed -i 's/10.1.4.8/Others vm IP/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,hosts} # OTHERS
+  ```
