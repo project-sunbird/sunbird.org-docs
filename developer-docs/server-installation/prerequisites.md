@@ -24,6 +24,8 @@ To successfully complete Sunbird installation, you need to have:
 
 Before you start the installation process, ensure that you have the required infrastructure mentioned below. It is the bare minimum for a full fledged Sunbird setup. Every component in Sunbird can scale horizontally / vertically by adding additional resources.
 
+> Note: If you're using azure as your cloud provider, you can use the [ansible script](https://github.com/project-sunbird/sunbird-devops/blob/release-3.9.0/deploy/azure-provision.yaml) to create required infrastructure.
+
 |Application|  Server           |Count|
 |-----------|-------------------|-----|  
 |Jenkins    | 4core 16G 250G HDD | 1 |
