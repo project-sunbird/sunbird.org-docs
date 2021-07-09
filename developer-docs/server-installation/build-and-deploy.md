@@ -13,6 +13,8 @@ To install Sunbird `release-3.9.0`, we will need to run many Jenkins jobs and a 
 
 ### Installing Sunbird
 
+> Note: If you used azure-provisioin.yaml for infra provision in azure, you can skip to the `Code Builds` section.
+
 #### Create Plugin Containers / Folder Structure
 
 - We will create few folders in azure for storing sunbird plugins
