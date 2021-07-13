@@ -24,6 +24,8 @@ Jenkins is used to build, deploy and setup the infrastructure for Sunbird. Almos
 
 - Enter the initial password and follow the on-screen instructions. Choose **Install suggested plugin** and create an admin user
 
+- Go to **http://JENKINS_IP:8080/pluginManager/available** -> Search for 'Configuration as Code Plugin' and install the plugin without restart.
+
 > Don't run the following until above steps finished
 
 - Run the below commands on Jenkins server -
