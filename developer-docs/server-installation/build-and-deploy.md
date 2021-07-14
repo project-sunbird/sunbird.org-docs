@@ -229,7 +229,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/Kubernetes/Logging|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Choose one **chartname** each time - `fluent-bit`, `kibana`, `oauth2-proxy`. Deploys Fluent Bit, Kibana and Oauth2 Proxy respectively. Kibana can accessed via DOMAIN/dashboard/|
 |Deploy/Kubernetes/nginx-public-ingress|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys the nginx web server. Now you can open visit your domain|
 |Deploy/Kubernetes/Nodebb|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys NodeBB service. Now read the comment mentioned in **Core/Secrets.yml** against the variable `discussionsmw_nodebb_authorization_token`|
-|Deploy/Plugins/DiscussionsMW|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys DiscussionsMW service|
+|Deploy/Kubernetes/DiscussionsMW|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys DiscussionsMW service|
 |Deploy/Plugins/CollectionEditor|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys CollectionEditor files to Azure blob|
 |Deploy/Plugins/ContentEditor|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys ContentEditor files to Azure blob|
 |Deploy/Plugins/ContentPlayer|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys ContentPlayer files to Azure blob|
