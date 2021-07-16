@@ -168,6 +168,7 @@ ansible
 - Change common variables used in all environment. 
   Note: Keep in mind that this will only update subset of variables. So please go through the files prior starting installation.
   ```
+  sed -i 's/change.azure.storage.account.name/Storage account name for azure blob/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,secrets.yml}
   sed -i 's/change.azure.storage.account.key/Storage account key for azure blob/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,secrets.yml}
   sed -i 's/change.azure.storage.account.sas/Storage account sas for azure blob/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,secrets.yml}
   sed -i 's/change.docker.url/docker registry url/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,secrets.yml}
