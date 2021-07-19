@@ -1,0 +1,377 @@
+openapi: 3.0.1
+info:
+  title: Telemetry API
+  description: The Telemetry API comprises of one API. The POST API is used to sync the telemetry events data to pipeline system
+
+    - The endpoint for Device API is `v1/telemetry`.
+    
+    - Postman collection for different testcases - [Test Cases](https://www.getpostman.com/collections/889d30e2abedd2f9ae51)
+    
+    - Telemetry Specifications for various event types - [Specifications](https://github.com/sunbird-specs/Telemetry/blob/3.3.0/specification.md)
+    
+  version: "1.0"
+servers:
+- url: https://staging.open-sunbird.org/api
+paths:
+  /v1/telemetry:
+    post:
+      tags:
+      - Telemetry Sync API
+      summary: Sync telemetry events to system
+      description: |-
+        This API is used to capture and sync all telemetry events.
+           - The endpoint for **Telemetry Sync** is `/telemetry`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: StatePost
+      parameters:
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Represents the body and parameters of the telemetry API. Request example is
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/telemetryApiRequest'
+            examples:
+             a:
+              summary: "With Valid Telemetry Data"
+              description: Valid request
+              value: 
+               id: "ekstep.telemetry"
+               ver: "2.0"
+               ets: 1455031059061
+               params:
+                did: e97987fa-c056-411d-hfkf-c23496093ujd
+                key: 57c176ca-1977-4785-af9e-d59d37214b0b
+                msgid: 7x87bc51-afbg-4344-88bc-a2a90df5fd76
+               events: [
+                 {
+                   eid: "LOG",
+                   ets: 1529499971358,
+                   mid: "dfkdfj0-343s-9df9ddf9df9d8f9df89d",
+                   actor : {
+                     id: "159e93d1-da0c-4231-be94-e75b0c226d7c",
+                     type: "system"
+                   },
+                   context: {
+                     channel: b00bc992ef25f1a9a8d63291e20efc8d,
+                     pdata: {
+                       id: portal,
+                       ver: 0.0.1
+                      },
+                    env: content-service,
+                    sid: PCNHgbKZvh6Yis8F7BxiaJ1EGw0N3L9B,
+                    did: cab2a0b55c79d12c8f0575d6397e5678,
+                    rollup: {
+                     l1: "ORG_001",
+                     l2: "0123673542904299520",
+                     l3: "0123673689120112640",
+                     l4: "b00bc992ef25f1a9a8d63291e20efc8d"
+                     }
+                    },
+                   tags: [
+                     b00bc992ef25f1a9a8d63291e20efc8d
+                    ],
+                   edata": {
+                     type: "api_access",
+                     level: "INFO",
+                     params: [
+                     {
+                        "url": "/content/composite/v1/search"
+                     },
+                    {
+                        "protocol": "https"
+                    },
+                    {
+                        "method": "POST"
+                    }
+                   ]
+                  }
+                 },
+                 {
+                   eid: "START",
+                   ets: 1529499971358,
+                   mid: "dfkdfj0-343s-9df9ddf9df9d8f9df89d",
+                   actor : {
+                     id: "159e93d1-da0c-4231-be94-e75b0c226d7c",
+                     type: "system"
+                   },
+                   context: {
+                     channel: b00bc992ef25f1a9a8d63291e20efc8d,
+                     pdata: {
+                       id: portal,
+                       ver: 0.0.1
+                      },
+                    env: content-player,
+                    sid: PCNHgbKZvh6Yis8F7BxiaJ1EGw0N3L9B,
+                    did: cab2a0b55c79d12c8f0575d6397e5678,
+                   },
+                    edata: {
+                      type: "app",
+                      dspec : {os : 'andriod'},
+                      uaspec: {agent : 'samsung'},
+                      loc: "andhra",
+                      mode: play,
+                      duration : 10,
+                      pageid: 'dfdkdfjdkfjdk'
+                   }
+                 }
+                ]
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The "Device Register" operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/telmetryapiresponse'
+        401:
+          description: Unauthorized, **Telemetry SYNC** operation failed! The possible
+            reason for failure is that you may have missed providing authorization token in header
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+components:
+  schemas:
+    Params:
+      title: Params
+      required:
+        - did
+        - key
+        - mid
+      type: object
+      properties:
+        did:
+          type: string
+        key:
+          type: string
+        mid:
+          type: string  
+    telemetryApiRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents an API uniquely
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: 'Represents the timestamp(UTC) in string. Ex: 2021-07-19T08:50:55.365+00:00'
+        params:
+          $ref: '#/components/schemas/Params'
+        events:
+          type : array
+          minimum: 1
+          items : 
+            $ref: '#/components/schemas/telemetryEvent'
+          description:  Represents list of telemetry events
+          
+    telemetryEvent:
+      type: object
+      required:
+        - eid
+        - ets
+        - ver
+        - mid
+        - actor
+        - edata
+      properties:
+        eid:
+          type: string
+          description: ID of the event
+        ets:
+          type: integer
+          description: 'Represents the timestamp(UTC) in string. Ex: 2021-07-19T08:50:55.365+00:00'
+        ver:
+          type: string
+          description: 'Version of the event data structure, currently "3.0"'
+        mid:
+          type: integer
+          description: 'Unique message ID. Used for deduplication, replay and update indexes'
+        actor:
+          $ref: '#/components/schemas/actor'
+        context:
+          $ref: '#/components/schemas/context' 
+        object:
+          $ref: '#/components/schemas/object'   
+        edata:
+         type: object
+         description: Describes what is the event data - Differ for each eid
+        tags:
+          type: array
+          items :
+            type: object
+          description: Encrypted dimension tags passed by respective channels
+          
+    actor:
+      type: object
+      required:
+       - id
+       - type
+      description: Actor of the event
+      properties:
+        id:
+          type: string
+          description: Id of the actor
+        type:
+          type: string
+          description: 'type of actor Ex : user/system'
+      example:
+        id: "e97987fa-c056-411d-hfkf-c23496093ujd"
+        type: "system"
+
+    context:
+      type: object
+      required:
+       - channel
+       - env
+      description: Context of the event
+      properties:
+        channel:
+          type: string
+          description: Channel which has produced the event
+        pdata:
+          $ref: '#/components/schemas/pdata'
+        env:
+          type: string
+          description: Unique environment where the event has occured
+        sid:
+          type: string
+          description: session id of the requestor stamped by portal
+        did:
+          type: string
+          description: uuid of the device, created during app installation
+        cdata:
+          $ref: '#/components/schemas/cdata'
+        rollups:
+          $ref: '#/components/schemas/rollup'  
+      example:
+        id: "e97987fa-c056-411d-hfkf-c23496093ujd"
+        type: "system"
+
+    pdata:
+      type: object
+      required:
+       - id
+      description: Producer of the event
+      properties:
+        id:
+          type: string
+          description: unique id assigned to that component
+        pid:
+          type: string
+          description: 'In case the component is distributed, then which instance of that component'
+        ver:
+          type: string
+          description: version number of the build
+      example:
+        id: "portal"
+        pid: "player"
+        ver: "1.0"            
+    cdata:
+      type: object
+      required:
+       - id
+       - type
+      description: correlation data
+      properties:
+        id:
+          type: string
+          description: The correlation ID value
+        type:
+          type: string
+          description: 'Used to indicate action that is being correlated'
+      example:
+        id: "user-signin"
+        type: "google"    
+
+    object:
+      type: object
+      required:
+       - id
+       - type
+      description: Target of Event.Object which is the subject of the event.
+      properties:
+        id:
+          type: string
+          description: 'Id of the object. For ex: content id incase of content'
+        type:
+          type: string
+          description: 'Type of the object. For ex: "Content", "Community", "User" etc'
+        ver:
+          type: string
+          description: version of the object
+        rollups:
+          $ref: '#/components/schemas/rollup'
+          description: 'Rollups to be computed of the object. Only 4 levels are allowed'
+      example:
+        id: "portal"
+        pid: "player"
+        ver: "1.0"            
+        
+    rollup:
+      type: object
+      description: Context/Rollups to be computed of the object
+      properties:
+        l1:
+          type: string
+          description: Level1 
+        l2:
+          type: string
+          description: Level2
+        l3:
+          type: string
+          description: Level2
+        l4:
+          type: string
+          description: Level2  
+      example:
+        context_rollup:
+         l1: 'org'
+         l2: 'id1'
+         l3: 'id2'
+         l4: 'id5'
+        object_rollup:
+         l1: 'org'
+         l2: 'id1'
+         l3: 'id2'
+         l4: 'id5' 
+      
+
+    telmetryapiresponse:
+      required:
+      - ets
+      - id
+      - ver
+      - responseCode
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents the ID of the request which was made
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: string
+          description: 'Represents the timestamp(UTC) in string. Ex: 2020-11-27T08:50:55.365+00:00'
+        responseCode:
+          type: string
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
