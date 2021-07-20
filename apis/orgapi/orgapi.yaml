@@ -892,19 +892,6 @@ components:
                  isTenant: true
                  isSchool: true
                  organisationType: 2
-    orgapiOrgStatusUpdateReq:
-      required:
-        - organisationId
-        - status
-      type: object
-      properties:
-        organisationId:
-          type: string
-          description: ID of organisation whose details are required to be updated
-        status:
-          type: integer
-          description: 'Organisation status (0: inactive, 1: active, 2: blocked,
-                  3: retired)'
     orgapiOrgReadClientErrorResponse:
       title: Client error response for get Organisation Details API
       allOf:
@@ -968,48 +955,6 @@ components:
               errmsg: Process failed,please try again later.
             responseCode: SERVER_ERROR
             result: {}
-    orgapiOrgUpdateClientErrorResponse:
-      title: Client error response for get Organisation Details API
-      allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: { }
-          example:
-            id: api.org.update
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid:
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INVALID_REQUESTED_DATA
-              status: INVALID_REQUESTED_DATA
-              errmsg: Requested data for this operation is not valid.
-            responseCode: CLIENT_ERROR
-            result: { }
-    orgapiOrgUpdateServerErrorResponse:
-      title: Server error response for read Organisation API
-      allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties: { }
-          example:
-            id: api.org.update
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid:
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err: INTERNAL_ERROR
-              status: INTERNAL_ERROR
-              errmsg: Process failed,please try again later.
-            responseCode: SERVER_ERROR
-            result: { }
     orgapiOrgUpdateRequest:
       title: Organisation Update API request format
       allOf:
@@ -1031,48 +976,6 @@ components:
                 type: cluster
               - id: ccc7be29-8e40-4d0a-915b-26ec9228ac4a
                 type: state
-    orgapiOrgStatusUpdateRequest:
-      title: Organisation Status Update API request format
-      allOf:
-        - type: object
-          properties:
-            request:
-              $ref: '#/components/schemas/orgapiOrgStatusUpdateReq'
-          example:
-            request:
-              filters:
-                organisationId: "0131630445447741440"
-                status: 0
-    orgapiOrgStatusUpdateResponse:
-      title: Organisation Status Update API response format
-      allOf:
-        - $ref: '#/components/schemas/orgapiorgapiApiResponse'
-        - type: object
-          properties:
-            result:
-              type: object
-              properties:
-                organisationId:
-                  type: string
-                  description: ID of the updated organisation
-                response:
-                  type: string
-                  description: Response message for successfully updated organisation
-                    status
-          example:
-            id: api.org.status.update
-            ver: v1
-            ts: 2020-11-23 10:03:39:935+0000
-            params:
-              resmsgid:
-              msgid: 5398bdd7-f80d-4a9e-9c13-90ae3c6bbcb0
-              err:
-              status: success
-              errmsg:
-            responseCode: OK
-            result:
-              organisationId: 0131636612466278400
-              response: SUCCESS
     orgapiOrgUpdateReq:
             required:
             - organisationId
