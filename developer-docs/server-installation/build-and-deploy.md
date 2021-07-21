@@ -198,7 +198,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/Kubernetes/Keycloak|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Keycloak|
 |Deploy/Kubernetes/KeycloakRealm|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the Sunbird Realm. Now read the comment mentioned in **Core/Secrets.yml** against the variables `core_vault_sunbird_sso_publickey`, `adminutil_refresh_token_public_key_kid`, `adminutil_refresh_token_secret_key`|
 |Deploy/Kubernetes/BootstrapMongodb|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the initial token in Mongo database|
-|Deploy/Kubernetes/CertTemplate|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Uploads the certificate templates into Azure blob|
+|Deploy/Kubernetes/CertTemplate|branch_or_tag: release-3.8.0_RC14, sunbird_util_branch_or_tag: release-3.8.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Uploads the certificate templates into Azure blob|
 |Deploy/Kubernetes/UploadChatbotConfig|branch_or_tag: release-3.8.0_RC14, bot_repo_branch: master|<https://github.com/project-sunbird/sunbird-devops.git>|Uploads the chatbot configs to Azure blob|
 |Deploy/Kubernetes/UploadFAQs|branch_or_tag: release-3.9.0_RC16, source_folder: Select All|<https://github.com/project-sunbird/sunbird-devops.git>|Uploads the FAQs to Azure blob|
 |Deploy/Kubernetes/UploadSchema|branch_or_tag: release-3.8.0_RC14, kp_branch_or_tag: release-3.8.0_RC9|<https://github.com/project-sunbird/sunbird-devops.git>|Uploads the Content schemas to Azure blob|
@@ -229,7 +229,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/Kubernetes/Logging|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Choose one **chartname** each time - `fluent-bit`, `kibana`, `oauth2-proxy`. Deploys Fluent Bit, Kibana and Oauth2 Proxy respectively. Kibana can accessed via DOMAIN/dashboard/|
 |Deploy/Kubernetes/nginx-public-ingress|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys the nginx web server. Now you can open visit your domain|
 |Deploy/Kubernetes/Nodebb|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys NodeBB service. Now read the comment mentioned in **Core/Secrets.yml** against the variable `discussionsmw_nodebb_authorization_token`|
-|Deploy/Plugins/DiscussionsMW|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys DiscussionsMW service|
+|Deploy/Kubernetes/DiscussionsMW|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys DiscussionsMW service|
 |Deploy/Plugins/CollectionEditor|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys CollectionEditor files to Azure blob|
 |Deploy/Plugins/ContentEditor|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys ContentEditor files to Azure blob|
 |Deploy/Plugins/ContentPlayer|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys ContentPlayer files to Azure blob|
