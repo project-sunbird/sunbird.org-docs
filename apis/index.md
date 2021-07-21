@@ -33,7 +33,7 @@ The  **Content and Learning Services**  category has microservices for content m
   - [Content APIs](apis/content){:target="_blank"}
   - [Textbook APIs](apis/tocapi){:target="_blank"}
   - [Course Hieracrchy APIs](apis/coursehierarchyapi){:target="_blank"}
-  - [Content Lock APIs](apis/coursehierarchyapi){:target="_blank"}
+  - [Content Lock APIs](apis/lockService){:target="_blank"}
 
 - **Usage & Tracking Service**: The usage and tracking microservice is used for course enrolment, to manage content usage, and to track progress of trackable learning objects like online courses, course batches, quizzes, and batch certificates. They also include APIs for batch management that allow you to create, view, update and search for course batches.The APIs for this microservice are grouped into:
     - [Course Batch Management APIs](apis/coursebatchmanapi/){:target="_blank"}
