@@ -176,6 +176,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 
 |Jenkins Job to Run|Github Tag|Github Repo|Comments|
 |------------------|----------|-----------|--------|
+
 |Deploy/Kubernetes/BootstrapMinimal|release-3.9.0_RC19|<https://github.com/project-sunbird/sunbird-devops.git>|Creates namespaces, configmaps and secrets|
 |Deploy/DataPipeline/BootstrapMinimal|release-3.9.0_RC14|<https://github.com/project-sunbird/sunbird-data--pipeline.git>|Creates namespaces, configmaps and secrets|
 |Deploy/Kubernetes/Monitoring|branch_or_tag: release-3.9.0_RC19, tag: all|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys the monitoring stack which can be accessed via DOMAIN/grafana/ post nginx-public-ingress deployment|
@@ -240,6 +241,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/DataPipeline/AdhocScripts|release-3.9.0_RC14|<https://github.com/project-sunbird/sunbird-data--pipeline.git>|Deploys AdHoc scripts in Spark VM|
 |Deploy/DataPipeline/AnalyticsCore|release-3.9.0_RC14|<https://github.com/project-sunbird/sunbird-data--pipeline.git>|Deploys jars in Spark VM|
 |Deploy/DataPipeline/CoreDataProducts|release-3.9.0_RC14|<https://github.com/project-sunbird/sunbird-data--pipeline.git>|Deploys jars in Spark VM|
+
 |Deploy/DataPipeline/DruidIngestion|branch_or_tag: release-3.9.0_RC12, ingestion_task_names: Select All|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys and starts Druid ingestion tasks. **This job will be updated in a couple of days. Please wait until then**|
 |Deploy/DataPipeline/EdDataProducts|release-3.9.0_RC14|<https://github.com/project-sunbird/sunbird-data--pipeline.git>|Deploys jars in Spark VM|
 |Deploy/DataPipeline/ETLJobs|release-3.9.0_RC14|<https://github.com/project-sunbird/sunbird-data--pipeline.git>|Deploys ETL scripts in Spark VM|
