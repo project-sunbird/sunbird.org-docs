@@ -16,7 +16,7 @@ Use the following git commands sequentially to clone and update your private Git
 ```bash
 git clone https://github.com/project-sunbird/sunbird-devops
 cd sunbird-devops
-git checkout tags/release-3.8.0_RC13 -b release-3.8.0_RC13
+git checkout tags/release-3.9.0_RC18 -b release-3.9.0_RC18
 ```
 
 - Copy the directory `sunbird-devops/private_repo/ansible` to your private repo
@@ -138,3 +138,44 @@ ansible
   </tr>
   <tr></tr>
 </table>
+
+### Updating ansible inventory
+
+- cd in to the private inventory folder 
+  ```
+  cd /path/to/private-repo/
+  cd ansible/inventory/dev
+  ```
+- Change the inventory ips. We use sed command to replace the placeholder strings.
+
+  For example,
+  ```
+  sed -i 's/placeholder/your value to be replaced/g' path/to/file
+  # If your DP machine ip is 172.16.5.10
+  sed -i 's/10.1.4.4/172.16.5.10/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,hosts} # DP
+  ```
+  
+  ```
+  # If you used auzre-provision.yaml for creating the infra, you'll have the information in 
+  # sunbird-devops/deploy/azure-resources.txt
+  
+  sed -i 's/10.1.4.4/DP     vm IP/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,hosts} # DP
+  sed -i 's/10.1.4.5/DB     vm IP/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,hosts} # DB
+  sed -i 's/10.1.4.6/KP     vm IP/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,hosts} # KP
+  sed -i 's/10.1.4.7/Yarn   vm IP/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,hosts} # YARN
+  sed -i 's/10.1.4.8/Others vm IP/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,hosts} # OTHERS
+  ```
+- Change common variables used in all environment. 
+  Note: Keep in mind that this will only update subset of variables. So please go through the files prior starting installation.
+  ```
+  sed -i 's/change.azure.storage.account.name/Storage account name for azure blob/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,secrets.yml}
+  sed -i 's/change.azure.storage.account.key/Storage account key for azure blob/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,secrets.yml}
+  sed -i 's/change.azure.storage.account.sas/Storage account sas for azure blob/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,secrets.yml}
+  sed -i 's/change.docker.url/docker registry url/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,secrets.yml}
+  sed -i 's/change.docker.username/docker registry username/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,secrets.yml}
+  sed -i 's/change.docker.password/docker registry password/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,secrets.yml}
+  # run `openssl rand -hex 10` to generate a pssword
+  sed -i 's/change.sunbird.encryption.key/output of the above command/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,secrets.yml}
+  # run `openssl rand -hex 10` to generate a pssword
+  sed -i 's/change.postgres.password/output of the above command/g' ./{Core,KnowledgePlatform,DataPipeline}/{common.yml,secrets.yml}
+  ```
