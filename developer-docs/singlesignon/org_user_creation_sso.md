@@ -31,8 +31,6 @@ The API has the following resources:
 - Update Organization
 - Create User
 - Update User
-- Add Member to Organization
-- Remove Member from Organization
 - Single Sign-On API
 
 *For information on Organization Management APIs, refer [Organization Management APIs](apis/orgapi/)*
