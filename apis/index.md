@@ -49,7 +49,7 @@ The **Contributor management microservice** enables a registry of individual con
 - [Registry APIs](apis/opensaber/){:target="_blank"}
 
 ### Related Microservices and/or APIs 
-* [Telemetry Service](./developer-docs/telemetry/overview){:target="_blank"}
+* [Telemetry API](apis/telemetryapi){:target="_blank"}
 * [Composite Search APIs](apis/searchapi/){:target="_blank"} 
 * [Assign User Role APIs](apis/userapi/#operation/Assign_User_Role/){:target="_blank"}
 * [Reports Service](#reports-service)
