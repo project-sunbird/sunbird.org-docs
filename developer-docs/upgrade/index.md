@@ -23,39 +23,12 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Service to be Build|Build Tag|Service to Deploy|Deploy Tag|Comments|
 |-------------------|---------|-----------------|----------|--------|
-|||Provision/DataPipeline/PostgresDbUpdate|release-4.0.0_RC6|Rename job postgres-managed to PostgresDbUpdate and update the pipeline to <b>pipelines/provision/postgres-db-update/Jenkinsfile</b><br/> [Job Link](https://github.com/project-sunbird/sunbird-devops/tree/release-4.0.0/deploy/jenkins/jobs/Provision/jobs/dev/jobs/DataPipeline/jobs/PostgresDbUpdate)|
-|||Provision/DataPipeline/Druid|release-4.0.0_RC6<br/>service:router<br/>remote:raw||
-|||OpsAdministration/Core/ESMapping|release-4.0.0_RC4<br/>indices_name:userv2||
-|||OpsAdministration/Core/GraylogMongoImport|release-4.0.0_RC4<br/>graylog_mongo_collections:all|This was deployed as 3.9.0 hotfix, so its not required to run again if it's already deployed|
-|Build/Core/OfflineInstaller|release-4.0.0|Deploy/Core/OfflineInstaller|release-4.0.0_RC4||
-|Build/DataPipeline/AnalyticsCore|release-4.0.0_RC1|Deploy/DataPipeline/AnalyticsCore|release-4.0.0_RC6|
-|Build/DataPipeline/DruidAnomalyDetection|release-4.0.0|Deploy/DataPipeline/DruidAnomalyDetection|release-4.0.0_RC6||
-|Build/DataPipeline/EdDataProducts|release-4.0.0_RC5|Deploy/DataPipeline/EdDataProducts|release-4.0.0_RC6||
-|||Deploy/KnowledgePlatform/KafkaSetup|release-4.0.0_RC5||
-|||Deploy/DataPipeline/Secor|release-4.0.0_RC6|Add error-telemetry-backup to job_names_to_deploy parameter in job and deploy selecting only this, If this is already done, then there is no need of deployment|
-|||Deploy/DataPipeline/LoggingFileBeatsVM|release-4.0.0_RC6 <br/> tags: default hosts: select all|This was deployed as 3.9.0 hotfix, so its not required to run again if it's already deployed|
-|Build/KnowledgePlatform/FlinkJobs|release-4.0.0_RC7|Deploy/KnowledgePlatform/FlinkJobs|release-4.0.0_RC5|Add "collection-cert-pre-processor", "auto-creator-v2", "collection-certificate-generator" to deploy job list<br/>Kill samza jobs: "certificate-pre-processor" and "course-certificate-generator-v2", Deploy these jobs from dropdown collection-cert-pre-processor, collection-certificate-generator, asset-enrichment, questionset-publish, auto-creator-v2|
-|Build/KnowledgePlatform/Learning|release-4.0.0_RC4|Deploy/KnowledgePlatform/Learning|release-4.0.0_RC5||
-|Build/KnowledgePlatform/Neo4jElasticSearchSyncTool|release-3.9.0_RC12|Deploy/KnowledgePlatform/Neo4jElasticSearchSyncTool|release-4.0.0_RC5<br/>command: sync<br/>parameters: --graph domain --objectType ObjectCategoryDefinition||
-|Build/KnowledgePlatform/Yarn|release-4.0.0_RC4|Deploy/KnowledgePlatform/Yarn|release-4.0.0_RC5||
-|Build/Kubernetes/Analytics|release-4.0.0_RC1|Deploy/Kubernetes/Analytics|release-4.0.0_RC4||
-|Build/Kubernetes/Assessment|release-4.0.0_RC6|Deploy/Kubernetes/Assessment|release-4.0.0_RC4||
-|Build/Kubernetes/Cassandra|release-4.0.0_RC2|Deploy/Kubernetes/Cassandra|release-4.0.0_RC4||
-|Build/Kubernetes/Content|release-4.0.0_RC6|Deploy/Kubernetes/Content|release-4.0.0_RC4||
-|Build/Kubernetes/DiscussionsMW|release-4.0.0_RC2|Deploy/Kubernetes/DiscussionsMW|release-4.0.0_RC4||
-|Build/Kubernetes/Groups|release-4.0.0_RC10|Deploy/Kubernetes/Groups|release-4.0.0_RC4||
-|||Deploy/Kubernetes/Keycloak|release-4.0.0_RC4||
-|||Deploy/Kubernetes/UploadSchemas|release-4.0.0_RC4|restart taxonomy-service, content-service and assessment-service|
-|Build/Kubernetes/Learner|release-4.0.0_RC18|Deploy/Kubernetes/Learner|release-4.0.0_RC4||
-|Build/Kubernetes/Lms|release-4.0.0_RC3|Deploy/Kubernetes/Lms|release-4.0.0_RC4||
-|||Deploy/Kubernetes/LoggingFileBeatsVM|release-4.0.0_RC4<br/>tags: current<br/>hosts: select all|This was deployed as 3.9.0 hotfix, so its not required to run again if it's already deployed|
-|||Deploy/Kubernetes/Logging|release-4.0.0_RC4<br/>chart_name: oauth2_proxy|This was deployed as 3.9.0 hotfix, so its not required to run again if it's already deployed|
-|||Deploy/Kubernetes/nginx-public-ingress|release-4.0.0_RC4||
-|||Deploy/Kubernetes/OnboardAPIs|release-4.0.0_RC4||
-|||Deploy/Kubernetes/OnboardConsumers|release-4.0.0_RC4||
-|Build/Kubernetes/Player|release-4.0.0_RC59|Deploy/Kubernetes/Player|release-4.0.0_RC4||
-|Build/Kubernetes/Search|release-4.0.0_RC6|Deploy/Kubernetes/Search|release-4.0.0_RC4||
-|Build/Kubernetes/Taxonomy|release-4.0.0_RC6|Deploy/Kubernetes/Taxonomy|release-4.0.0_RC4||
+|||Provision/DataPipeline/Druid|release-4.1.0_RC2||
+|||Provision/KnowledgePlatform/Neo4j|release-4.1.0_RC9||
+|Build/KnowledgePlatform/FlinkJobs|release-4.1.0_RC7|Deploy/KnowledgePlatform/FlinkJobs|release-4.1.0_RC9|add <b>audit-event-generator</b> in the Jenkins jobs list|
+|Build/KnowledgePlatform/Learning|release-4.1.0_RC9|Deploy/KnowledgePlatform/Learning|release-4.1.0_RC9||
+|Build/KnowledgePlatform/Neo4j|release-4.1.0_RC1|Deploy/KnowledgePlatform/Neo4j|release-4.1.0_RC9|release-4.1.0_RC1|Update build jobs repo to <b>https://github.com/project-sunbird/knowledge-platform-db-extensions.git</b><br/>  and jenkinsfile to <b>build/neo4j-extensions/Jenkinsfile</b><br/>restart the Neo4J cluster.Validate the plugins folder file sizes. (learning jar should be around 3mb only. Previously it is 10mb+)<br/>delete the old Neo4J folder from all vms.(We upgraded to neo4j-enterprise-3.3.10-SNAPSHOT) <b>rm -rf /home/learning/neo4j-learning/</b> neo4j-enterprise-3.3.0|
+|Build/KnowledgePlatform/Yarn|release-4.1.0_RC9|Deploy/KnowledgePlatform/Yarn|release-4.1.0_RC9||
 
 ### Manual Configurations
 
