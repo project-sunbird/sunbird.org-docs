@@ -2212,6 +2212,462 @@ paths:
                 $ref: "#/components/schemas/userapiUserErrorResponse"
       deprecated: false
       security: []
+  /user/v3/search:
+    post:
+      tags:
+        - User APIs
+      summary: Search User V2
+      description: >-
+        This API is used for searching a particular user
+          - The endpoint for **Search User V2** is `/user/v3/search`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: User_Search_V2
+      parameters:
+        - name: ts
+          in: header
+          required: false
+          description: Timestamp at which given API request is sent.
+          schema:
+            type: string
+        - name: X-msgid
+          in: header
+          required: false
+          description: This ID uniquely identifies a request if the same API is executed
+            multiple times.
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{authorization}}'
+        - name: x-authenticated-user-token
+          in: header
+          description: >-
+            It is a unique token/key to authenticate the user each time an API is called. For corresponding sessions this token is used, not your actual username/password
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{user_token}}'
+      requestBody:
+        description: >-
+          - The body payload comprises of metadata of the user being searched
+
+          - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
+
+             - JSON
+           **Note**: You can search the user based on different user attributes
+            - The attributes must be passed inside the filters of the request payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userapiUser_Search_Request'
+            examples:
+              a:
+                summary: Search based on email
+                value:
+                  request:
+                    filters:
+                      email: neworgadmin@yopmail.com
+              b:
+                summary: Search based on firstName and limit
+                value:
+                  request:
+                    filters:
+                      firstName: neworgadmin
+                      limit: 10
+        required: true
+      responses:
+        200:
+          description: 'OK ! Successful operation."Search User V2" operation was successfully executed.'
+          headers:
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nginx/1.15.8
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Mon, 23 Nov 2020 09:16:58 GMT
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1900
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            X-RateLimit-Limit-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 30000
+            X-RateLimit-Remaining-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 29998
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: origin-when-cross-origin, strict-origin-when-cross-origin
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1; mode=block
+            x-response-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1681
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: master-only
+            X-Kong-Upstream-Latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 13
+            X-Kong-Proxy-Latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 12
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: kong/0.14.1
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userapiUser_Search_With_Success_Response_v3'
+              example:
+                id: api.user.search
+                ver: v2
+                ts: 2020-11-23 09:16:58:628+0000
+                params:
+                  resmsgid:
+                  msgid: ad7135b8-ef64-44bd-adaa-0b131a657689
+                  err:
+                  status: success
+                  errmsg:
+                responseCode: OK
+                result:
+                  response:
+                    count: 1
+                    content:
+                      - maskedPhone: null
+                        tcStatus: null
+                        channel: channel1
+                        updatedDate: 2021-04-07 05:09:45:607+0000
+                        managedBy: null
+                        flagsValue: 2
+                        id: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                        recoveryEmail: co**************@yopmail.com
+                        identifier: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                        updatedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                        externalIds: []
+                        rootOrgId: 0126796199493140480
+                        prevUsedEmail:
+                        firstname: first name
+                        tncAcceptedOn: 1617265216047
+                        allTncAccepted: {}
+                        phone:
+                        dob: null
+                        userType: student
+                        status: 1
+                        lastName: null
+                        tncLatestVersion: 3.5.0
+                        roles:  
+                          - role: COURSE_CREATOR
+                            userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                            scope: 
+                              - organisationId: 0126796199493140480
+                            createdDate: 2021-06-07 11:29:41:606+0530
+                            updatedBy: null
+                            createdBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                            updatedDate: null
+                        prevUsedPhone:
+                        stateValidated: false
+                        isDeleted: false
+                        organisations:
+                          - organisationId: 0126796199493140480
+                            updatedBy: null
+                            orgName: org1
+                            addedByName: null
+                            addedBy: null
+                            approvedBy: null
+                            channel: channel1
+                            locationIds:
+                              027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                              8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                            orgLocation:
+                              - type: state
+                                id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                              - type: district
+                                id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                            externalId: 101010
+                            updatedDate: null
+                            userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                            approvaldate: null
+                            isSchool: false
+                            isDeleted: false
+                            hashTagId: 0126796199493140480
+                            isRejected: null
+                            locations:
+                              - code: 29
+                                name: state1
+                                id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                                type: state
+                                parentId: null
+                              - code: 2901
+                                name: district1
+                                id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                                type: district
+                                parentId: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                            id: 01324864401294131212
+                            position: null
+                            isApproved: null
+                            orgjoindate: 2021-04-01 08:19:53:343+0000
+                            orgLeftDate: null
+                          - organisationId: 0127419693630996481321
+                            updatedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                            orgName: org2
+                            addedByName: null
+                            addedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                            approvedBy: null
+                            channel: tn
+                            locationIds:
+                              91d9baae-14f1-477a-955c-f91bd9037f0b
+                              107c9472-a950-4768-bcd6-f882910177c4
+                              ba31e7c2-fac9-472a-8867-1582c73bcca8
+                              5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                            orgLocation:
+                              - id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                                type: state
+                              - id: 107c9472-a950-4768-bcd6-f882910177c4
+                                type: district
+                              - id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                                type: block
+                              - id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                                type: cluster
+                            externalId: 33100800608
+                            updatedDate: 2021-04-07 05:09:38:366+0000
+                            userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                            approvaldate: null
+                            isSchool: true
+                            isDeleted: false
+                            hashTagId: 0127419693630996481321
+                            isRejected: false
+                            locations:
+                              - code: 31
+                                name: state2
+                                id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                                type: state
+                                parentId: null
+                              - code: 3110
+                                name: district2
+                                id: 107c9472-a950-4768-bcd6-f882910177c4
+                                type: district
+                                parentId: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                              - code: 31100169
+                                name: block1
+                                id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                                type: block
+                                parentId: 107c9472-a950-4768-bcd6-f882910177c4
+                              - code: 3110016901
+                                name: block1 Cluster
+                                id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                                type: cluster
+                                parentId: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                            id: 0132527931586969602
+                            position: null
+                            isApproved: false
+                            orgjoindate: 2021-04-07 05:09:45:655+0000
+                            orgLeftDate: 2021-04-07 05:09:38:366+0000
+                        provider: null
+                        countryCode: null
+                        tncLatestVersionUrl: https://organisation2.blob.core.windows.net/termsandcondtions/terms-and-conditions-v9.html#termsOfUse
+                        maskedEmail: k1**@yopmail.com
+                        email: k1**@yopmail.com
+                        rootOrg:
+                          dateTime: null
+                          preferredLanguage: null
+                          keys:
+                          approvedBy: null
+                          channel: channel1
+                          description: org3
+                          updatedDate: 2021-03-31 17:31:19:346+0000
+                          addressId: null
+                          organisationType: 5
+                          orgType: null
+                          isTenant: true
+                          provider: null
+                          locationId: null
+                          orgCode: null
+                          theme: null
+                          id: 0126796199493140480
+                          communityId: null
+                          isApproved: null
+                          email: null
+                          slug: channel1
+                          isSSOEnabled: null
+                          orgName: org1
+                          updatedBy: null
+                          locationIds:
+                            027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                            8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                          externalId: 101010
+                          orgLocation:
+                            - type: state
+                              id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                            - type: district
+                              id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                          isRootOrg: true
+                          rootOrgId: 0126796199493140480
+                          approvedDate: null
+                          imgUrl: null
+                          homeUrl: null
+                          orgTypeId: null
+                          isDefault: null
+                          createdDate: 2019-01-18 09:48:13:428+0000
+                          createdBy: system
+                          parentOrgId: null
+                          hashTagId: 0126796199493140480
+                          noOfMembers: null
+                          status: 1
+                        phoneVerified: false
+                        tcUpdatedDate: null
+                        userLocations:
+                          - code: 3110
+                            name: district2
+                            id: 107c9472-a950-4768-bcd6-f882910177c4
+                            type: district
+                            parentId: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                          - code: 3110016901
+                            name: block1 Cluster
+                            id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                            type: cluster
+                            parentId: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                          - code: 31
+                            name: state2
+                            id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                            type: state
+                            parentId: null
+                          - code: 31100169
+                            name: block1
+                            id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                            type: block
+                            parentId: 107c9472-a950-4768-bcd6-f882910177c4
+                          - identifier: 2e4a420e-a6b8-4688-b12e-0e5f5141d175
+                            code: 31100800608
+                            name: org2
+                            id: 2e4a420e-a6b8-4688-b12e-0e5f5141d175
+                            type: school
+                            parentId: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                        recoveryPhone:
+                        userName: username 2
+                        userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                        userSubType: null
+                        promptTnC: false
+                        emailVerified: true
+                        createdDate: 2021-04-01 08:19:50:971+0000
+                        framework:
+                          board:
+                            State state3
+                          gradeLevel:
+                            Class 1
+                          id:
+                            ap_k-12_1
+                          medium:
+                            English
+                          subject:
+                            English
+                        createdBy: null
+                        profileUserType:
+                          subType: null
+                          type: student
+                        tncAcceptedVersion: 3.5.0
+        400:
+          description: BAD REQUEST. The "User Search V2" operation failed ! The possible
+            reason for failure is that you may have missed providing input for a
+            mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userapiUserErrorResponse"
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userapiUser_Accept_Tnc_With_UnAuthorized_Error'
+              example:
+                id: api.user.search
+                ver: v2
+                ts: 2020-11-23 07:23:49:202+0000
+                params:
+                  resmsgid:
+                  msgid: 7420055e-1284-41ea-9570-d8ed552ab096
+                  err: UNAUTHORIZED_USER
+                  status: SERVER_ERROR
+                  errmsg: You are not authorized.
+                responseCode: CLIENT_ERROR
+                result: {}
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and
+            try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userapiUserErrorResponse"
+      deprecated: false
+      security: []    
   /user/v1/update:
     patch:
       tags:
@@ -4814,6 +5270,432 @@ paths:
                 $ref: "#/components/schemas/userapiUserErrorResponse"
       deprecated: false
       security: []
+  /user/v5/read/{userId}:
+    get:
+      tags:
+        - User APIs
+      summary: Read User V4
+      description: >-
+        This API is used for searching a specific user, the user search is based on the unique ID of the user
+          - The endpoint for **Get User by User ID** is `/user/v5/read/{User_ID}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - User can pass an optional query parameter 'fields'. The value is a comma separated list of fields whose information is required in response. e.g. fields=completeness,missingFields,topic,organisations,roles,locations
+          - 'completeness' is to return profile completeness percentage.
+          - 'missingFields' is to return fields that are missing to achieve 100% profile completeness.
+          - 'topic' is to return list of topics that are used for announcements.
+          - 'organisations' is to return organisation and location details.
+          - 'roles' is to return list of roles with name and ID details.
+          - 'locations' is to return profileLocation
+      operationId: Read_User_V4
+      parameters:
+        - name: ts
+          in: header
+          required: false
+          description: Timestamp at which given API request is sent.
+          schema:
+            type: string
+        - name: X-msgid
+          in: header
+          required: false
+          description: This ID uniquely identifies a request if the same API is executed
+            multiple times.
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.'
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{authorization}}'
+        - name: x-authenticated-user-token
+          in: header
+          description: >-
+            It a unique token/key to authenticate the user each time an API is called. For corresponsing sessions, this token is exchanged, not the username/password of the user
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{user_token}}'
+        - name: userId
+          in: path
+          description: 'User-Id of the user'
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'OK ! Successful operation."Get User by User ID V4" operation was successfully executed.'
+          headers:
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nginx/1.15.8
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Mon, 23 Nov 2020 13:21:57 GMT
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 2984
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            X-RateLimit-Limit-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 30000
+            X-RateLimit-Remaining-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 29997
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: origin-when-cross-origin, strict-origin-when-cross-origin
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1; mode=block
+            x-response-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 2767
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: master-only
+            X-Kong-Upstream-Latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 19
+            X-Kong-Proxy-Latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 10
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: kong/0.14.1
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userapiGet_User_Success_With_Valid_Auth_Token_With_Roles_Not_In_Org'
+              example:
+                id: api.user.read
+                ver: v4
+                ts: '2021-04-09 21:09:05:331+0530'
+                params:
+                  resmsgid: null
+                  msgid: a1d3d756-0f9b-4ec6-95a6-6560896d5294
+                  err: null
+                  status: success
+                  errmsg: null
+                responseCode: OK
+                result:
+                  response:
+                    maskedPhone: null
+                    tcStatus: null
+                    channel: channel1
+                    updatedDate: 2021-04-07 05:09:45:607+0000
+                    managedBy: null
+                    flagsValue: 2
+                    id: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                    recoveryEmail: co**************@yopmail.com
+                    identifier: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                    updatedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                    externalIds: []
+                    rootOrgId: 0126796199493140480
+                    prevUsedEmail:
+                    firstname: first name
+                    tncAcceptedOn: 1617265216047
+                    allTncAccepted: {}
+                    phone:
+                    dob: null
+                    userType: student
+                    status: 1
+                    lastName: null
+                    tncLatestVersion: 3.5.0
+                    roles:  
+                      - role: COURSE_CREATOR
+                        userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                        scope: 
+                          - organisationId: 0126796199493140480
+                        createdDate: 2021-06-07 11:29:41:606+0530
+                        updatedBy: null
+                        createdBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                        updatedDate: null
+                    prevUsedPhone:
+                    stateValidated: false
+                    isDeleted: false
+                    organisations:
+                      - organisationId: 0126796199493140480
+                        updatedBy: null
+                        orgName: org1
+                        addedByName: null
+                        addedBy: null
+                        approvedBy: null
+                        channel: channel1
+                        locationIds:
+                          027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                          8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                        orgLocation:
+                          - type: state
+                            id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                          - type: district
+                            id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                        externalId: 101010
+                        updatedDate: null
+                        isSelfDeclared: true
+                        associationtype: 2
+                        isSystemUpload: false
+                        isSSO: false
+                        userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                        approvaldate: null
+                        isSchool: false
+                        isDeleted: false
+                        hashTagId: 0126796199493140480
+                        isRejected: null
+                        locations:
+                          - code: 29
+                            name: state1
+                            id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                            type: state
+                            parentId: null
+                          - code: 2901
+                            name: district1
+                            id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                            type: district
+                            parentId: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                        id: 01324864401294131212
+                        position: null
+                        isApproved: null
+                        orgjoindate: 2021-04-01 08:19:53:343+0000
+                        orgLeftDate: null
+                      - organisationId: 0127419693630996481321
+                        updatedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                        orgName: org2
+                        addedByName: null
+                        addedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                        approvedBy: null
+                        channel: tn
+                        locationIds:
+                          91d9baae-14f1-477a-955c-f91bd9037f0b
+                          107c9472-a950-4768-bcd6-f882910177c4
+                          ba31e7c2-fac9-472a-8867-1582c73bcca8
+                          5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                        orgLocation:
+                          - id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                            type: state
+                          - id: 107c9472-a950-4768-bcd6-f882910177c4
+                            type: district
+                          - id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                            type: block
+                          - id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                            type: cluster
+                        externalId: 33100800608
+                        updatedDate: 2021-04-07 05:09:38:366+0000
+                        userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                        approvaldate: null
+                        isSchool: true
+                        isDeleted: false
+                        hashTagId: 0127419693630996481321
+                        isRejected: false
+                        locations:
+                          - code: 31
+                            name: state2
+                            id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                            type: state
+                            parentId: null
+                          - code: 3110
+                            name: district2
+                            id: 107c9472-a950-4768-bcd6-f882910177c4
+                            type: district
+                            parentId: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                          - code: 31100169
+                            name: block1
+                            id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                            type: block
+                            parentId: 107c9472-a950-4768-bcd6-f882910177c4
+                          - code: 3110016901
+                            name: block1 Cluster
+                            id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                            type: cluster
+                            parentId: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                        id: 0132527931586969602
+                        position: null
+                        isApproved: false
+                        orgjoindate: 2021-04-07 05:09:45:655+0000
+                        orgLeftDate: 2021-04-07 05:09:38:366+0000
+                    provider: null
+                    countryCode: null
+                    tncLatestVersionUrl: https://organisation2.blob.core.windows.net/termsandcondtions/terms-and-conditions-v9.html#termsOfUse
+                    maskedEmail: k1**@yopmail.com
+                    email: k1**@yopmail.com
+                    rootOrg:
+                      dateTime: null
+                      preferredLanguage: null
+                      keys:
+                      approvedBy: null
+                      channel: channel1
+                      description: org3
+                      updatedDate: 2021-03-31 17:31:19:346+0000
+                      addressId: null
+                      organisationType: 5
+                      orgType: null
+                      isTenant: true
+                      provider: null
+                      locationId: null
+                      orgCode: null
+                      theme: null
+                      id: 0126796199493140480
+                      communityId: null
+                      isApproved: null
+                      email: null
+                      slug: channel1
+                      isSSOEnabled: null
+                      orgName: org1
+                      updatedBy: null
+                      locationIds:
+                        027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                        8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                      externalId: 101010
+                      orgLocation:
+                        - type: state
+                          id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                        - type: district
+                          id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                      isRootOrg: true
+                      rootOrgId: 0126796199493140480
+                      approvedDate: null
+                      imgUrl: null
+                      homeUrl: null
+                      orgTypeId: null
+                      isDefault: null
+                      createdDate: 2019-01-18 09:48:13:428+0000
+                      createdBy: system
+                      parentOrgId: null
+                      hashTagId: 0126796199493140480
+                      noOfMembers: null
+                      status: 1
+                    phoneVerified: false
+                    tcUpdatedDate: null
+                    userLocations:
+                      - code: 3110
+                        name: district2
+                        id: 107c9472-a950-4768-bcd6-f882910177c4
+                        type: district
+                        parentId: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                      - code: 3110016901
+                        name: block1 Cluster
+                        id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                        type: cluster
+                        parentId: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                      - code: 31
+                        name: state2
+                        id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                        type: state
+                        parentId: null
+                      - code: 31100169
+                        name: block1
+                        id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                        type: block
+                        parentId: 107c9472-a950-4768-bcd6-f882910177c4
+                      - identifier: 2e4a420e-a6b8-4688-b12e-0e5f5141d175
+                        code: 31100800608
+                        name: org2
+                        id: 2e4a420e-a6b8-4688-b12e-0e5f5141d175
+                        type: school
+                        parentId: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                    recoveryPhone:
+                    userName: username 2
+                    userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                    userSubType: null
+                    promptTnC: false
+                    emailVerified: true
+                    createdDate: 2021-04-01 08:19:50:971+0000
+                    framework:
+                      board:
+                        State state3
+                      gradeLevel:
+                        Class 1
+                      id:
+                        ap_k-12_1
+                      medium:
+                        English
+                      subject:
+                        English
+                    createdBy: null
+                    profileUserType:
+                      subType: null
+                      type: student
+                    tncAcceptedVersion: 3.5.0
+        400:
+          description: 'BAD REQUEST. The "Read User V4" operation failed ! The possible
+            reason for failure is that you may have missed providing input for a
+            mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userapiUserErrorResponse"
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and
+            try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userapiUserErrorResponse"
+      deprecated: false
+      security: []        
   /user/v1/get/{idType}/{id}:
     get:
       tags:
@@ -7105,6 +7987,203 @@ paths:
                 $ref: "#/components/schemas/userapiUserErrorResponse"
       deprecated: false
       security: []
+  /user/v2/role/assign:
+    post:
+      tags:
+        - User APIs
+      summary: Assign Role to User
+      description: >-
+        This API is used to assign roles to a user. It can also be used to replace and remove already assigned user roles. If a user should not be assigned any role in the organization, pass the role paramater as an empty array.
+           - The endpoint for **Assign Role to User** is `/user/v2/role/assign`
+           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: Assign_User_Role_V2
+      parameters:
+        - name: ts
+          in: header
+          required: false
+          description: Timestamp at which given API request is sent.
+          schema:
+            type: string
+        - name: X-msgid
+          in: header
+          required: false
+          description: This ID uniquely identifies a request if the same API is executed
+            multiple times.
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: 'To make use of any User API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received here.'
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{authorization}}'
+        - name: x-authenticated-user-token
+          in: header
+          description: >-
+            It is a unique token/key to authenticate the user each time an API is called.
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{user_token}}'
+      requestBody:
+        description: >-
+          - The body payload comprises of the metadata about assigning roles to a user.
+
+          - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload.
+             - JSON
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userapiAssign_User_Role_RequestV2'
+            example:
+              request:
+                userId: 3fda9884-29b6-4f78-ada9-de045a0d3978
+                roles:
+                  - role: COURSE_CREATOR
+                    scope:
+                      - organisationId: 01297544481264435214
+                  - role: CONTENT_CREATOR
+                    scope:
+                      - organisationId: 01297544481264435214
+        required: true
+      responses:
+        200:
+          description: 'OK ! Successful operation. "assign role" operation was successfully executed.'
+          headers:
+            Server:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nginx/1.15.8
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Tue, 24 Nov 2020 17:19:05 GMT
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 246
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            X-RateLimit-Limit-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 30000
+            X-RateLimit-Remaining-hour:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 29998
+            Referrer-Policy:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: origin-when-cross-origin, strict-origin-when-cross-origin
+            X-Frame-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: DENY
+            X-XSS-Protection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 1; mode=block
+            x-response-length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 22
+            X-Content-Type-Options:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: nosniff
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            X-Permitted-Cross-Domain-Policies:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: master-only
+            X-Kong-Upstream-Latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 43
+            X-Kong-Proxy-Latency:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: 42
+            Via:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: kong/0.14.1
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userapiAssign_User_Role_With_Success_Response'
+              example:
+                id: api.user.assign.role
+                ver: v1
+                ts: 2020-11-24 17:19:05:681+0000
+                params:
+                  resmsgid:
+                  msgid: 0957c785-ec79-49a5-bd26-a35aa76b12fb
+                  err:
+                  status: success
+                  errmsg:
+                responseCode: OK
+                result:
+                  response: SUCCESS
+        400:
+          description: 'BAD REQUEST. The "User Role Assign" operation failed ! The possible
+            reason for failure is that you may have missed providing input for a
+            mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userapiUserErrorResponse"
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and
+            try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userapiUserErrorResponse"
+      deprecated: false
+      security: []    
   /user/v1/tnc/accept:
     post:
       tags:
@@ -17535,6 +18614,1954 @@ components:
         result:
           type: object
           description: Empty Result
+    userapiGet_User_Success_With_Valid_Auth_Token_With_Roles_Not_In_Org:
+      title: Get_User_Success_With_Valid_Auth_Token
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/userapiParams'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/userapiUserReadResultV5'
+      example:
+        id: api.user.read
+        ver: v4
+        ts: '2021-04-09 21:09:05:331+0530'
+        params:
+          resmsgid: null
+          msgid: a1d3d756-0f9b-4ec6-95a6-6560896d5294
+          err: null
+          status: success
+          errmsg: null
+        responseCode: OK
+        result:
+          response:
+            maskedPhone: null
+            tcStatus: null
+            channel: channel1
+            updatedDate: 2021-04-07 05:09:45:607+0000
+            managedBy: null
+            flagsValue: 2
+            id: 96102c3f-2c22-4614-8dcc-6b130cefe586
+            recoveryEmail: co**************@yopmail.com
+            identifier: 96102c3f-2c22-4614-8dcc-6b130cefe586
+            updatedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+            externalIds: []
+            rootOrgId: 0126796199493140480
+            prevUsedEmail:
+            firstname: first name
+            tncAcceptedOn: 1617265216047
+            allTncAccepted: {}
+            phone:
+            dob: null
+            userType: student
+            status: 1
+            lastName: null
+            tncLatestVersion: 3.5.0
+            roles:
+              - role: COURSE_CREATOR
+                userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                scope:
+                  - organisationId: 0126796199493140480
+                createdDate: 2021-06-07 11:29:41:606+0530
+                updatedBy: null
+                createdBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                updatedDate: null
+            prevUsedPhone:
+            stateValidated: false
+            isDeleted: false
+            organisations:
+              - organisationId: 0126796199493140480
+                updatedBy: null
+                orgName: org1
+                addedByName: null
+                addedBy: null
+                approvedBy: null
+                channel: channel1
+                locationIds:
+                  027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                  8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                orgLocation:
+                  - type: state
+                    id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                  - type: district
+                    id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                externalId: 101010
+                updatedDate: null
+                isSelfDeclared: true
+                associationtype: 2
+                isSystemUpload: false
+                isSSO: false
+                userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                approvaldate: null
+                isSchool: false
+                isDeleted: false
+                hashTagId: 0126796199493140480
+                isRejected: null
+                locations:
+                  - code: 29
+                    name: state1
+                    id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                    type: state
+                    parentId: null
+                  - code: 2901
+                    name: district1
+                    id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                    type: district
+                    parentId: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                id: 01324864401294131212
+                position: null
+                isApproved: null
+                orgjoindate: 2021-04-01 08:19:53:343+0000
+                orgLeftDate: null
+              - organisationId: 0127419693630996481321
+                updatedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                orgName: org2
+                addedByName: null
+                addedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                approvedBy: null
+                channel: tn
+                locationIds:
+                  91d9baae-14f1-477a-955c-f91bd9037f0b
+                  107c9472-a950-4768-bcd6-f882910177c4
+                  ba31e7c2-fac9-472a-8867-1582c73bcca8
+                  5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                orgLocation:
+                  - id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                    type: state
+                  - id: 107c9472-a950-4768-bcd6-f882910177c4
+                    type: district
+                  - id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                    type: block
+                  - id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                    type: cluster
+                externalId: 33100800608
+                updatedDate: 2021-04-07 05:09:38:366+0000
+                userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                approvaldate: null
+                isSchool: true
+                isDeleted: false
+                hashTagId: 0127419693630996481321
+                isRejected: false
+                locations:
+                  - code: 31
+                    name: state2
+                    id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                    type: state
+                    parentId: null
+                  - code: 3110
+                    name: district2
+                    id: 107c9472-a950-4768-bcd6-f882910177c4
+                    type: district
+                    parentId: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                  - code: 31100169
+                    name: block1
+                    id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                    type: block
+                    parentId: 107c9472-a950-4768-bcd6-f882910177c4
+                  - code: 3110016901
+                    name: block1 Cluster
+                    id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                    type: cluster
+                    parentId: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                id: 0132527931586969602
+                position: null
+                isApproved: false
+                orgjoindate: 2021-04-07 05:09:45:655+0000
+                orgLeftDate: 2021-04-07 05:09:38:366+0000
+            provider: null
+            countryCode: null
+            tncLatestVersionUrl: https://organisation2.blob.core.windows.net/termsandcondtions/terms-and-conditions-v9.html#termsOfUse
+            maskedEmail: k1**@yopmail.com
+            email: k1**@yopmail.com
+            rootOrg:
+              dateTime: null
+              preferredLanguage: null
+              keys:
+              approvedBy: null
+              channel: channel1
+              description: org3
+              updatedDate: 2021-03-31 17:31:19:346+0000
+              addressId: null
+              organisationType: 5
+              orgType: null
+              isTenant: true
+              provider: null
+              locationId: null
+              orgCode: null
+              theme: null
+              id: 0126796199493140480
+              communityId: null
+              isApproved: null
+              email: null
+              slug: channel1
+              isSSOEnabled: null
+              orgName: org1
+              updatedBy: null
+              locationIds:
+                027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                8250d58d-f1a2-4397-bfd3-b2e688ba7141
+              externalId: 101010
+              orgLocation:
+                - type: state
+                  id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                - type: district
+                  id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+              isRootOrg: true
+              rootOrgId: 0126796199493140480
+              approvedDate: null
+              imgUrl: null
+              homeUrl: null
+              orgTypeId: null
+              isDefault: null
+              createdDate: 2019-01-18 09:48:13:428+0000
+              createdBy: system
+              parentOrgId: null
+              hashTagId: 0126796199493140480
+              noOfMembers: null
+              status: 1
+            phoneVerified: false
+            tcUpdatedDate: null
+            userLocations:
+              - code: 3110
+                name: district2
+                id: 107c9472-a950-4768-bcd6-f882910177c4
+                type: district
+                parentId: 91d9baae-14f1-477a-955c-f91bd9037f0b
+              - code: 3110016901
+                name: block1 Cluster
+                id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                type: cluster
+                parentId: ba31e7c2-fac9-472a-8867-1582c73bcca8
+              - code: 31
+                name: state2
+                id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                type: state
+                parentId: null
+              - code: 31100169
+                name: block1
+                id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                type: block
+                parentId: 107c9472-a950-4768-bcd6-f882910177c4
+              - identifier: 2e4a420e-a6b8-4688-b12e-0e5f5141d175
+                code: 31100800608
+                name: org2
+                id: 2e4a420e-a6b8-4688-b12e-0e5f5141d175
+                type: school
+                parentId: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+            recoveryPhone:
+            userName: username 2
+            userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+            userSubType: null
+            promptTnC: false
+            emailVerified: true
+            createdDate: 2021-04-01 08:19:50:971+0000
+            framework:
+              board:
+                State state3
+              gradeLevel:
+                Class 1
+              id:
+                ap_k-12_1
+              medium:
+                English
+              subject:
+                English
+            createdBy: null
+            profileUserType:
+              subType: null
+              type: student
+            tncAcceptedVersion: 3.5.0
+    userapiUserReadResultV5:
+      title: UserReadResultV5
+      required:
+        - response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/userapiUserReadResponse5'
+      example:
+        response:
+          maskedPhone: null
+          tcStatus: null
+          channel: channel1
+          updatedDate: 2021-04-07 05:09:45:607+0000
+          managedBy: null
+          flagsValue: 2
+          id: 96102c3f-2c22-4614-8dcc-6b130cefe586
+          recoveryEmail: co**************@yopmail.com
+          identifier: 96102c3f-2c22-4614-8dcc-6b130cefe586
+          updatedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+          externalIds: []
+          rootOrgId: 0126796199493140480
+          prevUsedEmail:
+          firstname: first name
+          tncAcceptedOn: 1617265216047
+          allTncAccepted: {}
+          phone:
+          dob: null
+          userType: student
+          status: 1
+          lastName: null
+          tncLatestVersion: 3.5.0
+          roles:
+            - role: COURSE_CREATOR
+              userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+              scope:
+                - organisationId: 0126796199493140480
+              createdDate: 2021-06-07 11:29:41:606+0530
+              updatedBy: null
+              createdBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+              updatedDate: null
+          prevUsedPhone:
+          stateValidated: false
+          isDeleted: false
+          organisations:
+            - organisationId: 0126796199493140480
+              updatedBy: null
+              orgName: org1
+              addedByName: null
+              addedBy: null
+              approvedBy: null
+              channel: channel1
+              locationIds:
+                027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                8250d58d-f1a2-4397-bfd3-b2e688ba7141
+              orgLocation:
+                - type: state
+                  id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                - type: district
+                  id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+              externalId: 101010
+              updatedDate: null
+              isSelfDeclared: true
+              associationtype: 2
+              isSystemUpload: false
+              isSSO: false
+              userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+              approvaldate: null
+              isSchool: false
+              isDeleted: false
+              hashTagId: 0126796199493140480
+              isRejected: null
+              locations:
+                - code: 29
+                  name: state1
+                  id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                  type: state
+                  parentId: null
+                - code: 2901
+                  name: district1
+                  id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                  type: district
+                  parentId: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+              id: 01324864401294131212
+              position: null
+              isApproved: null
+              orgjoindate: 2021-04-01 08:19:53:343+0000
+              orgLeftDate: null
+            - organisationId: 0127419693630996481321
+              updatedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+              orgName: org2
+              addedByName: null
+              addedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+              approvedBy: null
+              channel: tn
+              locationIds:
+                91d9baae-14f1-477a-955c-f91bd9037f0b
+                107c9472-a950-4768-bcd6-f882910177c4
+                ba31e7c2-fac9-472a-8867-1582c73bcca8
+                5c8876b5-981c-4c6a-b23d-20c9e17428e1
+              orgLocation:
+                - id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                  type: state
+                - id: 107c9472-a950-4768-bcd6-f882910177c4
+                  type: district
+                - id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                  type: block
+                - id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                  type: cluster
+              externalId: 33100800608
+              updatedDate: 2021-04-07 05:09:38:366+0000
+              isSelfDeclared: true
+              associationtype: 2
+              isSystemUpload: false
+              isSSO: false
+              userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+              approvaldate: null
+              isSchool: true
+              isDeleted: false
+              hashTagId: 0127419693630996481321
+              isRejected: false
+              locations:
+                - code: 31
+                  name: state2
+                  id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                  type: state
+                  parentId: null
+                - code: 3110
+                  name: district2
+                  id: 107c9472-a950-4768-bcd6-f882910177c4
+                  type: district
+                  parentId: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                - code: 31100169
+                  name: block1
+                  id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                  type: block
+                  parentId: 107c9472-a950-4768-bcd6-f882910177c4
+                - code: 3110016901
+                  name: block1 Cluster
+                  id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                  type: cluster
+                  parentId: ba31e7c2-fac9-472a-8867-1582c73bcca8
+              id: 0132527931586969602
+              position: null
+              isApproved: false
+              orgjoindate: 2021-04-07 05:09:45:655+0000
+              orgLeftDate: 2021-04-07 05:09:38:366+0000
+          provider: null
+          countryCode: null
+          tncLatestVersionUrl: https://organisation2.blob.core.windows.net/termsandcondtions/terms-and-conditions-v9.html#termsOfUse
+          maskedEmail: k1**@yopmail.com
+          email: k1**@yopmail.com
+          rootOrg:
+            dateTime: null
+            preferredLanguage: null
+            keys:
+            approvedBy: null
+            channel: channel1
+            description: org3
+            updatedDate: 2021-03-31 17:31:19:346+0000
+            addressId: null
+            organisationType: 5
+            orgType: null
+            isTenant: true
+            provider: null
+            locationId: null
+            orgCode: null
+            theme: null
+            id: 0126796199493140480
+            communityId: null
+            isApproved: null
+            email: null
+            slug: channel1
+            isSSOEnabled: null
+            orgName: org1
+            updatedBy: null
+            locationIds:
+              027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+              8250d58d-f1a2-4397-bfd3-b2e688ba7141
+            externalId: 101010
+            orgLocation:
+              - type: state
+                id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+              - type: district
+                id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+            isRootOrg: true
+            rootOrgId: 0126796199493140480
+            approvedDate: null
+            imgUrl: null
+            homeUrl: null
+            orgTypeId: null
+            isDefault: null
+            createdDate: 2019-01-18 09:48:13:428+0000
+            createdBy: system
+            parentOrgId: null
+            hashTagId: 0126796199493140480
+            noOfMembers: null
+            status: 1
+          phoneVerified: false
+          tcUpdatedDate: null
+          userLocations:
+            - code: 3110
+              name: district2
+              id: 107c9472-a950-4768-bcd6-f882910177c4
+              type: district
+              parentId: 91d9baae-14f1-477a-955c-f91bd9037f0b
+            - code: 3110016901
+              name: block1 Cluster
+              id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+              type: cluster
+              parentId: ba31e7c2-fac9-472a-8867-1582c73bcca8
+            - code: 31
+              name: state2
+              id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+              type: state
+              parentId: null
+            - code: 31100169
+              name: block1
+              id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+              type: block
+              parentId: 107c9472-a950-4768-bcd6-f882910177c4
+            - identifier: 2e4a420e-a6b8-4688-b12e-0e5f5141d175
+              code: 31100800608
+              name: org2
+              id: 2e4a420e-a6b8-4688-b12e-0e5f5141d175
+              type: school
+              parentId: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+          recoveryPhone:
+          userName: username 2
+          userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+          userSubType: null
+          promptTnC: false
+          emailVerified: true
+          createdDate: 2021-04-01 08:19:50:971+0000
+          framework:
+            board:
+              State state3
+            gradeLevel:
+              Class 1
+            id:
+              ap_k-12_1
+            medium:
+              English
+            subject:
+              English
+          createdBy: null
+          profileUserType:
+            subType: null
+            type: student
+          tncAcceptedVersion: 3.5.0
+    userapiUserReadResponse5:
+      title: UserReadResponse5
+      required:
+        - tcStatus
+        - maskedPhone
+        - rootOrgName
+        - channel
+        - updatedDate
+        - managedBy
+        - flagsValue
+        - id
+        - recoveryEmail
+        - identifier
+        - updatedBy
+        - locationIds
+        - rootOrgId
+        - prevUsedEmail
+        - firstName
+        - tncAcceptedOn
+        - allTncAccepted
+        - phone
+        - dob
+        - userType
+        - userSubtType
+        - status
+        - lastName
+        - tncLatestVersion
+        - roles
+        - prevUsedPhone
+        - stateValidated
+        - isDeleted
+        - organisations
+        - isSchool
+        - provider
+        - countryCode
+        - tncLatestVersionUrl
+        - maskedEmail
+        - email
+        - rootOrg
+        - phoneVerified
+        - tcUpdatedDate
+        - recoveryPhone
+        - userName
+        - promptTnC
+        - emailVerified
+        - framework
+        - createdDate
+        - createdBy
+        - tncAcceptedVersion
+      type: object
+      properties:
+        webPages:
+          type: array
+          items:
+            type: string
+          description: ''
+        tcStatus:
+          type: string
+          nullable: true
+        maskedPhone:
+          type: string
+          nullable: true
+        rootOrgName:
+          type: string
+        subject:
+          type: array
+          items:
+            type: string
+          description: ''
+        channel:
+          type: string
+        language:
+          type: array
+          items:
+            type: string
+          description: ''
+        updatedDate:
+          type: string
+          nullable: true
+        managedBy:
+          type: string
+          nullable: true
+        flagsValue:
+          type: integer
+          format: int32
+        id:
+          type: string
+        recoveryEmail:
+          type: string
+        identifier:
+          type: string
+        thumbnail:
+          type: string
+          nullable: true
+        updatedBy:
+          type: string
+          nullable: true
+        accesscode:
+          type: string
+          nullable: true
+        locationIds:
+          type: array
+          items:
+            type: string
+          description: ''
+        registryId:
+          type: string
+          nullable: true
+        rootOrgId:
+          type: string
+        prevUsedEmail:
+          type: string
+        firstName:
+          type: string
+        tncAcceptedOn:
+          type: string
+          nullable: true
+        allTncAccepted:
+          type: object
+        phone:
+          type: string
+        dob:
+          type: string
+          nullable: true
+        grade:
+          type: array
+          items:
+            type: string
+          description: ''
+        currentLoginTime:
+          type: string
+          nullable: true
+        userType:
+          type: string
+        userSubtType:
+          type: string
+        status:
+          type: integer
+          format: int32
+        lastName:
+          type: string
+        tncLatestVersion:
+          type: string
+        gender:
+          type: string
+          nullable: true
+        roles:
+          description:  The user's roles
+          type: array
+          items:
+            type: object
+            properties:
+              role:
+                type: string
+              scope:
+                type: array
+                items: 
+                  type: object
+                  properties:
+                    organisationId: 
+                      type: string
+              createdDate:
+                type: string
+              updatedBy:
+                type: string
+              createdBy:
+                type: string
+              updatedDate:
+                type: string
+              userId:
+                type: string    
+        prevUsedPhone:
+          type: string
+        stateValidated:
+          type: boolean
+        isDeleted:
+          type: boolean
+        organisations:
+          type: array
+          items:
+            $ref: '#/components/schemas/userapiOrganisationCommonFields'
+          description: ''
+        provider:
+          type: string
+          nullable: true
+        countryCode:
+          type: string
+          nullable: true
+        tncLatestVersionUrl:
+          type: string
+        maskedEmail:
+          type: string
+        tempPassword:
+          type: string
+          nullable: true
+        email:
+          type: string
+        rootOrg:
+          $ref: '#/components/schemas/userapiRootOrg'
+        profileSummary:
+          type: string
+          nullable: true
+        phoneVerified:
+          type: boolean
+        tcUpdatedDate:
+          type: string
+          nullable: true
+        recoveryPhone:
+          type: string
+        avatar:
+          type: string
+          nullable: true
+        userName:
+          type: string
+        promptTnC:
+          type: boolean
+        lastLoginTime:
+          type: string
+          nullable: true
+        emailVerified:
+          type: boolean
+        framework:
+          type: object
+        createdDate:
+          type: string
+        createdBy:
+          type: string
+          nullable: true
+        location:
+          type: string
+          nullable: true
+        tncAcceptedVersion:
+          type: string
+          nullable: true
+      example:
+        webPages: []
+        tcStatus:
+        maskedPhone:
+        rootOrgName: org3
+        subject: []
+        channel: channel1
+        language: []
+        updatedDate:
+        managedBy:
+        flagsValue: 2
+        id: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
+        recoveryEmail: ''
+        identifier: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
+        thumbnail:
+        updatedBy:
+        accesscode:
+        locationIds: []
+        registryId:
+        rootOrgId: 0126796199493140480
+        prevUsedEmail: ''
+        firstname: first name
+        tncAcceptedOn:
+        allTncAccepted: {}
+        phone: ''
+        dob:
+        grade: []
+        currentLoginTime:
+        userType: TEACHER
+        userSubtype:
+        status: 1
+        lastname: last name
+        tncLatestVersion: v8
+        gender:
+        roles:
+          - role: COURSE_CREATOR
+            userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+            scope:
+              - organisationId: 0126796199493140480
+            createdDate: 2021-06-07 11:29:41:606+0530
+            updatedBy: null
+            createdBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+            updatedDate: null
+        prevUsedPhone: ''
+        stateValidated: false
+        isDeleted: false
+        organisations:
+          - updatedBy:
+            organisationId: 0126796199493140480
+            orgName: org3
+            addedByName:
+            addedBy:
+            approvedBy:
+            updatedDate:
+            userId: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
+            approvaldate:
+            isDeleted: false
+            hashTagId: 0126796199493140480
+            isRejected:
+            position:
+            id: 0131573015167221767
+            orgjoindate: 2020-11-23 07:02:43:194+0000
+            isApproved:
+            orgLeftDate:
+        provider:
+        countryCode:
+        tncLatestVersionUrl: https://organisation.blob.core.windows.net/termsandcond/terms-and-conditions-v8.html
+        maskedEmail: se*************@yopmail.com
+        tempPassword:
+        email: se*************@yopmail.com
+        rootOrg:
+          dateTime:
+          preferredLanguage:
+          keys:
+            encKeys:
+              - 456
+            signKeys:
+              - 456
+          channel: channel1
+          approvedBy:
+          description: org3
+          updatedDate: 2020-08-28 10:12:01:096+0000
+          addressId:
+          orgType:
+          provider:
+          orgCode:
+          locationId:
+          theme:
+          id: 0126796199493140480
+          isApproved:
+          communityId:
+          slug: channel1
+          email:
+          isSSOEnabled:
+          thumbnail:
+          updatedBy:
+          orgName: org3
+          locationIds:
+            - 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+            - 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+          externalId:
+          isRootOrg: true
+          rootOrgId: 0126796199493140480
+          imgUrl:
+          approvedDate:
+          orgTypeId:
+          homeUrl:
+          isDefault: true
+          createdDate: 2019-01-18 09:48:13:428+0000
+          contactDetail:
+          parentOrgId:
+          createdBy: system
+          hashTagId: 0126796199493140480
+          noOfMembers:
+          status: 1
+        profileSummary:
+        phoneVerified: false
+        tcUpdatedDate:
+        recoveryPhone: ''
+        avatar:
+        userName: username1
+        promptTnC: true
+        lastLoginTime:
+        emailVerified: true
+        framework: {}
+        createdDate: 2020-11-23 07:02:36:155+0000
+        createdBy:
+        location:
+        tncAcceptedVersion:
+    userapiUser_Search_With_Success_Response_v3:
+      title: User_Search_With_Success_Response_v3
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          $ref: '#/components/schemas/userapiParams'
+        responseCode:
+          type: string
+        result:
+          $ref: '#/components/schemas/userapiUserSearchResultV3'
+      example:
+        id: api.user.search
+        ver: v2
+        ts: 2020-11-23 09:16:58:628+0000
+        params:
+          resmsgid:
+          msgid: ad7135b8-ef64-44bd-adaa-0b131a657689
+          err:
+          status: success
+          errmsg:
+        responseCode: OK
+        result:
+          response:
+            count: 1
+            content:
+              - maskedPhone: null
+                tcStatus: null
+                channel: channel1
+                updatedDate: 2021-04-07 05:09:45:607+0000
+                managedBy: null
+                flagsValue: 2
+                id: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                recoveryEmail: co**************@yopmail.com
+                identifier: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                updatedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                externalIds: []
+                rootOrgId: 0126796199493140480
+                prevUsedEmail:
+                firstname: first name
+                tncAcceptedOn: 1617265216047
+                allTncAccepted: {}
+                phone:
+                dob: null
+                userType: student
+                status: 1
+                lastName: null
+                tncLatestVersion: 3.5.0
+                roles:
+                  - role: COURSE_CREATOR
+                    userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                    scope:
+                      - organisationId: 0126796199493140480
+                    createdDate: 2021-06-07 11:29:41:606+0530
+                    updatedBy: null
+                    createdBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                    updatedDate: null
+                prevUsedPhone:
+                stateValidated: false
+                isDeleted: false
+                organisations:
+                  - organisationId: 0126796199493140480
+                    updatedBy: null
+                    orgName: org1
+                    addedByName: null
+                    addedBy: null
+                    approvedBy: null
+                    channel: channel1
+                    locationIds:
+                      027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                      8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                    orgLocation:
+                      - type: state
+                        id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                      - type: district
+                        id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                    externalId: 101010
+                    updatedDate: null
+                    userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                    approvaldate: null
+                    isSchool: false
+                    isDeleted: false
+                    hashTagId: 0126796199493140480
+                    isRejected: null
+                    locations:
+                      - code: 29
+                        name: state1
+                        id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                        type: state
+                        parentId: null
+                      - code: 2901
+                        name: district1
+                        id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                        type: district
+                        parentId: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                    id: 01324864401294131212
+                    position: null
+                    isApproved: null
+                    orgjoindate: 2021-04-01 08:19:53:343+0000
+                    orgLeftDate: null
+                  - organisationId: 0127419693630996481321
+                    updatedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                    orgName: org2
+                    addedByName: null
+                    addedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                    approvedBy: null
+                    channel: tn
+                    locationIds:
+                      91d9baae-14f1-477a-955c-f91bd9037f0b
+                      107c9472-a950-4768-bcd6-f882910177c4
+                      ba31e7c2-fac9-472a-8867-1582c73bcca8
+                      5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                    orgLocation:
+                      - id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                        type: state
+                      - id: 107c9472-a950-4768-bcd6-f882910177c4
+                        type: district
+                      - id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                        type: block
+                      - id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                        type: cluster
+                    externalId: 33100800608
+                    updatedDate: 2021-04-07 05:09:38:366+0000
+                    userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                    approvaldate: null
+                    isSchool: true
+                    isDeleted: false
+                    hashTagId: 0127419693630996481321
+                    isRejected: false
+                    locations:
+                      - code: 31
+                        name: state2
+                        id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                        type: state
+                        parentId: null
+                      - code: 3110
+                        name: district2
+                        id: 107c9472-a950-4768-bcd6-f882910177c4
+                        type: district
+                        parentId: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                      - code: 31100169
+                        name: block1
+                        id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                        type: block
+                        parentId: 107c9472-a950-4768-bcd6-f882910177c4
+                      - code: 3110016901
+                        name: block1 Cluster
+                        id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                        type: cluster
+                        parentId: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                    id: 0132527931586969602
+                    position: null
+                    isApproved: false
+                    orgjoindate: 2021-04-07 05:09:45:655+0000
+                    orgLeftDate: 2021-04-07 05:09:38:366+0000
+                provider: null
+                countryCode: null
+                tncLatestVersionUrl: https://organisation2.blob.core.windows.net/termsandcondtions/terms-and-conditions-v9.html#termsOfUse
+                maskedEmail: k1**@yopmail.com
+                email: k1**@yopmail.com
+                rootOrg:
+                  dateTime: null
+                  preferredLanguage: null
+                  keys:
+                  approvedBy: null
+                  channel: channel1
+                  description: org3
+                  updatedDate: 2021-03-31 17:31:19:346+0000
+                  addressId: null
+                  organisationType: 5
+                  orgType: null
+                  isTenant: true
+                  provider: null
+                  locationId: null
+                  orgCode: null
+                  theme: null
+                  id: 0126796199493140480
+                  communityId: null
+                  isApproved: null
+                  email: null
+                  slug: channel1
+                  isSSOEnabled: null
+                  orgName: org1
+                  updatedBy: null
+                  locationIds:
+                    027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                    8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                  externalId: 101010
+                  orgLocation:
+                    - type: state
+                      id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                    - type: district
+                      id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                  isRootOrg: true
+                  rootOrgId: 0126796199493140480
+                  approvedDate: null
+                  imgUrl: null
+                  homeUrl: null
+                  orgTypeId: null
+                  isDefault: null
+                  createdDate: 2019-01-18 09:48:13:428+0000
+                  createdBy: system
+                  parentOrgId: null
+                  hashTagId: 0126796199493140480
+                  noOfMembers: null
+                  status: 1
+                phoneVerified: false
+                tcUpdatedDate: null
+                userLocations:
+                  - code: 3110
+                    name: district2
+                    id: 107c9472-a950-4768-bcd6-f882910177c4
+                    type: district
+                    parentId: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                  - code: 3110016901
+                    name: block1 Cluster
+                    id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                    type: cluster
+                    parentId: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                  - code: 31
+                    name: state2
+                    id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                    type: state
+                    parentId: null
+                  - code: 31100169
+                    name: block1
+                    id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                    type: block
+                    parentId: 107c9472-a950-4768-bcd6-f882910177c4
+                  - identifier: 2e4a420e-a6b8-4688-b12e-0e5f5141d175
+                    code: 31100800608
+                    name: org2
+                    id: 2e4a420e-a6b8-4688-b12e-0e5f5141d175
+                    type: school
+                    parentId: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                recoveryPhone:
+                userName: username 2
+                userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                userSubType: null
+                promptTnC: false
+                emailVerified: true
+                createdDate: 2021-04-01 08:19:50:971+0000
+                framework:
+                  board:
+                    State state3
+                  gradeLevel:
+                    Class 1
+                  id:
+                    ap_k-12_1
+                  medium:
+                    English
+                  subject:
+                    English
+                createdBy: null
+                profileUserType:
+                  subType: null
+                  type: student
+                tncAcceptedVersion: 3.5.0
+    userapiUserSearchResultV3:
+      title: UserSearchResultV3
+      required:
+        - response
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/userapiResponseV3'
+      example:
+        response:
+          count: 1
+          content:
+            - maskedPhone: null
+              tcStatus: null
+              channel: channel1
+              updatedDate: 2021-04-07 05:09:45:607+0000
+              managedBy: null
+              flagsValue: 2
+              id: 96102c3f-2c22-4614-8dcc-6b130cefe586
+              recoveryEmail: co**************@yopmail.com
+              identifier: 96102c3f-2c22-4614-8dcc-6b130cefe586
+              updatedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+              externalIds: []
+              rootOrgId: 0126796199493140480
+              prevUsedEmail:
+              firstname: first name
+              tncAcceptedOn: 1617265216047
+              allTncAccepted: {}
+              phone:
+              dob: null
+              userType: student
+              status: 1
+              lastName: null
+              tncLatestVersion: 3.5.0
+              roles:
+                - role: COURSE_CREATOR
+                  userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                  scope:
+                    - organisationId: 0126796199493140480
+                  createdDate: 2021-06-07 11:29:41:606+0530
+                  updatedBy: null
+                  createdBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                  updatedDate: null
+              prevUsedPhone:
+              stateValidated: false
+              isDeleted: false
+              organisations:
+                - organisationId: 0126796199493140480
+                  updatedBy: null
+                  orgName: org1
+                  addedByName: null
+                  addedBy: null
+                  approvedBy: null
+                  channel: channel1
+                  locationIds:
+                    027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                    8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                  orgLocation:
+                    - type: state
+                      id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                    - type: district
+                      id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                  externalId: 101010
+                  updatedDate: null
+                  userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                  approvaldate: null
+                  isSchool: false
+                  isDeleted: false
+                  hashTagId: 0126796199493140480
+                  isRejected: null
+                  locations:
+                    - code: 29
+                      name: state1
+                      id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                      type: state
+                      parentId: null
+                    - code: 2901
+                      name: district1
+                      id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                      type: district
+                      parentId: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                  id: 01324864401294131212
+                  position: null
+                  isApproved: null
+                  orgjoindate: 2021-04-01 08:19:53:343+0000
+                  orgLeftDate: null
+                - organisationId: 0127419693630996481321
+                  updatedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                  orgName: org2
+                  addedByName: null
+                  addedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                  approvedBy: null
+                  channel: tn
+                  locationIds:
+                    91d9baae-14f1-477a-955c-f91bd9037f0b
+                    107c9472-a950-4768-bcd6-f882910177c4
+                    ba31e7c2-fac9-472a-8867-1582c73bcca8
+                    5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                  orgLocation:
+                    - id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                      type: state
+                    - id: 107c9472-a950-4768-bcd6-f882910177c4
+                      type: district
+                    - id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                      type: block
+                    - id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                      type: cluster
+                  externalId: 33100800608
+                  updatedDate: 2021-04-07 05:09:38:366+0000
+                  userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                  approvaldate: null
+                  isSchool: true
+                  isDeleted: false
+                  hashTagId: 0127419693630996481321
+                  isRejected: false
+                  locations:
+                    - code: 31
+                      name: state2
+                      id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                      type: state
+                      parentId: null
+                    - code: 3110
+                      name: district2
+                      id: 107c9472-a950-4768-bcd6-f882910177c4
+                      type: district
+                      parentId: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                    - code: 31100169
+                      name: block1
+                      id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                      type: block
+                      parentId: 107c9472-a950-4768-bcd6-f882910177c4
+                    - code: 3110016901
+                      name: block1 Cluster
+                      id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                      type: cluster
+                      parentId: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                  id: 0132527931586969602
+                  position: null
+                  isApproved: false
+                  orgjoindate: 2021-04-07 05:09:45:655+0000
+                  orgLeftDate: 2021-04-07 05:09:38:366+0000
+              provider: null
+              countryCode: null
+              tncLatestVersionUrl: https://organisation2.blob.core.windows.net/termsandcondtions/terms-and-conditions-v9.html#termsOfUse
+              maskedEmail: k1**@yopmail.com
+              email: k1**@yopmail.com
+              rootOrg:
+                dateTime: null
+                preferredLanguage: null
+                keys:
+                approvedBy: null
+                channel: channel1
+                description: org3
+                updatedDate: 2021-03-31 17:31:19:346+0000
+                addressId: null
+                organisationType: 5
+                orgType: null
+                isTenant: true
+                provider: null
+                locationId: null
+                orgCode: null
+                theme: null
+                id: 0126796199493140480
+                communityId: null
+                isApproved: null
+                email: null
+                slug: channel1
+                isSSOEnabled: null
+                orgName: org1
+                updatedBy: null
+                locationIds:
+                  027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                  8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                externalId: 101010
+                orgLocation:
+                  - type: state
+                    id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                  - type: district
+                    id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                isRootOrg: true
+                rootOrgId: 0126796199493140480
+                approvedDate: null
+                imgUrl: null
+                homeUrl: null
+                orgTypeId: null
+                isDefault: null
+                createdDate: 2019-01-18 09:48:13:428+0000
+                createdBy: system
+                parentOrgId: null
+                hashTagId: 0126796199493140480
+                noOfMembers: null
+                status: 1
+              phoneVerified: false
+              tcUpdatedDate: null
+              userLocations:
+                - code: 3110
+                  name: district2
+                  id: 107c9472-a950-4768-bcd6-f882910177c4
+                  type: district
+                  parentId: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                - code: 3110016901
+                  name: block1 Cluster
+                  id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                  type: cluster
+                  parentId: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                - code: 31
+                  name: state2
+                  id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                  type: state
+                  parentId: null
+                - code: 31100169
+                  name: block1
+                  id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                  type: block
+                  parentId: 107c9472-a950-4768-bcd6-f882910177c4
+                - identifier: 2e4a420e-a6b8-4688-b12e-0e5f5141d175
+                  code: 31100800608
+                  name: org2
+                  id: 2e4a420e-a6b8-4688-b12e-0e5f5141d175
+                  type: school
+                  parentId: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+              recoveryPhone:
+              userName: username 2
+              userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+              userSubType: null
+              promptTnC: false
+              emailVerified: true
+              createdDate: 2021-04-01 08:19:50:971+0000
+              framework:
+                board:
+                  State state3
+                gradeLevel:
+                  Class 1
+                id:
+                  ap_k-12_1
+                medium:
+                  English
+                subject:
+                  English
+              createdBy: null
+              profileUserType:
+                subType: null
+                type: student
+              tncAcceptedVersion: 3.5.0
+    userapiResponseV3:
+      title: Response
+      required:
+        - count
+        - content
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/userapiContentV3'
+          description: ''
+      example:
+        count: 1
+        content:
+          - maskedPhone: null
+            tcStatus: null
+            channel: channel1
+            updatedDate: 2021-04-07 05:09:45:607+0000
+            managedBy: null
+            flagsValue: 2
+            id: 96102c3f-2c22-4614-8dcc-6b130cefe586
+            recoveryEmail: co**************@yopmail.com
+            identifier: 96102c3f-2c22-4614-8dcc-6b130cefe586
+            updatedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+            externalIds: []
+            rootOrgId: 0126796199493140480
+            prevUsedEmail:
+            firstname: first name
+            tncAcceptedOn: 1617265216047
+            allTncAccepted: {}
+            phone:
+            dob: null
+            userType: student
+            status: 1
+            lastName: null
+            tncLatestVersion: 3.5.0
+            roles:
+              - role: COURSE_CREATOR
+                userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                scope:
+                  - organisationId: 0126796199493140480
+                createdDate: 2021-06-07 11:29:41:606+0530
+                updatedBy: null
+                createdBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                updatedDate: null
+            prevUsedPhone:
+            stateValidated: false
+            isDeleted: false
+            organisations:
+              - organisationId: 0126796199493140480
+                updatedBy: null
+                orgName: org1
+                addedByName: null
+                addedBy: null
+                approvedBy: null
+                channel: channel1
+                locationIds:
+                  027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                  8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                orgLocation:
+                  - type: state
+                    id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                  - type: district
+                    id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                externalId: 101010
+                updatedDate: null
+                userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                approvaldate: null
+                isSchool: false
+                isDeleted: false
+                hashTagId: 0126796199493140480
+                isRejected: null
+                locations:
+                  - code: 29
+                    name: state1
+                    id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                    type: state
+                    parentId: null
+                  - code: 2901
+                    name: district1
+                    id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+                    type: district
+                    parentId: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                id: 01324864401294131212
+                position: null
+                isApproved: null
+                orgjoindate: 2021-04-01 08:19:53:343+0000
+                orgLeftDate: null
+              - organisationId: 0127419693630996481321
+                updatedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                orgName: org2
+                addedByName: null
+                addedBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                approvedBy: null
+                channel: tn
+                locationIds:
+                  91d9baae-14f1-477a-955c-f91bd9037f0b
+                  107c9472-a950-4768-bcd6-f882910177c4
+                  ba31e7c2-fac9-472a-8867-1582c73bcca8
+                  5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                orgLocation:
+                  - id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                    type: state
+                  - id: 107c9472-a950-4768-bcd6-f882910177c4
+                    type: district
+                  - id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                    type: block
+                  - id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                    type: cluster
+                externalId: 33100800608
+                updatedDate: 2021-04-07 05:09:38:366+0000
+                userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+                approvaldate: null
+                isSchool: true
+                isDeleted: false
+                hashTagId: 0127419693630996481321
+                isRejected: false
+                locations:
+                  - code: 31
+                    name: state2
+                    id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                    type: state
+                    parentId: null
+                  - code: 3110
+                    name: district2
+                    id: 107c9472-a950-4768-bcd6-f882910177c4
+                    type: district
+                    parentId: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                  - code: 31100169
+                    name: block1
+                    id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                    type: block
+                    parentId: 107c9472-a950-4768-bcd6-f882910177c4
+                  - code: 3110016901
+                    name: block1 Cluster
+                    id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                    type: cluster
+                    parentId: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                id: 0132527931586969602
+                position: null
+                isApproved: false
+                orgjoindate: 2021-04-07 05:09:45:655+0000
+                orgLeftDate: 2021-04-07 05:09:38:366+0000
+            provider: null
+            countryCode: null
+            tncLatestVersionUrl: https://organisation2.blob.core.windows.net/termsandcondtions/terms-and-conditions-v9.html#termsOfUse
+            maskedEmail: k1**@yopmail.com
+            email: k1**@yopmail.com
+            rootOrg:
+              dateTime: null
+              preferredLanguage: null
+              keys:
+              approvedBy: null
+              channel: channel1
+              description: org3
+              updatedDate: 2021-03-31 17:31:19:346+0000
+              addressId: null
+              organisationType: 5
+              orgType: null
+              isTenant: true
+              provider: null
+              locationId: null
+              orgCode: null
+              theme: null
+              id: 0126796199493140480
+              communityId: null
+              isApproved: null
+              email: null
+              slug: channel1
+              isSSOEnabled: null
+              orgName: org1
+              updatedBy: null
+              locationIds:
+                027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                8250d58d-f1a2-4397-bfd3-b2e688ba7141
+              externalId: 101010
+              orgLocation:
+                - type: state
+                  id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+                - type: district
+                  id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+              isRootOrg: true
+              rootOrgId: 0126796199493140480
+              approvedDate: null
+              imgUrl: null
+              homeUrl: null
+              orgTypeId: null
+              isDefault: null
+              createdDate: 2019-01-18 09:48:13:428+0000
+              createdBy: system
+              parentOrgId: null
+              hashTagId: 0126796199493140480
+              noOfMembers: null
+              status: 1
+            phoneVerified: false
+            tcUpdatedDate: null
+            userLocations:
+              - code: 3110
+                name: district2
+                id: 107c9472-a950-4768-bcd6-f882910177c4
+                type: district
+                parentId: 91d9baae-14f1-477a-955c-f91bd9037f0b
+              - code: 3110016901
+                name: block1 Cluster
+                id: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+                type: cluster
+                parentId: ba31e7c2-fac9-472a-8867-1582c73bcca8
+              - code: 31
+                name: state2
+                id: 91d9baae-14f1-477a-955c-f91bd9037f0b
+                type: state
+                parentId: null
+              - code: 31100169
+                name: block1
+                id: ba31e7c2-fac9-472a-8867-1582c73bcca8
+                type: block
+                parentId: 107c9472-a950-4768-bcd6-f882910177c4
+              - identifier: 2e4a420e-a6b8-4688-b12e-0e5f5141d175
+                code: 31100800608
+                name: org2
+                id: 2e4a420e-a6b8-4688-b12e-0e5f5141d175
+                type: school
+                parentId: 5c8876b5-981c-4c6a-b23d-20c9e17428e1
+            recoveryPhone:
+            userName: username 2
+            userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+            userSubType: null
+            promptTnC: false
+            emailVerified: true
+            createdDate: 2021-04-01 08:19:50:971+0000
+            framework:
+              board:
+                State state3
+              gradeLevel:
+                Class 1
+              id:
+                ap_k-12_1
+              medium:
+                English
+              subject:
+                English
+            createdBy: null
+            profileUserType:
+              subType: null
+              type: student
+            tncAcceptedVersion: 3.5.0
+    userapiContentV3:
+      title: Content
+      required:
+        - tcStatus
+        - maskedPhone
+        - rootOrgName
+        - channel
+        - updatedDate
+        - managedBy
+        - flagsValue
+        - id
+        - recoveryEmail
+        - identifier
+        - updatedBy
+        - accesscode
+        - rootOrgId
+        - prevUsedEmail
+        - firstName
+        - tncAcceptedOn
+        - allTncAccepted
+        - phone
+        - dob
+        - status
+        - lastName
+        - roles
+        - prevUsedPhone
+        - stateValidated
+        - isDeleted
+        - organisations
+        - isSchool
+        - provider
+        - countryCode
+        - maskedEmail
+        - email
+        - phoneVerified
+        - profileLocation
+        - profileUserType
+        - tcUpdatedDate
+        - recoveryPhone
+        - userName
+        - emailVerified
+        - framework
+        - createdDate
+        - createdBy
+        - tncAcceptedVersion
+      type: object
+      properties:
+        tcStatus:
+          type: string
+          nullable: true
+        maskedPhone:
+          type: string
+          nullable: true
+        rootOrgName:
+          type: string
+        channel:
+          type: string
+        updatedDate:
+          type: string
+          nullable: true
+        managedBy:
+          type: string
+          nullable: true
+        flagsValue:
+          type: integer
+          format: int32
+        id:
+          type: string
+        recoveryEmail:
+          type: string
+        identifier:
+          type: string
+        updatedBy:
+          type: string
+          nullable: true
+        accesscode:
+          type: string
+          nullable: true
+        rootOrgId:
+          type: string
+        prevUsedEmail:
+          type: string
+        firstName:
+          type: string
+        tncAcceptedOn:
+          type: string
+          nullable: true
+        allTncAccepted:
+          type: object
+        phone:
+          type: string
+        dob:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+        lastName:
+          type: string
+        roles:
+          description:  The user's roles
+          type: array
+          items:
+            type: object
+            properties:
+              role:
+                type: string
+              scope:
+                type: array
+                items: 
+                  type: object
+                  properties:
+                    organisationId: 
+                      type: string
+              createdDate:
+                type: string
+              updatedBy:
+                type: string
+              createdBy:
+                type: string
+              updatedDate:
+                type: string
+              userId:
+                type: string
+        prevUsedPhone:
+          type: string
+        stateValidated:
+          type: boolean
+        isDeleted:
+          type: boolean
+        organisations:
+          type: array
+          items:
+            $ref: '#/components/schemas/userapiOrganisationCommonFields'
+          description: ''
+        provider:
+          type: string
+          nullable: true
+        countryCode:
+          type: string
+          nullable: true
+        maskedEmail:
+          type: string
+        email:
+          type: string
+        phoneVerified:
+          type: boolean
+        profileLocation:
+          type: array
+          items:
+            type: string
+        profileUserType:
+          type: array
+          items:
+            type: string
+        tcUpdatedDate:
+          type: string
+          nullable: true
+        recoveryPhone:
+          type: string
+        userName:
+          type: string
+        emailVerified:
+          type: boolean
+        framework:
+          type: object
+        createdDate:
+          type: string
+        createdBy:
+          type: string
+          nullable: true
+        tncAcceptedVersion:
+          type: string
+          nullable: true
+      example:
+        tcStatus:
+        maskedPhone:
+        rootOrgName: org3
+        channel: channel1
+        updatedDate:
+        managedBy:
+        flagsValue: 2
+        id: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
+        recoveryEmail: ''
+        identifier: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
+        updatedBy:
+        accesscode:
+        rootOrgId: 0126796199493140480
+        prevUsedEmail: ''
+        firstname: first name
+        tncAcceptedOn:
+        allTncAccepted: {}
+        phone: ''
+        dob:
+        status: 1
+        lastname: last name
+        roles:
+          - role: COURSE_CREATOR
+            userId: 96102c3f-2c22-4614-8dcc-6b130cefe586
+            scope:
+              - organisationId: 0126796199493140480
+            createdDate: 2021-06-07 11:29:41:606+0530
+            updatedBy: null
+            createdBy: 96102c3f-2c22-4614-8dcc-6b130cefe586
+            updatedDate: null
+        prevUsedPhone: ''
+        stateValidated: false
+        isDeleted: false
+        organisations:
+          - updatedBy:
+            organisationId: 0126796199493140480
+            orgName: org3
+            addedByName:
+            addedBy:
+            approvedBy:
+            updatedDate:
+            userId: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
+            approvaldate:
+            isDeleted: false
+            hashTagId: 0126796199493140480
+            isRejected:
+            position:
+            id: 0131573015167221767
+            orgjoindate: 2020-11-23 07:02:43:194+0000
+            isApproved:
+            orgLeftDate:
+        provider:
+        countryCode:
+        maskedEmail: se*************@yopmail.com
+        email: se*************@yopmail.com
+        phoneVerified: false
+        profileLocation:
+          - id: 4b3e0114-f2b1-4632-8366-f1e428994698
+            type: district
+          - id: 2563fd50-8e70-470c-b911-4bcc9fab8a17
+            type: state
+        profileUserType:
+          subType: aeo
+          type: student
+        tcUpdatedDate:
+        recoveryPhone: ''
+        userName: username1
+        emailVerified: true
+        framework: {}
+        createdDate: 2020-11-23 07:02:36:155+0000
+        createdBy:
+        tncAcceptedVersion:
+    userapiAssign_User_Role_RequestV2:
+      title: Assign_User_Role_Request
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/userapiAssignUserRoleRequestV2'
+      example:
+        request:
+          userId: 3fda9884-29b6-4f78-ada9-de045a0d3978
+          roles:
+          - role: COURSE_CREATOR
+            scope:
+              - organisationId: 01297544481264435214
+          - role: CONTENT_CREATOR
+            scope:
+              - organisationId: 01297544481264435214
+    userapiAssignUserRoleRequestV2:
+      title: AssignUserRoleRequest
+      required:
+        - userId
+        - roles
+      type: object
+      properties:
+        userId:
+          type: string
+        roles:
+          description:  The user's roles
+          type: array
+          items:
+            type: object
+            properties:
+              role:
+                type: string
+              scope:
+                type: array
+                items: 
+                  type: object
+                  properties:
+                    organisationId: 
+                      type: string
+
+      example:
+        userId: 3fda9884-29b6-4f78-ada9-de045a0d3978
+        roles:
+          - role: COURSE_CREATOR
+            scope:
+              - organisationId: 01297544481264435214
+          - role: CONTENT_CREATOR
+            scope:
+              - organisationId: 01297544481264435214             
 tags:
   - name: User APIs
     description: ''
