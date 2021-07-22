@@ -28,7 +28,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |||Provision/KnowledgePlatform/Neo4j|release-4.1.0_RC9||
 |Build/KnowledgePlatform/FlinkJobs|release-4.1.0_RC7|Deploy/KnowledgePlatform/FlinkJobs|release-4.1.0_RC9|add <b>audit-event-generator</b> in the Jenkins jobs list|
 |Build/KnowledgePlatform/Learning|release-4.1.0_RC9|Deploy/KnowledgePlatform/Learning|release-4.1.0_RC9||
-|Build/KnowledgePlatform/Neo4j|release-4.1.0_RC1|Deploy/KnowledgePlatform/Neo4j|release-4.1.0_RC9|Update build jobs repo to <b>https://github.com/project-sunbird/knowledge-platform-db-extensions.git</b><br/>  and jenkinsfile to <b>build/neo4j-extensions/Jenkinsfile</b><br/>restart the Neo4J cluster.Validate the plugins folder file sizes. (learning jar should be around 3mb only. Previously it is 10mb+)<br/>delete the old Neo4J folder from all vms.(We upgraded to neo4j-enterprise-3.3.10-SNAPSHOT) <b>rm -rf /home/learning/neo4j-learning/</b> neo4j-enterprise-3.3.0|
+|Build/KnowledgePlatform/Neo4j<br/><b>check comment for build job config changes</b>|release-4.1.0_RC1|Deploy/KnowledgePlatform/Neo4j|release-4.1.0_RC9|Update build jobs repo to <b>https://github.com/project-sunbird/knowledge-platform-db-extensions.git</b><br/>  and jenkinsfile to <b>build/neo4j-extensions/Jenkinsfile</b><br/>restart the Neo4J cluster.Validate the plugins folder file sizes. (learning jar should be around 3mb only. Previously it is 10mb+)<br/>delete the old Neo4J folder from all vms.(We upgraded to neo4j-enterprise-3.3.10-SNAPSHOT) <b>rm -rf /home/learning/neo4j-learning/</b> neo4j-enterprise-3.3.0|
 |Build/KnowledgePlatform/Yarn|release-4.1.0_RC9|Deploy/KnowledgePlatform/Yarn|release-4.1.0_RC9||
 |Build/Core/Cassandra|release-4.0.0_RC3|Deploy/Kubernetes/Cassandra|release-4.1.0_RC7||
 |||Deploy/Kubernetes/OnboardAPIs|release-4.1.0_RC7||
@@ -47,16 +47,12 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/DataPipeline/CoreDataProducts|release-4.1.0_RC1|Deploy/DataPipeline/CoreDataProducts|release-4.1.0_RC2||
 |Build/DataPipeline/EdDataProducts|release-4.1.0_RC9|Deploy/DataPipeline/EdDataProducts|release-4.1.0_RC2||
 |Build/DataPipeline/FlinkPipelineJobs|release-4.1.0_RC2|Deploy/DataPipeline/FlinkPipelineJobs|release-4.1.0_RC2||
+|||Deploy/Kubernetes/Monitoring|release-4.1.0_RC7|jenkins parameter <b>tag:dashboards</b>|
 
 ### Manual Configurations
 
 |Manual Step|Instruction|
 |--------------------|--------------------|
-|Delete jenkins job parameter from Keycloak deploy job|Delete sunbird_auth_branch_or_tag|
-|Update the forms|Jira Links - [SB-24836](https://project-sunbird.atlassian.net/browse/SB-24836) [SB-24926](https://project-sunbird.atlassian.net/browse/SB-24926) [SB-24951](https://project-sunbird.atlassian.net/browse/SB-24951)|
-|Created Google auth console for Android app|Jira Link - [SB-21678](https://project-sunbird.atlassian.net/browse/SB-21678)|
-|Discussion Forun Migrations|[Migration](https://project-sunbird.atlassian.net/browse/SB-24753)|
-|Run scripts mentioned in link in learning-service | [Script 1](https://github.com/project-sunbird/knowledge-platform/blob/release-4.0.0_RC3/scripts/framework-master-category/framework-master-category) [Script 2](https://github.com/project-sunbird/knowledge-platform/blob/release-4.0.0_RC4/scripts/framework-master-category/framework-master-category)|
-|Add job_id in AnalyticsReplayJob|job_id: cassandra-migration [PR LINK](https://github.com/project-sunbird/sunbird-devops/pull/2635/files)|
-|Sprak Script for user-association|[Script](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2609741876/SB-23200+AssociationType+update+for+user+in+user+organisation+table)|
-|ES Migration Script|[Script](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2632581222/SB-24689+User+mapping+for+roles+changes+Array+of+String+to+Array+of+Map)|
+|Sprak Script for user-association|[Script](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2603974662/SB-23168+Data+migration+to+user+role+table+from+user+organisation+table)|
+|create new job Upload_CollectionHierarchy_CSV and deploy|[Jenkins job config](https://github.com/project-sunbird/sunbird-devops/pull/2743/files)|
+
