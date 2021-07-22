@@ -15,7 +15,9 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Variable Name|Service Name|Comments|
 |-------------|------------|--------|
-|||
+|core_prom_ip|DataPipeline Monitoring|Update in DP/common.yml|
+|vdn_domain_name|Kp flink|Update in KP/common.yml|
+|source_base_url: "{{proto}}://{{vdn_domain_name}}/api"|KP flink|Update in KP/common.yml|
 
 ### Build and Deploy
 
