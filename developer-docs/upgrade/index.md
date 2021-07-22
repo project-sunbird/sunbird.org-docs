@@ -17,7 +17,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |-------------|------------|--------|
 |core_prom_ip|DataPipeline Monitoring|Update in DP/common.yml<br/>Add core prometheus ip to access flink job consumer lag metrics|
 |vdn_domain_name|Kp flink|Update in KP/common.yml<br/>update vdn env domain name|
-|source_base_url: "{{proto}}://{{vdn_domain_name}}/api"|KP flink|Update in KP/common.yml|
+|source_base_url: {% raw %}"{{proto}}://{{vdn_domain_name}}/api"{% endraw %}|KP flink|Update in KP/common.yml|
 |cert_env_prefix|Kp flink|Update in KP/common.yml<br/> ex: cert_env_prefix:sunbird-staging|
 
 ### Build and Deploy
