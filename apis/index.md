@@ -178,6 +178,7 @@ The **User and Org microservice** provides services to enable and manage the lif
 - [Notification APIs](apis/notificationapi/){:target="_blank"}  
     - [OTP APIs](apis/otpapi/){:target="_blank"}.
 
+
 ### Telemetry Service {#telemetry-service}
 
 The [Telemetry Service](./developer-docs/telemetry/overview){:target="_blank"} microservice collects telemetry and ingests the telemetry into the data pipeline for processing. The APIs are grouped under the:
