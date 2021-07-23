@@ -31,7 +31,7 @@ The **Content and Collection microservice** manages content and collection objec
 - [Content Lock APIs](apis/lockService){:target="_blank"} 
 - [Textbook APIs](apis/tocapi){:target="_blank"}
 - [Course Hieracrchy APIs](apis/coursehierarchyapi){:target="_blank"}
-- [Collection CSV API]apis/collectioncsvapi){:target="_blank"}
+- [Collection CSV API](apis/collectioncsvapi){:target="_blank"}
 
 ### Question & Question Set Service {#question-n-question-set}
 
