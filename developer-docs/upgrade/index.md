@@ -53,6 +53,5 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Manual Step|Instruction|
 |--------------------|--------------------|
-|Sprak Script for user-association|[Script](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2603974662/SB-23168+Data+migration+to+user+role+table+from+user+organisation+table)|
 |create new job Upload_CollectionHierarchy_CSV and deploy|[Jenkins job config](https://github.com/project-sunbird/sunbird-devops/pull/2743/files)|
 
