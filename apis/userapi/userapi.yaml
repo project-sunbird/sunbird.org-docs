@@ -2216,12 +2216,12 @@ paths:
     post:
       tags:
         - User APIs
-      summary: Search User V2
+      summary: Search User V3
       description: >-
         This API is used for searching a particular user
           - The endpoint for **Search User V2** is `/user/v3/search`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-      operationId: User_Search_V2
+      operationId: User_Search_V3
       parameters:
         - name: ts
           in: header
@@ -3525,7 +3525,7 @@ paths:
       summary: Read User V3
       description: >-
         This API is used for reading a specific user, the user read is based on the unique ID of the user
-          - The endpoint for **Get User by User ID v3** is `/user/v2/read/{User_ID}`
+          - The endpoint for **Get User by User ID v3** is `/user/v3/read/{User_ID}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           - User can pass an optional query parameter 'fields'. The value is a comma separated list of fields whose information is required in response. e.g. fields=completeness,missingFields,topic,organisations,roles,tokens
           - 'completeness' is to return profile completeness percentage.
@@ -5274,7 +5274,7 @@ paths:
     get:
       tags:
         - User APIs
-      summary: Read User V4
+      summary: Read User V5
       description: >-
         This API is used for searching a specific user, the user search is based on the unique ID of the user
           - The endpoint for **Get User by User ID** is `/user/v5/read/{User_ID}`
@@ -5286,7 +5286,7 @@ paths:
           - 'organisations' is to return organisation and location details.
           - 'roles' is to return list of roles with name and ID details.
           - 'locations' is to return profileLocation
-      operationId: Read_User_V4
+      operationId: Read_User_V5
       parameters:
         - name: ts
           in: header
@@ -7798,7 +7798,7 @@ paths:
     post:
       tags:
         - User APIs
-      summary: Assign Role to User
+      summary: Assign Role V1
       description: >-
         This API is used to assign roles to a user. It can also be used to replace and remove already assigned user roles. If a user should not be assigned any role in the organization, pass the role paramater as an empty array.
            - The endpoint for **Assign Role to User** is `/user/v1/role/assign`
@@ -7991,7 +7991,7 @@ paths:
     post:
       tags:
         - User APIs
-      summary: Assign Role to User
+      summary: Assign Role V2
       description: >-
         This API is used to assign roles to a user. It can also be used to replace and remove already assigned user roles. If a user should not be assigned any role in the organization, pass the role paramater as an empty array.
            - The endpoint for **Assign Role to User** is `/user/v2/role/assign`
@@ -20561,7 +20561,123 @@ components:
               - organisationId: 01297544481264435214
           - role: CONTENT_CREATOR
             scope:
-              - organisationId: 01297544481264435214             
+              - organisationId: 01297544481264435214
+    userapiOrganisationCommonFields:
+      title: userapiOrganisationCommonFields
+      required:
+        - updatedBy
+        - organisationId
+        - orgName
+        - addedByName
+        - addedBy
+        - approvedBy
+        - channel
+        - locationIds
+        - updatedDate
+        - userId
+        - approvaldate
+        - isDeleted
+        - hashTagId
+        - isRejected
+        - locations
+        - position
+        - id
+        - orgjoindate
+        - isApproved
+        - orgLeftDate
+      type: object
+      properties:
+        updatedBy:
+          type: string
+          nullable: true
+        organisationId:
+          type: string
+        orgName:
+          type: string
+        addedByName:
+          type: string
+          nullable: true
+        addedBy:
+          type: string
+          nullable: true
+        approvedBy:
+          type: string
+          nullable: true
+        channel:
+          type: string
+        locationIds:
+          type: array
+          items:
+            type: string
+          description: ''
+        updatedDate:
+          type: string
+          nullable: true
+        userId:
+          type: string
+        approvaldate:
+          type: string
+          nullable: true
+        isDeleted:
+          type: boolean
+        hashTagId:
+          type: string
+        isRejected:
+          type: string
+          nullable: true
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/userapiLocation'
+          description: ''
+        position:
+          type: string
+          nullable: true
+        id:
+          type: string
+        orgjoindate:
+          type: string
+        isApproved:
+          type: string
+          nullable: true
+        orgLeftDate:
+          type: string
+          nullable: true
+      example:
+        updatedBy:
+        organisationId: 0126796199493140480
+        orgName: org3
+        addedByName:
+        addedBy:
+        roles:
+          - PUBLIC
+        approvedBy:
+        channel: channel1
+        locationIds:
+          - 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+          - 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+        updatedDate:
+        userId: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
+        approvaldate:
+        isDeleted: false
+        hashTagId: 0126796199493140480
+        isRejected:
+        locations:
+          - code: 29
+            name: state1
+            id: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+            type: state
+            parentId:
+          - code: 2901
+            name: district1
+            id: 8250d58d-f1a2-4397-bfd3-b2e688ba7141
+            type: district
+            parentId: 027f81d8-0a2c-4fc6-96ac-59fe4cea3abf
+        position:
+        id: 0131573015167221767
+        orgjoindate: 2020-11-23 07:02:43:194+0000
+        isApproved:
+        orgLeftDate:                       
 tags:
   - name: User APIs
     description: ''
