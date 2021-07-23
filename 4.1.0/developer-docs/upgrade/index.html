@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2021-07-21 15:15:20 +0530">
+<meta name="last-modified" content="2021-07-23 17:26:04 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="3644" />
+<meta name="buildNo" content="3676" />
 <meta name="version" id="docsVersion" content="4.1.0" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?21072021"  />
+<link rel="stylesheet" href="/css/style.css?23072021"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?21072021"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?21072021"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?21072021"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?21072021"></script>
-<script type="text/javascript" src="/js/widgets-data.js?21072021"></script>
-<script type="text/javascript" src="/js/widgets.js?21072021"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?23072021"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?23072021"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?23072021"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?23072021"></script>
+<script type="text/javascript" src="/js/widgets-data.js?23072021"></script>
+<script type="text/javascript" src="/js/widgets.js?23072021"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -1259,7 +1259,7 @@ resetBase();
   </table>
 </div><h2 id="overview">Overview</h2>
 
-<p>This page details out the jobs required to be run as part of the upgrade from Sunbird release 3.9.0 to release 4.0.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.</p>
+<p>This page details out the jobs required to be run as part of the upgrade from Sunbird release 4.0.0 to release 4.1.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.</p>
 
 <h3 id="variables">Variables</h3>
 
@@ -1273,9 +1273,24 @@ resetBase();
   </thead>
   <tbody>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td> </td>
+      <td>core_prom_ip</td>
+      <td>DataPipeline Monitoring</td>
+      <td>Update in DP/common.yml<br />Add core prometheus ip to access flink job consumer lag metrics</td>
+    </tr>
+    <tr>
+      <td>vdn_domain_name</td>
+      <td>Kp flink</td>
+      <td>Update in KP/common.yml<br />update vdn env domain name</td>
+    </tr>
+    <tr>
+      <td>source_base_url: “{{proto}}://{{vdn_domain_name}}/api”</td>
+      <td>KP flink</td>
+      <td>Update in KP/common.yml</td>
+    </tr>
+    <tr>
+      <td>cert_env_prefix</td>
+      <td>Kp flink</td>
+      <td>Update in KP/common.yml<br /> ex: cert_env_prefix:sunbird-staging</td>
     </tr>
   </tbody>
 </table>
@@ -1296,233 +1311,170 @@ resetBase();
     <tr>
       <td> </td>
       <td> </td>
-      <td>Provision/DataPipeline/PostgresDbUpdate</td>
-      <td>release-4.0.0_RC6</td>
-      <td>Rename job postgres-managed to PostgresDbUpdate and update the pipeline to <b>pipelines/provision/postgres-db-update/Jenkinsfile</b><br /> <a href="https://github.com/project-sunbird/sunbird-devops/tree/release-4.0.0/deploy/jenkins/jobs/Provision/jobs/dev/jobs/DataPipeline/jobs/PostgresDbUpdate">Job Link</a></td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
       <td>Provision/DataPipeline/Druid</td>
-      <td>release-4.0.0_RC6<br />service:router<br />remote:raw</td>
+      <td>release-4.1.0_RC2</td>
       <td> </td>
     </tr>
     <tr>
       <td> </td>
       <td> </td>
-      <td>OpsAdministration/Core/ESMapping</td>
-      <td>release-4.0.0_RC4<br />indices_name:userv2</td>
+      <td>Provision/KnowledgePlatform/Neo4j</td>
+      <td>release-4.1.0_RC9</td>
       <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>OpsAdministration/Core/GraylogMongoImport</td>
-      <td>release-4.0.0_RC4<br />graylog_mongo_collections:all</td>
-      <td>This was deployed as 3.9.0 hotfix, so its not required to run again if it’s already deployed</td>
-    </tr>
-    <tr>
-      <td>Build/Core/OfflineInstaller</td>
-      <td>release-4.0.0</td>
-      <td>Deploy/Core/OfflineInstaller</td>
-      <td>release-4.0.0_RC4</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Build/DataPipeline/AnalyticsCore</td>
-      <td>release-4.0.0_RC1</td>
-      <td>Deploy/DataPipeline/AnalyticsCore</td>
-      <td>release-4.0.0_RC6</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Build/DataPipeline/DruidAnomalyDetection</td>
-      <td>release-4.0.0</td>
-      <td>Deploy/DataPipeline/DruidAnomalyDetection</td>
-      <td>release-4.0.0_RC6</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Build/DataPipeline/EdDataProducts</td>
-      <td>release-4.0.0_RC5</td>
-      <td>Deploy/DataPipeline/EdDataProducts</td>
-      <td>release-4.0.0_RC6</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/KnowledgePlatform/KafkaSetup</td>
-      <td>release-4.0.0_RC5</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/DataPipeline/Secor</td>
-      <td>release-4.0.0_RC6</td>
-      <td>Add error-telemetry-backup to job_names_to_deploy parameter in job and deploy selecting only this, If this is already done, then there is no need of deployment</td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/DataPipeline/LoggingFileBeatsVM</td>
-      <td>release-4.0.0_RC6 <br /> tags: default hosts: select all</td>
-      <td>This was deployed as 3.9.0 hotfix, so its not required to run again if it’s already deployed</td>
     </tr>
     <tr>
       <td>Build/KnowledgePlatform/FlinkJobs</td>
-      <td>release-4.0.0_RC7</td>
+      <td>release-4.1.0_RC7</td>
       <td>Deploy/KnowledgePlatform/FlinkJobs</td>
-      <td>release-4.0.0_RC5</td>
-      <td>Add “collection-cert-pre-processor”, “auto-creator-v2”, “collection-certificate-generator” to deploy job list<br />Kill samza jobs: “certificate-pre-processor” and “course-certificate-generator-v2”, Deploy these jobs from dropdown collection-cert-pre-processor, collection-certificate-generator, asset-enrichment, questionset-publish, auto-creator-v2</td>
+      <td>release-4.1.0_RC9</td>
+      <td>add <b>audit-event-generator</b> in the Jenkins jobs list</td>
     </tr>
     <tr>
       <td>Build/KnowledgePlatform/Learning</td>
-      <td>release-4.0.0_RC4</td>
+      <td>release-4.1.0_RC9</td>
       <td>Deploy/KnowledgePlatform/Learning</td>
-      <td>release-4.0.0_RC5</td>
+      <td>release-4.1.0_RC9</td>
       <td> </td>
     </tr>
     <tr>
-      <td>Build/KnowledgePlatform/Neo4jElasticSearchSyncTool</td>
-      <td>release-3.9.0_RC12</td>
-      <td>Deploy/KnowledgePlatform/Neo4jElasticSearchSyncTool</td>
-      <td>release-4.0.0_RC5<br />command: sync<br />parameters: –graph domain –objectType ObjectCategoryDefinition</td>
-      <td> </td>
+      <td>Build/KnowledgePlatform/Neo4j</td>
+      <td>release-4.1.0_RC1</td>
+      <td>Deploy/KnowledgePlatform/Neo4j</td>
+      <td>release-4.1.0_RC9</td>
+      <td>Update build jobs repo to <b>https://github.com/project-sunbird/knowledge-platform-db-extensions.git</b><br />  and jenkinsfile to <b>build/neo4j-extensions/Jenkinsfile</b><br />restart the Neo4J cluster after deployment.<br />Validate the plugins folder file sizes. (learning jar should be around 3mb only. Previously it is 10mb+)<br />delete the old Neo4J folder from all vms.(We upgraded to neo4j-enterprise-3.3.10-SNAPSHOT) <b>rm -rf /home/learning/neo4j-learning/</b> neo4j-enterprise-3.3.0</td>
     </tr>
     <tr>
       <td>Build/KnowledgePlatform/Yarn</td>
-      <td>release-4.0.0_RC4</td>
+      <td>release-4.1.0_RC9</td>
       <td>Deploy/KnowledgePlatform/Yarn</td>
-      <td>release-4.0.0_RC5</td>
+      <td>release-4.1.0_RC9</td>
       <td> </td>
     </tr>
     <tr>
-      <td>Build/Kubernetes/Analytics</td>
-      <td>release-4.0.0_RC1</td>
-      <td>Deploy/Kubernetes/Analytics</td>
-      <td>release-4.0.0_RC4</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Build/Kubernetes/Assessment</td>
-      <td>release-4.0.0_RC6</td>
-      <td>Deploy/Kubernetes/Assessment</td>
-      <td>release-4.0.0_RC4</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Build/Kubernetes/Cassandra</td>
-      <td>release-4.0.0_RC2</td>
-      <td>Deploy/Kubernetes/Cassandra</td>
-      <td>release-4.0.0_RC4</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Build/Kubernetes/Content</td>
-      <td>release-4.0.0_RC6</td>
-      <td>Deploy/Kubernetes/Content</td>
-      <td>release-4.0.0_RC4</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Build/Kubernetes/DiscussionsMW</td>
-      <td>release-4.0.0_RC2</td>
-      <td>Deploy/Kubernetes/DiscussionsMW</td>
-      <td>release-4.0.0_RC4</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Build/Kubernetes/Groups</td>
-      <td>release-4.0.0_RC10</td>
-      <td>Deploy/Kubernetes/Groups</td>
-      <td>release-4.0.0_RC4</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/Kubernetes/Keycloak</td>
-      <td>release-4.0.0_RC4</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/Kubernetes/UploadSchemas</td>
-      <td>release-4.0.0_RC4</td>
-      <td>restart taxonomy-service, content-service and assessment-service</td>
-    </tr>
-    <tr>
-      <td>Build/Kubernetes/Learner</td>
-      <td>release-4.0.0_RC18</td>
-      <td>Deploy/Kubernetes/Learner</td>
-      <td>release-4.0.0_RC4</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Build/Kubernetes/Lms</td>
+      <td>Build/Core/Cassandra</td>
       <td>release-4.0.0_RC3</td>
-      <td>Deploy/Kubernetes/Lms</td>
-      <td>release-4.0.0_RC4</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/Kubernetes/LoggingFileBeatsVM</td>
-      <td>release-4.0.0_RC4<br />tags: current<br />hosts: select all</td>
-      <td>This was deployed as 3.9.0 hotfix, so its not required to run again if it’s already deployed</td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/Kubernetes/Logging</td>
-      <td>release-4.0.0_RC4<br />chart_name: oauth2_proxy</td>
-      <td>This was deployed as 3.9.0 hotfix, so its not required to run again if it’s already deployed</td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/Kubernetes/nginx-public-ingress</td>
-      <td>release-4.0.0_RC4</td>
+      <td>Deploy/Kubernetes/Cassandra</td>
+      <td>release-4.1.0_RC7</td>
       <td> </td>
     </tr>
     <tr>
       <td> </td>
       <td> </td>
       <td>Deploy/Kubernetes/OnboardAPIs</td>
-      <td>release-4.0.0_RC4</td>
+      <td>release-4.1.0_RC7</td>
       <td> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/Kubernetes/OnboardConsumers</td>
-      <td>release-4.0.0_RC4</td>
+      <td>Build/Core/Analytics</td>
+      <td>release-4.1.0_RC1</td>
+      <td>Deploy/Kubernetes/Analytics</td>
+      <td>release-4.1.0_RC7</td>
       <td> </td>
     </tr>
     <tr>
-      <td>Build/Kubernetes/Player</td>
-      <td>release-4.0.0_RC59</td>
+      <td>Build/Core/Assessment</td>
+      <td>release-4.1.0_RC8</td>
+      <td>Deploy/Kubernetes/Assessment</td>
+      <td>release-4.1.0_RC7</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Core/Content</td>
+      <td>release-4.1.0_RC8</td>
+      <td>Deploy/Kubernetes/Content</td>
+      <td>release-4.1.0_RC7</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Core/Learner</td>
+      <td>release-4.1.0_RC7</td>
+      <td>Deploy/Kubernetes/Learner</td>
+      <td>release-4.1.0_RC7</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Core/Lms</td>
+      <td>release-4.1.0_RC1</td>
+      <td>Deploy/Kubernetes/Lms</td>
+      <td>release-4.1.0_RC7</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Core/Player</td>
+      <td>release-4.1.0_RC9</td>
       <td>Deploy/Kubernetes/Player</td>
-      <td>release-4.0.0_RC4</td>
+      <td>release-4.1.0_RC7</td>
       <td> </td>
     </tr>
     <tr>
-      <td>Build/Kubernetes/Search</td>
-      <td>release-4.0.0_RC6</td>
+      <td>Build/Core/Search</td>
+      <td>release-4.1.0_RC8</td>
       <td>Deploy/Kubernetes/Search</td>
-      <td>release-4.0.0_RC4</td>
+      <td>release-4.1.0_RC7</td>
       <td> </td>
     </tr>
     <tr>
-      <td>Build/Kubernetes/Taxonomy</td>
-      <td>release-4.0.0_RC6</td>
+      <td>Build/Core/Taxonomy</td>
+      <td>release-4.1.0_RC8</td>
       <td>Deploy/Kubernetes/Taxonomy</td>
-      <td>release-4.0.0_RC4</td>
+      <td>release-4.1.0_RC7</td>
       <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/Keycloak</td>
+      <td>release-4.1.0_RC7</td>
+      <td>Redeploy same artifact</td>
+    </tr>
+    <tr>
+      <td>Build/Core/OfflineInstaller</td>
+      <td>release-4.1.0</td>
+      <td>Deploy/Core/OfflineInstaller</td>
+      <td>release-4.1.0_RC7</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Plugins/ContentEditor</td>
+      <td>release-4.1.0_RC1</td>
+      <td>Deploy/Plugins/ContentEditor</td>
+      <td>release-4.1.0_RC7</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/DataPipeline/AnalyticsCore</td>
+      <td>release-4.1.0_RC2</td>
+      <td>Deploy/DataPipeline/AnalyticsCore</td>
+      <td>release-4.1.0_RC2</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/DataPipeline/CoreDataProducts</td>
+      <td>release-4.1.0_RC1</td>
+      <td>Deploy/DataPipeline/CoreDataProducts</td>
+      <td>release-4.1.0_RC2</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/DataPipeline/EdDataProducts</td>
+      <td>release-4.1.0_RC9</td>
+      <td>Deploy/DataPipeline/EdDataProducts</td>
+      <td>release-4.1.0_RC2</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/DataPipeline/FlinkPipelineJobs</td>
+      <td>release-4.1.0_RC2</td>
+      <td>Deploy/DataPipeline/FlinkPipelineJobs</td>
+      <td>release-4.1.0_RC2</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/Monitoring</td>
+      <td>release-4.1.0_RC7</td>
+      <td>jenkins parameter <b>tag:dashboards</b></td>
     </tr>
   </tbody>
 </table>
@@ -1538,39 +1490,12 @@ resetBase();
   </thead>
   <tbody>
     <tr>
-      <td>Delete jenkins job parameter from Keycloak deploy job</td>
-      <td>Delete sunbird_auth_branch_or_tag</td>
-    </tr>
-    <tr>
-      <td>Update the forms</td>
-      <td>Jira Links - <a href="https://project-sunbird.atlassian.net/browse/SB-24836">SB-24836</a> <a href="https://project-sunbird.atlassian.net/browse/SB-24926">SB-24926</a> <a href="https://project-sunbird.atlassian.net/browse/SB-24951">SB-24951</a></td>
-    </tr>
-    <tr>
-      <td>Created Google auth console for Android app</td>
-      <td>Jira Link - <a href="https://project-sunbird.atlassian.net/browse/SB-21678">SB-21678</a></td>
-    </tr>
-    <tr>
-      <td>Discussion Forun Migrations</td>
-      <td><a href="https://project-sunbird.atlassian.net/browse/SB-24753">Migration</a></td>
-    </tr>
-    <tr>
-      <td>Run scripts mentioned in link in learning-service</td>
-      <td><a href="https://github.com/project-sunbird/knowledge-platform/blob/release-4.0.0_RC3/scripts/framework-master-category/framework-master-category">Script 1</a> <a href="https://github.com/project-sunbird/knowledge-platform/blob/release-4.0.0_RC4/scripts/framework-master-category/framework-master-category">Script 2</a></td>
-    </tr>
-    <tr>
-      <td>Add job_id in AnalyticsReplayJob</td>
-      <td>job_id: cassandra-migration <a href="https://github.com/project-sunbird/sunbird-devops/pull/2635/files">PR LINK</a></td>
-    </tr>
-    <tr>
-      <td>Sprak Script for user-association</td>
-      <td><a href="https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2609741876/SB-23200+AssociationType+update+for+user+in+user+organisation+table">Script</a></td>
-    </tr>
-    <tr>
-      <td>ES Migration Script</td>
-      <td><a href="https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2632581222/SB-24689+User+mapping+for+roles+changes+Array+of+String+to+Array+of+Map">Script</a></td>
+      <td>create new job Upload_CollectionHierarchy_CSV and deploy</td>
+      <td><a href="https://github.com/project-sunbird/sunbird-devops/pull/2743/files">Jenkins job config</a></td>
     </tr>
   </tbody>
 </table>
+
 
           
           <hr />
