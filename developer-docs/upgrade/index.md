@@ -45,7 +45,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Core/OfflineInstaller|release-4.1.0|Deploy/Core/OfflineInstaller|release-4.1.0_RC7||
 |Build/Plugins/ContentEditor|release-4.1.0_RC1|Deploy/Plugins/ContentEditor|release-4.1.0_RC7||
 |Build/DataPipeline/AnalyticsCore|release-4.1.0_RC2|Deploy/DataPipeline/AnalyticsCore|release-4.1.0_RC2||
-|Build/DataPipeline/CoreDataProducts|release-4.1.0_RC1|Deploy/DataPipeline/CoreDataProducts|release-4.1.0_RC2||
+|Build/DataPipeline/CoreDataProducts|release-4.1.0_RC2|Deploy/DataPipeline/CoreDataProducts|release-4.1.0_RC2||
 |Build/DataPipeline/EdDataProducts|release-4.1.0_RC9|Deploy/DataPipeline/EdDataProducts|release-4.1.0_RC2||
 |Build/DataPipeline/FlinkPipelineJobs|release-4.1.0_RC2|Deploy/DataPipeline/FlinkPipelineJobs|release-4.1.0_RC2||
 |Build/DataPipeline/AdhocScripts|release-4.1.0_RC8|Deploy/DataPipeline/AdhocScripts|release-4.1.0_RC2||
