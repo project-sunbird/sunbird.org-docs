@@ -26,7 +26,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |-------------------|---------|-----------------|----------|--------|
 |||Provision/DataPipeline/Druid|release-4.1.0_RC2||
 |||Provision/KnowledgePlatform/Neo4j|release-4.1.0_RC9||
-|Build/KnowledgePlatform/FlinkJobs|release-4.1.0_RC7|Deploy/KnowledgePlatform/FlinkJobs|release-4.1.0_RC9|add <b>audit-event-generator</b> in the Jenkins jobs list|
+|Build/KnowledgePlatform/FlinkJobs|release-4.1.0_RC8|Deploy/KnowledgePlatform/FlinkJobs|release-4.1.0_RC9|add <b>audit-event-generator</b> in the Jenkins jobs list|
 |Build/KnowledgePlatform/Learning|release-4.1.0_RC9|Deploy/KnowledgePlatform/Learning|release-4.1.0_RC9||
 |Build/KnowledgePlatform/Neo4j|release-4.1.0_RC1|Deploy/KnowledgePlatform/Neo4j|release-4.1.0_RC9|Update build jobs repo to <b>https://github.com/project-sunbird/knowledge-platform-db-extensions.git</b><br/>  and jenkinsfile to <b>build/neo4j-extensions/Jenkinsfile</b><br/>restart the Neo4J cluster after deployment.<br/>Validate the plugins folder file sizes. (learning jar should be around 3mb only. Previously it is 10mb+)<br/>delete the old Neo4J folder from all vms.(We upgraded to neo4j-enterprise-3.3.10-SNAPSHOT) <b>rm -rf /home/learning/neo4j-learning/</b> neo4j-enterprise-3.3.0|
 |Build/KnowledgePlatform/Yarn|release-4.1.0_RC9|Deploy/KnowledgePlatform/Yarn|release-4.1.0_RC9||
@@ -37,7 +37,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Core/Content|release-4.1.0_RC8|Deploy/Kubernetes/Content|release-4.1.0_RC7||
 |Build/Core/Learner|release-4.1.0_RC7|Deploy/Kubernetes/Learner|release-4.1.0_RC7||
 |Build/Core/Lms|release-4.1.0_RC1|Deploy/Kubernetes/Lms|release-4.1.0_RC7||
-|Build/Core/Player|release-4.1.0_RC9|Deploy/Kubernetes/Player|release-4.1.0_RC7||
+|Build/Core/Player|release-4.1.0_RC52|Deploy/Kubernetes/Player|release-4.1.0_RC7||
 |Build/Core/Search|release-4.1.0_RC8|Deploy/Kubernetes/Search|release-4.1.0_RC7||
 |Build/Core/Taxonomy|release-4.1.0_RC8|Deploy/Kubernetes/Taxonomy|release-4.1.0_RC7||
 |||Deploy/Kubernetes/Keycloak|release-4.1.0_RC7|Redeploy same artifact|
