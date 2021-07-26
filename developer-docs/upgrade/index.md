@@ -47,6 +47,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/DataPipeline/CoreDataProducts|release-4.1.0_RC1|Deploy/DataPipeline/CoreDataProducts|release-4.1.0_RC2||
 |Build/DataPipeline/EdDataProducts|release-4.1.0_RC9|Deploy/DataPipeline/EdDataProducts|release-4.1.0_RC2||
 |Build/DataPipeline/FlinkPipelineJobs|release-4.1.0_RC2|Deploy/DataPipeline/FlinkPipelineJobs|release-4.1.0_RC2||
+|Build/DataPipeline/AdhocScripts|release-4.1.0_RC8|Deploy/DataPipeline/AdhocScripts|release-4.1.0_RC2||
 |||Deploy/Kubernetes/Monitoring|release-4.1.0_RC7|jenkins parameter <b>tag:dashboards</b>|
 
 ### Manual Configurations
