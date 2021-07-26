@@ -32,10 +32,11 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/KnowledgePlatform/Yarn|release-4.1.0_RC9|Deploy/KnowledgePlatform/Yarn|release-4.1.0_RC9||
 |Build/Core/Cassandra|release-4.0.0_RC3|Deploy/Kubernetes/Cassandra|release-4.1.0_RC7||
 |||Deploy/Kubernetes/OnboardAPIs|release-4.1.0_RC7||
+|||Deploy/Kubernetes/OnboardConsumers|release-4.1.0_RC7||
 |Build/Core/Analytics|release-4.1.0_RC1|Deploy/Kubernetes/Analytics|release-4.1.0_RC7||
 |Build/Core/Assessment|release-4.1.0_RC8|Deploy/Kubernetes/Assessment|release-4.1.0_RC7||
 |Build/Core/Content|release-4.1.0_RC8|Deploy/Kubernetes/Content|release-4.1.0_RC7||
-|Build/Core/Learner|release-4.1.0_RC7|Deploy/Kubernetes/Learner|release-4.1.0_RC7||
+|Build/Core/Learner|release-4.1.0_RC13|Deploy/Kubernetes/Learner|release-4.1.0_RC7||
 |Build/Core/Lms|release-4.1.0_RC1|Deploy/Kubernetes/Lms|release-4.1.0_RC7||
 |Build/Core/Player|release-4.1.0_RC52|Deploy/Kubernetes/Player|release-4.1.0_RC7||
 |Build/Core/Search|release-4.1.0_RC8|Deploy/Kubernetes/Search|release-4.1.0_RC7||
