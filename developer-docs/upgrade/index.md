@@ -56,4 +56,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Manual Step|Instruction|
 |--------------------|--------------------|
 |create new job Upload_CollectionHierarchy_CSV and deploy|[Jenkins job config](https://github.com/project-sunbird/sunbird-devops/pull/2743/files)|
+|Update QuestionSet primaryCategory creation form|Jira Links - [SB-24540](https://project-sunbird.atlassian.net/browse/SB-24540)|
+|Update Portal form config for banner|Jira Links - [SB-25573](https://project-sunbird.atlassian.net/browse/SB-25573)|
+|Update portal form configuration| Jira Links - [SB-25672](https://project-sunbird.atlassian.net/browse/SB-25672) [SB-25400](https://project-sunbird.atlassian.net/browse/SB-25400)|
 
