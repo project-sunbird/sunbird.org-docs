@@ -24,7 +24,6 @@ This page details Sunbird's building block types, the microservices grouped unde
 
 In the **Contribution and Curation**  building block type, Sunbird has microservices to manage the lifecycle of content and collections; create and manage questions and question sets that are useful to assess proficiency of learners; contribution management and contributor registry.
 
-
 ### Content Service {#content-service}
 
 The **Content and Collection microservice** manages content and collection objects and their lifecycle for a defined taxonomy, in a learning domain. This microservice is dependent on the taxonomy microservice as every content piece must have the appropriate taxonomy tags. The content and collection microservices has the following APIs:
@@ -32,12 +31,12 @@ The **Content and Collection microservice** manages content and collection objec
 - [Content Lock APIs](apis/lockService){:target="_blank"} 
 - [Textbook APIs](apis/tocapi){:target="_blank"}
 - [Course Hieracrchy APIs](apis/coursehierarchyapi){:target="_blank"}
+- [Collection CSV API](apis/collectioncsvapi){:target="_blank"}
 
 ### Question & Question Set Service {#question-n-question-set}
 
 The **Question and Question set microservice** provides services to create and manage questions and question sets that are useful to assess the  proficiency of learners. The APIs are grouped as:
 - [Question Management APIs](apis/questionapi//){:target="_blank"}
-
 
 ### Contribution Service {#contribution-service}
 
@@ -45,14 +44,13 @@ The **Contribution microservice** enables organisations to digitally plan, coord
 - [Program APIs](apis/programsapi/){:target="_blank"}
 - [Bulk Content Approval APIs](apis/bulkapproveapi){:target="_blank"}
 
-
 ### Contributor Registry {#contributor-registry}
 
 The **Contributor management microservice** enables a registry of individual contributors and contributing organisations that nominate and contribute digital assets via sourcing projects.
 - [Registry APIs](apis/opensaber/){:target="_blank"}
 
 ### Related Microservices and/or APIs 
-* [Telemetry Service](./developer-docs/telemetry/overview){:target="_blank"}
+* [Telemetry API](apis/telemetryapi){:target="_blank"}
 * [Composite Search APIs](apis/searchapi/){:target="_blank"} 
 * [Assign User Role APIs](apis/userapi/#operation/Assign_User_Role/){:target="_blank"}
 * [Reports Service](#reports-service)
@@ -71,12 +69,10 @@ The APIs in this microservice are grouped as:
  - [License APIs](apis/license/){:target="_blank"}
 
 ### Asset Category Service {#asset-category-service}
-
 The asset category microservice provides the ability to set rules to create and manage categories for different asset categories, such as content, collection, question set, etc.
 - [Object Category Management APIs](apis/objectcategory/){:target="_blank"}
 
 ### Related Microservices and/or APIs
-
 * [Content Service](#content-service)
 * [Question and Question Set Service](#question-n-question-set)
 
@@ -156,7 +152,6 @@ For the **Open Data** building block, Sunbird has microservices for public, stan
 The **Public Data microservice** provides services to manage report jobs and data exhausts that enable data aggregation across multiple sources. The APIs are grouped as:
 - [Public Data Exhaust APIs](apis/dataexhaustapi/index.html#tag/Public-Data-Exhaust-API(s)){:target="_blank"} 
 
-
 ## Learning Infra, Telemetry & Analytics
 
 In the **Learning Infra, Telemetry and Analytics** building block type, Sunbird has microservices to create, capture, enable, validate and manage:
@@ -169,7 +164,6 @@ In the **Learning Infra, Telemetry and Analytics** building block type, Sunbird 
 * client application and device error logs 
 
 ### User & Org Service {#user-n-org-service}
-
 
 The **User and Org microservice** provides services to enable and manage the lifecycle, administration, and permissions of users; registries of users, organisations, geographic locations and devices; to send user notifications through multiple channels such as email, SMS, and OTPs. The APIs are grouped as:
 - [User Management APIs](apis/userapi/){:target="_blank"}   
@@ -188,16 +182,14 @@ The **User and Org microservice** provides services to enable and manage the lif
 
 ### Telemetry Service {#telemetry-service}
 
-The **Telemetry Service** microservice collects telemetry and ingests the telemetry into the data pipeline for processing.
+The [Telemetry Service](./developer-docs/telemetry/overview){:target="_blank"} microservice collects telemetry and ingests the telemetry into the data pipeline for processing. The APIs are grouped under the:
 
-* [Telemetry Service](./developer-docs/telemetry/overview){:target="_blank"}
-
+- [Telemetry API](apis/telemetryapi){:target="_blank"}
 
 ### Reports Service {#reports-service} 
 
 The **Reports microservice** creates, reviews and publishes reports to the Diksha portal using the HawkEye framework. The APIs are grouped under the:
 - [Report Service APIs](apis/reports/){:target="_blank"}
-
 
 ### Data Service {#data-service}
 
@@ -206,14 +198,12 @@ The data microservice provides services to manage report jobs and data exhausts 
 - [Druid Report APIs](apis/druidreportapi){:target="_blank"} 
 
 ### Configuration Service {#configuration-service}
-=======
 
 The **Configuration microservice** provides services to manage system and UI form configurations.
 - [Form APIs](apis/form/){:target="_blank"}  
 - [Page APIs](apis/pagesapi/){:target="_blank"}  
 - [System settings APIs](apis/systemsettingsapi/){:target="_blank"}  
 - [Desktop app update](apis/desktop/app-update/){:target="_blank"} 
-
 
 ### API Management Service {#api-management-service}
 
@@ -223,7 +213,6 @@ The API management microservice provides services to create, manage and validate
 - [Kong register version 2](apis/kongcredentialregisterapiv2/){:target="_blank"}  
 - [Refresh API tokens](apis/refreshtokenapi){:target="_blank"}  
 - [Desktop register API](apis/desktop/device-registry/){:target="_blank"} 
-
 
 ### Logging Services {#logging-services}
 
