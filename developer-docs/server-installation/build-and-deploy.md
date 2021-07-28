@@ -183,8 +183,8 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/Kubernetes/CassandraTrigger|release-3.9.0_RC19|<https://github.com/project-sunbird/sunbird-devops.git>|Installs the Cassandra triggers|
 |Deploy/KnowledgePlatform/CassandraTrigger|release-3.9.0_RC19|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Installs the Cassandra triggers|
 |Deploy/Kubernetes/CassandraDBUpdate|release-3.9.0_RC19|<https://github.com/project-sunbird/sunbird-devops.git>|Creates / Updates Cassandra DB schema|
-|Deploy/Kubernetes/Cassandra|release-3.9.0_RC19|<https://github.com/project-sunbird/sunbird-devops.git>|Creates / Updates Cassandra DB schema|
 |Deploy/KnowledgePlatform/CassandraDbUpdate|release-3.9.0_RC19|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Creates / Updates Cassandra DB schema|
+|Deploy/Kubernetes/Cassandra|release-3.9.0_RC19|<https://github.com/project-sunbird/sunbird-devops.git>|Creates / Updates Cassandra DB schema|
 |Deploy/Kubernetes/KafkaSetup|release-3.9.0_RC19|<https://github.com/project-sunbird/sunbird-devops.git>|Creates / Updates Kafka Topics|
 |Deploy/DataPipeline/KafkaSetup|release-3.9.0_RC14|<https://github.com/project-sunbird/sunbird-data--pipeline.git>|Creates / Updates Kafka Topics|
 |Deploy/KnowledgePlatform/KafkaSetup|release-3.9.0_RC19|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Creates / Updates Kafka Topics|
