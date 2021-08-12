@@ -20,7 +20,7 @@ paths:
       tags:
       - Notification APIs
       description: >-
-         - This API allows to send emai,sms,fcm and feed type notifications.
+         - This API allows to send emai,sms,device and feed type notifications. This will only be accessible internally by different service to send notification. Template configuration needs to be configured to use this service.
       parameters:
         - $ref: '#/components/parameters/notification-delivery-mode'
         - name: ts
@@ -52,6 +52,7 @@ paths:
                     - ids:
                         - '12345'
                       priority: 1
+                      type: feed
                       action:
                         type: add-member
                         category: group-feed
@@ -79,13 +80,14 @@ paths:
                 request:
                   notifications:
                     - ids:
-                        - '12345'
+                        - 'abcd@gmail.com'
                       priority: 1
+                      type: email
                       action:
-                        type: add-member
-                        category: group-feed
+                        type: user-email
+                        category: user-service
                         template:
-                          type: JSON
+                          type: TEXT
                           params:
                             param1: Math's Activity
                             param2: Test
@@ -94,27 +96,21 @@ paths:
                           name: John
                           type: User
                         additionalInfo:
-                          group:
-                            id: '123434'
-                            name: Test
-                          groupRole: admin
-                          activity:
-                            id: do_12443
-                            type: Course
-                            name: Math's Activity
+                          
               c:
                summary: "Send SMS Notification"
                value:
                 request:
                   notifications:
                     - ids:
-                        - '12345'
+                        - '9824071234'
                       priority: 1
+                      type: sms
                       action:
-                        type: add-member
-                        category: group-feed
+                        type: otp verfication
+                        category: userOTP
                         template:
-                          type: JSON
+                          type: TEXT
                           params:
                             param1: Math's Activity
                             param2: Test
@@ -123,27 +119,21 @@ paths:
                           name: John
                           type: User
                         additionalInfo:
-                          group:
-                            id: '123434'
-                            name: Test
-                          groupRole: admin
-                          activity:
-                            id: do_12443
-                            type: Course
-                            name: Math's Activity
+                         
               d:
                summary: "Send device Notification"
                value:
                 request:
                   notifications:
                     - ids:
-                        - '12345'
+                        - '132672132'
                       priority: 1
+                      type: device
                       action:
-                        type: add-member
-                        category: group-feed
+                        type: device-system-upgrade
+                        category: device-notification
                         template:
-                          type: JSON
+                          type: TEXT
                           params:
                             param1: Math's Activity
                             param2: Test
@@ -152,14 +142,7 @@ paths:
                           name: John
                           type: User
                         additionalInfo:
-                          group:
-                            id: '123434'
-                            name: Test
-                          groupRole: admin
-                          activity:
-                            id: do_12443
-                            type: Course
-                            name: Math's Activity
+                          
         description: >-
           - The body payload comprises of the metadata of the group being
           created - The body parameter refers to the format of the request, the
