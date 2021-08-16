@@ -26,7 +26,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |-------------------|---------|-----------------|----------|--------|
 |||Provision/DataPipeline/Druid|release-4.1.0_RC2||
 |||Provision/KnowledgePlatform/Neo4j|release-4.1.0_RC9||
-|Build/KnowledgePlatform/FlinkJobs|release-4.1.0_RC8|Deploy/KnowledgePlatform/FlinkJobs|release-4.1.0_RC9|add <b>audit-event-generator</b> in the Jenkins jobs list and deploy all the jobs|
+|Build/KnowledgePlatform/FlinkJobs|release-4.1.0_RC8|Deploy/KnowledgePlatform/FlinkJobs|release-4.1.0_RC9|add <b>audit-event-generator, content-publish</b> in the Jenkins jobs list and deploy all the jobs|
 |Build/KnowledgePlatform/Learning|release-4.1.0_RC9|Deploy/KnowledgePlatform/Learning|release-4.1.0_RC9||
 |Build/KnowledgePlatform/Neo4j|release-4.1.0_RC1|Deploy/KnowledgePlatform/Neo4j|release-4.1.0_RC9|Update build jobs repo to <b>https://github.com/project-sunbird/knowledge-platform-db-extensions.git</b><br/>  and jenkinsfile to <b>build/neo4j-extensions/Jenkinsfile</b><br/>restart the Neo4J cluster after deployment.<br/>Validate the plugins folder file sizes. (learning jar should be around 3mb only. Previously it is 10mb+)<br/>delete the old Neo4J folder from all vms.(We upgraded to neo4j-enterprise-3.3.10-SNAPSHOT) <b>rm -rf /home/learning/neo4j-learning/</b> neo4j-enterprise-3.3.0|
 |Build/KnowledgePlatform/Yarn|release-4.1.0_RC9|Deploy/KnowledgePlatform/Yarn|release-4.1.0_RC9||
@@ -56,4 +56,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Manual Step|Instruction|
 |--------------------|--------------------|
 |create new job Upload_CollectionHierarchy_CSV and deploy|[Jenkins job config](https://github.com/project-sunbird/sunbird-devops/pull/2743/files)|
+|Update QuestionSet primaryCategory creation form|Jira Links - [SB-24540](https://project-sunbird.atlassian.net/browse/SB-24540)|
+|Update Portal form config for banner|Jira Links - [SB-25573](https://project-sunbird.atlassian.net/browse/SB-25573)|
+|Update portal form configuration| Jira Links - [SB-25672](https://project-sunbird.atlassian.net/browse/SB-25672) [SB-25400](https://project-sunbird.atlassian.net/browse/SB-25400)|
 
