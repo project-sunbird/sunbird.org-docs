@@ -7,9 +7,9 @@ info:
   termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
 
 externalDocs:
- description: "Testcases"
- url: "https://www.getpostman.com/collections/f6f9b05a65e9fe03b523"
- 
+  description: "Testcases"
+  url: "https://www.getpostman.com/collections/f6f9b05a65e9fe03b523"
+
 servers:
   - url: https://staging.sunbirded.org/api
 paths:
@@ -18,9 +18,9 @@ paths:
       summary: Create Notification
       operationId: CreateNotification
       tags:
-      - Notification APIs
+        - Notification APIs
       description: >-
-         - This API allows to send email,sms,device and feed type notifications. This will only be accessible internally by different service to send notification. Template configuration needs to be configured to use this service.
+        - This API allows to send email,sms,device and feed type notifications. This will only be accessible internally by different service to send notification. Template configuration needs to be configured to use this service.
       parameters:
         - $ref: '#/components/parameters/notification-delivery-mode'
         - name: ts
@@ -39,8 +39,8 @@ paths:
           in: header
           required: true
           description: To make use of any Group API, you require authorization. Raise a
-              request to the administrator for the use of the API. You will
-              receive the authorization key. Specify the key received, here.
+            request to the administrator for the use of the API. You will
+            receive the authorization key. Specify the key received, here.
           schema:
             type: string
         - $ref: '#/components/parameters/Content-Type'
@@ -53,148 +53,148 @@ paths:
               $ref: "#/components/schemas/notificationSendRequest"
             examples:
               a:
-               summary: "Send Feed Notification"
-               value:
-                 request:
-                  notifications:
-                    - ids:
-                        - '12345'
-                      priority: 1
-                      type: feed
-                      action:
-                        type: add-member
-                        category: group-feed
-                        template:
-                          type: JSON
-                          params:
-                            param1: Math's Activity
-                            param2: Test
-                        createdBy:
-                          id: f10d5216-6b96-404c-8d1c-cc1f720d910d
-                          name: John
-                          type: User
-                        additionalInfo:
-                          group:
-                            id: '1234sa34'
-                            name: Test
-                          groupRole: admin
-                          activity:
-                            id: do_12443
-                            type: Course
-                            name: Math's Activity
+                summary: "Send Feed Notification"
+                value:
+                  request:
+                    notifications:
+                      - ids:
+                          - '12345'
+                        priority: 1
+                        type: feed
+                        action:
+                          type: add-member
+                          category: group-feed
+                          template:
+                            type: JSON
+                            params:
+                              param1: Math's Activity
+                              param2: Test
+                          createdBy:
+                            id: f10d5216-6b96-404c-8d1c-cc1f720d910d
+                            name: John
+                            type: User
+                          additionalInfo:
+                            group:
+                              id: '1234sa34'
+                              name: Test
+                            groupRole: admin
+                            activity:
+                              id: do_12443
+                              type: Course
+                              name: Math's Activity
               b:
-               summary: "Send Email Notification"
-               value:
-                request:
-                  notifications:
-                    - ids:
-                        - 'abcd@gmail.com'
-                      priority: 1
-                      type: email
-                      action:
-                        type: user-email
-                        category: user-service
-                        template:
-                          type: TEXT
-                          params:
-                            ttl: 30
-                        createdBy:
-                          id: f10d5216-6b96-404c-8d1c-cc1f720d910d
-                          name: John
-                          type: User
-                        additionalInfo:
-                          sender: sender@sunbird.com
-                          subject: Hello to sunbird user
-                          
+                summary: "Send Email Notification"
+                value:
+                  request:
+                    notifications:
+                      - ids:
+                          - 'abcd@gmail.com'
+                        priority: 1
+                        type: email
+                        action:
+                          type: user-email
+                          category: user-service
+                          template:
+                            type: TEXT
+                            params:
+                              ttl: 30
+                          createdBy:
+                            id: f10d5216-6b96-404c-8d1c-cc1f720d910d
+                            name: John
+                            type: User
+                          additionalInfo:
+                            sender: sender@sunbird.com
+                            subject: Hello to sunbird user
+
               c:
-               summary: "Send Phone Normal Message Notification"
-               value:
-                request:
-                  notifications:
-                    - ids:
-                        - '123207123'
-                      priority: 1
-                      type: phone
-                      action:
-                        type:  verfication
-                        category: learner-service
-                        template:
-                          type: TEXT
-                          params:
-                            installationName: system
-                            otpExpiryInMinutes: 4
-                        createdBy:
-                          id: f10d5216-6b96-404c-8d1c-cc1f720d910d
-                          name: John
-                          type: User
-                        additionalInfo:
-                          sender: sender@sunbird.com
-                          subject: Hello from sunbird
+                summary: "Send Phone Normal Message Notification"
+                value:
+                  request:
+                    notifications:
+                      - ids:
+                          - '123207123'
+                        priority: 1
+                        type: phone
+                        action:
+                          type:  verfication
+                          category: learner-service
+                          template:
+                            type: TEXT
+                            params:
+                              installationName: system
+                              otpExpiryInMinutes: 4
+                          createdBy:
+                            id: f10d5216-6b96-404c-8d1c-cc1f720d910d
+                            name: John
+                            type: User
+                          additionalInfo:
+                            sender: sender@sunbird.com
+                            subject: Hello from sunbird
               d:
-               summary: "Send Phone OTP Notification"
-               value:
-                request:
-                  notifications:
-                    - ids:
-                        - '123207123'
-                      priority: 1
-                      type: phone
-                      action:
-                        type: otp verfication
-                        category: userOTP
-                        template:
-                          type: TEXT
-                          params:
-                            ttl: 30
-                        createdBy:
-                          id: f10d5216-6b96-404c-8d1c-cc1f720d910d
-                          name: John
-                          type: User
-                        additionalInfo:
-                          otp:
-                            length: 4
-                            expiryInMinute: 10
-                         
+                summary: "Send Phone OTP Notification"
+                value:
+                  request:
+                    notifications:
+                      - ids:
+                          - '123207123'
+                        priority: 1
+                        type: phone
+                        action:
+                          type: otp verfication
+                          category: userOTP
+                          template:
+                            type: TEXT
+                            params:
+                              ttl: 30
+                          createdBy:
+                            id: f10d5216-6b96-404c-8d1c-cc1f720d910d
+                            name: John
+                            type: User
+                          additionalInfo:
+                            otp:
+                              length: 4
+                              expiryInMinute: 10
+
               e:
-               summary: "Send device Notification for Multidevice"
-               value:
-                request:
-                  notifications:
-                    - ids:
-                        - 'fcmToken1'
-                        - 'fcmtoken2'
-                      priority: 1
-                      type: device
-                      action:
-                        type: device-system-upgrade
-                        category: device-notification
-                        createdBy:
-                          id: f10d5216-6b96-404c-8d1c-cc1f720d910d
-                          name: John
-                          type: User
-                        additionalInfo:
-                          rawData:
-                             key: 2
-               f:
-                 summary: "Send broadcast device Notification using topics"
-                   value:
-                     request:
-                       notifications:
-                         - ids:
-                           priority: 1
-                           type: device
-                           action:
-                             type: device-system-upgrade
-                             category: device-notification
-                             createdBy:
-                               id: f10d5216-6b96-404c-8d1c-cc1f720d910d
-                               name: John
-                               type: User
-                             additionalInfo:
-                               topic: device-topic
-                               rawData:
-                                 key: 2
-                                 key2: value2
+                summary: "Send device Notification for Multidevice"
+                value:
+                  request:
+                    notifications:
+                      - ids:
+                          - 'fcmToken1'
+                          - 'fcmtoken2'
+                        priority: 1
+                        type: device
+                        action:
+                          type: device-system-upgrade
+                          category: device-notification
+                          createdBy:
+                            id: f10d5216-6b96-404c-8d1c-cc1f720d910d
+                            name: John
+                            type: User
+                          additionalInfo:
+                            rawData:
+                              key: 2
+                f:
+                  summary: "Send broadcast device Notification using topics"
+                  value:
+                    request:
+                      notifications:
+                        - ids:
+                          priority: 1
+                          type: device
+                          action:
+                            type: device-system-upgrade
+                            category: device-notification
+                            createdBy:
+                              id: f10d5216-6b96-404c-8d1c-cc1f720d910d
+                              name: John
+                              type: User
+                            additionalInfo:
+                              topic: device-topic
+                              rawData:
+                                key: 2
+                                key2: value2
         description: >-
           - The body payload comprises of the metadata of the group being
           created - The body parameter refers to the format of the request, the
@@ -214,93 +214,93 @@ paths:
 
       responses:
         '200':
-            description: OK ! Successful operation."Send Notification" operation was successfully
-             executed.
-            content:
-              application/json:
-                schema:
-                  $ref: ""
-                example:
-                  id: v2.notification.send
-                  ver: v1
-                  ts: '2021-08-11 21:20:28:919+0530'
-                  params:
-                    resmsgid: null
-                    msgid: "ed1c0b7c-8f10-4a35-9f42-93966d8d97f6"
-                    err: null
-                    status: null
-                    errmsg: null
-                  responseCode: OK
-                  result:
-                      response: SUCCESS
+          description: OK ! Successful operation."Send Notification" operation was successfully
+            executed.
+          content:
+            application/json:
+              schema:
+                $ref: ""
+              example:
+                id: v2.notification.send
+                ver: v1
+                ts: '2021-08-11 21:20:28:919+0530'
+                params:
+                  resmsgid: null
+                  msgid: "ed1c0b7c-8f10-4a35-9f42-93966d8d97f6"
+                  err: null
+                  status: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  response: SUCCESS
         '400':
-            description: BAD REQUEST. The "Send Notifications" operation failed ! The possible
-              reason for failure is that you may have missed providing input for a
-              mandatory parameter.
-            content:
-              application/json:
-                schema:
-                 $ref: ""
-                example:
-                  id: v2.notification.send
-                  ver: null
-                  ts: 2021-08-11 21:20:28:919+0530
-                  params:
-                    resmsgid: null
-                    msgid: "ed1c0b7c-8f10-4a35-9f42-93966d8d97f6"
-                    err: INVALID_REQUESTED_DATA
-                    status: null
-                    errmsg: '#/notifications/0: required key [type] not found'
-                    responseCode: CLIENT_ERROR
-                    result: {}
+          description: BAD REQUEST. The "Send Notifications" operation failed ! The possible
+            reason for failure is that you may have missed providing input for a
+            mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: ""
+              example:
+                id: v2.notification.send
+                ver: null
+                ts: 2021-08-11 21:20:28:919+0530
+                params:
+                  resmsgid: null
+                  msgid: "ed1c0b7c-8f10-4a35-9f42-93966d8d97f6"
+                  err: INVALID_REQUESTED_DATA
+                  status: null
+                  errmsg: '#/notifications/0: required key [type] not found'
+                  responseCode: CLIENT_ERROR
+                  result: {}
         '401':
-            description: Unauthorized User
-            content:
-              application/json:
-                schema:
-                 $ref: ""
-                example:
-                  id: v2.notification.send
-                  ver: null,
-                  ts: 2021-08-11 21:30:57:395+0530
-                  params:
-                    resmsgid: null,
-                    msgid: "ed1c0b7c-8f10-4a35-9f42-93966d8d97f6"
-                    err: unauthorized
-                    status: null,
-                    errmsg: you are an unauthorized user
-                    responseCode: UNAUTHORIZED
-                    result: {}
-         
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: ""
+              example:
+                id: v2.notification.send
+                ver: null,
+                ts: 2021-08-11 21:30:57:395+0530
+                params:
+                  resmsgid: null,
+                  msgid: "ed1c0b7c-8f10-4a35-9f42-93966d8d97f6"
+                  err: unauthorized
+                  status: null,
+                  errmsg: you are an unauthorized user
+                  responseCode: UNAUTHORIZED
+                  result: {}
+
         '500':
-           description: "'INTERNAL SERVER ERROR. We track these errors automatically and
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and
              try to set it right at the earliest. Try refreshing the page. If the
              problem persists contact us at info@sunbird.org.'"
-           content:
-             application/json:
-               schema:
-                 $ref: ""
-               example:
-                 type: object
-                 id: v2.notification.send
-                 ver: v1
-                 ts: 2020-12-01 10:49:01:948+0000
-                 params:
-                  resmsgid: 
+          content:
+            application/json:
+              schema:
+                $ref: ""
+              example:
+                type: object
+                id: v2.notification.send
+                ver: v1
+                ts: 2020-12-01 10:49:01:948+0000
+                params:
+                  resmsgid:
                   msgid: "ed1c0b7c-8f10-4a35-9f42-93966d8d97f6"
                   err: null
                   status: null
                   errmsg: "SERVER_ERROR"
-                 responseCode: SERVER_ERROR
-                 result: {}           
+                responseCode: SERVER_ERROR
+                result: {}
   "/notification/v1/feed/read/{userId}":
-     get:
+    get:
       summary: Read User Notification Feed
       description: >-
         This API is used for getting in-App notification of the user, userId is uniquely identifies the user
           - The endpoint for **Get In-App user Feed from userId** is `/notification/v1/read/{userId}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
-          
+
       tags:
         - Notification APIs
       operationId: Get Notification Feed by user ID
@@ -350,7 +350,7 @@ paths:
           description: This ID uniquely identifies a request if the same API is executed
             multiple times.
           schema:
-            type: string  
+            type: string
       responses:
         '200':
           description: Success Read User Notification Feed
@@ -480,31 +480,31 @@ paths:
                 responseCode: UNAUTHORIZED
                 result: {}
         '500':
-           description: "'INTERNAL SERVER ERROR. We track these errors automatically and
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and
              try to set it right at the earliest. Try refreshing the page. If the
              problem persists contact us at info@sunbird.org.'"
-           content:
-             application/json:
-               schema:
-                 $ref: ""
-               example:
-                 id: v1.notification.feed.read
-                 ver: null
-                 ts: 2020-12-01 10:49:01:948+0000
-                 params:
-                  resmsgid: 
+          content:
+            application/json:
+              schema:
+                $ref: ""
+              example:
+                id: v1.notification.feed.read
+                ver: null
+                ts: 2020-12-01 10:49:01:948+0000
+                params:
+                  resmsgid:
                   msgid: 12eb0ca45ce4c776fab994d120bedd41
                   err: null
                   status: null
                   errmsg: "SERVER_ERROR"
-                 responseCode: SERVER_ERROR
-                 result: {}   
+                responseCode: SERVER_ERROR
+                result: {}
   /notification/v1/feed/update:
     patch:
       summary: Update Notification Feed Status
       operationId: UpdateNotificationFeedStatus
       tags:
-       - Notification APIs
+        - Notification APIs
       parameters:
         - name: Content-Type
           in: header
@@ -552,7 +552,7 @@ paths:
           description: This ID uniquely identifies a request if the same API is executed
             multiple times.
           schema:
-            type: string  
+            type: string
       responses:
         '200':
           description: Success Notification Status Update
@@ -598,11 +598,11 @@ paths:
             schema:
               $ref: "#/components/schemas/updateFeedReq"
             example:
-              request: 
-               - ids:
-                   - "64ef2ccd-2ec7-4759-b500-590d4a6eccf3"
-                 userId: "1234"
-                 status: "read"
+              request:
+                - ids:
+                    - "64ef2ccd-2ec7-4759-b500-590d4a6eccf3"
+                  userId: "1234"
+                  status: "read"
 components:
   parameters:
     notification-delivery-mode:
@@ -651,24 +651,24 @@ components:
       description: Notification  Obj
       type: object
       properties:
-         ids:
-           type: array
-           items: 
-             type: string
-         type:
-           type: string
-         priority:
-           type: number
-         action:
-           type: object
-           allOf: 
-             - $ref: '#/components/schemas/actionObj'
+        ids:
+          type: array
+          items:
+            type: string
+        type:
+          type: string
+        priority:
+          type: number
+        action:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/actionObj'
       required:
         - ids
         - type
         - priority
         - action
-           
+
     'actionObj':
       description: Action Data Object
       type: object
@@ -679,7 +679,7 @@ components:
           type: string
         template:
           type: object
-          allOf: 
+          allOf:
             - $ref: '#/components/schemas/templateObj'
         additionalInfo:
           type: object
@@ -691,20 +691,20 @@ components:
       description: Template Data Object
       type: object
       properties:
-            id:
-              type: string
-            type:
-              type: string
-            data:
-              type: string
-            ver:
-              type: string
-            params:
-              type: object
+        id:
+          type: string
+        type:
+          type: string
+        data:
+          type: string
+        ver:
+          type: string
+        params:
+          type: object
       required:
-           - type
-           - params
-           
+        - type
+        - params
+
     'updateFeedReq':
       description: Notification Feed update Request Obj
       type: object
@@ -724,8 +724,8 @@ components:
             - ids
             - userId
       required:
-        - request 
-        
+        - request
+
     '200':
       type: object
       properties:
