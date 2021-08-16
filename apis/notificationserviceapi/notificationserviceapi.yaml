@@ -20,7 +20,7 @@ paths:
       tags:
       - Notification APIs
       description: >-
-         - This API allows to send emai,sms,device and feed type notifications. This will only be accessible internally by different service to send notification. Template configuration needs to be configured to use this service.
+         - This API allows to send email,sms,device and feed type notifications. This will only be accessible internally by different service to send notification. Template configuration needs to be configured to use this service.
       parameters:
         - $ref: '#/components/parameters/notification-delivery-mode'
         - name: ts
@@ -33,6 +33,14 @@ paths:
           in: header
           required: true
           style: simple
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: To make use of any Group API, you require authorization. Raise a
+              request to the administrator for the use of the API. You will
+              receive the authorization key. Specify the key received, here.
           schema:
             type: string
         - $ref: '#/components/parameters/Content-Type'
@@ -67,7 +75,7 @@ paths:
                           type: User
                         additionalInfo:
                           group:
-                            id: '123434'
+                            id: '1234sa34'
                             name: Test
                           groupRole: admin
                           activity:
@@ -89,60 +97,104 @@ paths:
                         template:
                           type: TEXT
                           params:
-                            param1: Math's Activity
-                            param2: Test
+                            ttl: 30
                         createdBy:
                           id: f10d5216-6b96-404c-8d1c-cc1f720d910d
                           name: John
                           type: User
                         additionalInfo:
+                          sender: sender@sunbird.com
+                          subject: Hello to sunbird user
                           
               c:
-               summary: "Send SMS Notification"
+               summary: "Send Phone Normal Message Notification"
                value:
                 request:
                   notifications:
                     - ids:
-                        - '9824071234'
+                        - '123207123'
                       priority: 1
-                      type: sms
+                      type: phone
+                      action:
+                        type:  verfication
+                        category: learner-service
+                        template:
+                          type: TEXT
+                          params:
+                            installationName: system
+                            otpExpiryInMinutes: 4
+                        createdBy:
+                          id: f10d5216-6b96-404c-8d1c-cc1f720d910d
+                          name: John
+                          type: User
+                        additionalInfo:
+                          sender: sender@sunbird.com
+                          subject: Hello from sunbird
+              d:
+               summary: "Send Phone OTP Notification"
+               value:
+                request:
+                  notifications:
+                    - ids:
+                        - '123207123'
+                      priority: 1
+                      type: phone
                       action:
                         type: otp verfication
                         category: userOTP
                         template:
                           type: TEXT
                           params:
-                            param1: Math's Activity
-                            param2: Test
+                            ttl: 30
                         createdBy:
                           id: f10d5216-6b96-404c-8d1c-cc1f720d910d
                           name: John
                           type: User
                         additionalInfo:
+                          otp:
+                            length: 4
+                            expiryInMinute: 10
                          
-              d:
-               summary: "Send device Notification"
+              e:
+               summary: "Send device Notification for Multidevice"
                value:
                 request:
                   notifications:
                     - ids:
-                        - '132672132'
+                        - 'fcmToken1'
+                        - 'fcmtoken2'
                       priority: 1
                       type: device
                       action:
                         type: device-system-upgrade
                         category: device-notification
-                        template:
-                          type: TEXT
-                          params:
-                            param1: Math's Activity
-                            param2: Test
                         createdBy:
                           id: f10d5216-6b96-404c-8d1c-cc1f720d910d
                           name: John
                           type: User
                         additionalInfo:
-                          
+                          rawData:
+                             key: 2
+               f:
+                 summary: "Send broadcast device Notification using topics"
+                   value:
+                     request:
+                       notifications:
+                         - ids:
+                           priority: 1
+                           type: device
+                           action:
+                             type: device-system-upgrade
+                             category: device-notification
+                             createdBy:
+                               id: f10d5216-6b96-404c-8d1c-cc1f720d910d
+                               name: John
+                               type: User
+                             additionalInfo:
+                               topic: device-topic
+                               rawData:
+                                 key: 2
+                                 key2: value2
         description: >-
           - The body payload comprises of the metadata of the group being
           created - The body parameter refers to the format of the request, the
@@ -150,6 +202,16 @@ paths:
           payload:
              - JSON
           required: true
+          - Additional Info may contains mandatory parameter for some notification type such email, phone, device.
+            email Type :
+              - sender and subject is mandatory
+            phone Type :
+              - for Normal message : subject and sender is mandatory
+              - OTP verifications : otp object is mandatory
+            device Type :
+              - rawData is mandatory.
+              - Either topic in additionalInfo or Ids is mandatory.
+
       responses:
         '200':
             description: OK ! Successful operation."Send Notification" operation was successfully
@@ -235,8 +297,7 @@ paths:
      get:
       summary: Read User Notification Feed
       description: >-
-        This API is used for getting in add notification of the user, it is based on the unique
-        ID of the user
+        This API is used for getting in-App notification of the user, userId is uniquely identifies the user
           - The endpoint for **Get In-App user Feed from userId** is `/notification/v1/read/{userId}`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
           
