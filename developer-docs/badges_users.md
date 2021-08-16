@@ -3,8 +3,8 @@ title: Issuing Badges to Users
 page_title: Issuing Badges to Users
 description: Details on the procedure of issuing badges to users on Sunbird
 keywords: 'badges, assign badges, create badges, issue badges, mark as recommneded, mark as popular, mark as official'
-published: true
-allowSearch: true
+published: False
+allowSearch: False
 ---
 
 ## Overview
