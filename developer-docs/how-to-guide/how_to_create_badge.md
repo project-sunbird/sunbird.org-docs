@@ -3,8 +3,8 @@ title: Create Badges
 page_title: Create Badges
 description: Create a badge for a user in Sunbird instance
 keywords: create badge, badge issuer, assign badges 
-published: true
-allowSearch: true
+published: False
+allowSearch: False
 ---
 ## Scenario
 
