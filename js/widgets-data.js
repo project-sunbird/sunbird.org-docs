@@ -1,20 +1,28 @@
 var widgetsData = {  
    versions:[
       {  
+         "title":"4.2.0",
+         "branch":"4.2.0",
+         "desc":"",
+         "releaseDate":"25th Aug 2021",
+         "latest":false,
+         "published":true,
+         "prerelease":true
+      },
+      {  
          "title":"4.1.0",
          "branch":"4.1.0",
          "desc":"",
          "releaseDate":"21st July 2021",
-         "latest":false,
+         "latest":true,
          "published":true,
-         "prerelease":true
       },
       {  
          "title":"4.0.0",
          "branch":"4.0.0",
          "desc":"",
          "releaseDate":"23rd June 2021",
-         "latest":true,
+         "latest":false,
          "published":true,
       },
       {  
@@ -47,7 +55,7 @@ var widgetsData = {
          "desc":"",
          "releaseDate":"5th February 2021",
          "latest":false,
-         "published":true,
+         "published":false,
       },
       {  
          "title":"3.5.0",
@@ -171,5 +179,6 @@ var widgetsData = {
       }
    ]
 }
+
 
 
