@@ -4,83 +4,59 @@ page_title: Build and Deploy
 description: Build and Deploy
 published: true
 allowSearch: true
-keywords: Upgrade, Sunbird 3.9.0
+keywords: Upgrade, Sunbird 4.1.0
 ---
 
 ## Overview
 
-This page details out the jobs required to be run as part of the upgrade from Sunbird release 3.8.0 to release 3.9.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.
+This page details out the jobs required to be run as part of the upgrade from Sunbird release 4.0.0 to release 4.1.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.
 
 ### Variables
 
-| Variable Name                                | Service Name          | Comments                                                  |
-|----------------------------------------------|-----------------------|-----------------------------------------------------------|
-| assessaggregator_scoreaggregator_parallelism | DataPipelineFlinkJobs | value to be same as assessaggregator_consumer_parallelism |
-| media_service_azure_tenant | Knowledge Platform Flink Job |- This variable should be copied from`DataPipeline/common.yml` and added in private repo `KnowledgePlatform/common.yml`|
-| media_service_azure_subscription_id | Knowledge Platform Flink Job |- This variable should be copied from`DataPipeline/common.yml` and added in private repo `KnowledgePlatform/common.yml`|
-| media_service_azure_account_name | Knowledge Platform Flink Job |- This variable should be copied from`DataPipeline/common.yml` and added in private repo `KnowledgePlatform/common.yml`|
-| media_service_azure_resource_group_name | Knowledge Platform Flink Job |- This variable should be copied from`DataPipeline/common.yml` and added in private repo `KnowledgePlatform/common.yml`|
-| media_service_azure_token_client_key | Knowledge Platform Flink Job |- This variable should be copied from`DataPipeline/common.yml` and added in private repo `KnowledgePlatform/common.yml`|
-| media_service_azure_token_client_secret | Knowledge Platform Flink Job |- This variable should be copied from`DataPipeline/common.yml` and added in private repo `KnowledgePlatform/common.yml`|
-| stream_base_url | Knowledge Platform Flink Job |- This variable should be copied from`DataPipeline/common.yml` and added in private repo `KnowledgePlatform/common.yml`|
+|Variable Name|Service Name|Comments|
+|-------------|------------|--------|
+|core_prom_ip|DataPipeline Monitoring|Update in DP/common.yml<br/>Add core prometheus ip to access flink job consumer lag metrics|
+|vdn_domain_name|Kp flink|Update in KP/common.yml<br/>update vdn env domain name|
+|source_base_url: {% raw %}"{{proto}}://{{vdn_domain_name}}/api"{% endraw %}|KP flink|Update in KP/common.yml|
+|cert_env_prefix|Kp flink|Update in KP/common.yml<br/> ex: cert_env_prefix:sunbird-staging|
 
 ### Build and Deploy
 
-| Service to be Build                  | Build Tag          | Service to Deploy                                   | Deploy Tag         | Comments                                                                                                                                            |
-|--------------------------------------|--------------------|-----------------------------------------------------|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-|                                      |                    | Provision/DataPipeline/postgres-managed             | release-3.9.0_RC6  |                                                                                                                                                     |
-| Build/Core/Cassandra                 | release-3.9.0_RC1  | Deploy/Kubernetes/Cassandramigration                | release-3.9.0_RC8  |                                                                                                                                                     |
-|                                      |                    | Deploy/KnowledgePlatform/CassandraDbUpdate          | release-3.9.0_RC14 |                                                                                                                                                     |
-|                                      |                    | Deploy/KnowledgePlatform/Neo4jDefinitionUpdate      | release-3.9.0_RC13 |                                                                                                                                                     |
-|                                      |                    | Deploy/Core/UploadDesktopFaq                        | release-3.9.0_RC8  |                                                                                                                                                     |
-|                                      |                    | Deploy/DataPipeline/BootstrapMinimal                | release-3.9.0_RC6  |                                                                                                                                                     |
-|                                      |                    | Deploy/Kubernetes/APIManager                        | release-3.9.0_RC8  |                                                                                                                                                     |
-|                                      |                    | Deploy/Kubernetes/APIManagerEcho                    | release-3.9.0_RC8  |                                                                                                                                                     |
-|                                      |                    | Deploy/Kubernetes/Keycloak                          | release-3.9.0_RC8  |                                                                                                                                                     |
-|                                      |                    | Deploy/Kubernetes/OnboardAPIs                       | release-3.9.0_RC8  |                                                                                                                                                     |
-|                                      |                    | Deploy/Kubernetes/UploadFAQs                        | release-3.9.0_RC8  |                                                                                                                                                     |
-|                                      |                    | Deploy/Kubernetes/UploadSchema                      | release-3.9.0_RC8  | kp branch: release-3.9.0_RC5                                                                                                                        |
-| Build/DataPipeline/AnalyticsCore     | release-3.9.0_RC2  | Deploy/DataPipeline/AnalyticsCore                   | release-3.9.0_RC6  |                                                                                                                                                     |
-| Build/DataPipeline/EdDataproducts    | release-3.9.0_RC6  | Deploy/DataPipeline/EdDataProducts                  | release-3.9.0_RC6  |                                                                                                                                                     |
-| Build/DataPipeline/FlinkPipelineJobs | release-3.9.0_RC5  | Deploy/DataPipeline/FlinkPipelineJobs               | release-3.9.0_RC6  | Select all jobs and deploy.                                                                                                                         |
-| Build/DataPipeline/Secor             | secor-0.29_RC2     | Deploy/DataPipeline/Secor                           | release-3.9.0_RC6  |                                                                                                                                                     |
-| Build/KnowledgePlatform/FlinkJobs    | release-3.9.0_RC7  | Deploy/KnowledgePlatform/FlinkJobs                  | release-3.9.0_RC14 | Select all jobs and deploy                                                                                                                          |
-| Build/KnowledgePlatform/Learning     | release-3.9.0_RC13 | Deploy/KnowledgePlatform/Learning                   | release-3.9.0_RC13 |                                                                                                                                                     |
-| Build/KnowledgePlatform/Yarn         | release-3.9.0_RC13 | Deploy/KnowledgePlatform/Yarn                       | release-3.9.0_RC13 |                                                                                                                                                     |
-| Build/Core/Analytics                 | release-3.9.0_RC4  | Deploy/Kubernetes/Analytics                         | release-3.9.0_RC8  |                                                                                                                                                     |
-| Build/Core/Assessment                | release-3.9.0_RC9  | Deploy/Kubernetes/Assessment                        | release-3.9.0_RC8  |                                                                                                                                                     |
-| Build/Core/Bot                       | release-3.9.0_RC1  | Deploy/Kubernetes/Bot                               | release-3.9.0_RC1  |                                                                                                                                                     |
-| Build/Core/Content                   | release-3.9.0_RC9  | Deploy/Kubernetes/Content                           | release-3.9.0_RC8  |                                                                                                                                                     |
-| Build/Core/Learner                   | release-3.9.0_RC11 | Deploy/Kubernetes/Learner                           | release-3.9.0_RC8  |                                                                                                                                                     |
-| Build/Core/Lms                       | release-3.9.0_RC5  | Deploy/Kubernetes/Lms                               | release-3.9.0_RC8  |                                                                                                                                                     |
-| Build/Core/Nodebb                    | release-3.9.0_RC6  | Deploy/Kubernetes/Nodebb                            | release-3.9.0_RC8  | Provide value as v1.16.0 for the jenkins job parameter nodebb_branch in the build phase                                                             |
-| Build/Core/OfflineInstaller          | release-3.9.0_RC44 | Deploy/OfflineInstaller                             | release-3.9.0_RC8  |                                                                                                                                                     |
-| Build/Core/Player                    | release-3.9.0_RC44 | Deploy/Kubernetes/Player                            | release-3.9.0_RC8  |                                                                                                                                                     |
-| Build/Core/Router                    | release-3.9.0_RC1  | Deploy/Kubernetes/Router                            | release-3.9.0_RC1  |                                                                                                                                                     |
-| Build/Core/Search                    | release-3.9.0_RC9  | Deploy/Kubernetes/Search                            | release-3.9.0_RC8  |                                                                                                                                                     |
-| Build/Core/Taxonomy                  | release-3.9.0_RC9  | Deploy/Kubernetes/Taxonomy                          | release-3.9.0_RC8  |                                                                                                                                                     |
-| Build/Plugins/ContentPlayer          | release-3.9.0_RC2  | Deploy/Plugins/ContentPlayer                        | release-3.9.0_RC8  |                                                                                                                                                     |
-| Build/Plugins/ContentPlugins         | release-3.9.0_RC2  | Deploy/Plugins/ContentPlugins                       | release-3.9.0_RC8  |                                                                                                                                                     |
-|                                      |                    | Deploy/DataPipeline/ETLUserCacheIndexer             | release-3.9.0_RC6  |                                                                                                                                                     |
-|                                      |                    | Deploy/Kubernetes/nginx-public-ingress              | release-3.9.0_RC8  |                                                                                                                                                     |
-| Build/KnowledgePlatform/SyncTool     | release-3.9.0_RC13 | Deploy/KnowledgePlatform/Neo4jElasticSearchSyncTool | release-3.9.0_RC13 | Sync for objectType = Framework and License                                                                                                         |
-|                                      |                    | Deploy/DataPipeline/Logging                         | release-3.9.0_RC8  |                                                                                                                                                     |
-|                                      |                    | Deploy/DataPipeline/LoggingFileBeatsVM              | release-3.9.0_RC8  |                                                                                                                                                     |
-|                                      |                    | Deploy/KnowledgePlatform/LoggingFileBeatsVM         | release-3.9.0_RC8  |                                                                                                                                                     |
-
+|Service to be Build|Build Tag|Service to Deploy|Deploy Tag|Comments|
+|-------------------|---------|-----------------|----------|--------|
+|||Provision/DataPipeline/Druid|release-4.1.0_RC2||
+|||Provision/KnowledgePlatform/Neo4j|release-4.1.0_RC9||
+|Build/KnowledgePlatform/FlinkJobs|release-4.1.0_RC8|Deploy/KnowledgePlatform/FlinkJobs|release-4.1.0_RC9|add <b>audit-event-generator, content-publish</b> in the Jenkins jobs list and deploy all the jobs|
+|Build/KnowledgePlatform/Learning|release-4.1.0_RC9|Deploy/KnowledgePlatform/Learning|release-4.1.0_RC9||
+|Build/KnowledgePlatform/Neo4j|release-4.1.0_RC1|Deploy/KnowledgePlatform/Neo4j|release-4.1.0_RC9|Update build jobs repo to <b>https://github.com/project-sunbird/knowledge-platform-db-extensions.git</b><br/>  and jenkinsfile to <b>build/neo4j-extensions/Jenkinsfile</b><br/>restart the Neo4J cluster after deployment.<br/>Validate the plugins folder file sizes. (learning jar should be around 3mb only. Previously it is 10mb+)<br/>delete the old Neo4J folder from all vms.(We upgraded to neo4j-enterprise-3.3.10-SNAPSHOT) <b>rm -rf /home/learning/neo4j-learning/</b> neo4j-enterprise-3.3.0|
+|Build/KnowledgePlatform/Yarn|release-4.1.0_RC9|Deploy/KnowledgePlatform/Yarn|release-4.1.0_RC9||
+|Build/Core/Cassandra|release-4.0.0_RC3|Deploy/Kubernetes/Cassandra|release-4.1.0_RC7||
+|||Deploy/Kubernetes/OnboardAPIs|release-4.1.0_RC7||
+|||Deploy/Kubernetes/OnboardConsumers|release-4.1.0_RC7||
+|Build/Core/Analytics|release-4.1.0_RC1|Deploy/Kubernetes/Analytics|release-4.1.0_RC7||
+|Build/Core/Assessment|release-4.1.0_RC8|Deploy/Kubernetes/Assessment|release-4.1.0_RC7||
+|Build/Core/Content|release-4.1.0_RC8|Deploy/Kubernetes/Content|release-4.1.0_RC7||
+|Build/Core/Learner|release-4.1.0_RC13|Deploy/Kubernetes/Learner|release-4.1.0_RC7||
+|Build/Core/Lms|release-4.1.0_RC1|Deploy/Kubernetes/Lms|release-4.1.0_RC7||
+|Build/Core/Player|release-4.1.0_RC52|Deploy/Kubernetes/Player|release-4.1.0_RC7||
+|Build/Core/Search|release-4.1.0_RC8|Deploy/Kubernetes/Search|release-4.1.0_RC7||
+|Build/Core/Taxonomy|release-4.1.0_RC8|Deploy/Kubernetes/Taxonomy|release-4.1.0_RC7||
+|||Deploy/Kubernetes/Keycloak|release-4.1.0_RC7|Redeploy same artifact|
+|Build/Core/OfflineInstaller|release-4.1.0|Deploy/Core/OfflineInstaller|release-4.1.0_RC7||
+|Build/Plugins/ContentEditor|release-4.1.0_RC1|Deploy/Plugins/ContentEditor|release-4.1.0_RC7||
+|Build/DataPipeline/AnalyticsCore|release-4.1.0_RC2|Deploy/DataPipeline/AnalyticsCore|release-4.1.0_RC2||
+|Build/DataPipeline/CoreDataProducts|release-4.1.0_RC2|Deploy/DataPipeline/CoreDataProducts|release-4.1.0_RC2||
+|Build/DataPipeline/EdDataProducts|release-4.1.0_RC9|Deploy/DataPipeline/EdDataProducts|release-4.1.0_RC2||
+|Build/DataPipeline/FlinkPipelineJobs|release-4.1.0_RC2|Deploy/DataPipeline/FlinkPipelineJobs|release-4.1.0_RC2|deploy all the jobs|
+|Build/DataPipeline/AdhocScripts|release-4.1.0_RC8|Deploy/DataPipeline/AdhocScripts|release-4.1.0_RC2||
+|||Deploy/Kubernetes/Monitoring|release-4.1.0_RC7|jenkins parameter <b>tag:dashboards</b>|
 
 ### Manual Configurations
 
-| Manual Step                                           | Instruction                                                                                                                                                                                                    |
-|-------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Update system settings with following request         | https://project-sunbird.atlassian.net/browse/SB-24300                                                                                                                                                          |
-| Truncate fed_user_attribute table                     | "Take the backup first using the command pg_dump --host=PG_HOST --port=5432 --username=$PG_USER -d KEYCLOAK7_DB -t fed_user_attribute  > fed_user_attribute.sql"                                               |
-|                                                       | `psql -h $PG_HOST -U $PG_USER -d keycloak7_DB` and `TRUNCATE TABLE fed_user_attribute`                                                                                                                         |
-| Create the Logging job in datapipeline deploy  folder | https://github.com/project-sunbird/sunbird-devops/tree/release-3.9.0/deploy/jenkins/jobs/Deploy/jobs/dev/jobs/DataPipeline/jobs/Logging                                                                        |
-| Jenkins job changes                                   | Rename KnowledgePlatform/KnowledgePlatform to KnowledgePlatform/Learning and change build/upload/deploy directories along with absolute job paths.                                                             |
-|                                                       | Add audit-history-indexer in Deploy/KnowledgePlatform/FlinkPipelineJobs -> configuration -> add `audit-history-indexer` in `job_names_to_deploy` array.                                                        |
-|                                                       | https://github.com/project-sunbird/sunbird-devops/pull/2528                                                                                                                                                    |
-| Run neo4j cypher script mentioned in link             | https://github.com/project-sunbird/sunbird-learning-platform/blob/release-3.9.0_RC10/docs/cypher-scripts/release-3.9.0.cypher                                                                                  |
-| Form update                                           | Content creation forms<br>Ticket: https://project-sunbird.atlassian.net/browse/SB-23246 <br>Steps: https://project-sunbird.atlassian.net/wiki/spaces/SingleSource/pages/2618097870/Practice+Question+Set+3.9 |
-|                                                       | Mobile forms<br>Steps: https://project-sunbird.atlassian.net/wiki/spaces/MC/pages/2621014043/Form+Configuration+release-3.9.0                                                                                  |
+|Manual Step|Instruction|
+|--------------------|--------------------|
+|create new job Upload_CollectionHierarchy_CSV and deploy|[Jenkins job config](https://github.com/project-sunbird/sunbird-devops/pull/2743/files)|
+|Update QuestionSet primaryCategory creation form|Jira Links - [SB-24540](https://project-sunbird.atlassian.net/browse/SB-24540)|
+|Update Portal form config for banner|Jira Links - [SB-25573](https://project-sunbird.atlassian.net/browse/SB-25573)|
+|Update portal form configuration| Jira Links - [SB-25672](https://project-sunbird.atlassian.net/browse/SB-25672) [SB-25400](https://project-sunbird.atlassian.net/browse/SB-25400)|
 
