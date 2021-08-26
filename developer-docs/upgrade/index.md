@@ -11,6 +11,7 @@ keywords: Upgrade, Sunbird 4.1.0
 
 This page details out the jobs required to be run as part of the upgrade from Sunbird release 4.0.0 to release 4.1.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.
 
+
 ### Variables
 
 |Variable Name|Service Name|Comments|
@@ -51,6 +52,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/DataPipeline/AdhocScripts|release-4.1.0_RC8|Deploy/DataPipeline/AdhocScripts|release-4.1.0_RC2||
 |||Deploy/Kubernetes/Monitoring|release-4.1.0_RC7|jenkins parameter <b>tag:dashboards</b>|
 
+
 ### Manual Configurations
 
 |Manual Step|Instruction|
@@ -59,4 +61,3 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Update QuestionSet primaryCategory creation form|Jira Links - [SB-24540](https://project-sunbird.atlassian.net/browse/SB-24540)|
 |Update Portal form config for banner|Jira Links - [SB-25573](https://project-sunbird.atlassian.net/browse/SB-25573)|
 |Update portal form configuration| Jira Links - [SB-25672](https://project-sunbird.atlassian.net/browse/SB-25672) [SB-25400](https://project-sunbird.atlassian.net/browse/SB-25400)|
-
