@@ -16,8 +16,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Variable Name|Service Name|Comments|
 |-------------|------------|--------|
 |dock_private_ingressgateway_ip|Knowledge Platform FlinkJobs|Update in KP/common.yml<br/>Add dock env private ingress ip|
-|learning_content_drive_apiKey||Update in Core/common.yml<br/>Create the Key and Add in Sunbird and VDN <br/>
-https://support.google.com/googleapi/answer/6158862?hl=en|
+|learning_content_drive_apiKey||Update in Core/common.yml<br/>Create the Key and Add in Sunbird and VDN <br/> https://support.google.com/googleapi/answer/6158862?hl=en|
 
 
 ### Build and Deploy
@@ -36,12 +35,8 @@ https://support.google.com/googleapi/answer/6158862?hl=en|
 |Build/Core/Search|release-4.2.0_RC9|Deploy/Kubernetes/Search|release-4.2.0_RC2||
 |Build/Core/Taxonomy|release-4.2.0_RC9|Deploy/Kubernetes/Taxonomy|release-4.2.0_RC2||
 |||Deploy/Kubernetes/Keycloak|release-4.2.0_RC2|Redeploy same artifact|
-|||Deploy/Kubernetes/Nginx-private-ingress|release-4.2.0_RC2|update the variables as per <br/> 
-https://github.com/project-sunbird/sunbird-devops/blob/release-4.2.0/private_repo/ansible/inventory/dev/Core/common.yml#L231-L247|
-|||Deploy/Kubernetes/Monitoring||Create an oauth cred from google cloud account.<br/>
-Give redirect url as https://{domain_name}/oauth3/callback<br/>
-update the variables as per <br/>
-https://github.com/project-sunbird/sunbird-devops/blob/release-4.2.0/private_repo/ansible/inventory/dev/Core/common.yml#L231-L247|
+|||Deploy/Kubernetes/Nginx-private-ingress|release-4.2.0_RC2|update the variables as per <br/> https://github.com/project-sunbird/sunbird-devops/blob/release-4.2.0/private_repo/ansible/inventory/dev/Core/common.yml#L231-L247|
+|||Deploy/Kubernetes/Monitoring||Create an oauth cred from google cloud account.<br/> Give redirect url as https://{domain_name}/oauth3/callback<br/> update the variables as per <br/> https://github.com/project-sunbird/sunbird-devops/blob/release-4.2.0/private_repo/ansible/inventory/dev/Core/common.yml#L231-L247|
 |Build/Core/OfflineInstaller|release-4.2.0|Deploy/Core/OfflineInstaller|release-4.2.0_RC2|
 |Build/DataPipeline/AnalyticsCore|release-4.2.0_RC1|Deploy/DataPipeline/AnalyticsCore|release-4.2.0_RC2||
 |Build/DataPipeline/CoreDataProducts|release-4.2.0_RC1|Deploy/DataPipeline/CoreDataProducts|release-4.2.0_RC2||
