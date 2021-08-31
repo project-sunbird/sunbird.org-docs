@@ -23,7 +23,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Service to be Build|Build Tag|Service to Deploy|Deploy Tag|Comments|
 |-------------------|---------|-----------------|----------|--------|
-|Build/KnowledgePlatform/FlinkJobs|release-4.2.0_RC8|Deploy/KnowledgePlatform/FlinkJobs|release-4.2.0_RC5|deploy all job|
+|Build/KnowledgePlatform/FlinkJobs|release-4.2.0_RC10|Deploy/KnowledgePlatform/FlinkJobs|release-4.2.0_RC5|deploy all job|
 |Build/KnowledgePlatform/Learning|release-4.2.0_RC5|Deploy/KnowledgePlatform/Learning|release-4.2.0_RC5||
 |Build/KnowledgePlatform/Yarn|release-4.2.0_RC5|Deploy/KnowledgePlatform/Yarn|release-4.2.0_RC5||
 |Build/Core/AdminUtils|release-4.2.0_RC2|Deploy/Kubernetes/AdminUtils|release-4.2.0_RC2||
@@ -34,6 +34,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Core/Player|release-4.2.0_RC34|Deploy/Kubernetes/Player|release-4.2.0_RC2||
 |Build/Core/Search|release-4.2.0_RC9|Deploy/Kubernetes/Search|release-4.2.0_RC2||
 |Build/Core/Taxonomy|release-4.2.0_RC9|Deploy/Kubernetes/Taxonomy|release-4.2.0_RC2||
+|||Deploy/Kubernetes/UploadSchemas|release-4.2.0_RC5||
 |||Deploy/Kubernetes/Keycloak|release-4.2.0_RC2|Redeploy same artifact|
 |||Deploy/Kubernetes/Nginx-private-ingress|release-4.2.0_RC2|update the variables as per - [link](https://github.com/project-sunbird/sunbird-devops/blob/release-4.2.0/private_repo/ansible/inventory/dev/Core/common.yml#L231-L247)|
 |||Deploy/Kubernetes/Monitoring||Create an oauth cred from google cloud account.<br/> Give redirect url as https://{domain_name}/oauth3/callback<br/>update the variables as per - [link](https://github.com/project-sunbird/sunbird-devops/blob/release-4.2.0/private_repo/ansible/inventory/dev/Core/common.yml#L231-L247)|
