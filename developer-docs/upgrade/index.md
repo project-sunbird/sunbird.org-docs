@@ -23,7 +23,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Service to be Build|Build Tag|Service to Deploy|Deploy Tag|Comments|
 |-------------------|---------|-----------------|----------|--------|
-|Build/KnowledgePlatform/FlinkJobs|release-4.2.0_RC10|Deploy/KnowledgePlatform/FlinkJobs|release-4.2.0_RC5|deploy all job|
+|Build/KnowledgePlatform/FlinkJobs|release-4.2.0_RC11|Deploy/KnowledgePlatform/FlinkJobs|release-4.2.0_RC5|add <b>metrics-data-transformer</b> in jobs config deploy all job|
 |Build/KnowledgePlatform/Learning|release-4.2.0_RC5|Deploy/KnowledgePlatform/Learning|release-4.2.0_RC5||
 |Build/KnowledgePlatform/Yarn|release-4.2.0_RC5|Deploy/KnowledgePlatform/Yarn|release-4.2.0_RC5||
 |Build/Core/AdminUtils|release-4.2.0_RC2|Deploy/Kubernetes/AdminUtils|release-4.2.0_RC2||
@@ -31,7 +31,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Core/Content|release-4.2.0_RC9|Deploy/Kubernetes/Content|release-4.2.0_RC2||
 |Build/Core/DiscussionsMW|release-4.2.0_RC2|Deploy/Kubernetes/DiscussionsMW|release-4.2.0_RC2||
 |Build/Core/Learner|release-4.2.0_RC13|Deploy/Kubernetes/Learner|release-4.2.0_RC2||
-|Build/Core/Player|release-4.2.0_RC34|Deploy/Kubernetes/Player|release-4.2.0_RC2||
+|Build/Core/Player|release-4.2.0_RC35|Deploy/Kubernetes/Player|release-4.2.0_RC2||
 |Build/Core/Search|release-4.2.0_RC9|Deploy/Kubernetes/Search|release-4.2.0_RC2||
 |Build/Core/Taxonomy|release-4.2.0_RC9|Deploy/Kubernetes/Taxonomy|release-4.2.0_RC2||
 |||Deploy/Kubernetes/UploadSchemas|release-4.2.0_RC5||
