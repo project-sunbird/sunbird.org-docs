@@ -2602,52 +2602,35 @@ paths:
       deprecated: false
       security:
         - bearer: []
-  /question/v1/bulkUpload:
-    post:
+  /question/v1/bulkUploadStatus:
+    get:
       tags:
         - Question APIs
-      summary: QuML Bulk Upload
+      summary: QuML Bulk Upload status Check
       description: |-
-        This API is used to create Questions in Bulk on the Sunbird Platform.
-          - The endpoint for **QuML Bulk Upload** is `/question/v1/bulkUpload`
-          - It points to the program-service - `question/v1/bulkUpload`
+        This API is used to check the status of QuML bulk upload process on the Sunbird Platform.
+          - The endpoint for **QuML Bulk Upload status Check** is `/question/v1/bulkUploadStatus`
+          - It points to the program-service - `question/v1/bulkUploadStatus`
           - All parameters marked with * are mandatory. You must provide values for these parameters. 
           - Mandatory fields cannot be null or empty.
-      operationId: QuML Bulk Upload
+      operationId: QuML Bulk Upload status Check
       parameters:
-      requestBody:
-        description: >-
-          The body parameter refers to the format of the request, the request
-          body (payload) takes the following media types to make the payload
-          - JSON 
-          The body is the representation of the resource object for creating
-          **questions**, which is an array of parameters that describes the question 
-          - Click the link to refer the supported
-          [metadata](https://github.com/Sunbird-Ed/creation-portal/blob/release-4.2.0/kp_schemas/question/1.0/schema.json)
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/questionCreateQuestionRequest'
-            example:
-              form-data:
-                JSONFile:
-                  userId: check1@yopmail.com
-                  publisherId: check2@yopmail.com
-                  organizationId: Avanti1
-                  question:
-                    name: question_12
-                    mimeType: application/vnd.sunbird.question
-        required: true
+        - in: path
+          name: Question_Id
+          required: true
+          description: The process ID of the bulk upload to which status check is happening
+          schema:
+            type: string
       responses:
         '200':
           description: >-
-            SUCCESS. The **QuML Bulk Upload** operation was successful!
+            SUCCESS. The **QuML Bulk Upload status Check** operation was successful!
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/questionQuestionCreateSuccessResponse'
               example:
-                id: api.question.bulkUpload
+                id: api.question.bulkUploadStatusCheck
                 ver: '1.0'
                 ts: '2021-08-24T19:28:24ZZ'
                 params:
@@ -2658,17 +2641,11 @@ paths:
                   errmsg: null
                 responseCode: OK
                 result:
-                  questionStatus: 
-                    Bulk Upload process has started successfully for the process Id : 8b75d237-1028-4e38-a94a-9ff4ca784d76
-                  data: 
-                    Total no of questions: 1000,
-                    No of questions getting processed: 999,
-                    No of questions With issues: 1,
-                    Questions With wrong message: userID missing
+                  message: "Successfully got the Questions"
+                  data: Array of questions objects with their individual status.
         '400':
           description: >-
-            'BAD REQUEST. The **QuML Bulk Upload** operation failed. You may have
-            missed providing input for a mandatory parameter.'
+            'BAD REQUEST. The **QuML Bulk Upload** operation failed. Please try again since Your request queue might be processing.
           content:
             application/json:
               schema:
@@ -2689,23 +2666,7 @@ paths:
                     responseCode: CLIENT_ERROR
                     result:
                       messages:
-                        - 'The File is not in JSON format!!'
-                b:
-                  summary: Error Response - Something Went Wrong While Writing the file
-                  value:
-                    id: api.question.bulkUpload
-                    ver: '1.0'
-                    ts: '2021-08-24T19:28:24ZZ'
-                    params:
-                      resmsgid: bad9792a-0551-4eac-be9c-0e1b79e06581
-                      msgid: null
-                      err: CLIENT_ERROR
-                      status: failed
-                      errmsg: Validation Errors
-                    responseCode: CLIENT_ERROR
-                    result:
-                      messages:
-                        - Something Went Wrong While Writing the file
+                        - 'Something went wrong while fetching the data'
         '500':
           description: >-
             'INTERNAL SERVER ERROR. We track these errors automatically and try
