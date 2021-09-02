@@ -48,7 +48,6 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Manual Step|Instruction|
 |--------------------|--------------------|
-|Update JENKINS job - AnalyticsReplayJob, add job id - druid-dataset|[SB-24105](https://project-sunbird.atlassian.net/browse/SB-24105)|
 |Update DIgital Textbook primaryCategory definition |Jira Links - [SB-25554](https://project-sunbird.atlassian.net/browse/SB-25554)|
 |Update Content Playlis & Question paper primaryCategory definition |Jira Links - [25555](https://project-sunbird.atlassian.net/browse/SB-25555)|
 |publishchecklist form config Update in all collection primaryCategory definition | Jira Links - [SB-25556](https://project-sunbird.atlassian.net/browse/SB-25556)|
