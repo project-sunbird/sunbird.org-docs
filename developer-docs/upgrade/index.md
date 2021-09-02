@@ -18,7 +18,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |dock_private_ingressgateway_ip|Knowledge Platform FlinkJobs|Update in KP/common.yml<br/>Add dock env private ingress ip|
 |learning_content_drive_apiKey||Update in Core/common.yml<br/>[Create the Key](https://support.google.com/googleapi/answer/6158862?hl=en) and Add in Sunbird and VDN|
 |metadata2_redis_host|KP Flink|Same value as it is in DP common.yaml<br/>In KP hosts.yaml, add redis-metadata2, copy this from DP hosts.yaml|
-|crypto_encryption_key_external|Portal|copy same value provided for vdn |
+|crypto_encryption_key_external|Portal|generate encryption using [link](https://www.allkeysgenerator.com/Random/Security-Encryption-Key-Generator.aspx)|
 
 ### Build and Deploy
 
