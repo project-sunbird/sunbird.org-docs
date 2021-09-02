@@ -31,7 +31,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Core/Content|release-4.2.0_RC9|Deploy/Kubernetes/Content|release-4.2.0_RC2||
 |Build/Core/DiscussionsMW|release-4.2.0_RC2|Deploy/Kubernetes/DiscussionsMW|release-4.2.0_RC2||
 |Build/Core/Learner|release-4.2.0_RC13|Deploy/Kubernetes/Learner|release-4.2.0_RC2||
-|Build/Core/Player|release-4.2.0_RC35|Deploy/Kubernetes/Player|release-4.2.0_RC2||
+|Build/Core/Player|release-4.2.0_RC36|Deploy/Kubernetes/Player|release-4.2.0_RC2||
 |Build/Core/Search|release-4.2.0_RC9|Deploy/Kubernetes/Search|release-4.2.0_RC2||
 |Build/Core/Taxonomy|release-4.2.0_RC9|Deploy/Kubernetes/Taxonomy|release-4.2.0_RC2||
 |||Deploy/Kubernetes/UploadSchemas|release-4.2.0_RC5||
@@ -52,3 +52,4 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Update Content Playlis & Question paper primaryCategory definition |Jira Links - [25555](https://project-sunbird.atlassian.net/browse/SB-25555)|
 |publishchecklist form config Update in all collection primaryCategory definition | Jira Links - [SB-25556](https://project-sunbird.atlassian.net/browse/SB-25556)|
 |Upgrade dp redis(dp-redis, metadata-redis). This includes the version upgrade as well.|[steps](https://docs.google.com/spreadsheets/d/1KnjAH_hMzFokmuUYN62HnevihJdXpnrfUgm_VgAH7AU/edit#gid=344919181)|
+|form configuration| [linl](https://project-sunbird.atlassian.net/wiki/spaces/MC/pages/2909339655/Form+Configuration+release-4.2.0)
