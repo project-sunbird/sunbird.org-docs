@@ -52,4 +52,4 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Update Content Playlis & Question paper primaryCategory definition |Jira Links - [25555](https://project-sunbird.atlassian.net/browse/SB-25555)|
 |publishchecklist form config Update in all collection primaryCategory definition | Jira Links - [SB-25556](https://project-sunbird.atlassian.net/browse/SB-25556)|
 |Upgrade dp redis(dp-redis, metadata-redis). This includes the version upgrade as well.|[steps](https://docs.google.com/spreadsheets/d/1KnjAH_hMzFokmuUYN62HnevihJdXpnrfUgm_VgAH7AU/edit#gid=344919181)|
-|form configuration| [linl](https://project-sunbird.atlassian.net/wiki/spaces/MC/pages/2909339655/Form+Configuration+release-4.2.0)
+|form configuration| [link](https://project-sunbird.atlassian.net/wiki/spaces/MC/pages/2909339655/Form+Configuration+release-4.2.0)
