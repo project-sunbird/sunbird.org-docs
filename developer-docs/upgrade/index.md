@@ -17,15 +17,16 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |-------------|------------|--------|
 |dock_private_ingressgateway_ip|Knowledge Platform FlinkJobs|Update in KP/common.yml<br/>Add dock env private ingress ip|
 |learning_content_drive_apiKey||Update in Core/common.yml<br/>[Create the Key](https://support.google.com/googleapi/answer/6158862?hl=en) and Add in Sunbird and VDN|
-
+|metadata2_redis_host|KP Flink|Same value as it is in DP common.yaml<br/>In KP hosts.yaml, add redis-metadata2, copy this from DP hosts.yaml|
+|crypto_encryption_key_external|Portal|copy same value provided for vdn |
 
 ### Build and Deploy
 
 |Service to be Build|Build Tag|Service to Deploy|Deploy Tag|Comments|
 |-------------------|---------|-----------------|----------|--------|
-|Build/KnowledgePlatform/FlinkJobs|release-4.2.0_RC11|Deploy/KnowledgePlatform/FlinkJobs|release-4.2.0_RC5|add <b>metrics-data-transformer</b> in jobs config deploy all job|
-|Build/KnowledgePlatform/Learning|release-4.2.0_RC5|Deploy/KnowledgePlatform/Learning|release-4.2.0_RC5||
-|Build/KnowledgePlatform/Yarn|release-4.2.0_RC5|Deploy/KnowledgePlatform/Yarn|release-4.2.0_RC5||
+|Build/KnowledgePlatform/FlinkJobs|release-4.2.0_RC11|Deploy/KnowledgePlatform/FlinkJobs|release-4.2.0_RC6|add <b>metrics-data-transformer</b> in jobs config deploy all job|
+|Build/KnowledgePlatform/Learning|release-4.2.0_RC5|Deploy/KnowledgePlatform/Learning|release-4.2.0_RC6||
+|Build/KnowledgePlatform/Yarn|release-4.2.0_RC5|Deploy/KnowledgePlatform/Yarn|release-4.2.0_RC6||
 |Build/Core/AdminUtils|release-4.2.0_RC2|Deploy/Kubernetes/AdminUtils|release-4.2.0_RC2||
 |Build/Core/Assessment|release-4.2.0_RC9|Deploy/Kubernetes/Assessment|release-4.2.0_RC2||
 |Build/Core/Content|release-4.2.0_RC9|Deploy/Kubernetes/Content|release-4.2.0_RC2||
@@ -37,7 +38,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |||Deploy/Kubernetes/UploadSchemas|release-4.2.0_RC5||
 |||Deploy/Kubernetes/Keycloak|release-4.2.0_RC2|Redeploy same artifact|
 |||Deploy/Kubernetes/Nginx-private-ingress|release-4.2.0_RC2|update the variables as per - [link](https://github.com/project-sunbird/sunbird-devops/blob/release-4.2.0/private_repo/ansible/inventory/dev/Core/common.yml#L231-L247)|
-|||Deploy/Kubernetes/Monitoring||Create an oauth cred from google cloud account.<br/> Give redirect url as https://{domain_name}/oauth3/callback<br/>update the variables as per - [link](https://github.com/project-sunbird/sunbird-devops/blob/release-4.2.0/private_repo/ansible/inventory/dev/Core/common.yml#L231-L247)|
+|||Deploy/Kubernetes/Monitoring|release-4.2.0_RC2|Create an oauth cred from google cloud account.<br/> Give redirect url as https://{domain_name}/oauth3/callback<br/>update the variables as per - [link](https://github.com/project-sunbird/sunbird-devops/blob/release-4.2.0/private_repo/ansible/inventory/dev/Core/common.yml#L231-L247)|
 |Build/Core/OfflineInstaller|release-4.2.0|Deploy/Core/OfflineInstaller|release-4.2.0_RC2|
 |Build/DataPipeline/AnalyticsCore|release-4.2.0_RC1|Deploy/DataPipeline/AnalyticsCore|release-4.2.0_RC2||
 |Build/DataPipeline/CoreDataProducts|release-4.2.0_RC1|Deploy/DataPipeline/CoreDataProducts|release-4.2.0_RC2||
