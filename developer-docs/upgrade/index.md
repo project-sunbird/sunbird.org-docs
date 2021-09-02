@@ -42,6 +42,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/DataPipeline/AnalyticsCore|release-4.2.0_RC1|Deploy/DataPipeline/AnalyticsCore|release-4.2.0_RC2||
 |Build/DataPipeline/CoreDataProducts|release-4.2.0_RC1|Deploy/DataPipeline/CoreDataProducts|release-4.2.0_RC2||
 |Build/DataPipeline/FlinkPipelineJobs|release-4.2.0_RC1|Deploy/DataPipeline/FlinkPipelineJobs|release-4.2.0_RC2|deploy all the jobs|
+|Build/Mobile/Sunbird-IONIC-Mobile-App|release-4.2.0_RC14|Deploy/Mobile/Sunbird-IONIC-Mobile-App|release-4.2.0||
 
 ### Manual Configurations
 
