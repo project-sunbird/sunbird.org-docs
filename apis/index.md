@@ -36,7 +36,7 @@ The **Content and Collection microservice** manages content and collection objec
 ### Question & Question Set Service {#question-n-question-set}
 
 The **Question and Question set microservice** provides services to create and manage questions and question sets that are useful to assess the  proficiency of learners. The APIs are grouped as:
-- [Question Management APIs](apis/questionapi//){:target="_blank"}
+- [Question Management APIs](apis/questionapi){:target="_blank"}
 
 ### Contribution Service {#contribution-service}
 
