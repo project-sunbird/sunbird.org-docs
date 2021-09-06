@@ -38,7 +38,7 @@ add this dictionary in core/common.yml
   refreshTokenAcl:
     - refreshTokenCreate
 ```
-Create keys for adminutils<br/>
+Create keys for adminutils.<br/>
 Steps to create keys, run these 2 commands from core/keys folder, before running these commands create vault file, ex: ~/.sunbird-vault (only if secrets and keys are encrypted using vault in your environmant)
 ```
 for i in {1..10}; do openssl genrsa -out portalv2_c$i 2048 && openssl pkcs8 -topk8 -inform PEM -in portalv2_c$i -out portalv2_key$i -nocrypt && rm -rf portalv2_c$i ; done
