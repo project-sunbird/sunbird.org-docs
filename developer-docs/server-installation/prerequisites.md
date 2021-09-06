@@ -34,6 +34,25 @@ Before you start the installation process, ensure that you have the required inf
 | Other Services | 4core 16G 60G HDD | 1 |
 | Basic Load Balancers | - | 2 (Optional) |
 
+
+##### Automation on azure infrastructure creation
+
+You can run the following steps to create azure infrastructure using ansible.
+
+Easiest way to use the script will be to use azure cloud shell, as the cloud shell comes with all prerequisites bundled.
+- login to portal.azure.com
+- click on the cloudshell -> select bash ( if you're using it for the first time )
+
+If you want to run this on your local machine, Follow this [guide](https://docs.microsoft.com/en-us/azure/developer/ansible/install-on-linux-vm?tabs=azure-cli#install-ansible-on-the-virtual-machine).
+
+```
+git clone https://github.com/project-sunbird/sunbird-devops -b release-4.0.0
+cd sunbird-devops/deploy
+# Update the necessary variables in playbook
+ansible-playbook -c local azure-provision.yaml
+# Resulting infrastructure infromation will be stored in sunbird-devops/deploy/azure-resources.txt file.
+```
+
 ### Infra Requirements
 
 - Kubernetes Cluster with 4 worker nodes
