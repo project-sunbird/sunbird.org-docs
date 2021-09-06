@@ -25,12 +25,14 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |kong_portal_v2_consumer: "portalv2"|kong|add in core/common.yml|
 
 add kong consumers, add this under kong_consumers dictionary in core/common.yml
-```- username: portal_app
-     groups: "{{ potal_app_groups }}"
-     state: present
-   - username: portalv2
-     groups: "{{ kong_all_consumer_groups + refreshTokenAcl }}"
-     state: present```
+```
+    - username: portal_app
+      groups: "{{ potal_app_groups }}"
+      state: present
+    - username: portalv2
+      groups: "{{ kong_all_consumer_groups + refreshTokenAcl }}"
+      state: present
+```
 add this dictionary in core/common.yml
 ```
      refreshTokenAcl:
