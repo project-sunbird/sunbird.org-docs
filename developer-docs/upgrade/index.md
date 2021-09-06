@@ -19,7 +19,12 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |learning_content_drive_apiKey||Update in Core/common.yml<br/>[Create the Key](https://support.google.com/googleapi/answer/6158862?hl=en) and Add in Sunbird and VDN|
 |metadata2_redis_host|KP Flink|Same value as it is in DP common.yaml<br/>In KP hosts.yaml, add redis-metadata2, copy this from DP hosts.yaml|
 |crypto_encryption_key_external|Portal|generate encryption key using [link](https://www.allkeysgenerator.com/Random/Security-Encryption-Key-Generator.aspx)|
-|add kong consumers: <br/>
+|adminutil__portal_keyprefix: "portalv2_key"|adminutil|add in core/common.yml|
+|adminutil__portal_keystart: 1|adminutil|add in core/common.yml|
+|adminutil__portal_keycount: 10|adminutil|add in core/common.yml|    
+|kong_portal_v2_consumer: "portalv2"|kong|add in core/common.yml|
+
+add kong consumers, add this under kong_consumers dictionary in core/common.yml
 ```  
   - username: portal_app
     groups: "{{ potal_app_groups }}"
@@ -27,16 +32,13 @@ This page details out the jobs required to be run as part of the upgrade from Su
   - username: portalv2
     groups: "{{ kong_all_consumer_groups + refreshTokenAcl }}"
     state: present
-```|kong| add this under kong_consumers dictionary in core/common.yml|
-|add this dictionary:
+```
+add this dictionary in core/common.yml
 ```
   refreshTokenAcl:
     - refreshTokenCreate
-```|kong|add in core/common.yml|
-|adminutil__portal_keyprefix: "portalv2_key"|adminutil|add in core/common.yml|
-|adminutil__portal_keystart: 1|adminutil|add in core/common.yml|
-|adminutil__portal_keycount: 10|adminutil|add in core/common.yml|    
-|kong_portal_v2_consumer: "portalv2"|kong|add in core/common.yml|
+```
+
 
 
 ### Build and Deploy
