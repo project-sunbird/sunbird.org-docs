@@ -8,7 +8,7 @@ info:
 
     - The URL for Sunbird Question API(s) is `question/v1` and `questionset/v1`
 
-    - [TestCases](https://www.getpostman.com/collections/0b9f50245326b4fccd0b)
+    - [TestCases](https://www.getpostman.com/collections/794b7d0ef35a7481f263)
   termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
   contact:
     email: info@sunbird.org
@@ -397,6 +397,138 @@ paths:
                   err: NOT_FOUND
                   status: failed
                   errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1132079240377466881101'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact info@sunbird.org. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /question/v1/private/read/{Question_Id}:
+    get:
+      description: >-
+        This API is associated with viewing and reading the private and public questions on the Sunbird Platform.
+          - The **_/private/read/{Question_Id}_** endpoint executes the request to fetch the private and public question to be viewed and read based on parameters provided as metadata in the request body.
+          - The endpoint for **Read Private Question** is `/question/v1/private/read`
+          - It points to assessment-service - `/question/v4/private/read`
+          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
+          - You need to provide a valid Question Id value in {Question_Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      summary: Read Private Question
+      tags:
+        - Question APIs
+      operationId: Read Private Question
+      parameters:
+        - in: path
+          name: Question_Id
+          required: true
+          description: Append a valid Question ID To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: x-channel-id
+          in: header
+          description: >-
+            Represents a physical location (e.g: state) uniquely to which the
+            user belongs.
+          required: true
+          schema:
+            type: string    
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation.The "Read Private Question" operation was successfully
+            executed. Click link to refer to the supported
+            [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-4.3.0/schemas/question/1.0/schema.json)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionReadSuccessResponse'
+              example:
+                id: api.question.private.read
+                ver: '3.0'
+                ts: 2021-09-20T21:31:31Z+05:30
+                params:
+                  resmsgid: 452d3641-49ae-4f2c-b1a5-8fccd81b6550
+                  msgid:
+                  err:
+                  status: successful
+                  errmsg:
+                responseCode: OK
+                result:
+                  question:
+                    code: name
+                    channel: abc-123
+                    language:
+                      - English
+                    mimeType: application/vnd.sunbird.question
+                    createdOn: '2021-09-18T13:12:00.309+0530'
+                    objectType: Question
+                    primaryCategory: Practice Question Set
+                    contentDisposition: inline
+                    lastUpdatedOn: '2021-09-18T13:12:00.309+0530'
+                    contentEncoding: gzip
+                    showSolutions: 'No'
+                    trackable: '{"enabled":"No","autoBatch":"No"}'
+                    allowAnonymousAccess: 'Yes'
+                    identifier: do_11336894193858150417
+                    lastStatusChangedOn: '2021-09-18T13:12:00.309+0530'
+                    visibility: Private
+                    showTimer: 'No'
+                    languageCode:
+                      - en
+                    version: 1
+                    versionKey: '1631950920309'
+                    showFeedback: 'No'
+                    license: CC BY 4.0
+                    compatibilityLevel: 4
+                    name: question five
+                    status: Draft
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Question Private Read** operation failed !The possible
+            reason for failure is that you may have provided the wrong question ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.private.read
+                ver: '3.0'
+                ts: '2021-09-20T21:44:37Z+05:30'
+                params:
+                  resmsgid: edec7fd2-2ce7-4e99-af58-995c00074b4e
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: >- 
+                    Error! Node(s) doesn't Exists. | [Invalid Node Id.]: do_11336894193858150418
                 responseCode: RESOURCE_NOT_FOUND
                 result:
                   messages: null
@@ -1505,6 +1637,168 @@ paths:
                   err: NOT_FOUND
                   status: failed
                   errmsg: 'Error! Node(s) does not exist. | [Invalid Node Id.]: do_1132083238015549441201'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact info@sunbird.org. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /questionset/v1/private/read/{QuestionSet_Id}:
+    get:
+      description: >-
+        This API is associated with viewing and reading out the private and public questionsets on the Sunbird Platform.
+          - The **_/private/read/{QuestionSet_Id}_** endpoint executes request for fetching the private and public questionsets to be viewed and read.
+          - The endpoint for **Read Private QuestionSet** is `/questionset/v1/private/read`
+          - It points to assessment-service - `/questionset/v4/private/read`
+          - {...}refers to a section of read endpoint URL path that needs to be replaced by appropriate Id.
+          - You need to provide a valid QuestionSet Id value in {QuestionSet_Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      summary: Read Private QuestionSet
+      tags:
+        - QuestionSet APIs
+      operationId: Read Private QuestionSet
+      parameters:
+        - in: path
+          name: QuestionSet_Id
+          required: true
+          description: Append a valid Question Set Id To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: x-channel-id
+          in: header
+          description: >-
+            Represents a physical location (e.g: state) uniquely to which the
+            user belongs.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation.The "Read Private Question Set" operation was successfully
+            executed. Click link to refer to the [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-4.3.0/schemas/questionset/1.0/schema.json)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetReadSuccessResponse'
+              example:
+                id: api.questionset.private.read
+                ver: '3.0'
+                ts: 2021-09-20T21:53:00Z+05:30
+                params:
+                  resmsgid: 33f5a33f-5b2a-43ef-a3e8-67a6fffad675
+                  msgid:
+                  err:
+                  status: successful
+                  errmsg:
+                responseCode: OK
+                result:
+                  questionset:
+                    copyright: '2021'
+                    code: c288ea98-0a8d-c927-5ec3-e879a90e9e43
+                    allowSkip: 'Yes'
+                    keywords:
+                      - Hindi QuestionSet
+                    containsUserData: 'No'
+                    channel: abc-123
+                    description: Hindi QuestionSet
+                    language:
+                      - English
+                    mimeType: application/vnd.sunbird.questionset
+                    showHints: 'No'
+                    createdOn: '2021-09-18T13:55:52.003+0530'
+                    objectType: QuestionSet
+                    primaryCategory: Practice Question Set
+                    contentDisposition: inline
+                    additionalCategories:
+                      - Textbook
+                    lastUpdatedOn: '2021-09-18T20:01:49.833+0530'
+                    contentEncoding: gzip
+                    generateDIALCodes: 'No'
+                    showSolutions: 'No'
+                    allowAnonymousAccess: 'Yes'
+                    identifier: do_11336896348850585611
+                    lastStatusChangedOn: '2021-09-18T13:55:52.003+0530'
+                    createdFor:
+                      - '01309282781705830427'
+                    audience:
+                      - Teacher
+                    requiresSubmit: 'Yes'
+                    visibility: Private
+                    showTimer: 'Yes'
+                    author: Test
+                    childNodes:
+                      - do_11336896498434048013
+                    setType: materialised
+                    lastPublishedBy: testing
+                    languageCode:
+                      - en
+                    version: 1
+                    versionKey: '1631975509833'
+                    showFeedback: 'Yes'
+                    license: CC BY 4.0
+                    maxAttempts: 3
+                    framework: tn_k-12
+                    depth: 0
+                    createdBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+                    compatibilityLevel: 5
+                    name: Hindi QuestionSet
+                    navigationMode: non-linear
+                    timeLimits:
+                      - maxTime: '18549'
+                      - warningTime: '7200'
+                    shuffle: true
+                    attributions:
+                      - VB
+                      - " Nk"
+                    status: Draft
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,The **Read Private Question Set** operation failed! The possible
+            reason for failure is that you may have provided wrong question set ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              example:
+                id: api.questionset.private.read
+                ver: '3.0'
+                ts: '2021-09-20T22:00:42Z+05:30'
+                params:
+                  resmsgid: 50bd44a0-ccc8-48fd-9361-3a2990f44e16
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: >- 
+                    Error! Node(s) doesn't Exists. | [Invalid Node Id.]: do_11336896348850585612
                 responseCode: RESOURCE_NOT_FOUND
                 result:
                   messages: null
