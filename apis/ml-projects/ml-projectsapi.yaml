@@ -1,0 +1,1861 @@
+openapi: 3.0.1
+info:
+  title: ML-Project Service API(s)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  description: >-
+    - The ML-Project Service Apis perform operations related to  create and manage user project, template etc 
+    
+    - The URL for ML-Project Service API(s) is `api`
+
+    - <b>Note:</b> These resources can be used in other services 
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://staging.open-sunbird.org/api
+  variables: {}
+paths: 
+  /userProjects/mlprojects/v1/details/{projectId}:
+    get:
+      tags:
+      - userProjects APIs
+      summary: Project Details.
+      description: |-
+        This API is used to get the Project Details.
+          - The endpoint for **UserProjects details** is `/userProjects/mlprojects/v1/details`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+
+      operationId: details
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: projectId
+          in: path
+          description: Represents the project Id
+          required: true
+          schema:
+            type: string
+          example: 5f731631e8d7cd3b88ac0659
+      responses:
+        200:
+          description: "Project Details Successful Response"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/userprojectsapiDetailsResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorProjectIdMissing'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /userProjects/mlprojects/v1/add:
+    post:
+      tags:
+      - userProjects APIs
+      summary: Add project.
+      description: |-
+        This API is used to create project.
+          - The endpoint for **UserProjects add** is `/userProjects/mlprojects/v1/add`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: add
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body is the representation of the resource object for creating
+          project (an array of parameters which describes the project)
+
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userprojectsapiAddRequestBody"
+      responses:
+        200:
+          description: "Add project Successful Response"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/userprojectsapiAddResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorTitleMissing'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /userProjects/mlprojects/v1/sync/{projectId}:
+    post:
+      tags:
+      - userProjects APIs
+      summary: Sync project.
+      description: |-
+        This API is used to sync project.
+          - The endpoint for **UserProjects sync** is `/userProjects/mlprojects/v1/sync`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: sync
+      parameters:
+        - name: projectId
+          in: path
+          description: Representsthe project Id
+          required: true
+          schema:
+            type: string
+          example: 5f731631e8d7cd3b88ac0659
+        - name: lastDownloadedAt
+          in: query
+          description: Represents the lastDownloadedAt
+          required: true
+          schema:
+            type: string
+          example: 0125747659358699520
+      requestBody:
+        required: true
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body is the representation of the resource object for sync
+          project (an array of parameters which describes the project)
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userProjectapiSyncRequestBody"
+      responses:
+        200:
+          description: "Sync project Successful Response"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/userProjectapiSyncResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorProjectIdMissing'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /userProjects/mlprojects/v1/solutionDetails/{projectId}:
+    get:
+      tags:
+      - userProjects APIs
+      summary: User project solution details.
+      description: |-
+        This API is used to get Solutions details information.
+          - The endpoint for **UserProjects details** is `/userProjects/mlprojects/v1/solutionDetails`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+
+      operationId: solutionDetails
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: projectId
+          in: path
+          description: Represents the project Id
+          required: true
+          schema:
+            type: string
+          example: 5f731631e8d7cd3b88ac0659
+        - name: taskId
+          in: query
+          description: Represents the task Id
+          required: true
+          schema:
+            type: string
+          example: 5fb669f223575a2f0cef3b33
+      responses:
+        200:
+          description: "User project solution details Successful Response"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/userprojectsapiDetailsResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorProjectIdMissing'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /userProjects/mlprojects/v1/tasksStatus/{projectId}:
+    post:
+      tags:
+      - userProjects APIs
+      summary: User Project tasks status
+      description: |-
+        This API is used to get User Project tasks status
+          - The endpoint for **UserProjects tasksStatus** is `/userProjects/mlprojects/v1/tasksStatus`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+
+      operationId: tasksStatus
+      parameters:
+        - name: projectId
+          in: path
+          description: Represents the project Id
+          required: true
+          schema:
+            type: string
+          example: 5f731631e8d7cd3b88ac0659
+      requestBody:
+        required: true
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body is the representation of the array of task Ids.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userProjectapiTasksStatusRequestBody"
+      responses:
+        200:
+          description: "User Project tasks status Successful Response"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/userProjectapiTasksStatusResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorProjectIdMissing'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /userProjects/mlprojects/v1/share/{projectId}:
+    get:
+      tags:
+      - userProjects APIs
+      summary: Share project and task pdf report.
+      description: |-
+        This API is used to get User Project tasks status
+          - The endpoint for **UserProjects share** is `/userProjects/mlprojects/v1/share`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: share
+      parameters:
+        - name: projectId
+          in: path
+          description: Represents the project Id
+          required: true
+          schema:
+            type: string
+          example: 5f731631e8d7cd3b88ac0659
+        - name: tasks
+          in: query
+          description: Represents the project task Id
+          required: true
+          schema:
+            type: string
+          example: 4d074de7-7059-4d99-9da9-452b0d32e081
+      responses:
+        200:
+          description: "Share project and task pdf report. Successful Response"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/userProjectapiShareResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorProjectIdMissing'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+        
+  /project/mlprojects/v1/templates/details/{templateId}:
+    get:
+      tags:
+      - Project Templates APIs
+      summary: Project template details.
+      description: |-
+        This API is used to get Project template details.
+          - The endpoint for **Project details** is `/project/mlprojects/v1/templates/details`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: templateDetails
+      parameters:
+        - name: templateId
+          in: path
+          description: Represents the project template Id
+          required: true
+          schema:
+            type: string
+          example: 5f731631e8d7cd3b88ac0659
+      responses:
+        200:
+          description: "Project template details Successful Response"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/projectTemplateapiDetailsResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorTemplateIdMissing'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  
+  /reports/mlprojects/v1/entity/{_id}:
+    get:
+      tags:
+      - Reports APIs
+      summary: Entity Report.
+      description: |-
+        This API is used to get Entity Report.
+          - The endpoint for **Reports entity** is `/reports/mlprojects/v1/entity`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: entity
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: _id
+          in: path
+          description: Represents the entity Id
+          required: true
+          schema:
+            type: string
+          example: 5f731631e8d7cd3b88ac0659
+        - name: requestPdf
+          in: query
+          description: This key is used for identity the pdf report is requested or not
+          required: true
+          schema:
+            type: boolean
+          example: false
+        - name: reportType
+          in: query
+          description: |-
+            Reports type represnts the type of report for example 
+              - 0 represents the weekly report
+              - 1 represents the monthly report
+              - 2 represents the quarterly report
+          required: true
+          schema:
+            type: string
+          example: 1
+      responses:
+        200:
+          description: "Entity Report Successful Response"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/reportsapiEntityResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorProjectIdMissing'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /reports/mlprojects/v1/detailView/{_id}:
+    get:
+      tags:
+      - Reports APIs
+      summary: Get detail view report.
+      description: |-
+        This API is used to get detail view report.
+          - The endpoint for **Reports entity** is `/reports/mlprojects/v1/detailView`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: detailView
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: _id
+          in: path
+          description: Represents the entity Id
+          required: true
+          schema:
+            type: string
+          example: 5f731631e8d7cd3b88ac0659
+        - name: requestPdf
+          in: query
+          description: This key is used for identity the pdf report is requested or not
+          required: true
+          schema:
+            type: boolean
+          example: false
+        - name: reportType
+          in: query
+          description: |-
+            Reports type represnts the type of report for example 
+              - 0 represents the weekly report
+              - 1 represents the monthly report
+              - 2 represents the quarterly report
+          required: true
+          schema:
+            type: string
+          example: 1
+        - name: programId
+          in: query
+          description: Represents the program Id
+          required: true
+          schema:
+            type: string
+          example: 5f731631e8d7cd3b88ac0659
+      responses:
+        200:
+          description: "detail view report Successful Response"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/reportsapiDetailViewResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorProjectIdMissing'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /reports/mlprojects/v1/getProgramsByEntity/{_id}:
+    get:
+      tags:
+      - Reports APIs
+      summary: Get programs by entity.
+      description: |-
+        This API is used to get programs by entity.
+          - The endpoint for **Reports entity** is `/reports/mlprojects/v1/getProgramsByEntity`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: getProgramsByEntity
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: _id
+          in: path
+          description: Represents the entity Id
+          required: true
+          schema:
+            type: string
+          example: 5f731631e8d7cd3b88ac0659
+      responses:
+        200:
+          description: "programs by entity Successful Response"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/reportsapiGetProgramsByEntity'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorEntityIdMissing'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+    
+    500Error:
+      description: 500 response format
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: oops something went wrong
+      example:
+        status: false
+        message: oops something went wrong
+    userprojectsapiDetailsResponse:
+      description: User project detail response
+      type: object
+      properties:
+        status:
+          type: string
+          example: 200
+        message:
+          type: string
+          example: Successfully fetched project details
+        result:
+          type: object
+          properties: 
+            _id: 
+              type: string
+              example: 5f97d2f6bf3a3b1c0116c80a
+            status: 
+              type: string
+              example: notStarted
+            isDeleted: 
+              type: boolean
+            categories: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  _id: 
+                    type: string
+                    example: 5f102331665bee6a740714e8
+                  name: 
+                    type: string
+                    example: Teachers
+                  externalId: 
+                    type: string
+                    example: teachers
+            tasks: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  _id: 
+                    type: string
+                    example: 289d9558-b98f-41cf-81d3-92486f114a49
+                  name: 
+                    type: string
+                    example: Task 1
+                  description: 
+                    type: string
+                    example: Task 1 description
+                  status: 
+                    type: string
+                    example: notStarted
+                  isACustomTask: 
+                    type: boolean
+                  startDate: 
+                    type: string
+                    example: 2020-09-29T09:08:41.667Z
+                  endDate: 
+                    type: string
+                    example: 2020-09-29T09:08:41.667Z
+                  lastModifiedAt: 
+                    type: string
+                    example: 2020-09-29T09:08:41.667Z
+                  type: 
+                    type: string
+                    example: single
+                  isDeleted: 
+                    type: boolean
+                  attachments: 
+                    type: array
+                    items: 
+                      type: object
+                      properties: 
+                        name: 
+                          type: string
+                          example: download(2).jpeg
+                        type: 
+                          type: string
+                          example: image/jpeg
+                        sourcePath: 
+                          type: string
+                          example: projectId/userId/imageName
+                  remarks: 
+                    type: string
+                    example: Tasks completed
+                  assignee: 
+                    type: string
+                    example: Aman
+                  children: 
+                    type: array
+                    items: 
+                      type: object
+                      properties: 
+                        _id: 
+                          type: string
+                          example: 289d9558-b98f-41cf-81d3-92486f114a50
+                        name: 
+                          type: string
+                          example: Task 2
+                        description: 
+                          type: string
+                          example: Task 2 description
+                        status: 
+                          type: string
+                          example: notStarted
+                        children: 
+                          type: array
+                          items:
+                            type: string
+                          example: []
+                        isACustomTask: 
+                          type: boolean
+                        startDate: 
+                          type: string
+                          example: 2020-09-29T09:08:41.667Z
+                        endDate: 
+                          type: string
+                          example: 2020-09-29T09:08:41.667Z
+                        lastModifiedAt: 
+                          type: string
+                          example: 2020-09-29T09:08:41.667Z
+                        type: 
+                          type: string
+                          example: single
+                        isDeleted: 
+                          type: boolean
+                        externalId: 
+                          type: string
+                          example: task 2
+                        isDeletable: 
+                          type: boolean
+                        createdAt: 
+                          type: string
+                          example: 2020-10-28T05:58:24.907Z
+                        updatedAt: 
+                          type: string
+                          example: 2020-10-28T05:58:24.907Z
+                        isImportedFromLibrary: 
+                          type: boolean
+                  externalId: 
+                    type: string
+                    example: task 1
+                  isDeletable: 
+                    type: boolean
+                  createdAt: 
+                    type: string
+                    example: 2020-10-28T05:58:24.907Z
+                  updatedAt: 
+                    type: string
+                    example: 2020-10-28T05:58:24.907Z
+                  isImportedFromLibrary: 
+                    type: boolean 
+            resources: 
+              type: array
+              items:
+                type: string
+              example: []
+            deleted: 
+              type: boolean
+            lastDownloadedAt: 
+              type: string
+              example: 2020-09-29T09:08:41.667Z
+            __v: 
+              type: number
+              example: 0
+            description: 
+              type: string
+              example: Project 1 description
+    400ErrorProjectIdMissing:
+      description: Project Id missing 400 error response
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: array
+          items:
+            type: object
+            properties:
+              location:
+                type: string
+                example: path
+              param:
+                type: string
+                example: projectId
+              msg:
+                type: string
+                example: required project Id
+    reportsapiEntityResponse:
+      description: Entity report response
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Reports generated successfully.
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: object
+          properties: 
+            data_available: 
+              type: boolean
+            data: 
+              type: object
+              properties: 
+                categories: 
+                  type: object
+                  properties: 
+                    total: 
+                      type: integer
+                      format: int32
+                      example: 2
+                    Community: 
+                      type: integer
+                      format: int32
+                      example: 2
+                    student: 
+                      type: integer
+                      format: int32
+                      example: 1
+                tasks: 
+                  type: object
+                  properties: 
+                    total: 
+                      type: integer
+                      format: int32
+                      example: 18
+                    completed: 
+                      type: integer
+                      format: int32
+                      example: 3
+                    notStarted: 
+                      type: integer
+                      format: int32
+                      example: 10
+                    overdue: 
+                      type: integer
+                      format: int32
+                      example: 1
+                    onGoing: 
+                      type: integer
+                      format: int32
+                      example: 5
+                projects: 
+                  type: object
+                  properties: 
+                    total: 
+                      type: integer
+                      format: int32
+                      example: 1
+                    completed: 
+                      type: integer
+                      format: int32
+                      example: 0
+                    notStarted: 
+                      type: integer
+                      format: int32
+                      example: 0
+                    overdue: 
+                      type: integer
+                      format: int32
+                      example: 0
+                    onGoing: 
+                      type: integer
+                      format: int32
+                      example: 1
+    reportsapiDetailViewResponse:
+      description: Report detail view response
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Chart report data generated succesfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              title: 
+                type: object
+                properties: 
+                  text: 
+                    type: string
+                    example: title 1 oct
+              series: 
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    data: 
+                      type: array
+                      items: 
+                        type: object
+                        properties: 
+                          name: 
+                            type: string
+                            example: task 1
+                          id: 
+                            type: string
+                            example: 5f7ae023252cc522665b60d6
+                          color: 
+                            type: string
+                            example: 
+                          start: 
+                            type: integer
+                            format: int64
+                            example: 1605100782442
+                          end: 
+                            type: integer
+                            format: int64
+                            example: 1601888291000
+              xAxis: 
+                type: object
+                properties: 
+                  min: 
+                    type: integer
+                    format: int64
+                    example: 1605100782443
+                  max: 
+                    type: integer
+                    format: int64
+                    example: 1601888291000
+    
+    userprojectsapiAddRequestBody:
+      description: Project Add Request Object
+      type: object
+      properties:
+        title: 
+          type: string
+          description: Represents the Title of Project
+          example: Project 1
+        description: 
+          type: string
+          description: Represents the Description of Project
+          example: Project 1 description
+        tasks:
+          description: Represents the task details
+          type: array
+          items: 
+            type: object
+            properties: 
+              _id: 
+                type: string
+                description: Represents the task Id
+                example: 289d9558-b98f-41cf-81d3-92486f114a49
+              name: 
+                type: string
+                description: Represents the name of task
+                example: Task 1
+              description: 
+                type: string
+                description: Represents the description of task
+                example: Task 1 description
+              status: 
+                type: string
+                description: Represents the status of task
+                example: notStarted
+              isACustomTask:
+                description: true - its a custom task, false - its not a custom task
+                type: boolean
+                example: true
+              startDate: 
+                type: string
+                description: Represents the start date of task
+                example: 2020-09-29T09:08:41.667Z
+              endDate: 
+                type: string
+                description: Represents the end date of task
+                example: 2020-09-29T09:08:41.667Z
+              lastModifiedAt: 
+                description: Represents the last modified date of task
+                type: string
+                example: 2020-09-29T09:08:41.667Z
+              type: 
+                description: Represents the type of task
+                type: string
+                example: single
+              isDeleted:
+                description: Represents the task is deleted
+                type: boolean
+              attachments:
+                description: Represents the attachment for task
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    name: 
+                      type: string
+                      example: download(2).jpeg
+                    type: 
+                      type: string
+                      example: image/jpeg
+                    sourcePath: 
+                      type: string
+                      example: projectId/userId/imageName
+              remarks:
+                description: Represents the notes for task
+                type: string
+                example: Tasks completed
+              assignee: 
+                description: Represents who is the assignee of this task
+                type: string
+                example: Aman
+              children:
+                description: Represents the sub task of this task
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    _id: 
+                      description: Represents the task Id
+                      type: string
+                      example: 289d9558-b98f-41cf-81d3-92486f114a50
+                    name: 
+                      description: Represents the name of task
+                      type: string
+                      example: Task 2
+                    description: 
+                      description: Represents the description of task
+                      type: string
+                      example: Task 2 description
+                    status: 
+                      description: Represents the status of task
+                      type: string
+                      example: notStarted
+                    children: 
+                      description: Represents the sub task of this task
+                      type: array
+                      items:
+                        type: string
+                      example: []
+                    isACustomTask: 
+                      description: true - its a custom task, false - its not a custom task
+                      type: boolean
+                      example: false
+                    startDate: 
+                      description: Represents the start date of task
+                      type: string
+                      example: 2020-09-29T09:08:41.667Z
+                    endDate:
+                      description: Represents the end date of task
+                      type: string
+                      example: 2020-09-29T09:08:41.667Z
+                    lastModifiedAt: 
+                      description: Represents the last modified date of task
+                      type: string
+                      example: 2020-09-29T09:08:41.667Z
+                    type: 
+                      description: Represents thetype of task
+                      type: string
+                      example: single/multiple
+                    isDeleted: 
+                      description: Represents the task is deleted
+                      type: boolean
+                      example: false
+        programId:
+          description: Represents the program Id of project
+          type: string
+          example: ""
+        programName: 
+          description: Represents the program name
+          type: string
+          example: New Project Program
+        entityId: 
+          description: Represents the entity Id
+          type: string
+          example: 5beaa888af0065f0e0a10515
+        categories:
+          description: Represents the category of project
+          type: array
+          items: 
+            type: object
+            properties: 
+              value: 
+                type: string
+                example: 5f102331665bee6a740714e8
+              label: 
+                type: string
+                example: teacher
+        status: 
+          type: string
+          example: notStarted/inProgress/completed
+        lastDownloadedAt: 
+          type: string
+          example: 2020-09-29T09:08:41.667Z
+        payload: 
+          type: object
+          properties: 
+            _id: 
+              type: string
+              example: 289d9558-b98f-41cf-81d3-92486f114a51
+        profileInformation: 
+          type: object
+          properties: 
+            role: 
+              type: string
+              example: HM
+            state: 
+              type: string
+              example: 236f5cff-c9af-4366-b0b6-253a1789766a
+            district: 
+              type: string
+              example: 1dcbc362-ec4c-4559-9081-e0c2864c2931
+            school: 
+              type: string
+              example: c5726207-4f9f-4f45-91f1-3e9e8e84d824
+    400ErrorTitleMissing:
+      description: Title missing 400 error response
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: array
+          items:
+            type: object
+            properties:
+              location:
+                type: string
+                example: body
+              param:
+                type: string
+                example: title
+              msg:
+                type: string
+                example: required project title
+    userprojectsapiAddResponse:
+      description: User project add response
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Project created successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: object
+          properties: 
+            programId: 
+              type: string
+              example: 5f102331665bee6a740714e8
+            projectId:
+              type: string
+              example: 5fb669f223575a2f0cef3b33
+    reportsapiGetProgramsByEntity:
+      description: User project add response
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Programs fetched successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: object
+          properties: 
+            data: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  name: 
+                    type: string
+                    example: School Improvement Project
+                  _id: 
+                    type: string
+                    example: 5da5a3af6ee4a93ce5a1987a
+            count: 
+              type: number
+              example: 1
+    400ErrorEntityIdMissing:
+      description: Entity Id missing 400 error response
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: array
+          items:
+            type: object
+            properties:
+              location:
+                type: string
+                example: path
+              param:
+                type: string
+                example: entityId
+              msg:
+                type: string
+                example: required entity Id
+    userProjectapiSyncRequestBody:
+      description: Project Sync Request Object
+      type: object
+      properties:
+        title: 
+          type: string
+          description: Represents the Title of Project
+          example: Project 1
+        description: 
+          type: string
+          description: Represents the Description of Project
+          example: Project 1 description
+        tasks:
+          description: Represents the task details
+          type: array
+          items: 
+            type: object
+            properties: 
+              _id: 
+                type: string
+                description: Represents the task Id
+                example: 289d9558-b98f-41cf-81d3-92486f114a49
+              name: 
+                type: string
+                description: Represents the name of task
+                example: Task 1
+              description: 
+                type: string
+                description: Represents the description of task
+                example: Task 1 description
+              status: 
+                type: string
+                description: Represents the status of task
+                example: notStarted
+              isACustomTask:
+                description: true - its a custom task, false - its not a custom task
+                type: boolean
+                example: true
+              startDate: 
+                type: string
+                description: Represents the start date of task
+                example: 2020-09-29T09:08:41.667Z
+              endDate: 
+                type: string
+                description: Represents the end date of task
+                example: 2020-09-29T09:08:41.667Z
+              lastModifiedAt: 
+                description: Represents the last modified date of task
+                type: string
+                example: 2020-09-29T09:08:41.667Z
+              type: 
+                description: Represents the type of task
+                type: string
+                example: single
+              isDeleted:
+                description: Represents the task is deleted
+                type: boolean
+              attachments:
+                description: Represents the attachment for task
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    name: 
+                      type: string
+                      example: download(2).jpeg
+                    type: 
+                      type: string
+                      example: image/jpeg
+                    sourcePath: 
+                      type: string
+                      example: projectId/userId/imageName
+              remarks:
+                description: Represents the notes for task
+                type: string
+                example: Tasks completed
+              assignee: 
+                description: Represents who is the assignee of this task
+                type: string
+                example: Aman
+              children:
+                description: Represents the sub task of this task
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    _id: 
+                      description: Represents the task Id
+                      type: string
+                      example: 289d9558-b98f-41cf-81d3-92486f114a50
+                    name: 
+                      description: Represents the name of task
+                      type: string
+                      example: Task 2
+                    description: 
+                      description: Represents the description of task
+                      type: string
+                      example: Task 2 description
+                    status: 
+                      description: Represents the status of task
+                      type: string
+                      example: notStarted
+                    children: 
+                      description: Represents the sub task of this task
+                      type: array
+                      items:
+                        type: string
+                      example: []
+                    isACustomTask: 
+                      description: true - its a custom task, false - its not a custom task
+                      type: boolean
+                      example: false
+                    startDate: 
+                      description: Represents the start date of task
+                      type: string
+                      example: 2020-09-29T09:08:41.667Z
+                    endDate:
+                      description: Represents the end date of task
+                      type: string
+                      example: 2020-09-29T09:08:41.667Z
+                    lastModifiedAt: 
+                      description: Represents the last modified date of task
+                      type: string
+                      example: 2020-09-29T09:08:41.667Z
+                    type: 
+                      description: Represents thetype of task
+                      type: string
+                      example: single/multiple
+                    isDeleted: 
+                      description: Represents the task is deleted
+                      type: boolean
+                      example: false
+        programId:
+          description: Represents the program Id of project
+          type: string
+          example: ""
+        programName: 
+          description: Represents the program name
+          type: string
+          example: New Project Program
+        entityId: 
+          description: Represents the entity Id
+          type: string
+          example: 5beaa888af0065f0e0a10515
+        categories:
+          description: Represents the category of project
+          type: array
+          items: 
+            type: object
+            properties: 
+              value: 
+                type: string
+                example: 5f102331665bee6a740714e8
+              label: 
+                type: string
+                example: teacher
+        status: 
+          type: string
+          example: notStarted/inProgress/completed
+        lastDownloadedAt: 
+          type: string
+          example: "2020-09-29T09:08:41.667Z"
+        payload: 
+          type: object
+          properties: 
+            _id: 
+              type: string
+              example: 289d9558-b98f-41cf-81d3-92486f114a51
+    userProjectapiSyncResponse:
+      description: User Project Sync response
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Project updated successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: object
+          properties: 
+            programId: 
+              type: string
+              example: 5fb669f223575a2f0cef3b33
+    userProjectapiTasksStatusRequestBody:
+      description: Project Tasks Status Request Object
+      type: object
+      properties:
+        taskIds: 
+          type: array
+          items: 
+            type: string
+            example: 2f2ef6dd-24e9-40ab-a681-3b3167fcd2c6
+    userProjectapiTasksStatusResponse:
+      description: User projecr task status response format
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Tasks status fetched successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              type: 
+                type: string
+                example: assessment
+              status: 
+                type: string
+                example: started
+              _id: 
+                type: string
+                example: 2f2ef6dd-24e9-40ab-a681-3b3167fcd2c6
+    userProjectapiShareResponse:
+      description: User project share response format
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Report generated succesfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: object
+          properties: 
+            data:
+              type: object
+              properties: 
+                downloadUrl:
+                  type: string
+                  example: "http://localhost:4700/dhiti/api/v1/observations/pdfReportsUrl?id=dG1wLzVhNzZjMTY5LTA5YjAtNGU3Zi04ZmNhLTg0NDc5ZmI2YTNiNC0tODUyOA=="
+    projectTemplateapiDetailsResponse:
+      description: Project Template Detail Response Format
+      type: object
+      properties: 
+        message: 
+          type: string
+          example: Successfully fetched project template details
+        status: 
+          type: string
+          example: 200
+        result: 
+          type: object
+          properties: 
+            _id: 
+              type: string
+              example: 5ffbd53f5fc92a7dbc972906
+            description: 
+              type: string
+              example: ""
+            concepts: 
+              type: array
+              items: 
+                type: string
+                example: ""
+            keywords: 
+              type: array
+              items: 
+                type: string
+                example: "Community, Parent Mela"
+            isDeleted: 
+              type: boolean
+            recommendedFor: 
+              type: array
+              items: 
+                type: string
+                example: ""
+            tasks: 
+              type: array
+              items: 
+                oneOf:
+                  - $ref: '#/components/schemas/TaskObject1'
+                  - $ref: '#/components/schemas/TaskObject2'
+            learningResources: 
+              type: array
+              items: 
+                oneOf:
+                  - $ref: '#/components/schemas/LearningResourcesObject1'
+                  - $ref: '#/components/schemas/LearningResourcesObject2'
+            isReusable: 
+              type: boolean
+            taskSequence: 
+              type: array
+              items: 
+                type: string
+              example: []
+            deleted: 
+              type: boolean
+            categories: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  _id: 
+                    type: string
+                    example: 5fcfa9a2457d6055e33843f2
+                  externalId: 
+                    type: string
+                    example: community
+                  name: 
+                    type: string
+                    example: Community
+            title: 
+              type: string
+              example: Come See Our School!- Parent Mela
+            externalId: 
+              type: string
+              example: MAHARASTHA IMPROVEMENT PROJECT TEMPLATE
+            entityType: 
+              type: string
+              example: 
+            taskCreationForm: 
+              type: string
+              example: 
+            status: 
+              type: string
+              example: published
+            solutionId: 
+              type: string
+              example: 5ff9dc1b9259097d48017bbe
+            solutionExternalId: 
+              type: string
+              example: MAHARASTHA-IMPROVEMENT-PROJECT
+            programInformation: 
+              type: object
+              properties: 
+                programId: 
+                  type: string
+                  example: 5ff840ce383ae437eb02b96c
+                programName: 
+                  type: string
+                  example: MAHARASTHA AUTO TARGETING program
+            rationale: 
+              type: string
+              example: 
+            primaryAudience: 
+              type: array
+              items: 
+                type: string
+                example: Community
+            goal: 
+              type: string
+              example: Organizing the Parent Mela in the school in order to make better community reach
+            duration: 
+              type: string
+              example: At the end of every quarter
+            successIndicators: 
+              type: string
+              example: 
+            risks: 
+              type: string
+              example: 
+            approaches: 
+              type: string
+              example: 
+            projectId: 
+              type: string
+              example: 
+    TaskObject1:
+      description: Task object format
+      type: object
+      properties: 
+        _id: 
+          type: string
+          example: 5fd2447b1233354b094f15d5
+        createdBy: 
+          type: string
+          example: 140558b9-7df4-4993-be3c-31eb8b9ca368
+        updatedBy: 
+          type: string
+          example: 140558b9-7df4-4993-be3c-31eb8b9ca368
+        isDeleted: 
+          type: boolean
+        taskSequence: 
+          type: array
+          items: 
+            type: string
+          example: []
+        children: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              _id: 
+                type: string
+                example: 5fd2447b1233354b094f15db
+              createdBy: 
+                type: string
+                example: 140558b9-7df4-4993-be3c-31eb8b9ca368
+              updatedBy: 
+                type: string
+                example: 140558b9-7df4-4993-be3c-31eb8b9ca368
+              isDeleted: 
+                type: boolean
+              taskSequence: 
+                type: array
+                items: 
+                  type: string
+                example: []
+              children: 
+                type: array
+                items: 
+                  type: string
+                example: []
+              visibleIf: 
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    operator: 
+                      type: string
+                      example: ===
+                    _id: 
+                      type: string
+                      example: 5fd2447b1233354b094f15d5
+                    value: 
+                      type: string
+                      example: started
+              hasSubTasks: 
+                type: boolean
+              learningResources: 
+                type: array
+                items: 
+                  type: string
+                example: []
+              deleted: 
+                type: boolean
+              type: 
+                type: string
+                example: simple
+              name: 
+                type: string
+                example: Look for videos and case studies which capture the parent mela or parent meeting conducted in different schools. Focus on the ideas being used and themes being selected.
+              externalId: 
+                type: string
+                example: IMP-3147aa-TASK7
+              description: 
+                type: string
+                example: 
+              updatedAt: 
+                type: string
+                example: 2020-12-10T15:53:31.478Z
+              createdAt: 
+                type: string
+                example: 2020-12-10T15:53:31.476Z
+              parentId: 
+                type: string
+                example: 5fd2447b1233354b094f15d5
+              isDeletable: 
+                type: boolean
+        visibleIf: 
+          type: array
+          items: 
+            type: string
+          example: []
+        hasSubTasks: 
+          type: boolean
+        learningResources: 
+          type: array
+          items: 
+            type: string
+          example: []
+        deleted: 
+          type: boolean
+        type: 
+          type: string
+          example: simple
+        name: 
+          type: string
+          example: Look for samples of parent mela/ excitement building parent meeting from different schools
+        externalId: 
+          type: string
+          example: IMP-3147aa-TASK1
+        description: 
+          type: string
+          example: 
+        updatedAt: 
+          type: string
+          example: 2020-12-10T15:53:31.477Z
+        createdAt: 
+          type: string
+          example: 2020-12-10T15:53:31.460Z
+        isDeletable: 
+          type: boolean
+    TaskObject2:
+      description: Task object format
+      type: object
+      properties: 
+        _id: 
+          type: string
+          example: 5fd2447b1233354b094f15e1
+        createdBy: 
+          type: string
+          example: 140558b9-7df4-4993-be3c-31eb8b9ca368
+        updatedBy: 
+          type: string
+          example: 140558b9-7df4-4993-be3c-31eb8b9ca368
+        isDeleted: 
+          type: boolean
+        taskSequence: 
+          type: array
+          items: 
+            type: string
+          example: []
+        children: 
+          type: array
+          items: 
+            type: string
+          example: []
+        visibleIf: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              operator: 
+                type: string
+                example: ===
+              _id: 
+                type: string
+                example: 5fd2447b1233354b094f15d6
+              value: 
+                type: string
+                example: started
+        hasSubTasks: 
+          type: boolean
+        learningResources: 
+          type: array
+          items:
+            type: string
+          example: []
+        deleted: 
+          type: boolean
+        type: 
+          type: string
+          example: simple
+        name: 
+          type: string
+          example: -Discuss stories from other schools.
+        externalId: 
+          type: string
+          example: IMP-3147aa-TASK13
+        description: 
+          type: string
+          example: 
+        updatedAt: 
+          type: string
+          example: 2020-12-10T15:53:31.511Z
+        createdAt: 
+          type: string
+          example: 2020-12-10T15:53:31.509Z
+        parentId: 
+          type: string
+          example: 5fd2447b1233354b094f15d6
+        isDeletable: 
+          type: boolean
+    LearningResourcesObject1:
+      description: Learning resource object format
+      type: object
+      properties:
+        name: 
+          type: string
+          example: Examprep_10EM_ps_cha1_Q3
+        id: 
+          type: string
+          example: do_31268582767737241615189
+        app: 
+          type: string
+          example: diksha
+        link: 
+          type: string
+          example: https://staging.sunbirded.org/resources/play/content/do_31268582767737241615189
+    LearningResourcesObject2:
+      description: Learning resource object format
+      type: object
+      properties:
+        name: 
+          type: string
+          example: Examprep_10EM_ps_cha1_Q3
+        id: 
+          type: string
+          example: do_31268582767737241615189
+        app: 
+          type: string
+          example: diksha
+        link: 
+          type: string
+          example: https://staging.sunbirded.org/resources/play/content/do_31268582767737241615189
+    400ErrorTemplateIdMissing:
+      description: 400 status error response format
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: array
+          items:
+            type: object
+            properties:
+              location:
+                type: string
+                example: path
+              param:
+                type: string
+                example: projectId
+              msg:
+                type: string
+                example: required project template external id
+            
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header 
