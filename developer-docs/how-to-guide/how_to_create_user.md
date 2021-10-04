@@ -80,10 +80,10 @@ This concludes the topic of creating users in an organization, in a Sunbird inst
 
 **User**: These are entities created within an organization, who can login into their Sunbird portal and perform tasks that are specifically assigned to them. Users cannot have the same email ID. In the absence of an email ID, a unique phone number must be provided in the request header and **phoneVerified** must be set to the boolean value **true**.
 
-During user creation, if the **channel** is not provided, Sunbird attempt to create that user in the existing default organization. If that happens, then the user needs to be explicitly added to the required organization via the [Add a User to Organization]() API.
+During user creation, if the **channel** is not provided, Sunbird attempt to create that user in the existing default organization. <!--If that happens, then the user needs to be explicitly added to the required organization via the [Add a User to Organization]() API.-->
 
 ### Related Topics
 
 [Creating Organization](developer-docs/how-to-guide/how_to_create_organization)
 
-[Map users to the organization](developer-docs/how-to-guide/how_to_create_org_add_user)
+<!--[Map users to the organization](developer-docs/how-to-guide/how_to_create_org_add_user)-->

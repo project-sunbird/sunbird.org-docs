@@ -174,8 +174,3 @@ Uploading a resource type content
 ## Concepts covered
 
 **Content Creation**
-
-## Additional Topics
-
-Once the portal is updated successfully, the organization administrator can assign a registered user as the badge issuer through user interface. For details on issuing the badge through the user interface refer 
-[Issuing Badges using User Interface](http://www.sunbird.org/features-documentation/badging_framework/content_badges/)
