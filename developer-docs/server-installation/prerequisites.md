@@ -35,7 +35,7 @@ Before you start the installation process, ensure that you have the required inf
 | Basic Load Balancers | - | 2 (Optional) |
 
 
-##### Automation on azure infrastructure creation
+#### Automation on Azure infrastructure creation
 
 You can run the following steps to create azure infrastructure using ansible.
 
