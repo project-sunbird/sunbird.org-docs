@@ -56,13 +56,13 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Core/Search|release-4.3.0_RC9|Deploy/Kubernetes/Search|release-4.3.0_RC3||
 |Build/Core/Taxonomy|release-4.3.0_RC9|Deploy/Kubernetes/Taxonomy|release-4.3.0_RC3||
 |Build/Core/OfflineInstaller|release-4.3.0_RC30|Deploy/Core/OfflineInstaller|release-4.3.0_RC3||
-|Build/DataPipeline/CoreDataProducts|release-4.3.0_RC1|Deploy/DataPipeline/CoreDataProducts|release-4.3.0_RC2||
+|Build/DataPipeline/CoreDataProducts|release-4.3.0_RC2|Deploy/DataPipeline/CoreDataProducts|release-4.3.0_RC2||
 |Build/DataPipeline/EdDataProducts|release-4.3.0_RC2|Deploy/DataPipeline/EdDataProducts|release-4.3.0_RC2||
 |Build/DataPipeline/FlinkPipelineJobs|release-4.3.0_RC2|Deploy/DataPipeline/FlinkPipelineJobs|release-4.3.0_RC2|Deploy all the jobs|
-|Build/KnowledgePlatform/FlinkJobs|release-4.3.0_RC8|Deploy/KnowledgePlatform/FlinkJobs||release-4.3.0_RC5|Deploy all the jobs|
-|Build/KnowledgePlatform/Learning|release-4.3.0_RC4|Deploy/KnowledgePlatform/Learning||release-4.3.0_RC5||
-|Build/KnowledgePlatform/SyncTool|release-4.3.0_RC4|Deploy/KnowledgePlatform/Neo4jElasticSearchSyncTool||release-4.3.0_RC5||
-|Build/KnowledgePlatform/Yarn|release-4.3.0_RC4|Deploy/KnowledgePlatform/Yarn|release-4.3.0_RC5||
+|Build/KnowledgePlatform/FlinkJobs|release-4.3.0_RC8|Deploy/KnowledgePlatform/FlinkJobs|release-4.3.0_RC5|Deploy all the jobs|
+|Build/KnowledgePlatform/Learning|release-4.3.0_RC5|Deploy/KnowledgePlatform/Learning|release-4.3.0_RC5||
+|Build/KnowledgePlatform/SyncTool|release-4.3.0_RC5|Deploy/KnowledgePlatform/Neo4jElasticSearchSyncTool|release-4.3.0_RC5||
+|Build/KnowledgePlatform/Yarn|release-4.3.0_RC5|Deploy/KnowledgePlatform/Yarn|release-4.3.0_RC5||
 |Build/Plugins/ContentPlugins|release-4.3.0_RC2|Deploy/Plugins/ContentPlugins|release-4.3.0_RC3||
 |||OpsAdministration/Core/GraylogMongoImport|release-4.3.0_RC3 <br> graylog_mongo_collections: inputs,searches,views|This was deployed as part of 4.2.0 hotfix, so its not required to run if already deployed|
 |Build/Mobile/Sunbird-IONIC-Mobile-App|release-4.3.0_RC20||||
@@ -96,15 +96,15 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |||Deploy/Dock/Kubernetes/OnboardConsumers|release-dock-0.0.3_RC2||
 |Build/Dock/Assessment|release-4.3.0_RC9|Deploy/Kubernetes/Assessment|release-dock-0.0.3_RC2||
 |Build/Dock/Content|release-4.3.0_RC9|Deploy/Kubernetes/Content|release-dock-0.0.3_RC2||
-|Build/Dock/DockOpensaber|github_release_tag: vidyadaan, creation_portal_branch: release-4.3.0|Deploy/Kubernetes/Opensaber|release-dock-0.0.3_RC2||
+|Build/Dock/DockOpensaber|github_release_tag: refs/heads/vidyadaan, creation_portal_branch: release-4.3.0|Deploy/Kubernetes/Opensaber|release-dock-0.0.3_RC2||
 |Build/Dock/Program|release-4.3.0_RC5|Deploy/Kubernetes/Program|release-dock-0.0.3_RC2||
 |Build/Dock/Player|release-4.3.0_RC17|Deploy/Kubernetes/Player|release-dock-0.0.3_RC2||
 |Build/Dock/Program|release-4.3.0_RC5|Deploy/Kubernetes/Program|release-dock-0.0.3_RC2||
 |Build/Dock/Search|release-4.3.0_RC9|Deploy/Kubernetes/Search|release-dock-0.0.3_RC2||
 |Build/Dock/Taxonomy|release-4.3.0_RC9|Deploy/Kubernetes/Taxonomy|release-dock-0.0.3_RC2||
 |Build/Dock/KnowledgePlatform/FlinkJobs|release-4.3.0_RC8|Deploy/KnowledgePlatform/FlinkJobs||release-4.3.0_RC5|Deploy all the jobs|
-|Build/Dock/KnowledgePlatform/Learning|release-4.3.0_RC4|Deploy/KnowledgePlatform/Learning||release-4.3.0_RC5||
-|Build/Dock/KnowledgePlatform/Yarn|release-4.3.0_RC4|Deploy/KnowledgePlatform/Yarn|release-4.3.0_RC5||
+|Build/Dock/KnowledgePlatform/Learning|release-4.3.0_RC5|Deploy/KnowledgePlatform/Learning||release-4.3.0_RC5||
+|Build/Dock/KnowledgePlatform/Yarn|release-4.3.0_RC5|Deploy/KnowledgePlatform/Yarn|release-4.3.0_RC5||
 |Build/Plugins/ContentPlugins|release-4.3.0_RC2|Deploy/Plugins/ContentPlugins|release-4.3.0_RC3||
 
 ### Manual Configurations for Vidyadaan
