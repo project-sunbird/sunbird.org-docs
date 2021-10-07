@@ -54,7 +54,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Core/Player|release-4.3.0_RC30|Deploy/Kubernetes/Player|release-4.3.0_RC3||
 |Build/Core/Search|release-4.3.0_RC9|Deploy/Kubernetes/Search|release-4.3.0_RC3||
 |Build/Core/Taxonomy|release-4.3.0_RC9|Deploy/Kubernetes/Taxonomy|release-4.3.0_RC3||
-|Build/DataPipeline/CoreDataProducts|release-4.3.0_RC2|Deploy/DataPipeline/CoreDataProducts|release-4.3.0_RC2||
+|Build/DataPipeline/CoreDataProducts|release-4.3.0_RC1|Deploy/DataPipeline/CoreDataProducts|release-4.3.0_RC2||
 |Build/DataPipeline/EdDataProducts|release-4.3.0_RC2|Deploy/DataPipeline/EdDataProducts|release-4.3.0_RC2||
 |Build/KnowledgePlatform/FlinkJobs|release-4.3.0_RC8|Deploy/KnowledgePlatform/FlinkJobs|release-4.3.0_RC6|Deploy all the jobs|
 |Build/KnowledgePlatform/Learning|release-4.3.0_RC6|Deploy/KnowledgePlatform/Learning|release-4.3.0_RC6||
