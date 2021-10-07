@@ -9,7 +9,7 @@ keywords: Upgrade, Sunbird 4.3.0
 
 ## Overview
 
-This page details out the jobs required to be run as part of the upgrade from Sunbird / Vidaydaan release 4.2.0 to release 4.3.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.
+This page details out the jobs required to be run as part of the upgrade from Sunbird and Vidaydaan release 4.2.0 to release 4.3.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.
 
 ### Variables for Sunbird
 
@@ -72,7 +72,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/managed-learn/ml-report-service|release-4.3.0_RC1|Deploy/managed-learn/ml-report-service|release-4.3.0_RC3||
 |Build/managed-learn/ml-survey-service|release-4.3.0_RC1|Deploy/managed-learn/ml-survey-service|release-4.3.0_RC3||
 |||Deploy/staging/managed-learn/ml-analytics-service|release-4.3.0_RC3||
-|||Deploy/DataPipeline/InternalKong|release-4.3.0_RC3|For `image_tag` parameter, use the same `image_tag` as the previous successful job|
+|||Deploy/DataPipeline/InternalKong|release-4.3.0_RC3|For `image_tag` parameter, use the same tag as the previous successful job|
 
 ### Manual Configurations for Sunbird
 
@@ -86,7 +86,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Add these APIs to private Kong API|[Private Kong APIs for Managed Learn](https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/2961113099/Private+Kong+APIs+for+Managed+Learn)|
 |Update system settings|[System Settings API](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2945449992/SB-26932+System+Settings+config+curl+for+NIC+SMS+Provide+integration)|
 
-#### The below jobs are applicable only if you are using Vidyadaan infrastructure
+##### Note: The below jobs are applicable only if you are running Vidyadaan infrastructure
 
 ### Build and Deploy for Vidayadaan
 
