@@ -29,7 +29,6 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Add these in `Core/secrets.yml`|Portal|Add these values after running `OnboardConsumers` job. Refer to the comments mentioned against the variables to identify the consumer name from Jenkins job. The token values for the consumer can be obtained from the Jenkins console log after running `OnboardConsumer` job <br><br> `## Portal anonymous, loggedin sessions default tokens and device register tokens ##` <br> `sunbird_anonymous_register_token:   # Use portal_anonymous_register consumer token` <br> `sunbird_loggedin_register_token:        # Use portal_loggedin_register consumer token` <br> `sunbird_anonymous_default_token:    # Use portal_anonymous_fallback_token consumer token` <br>`sunbird_logged_default_token:            # Use portal_loggedin_fallback_token consumer token`|
 |Add these ACLs in `Core/common.yml` if you are overriding any of the Sunbird consumers and / or other external / custom consumers you have created|Kong|Ensure the following acls are added to desktop_device, desktop_devicev2, mobile_device, mobile_devicev2 consumers and any other consumers who require the API access <br><br> <pre> `  - anonymousCertificateAccess` <br> `  - anonymousContentAccess` <br> `  - anonymousCourseAccess` <br> `  - anonymousOrgAccess` <br> `  - anonymousUserAccess` <br> `  - anonymousAppAccess` </pre>|
 |Add these ACLs in `Core/common.yml` if you are overriding `mobile_device_groups` consumer in your private repo|Kong|[PR - 2912](https://github.com/project-sunbird/sunbird-devops/pull/2912)|
-|Upgrade the Druid VM to 10 core and above|Druid|We have 4 new druid supervisors added as part of Managed Learn module <br> Upgrade the druid middle manager VM to 10 core or above. Refer to ansible group `[raw-middlemanager]` for the middle manager VM IP and upgrade this VM <br> Add the below variable in `DataPipeline/common.yml` to update the middle manager worker cap <br> <pre>`# Dev druid VM upgraded to 16 core #` <br> `private_druid_configs:` <br> `  raw:` <br> `    druid_middlemanager_worker_cap: 16` </pre>|
 
 ### Build and Deploy for Sunbird
 
@@ -84,8 +83,9 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Create the new Jenkins jobs for Managed Learn|[PR - 2937](https://github.com/project-sunbird/sunbird-devops/pull/2937)|
 |Add these APIs to private Kong API|[Private Kong APIs for Managed Learn](https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/2961113099/Private+Kong+APIs+for+Managed+Learn)|
 |Update system settings|[System Settings API](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2945449992/SB-26932+System+Settings+config+curl+for+NIC+SMS+Provide+integration)|
+|Upgrade the Druid VM to 10 core and above|We have 4 new druid supervisors added as part of Managed Learn module <br> Upgrade the druid middle manager VM to 10 core or above <br> Refer to ansible group `[raw-middlemanager]` for the middle manager VM IP and upgrade this VM <br> Add the below variable in `DataPipeline/common.yml` to update the middle manager worker cap <br> <pre>`# Dev druid VM upgraded to 16 core #` <br> `private_druid_configs:` <br> `  raw:` <br> `    druid_middlemanager_worker_cap: 16` </pre>|
 
-## The below jobs are applicable only if you are using Vidyadaan infrastructure
+#### The below jobs are applicable only if you are using Vidyadaan infrastructure
 
 ### Build and Deploy for Vidayadaan
 
