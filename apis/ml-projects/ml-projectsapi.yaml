@@ -3,9 +3,9 @@ info:
   title: ML-Project Service API(s)
   termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
   description: >-
-    - The ML-Project Service Apis perform operations related to  create and manage user project, template etc 
+    - The ML-Project Service Apis perform operations related to create and manage user project, project template and reports. 
     
-    - The URL for ML-Project Service API(s) is `api`
+    - The URL for ML-Project Service API(s) is `{context}/mlprojects/v1`
 
     - <b>Note:</b> These resources can be used in other services 
   contact: {}
@@ -18,9 +18,9 @@ paths:
     get:
       tags:
       - userProjects APIs
-      summary: Project Details.
+      summary: Get Project Details.
       description: |-
-        This API is used to get the Project Details.
+        This API is used to get the Project Details. This api will return the project details based on the role and location Id.
           - The endpoint for **UserProjects details** is `/userProjects/mlprojects/v1/details`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
@@ -44,7 +44,7 @@ paths:
             type: string
         - name: projectId
           in: path
-          description: Represents the project Id
+          description: Please append a valid project Id To the Request URL
           required: true
           schema:
             type: string
@@ -77,7 +77,7 @@ paths:
       - userProjects APIs
       summary: Add project.
       description: |-
-        This API is used to create project.
+        This API is associated with creating project on the Sunbird Platform.
           - The endpoint for **UserProjects add** is `/userProjects/mlprojects/v1/add`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
@@ -141,22 +141,23 @@ paths:
       - userProjects APIs
       summary: Sync project.
       description: |-
-        This API is used to sync project.
+        This API is used to sync the project details.
           - The endpoint for **UserProjects sync** is `/userProjects/mlprojects/v1/sync`
+          - **_/sync/{projectId}_** endpoint executes the "Sync Project" request based on parameters provided as metadata in the request body.
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       operationId: sync
       parameters:
         - name: projectId
           in: path
-          description: Representsthe project Id
+          description: Please append a valid project Id To the Request URL
           required: true
           schema:
             type: string
           example: 5f731631e8d7cd3b88ac0659
         - name: lastDownloadedAt
           in: query
-          description: Represents the lastDownloadedAt
+          description: Represents the last Downloaded date and time timestamp
           required: true
           schema:
             type: string
@@ -203,7 +204,7 @@ paths:
       - userProjects APIs
       summary: User project solution details.
       description: |-
-        This API is used to get Solutions details information.
+        This API is used to get Solutions details information of the project.
           - The endpoint for **UserProjects details** is `/userProjects/mlprojects/v1/solutionDetails`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
@@ -227,14 +228,14 @@ paths:
             type: string
         - name: projectId
           in: path
-          description: Represents the project Id
+          description: Please append a valid Project Id To the Request URL
           required: true
           schema:
             type: string
           example: 5f731631e8d7cd3b88ac0659
         - name: taskId
           in: query
-          description: Represents the task Id
+          description: Represents the id of the task in a project
           required: true
           schema:
             type: string
@@ -267,7 +268,7 @@ paths:
       - userProjects APIs
       summary: User Project tasks status
       description: |-
-        This API is used to get User Project tasks status
+        This API is used to get Project tasks status of the user. Multple task Ids can pass in the metadata.
           - The endpoint for **UserProjects tasksStatus** is `/userProjects/mlprojects/v1/tasksStatus`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
@@ -276,7 +277,7 @@ paths:
       parameters:
         - name: projectId
           in: path
-          description: Represents the project Id
+          description: Please append a valid Project Id To the Request URL
           required: true
           schema:
             type: string
@@ -322,7 +323,7 @@ paths:
       - userProjects APIs
       summary: Share project and task pdf report.
       description: |-
-        This API is used to get User Project tasks status
+        This API is used to share project and task pdf report based on the project Id. From this api you will get a downloadable Url of project
           - The endpoint for **UserProjects share** is `/userProjects/mlprojects/v1/share`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
@@ -330,7 +331,7 @@ paths:
       parameters:
         - name: projectId
           in: path
-          description: Represents the project Id
+          description: Please append a valid Project Id To the Request URL
           required: true
           schema:
             type: string
@@ -341,10 +342,10 @@ paths:
           required: true
           schema:
             type: string
-          example: 4d074de7-7059-4d99-9da9-452b0d32e081
+          example: "4d074de7-7059-4d99-9da9-452b0d32e081"
       responses:
         200:
-          description: "Share project and task pdf report. Successful Response"
+          description: "Share project and task pdf report Successful Response"
           content:
             application/json:
               schema:
@@ -371,15 +372,16 @@ paths:
       - Project Templates APIs
       summary: Project template details.
       description: |-
-        This API is used to get Project template details.
+        This API is used to get Project template details based on the template Id.
           - The endpoint for **Project details** is `/project/mlprojects/v1/templates/details`
+          - You need to provide a valid template Id value in {templateId} field of API URL.
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       operationId: templateDetails
       parameters:
         - name: templateId
           in: path
-          description: Represents the project template Id
+          description: Please append a valid Project template Id To the Request URL
           required: true
           schema:
             type: string
@@ -413,8 +415,9 @@ paths:
       - Reports APIs
       summary: Entity Report.
       description: |-
-        This API is used to get Entity Report.
+        This API is used to generate Entity Report based on the entity Id.
           - The endpoint for **Reports entity** is `/reports/mlprojects/v1/entity`
+          - You need to provide a valid entity Id value in {_id} field of API URL.
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       operationId: entity
@@ -436,7 +439,7 @@ paths:
             type: string
         - name: _id
           in: path
-          description: Represents the entity Id
+          description: Please append a valid entity Id To the Request URL
           required: true
           schema:
             type: string
@@ -487,7 +490,7 @@ paths:
       - Reports APIs
       summary: Get detail view report.
       description: |-
-        This API is used to get detail view report.
+        This API is used to generate a detail chart view report based on the entity Id..
           - The endpoint for **Reports entity** is `/reports/mlprojects/v1/detailView`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
@@ -510,7 +513,7 @@ paths:
             type: string
         - name: _id
           in: path
-          description: Represents the entity Id
+          description: Please append a valid entity Id To the Request URL
           required: true
           schema:
             type: string
@@ -525,7 +528,7 @@ paths:
         - name: reportType
           in: query
           description: |-
-            Reports type represnts the type of report for example 
+            Reports type represnts the type of report you want to generate. For example 
               - 0 represents the weekly report
               - 1 represents the monthly report
               - 2 represents the quarterly report
@@ -535,7 +538,7 @@ paths:
           example: 1
         - name: programId
           in: query
-          description: Represents the program Id
+          description: Please append a program Id in URL
           required: true
           schema:
             type: string
@@ -568,8 +571,9 @@ paths:
       - Reports APIs
       summary: Get programs by entity.
       description: |-
-        This API is used to get programs by entity.
+        This API is used to get the list of programs by entity Id.
           - The endpoint for **Reports entity** is `/reports/mlprojects/v1/getProgramsByEntity`
+          - You need to provide a valid entity Id value in {_id} field of API URL.
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       operationId: getProgramsByEntity
@@ -591,7 +595,7 @@ paths:
             type: string
         - name: _id
           in: path
-          description: Represents the entity Id
+          description: Please append a valid entity Id To the Request URL
           required: true
           schema:
             type: string
@@ -622,24 +626,21 @@ components:
   schemas:
     
     500Error:
-      description: 500 response format
+      description: 500 error response format
       type: object
       properties:
         status:
-          type: boolean
-          example: false
+          type: integer
+          example: 500
         message:
           type: string
           example: oops something went wrong
-      example:
-        status: false
-        message: oops something went wrong
     userprojectsapiDetailsResponse:
       description: User project detail response
       type: object
       properties:
         status:
-          type: string
+          type: integer
           example: 200
         message:
           type: string
@@ -1427,6 +1428,7 @@ components:
       type: object
       properties:
         taskIds: 
+          description: array of task Ids
           type: array
           items: 
             type: string
@@ -1484,7 +1486,7 @@ components:
           type: string
           example: Successfully fetched project template details
         status: 
-          type: string
+          type: integer
           example: 200
         result: 
           type: object
