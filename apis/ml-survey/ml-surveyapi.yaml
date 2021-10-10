@@ -3,9 +3,9 @@ info:
   title: ML-Survey Service API(s)
   termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
   description: >-
-    - The ML-Survey Service Apis perform operations related to survey, user programs, observations etc
+    - The ML-Survey Service Apis perform operations related to survey, programs, solutions, observations etc
     
-    - The URL for ML-Survey Service API(s) is `/api`
+    - The URL for ML-Survey Service API(s) is `{context}/mlsurvey/v1`
 
     - <b>Note:</b> These resources can be used in other services 
   contact: {}
@@ -20,8 +20,9 @@ paths:
       - Observation API
       summary: Get Observations details
       description: |-
-        This API is used to get observations details
+        This API is to get observation details. The response will contains the assessment, question and evidences details. 
           - The endpoint for **Observation Assessment** is ` /observations/mlsurvey/v1/assessment`
+          - You need to provide a valid observation Id value in {observationId} field of API URL.
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       operationId: To Activate User
@@ -41,10 +42,17 @@ paths:
           required: true
           schema:
             type: string
+        - in: path
+          name: observationId
+          required: true
+          description: ID of the observation whose details to be viewed
+          schema:
+            type: string 
+          example: 5d286eace3cee10152de9efa
         - in: query
           name: entityId
           required: true
-          description: Represent the Entity Id
+          description: Represent the Id of Entity
           schema:
             type: string 
           example: 5d286b05eb569501488516c4
@@ -55,16 +63,9 @@ paths:
           schema: 
             type: string
           example: 1
-        - in: path
-          name: observationId
-          required: true
-          description: Represent the Observation Id
-          schema:
-            type: string 
-          example: 5d286eace3cee10152de9efa
       responses:
         200:
-          description: "Observation assessment information"
+          description: "Observation assessment successful response"
           content:
             application/json:
               schema:
@@ -92,7 +93,7 @@ paths:
       - Observation API
       summary: Search Entities based on observationId or solutionId
       description: |-
-        This API is used to search entities
+        This API is used to search entities based on observation Id or solution Id.
           - The endpoint for **Observation search Entities** is ` /observations/mlsurvey/v1/searchEntities`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
@@ -116,7 +117,7 @@ paths:
         - in: query
           name: observationId
           required: false
-          description: Represent the Observation Id
+          description: Represents the Id of observation
           schema:
             type: string 
           example: 5d286eace3cee10152de9efa
@@ -137,13 +138,13 @@ paths:
         - in: query
           name: parentEntityId
           required: false
-          description: Represent the parent entity id
+          description: Represent the Id of parent entity
           schema:
             type: string
           example: 5d286b05eb569501488516c4
       responses:
         200:
-          description: "Entities Details"
+          description: "List of entities in observations"
           content:
             application/json:
               schema:
@@ -171,7 +172,7 @@ paths:
       -  Observation API
       summary: List of observations entities 
       description: |-
-        This API is used to get list of observations entities.
+        This API is used to get list of observations entities based on observation Id or solution Id.
           - The endpoint for **Observation List of Entities** is ` /observations/mlsurvey/v1/entities`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
@@ -195,14 +196,14 @@ paths:
         - in: path
           name: observationId
           required: true
-          description: Represent the Observation Id
+          description: Represents the Id of observation
           schema:
             type: string 
           example: 5d286eace3cee10152de9efa
         - in: query
           name: solutionId
           required: false
-          description: Represent the solution Id
+          description: Represents the Id of solution
           schema:
             type: string 
           example: 5be4e40e9a14ba4b5038dcfb
@@ -221,7 +222,7 @@ paths:
               $ref: "#/components/schemas/observationapiSubmissionsSolutionListRequest"
       responses:
         200:
-          description: "List of Observations entities"
+          description: "List of Observation entities"
           content:
             application/json:
               schema:
@@ -249,8 +250,9 @@ paths:
       - Observation API
       summary: Map entities to observations
       description: |-
-        This API is used to update observations entities.
+        This API is used to add or remove entities in the observation.
           - The endpoint for **Observation update Entities** is ` /observations/mlsurvey/v1/updateEntities`
+          - You need to provide a valid observation Id value in {observationId} field of API URL.
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       operationId: To map entities
@@ -273,7 +275,7 @@ paths:
         - in: path
           name: observationId
           required: true
-          description: Represent the Observation Id
+          description: Please append a valid Observation Id To the Request URL
           schema:
             type: string 
           example: 5d286eace3cee10152de9efa 
@@ -292,7 +294,7 @@ paths:
       
       responses:
         200:
-          description: "regarding either entity is added to observation or not."
+          description: "Add entity to observation successful response"
           content:
             application/json:
               schema:
@@ -320,8 +322,9 @@ paths:
     - Survey API
     summary: Get Survey details
     description: |-
-        This API is used to get survey details.
+        This API is used to get survey details. Append a valid survey Id in the URL.
           - The endpoint for **Survey Detail** is ` /surveys/mlsurvey/v1/details`
+          - You need to provide a valid Survey Id value in {surveyId} field of API URL.
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
     operationId: Get survey details
@@ -341,20 +344,20 @@ paths:
         required: true
         schema:
           type: string
-      - name: solutionId
-        in: query
-        description: Represent the solution id
-        required: false
-        schema:
-          type: string
-        example: 5f5b38ec45365677f64b2843
       - name: surveyId
         in: path
-        description: Represent the survey id
+        description: Please append a valid Survey Id To the Request URL
         required: true
         schema:
           type: string
         example: 5f5b1df69c70bd2973aee29e
+      - name: solutionId
+        in: query
+        description: Represent the Id of the solution
+        required: false
+        schema:
+          type: string
+        example: 5f5b38ec45365677f64b2843
     requestBody:
       description: >-
           'The body parameter refers to the format of the request, the request
@@ -371,7 +374,7 @@ paths:
     
     responses:
       200:
-        description: "response consist of survey details"
+        description: "Survey detail sucessful response"
         content:
           application/json:
             schema:
@@ -399,8 +402,9 @@ paths:
       - Observation Submissions API
       summary: List Observation Submissions
       description: |-
-        This API is used to get the list the observasion submission
+        This API is used to get the list the observasion submission based on the observation Id and also can filter the list with entity Id.
           - The endpoint for **observationSubmissions List** is ` /observationSubmissions/mlsurvey/v1/list`
+          - You need to provide a valid Observation Id value in {observationId} field of API URL.
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       
@@ -424,20 +428,20 @@ paths:
         - in: path
           name: observationId
           required: true
-          description: Represents the Observation Id
+          description: Please append a valid Observation Id To the Request URL
           schema:
             type: string 
           example: 5d8de379bccbfb51d4450d05
         - in: query
           name: entityId
           required: true
-          description: Represents the entity Id
+          description: Represents the entity Id.
           schema:
             type: string 
           example: 5bfe53ea1d0c350d61b78d0f
       responses:
         200:
-          description: "observation submission list"
+          description: "List of observation submissions return based on the parameter provided"
           content:
             application/json:
               schema:
@@ -465,8 +469,9 @@ paths:
       - Observation Submissions API
       summary: To Update Observation Submission
       description: |-
-        This API is used to update observation submission details
+        This API is used to update observation submission details. For example you can update the title of observation submission using this api.
           - The endpoint for **observationSubmissions Update** is ` /observationSubmissions/mlsurvey/v1/update`
+          - You need to provide a valid Observation Submission Id value in {obserobservationSubmissionIdvationId} field of API URL.
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
   
@@ -490,7 +495,7 @@ paths:
         - in: path
           name: observationSubmissionId
           required: true
-          description: Represents the Observation Submission Id
+          description: Please append a valid Observation Submission Id to the Request URL
           schema:
             type: string 
           example: 5d8de379bccbfb51d4450d05 
@@ -509,7 +514,7 @@ paths:
       
       responses:
         200:
-          description: "regarding either to update observation submission"
+          description: "Updated observation submission sucessful response"
           content:
             application/json:
               schema:
@@ -537,8 +542,9 @@ paths:
       - Observation Submissions API
       summary: Create A New Observation Submission
       description: |-
-        This API is used to create new submission for the observation
+        This API is used to create new submission for the observation based on the observation Id.
           - The endpoint for **observationSubmissions Create** is ` /observationSubmissions/mlsurvey/v1/create`
+          - You need to provide a valid Observation Id value in {observationId} field of API URL.
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       
@@ -562,7 +568,7 @@ paths:
         - in: path
           name: observationId
           required: true
-          description: Represents the Observation Id
+          description: Please append a valid Observation Id to the Request URL
           schema:
             type: string 
           example: 5d286eace3cee10152de9efa
@@ -575,7 +581,7 @@ paths:
           example: 5cebbefe5943912f56cf8e16
       responses:
         200:
-          description: "Create observation submission response"
+          description: "Create observation submission successful response"
           content:
             application/json:
               schema:
@@ -603,7 +609,7 @@ paths:
       - Observation Submissions API
       summary: Get Observation Submission solutions
       description: |-
-        This API is used to get Observation Submission solutions
+        This API is used to get Observation Submission solutions.
           - The endpoint for **observationSubmissions Solution List** is ` /observationSubmissions/mlsurvey/v1/solutionList`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
@@ -641,7 +647,7 @@ paths:
       
       responses:
         200:
-          description: "response consist of solution list"
+          description: "List of solutions return based on the metadata provided"
           content:
             application/json:
               schema:
@@ -669,8 +675,9 @@ paths:
       - Solution API
       summary: Verify Observation Solution Link
       description: |-
-        This API is used to verify observation solution Link
+        This API is used to verify observation solution Link. The solution is targeted to the user it will create observation for that user.
           - The endpoint for **Solutions Verify Link** is ` /solutions/mlsurvey/v1/verifyLink`
+          - You need to provide a valid Solution Link value in {linkId} field of API URL.
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       
@@ -693,7 +700,7 @@ paths:
             type: string
         - name: linkId
           in: path
-          description: Represents the solution Link
+          description: Please append a valid Solution Link to the Request URL
           required: true
           schema:
             type: string
@@ -713,7 +720,7 @@ paths:
       
       responses:
         200:
-          description: "response consist of Observation solution link verified details"
+          description: "Observation link verified successful response"
           content:
             application/json:
               schema:
@@ -741,11 +748,12 @@ paths:
     - surveySubmissions API
     summary: Create Survey Submission
     description: |-
-        This API is used to create survey submission.
+        This API is used to create survey submission based on submission Id.
           - The endpoint for **Survey Detail** is ` /surveySubmissions/mlsurvey/v1/update`
+          - You need to provide a valid Survey Submission Id value in {submissionId} field of API URL.
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
-    operationId: Get survey details
+    operationId: GetsurveyDetails
     parameters:
       - name: X-authenticated-user-token
         in: header
@@ -764,7 +772,7 @@ paths:
           type: string
       - name: submissionId
         in: path
-        description: Represent the submission id
+        description: Please append a valid survey submission Id to the Request URL
         required: true
         schema:
           type: string
@@ -814,240 +822,249 @@ components:
       description: Observation assessment response
       type: object
       properties:
-        evidences: 
-          type: array
-          items: 
-            type: object
-            properties: 
-              code: 
-                type: string
-                example: BL
-              sections: 
-                type: array
-                items: 
-                  type: object
-                  properties: 
-                    code: 
-                      type: string
-                      example: SQ
-                    questions: 
-                      type: array
-                      items: 
-                        type: object
-                        properties: 
-                          _id: 
-                            type: string
-                            example: 
-                          question: 
-                            type: string
-                            example: 
-                          options: 
-                            type: string
-                            example: 
-                          children: 
-                            type: string
-                            example: 
-                          questionGroup: 
-                            type: string
-                            example: 
-                          fileName: 
-                            type: string
-                            example: 
-                          instanceQuestions: 
-                            type: string
-                            example: 
-                          deleted: 
-                            type: string
-                            example: 
-                          tip: 
-                            type: string
-                            example: 
-                          externalId: 
-                            type: string
-                            example: 
-                          visibleIf: 
-                            type: string
-                            example: 
-                          file: 
-                            type: string
-                            example: 
-                          responseType: 
-                            type: string
-                            example: pageQuestions
-                          validation: 
-                            type: string
-                            example: 
-                          page: 
-                            type: string
-                            example: p1
-                          showRemarks: 
-                            type: string
-                            example: 
-                          isCompleted: 
-                            type: string
-                            example: 
-                          remarks: 
-                            type: string
-                            example: 
-                          value: 
-                            type: string
-                            example: 
-                          canBeNotApplicable: 
-                            type: string
-                            example: 
-                          usedForScoring: 
-                            type: string
-                            example: 
-                          modeOfCollection: 
-                            type: string
-                            example: 
-                          questionType: 
-                            type: string
-                            example: 
-                          accessibility: 
-                            type: string
-                            example: 
-                          updatedAt: 
-                            type: string
-                            example: 
-                          createdAt: 
-                            type: string
-                            example: 
-                          __v: 
-                            type: string
-                            example: 
-                          evidenceMethod: 
-                            type: string
-                            example: 
-                          payload: 
-                            type: string
-                            example: 
-                          startTime: 
-                            type: string
-                            example: 
-                          endTime: 
-                            type: string
-                            example: 
-                          pageQuestions: 
-                            type: array
-                            items: 
-                              type: object
-                              properties: 
-                                _id: 
-                                  type: string
-                                  example: 5be4e40e9a14ba4b5038dcfb
-                                question: 
-                                  type: array
-                                  items: 
-                                    type: string
-                                    example: "Are all empty rooms and terrace areas locked securely?"
-                                options: 
-                                  type: array
-                                  items: 
-                                    type: object
-                                    properties: 
-                                      value: 
-                                        type: string
-                                        example: R1
-                                      label: 
-                                        type: string
-                                        example: None
-                                questionGroup: 
-                                  type: array
-                                  items: 
-                                    type: string
-                                    example: A1
-                                deleted: 
-                                  type: boolean
-                                tip: 
-                                  type: string
-                                  example: 
-                                externalId: 
-                                  type: string
-                                  example: LW/SS/22
-                                visibleIf: 
-                                  type: string
-                                  example: 
-                                file: 
-                                  type: string
-                                  example: 
-                                responseType: 
-                                  type: string
-                                  example: radio
-                                validation: 
+        message: 
+          type: string
+          example: Assessment fetched successfully
+        status: 
+          type: number
+          example: 200
+        result: 
+          type: object
+          properties:
+            evidences: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  code: 
+                    type: string
+                    example: BL
+                  sections: 
+                    type: array
+                    items: 
+                      type: object
+                      properties: 
+                        code: 
+                          type: string
+                          example: SQ
+                        questions: 
+                          type: array
+                          items: 
+                            type: object
+                            properties: 
+                              _id: 
+                                type: string
+                                example: 
+                              question: 
+                                type: string
+                                example: 
+                              options: 
+                                type: string
+                                example: 
+                              children: 
+                                type: string
+                                example: 
+                              questionGroup: 
+                                type: string
+                                example: 
+                              fileName: 
+                                type: string
+                                example: 
+                              instanceQuestions: 
+                                type: string
+                                example: 
+                              deleted: 
+                                type: string
+                                example: 
+                              tip: 
+                                type: string
+                                example: 
+                              externalId: 
+                                type: string
+                                example: 
+                              visibleIf: 
+                                type: string
+                                example: 
+                              file: 
+                                type: string
+                                example: 
+                              responseType: 
+                                type: string
+                                example: pageQuestions
+                              validation: 
+                                type: string
+                                example: 
+                              page: 
+                                type: string
+                                example: p1
+                              showRemarks: 
+                                type: string
+                                example: 
+                              isCompleted: 
+                                type: string
+                                example: 
+                              remarks: 
+                                type: string
+                                example: 
+                              value: 
+                                type: string
+                                example: 
+                              canBeNotApplicable: 
+                                type: string
+                                example: 
+                              usedForScoring: 
+                                type: string
+                                example: 
+                              modeOfCollection: 
+                                type: string
+                                example: 
+                              questionType: 
+                                type: string
+                                example: 
+                              accessibility: 
+                                type: string
+                                example: 
+                              updatedAt: 
+                                type: string
+                                example: 
+                              createdAt: 
+                                type: string
+                                example: 
+                              __v: 
+                                type: string
+                                example: 
+                              evidenceMethod: 
+                                type: string
+                                example: 
+                              payload: 
+                                type: string
+                                example: 
+                              startTime: 
+                                type: string
+                                example: 
+                              endTime: 
+                                type: string
+                                example: 
+                              pageQuestions: 
+                                type: array
+                                items: 
                                   type: object
                                   properties: 
-                                    required: 
-                                      type: boolean
-                                page: 
-                                  type: string
-                                  example: p1
-                                showRemarks: 
-                                  type: boolean
-                                isCompleted: 
-                                  type: boolean
-                                remarks: 
-                                  type: string
-                                  example: 
-                                value: 
-                                  type: string
-                                  example: 
-                                canBeNotApplicable: 
-                                  type: string
-                                  example: false
-                                usedForScoring: 
-                                  type: string
-                                  example: 
-                                modeOfCollection: 
-                                  type: string
-                                  example: onfield
-                                questionType: 
-                                  type: string
-                                  example: auto
-                                accessibility: 
-                                  type: string
-                                  example: local
-                                updatedAt: 
-                                  type: string
-                                  example: 2018-11-09T01:34:06.839Z
-                                createdAt: 
-                                  type: string
-                                  example: 2018-11-09T01:34:06.839Z
-                                __v: 
-                                  type: number
-                                  example: 0
-                                evidenceMethod: 
-                                  type: string
-                                  example: LW
-                                payload: 
-                                  type: object
-                                  properties: 
-                                    criteriaId: 
+                                    _id: 
                                       type: string
-                                      example: 5be1616549e0121f01b2180c
+                                      example: 5be4e40e9a14ba4b5038dcfb
+                                    question: 
+                                      type: array
+                                      items: 
+                                        type: string
+                                        example: "Are all empty rooms and terrace areas locked securely?"
+                                    options: 
+                                      type: array
+                                      items: 
+                                        type: object
+                                        properties: 
+                                          value: 
+                                            type: string
+                                            example: R1
+                                          label: 
+                                            type: string
+                                            example: None
+                                    questionGroup: 
+                                      type: array
+                                      items: 
+                                        type: string
+                                        example: A1
+                                    deleted: 
+                                      type: boolean
+                                    tip: 
+                                      type: string
+                                      example: 
+                                    externalId: 
+                                      type: string
+                                      example: LW/SS/22
+                                    visibleIf: 
+                                      type: string
+                                      example: 
+                                    file: 
+                                      type: string
+                                      example: 
                                     responseType: 
                                       type: string
                                       example: radio
+                                    validation: 
+                                      type: object
+                                      properties: 
+                                        required: 
+                                          type: boolean
+                                    page: 
+                                      type: string
+                                      example: p1
+                                    showRemarks: 
+                                      type: boolean
+                                    isCompleted: 
+                                      type: boolean
+                                    remarks: 
+                                      type: string
+                                      example: 
+                                    value: 
+                                      type: string
+                                      example: 
+                                    canBeNotApplicable: 
+                                      type: string
+                                      example: false
+                                    usedForScoring: 
+                                      type: string
+                                      example: 
+                                    modeOfCollection: 
+                                      type: string
+                                      example: onfield
+                                    questionType: 
+                                      type: string
+                                      example: auto
+                                    accessibility: 
+                                      type: string
+                                      example: local
+                                    updatedAt: 
+                                      type: string
+                                      example: 2018-11-09T01:34:06.839Z
+                                    createdAt: 
+                                      type: string
+                                      example: 2018-11-09T01:34:06.839Z
+                                    __v: 
+                                      type: number
+                                      example: 0
                                     evidenceMethod: 
                                       type: string
                                       example: LW
-                                    rubricLevel: 
+                                    payload: 
+                                      type: object
+                                      properties: 
+                                        criteriaId: 
+                                          type: string
+                                          example: 5be1616549e0121f01b2180c
+                                        responseType: 
+                                          type: string
+                                          example: radio
+                                        evidenceMethod: 
+                                          type: string
+                                          example: LW
+                                        rubricLevel: 
+                                          type: string
+                                          example: 
+                                    startTime: 
                                       type: string
                                       example: 
-                                startTime: 
-                                  type: string
-                                  example: 
-                                endTime: 
-                                  type: string
-                                  example: 
+                                    endTime: 
+                                      type: string
+                                      example: 
     
     500Error:
       description: 500 error response
       type: object
       properties:
-        result:
-          type: boolean
-          example: false
+        status:
+          type: integer
+          example: 500
         message:
           type: string
           example: Internal Server Error
@@ -1079,7 +1096,7 @@ components:
       properties:
         message: 
           type: string
-          example: Solutions fetched successfully
+          example: Observation fetched successfully
         status: 
           type: number
           example: 200
@@ -1340,7 +1357,7 @@ components:
                 type: string
                 example: required observation Id 
     observationapiUpdateEntitiesRequest:
-      description: Request consist array of location Id
+      description: Request consist array of entity Ids
       type: object
       properties:
         data: 
@@ -1354,7 +1371,7 @@ components:
       properties:
         status: 
           type: integer
-          example: 400
+          example: 200
         message: 
           type: string
           example: Entity Added successfully.
@@ -1362,12 +1379,12 @@ components:
       description: Response of submission list
       type: object
       properties:
-        message: 
-          type: string
-          example: Successfully fetched observation submissions
         status: 
           type: number
           example: 200
+        message: 
+          type: string
+          example: Successfully fetched observation submissions
         result: 
           type: array
           items: 
@@ -1587,12 +1604,12 @@ components:
       description: verify solution link response
       type: object
       properties:
-        message: 
-          type: string
-          example: Observation solution link verified successfully
         status: 
           type: number
           example: 200
+        message: 
+          type: string
+          example: Observation solution link verified successfully
         result: 
           type: array
           items: 
