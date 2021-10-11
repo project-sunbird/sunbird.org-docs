@@ -15,7 +15,7 @@ servers:
   variables: {}
 paths: 
   /userProjects/mlprojects/v1/details/{projectId}:
-    get:
+    post:
       tags:
       - userProjects APIs
       summary: Get Project Details.
@@ -49,6 +49,19 @@ paths:
           schema:
             type: string
           example: 5f731631e8d7cd3b88ac0659
+      requestBody:
+        required: true
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body is the representation of the resource object for get project details
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userprojectsapiDetailsRequest"
       responses:
         200:
           description: "Project Details Successful Response"
@@ -77,7 +90,7 @@ paths:
       - userProjects APIs
       summary: Add project.
       description: |-
-        This API is associated with creating project on the Sunbird Platform.
+        This API is associated with creating project for a user on the Sunbird Platform.
           - The endpoint for **UserProjects add** is `/userProjects/mlprojects/v1/add`
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
@@ -141,7 +154,7 @@ paths:
       - userProjects APIs
       summary: Sync project.
       description: |-
-        This API is used to sync the project details.
+        This API is used to sync the project details to the database. Using this api you can complete a task, add a new task and add entities inside project. 
           - The endpoint for **UserProjects sync** is `/userProjects/mlprojects/v1/sync`
           - **_/sync/{projectId}_** endpoint executes the "Sync Project" request based on parameters provided as metadata in the request body.
           - It is mandatory to provide values for parameters marked with *. 
@@ -1066,7 +1079,7 @@ components:
                     status: 
                       description: Represents the status of task
                       type: string
-                      example: notStarted
+                      example: notStarted/inProgress/completed
                     children: 
                       description: Represents the sub task of this task
                       type: array
@@ -1121,33 +1134,34 @@ components:
               label: 
                 type: string
                 example: teacher
-        status: 
+        status:
+          description: Represents the status of task
           type: string
           example: notStarted/inProgress/completed
         lastDownloadedAt: 
+          description: Represents the last downloaded date & time
           type: string
           example: 2020-09-29T09:08:41.667Z
-        payload: 
-          type: object
-          properties: 
-            _id: 
-              type: string
-              example: 289d9558-b98f-41cf-81d3-92486f114a51
-        profileInformation: 
+        profileInformation:
+          description: Represents the details of user role and location details
           type: object
           properties: 
             role: 
+              description: 'Represent the role of user'
               type: string
-              example: HM
-            state: 
+              example: HM 
+            state:
+              description: 'Represent the state location id of user'
               type: string
-              example: 236f5cff-c9af-4366-b0b6-253a1789766a
-            district: 
+              example: "236f5cff-c9af-4366-b0b6-253a1789766a"
+            district:
+              description: 'Represent the district location id of user'
               type: string
-              example: 1dcbc362-ec4c-4559-9081-e0c2864c2931
-            school: 
+              example: "1dcbc362-ec4c-4559-9081-e0c2864c2931"
+            school:
+              description: 'Represent the school location id of user'
               type: string
-              example: c5726207-4f9f-4f45-91f1-3e9e8e84d824
+              example: "c5726207-4f9f-4f45-91f1-3e9e8e84d824"
     400ErrorTitleMissing:
       description: Title missing 400 error response
       type: object
@@ -1271,7 +1285,7 @@ components:
               status: 
                 type: string
                 description: Represents the status of task
-                example: notStarted
+                example: notStarted/inProgress/completed
               isACustomTask:
                 description: true - its a custom task, false - its not a custom task
                 type: boolean
@@ -1395,12 +1409,15 @@ components:
                 type: string
                 example: teacher
         status: 
+          description: Represents the status of the project
           type: string
           example: notStarted/inProgress/completed
         lastDownloadedAt: 
+          description: Represents the last downloaded date & time
           type: string
           example: "2020-09-29T09:08:41.667Z"
-        payload: 
+        payload:
+          description: Represents the id of the user 
           type: object
           properties: 
             _id: 
@@ -1855,7 +1872,27 @@ components:
               msg:
                 type: string
                 example: required project template external id
-            
+    userprojectsapiDetailsRequest:
+      description: Role and Location Request
+      type: object
+      properties:
+        role: 
+          description: 'Represent the role of user'
+          type: string
+          example: HM 
+        state:
+          description: 'Represent the state location id of user'
+          type: string
+          example: "236f5cff-c9af-4366-b0b6-253a1789766a"
+        district:
+          description: 'Represent the district location id of user'
+          type: string
+          example: "1dcbc362-ec4c-4559-9081-e0c2864c2931"
+        school:
+          description: 'Represent the school location id of user'
+          type: string
+          example: "c5726207-4f9f-4f45-91f1-3e9e8e84d824"
+      
   securitySchemes:
     bearer:
       type: apiKey
