@@ -1,0 +1,746 @@
+openapi: 3.0.1
+info:
+  title: ML-Report Service API(s)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  description: >-
+    - The ML-Report Service Apis generating submission reports of survey and observation.
+    
+    - The URL for ML-Report service API(s) is `{context}/mlreports/v1`
+
+    - <b>Note:</b> These resources can be used in other services 
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://staging.open-sunbird.org/api
+  variables: {}
+paths: 
+  /observations/mlreports/v1/listAllEvidences:
+    post:
+      tags:
+      - Observations API's
+      summary: List all evidences of submission. 
+      description: |-
+        This API is used to get all the evidences of a question. Evidences may contain video, image or document.
+          - The endpoint for **Observations listAllEvidences** is `/observations/mlreport/v1/listAllEvidences`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: List all evidences of a question
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body is the representation of the resource object for searching
+          project
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/observationapiListAllEvidenceRequest"
+      responses:
+        200:
+          description: "List all evidences of submission Successful Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationapiListAllEvidencesResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationapiListAllEvidence400Error'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /observations/mlreports/v1/submissionsCount:
+    post:
+      tags:
+      - Observations API's
+      summary: Number of submissions for the observation
+      description: |-
+        This API is used to get observation submissions count for the entity or observation.
+          - The endpoint for **Observations submissionsCount** is `/observations/mlreports/v1/submissionsCount`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+          
+      operationId: Get observation submission count
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description:  >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body payload comprises of the entityId and observationId or only observationId
+    
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/observationsapiSubmissionCountRequest"
+      responses:
+        200:
+          description: "Successful response of observation submission count"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationsapiSubmissionCountResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationapiSubmissionCount400Error'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /reports/mlreports/v1/fetch:
+    post:
+      tags:
+      - Report API's
+      summary: Fetch Observation Submission Reports 
+      description: |-
+        This API is used to fetch the report of observation submission. If you are passing pdf value as true in metadata it will generate pdf report.
+          - The endpoint for **Reports fetch** is `/reports/mlreports/v1/fetch`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+          
+      operationId: Fetch reports
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description:  >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body payload comprises of the entityId and observationId or only observationId
+    
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/reportapiFetchRequest"
+      responses:
+        200:
+          description: "Successful response of observation submission fetch"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/reportapiFetchResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationapiSubmissionCount400Error'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  /surveys/mlreports/v1/listAllEvidences:
+    post:
+      tags:
+      - Survey API's
+      summary: List all evidences of question.
+      description: |-
+        This API is used to get all the evidences of a question. Evidences may contain video, image or document.
+          - The endpoint for **Surveys listAllEvidences** is `/surveys/mlreports/v1/listAllEvidences`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+          
+      operationId: survey 
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body payload comprises of the entityId and entityType
+             
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/surveyapiListAllEvidenceRequest"
+      responses:
+        200:
+          description: "List all evidences of question Successful Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationapiListAllEvidencesResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/surveyapiListAllEvidence400Error'   
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /surveys/mlreports/v1/getAllResponsesOfQuestion:
+    post:
+      tags:
+      - Survey API's
+      summary: Get all responses for the given questionId
+      description: |-
+        This API is used to get all the response of a question. Response will consist of answers and the completed date of question.
+          - The endpoint for **Surveys getAllResponsesOfQuestion** is `/surveys/mlreports/v1/getAllResponsesOfQuestion`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+       
+      operationId: Get all responses for the given questionId
+      parameters:
+        - name: X-auth-token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body payload comprises of the solutionId, questionExternalId and completedDate
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/surveyapiGetAllResponsesOfQuestionRequest"
+      responses:
+        200:
+          description: "Successful Response of question details "
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/surveyapiGetAllResponsesOfQuestionResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/surveyapiGetAllResponsesOfQuestion400Error'   
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
+
+components:
+  schemas:
+   
+    500Error:
+      description: 500 error response
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: Internal Server Error
+    observationapiListAllEvidenceRequest:
+      description: List All Evidence Request Object
+      type: object
+      properties:
+        submissionId:
+          type: string
+          description: Represents the submission Id
+          example: 5efc83b545cfa47ab52d7608
+        entityId:
+          type: string
+          description: Represents the entity Id
+          example: 5ffd83b545cfa47ab52d7609
+        observationId:
+          type: string
+          description: Represents the observation Id
+          example: 5fdb83b545cfa47ab52d7601
+        questionId:
+          type: string
+          description: Represents the question Id
+          example: SA5015-1608719629286
+    observationapiListAllEvidencesResponse:
+      description: List All Evidence Response
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+        data:
+          type: array
+          items: 
+            type: object
+            properties:
+              images:
+                type: array
+                items:
+                  $ref: '#/components/schemas/observationapiEvidenceArray'
+              videos:
+                type: array
+                items:
+                  $ref: '#/components/schemas/observationapiEvidenceArray'
+              documents:
+                type: array
+                items:
+                  $ref: '#/components/schemas/observationapiEvidenceArray'
+              remars:
+                type: array
+                items:
+                  type: string
+                example: [""]
+    observationapiListAllEvidence400Error:
+      description: List All Evidence 400 Error Response
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: questionId and submissionId or entityId and observationId or observationId are required fields
+    observationapiEvidenceArray:
+      type: object
+      properties:
+        url:
+          type: string
+          example: 5f6b0f8626e1b91d91c44bad/tmp_2020-8-22-13850488768898328338.jpg
+        extension:
+          type: string
+          example: jpg
+    surveyapiListAllEvidenceRequest:
+      description : Survey List all evidence request
+      type: object
+      properties:
+        solutionId:
+          description: Represents the solution Id
+          type: string
+          example: 5ffd83b545cfa47ab52d760a
+        submissionId:
+          description: Represents the submission Id
+          type: string
+          example: 5ffd83b545cfa47ab52d760a
+        questionId:
+          description: Represents the question Id
+          type: string
+          example: SA5015-1608719629286
+    surveyapiListAllEvidence400Error:
+      description : Survey List all evidence 400 error response
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: submissionId is a required field
+    surveyapiGetAllResponsesOfQuestionRequest:
+      description : Survey Get All Responses Of Question Request
+      type: object
+      required:
+        - solutionId
+        - questionExternalId
+      properties:
+        solutionId:
+          description: Represents the solution Id
+          type: string
+          example: 5ffd83b545cfa47ab52d760a
+        questionExternalId:
+          description: Represents the question External Id
+          type: string
+          example: SA5015-1608719629286
+        completedDate:
+          type: string
+          description: Represents the completed date
+          example: "2015-07-28T01:00:00.000Z"
+          
+    surveyapiGetAllResponsesOfQuestionResponse:
+      description : Survey Get All Responses Of Question Response
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            question: 
+              type: string
+              example: How many children are there in class
+            answers:
+              type: array
+              items:
+                 $ref: ''
+              example: [9,10]
+            completedDate:
+              type: string
+              example: "2015-07-28T01:00:00.000Z"
+          
+    surveyapiGetAllResponsesOfQuestion400Error:
+      description : Survey Get All Responses Of Question 400 Error Response
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: solutionId, questionExternalId and completedDate are required fields
+    observationsapiSubmissionCountRequest:
+      description: Submission Count Request Object
+      type: object
+      properties:
+        entityId:
+          type: string
+          description: Represents the entity Id
+          example: 5efc83b545cfa47ab52d7608
+        observationId:
+          type: string
+          description: Represents the observation Id
+          example: 5cac83b545cfa47ab52d7789
+    observationsapiSubmissionCountResponse:
+      description: Submission Count Response
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            noOfSubmissions:
+              type: integer
+              example: 4
+    observationapiSubmissionCount400Error:
+      description: Submission Count 400 Response
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: entityId and observation or only observationId are required fields.
+    reportapiFetchRequest:
+      description: Report Fetch Request Object
+      type: object
+      properties:
+        pdf:
+          type: boolean
+          description: Represents report type is pdf or not
+          example: false
+        submissionId: 
+          type: string
+          description: Represents the submission Id
+          example: 60587283129c8857da854ca7
+        observation: 
+          description: Represents report is observation or not
+          type: boolean
+          example: true
+        scores: 
+          type: boolean
+          example: true
+          description: Represents the score value 
+        entityId: 
+          type: string
+          example: 5fd1f4a1e84a88170cfb1285
+          description: Represents the entity Id 
+        entityType: 
+          type: string
+          example: school
+          description: Represents the entity type 
+        observationId: 
+          type: string
+          example: 60c73d7a944a3a53d925602d
+          description: Represents the observation Id
+    reportapiFetchResponse:
+      description: Report Fetch 200 Response
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            reportSections: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  order: 
+                    type: integer
+                    format: int32
+                    example: 1
+                  domainLevelObject: 
+                    type: object
+                    properties: 
+                      Commitment to Personal Transformation: 
+                        type: object
+                        properties: 
+                          2021-09-28T10:20:27.036000Z: 
+                            type: object
+                            properties: 
+                              No Level Matched: 
+                                type: integer
+                                format: int32
+                                example: 1
+                              L5: 
+                                type: integer
+                                format: int32
+                                example: 1
+                      Commitment to collective action: 
+                        type: object
+                        properties: 
+                          2021-09-28T10:20:27.036000Z: 
+                            type: object
+                            properties: 
+                              No Level Matched: 
+                                type: integer
+                                format: int32
+                                example: 2
+                      Commitment to meaningful education: 
+                        type: object
+                        properties: 
+                          2021-09-28T10:20:27.036000Z: 
+                            type: object
+                            properties: 
+                              No Level Matched: 
+                                type: integer
+                                format: int32
+                                example: 1
+                  responseType: 
+                    type: string
+                    example: horizontalBar
+                  chart: 
+                    type: object
+                    properties: 
+                      type: 
+                        type: string
+                        example: horizontalBar
+                      title: 
+                        type: string
+                        example: 
+                      submissionDateArray: 
+                        type: array
+                        items: 
+                          type: string
+                          example: 
+                      data: 
+                        type: object
+                        properties: 
+                          labels: 
+                            type: array
+                            items: 
+                              type: string
+                              example: Commitment to Personal Transformation
+                          datasets: 
+                            type: array
+                            items: 
+                              type: object
+                              properties: 
+                                label: 
+                                  type: string
+                                  example: L5
+                                data: 
+                                  type: array
+                                  items: 
+                                    type: integer
+                                    format: int32
+                                    example: 1
+                                backgroundColor: 
+                                  type: string
+                                  example: rgb(255 99 132)
+                      options: 
+                        type: object
+                        properties: 
+                          title: 
+                            type: object
+                            properties: 
+                              display: 
+                                type: boolean
+                              text: 
+                                type: string
+                                example: 
+                          scales: 
+                            type: object
+                            properties: 
+                              xAxes: 
+                                type: array
+                                items: 
+                                  type: object
+                                  properties: 
+                                    stacked: 
+                                      type: boolean
+                                    gridLines: 
+                                      type: object
+                                      properties: 
+                                        display: 
+                                          type: boolean
+                                    scaleLabel: 
+                                      type: object
+                                      properties: 
+                                        display: 
+                                          type: boolean
+                                        labelString: 
+                                          type: string
+                                          example: Criteria
+                              yAxes: 
+                                type: array
+                                items: 
+                                  type: object
+                                  properties: 
+                                    stacked: 
+                                      type: boolean
+                          legend: 
+                            type: object
+                            properties: 
+                              display: 
+                                type: boolean
+                              position: 
+                                type: string
+                                example: bottom
+            improvementProjectSuggestions: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  criteriaId: 
+                    type: string
+                    example: 608271d214de0e1567f38f05
+                  criteriaName: 
+                    type: string
+                    example: Teaching Effectively
+                  level: 
+                    type: string
+                    example: L5
+                  label: 
+                    type: string
+                    example: Level 5
+                  improvementProjects: 
+                    type: array
+                    items: 
+                      type: object
+                      properties: 
+                        name: 
+                          type: string
+                          example: To regularise Bal Sansad processes and enable stakeholders to own Bal Sansad processes (for stage of Regularity)
+                        _id: 
+                          type: string
+                          example: 607d3750162de95e9b704511
+                        goal: 
+                          type: string
+                          example: 1. To improve school processes in the demonstration schools under each coach which will catalyse improvement in remaining schools of the cluster 
+                            2. To improve competencies of the coaches basis the work done through the projects.
+                        externalId: 
+                          type: string
+                          example: IMP-3571c_IMPORTED
+  
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header    
+      
