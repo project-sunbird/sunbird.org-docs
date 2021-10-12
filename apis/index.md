@@ -125,6 +125,14 @@ The **Batch and Progress microservice** provides services to manage course enrol
 - [Course Progress APIs](apis/courseprogressapi/){:target="_blank"} 
 - [Course Batch Certificates](apis/coursebatchcertificateapi/){:target="_blank"}
 
+### Manage Learn Service {#manage-learn-service}
+
+The **Manage Learn Service** provides services to help program administrators manage programs, projects, project surveys, and project and program reports. The APIs for this microservice are grouped into:
+- [Core Manage Learn APIs](apis/ml-coreapi/){:target="_blank"}
+- [Manage Learning Project APIs](apis/ml-projectsapi/){:target="_blank"}
+- [Manage Project Survey APIs](apis/ml-surveyapi/){:target="_blank"}
+- [Manage Project Reports APIs](apis/ml-reportsapi/){:target="_blank"}
+
 ### Related Microservices and/or APIs 
 * [Question Management APIs](apis/questionapi//){:target="_blank"}
 
