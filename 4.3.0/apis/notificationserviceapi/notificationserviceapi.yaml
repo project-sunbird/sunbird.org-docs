@@ -7,8 +7,8 @@ info:
   termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
 
 externalDocs:
-  description: "Testcases"
-  url: "https://www.getpostman.com/collections/f6f9b05a65e9fe03b523"
+  description: "Postman Collections"
+  url: "https://www.getpostman.com/collections/5245c31467845f40ecae"
 
 servers:
   - url: https://staging.sunbirded.org/api
@@ -55,7 +55,7 @@ paths:
                         type: feed
                         action:
                           type: add-member
-                          category: group-feed
+                          category: notification-feed
                           template:
                             type: JSON
                             params:
@@ -171,24 +171,24 @@ paths:
                 summary: "Send broadcast device Notification using topics"
                 value:
                   request:
-                     notifications:
-                       - ids:
-                         priority: 1
-                         type: device
-                         action:
-                           type: device-system-upgrade
-                           category: device-notification
-                           createdBy:
-                             id: f10d5216-6b96-404c-8d1c-cc1f720d910d
-                             name: John
-                             type: User
-                           additionalInfo:
-                             topic: device-topic
-                             rawData:
-                               key: 2
-                               key2: value2
+                    notifications:
+                      - ids:
+                        priority: 1
+                        type: device
+                        action:
+                          type: device-system-upgrade
+                          category: device-notification
+                          createdBy:
+                            id: f10d5216-6b96-404c-8d1c-cc1f720d910d
+                            name: John
+                            type: User
+                          additionalInfo:
+                            topic: device-topic
+                            rawData:
+                              key: 2
+                              key2: value2
         description: >-
-          - The body payload comprises of the metadata of the group being
+          - The body payload comprises of the metadata of the notification being
           created - The body parameter refers to the format of the request, the
           request body (payload) takes the following media types to make the
           payload:
@@ -306,7 +306,7 @@ paths:
         - name: Authorization
           in: header
           required: true
-          description: To make use of any Group API, you require authorization. Raise a
+          description: To make use of any Notification API, you require authorization. Raise a
             request to the administrator for the use of the API. You will
             receive the authorization key. Specify the key received, here.
           schema:
@@ -331,7 +331,7 @@ paths:
           in: header
           required: false
           description: Timestamp is a sequence of characters or encoded information
-            identifying when the list group API call occurred, usually it gives
+            identifying when the list notification API call occurred, usually it gives
             date and time of day, mostly accurate to a small fraction of a
             second.
           schema:
@@ -388,7 +388,7 @@ paths:
                             name: Math's Activity
                       id: 64ef2ccd-2ec7-4759-b500-590d4a6eccf3
                       updatedOn: 1628614252986
-                      category: group-feed
+                      category: notification-feed
                       priority: 1
                       createdOn: 1628539887611
                       userId: '1234'
@@ -418,7 +418,7 @@ paths:
                             name: Math's Activity
                       id: d08b579e-8cc8-4fb2-845f-3aa0af84ff94
                       updatedOn: null
-                      category: group-feed
+                      category: notification-feed
                       priority: 1
                       createdOn: 1628610341056
                       userId: '1234'
@@ -448,7 +448,7 @@ paths:
                             name: Math's Activity
                       id: 04d47f39-092f-4f80-863f-0147bfde4623
                       updatedOn: null
-                      category: group-feed
+                      category: notification-feed
                       priority: 1
                       createdOn: 1628696476011
                       userId: '1234'
@@ -508,7 +508,7 @@ paths:
         - name: Authorization
           in: header
           required: true
-          description: To make use of any Group API, you require authorization. Raise a
+          description: To make use of any Notification API, you require authorization. Raise a
             request to the administrator for the use of the API. You will
             receive the authorization key. Specify the key received, here.
           schema:
@@ -533,7 +533,7 @@ paths:
           in: header
           required: false
           description: Timestamp is a sequence of characters or encoded information
-            identifying when the list group API call occurred, usually it gives
+            identifying when the list notification API call occurred, usually it gives
             date and time of day, mostly accurate to a small fraction of a
             second.
           schema:
@@ -583,6 +583,44 @@ paths:
                   errmsg: Mandatory parameter userId is missing.
                 responseCode: CLIENT_ERROR
                 result: {}
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+              example:
+                id: v1.notification.feed.update
+                ver: null
+                ts: 2021-08-11 21:30:57:395+0530
+                params:
+                  resmsgid: null
+                  msgid: "ed1c0b7c-8f10-4a35-9f42-93966d8d97f6"
+                  err: unauthorized
+                  status: null
+                  errmsg: you are an unauthorized user
+                responseCode: UNAUTHORIZED
+                result: {}
+        '500':
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and
+             try to set it right at the earliest. Try refreshing the page. If the
+             problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: ""
+              example:
+                id: v1.notification.feed.update
+                ver: null
+                ts: 2020-12-01 10:49:01:948+0000
+                params:
+                  resmsgid:
+                  msgid: 12eb0ca45ce4c776fab994d120bedd41
+                  err: null
+                  status: null
+                  errmsg: "SERVER_ERROR"
+                responseCode: SERVER_ERROR
+                result: {}
       requestBody:
         required: true
         content:
@@ -594,7 +632,149 @@ paths:
                 - ids:
                     - "64ef2ccd-2ec7-4759-b500-590d4a6eccf3"
                   userId: "1234"
-                  status: "read"
+
+  /notification/v1/feed/delete:
+    patch:
+      summary: Delete Notification Feed
+      operationId: DeleteNotificationFeed
+      tags:
+        - Notification APIs
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: application/json
+        - name: Authorization
+          in: header
+          required: true
+          description: To make use of any Notification API, you require authorization. Raise a
+            request to the administrator for the use of the API. You will
+            receive the authorization key. Specify the key received, here.
+          schema:
+            type: string
+        - name: x-authenticated-user-token
+          in: header
+          required: true
+          description: It is a unique token/key to authenticate the user each time an API
+            is called. For corresponding sessions this token is used, not your
+            actual username/password
+          schema:
+            type: string
+        - name: x-authenticated-for
+          in: header
+          required: false
+          description: Managed User token of registered MUA user performing given API
+            request. From this LUA and MUA id are seperated and LUA is validated
+            against user_id in x-authenticated-user-token
+          schema:
+            type: string
+        - name: ts
+          in: header
+          required: false
+          description: Timestamp is a sequence of characters or encoded information
+            identifying when the list notification API call occurred, usually it gives
+            date and time of day, mostly accurate to a small fraction of a
+            second.
+          schema:
+            type: string
+        - name: X-msgid
+          in: header
+          required: false
+          description: This ID uniquely identifies a request if the same API is executed
+            multiple times.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success Notification Status Delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200'
+              example:
+                id: v1.notification.feed.delete
+                ver: v1
+                ts: '1628697773888'
+                params:
+                  resmsgid: null
+                  msgid: "ed1c0b7c-8f10-4a35-9f42-93966d8d97f6"
+                  err: null
+                  status: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  response: SUCCESS
+        '400':
+          description: Mandatory Param is Missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+              example:
+                id: api.notification.feed.delete
+                ver: null
+                ts: 2021-08-11 22:05:44:382+0530
+                params:
+                  resmsgid: null
+                  msgid: "ed1c0b7c-8f10-4a35-9f42-93966d8d97f6"
+                  err: MANDATORY_PARAMETER_MISSING
+                  status: null
+                  errmsg: Mandatory parameter userId is missing.
+                responseCode: CLIENT_ERROR
+                result: {}
+        '401':
+          description: Unauthorized User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401'
+              example:
+                id: v1.notification.feed.delete
+                ver: null
+                ts: 2021-08-11 21:30:57:395+0530
+                params:
+                  resmsgid: null
+                  msgid: "ed1c0b7c-8f10-4a35-9f42-93966d8d97f6"
+                  err: unauthorized
+                  status: null
+                  errmsg: you are an unauthorized user
+                responseCode: UNAUTHORIZED
+                result: {}
+        '500':
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and
+             try to set it right at the earliest. Try refreshing the page. If the
+             problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: ""
+              example:
+                id: v1.notification.feed.delete
+                ver: null
+                ts: 2020-12-01 10:49:01:948+0000
+                params:
+                  resmsgid:
+                  msgid: 12eb0ca45ce4c776fab994d120bedd41
+                  err: null
+                  status: null
+                  errmsg: "SERVER_ERROR"
+                responseCode: SERVER_ERROR
+                result: {}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/deleteFeedReq"
+            example:
+              request:
+                - ids:
+                    - "64ef2ccd-2ec7-4759-b500-590d4a6eccf3"
+                  userId: "1234"
+                  category: "groups"
 components:
   parameters:
     notification-delivery-mode:
@@ -698,7 +878,27 @@ components:
         - params
 
     'updateFeedReq':
-      description: Notification Feed update Request Obj
+      description: Notification Feed update Request Obj where ids are feedids
+      type: object
+      properties:
+        request:
+          type: object
+          properties:
+            ids:
+              type: array
+              description: Feed ids
+              items:
+                type: string
+            userId:
+              type: string
+          required:
+            - ids
+            - userId
+      required:
+        - request
+
+    'deleteFeedReq':
+      description: Notification Feed delete Request Obj where ids are feedids
       type: object
       properties:
         request:
@@ -709,8 +909,6 @@ components:
               items:
                 type: string
             userId:
-              type: string
-            status:
               type: string
           required:
             - ids
