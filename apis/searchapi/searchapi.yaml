@@ -418,6 +418,383 @@ paths:
       deprecated: false
       security: 
         - bearer: []
+  /composite/v1/private/search:
+    post:
+      tags:
+      - Search APIs
+      summary: Composite Private Search
+      description: |-
+        This API is associated with Searching private and public Objects created as part of sourcing object creation on the Sunbird Platform.
+          - The endpoint for **Composite Private Search** is `/composite/v1/private/search`
+          - It points to knowledge-mw-service - `/v3/private/search`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: Composite Private Search
+      parameters:
+      - name: Content-Type
+        in: header
+        description: |-
+          The Content Type entity is the media type of the resource.Possible media types can be:
+          - application/json
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: |-
+          To make use of the API, you require authorization. Raise a request to the administrator for the use of the API. You will receive the authorization key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      - name: x-channel-id
+        in: header
+        description: |-
+            Represents a physical location (e.g: state) uniquely to which the
+            user belongs.
+        required: true
+        schema:
+          type: string    
+      requestBody:
+        description: |-
+          The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
+          - JSON
+          The body is the representation of the resource object for searching objects
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/searchapiCompositeSearchRequest'
+            examples:
+              a:
+                summary: Search - All status & with limit
+                value:
+                  request:
+                    filters:
+                      objectType: Content
+                      status: []
+                    limit: 1
+              b:
+                summary: Search - Specific status & with limit
+                value:
+                  request:
+                    filters:
+                      objectType: Content
+                      status:
+                        - Review
+                    limit: 1
+              c:
+                summary: Search - Get Facets Between Date Range
+                value:
+                  request:
+                    filters:
+                      objectType: Content
+                      status: []
+                      createdOn:
+                        min: '2020-10-01T00:00:00.000+0530'
+                        max: '2020-12-01T23:59:59.999+0530'
+                    limit: 0
+                    facets:
+                      - board
+              d:
+                summary: Search - Get specific fields in response
+                value:
+                  request:
+                    filters:
+                      objectType: Content
+                      status: []
+                    limit: 2
+                    fields:
+                      - mimeType
+                      - createdOn
+                    sort_by:
+                      createdOn: desc
+              e:
+                summary: Search - Assert on specific field
+                value:
+                  request:
+                    filters:
+                      objectType: Content
+                      status: []
+                    limit: 2
+                    exists:
+                      - dialcodes
+                    fields:
+                      - dialcodes
+                      - createdOn
+                    sort_by:
+                      createdOn: desc
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **Composite Search** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searchapiCompositeSearchSuccessResponse'
+              examples:
+                a:
+                  summary: Search Response - All status & with limit
+                  value:
+                    id: api.search-service.private.search
+                    ver: '3.0'
+                    ts: '2021-09-21T10:58:57Z+05:30'
+                    params:
+                      resmsgid: 12010ed0-4c8c-4f81-9d57-af5727a49d85
+                      msgid: null
+                      err: null
+                      status: successful
+                      errmsg: null
+                    responseCode: OK
+                    result:
+                      count: 480465
+                      content:
+                        - code: org.ekstep.jun16.story.test05
+                          subject:
+                            - literacy
+                          flags:
+                            - Test case
+                          channel: in.ekstep
+                          downloadUrl: 'https://ekstep-public-dev.s3-ap-south-1.amazonaws.com/ecar_files/org.ekstep.jun16.story.test05/vrgaatiil-upkrmclassroom-activities_1498725323304_org.ekstep.jun16.story.test05_1.0.ecar'
+                          description: शेर का साथी हाथी
+                          lastFlaggedOn: '2017-12-27T13:30:48.942+0000'
+                          language:
+                            - English
+                          variants:
+                            spine:
+                              ecarUrl: 'https://ekstep-public-dev.s3-ap-south-1.amazonaws.com/ecar_files/org.ekstep.jun16.story.test05/vrgaatiil-upkrmclassroom-activities_1498725324677_org.ekstep.jun16.story.test05_1.0_spine.ecar'
+                              size: 851
+                          mimeType: application/vnd.ekstep.ecml-archive
+                          flaggedBy:
+                            - Test case
+                          idealScreenSize: normal
+                          createdOn: '2017-06-29T07:44:15.875+0000'
+                          objectType: Content
+                          collections:
+                            - do_11228062262625075214
+                          appId: ekstep_portal
+                          contentDisposition: inline
+                          contentEncoding: gzip
+                          artifactUrl: 'https://ekstep-public-dev.s3-ap-south-1.amazonaws.com/content/org.ekstep.jun16.story.test05/artifact/1485166711340_do_30102464_1498725273215.zip'
+                          lastUpdatedOn: '2017-12-27T13:30:48.968+0000'
+                          SYS_INTERNAL_LAST_UPDATED_ON: '2018-01-09T18:41:32.368+0000'
+                          contentType: Story
+                          owner: EkStep
+                          lastUpdatedBy: Test case
+                          identifier: org.ekstep.jun16.story.test05
+                          audience:
+                            - Learner
+                          flagReasons:
+                            - Copyright Violation
+                          visibility: default
+                          os:
+                            - All
+                          consumerId: 72e54829-6402-4cf0-888e-9b30733c1b88
+                          mediaType: content
+                          osId: org.ekstep.quiz.app
+                          graph_id: domain
+                          nodeType: DATA_NODE
+                          pkgVersion: 1
+                          versionKey: '1515523292368'
+                          prevState: Draft
+                          idealScreenDensity: hdpi
+                          dialcodes:
+                            - DAKDF
+                            - FSDFDSA
+                          s3Key: ecar_files/org.ekstep.jun16.story.test05/vrgaatiil-upkrmclassroom-activities_1498725323304_org.ekstep.jun16.story.test05_1.0.ecar
+                          size: 9983654
+                          lastPublishedOn: '2017-06-29T08:35:23.302+0000'
+                          compatibilityLevel: 1
+                          name: "\tवर्गातील उपक्रम(Classroom Activities)"
+                          resourceType: Story
+                          status: Flagged
+                          node_id: 105761
+                b:
+                  summary: Search Response - Specific status & with limit
+                  value:
+                    id: api.search-service.private.search
+                    ver: '3.0'
+                    ts: '2021-09-21T10:58:57Z+05:30'
+                    params:
+                      resmsgid: 12010ed0-4c8c-4f81-9d57-af5727a49d85
+                      msgid: null
+                      err: null
+                      status: successful
+                      errmsg: null
+                    responseCode: OK
+                    result:
+                      count: 6370
+                      content:
+                        - ownershipType:
+                            - createdBy
+                          code: 0cc5be9a-32a0-c825-06c0-69e82a6c5951
+                          prevStatus: Draft
+                          subject:
+                            - English
+                          bloomslevel: remember
+                          channel: b00bc992ef25f1a9a8d63291e20efc8d
+                          language:
+                            - English
+                          mimeType: application/pdf
+                          medium:
+                            - English
+                          idealScreenSize: normal
+                          createdOn: '2020-01-08T13:41:40.258+0000'
+                          objectType: Content
+                          appIcon: 'https://ntpstagingall.blob.core.windows.net/ntp-content-staging/content/do_21291553051403878414/artifact/explanation.thumb_1576602846206.png'
+                          gradeLevel:
+                            - Grade 1
+                          primaryCategory: Explanation Content
+                          appId: local.sunbird.portal
+                          contentDisposition: inline
+                          artifactUrl: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/assets/do_112930997454864384150/sample.pdf'
+                          contentEncoding: identity
+                          lastUpdatedOn: '2020-01-08T13:44:32.610+0000'
+                          SYS_INTERNAL_LAST_UPDATED_ON: '2020-01-08T13:43:42.419+0000'
+                          contentType: ExplanationResource
+                          dialcodeRequired: 'No'
+                          identifier: do_112930997454864384150
+                          audience:
+                            - Student
+                          creator: Creation
+                          lastStatusChangedOn: '2020-01-08T13:44:32.602+0000'
+                          visibility: Default
+                          os:
+                            - All
+                          consumerId: 7411b6bd-89f3-40ec-98d1-229dc64ce77d
+                          mediaType: content
+                          osId: org.ekstep.quiz.app
+                          graph_id: domain
+                          nodeType: DATA_NODE
+                          version: 2
+                          versionKey: '1578491072610'
+                          license: CC BY 4.0
+                          idealScreenDensity: hdpi
+                          framework: NCFCOPY
+                          lastSubmittedOn: '2020-01-08T13:44:32.405+0000'
+                          createdBy: 874ed8a5-782e-4f6c-8f36-e0288455901e
+                          compatibilityLevel: 1
+                          name: 'lesson Plan'
+                          board: NCERT
+                          resourceType: Read
+                          status: Review
+                          node_id: 378232
+                c:
+                  summary: Search Response - Get Facets Between Date Range
+                  value:
+                    id: api.search-service.private.search
+                    ver: '3.0'
+                    ts: '2021-09-21T10:58:57Z+05:30'
+                    params:
+                      resmsgid: 12010ed0-4c8c-4f81-9d57-af5727a49d85
+                      msgid: null
+                      err: null
+                      status: successful
+                      errmsg: null
+                    responseCode: OK
+                    result:
+                      count: 14423
+                      facets:
+                        - values:
+                            - name: state (uttar pradesh)
+                              count: 1
+                            - name: state (andhra pradesh)
+                              count: 1
+                            - name: ncert
+                              count: 26
+                            - name: cbse
+                              count: 335
+                          name: board
+                d:
+                  summary: Search Response - Get specific fields in response
+                  value:
+                    id: api.search-service.private.search
+                    ver: '3.0'
+                    ts: '2021-09-21T10:58:57Z+05:30'
+                    params:
+                      resmsgid: 12010ed0-4c8c-4f81-9d57-af5727a49d85
+                      msgid: null
+                      err: null
+                      status: successful
+                      errmsg: null
+                    responseCode: OK
+                    result:
+                      count: 480465
+                      content:
+                        - identifier: domain_62767
+                          mimeType: application/vnd.ekstep.ecml-archive
+                          createdOn: '9390-06-06T13:36:06.929+0000'
+                          objectType: Content
+                        - identifier: do_112196430983438336116
+                          mimeType: application/vnd.ekstep.content-collection
+                          createdOn: '4177-05-07T06:55:23.005+0000'
+                          objectType: Content
+                e:
+                  summary: Search Response - Assert on specific field
+                  value:
+                    id: api.search-service.private.search
+                    ver: '3.0'
+                    ts: '2021-09-21T10:58:57Z+05:30'
+                    params:
+                      resmsgid: 12010ed0-4c8c-4f81-9d57-af5727a49d85
+                      msgid: null
+                      err: null
+                      status: successful
+                      errmsg: null
+                    responseCode: OK
+                    result:
+                      count: 2202
+                      content:
+                        - identifier: do_395
+                          dialcodes:
+                            - V1T2P8
+                          createdOn: '2020-12-17T06:36:54.716+0000'
+                          objectType: Content
+                        - identifier: do_11317422696104755212890
+                          dialcodes:
+                            - K1G7M9
+                          createdOn: '2020-12-17T05:13:22.086+0000'
+                          objectType: Content
+        400:
+          description: |-
+            BAD REQUEST. The **Composite Private Search** operation failed. You may have missed input for a mandatory parameter - content-type in header
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searchapiCompositeSearchErrorResponse'
+              example:
+                id: api.search-service.private.search
+                ver: '3.0'
+                ts: '2021-09-21T11:06:01Z+05:30'
+                params:
+                  resmsgid: af1d5cfb-a5c2-48a4-9d98-727c527c7910
+                  msgid: null
+                  status: failed
+                  err: ERR_CONTENT_SEARCH_FIELDS_MISSING
+                  errmsg: Required fields for search content are missing
+                responseCode: CLIENT_ERROR
+                result: {}
+        500:
+          description: '''INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searchapiCompositeSearchErrorResponse'
+              example:
+                id: api.search-service.private.search
+                ver: '3.0'
+                ts: '2021-09-21T11:06:01Z+05:30'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security: 
+        - bearer: []
 components:
   schemas:
     searchapiCompositeSearchRequest:
