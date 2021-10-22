@@ -8,7 +8,7 @@ info:
 
     - The URL for Sunbird Question API(s) is `question/v1` and `questionset/v1`
 
-    - [TestCases](https://www.getpostman.com/collections/0b9f50245326b4fccd0b)
+    - [TestCases](https://www.getpostman.com/collections/794b7d0ef35a7481f263)
   termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
   contact:
     email: info@sunbird.org
@@ -397,6 +397,138 @@ paths:
                   err: NOT_FOUND
                   status: failed
                   errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1132079240377466881101'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact info@sunbird.org. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /question/v1/private/read/{Question_Id}:
+    get:
+      description: >-
+        This API is associated with viewing and reading the private and public questions on the Sunbird Platform.
+          - The **_/private/read/{Question_Id}_** endpoint executes the request to fetch the private and public question to be viewed and read based on parameters provided as metadata in the request body.
+          - The endpoint for **Read Private Question** is `/question/v1/private/read`
+          - It points to assessment-service - `/question/v4/private/read`
+          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
+          - You need to provide a valid Question Id value in {Question_Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      summary: Read Private Question
+      tags:
+        - Question APIs
+      operationId: Read Private Question
+      parameters:
+        - in: path
+          name: Question_Id
+          required: true
+          description: Append a valid Question ID To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: x-channel-id
+          in: header
+          description: >-
+            Represents a physical location (e.g: state) uniquely to which the
+            user belongs.
+          required: true
+          schema:
+            type: string    
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation.The "Read Private Question" operation was successfully
+            executed. Click link to refer to the supported
+            [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-4.4.0/schemas/question/1.0/schema.json)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionReadSuccessResponse'
+              example:
+                id: api.question.private.read
+                ver: '3.0'
+                ts: 2021-09-20T21:31:31Z+05:30
+                params:
+                  resmsgid: 452d3641-49ae-4f2c-b1a5-8fccd81b6550
+                  msgid:
+                  err:
+                  status: successful
+                  errmsg:
+                responseCode: OK
+                result:
+                  question:
+                    code: name
+                    channel: abc-123
+                    language:
+                      - English
+                    mimeType: application/vnd.sunbird.question
+                    createdOn: '2021-09-18T13:12:00.309+0530'
+                    objectType: Question
+                    primaryCategory: Practice Question Set
+                    contentDisposition: inline
+                    lastUpdatedOn: '2021-09-18T13:12:00.309+0530'
+                    contentEncoding: gzip
+                    showSolutions: 'No'
+                    trackable: '{"enabled":"No","autoBatch":"No"}'
+                    allowAnonymousAccess: 'Yes'
+                    identifier: do_11336894193858150417
+                    lastStatusChangedOn: '2021-09-18T13:12:00.309+0530'
+                    visibility: Private
+                    showTimer: 'No'
+                    languageCode:
+                      - en
+                    version: 1
+                    versionKey: '1631950920309'
+                    showFeedback: 'No'
+                    license: CC BY 4.0
+                    compatibilityLevel: 4
+                    name: question five
+                    status: Draft
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Question Private Read** operation failed !The possible
+            reason for failure is that you may have provided the wrong question ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.private.read
+                ver: '3.0'
+                ts: '2021-09-20T21:44:37Z+05:30'
+                params:
+                  resmsgid: edec7fd2-2ce7-4e99-af58-995c00074b4e
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: >- 
+                    Error! Node(s) doesn't Exists. | [Invalid Node Id.]: do_11336894193858150418
                 responseCode: RESOURCE_NOT_FOUND
                 result:
                   messages: null
@@ -1520,6 +1652,168 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  /questionset/v1/private/read/{QuestionSet_Id}:
+    get:
+      description: >-
+        This API is associated with viewing and reading out the private and public questionsets on the Sunbird Platform.
+          - The **_/private/read/{QuestionSet_Id}_** endpoint executes request for fetching the private and public questionsets to be viewed and read.
+          - The endpoint for **Read Private QuestionSet** is `/questionset/v1/private/read`
+          - It points to assessment-service - `/questionset/v4/private/read`
+          - {...}refers to a section of read endpoint URL path that needs to be replaced by appropriate Id.
+          - You need to provide a valid QuestionSet Id value in {QuestionSet_Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      summary: Read Private QuestionSet
+      tags:
+        - QuestionSet APIs
+      operationId: Read Private QuestionSet
+      parameters:
+        - in: path
+          name: QuestionSet_Id
+          required: true
+          description: Append a valid Question Set Id To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: x-channel-id
+          in: header
+          description: >-
+            Represents a physical location (e.g: state) uniquely to which the
+            user belongs.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation.The "Read Private Question Set" operation was successfully
+            executed. Click link to refer to the [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-4.4.0/schemas/questionset/1.0/schema.json)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetReadSuccessResponse'
+              example:
+                id: api.questionset.private.read
+                ver: '3.0'
+                ts: 2021-09-20T21:53:00Z+05:30
+                params:
+                  resmsgid: 33f5a33f-5b2a-43ef-a3e8-67a6fffad675
+                  msgid:
+                  err:
+                  status: successful
+                  errmsg:
+                responseCode: OK
+                result:
+                  questionset:
+                    copyright: '2021'
+                    code: c288ea98-0a8d-c927-5ec3-e879a90e9e43
+                    allowSkip: 'Yes'
+                    keywords:
+                      - Hindi QuestionSet
+                    containsUserData: 'No'
+                    channel: abc-123
+                    description: Hindi QuestionSet
+                    language:
+                      - English
+                    mimeType: application/vnd.sunbird.questionset
+                    showHints: 'No'
+                    createdOn: '2021-09-18T13:55:52.003+0530'
+                    objectType: QuestionSet
+                    primaryCategory: Practice Question Set
+                    contentDisposition: inline
+                    additionalCategories:
+                      - Textbook
+                    lastUpdatedOn: '2021-09-18T20:01:49.833+0530'
+                    contentEncoding: gzip
+                    generateDIALCodes: 'No'
+                    showSolutions: 'No'
+                    allowAnonymousAccess: 'Yes'
+                    identifier: do_11336896348850585611
+                    lastStatusChangedOn: '2021-09-18T13:55:52.003+0530'
+                    createdFor:
+                      - '01309282781705830427'
+                    audience:
+                      - Teacher
+                    requiresSubmit: 'Yes'
+                    visibility: Private
+                    showTimer: 'Yes'
+                    author: Test
+                    childNodes:
+                      - do_11336896498434048013
+                    setType: materialised
+                    lastPublishedBy: testing
+                    languageCode:
+                      - en
+                    version: 1
+                    versionKey: '1631975509833'
+                    showFeedback: 'Yes'
+                    license: CC BY 4.0
+                    maxAttempts: 3
+                    framework: tn_k-12
+                    depth: 0
+                    createdBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+                    compatibilityLevel: 5
+                    name: Hindi QuestionSet
+                    navigationMode: non-linear
+                    timeLimits:
+                      - maxTime: '18549'
+                      - warningTime: '7200'
+                    shuffle: true
+                    attributions:
+                      - VB
+                      - " Nk"
+                    status: Draft
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,The **Read Private Question Set** operation failed! The possible
+            reason for failure is that you may have provided wrong question set ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              example:
+                id: api.questionset.private.read
+                ver: '3.0'
+                ts: '2021-09-20T22:00:42Z+05:30'
+                params:
+                  resmsgid: 50bd44a0-ccc8-48fd-9361-3a2990f44e16
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: >- 
+                    Error! Node(s) doesn't Exists. | [Invalid Node Id.]: do_11336896348850585612
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact info@sunbird.org. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
   /questionset/v1/review/{QuestionSet_Id}:
     post:
       description: >-
@@ -2602,6 +2896,243 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  /question/v1/bulkUpload:
+    post:
+      tags:
+        - Question APIs
+      summary: QuML Bulk Upload Api
+      description: |-
+        This API is used to create Questions in Bulk on the Sunbird Platform.
+          - The endpoint for **QuML Bulk Upload** is `/question/v1/bulkUpload`
+          - It points to the program-service - `/question/v1/bulkUpload`
+          - All parameters marked with * are mandatory. You must provide values for these parameters. 
+          - Mandatory fields cannot be null or empty.
+      operationId: QuML Bulk Upload status Check
+      parameters:
+        - name: Content-Type
+          in: header
+          description: >-
+            The Content Type entity is the media type of the resource. The possible
+            media types can be:- 
+              - multipart/form-data
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            You require authorization to make use of the API. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          A JSON file with a maximum of 1000 questions is expected as a input for the API
+           - JSON File
+           The file is expected to send as form data
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/questionBulkUpload'
+            example:
+              request:
+                File:
+                  value: '/home/example_2.json'
+        required: true
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **QuML Bulk Upload** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionCreateSuccessResponse'
+              example:
+                id: api.question.bulkUploadStatusCheck
+                ver: '1.0'
+                ts: '2021-08-24T19:28:24ZZ'
+                params:
+                  resmsgid: 8b75d237-1028-4e38-a94a-9ff4ca784d76
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  message: "Bulk Upload process has started successfully for the process Id : 39d4a7b9-a66e-4cad-ae2a-a5325aa15c59"
+                  data:
+                    Total no of questions: "100"
+                    No of questions getting processed: "100"
+                    No of questions With issues: "0"
+                    Questions With wrong message: "[]"
+        '400':
+          description: >-
+            'BAD REQUEST. The **QuML Bulk Upload** operation failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              examples:
+                a:
+                  summary: Error Response - File format is wrong
+                  value:
+                    id: api.question.bulkUpload
+                    ver: '1.0'
+                    ts: '2021-08-24T19:28:24ZZ'
+                    params:
+                      resmsgid: 86481a2f-513e-4fd4-a1dd-46a7ebcb1e65
+                      msgid: null
+                      err: CLIENT_ERROR
+                      status: failed
+                      errmsg: Validation Errors
+                    responseCode: CLIENT_ERROR
+                    result:
+                      messages:
+                        - 'Something went wrong while uploading the content'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.bulkUpload
+                ver: '1.0'
+                ts: '2021-08-24T19:28:24ZZ'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result:
+                  messages:
+                    - 'Something went wrong while uploading the content'
+      deprecated: false
+      security:
+        - bearer: []
+  /question/v1/bulkUploadStatus:
+    post:
+      tags:
+        - Question APIs
+      summary: QuML Bulk Upload status Check
+      description: |-
+        This API is used to check the status of QuML bulk upload process on the Sunbird Platform.
+          - The endpoint for **QuML Bulk Upload status Check** is `/question/v1/bulkUploadStatus`
+          - It points to the program-service - `/question/v1/bulkUploadStatus`
+          - All parameters marked with * are mandatory. You must provide values for these parameters. 
+          - Mandatory fields cannot be null or empty.
+      operationId: QuML Bulk Upload status Check
+      parameters:
+        - name: Content-Type
+          in: header
+          description: >-
+            The Content Type entity is the media type of the resource. The possible
+            media types can be:- 
+              - Application/json
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            You require authorization to make use of the API. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload
+           - JSON 
+           The body is the representation of the resource object for creating questions, which is an array of parameters that describes the question 
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/questionBulkUploadStatus'
+            example:
+              request:
+                processId: "9804f8d4-2b19-410b-953f-a5d1002c94f7"
+        required: true
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **QuML Bulk Upload status Check** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionCreateSuccessResponse'
+              example:
+                id: api.question.bulkUploadStatusCheck
+                ver: '1.0'
+                ts: '2021-08-24T19:28:24ZZ'
+                params:
+                  resmsgid: 8b75d237-1028-4e38-a94a-9ff4ca784d76
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  message: "Successfully got the Questions"
+                  data: List of questions in CSV structure
+        '400':
+          description: >-
+            'BAD REQUEST. The **QuML Bulk Upload** operation failed. Please try again since Your request queue might be processing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              examples:
+                a:
+                  summary: Error Response - File format is wrong
+                  value:
+                    id: api.question.bulkUpload
+                    ver: '1.0'
+                    ts: '2021-08-24T19:28:24ZZ'
+                    params:
+                      resmsgid: 86481a2f-513e-4fd4-a1dd-46a7ebcb1e65
+                      msgid: null
+                      err: CLIENT_ERROR
+                      status: failed
+                      errmsg: Validation Errors
+                    responseCode: CLIENT_ERROR
+                    result:
+                      messages:
+                        - 'Something went wrong while fetching the data'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.bulkUpload
+                ver: '1.0'
+                ts: '2021-08-24T19:28:24ZZ'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result:
+                  messages:
+                    - 'Something went wrong while fetching the data'
+      deprecated: false
+      security:
+        - bearer: []
 components:
   schemas:
     questionapiQuestionImportSuccessResponse:
@@ -2779,6 +3310,24 @@ components:
       properties:
         request:
           $ref: '#/components/schemas/questionQuestionsetCreateRequestQuestionset'
+    questionBulkUploadStatus:
+      title: Request
+      required:
+        - processId
+      type: object
+      properties:
+        processId:
+          type: string
+          description: The Process Id which we got as a repsonse from QUML bulk upload process
+    questionBulkUpload:
+      title: Request
+      required:
+        - File
+      type: file
+      properties:
+        File:
+          type: form data
+          description: A JSON file with maximum of 1000 questions in it
     questionQuestionsetCreateRequestQuestionset:
       title: Questionset
       required:
