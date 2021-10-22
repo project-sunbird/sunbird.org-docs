@@ -11112,72 +11112,72 @@ components:
               type: state
             - code: 0211,
               type: district
-      userapiUserUpdateReqV3:
-        title: UserUpdateReqV1
-        required:
-          - userId
-        type: object
-        properties:
-          userId:
-            description: ' The identifier for the authenticated user'
+    userapiUserUpdateReqV3:
+      title: UserUpdateReqV1
+      required:
+        - userId
+      type: object
+      properties:
+        userId:
+          description: ' The identifier for the authenticated user'
+          type: string
+        firstName:
+          description: ' The first name of the user'
+          type: string
+        dob:
+          description:  The user's Date of Birth
+          type: string
+          format: date
+          example: '2001-02-27'
+        language:
+          description:  The user's preferred language
+          type: array
+          items:
             type: string
-          firstName:
-            description: ' The first name of the user'
-            type: string
-          dob:
-            description:  The user's Date of Birth
-            type: string
-            format: date
-            example: '2001-02-27'
-          language:
-            description:  The user's preferred language
-            type: array
-            items:
-              type: string
-          profileLocation:
-            description:  The user's preferred locations
-            type: array
-            items:
-              type: object
-            example:
-              profileLocation:
-                - code: '32'
-                  type: state
-                - code: '3210'
-                  type: district
-          externalId:
-            description: 'The user identifier provided by another organization. externalId,externalIdType,externalIdProvider are the keys required if the user does not pass the userId'
-            type: string
-          externalIdType:
-            description: 'The external ID type. externalId,externalIdType,externalIdProvider are the keys required if the user does not pass the userId'
-            type: string
-          externalIdProvider:
-            description: The name of the organization providing the user's external ID. externalId,externalIdType,externalIdProvider are the keys required if the user does not pass the userId
-            type: string
-          externalIds:
-            description: 'The details of external IDs and provider'
-            type: array
-            items:
-              type: object
-              allOf:
-                - $ref: '#/components/schemas/userapiExternalIdUpdate'
-          framework:
-            description: Framework details
+        profileLocation:
+          description:  The user's preferred locations
+          type: array
+          items:
+            type: object
+          example:
+            profileLocation:
+              - code: '32'
+                type: state
+              - code: '3210'
+                type: district
+        externalId:
+          description: 'The user identifier provided by another organization. externalId,externalIdType,externalIdProvider are the keys required if the user does not pass the userId'
+          type: string
+        externalIdType:
+          description: 'The external ID type. externalId,externalIdType,externalIdProvider are the keys required if the user does not pass the userId'
+          type: string
+        externalIdProvider:
+          description: The name of the organization providing the user's external ID. externalId,externalIdType,externalIdProvider are the keys required if the user does not pass the userId
+          type: string
+        externalIds:
+          description: 'The details of external IDs and provider'
+          type: array
+          items:
             type: object
             allOf:
-              - $ref: '#/components/schemas/userapiFrameworkData'
-          profileUserTypes:
-            description: 'Represent the type and subType of User'
-            type: array
-            items:
-              type: object
-            example:
-              profileUserTypes:
-                - type: teacher
-                  subType: 'null'
-        example:
-          userId: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
-          phone: 8888888888
+              - $ref: '#/components/schemas/userapiExternalIdUpdate'
+        framework:
+          description: Framework details
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/userapiFrameworkData'
+        profileUserTypes:
+          description: 'Represent the type and subType of User'
+          type: array
+          items:
+            type: object
+          example:
+            profileUserTypes:
+              - type: teacher
+                subType: 'null'
+      example:
+        userId: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
+        phone: 8888888888
     userapiExternalIdUpdate:
       description : The user request to update the external ID in the profile
       type: object
