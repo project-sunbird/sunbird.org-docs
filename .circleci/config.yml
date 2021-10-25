@@ -87,14 +87,14 @@ jobs:
           updatedfileslist=$updatedfileslist$url
           
           # Checking the yaml files for YAML Linting.
-          ./automationScripts/yq r $file > /dev/null
+          ./automationScripts/yq r $file 1> /dev/null
           
           # Performing merge of all the API files to have it run in proxy validator
           npm install -g @alexlafroscia/yaml-merge
           bash -x ./automationScripts/proxyvalidator.sh
 
           # Validate the merged file for Linting errors.
-          ./automationScripts/yq r ./automationScripts/spec.yml > /dev/null
+          ./automationScripts/yq r ./automationScripts/spec.yml 1> /dev/null
 
           echo $url
           fi
