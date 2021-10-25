@@ -594,6 +594,46 @@ paths:
               schema:
                 $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Users
+  /discussion/user/uid/{uid}:
+    get:
+      tags:
+      - users
+      summary: Fetch nodebb user details by using uid
+      description: |-
+        This api is used for fetching the user details based on nodebb uid.
+          - The endpoint for **User** is `/user/uid/{uid}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/user/uid/{uid}
+      operationId: GetUserDetailsByUid
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: uid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discussionForumUserDetailsByUid'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discussionForumError'
+      x-swagger-router-controller: Users    
   /discussion/user/{userslug}/upvoted:
     get:
       tags:
@@ -714,6 +754,46 @@ paths:
               schema:
                 $ref: '#/components/schemas/discussionForumError'
       x-swagger-router-controller: Users
+  /discussion/user/{userslug}/posts:
+    get:
+      tags:
+      - users
+      summary: Fetch user recent posts
+      description: |-
+        This api is used for fetching the user recent post details from nodebb.
+          - The endpoint for **User** is `/user/{userslug}/posts`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+          - Backend Route: http://nodebb-service:4567/discussions/api/user/{userslug}/posts
+      operationId: GetUserPostsDetails
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: userslug
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discussionForumUserDetails'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/discussionForumError'
+      x-swagger-router-controller: Users    
   /discussion/v2/users:
     post:
       tags:
@@ -3670,6 +3750,81 @@ components:
         age: 7
         theirid: 1
         username: username
+    discussionForumUserDetailsByUid:
+      type: object
+      properties:
+        uid:
+         type: number
+        username:
+         type: string
+        userslug:
+         type: string
+        email:confirmed:
+         type: number
+        joindate:
+         type: number
+        lastonline:
+         type: number
+        picture:
+         type: object
+        location:
+         type: object
+        birthday:
+         type: object
+        website:
+         type: object
+        aboutme:
+         type: object
+        signature:
+         type: object
+        uploadedpicture:
+         type: object
+        profileviews:
+         type: number
+        reputation:
+         type: number
+        postcount:
+         type: number
+        topiccount:
+         type: number
+        lastposttime:
+         type: number
+        banned:
+         type: number
+        banned:expire:
+         type: number
+        status:
+         type: string
+        flags:
+         type: object
+        followerCount:
+         type: number
+        followingCount:
+         type: number
+        cover:url:
+         type: object
+        cover:position:
+         type: object
+        groupTitle:
+         type: object
+        sunbird-oidcId:
+         type: object
+        displayname:
+         type: string
+        groupTitleArray:
+         type: object
+        icon:text:
+         type: string
+        icon:bgColor:
+         type: string
+        joindateISO:
+         type: string
+        lastonlineISO:
+         type: string
+        banned_until:
+         type: number
+        banned_until_readable:
+         type: string
     discussionForumCategoryDetails:
       type: object
       properties:

@@ -2602,6 +2602,243 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  /question/v1/bulkUpload:
+    post:
+      tags:
+        - Question APIs
+      summary: QuML Bulk Upload Api
+      description: |-
+        This API is used to create Questions in Bulk on the Sunbird Platform.
+          - The endpoint for **QuML Bulk Upload** is `/question/v1/bulkUpload`
+          - It points to the program-service - `/question/v1/bulkUpload`
+          - All parameters marked with * are mandatory. You must provide values for these parameters. 
+          - Mandatory fields cannot be null or empty.
+      operationId: QuML Bulk Upload status Check
+      parameters:
+        - name: Content-Type
+          in: header
+          description: >-
+            The Content Type entity is the media type of the resource. The possible
+            media types can be:- 
+              - multipart/form-data
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            You require authorization to make use of the API. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          A JSON file with a maximum of 1000 questions is expected as a input for the API
+           - JSON File
+           The file is expected to send as form data
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/questionBulkUpload'
+            example:
+              request:
+                File:
+                  value: '/home/example_2.json'
+        required: true
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **QuML Bulk Upload** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionCreateSuccessResponse'
+              example:
+                id: api.question.bulkUploadStatusCheck
+                ver: '1.0'
+                ts: '2021-08-24T19:28:24ZZ'
+                params:
+                  resmsgid: 8b75d237-1028-4e38-a94a-9ff4ca784d76
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  message: "Bulk Upload process has started successfully for the process Id : 39d4a7b9-a66e-4cad-ae2a-a5325aa15c59"
+                  data:
+                    Total no of questions: "100"
+                    No of questions getting processed: "100"
+                    No of questions With issues: "0"
+                    Questions With wrong message: "[]"
+        '400':
+          description: >-
+            'BAD REQUEST. The **QuML Bulk Upload** operation failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              examples:
+                a:
+                  summary: Error Response - File format is wrong
+                  value:
+                    id: api.question.bulkUpload
+                    ver: '1.0'
+                    ts: '2021-08-24T19:28:24ZZ'
+                    params:
+                      resmsgid: 86481a2f-513e-4fd4-a1dd-46a7ebcb1e65
+                      msgid: null
+                      err: CLIENT_ERROR
+                      status: failed
+                      errmsg: Validation Errors
+                    responseCode: CLIENT_ERROR
+                    result:
+                      messages:
+                        - 'Something went wrong while uploading the content'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.bulkUpload
+                ver: '1.0'
+                ts: '2021-08-24T19:28:24ZZ'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result:
+                  messages:
+                    - 'Something went wrong while uploading the content'
+      deprecated: false
+      security:
+        - bearer: []
+  /question/v1/bulkUploadStatus:
+    post:
+      tags:
+        - Question APIs
+      summary: QuML Bulk Upload status Check
+      description: |-
+        This API is used to check the status of QuML bulk upload process on the Sunbird Platform.
+          - The endpoint for **QuML Bulk Upload status Check** is `/question/v1/bulkUploadStatus`
+          - It points to the program-service - `/question/v1/bulkUploadStatus`
+          - All parameters marked with * are mandatory. You must provide values for these parameters. 
+          - Mandatory fields cannot be null or empty.
+      operationId: QuML Bulk Upload status Check
+      parameters:
+        - name: Content-Type
+          in: header
+          description: >-
+            The Content Type entity is the media type of the resource. The possible
+            media types can be:- 
+              - Application/json
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            You require authorization to make use of the API. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload
+           - JSON 
+           The body is the representation of the resource object for creating questions, which is an array of parameters that describes the question 
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/questionBulkUploadStatus'
+            example:
+              request:
+                processId: "9804f8d4-2b19-410b-953f-a5d1002c94f7"
+        required: true
+      responses:
+        '200':
+          description: >-
+            SUCCESS. The **QuML Bulk Upload status Check** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionCreateSuccessResponse'
+              example:
+                id: api.question.bulkUploadStatusCheck
+                ver: '1.0'
+                ts: '2021-08-24T19:28:24ZZ'
+                params:
+                  resmsgid: 8b75d237-1028-4e38-a94a-9ff4ca784d76
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  message: "Successfully got the Questions"
+                  data: List of questions in CSV structure
+        '400':
+          description: >-
+            'BAD REQUEST. The **QuML Bulk Upload** operation failed. Please try again since Your request queue might be processing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              examples:
+                a:
+                  summary: Error Response - File format is wrong
+                  value:
+                    id: api.question.bulkUpload
+                    ver: '1.0'
+                    ts: '2021-08-24T19:28:24ZZ'
+                    params:
+                      resmsgid: 86481a2f-513e-4fd4-a1dd-46a7ebcb1e65
+                      msgid: null
+                      err: CLIENT_ERROR
+                      status: failed
+                      errmsg: Validation Errors
+                    responseCode: CLIENT_ERROR
+                    result:
+                      messages:
+                        - 'Something went wrong while fetching the data'
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.bulkUpload
+                ver: '1.0'
+                ts: '2021-08-24T19:28:24ZZ'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result:
+                  messages:
+                    - 'Something went wrong while fetching the data'
+      deprecated: false
+      security:
+        - bearer: []
 components:
   schemas:
     questionapiQuestionImportSuccessResponse:
@@ -2779,6 +3016,24 @@ components:
       properties:
         request:
           $ref: '#/components/schemas/questionQuestionsetCreateRequestQuestionset'
+    questionBulkUploadStatus:
+      title: Request
+      required:
+        - processId
+      type: object
+      properties:
+        processId:
+          type: string
+          description: The Process Id which we got as a repsonse from QUML bulk upload process
+    questionBulkUpload:
+      title: Request
+      required:
+        - File
+      type: file
+      properties:
+        File:
+          type: form data
+          description: A JSON file with maximum of 1000 questions in it
     questionQuestionsetCreateRequestQuestionset:
       title: Questionset
       required:
