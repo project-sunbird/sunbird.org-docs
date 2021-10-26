@@ -67,8 +67,9 @@ jobs:
            echo ${row} | base64 --decode | jq -r ${1}
           }
           file=$(_jq '.filename')
+          status=$(_jq '.status')
           echo $file
-          if [[ "$file" == *.md ]]
+          if [[ "$file" == *.md && "$status" != "removed" ]]
           then
           filedocs=${file//\.md/}
           filedocs=${filedocs//index/}
@@ -78,7 +79,7 @@ jobs:
           updatedfileslist=$updatedfileslist$url
           echo $url
           fi
-          if [[ "$file" == apis/* ]]
+          if [[ "$file" == apis/* && "$status" != "removed" ]]
           then
           fileremove=${file##*/}
           echo $fileremove
