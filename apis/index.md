@@ -217,7 +217,7 @@ The **Configuration microservice** provides services to manage system and UI for
 
 ### API Management Service {#api-management-service}
 
-The API management microservice provides services to create, manage and validate API tokens to register mobile and desktop apps, and to issue and refresh API tokens of registered mobile and desktop app devices
+The API management microservice provides services to create, manage and validate API tokens to register mobile and desktop apps, and to issue and refresh API tokens of registered mobile and desktop app devices.
 - [Echo API](apis/echoapi/){:target="_blank"}  
 - [Kong register version 1](apis/kongcredentialregisterapiv1/){:target="_blank"}  
 - [Kong register version 2](apis/kongcredentialregisterapiv2/){:target="_blank"}  
