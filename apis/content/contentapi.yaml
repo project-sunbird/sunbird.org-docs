@@ -14,7 +14,7 @@ info:
 
     - The URL for Sunbird Content API(s) is `content/v1` 
 
-    - [TestCases](https://www.getpostman.com/collections/da5a5ad424288e083461)
+    - [TestCases](https://www.getpostman.com/collections/40dde03073826216533a)
   termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
   contact:
     email: info@sunbird.org
@@ -688,6 +688,154 @@ paths:
                   errmsg: >-
                     Error! Node(s) doesn't Exists. | [Invalid Node Id.]:
                     do_1131697204035993601314
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /content/v1/private/read/{Content_Id}:
+    get:
+      description: >-
+        This API is associated with viewing and reading out the private and public contents on the Sunbird Platform.
+          - The **_/private/read/{contentId}_** endpoint executes request for fetching the private and public contents to be viewed and read.
+          - The endpoint for **Read Private Content** is `/content/v1/private/read`
+          - It points to content-service - `/content/v4/private/read`
+          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
+          - You need to provide a valid content Id value in {Content Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      summary: Read Private Content
+      tags:
+        - Content APIs
+      operationId: Read Private Content
+      parameters:
+        - in: path
+          name: Content_Id
+          required: true
+          description: Please append a valid Content Id To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: x-channel-id
+          in: header
+          description: >-
+            Represents a physical location (e.g: state) uniquely to which the
+            user belongs.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string    
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation."Read Private content" operation was successfully
+            executed. For all possible metadata, please
+            [refer](https://github.com/project-sunbird/knowledge-platform/blob/release-4.4.0/schemas/content/1.0/schema.json)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentGetSuccessResponse'
+              example:
+                id: api.content.private.read
+                ver: '4.0'
+                ts: 2021-09-20T20:12:52Z+05:30
+                params:
+                  resmsgid: a31dbba1-c3bf-4c3d-a028-f3e5b7de4b57
+                  msgid:
+                  err:
+                  status: successful
+                  errmsg:
+                responseCode: OK
+                result:
+                  content:
+                    ownershipType:
+                      - createdBy
+                    code: name
+                    interceptionPoints: {}
+                    credentials:
+                      enabled: 'No'
+                    channel: abc-123
+                    language:
+                      - English
+                    mimeType: application/pdf
+                    idealScreenSize: normal
+                    createdOn: '2021-08-30T13:11:08.485+0530'
+                    objectType: Content
+                    primaryCategory: Learning Resource
+                    contentDisposition: inline
+                    lastUpdatedOn: '2021-08-30T13:11:08.485+0530'
+                    contentEncoding: identity
+                    contentType: PreviousBoardExamPapers
+                    dialcodeRequired: 'No'
+                    trackable:
+                      enabled: 'No'
+                      autoBatch: 'No'
+                    identifier: do_11335549352263680012
+                    lastStatusChangedOn: '2021-08-30T13:11:08.485+0530'
+                    audience:
+                      - Student
+                    os:
+                      - All
+                    visibility: Private
+                    discussionForum:
+                      enabled: 'No'
+                    mediaType: content
+                    osId: org.ekstep.quiz.app
+                    languageCode:
+                      - en
+                    version: 2
+                    versionKey: '1630309268485'
+                    license: CC BY 4.0
+                    idealScreenDensity: hdpi 
+                    framework: NCF
+                    compatibilityLevel: 1
+                    name: Untitled Resource
+                    status: Draft
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Content Private Read** operation failed !The possible
+            reason for failure is that you may have provided wrong content id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.content.private.read
+                ver: '4.0'
+                ts: '2021-09-20T21:07:50Z+05:30'
+                params:
+                  resmsgid: a8bb809b-c2e1-4749-b05b-b2cd7dc1ca49
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: >-
+                    Error! Node(s) doesn't Exists. | [Invalid Node Id.]: do_11335549352263680013
                 responseCode: RESOURCE_NOT_FOUND
                 result:
                   messages: null
