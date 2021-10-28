@@ -742,6 +742,67 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  /solutions/mlsurvey/v1/questions/{solutionId}:
+     get:
+      tags:
+      - Solution API
+      summary: Get Questions From Solution
+      description: |-
+        This API is used to get the question list from the solution. You need to pass a valid solution Id in the request params.
+          - The endpoint for **Solutions Questions** is ` /solutions/mlsurvey/v1/questions`
+          - You need to provide a valid Solution Id value in {solutionId} field of API URL.
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      
+      operationId: Get Questions From Solution
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: solutionId
+          in: path
+          description: Please append a valid Solution Id to the Request URL
+          required: true
+          schema:
+            type: string
+          example: 5f6853f293734140ccce90cf
+      
+      responses:
+        200:
+          description: "Question List successful response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/solutionapiQuestionsResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/solutionId400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
   /surveySubmissions/mlsurvey/v1/update/{submissionId}:
    post:
     tags:
@@ -1908,9 +1969,448 @@ components:
               example: 
             isValid: 
               type: boolean
-
+    solutionapiQuestionsResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Assessment fetched successfully
+        status: 
+          type: number
+          example: 200
+        result: 
+          type: object
+          properties:
+            solutions:
+              type: object
+              properties: 
+                _id: 
+                  type: string
+                  example: 600ac0d1c7de076e6f9943b9
+                externalId: 
+                  type: string
+                  example: AP-TEST-PROGRAM-3.6.5-OBS-1-DEO
+                name: 
+                  type: string
+                  example: AP-TEST-PROGRAM-3.6.5-OBS-1-DEO
+                description: 
+                  type: string
+                  example: Description of AP-TEST-PROGRAM-3.6.5-OBS-1-DEO
+                registry: 
+                  type: array
+                  items: 
+                    type: string
+                  example: []
+                captureGpsLocationAtQuestionLevel: 
+                  type: boolean
+                enableQuestionReadOut: 
+                  type: boolean
+                scoringSystem: 
+                  type: string
+                  format: nullable
+                isRubricDriven: 
+                  type: boolean
+            assessment: 
+              type: object
+              properties: 
+                name: 
+                  type: string
+                  example: AP-TEST-PROGRAM-3.6.5-OBS-1-DEO
+                description: 
+                  type: string
+                  example: Description of AP-TEST-PROGRAM-3.6.5-OBS-1-DEO
+                externalId: 
+                  type: string
+                  example: AP-TEST-PROGRAM-3.6.5-OBS-1-DEO
+                submissionId: 
+                  type: string
+                  example: 
+                evidences: 
+                  type: array
+                  items: 
+                    type: object
+                    properties: 
+                      code: 
+                        type: string
+                        example: OB,
+                      sections: 
+                        type: array
+                        items: 
+                          type: object
+                          properties: 
+                            code: 
+                              type: string
+                              example: S1
+                            name: 
+                              type: string
+                              example: Survey Questions
+                            questions: 
+                              type: array
+                              items: 
+                                type: object
+                                properties: 
+                                  _id: 
+                                    type: string
+                                    example: 
+                                  question: 
+                                    type: string
+                                    example: 
+                                  isCompleted: 
+                                    type: string
+                                    example: 
+                                  showRemarks: 
+                                    type: string
+                                    example: 
+                                  options: 
+                                    type: string
+                                    example: 
+                                  sliderOptions: 
+                                    type: string
+                                    example: 
+                                  children: 
+                                    type: string
+                                    example: 
+                                  questionGroup: 
+                                    type: string
+                                    example: 
+                                  fileName: 
+                                    type: string
+                                    example: 
+                                  instanceQuestions: 
+                                    type: string
+                                    example: 
+                                  isAGeneralQuestion: 
+                                    type: string
+                                    example: 
+                                  autoCapture: 
+                                    type: string
+                                    example: 
+                                  allowAudioRecording: 
+                                    type: string
+                                    example: 
+                                  prefillFromEntityProfile: 
+                                    type: string
+                                    example: 
+                                  entityFieldName: 
+                                    type: string
+                                    example: 
+                                  isEditable: 
+                                    type: string
+                                    example: 
+                                  showQuestionInPreview: 
+                                    type: string
+                                    example: 
+                                  deleted: 
+                                    type: string
+                                    example: 
+                                  remarks: 
+                                    type: string
+                                    example: 
+                                  value: 
+                                    type: string
+                                    example: 
+                                  usedForScoring: 
+                                    type: string
+                                    example: 
+                                  questionType: 
+                                    type: string
+                                    example: 
+                                  canBeNotApplicable: 
+                                    type: string
+                                    example: 
+                                  visibleIf: 
+                                    type: string
+                                    example: 
+                                  validation: 
+                                    type: string
+                                    example: 
+                                  file: 
+                                    type: string
+                                    example: 
+                                  externalId: 
+                                    type: string
+                                    example: 
+                                  tip: 
+                                    type: string
+                                    example: 
+                                  hint: 
+                                    type: string
+                                    example: 
+                                  responseType: 
+                                    type: string
+                                    example: pageQuestions
+                                  modeOfCollection: 
+                                    type: string
+                                    example: 
+                                  accessibility: 
+                                    type: string
+                                    example: 
+                                  rubricLevel: 
+                                    type: string
+                                    example: 
+                                  sectionHeader: 
+                                    type: string
+                                    example: 
+                                  page: 
+                                    type: string
+                                    example: p1
+                                  questionNumber: 
+                                    type: string
+                                    example: 
+                                  updatedAt: 
+                                    type: string
+                                    example: 
+                                  createdAt: 
+                                    type: string
+                                    example: 
+                                  __v: 
+                                    type: string
+                                    example: 
+                                  createdFromQuestionId: 
+                                    type: string
+                                    example: 
+                                  evidenceMethod: 
+                                    type: string
+                                    example: 
+                                  payload: 
+                                    type: string
+                                    example: 
+                                  startTime: 
+                                    type: string
+                                    example: 
+                                  endTime: 
+                                    type: string
+                                    example: 
+                                  gpsLocation: 
+                                    type: string
+                                    example: 
+                                  pageQuestions: 
+                                    type: array
+                                    items: 
+                                      type: object
+                                      properties: 
+                                        _id: 
+                                          type: string
+                                          example: 5ffbfb6669a1847d4286dfbe
+                                        question: 
+                                          type: array
+                                          items: 
+                                            type: string
+                                            example: As per PM eVidya guidelines what has been touted as “One Nation One Digital Platform”?
+                                        isCompleted: 
+                                          type: boolean
+                                        showRemarks: 
+                                          type: boolean
+                                        options: 
+                                          type: array
+                                          items: 
+                                        sliderOptions: 
+                                          type: array
+                                          items: 
+                                        children: 
+                                          type: array
+                                          items: 
+                                        questionGroup: 
+                                          type: array
+                                          items: 
+                                            type: string
+                                            example: A1
+                                        fileName: 
+                                          type: array
+                                          items: 
+                                        instanceQuestions: 
+                                          type: array
+                                          items: 
+                                        isAGeneralQuestion: 
+                                          type: boolean
+                                        autoCapture: 
+                                          type: boolean
+                                        allowAudioRecording: 
+                                          type: boolean
+                                        prefillFromEntityProfile: 
+                                          type: boolean
+                                        entityFieldName: 
+                                          type: string
+                                          example: 
+                                        isEditable: 
+                                          type: boolean
+                                        showQuestionInPreview: 
+                                          type: boolean
+                                        deleted: 
+                                          type: boolean
+                                        remarks: 
+                                          type: string
+                                          example: 
+                                        value: 
+                                          type: string
+                                          example: 
+                                        usedForScoring: 
+                                          type: string
+                                          example: 
+                                        questionType: 
+                                          type: string
+                                          example: auto
+                                        canBeNotApplicable: 
+                                          type: string
+                                          example: false
+                                        visibleIf: 
+                                          type: string
+                                          example: 
+                                        validation: 
+                                          type: object
+                                          properties: 
+                                            required: 
+                                              type: boolean
+                                        file: 
+                                          type: object
+                                          properties: 
+                                            required: 
+                                              type: boolean
+                                            type: 
+                                              type: array
+                                              items: 
+                                                type: string
+                                                example: image/jpeg
+                                            minCount: 
+                                              type: number
+                                              example: 0
+                                            maxCount: 
+                                              type: number
+                                              example: 10
+                                            caption: 
+                                              type: string
+                                              example: FALSE
+                                        externalId: 
+                                          type: string
+                                          example: PS01_1597737024465-1610349414803
+                                        tip: 
+                                          type: string
+                                          example: 
+                                        hint: 
+                                          type: string
+                                          example: 
+                                        responseType: 
+                                          type: string
+                                          example: text
+                                        modeOfCollection: 
+                                          type: string
+                                          example: onfield
+                                        accessibility: 
+                                          type: string
+                                          example: No
+                                        rubricLevel: 
+                                          type: string
+                                          example: 
+                                        sectionHeader: 
+                                          type: string
+                                          example: 
+                                        page: 
+                                          type: string
+                                          example: p1
+                                        questionNumber: 
+                                          type: string
+                                          example: 1
+                                        updatedAt: 
+                                          type: string
+                                          example: 2021-01-11T07:16:54.816Z
+                                        createdAt: 
+                                          type: string
+                                          example: 2020-08-18T07:50:42.547Z
+                                        __v: 
+                                          type: number
+                                          example: 0
+                                        createdFromQuestionId: 
+                                          type: string
+                                          example: 5f3b885219377eecddb06948
+                                        evidenceMethod: 
+                                          type: string
+                                          example: OB
+                                        payload: 
+                                          type: object
+                                          properties: 
+                                            criteriaId: 
+                                              type: string
+                                              example: 5ffbfb6669a1847d4286dfc3
+                                            responseType: 
+                                              type: string
+                                              example: text
+                                            evidenceMethod: 
+                                              type: string
+                                              example: OB
+                                            rubricLevel: 
+                                              type: string
+                                              example: 
+                                        startTime: 
+                                          type: string
+                                          example: 
+                                        endTime: 
+                                          type: string
+                                          example: 
+                                        gpsLocation: 
+                                          type: string
+                                          example: 
+                      externalId: 
+                        type: string
+                        example: OB
+                      tip: 
+                        type: string
+                        format: nullable
+                      name: 
+                        type: string
+                        example: Observation
+                      description: 
+                        type: string
+                        format: nullable
+                      modeOfCollection: 
+                        type: string
+                        example: onfield
+                      canBeNotApplicable: 
+                        type: boolean
+                      notApplicable: 
+                        type: boolean
+                      canBeNotAllowed: 
+                        type: boolean
+                      remarks: 
+                        type: string
+                        format: nullable
+                      startTime: 
+                        type: string
+                        example: 
+                      endTime: 
+                        type: string
+                        example: 
+                      isSubmitted: 
+                        type: boolean
+                      submissions: 
+                        type: array
+                        items:
+                          type: string
+                        example: []
+                submissions:
+                  type: object
+                  example: {}
+    solutionId400Error:
+      description: 400 error response
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: params
+              param: 
+                type: string
+                example: _id
+              msg: 
+                type: string
+                example: required solution id
                 
-  
   securitySchemes:
             bearer:
               type: apiKey

@@ -378,6 +378,78 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  /userProjects/mlprojects/v1/importFromLibrary/{templateId}:
+    post:
+      tags:
+      - userProjects APIs
+      summary: Import Project From Template.
+      description: |-
+        This API is used to create a project from a project template. While creating project this api will create a private program and map the project to private program.
+          - The endpoint for **UserProjects Import From Template** is `/userProjects/mlprojects/v1/importFromLibrary`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+
+      operationId: Import Project From Template
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: templateId
+          in: path
+          description: Please append a valid template Id To the Request URL
+          required: true
+          schema:
+            type: string
+          example: 5f731631e8d7cd3b88ac0659
+      requestBody:
+        required: true
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body is the representation of the resource object for creating
+          project
+
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userprojectsapiImportFromLibraryRequestBody"
+      responses:
+        200:
+          description: "Import Project From Template Successful Response"
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/userprojectImportFromLibraryResponse'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400ErrorTemplateIdInPathMissing'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+      deprecated: false
+      security:
+        - bearer: []
         
   /project/mlprojects/v1/templates/details/{templateId}:
     get:
@@ -1892,6 +1964,248 @@ components:
           description: 'Represent the school location id of user'
           type: string
           example: "c5726207-4f9f-4f45-91f1-3e9e8e84d824"
+    userprojectsapiImportFromLibraryRequestBody:
+      description: Import Project Request
+      type: object
+      properties:
+        solutionId: 
+          description: 'Represent the id of the solution'
+          type: string
+          example: 600aca8cc7de076e6f994ee1
+        programId: 
+          description: 'Represent the id of the program'
+          type: string
+          example: 60a7b7c3538b2b70a1ae9438
+    userprojectImportFromLibraryResponse:
+      description: Import Project Response
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Successfully fetched projects
+        status: 
+          type: number
+          example: 200
+        result: 
+          type: object
+          properties: 
+            userId: 
+              type: string
+              example: 0fecc38b-956c-4909-a3e7-be538ef7acd4
+            userRole: 
+              type: string
+              example: 
+            status: 
+              type: string
+              example: notStarted
+            isDeleted: 
+              type: boolean
+            categories: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  _id: 
+                    type: string
+                    example: 5fcfa9a2457d6055e33843f3
+                  externalId: 
+                    type: string
+                    example: educationLeader
+                  name: 
+                    type: string
+                    example: Education Leader
+            createdBy: 
+              type: string
+              example: 0fecc38b-956c-4909-a3e7-be538ef7acd4
+            tasks: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  _id: 
+                    type: string
+                    example: 99c84c09-7e50-42ad-8257-78b3220efd96
+                  createdBy: 
+                    type: string
+                    example: 9bb884fc-8a56-4727-9522-25a7d5b8ea06
+                  updatedBy: 
+                    type: string
+                    example: 9bb884fc-8a56-4727-9522-25a7d5b8ea06
+                  isDeleted: 
+                    type: boolean
+                  isDeletable: 
+                    type: boolean
+                  taskSequence: 
+                    type: array
+                    items: 
+                      type: string
+                    example: []
+                  children: 
+                    type: array
+                    items: 
+                      type: string
+                    example: []
+                  visibleIf: 
+                    type: array
+                    items: 
+                      type: string
+                    example: []
+                  hasSubTasks: 
+                    type: boolean
+                  learningResources: 
+                    type: array
+                    items: 
+                      type: string
+                    example: []
+                  deleted: 
+                    type: boolean
+                  type: 
+                    type: string
+                    example: simple
+                  projectTemplateId: 
+                    type: string
+                    example: 611b56952616cc7859d37122
+                  projectTemplateExternalId: 
+                    type: string
+                    example: IMP-69_IMPORTED
+                  name: 
+                    type: string
+                    example: "Project For parent mela"
+                  externalId: 
+                    type: string
+                    example: IMP-69-Task1-1629181589745
+                  description: 
+                    type: string
+                    example: 
+                  updatedAt: 
+                    type: string
+                    example: 2021-10-22T12:59:44.483Z
+                  createdAt: 
+                    type: string
+                    example: 2021-08-17T06:20:57.108Z
+                  __v: 
+                    type: number
+                    example: 0
+                  status: 
+                    type: string
+                    example: notStarted
+                  isImportedFromLibrary: 
+                    type: boolean
+                  syncedAt: 
+                    type: string
+                    example: 2021-10-22T12:59:44.483Z
+            updatedBy: 
+              type: string
+              example: 0fecc38b-956c-4909-a3e7-be538ef7acd4
+            learningResources: 
+              type: array
+              items: 
+                type: string
+              example: []
+            hasAcceptedTAndC: 
+              type: boolean
+            _id: 
+              type: string
+              example: 6172b5c0d563026eba67c2ef
+            deleted: 
+              type: boolean
+            description: 
+              type: string
+              example: कृपया अपने प्रोजेक्ट का लक्ष्य यहां दर्ज करें (Add/edit your Project objective here)
+            title: 
+              type: string
+              example: SLDP Course 6
+            updatedAt: 
+              type: string
+              example: 2021-10-22T12:59:44.899Z
+            createdAt: 
+              type: string
+              example: 2021-08-17T06:18:08.038Z
+            solutionId: 
+              type: string
+              example: 6172b5c0a9e6432b261a9d9d
+            solutionExternalId: 
+              type: string
+              example: IMP-69-solution-1634907584527
+            programId: 
+              type: string
+              example: 6172b5c0a9e6432b261a9d9c
+            programExternalId: 
+              type: string
+              example: PGM-3595-UP_SLDP-1634907584527
+            taskReport: 
+              type: object
+              properties: 
+                total: 
+                  type: number
+                  example: 1
+                notStarted: 
+                  type: number
+                  example: 1
+            isAPrivateProgram: 
+              type: boolean
+            link: 
+              type: string
+              example: 3a6e805525d015afbec685108ca53e3f
+            referenceFrom: 
+              type: string
+              example: link
+            lastDownloadedAt: 
+              type: string
+              example: 2021-10-22T12:59:44.882Z
+            projectTemplateId: 
+              type: string
+              example: 611b56952616cc7859d37122
+            projectTemplateExternalId: 
+              type: string
+              example: IMP-69_IMPORTED
+            programName: 
+              type: string
+              example: UP SLDP
+            rationale: 
+              type: string
+              example: ""
+            primaryAudience: 
+              type: array
+              items: 
+                type: string
+                example: School Leaders
+            goal: 
+              type: string
+              example: कृपया अपने प्रोजेक्ट का लक्ष्य यहां दर्ज करें (Add/edit your Project objective here)
+            duration: 
+              type: string
+              example: 30 days
+            successIndicators: 
+              type: string
+              example: ""
+            risks: 
+              type: string
+              example: ""
+            approaches: 
+              type: string
+              example: ""
+    400ErrorTemplateIdInPathMissing:
+      description: 400 status error response format
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: array
+          items:
+            type: object
+            properties:
+              location:
+                type: string
+                example: path
+              param:
+                type: string
+                example: templateId
+              msg:
+                type: string
+                example: required project template id
       
   securitySchemes:
     bearer:
