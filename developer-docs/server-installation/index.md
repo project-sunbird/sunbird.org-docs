@@ -15,7 +15,7 @@ Sunbird software is containerized. The installation script uses the Kubernetes o
 Most of the services on Sunbird run on Kubernetes. Databases and a few other services run on standalone Virtual Machines (VMs). We are in the process of moving all the services to Kubernetes except databases.
 
 Currently, the scripts written are for Azure.
-However as Sunbird is cloud agnostic, build scripts to work on your specific cloud and contribute back to Sunbird.
+However as Sunbird is cloud agnostic, please build scripts to work on your specific cloud and contribute back to Sunbird.
 
 This document explains the procedure to set up Sunbird on your cloud infra. This installation has been tested with:
 
