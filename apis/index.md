@@ -182,7 +182,7 @@ The **User and Org microservice** provides services to enable and manage the lif
     - [User Feed APIs](apis/feedapi/){:target="_blank"}  
     - [User Consent APIs](apis/consentapi/){:target="_blank"}  
     - [Data Sync APIs](apis/datasyncapi/){:target="_blank"}  
-- [Organisation Management APIs](apis/orgapis/){:target="_blank"}  
+- [Organisation Management APIs](apis/orgapi/){:target="_blank"}  
     - [Tenant Preference](apis/tenantpreferenceapi/){:target="_blank"}
 - [Location Management APIs](apis/locationapi/){:target="_blank"} 
 - [Device Management APIs](apis/deviceapi/){:target="_blank"} 
