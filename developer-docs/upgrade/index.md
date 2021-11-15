@@ -35,51 +35,52 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Service to be Build|Build Tag|Service to Deploy|Deploy Tag|Comments|
 |-------------------|---------|-----------------|----------|--------|
-| Build/Plugins/ContentPlayer|release-4.4.0_RC1|Deploy/Plugins/ContentPlayer|release-4.4.0||
-| Build/Plugins/ContentPlugins|release-4.4.0_RC5|Deploy/Plugins/ContentPlugins|release-4.4.0||
-|||Deploy/Core/KafkaSetup|release-4.4.0||
-|||Deploy/Kubernetes/Keycloak|release-4.4.0||
-|||Provision/Core/ESMapping|release-4.4.0||
-| Build/Core/OfflineInstaller|release-4.4.0|Deploy/Core/OfflineInstaller|release-4.4.0||
-|Build/Core/Cassandra|release-4.4.0_RC2|Deploy/Kubernetes/Cassandra|release-4.4.0||
-|Build/Kubernetes/Assessment|release-4.4.0_RC2|Deploy/Kubernetes/Assessment|release-4.4.0||
-|Deploy/Kubernetes/Content|release-4.4.0_RC2|Deploy/Kubernetes/Content|release-4.4.0||
-|Build/Kubernetes/DiscussionsMW|release-4.4.0_RC4|Deploy/Kubernetes/DiscussionsMW|release-4.4.0||
-|Build/Kubernetes/Groups|release-4.4.0_RC4|Deploy/Kubernetes/Groups|release-4.4.0||
-|Build/Kubernetes/Learner|release-4.4.0_RC9|Deploy/Kubernetes/Learner|release-4.4.0||
-|Build/Kubernetes/Nodebb|release-4.4.0_RC3<br>nodebb_version: v1.16.0|Deploy/Kubernetes/Nodebb|release-4.4.0||
-|Build/Kubernetes/Notification|release-4.4.0_RC5|Deploy/Kubernetes/Notification|release-4.4.0||
-|Build/Kubernetes/Player|release-4.4.0_RC9|Deploy/Kubernetes/Player|release-4.4.0||
-|Build/Kubernetes/Search|release-4.4.0_RC2|Deploy/Kubernetes/Search|release-4.4.0||
-|Build/Kubernetes/Taxonomy|release-4.4.0_RC2|Deploy/Kubernetes/Taxonomy|release-4.4.0||
-|||Deploy/managed-learn/ml-analytics-service|release-4.4.0||
-|Build/managed-learn/ml-core-service|release-4.4.0_RC8|Deploy/managed-learn/ml-core-service|release-4.4.0||
-|Build/managed-learn/ml-projects-service|release-4.4.0_RC9|Deploy/managed-learn/ml-projects-service|release-4.4.0||
-|Build/managed-learn/ml-reports-service|release-4.4.0_RC4|Deploy/managed-learn/ml-reports-service|release-4.4.0||
-|Build/managed-learn/ml-survey-service|release-4.4.0_RC4|Deploy/managed-learn/ml-survey-service|release-4.4.0||
+| Build/Plugins/ContentPlayer|release-4.4.0_RC1|Deploy/Plugins/ContentPlayer|release-4.4.0_RC4||
+| Build/Plugins/ContentPlugins|release-4.4.0_RC5|Deploy/Plugins/ContentPlugins|release-4.4.0_RC4||
+|||Deploy/Core/KafkaSetup|release-4.4.0_RC4||
+|||Deploy/Kubernetes/Keycloak|release-4.4.0_RC4||
+|||Provision/Core/ESMapping|release-4.4.0_RC4||
+|Build/Mobile/Sunbird-IONIC-Mobile-App|release-4.4.0_RC22|||
+| Build/Core/OfflineInstaller|release-4.4.0_RC32|Deploy/Core/OfflineInstaller|release-4.4.0_RC4||
+|Build/Core/Cassandra|release-4.4.0_RC2|Deploy/Kubernetes/Cassandra|release-4.4.0_RC4||
+|Build/Kubernetes/Assessment|release-4.4.0_RC2|Deploy/Kubernetes/Assessment|release-4.4.0_RC4||
+|Deploy/Kubernetes/Content|release-4.4.0_RC2|Deploy/Kubernetes/Content|release-4.4.0_RC4||
+|Build/Kubernetes/DiscussionsMW|release-4.4.0_RC4|Deploy/Kubernetes/DiscussionsMW|release-4.4.0_RC4||
+|Build/Kubernetes/Groups|release-4.4.0_RC4|Deploy/Kubernetes/Groups|release-4.4.0_RC4||
+|Build/Kubernetes/Learner|release-4.4.0_RC9|Deploy/Kubernetes/Learner|release-4.4.0_RC4||
+|Build/Kubernetes/Nodebb|release-4.4.0_RC3<br>nodebb_version: v1.16.0|Deploy/Kubernetes/Nodebb|release-4.4.0_RC4||
+|Build/Kubernetes/Notification|release-4.4.0_RC5|Deploy/Kubernetes/Notification|release-4.4.0_RC4||
+|Build/Kubernetes/Player|release-4.4.0_RC9|Deploy/Kubernetes/Player|release-4.4.0_RC4||
+|Build/Kubernetes/Search|release-4.4.0_RC2|Deploy/Kubernetes/Search|release-4.4.0_RC4||
+|Build/Kubernetes/Taxonomy|release-4.4.0_RC2|Deploy/Kubernetes/Taxonomy|release-4.4.0_RC4||
+|||Deploy/managed-learn/ml-analytics-service|release-4.4.0_RC4 <br> ml_analytics_version:release-4.4.0_RC1||
+|Build/managed-learn/ml-core-service|release-4.4.0_RC8|Deploy/managed-learn/ml-core-service|release-4.4.0_RC4||
+|Build/managed-learn/ml-projects-service|release-4.4.0_RC9|Deploy/managed-learn/ml-projects-service|release-4.4.0_RC4||
+|Build/managed-learn/ml-reports-service|release-4.4.0_RC4|Deploy/managed-learn/ml-reports-service|release-4.4.0_RC4||
+|Build/managed-learn/ml-survey-service|release-4.4.0_RC4|Deploy/managed-learn/ml-survey-service|release-4.4.0_RC4||
 |Build/UCI/Utils|release-4.4.0|||From here some build jobs needs to be run in sequence<br>`sequence-1`|
 |Build/UCI/message-rosa|release-4.4.0|||`sequence-2`|
 |Build/UCI/dao|release-4.4.0|||`sequence-3`|
 |Build/UCI/Adapter|release-4.4.0|||`sequence-4`|
-|Build/UCI/Inbound|release-4.4.0|Deploy/UCI/Inbound|release-4.4.0||
-| Build/UCI/odk|release-4.4.0|Deploy/UCI/odk|release-4.4.0 ||
-|Build/UCI/Outbound|release-4.4.0|Deploy/UCI/Outbound|release-4.4.0||
-|Build/UCI/Orchestrator|release-4.4.0|Deploy/UCI/Orchestrator|release-4.4.0||
-|Build/UCI/Transformer|release-4.4.0|Deploy/UCI/Transformer|release-4.4.0||
-| Build/UCI/UCI|release-4.4.0|Deploy/UCI/UCI|release-4.4.0||
-|||Deploy/UCI/fusionauth|release-4.4.0||
-|||Deploy/UCI/gql|release-4.4.0||
-|||Deploy/Kubernetes/LoggingFileBeatsVM|release-4.4.0||
-|||Deploy/Kubernetes/Logging|release-4.4.0||
-|||Deploy/Kubernetes/OnboardAPIs|release-4.4.0||
-|||Deploy/Kubernetes/OnboardConsumers|release-4.4.0||
-|||OpsAdministration/Core/GraylogMongoImport|release-4.4.0||
-|Build/KnowledgePlatform/FlinkJobs|release-4.4.0_RC3|Deploy/KnowledgePlatform/FlinkJobs|release-4.4.0|Deploy all flink jobs|
-|Build/KnowledgePlatform/Learning|release-4.4.0_RC4|Deploy/KnowledgePlatform/Learning|release-4.4.0||
-|Build/KnowledgePlatform/Yarn|release-4.4.0_RC4|Deploy/KnowledgePlatform/Yarn|release-4.4.0||
-|BuildDataPipeline/AnalyticsCore|release-4.4.0_RC2|Deploy/DataPipeline/AnalyticsCore|release-4.4.0||
-|Build/DataPipeline/CoreDataProducts|release-4.4.0_RC1|Deploy/DataPipeline/CoreDataProducts|release-4.4.0||
-|Build/DataPipeline/EdDataProducts|release-4.4.0_RC3|Deploy/DataPipeline/EdDataProducts|release-4.4.0||
+|Build/UCI/Inbound|release-4.4.0|Deploy/UCI/Inbound|release-4.4.0_RC4||
+| Build/UCI/odk|release-4.4.0|Deploy/UCI/odk|release-4.4.0_RC4 ||
+|Build/UCI/Outbound|release-4.4.0|Deploy/UCI/Outbound|release-4.4.0_RC4||
+|Build/UCI/Orchestrator|release-4.4.0|Deploy/UCI/Orchestrator|release-4.4.0_RC4||
+|Build/UCI/Transformer|release-4.4.0|Deploy/UCI/Transformer|release-4.4.0_RC4||
+| Build/UCI/UCI|release-4.4.0|Deploy/UCI/UCI|release-4.4.0_RC4||
+|||Deploy/UCI/fusionauth|release-4.4.0_RC4||
+|||Deploy/UCI/gql|release-4.4.0_RC4||
+|||Deploy/Kubernetes/LoggingFileBeatsVM|release-4.4.0_RC4||
+|||Deploy/Kubernetes/Logging|release-4.4.0_RC4||
+|||Deploy/Kubernetes/OnboardAPIs|release-4.4.0_RC4||
+|||Deploy/Kubernetes/OnboardConsumers|release-4.4.0_RC4||
+|||OpsAdministration/Core/GraylogMongoImport|release-4.4.0_RC4||
+|Build/KnowledgePlatform/FlinkJobs|release-4.4.0_RC3|Deploy/KnowledgePlatform/FlinkJobs|release-4.4.0_RC5|Deploy all flink jobs|
+|Build/KnowledgePlatform/Learning|release-4.4.0_RC4|Deploy/KnowledgePlatform/Learning|release-4.4.0_RC5||
+|Build/KnowledgePlatform/Yarn|release-4.4.0_RC4|Deploy/KnowledgePlatform/Yarn|release-4.4.0_RC5||
+|BuildDataPipeline/AnalyticsCore|release-4.4.0_RC2|Deploy/DataPipeline/AnalyticsCore|release-4.4.0_RC2||
+|Build/DataPipeline/CoreDataProducts|release-4.4.0_RC1|Deploy/DataPipeline/CoreDataProducts|release-4.4.0_RC2||
+|Build/DataPipeline/EdDataProducts|release-4.4.0_RC3|Deploy/DataPipeline/EdDataProducts|release-4.4.0_RC2||
 
 
 ### Manual Configurations for Sunbird
@@ -116,7 +117,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |||Deploy/KnowledgePlatform/KafkaSetup|release-4.4.0||
 |Build/Dock/Assessment|release-4.4.0_RC2|Deploy/Kubernetes/Assessment|release-4.4.0||
 |Build/Dock/Content|release-4.4.0_RC2|Deploy/Kubernetes/Content|release-4.4.0||
-|Build/Dock/Player|release-4.4.0_RC52|Deploy/Kubernetes/Player|release-4.4.0||
+|Build/Dock/Player|release-4.4.0_RC53|Deploy/Kubernetes/Player|release-4.4.0||
 |Build/Dock/Program|release-4.4.0_RC5|Deploy/Kubernetes/Program|release-4.4.0||
 |Build/Dock/Search|release-4.4.0_RC2|Deploy/Kubernetes/Search|release-4.4.0||
 |Build/Dock/Taxonomy|release-4.4.0_RC2|Deploy/Kubernetes/Taxonomy|release-4.4.0||
