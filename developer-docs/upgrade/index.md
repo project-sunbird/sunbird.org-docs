@@ -47,12 +47,12 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Deploy/Kubernetes/Content|release-4.4.0_RC3|Deploy/Kubernetes/Content|release-4.4.0_RC5||
 |Build/Kubernetes/DiscussionsMW|release-4.4.0_RC4|Deploy/Kubernetes/DiscussionsMW|release-4.4.0_RC4||
 |Build/Kubernetes/Groups|release-4.4.0_RC4|Deploy/Kubernetes/Groups|release-4.4.0_RC4||
-|Build/Kubernetes/Learner|release-4.4.0_RC9|Deploy/Kubernetes/Learner|release-4.4.0_RC4||
+|Build/Kubernetes/Learner|release-4.4.0_RC11|Deploy/Kubernetes/Learner|release-4.4.0_RC4||
 |Build/Kubernetes/Nodebb|release-4.4.0_RC3<br>nodebb_version: v1.16.0|Deploy/Kubernetes/Nodebb|release-4.4.0_RC4||
 |Build/Kubernetes/Notification|release-4.4.0_RC5|Deploy/Kubernetes/Notification|release-4.4.0_RC4||
-|Build/Kubernetes/Player|release-4.4.0_RC9|Deploy/Kubernetes/Player|release-4.4.0_RC4||
-|Build/Kubernetes/Search|release-4.4.0_RC3|Deploy/Kubernetes/Search|release-4.4.0_RC5||
-|Build/Kubernetes/Taxonomy|release-4.4.0_RC3|Deploy/Kubernetes/Taxonomy|release-4.4.0_RC5||
+|Build/Kubernetes/Player|release-4.4.0_RC32|Deploy/Kubernetes/Player|release-4.4.0_RC5||
+|Build/Kubernetes/Search|release-4.4.0_RC2|Deploy/Kubernetes/Search|release-4.4.0_RC5||
+|Build/Kubernetes/Taxonomy|release-4.4.0_RC2|Deploy/Kubernetes/Taxonomy|release-4.4.0_RC5||
 |||Deploy/managed-learn/ml-analytics-service|release-4.4.0_RC4 <br> ml_analytics_version:release-4.4.0_RC1||
 |Build/managed-learn/ml-core-service|release-4.4.0_RC8|Deploy/managed-learn/ml-core-service|release-4.4.0_RC4||
 |Build/managed-learn/ml-projects-service|release-4.4.0_RC9|Deploy/managed-learn/ml-projects-service|release-4.4.0_RC4||
@@ -76,8 +76,8 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |||Deploy/Kubernetes/OnboardConsumers|release-4.4.0_RC4||
 |||OpsAdministration/Core/GraylogMongoImport|release-4.4.0_RC4||
 |Build/KnowledgePlatform/FlinkJobs|release-4.4.0_RC3|Deploy/KnowledgePlatform/FlinkJobs|release-4.4.0_RC5|Deploy all flink jobs|
-|Build/KnowledgePlatform/Learning|release-4.4.0_RC4|Deploy/KnowledgePlatform/Learning|release-4.4.0_RC5||
-|Build/KnowledgePlatform/Yarn|release-4.4.0_RC4|Deploy/KnowledgePlatform/Yarn|release-4.4.0_RC5||
+|Build/KnowledgePlatform/Learning|release-4.4.0_RC5|Deploy/KnowledgePlatform/Learning|release-4.4.0_RC5||
+|Build/KnowledgePlatform/Yarn|release-4.4.0_RC5|Deploy/KnowledgePlatform/Yarn|release-4.4.0_RC5||
 |BuildDataPipeline/AnalyticsCore|release-4.4.0_RC2|Deploy/DataPipeline/AnalyticsCore|release-4.4.0_RC2||
 |Build/DataPipeline/CoreDataProducts|release-4.4.0_RC1|Deploy/DataPipeline/CoreDataProducts|release-4.4.0_RC2||
 |Build/DataPipeline/EdDataProducts|release-4.4.0_RC3|Deploy/DataPipeline/EdDataProducts|release-4.4.0_RC2||
@@ -106,6 +106,18 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 ##### Note: The below jobs are applicable only if you are running Vidyadaan infrastructure
 
+### Variables for Vidyadaan
+
+| Variable Name                     | Service Name       | Comments                                                                                                                                                                     |
+|-----------------------------------|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| dock_default_file_size            | sourcing portal    | Default Value: 150                                                                                                                                                           |
+| dock_default_video_size           | sourcing portal    | Default Value: 15000                                                                                                                                                         |
+| Add new ACL to Vidyadaan consumer | refreshTokenCreate | This has to be done on sunbird environment                                                                                                                                   |
+| sunbird_api_auth_token            |                    | Grant refersh token API access to bearer mapped for this variable <br> (https://{{sunbird_domain_name}}/auth/v1/refresh/token)                                               |
+| use_sunbird_kong_token            |                    | Default Value is true, which disables the feature. <br> Please make it true to enable new auth token structure. [Ref](https://project-sunbird.atlassian.net/browse/SB-26667) |
+| sunbird_domain_name               | sourcing portal    | eg: staging.sunbirded.org                                                                                                                                                    |
+
+
 ### Build and Deploy for Vidayadaan
 
 |Service to be Build|Build Tag|Service to Deploy|Deploy Tag|Comments|
@@ -123,12 +135,16 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Dock/Search|release-4.4.0_RC2|Deploy/Kubernetes/Search|release-4.4.0-vdn||
 |Build/Dock/Taxonomy|release-4.4.0_RC2|Deploy/Kubernetes/Taxonomy|release-4.4.0-vdn||
 |Build/Dock/KnowledgePlatform/FlinkJobs|release-4.4.0_RC3|Deploy/KnowledgePlatform/FlinkJobs|release-4.4.0_RC5|Deploy all flink jobs|
-|Build/Dock/KnowledgePlatform/Learning|release-4.4.0_RC4|Deploy/KnowledgePlatform/Learning|release-4.4.0_RC5||
-|Build/Dock/KnowledgePlatform/Yarn|release-4.4.0_RC4|Deploy/KnowledgePlatform/Yarn|release-4.4.0_RC5||
+|Build/Dock/KnowledgePlatform/Learning|release-4.4.0_RC5|Deploy/KnowledgePlatform/Learning|release-4.4.0_RC5||
+|Build/Dock/KnowledgePlatform/Yarn|release-4.4.0_RC5|Deploy/KnowledgePlatform/Yarn|release-4.4.0_RC5||
+|||Deploy/Kubernetes/PostgresqlMigration|release-4.4.0_RC5||
 
 ### Manual Configurations for Vidyadaan
 
-|Manual Step|Instruction|
-|--------------------|--------------------|
-|Create Upload_CollectionHierarchy_CSV jenkins job|[PR Link](https://github.com/project-sunbird/sunbird-devops/pull/2990)|
-|Upgrade postgres to version 11 in vdn staging|Follow below steps [Link](https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/3008462870/Generic+Postgres+Upgrade+Document)|
+| Manual Step                                                                                                       | Instruction                                                                                                                            |
+|-------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| Create Upload_CollectionHierarchy_CSV jenkins job                                                                 | [PR Link](https://github.com/project-sunbird/sunbird-devops/pull/2990)                                                                 |
+| Upgrade postgres to version 11 in vdn staging                                                                     | Follow below steps [Link](https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/3008462870/Generic+Postgres+Upgrade+Document) |
+| Please update the Question Paper collection category definition <br> in Dock staging	Category Definition details | Ref: https://project-sunbird.atlassian.net/browse/SB-26908                                                                             |
+| Category defination updates in VDN                                                                                | Ref: https://project-sunbird.atlassian.net/wiki/spaces/SingleSource/pages/3014164481/Content+NOT+created+under+a+target+collection     |
+
