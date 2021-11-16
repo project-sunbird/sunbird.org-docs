@@ -43,31 +43,31 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Mobile/Sunbird-IONIC-Mobile-App|release-4.4.0_RC22|||
 | Build/Core/OfflineInstaller|release-4.4.0_RC32|Deploy/Core/OfflineInstaller|release-4.4.0_RC4||
 |Build/Core/Cassandra|release-4.4.0_RC2|Deploy/Kubernetes/Cassandra|release-4.4.0_RC4||
-|Build/Kubernetes/Assessment|release-4.4.0_RC2|Deploy/Kubernetes/Assessment|release-4.4.0_RC4||
-|Deploy/Kubernetes/Content|release-4.4.0_RC2|Deploy/Kubernetes/Content|release-4.4.0_RC4||
+|Build/Kubernetes/Assessment|release-4.4.0_RC3|Deploy/Kubernetes/Assessment|release-4.4.0_RC5||
+|Deploy/Kubernetes/Content|release-4.4.0_RC3|Deploy/Kubernetes/Content|release-4.4.0_RC5||
 |Build/Kubernetes/DiscussionsMW|release-4.4.0_RC4|Deploy/Kubernetes/DiscussionsMW|release-4.4.0_RC4||
 |Build/Kubernetes/Groups|release-4.4.0_RC4|Deploy/Kubernetes/Groups|release-4.4.0_RC4||
 |Build/Kubernetes/Learner|release-4.4.0_RC9|Deploy/Kubernetes/Learner|release-4.4.0_RC4||
 |Build/Kubernetes/Nodebb|release-4.4.0_RC3<br>nodebb_version: v1.16.0|Deploy/Kubernetes/Nodebb|release-4.4.0_RC4||
 |Build/Kubernetes/Notification|release-4.4.0_RC5|Deploy/Kubernetes/Notification|release-4.4.0_RC4||
 |Build/Kubernetes/Player|release-4.4.0_RC9|Deploy/Kubernetes/Player|release-4.4.0_RC4||
-|Build/Kubernetes/Search|release-4.4.0_RC2|Deploy/Kubernetes/Search|release-4.4.0_RC4||
-|Build/Kubernetes/Taxonomy|release-4.4.0_RC2|Deploy/Kubernetes/Taxonomy|release-4.4.0_RC4||
+|Build/Kubernetes/Search|release-4.4.0_RC3|Deploy/Kubernetes/Search|release-4.4.0_RC5||
+|Build/Kubernetes/Taxonomy|release-4.4.0_RC3|Deploy/Kubernetes/Taxonomy|release-4.4.0_RC5||
 |||Deploy/managed-learn/ml-analytics-service|release-4.4.0_RC4 <br> ml_analytics_version:release-4.4.0_RC1||
 |Build/managed-learn/ml-core-service|release-4.4.0_RC8|Deploy/managed-learn/ml-core-service|release-4.4.0_RC4||
 |Build/managed-learn/ml-projects-service|release-4.4.0_RC9|Deploy/managed-learn/ml-projects-service|release-4.4.0_RC4||
 |Build/managed-learn/ml-reports-service|release-4.4.0_RC4|Deploy/managed-learn/ml-reports-service|release-4.4.0_RC4||
 |Build/managed-learn/ml-survey-service|release-4.4.0_RC4|Deploy/managed-learn/ml-survey-service|release-4.4.0_RC4||
-|Build/UCI/Utils|release-4.4.0|||From here some build jobs needs to be run in sequence<br>`sequence-1`|
-|Build/UCI/message-rosa|release-4.4.0|||`sequence-2`|
-|Build/UCI/dao|release-4.4.0|||`sequence-3`|
-|Build/UCI/Adapter|release-4.4.0|||`sequence-4`|
-|Build/UCI/Inbound|release-4.4.0|Deploy/UCI/Inbound|release-4.4.0_RC4||
-| Build/UCI/odk|release-4.4.0|Deploy/UCI/odk|release-4.4.0_RC4 ||
-|Build/UCI/Outbound|release-4.4.0|Deploy/UCI/Outbound|release-4.4.0_RC4||
-|Build/UCI/Orchestrator|release-4.4.0|Deploy/UCI/Orchestrator|release-4.4.0_RC4||
-|Build/UCI/Transformer|release-4.4.0|Deploy/UCI/Transformer|release-4.4.0_RC4||
-| Build/UCI/UCI|release-4.4.0|Deploy/UCI/UCI|release-4.4.0_RC4||
+|Build/UCI/Utils|release-4.4.0_RC1|||From here some build jobs needs to be run in sequence<br>`sequence-1`|
+|Build/UCI/message-rosa|release-4.4.0_RC1|||`sequence-2`|
+|Build/UCI/dao|release-4.4.0_RC1|||`sequence-3`|
+|Build/UCI/Adapter|release-4.4.0_RC1|||`sequence-4`|
+|Build/UCI/Inbound|release-4.4.0_RC1|Deploy/UCI/Inbound|release-4.4.0_RC4||
+| Build/UCI/odk|release-4.4.0_RC1|Deploy/UCI/odk|release-4.4.0_RC4 ||
+|Build/UCI/Outbound|release-4.4.0_RC1|Deploy/UCI/Outbound|release-4.4.0_RC4||
+|Build/UCI/Orchestrator|release-4.4.0_RC1|Deploy/UCI/Orchestrator|release-4.4.0_RC4||
+|Build/UCI/Transformer|release-4.4.0_RC1|Deploy/UCI/Transformer|release-4.4.0_RC4||
+| Build/UCI/UCI|release-4.4.0_RC1|Deploy/UCI/UCI|release-4.4.0_RC4||
 |||Deploy/UCI/fusionauth|release-4.4.0_RC4||
 |||Deploy/UCI/gql|release-4.4.0_RC4||
 |||Deploy/Kubernetes/LoggingFileBeatsVM|release-4.4.0_RC4||
@@ -88,6 +88,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Manual Step|Instruction|
 |--------------------|--------------------|
 |User Feed Migration|Run manually with the help of documentaion in  spark machine<br><b>SB-26190 : [UserFeed Migration Script](https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2959409153/SB-26190+User+Feed+Migration)|
+|Adding UCI folder in private repo |Create UCI folder under specific env and create symlinks from `core` folder|
 |Create jenkins jobs related to UCI |Create Build, ArtifactUpload and Deploy jobs for UCI services from below<br> [Github Link](https://github.com/project-sunbird/sunbird-devops/tree/release-4.4.0/deploy/jenkins/jobs)|
 |Create postgres DB's for UCI services|Change username based on env<br>`create database "uci-botdb";` <br> `GRANT ALL PRIVILEGES ON DATABASE "uci-botdb" to sunbirdstaging;` <br> `GRANT ALL PRIVILEGES ON DATABASE "uci-botdb" to "sunbirdstaging@sunbirdstaging-postgres";` <br><br> `create database "uci-formsdb";` <br> `GRANT ALL PRIVILEGES ON DATABASE "uci-formsdb" to sunbirdstaging;` <br> `GRANT ALL PRIVILEGES ON DATABASE "uci-formsdb" to "sunbirdstaging@sunbirdstaging-postgres";` <br><br> `create database "uci-fusionauth";` <br> `GRANT ALL PRIVILEGES ON DATABASE "uci-fusionauth" to sunbirdstaging;` <br> `GRANT ALL PRIVILEGES ON DATABASE "uci-fusionauth" to "sunbirdstaging@sunbirdstaging-postgres";` <br><br> `create database "uci-odk-aggregate";` <br> `GRANT ALL PRIVILEGES ON DATABASE "uci-odk-aggregate" to sunbirdstaging;` <br> `GRANT ALL PRIVILEGES ON DATABASE "uci-odk-aggregate" to "sunbirdstaging@sunbirdstaging-postgres";`|
 |Create cassandra keyspace for UCI|Use below command to create keyspace <br> `CREATE KEYSPACE {{env}}_uci_store`|
@@ -112,22 +113,22 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |Build/Plugins/Content-plugins|release-4.4.0_RC3|Deploy/Plugins/Content-plugins|release-4.4.0-vdn||
 |||Deploy/Dock/Kubernetes/OnboardConsumers|release-4.4.0-vdn||
 |||Deploy/Kubernetes/OnboardAPIs|release-4.4.0-vdn||
-|||Deploy/Kubernetes/UploadSchemas|release-4.4.0<br>`kp_branch_or_tag: release-4.4.0`||
-|||Deploy/Kubernetes/Upload_CollectionHierarchy_CSV|release-4.4.0||
-|||Deploy/KnowledgePlatform/KafkaSetup|release-4.4.0||
-|Build/Dock/Assessment|release-4.4.0_RC2|Deploy/Kubernetes/Assessment|release-4.4.0||
-|Build/Dock/Content|release-4.4.0_RC2|Deploy/Kubernetes/Content|release-4.4.0||
-|Build/Dock/Player|release-4.4.0_RC53|Deploy/Kubernetes/Player|release-4.4.0||
-|Build/Dock/Program|release-4.4.0_RC5|Deploy/Kubernetes/Program|release-4.4.0||
-|Build/Dock/Search|release-4.4.0_RC2|Deploy/Kubernetes/Search|release-4.4.0||
-|Build/Dock/Taxonomy|release-4.4.0_RC2|Deploy/Kubernetes/Taxonomy|release-4.4.0||
-|Build/Dock/KnowledgePlatform/FlinkJobs|release-4.4.0_RC1|Deploy/KnowledgePlatform/FlinkJobs|release-4.4.0|Deploy all flink jobs|
-|Build/Dock/KnowledgePlatform/Learning|release-4.4.0_RC4|Deploy/KnowledgePlatform/Learning|release-4.4.0||
-|Build/Dock/KnowledgePlatform/Yarn|release-4.4.0_RC4|Deploy/KnowledgePlatform/Yarn|release-4.4.0||
+|||Deploy/Kubernetes/UploadSchemas|release-4.4.0-vdn<br>`kp_branch_or_tag: release-4.4.0_RC53`||
+|||Deploy/Kubernetes/Upload_CollectionHierarchy_CSV|release-4.4.0_RC4||
+|||Deploy/KnowledgePlatform/KafkaSetup|release-4.4.0_RC5||
+|Build/Dock/Assessment|release-4.4.0_RC2|Deploy/Kubernetes/Assessment|release-4.4.0-vdn||
+|Build/Dock/Content|release-4.4.0_RC2|Deploy/Kubernetes/Content|release-4.4.0-vdn||
+|Build/Dock/Player|release-4.4.0_RC53|Deploy/Kubernetes/Player|release-4.4.0-vdn||
+|Build/Dock/Program|release-4.4.0_RC5|Deploy/Kubernetes/Program|release-4.4.0-vdn||
+|Build/Dock/Search|release-4.4.0_RC2|Deploy/Kubernetes/Search|release-4.4.0-vdn||
+|Build/Dock/Taxonomy|release-4.4.0_RC2|Deploy/Kubernetes/Taxonomy|release-4.4.0-vdn||
+|Build/Dock/KnowledgePlatform/FlinkJobs|release-4.4.0_RC3|Deploy/KnowledgePlatform/FlinkJobs|release-4.4.0_RC5|Deploy all flink jobs|
+|Build/Dock/KnowledgePlatform/Learning|release-4.4.0_RC4|Deploy/KnowledgePlatform/Learning|release-4.4.0_RC5||
+|Build/Dock/KnowledgePlatform/Yarn|release-4.4.0_RC4|Deploy/KnowledgePlatform/Yarn|release-4.4.0_RC5||
 
 ### Manual Configurations for Vidyadaan
 
 |Manual Step|Instruction|
 |--------------------|--------------------|
-|Create this jenkins job and uplaod same file in VDN stagisng|[PR Link](https://github.com/project-sunbird/sunbird-devops/pull/2990)|
+|Create Upload_CollectionHierarchy_CSV jenkins job|[PR Link](https://github.com/project-sunbird/sunbird-devops/pull/2990)|
 |Upgrade postgres to version 11 in vdn staging|Follow below steps [Link](https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/3008462870/Generic+Postgres+Upgrade+Document)|
