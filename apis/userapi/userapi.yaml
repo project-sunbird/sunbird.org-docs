@@ -2175,6 +2175,9 @@ paths:
                         profileUserType:
                           subType: null
                           type: student
+                        profileUserTypes:
+                          - subType: null
+                            type: student
                         tncAcceptedVersion: 3.5.0
         400:
           description: BAD REQUEST. The "User Search V2" operation failed ! The possible
@@ -2631,6 +2634,9 @@ paths:
                         profileUserType:
                           subType: null
                           type: student
+                        profileUserTypes:
+                          - subType: null
+                            type: student
                         tncAcceptedVersion: 3.5.0
         400:
           description: BAD REQUEST. The "User Search V2" operation failed ! The possible
@@ -2838,6 +2844,9 @@ paths:
                     profileUserType:
                       subType: deo
                       type: administrator
+                    profileUserTypes:
+                      - subType: deo
+                        type: administrator
               b:
                 summary: Update location details of user
                 value:
@@ -2879,6 +2888,121 @@ paths:
           description: "'INTERNAL SERVER ERROR. We track these errors automatically and
             try to set it right at the earliest. Try refreshing the page. If the
             problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userapiUserErrorResponse"
+      deprecated: false
+      security: []
+  /user/v3/update:
+    patch:
+      tags:
+        - User APIs
+      summary: Update User V3
+      description: >-
+        This API is use for updating the user realted details
+          - The endpoint for **Update User V3** is `/user/v3/update`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: User_Update_V3
+      parameters:
+        - name: ts
+          in: header
+          required: false
+          description: Timestamp at which given API request is sent.
+          schema:
+            type: string
+        - name: X-msgid
+          in: header
+          required: false
+          description: This ID uniquely identifies a request if the same API is executed
+            multiple times.
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: 'Specify authorization key (format: Bearer api-key) received from administrator when performing given API request.'
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{authorization}}'
+        - name: x-authenticated-user-token
+          in: header
+          description: >-
+            Access token of registered user performing given API request.
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '{{user_token}}'
+      requestBody:
+        description: >-
+          - The body payload comprises of the metadata about the user to be updated.
+          - The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
+             - JSON
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userapiUser_Update_Request_V3'
+            examples:
+              a:
+                summary: Update phone number of user
+                value:
+                  request:
+                    userId: c977cd14-8cdf-4f17-b4bd-418736e97861
+                    phone: 8888888888
+                    profileLocation:
+                      - code: 32,
+                        type: state
+                      - code: 3210,
+                        type: district
+                    profileUserType:
+                      subType: deo
+                      type: administrator
+                    profileUserTypes:
+                      - subType: deo
+                        type: administrator
+              b:
+                summary: Update location details of user
+                value:
+                  request:
+                    userId: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
+                    locationCodes: ["22","2202"]
+        required: true
+      responses:
+        200:
+          description: 'OK ! Successful operation."Update User V3" operation was successfully executed.'
+          headers: {}
+        400:
+          description: 'BAD REQUEST. The "Update User V3" operation failed ! The possible
+              reason for failure is that you may have missed providing input for a
+              mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userapiUserErrorResponse"
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userapiUser_Accept_Tnc_With_UnAuthorized_Error'
+              example:
+                id: api.user.update
+                ver: v3
+                ts: 2020-11-23 11:11:57:835+0000
+                params:
+                  resmsgid:
+                  msgid: 095def6b-8678-46f8-9e2f-142a731f7235
+                  err: UNAUTHORIZED_USER
+                  status: UNAUTHORIZED_USER
+                  errmsg: You are not authorized.
+                responseCode: UNAUTHORIZED
+                result: {}
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and
+              try to set it right at the earliest. Try refreshing the page. If the
+              problem persists contact us at info@sunbird.org.'"
           content:
             application/json:
               schema:
@@ -5251,6 +5375,9 @@ paths:
                     profileUserType:
                       subType: null
                       type: student
+                    profileUserTypes:
+                      - subType: null
+                        type: student
                     tncAcceptedVersion: 3.5.0
         400:
           description: 'BAD REQUEST. The "Read User V4" operation failed ! The possible
@@ -5677,6 +5804,9 @@ paths:
                     profileUserType:
                       subType: null
                       type: student
+                    profileUserTypes:
+                      - subType: null
+                        type: student
                     tncAcceptedVersion: 3.5.0
         400:
           description: 'BAD REQUEST. The "Read User V4" operation failed ! The possible
@@ -8808,6 +8938,15 @@ components:
             profileUserType:
               subType: aeo
               type: student
+        profileUserTypes:
+          type: array
+          description: 'Represent the type and subType of User'
+          items:
+            type: object
+          example:
+            profileUserTypes:
+              - subType: aeo
+                type: student
       required:
         - firstName
         - password
@@ -8857,7 +8996,15 @@ components:
             profileUserType:
               type: teacher
               subType: 'null'
-
+        profileUserTypes:
+          type: array
+          description: 'Represent the type and subType of User'
+          items:
+            type: object
+          example:
+            profileUserTypes:
+              - subType: 'null'
+                type: teacher
       required:
         - firstName
         - email
@@ -9510,6 +9657,9 @@ components:
                 profileUserType:
                   subType: null
                   type: student
+                profileUserTypes:
+                  - subType: null
+                    type: student
                 tncAcceptedVersion: 3.5.0
     userapiUserSearchResultV2:
       title: UserSearchResult
@@ -9748,6 +9898,9 @@ components:
               profileUserType:
                 subType: null
                 type: student
+              profileUserTypes:
+                - subType: null
+                  type: student
               tncAcceptedVersion: 3.5.0
     userapiResponseV2:
       title: Response
@@ -9992,6 +10145,9 @@ components:
             profileUserType:
               subType: null
               type: student
+            profileUserTypes:
+              - subType: null
+                type: student
             tncAcceptedVersion: 3.5.0
     userapiContent:
       title: Content
@@ -10321,6 +10477,7 @@ components:
         - phoneVerified
         - profileLocation
         - profileUserType
+        - profileUserTypes
         - tcUpdatedDate
         - recoveryPhone
         - userName
@@ -10419,6 +10576,10 @@ components:
           type: array
           items:
             type: string
+        profileUserTypes:
+          type: array
+          items:
+            type: string
         tcUpdatedDate:
           type: string
           nullable: true
@@ -10498,6 +10659,9 @@ components:
         profileUserType:
           subType: aeo
           type: student
+        profileUserTypes:
+          - subType: aeo
+            type: student
         tcUpdatedDate:
         recoveryPhone: ''
         userName: username1
@@ -10931,6 +11095,89 @@ components:
       example:
         userId: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
         phone: 8888888888
+    userapiUser_Update_Request_V3:
+      title: User_Update_Request
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/userapiUserUpdateReqV3'
+      example:
+        request:
+          userId: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
+          phone: 8888888888
+          profileLocation:
+            - code: 02,
+              type: state
+            - code: 0211,
+              type: district
+    userapiUserUpdateReqV3:
+      title: UserUpdateReqV1
+      required:
+        - userId
+      type: object
+      properties:
+        userId:
+          description: ' The identifier for the authenticated user'
+          type: string
+        firstName:
+          description: ' The first name of the user'
+          type: string
+        dob:
+          description:  The user's Date of Birth
+          type: string
+          format: date
+          example: '2001-02-27'
+        language:
+          description:  The user's preferred language
+          type: array
+          items:
+            type: string
+        profileLocation:
+          description:  The user's preferred locations
+          type: array
+          items:
+            type: object
+          example:
+            profileLocation:
+              - code: '32'
+                type: state
+              - code: '3210'
+                type: district
+        externalId:
+          description: 'The user identifier provided by another organization. externalId,externalIdType,externalIdProvider are the keys required if the user does not pass the userId'
+          type: string
+        externalIdType:
+          description: 'The external ID type. externalId,externalIdType,externalIdProvider are the keys required if the user does not pass the userId'
+          type: string
+        externalIdProvider:
+          description: The name of the organization providing the user's external ID. externalId,externalIdType,externalIdProvider are the keys required if the user does not pass the userId
+          type: string
+        externalIds:
+          description: 'The details of external IDs and provider'
+          type: array
+          items:
+            type: object
+            allOf:
+              - $ref: '#/components/schemas/userapiExternalIdUpdate'
+        framework:
+          description: Framework details
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/userapiFrameworkData'
+        profileUserTypes:
+          description: 'Represent the type and subType of User'
+          type: array
+          items:
+            type: object
+          example:
+            profileUserTypes:
+              - type: teacher
+                subType: 'null'
+      example:
+        userId: ec8deeb2-4ded-4fa2-ac48-023ad8298d92
+        phone: 8888888888
     userapiExternalIdUpdate:
       description : The user request to update the external ID in the profile
       type: object
@@ -11242,6 +11489,9 @@ components:
             profileUserType:
               subType: null
               type: student
+            profileUserTypes:
+              - subType: null
+                type: student
             tncAcceptedVersion: 3.5.0
 
     userapiUserReadResultV4:
@@ -11487,6 +11737,9 @@ components:
           profileUserType:
             subType: null
             type: student
+          profileUserTypes:
+            - subType: null
+              type: student
           tncAcceptedVersion: 3.5.0
     userapiUserReadResponse4:
       title: UserReadResponse4
@@ -18885,6 +19138,9 @@ components:
             profileUserType:
               subType: null
               type: student
+            profileUserTypes:
+              - subType: null
+                type: student
             tncAcceptedVersion: 3.5.0
     userapiUserReadResultV5:
       title: UserReadResultV5
@@ -19135,6 +19391,9 @@ components:
           profileUserType:
             subType: null
             type: student
+          profileUserTypes:
+            - subType: null
+              type: student
           tncAcceptedVersion: 3.5.0
     userapiUserReadResponse5:
       title: UserReadResponse5
@@ -19768,6 +20027,9 @@ components:
                 profileUserType:
                   subType: null
                   type: student
+                profileUserTypes:
+                  - subType: null
+                    type: student
                 tncAcceptedVersion: 3.5.0
     userapiUserSearchResultV3:
       title: UserSearchResultV3
@@ -20012,6 +20274,9 @@ components:
               profileUserType:
                 subType: null
                 type: student
+              profileUserTypes:
+                - subType: null
+                  type: student
               tncAcceptedVersion: 3.5.0
     userapiResponseV3:
       title: Response
@@ -20262,6 +20527,9 @@ components:
             profileUserType:
               subType: null
               type: student
+            profileUserTypes:
+              - subType: null
+                type: student
             tncAcceptedVersion: 3.5.0
     userapiContentV3:
       title: Content
@@ -20300,6 +20568,7 @@ components:
         - phoneVerified
         - profileLocation
         - profileUserType
+        - profileUserTypes
         - tcUpdatedDate
         - recoveryPhone
         - userName
@@ -20418,6 +20687,10 @@ components:
           type: array
           items:
             type: string
+        profileUserTypes:
+          type: array
+          items:
+            type: string
         tcUpdatedDate:
           type: string
           nullable: true
@@ -20502,6 +20775,9 @@ components:
         profileUserType:
           subType: aeo
           type: student
+        profileUserTypes:
+          - subType: aeo
+            type: student
         tcUpdatedDate:
         recoveryPhone: ''
         userName: username1

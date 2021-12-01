@@ -8,7 +8,7 @@ info:
 
     - The URL for Sunbird Question API(s) is `question/v1` and `questionset/v1`
 
-    - [TestCases](https://www.getpostman.com/collections/794b7d0ef35a7481f263)
+    - [TestCases](https://www.getpostman.com/collections/48f200918fb8469b9a2e)
   termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
   contact:
     email: info@sunbird.org
@@ -1243,6 +1243,109 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  /question/v1/reject/{Question_Id}:
+    delete:
+      description: |-
+        This API is associated with rejecting Questions on the Sunbird Platform .
+          - The **_/reject/{Question_Id}_** endpoint executes the "Reject Question" request based on the Question_Id. It will set the status to Draft for the specific question.
+          - The endpoint for **Reject Content** is `/question/v1/reject`
+          - It points to assessment-service - `/question/v4/reject`
+          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate ID.
+          - It is mandatory to provide values for parameters.
+          - Mandatory fields cannot be null or empty.
+      summary: Reject Question
+      tags:
+        - Question APIs
+      operationId: Reject Question
+      parameters:
+        - in: path
+          name: Question_Id
+          required: true
+          description: Please append a valid Question ID To the request URL
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All question APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation.The **Delete Question** operation was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionCreateSuccessResponse'
+              example:
+                id: api.question.reject
+                ver: '3.0'
+                ts: '2021-10-19T12:49:25Z+05:30'
+                params:
+                  resmsgid: 70dc4cef-b7d0-4794-ae78-e80cc85b4770
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: 'do_11336893480941158415'
+                  versionKey: '1634627965206'
+        '400':
+          description: ERR_QUESTION_REJECT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.reject
+                ver: '3.0'
+                ts: '2021-10-20T12:33:25Z+05:30'
+                params:
+                  resmsgid: 415e19d2-01e3-4690-b5c7-040316c56f5b
+                  msgid: null
+                  err: ERR_QUESTION_REJECT
+                  status: failed
+                  errmsg: 'Question is not in Review state for identifier: do_11336893480941158415'
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '404':
+          description: >-
+            RESOURCE NOT FOUND. The **Reject Question** operation failed! The possible reason for failure is that you may have provided the wrong question ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.reject
+                ver: '3.0'
+                ts: '2021-10-20T12:37:00Z+05:30'
+                params:
+                  resmsgid: da7af22e-bdce-48f0-8743-f50fa6c2cd21
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) does not Exist. | [Invalid Node Id.]: do_11336893480941158908'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact . In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []  
   /questionset/v1/create:
     post:
       tags:
