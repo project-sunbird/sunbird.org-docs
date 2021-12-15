@@ -1703,29 +1703,12 @@ paths:
               $ref: '#/components/schemas/formapiformcreateRequest'
         required: true
       responses:
-        '200':
+        200:
           description: SUCCESS. The "Create Form data" operation was successful!
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/formapicreateResponse'
-              examples:
-                Course Unit:
-                  value: |-
-                    {
-                        "id": "api.form.create",
-                        "params": {
-                            "resmsgid": "ae043094-08a8-4eb5-a128-3e42eadf6a06",
-                            "msgid": "0f02b637-b4c4-45ed-b9c6-5ec54b591e9c",
-                            "status": "successful"
-                        },
-                        "responseCode": "OK",
-                        "result": {
-                            "created": "OK"
-                        },
-                        "ts": "2020-12-09T11:31:12.644Z",
-                        "ver": "1.0"
-                    }
         '400':
           description: >-
             BAD REQUEST. "Create Form data" operation failed. You may have
@@ -1755,7 +1738,7 @@ paths:
         This API is used to update the form metadata as per the requirement or
         choice
 
-          - The endpoint for **Update Form** is `/plugin/v1/form/update`
+          - The endpoint for **Update Form** is `/program/v1/form/update`
           - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
       operationId: FormUpdate
       parameters:
@@ -1795,29 +1778,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/formapicreateResponse'
-              examples:
-                Update Course Unit:
-                  value: |-
-                    {
-                        "id": "api.form.update",
-                        "params": {
-                            "resmsgid": "89b226b2-ce80-4a9b-a641-4f47151b7934",
-                            "msgid": "131e4aa1-872e-4ab8-aba7-fc2fb39bdcab",
-                            "status": "successful"
-                        },
-                        "responseCode": "OK",
-                        "result": {
-                            "response": [
-                                {
-                                    "rootOrgId": "*",
-                                    "key": "content.courseunit.unitsave.*",
-                                    "status": "SUCCESS"
-                                }
-                            ]
-                        },
-                        "ts": "2020-12-09T11:34:47.993Z",
-                        "ver": "1.0"
-                    }
         '400':
           description: >-
             BAD REQUEST. "Update Form" operation failed. You may have missed
@@ -9037,22 +8997,22 @@ components:
       properties:
         request:
           required:
-            - action
-            - framework
-            - rootOrgId
-            - subType
-            - type
+            - context
+            - context_type
+            - channel
+            - primarycategory
+            - objectype
           type: object
           properties:
-            type:
+            context:
               type: string
-            subType:
+            context_type:
               type: string
-            action:
+            channel:
               type: string
-            framework:
+            primarycategory:
               type: string
-            rootOrgId:
+            objectype:
               type: string
     formapiformReadRequest:
       title: The Read Form API request body
@@ -9106,24 +9066,22 @@ components:
       title: The response object of read(Reading result)
       type: object
       properties:
-        result:
-          type: object
-          properties:
-            form:
-              type: object
-              properties:
-                type:
-                  type: string
-                subType:
-                  type: string
-                action:
-                  type: string
-                framework:
-                  type: string
-                rootOrgId:
-                  type: string
-                data:
-                  $ref: '#/components/schemas/formapidataFields'
+        id:
+          type: string
+        context:
+          type: string
+        context_type:
+          type: string
+        channel:
+          type: string
+        objectype:
+          type: string
+        primarycategory:
+          type: string
+        operation:
+          type: string
+        data:
+          $ref: '#/components/schemas/formapidataFields'
     formapicreateResult:
       title: The response object of create and update (Result)
       type: object
