@@ -212,7 +212,7 @@ paths:
       security:
         - bearer: []
   /userProjects/mlprojects/v1/solutionDetails/{projectId}:
-    get:
+    post:
       tags:
       - userProjects APIs
       summary: User project solution details.
@@ -253,6 +253,19 @@ paths:
           schema:
             type: string
           example: 5fb669f223575a2f0cef3b33
+      requestBody:
+        required: true
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+           
+           - JSON 
+           
+          The body is the representation of the resource object for get project details
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userprojectsapiDetailsRequest"
       responses:
         200:
           description: "User project solution details Successful Response"
@@ -1540,13 +1553,41 @@ components:
             properties: 
               type: 
                 type: string
-                example: assessment
+                example: observation
               status: 
                 type: string
-                example: started
+                example: completed
               _id: 
                 type: string
-                example: 2f2ef6dd-24e9-40ab-a681-3b3167fcd2c6
+                example: a083c997-af8a-4752-97dd-e06a03685add
+              submissionStatus: 
+                type: string
+                example: completed
+              submissionDetails: 
+                type: object
+                properties: 
+                  entityId: 
+                    type: string
+                    example: 5fd098e2e049735a86b748b7
+                  programId: 
+                    type: string
+                    example: 600ab53cc7de076e6f993724
+                  solutionId: 
+                    type: string
+                    example: 600b21c57ea68a7ed9278873
+                  observationId: 
+                    type: string
+                    example: 60111ac72d0bbd2f0c3229c9
+                  _id: 
+                    type: string
+                    example: 60111acb2d0bbd2f0c3229cb
+                  completedDate: 
+                    type: string
+                    example: 2021-01-27T07:48:44.271Z
+                  status: 
+                    type: string
+                    example: completed
+
     userProjectapiShareResponse:
       description: User project share response format
       type: object
