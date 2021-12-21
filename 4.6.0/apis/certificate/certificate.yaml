@@ -1,0 +1,923 @@
+openapi: 3.0.1
+info:
+  title: Certificate Generate API
+  description: |- 
+        This api is used for digital certificate assertion.
+        - [Testcases](https://app.getpostman.com/run-collection/4d683e7b17b98026c267)
+  version: "1.0"
+servers:
+- url: https://staging.open-sunbird.org/api
+paths:
+  /certs/v1/generate:
+    post:
+      tags:
+      - Certificate Api
+      summary: certificate generation (pdf)
+      description: |-
+        This API is associated with digitally certificate generation.
+           - The **_ /generate_** endpoint executes the "Certificate" request based on parameters provided as metadata in the request body to be replaced by appropriate Id
+           - Required fields cannot be left null or empty
+           - Request expects, array of data object which includes recipient Name, email, id and phone, Certificate name and description, signatory list, issuer name and url,htmlTemplate(html template zip url)  certificate logo, courseName. If certificate should signed , then pass signKeys(keys.id)
+           - Response returns , id ( The unique identifier to this certificate) jsonUrl, pdfUrl, data (raw certificate json), accesCode (code to access the certificate)
+           - Backend Route: http://cert-service:9000/v1/certs/generate
+           
+      operationId: GeneratePost for certs
+      parameters:
+      - name: X-Channel-ID
+        in: header
+        description: It the Unique Id to identify the root organization to which the
+          user belongs
+        required: false
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.\n\
+          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
+          \   - Application/x-www-form-urlencoded"
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the request for Generating DIAL code.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/certificateApiRequest'
+              - $ref: '#/components/schemas/certificateGenerateCertificateRequest'
+            examples:
+              a:
+               summary: "Certificate Generate Request"
+               description: "Generate certifiacte request"
+
+               value:
+                request:
+                 certificate:
+                  htmlTemplate: 'https://sunbirddev.blob.core.windows.net/user/cert/File-0130405468231516160.zip'
+                  issuedDate: '2020-06-11'
+                  data:
+                    - recipientName: username
+                      recipientEmail: emailId
+                      recipientPhone: '8951443323'
+                      recipientId: 123-123-45555-2344-1333
+                      expiry: '2021-09-01T12:52:25Z'
+                  courseName: Java Programming Masterclass for Software Developers
+                  name: Certificate of Completion in java programming
+                  description: Course completion certificate issues by State
+                  logo: 'https://certs.example.gov/o/dgt/HJ5327VB1247G'
+                  criteria:
+                    narrative: course completion certificate
+                  tag: 01282612345302220893_0130404959522979845
+                  issuer:
+                    name: issuer name
+                    url: 'https: //gcert.gujarat.gov.in/gcert/'
+                  signatoryList:
+                    - image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+                      name: sigantory name
+                      id: id
+                      designation: CEO
+              b:
+               summary: "Mandatory Param htmlTemplate Missing"
+               value:
+                request:
+                 certificate:
+                  issuedDate: '2020-06-11'
+                  data:
+                    - recipientName: username
+                      recipientEmail: emailIs
+                      recipientPhone: '8951443323'
+                      recipientId: 123-123-45555-2344-1333
+                      expiry: '2020-09-01T12:52:25Z'
+                  courseName: Java Programming Masterclass for Software Developers
+                  name: Certificate of Completion in java programming
+                  description: Course completion certificate issues by State
+                  logo: 'https://certs.example.gov/o/dgt/HJ5327VB1247G'
+                  criteria:
+                    narrative: course completion certificate
+                  tag: 01282612345302220893_0130404959522979845
+                  issuer:
+                    name: issuer name
+                    url: 'https: //gcert.gujarat.gov.in/gcert/'
+                  signatoryList:
+                    - image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+                      name: sigantory name
+                      id: id
+                      designation: CEO
+              c:
+               summary: "Adding sign Keys (for signing to cert)"
+               description: For signing to certificate , provide keys.id Keys are Optional generally, If keys is not provided, then the verificationType of the cert is Hosted . if keys are provided with valid value, then the verificationType will be signedBadge. Provide valid sign key id
+               value:
+                request:
+                 certificate:
+                  htmlTemplate: 'https://sunbirddev.blob.core.windows.net/user/cert/File-0130405468231516160.zip'
+                  issuedDate: '2020-06-11'
+                  data:
+                    - recipientName: username
+                      recipientEmail: emailIs
+                      recipientPhone: '8951443323'
+                      recipientId: 123-123-45555-2344-1333
+                      expiry: '2021-10-01T12:52:25Z'
+                  courseName: Java Programming Masterclass for Software Developers
+                  name: Certificate of Completion in java programming
+                  description: Course completion certificate issues by State
+                  logo: 'https://certs.example.gov/o/dgt/HJ5327VB1247G'
+                  criteria:
+                    narrative: course completion certificate
+                  tag: 01282612345302220893_0130404959522979845
+                  issuer:
+                    name: issuer name
+                    url: 'https: //gcert.gujarat.gov.in/gcert/'
+                  signatoryList:
+                    - image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+                      name: sigantory name
+                      id: id
+                      designation: CEO
+                  keys: 
+                    id: "23" 
+              
+        required: true
+      responses:
+        200:
+          description: OK ! Successful operation."Certificate generation" operation
+            was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificateContentCreateResponse'
+              example:
+                id: v1.certs.generate
+                ver: v1
+                ts: '1606196636922'
+                params: null
+                responseCode: OK
+                result:
+                  response:
+                    - id: b76830e6-6755-4ab9-8244-ed61679de209
+                      accessCode: D6P1G2
+                      jsonData:
+                        id: 'https://staging.open-sunbird.org/certs/01282612345302220893_0130404959522979845/b76830e6-6755-4ab9-8244-ed61679de209'
+                        type:
+                          - Assertion
+                          - Extension
+                          - 'extensions:CertificateExtension'
+                        issuedOn: '2020-06-11T00:00:00Z'
+                        recipient:
+                          identity: 123-123-45555-2344-1333
+                          type:
+                            - id
+                          hashed: false
+                          name: Username
+                          '@context': 'https://staging.open-sunbird.org/certs/v1/context.json'
+                        badge:
+                          id: 'https://staging.open-sunbird.org/certs/01282612345302220893_0130404959522979845/Badge.json'
+                          type:
+                            - BadgeClass
+                          name: Java Programming Masterclass for Software Developers
+                          description: Course completion certificate issues by State
+                          image: 'https://certs.example.gov/o/dgt/HJ5327VB1247G'
+                          criteria:
+                            type:
+                              - Criteria
+                            narrative: course completion certificate
+                          issuer:
+                            context: 'https://staging.open-sunbird.org/certs/v1/context.json'
+                            id: 'https://staging.open-sunbird.org/certs/Issuer.json'
+                            type:
+                              - Issuer
+                            name: Gujarat Council of Educational Research and Training
+                            url: 'https: //gcert.gujarat.gov.in/gcert/'
+                            publicKey: []
+                          '@context': 'https://staging.open-sunbird.org/certs/v1/context.json'
+                        evidence:
+                          id: 'https://staging.open-sunbird.org/certs/Evidence.json'
+                          type:
+                            - Evidence
+                            - Extension
+                            - 'extensions:TrainingEvidence'
+                          name: Java Programming Masterclass for Software Developers
+                          '@context': 'https://staging.open-sunbird.org/certs/v1/context.json'
+                        expires: '2020-09-01T12:52:25Z'
+                        verification:
+                          type:
+                            - hosted
+                        revoked: false
+                        certificatesignatory:
+                          - identity: CEO
+                            type:
+                              - Extension
+                              - 'extensions:SignatoryExtension'
+                            hashed: false
+                            designation: CEO
+                            image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+                            '@context': 'https://staging.open-sunbird.org/certs/v1/extensions/SignatoryExtension/context.json'
+                        '@context': 'https://staging.open-sunbird.org/certs/v1/context.json'
+                      recipientId: 123-123-45555-2344-1333
+                      jsonUrl: 'https://staging.open-sunbird.org/certs/01282612345302220893_0130404959522979845/b76830e6-6755-4ab9-8244-ed61679de209.json'
+                      pdfUrl: 'https://staging.open-sunbird.org/certs/01282612345302220893_0130404959522979845/0a90d9d0-2e18-11eb-aa59-a70abdae46c7.pdf'
+        400:
+          description: BAD REQUEST. The "Certificate generation" operation failed
+            ! The possible reason for failure is that you may have missed providing
+            input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificateContentCreateErrorResponse'
+              examples:
+               a:
+                summary: Mandatory Param htmlTemplate Missing Res
+                value:
+                  id: v1.certs.generate
+                  ver: v1
+                  ts: '1606199661823'
+                  responseCode: CLIENT_ERROR
+                  result:
+                   message: Mandatory parameter certificate.htmlTemplate is missing.
+               b:
+                summary: Mandatory Param signatoryName Missing Res
+                value:
+                  id: v1.certs.generate
+                  ver: v1
+                  ts: '1606199661823'
+                  responseCode: CLIENT_ERROR
+                  result:
+                   message: Mandatory parameter certificate.signatoryList.name is missing.
+        500:
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org. '
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/certificate500ServerError'
+              example:
+                id: api.certs.registry.validate
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      security:
+      - bearer: []
+
+  /certs/v2/generate:
+    post:
+      tags:
+      - Certificate Api
+      summary: certificate generation (svg)
+      description: |-
+        This API is associated with digitally certificate generation.
+           - The **_ /v2/generate_** endpoint executes the "Certificate" request based on parameters provided as metadata in the request body to be replaced by appropriate Id
+           - Required fields cannot be left null or empty
+           - Request expects, array of data object which includes recipient Name, email, id and phone,svgTemplate url, Certificate name and description, signatory list, issuer name and url, certificate logo, courseName. If certificate should signed , then pass signKeys(keys.id)
+           - Response returns , id ( The unique identifier to this certificate) jsonUrl, pdfUrl, data (raw certificate json, with materialized svg string **printUri**), accesCode (code to access the certificate)
+           - Backend Route: http://cert-service:9000/v2/certs/generate
+
+      operationId: SVGCertificate
+      parameters:
+      - name: X-Channel-ID
+        in: header
+        description: It the Unique Id to identify the root organization to which the
+          user belongs
+        required: false
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: "The Content Type entity is the media type of the resource.\n\
+          \ Possible media types can be:- \n   - Application/json\n   - Multipart/form-data\n\
+          \   - Application/x-www-form-urlencoded"
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the request for Generating DIAL code.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/certificateApiRequest'
+              - $ref: '#/components/schemas/certificateGenerateCertificateV2Request'
+            examples:
+              a:
+               summary: "Certificate Generate V2 Request"
+               description: "Generate Certificate request"
+               value:
+                request:
+                 certificate:
+                  svgTemplate: 'https://ntpstagingall.blob.core.windows.net/user/cert/File-01311849840255795242.svg'
+                  issuedDate: '2020-06-11'
+                  data:
+                    - recipientName: username
+                      recipientEmail: emailId
+                      recipientPhone: '8951443323'
+                      recipientId: 123-123-45555-2344-1333
+                      expiry: '2021-09-01T12:52:25Z'
+                  courseName: Java Programming Masterclass for Software Developers
+                  name: Certificate of Completion in java programming
+                  description: Course completion certificate issues by State
+                  logo: 'https://certs.example.gov/o/dgt/HJ5327VB1247G'
+                  criteria:
+                    narrative: course completion certificate
+                  tag: 01282612345302220893_0130404959522979845
+                  issuer:
+                    name: issuer name
+                    url: 'https: //gcert.gujarat.gov.in/gcert/'
+                  signatoryList:
+                    - image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+                      name: sigantory name
+                      id: id
+                      designation: CEO
+              b:
+               summary: "Mandatory Param svgTemplate Missing"
+               value:
+                request:
+                 certificate:
+                  issuedDate: '2020-06-11'
+                  data:
+                    - recipientName: username
+                      recipientEmail: emailIs
+                      recipientPhone: '8951443323'
+                      recipientId: 123-123-45555-2344-1333
+                      expiry: '2020-09-01T12:52:25Z'
+                  courseName: Java Programming Masterclass for Software Developers
+                  name: Certificate of Completion in java programming
+                  description: Course completion certificate issues by State
+                  logo: 'https://certs.example.gov/o/dgt/HJ5327VB1247G'
+                  criteria:
+                    narrative: course completion certificate
+                  tag: 01282612345302220893_0130404959522979845
+                  issuer:
+                    name: issuer name
+                    url: 'https: //gcert.gujarat.gov.in/gcert/'
+                  signatoryList:
+                    - image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+                      name: sigantory name
+                      id: id
+                      designation: CEO
+              c:
+               summary: "Adding sign Keys (for signing to cert)"
+               description: For signing to certificate , provide keys.id Keys are Optional generally, If keys is not provided, then the verificationType of the cert is Hosted . if keys are provided with valid value, then the verificationType will be signedBadge. Provide valid sign key id
+               value:
+                request:
+                 certificate:
+                  svgTemplate: 'https://ntpstagingall.blob.core.windows.net/user/cert/File-01311849840255795242.svg'
+                  issuedDate: '2020-06-11'
+                  data:
+                    - recipientName: username
+                      recipientEmail: emailIs
+                      recipientPhone: '8951443323'
+                      recipientId: 123-123-45555-2344-1333
+                      expiry: '2021-10-01T12:52:25Z'
+                  courseName: Java Programming Masterclass for Software Developers
+                  name: Certificate of Completion in java programming
+                  description: Course completion certificate issues by State
+                  logo: 'https://certs.example.gov/o/dgt/HJ5327VB1247G'
+                  criteria:
+                    narrative: course completion certificate
+                  tag: 01282612345302220893_0130404959522979845
+                  issuer:
+                    name: issuer name
+                    url: 'https: //gcert.gujarat.gov.in/gcert/'
+                  signatoryList:
+                    - image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+                      name: sigantory name
+                      id: id
+                      designation: CEO
+                  keys: 
+                    id: "23" 
+              
+        required: true
+      responses:
+        200:
+          description: OK ! Successful operation."Certificate generation" operation
+            was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificateCertificateGenerateV2Response'
+              example:
+                id: v2.certs.generate
+                ver: v2
+                ts: '1606196636922'
+                params: null
+                responseCode: OK
+                result:
+                  response:
+                    - id: b76830e6-6755-4ab9-8244-ed61679de209
+                      accessCode: D6P1G2
+                      jsonData:
+                        id: 'https://staging.open-sunbird.org/certs/01282612345302220893_0130404959522979845/b76830e6-6755-4ab9-8244-ed61679de209'
+                        type:
+                          - Assertion
+                          - Extension
+                          - 'extensions:CertificateExtension'
+                        issuedOn: '2020-06-11T00:00:00Z'
+                        recipient:
+                          identity: 123-123-45555-2344-1333
+                          type:
+                            - id
+                          hashed: false
+                          name: Username
+                          '@context': 'https://staging.open-sunbird.org/certs/v1/context.json'
+                        badge:
+                          id: 'https://staging.open-sunbird.org/certs/01282612345302220893_0130404959522979845/Badge.json'
+                          type:
+                            - BadgeClass
+                          name: Java Programming Masterclass for Software Developers
+                          description: Course completion certificate issues by State
+                          image: 'https://certs.example.gov/o/dgt/HJ5327VB1247G'
+                          criteria:
+                            type:
+                              - Criteria
+                            narrative: course completion certificate
+                          issuer:
+                            context: 'https://staging.open-sunbird.org/certs/v1/context.json'
+                            id: 'https://staging.open-sunbird.org/certs/Issuer.json'
+                            type:
+                              - Issuer
+                            name: issuer name
+                            url: 'https: //gcert.gujarat.gov.in/gcert/'
+                          '@context': 'https://staging.open-sunbird.org/certs/v1/context.json'
+                        evidence:
+                          id: 'https://staging.open-sunbird.org/certs/Evidence.json'
+                          type:
+                            - Evidence
+                            - Extension
+                            - 'extensions:TrainingEvidence'
+                          name: Java Programming Masterclass for Software Developers
+                          '@context': 'https://staging.open-sunbird.org/certs/v1/context.json'
+                        expires: '2020-09-01T12:52:25Z'
+                        printUri: 'data:image/svg+xml,%3Csvg .....'
+                        verification:
+                          type:
+                            - hosted
+                        revoked: false
+                        certificatesignatory:
+                          - identity: CEO
+                            type:
+                              - Extension
+                              - 'extensions:SignatoryExtension'
+                            hashed: false
+                            designation: CEO
+                            image: 'https://cdn.pixabay.com/photo/2014/11/09/08/06/signature-523237__340.jpg'
+                            '@context': 'https://staging.open-sunbird.org/certs/v1/extensions/SignatoryExtension/context.json'
+                        '@context': 'https://staging.open-sunbird.org/certs/v1/context.json'
+                      recipientId: 123-123-45555-2344-1333
+                      jsonUrl: 'https://staging.open-sunbird.org/certs/01282612345302220893_0130404959522979845/b76830e6-6755-4ab9-8244-ed61679de209.json'
+        400:
+          description: BAD REQUEST. The "Certificate generation" operation failed
+            ! The possible reason for failure is that you may have missed providing
+            input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificateContentCreateErrorResponse'
+              examples:
+               a:
+                summary: Mandatory Param svgTemplate Missing Res
+                value:
+                  id: v2.certs.generate
+                  ver: v2
+                  ts: '1606199661823'
+                  responseCode: CLIENT_ERROR
+                  result:
+                   message: Mandatory parameter certificate.htmlTemplate is missing.
+               b:
+                summary: Mandatory Param signatoryName Missing Res
+                value:
+                  id: v2.certs.generate
+                  ver: v2
+                  ts: '1606199661823'
+                  responseCode: CLIENT_ERROR
+                  result:
+                   message: Mandatory parameter certificate.signatoryList.name is missing.
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel free
+            to contact us. In the meantime, try refreshing.
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/certificate500ServerError'
+              example:
+                id: api.certs.registry.validate
+                ver: v1
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      security:
+      - bearer: []
+components:
+  schemas:
+    certificateGenerateCertificateRequest:
+      title: Generate certificate request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/certificateRequest'
+    certificateGenerateCertificateV2Request:
+      title: SVG Generate certificate request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+         title: Request
+         required:
+         - certificate
+         type: object
+         properties:
+           certificate:
+             $ref: '#/components/schemas/certificateCertificateV2'
+    certificateRequest:
+      title: Request
+      required:
+      - certificate
+      type: object
+      properties:
+        certificate:
+          $ref: '#/components/schemas/certificateCertificate'
+    certificateCertificate:
+      title: Certificate
+      type: object
+      required: 
+      - name
+      - htmlTemplate
+      - data
+      - issuer
+      - signatoryList
+      - criteria
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/certificatecourseRecipientData'
+        courseName:
+          type: string
+          description: name of the course
+        name:
+          type: string
+          description: name of certificate
+        description:
+          type: string
+          description: description of certificate
+        logo:
+          type: string
+          description: certificate logo
+        issuedDate:
+          type: string
+          description: certificate issue date
+        videoURL:
+          type: string
+          description: url of video
+        htmlTemplate:
+          type: string
+          description: url of html template
+        tag:
+          type: string
+          description: ""
+        issuer:
+          $ref: '#/components/schemas/certificateissuerData'
+        signatoryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/certificatesignatory'
+        criteria:
+         type: object
+         required: 
+         - narrative
+         properties:
+          narrative:
+           type: string
+           description: What was the criteria for issuing this certificate
+        keys:
+          type: object
+          required: 
+          - id
+          properties:
+            id:
+              type: string
+    certificateCertificateV2:
+      title: Certificate
+      type: object
+      required: 
+      - name
+      - svgTemplate
+      - data
+      - issuer
+      - signatoryList
+      - criteria
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/certificatecourseRecipientData'
+        courseName:
+          type: string
+          description: name of the course
+        name:
+          type: string
+          description: name of certificate
+        description:
+          type: string
+          description: description of certificate
+        logo:
+          type: string
+          description: certificate logo
+        issuedDate:
+          type: string
+          description: certificate issue date
+        videoURL:
+          type: string
+          description: url of video
+        svgTemplate:
+          type: string
+          description: url of svg template
+        tag:
+          type: string
+          description: ""
+        issuer:
+          $ref: '#/components/schemas/certificateissuerData'
+        signatoryList:
+          type: array
+          items:
+            $ref: '#/components/schemas/certificatesignatory'
+        criteria:
+         type: object
+         required: 
+         - narrative
+         properties:
+          narrative:
+           type: string
+           description: What was the criteria for issuing this certificate
+        keys:
+          type: object
+          required: 
+          - id
+          properties:
+            id:
+              type: string
+    certificatecourseRecipientData:
+      title: Recipient data
+      type: object
+      required: 
+      - recipientName
+      properties:
+        recipientName:
+          type: string
+          description: name of certiticate recipient
+        recipientEmail:
+          type: string
+          description: email of certificate recipient
+        recipientPhone:
+          type: string
+          description: phone number of recipient
+        recipientId:
+          type: string
+          description: identifier of recipient
+        validFrom:
+          type: string
+          description: certificate valid from date default is today
+        expiry:
+          type: string
+          description: certificate expiry date
+        oldId:
+          type: string
+          description: old user id , required if u want to regenerate certificate
+    certificateissuerData:
+      title: issuer data
+      type: object
+      required: 
+      - name
+      - url
+      properties:
+        name:
+          type: string
+          description: name of issuer
+        publicKey:
+          type: array
+          description: list of public key
+          items:
+            type: string
+        url:
+          type: string
+          description: issuer valid url
+    certificatesignatory:
+      title: signatory data
+      type: object
+      required: 
+      - name
+      - designation
+      - id
+      properties:
+        name:
+          type: string
+          description: name of signatory
+        designation:
+          type: string
+          description: designation of signatory
+        id:
+          type: string
+          description: identifier
+    certificateResultWithNodeId:
+      title: certificate creation response
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            response:
+              type: array
+              items:
+                $ref: '#/components/schemas/certificatecertificateResponse'
+    certificateContentCreateResponse:
+      description: Certificate Response
+      allOf:
+      - $ref: '#/components/schemas/certificateResponseHeader'
+      - $ref: '#/components/schemas/certificateResultWithNodeId'
+    certificateCertificateGenerateV2Response:
+      description: Certificate Response
+      allOf:
+      - $ref: '#/components/schemas/certificateResponseHeader'
+      - $ref: '#/components/schemas/certificateResultWithNodeIdV2'
+    certificateResponseHeader:
+      title: Response
+      type: object
+      properties:
+        id:
+          type: string
+          description: API Identifier
+        ver:
+          type: string
+          description: API version information
+        ts:
+          type: string
+          description: API execution timespan
+        params:
+          $ref: '#/components/schemas/certificateResponseParams'
+        responseCode:
+          type: object
+          properties: {}
+          description: 'API response code '
+    certificateResponseParams:
+      title: Response Parameter
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          description: Represents the response Message ID
+        msgid:
+          type: string
+          description: Represents the error Message ID
+        err:
+          type: string
+          description: Represents the Error Code
+        status:
+          type: string
+          description: Response Status
+        errmsg:
+          type: string
+          description: Error Message
+    certificateEmptyResult:
+      title: Empty Result
+      type: object
+      properties:
+        result:
+          type: object
+          properties: 
+            message:
+              type: string
+          description: Empty Result
+    certificatecertificateResponse:
+      title: Response of certificate creation
+      type: object
+      properties:
+        recipientId:
+          type: string
+          description: user id who got certificate
+        accessCode:
+          type: string
+          description: code to access the certificate
+        uuid:
+          type: string
+        jsonData:
+          type: string
+          description: raw data of certificate in json format
+        pdfUrl:
+          type: string
+          description: certificate pdf in format
+        jsonUrl:
+          type: string
+          description: certificate json url
+    certificateResultWithNodeIdV2:
+      title: certificate creation response
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            response:
+              type: array
+              items:
+                $ref: '#/components/schemas/certificatecertificateV2Response'    
+    certificatecertificateV2Response:
+      title: Response of certificate creation
+      type: object
+      properties:
+        recipientId:
+          type: string
+          description: user id who got certificate
+        accessCode:
+          type: string
+          description: code to access the certificate
+        uuid:
+          type: string
+        jsonData:
+          type: string
+          description: raw data of certificate in json format
+        jsonUrl:
+          type: string
+          description: json Url , certificate is uploaded to cloud
+    certificateContentCreateErrorResponse:
+      title: Create Content Error Response
+      allOf:
+      - $ref: '#/components/schemas/certificateEmptyResult'
+      - $ref: '#/components/schemas/certificateResponseHeader'
+    certificateApiRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents an API uniquely
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the unique ID of the message being sent
+            did:
+              type: string
+              description: Represents the device UUID from which API is called
+    certificate500ServerError:
+      title: 500ServerError
+      required:
+        - id
+        - ver
+        - ts
+        - params
+        - responseCode
+        - result
+      type: object
+      properties:
+        id:
+          type: string
+        ver:
+          type: string
+        ts:
+          type: string
+        params:
+          type: string
+        responseCode:
+          type: string
+        result:
+          type: object
+          properties:
+           message:
+            type: string
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+    userToken:
+      type: apiKey
+      name: x-authenticated-user-token
+      in: header
