@@ -20,6 +20,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | New kong consumer              | Admintils    | Add a new ansible dictionary with ACL as below<br> userAccess:<br> - userAccess<br> Add a new kong consumer to the kong_consumers dictionary as shown below<br> - username: adminutil_learner_api_key<br> groups: "{{ userAccess }}"<br> state: present |
 | adminutil_learner_api_auth_key | Admintils    | Run the OnboardConsumers job and take the JWT token for the consumer adminutil_learner_api_key<br>To connect to learner service via kong, we are creating a new consumer                                                                                |
 | Add acls for desktop app       | Desktop      | - readNotificationFeed  <br>  - updateNotificationFeed<br>  - deleteNotificationFeed<br>To access notification service APIs from desktop app                                                                                                            |
+| Add new variables in Core/common.yml | OPA    | kong_desktop_device_consumer_names_for_opa: '["desktop_devicev2", "desktop_device"]' <br> To disable checks for desktop app |
 
 
 
