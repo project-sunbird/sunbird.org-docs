@@ -4,12 +4,12 @@ page_title: Build and Deploy
 description: Build and Deploy
 published: true
 allowSearch: true
-keywords: Upgrade, Sunbird 4.4.0
+keywords: Upgrade, Sunbird 4.5.0
 ---
 
 ## Overview
 
-This page details out the jobs required to be run as part of the upgrade from Sunbird and Vidaydaan release 4.3.0 to release 4.4.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.
+This page details out the jobs required to be run as part of the upgrade from Sunbird and Vidaydaan release 4.4.0 to release 4.5.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.
 
 
 ### Variables for Sunbird
