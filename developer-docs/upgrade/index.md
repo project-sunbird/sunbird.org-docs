@@ -28,52 +28,57 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 | Service to be Build | Build Tag | Service to Deploy | Deploy Tag | Comments |
 |:---:|:---:|:---:|:---:|:---:|
-| cassandra-migration | sunbird-utils : release-4.5.0_RC2 | sunbird-utils : release-4.5.0_RC2 |  |  |
-| ML Core Service | release-4.5.0_RC8 | ML Core Service | release-4.5.0_RC8 |  |
-| ML Survey Service | release-4.5.0_RC1 | ML Survey Service | release-4.5.0_RC1 |  |
-| ML Projects Service | release-4.5.0_RC7 | ML Projects Service | release-4.5.0_RC7 |  |
-| ML Reports Service | release-4.5.0_RC4 | ML Reports Service | release-4.5.0_RC4 |  |
-| ML Analytics Service | release-4.5.0_RC1 | ML Analytics Service | release-4.5.0_RC1<br>ml_analytics_version: release-4.5.0 |  |
-| Adminutils | release-4.5.0_RC2 | Adminutils | release-4.5.0 |  |
-|  |  | OnboardAPIs | release-4.5.0 |  |
-|  |  | OnboardConsumer | release-4.5.0 |  |
-| cassandra-migration | sunbird-utils : release-4.5.0_RC3 | sunbird-utils : release-4.5.0_RC3 |  |  |
-| ETLJobs | build tag: release-4.5.0_RC2 | ETLJobs | deploy tag: release-4.5.0_RC2 |  |
-| Ed data-products | release-4.5.0_RC4 | Ed data-products | release-4.5.0 |  |
-| Build/UCI/Utils | release-4.4.0 |  |  | In sequence |
-| Build/UCI/message-rosa | release-4.4.0_RC1 |  |  |  |
-| Build/UCI/dao | release-4.4.0_RC1 |  |  |  |
-| Build/UCI/Adapter | release-4.4.0_RC1 |  |  |  |
-| Build/UCI/Inbound | release-4.4.0_RC1 | Deploy/UCI/Inbound | release-4.4.0_RC4 |  |
-| Build/UCI/odk | release-4.4.0_RC1 | Deploy/UCI/odk | release-4.4.0_RC4 |  |
-| Build/UCI/Outbound | release-4.4.0_RC1 | Deploy/UCI/Outbound | release-4.4.0_RC4 |  |
-| Build/UCI/Orchestrator | release-4.4.0_RC1 | Deploy/UCI/Orchestrator | release-4.4.0_RC4 |  |
-| Build/UCI/Transformer | release-4.4.0_RC1 | Deploy/UCI/Transformer | release-4.4.0_RC4 |  |
-| Build/UCI/UCI | release-4.4.0_RC1 | Deploy/UCI/UCI | release-4.4.0_RC4 |  |
-|  |  | keycloak | release-4.5.0 |  |
-|  |  | BootstrapMinimal | release-4.5.0 | Run helm uninstall reloader first from every namespace |
-|  |  | KnowledgeMW | release-4.5.0 |  |
-|  |  | Analytics | release-4.5.0 |  |
-|  |  | CertRegistry | release-4.5.0 |  |
-|  |  | Adminutils | release-4.5.0 | Log4j Fix |
-|  |  | Analytics | release-4.5.0 |  |
-|  |  | Assessment | release-4.5.0 |  |
-|  |  | Cert | release-4.5.0 |  |
-|  |  | CertRegistry | release-4.5.0 |  |
-|  |  | Content | release-4.5.0 |  |
-|  |  | Dial | release-4.5.0 |  |
-|  |  | gql | release-4.5.0 |  |
-|  |  | Groups | release-4.5.0 |  |
-|  |  | Inbound | release-4.5.0 |  |
-|  |  | Learner | release-4.5.0 |  |
-|  |  | LMS | release-4.5.0 |  |
-|  |  | odk | release-4.5.0 |  |
-|  |  | orchestrator | release-4.5.0 |  |
-|  |  | outbound | release-4.5.0 |  |
-|  |  | Search | release-4.5.0 |  |
-|  |  | Taxonomy | release-4.5.0 |  |
-|  |  | transformer | release-4.5.0 |  |
-|  |  | uci | release-4.5.0 |  |
+| Build/managed-learn/ml-core-service | release-4.5.0_RC8 | Deploy/managed-learn/ml-core-service | release-4.5.0_RC1 |
+| Build/managed-learn/ml-projects-service | release-4.5.0_RC7 | Deploy/managed-learn/ml-projects-service | release-4.5.0_RC1 |
+| Build/Kubernetes/Player | release-4.5.0_RC45 | Deploy/Kubernetes/Player | release-4.5.0_RC1 |
+| Build/KnowledgePlatform/FlinkJobs | release-4.5.0_RC42 | Deploy/KnowledgePlatform/FlinkJobs | release-4.5.0_RC1 |
+| Build/managed-learn/ml-reports-service | release-4.5.0_RC4 | Deploy/managed-learn/ml-reports-service | release-4.5.0_RC1 |
+| Build/Kubernetes/Notification | release-4.5.0_RC4 | Deploy/Kubernetes/Notification | release-4.5.0_RC1 |
+| Build/Kubernetes/Cassandra | release-4.5.0_RC4 | Deploy/Kubernetes/Cassandra | release-4.5.0_RC1 |
+| Build/DataPipeline/FlinkPipelineJobs | release-4.5.0_RC4 | Deploy/DataPipeline/FlinkPipelineJobs | release-4.5.0_RC1 |
+| Build/DataPipeline/EdDataProducts | release-4.5.0_RC4 | Deploy/DataPipeline/EdDataProducts | release-4.5.0_RC1 |
+| Build/Kubernetes/Taxonomy | release-4.5.0_RC2 | Deploy/Kubernetes/Taxonomy | release-4.5.0_RC1 |
+| Build/Kubernetes/Search | release-4.5.0_RC2 | Deploy/Kubernetes/Search | release-4.5.0_RC1 |
+| Build/Kubernetes/Content | release-4.5.0_RC2 | Deploy/Kubernetes/Content | release-4.5.0_RC1 |
+| Build/Kubernetes/Assessment | release-4.5.0_RC2 | Deploy/Kubernetes/Assessment | release-4.5.0_RC1 |
+| Build/Kubernetes/AdminUtils | release-4.5.0_RC2 | Deploy/Kubernetes/AdminUtils | release-4.5.0_RC1 |
+| Build/DataPipeline/ETLUserCacheIndexer | release-4.5.0_RC2 | Deploy/DataPipeline/ETLUserCacheIndexer | release-4.5.0_RC1 |
+| Build/DataPipeline/ETLJobs | release-4.5.0_RC2 | Deploy/DataPipeline/ETLJobs | release-4.5.0_RC1 |
+| Build/DataPipeline/ETLDruidContentIndexer | release-4.5.0_RC2 | Deploy/DataPipeline/ETLDruidContentIndexer | release-4.5.0_RC1 |
+| Build/KnowledgePlatform/Yarn | release-4.5.0_RC11 | Deploy/KnowledgePlatform/Yarn | release-4.5.0_RC1 |
+| Build/KnowledgePlatform/Learning | release-4.5.0_RC11 | Deploy/KnowledgePlatform/Learning | release-4.5.0_RC1 |
+| Build/Kubernetes/Learner | release-4.5.0_RC10 | Deploy/Kubernetes/Learner | release-4.5.0_RC1 |
+| Build/managed-learn/ml-survey-service | release-4.5.0_RC1 | Deploy/managed-learn/ml-survey-service | release-4.5.0_RC1 |
+| Build/Kubernetes/Lms | release-4.5.0_RC1 | Deploy/Kubernetes/Lms | release-4.5.0_RC1 |
+| Build/Kubernetes/Groups | release-4.5.0_RC1 | Deploy/Kubernetes/Groups | release-4.5.0_RC1 |
+| Build/Core/OfflineInstaller | release-4.5.0 | Deploy/Core/OfflineInstaller | release-4.5.0_RC1 |
+|  |  | Deploy/UCI/UCI | release-4.5.0_RC1 |
+|  |  | Deploy/UCI/Transformer | release-4.5.0_RC1 |
+|  |  | Deploy/UCI/Outbound | release-4.5.0_RC1 |
+|  |  | Deploy/UCI/Orchestrator | release-4.5.0_RC1 |
+|  |  | Deploy/UCI/odk | release-4.5.0_RC1 |
+|  |  | Deploy/UCI/Inbound | release-4.5.0_RC1 |
+|  |  | Deploy/UCI/gql | release-4.5.0_RC1 |
+|  |  | Deploy/UCI/fusionauth | release-4.5.0_RC1 |
+|  |  | Deploy/managed-learn/ml-analytics-service | release-4.5.0_RC1 |
+|  |  | Deploy/Kubernetes/Report | release-4.5.0_RC1 |
+|  |  | Deploy/Kubernetes/OnboardConsumers | release-4.5.0_RC1 |
+|  |  | Deploy/Kubernetes/OnboardAPIs | release-4.5.0_RC1 |
+|  |  | Deploy/Kubernetes/nginx-private-ingress | release-4.5.0_RC1 |
+|  |  | Deploy/Kubernetes/Logging | release-4.5.0_RC1 |
+|  |  | Deploy/Kubernetes/KnowledgeMW | release-4.5.0_RC1 |
+|  |  | Deploy/Kubernetes/Keycloak | release-4.5.0_RC1 |
+|  |  | Deploy/Kubernetes/HawkeyeSuperset | release-4.5.0_RC1 |
+|  |  | Deploy/Kubernetes/Enc | release-4.5.0_RC1 |
+|  |  | Deploy/Kubernetes/Dial | release-4.5.0_RC1 |
+|  |  | Deploy/Kubernetes/CertRegistry | release-4.5.0_RC1 |
+|  |  | Deploy/Kubernetes/Cert | release-4.5.0_RC1 |
+|  |  | Deploy/Kubernetes/BootstrapMinimal | release-4.5.0_RC1 |
+|  |  | Deploy/Kubernetes/APIManager | release-4.5.0_RC1 |
+|  |  | Deploy/Kubernetes/Analytics | release-4.5.0_RC1 |
+|  |  | Deploy/KnowledgePlatform/Neo4jElasticSearchSyncTool | release-4.5.0_RC1 |
+|  |  | Deploy/DataPipeline/CoreDataProducts | release-4.5.0_RC1 |
+|  |  | Deploy/DataPipeline/AnalyticsCore | release-4.5.0_RC1 |
 |  |  | Log4jFix | Take job from here - https://github.com/project-sunbird/sunbird-devops/pull/3069/files<br>Or copy from dev OpsAdmin folder<br>Pass job option as below <br>hosts: env<br>release-4.5.0 |  |
 
 
@@ -106,18 +111,28 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 | Service to be Build | Build Tag | Service to Deploy | Deploy Tag | Comments |
 |:---:|:---:|:---:|:---:|:---:|
+|  |  |  |  |  |
 |  |  | Deploy/Core/KafkaSetup | release-4.5.0-vdn | check below kafka topic created or not<br>{{env}}.av.question.bulkupload |
 |  |  | Upload Schema | release-4.5.0 |  |
-|  |  | Assessment | release-4.5.0-vdn | Log4j Fix |
-|  |  | Cert | release-4.5.0-vdn | Log4j Fix | 
-|  |  | CertRegistry | release-4.5.0-vdn | Log4j Fix | 
-|  |  | Contnet | release-4.5.0-vdn | Log4j Fix | 
-|  |  | MVC | release-4.5.0-vdn | Log4j Fix | 
-|  |  | Opensaber | release-4.5.0-vdn | Log4j Fix | 
-|  |  | Search | release-4.5.0-vdn | Log4j Fix | 
-|  |  | Taxonomy | release-4.5.0-vdn | Log4j Fix | 
-|  |  | telemetry-dp-logstash | release-4.5.0-vdn | Log4j Fix | 
+|  |  |  |  |  |
+|  |  | Deploy/DockStaging/Kubernetes/APIManager | release-4.5.0-vdn |  |
+| DockBuild/Kubernetes/Assessment | release-4.5.0_RC2 | Deploy/DockStaging/Kubernetes/Assessment | release-4.5.0-vdn |  |
+| DockBuild/Kubernetes/Content | release-4.5.0_RC2 | Deploy/DockStaging/Kubernetes/Content | release-4.5.0-vdn |  |
+| DockBuild/Kubernetes/Opensaber | vidyadaan | Deploy/DockStaging/Kubernetes/Opensaber | release-4.5.0-vdn |  |
+| DockBuild/Kubernetes/Player | release-4.5.0_RC9 | Deploy/DockStaging/Kubernetes/Player | release-4.5.0-vdn |  |
+| DockBuild/Kubernetes/Program | release-4.5.0_RC1 | Deploy/DockStaging/Kubernetes/Program | release-4.5.0-vdn |  |
+| DockBuild/Kubernetes/Search | release-4.5.0_RC2 | Deploy/DockStaging/Kubernetes/Search | release-4.5.0-vdn |  |
+| DockBuild/Kubernetes/Taxonomy | release-4.5.0_RC2 | Deploy/DockStaging/Kubernetes/Taxonomy | release-4.5.0-vdn |  |
+|  |  |  |  |  |
+|  |  |  |  |  |
+| DockBuild/KnowledgePlatform/Learning | release-4.5.0_RC9 | Deploy/DockStaging/KnowledgePlatform/Learning | release-4.5.0 |  |
+| DockBuild/KnowledgePlatform/Yarn | release-4.5.0_RC9 | Deploy/DockStaging/KnowledgePlatform/Yarn | release-4.5.0 |  |
+|  |  |  |  |  |
+|  |  |  |  |  |
+| DockBuild/KnowledgePlatform/FlinkJobs | release-4.5.0_RC9 | Deploy/DockStaging/KnowledgePlatform/FlinkJobs | release-4.5.0 |  |
+| DockBuild/DataPipeline/EdDataProducts | release-4.5.0_RC4 | Deploy/DockStaging/DataPipeline/EdDataProducts | release-4.5.0 |  |
 |  |  | Log4jFix | Take job from here - https://github.com/project-sunbird/sunbird-devops/pull/3069/files<br>Or copy from dev OpsAdmin folder<br>Pass job option as below <br>hosts: env<br>release-4.5.0 | Log4j Fix | 
+
 
 ### Manual Configurations for Vidyadaan
 
