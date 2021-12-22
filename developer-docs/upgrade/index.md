@@ -28,7 +28,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 ### Build and Deploy for Sunbird
 
 | Service to be Build | Build Tag | Service to Deploy | Deploy Tag | Comments |
-|:---:|:---:|:---:|:---:|:---:|
+|:---|:---|:---|:---|:---|
 | Build/managed-learn/ml-core-service | release-4.5.0_RC8 | Deploy/managed-learn/ml-core-service | release-4.5.0_RC1 |
 | Build/managed-learn/ml-projects-service | release-4.5.0_RC7 | Deploy/managed-learn/ml-projects-service | release-4.5.0_RC1 |
 | Build/Kubernetes/Player | release-4.5.0_RC45 | Deploy/Kubernetes/Player | release-4.5.0_RC1 |
@@ -42,7 +42,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | Build/Kubernetes/Search | release-4.5.0_RC2 | Deploy/Kubernetes/Search | release-4.5.0_RC1 |
 | Build/Kubernetes/Content | release-4.5.0_RC2 | Deploy/Kubernetes/Content | release-4.5.0_RC1 |
 | Build/Kubernetes/Assessment | release-4.5.0_RC2 | Deploy/Kubernetes/Assessment | release-4.5.0_RC1 |
-| Build/Kubernetes/AdminUtils | release-4.5.0_RC2 | Deploy/Kubernetes/AdminUtils | release-4.5.0_RC1 |
+| Build/Kubernetes/AdminUtils | sunbird-apimanager-util: release-4.5.0_RC3 | Deploy/Kubernetes/AdminUtils | release-4.5.0_RC1 |
 | Build/DataPipeline/ETLUserCacheIndexer | release-4.5.0_RC2 | Deploy/DataPipeline/ETLUserCacheIndexer | release-4.5.0_RC1 |
 | Build/DataPipeline/ETLJobs | release-4.5.0_RC2 | Deploy/DataPipeline/ETLJobs | release-4.5.0_RC1 |
 | Build/DataPipeline/ETLDruidContentIndexer | release-4.5.0_RC2 | Deploy/DataPipeline/ETLDruidContentIndexer | release-4.5.0_RC1 |
@@ -74,7 +74,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |  |  | Deploy/Kubernetes/Dial | release-4.5.0_RC1 |
 |  |  | Deploy/Kubernetes/CertRegistry | release-4.5.0_RC1 |
 |  |  | Deploy/Kubernetes/Cert | release-4.5.0_RC1 |
-|  |  | Deploy/Kubernetes/BootstrapMinimal | release-4.5.0_RC1 |
+|  |  | Deploy/Kubernetes/BootstrapMinimal | release-4.5.0_RC1 | Run helm uninstall reloader first from every namespace |
 |  |  | Deploy/Kubernetes/APIManager | release-4.5.0_RC1 |
 |  |  | Deploy/Kubernetes/Analytics | release-4.5.0_RC1 |
 |  |  | Deploy/KnowledgePlatform/Neo4jElasticSearchSyncTool | release-4.5.0_RC1 |
