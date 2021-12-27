@@ -82,7 +82,7 @@ paths:
         collection:
           application/json:
             schema:
-              $ref: '#/components/schemas/contentapiCreateContentRequest'
+              $ref: '#/components/schemas/collectionapiCreateCollectionRequest'
             example:
               request:
                 collection:
@@ -98,7 +98,7 @@ paths:
           collection:
             application/json:
               schema:
-                $ref: '#/components/schemas/contentapiContentCreateSuccessResponse'
+                $ref: '#/components/schemas/collectionapiCollectionCreateSuccessResponse'
               example:
                 id: api.collection.create
                 ver: '3.0'
@@ -121,7 +121,7 @@ paths:
           collection:
             application/json:
               schema:
-                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+                $ref: '#/components/schemas/collectionapiCollectionCreateErrorResponse'
               example:
                 id: api.collection.create
                 ver: '1.0'
@@ -142,7 +142,7 @@ paths:
           collection:
             application/json:
               schema:
-                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+                $ref: '#/components/schemas/collectionapiCollectionCreateErrorResponse'
               example:
                 id: api.collection.create
                 ver: '1.0'
@@ -160,24 +160,24 @@ paths:
         - bearer: [ ]
 components:
   schemas:
-    contentapiCreateContentRequest:
+    collectionapiCreateCollectionRequest:
       title: Request Object
       required:
         - request
       type: object
       properties:
         request:
-          $ref: '#/components/schemas/contentapiContentCreateRequestContent'
-    contentapiContentCreateRequestContent:
+          $ref: '#/components/schemas/collectionapiCollectionCreateRequestCollection'
+    collectionapiCollectionCreateRequestCollection:
       title: Request
       required:
-        - content
+        - collection
       type: object
       properties:
-        content:
-          $ref: '#/components/schemas/contentapiContentCreateRequestContentObject'
-    contentapiContentCreateRequestContentObject:
-      title: Content
+        collection:
+          $ref: '#/components/schemas/collectionapiCollectionCreateRequestCollectionObject'
+    collectionapiCollectionCreateRequestCollectionObject:
+      title: Collection
       required:
         - code
         - mimeType
@@ -188,58 +188,58 @@ components:
       properties:
         name:
           type: string
-          description: Represents the name of the content
+          description: Represents the name of the collection
         code:
           type: string
-          description: Represents the unique code for the content
+          description: Represents the unique code for the collection
         mimeType:
           type: string
-          description: Content mime type
+          description: Collection mime type
         contentType:
           type: string
           description: 'Content Type. eg- TextBook, Resource, etc'
         createdBy:
           type: string
-          description: ID of the user who created Content
-    contentapiContentCreateSuccessResponse:
-      description: Create Content Response
+          description: ID of the user who created Collection
+    collectionapiCollectionCreateSuccessResponse:
+      description: Create Collection Response
       type: object
       allOf:
-        - $ref: '#/components/schemas/contentapiResultWithContentId'
-        - $ref: '#/components/schemas/contentapiResponseHeader'
-    contentapiResultWithContentId:
-      title: Result Containing Content Id
+        - $ref: '#/components/schemas/collectionapiResultWithCollectionId'
+        - $ref: '#/components/schemas/collectionapiResponseHeader'
+    collectionapiResultWithCollectionId:
+      title: Result Containing Collection Id
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/contentapiContentId'
-    contentapiContentId:
-      title: Content Id
+          $ref: '#/components/schemas/collectionapiCollectionId'
+    collectionapiCollectionId:
+      title: Collection Id
       type: object
       properties:
         node_id:
           type: string
-          description: Content Identifier
-        content_id:
+          description: Collection Identifier
+        collection_id:
           type: string
-          description: Content Identifier
+          description: Collection Identifier
         versionKey:
           type: string
-          description: Content versionKey
-    contentapiContentCreateErrorResponse:
-      description: Create Content Error Response
+          description: Collection versionKey
+    collectionapiCollectionCreateErrorResponse:
+      description: Create Collection Error Response
       type: object
       allOf:
-        - $ref: '#/components/schemas/contentapiEmptyResult'
-        - $ref: '#/components/schemas/contentapiResponseHeader'
-    contentapiEmptyResult:
+        - $ref: '#/components/schemas/collectionapiEmptyResult'
+        - $ref: '#/components/schemas/collectionapiResponseHeader'
+    collectionapiEmptyResult:
       title: Empty Result
       type: object
       properties:
         result:
           type: object
           description: Empty Result
-    contentapiResponseHeader:
+    collectionapiResponseHeader:
       title: ResponseHeader
       type: object
       properties:
@@ -253,11 +253,11 @@ components:
           type: string
           description: API execution timespan
         params:
-          $ref: '#/components/schemas/contentapiResponseParams'
+          $ref: '#/components/schemas/collectionapiResponseParams'
         responseCode:
           type: string
           description: 'API response code '
-    contentapiResponseParams:
+    collectionapiResponseParams:
       title: Response Parameter
       type: object
       properties:
