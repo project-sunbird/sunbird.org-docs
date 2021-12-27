@@ -22,3 +22,220 @@ info:
 servers:
   - url: 'https://staging.sunbirded.org/api'
 paths:
+  /collection/v1/create:
+    post:
+      tags:
+        - Collection APIs
+      summary: Create Collection
+      description: |-
+        This API is associated with creating collection on the Sunbird Platform.
+          - The endpoint for **Create Collection** is `/collection/v1/create`
+          - It points to knowledge-mw-service - `/v1/collection/create`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      operationId: Create Collection
+      parameters:
+        - name: Content-Type
+          in: header
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          required: true
+          schema:
+            type: string
+        - name: x-channel-id
+          in: header
+          description: >-
+            Represents a physical location (e.g: state) uniquely to which the
+            user belongs.
+          required: true
+          schema:
+            type: string
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+          
+           - JSON 
+          
+          The body is the representation of the resource object for creating
+          collection (an array of parameters which describes the collection) 
+          
+          - Please refer for supported
+          [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-4.6.0/schemas/collection/1.0/schema.json)
+        collection:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/contentapiCreateContentRequest'
+            example:
+              request:
+                collection:
+                  name: Textbook Name
+                  code: textbookname
+                  mimeType: application/vnd.ekstep.h5p-archive
+                  contentType: Resource
+                  createdBy: 874ed8a5-782e-4f6c-8f36-e0288455901e
+        required: true
+      responses:
+        '200':
+          description: SUCCESS. The **Create Collection** operation was successful!
+          collection:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateSuccessResponse'
+              example:
+                id: api.collection.create
+                ver: '3.0'
+                ts: '2020-12-10T20:24:45ZZ'
+                params:
+                  resmsgid: 3be02c4b-3324-41a3-afd8-60f6be0584d2
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_1131697204035993601314
+                  node_id: do_1131697204035993601314
+                  versionKey: '1607631885207'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Create Collection** operation failed. You may have
+            missed input for a mandatory parameter.'
+          collection:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.collection.create
+                ver: '1.0'
+                ts: '2020-12-10T08:50:29.786Z'
+                params:
+                  resmsgid: c169a7a0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: ERR_COLLECTION_CREATE_FIELDS_MISSING
+                  errmsg: Required fields for create collection are missing
+                responseCode: CLIENT_ERROR
+                result: { }
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'
+          collection:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.collection.create
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: { }
+      deprecated: false
+      security:
+        - bearer: [ ]
+components:
+  schemas:
+    contentapiCreateContentRequest:
+      title: Request Object
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/contentapiContentCreateRequestContent'
+    contentapiContentCreateRequestContent:
+      title: Request
+      required:
+        - content
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/contentapiContentCreateRequestContentObject'
+    contentapiContentCreateRequestContentObject:
+      title: Content
+      required:
+        - code
+        - mimeType
+        - name
+        - contentType
+        - createdBy
+      type: object
+      properties:
+        name:
+          type: string
+          description: Represents the name of the content
+        code:
+          type: string
+          description: Represents the unique code for the content
+        mimeType:
+          type: string
+          description: Content mime type
+        contentType:
+          type: string
+          description: 'Content Type. eg- TextBook, Resource, etc'
+        createdBy:
+          type: string
+          description: ID of the user who created Content
+    contentapiContentCreateSuccessResponse:
+      description: Create Content Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiResultWithContentId'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    contentapiResultWithContentId:
+      title: Result Containing Content Id
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/contentapiContentId'
+    contentapiContentId:
+      title: Content Id
+      type: object
+      properties:
+        node_id:
+          type: string
+          description: Content Identifier
+        content_id:
+          type: string
+          description: Content Identifier
+        versionKey:
+          type: string
+          description: Content versionKey
+    contentapiContentCreateErrorResponse:
+      description: Create Content Error Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiEmptyResult'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    contentapiEmptyResult:
+      title: Empty Result
+      type: object
+      properties:
+        result:
+          type: object
+          description: Empty Result
