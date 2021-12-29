@@ -1,0 +1,1871 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Asset API's
+  contact: {}
+host: example.com
+basePath: /asset/v1
+securityDefinitions: {}
+schemes:
+- http
+- https
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /asset/v1/create:
+    post:
+      description: |-
+        This API is associated with creating asset on the Sunbird Platform.
+          - The endpoint for **Create Asset** is `/asset/v1/create`
+          - It points to knowledge-mw-service - `/v1/asset/create`
+          - It is mandatory to provide values for parameters marked with *
+          - Mandatory fields cannot be null or empty.
+      summary: Asset Create
+      tags:
+      - Asset APIs
+      operationId: AssetCreate
+      deprecated: false
+      parameters:
+      - name: Authorization
+        in: header
+        description: 
+          To make use of the API, you require authorization.
+          Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+        required: true
+        type: string
+      - name: Content-Type
+        in: header
+        required: false
+        enum:
+        - application/json
+        type: string
+        description: 'The Asset Type entity is the media type of the resource.Possible'
+      - name: x-authenticated-user-token
+        in: header
+        required: true
+        type: string
+        description: 'Represents the authorized User ID to execute the API'
+      - name: X-Channel-ID
+        in: header
+        required: true
+        type: string
+        description: 'Represents a physical location (e.g: state) uniquely to which the
+            user belongs'
+      - name: Request Body
+        in: body
+        required: true
+        description: 'The body parameter refers to the format of the request'
+        schema:
+          $ref: '#/definitions/AssetCreateRequest'
+      responses:
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/AssetCreate400'
+          examples:
+            application/json:
+              id: api.asset.create
+              ver: '4.0'
+              ts: 2021-12-29T09:36:28ZZ
+              params:
+                resmsgid: c2a8542a-3ed3-4b69-8a76-f2cc782191ed
+                msgid: null
+                err: CLIENT_ERROR
+                status: failed
+                errmsg: Validation Errors
+              responseCode: CLIENT_ERROR
+              result:
+                messages:
+                - Required Metadata code not set
+          headers:
+            Date:
+              type: string
+              default: Wed, 29 Dec 2021 09:36:28 GMT
+            Content-Length:
+              type: string
+              default: '295'
+            Connection:
+              type: string
+              default: keep-alive
+            X-RateLimit-Limit-hour:
+              type: string
+              default: '30000'
+            X-RateLimit-Remaining-hour:
+              type: string
+              default: '29993'
+            request-time:
+              type: string
+              default: '6'
+            x-envoy-upstream-service-time:
+              type: string
+              default: '7'
+            Access-Control-Allow-Origin:
+              type: string
+              default: '*'
+            X-Kong-Upstream-Latency:
+              type: string
+              default: '10'
+            X-Kong-Proxy-Latency:
+              type: string
+              default: '12'
+            Via:
+              type: string
+              default: kong/0.14.1
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/AssetCreate200'
+          examples:
+            application/json:
+              id: api.asset.create
+              ver: '4.0'
+              ts: 2021-12-29T09:20:03ZZ
+              params:
+                resmsgid: bc3f02f5-d550-42b0-904e-38eb671248ef
+                msgid: null
+                err: null
+                status: successful
+                errmsg: null
+              responseCode: OK
+              result:
+                identifier: do_113441184591495168151
+                node_id: do_113441184591495168151
+                versionKey: '1640769603462'
+          headers:
+            Date:
+              type: string
+              default: Wed, 29 Dec 2021 09:20:03 GMT
+            Transfer-Encoding:
+              type: string
+              default: chunked
+            Connection:
+              type: string
+              default: keep-alive
+            Vary:
+              type: string
+              default: Accept-Encoding
+            X-RateLimit-Limit-hour:
+              type: string
+              default: '30000'
+            X-RateLimit-Remaining-hour:
+              type: string
+              default: '29994'
+            request-time:
+              type: string
+              default: '39'
+            x-envoy-upstream-service-time:
+              type: string
+              default: '41'
+            Access-Control-Allow-Origin:
+              type: string
+              default: '*'
+            X-Kong-Upstream-Latency:
+              type: string
+              default: '44'
+            X-Kong-Proxy-Latency:
+              type: string
+              default: '11'
+            Via:
+              type: string
+              default: kong/0.14.1
+            Content-Encoding:
+              type: string
+              default: gzip
+  /asset/v1/update:
+    patch:
+      description: >-
+        {
+          "request": {
+            "content": {
+              "mimeType" : "application/vnd.ekstep.h5p-archive",
+              "contentType": "Story",
+              "name": "h5p",
+              "description": "Test Content h5p"
+            }
+          }
+        }
+      summary: Asset Update
+      tags:
+      - Misc
+      operationId: AssetUpdate
+      deprecated: false
+      produces:
+      - application/json
+      consumes:
+      - application/json
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        default: Bearer {token}
+        type: string
+      - name: Content-Type
+        in: header
+        required: false
+        enum:
+        - application/json
+        type: string
+        description: ''
+      - name: x-authenticated-user-token
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: X-Channel-ID
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          $ref: '#/definitions/AssetUpdateRequest'
+      responses:
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/AssetUpdate400'
+          examples:
+            application/json:
+              id: api.asset.update
+              ver: '4.0'
+              ts: 2021-12-29T09:38:42ZZ
+              params:
+                resmsgid: 63da1ede-b594-473d-abd3-70ca45bce86c
+                msgid: null
+                err: CLIENT_ERROR
+                status: failed
+                errmsg: Invalid version Key
+              responseCode: CLIENT_ERROR
+              result:
+                messages: null
+          headers:
+            Date:
+              type: string
+              default: Wed, 29 Dec 2021 09:38:42 GMT
+            Content-Length:
+              type: string
+              default: '267'
+            Connection:
+              type: string
+              default: keep-alive
+            X-RateLimit-Limit-hour:
+              type: string
+              default: '30000'
+            X-RateLimit-Remaining-hour:
+              type: string
+              default: '29997'
+            request-time:
+              type: string
+              default: '19'
+            x-envoy-upstream-service-time:
+              type: string
+              default: '20'
+            Access-Control-Allow-Origin:
+              type: string
+              default: '*'
+            X-Kong-Upstream-Latency:
+              type: string
+              default: '24'
+            X-Kong-Proxy-Latency:
+              type: string
+              default: '13'
+            Via:
+              type: string
+              default: kong/0.14.1
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/AssetUpdate200'
+          examples:
+            application/json:
+              id: api.asset.update
+              ver: '4.0'
+              ts: 2021-12-29T09:24:27ZZ
+              params:
+                resmsgid: 7302823d-669f-449e-a903-d03b5e3c307d
+                msgid: null
+                err: null
+                status: successful
+                errmsg: null
+              responseCode: OK
+              result:
+                identifier: do_113441184591495168151
+                node_id: do_113441184591495168151
+                versionKey: '1640769867533'
+          headers:
+            Date:
+              type: string
+              default: Wed, 29 Dec 2021 09:24:27 GMT
+            Transfer-Encoding:
+              type: string
+              default: chunked
+            Connection:
+              type: string
+              default: keep-alive
+            Vary:
+              type: string
+              default: Accept-Encoding
+            X-RateLimit-Limit-hour:
+              type: string
+              default: '30000'
+            X-RateLimit-Remaining-hour:
+              type: string
+              default: '29998'
+            request-time:
+              type: string
+              default: '409'
+            x-envoy-upstream-service-time:
+              type: string
+              default: '410'
+            Access-Control-Allow-Origin:
+              type: string
+              default: '*'
+            X-Kong-Upstream-Latency:
+              type: string
+              default: '413'
+            X-Kong-Proxy-Latency:
+              type: string
+              default: '10'
+            Via:
+              type: string
+              default: kong/0.14.1
+            Content-Encoding:
+              type: string
+              default: gzip
+  /asset/v1/read:
+    get:
+      summary: Asset Read
+      tags:
+      - Misc
+      operationId: AssetRead
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: Connection
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: sec-ch-ua
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: X-App-Id
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: ts
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: X-msgid
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: sec-ch-ua-mobile
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Accept
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: User-Agent
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: X-Source
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: X-Device-ID
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: sec-ch-ua-platform
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Sec-Fetch-Site
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Sec-Fetch-Mode
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Sec-Fetch-Dest
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Referer
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Cookie
+        in: header
+        required: true
+        type: string
+        description: ''
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/AssetRead200'
+          examples:
+            application/json:
+              id: api.asset.read
+              ver: '4.0'
+              ts: 2021-12-29T10:22:50ZZ
+              params:
+                resmsgid: 30114c34-e044-4e49-ad5e-89075ae503ce
+                msgid: null
+                err: null
+                status: successful
+                errmsg: null
+              responseCode: OK
+              result:
+                content:
+                  ownershipType:
+                  - createdBy
+                  code: f2f41233-1c34-cf28-7bf8-0987a1eee420
+                  keywords: ''
+                  channel: 01309282781705830427
+                  downloadUrl: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/assets/do_113441146415767552142/file_example_mp4_640_3mg.mp4
+                  language:
+                  - English
+                  mimeType: video/mp4
+                  idealScreenSize: normal
+                  createdOn: 2021-12-29T08:02:23.340+0000
+                  objectType: Asset
+                  primaryCategory: asset
+                  contentDisposition: inline
+                  lastUpdatedOn: 2021-12-29T08:02:24.755+0000
+                  contentEncoding: identity
+                  artifactUrl: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/assets/do_113441146415767552142/file_example_mp4_640_3mg.mp4
+                  contentType: Resource
+                  dialcodeRequired: No
+                  identifier: do_113441146415767552142
+                  lastStatusChangedOn: 2021-12-29T08:02:23.340+0000
+                  audience:
+                  - Student
+                  creator: N11
+                  os:
+                  - All
+                  visibility: Default
+                  consumerId: bfe5883f-ac66-4744-a064-3ed88d986eba
+                  mediaType: video
+                  osId: org.ekstep.quiz.app
+                  languageCode:
+                  - en
+                  version: 2
+                  versionKey: '1640764944755'
+                  license: CC BY 4.0
+                  idealScreenDensity: hdpi
+                  framework: NCF
+                  size: 3114374
+                  createdBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+                  compatibilityLevel: 1
+                  name: file_example_MP4_640_3MG
+                  status: Processing
+          headers:
+            Date:
+              type: string
+              default: Wed, 29 Dec 2021 10:22:50 GMT
+            Transfer-Encoding:
+              type: string
+              default: chunked
+            Connection:
+              type: string
+              default: keep-alive
+            Vary:
+              type: string
+              default: Accept-Encoding
+            X-DNS-Prefetch-Control:
+              type: string
+              default: off
+            X-Frame-Options:
+              type: string
+              default: SAMEORIGIN
+            Strict-Transport-Security:
+              type: string
+              default: max-age=15552000; includeSubDomains
+            X-Download-Options:
+              type: string
+              default: noopen
+            X-Content-Type-Options:
+              type: string
+              default: nosniff
+            X-XSS-Protection:
+              type: string
+              default: 1; mode=block
+            x-ratelimit-limit-hour:
+              type: string
+              default: '30000'
+            x-ratelimit-remaining-hour:
+              type: string
+              default: '29999'
+            request-time:
+              type: string
+              default: '3'
+            x-envoy-upstream-service-time:
+              type: string
+              default: '4'
+            access-control-allow-origin:
+              type: string
+              default: '*'
+            x-kong-upstream-latency:
+              type: string
+              default: '8'
+            x-kong-proxy-latency:
+              type: string
+              default: '16'
+            via:
+              type: string
+              default: kong/0.14.1
+            ETag:
+              type: string
+              default: W/"5e4-q6JsBNERD72lx6WJzzBpo2VAz/8"
+            Content-Encoding:
+              type: string
+              default: gzip
+      security: []
+  /asset/v1/upload:
+    post:
+      summary: Asset Upload
+      tags:
+      - Misc
+      operationId: AssetUpload
+      deprecated: false
+      produces:
+      - application/json
+      consumes:
+      - multipart/form-data; boundary=----WebKitFormBoundary1B5zE009d9cyBoho
+      parameters:
+      - name: enctype
+        in: query
+        required: true
+        type: string
+        description: ''
+      - name: processData
+        in: query
+        required: true
+        type: boolean
+        description: ''
+      - name: contentType
+        in: query
+        required: true
+        type: boolean
+        description: ''
+      - name: cache
+        in: query
+        required: true
+        type: boolean
+        description: ''
+      - name: Connection
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Pragma
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Cache-Control
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: sec-ch-ua
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: X-App-Id
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: ts
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: X-msgid
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: sec-ch-ua-mobile
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Authorization
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Content-Type
+        in: header
+        required: false
+        enum:
+        - multipart/form-data; boundary=----WebKitFormBoundary1B5zE009d9cyBoho
+        type: string
+        description: ''
+      - name: Accept
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: User-Agent
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: X-Source
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: X-Device-ID
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: sec-ch-ua-platform
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Origin
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Sec-Fetch-Site
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Sec-Fetch-Mode
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Sec-Fetch-Dest
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Referer
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+        description: ''
+      - name: fileUrl
+        in: formData
+        required: true
+        type: string
+        description: ''
+      - name: mimeType
+        in: formData
+        required: true
+        type: string
+        description: ''
+      responses:
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/assetUpload500'
+          examples:
+            application/json:
+              id: api.asset.upload
+              ver: '4.0'
+              ts: 2021-12-28T12:10:49ZZ
+              params:
+                resmsgid: 50ad2a3a-bdb5-495a-82d9-b36a8747a292
+                msgid: null
+                err: ERR_SYSTEM_EXCEPTION
+                status: failed
+                errmsg: Something went wrong in server while processing the request
+              responseCode: SERVER_ERROR
+              result: {}
+          headers:
+            X-DNS-Prefetch-Control:
+              type: string
+              default: off
+            X-Frame-Options:
+              type: string
+              default: SAMEORIGIN
+            Strict-Transport-Security:
+              type: string
+              default: max-age=15552000; includeSubDomains
+            X-Download-Options:
+              type: string
+              default: noopen
+            X-Content-Type-Options:
+              type: string
+              default: nosniff
+            X-XSS-Protection:
+              type: string
+              default: 1; mode=block
+            server:
+              type: string
+              default: nginx/1.15.8
+            date:
+              type: string
+              default: Tue, 28 Dec 2021 12:10:49 GMT
+            content-type:
+              type: string
+              default: application/json; charset=utf-8
+            Content-Length:
+              type: string
+              default: '300'
+            connection:
+              type: string
+              default: close
+            x-ratelimit-limit-hour:
+              type: string
+              default: '30000'
+            x-ratelimit-remaining-hour:
+              type: string
+              default: '29998'
+            request-time:
+              type: string
+              default: '147'
+            access-control-allow-origin:
+              type: string
+              default: '*'
+            x-kong-upstream-latency:
+              type: string
+              default: '156'
+            x-kong-proxy-latency:
+              type: string
+              default: '0'
+            via:
+              type: string
+              default: kong/0.9.9
+            ETag:
+              type: string
+              default: W/"12c-5N6mDeqHdhB+do8dXdneHRuwjiI"
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/assetUpload400'
+          examples:
+            application/json:
+              id: api.asset.upload
+              ver: '4.0'
+              ts: 2021-12-28T12:23:33ZZ
+              params:
+                resmsgid: e2f55553-40b9-4007-b1f9-8214670e4c2f
+                msgid: null
+                err: ERR_INVALID_FILE_URL
+                status: failed
+                errmsg: Please Provide Valid File Url!
+              responseCode: CLIENT_ERROR
+              result:
+                messages: null
+          headers:
+            X-DNS-Prefetch-Control:
+              type: string
+              default: off
+            X-Frame-Options:
+              type: string
+              default: SAMEORIGIN
+            Strict-Transport-Security:
+              type: string
+              default: max-age=15552000; includeSubDomains
+            X-Download-Options:
+              type: string
+              default: noopen
+            X-Content-Type-Options:
+              type: string
+              default: nosniff
+            X-XSS-Protection:
+              type: string
+              default: 1; mode=block
+            server:
+              type: string
+              default: nginx/1.15.8
+            date:
+              type: string
+              default: Tue, 28 Dec 2021 12:23:33 GMT
+            content-type:
+              type: string
+              default: application/json; charset=utf-8
+            Content-Length:
+              type: string
+              default: '286'
+            connection:
+              type: string
+              default: close
+            x-ratelimit-limit-hour:
+              type: string
+              default: '30000'
+            x-ratelimit-remaining-hour:
+              type: string
+              default: '29987'
+            request-time:
+              type: string
+              default: '5'
+            access-control-allow-origin:
+              type: string
+              default: '*'
+            x-kong-upstream-latency:
+              type: string
+              default: '12'
+            x-kong-proxy-latency:
+              type: string
+              default: '0'
+            via:
+              type: string
+              default: kong/0.9.9
+            ETag:
+              type: string
+              default: W/"11e-qa0yrHNz650v/lDipls1aG0ZbGQ"
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/assetUpload200'
+          examples:
+            application/json:
+              id: api.asset.upload
+              ver: '4.0'
+              ts: 2021-12-28T12:18:32ZZ
+              params:
+                resmsgid: 1ee721a1-deb7-4e9c-8e7e-777a376f7844
+                msgid: null
+                err: null
+                status: successful
+                errmsg: null
+              responseCode: OK
+              result:
+                identifier: do_1134405639859486721110
+                artifactUrl: https://dockstorage.blob.core.windows.net/sunbird-content-dock/content/assets/do_1134405639859486721110/image1.jpeg
+                content_url: https://dockstorage.blob.core.windows.net/sunbird-content-dock/content/assets/do_1134405639859486721110/image1.jpeg
+                node_id: do_1134405639859486721110
+                versionKey: '1640693912866'
+          headers:
+            X-DNS-Prefetch-Control:
+              type: string
+              default: off
+            X-Frame-Options:
+              type: string
+              default: SAMEORIGIN
+            Strict-Transport-Security:
+              type: string
+              default: max-age=15552000; includeSubDomains
+            X-Download-Options:
+              type: string
+              default: noopen
+            X-Content-Type-Options:
+              type: string
+              default: nosniff
+            X-XSS-Protection:
+              type: string
+              default: 1; mode=block
+            server:
+              type: string
+              default: nginx/1.15.8
+            date:
+              type: string
+              default: Tue, 28 Dec 2021 12:18:32 GMT
+            content-type:
+              type: string
+              default: application/json; charset=utf-8
+            Content-Length:
+              type: string
+              default: '590'
+            connection:
+              type: string
+              default: close
+            x-ratelimit-limit-hour:
+              type: string
+              default: '30000'
+            x-ratelimit-remaining-hour:
+              type: string
+              default: '29994'
+            request-time:
+              type: string
+              default: '93'
+            access-control-allow-origin:
+              type: string
+              default: '*'
+            x-kong-upstream-latency:
+              type: string
+              default: '103'
+            x-kong-proxy-latency:
+              type: string
+              default: '0'
+            via:
+              type: string
+              default: kong/0.9.9
+            ETag:
+              type: string
+              default: W/"24e-Arz21yNr2/+zsIFDDsj5QEp41ks"
+      security: []
+definitions:
+  AssetCreateRequest:
+    title: AssetCreateRequest
+    description: Asset create request
+    example:
+      request:
+        asset:
+          primaryCategory: asset
+          language:
+          - English
+          code: fe59eba6-5232-2109-f38e-0cee4a86efbd
+          name: mountainImage
+          mediaType: image
+          mimeType: image/jpeg
+          createdBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+          creator: N11
+          channel: 01309282781705830427
+          keywords: ''
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/createRequest'
+    required:
+    - request
+  createRequest:
+    title: Request
+    example:
+      asset:
+        primaryCategory: asset
+        language:
+        - English
+        code: fe59eba6-5232-2109-f38e-0cee4a86efbd
+        name: mountainImage
+        mediaType: image
+        mimeType: image/jpeg
+        createdBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+        creator: N11
+        channel: 01309282781705830427
+        keywords: ''
+    type: object
+    properties:
+      asset:
+        $ref: '#/definitions/createRequestDetails'
+    required:
+    - asset
+  createRequestDetails:
+    title: Asset
+    example:
+      primaryCategory: asset
+      language:
+      - English
+      code: fe59eba6-5232-2109-f38e-0cee4a86efbd
+      name: mountainImage
+      mediaType: image
+      mimeType: image/jpeg
+      createdBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+      creator: N11
+      channel: 01309282781705830427
+      keywords: ''
+    type: object
+    properties:
+      primaryCategory:
+        type: string
+        description: Represents the primary category
+      language:
+        type: array
+        description: Represents the language arry
+        items:
+          type: string
+      code:
+        type: string
+        description: Represents the code 
+      name:
+        type: string
+        description: Represents the name of the asset
+      mediaType:
+        type: string
+        description: Represents the media type of asset
+      mimeType:
+        type: string
+        description: Represents the mime type of asset
+      createdBy:
+        type: string
+        description: Represents the creator id
+      creator:
+        type: string
+        description: Represents the creator name
+      channel:
+        type: string
+        description: Represents the channel id
+      keywords:
+        type: string
+        description: Represents the keywords
+    required:
+    - primaryCategory
+    - language
+    - code
+    - name
+    - mediaType
+    - mimeType
+    - createdBy
+    - creator
+    - channel
+    - keywords
+  Params:
+    title: Params
+    example:
+      resmsgid: c2a8542a-3ed3-4b69-8a76-f2cc782191ed
+      msgid: null
+      err: CLIENT_ERROR
+      status: failed
+      errmsg: Validation Errors
+    type: object
+    properties:
+      resmsgid:
+        type: string
+        description: Represents the response message id
+      msgid:
+        type: string
+        description: Represents the message id
+      err:
+        type: string
+        description: Represents the error
+      status:
+        type: string
+        description: Represents the status
+      errmsg:
+        type: string
+        description: Represents the error message
+    required:
+    - resmsgid
+    - msgid
+    - err
+    - status
+    - errmsg
+  AssetCreate400Result:
+    title: Result
+    description: This represents results
+    example:
+      messages:
+      - Required Metadata code not set
+    type: object
+    properties:
+      messages:
+        type: array
+        description: This represents message array
+        items:
+          type: string
+          description: This represents  array
+    required:
+    - messages
+  AssetCreate400:
+    title: AssetCreate400
+    example:
+      id: api.asset.create
+      ver: '4.0'
+      ts: 2021-12-29T09:36:28ZZ
+      params:
+        resmsgid: c2a8542a-3ed3-4b69-8a76-f2cc782191ed
+        msgid: null
+        err: CLIENT_ERROR
+        status: failed
+        errmsg: Validation Errors
+      responseCode: CLIENT_ERROR
+      result:
+        messages:
+        - Required Metadata code not set
+    type: object
+    properties:
+      id:
+        type: string
+        description: Represents the api id
+      ver:
+        type: string
+        description: Represents the version of the asset
+      ts:
+        type: string
+        description: Represents the EPOCH epoch time in milliseconds
+      params:
+        $ref: '#/definitions/Params'
+      responseCode:
+        type: string
+        description: Represents the api response code
+      result:
+        $ref: '#/definitions/AssetCreate400Result'
+    required:
+    - id
+    - ver
+    - ts
+    - params
+    - responseCode
+    - result
+  AssetCreate200:
+    title: AssetCreate200
+    example:
+      id: api.asset.create
+      ver: '4.0'
+      ts: 2021-12-29T09:20:03ZZ
+      params:
+        resmsgid: bc3f02f5-d550-42b0-904e-38eb671248ef
+        msgid: null
+        err: null
+        status: successful
+        errmsg: null
+      responseCode: OK
+      result:
+        identifier: do_113441184591495168151
+        node_id: do_113441184591495168151
+        versionKey: '1640769603462'
+    type: object
+    properties:
+      id:
+        type: string
+        description: Represents the api id
+      ver:
+        type: string
+        description: Represents the version of the asset
+      ts:
+        type: string
+        description: Represents the EPOCH epoch time in milliseconds
+      params:
+        $ref: '#/definitions/Params2'
+      responseCode:
+        type: string
+        description: Represents the api response code
+      result:
+        $ref: '#/definitions/AssetCreate200Result'
+    required:
+    - id
+    - ver
+    - ts
+    - params
+    - responseCode
+    - result
+  Params2:
+    title: Params2
+    example:
+      resmsgid: bc3f02f5-d550-42b0-904e-38eb671248ef
+      msgid: null
+      err: null
+      status: successful
+      errmsg: null
+    type: object
+    properties:
+       resmsgid:
+        type: string
+        description: Represents the response message id
+       msgid:
+        type: string
+        description: Represents the message id
+       err:
+        type: string
+        description: Represents the error
+       status:
+        type: string
+        description: Represents the status
+       errmsg:
+        type: string
+        description: Represents the error message
+    required:
+    - resmsgid
+    - msgid
+    - err
+    - status
+    - errmsg
+  AssetCreate200Result:
+    title: Result2
+    example:
+      identifier: do_113441184591495168151
+      node_id: do_113441184591495168151
+      versionKey: '1640769603462'
+    type: object
+    properties:
+      identifier:
+        type: string
+        description: Represents asset identifier
+      node_id:
+        type: string
+        description: Represents node identifier
+      versionKey:
+        type: string
+        description: Represents asset version key
+    required:
+    - identifier
+    - node_id
+    - versionKey
+  AssetUpdateRequest:
+    title: AssetUpdateRequest
+    description: Represents Asset Update Request
+    example:
+      request:
+        asset:
+          name: test asset
+          versionKey: '1640774434453'
+    type: object
+    properties:
+      request:
+        $ref: '#/definitions/AssetUpdateRequestBody'
+    required:
+    - request
+  AssetUpdateRequestBody:
+    title: AssetUpdateRequestBody
+    description: Represents Asset Update Request Body
+    example:
+      asset:
+        name: test asset
+        versionKey: '1640774434453'
+    type: object
+    properties:
+      asset:
+        $ref: '#/definitions/AssetRequestBody'
+    required:
+    - asset
+  AssetRequestBody:
+    title: AssetRequestBody
+    description: Represents Asset Request Body
+    example:
+      name: test asset
+      versionKey: '1640774434453'
+    type: object
+    properties:
+      name:
+        type: string
+        description: Represents Asset type
+      versionKey:
+        type: string
+        description: Represents Asset version key
+    required:
+    - name
+    - versionKey
+  Asset400Result:
+    title: Asset400Result
+    description: Represents Asset  400 Result
+    example:
+      messages: null
+    type: object
+    properties:
+      messages:
+        type: string
+    required:
+    - messages
+  AssetUpdate400:
+    title: AssetUpdate400 
+    description: Represents Asset Update 400
+    example:
+      id: api.asset.update
+      ver: '4.0'
+      ts: 2021-12-29T09:38:42ZZ
+      params:
+        resmsgid: 63da1ede-b594-473d-abd3-70ca45bce86c
+        msgid: null
+        err: CLIENT_ERROR
+        status: failed
+        errmsg: Invalid version Key
+      responseCode: CLIENT_ERROR
+      result:
+        messages: null
+    type: object
+    properties:
+      id:
+        type: string
+        description: Represents the api id
+      ver:
+        type: string
+        description: Represents the version of the asset
+      ts:
+        type: string
+        description: Represents the EPOCH epoch time in milliseconds
+      params:
+        $ref: '#/definitions/Params'
+      responseCode:
+        type: string
+        description: Represents the api response code
+      result:
+        $ref: '#/definitions/Asset400Result'
+    required:
+    - id
+    - ver
+    - ts
+    - params
+    - responseCode
+    - result
+  AssetUpdate200:
+    title: AssetUpdate200
+    description: Represents Asset Update 200
+    example:
+      id: api.asset.update
+      ver: '4.0'
+      ts: 2021-12-29T09:24:27ZZ
+      params:
+        resmsgid: 7302823d-669f-449e-a903-d03b5e3c307d
+        msgid: null
+        err: null
+        status: successful
+        errmsg: null
+      responseCode: OK
+      result:
+        identifier: do_113441184591495168151
+        node_id: do_113441184591495168151
+        versionKey: '1640769867533'
+    type: object
+    properties:
+      id:
+        type: string
+        description: Represents the api id
+      ver:
+        type: string
+        description: Represents the version of the asset
+      ts:
+        type: string
+        description: Represents the EPOCH epoch time in milliseconds
+      params:
+        $ref: '#/definitions/Params2'
+      responseCode:
+        type: string
+        description: Represents the api response code
+      result:
+        $ref: '#/definitions/AssetCreate200Result'
+    required:
+    - id
+    - ver
+    - ts
+    - params
+    - responseCode
+    - result
+  AssetRead200:
+    title: AssetRead200
+    description: Represents Asset Read 200
+    example:
+      id: api.asset.read
+      ver: '4.0'
+      ts: 2021-12-29T10:22:50ZZ
+      params:
+        resmsgid: 30114c34-e044-4e49-ad5e-89075ae503ce
+        msgid: null
+        err: null
+        status: successful
+        errmsg: null
+      responseCode: OK
+      result:
+        content:
+          ownershipType:
+          - createdBy
+          code: f2f41233-1c34-cf28-7bf8-0987a1eee420
+          keywords: ''
+          channel: 01309282781705830427
+          downloadUrl: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/assets/do_113441146415767552142/file_example_mp4_640_3mg.mp4
+          language:
+          - English
+          mimeType: video/mp4
+          idealScreenSize: normal
+          createdOn: 2021-12-29T08:02:23.340+0000
+          objectType: Asset
+          primaryCategory: asset
+          contentDisposition: inline
+          lastUpdatedOn: 2021-12-29T08:02:24.755+0000
+          contentEncoding: identity
+          artifactUrl: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/assets/do_113441146415767552142/file_example_mp4_640_3mg.mp4
+          contentType: Resource
+          dialcodeRequired: No
+          identifier: do_113441146415767552142
+          lastStatusChangedOn: 2021-12-29T08:02:23.340+0000
+          audience:
+          - Student
+          creator: N11
+          os:
+          - All
+          visibility: Default
+          consumerId: bfe5883f-ac66-4744-a064-3ed88d986eba
+          mediaType: video
+          osId: org.ekstep.quiz.app
+          languageCode:
+          - en
+          version: 2
+          versionKey: '1640764944755'
+          license: CC BY 4.0
+          idealScreenDensity: hdpi
+          framework: NCF
+          size: 3114374
+          createdBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+          compatibilityLevel: 1
+          name: file_example_MP4_640_3MG
+          status: Processing
+    type: object
+    properties:
+      id:
+        type: string
+        description: Represents the api id
+      ver:
+        type: string
+        description: Represents the version of the asset
+      ts:
+        type: string
+        description: Represents the EPOCH epoch time in milliseconds
+      params:
+        $ref: '#/definitions/Params2'
+      responseCode:
+        type: string
+        description: Represents the api response code
+      result:
+        $ref: '#/definitions/AssetReadResult'
+    required:
+    - id
+    - ver
+    - ts
+    - params
+    - responseCode
+    - result
+  AssetReadResult:
+    title: AssetReadResult
+    description: Represents Asset Read Result
+    example:
+      content:
+        ownershipType:
+        - createdBy
+        code: f2f41233-1c34-cf28-7bf8-0987a1eee420
+        keywords: ''
+        channel: 01309282781705830427
+        downloadUrl: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/assets/do_113441146415767552142/file_example_mp4_640_3mg.mp4
+        language:
+        - English
+        mimeType: video/mp4
+        idealScreenSize: normal
+        createdOn: 2021-12-29T08:02:23.340+0000
+        objectType: Asset
+        primaryCategory: asset
+        contentDisposition: inline
+        lastUpdatedOn: 2021-12-29T08:02:24.755+0000
+        contentEncoding: identity
+        artifactUrl: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/assets/do_113441146415767552142/file_example_mp4_640_3mg.mp4
+        contentType: Resource
+        dialcodeRequired: No
+        identifier: do_113441146415767552142
+        lastStatusChangedOn: 2021-12-29T08:02:23.340+0000
+        audience:
+        - Student
+        creator: N11
+        os:
+        - All
+        visibility: Default
+        consumerId: bfe5883f-ac66-4744-a064-3ed88d986eba
+        mediaType: video
+        osId: org.ekstep.quiz.app
+        languageCode:
+        - en
+        version: 2
+        versionKey: '1640764944755'
+        license: CC BY 4.0
+        idealScreenDensity: hdpi
+        framework: NCF
+        size: 3114374
+        createdBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+        compatibilityLevel: 1
+        name: file_example_MP4_640_3MG
+        status: Processing
+    type: object
+    properties:
+      content:
+        $ref: '#/definitions/AssetDetails'
+    required:
+    - content
+  AssetDetails:
+    title: Content
+    example:
+      ownershipType:
+      - createdBy
+      code: f2f41233-1c34-cf28-7bf8-0987a1eee420
+      keywords: ''
+      channel: 01309282781705830427
+      downloadUrl: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/assets/do_113441146415767552142/file_example_mp4_640_3mg.mp4
+      language:
+      - English
+      mimeType: video/mp4
+      idealScreenSize: normal
+      createdOn: 2021-12-29T08:02:23.340+0000
+      objectType: Asset
+      primaryCategory: asset
+      contentDisposition: inline
+      lastUpdatedOn: 2021-12-29T08:02:24.755+0000
+      contentEncoding: identity
+      artifactUrl: https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/assets/do_113441146415767552142/file_example_mp4_640_3mg.mp4
+      contentType: Resource
+      dialcodeRequired: No
+      identifier: do_113441146415767552142
+      lastStatusChangedOn: 2021-12-29T08:02:23.340+0000
+      audience:
+      - Student
+      creator: N11
+      os:
+      - All
+      visibility: Default
+      consumerId: bfe5883f-ac66-4744-a064-3ed88d986eba
+      mediaType: video
+      osId: org.ekstep.quiz.app
+      languageCode:
+      - en
+      version: 2
+      versionKey: '1640764944755'
+      license: CC BY 4.0
+      idealScreenDensity: hdpi
+      framework: NCF
+      size: 3114374
+      createdBy: 5a587cc1-e018-4859-a0a8-e842650b9d64
+      compatibilityLevel: 1
+      name: file_example_MP4_640_3MG
+      status: Processing
+    type: object
+    properties:
+      ownershipType:
+        type: array
+        items:
+          type: string
+      code:
+        type: string
+        description: 'Respresent the code of asset'
+      keywords:
+        type: string
+        description: 'Respresent the keywords of asset'
+      channel:
+        type: string
+        description: 'Respresent the channel in which asset is created'
+      downloadUrl:
+        type: string
+        description: 'Respresent the url to download the asset'
+      language:
+        type: array
+        description: 'Respresent the languages of the asset'
+        items:
+          type: string
+          description: ''
+      mimeType:
+        type: string
+        description: 'Respresent the mime type of the asset'
+      idealScreenSize:
+        type: string
+        description: ''
+      createdOn:
+        type: string
+        description: 'Respresent the date of creation of asset'
+      objectType:
+        type: string
+        description: 'Respresent the object type of asset'
+      primaryCategory:
+        type: string
+        description: 'Respresent the primary category of asset'
+      contentDisposition:
+        type: string
+        description: ''
+      lastUpdatedOn:
+        type: string
+        description: 'Respresent the date of updation of asset'
+      contentEncoding:
+        type: string
+        description: ''
+      artifactUrl:
+        type: string
+        description: ''
+      contentType:
+        type: string
+        description: 'Respresent the content type of asset'
+      dialcodeRequired:
+        type: string
+        description: ''
+      identifier:
+        type: string
+        description: 'Respresent the asset Id'
+      lastStatusChangedOn:
+        type: string
+        description: 'Respresent the date of last status change'
+      audience:
+        type: array
+        description: 'Respresent the audience of asset'
+        items:
+          type: string
+          description: ''
+      creator:
+        type: string
+        description: 'Respresent the creator name of asset'
+      os:
+        type: array
+        description: ''
+        items:
+          type: string
+          description: ''
+      visibility:
+        type: string
+        description: ''
+      consumerId:
+        type: string
+        description: ''
+      mediaType:
+        type: string
+        description: 'Respresent the media type asset'
+      osId:
+        type: string
+        description: ''
+      languageCode:
+        type: array
+        description: ''
+        items:
+          type: string
+          description: ''
+      version:
+        type: integer
+        description: ''
+        format: int32
+      versionKey:
+        type: string
+        description: ''
+      license:
+        type: string
+        description: ''
+      idealScreenDensity:
+        type: string
+        description: ''
+      framework:
+        type: string
+        description: ''
+      size:
+        type: integer
+        description: ''
+        format: int32
+      createdBy:
+        type: string
+        description: 'Respresent the creator id of asset'
+      compatibilityLevel:
+        type: integer
+        description: ''
+        format: int32
+      name:
+        type: string
+        description: 'Respresent the name of asset'
+      status:
+        type: string
+        description: 'Respresent the status of asset'
+    required:
+    - ownershipType
+    - code
+    - keywords
+    - channel
+    - downloadUrl
+    - language
+    - mimeType
+    - idealScreenSize
+    - createdOn
+    - objectType
+    - primaryCategory
+    - contentDisposition
+    - lastUpdatedOn
+    - contentEncoding
+    - artifactUrl
+    - contentType
+    - dialcodeRequired
+    - identifier
+    - lastStatusChangedOn
+    - audience
+    - creator
+    - os
+    - visibility
+    - consumerId
+    - mediaType
+    - osId
+    - languageCode
+    - version
+    - versionKey
+    - license
+    - idealScreenDensity
+    - framework
+    - size
+    - createdBy
+    - compatibilityLevel
+    - name
+    - status
+  assetUpload500:
+    title: assetUpload500
+    example:
+      id: api.asset.upload
+      ver: '4.0'
+      ts: 2021-12-28T12:10:49ZZ
+      params:
+        resmsgid: 50ad2a3a-bdb5-495a-82d9-b36a8747a292
+        msgid: null
+        err: ERR_SYSTEM_EXCEPTION
+        status: failed
+        errmsg: Something went wrong in server while processing the request
+      responseCode: SERVER_ERROR
+      result: {}
+    type: object
+    properties:
+      id:
+        type: string
+        description: 'Represent the asset Id'
+      ver:
+        type: string
+        description: 'Represent the asset version'
+      ts:
+        type: string
+        description: 'Represents the EPOCH epoch time in milliseconds'
+      params:
+        $ref: '#/definitions/Params'
+      responseCode:
+        type: string
+        description: 'Represents the api response code'
+      result:
+        type: object
+    required:
+    - id
+    - ver
+    - ts
+    - params
+    - responseCode
+    - result
+  assetUpload400:
+    title: assetUpload400
+    example:
+      id: api.asset.upload
+      ver: '4.0'
+      ts: 2021-12-28T12:23:33ZZ
+      params:
+        resmsgid: e2f55553-40b9-4007-b1f9-8214670e4c2f
+        msgid: null
+        err: ERR_INVALID_FILE_URL
+        status: failed
+        errmsg: Please Provide Valid File Url!
+      responseCode: CLIENT_ERROR
+      result:
+        messages: null
+    type: object
+    properties:
+      id:
+        type: string
+        description: 'Represents the asset Id'
+      ver:
+        type: string
+        description: 'Represents the asset version'
+      ts:
+        type: string
+        description: 'Represents the EPOCH epoch time in milliseconds'
+      params:
+        $ref: '#/definitions/Params'
+      responseCode:
+        type: string
+        description: 'Represents the api response code'
+      result:
+        $ref: '#/definitions/Asset400Result'
+    required:
+    - id
+    - ver
+    - ts
+    - params
+    - responseCode
+    - result
+  assetUpload200:
+    title: assetUpload200
+    example:
+      id: api.asset.upload
+      ver: '4.0'
+      ts: 2021-12-28T12:18:32ZZ
+      params:
+        resmsgid: 1ee721a1-deb7-4e9c-8e7e-777a376f7844
+        msgid: null
+        err: null
+        status: successful
+        errmsg: null
+      responseCode: OK
+      result:
+        identifier: do_1134405639859486721110
+        artifactUrl: https://dockstorage.blob.core.windows.net/sunbird-content-dock/content/assets/do_1134405639859486721110/image1.jpeg
+        content_url: https://dockstorage.blob.core.windows.net/sunbird-content-dock/content/assets/do_1134405639859486721110/image1.jpeg
+        node_id: do_1134405639859486721110
+        versionKey: '1640693912866'
+    type: object
+    properties:
+      id:
+        type: string
+        description: 'Represent the Asset Id'
+      ver:
+        type: string
+        description: 'Represent the asset version'
+      ts:
+        type: string
+        description: 'Represents the EPOCH epoch time in milliseconds'
+      params:
+        $ref: '#/definitions/Params2'
+      responseCode:
+        type: string
+        description: 'Represents the api response code'
+      result:
+        $ref: '#/definitions/AssetUpload200Result'
+    required:
+    - id
+    - ver
+    - ts
+    - params
+    - responseCode
+    - result
+  AssetUpload200Result:
+    title: AssetUpload200Result
+    example:
+      identifier: do_1134405639859486721110
+      artifactUrl: https://dockstorage.blob.core.windows.net/sunbird-content-dock/content/assets/do_1134405639859486721110/image1.jpeg
+      content_url: https://dockstorage.blob.core.windows.net/sunbird-content-dock/content/assets/do_1134405639859486721110/image1.jpeg
+      node_id: do_1134405639859486721110
+      versionKey: '1640693912866'
+    type: object
+    properties:
+      identifier:
+        type: string
+      artifactUrl:
+        type: string
+      content_url:
+        type: string
+      node_id:
+        type: string
+      versionKey:
+        type: string
+    required:
+    - identifier
+    - artifactUrl
+    - content_url
+    - node_id
+    - versionKey
+tags:
+- name: Misc
+  description: ''
