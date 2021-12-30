@@ -523,6 +523,96 @@ paths:
                 result: {}
       deprecated: false
       x-codegen-request-body-name: Body
+  /asset/v1/copy/{Asset_Id}:
+    post:
+      tags:
+      - Asset APIs
+      summary: Asset Copy
+      description: |-
+        This API is associated with copying a asset on the Sunbird Platform .
+          - The **_/copy/_**endpoint executes request for copy asset, if asset is found appropriate.
+          - The endpoint for **Copy Asset** is `/asset/v1/copy`
+          - It points to knowledge-mw-service - `/v1/asset/copy`
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty..
+      operationId: Asset Copy
+      parameters:
+      - in: path
+        name: Asset_Id
+        description: Please append a valid Asset Id To the Request URL
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: The Asset Type entity is the media type of the resource.Possible
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: Represents the authorized User ID to execute the API
+        required: true
+        schema:
+          type: string
+      - name: X-Channel-ID
+        in: header
+        description: 'Represents a physical location (e.g: state) uniquely to which
+          the user belongs'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The body parameter refers to the format of the request
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/AssetCopyRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/AssetCopy200'
+              example:
+                id: api.asset.copy
+                ver: "4.0"
+                ts: 2021-12-30T11:42:05ZZ
+                params:
+                  resmsgid: ab112c9f-bbb0-4493-a32d-040243b14a09
+                  status: successful
+                responseCode: OK
+                result:
+                  node_id:
+                    do_1134418461689282561147: do_1134419621916180481174
+                  versionKey: "1640864525352"
+        404:
+          description: Not Found
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/AssetCopy404'
+              example:
+                id: api.asset.copy
+                ver: "4.0"
+                ts: 2021-12-30T11:42:58ZZ
+                params:
+                  resmsgid: 0a0c203d-4d8f-4a78-be67-1365fad3407e
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1134418461689282561142'
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
+      deprecated: false
 components:
   schemas:
     AssetCreateRequest:
@@ -1621,3 +1711,214 @@ components:
         identifier: do_1134418461689282561147
         url_expiry: "54000"
         pre_signed_url: https://dockstorage.blob.core.windows.net/sunbird-content-dock/content/assets/do_1134418461689282561147/flower6.jpeg?sv=2017-04-17&se=2021-12-30T22%3A57%3A47Z&sr=b&sp=w&sig=2pow25YLNLIM0hrMwVx4uy3aDu3BTNNbNdLI8X9Yt4M%3D
+    AssetCopyRequest:
+      title: AssetCopyRequest
+      description: Represents Asset Copy Request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/AssetCopyRequestDetails'
+      example:
+        request:
+          content:
+            publisher: API_DOC_PUBLISHER
+            lastPublishedBy: API_DOC_PUBLISHER
+            publishComment: OK
+            publishChecklist: []
+    AssetCopyRequestDetails:
+      title: AssetCopyRequestDetails
+      description: Represents the Asset Copy Request Details
+      required:
+      - content
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/AssetCopyContent'
+      example:
+        content:
+          publisher: API_DOC_PUBLISHER
+          lastPublishedBy: API_DOC_PUBLISHER
+          publishComment: OK
+          publishChecklist: []
+    AssetCopyContent:
+      title: AssetCopyContent
+      description: Represents Asset Copy Content
+      required:
+      - lastPublishedBy
+      - publishChecklist
+      - publishComment
+      - publisher
+      type: object
+      properties:
+        publisher:
+          type: string
+          description: Represents the publisher
+        lastPublishedBy:
+          type: string
+          description: Represents the last published by
+        publishComment:
+          type: string
+          description: Represents the publish checklist comment
+        publishChecklist:
+          type: array
+          description: Represents the publish checklist array
+          items:
+            type: string
+            description: Represents the checklist value
+      example:
+        publisher: API_DOC_PUBLISHER
+        lastPublishedBy: API_DOC_PUBLISHER
+        publishComment: OK
+        publishChecklist: []
+    AssetCopyParams404:
+      title: AssetCopyParams404
+      description: Represents Asset Copy Params 404
+      required:
+      - err
+      - errmsg
+      - msgid
+      - resmsgid
+      - status
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          description: Represents the response message id
+        msgid:
+          type: string
+          description: Represents the message id
+        err:
+          type: string
+          description: Represents the error
+        status:
+          type: string
+          description: Represents the status
+        errmsg:
+          type: string
+          description: Represents the error message
+      example:
+        resmsgid: 0a0c203d-4d8f-4a78-be67-1365fad3407e
+        err: NOT_FOUND
+        status: failed
+        errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1134418461689282561142'
+    AssetResult404:
+      title: AssetResult404
+      description: Represents Asset Result 404
+      required:
+      - messages
+      type: object
+      properties:
+        messages:
+          type: string
+          description: Represents the message
+      example: {}
+    AssetCopy404:
+      title: AssetCopy404
+      description: Represents Asset Copy 404
+      required:
+      - id
+      - params
+      - responseCode
+      - result
+      - ts
+      - ver
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents the api id
+        ver:
+          type: string
+          description: Represents the version of the asset
+        ts:
+          type: string
+          description: Represents the EPOCH epoch time in milliseconds
+        params:
+          $ref: '#/components/schemas/AssetCopyParams404'
+        responseCode:
+          type: string
+          description: Represents the response code
+        result:
+          $ref: '#/components/schemas/AssetResult404'
+      example:
+        id: api.asset.copy
+        ver: "4.0"
+        ts: 2021-12-30T11:42:58ZZ
+        params:
+          resmsgid: 0a0c203d-4d8f-4a78-be67-1365fad3407e
+          err: NOT_FOUND
+          status: failed
+          errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_1134418461689282561142'
+        responseCode: RESOURCE_NOT_FOUND
+        result: {}
+    AssetCopy200:
+      title: AssetCopy200
+      description: Represents Asset Copy 200
+      required:
+      - id
+      - params
+      - responseCode
+      - result
+      - ts
+      - ver
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents the api id
+        ver:
+          type: string
+          description: Represents the version of the asset
+        ts:
+          type: string
+          description: Represents the EPOCH epoch time in milliseconds
+        params:
+          $ref: '#/components/schemas/successParamsResponse'
+        responseCode:
+          type: string
+          description: Represents the response code
+        result:
+          $ref: '#/components/schemas/AssetCopyResult'
+      example:
+        id: api.asset.copy
+        ver: "4.0"
+        ts: 2021-12-30T11:42:05ZZ
+        params:
+          resmsgid: ab112c9f-bbb0-4493-a32d-040243b14a09
+          status: successful
+        responseCode: OK
+        result:
+          node_id:
+            do_1134418461689282561147: do_1134419621916180481174
+          versionKey: "1640864525352"
+    AssetCopyResult:
+      title: AssetCopyResult
+      description: Represents Asset Copy Result
+      required:
+      - node_id
+      - versionKey
+      type: object
+      properties:
+        node_id:
+          $ref: '#/components/schemas/NodeId'
+        versionKey:
+          type: string
+          description: Represents the version key
+      example:
+        node_id:
+          do_1134418461689282561147: do_1134419621916180481174
+        versionKey: "1640864525352"
+    NodeId:
+      title: NodeId
+      description: Represents NodeId
+      required:
+      - do_1134418461689282561147
+      type: object
+      properties:
+        do_1134418461689282561147:
+          type: string
+          description: Represents the node id 
+      example:
+        do_1134418461689282561147: do_1134419621916180481174      
