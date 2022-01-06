@@ -219,6 +219,3 @@ On sucessfully creating an organization, the next step is to create users and as
 [Creating first organization](developer-docs/initialization/)
 
 [Creating user](developer-docs/how-to-guide/how_to_create_user/)
-
-[Map users to the organization](developer-docs/how-to-guide/how_to_create_org_add_user/)
-
