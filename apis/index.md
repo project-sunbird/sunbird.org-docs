@@ -27,11 +27,14 @@ In the **Contribution and Curation**  building block type, Sunbird has microserv
 ### Content Service {#content-service}
 
 The **Content and Collection microservice** manages content and collection objects and their lifecycle for a defined taxonomy, in a learning domain. This microservice is dependent on the taxonomy microservice as every content piece must have the appropriate taxonomy tags. The content and collection microservices has the following APIs:
-- [Content APIs](apis/content){:target="_blank"}
-- [Content Lock APIs](apis/lockService){:target="_blank"} 
-- [Textbook APIs](apis/tocapi){:target="_blank"}
+- [Asset APIs](apis/assetapi){:target="_blank"}
+- [Content APIs - v1.0](apis/content){:target="_blank"}
+- [Content APIs - v2.0](apis/contentapi){:target="_blank"}
+- [Collection APIs](apis/collectionapi){:target="_blank"}
 - [Course Hieracrchy APIs](apis/coursehierarchyapi){:target="_blank"}
 - [Collection CSV API](apis/collectioncsvapi){:target="_blank"}
+- [Content Lock APIs](apis/lockService){:target="_blank"}
+- [Textbook APIs](apis/tocapi){:target="_blank"}
 
 ### Question & Question Set Service {#question-n-question-set}
 
