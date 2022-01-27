@@ -75,11 +75,6 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 ##### Note: The below jobs are applicable only if you are running Vidyadaan infrastructure
 
-### Variables for Vidyadaan
-
-| Variable Name                     | Service Name       | Comments                                                                                                                                                                     |
-|-----------------------------------|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-
 
 ### Build and Deploy for Vidayadaan
 
