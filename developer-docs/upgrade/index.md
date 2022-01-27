@@ -91,7 +91,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |  |  | Deploy/DockStaging/Kubernetes/OnboardAPIs | release-4.6.0-vdn |  |
 |  |  | Deploy/DockStaging/Kubernetes/OnboardConsumers | release-4.6.0-vdn |  |
 |  |  |  |  |  |
-| Build/KnowledgePlatform/FlinkJobs | release-4.6.0_RC4 | Deploy/DockStaging/KnowledgePlatform/FlinkJobs | release-4.6.0_RC1 |  |
+| Build/KnowledgePlatform/FlinkJobs | release-4.6.0_RC5 | Deploy/DockStaging/KnowledgePlatform/FlinkJobs | release-4.6.0_RC1 |  |
 |  |  |  |  |  |
 | Build/DataPipeline/EdDataProducts | release-4.6.0_RC2 | Deploy/DockStaging/DataPipeline/EdDataProducts | release-4.6.0_RC2 |  |
 
