@@ -60,7 +60,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |  |  | Deploy/staging/Kubernetes/OnboardConsumers | release-4.6.0_RC2 |  |
 |  |  | Deploy/staging/Kubernetes/OnboardAPIs | release-4.6.0_RC2 |  |
 |  |  | Deploy/staging/Kubernetes/Monitoring | release-4.6.0_RC2 |  |
-| Build/KnowledgePlatform/FlinkJobs | release-4.6.0_RC4 | Deploy/staging/KnowledgePlatform/FlinkJobs | release-4.6.0_RC1 |  |
+| Build/KnowledgePlatform/FlinkJobs | release-4.6.0_RC5 | Deploy/staging/KnowledgePlatform/FlinkJobs | release-4.6.0_RC1 |  |
 | Build/DataPipeline/EdDataProducts | release-4.6.0_RC2 | Deploy/staging/DataPipeline/EdDataProducts | release-4.6.0_RC2 |  |
 | Build/DataPipeline/FlinkPipelineJobs | release-4.6.0_RC1 | Deploy/staging/DataPipeline/FlinkPipelineJobs | release-4.6.0_RC2 |  |
 
