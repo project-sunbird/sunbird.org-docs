@@ -59,7 +59,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |  |  | OpsAdministration/staging/Core/GraylogMongoImport | release-4.6.0_RC2 | graylog_mongo_collections: grok_patterns,pipeline_processor_pipelines,pipeline_processor_pipelines_streams,pipeline_processor_rules |
 |  |  | Deploy/staging/Kubernetes/OnboardConsumers | release-4.6.0_RC2 |  |
 |  |  | Deploy/staging/Kubernetes/OnboardAPIs | release-4.6.0_RC2 |  |
-|  |  | Deploy/staging/Kubernetes/Monitoring | release-4.6.0_RC2 |  |
+|  |  | Deploy/staging/Kubernetes/Monitoring | release-4.6.0_RC2 | tag: dashboards |
 | Build/KnowledgePlatform/FlinkJobs | release-4.6.0_RC5 | Deploy/staging/KnowledgePlatform/FlinkJobs | release-4.6.0_RC1 |  |
 | Build/DataPipeline/EdDataProducts | release-4.6.0_RC2 | Deploy/staging/DataPipeline/EdDataProducts | release-4.6.0_RC2 |  |
 | Build/DataPipeline/FlinkPipelineJobs | release-4.6.0_RC1 | Deploy/staging/DataPipeline/FlinkPipelineJobs | release-4.6.0_RC2 |  |
@@ -86,7 +86,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | Build/Kubernetes/Program | release-4.6.0_RC6 | Deploy/DockStaging/Kubernetes/Program | release-4.6.0-vdn |  |
 | Build/Kubernetes/Search | release-4.6.0_RC2 | Deploy/DockStaging/Kubernetes/Search | release-4.6.0-vdn |  |
 | Build/Kubernetes/Taxonomy | release-4.6.0_RC2 | Deploy/DockStaging/Kubernetes/Taxonomy | release-4.6.0-vdn |  |
-|  |  | Deploy/DockStaging/Kubernetes/Upload_CollectionHierarchy_CSV | release-4.6.0-vdn |  |
+|  |  | Deploy/DockStaging/Kubernetes/Upload_CollectionHierarchy_CSV | release-4.6.0_RC2 |  |
 |  |  |  |  |  |
 |  |  | Deploy/DockStaging/Kubernetes/OnboardAPIs | release-4.6.0-vdn |  |
 |  |  | Deploy/DockStaging/Kubernetes/OnboardConsumers | release-4.6.0-vdn |  |
