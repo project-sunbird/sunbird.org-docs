@@ -86,7 +86,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | Build/Kubernetes/Program | release-4.6.0_RC6 | Deploy/DockStaging/Kubernetes/Program | release-4.6.0-vdn |  |
 | Build/Kubernetes/Search | release-4.6.0_RC2 | Deploy/DockStaging/Kubernetes/Search | release-4.6.0-vdn |  |
 | Build/Kubernetes/Taxonomy | release-4.6.0_RC2 | Deploy/DockStaging/Kubernetes/Taxonomy | release-4.6.0-vdn |  |
-|  |  | Deploy/DockStaging/Kubernetes/Upload_CollectionHierarchy_CSV | release-4.6.0_RC2 |  |
+|  |  | Deploy/DockStaging/Kubernetes/Upload_CollectionHierarchy_CSV | release-4.6.0_RC2 | After upload restart Assessment service |
 |  |  |  |  |  |
 |  |  | Deploy/DockStaging/Kubernetes/OnboardAPIs | release-4.6.0-vdn |  |
 |  |  | Deploy/DockStaging/Kubernetes/OnboardConsumers | release-4.6.0-vdn |  |
