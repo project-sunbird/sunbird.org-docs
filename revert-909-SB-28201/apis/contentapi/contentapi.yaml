@@ -1,0 +1,3137 @@
+openapi: 3.0.1
+info:
+  title: Sunbird Content Management API(s)
+  description: >-
+    The Content Management API allows you to manage content over the sunbird
+    platform.Apis perform operations related to all the _Content_ on the Sunbird
+    Platform.
+
+    - Each of the endpoints serve a different purpose, so which one to use
+    depends on what you want to do
+
+    - The operations include CRUD (Create, Update, Read and Delete) operations
+    and other operations such as upload, publish, flag, link Dialcode, etc.
+
+    - The URL for Sunbird Content API(s) is `content/v2`
+
+    - [TestCases](https://www.getpostman.com/collections/3c1817fcb4606ae53b9a)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  contact:
+    email: info@sunbird.org
+  version: "2.0"
+servers:
+  - url: 'https://staging.sunbirded.org/api'
+paths:
+  /content/v2/create:
+    post:
+      tags:
+        - Content APIs
+      summary: Create Content
+      description: |-
+        This API is associated with creating content on the Sunbird Platform.
+          - The endpoint for **Create Content** is `/content/v2/create`
+          - It points to knowledge-mw-service - `/v2/content/create`
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      operationId: Create Content
+      parameters:
+        - name: primaryCategory
+          in: header
+          description: >-
+            The primary category entity is the media type of the resource.Possible
+            media types can be:-
+              - Application/json
+          required: true
+          schema:
+            type: string
+        - name: x-channel-id
+          in: header
+          description: >-
+            Represents a physical location (e.g: state) uniquely to which the
+            user belongs.
+          required: true
+          schema:
+            type: string
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+
+           - JSON
+
+          The body is the representation of the resource object for creating
+          content (an array of parameters which describes the content)
+
+          - Please refer for supported
+          [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/content/1.0/schema.json)
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/contentapiCreateContentRequest'
+            example:
+              request:
+                content:
+                  name: H5P Content
+                  code: h5pcontent
+                  mimeType: application/vnd.ekstep.h5p-archive
+                  primaryCategory: Resource
+                  createdBy: 874ed8a5-782e-4f6c-8f36-e0288455901e
+        required: true
+      responses:
+        '200':
+          description: SUCCESS. The **Create Content** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateSuccessResponse'
+              example:
+                id: api.content.create
+                ver: '3.0'
+                ts: '2020-12-10T20:24:45ZZ'
+                params:
+                  resmsgid: 3be02c4b-3324-41a3-afd8-60f6be0584d2
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_1131697204035993601314
+                  node_id: do_1131697204035993601314
+                  versionKey: '1607631885207'
+        '400':
+          description: >-
+            'BAD REQUEST. The **Create Content** operation failed. You may have
+            missed input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.content.create
+                ver: '1.0'
+                ts: '2020-12-10T08:50:29.786Z'
+                params:
+                  resmsgid: c169a7a0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: ERR_CONTENT_CREATE_FIELDS_MISSING
+                  errmsg: Required fields for create content are missing
+                responseCode: CLIENT_ERROR
+                result: {}
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.content.create
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /content/v2/update/{Content_Id}:
+    patch:
+      description: |-
+        This API is associated with updating content on the Sunbird Platform .
+          - **_/Update/_** endpoint executes the "Update Content" request based on parameters provided as metadata in the request body.
+          - The endpoint for **Update Content** is `/content/v2/update`
+          - It points to knowledge-mw-service - `/v2/content/update`
+          - {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Update Content
+      tags:
+        - Content APIs
+      operationId: Update Content
+      parameters:
+        - in: path
+          name: Content_Id
+          required: true
+          description: Please append a valid Content Id To the Request URL
+          schema:
+            type: string
+        - name: Primary-Category
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:-
+              - Application/json
+          schema:
+            type: string
+        - name: X-Authenticated-User-Token
+          in: header
+          required: true
+          description: The Registered User ID used to execute the API.
+          schema:
+            type: string
+        - name: X-Channel-id
+          in: header
+          required: false
+          description: The unique ID provided to the State to which the user belongs.
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All content APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/contentapiUpdateContentrequest'
+            example:
+              request:
+                content:
+                  versionKey: '1607631400608'
+                  description: Updated description
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the content to be updated.
+            - Please refer for supported [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/content/1.0/schema.json)
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation.Content update operation was successfuly
+            executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateSuccessResponse'
+              example:
+                id: api.content.update
+                ver: '4.0'
+                ts: '2020-12-10T20:26:07ZZ'
+                params:
+                  resmsgid: 80aa9310-b749-411c-a13b-8d9f25af389f
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_1131697204035993601314
+                  node_id: do_1131697204035993601314
+                  versionKey: '1607631967842'
+        '400':
+          description: >-
+            BAD REQUEST. The 'Update Content' operation failed ! The possible
+            reason for failure is that you may have missed providing input for a
+            mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.content.update
+                ver: '4.0'
+                ts: '2020-12-10T20:27:01ZZ'
+                params:
+                  resmsgid: 87eb99c6-bc10-406a-a6fe-13651f546ce1
+                  msgid: null
+                  err: ERR_INVALID_REQUEST
+                  status: failed
+                  errmsg: Please Provide Version Key!
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Content Update** operation failed !The possible
+            reason for failure is that you may have provided wrong content id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.content.update
+                ver: '3.0'
+                ts: '2020-12-12T00:31:16ZZ'
+                params:
+                  resmsgid: c29ffd8b-d105-4eeb-a875-deaeae2bf5b8
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: >-
+                    Error! Node(s) doesn't Exists. | [Invalid Node Id.]:
+                    do_21317015414162227213604
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /content/v2/upload/{Content_Id}:
+    post:
+      description: |-
+        This API is associated with uploading content on the Sunbird Platform .
+           - The**_/upload/{content Id}_** endpoint executes "Upload Content" request based on parameters provided as metadata in the request body.
+           - The endpoint for **Upload Content** is `/content/v2/upload`
+          - It points to knowledge-mw-service - `/v2/content/upload`
+          - {...}refers to a section of upload endpoint URL path that needs to be replaced by appropriate Id.
+           - You need to provide a valid content Id value in {Content Id} field of API URL.
+           - It is mandatory to provide values for parameters marked with *.
+           - Mandatory fields cannot be null or empty.
+      summary: Upload Content
+      tags:
+        - Content APIs
+      operationId: Upload Content
+      parameters:
+        - in: path
+          name: Content_Id
+          required: true
+          description: Please append a valid Content Id To the Request URL
+          schema:
+            type: string
+        - name: Primary-Category
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:-
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+          schema:
+            type: string
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          description: The Registered User ID to execute the API.
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All content APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  description: Content package file which you intend to upload
+                  type: string
+                  format: binary
+              required:
+                - file
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation."Content upload" operation was
+            successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentUploadSuccessResponse'
+              example:
+                id: api.content.upload
+                ver: '3.0'
+                ts: '2020-12-10T21:00:16ZZ'
+                params:
+                  resmsgid: 4505a08c-9d0c-447b-8b3f-692e31f841fd
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_1131697376667402241315
+                  artifactUrl: >-
+                    https://ekstep-public-dev.s3-ap-south-1.amazonaws.com/content/do_112547906582659072139/artifact/pdf_1531726896452.pdf
+                  content_url: >-
+                    https://ekstep-public-dev.s3-ap-south-1.amazonaws.com/content/do_112547906582659072139/artifact/pdf_1531726896452.pdf
+                  node_id: do_1131697376667402241315
+                  versionKey: '1607634016927'
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Content Send for Review** operation failed !The
+            possible reason for failure is that you may have provided wrong
+            content id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.content.upload
+                ver: '3.0'
+                ts: '2020-12-10T21:21:20ZZ'
+                params:
+                  resmsgid: 58139c89-2852-4673-b414-2f867c91bbc1
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: >-
+                    Error! Node(s) doesn't Exists. | [Invalid Node Id.]:
+                    do_11316973766674022413151
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /content/v2/upload/url/{Content_Id}:
+    post:
+      description: |-
+        This API is associated with uploading content on the Sunbird Platform .
+           - The**_/upload/url/{content Id}_** endpoint executes "Upload Content URL" request based on parameters provided as metadata in the request body.
+           - The endpoint for **Upload Content URL** is `/content/v2/upload/url`
+          - It points to knowledge-mw-service - `/v2/content/upload/url`
+          - {...}refers to a section of upload endpoint URL path that needs to be replaced by appropriate Id.
+           - You need to provide a valid content Id value in {Content Id} field of API URL.
+           - On Success api returns pre-signed-url link with come configured ttl against which file can be uploaded.
+           - It is mandatory to provide values for parameters marked with *.
+           - Mandatory fields cannot be null or empty.
+      summary: Upload URL
+      tags:
+        - Content APIs
+      operationId: Upload URL
+      parameters:
+        - in: path
+          name: Content_Id
+          required: true
+          description: Please append a valid Content Id To the Request URL
+          schema:
+            type: string
+        - name: Primary-Category
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:-
+              - Application/json
+          schema:
+            type: string
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          description: The Registered User ID to execute the API.
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All content APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/contentapiUploadUrlContentRequest'
+            example:
+              request:
+                content:
+                  fileName: test.pdf
+        description: |-
+          The body refers to the format of the request.
+            - The body contains file name against which pre-signed url has to be generated.
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation."Content upload" operation was
+            successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentUploadUrlSuccessResponse'
+              example:
+                id: api.content.upload.url
+                ver: '3.0'
+                ts: '2020-12-11T23:52:44ZZ'
+                params:
+                  resmsgid: 81e308fa-3e36-45ff-b295-e28e8f757dc7
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_11317053041892556811094
+                  url_expiry: '54000'
+                  pre_signed_url: >-
+                    https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/assets/do_11317053041892556811094/10-page-pdf.pdf?sv=2017-04-17&se=2020-12-12T14%3A52%3A44Z&sr=b&sp=w&sig=Tlt6uWI/6lMeupkEbsTAmGajmo1qzw8HeUHrVwOm6yk%3D
+        '400':
+          description: >-
+            BAD REQUEST. The 'Upload Url' operation failed ! The possible reason
+            for failure is that you may have missed providing input for a
+            mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.content.upload.url
+                ver: '3.0'
+                ts: '2020-12-11T23:54:07ZZ'
+                params:
+                  resmsgid: 4edde64d-3116-4271-bcc1-a8ba0ec2d56b
+                  msgid: null
+                  err: ERR_CONTENT_BLANK_FILE_NAME
+                  status: failed
+                  errmsg: File name is blank
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Content Id sent for generating upload url**
+            operation failed !The possible reason for failure is that you may
+            have provided wrong content id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.upload.url
+                ver: '1.0'
+                ts: '2020-12-11T23:48:26.694Z'
+                params:
+                  resmsgid: 5cf72660-3c0b-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: NOT_FOUND
+                  errmsg: >-
+                    Error! Node(s) doesn't Exists. | [Invalid Node Id.]:
+                    do_11254577204586086415
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /content/v2/read/{Content_Id}:
+    get:
+      description: >-
+        This API is associated with viewing and reading out the content on the
+        Sunbird Platform .
+          - The **_/read/{contentId}_** endpoint executes request for fetching the contents to be viewed and read.
+          - The endpoint for **Read Content** is `/content/v2/read`
+          - It points to knowledge-mw-service - `/v2/content/read`
+          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
+          - You need to provide a valid content Id value in {Content Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Read Content
+      tags:
+        - Content APIs
+      operationId: Read Content
+      parameters:
+        - in: path
+          name: Content_Id
+          required: true
+          description: Please append a valid Content Id To the Request URL
+          schema:
+            type: string
+        - name: Primary-Category
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:-
+              - Application/json
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation."Read content" operation was successfully
+            executed. For all possible metadata, please
+            [refer](https://github.com/project-sunbird/knowledge-platform/blob/release-3.5.0/schemas/content/1.0/schema.json)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentGetSuccessResponse'
+              example:
+                id: api.content.read
+                ver: '1.0'
+                ts: '2020-12-10T20:38:32.510Z'
+                params:
+                  resmsgid: ab16e5e0-3b27-11eb-b0a2-8d5c9f561887
+                  msgid: ab131550-3b27-11eb-b0a2-8d5c9f561887
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  content:
+                    ownershipType:
+                      - createdBy
+                    code: org.sunbird.EHdZir
+                    credentials:
+                      enabled: 'No'
+                    channel: channel-1
+                    language:
+                      - English
+                    mimeType: application/vnd.ekstep.h5p-archive
+                    idealScreenSize: normal
+                    createdOn: '2020-12-10T20:38:13.315+0000'
+                    objectType: Content
+                    primaryCategory: Learning Resource
+                    contentDisposition: inline
+                    lastUpdatedOn: '2020-12-10T20:38:13.315+0000'
+                    contentEncoding: gzip
+                    dialcodeRequired: 'No'
+                    trackable:
+                      enabled: 'No'
+                      autoBatch: 'No'
+                    identifier: do_21316972702362828813477
+                    lastStatusChangedOn: '2020-12-10T20:38:13.315+0000'
+                    audience:
+                      - Student
+                    os:
+                      - All
+                    visibility: Default
+                    consumerId: 2eaff3db-cdd1-42e5-a611-bebbf906e6cf
+                    mediaType: content
+                    osId: org.ekstep.quiz.app
+                    languageCode:
+                      - en
+                    version: 2
+                    versionKey: '1607632693315'
+                    license: CC BY 4.0
+                    idealScreenDensity: hdpi
+                    framework: NCF
+                    createdBy: 874ed8a5-782e-4f6c-8f36-e0288455901e
+                    compatibilityLevel: 1
+                    name: Test_h5p
+                    status: Draft
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Content Read** operation failed !The possible
+            reason for failure is that you may have provided wrong content id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.content.read
+                ver: '1.0'
+                ts: '2020-12-10T20:37:58.223Z'
+                params:
+                  resmsgid: 96a71df0-3b27-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: NOT_FOUND
+                  errmsg: >-
+                    Error! Node(s) doesn't Exists. | [Invalid Node Id.]:
+                    do_1131697204035993601314
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /content/v1/private/read/{Content_Id}:
+    get:
+      description: >-
+        This API is associated with viewing and reading out the private and public contents on the Sunbird Platform.
+          - The **_/private/read/{contentId}_** endpoint executes request for fetching the private and public contents to be viewed and read.
+          - The endpoint for **Read Private Content** is `/content/v1/private/read`
+          - It points to content-service - `/content/v4/private/read`
+          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
+          - You need to provide a valid content Id value in {Content Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Read Private Content
+      tags:
+        - Content APIs
+      operationId: Read Private Content
+      parameters:
+        - in: path
+          name: Content_Id
+          required: true
+          description: Please append a valid Content Id To the Request URL
+          schema:
+            type: string
+        - name: Primary-Category
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:-
+              - Application/json
+          schema:
+            type: string
+        - name: x-channel-id
+          in: header
+          description: >-
+            Represents a physical location (e.g: state) uniquely to which the
+            user belongs.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation."Read Private content" operation was successfully
+            executed. For all possible metadata, please
+            [refer](https://github.com/project-sunbird/knowledge-platform/blob/release-4.4.0/schemas/content/1.0/schema.json)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentGetSuccessResponse'
+              example:
+                id: api.content.private.read
+                ver: '4.0'
+                ts: 2021-09-20T20:12:52Z+05:30
+                params:
+                  resmsgid: a31dbba1-c3bf-4c3d-a028-f3e5b7de4b57
+                  msgid:
+                  err:
+                  status: successful
+                  errmsg:
+                responseCode: OK
+                result:
+                  content:
+                    ownershipType:
+                      - createdBy
+                    code: name
+                    interceptionPoints: {}
+                    credentials:
+                      enabled: 'No'
+                    channel: abc-123
+                    language:
+                      - English
+                    mimeType: application/pdf
+                    idealScreenSize: normal
+                    createdOn: '2021-08-30T13:11:08.485+0530'
+                    objectType: Content
+                    primaryCategory: Learning Resource
+                    contentDisposition: inline
+                    lastUpdatedOn: '2021-08-30T13:11:08.485+0530'
+                    contentEncoding: identity
+                    dialcodeRequired: 'No'
+                    trackable:
+                      enabled: 'No'
+                      autoBatch: 'No'
+                    identifier: do_11335549352263680012
+                    lastStatusChangedOn: '2021-08-30T13:11:08.485+0530'
+                    audience:
+                      - Student
+                    os:
+                      - All
+                    visibility: Private
+                    discussionForum:
+                      enabled: 'No'
+                    mediaType: content
+                    osId: org.ekstep.quiz.app
+                    languageCode:
+                      - en
+                    version: 2
+                    versionKey: '1630309268485'
+                    license: CC BY 4.0
+                    idealScreenDensity: hdpi
+                    framework: NCF
+                    compatibilityLevel: 1
+                    name: Untitled Resource
+                    status: Draft
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Content Private Read** operation failed !The possible
+            reason for failure is that you may have provided wrong content id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.content.private.read
+                ver: '4.0'
+                ts: '2021-09-20T21:07:50Z+05:30'
+                params:
+                  resmsgid: a8bb809b-c2e1-4749-b05b-b2cd7dc1ca49
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: >-
+                    Error! Node(s) doesn't Exists. | [Invalid Node Id.]: do_11335549352263680013
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /content/v2/review/{Content_Id}:
+    post:
+      description: >-
+        >- This API is associated with Submission of content for Review  on the
+        Sunbird Platform .
+          - The**_/review/{content Id}_** endpoint executes "Submit for Review" request based on parameters provided as metadata in the request body.
+          - The endpoint for **Review Content** is `/content/v2/review`
+          - It points to knowledge-mw-service - `/v2/content/review`
+          - {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
+          - You need to provide a valid content Id value in {Content Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Submit for Review
+      tags:
+        - Content APIs
+      operationId: Submit Content for Review
+      parameters:
+        - in: path
+          name: Content_Id
+          required: true
+          description: Please append a valid Content Id To the Request URL
+          schema:
+            type: string
+        - name: Primary-Category
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:-
+              - Application/json
+          schema:
+            type: string
+        - name: X-Authenticated-User-token
+          in: header
+          required: true
+          description: The Registered User ID to execute the API.
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All content APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the content to be sent for review.
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation.Content sent for review operation was
+            successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateSuccessResponse'
+              example:
+                id: ekstep.learning.content.review
+                ver: '3.0'
+                ts: '2020-12-10T21:06:26ZZ'
+                params:
+                  resmsgid: 186cf9a9-8094-4cdd-926f-b77a030921d1
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  node_id: do_1131697376667402241315
+                  versionKey: '1607634386533'
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Content Send for Review** operation failed !The
+            possible reason for failure is that you may have provided wrong
+            content id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: ekstep.learning.content.review
+                ver: '3.0'
+                ts: '2020-12-10T21:06:54ZZ'
+                params:
+                  resmsgid: 944ac944-78d9-43e2-bfd5-337ab52b6552
+                  msgid: null
+                  err: ERR_TAXONOMY_INVALID_CONTENT
+                  status: failed
+                  errmsg: >-
+                    Error! While Fetching the Content for Operation | [Content
+                    Id: do_11316973766674022413151]
+                responseCode: CLIENT_ERROR
+                result: {}
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! We track
+            these errors automatically, but if the problem persists feel free to
+            contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /content/v1/publish/{Content_Id}:
+    post:
+      description: |-
+        This API is associated with publishing content on the Sunbird Platform .
+          - **_/publish/_** endpoint executes the "Publish Content" request based on parameters provided as metadata in the request body.
+          - The endpoint for **Publish Content** is `/content/v1/publish`
+          - It points to knowledge-mw-service - `/v2/content/publish`
+          -  {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Publish Content
+      tags:
+        - Content APIs
+      operationId: Publish Content
+      parameters:
+        - in: path
+          name: Content_Id
+          required: true
+          description: Content Id to be published
+          schema:
+            type: string
+        - name: Primary-Category
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:-
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+          schema:
+            type: string
+        - name: X-Authenticated-User-token
+          in: header
+          required: true
+          description: 'User Registered ID , which is used for logging In'
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: Authorizing user in order to grant access.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/contentapiPublishContentRequest'
+            example:
+              request:
+                content:
+                  lastPublishedBy: Ekstep
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the content to be published.
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation.**Content publish operation was
+            successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentPublishSuccessResponse'
+              example:
+                id: api.v3.publish
+                ver: '1.0'
+                ts: '2020-12-10T21:41:23.491Z'
+                params:
+                  resmsgid: 72c4ef30-3b30-11eb-b0a2-8d5c9f561887
+                  msgid: 72979da0-3b30-11eb-b0a2-8d5c9f561887
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  content_id: do_21316975736724684813479
+                  publishStatus: >-
+                    Publish Operation for Content Id
+                    'do_21316975736724684813479' Started Successfully!
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Content Send for Review** operation failed !The
+            possible reason for failure is that you may have provided wrong
+            content id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.v3.publish
+                ver: '1.0'
+                ts: '2020-12-10T21:51:39.870Z'
+                params:
+                  resmsgid: e228e7e0-3b31-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: NOT_FOUND
+                  errmsg: >-
+                    Error! Node(s) doesn't Exists. | [Invalid Node Id.]:
+                    do_213169757367246848134791
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! We track
+            these errors automatically, but if the problem persists feel free to
+            contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /content/v2/reject/{Content_Id}:
+    post:
+      description: |-
+        This API is associated with rejecting content under review.
+          - The **_/reject/{contentId}_** endpoint executes request for rejecting content which is under review.
+          - The endpoint for **Reject Content** is `/content/v2/reject`
+          - It points to knowledge-mw-service - `/v2/content/reject`
+          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
+          - You need to provide a valid content Id value in {Content Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Reject Content Review
+      tags:
+        - Content APIs
+      operationId: Reject Content Review
+      parameters:
+        - in: path
+          name: Content_Id
+          required: true
+          description: Please append a valid Content Id To the Request URL
+          schema:
+            type: string
+        - name: Primary-Category
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:-
+              - Application/json
+          schema:
+            type: string
+        - name: X-Authenticated-User-Token
+          in: header
+          required: true
+          description: The Registered User ID to execute the API.
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All content APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+            example: {}
+        description: |-
+          The body refers to the format of the request.
+           - The body contains request about setting flag to reject for content in review process.
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation."Content reject" operation was
+            successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentRejectSuccessResponse'
+              example:
+                id: api.v3.reject
+                ver: '1.0'
+                ts: '2020-12-11T08:09:46.451Z'
+                params:
+                  resmsgid: 3b7c1230-3b88-11eb-b0a2-8d5c9f561887
+                  msgid: 3b692670-3b88-11eb-b0a2-8d5c9f561887
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  node_id: do_213168073757138944196
+                  versionKey: '1607674186357'
+        '400':
+          description: >-
+            ERROR CONTENT NOT IN REVIEW STATUS ! Looks like contentId provided
+            is not in review status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.v3.reject
+                ver: '1.0'
+                ts: '2020-12-11T08:03:51.807Z'
+                params:
+                  resmsgid: 6819b0f0-3b87-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: ERR_CONTENT_NOT_IN_REVIEW
+                  errmsg: >-
+                    Content is not in review state for identifier:
+                    do_2131680942619115521243
+                responseCode: CLIENT_ERROR
+                result: {}
+        '404':
+          description: >-
+            RESOURCE NOT FOUND ! Looks like contentId provided is not a valid
+            content.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.v3.reject
+                ver: '1.0'
+                ts: '2020-12-11T08:08:30.454Z'
+                params:
+                  resmsgid: 0e2fd960-3b88-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: NOT_FOUND
+                  errmsg: >-
+                    Error! Node(s) doesn't Exists. | [Invalid Node Id.]:
+                    do_2123462720305561601147
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /content/v2/flag/{Content_Id}:
+    post:
+      description: |-
+        This API is associated with setting Flag for content.
+          - The **_/flag/{content Id}_** endpoint executes a request to set flagging status for content ,flag can either be set to "Accepted" or "Rejected".
+          - The endpoint for **Flag Content** is `/content/v2/flag`
+          - It points to knowledge-mw-service - `/v2/content/flag`
+          - {...}refers to a section of reject endpoint URL path that needs to be replaced by appropriate Id.
+          - You need to provide a valid content Id value in {Content Id} field of API URL.
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Flag Content
+      tags:
+        - Content APIs
+      operationId: Flag Content
+      parameters:
+        - in: path
+          name: Content_Id
+          required: true
+          description: Please append a valid Content Id To the Request URL
+          schema:
+            type: string
+        - name: Primary-Category
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:-
+              - Application/json
+          schema:
+            type: string
+        - name: X-Authenticated-Userid
+          in: header
+          required: true
+          description: The Registered User ID to execute the API.
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All content APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+            example: {}
+        description: |-
+          The body refers to the format of the request.
+           - The body contains request about setting flag to "Accept" or "Reject" for content in review process.
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation."Content Flagging" operation was
+            successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentFlagSuccessResponse'
+              example:
+                id: api.content.flag
+                ver: '3.0'
+                ts: '2020-12-11T08:45:49ZZ'
+                params:
+                  resmsgid: 9c935e0c-b504-45e6-bd15-313f46c4613f
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_213143334457982976144
+                  node_id: do_213143334457982976144
+                  versionKey: '1607676349236'
+        '400':
+          description: >-
+            ERR_CONTENT_NOT_FLAGGABLE! Looks like contentId is not in flaggable
+            status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.content.flag
+                ver: '3.0'
+                ts: '2020-12-11T08:44:53ZZ'
+                params:
+                  resmsgid: 2ff1945b-a114-44ca-929e-7d19a6f8a745
+                  msgid: null
+                  err: ERR_CONTENT_NOT_FLAGGABLE
+                  status: failed
+                  errmsg: >-
+                    Unpublished Content do_213168073757138944196 cannot be
+                    flagged
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Content Send for Flag** operation failed !The
+            possible reason for failure is that you may have provided wrong
+            content id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.content.flag
+                ver: '3.0'
+                ts: '2020-12-11T09:41:41ZZ'
+                params:
+                  resmsgid: 5b4f0b33-3941-4c18-b8bf-123c2e0348e6
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: >-
+                    Error! Node(s) doesn't Exists. | [Invalid Node Id.]:
+                    do_2131433344579829761441
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /content/v2/flag/reject/{Content_Id}:
+    post:
+      description: >-
+        This API is associated with setting Reject Flag for content under review process on the Sunbird Platform .
+          - The **_/flag/reject/_**endpoint executes request for flagging content under review to "Reject flag", if content is found in-appropriate.
+          - The endpoint for **Flag Reject Content** is `/content/v2/flag/reject`
+          - It points to knowledge-mw-service - `/v2/content/flag/reject`
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Reject Flag
+      tags:
+        - Content APIs
+      operationId: Reject Flag
+      parameters:
+        - in: path
+          name: Content_Id
+          required: true
+          description: Please append a valid Content Id To the Request URL
+          schema:
+            type: string
+        - name: Primary-Category
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:-
+              - Application/json
+          schema:
+            type: string
+        - name: X-Authenticated-User-token
+          in: header
+          required: true
+          description: The Registered User ID to execute the API.
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All content APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+            example: {}
+        description: The body refers to the format of the request.
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation."Reject Flag" operation was successfully
+            executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateSuccessResponse'
+        '400':
+          description: >-
+            ERR CONTENT NOT FLAGGED! Looks like contentId is not in flagged
+            status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Content Send for Flag Reject** operation failed
+            !The possible reason for failure is that you may have provided wrong
+            content id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /content/v2/flag/accept/{Content_Id}:
+    post:
+      description: >-
+        This API is associated with setting Accept Flag for content under review
+        process on the Sunbird Platform .
+          - The **_/flag/accept/_**endpoint executes request for flagging content under review to "Accept flag", if content is found appropriate.
+          - The endpoint for **Flag Accept Content** is `/content/v2/flag/accept`
+          - It points to knowledge-mw-service - `/v2/content/flag/accept`
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Accept Flag
+      tags:
+        - Content APIs
+      operationId: Accept Flag
+      parameters:
+        - in: path
+          name: Content_Id
+          required: true
+          description: Please append a valid Content Id To the Request URL
+          schema:
+            type: string
+        - name: Primary-Category
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:-
+              - Application/json
+              - Multipart/form-data
+              - Application/x-www-form-urlencoded
+          schema:
+            type: string
+        - name: X-Authenticated-User-token
+          in: header
+          required: true
+          description: The Registered User ID to execute the API.
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All content APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/contentapiFlagAcceptContentRequest'
+            example:
+              request:
+                versionKey: '1507102327646'
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation."Accept Flag" operation was successfully
+            executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateSuccessResponse'
+              example:
+                id: api.flag.accept
+                ver: '1.0'
+                ts: '2020-12-11T11:40:01.464Z'
+                params:
+                  resmsgid: 9a9e4b80-3ba5-11eb-b0a2-8d5c9f561887
+                  msgid: 9a49e9f0-3ba5-11eb-b0a2-8d5c9f561887
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_31221753157709004825531
+                  node_id: do_31221753157709004825531
+                  versionKey: '1607686801161'
+        '400':
+          description: >-
+            BAD REQUEST. The "Accept Flag" operation failed ! The possible
+            reason for failure is that you may have missed providing input for a
+            mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.flag.accept
+                ver: '1.0'
+                ts: '2020-12-11T11:25:34.614Z'
+                params:
+                  resmsgid: 95ef7b60-3ba3-11eb-be5b-f9d249ba9049
+                  msgid: null
+                  status: failed
+                  err: ERR_INVALID_CONTENT
+                  errmsg: Invalid Flagged Content! Content Can Not Be Accepted.
+                responseCode: CLIENT_ERROR
+                result: {}
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Content Send for Flag Accept** operation failed
+            !The possible reason for failure is that you may have provided wrong
+            content id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.flag.accept
+                ver: '1.0'
+                ts: '2020-12-11T11:24:42.903Z'
+                params:
+                  resmsgid: 771d0270-3ba3-11eb-be5b-f9d249ba9049
+                  msgid: null
+                  status: failed
+                  err: NOT_FOUND
+                  errmsg: >-
+                    Error! Node(s) doesn't Exists. | [Invalid Node Id.]:
+                    do_213143334457982976144
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /content/v2/retire/{Content_Id}:
+    delete:
+      description: |-
+        This API is associated with retiring content on the Sunbird Platform .
+          - The **_/retire/{contentId}_** endpoint executes  "Retire Content" request based on content Id to delete the specific content.'
+          - The endpoint for **Retire Content** is `/content/v2/retire`
+          - It points to knowledge-mw-service - `/v2/content/retire`
+          - {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
+          - It is mandatory to provide values for parameters.
+          - Mandatory fields cannot be null or empty.
+      summary: Retire Content
+      tags:
+        - Content APIs
+      operationId: Retire Content
+      parameters:
+        - in: path
+          name: Content_Id
+          required: true
+          description: Please append a valid Content Id To the Request URL
+          schema:
+            type: string
+        - name: X-Authenticated-User-token
+          in: header
+          required: true
+          description: The Registered User ID to execute the API.
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All content APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation.**Content deletion operation was
+            successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentRetireSuccessResponse'
+              example:
+                id: api.content.retire
+                ver: '3.0'
+                ts: '2020-12-11T12:05:52ZZ'
+                params:
+                  resmsgid: ebd2655a-a69a-460c-9bcf-0f45f5938fac
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: do_11283183576849612818
+                  node_id: do_11283183576849612818
+        '400':
+          description: ERR CONTENT RETIRE! Content is already retired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.content.retire
+                ver: '3.0'
+                ts: '2020-12-11T12:01:24ZZ'
+                params:
+                  resmsgid: ec20ec05-581c-4559-988a-449f3c5ae698
+                  msgid: null
+                  err: ERR_CONTENT_RETIRE
+                  status: failed
+                  errmsg: >-
+                    Content with Identifier do_11316298360130764811 is already
+                    Retired.
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Content Send for Flag Accept** operation failed
+            !The possible reason for failure is that you may have provided wrong
+            content id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.content.retire
+                ver: '3.0'
+                ts: '2020-12-11T11:56:35ZZ'
+                params:
+                  resmsgid: d826e808-2866-4603-9b60-0a3130a37128
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: >-
+                    Error! Node(s) doesn't Exists. | [Invalid Node Id.]:
+                    do_213143334457982976144
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /content/v2/copy/{Content_Id}:
+    post:
+      description: |-
+        This API is associated with copying a content on the Sunbird Platform .
+          - The **_/copy/_**endpoint executes request for copy content, if content is found appropriate.
+          - The endpoint for **Copy Content** is `/content/v2/copy`
+          - It points to knowledge-mw-service - `/v2/content/copy`
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Copy Content
+      tags:
+        - Content APIs
+      operationId: Copy Content
+      parameters:
+        - in: path
+          name: Content_Id
+          required: true
+          description: Please append a valid Content Id To the Request URL
+          schema:
+            type: string
+        - name: Primary-Category
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:-
+              - Application/json
+          schema:
+            type: string
+        - name: X-Authenticated-User-token
+          in: header
+          required: true
+          description: The Registered User ID to execute the API.
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All content APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/contentapiCopyContentRequest'
+            example:
+              request:
+                content:
+                  createdBy: user1
+                  createdFor:
+                    - user2
+                  organisation:
+                    - sunbird
+                  framework: NCF
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation."Copy" operation was successfully
+            executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCopySuccessResponse'
+              example:
+                id: api.content.copy
+                ver: '1.0'
+                ts: '2020-12-11T23:28:25.343Z'
+                params:
+                  resmsgid: 90e788f0-3c08-11eb-b0a2-8d5c9f561887
+                  msgid: 90b3f5d0-3c08-11eb-b0a2-8d5c9f561887
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  node_id:
+                    do_21316884557433241613378: do_21317051846683852813814
+                  versionKey: '1607729305036'
+        '400':
+          description: >-
+            BAD REQUEST. The "Copy Content" operation failed ! The possible
+            reason for failure is that you may have missed providing input for a
+            mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.content.copy
+                ver: '1.0'
+                ts: '2020-12-11T23:27:31.708Z'
+                params:
+                  resmsgid: 70ef7bc0-3c08-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: ERR_INVALID_REQUEST
+                  errmsg: >-
+                    Please provide valid value for List(createdBy, createdFor,
+                    organisation, framework)
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,**Content Send for Copy** operation failed !The
+            possible reason for failure is that you may have provided wrong
+            content id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.content.copy
+                ver: '1.0'
+                ts: '2020-12-11T23:28:36.863Z'
+                params:
+                  resmsgid: 97c558f0-3c08-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: NOT_FOUND
+                  errmsg: >-
+                    Error! Node(s) doesn't Exists. | [Invalid Node Id.]:
+                    do_213168845574332416133781
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /content/v1/search:
+    post:
+      description: |-
+        This API is associated with Searching Object created as part of sourcing object creation on the Sunbird Platform.
+          - The endpoint for **Content Search** is `/content/v1/search`
+          - It points to knowledge-mw-service - `/v1/search`
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Search Content
+      tags:
+        - Content APIs
+      operationId: Search Content
+      parameters:
+        - name: Primary-Category
+          in: header
+          required: false
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:-
+              - Application/json
+          schema:
+            type: string
+      requestBody:
+        description: |-
+          The body parameter refers to the format of the request, the request body (payload) takes the following media types to make the payload:
+          - JSON
+          The body is the representation of the resource object for searching objects
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/contentapiContentSearchRequest'
+            examples:
+              a:
+                summary: Search - All status & with limit
+                value:
+                  request:
+                    filters:
+                      objectType: Content
+                      status: []
+                    limit: 1
+              b:
+                summary: Search - Specific status & with limit
+                value:
+                  request:
+                    filters:
+                      objectType: Content
+                      status:
+                        - Review
+                    limit: 1
+              c:
+                summary: Search - Get Facets Between Date Range
+                value:
+                  request:
+                    filters:
+                      objectType: Content
+                      status: []
+                      createdOn:
+                        min: '2020-10-01T00:00:00.000+0530'
+                        max: '2020-12-01T23:59:59.999+0530'
+                    limit: 0
+                    facets:
+                      - board
+              d:
+                summary: Search - Get specific fields in response
+                value:
+                  request:
+                    filters:
+                      objectType: Content
+                      status: []
+                    limit: 2
+                    fields:
+                      - mimeType
+                      - createdOn
+                    sort_by:
+                      createdOn: desc
+              e:
+                summary: Search - Assert on specific field
+                value:
+                  request:
+                    filters:
+                      objectType: Content
+                      status: []
+                    limit: 2
+                    exists:
+                      - dialcodes
+                    fields:
+                      - dialcodes
+                      - createdOn
+                    sort_by:
+                      createdOn: desc
+              f:
+                summary: Search - based on specific query string
+                value:
+                  request:
+                    query: शेर का साथी हाथी
+                    filters:
+                      objectType: Content
+                      status: []
+                    limit: 2
+                    fields:
+                      - name
+                      - description
+        required: true
+      responses:
+        200:
+          description: SUCCESS. The **Content Search** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentSearchSuccessResponse'
+              examples:
+                a:
+                  summary: Search Response - All status & with limit
+                  value:
+                    id: api.content.search
+                    ver: '1.0'
+                    ts: '2020-12-22T06:24:45.025Z'
+                    params:
+                      resmsgid: 62160510-441e-11eb-9b0c-abcfbdf41bc3
+                      msgid: 620ae180-441e-11eb-9b0c-abcfbdf41bc3
+                      status: successful
+                      err: null
+                      errmsg: null
+                    responseCode: OK
+                    result:
+                      count: 480465
+                      content:
+                        - code: org.ekstep.jun16.story.test05
+                          subject:
+                            - literacy
+                          flags:
+                            - Test case
+                          channel: in.ekstep
+                          downloadUrl: 'https://ekstep-public-dev.s3-ap-south-1.amazonaws.com/ecar_files/org.ekstep.jun16.story.test05/vrgaatiil-upkrmclassroom-activities_1498725323304_org.ekstep.jun16.story.test05_1.0.ecar'
+                          description: शेर का साथी हाथी
+                          lastFlaggedOn: '2017-12-27T13:30:48.942+0000'
+                          language:
+                            - English
+                          variants:
+                            spine:
+                              ecarUrl: 'https://ekstep-public-dev.s3-ap-south-1.amazonaws.com/ecar_files/org.ekstep.jun16.story.test05/vrgaatiil-upkrmclassroom-activities_1498725324677_org.ekstep.jun16.story.test05_1.0_spine.ecar'
+                              size: 851
+                          mimeType: application/vnd.ekstep.ecml-archive
+                          flaggedBy:
+                            - Test case
+                          idealScreenSize: normal
+                          createdOn: '2017-06-29T07:44:15.875+0000'
+                          objectType: Content
+                          collections:
+                            - do_11228062262625075214
+                          appId: ekstep_portal
+                          contentDisposition: inline
+                          contentEncoding: gzip
+                          artifactUrl: 'https://ekstep-public-dev.s3-ap-south-1.amazonaws.com/content/org.ekstep.jun16.story.test05/artifact/1485166711340_do_30102464_1498725273215.zip'
+                          lastUpdatedOn: '2017-12-27T13:30:48.968+0000'
+                          SYS_INTERNAL_LAST_UPDATED_ON: '2018-01-09T18:41:32.368+0000'
+                          primaryCategory: Story
+                          owner: EkStep
+                          lastUpdatedBy: Test case
+                          identifier: org.ekstep.jun16.story.test05
+                          audience:
+                            - Learner
+                          flagReasons:
+                            - Copyright Violation
+                          visibility: default
+                          os:
+                            - All
+                          consumerId: 72e54829-6402-4cf0-888e-9b30733c1b88
+                          mediaType: content
+                          osId: org.ekstep.quiz.app
+                          graph_id: domain
+                          nodeType: DATA_NODE
+                          pkgVersion: 1
+                          versionKey: '1515523292368'
+                          prevState: Draft
+                          idealScreenDensity: hdpi
+                          dialcodes:
+                            - DAKDF
+                            - FSDFDSA
+                          s3Key: ecar_files/org.ekstep.jun16.story.test05/vrgaatiil-upkrmclassroom-activities_1498725323304_org.ekstep.jun16.story.test05_1.0.ecar
+                          size: 9983654
+                          lastPublishedOn: '2017-06-29T08:35:23.302+0000'
+                          compatibilityLevel: 1
+                          name: "\tवर्गातील उपक्रम(Classroom Activities)"
+                          resourceType: Story
+                          status: Flagged
+                          node_id: 105761
+                b:
+                  summary: Search Response - Specific status & with limit
+                  value:
+                    id: api.content.search
+                    ver: '1.0'
+                    ts: '2020-12-22T06:33:54.794Z'
+                    params:
+                      resmsgid: a9c61ca0-441f-11eb-9b0c-abcfbdf41bc3
+                      msgid: a9c49600-441f-11eb-9b0c-abcfbdf41bc3
+                      status: successful
+                      err: null
+                      errmsg: null
+                    responseCode: OK
+                    result:
+                      count: 6370
+                      content:
+                        - ownershipType:
+                            - createdBy
+                          code: 0cc5be9a-32a0-c825-06c0-69e82a6c5951
+                          prevStatus: Draft
+                          subject:
+                            - English
+                          bloomslevel: remember
+                          channel: b00bc992ef25f1a9a8d63291e20efc8d
+                          language:
+                            - English
+                          mimeType: application/pdf
+                          medium:
+                            - English
+                          idealScreenSize: normal
+                          createdOn: '2020-01-08T13:41:40.258+0000'
+                          objectType: Content
+                          appIcon: 'https://ntpstagingall.blob.core.windows.net/ntp-content-staging/content/do_21291553051403878414/artifact/explanation.thumb_1576602846206.png'
+                          gradeLevel:
+                            - Grade 1
+                          primaryCategory: Explanation Content
+                          appId: local.sunbird.portal
+                          contentDisposition: inline
+                          artifactUrl: 'https://sunbirddev.blob.core.windows.net/sunbird-content-dev/content/assets/do_112930997454864384150/sample.pdf'
+                          contentEncoding: identity
+                          lastUpdatedOn: '2020-01-08T13:44:32.610+0000'
+                          SYS_INTERNAL_LAST_UPDATED_ON: '2020-01-08T13:43:42.419+0000'
+                          dialcodeRequired: 'No'
+                          identifier: do_112930997454864384150
+                          audience:
+                            - Student
+                          creator: Creation
+                          lastStatusChangedOn: '2020-01-08T13:44:32.602+0000'
+                          visibility: Default
+                          os:
+                            - All
+                          consumerId: 7411b6bd-89f3-40ec-98d1-229dc64ce77d
+                          mediaType: content
+                          osId: org.ekstep.quiz.app
+                          graph_id: domain
+                          nodeType: DATA_NODE
+                          version: 2
+                          versionKey: '1578491072610'
+                          license: CC BY 4.0
+                          idealScreenDensity: hdpi
+                          framework: NCFCOPY
+                          lastSubmittedOn: '2020-01-08T13:44:32.405+0000'
+                          createdBy: 874ed8a5-782e-4f6c-8f36-e0288455901e
+                          compatibilityLevel: 1
+                          name: 'lesson Plan'
+                          board: NCERT
+                          resourceType: Read
+                          status: Review
+                          node_id: 378232
+                c:
+                  summary: Search Response - Get Facets Between Date Range
+                  value:
+                    id: api.content.search
+                    ver: '1.0'
+                    ts: '2020-12-22T06:55:03.815Z'
+                    params:
+                      resmsgid: 9e2b5970-4422-11eb-9b0c-abcfbdf41bc3
+                      msgid: 9e295da0-4422-11eb-9b0c-abcfbdf41bc3
+                      status: successful
+                      err: null
+                      errmsg: null
+                    responseCode: OK
+                    result:
+                      count: 14423
+                      facets:
+                        - values:
+                            - name: state (uttar pradesh)
+                              count: 1
+                            - name: state (andhra pradesh)
+                              count: 1
+                            - name: ncert
+                              count: 26
+                            - name: cbse
+                              count: 335
+                          name: board
+                d:
+                  summary: Search Response - Get specific fields in response
+                  value:
+                    id: api.content.search
+                    ver: '1.0'
+                    ts: '2020-12-22T07:21:30.803Z'
+                    params:
+                      resmsgid: 50168030-4426-11eb-9b0c-abcfbdf41bc3
+                      msgid: 5010b3d0-4426-11eb-9b0c-abcfbdf41bc3
+                      status: successful
+                      err: null
+                      errmsg: null
+                    responseCode: OK
+                    result:
+                      count: 480465
+                      content:
+                        - identifier: domain_62767
+                          mimeType: application/vnd.ekstep.ecml-archive
+                          createdOn: '9390-06-06T13:36:06.929+0000'
+                          objectType: Content
+                        - identifier: do_112196430983438336116
+                          mimeType: application/vnd.ekstep.content-collection
+                          createdOn: '4177-05-07T06:55:23.005+0000'
+                          objectType: Content
+                e:
+                  summary: Search Response - Assert on specific field
+                  value:
+                    id: api.content.search
+                    ver: '1.0'
+                    ts: '2020-12-22T07:24:02.522Z'
+                    params:
+                      resmsgid: aa84fba0-4426-11eb-9b0c-abcfbdf41bc3
+                      msgid: aa839c10-4426-11eb-9b0c-abcfbdf41bc3
+                      status: successful
+                      err: null
+                      errmsg: null
+                    responseCode: OK
+                    result:
+                      count: 2202
+                      content:
+                        - identifier: do_395
+                          dialcodes:
+                            - V1T2P8
+                          createdOn: '2020-12-17T06:36:54.716+0000'
+                          objectType: Content
+                        - identifier: do_11317422696104755212890
+                          dialcodes:
+                            - K1G7M9
+                          createdOn: '2020-12-17T05:13:22.086+0000'
+                          objectType: Content
+                f:
+                  summary: Search Response - based on specific query string
+                  value:
+                    id: api.content.search
+                    ver: '1.0'
+                    ts: '2020-12-22T07:30:44.414Z'
+                    params:
+                      resmsgid: 9a10d5e0-4427-11eb-9b0c-abcfbdf41bc3
+                      msgid: 9a0d2c60-4427-11eb-9b0c-abcfbdf41bc3
+                      status: successful
+                      err: null
+                      errmsg: null
+                    responseCode: OK
+                    result:
+                      count: 290
+                      content:
+                        - identifier: org.ekstep.ma8.story
+                          name: शेर का साथी हाथी
+                          description: Test
+                          objectType: Content
+                        - identifier: org.ekstep.march.content_1020
+                          name: शेर का साथी हाथी
+                          description: शेर का साथी हclsथी
+                          objectType: Content
+        '400':
+          description: |-
+            BAD REQUEST. The **Content Search** operation failed. You may have missed input for a mandatory parameter - Primary-Category in header
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentSearchErrorResponse'
+              example:
+                id: api.content.search
+                ver: '1.0'
+                ts: '2020-12-21T11:46:50.400Z'
+                params:
+                  resmsgid: 367e7a00-4382-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_CONTENT_SEARCH_FIELDS_MISSING
+                  errmsg: Required fields for search content are missing
+                responseCode: CLIENT_ERROR
+                result: {}
+        500:
+          description: '''INTERNAL SERVER ERROR. We track these errors automatically
+            and try to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentSearchErrorResponse'
+              example:
+                id: api.content.search
+                ver: '1.0'
+                ts: '2020-12-10T08:51:51.647Z'
+                params:
+                  resmsgid: f234a6f0-3ac4-11eb-b0a2-8d5c9f561887
+                  msgid: null
+                  status: failed
+                  err: null
+                  errmsg: null
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /content/v2/import:
+    post:
+      description: |-
+        This API is associated with importing a content on the Sunbird Platform from different environment.
+          - The **_/import/_**endpoint executes request for impoting content, if content is found appropriate.
+          - The endpoint for **Import Content** is `/content/v2/import`
+          - It points to content-service - `/content/v3/import`
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Import Content
+      tags:
+        - Content APIs
+      operationId: Import Content
+      parameters:
+        - name: Primary-Category
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:-
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All content APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/contentapiImportContentRequest'
+            example:
+              request:
+                content:
+                  - source: 'https://vdn.diksha.gov.in/api/content/v2/read/do_4313124780355543040126730'
+                    metadata: {}
+                    collection:
+                      - identifier: do_3131112587361648641337
+                        unitId: do_3131112587369922561425
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation."Import" operation was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentImportSuccessResponse'
+              example:
+                id: api.content.import
+                ver: '3.0'
+                ts: '2020-12-17T16:29:11ZZ'
+                params:
+                  resmsgid: 7cce8934-0a2f-46bf-a0ee-be5f49874cae
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  processId: 80a765c7-2202-4b3f-b473-448b5c2cd20e
+        '400':
+          description: >-
+            BAD REQUEST. The "Import Content" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+              example:
+                id: api.content.import
+                ver: '3.0'
+                ts: '2020-12-17T16:30:16ZZ'
+                params:
+                  resmsgid: 31f88a39-2514-4d86-b424-240166e315be
+                  msgid: null
+                  err: ERR_REQUIRED_PROPS_VALIDATION
+                  status: failed
+                  errmsg: 'Validation Failed! Mandatory Properties Are [name, code, mimeType, primaryCategory, artifactUrl, framework]'
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact us. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiContentCreateErrorResponse'
+      deprecated: false
+      security:
+        - bearer: []
+  /content/v1/fetchmeta:
+    post:
+      tags:
+        - Content APIs
+      summary: Url Fetch Metadata
+      description: |-
+        This API is associated with fetching url metadata details on the Sunbird Platform.
+          - The endpoint for **Create Content** is `/content/v1/fetchmeta`
+          - It points to knowledge-mw-service - `/v1/url/fetchmeta`
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      operationId: Fetch Url Metadata
+      parameters:
+        - name: Primary-Category
+          in: header
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:-
+              - Application/json
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          'The body parameter refers to the format of the request, the request
+          body (payload) takes the following media types to make the payload:'
+
+           - JSON
+          The body is the representation of the resource object for creating
+          content (an array of parameters which describes the content)
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/contentapiFetchUrlMetadataRequest'
+            example:
+              request:
+                url: 'https://github.com/project-sunbird/sunbird.org-docs'
+        required: true
+      responses:
+        '200':
+          description: SUCCESS. The **URL Fetch Metadata** operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiUrlFetchMetadataSuccessResponse'
+              example:
+                ts: '2021-02-02T08:38:20.329Z'
+                params:
+                  resmsgid: 00edd990-6532-11eb-9dac-65b700f4c009
+                  msgid: null
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  url: 'https://github.com/project-sunbird/sunbird.org-docs'
+                  canonical: 'https://github.com/project-sunbird/sunbird.org-docs'
+                  title: project-sunbird/sunbird.org-docs
+                  image: 'https://avatars.githubusercontent.com/u/26705730?s=400&v=4'
+                  author: ''
+                  description: Repository for documentation on sunbird.org. Contribute to project-sunbird/sunbird.org-docs development by creating an account on GitHub.
+                  keywords: ''
+                  source: github.com
+                  'og:url': 'https://github.com/project-sunbird/sunbird.org-docs'
+                  'og:locale': ''
+                  'og:locale:alternate': ''
+                  'og:title': project-sunbird/sunbird.org-docs
+                  'og:type': object
+                  'og:description': Repository for documentation on sunbird.org. Contribute to project-sunbird/sunbird.org-docs development by creating an account on GitHub.
+                  'og:determiner': ''
+                  'og:site_name': GitHub
+                  'og:image': 'https://avatars.githubusercontent.com/u/26705730?s=400&v=4'
+                  'og:image:secure_url': ''
+                  'og:image:type': ''
+                  'og:image:width': ''
+                  'og:image:height': ''
+                  price: ''
+                  priceCurrency: ''
+                  availability: ''
+        '400':
+          description: >-
+            'BAD REQUEST. The **URL Fetch Metadata** operation failed. You may have
+            missed input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiUrlFetchMetadataErrorResponse'
+              example:
+                ts: '2021-02-02T08:53:31.808Z'
+                params:
+                  resmsgid: 20368200-6534-11eb-9dac-65b700f4c009
+                  msgid: null
+                  status: failed
+                  err: ERR_FETCH_URLMETA_MISSING
+                  errmsg: Required fields for fetching url meta data are missing
+                responseCode: CLIENT_ERROR
+        '500':
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contentapiUrlFetchMetadataErrorResponse'
+              example:
+                ts: '2021-02-02T08:57:49.620Z'
+                params:
+                  resmsgid: b9e17f40-6534-11eb-9dac-65b700f4c009
+                  msgid: null
+                  status: failed
+                  err: ERR_FETCH_URLMETA_FAILED
+                  errmsg: Unable to load the url metadata
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+    contentapiCreateContentRequest:
+      title: Request Object
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/contentapiContentCreateRequestContent'
+    contentapiContentCreateRequestContent:
+      title: Request
+      required:
+        - content
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/contentapiContentCreateRequestContentObject'
+    contentapiContentCreateRequestContentObject:
+      title: Content
+      required:
+        - code
+        - mimeType
+        - name
+        - primaryCategory
+        - createdBy
+      type: object
+      properties:
+        name:
+          type: string
+          description: Represents the name of the content
+        code:
+          type: string
+          description: Represents the unique code for the content
+        mimeType:
+          type: string
+          description: Content mime type
+        primaryCategory:
+          type: string
+          description: 'Content Type. eg- TextBook, Resource, etc'
+        createdBy:
+          type: string
+          description: ID of the user who created Content
+    contentapiFetchUrlMetadataRequest:
+      title: Request Object
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/contentapiFetchUrlMetadataRequestUrl'
+    contentapiFetchUrlMetadataRequestUrl:
+      title: Request
+      required:
+        - url
+      type: object
+      properties:
+        url:
+          type: string
+          description: Url for which metadat is required
+    contentapiUpdateContentrequest:
+      title: Update ContentRequest
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/contentapiContentUpdateRequestContent'
+      required:
+        - request
+    contentapiContentUpdateRequestContent:
+      title: ContentUpdateRequestContent
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/contentapiContentUpdateRequestContentObject'
+      required:
+        - content
+    contentapiContentUpdateRequestContentObject:
+      title: Content
+      required:
+        - versionKey
+      type: object
+      properties:
+        versionKey:
+          type: string
+          description: Represents the transaction update version key of the content
+        description:
+          type: string
+          description: Represents the description for the content
+    contentapiPublishContentRequest:
+      title: Publish ContentRequest
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/contentapiContentPublishRequestContent'
+      required:
+        - request
+    contentapiContentPublishRequestContent:
+      title: ContentPublishRequestContent
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/contentapiContentPublishRequestContentObject'
+      required:
+        - content
+    contentapiContentPublishRequestContentObject:
+      title: ContentPublishRequestContentObject
+      type: object
+      properties:
+        lastPublishedBy:
+          description: user id who published the content
+          type: string
+      required:
+        - lastPublishedBy
+    contentapiFlagAcceptContentRequest:
+      title: Flag Accept ContentRequest
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/contentapiContentFlagAcceptRequestContent'
+      required:
+        - request
+    contentapiContentFlagAcceptRequestContent:
+      title: ContentFlagAcceptRequestContent
+      type: object
+      properties:
+        versionKey:
+          description: versionKey of content
+          type: string
+      required:
+        - versionKey
+    contentapiCopyContentRequest:
+      title: Copy Content Request
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/contentapiContentCopyRequestContent'
+    contentapiContentCopyRequestContent:
+      title: Content Copy Request Content
+      required:
+        - content
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/contentapiContentCopyRequestContentObject'
+    contentapiContentCopyRequestContentObject:
+      title: Content Copy Request Content Object
+      required:
+        - createdBy
+        - createdFor
+        - organisation
+        - framework
+      type: object
+      properties:
+        createdBy:
+          type: string
+          description: Represents the creator of the content
+        createdFor:
+          type: string
+          description: Represents for whom content is created
+        organisation:
+          type: string
+          description: Represents for which organisation content is created
+        framework:
+          type: string
+          description: Represents framework with which content is tagged
+    contentapiImportContentRequest:
+      title: Import Content Request
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/contentapiContentImportRequestContent'
+    contentapiContentImportRequestContent:
+      title: Content Import Request Content
+      required:
+        - content
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/contentapiContentImportRequestContentObject'
+    contentapiContentImportRequestContentObject:
+      title: Content Import Request Content Object
+      type: object
+      properties:
+        stage:
+          type: string
+          description: Represents the creator of the content
+        source:
+          type: string
+          description: Represents for whom content is created
+        metadata:
+          type: object
+          description: Represents for which organisation content is created
+        collection:
+          type: array
+          description: Represents framework with which content is tagged
+          items:
+            type: object
+            description: Represents collection and unit ids with which imported content has to be linked
+    contentapiUploadUrlContentRequest:
+      title: Upload Url Content Request
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/contentapiContentUploadUrlRequestContent'
+    contentapiContentUploadUrlRequestContent:
+      title: Content Upload Url Request Content
+      required:
+        - content
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/contentapiContentUploadUrlRequestContentObject'
+    contentapiContentUploadUrlRequestContentObject:
+      title: Content Upload Url Request Content Object
+      required:
+        - fileName
+      type: object
+      properties:
+        fileName:
+          type: string
+          description: >-
+            Represents the name of the file against which url has to be
+            generated.
+    contentapiContentCreateSuccessResponse:
+      description: Create Content Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiResultWithContentId'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    contentapiResultWithContentId:
+      title: Result Containing Content Id
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/contentapiContentId'
+    contentapiContentId:
+      title: Content Id
+      type: object
+      properties:
+        node_id:
+          type: string
+          description: Content Identifier
+        content_id:
+          type: string
+          description: Content Identifier
+        versionKey:
+          type: string
+          description: Content versionKey
+    contentapiUrlFetchMetadataSuccessResponse:
+      description: Url Fetch Metadata Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiResultWithUrlMetadata'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    contentapiResultWithUrlMetadata:
+      title: Result Containing Url Metadata
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/contentapiUrlMetadata'
+    contentapiUrlMetadata:
+      title: Url Metadata
+      type: object
+      properties:
+        url:
+          type: string
+          description: Url link
+        canonical:
+          type: string
+          description: Url link
+        title:
+          type: string
+          description: Title of the url
+        image:
+          type: string
+          description: Content versionKey
+        author:
+          type: string
+          description: Author of the link
+        description:
+          type: string
+          description: Description about the url
+        keywords:
+          type: string
+          description: Keyword associated with url
+        source:
+          type: string
+          description: Source of the link
+        og:url:
+          type: string
+        og:locale:
+          type: string
+        og:locale:alternate:
+          type: string
+        og:title:
+          type: string
+        og:type:
+          type: string
+        og:description:
+          type: string
+        og:determiner:
+          type: string
+        og:site_name:
+          type: string
+        og:image:
+          type: string
+        og:image:secure_url:
+          type: string
+        og:image:type:
+          type: string
+        og:image:width:
+          type: string
+        og:image:height:
+          type: string
+        price:
+          type: string
+        priceCurrency:
+          type: string
+        availability:
+          type: string
+    contentapiContentUploadSuccessResponse:
+      description: Upload Content Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiUploadResultWithContentId'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    contentapiUploadResultWithContentId:
+      title: Result Containing Content Id
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/contentapiContentId'
+    contentapiUploadContentId:
+      title: Content Id
+      type: object
+      properties:
+        node_id:
+          type: string
+          description: Content Identifier
+        content_id:
+          type: string
+          description: Content Identifier
+        versionKey:
+          type: string
+          description: Content versionKey
+        artifactUrl:
+          type: string
+          description: Content uploaded file url link
+        content_url:
+          type: string
+          description: Content uploaded file url link
+    contentapiContentGetSuccessResponse:
+      description: Get Content Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiResultWithContentMetadata'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    contentapiResultWithContentMetadata:
+      title: Result Containing Content Id and other metadata
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/contentapiContentIdWithMetadata'
+    contentapiContentIdWithMetadata:
+      title: Content Metadata
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Content Identifier
+        name:
+          type: string
+          description: Content name
+        versionKey:
+          type: string
+          description: Content versionKey
+    contentapiContentPublishSuccessResponse:
+      description: Publish Content Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiPublishResultWithContentId'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    contentapiPublishResultWithContentId:
+      title: Result Containing Content Id
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/contentapiPublishContentId'
+    contentapiPublishContentId:
+      title: Content Id
+      type: object
+      properties:
+        content_id:
+          type: string
+          description: Content Identifier
+        publishStatus:
+          type: string
+          description: Status of the publish event
+    contentapiContentRejectSuccessResponse:
+      description: Reject Content Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiRejectResultWithContentId'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    contentapiRejectResultWithContentId:
+      title: Reject Result Containing Content Id
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/contentapiRejectContentId'
+    contentapiRejectContentId:
+      title: Reject Content Id
+      type: object
+      properties:
+        node_id:
+          type: string
+          description: Content Identifier
+        versionKey:
+          type: string
+          description: Content versionKey
+    contentapiContentFlagSuccessResponse:
+      description: Flag Content Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiFlagResultWithContentId'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    contentapiFlagResultWithContentId:
+      title: Reject Result Containing Content Id
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/contentapiFlagContentId'
+    contentapiFlagContentId:
+      title: Reject Content Id
+      type: object
+      properties:
+        node_id:
+          type: string
+          description: Content Identifier
+        identifier:
+          type: string
+          description: Content Identifier
+        versionKey:
+          type: string
+          description: Content versionKey
+    contentapiContentRetireSuccessResponse:
+      description: Create Content Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiRetireResultWithContentId'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    contentapiRetireResultWithContentId:
+      title: Retire Result Containing Content Id
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/contentapiRetireContentId'
+    contentapiRetireContentId:
+      title: Content Id
+      type: object
+      properties:
+        node_id:
+          type: string
+          description: Content Identifier
+        identifier:
+          type: string
+          description: Content Identifier
+    contentapiContentCopySuccessResponse:
+      description: Create Copy Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiResultCopyContent'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    contentapiResultCopyContent:
+      title: Result Copy Content
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/contentapiCopyContent'
+    contentapiCopyContent:
+      title: Copy Content
+      type: object
+      properties:
+        node_id:
+          type: object
+          description: Origin and copyied content ampping
+        versionKey:
+          type: string
+          description: Content versionKey
+    contentapiContentImportSuccessResponse:
+      description: Create Import Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiResultImportContent'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    contentapiResultImportContent:
+      title: Result Import Content
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/contentapiImportContent'
+    contentapiImportContent:
+      title: Import Content
+      type: object
+      properties:
+        processId:
+          type: object
+          description: Represents Process id against which content import process started
+    contentapiContentUploadUrlSuccessResponse:
+      description: Upload URL Content Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiUploadUrlResultWithContentId'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    contentapiUploadUrlResultWithContentId:
+      title: Upload Url Result WithC ontentId
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/contentapiUploadUrlContentId'
+    contentapiUploadUrlContentId:
+      title: Upload Url ContentId
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Content Identifier
+        url_expiry:
+          type: string
+          description: Url expiry time
+        pre_signed_url:
+          type: string
+          description: pre-signed url link
+    contentapiContentCreateErrorResponse:
+      description: Create Content Error Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiEmptyResult'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    contentapiEmptyResult:
+      title: Empty Result
+      type: object
+      properties:
+        result:
+          type: object
+          description: Empty Result
+    contentapiUrlFetchMetadataErrorResponse:
+      description: Url Fetch Metadata Error Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    contentapiResponseHeader:
+      title: ResponseHeader
+      type: object
+      properties:
+        id:
+          type: string
+          description: API Identifier
+        ver:
+          type: string
+          description: API version information
+        ts:
+          type: string
+          description: API execution timespan
+        params:
+          $ref: '#/components/schemas/contentapiResponseParams'
+        responseCode:
+          type: string
+          description: 'API response code '
+    contentapiResponseParams:
+      title: Response Parameter
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          description: Response Message Id
+        msgid:
+          type: string
+          description: Message Id
+        err:
+          type: string
+          description: Error Code
+        status:
+          type: string
+          description: Response Status
+        errmsg:
+          type: string
+          description: Error Message
+    contentapiContentSearchRequest:
+      description: Composite Search Request
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiContentSearchRequestRequest'
+    contentapiContentSearchRequestRequest:
+      title: Composite Search Request
+      required:
+      - request
+      type: object
+      properties:
+        query:
+          type: string
+          description: Data to be searched in object's metadata
+        filters:
+          type: object
+          description: Criteria on which data has to be fetched
+        limit:
+          type: number
+          description: Number of objects to be returned
+        fields:
+          type: array
+          description: Fields to be fetched for each object
+          items:
+            type: string
+        sort_by:
+          type: object
+          description: Fields on which object response has to be sorted
+        facets:
+          type: array
+          description: Fields on which data has to be grouped
+          items:
+            type: string
+        exists:
+          type: array
+          description: Fields which must be available in the object
+          items:
+            type: string
+    contentapiContentSearchSuccessResponse:
+      description: Content Search Success Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiResultWithContentSearch'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    contentapiResultWithContentSearch:
+      title: Result Containing Content Search
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/contentapiContentSearch'
+    contentapiContentSearch:
+      title: Content Search
+      type: object
+      properties:
+        count:
+          type: number
+          description: Number of object
+        objectType:
+          type: object
+          description: Set of object metadata
+        facets:
+          type: array
+          description: List of objects group by field value
+          items:
+            type: object
+            description: Grouping on field value
+    contentapiContentSearchErrorResponse:
+      description: Content Search Error Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/contentapiErrorSearchResult'
+        - $ref: '#/components/schemas/contentapiResponseHeader'
+    contentapiErrorSearchResult:
+      title: Error Search Result
+      type: object
+      properties:
+        result:
+          type: object
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
