@@ -83,10 +83,10 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 | SERVICE TO BE BUILD               | BUILD TAG          | SERVICE TO DEPLOY                                 | DEPLOY TAG                                                | COMMENTS |
 |-----------------------------------|--------------------|---------------------------------------------------|-----------------------------------------------------------|----------|
-|                                   |                    | Deploy/KnowledgePlatform/CassandraDbUpdate        | release-4.7.0_RC3`                                        |          |
-| Build/KnowledgePlatform/FlinkJobs | release-4.7.0_RC9  | Deploy/KnowledgePlatform/FlinkJobs                | release-4.7.0_RC3`                                        |          |
-| Build/KnowledgePlatform/Learning  | release-4.7.0_RC3  | Deploy/KnowledgePlatform/Learning                 | release-4.7.0_RC3`                                        |          |
-| Build/KnowledgePlatform/Yarn      | release-4.7.0_RC3  | Deploy/KnowledgePlatform/Yarn                     | release-4.7.0_RC3`                                        |          |
+|                                   |                    | Deploy/KnowledgePlatform/CassandraDbUpdate        | release-4.7.0_RC3                                        |          |
+| Build/KnowledgePlatform/FlinkJobs | release-4.7.0_RC9  | Deploy/KnowledgePlatform/FlinkJobs                | release-4.7.0_RC3                                        |          |
+| Build/KnowledgePlatform/Learning  | release-4.7.0_RC3  | Deploy/KnowledgePlatform/Learning                 | release-4.7.0_RC3                                        |          |
+| Build/KnowledgePlatform/Yarn      | release-4.7.0_RC3  | Deploy/KnowledgePlatform/Yarn                     | release-4.7.0_RC3                                        |          |
 |                                   |                    | Deploy/Kubernetes/Upload_CollectionHierarchy_CSV  | release-4.7.0-vdn_RC1                                     | `csv_repo_branch: release-4.7.0` |
 |                                   |                    | Deploy/Kubernetes/UploadSchemas                   | release-4.7.0-vdn_RC1                                     | `schemas_branch: release-4.7.0`  |
 |                                   |                    | Deploy/Kubernetes/PostgresqlMigration             | release-4.7.0-vdn_RC1                                     |          |
