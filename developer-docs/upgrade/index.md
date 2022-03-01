@@ -89,7 +89,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | Build/KnowledgePlatform/Yarn      | release-4.7.0_RC3  | Deploy/KnowledgePlatform/Yarn                     | release-4.7.0_RC3                                        |          |
 |                                   |                    | Deploy/Kubernetes/Upload_CollectionHierarchy_CSV  | release-4.7.0-vdn_RC1                                     | `csv_repo_branch: release-4.7.0` |
 |                                   |                    | Deploy/Kubernetes/UploadSchemas                   | release-4.7.0-vdn_RC1                                     | `schemas_branch: release-4.7.0`  |
-|                                   |                    | Deploy/Kubernetes/PostgresqlMigration             | release-4.7.0-vdn_RC1                                     |          |
+|                                   |                    | Deploy/Kubernetes/PostgresqlMigration             | release-4.7.0-RC2                                     |          |
 | Build/Kubernetes/Assessment       | release-4.7.0_RC5  | Deploy/Kubernetes/Assessment                      | release-4.7.0-vdn_RC1                                     |          |
 | Build/Kubernetes/Content          | release-4.7.0_RC5  | Deploy/Kubernetes/Content                         | release-4.7.0-vdn_RC1                                     |          |
 | Build/Kubernetes/Player           | release-4.7.0_RC30 | Deploy/Kubernetes/Player                          | release-4.7.0-vdn_RC1                                     |          |
