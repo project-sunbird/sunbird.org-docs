@@ -950,6 +950,7 @@ paths:
           - {...}refers to a section of review endpoint URL path that needs to be replaced by appropriate Id.
           - It is mandatory to provide values for parameters marked with *.
           - Mandatory fields cannot be null or empty.
+          - relational metadata (optional) can be passed. [Reference](https://project-sunbird.atlassian.net/wiki/spaces/SBDES/pages/3089137672/Relational+Metadata+feature+Release+Notes)
       summary: Update Collection Hierarchy
       operationId: Collection Update
       parameters:
@@ -1530,6 +1531,7 @@ paths:
           - It points to knowledge-mw-service - `/v1/collection/hierarchy/add`
           - It is mandatory to provide values for parameters marked with *
           - Mandatory fields cannot be null or empty.
+          - relational metadata (optional) can be passed. [Reference](https://project-sunbird.atlassian.net/wiki/spaces/SBDES/pages/3089137672/Relational+Metadata+feature+Release+Notes)
       operationId: Add Collection Hierarchy
       parameters:
       - name: Authorization
@@ -2325,10 +2327,21 @@ components:
         root:
           type: boolean
           description: Represents the node is root or not
+        relationalMetadata:
+          type: object
+          description: optional field, used to define relational metdata of linked assets to the collection unit.
       example:
         name: Untitled Collection
         children: []
         root: true
+        relationalMetadata: {
+          "linkedAsset1Identifier": {
+            "relationalMetadataAttribute": "relational metadata value"
+          },
+          "linkedAsset2Identifier": {
+            "relationalMetadataAttribute": "relational metadata value"
+          }
+        }
     CollectionHierarchyUpdate200:
       title: CollectionHierarchyUpdate200
       description: Represents collection hierarchy update 200
@@ -2509,11 +2522,22 @@ components:
           description: Represents the children
           items:
             type: string
+        relationalMetadata:
+          type: object
+          description: optional field, used to define relational metdata of linked assets to the collection unit.
       example:
         rootId: do_1134445959309803521184
         unitId: do_1134445959318241281187
         children:
         - do_1134455063866736641416
+        relationalMetadata: {
+          "linkedAsset1Identifier": {
+            "relationalMetadataAttribute": "relational metadata value"
+          },
+          "linkedAsset2Identifier": {
+            "relationalMetadataAttribute": "relational metadata value"
+          }
+        }
     HierarchyAdd400And500Params:
       title: HierarchyAdd400And500Params
       required:
