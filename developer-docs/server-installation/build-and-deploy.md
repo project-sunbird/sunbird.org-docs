@@ -9,7 +9,7 @@ allowSearch: true
 
 ## Overview
 
-To install Sunbird `release-4.3.0`, we will need to run many Jenkins jobs and a couple of manual steps. Some of the jobs need to be run in a specific order. This page details out the list of jobs, their order and the github release tags to be used for each job.
+To install Sunbird `release-4.6.0`, we will need to run many Jenkins jobs and a couple of manual steps. Some of the jobs need to be run in a specific order. This page details out the list of jobs, their order and the github release tags to be used for each job.
 
 ### Installing Sunbird
 
@@ -75,15 +75,15 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Build/Core/Analytics|release-4.3.0_RC4|<https://github.com/project-sunbird/sunbird-analytics-service.git>|Location Register, Location Retrieval|
 |Build/Core/APIManager|release-3.8.0_RC14|<https://github.com/project-sunbird/sunbird-devops.git>|The API Gateway|
 |Build/Core/ApiManagerEcho|master-RC1|<https://github.com/project-sunbird/sunbird-echo-service.git>|Simply echos the request|
-|Build/Core/Assessment|release-4.3.0_RC9|<https://github.com/project-sunbird/knowledge-platform.git>|Handles course assessments|
+|Build/Core/Assessment|release-4.6.0_RC2|<https://github.com/project-sunbird/knowledge-platform.git>|Handles course assessments|
 |Build/Core/Bot|release-3.9.0_RC1|<https://github.com/project-sunbird/sunbird-bot.git>|Frontend for the chatbot|
-|Build/Core/Cassandra|release-4.3.0_RC3|<https://github.com/project-sunbird/sunbird-utils.git>|Handles the Cassandra database schema|
+|Build/Core/Cassandra|release-4.6.0_RC1|<https://github.com/project-sunbird/sunbird-utils.git>|Handles the Cassandra database schema|
 |Build/Core/CassandraTrigger|release-3.8.0_RC2|<https://github.com/project-sunbird/sunbird-utils.git>|Creates few Cassandra Triggers|
 |Build/Core/Cert|release-3.5.0_RC2|<https://github.com/project-sunbird/cert-service.git>|Handles course certificates|
 |Build/Core/CertRegistryService|release-3.4.0_RC1|<https://github.com/project-sunbird/certificate-registry.git>|Helper for Certificate service|
-|Build/Core/Content|release-4.3.0_RC9|<https://github.com/project-sunbird/knowledge-platform.git>|Handles the Contents and Content Metadata
+|Build/Core/Content|release-4.6.0_RC2|<https://github.com/project-sunbird/knowledge-platform.git>|Handles the Contents and Content Metadata
 |Build/Core/Dial|release-3.7.0_RC2|<https://github.com/project-sunbird/sunbird-dial-service.git>|Handles QR code generation|
-|Build/Core/DiscussionsMiddleware|release-4.2.0_RC2|<https://github.com/Sunbird-Ed/discussions-middleware.git>|Middleware for discussion forum|
+|Build/Core/DiscussionsMW|release-4.6.0_RC3|<https://github.com/Sunbird-Ed/discussions-middleware.git>|Middleware for discussion forum|
 |Build/Core/EncService|release-3.8.0_RC1|<https://github.com/project-sunbird/enc-service>|Encryption service to setup certificate signing keys|
 |Build/Core/Groups|release-4.0.0_RC10|<https://github.com/project-sunbird/groups-service.git>|Handles groups functions|
 |Build/Core/Keycloak|release-3.8.0_RC1|<https://github.com/project-sunbird/sunbird-auth.git>|User authentication service|
@@ -102,7 +102,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Build/Core/Telemetry|release-3.3.0_RC1|<https://github.com/project-sunbird/sunbird-telemetry-service.git>|Handles the telemetry generated|
 |Build/Core/Yarn|release-2.6.0|<https://github.com/project-sunbird/sunbird-lms-jobs.git>|Handles SSO and account merges|
 |Build/KnowledgePlatform/CassandraTrigger|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Creates few Cassandra Triggers|
-|Build/KnowledgePlatform/FlinkJobs|release-4.3.0_RC8|<https://github.com/project-sunbird/knowledge-platform-jobs.git>|Multiple functions like search indexing, video streaming|
+|Build/KnowledgePlatform/FlinkJobs|release-4.6.0_RC5|<https://github.com/project-sunbird/knowledge-platform-jobs.git>|Multiple functions like search indexing, video streaming|
 |Build/KnowledgePlatform/Learning|github_release_tag: release-4.3.0_RC6, profile_id: platform-services|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Handles frameworks|
 |Build/KnowledgePlatform/Neo4j|release-4.1.0_RC1|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Generates neo4j plugins|
 |Build/KnowledgePlatform/SyncTool|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Generates a jar to manually sync contents |
@@ -110,14 +110,14 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Build/DataPipeline/AdhocScripts|release-4.1.0_RC8|<https://github.com/Sunbird-Ed/sunbird-data-products.git>|Generates supporting scripts for reporting|
 |Build/DataPipeline/AnalyticsCore|release-4.2.0_RC1|<https://github.com/project-sunbird/sunbird-analytics-core.git>|Generates core libraries for reporting|
 |Build/DataPipeline/CoreDataProducts|release-4.3.0_RC1|<https://github.com/project-sunbird/sunbird-core-dataproducts.git>|Generates supporting libraries for reporting|
-|Build/DataPipeline/EdDataProducts|release-4.3.0_RC2|<https://github.com/Sunbird-Ed/sunbird-data-products.git>|Generates supporting libraries for reporting|
+|Build/DataPipeline/EdDataProducts|release-4.6.0_RC2|<https://github.com/Sunbird-Ed/sunbird-data-products.git>|Generates supporting libraries for reporting|
 |Build/DataPipeline/ETLJobs|release-3.9.0_RC10|<https://github.com/Sunbird-Ed/sunbird-data-products.git>|Extract, Transform, Data Loading jobs|
-|Build/DataPipeline/FlinkPipelineJobs|release-4.2.0_RC1|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Handles processing of telemetry data|
+|Build/DataPipeline/FlinkPipelineJobs|release-4.6.0_RC1|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Handles processing of telemetry data|
 |Build/DataPipeline/Secor|secor-0.29_RC2|<https://github.com/project-sunbird/secor.git>|Handlles backup of telemetry data to Azure Blob|
 |Build/Plugins/CollectionEditor|release-3.6.0_RC1|<https://github.com/project-sunbird/sunbird-collection-editor.git>|A bunch of plugins to handle collection editing|
 |Build/Plugins/ContentEditor|release-4.1.0_RC1|<https://github.com/project-sunbird/sunbird-content-editor.git>|A bunch of plugins to edit certain types of content|
-|Build/Plugins/ContentPlayer|release-3.9.0_RC2|<https://github.com/project-sunbird/sunbird-content-player.git>|A bunch of plugins to handle content playback|
-|Build/Plugins/ContentPlugins|release-4.3.0_RC2|<https://github.com/project-sunbird/sunbird-content-plugins.git>|A bunch of base plugins to support the content editors and content player|
+|Build/Plugins/ContentPlayer|release-4.6.0_RC1|<https://github.com/project-sunbird/sunbird-content-player.git>|A bunch of plugins to handle content playback|
+|Build/Plugins/ContentPlugins|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-content-plugins.git>|A bunch of base plugins to support the content editors and content player|
 |Build/Plugins/GenericEditor|release-3.6.0_RC1|<https://github.com/project-sunbird/sunbird-generic-editor.git>|A bunch of plugins to edit certain types of content|
 
 #### Infra Provision
@@ -158,7 +158,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 #### ArtifactUpload
 
 - Every job in the **Build** directory has a corresponding job in **ArtifactUpload** directory with the same name
-- These jobs are auto triggered and usually run without issues after the corresponding job in the build directory succeeds 
+- These jobs are auto triggered and usually run without issues after the corresponding job in the build directory succeeds
 - The job will fail if your ansible inventory setup is incorrect or incomplete
 - If the job has failed, fix the ansible variables issue and rerun the job to upload the artifact / docker image
 - Ensure the artifact upload jobs are successful before proceeding
@@ -177,7 +177,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/Kubernetes/BootstrapMinimal|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Creates namespaces, configmaps and secrets|
 |Deploy/DataPipeline/BootstrapMinimal|release-4.3.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Creates namespaces, configmaps and secrets|
 |Deploy/Kubernetes/Monitoring|branch_or_tag: release-4.3.0_RC6, tag: all|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys the monitoring stack which can be accessed via DOMAIN/grafana/ post nginx-public-ingress deployment|
-|Deploy/Kubernetes/CassandraTrigger|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Installs the Cassandra triggers|
+|Deploy/Kubernetes/CassandraTrigger|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Installs the Cassandra triggers|
 |Deploy/KnowledgePlatform/CassandraTrigger|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Installs the Cassandra triggers|
 |Deploy/Kubernetes/CassandraDBUpdate|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Creates / Updates Cassandra DB schema|
 |Deploy/KnowledgePlatform/CassandraDbUpdate|release-4.3.0_RC5|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Creates / Updates Cassandra DB schema|
@@ -189,13 +189,13 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/KnowledgePlatform/Neo4j|release-4.3.0_RC5|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Deploys the Neo4j plugins|
 |Deploy/KnowledgePlatform/Neo4jDefinitionUpdate|release-4.3.0_RC5|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Creates / Updates the Neo4j database|
 |Deploy/KnowledgePlatform/Yarn|release-4.3.0_RC5|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Deploys the Samza jobs|
-|Deploy/KnowledgePlatform/FlinkJobs|branch_or_tag: release-4.3.0_RC5, job_names_to_deploy: Select All|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Deploys the Flink jobs in Kubernetes cluster|
+|Deploy/KnowledgePlatform/FlinkJobs|branch_or_tag: release-4.6.0_RC1, job_names_to_deploy: Select All|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Deploys the Flink jobs in Kubernetes cluster|
 |Deploy/KnowledgePlatform/LoggingFileBeatsVM|branch_or_tag: release-4.3.0_RC5, hosts: Select All, tags: default|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys filebeat in all the selected VMs|
 |Deploy/Kubernetes/nginx-private-ingress|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys nginx with a private load balancer|
-|Deploy/Kubernetes/APIManager|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Kong, the API gateway |
+|Deploy/Kubernetes/APIManager|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Kong, the API gateway |
 |Deploy/Kubernetes/OnboardAPIs|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the APIs in Kong|
 |Deploy/Kubernetes/OnboardConsumers|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the consumers in Kong. Now read the comment mentioned in **Core/Secrets.yml** against the variable `core_vault_sunbird_api_auth_token`|
-|Deploy/Kubernetes/Keycloak|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Keycloak|
+|Deploy/Kubernetes/Keycloak|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Keycloak|
 |Deploy/Kubernetes/KeycloakRealm|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the Sunbird Realm. Now read the comment mentioned in **Core/Secrets.yml** against the variables `core_vault_sunbird_sso_publickey`, `adminutil_refresh_token_public_key_kid`, `adminutil_refresh_token_secret_key`|
 |Deploy/Kubernetes/BootstrapMongodb|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the initial token in Mongo database|
 |Deploy/Kubernetes/CertTemplate|branch_or_tag: release-4.3.0_RC6, sunbird_util_branch_or_tag: release-3.8.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Uploads the certificate templates into Azure blob|
@@ -203,48 +203,48 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/Kubernetes/UploadFAQs|branch_or_tag: release-4.3.0_RC6, source_folder: Select All|<https://github.com/project-sunbird/sunbird-devops.git>|Uploads the FAQs to Azure blob|
 |Deploy/Kubernetes/UploadSchema|branch_or_tag: release-3.8.0_RC14, kp_branch_or_tag: release-3.8.0_RC9|<https://github.com/project-sunbird/sunbird-devops.git>|Uploads the Content schemas to Azure blob|
 |Deploy/Kubernetes/AdminUtils|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Adminutils service|
-|Deploy/Kubernetes/Analytics|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Analytics service|
+|Deploy/Kubernetes/Analytics|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Analytics service|
 |Deploy/Kubernetes/APIManagerEcho|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Echo service|
-|Deploy/Kubernetes/Assessment|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Assessment service|
+|Deploy/Kubernetes/Assessment|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Assessment service|
 |Deploy/Kubernetes/Bot|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Bot service|
 |Deploy/Kubernetes/Cert|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Cert service|
-|Deploy/Kubernetes/CertRegistry|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys CertRegistry service|
-|Deploy/Kubernetes/Content|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Content service|
+|Deploy/Kubernetes/CertRegistry|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys CertRegistry service|
+|Deploy/Kubernetes/Content|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Content service|
 |Deploy/Kubernetes/Dial|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Dial service|
 |Deploy/Kubernetes/Enc|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Enc service|
 |Deploy/Kubernetes/Groups|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Groups service|
-|Deploy/Kubernetes/KnowledgeMW|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys KnowledgeMW service|
-|Deploy/Kubernetes/Learner|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Learner service|
-|Deploy/Kubernetes/Lms|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Lms service|
-|Deploy/Kubernetes/Notification|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Notification service|
-|Deploy/Kubernetes/Player|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Player service|
+|Deploy/Kubernetes/KnowledgeMW|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys KnowledgeMW service|
+|Deploy/Kubernetes/Learner|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Learner service|
+|Deploy/Kubernetes/Lms|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Lms service|
+|Deploy/Kubernetes/Notification|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Notification service|
+|Deploy/Kubernetes/Player|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Player service|
 |Deploy/Kubernetes/Print|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Print service|
 |Deploy/Kubernetes/Report|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Report service|
 |Deploy/Kubernetes/Router|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Router service|
-|Deploy/Kubernetes/Search|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Search service|
-|Deploy/Kubernetes/Taxonomy|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Taxonomy service|
+|Deploy/Kubernetes/Search|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Search service|
+|Deploy/Kubernetes/Taxonomy|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Taxonomy service|
 |Deploy/Kubernetes/Telemetry|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Telemetry service|
 |Deploy/Kubernetes/Yarn|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys Samza jobs|
 |Deploy/Kubernetes/LoggingFileBeatsVM|branch_or_tag: release-4.3.0_RC6, hosts: Select All, tags: default|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys filebeat in all the selected VMs|
 |Deploy/Kubernetes/Logging|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Choose one **chartname** each time - `fluent-bit`, `kibana`, `oauth2-proxy`. Deploys Fluent Bit, Kibana and Oauth2 Proxy respectively. Kibana can accessed via DOMAIN/dashboard/|
 |Deploy/Kubernetes/nginx-public-ingress|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys the nginx web server. Now you can open visit your domain|
-|Deploy/Kubernetes/Nodebb|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys NodeBB service. Now read the comment mentioned in **Core/Secrets.yml** against the variable `discussionsmw_nodebb_authorization_token`|
-|Deploy/Kubernetes/DiscussionsMW|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys DiscussionsMW service|
+|Deploy/Kubernetes/Nodebb|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys NodeBB service. Now read the comment mentioned in **Core/Secrets.yml** against the variable `discussionsmw_nodebb_authorization_token`|
+|Deploy/Kubernetes/DiscussionsMW|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys DiscussionsMW service|
 |Deploy/Plugins/CollectionEditor|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys CollectionEditor files to Azure blob|
 |Deploy/Plugins/ContentEditor|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys ContentEditor files to Azure blob|
-|Deploy/Plugins/ContentPlayer|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys ContentPlayer files to Azure blob|
-|Deploy/Plugins/ContentPlugins|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys ContentPlugins files to Azure blob|
+|Deploy/Plugins/ContentPlayer|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys ContentPlayer files to Azure blob|
+|Deploy/Plugins/ContentPlugins|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys ContentPlugins files to Azure blob|
 |Deploy/Plugins/GenericEditor|release-4.3.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys GenericEditor files to Azure blob|
 |Deploy/DataPipeline/AdhocScripts|release-4.3.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys AdHoc scripts in Spark VM|
 |Deploy/DataPipeline/AnalyticsCore|release-4.3.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys jars in Spark VM|
 |Deploy/DataPipeline/CoreDataProducts|release-4.3.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys jars in Spark VM|
 |Deploy/DataPipeline/DruidIngestion|branch_or_tag: release-4.3.0_RC3, ingestion_task_names: Select All|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys and starts Druid ingestion tasks. **This job will be updated in a couple of days. Please wait until then**|
-|Deploy/DataPipeline/EdDataProducts|release-4.3.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys jars in Spark VM|
+|Deploy/DataPipeline/EdDataProducts|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys jars in Spark VM|
 |Deploy/DataPipeline/ETLJobs|release-4.3.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys ETL scripts in Spark VM|
 |Deploy/DataPipeline/ETLDruidContentIndexer|release-4.3.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys ETLDruidContentIndexer|
 |Deploy/DataPipeline/ETLUserCacheIndexer|release-4.3.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys ETLUserCacheIndexer|
 |Deploy/DataPipeline/Secor|release-4.3.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys Secor Statefulsets in Kubernetes cluster|
-|Deploy/DataPipeline/FlinkPipelineJobs|release-4.3.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys Flink jobs Kubernetes cluster|
+|Deploy/DataPipeline/FlinkPipelineJobs|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys Flink jobs Kubernetes cluster|
 |Deploy/DataPipeline/GraphitePrometheusExporter|release-4.3.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys graphite prometheus exporter in Druid VM|
 |Deploy/Kubernetes/LoggingFileBeatsVM|branch_or_tag: release-4.3.0_RC6, hosts: Select All, tags: default|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys filebeat in all the selected VMs|
 
