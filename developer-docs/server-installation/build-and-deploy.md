@@ -83,13 +83,13 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Build/Core/CertRegistryService|release-3.4.0_RC1|<https://github.com/project-sunbird/certificate-registry.git>|Helper for Certificate service|
 |Build/Core/Content|release-4.4.0_RC6|<https://github.com/project-sunbird/knowledge-platform.git>|Handles the Contents and Content Metadata
 |Build/Core/Dial|release-3.7.0_RC2|<https://github.com/project-sunbird/sunbird-dial-service.git>|Handles QR code generation|
-|Build/Core/DiscussionsMiddleware|release-4.2.0_RC2|<https://github.com/Sunbird-Ed/discussions-middleware.git>|Middleware for discussion forum|
+|Build/Core/DiscussionsMiddleware|release-4.4.0_RC4|<https://github.com/Sunbird-Ed/discussions-middleware.git>|Middleware for discussion forum|
 |Build/Core/EncService|release-3.8.0_RC1|<https://github.com/project-sunbird/enc-service>|Encryption service to setup certificate signing keys|
-|Build/Core/Groups|release-4.0.0_RC10|<https://github.com/project-sunbird/groups-service.git>|Handles groups functions|
+|Build/Core/Groups|release-4.4.0_RC4|<https://github.com/project-sunbird/groups-service.git>|Handles groups functions|
 |Build/Core/Keycloak|release-3.8.0_RC1|<https://github.com/project-sunbird/sunbird-auth.git>|User authentication service|
 |Build/Core/KnowledgeMW|release-4.3.0_RC1|<https://github.com/project-sunbird/knowledge-mw-service.git>|Middleware for Content service|
 |Build/Core/Learner|release-4.4.0_RC11|<https://github.com/project-sunbird/sunbird-lms-service.git>|Handles user and organizations|
-|Build/Core/Lms|release-4.1.0_RC1|<https://github.com/project-sunbird/sunbird-course-service.git>|Handles courses|
+|Build/Core/Lms|release-4.4.0_RC3|<https://github.com/project-sunbird/sunbird-course-service.git>|Handles courses|
 |Build/Core/Nodebb|github_release_tag: release-4.4.0_RC3, nodebb_branch: v1.16.0|<https://github.com/project-sunbird/sunbird-nodebb.git>|Handles the discussion forum|
 |Build/Core/Notification|release-4.4.0_RC5|<https://github.com/project-sunbird/sunbird-notification-service.git>|Handles notifications|
 |Build/Core/Player|release-4.4.0_RC32|<https://github.com/Sunbird-Ed/SunbirdEd-portal.git>|Handles the UI elements|
@@ -104,19 +104,19 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Build/KnowledgePlatform/CassandraTrigger|release-3.8.0_RC18|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Creates few Cassandra Triggers|
 |Build/KnowledgePlatform/FlinkJobs|release-4.4.0_RC3|<https://github.com/project-sunbird/knowledge-platform-jobs.git>|Multiple functions like search indexing, video streaming|
 |Build/KnowledgePlatform/Learning|github_release_tag: release-4.4.0_RC5, profile_id: platform-services|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Handles frameworks|
-|Build/KnowledgePlatform/Neo4j|release-4.1.0_RC1|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Generates neo4j plugins|
+|Build/KnowledgePlatform/Neo4j|release-4.4.1_RC1|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Generates neo4j plugins|
 |Build/KnowledgePlatform/SyncTool|release-4.4.1_RC1|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Generates a jar to manually sync contents |
 |Build/KnowledgePlatform/Yarn|release-4.4.0_RC5|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Multiple functions like publishing contents, issuing certificates|
-|Build/DataPipeline/AdhocScripts|release-4.1.0_RC8|<https://github.com/Sunbird-Ed/sunbird-data-products.git>|Generates supporting scripts for reporting|
+|Build/DataPipeline/AdhocScripts|release-4.4.0_RC4|<https://github.com/Sunbird-Ed/sunbird-data-products.git>|Generates supporting scripts for reporting|
 |Build/DataPipeline/AnalyticsCore|release-4.4.0_RC2|<https://github.com/project-sunbird/sunbird-analytics-core.git>|Generates core libraries for reporting|
 |Build/DataPipeline/CoreDataProducts|release-4.4.0_RC1|<https://github.com/project-sunbird/sunbird-core-dataproducts.git>|Generates supporting libraries for reporting|
 |Build/DataPipeline/EdDataProducts|release-4.4.0_RC3|<https://github.com/Sunbird-Ed/sunbird-data-products.git>|Generates supporting libraries for reporting|
-|Build/DataPipeline/ETLJobs|release-3.9.0_RC10|<https://github.com/Sunbird-Ed/sunbird-data-products.git>|Extract, Transform, Data Loading jobs|
-|Build/DataPipeline/FlinkPipelineJobs|release-4.2.0_RC1|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Handles processing of telemetry data|
+|Build/DataPipeline/ETLJobs|release-4.4.0_RC4|<https://github.com/Sunbird-Ed/sunbird-data-products.git>|Extract, Transform, Data Loading jobs|
+|Build/DataPipeline/FlinkPipelineJobs|release-4.4.0_RC2|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Handles processing of telemetry data|
 |Build/DataPipeline/Secor|secor-0.29_RC2|<https://github.com/project-sunbird/secor.git>|Handlles backup of telemetry data to Azure Blob|
 |Build/Plugins/CollectionEditor|release-3.6.0_RC1|<https://github.com/project-sunbird/sunbird-collection-editor.git>|A bunch of plugins to handle collection editing|
 |Build/Plugins/ContentEditor|release-4.1.0_RC1|<https://github.com/project-sunbird/sunbird-content-editor.git>|A bunch of plugins to edit certain types of content|
-|Build/Plugins/ContentPlayer|release-4.4.0_RC1|<https://github.com/project-sunbird/sunbird-content-player.git>|A bunch of plugins to handle content playback|
+|Build/Plugins/ContentPlayer|release-4.4.0_RC3|<https://github.com/project-sunbird/sunbird-content-player.git>|A bunch of plugins to handle content playback|
 |Build/Plugins/ContentPlugins|release-4.4.0_RC5|<https://github.com/project-sunbird/sunbird-content-plugins.git>|A bunch of base plugins to support the content editors and content player|
 |Build/Plugins/GenericEditor|release-3.6.0_RC1|<https://github.com/project-sunbird/sunbird-generic-editor.git>|A bunch of plugins to edit certain types of content|
 
