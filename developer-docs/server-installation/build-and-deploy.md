@@ -9,7 +9,9 @@ allowSearch: true
 
 ## Overview
 
+
 To install Sunbird `release-4.5.0`, we will need to run many Jenkins jobs and a couple of manual steps. Some of the jobs need to be run in a specific order. This page details out the list of jobs, their order and the github release tags to be used for each job.
+
 
 ### Installing Sunbird
 
@@ -83,7 +85,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Build/Core/CertRegistryService|release-3.4.0_RC1|<https://github.com/project-sunbird/certificate-registry.git>|Helper for Certificate service|
 |Build/Core/Content|release-4.5.0_RC2|<https://github.com/project-sunbird/knowledge-platform.git>|Handles the Contents and Content Metadata
 |Build/Core/Dial|release-3.7.0_RC2|<https://github.com/project-sunbird/sunbird-dial-service.git>|Handles QR code generation|
-|Build/Core/DiscussionsMiddleware|release-4.2.0_RC2|<https://github.com/Sunbird-Ed/discussions-middleware.git>|Middleware for discussion forum|
+|Build/Core/DiscussionsMiddleware|release-4.4.0_RC4|<https://github.com/Sunbird-Ed/discussions-middleware.git>|Middleware for discussion forum|
 |Build/Core/EncService|release-3.8.0_RC1|<https://github.com/project-sunbird/enc-service>|Encryption service to setup certificate signing keys|
 |Build/Core/Groups|release-4.5.0_RC1|<https://github.com/project-sunbird/groups-service.git>|Handles groups functions|
 |Build/Core/Keycloak|release-3.8.0_RC1|<https://github.com/project-sunbird/sunbird-auth.git>|User authentication service|
@@ -116,8 +118,8 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Build/DataPipeline/Secor|secor-0.29_RC2|<https://github.com/project-sunbird/secor.git>|Handlles backup of telemetry data to Azure Blob|
 |Build/Plugins/CollectionEditor|release-3.6.0_RC1|<https://github.com/project-sunbird/sunbird-collection-editor.git>|A bunch of plugins to handle collection editing|
 |Build/Plugins/ContentEditor|release-4.1.0_RC1|<https://github.com/project-sunbird/sunbird-content-editor.git>|A bunch of plugins to edit certain types of content|
-|Build/Plugins/ContentPlayer|release-3.9.0_RC2|<https://github.com/project-sunbird/sunbird-content-player.git>|A bunch of plugins to handle content playback|
-|Build/Plugins/ContentPlugins|release-4.3.0_RC2|<https://github.com/project-sunbird/sunbird-content-plugins.git>|A bunch of base plugins to support the content editors and content player|
+|Build/Plugins/ContentPlayer|release-4.4.0_RC3|<https://github.com/project-sunbird/sunbird-content-player.git>|A bunch of plugins to handle content playback|
+|Build/Plugins/ContentPlugins|release-4.4.0_RC5|<https://github.com/project-sunbird/sunbird-content-plugins.git>|A bunch of base plugins to support the content editors and content player|
 |Build/Plugins/GenericEditor|release-3.6.0_RC1|<https://github.com/project-sunbird/sunbird-generic-editor.git>|A bunch of plugins to edit certain types of content|
 
 #### Infra Provision
@@ -153,6 +155,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Provision/DataPipeline/PostgresDbUpdate|release-4.5.0_RC5|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Creates Postgres tables, schema and users|
 |Provision/DataPipeline/Redis|release-4.5.0_RC5|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Install Redis|
 |Provision/DataPipeline/Zookeeper|release-4.5.0_RC5|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Installs Zookeeper|
+
 
 
 #### ArtifactUpload
@@ -248,9 +251,11 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Deploy/DataPipeline/GraphitePrometheusExporter|release-4.5.0_RC5|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Deploys graphite prometheus exporter in Druid VM|
 |Deploy/Kubernetes/LoggingFileBeatsVM|branch_or_tag: release-4.5.0_RC6, hosts: Select All, tags: default|<https://github.com/project-sunbird/sunbird-devops.git>|Deploys filebeat in all the selected VMs|
 
+
 #### Post Installation Steps
 
 |Jenkins Job to Run|Github Tag|Github Repo|Comments|
 |------------------|----------|-----------|--------|
 |OpsAdministration/Core/PostInstallScript|branch_or_tag: release-4.5.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the default forms, framework, users, channel, licenses etc. Please ensure you provide all the values that the job requires. You need to also ensure the script is successful by closely inspecting the output line by line on the Jenkins console log. You can also take a look at the script and API's and create your own data if you don't require the default values.|
 |Deploy/DataPipeline/AnalyticsPopulatePSQLConsumerChannelMapping|release-4.5.0_RC5, channel_id: your sunbird organisation id, consumer_id: kong consumer id|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Adds kong consumer in postgres Analytics DB to whitelist some of the API's. You can get the kong cosumer id by querying in postgres on kong db `select * from consumers where username = 'api-admin';`|
+
