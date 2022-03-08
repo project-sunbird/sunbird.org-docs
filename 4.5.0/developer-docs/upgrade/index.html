@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2021-12-14 10:23:25 +0530">
+<meta name="last-modified" content="2022-01-25 13:06:31 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="4003" />
+<meta name="buildNo" content="4075" />
 <meta name="version" id="docsVersion" content="4.5.0" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?14122021"  />
+<link rel="stylesheet" href="/css/style.css?25012022"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?14122021"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?14122021"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?14122021"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?14122021"></script>
-<script type="text/javascript" src="/js/widgets-data.js?14122021"></script>
-<script type="text/javascript" src="/js/widgets.js?14122021"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?25012022"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?25012022"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?25012022"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?25012022"></script>
+<script type="text/javascript" src="/js/widgets-data.js?25012022"></script>
+<script type="text/javascript" src="/js/widgets.js?25012022"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -1226,78 +1226,55 @@ resetBase();
   </table>
 </div><h2 id="overview">Overview</h2>
 
-<p>This page details out the jobs required to be run as part of the upgrade from Sunbird and Vidaydaan release 4.3.0 to release 4.4.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.</p>
+<p>This page details out the jobs required to be run as part of the upgrade from Sunbird and Vidaydaan release 4.4.0 to release 4.5.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.</p>
 
 <h3 id="variables-for-sunbird">Variables for Sunbird</h3>
 
 <table>
   <thead>
     <tr>
-      <th>Variable Name</th>
-      <th>Service Name</th>
-      <th>Comments</th>
+      <th style="text-align: center">Variable Name</th>
+      <th style="text-align: center">Service Name</th>
+      <th style="text-align: center">Default Public Value</th>
+      <th style="text-align: center">Private Value Override</th>
+      <th style="text-align: center">Comments</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>sunbird_default_file_size</td>
-      <td>Player</td>
-      <td>Update in <code>Core/common.yml</code> <br />The default value is <code>150</code></td>
+      <td style="text-align: center">adminutil_embed_role</td>
+      <td style="text-align: center">Adminutils</td>
+      <td style="text-align: center">false</td>
+      <td style="text-align: center">true</td>
+      <td style="text-align: center">Embeds the user’s role in the token<br />Ensure to put the value in single quotes</td>
     </tr>
     <tr>
-      <td>Add new ACL to Vidyadaan consumer</td>
-      <td>OnboardConsumers</td>
-      <td>Add under VDN consumer group<code>refreshTokenCreate</code></td>
+      <td style="text-align: center">New kong consumer</td>
+      <td style="text-align: center">Admintils</td>
+      <td style="text-align: center">NA</td>
+      <td style="text-align: center">Add a new ansible dictionary with ACL as below<br />userAccess:<br />  - userAccess<br /><br />Add a new kong consumer to the kong_consumers dictionary as shown below<br />  - username: adminutil_learner_api_key<br />    groups: “{{ userAccess }}”<br />    state: present</td>
+      <td style="text-align: center">To connect to learner service via kong, we are creating a new consumer</td>
     </tr>
     <tr>
-      <td>uci_api_admin_token</td>
-      <td>transformer, uci-api</td>
-      <td>Update in <code>Core/Common.yml</code> <br /> The value can be generated using <code>https://passwordsgenerator.net/</code></td>
+      <td style="text-align: center">adminutil_learner_api_auth_key</td>
+      <td style="text-align: center">Admintils</td>
+      <td style="text-align: center">NA</td>
+      <td style="text-align: center">Run the OnboardConsumers job and take the JWT token for the consumer adminutil_learner_api_key</td>
+      <td style="text-align: center">To connect to learner service via kong, we are creating a new consumer</td>
     </tr>
     <tr>
-      <td>hasura_graphql_admin_secret</td>
-      <td>transformer, uci-api</td>
-      <td>Update in <code>Core/Common.yml</code> <br /> The value can be generated using <code>https://passwordsgenerator.net/</code></td>
+      <td style="text-align: center">Add acls for desktop app</td>
+      <td style="text-align: center">Desktop</td>
+      <td style="text-align: center">NA</td>
+      <td style="text-align: center">- readNotificationFeed<br />  - updateNotificationFeed<br />  - deleteNotificationFeed</td>
+      <td style="text-align: center">To access notification service APIs from desktop app</td>
     </tr>
     <tr>
-      <td>fusionauth_service_admin_key</td>
-      <td>transformer, uci-api</td>
-      <td>Update in <code>Core/Common.yml</code> <br /> The value can be generated using <code>https://passwordsgenerator.net/</code></td>
-    </tr>
-    <tr>
-      <td>uci_encryption_key_base64</td>
-      <td>transformer, uci-api</td>
-      <td>Update in <code>Core/Common.yml</code> <br /> The value can be generated using <code>https://passwordsgenerator.net/</code></td>
-    </tr>
-    <tr>
-      <td>uci_encryption_key_string</td>
-      <td>transformer, uci-api</td>
-      <td>Update in <code>Core/Common.yml</code> <br /> The value can be generated using <code>https://passwordsgenerator.net/</code></td>
-    </tr>
-    <tr>
-      <td>uci_odk_user</td>
-      <td>okd</td>
-      <td>Update in <code>Core/Common.yml</code> <br /> <code>administrator</code></td>
-    </tr>
-    <tr>
-      <td>uci_odk_password</td>
-      <td>okd</td>
-      <td>Update in <code>Core/Common.yml</code> <br /> The value can be generated using <code>https://passwordsgenerator.net/</code></td>
-    </tr>
-    <tr>
-      <td>uci_kafka_topic_create</td>
-      <td>UCI</td>
-      <td>Update in <code>Core/Common.yml</code> <br /> <code>true</code></td>
-    </tr>
-    <tr>
-      <td>uci_go_to_start_char</td>
-      <td>transformer</td>
-      <td>Update in <code>Core/Common.yml</code> <br /> <code>0</code></td>
-    </tr>
-    <tr>
-      <td>uci_one_level_up_char</td>
-      <td>transformer</td>
-      <td>Update in <code>Core/Common.yml</code> <br /> <code>99</code></td>
+      <td style="text-align: center">Add new variables in Core/common.yml</td>
+      <td style="text-align: center">PA</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code>kong_desktop_device_consumer_names_for_opa: '["desktop_devicev2", "desktop_device"]'</code></td>
+      <td style="text-align: center">To disable checks for desktop app</td>
     </tr>
   </tbody>
 </table>
@@ -1307,335 +1284,377 @@ resetBase();
 <table>
   <thead>
     <tr>
-      <th>Service to be Build</th>
-      <th>Build Tag</th>
-      <th>Service to Deploy</th>
-      <th>Deploy Tag</th>
-      <th>Comments</th>
+      <th style="text-align: left">Service to be Build</th>
+      <th style="text-align: left">Build Tag</th>
+      <th style="text-align: left">Service to Deploy</th>
+      <th style="text-align: left">Deploy Tag</th>
+      <th style="text-align: left">Comments</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Build/Plugins/ContentPlayer</td>
-      <td>release-4.4.0_RC1</td>
-      <td>Deploy/Plugins/ContentPlayer</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left">Build/managed-learn/ml-core-service</td>
+      <td style="text-align: left">release-4.5.0_RC8</td>
+      <td style="text-align: left">Deploy/managed-learn/ml-core-service</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/Plugins/ContentPlugins</td>
-      <td>release-4.4.0_RC5</td>
-      <td>Deploy/Plugins/ContentPlugins</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left">Build/managed-learn/ml-projects-service</td>
+      <td style="text-align: left">release-4.5.0_RC7</td>
+      <td style="text-align: left">Deploy/managed-learn/ml-projects-service</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/Core/KafkaSetup</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left">Build/Kubernetes/Player</td>
+      <td style="text-align: left">release-4.5.0_RC45</td>
+      <td style="text-align: left">Deploy/Kubernetes/Player</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/Kubernetes/Keycloak</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left">Build/KnowledgePlatform/FlinkJobs</td>
+      <td style="text-align: left">release-4.5.0_RC42</td>
+      <td style="text-align: left">Deploy/KnowledgePlatform/FlinkJobs</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Provision/Core/ESMapping</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left">Build/managed-learn/ml-reports-service</td>
+      <td style="text-align: left">release-4.5.0_RC4</td>
+      <td style="text-align: left">Deploy/managed-learn/ml-reports-service</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/Mobile/Sunbird-IONIC-Mobile-App</td>
-      <td>release-4.4.0_RC22</td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
+      <td style="text-align: left">Build/Kubernetes/Notification</td>
+      <td style="text-align: left">release-4.5.0_RC4</td>
+      <td style="text-align: left">Deploy/Kubernetes/Notification</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/Core/OfflineInstaller</td>
-      <td>release-4.4.0_RC32</td>
-      <td>Deploy/Core/OfflineInstaller</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left">Build/Kubernetes/Cassandra</td>
+      <td style="text-align: left">release-4.5.0_RC4</td>
+      <td style="text-align: left">Deploy/Kubernetes/Cassandra</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/Core/Cassandra</td>
-      <td>release-4.4.0_RC2</td>
-      <td>Deploy/Kubernetes/Cassandra</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left">Build/DataPipeline/FlinkPipelineJobs</td>
+      <td style="text-align: left">release-4.5.0_RC4</td>
+      <td style="text-align: left">Deploy/DataPipeline/FlinkPipelineJobs</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/Kubernetes/Assessment</td>
-      <td>release-4.4.0_RC3</td>
-      <td>Deploy/Kubernetes/Assessment</td>
-      <td>release-4.4.0_RC5</td>
-      <td> </td>
+      <td style="text-align: left">Build/DataPipeline/EdDataProducts</td>
+      <td style="text-align: left">release-4.5.0_RC4</td>
+      <td style="text-align: left">Deploy/DataPipeline/EdDataProducts</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Deploy/Kubernetes/Content</td>
-      <td>release-4.4.0_RC3</td>
-      <td>Deploy/Kubernetes/Content</td>
-      <td>release-4.4.0_RC5</td>
-      <td> </td>
+      <td style="text-align: left">Build/Kubernetes/Taxonomy</td>
+      <td style="text-align: left">release-4.5.0_RC2</td>
+      <td style="text-align: left">Deploy/Kubernetes/Taxonomy</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/Kubernetes/DiscussionsMW</td>
-      <td>release-4.4.0_RC4</td>
-      <td>Deploy/Kubernetes/DiscussionsMW</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left">Build/Kubernetes/Search</td>
+      <td style="text-align: left">release-4.5.0_RC2</td>
+      <td style="text-align: left">Deploy/Kubernetes/Search</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/Kubernetes/Groups</td>
-      <td>release-4.4.0_RC4</td>
-      <td>Deploy/Kubernetes/Groups</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left">Build/Kubernetes/Content</td>
+      <td style="text-align: left">release-4.5.0_RC2</td>
+      <td style="text-align: left">Deploy/Kubernetes/Content</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/Kubernetes/Learner</td>
-      <td>release-4.4.0_RC11</td>
-      <td>Deploy/Kubernetes/Learner</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left">Build/Kubernetes/Assessment</td>
+      <td style="text-align: left">release-4.5.0_RC2</td>
+      <td style="text-align: left">Deploy/Kubernetes/Assessment</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/Kubernetes/Nodebb</td>
-      <td>release-4.4.0_RC3<br />nodebb_version: v1.16.0</td>
-      <td>Deploy/Kubernetes/Nodebb</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left">Build/Kubernetes/AdminUtils</td>
+      <td style="text-align: left">sunbird-apimanager-util: release-4.5.0_RC3</td>
+      <td style="text-align: left">Deploy/Kubernetes/AdminUtils</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/Kubernetes/Notification</td>
-      <td>release-4.4.0_RC5</td>
-      <td>Deploy/Kubernetes/Notification</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left">Build/DataPipeline/ETLUserCacheIndexer</td>
+      <td style="text-align: left">release-4.5.0_RC2</td>
+      <td style="text-align: left">Deploy/DataPipeline/ETLUserCacheIndexer</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/Kubernetes/Player</td>
-      <td>release-4.4.0_RC32</td>
-      <td>Deploy/Kubernetes/Player</td>
-      <td>release-4.4.0_RC5</td>
-      <td> </td>
+      <td style="text-align: left">Build/DataPipeline/ETLJobs</td>
+      <td style="text-align: left">release-4.5.0_RC2</td>
+      <td style="text-align: left">Deploy/DataPipeline/ETLJobs</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/Kubernetes/Search</td>
-      <td>release-4.4.0_RC2</td>
-      <td>Deploy/Kubernetes/Search</td>
-      <td>release-4.4.0_RC5</td>
-      <td> </td>
+      <td style="text-align: left">Build/DataPipeline/ETLDruidContentIndexer</td>
+      <td style="text-align: left">release-4.5.0_RC2</td>
+      <td style="text-align: left">Deploy/DataPipeline/ETLDruidContentIndexer</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/Kubernetes/Taxonomy</td>
-      <td>release-4.4.0_RC2</td>
-      <td>Deploy/Kubernetes/Taxonomy</td>
-      <td>release-4.4.0_RC5</td>
-      <td> </td>
+      <td style="text-align: left">Build/KnowledgePlatform/Yarn</td>
+      <td style="text-align: left">release-4.5.0_RC11</td>
+      <td style="text-align: left">Deploy/KnowledgePlatform/Yarn</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/managed-learn/ml-analytics-service</td>
-      <td>release-4.4.0_RC4 <br /> ml_analytics_version:release-4.4.0_RC1</td>
-      <td> </td>
+      <td style="text-align: left">Build/KnowledgePlatform/Learning</td>
+      <td style="text-align: left">release-4.5.0_RC11</td>
+      <td style="text-align: left">Deploy/KnowledgePlatform/Learning</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/managed-learn/ml-core-service</td>
-      <td>release-4.4.0_RC8</td>
-      <td>Deploy/managed-learn/ml-core-service</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left">Build/Kubernetes/Learner</td>
+      <td style="text-align: left">release-4.5.0_RC10</td>
+      <td style="text-align: left">Deploy/Kubernetes/Learner</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/managed-learn/ml-projects-service</td>
-      <td>release-4.4.0_RC9</td>
-      <td>Deploy/managed-learn/ml-projects-service</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left">Build/managed-learn/ml-survey-service</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left">Deploy/managed-learn/ml-survey-service</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/managed-learn/ml-reports-service</td>
-      <td>release-4.4.0_RC4</td>
-      <td>Deploy/managed-learn/ml-reports-service</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left">Build/Kubernetes/Lms</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left">Deploy/Kubernetes/Lms</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/managed-learn/ml-survey-service</td>
-      <td>release-4.4.0_RC4</td>
-      <td>Deploy/managed-learn/ml-survey-service</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left">Build/Kubernetes/Groups</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left">Deploy/Kubernetes/Groups</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/UCI/Utils</td>
-      <td>release-4.4.0_RC1</td>
-      <td> </td>
-      <td> </td>
-      <td>From here some build jobs needs to be run in sequence<br /><code>sequence-1</code></td>
+      <td style="text-align: left">Build/Core/OfflineInstaller</td>
+      <td style="text-align: left">release-4.5.0</td>
+      <td style="text-align: left">Deploy/Core/OfflineInstaller</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/UCI/message-rosa</td>
-      <td>release-4.4.0_RC1</td>
-      <td> </td>
-      <td> </td>
-      <td><code>sequence-2</code></td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/UCI/UCI</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/UCI/dao</td>
-      <td>release-4.4.0_RC1</td>
-      <td> </td>
-      <td> </td>
-      <td><code>sequence-3</code></td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/UCI/Transformer</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/UCI/Adapter</td>
-      <td>release-4.4.0_RC1</td>
-      <td> </td>
-      <td> </td>
-      <td><code>sequence-4</code></td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/UCI/Outbound</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/UCI/Inbound</td>
-      <td>release-4.4.0_RC1</td>
-      <td>Deploy/UCI/Inbound</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/UCI/Orchestrator</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/UCI/odk</td>
-      <td>release-4.4.0_RC1</td>
-      <td>Deploy/UCI/odk</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/UCI/odk</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/UCI/Outbound</td>
-      <td>release-4.4.0_RC1</td>
-      <td>Deploy/UCI/Outbound</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/UCI/Inbound</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/UCI/Orchestrator</td>
-      <td>release-4.4.0_RC1</td>
-      <td>Deploy/UCI/Orchestrator</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/UCI/gql</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/UCI/Transformer</td>
-      <td>release-4.4.0_RC1</td>
-      <td>Deploy/UCI/Transformer</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/UCI/fusionauth</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/UCI/UCI</td>
-      <td>release-4.4.0_RC1</td>
-      <td>Deploy/UCI/UCI</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/managed-learn/ml-analytics-service</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/UCI/fusionauth</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/Kubernetes/Report</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/UCI/gql</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/Kubernetes/OnboardConsumers</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/Kubernetes/LoggingFileBeatsVM</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/Kubernetes/OnboardAPIs</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/Kubernetes/Logging</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/Kubernetes/nginx-private-ingress</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/Kubernetes/OnboardAPIs</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/Kubernetes/Logging</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/Kubernetes/OnboardConsumers</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/Kubernetes/KnowledgeMW</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>OpsAdministration/Core/GraylogMongoImport</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/Kubernetes/Keycloak</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/KnowledgePlatform/FlinkJobs</td>
-      <td>release-4.4.0_RC3</td>
-      <td>Deploy/KnowledgePlatform/FlinkJobs</td>
-      <td>release-4.4.0_RC5</td>
-      <td>Deploy all flink jobs</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/Kubernetes/HawkeyeSuperset</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/KnowledgePlatform/Learning</td>
-      <td>release-4.4.0_RC5</td>
-      <td>Deploy/KnowledgePlatform/Learning</td>
-      <td>release-4.4.0_RC5</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/Kubernetes/Enc</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/KnowledgePlatform/Yarn</td>
-      <td>release-4.4.0_RC5</td>
-      <td>Deploy/KnowledgePlatform/Yarn</td>
-      <td>release-4.4.0_RC5</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/Kubernetes/Dial</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>BuildDataPipeline/AnalyticsCore</td>
-      <td>release-4.4.0_RC2</td>
-      <td>Deploy/DataPipeline/AnalyticsCore</td>
-      <td>release-4.4.0_RC2</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/Kubernetes/CertRegistry</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/DataPipeline/CoreDataProducts</td>
-      <td>release-4.4.0_RC1</td>
-      <td>Deploy/DataPipeline/CoreDataProducts</td>
-      <td>release-4.4.0_RC2</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/Kubernetes/Cert</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td>Build/DataPipeline/EdDataProducts</td>
-      <td>release-4.4.0_RC3</td>
-      <td>Deploy/DataPipeline/EdDataProducts</td>
-      <td>release-4.4.0_RC2</td>
-      <td> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/Kubernetes/BootstrapMinimal</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left">Run helm uninstall reloader first from every namespace</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/Kubernetes/APIManager</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/Kubernetes/Analytics</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/KnowledgePlatform/Neo4jElasticSearchSyncTool</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/DataPipeline/CoreDataProducts</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Deploy/DataPipeline/AnalyticsCore</td>
+      <td style="text-align: left">release-4.5.0_RC1</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Log4jFix</td>
+      <td style="text-align: left">Take job from here - https://github.com/project-sunbird/sunbird-devops/pull/3069/files<br />Or copy from dev OpsAdmin folder<br />Pass job option as below <br />hosts: env<br />release-4.5.0</td>
+      <td style="text-align: left"> </td>
     </tr>
   </tbody>
 </table>
@@ -1645,74 +1664,56 @@ resetBase();
 <table>
   <thead>
     <tr>
-      <th>Manual Step</th>
-      <th>Instruction</th>
+      <th style="text-align: center">Manual Step</th>
+      <th style="text-align: center">Instruction</th>
+      <th style="text-align: center">Comments</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>User Feed Migration</td>
-      <td>Run manually with the help of documentaion in  spark machine<br /><b>SB-26190 : <a href="https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2959409153/SB-26190+User+Feed+Migration">UserFeed Migration Script</a></b></td>
+      <td style="text-align: center">Install OPA</td>
+      <td style="text-align: center">curl -k -L -o opa <br />https://openpolicyagent.org/downloads/v0.34.2/opa_linux_amd64_static<br />chmod 755 ./opa<br />sudo mv opa /usr/local/bin/</td>
+      <td style="text-align: center">Installing Open Policy Agent</td>
     </tr>
     <tr>
-      <td>Adding UCI folder in private repo</td>
-      <td>Create UCI folder under specific env and create symlinks from <code>core</code> folder</td>
+      <td style="text-align: center">enable_tenant_config<br /><br />(update existing variable in core/common.yml, do not add new variable)</td>
+      <td style="text-align: center">Environment Variable config for Group Service : <br />release-4.5.0_RC1</td>
+      <td style="text-align: center">enable_tenant_config =tn<br /><br />Note : Any change in the configuration needs redeployment of the group service to reflect.</td>
     </tr>
     <tr>
-      <td>Create jenkins jobs related to UCI</td>
-      <td>Create Build, ArtifactUpload and Deploy jobs for UCI services from below<br /> <a href="https://github.com/project-sunbird/sunbird-devops/tree/release-4.4.0/deploy/jenkins/jobs">Github Link</a></td>
+      <td style="text-align: center">Add two job_ids in AnalyticsReplayJob jenkins job</td>
+      <td style="text-align: center">Job_ids:<br />progress-exhaust-v2<br />response-exhaust-v2<br />score-metric-migration-job</td>
+      <td style="text-align: center">PR: https://github.com/project-sunbird/sunbird-devops/pull/3028</td>
     </tr>
     <tr>
-      <td>Create postgres DB’s for UCI services</td>
-      <td>Change username based on env<br /><code>create database "uci-botdb";</code> <br /> <code>GRANT ALL PRIVILEGES ON DATABASE "uci-botdb" to sunbirdstaging;</code> <br /> <code>GRANT ALL PRIVILEGES ON DATABASE "uci-botdb" to "sunbirdstaging@sunbirdstaging-postgres";</code> <br /><br /> <code>create database "uci-formsdb";</code> <br /> <code>GRANT ALL PRIVILEGES ON DATABASE "uci-formsdb" to sunbirdstaging;</code> <br /> <code>GRANT ALL PRIVILEGES ON DATABASE "uci-formsdb" to "sunbirdstaging@sunbirdstaging-postgres";</code> <br /><br /> <code>create database "uci-fusionauth";</code> <br /> <code>GRANT ALL PRIVILEGES ON DATABASE "uci-fusionauth" to sunbirdstaging;</code> <br /> <code>GRANT ALL PRIVILEGES ON DATABASE "uci-fusionauth" to "sunbirdstaging@sunbirdstaging-postgres";</code> <br /><br /> <code>create database "uci-odk-aggregate";</code> <br /> <code>GRANT ALL PRIVILEGES ON DATABASE "uci-odk-aggregate" to sunbirdstaging;</code> <br /> <code>GRANT ALL PRIVILEGES ON DATABASE "uci-odk-aggregate" to "sunbirdstaging@sunbirdstaging-postgres";</code></td>
+      <td style="text-align: center">Systemd Changes</td>
+      <td style="text-align: center">We’ve to make manual changes, to avoid reprovisioning of services. Folllow the steps to make those changes. Follow these instructions for the services mentioned below<br /><br />- [ ] Systemctl: <br />      Follow the instructions for the services one node at a time<br />      - open service File (file path is mentioned as part of service details below) and add following line under <code>[Service]</code><br />        <code>bash        Environment=""_JAVA_OPTIONS='-Dlog4j2.formatMsgNoLookups=true'""       </code>      - After adding that line         <code>bash        sudo systemctl daemon-reload        sudo systemctl restart &lt;proper service name&gt;        sudo systemctl status &lt;proper service name&gt; # Should be greeen       </code>  - [ ] Elasticsearch (* noted because es service name changes as per the host name. Check the actual service name in the <code>/usr/lib/systemd/system</code> folder)<br />        Service Name: <em>elasticsearch.service <br />        File: /usr/lib/systemd/system/</em>elasticsearch.service<br />  - [ ] cassandra <br />        Service Name: cassandra.service<br />        File: /run/systemd/generator.late/cassandra.service<br />  - [ ] Keycloak <br />        Service Name: keycloak.service<br />        File: /run/systemd/generator.late/keycloak.service<br />  - [ ] graylog <br />        Service Name: graylog-server.service<br />        File: /usr/lib/systemd/system/graylog-server.service<br />  - [ ] redis <br />        Service Name: redis.service<br />        File: /etc/systemd/system/redis.service<br />  - [ ] mongo <br />        Service Name: mongod.service<br />        File: /lib/systemd/system/mongod.service<br />  - [ ] jenkins <br />        Service Name: jenkins.service<br />        file: /run/systemd/generator.late/jenkins.service</td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td>Create cassandra keyspace for UCI</td>
-      <td>Use below command to create keyspace <br /> <code>CREATE KEYSPACE _uci_store</code></td>
+      <td style="text-align: center">upgrade learning vm</td>
+      <td style="text-align: center">https://docs.google.com/spreadsheets/d/1KnjAH_hMzFokmuUYN62HnevihJdXpnrfUgm_VgAH7AU/edit#gid=1317239687</td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td>Settingup FusionAuth after UCI service deployments</td>
-      <td>Setting up Fusionauth and adding API Key <br /> <code>kubectl get services --namespace=&lt;env&gt; | grep fusionauth-frontend</code> <br /> <code>Go to the Public IP above http://&lt;IP&gt;:9011/admin/setup-wizard</code> <br /><br /> <code>Setup Fusionauth with the following fields.</code> <br /> <code>First Name - UCI-Staging</code> <br /> <code>Last Name - Sunbird</code> <br /> <code>Email - &lt;respective email&gt;</code> <br /> <code>Pass: generate using https://passwordsgenerator.net/</code> <br /> <br /> <code>Go to the http://&lt;IP&gt;:9011/admin/api-key/add and add the API</code> <br /> <code>Key -  by creating a new API Key.</code></td>
+      <td style="text-align: center">upgrade keycloak vm</td>
+      <td style="text-align: center">https://docs.google.com/spreadsheets/d/1KnjAH_hMzFokmuUYN62HnevihJdXpnrfUgm_VgAH7AU/edit#gid=726563363</td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td>update existing variable in core/common.yml, do not add new variable <code>enable_tenant_config</code></td>
-      <td><code>“*” : It will allow for all tenants</code> <br /> <code>current value is "OFF"</code> <br /> <code>we are disabling it in the current release so use OFF value in preprod and prod </code></td>
+      <td style="text-align: center">Update kubectl</td>
+      <td style="text-align: center"># Install kubectl v1.22.0<br />curl -LO https://dl.k8s.io/release/v1.22.0/bin/linux/amd64/kubectlchmod +x kubectl<br />sudo mv kubectl /usr/local/bin</td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td>Truncate <code>portal.sessions</code> cassandra table</td>
-      <td><code>TRUNCATE portal.sessions</code>; <br /> Remove the backup / snapshot folder on every node after truncate <br /> <code>Example: rm -rf /var/lib/cassandra/data/portal/sessions-9811ae90915711eb85b423bdb45bf1b8/snapshots/truncated-1635236404732-sessions</code></td>
+      <td style="text-align: center"># Learning VM changes - To be done on Sunbird and VDN<br /># Run same steps in each node of Learning VM<br /><br />wget https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz<br />tar -xf openjdk-11+28_linux-x64_bin.tar.gz<br />sudo mv jdk-11 /opt<br />rm -rf openjdk-11+28_linux-x64_bin.tar.gz<br />/opt/jdk-11/bin/java -version<br /># The above command should show java version as 11<br /><br /><br /><br />sudo systemctl stop logstash.service<br />sudo su - learning<br />wget https://artifacts.elastic.co/downloads/logstash/logstash-6.8.21.tar.gz<br />tar -xf logstash-6.8.21.tar.gz<br />rm -rf logstash-6.8.21.tar.gz<br />cd /home/learning/logstash-6.3.1/<br />cp .sincedb_learning_telemetry_event_mw ../logstash-6.8.21/<br />cp .sincedb_language_telemetry_event_mw ../logstash-6.8.21/<br />cp .sincedb_config_telemetry_event_mw ../logstash-6.8.21/<br />cp .sincedb_search_telemetry_event_mw ../logstash-6.8.21/<br />cp .sincedb_learning_service_mw ../logstash-6.8.21/<br />cp .sincedb_learning_graph_event_mw ../logstash-6.8.21/<br />cp .sincedb_language_graph_event_mw ../logstash-6.8.21/<br />cp .sincedb_dial_telemetry_event_mw ../logstash-6.8.21/<br />cp .sincedb_dial_graph_event_mw ../logstash-6.8.21/<br />cd ..<br />mv logstash-6.3.1/ logstash-6.3.1_bak<br />ls -larth logstash-6.8.21<br /># The above command should show all the .sincedb files copied<br />exit<br /><br /><br /># Added / Update these under [Service] section. Comment out the exisiting Environment and ExecStart and use the below ones<br />sudo vi /etc/systemd/system/logstash.service<br />Environment=”JAVA_HOME=/opt/jdk-11”<br />ExecStart=/home/learning/logstash-6.8.21/bin/logstash -f /home/learning/logstash-6.8.21/logstash-lp.conf -w 1 –verbose<br />sudo systemctl daemon-reload<br /><br /># Redeploy learning service with new tag<br /># Verify logstash version is 6.8.21<br />ps -ef | grep logstash</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td>Cassandra data migration from userProfileType to userProfileTypes</td>
-      <td>Follow steps mentioned in below link<br /><a href="https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2993618947/SB-26822+Cassandra+data+migration+from+userProfileType+to+userProfileTypes">SB-26822</a></td>
-    </tr>
-    <tr>
-      <td>ES reindexing for user is required to be updated</td>
-      <td><code>Jenkins job : Provision/job/dev/job/Core/job/ESMapping/</code> <br /> <code>provide indices_name : userv3</code> <br /> <code>In es_files options choose : indices, mappings, pipelines</code> <br /> Follow mentioned steps <a href="https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2993651713/SB-26823+Re-indexing+User+index+to+support+multiple+userProfileType">SB-26823</a></td>
-    </tr>
-    <tr>
-      <td>Move ESMapping job from OpsAdministration folder to Provision Folder</td>
-      <td><a href="https://github.com/project-sunbird/sunbird-devops/tree/release-4.4.0/deploy/jenkins/jobs/Provision/jobs/dev/jobs/Core/jobs/ESMapping">Github Link</a></td>
-    </tr>
-    <tr>
-      <td>Update ESMapping jenkins job config from this PR</td>
-      <td><a href="https://github.com/project-sunbird/sunbird-devops/pull/2987">Github Link</a></td>
-    </tr>
-    <tr>
-      <td>System Setting update to support new sms DLT templateId as per this tkt SB-27415</td>
-      <td>Execute command mentioned in <a href="https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2945449992/SB-26932+System+Settings+config+curl+for+NIC+SMS+Provide+integration">Link</a></td>
-    </tr>
-    <tr>
-      <td>SB-26424 : Data migration for existing users - Consent status to be updated for sso users with multiple externalids”</td>
-      <td>Execute steps mentioned in <a href="https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/3003449345/SB-26424+Data+migration+for+existing+users+-+Consent+status+to+be+updated+for+sso+users+with+multiple+externalids">SB-26424</a></td>
-    </tr>
-    <tr>
-      <td>Add new option for Logging VM job</td>
-      <td>Check below PR <br /><a href="https://github.com/project-sunbird/sunbird-devops/pull/2996/files">https://github.com/project-sunbird/sunbird-devops/pull/2996/files</a></td>
-    </tr>
-    <tr>
-      <td>Upgrade postgres to version 11 in staging</td>
-      <td>Follow below steps for upgrade <br /> <a href="https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/3008462870/Generic+Postgres+Upgrade+Document">https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/3008462870/Generic+Postgres+Upgrade+Document</a></td>
+      <td style="text-align: center"># Neo4j VM changes - To be done on Sunbird and VDN<br /># Run same steps in each node of neo4j VM<br /><br />wget https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz<br />tar -xf openjdk-11+28_linux-x64_bin.tar.gz<br />sudo mv jdk-11 /opt<br />rm -rf openjdk-11+28_linux-x64_bin.tar.gz<br />/opt/jdk-11/bin/java -version<br /># The above command should show java version as 11<br /><br /><br /><br />sudo systemctl stop logstash.service<br />sudo su - learning<br />wget https://artifacts.elastic.co/downloads/logstash/logstash-6.8.21.tar.gz<br />tar -xf logstash-6.8.21.tar.gz<br />rm -rf logstash-6.8.21.tar.gz<br />cd /home/learning/logstash-6.3.1/<br />cp .sincedb_learning_graph_event_neo4j ../logstash-6.8.21/<br />cd ..<br />mv logstash-6.3.1/ logstash-6.3.1_bak<br />ls -larth logstash-6.8.21<br /># The above command should show all the .sincedb files copied<br />exit<br /><br /><br /># Added / Update these under [Service] section. Comment out the exisiting Environment and ExecStart and use the below ones<br />sudo vi /etc/systemd/system/logstash.service<br />Environment=”JAVA_HOME=/opt/jdk-11”<br />ExecStart=/home/learning/logstash-6.8.21/bin/logstash -f /home/learning/logstash-6.8.21/logstash-lp.conf -w 1 –verbose<br />sudo systemctl daemon-reload<br /><br /># Redeploy neo4j service with new tag<br /># Verify logstash version is 6.8.21<br />ps -ef | grep logstash</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
     </tr>
   </tbody>
 </table>
@@ -1724,41 +1725,34 @@ resetBase();
 <table>
   <thead>
     <tr>
-      <th>Variable Name</th>
-      <th>Service Name</th>
-      <th>Comments</th>
+      <th style="text-align: center">Variable Name</th>
+      <th style="text-align: center">Service Name</th>
+      <th style="text-align: center">Default Public Value</th>
+      <th style="text-align: center">Private Value Override</th>
+      <th style="text-align: center">Comments</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>dock_default_file_size</td>
-      <td>sourcing portal</td>
-      <td>Default Value: 150</td>
+      <td style="text-align: center">sunbird_google_oauth_client_email</td>
+      <td style="text-align: center">Program</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">Please set the google drive client email</td>
     </tr>
     <tr>
-      <td>dock_default_video_size</td>
-      <td>sourcing portal</td>
-      <td>Default Value: 15000</td>
+      <td style="text-align: center">sunbird_google_oauth_private_key</td>
+      <td style="text-align: center">Program</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">Please set the google drive private key</td>
     </tr>
     <tr>
-      <td>Add new ACL to Vidyadaan consumer</td>
-      <td>refreshTokenCreate</td>
-      <td>This has to be done on sunbird environment</td>
-    </tr>
-    <tr>
-      <td>sunbird_api_auth_token</td>
-      <td> </td>
-      <td>Grant refersh token API access to bearer mapped for this variable <br /> (https:///auth/v1/refresh/token)</td>
-    </tr>
-    <tr>
-      <td>use_sunbird_kong_token</td>
-      <td> </td>
-      <td>Default Value is true, which disables the feature. <br /> Please make it true to enable new auth token structure. <a href="https://project-sunbird.atlassian.net/browse/SB-26667">Ref</a></td>
-    </tr>
-    <tr>
-      <td>sunbird_domain_name</td>
-      <td>sourcing portal</td>
-      <td>eg: staging.sunbirded.org</td>
+      <td style="text-align: center">av_kafka_topic_create</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">FALSE</td>
+      <td style="text-align: center">TRUE</td>
+      <td style="text-align: center"> </td>
     </tr>
   </tbody>
 </table>
@@ -1768,125 +1762,160 @@ resetBase();
 <table>
   <thead>
     <tr>
-      <th>Service to be Build</th>
-      <th>Build Tag</th>
-      <th>Service to Deploy</th>
-      <th>Deploy Tag</th>
-      <th>Comments</th>
+      <th style="text-align: center">Service to be Build</th>
+      <th style="text-align: center">Build Tag</th>
+      <th style="text-align: center">Service to Deploy</th>
+      <th style="text-align: center">Deploy Tag</th>
+      <th style="text-align: center">Comments</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Build/Plugins/Content-plugins</td>
-      <td>release-4.4.0_RC3</td>
-      <td>Deploy/Plugins/Content-plugins</td>
-      <td>release-4.4.0-vdn</td>
-      <td> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/Dock/Kubernetes/OnboardConsumers</td>
-      <td>release-4.4.0-vdn</td>
-      <td> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">Deploy/Core/KafkaSetup</td>
+      <td style="text-align: center">release-4.5.0-vdn</td>
+      <td style="text-align: center">check below kafka topic created or not<br />{{env}}.av.question.bulkupload</td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/Kubernetes/OnboardAPIs</td>
-      <td>release-4.4.0-vdn</td>
-      <td> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">Upload Schema</td>
+      <td style="text-align: center">release-4.5.0</td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/Kubernetes/UploadSchemas</td>
-      <td>release-4.4.0-vdn<br /><code>kp_branch_or_tag: release-4.4.0_RC53</code></td>
-      <td> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/Kubernetes/Upload_CollectionHierarchy_CSV</td>
-      <td>release-4.4.0_RC4</td>
-      <td> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">Deploy/DockStaging/Kubernetes/APIManager</td>
+      <td style="text-align: center">release-4.5.0-vdn</td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/KnowledgePlatform/KafkaSetup</td>
-      <td>release-4.4.0_RC5</td>
-      <td> </td>
+      <td style="text-align: center">DockBuild/Kubernetes/Assessment</td>
+      <td style="text-align: center">release-4.5.0_RC2</td>
+      <td style="text-align: center">Deploy/DockStaging/Kubernetes/Assessment</td>
+      <td style="text-align: center">release-4.5.0-vdn</td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td>Build/Dock/Assessment</td>
-      <td>release-4.4.0_RC2</td>
-      <td>Deploy/Kubernetes/Assessment</td>
-      <td>release-4.4.0-vdn</td>
-      <td> </td>
+      <td style="text-align: center">DockBuild/Kubernetes/Content</td>
+      <td style="text-align: center">release-4.5.0_RC2</td>
+      <td style="text-align: center">Deploy/DockStaging/Kubernetes/Content</td>
+      <td style="text-align: center">release-4.5.0-vdn</td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td>Build/Dock/Content</td>
-      <td>release-4.4.0_RC2</td>
-      <td>Deploy/Kubernetes/Content</td>
-      <td>release-4.4.0-vdn</td>
-      <td> </td>
+      <td style="text-align: center">DockBuild/Kubernetes/Opensaber</td>
+      <td style="text-align: center">vidyadaan</td>
+      <td style="text-align: center">Deploy/DockStaging/Kubernetes/Opensaber</td>
+      <td style="text-align: center">release-4.5.0-vdn</td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td>Build/Dock/Player</td>
-      <td>release-4.4.0_RC53</td>
-      <td>Deploy/Kubernetes/Player</td>
-      <td>release-4.4.0-vdn</td>
-      <td> </td>
+      <td style="text-align: center">DockBuild/Kubernetes/Player</td>
+      <td style="text-align: center">release-4.5.0_RC9</td>
+      <td style="text-align: center">Deploy/DockStaging/Kubernetes/Player</td>
+      <td style="text-align: center">release-4.5.0-vdn</td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td>Build/Dock/Program</td>
-      <td>release-4.4.0_RC5</td>
-      <td>Deploy/Kubernetes/Program</td>
-      <td>release-4.4.0-vdn</td>
-      <td> </td>
+      <td style="text-align: center">DockBuild/Kubernetes/Program</td>
+      <td style="text-align: center">release-4.5.0_RC1</td>
+      <td style="text-align: center">Deploy/DockStaging/Kubernetes/Program</td>
+      <td style="text-align: center">release-4.5.0-vdn</td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td>Build/Dock/Search</td>
-      <td>release-4.4.0_RC2</td>
-      <td>Deploy/Kubernetes/Search</td>
-      <td>release-4.4.0-vdn</td>
-      <td> </td>
+      <td style="text-align: center">DockBuild/Kubernetes/Search</td>
+      <td style="text-align: center">release-4.5.0_RC2</td>
+      <td style="text-align: center">Deploy/DockStaging/Kubernetes/Search</td>
+      <td style="text-align: center">release-4.5.0-vdn</td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td>Build/Dock/Taxonomy</td>
-      <td>release-4.4.0_RC2</td>
-      <td>Deploy/Kubernetes/Taxonomy</td>
-      <td>release-4.4.0-vdn</td>
-      <td> </td>
+      <td style="text-align: center">DockBuild/Kubernetes/Taxonomy</td>
+      <td style="text-align: center">release-4.5.0_RC2</td>
+      <td style="text-align: center">Deploy/DockStaging/Kubernetes/Taxonomy</td>
+      <td style="text-align: center">release-4.5.0-vdn</td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td>Build/Dock/KnowledgePlatform/FlinkJobs</td>
-      <td>release-4.4.0_RC3</td>
-      <td>Deploy/KnowledgePlatform/FlinkJobs</td>
-      <td>release-4.4.0_RC5</td>
-      <td>Deploy all flink jobs</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td>Build/Dock/KnowledgePlatform/Learning</td>
-      <td>release-4.4.0_RC5</td>
-      <td>Deploy/KnowledgePlatform/Learning</td>
-      <td>release-4.4.0_RC5</td>
-      <td> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td>Build/Dock/KnowledgePlatform/Yarn</td>
-      <td>release-4.4.0_RC5</td>
-      <td>Deploy/KnowledgePlatform/Yarn</td>
-      <td>release-4.4.0_RC5</td>
-      <td> </td>
+      <td style="text-align: center">DockBuild/KnowledgePlatform/Learning</td>
+      <td style="text-align: center">release-4.5.0_RC9</td>
+      <td style="text-align: center">Deploy/DockStaging/KnowledgePlatform/Learning</td>
+      <td style="text-align: center">release-4.5.0</td>
+      <td style="text-align: center"> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/Kubernetes/PostgresqlMigration</td>
-      <td>release-4.4.0_RC5</td>
-      <td> </td>
+      <td style="text-align: center">DockBuild/KnowledgePlatform/Yarn</td>
+      <td style="text-align: center">release-4.5.0_RC9</td>
+      <td style="text-align: center">Deploy/DockStaging/KnowledgePlatform/Yarn</td>
+      <td style="text-align: center">release-4.5.0</td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">DockBuild/KnowledgePlatform/FlinkJobs</td>
+      <td style="text-align: center">release-4.5.0_RC9</td>
+      <td style="text-align: center">Deploy/DockStaging/KnowledgePlatform/FlinkJobs</td>
+      <td style="text-align: center">release-4.5.0</td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">DockBuild/DataPipeline/EdDataProducts</td>
+      <td style="text-align: center">release-4.5.0_RC4</td>
+      <td style="text-align: center">Deploy/DockStaging/DataPipeline/EdDataProducts</td>
+      <td style="text-align: center">release-4.5.0</td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">Log4jFix</td>
+      <td style="text-align: center">Take job from here - https://github.com/project-sunbird/sunbird-devops/pull/3069/files<br />Or copy from dev OpsAdmin folder<br />Pass job option as below <br />hosts: env<br />release-4.5.0</td>
+      <td style="text-align: center">Log4j Fix</td>
     </tr>
   </tbody>
 </table>
@@ -1898,24 +1927,29 @@ resetBase();
     <tr>
       <th>Manual Step</th>
       <th>Instruction</th>
+      <th> </th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Create Upload_CollectionHierarchy_CSV jenkins job</td>
-      <td><a href="https://github.com/project-sunbird/sunbird-devops/pull/2990">PR Link</a></td>
+      <td>Systemd Changes</td>
+      <td>“We’ve to make manual changes, to avoid reprovisioning of services. Folllow the steps to make those changes. Follow these instructions for the services mentioned below<br /><br />- [ ] Systemctl: <br />      Follow the instructions for the services one node at a time<br />      - open service File (file path is mentioned as part of service details below) and add following line under <code>[Service]</code><br />        <code>bash&lt;br&gt;        Environment=""""_JAVA_OPTIONS='-Dlog4j2.formatMsgNoLookups=true'""""&lt;br&gt;       </code><br />      - After adding that line <br />        <code>bash&lt;br&gt;        sudo systemctl daemon-reload&lt;br&gt;        sudo systemctl restart &lt;proper service name&gt;&lt;br&gt;        sudo systemctl status &lt;proper service name&gt; # Should be greeen&lt;br&gt;       </code><br />  - [ ] Elasticsearch (* noted because es service name changes as per the host name. Check the actual service name in the <code>/usr/lib/systemd/system</code> folder)<br />        Service Name: <em>elasticsearch.service <br />        File: /usr/lib/systemd/system/</em>elasticsearch.service<br />  - [ ] cassandra <br />        Service Name: cassandra.service<br />        File: /run/systemd/generator.late/cassandra.service<br />  - [ ] Keycloak <br />        Service Name: keycloak.service<br />        File: /run/systemd/generator.late/keycloak.service<br />  - [ ] graylog <br />        Service Name: graylog-server.service<br />        File: /usr/lib/systemd/system/graylog-server.service<br />  - [ ] redis <br />        Service Name: redis.service<br />        File: /etc/systemd/system/redis.service<br />  - [ ] mongo <br />        Service Name: mongod.service<br />        File: /lib/systemd/system/mongod.service<br />  - [ ] jenkins <br />        Service Name: jenkins.service<br />        file: /run/systemd/generator.late/jenkins.service”</td>
+      <td> </td>
     </tr>
     <tr>
-      <td>Upgrade postgres to version 11 in vdn staging</td>
-      <td>Follow below steps <a href="https://project-sunbird.atlassian.net/wiki/spaces/DevOps/pages/3008462870/Generic+Postgres+Upgrade+Document">Link</a></td>
+      <td>”# Learning VM changes - To be done on Sunbird and VDN<br /># Run same steps in each node of Learning VM<br /><br />wget https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz<br />tar -xf openjdk-11+28_linux-x64_bin.tar.gz<br />sudo mv jdk-11 /opt<br />rm -rf openjdk-11+28_linux-x64_bin.tar.gz<br />/opt/jdk-11/bin/java -version<br /># The above command should show java version as 11<br /><br /><br /><br />sudo systemctl stop logstash.service<br />sudo su - learning<br />wget https://artifacts.elastic.co/downloads/logstash/logstash-6.8.21.tar.gz<br />tar -xf logstash-6.8.21.tar.gz<br />rm -rf logstash-6.8.21.tar.gz<br />cd /home/learning/logstash-6.3.1/<br />cp .sincedb_learning_telemetry_event_mw ../logstash-6.8.21/<br />cp .sincedb_language_telemetry_event_mw ../logstash-6.8.21/<br />cp .sincedb_config_telemetry_event_mw ../logstash-6.8.21/<br />cp .sincedb_search_telemetry_event_mw ../logstash-6.8.21/<br />cp .sincedb_learning_service_mw ../logstash-6.8.21/<br />cp .sincedb_learning_graph_event_mw ../logstash-6.8.21/<br />cp .sincedb_language_graph_event_mw ../logstash-6.8.21/<br />cp .sincedb_dial_telemetry_event_mw ../logstash-6.8.21/<br />cp .sincedb_dial_graph_event_mw ../logstash-6.8.21/<br />cd ..<br />mv logstash-6.3.1/ logstash-6.3.1_bak<br />ls -larth logstash-6.8.21<br /># The above command should show all the .sincedb files copied<br />exit<br /><br /><br /># Added / Update these under [Service] section. Comment out the exisiting Environment and ExecStart and use the below ones<br />sudo vi /etc/systemd/system/logstash.service<br />Environment=”“JAVA_HOME=/opt/jdk-11”“<br />ExecStart=/home/learning/logstash-6.8.21/bin/logstash -f /home/learning/logstash-6.8.21/logstash-lp.conf -w 1 –verbose<br />sudo systemctl daemon-reload<br /><br /># Redeploy learning service with new tag<br /># Verify logstash version is 6.8.21<br />ps -ef | grep logstash”</td>
+      <td> </td>
+      <td> </td>
     </tr>
     <tr>
-      <td>Please update the Question Paper collection category definition <br /> in Dock staging	Category Definition details</td>
-      <td>Ref: https://project-sunbird.atlassian.net/browse/SB-26908</td>
+      <td>”# Neo4j VM changes - To be done on Sunbird and VDN<br /># Run same steps in each node of neo4j VM<br /><br />wget https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz<br />tar -xf openjdk-11+28_linux-x64_bin.tar.gz<br />sudo mv jdk-11 /opt<br />rm -rf openjdk-11+28_linux-x64_bin.tar.gz<br />/opt/jdk-11/bin/java -version<br /># The above command should show java version as 11<br /><br /><br /><br />sudo systemctl stop logstash.service<br />sudo su - learning<br />wget https://artifacts.elastic.co/downloads/logstash/logstash-6.8.21.tar.gz<br />tar -xf logstash-6.8.21.tar.gz<br />rm -rf logstash-6.8.21.tar.gz<br />cd /home/learning/logstash-6.3.1/<br />cp .sincedb_learning_graph_event_neo4j ../logstash-6.8.21/<br />cd ..<br />mv logstash-6.3.1/ logstash-6.3.1_bak<br />ls -larth logstash-6.8.21<br /># The above command should show all the .sincedb files copied<br />exit<br /><br /><br /># Added / Update these under [Service] section. Comment out the exisiting Environment and ExecStart and use the below ones<br />sudo vi /etc/systemd/system/logstash.service<br />Environment=”“JAVA_HOME=/opt/jdk-11”“<br />ExecStart=/home/learning/logstash-6.8.21/bin/logstash -f /home/learning/logstash-6.8.21/logstash-lp.conf -w 1 –verbose<br />sudo systemctl daemon-reload<br /><br /># Redeploy neo4j service with new tag<br /># Verify logstash version is 6.8.21<br />ps -ef | grep logstash<br />”</td>
+      <td> </td>
+      <td> </td>
     </tr>
     <tr>
-      <td>Category defination updates in VDN</td>
-      <td>Ref: https://project-sunbird.atlassian.net/wiki/spaces/SingleSource/pages/3014164481/Content+NOT+created+under+a+target+collection</td>
+      <td>Upgrade Elastic Search</td>
+      <td>Steps:<br /><br />First:<br />Take backup of comp-es <br /><br />Second:<br />Stop elastic search process on all the comp-es nodes<br />Take disk snapshot<br /><br />Third:<br />Update elastic search version <br />- $sudo su <br />- $export ES_PATH_CONF=/etc/elasticsearch<br />- $apt update<br />- $apt-cache madison elastic search # make sure the latest version is 6.8.21<br />- $apt install elasticsearch ( it’ll ask whether to override the configs, keep the old one. press <code>O</code> )<br />Update repository azure plugin for ES 6.8.21<br />- cd /usr/share/elasticsearch/bin<br />- ./elasticsearch-plugin remove repository-azure<br />- ./elasticsearch-plugin install repository-azure<br /><br />Fourth:<br />Start elastic search process on each node after new version is installed on all the nodes</td>
+      <td> </td>
     </tr>
   </tbody>
 </table>
