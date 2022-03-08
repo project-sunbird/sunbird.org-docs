@@ -90,7 +90,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Build/Core/KnowledgeMW|release-4.3.0_RC1|<https://github.com/project-sunbird/knowledge-mw-service.git>|Middleware for Content service|
 |Build/Core/Learner|release-4.5.0_RC10|<https://github.com/project-sunbird/sunbird-lms-service.git>|Handles user and organizations|
 |Build/Core/Lms|release-4.5.0_RC1|<https://github.com/project-sunbird/sunbird-course-service.git>|Handles courses|
-|Build/Core/Nodebb|github_release_tag: release-3.9.0_RC6, nodebb_branch: v1.16.0|<https://github.com/project-sunbird/sunbird-nodebb.git>|Handles the discussion forum|
+|Build/Core/Nodebb|github_release_tag: release-4.4.0_RC4, nodebb_branch: v1.16.0|<https://github.com/project-sunbird/sunbird-nodebb.git>|Handles the discussion forum|
 |Build/Core/Notification|release-4.5.0_RC4|<https://github.com/project-sunbird/sunbird-notification-service.git>|Handles notifications|
 |Build/Core/Player|release-4.5.0_RC45|<https://github.com/Sunbird-Ed/SunbirdEd-portal.git>|Handles the UI elements|
 |Build/Core/Print|release-3.8.0_RC1|<https://github.com/project-sunbird/print-service.git>|Handles PDF generation of certificates|
