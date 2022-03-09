@@ -130,31 +130,31 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 
 |Jenkins Job to Run|Github Tag|Github Repo|Comments|
 |------------------|----------|-----------|--------|
-|OpsAdministration/Core/Bootstrap|hosts: env, branch_or_tag: release-4.5.0_RC6, tag: bootstrap_any,node_exporter|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the deployer user and installs node exporter and python packages for ansible|
-|OpsAdministration/KnowledgePlatform/Bootstrap|hosts: env, branch_or_tag: release-4.5.0_RC6, tag: bootstrap_any,node_exporter|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the deployer user and installs node exporter and python packages for ansible|
-|OpsAdministration/DataPipeline/Bootstrap|hosts: env, branch_or_tag: release-4.5.0_RC6, tag: bootstrap_any,node_exporter|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the deployer user and installs node exporter and python packages for ansible|
-|Provision/Core/ApplicationElasticSearch|release-4.5.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Elasticsearch used by the applications|
-|Provision/Core/Cassandra|release-4.5.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Cassandra database|
-|Provision/Core/CassandraExporter|release-4.5.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Cassandra prometheus exporter|
-|Provision/Core/ESMapping|indices_name: all, branch_or_tag: release-4.5.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Creates Elasticsearch indices and mappings|
-|Provision/Core/Keycloak|release-4.5.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Installs java and other pre-requisites for Keycloak service|
-|Provision/Core/LogES|release-4.5.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Elasticsearch used to store application and VM logs|
-|Provision/Core/MongodbCluster|release-4.5.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Mongo database|
-|Provision/Core/Postgres|release-4.5.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Postgres database|
-|Provision/Core/PostgresDbUpdate|release-4.5.0_RC6|<https://github.com/project-sunbird/sunbird-devops.git>|Creates Postgres tables, schema and users|
-|Provision/KnowledgePlatform/Learning|release-4.5.0_RC12|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Install tomcat and other pre-requisites for Learning service|
-|Provision/KnowledgePlatform/Neo4j|release-4.5.0_RC12|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Installs Neo4j database|
-|Provision/KnowledgePlatform/Yarn|release-4.5.0_RC12|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Install Hadoop and other pre-requisites to run Yarn|
-|Provision/DataPipeline/AnalyticsGeoLocationDBSetup|release-4.5.0_RC5, geoip_zip_csv_file_name: Enter the maxmind city database zip file name you uploaded to `artifacts` container|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Creates tables and schema in Postgres|
-|Provision/DataPipeline/AnalyticsSpark|release-4.5.0_RC5|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Install Apache Spark and other pre-requisites for reporting|
-|Provision/DataPipeline/Druid|release-4.5.0_RC5, service: Select All, remote: raw|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Installs Druid|
-|Provision/DataPipeline/InfluxDB|release-4.5.0_RC5|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Install Influx DB used by monitoring system|
-|Provision/DataPipeline/Kafka|release-4.5.0_RC5|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Installs Kafka|
-|Provision/DataPipeline/KafkaIndexer|release-4.5.0_RC5|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Install Logstash to read telemetry data from Kafka and index into Log ES|
-|Provision/DataPipeline/Postgres|release-4.5.0_RC5|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Installs Postgres database and users|
-|Provision/DataPipeline/PostgresDbUpdate|release-4.5.0_RC5|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Creates Postgres tables, schema and users|
-|Provision/DataPipeline/Redis|release-4.5.0_RC5|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Install Redis|
-|Provision/DataPipeline/Zookeeper|release-4.5.0_RC5|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Installs Zookeeper|
+|OpsAdministration/Core/Bootstrap|hosts: env, branch_or_tag: release-4.6.0_RC4, tag: bootstrap_any,node_exporter|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the deployer user and installs node exporter and python packages for ansible|
+|OpsAdministration/KnowledgePlatform/Bootstrap|hosts: env, branch_or_tag: release-4.6.0_RC4, tag: bootstrap_any,node_exporter|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the deployer user and installs node exporter and python packages for ansible|
+|OpsAdministration/DataPipeline/Bootstrap|hosts: env, branch_or_tag: release-4.6.0_RC4, tag: bootstrap_any,node_exporter|<https://github.com/project-sunbird/sunbird-devops.git>|Creates the deployer user and installs node exporter and python packages for ansible|
+|Provision/Core/ApplicationElasticSearch|release-4.6.0_RC4|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Elasticsearch used by the applications|
+|Provision/Core/Cassandra|release-4.6.0_RC4|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Cassandra database|
+|Provision/Core/CassandraExporter|release-4.6.0_RC4|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Cassandra prometheus exporter|
+|Provision/Core/ESMapping|indices_name: all, branch_or_tag: release-4.6.0_RC4|<https://github.com/project-sunbird/sunbird-devops.git>|Creates Elasticsearch indices and mappings|
+|Provision/Core/Keycloak|release-4.6.0_RC4|<https://github.com/project-sunbird/sunbird-devops.git>|Installs java and other pre-requisites for Keycloak service|
+|Provision/Core/LogES|release-4.6.0_RC4|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Elasticsearch used to store application and VM logs|
+|Provision/Core/MongodbCluster|release-4.6.0_RC4|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Mongo database|
+|Provision/Core/Postgres|release-4.6.0_RC4|<https://github.com/project-sunbird/sunbird-devops.git>|Installs Postgres database|
+|Provision/Core/PostgresDbUpdate|release-4.6.0_RC4|<https://github.com/project-sunbird/sunbird-devops.git>|Creates Postgres tables, schema and users|
+|Provision/KnowledgePlatform/Learning|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Install tomcat and other pre-requisites for Learning service|
+|Provision/KnowledgePlatform/Neo4j|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Installs Neo4j database|
+|Provision/KnowledgePlatform/Yarn|release-4.6.0_RC2|<https://github.com/project-sunbird/sunbird-learning-platform.git>|Install Hadoop and other pre-requisites to run Yarn|
+|Provision/DataPipeline/AnalyticsGeoLocationDBSetup|release-4.6.0_RC3, geoip_zip_csv_file_name: Enter the maxmind city database zip file name you uploaded to `artifacts` container|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Creates tables and schema in Postgres|
+|Provision/DataPipeline/AnalyticsSpark|release-4.6.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Install Apache Spark and other pre-requisites for reporting|
+|Provision/DataPipeline/Druid|release-4.6.0_RC3, service: Select All, remote: raw|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Installs Druid|
+|Provision/DataPipeline/InfluxDB|release-4.6.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Install Influx DB used by monitoring system|
+|Provision/DataPipeline/Kafka|release-4.6.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Installs Kafka|
+|Provision/DataPipeline/KafkaIndexer|release-4.6.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Install Logstash to read telemetry data from Kafka and index into Log ES|
+|Provision/DataPipeline/Postgres|release-4.6.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Installs Postgres database and users|
+|Provision/DataPipeline/PostgresDbUpdate|release-4.6.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Creates Postgres tables, schema and users|
+|Provision/DataPipeline/Redis|release-4.6.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Install Redis|
+|Provision/DataPipeline/Zookeeper|release-4.6.0_RC3|<https://github.com/project-sunbird/sunbird-data-pipeline.git>|Installs Zookeeper|
 
 
 
