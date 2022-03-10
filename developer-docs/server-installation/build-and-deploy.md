@@ -80,7 +80,7 @@ az storage blob upload-batch --destination sunbird_content_azure_storage_contain
 |Build/Core/Assessment|release-4.6.0_RC2|<https://github.com/project-sunbird/knowledge-platform.git>|Handles course assessments|
 |Build/Core/Bot|release-3.9.0_RC1|<https://github.com/project-sunbird/sunbird-bot.git>|Frontend for the chatbot|
 |Build/Core/Cassandra|release-4.6.0_RC1|<https://github.com/project-sunbird/sunbird-utils.git>|Handles the Cassandra database schema|
-|Build/Core/CassandraTrigger|release-4.5.0_RC4|<https://github.com/project-sunbird/sunbird-utils.git>|Creates few Cassandra Triggers|
+|Build/Core/CassandraTrigger|release-4.6.0_RC1|<https://github.com/project-sunbird/sunbird-utils.git>|Creates few Cassandra Triggers|
 |Build/Core/Cert|release-3.5.0_RC2|<https://github.com/project-sunbird/cert-service.git>|Handles course certificates|
 |Build/Core/CertRegistryService|release-3.4.0_RC1|<https://github.com/project-sunbird/certificate-registry.git>|Helper for Certificate service|
 |Build/Core/Content|release-4.6.0_RC2|<https://github.com/project-sunbird/knowledge-platform.git>|Handles the Contents and Content Metadata
