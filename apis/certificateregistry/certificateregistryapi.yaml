@@ -609,7 +609,91 @@ paths:
       deprecated: false
       security:
       - bearer: []
-      
+  
+  /certreg/v3/certs/download/{certId}:
+    get:
+      tags:
+      - Download Certificate API
+      summary: Download Certificate (v3)
+      description: >-
+        This API allows you to download digitally generated certificates.
+           - All fields marked with an * are mandatory
+           - The mandatory fields cannot be null or empty
+           - Based on Id provided in the url, returns printUri (materialised svg string)
+           - Backend route: http://cert-registry-service:9000/certs/v2/registry/download
+
+      operationId: DownloadCertificate(v3)
+      parameters:
+      - name: certId
+        in: path
+        description: 'Certificate Id'
+        required: true
+        style: simple
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: false
+        style: simple
+        schema:
+          type: string
+          example: application/json
+      responses:
+        200:
+          description: 'OK ! Operation successful."Certificate read" operation was executed successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificateregistryapiCertificateDownloadV2Response'
+              example:
+                id: api.certs.registry.download
+                ver: v2
+                ts: 1604044379151
+                params: ''
+                responseCode: OK
+                result:
+                  printUri: "materialized svg string"
+          headers: {}
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificateregistryapiIssueCertificateErrorResponse'
+              example:
+                id: api.certs.registry.read
+                ver: v1
+                ts: 1604044379151
+                params: ''
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  message: Certificate not found
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact us at info.sunbird.org.
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/certificateregistryapi500ServerError'
+              example:
+                id: api.certs.registry.download
+                ver: v2
+                ts: '2020-11-23 15:15:18:331+0000'
+                params:
+                  resmsgid: null
+                  msgid: null
+                  err: INTERNAL_ERROR
+                  status: SERVER_ERROR
+                  errmsg: 'Process failed,please try again later.'
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+      security:
+      - bearer: []
+          
   /certreg/v1/certs/read/{certId}: 
     get:
       tags:
