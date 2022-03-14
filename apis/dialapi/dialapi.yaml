@@ -1716,6 +1716,28 @@ components:
         metadata:
           type: string
           description: Additional metadata of dialcode
+    dialapiDialcodeGetV2:
+      title: Dialcode Get
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Represents identifier of dialcode
+        channel:
+          type: number
+          description: represents channel under which dialdoe is generated
+        status:
+          type: string
+          description: Status of the dialcode
+        publisher:
+          type: string
+          description: Publisher who owns dialcodes
+        generatedOn:
+          type: string
+          description: Timestamp at which dialcode is generated
+        contextInfo:
+          type: array
+          description: Context Information of dialcode
     dialapiPublisherGet:
       title: Publisher Get
       type: object
@@ -1989,6 +2011,12 @@ components:
       properties:
         result:
           $ref: '#/components/schemas/dialapiDialcodeGet'
+    dialapiResultDialcodeGetV2:
+      title: Result containing Dialcode
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/dialapiDialcodeGetV2'
     dialapiResultPublisherGet:
       title: Result containing Publisher
       type: object
@@ -2060,6 +2088,11 @@ components:
       allOf:
       - $ref: '#/components/schemas/dialapiResultDialcodeGet'
       - $ref: '#/components/schemas/dialapiResponseHeader'
+    dialapiGetDialcodeResponseV2:
+      description: Get Dialcode V2 Response
+      allOf:
+        - $ref: '#/components/schemas/dialapiResultDialcodeGetV2'
+        - $ref: '#/components/schemas/dialapiResponseHeader'
     dialapiGetPublisherResponse:
       description: Get Publisher Response
       allOf:
