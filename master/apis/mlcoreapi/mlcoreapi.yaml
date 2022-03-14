@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.0.0
 info:
   title: ML-Core Service API(s)
   termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
@@ -412,6 +412,143 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  /solutions/mlcore/v1/verifyLink/{link}:
+    post:
+      summary: Verify Solution Link
+      description: |-
+        This API is associated with validating the solution link. The response will contains the below key.
+        **isATargetedSolution** - If the user is targeted to the role and location then value will be true else it will be false.
+         
+          - The endpoint for **Solution Verify Link** is `/solutions/mlcore/v1/verifyLink`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      tags:
+       - Solutions APIs
+      operationId: Verify Solution Link
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: link
+          required: true
+          description: Please append a valid solution link To the Request URL
+          schema:
+            type: string
+          example: 2515e6fbe5039a6db09c10148e3c743b
+      requestBody:
+        required: true
+        description: >-
+            - The body payload comprises of the metadata of the user being created
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userapiUserProgramAndSolutionRequest"
+      responses:
+        200:
+          description: "Verify Link Successful Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/solutionapiVerifyLinkResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkMissing400Error'
+      deprecated: false
+      security:
+        - bearer: []
+  /solutions/mlcore/v1/details/{solutionId}:
+    post:
+      summary: Get Project Template Or Assessment Questions Based on Solution Type
+      description: |-
+        This API is associated with get the project template details or assessment questions based on solution type. If the solution type is observation then response will contain the assessment questions. If the solution type is improvementProject then response will contains the project template details.
+         
+          - The endpoint for **Solution details** is `/solutions/mlcore/v1/details`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      tags:
+       - Solutions APIs
+      operationId: Get Template Or Questions
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: solutionId
+          required: true
+          description: Please append a valid solution id To the Request URL
+          schema:
+            type: string
+          example: 600ac0d1c7de076e6f9943b9
+      requestBody:
+        required: true
+        description: >-
+            - The body payload comprises of the metadata of the role and location of the user
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userapiUserProgramAndSolutionRequest"
+      responses:
+        200:
+          description: "Solution Detail Successful Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/solutionapiDetailsResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/solutionIdMissing400Error'
+      deprecated: false
+      security:
+        - bearer: []
 
   /entities/mlcore/v1/subEntityListBasedOnRoleAndLocation/{locationId}:
     get:
@@ -621,6 +758,7 @@ paths:
       security:
         - bearer: []
   
+  
   /cloud-services/mlcore/v1/files/preSignedUrls:
     post:
       summary: Get signed URL
@@ -813,7 +951,7 @@ components:
         role: 
           description: 'Represent the role of user'
           type: string
-          example: HM 
+          example: HM,DEO 
         state:
           description: 'Represent the state location id of user'
           type: string
@@ -1399,7 +1537,199 @@ components:
               msg:
                 type: string
                 example: required role
-    
+    solutionapiVerifyLinkResponse:
+      description: Verify Link Response
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Solution verified successfully
+        status: 
+          type: number
+          example: 200
+        result: 
+          type: object
+          properties: 
+            isATargetedSolution: 
+              type: boolean
+            link: 
+              type: string
+              example: 2515e6fbe5039a6db09c10148e3c743b
+            name: 
+              type: string
+              example: AP-TEST-PROGRAM-3.6.5-OBS-1-DEO
+            type: 
+              type: string
+              example: observation
+            programId: 
+              type: string
+              example: 600ab53cc7de076e6f993724
+            solutionId: 
+              type: string
+              example: 600ac0d1c7de076e6f9943b9
+            observationId: 
+              type: string
+              example: 60110e692d0bbd2f0c3229c3
+    LinkMissing400Error:
+      description: Link Required Error Response
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: array
+          items:
+            type: object
+            properties:
+              location:
+                type: string
+                example: path
+              param:
+                type: string
+                example: link
+              msg:
+                type: string
+                example: required solution link
+    solutionapiDetailsResponse:
+      description: Solution Detail Response
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Successfully fetched project template details
+        status:
+          type: integer
+          example: 200
+        result: 
+          type: object
+          properties: 
+            _id: 
+              type: string
+              example: 600acc61a0cc3e4909f91f80
+            approaches: 
+              type: string
+              example: ""
+            categories: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  _id: 
+                    type: string
+                    example: 5fcfa9a2457d6055e33843f2
+                  externalId: 
+                    type: string
+                    example: community
+                  name: 
+                    type: string
+                    example: Community
+            concepts: 
+              type: array
+              items: 
+                type: string
+                example: ""
+            deleted: 
+              type: boolean
+              example: false
+            description: 
+              type: string
+              example: Come See Our School!- Parent Mela
+            duration: 
+              type: string
+              example: At the end of every quarter
+            entityType: 
+              type: string
+              example: 
+            externalId: 
+              type: string
+              example: AP-TEST-PROGRAM-3.6.5-IMP-PROJECT-1-DEO
+            goal: 
+              type: string
+              example: Organizing the Parent Mela in the school in order to make better community reach
+            isDeleted: 
+              type: boolean
+            isReusable: 
+              type: boolean
+            keywords: 
+              type: array
+              items: 
+                type: string
+                example: Community Parent Mela
+            learningResources: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  app: 
+                    type: string
+                    example: diksha
+                  id: 
+                    type: string
+                    example: do_31268582767737241615189
+                  link: 
+                    type: string
+                    example: https://staging.sunbirded.org/resources/play/content/do_31268582767737241615189
+                  name: 
+                    type: string
+                    example: Examprep_10EM_ps_cha1_Q3
+            primaryAudience: 
+              type: array
+              items: 
+                type: string
+                example: Community
+            programInformation: 
+              type: object
+              properties: 
+                programId: 
+                  type: string
+                  example: 600ab53cc7de076e6f993724
+                programName: 
+                  type: string
+                  example: AP-TEST-PROGRAM-3.6.5
+                projectId: 
+                  type: string
+                  example: 601287e7c4a0d070a331afa0
+                rationale: 
+                  type: string
+                  example: 
+                recommendedFor: 
+                  type: array
+                  items: 
+                    type: string
+                  example: []
+                risks: 
+                  type: string
+                  example: 
+                solutionExternalId: 
+                  type: string
+                  example: AP-TEST-PROGRAM-3.6.5-IMP-PROJECT-1-DEO
+                solutionId: 
+                  type: string
+                  example: 600acc42c7de076e6f995147
+                status: 
+                  type: string
+                  example: published
+                successIndicators: 
+                  type: string
+                  example: 
+                taskCreationForm: 
+                  type: string
+                  example: 
+                taskSequence: 
+                  type: array
+                  items: 
+                    type: string
+                  example: []
+                tasks: 
+                  type: array
+                  items: 
+                    type: string
+                  example: []
+                title: 
+                  type: string
+                  example: Come See Our School!- Parent Mela
+      
   securitySchemes:
     bearer:
       type: apiKey

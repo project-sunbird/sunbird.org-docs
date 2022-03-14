@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2021-10-22 12:40:15 +0530">
+<meta name="last-modified" content="2022-03-14 16:22:58 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="3899" />
+<meta name="buildNo" content="4167" />
 <meta name="version" id="docsVersion" content="master" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?22102021"  />
+<link rel="stylesheet" href="/css/style.css?14032022"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?22102021"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?22102021"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?22102021"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?22102021"></script>
-<script type="text/javascript" src="/js/widgets-data.js?22102021"></script>
-<script type="text/javascript" src="/js/widgets.js?22102021"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?14032022"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?14032022"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?14032022"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?14032022"></script>
+<script type="text/javascript" src="/js/widgets-data.js?14032022"></script>
+<script type="text/javascript" src="/js/widgets.js?14032022"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -1212,10 +1212,10 @@ resetBase();
   <li>
     <p>SSH to the Jenkins server and enter the following commands -</p>
 
-    <pre><code class="language-bash">  - git clone https://github.com/project-sunbird/sunbird-devops.git
-  - cd sunbird-devops &amp;&amp; git checkout tags/release-3.8.0_RC14 -b release-3.8.0_RC14
-  - cd deploy/jenkins
-  - sudo bash jenkins-server-setup.sh
+    <pre><code class="language-bash">   git clone https://github.com/project-sunbird/sunbird-devops.git
+   cd sunbird-devops &amp;&amp; git checkout tags/release-4.3.0 -b release-4.3.0
+   cd deploy/jenkins
+   sudo bash jenkins-server-setup.sh
 </code></pre>
   </li>
   <li>
@@ -1224,6 +1224,16 @@ resetBase();
   <li>
     <p>Enter the initial password and follow the on-screen instructions. Choose <strong>Install suggested plugin</strong> and create an admin user</p>
   </li>
+  <li>
+    <p>Go to <strong>http://JENKINS_IP:8080/pluginManager/available</strong> -&gt; Search for ‘Configuration as Code Plugin’ and install the plugin without restart.</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>Don’t run the following until above steps finished</p>
+</blockquote>
+
+<ul>
   <li>
     <p>Run the below commands on Jenkins server -</p>
 
@@ -1252,121 +1262,23 @@ resetBase();
     <pre><code class="language-bash">  sudo service jenkins restart
 </code></pre>
   </li>
-  <li>
-    <p>Add a credential in Jenkins and choose <strong><em>Username with Password</em></strong> from the drop down. Enter the username and password of the private github repository. Enter a unique value for the <strong>ID</strong> field like <strong><em>private-repo-creds</em></strong></p>
-  </li>
-  <li>
-    <p>Go to <strong>Manage Jenkins</strong> -&gt; <strong>Configure System</strong> -&gt; <strong>Environment Variables</strong> and add the following variables</p>
-
-    <table>
-      <thead>
-        <tr>
-          <th><strong>Name</strong></th>
-          <th><strong>Value</strong></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>ANSIBLE_FORCE_COLOR</strong></td>
-          <td><code>true</code></td>
-        </tr>
-        <tr>
-          <td><strong>ANSIBLE_HOST_KEY_CHECKING</strong></td>
-          <td><code>false</code></td>
-        </tr>
-        <tr>
-          <td><strong>ANSIBLE_STDOUT_CALLBACK</strong></td>
-          <td><code>debug</code></td>
-        </tr>
-        <tr>
-          <td><strong>hub_org</strong></td>
-          <td>docker hub organization / username. Example: In <code>docker pull sunbird/ubuntu:20.04</code>, the hub_org is <code>sunbird</code></td>
-        </tr>
-        <tr>
-          <td><strong>private_repo_branch</strong></td>
-          <td>private repo branch name where ansible inventory is present</td>
-        </tr>
-        <tr>
-          <td><strong>private_repo_credentials</strong></td>
-          <td>the unique value which you provided for <strong>ID</strong> field while adding the credentials</td>
-        </tr>
-        <tr>
-          <td><strong>private_repo_url</strong></td>
-          <td>The <strong>https</strong> github url of your private repo</td>
-        </tr>
-        <tr>
-          <td><strong>public_repo_branch</strong></td>
-          <td><code>release-3.8.0</code></td>
-        </tr>
-        <tr>
-          <td><strong>override_private_branch</strong></td>
-          <td><code>true</code></td>
-        </tr>
-        <tr>
-          <td><strong>override_public_branch</strong></td>
-          <td><code>true</code></td>
-        </tr>
-        <tr>
-          <td><strong>java11_home</strong></td>
-          <td><code>/usr/lib/jvm/java-11-openjdk-amd64/</code></td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
-  <li>
-    <p>Scroll down to the <strong>Global Pipeline Libraries</strong> section and click on <strong>Add</strong>. Provide the values as below:</p>
-
-    <table>
-      <thead>
-        <tr>
-          <th><strong>Name</strong></th>
-          <th><strong>Value</strong></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Library Name</strong></td>
-          <td><code>deploy-conf</code></td>
-        </tr>
-        <tr>
-          <td><strong>Default version</strong></td>
-          <td><code>shared-lib</code></td>
-        </tr>
-        <tr>
-          <td><strong>Retrieval method</strong></td>
-          <td>Modern SCM</td>
-        </tr>
-        <tr>
-          <td><strong>Source Code Management</strong></td>
-          <td><code>Git</code></td>
-        </tr>
-        <tr>
-          <td><strong>Project Repository</strong></td>
-          <td><code>https://github.com/project-sunbird/sunbird-devops.git</code></td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
-  <li>
-    <p>Click <strong>Save</strong> and go to <strong>Manage Jenkins</strong> -&gt; <strong>Configure global security</strong></p>
-  </li>
-  <li>
-    <p>Choose the <strong>Markup Formatter</strong> as <strong>Safe HTML</strong> and Under <strong>Copy Artifact Compatibility mode</strong>  choose <strong>Migration</strong></p>
-  </li>
-  <li>
-    <p>Go to <strong>Manage Jenkins</strong> -&gt; <strong>Manage Nodes</strong> -&gt; Click <strong>master</strong> -&gt; Click <strong>Configure</strong> -&gt; Provide <strong>labels</strong>. Provide the label as <code>build-slave ops-slave</code></p>
-  </li>
-  <li>
-    <p>Update the number of executors (<code>cpu cores x 2 = number of executors</code>)</p>
+  <li>Configure Jenkins
+    <pre><code>sudo su jenkins
+curl -SsL -o ~/jenkins.yaml https://raw.githubusercontent.com/project-sunbird/sunbird-devops/release-4.3.0/deploy/jenkins/jenkins.yaml
+  
+# Replace all placeholders ${VALUE} with proper values
+# For example, 
+# username: "${GH_USERNAME}" to  username: "mygithubusername"
+vim ~/jenkins.yaml
+</code></pre>
   </li>
   <li>
     <p>Run the below commands on Jenkins server -</p>
 
-    <pre><code class="language-bash">  sudo su jenkins
-  mkdir -p /var/lib/jenkins/secrets
+    <pre><code class="language-bash">  mkdir -p /var/lib/jenkins/secrets
   cd /var/lib/jenkins/secrets
   touch deployer_ssh_key vault-pass k8s.yaml
-  chmod 400 deployer_ssh_key vault-pass k8s.yaml
+  chmod 600 deployer_ssh_key vault-pass k8s.yaml
 </code></pre>
   </li>
   <li>
@@ -1378,9 +1290,7 @@ resetBase();
   <li>
     <p>If you have encrypted your <code>secrets.yml</code> using <code>ansible-vault</code>, enter the password to decrypt into <code>/var/lib/jenkins/secrets/vault-pass</code>. If you have not encrypted, then enter a random value like <strong>12345</strong></p>
   </li>
-  <li>
-    <p>Run <code>sudo visudo</code> on jenkins server and add the below line -</p>
-  </li>
+  <li>Run <code>sudo visudo</code> on jenkins server and add the below line -</li>
 </ul>
 
 <pre>

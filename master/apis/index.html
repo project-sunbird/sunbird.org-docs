@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2021-10-22 12:40:15 +0530">
+<meta name="last-modified" content="2022-03-14 16:22:58 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="3899" />
+<meta name="buildNo" content="4167" />
 <meta name="version" id="docsVersion" content="master" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?22102021"  />
+<link rel="stylesheet" href="/css/style.css?14032022"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?22102021"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?22102021"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?22102021"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?22102021"></script>
-<script type="text/javascript" src="/js/widgets-data.js?22102021"></script>
-<script type="text/javascript" src="/js/widgets.js?22102021"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?14032022"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?14032022"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?14032022"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?14032022"></script>
+<script type="text/javascript" src="/js/widgets-data.js?14032022"></script>
+<script type="text/javascript" src="/js/widgets.js?14032022"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -1344,11 +1344,14 @@ The definition, it can be explained in detail as follows</p>
 
 <p>The <strong>Content and Collection microservice</strong> manages content and collection objects and their lifecycle for a defined taxonomy, in a learning domain. This microservice is dependent on the taxonomy microservice as every content piece must have the appropriate taxonomy tags. The content and collection microservices has the following APIs:</p>
 <ul>
-  <li><a href="apis/content" target="_blank">Content APIs</a></li>
-  <li><a href="apis/lockService" target="_blank">Content Lock APIs</a></li>
-  <li><a href="apis/tocapi" target="_blank">Textbook APIs</a></li>
-  <li><a href="apis/coursehierarchyapi" target="_blank">Course Hieracrchy APIs</a></li>
+  <li><a href="apis/assetapi" target="_blank">Asset APIs</a></li>
+  <li><a href="apis/content" target="_blank">Content APIs - v1.0 (will be deprecated soon)</a></li>
+  <li><a href="apis/contentapi" target="_blank">Content APIs - v2.0</a></li>
+  <li><a href="apis/collectionapi" target="_blank">Collection APIs</a></li>
+  <li><a href="apis/coursehierarchyapi" target="_blank">Course Hieracrchy APIs (will be deprecated soon)</a></li>
   <li><a href="apis/collectioncsvapi" target="_blank">Collection CSV API</a></li>
+  <li><a href="apis/lockService" target="_blank">Content Lock APIs</a></li>
+  <li><a href="apis/tocapi" target="_blank">Textbook APIs (will be deprecated soon)</a></li>
 </ul>
 
 <h3 id="question--question-set-service">Question &amp; Question Set Service</h3>
@@ -1478,17 +1481,19 @@ The definition, it can be explained in detail as follows</p>
 
 <h3 id="manage-learn-service">Manage Learn Service</h3>
 
-<p>The <strong>Manage Learn Service</strong> provides services to help program administrators manage programs, projects, project surveys, and project and program reports. The APIs for this microservice are grouped into:</p>
+<p>The <strong>Manage Learn Service</strong> provides services to manage the lifecycle of a program which can consist of different types of solutions such as surveys, observations and projects. They can also be used to generate reports that help analyze program data. The APIs for this microservice are grouped into:</p>
 <ul>
-  <li><a href="apis/ml-coreapi/" target="_blank">Core Manage Learn APIs</a></li>
-  <li><a href="apis/ml-projectsapi/" target="_blank">Manage Learning Project APIs</a></li>
-  <li><a href="apis/ml-surveyapi/" target="_blank">Manage Project Survey APIs</a></li>
-  <li><a href="apis/ml-reportsapi/" target="_blank">Manage Project Reports APIs</a></li>
+  <li><a href="apis/mlcoreapi/" target="_blank">Manage Learn Core Service APIs</a></li>
+  <li><a href="apis/mlprojectsapi/" target="_blank">Manage Learn Project Service APIs</a></li>
+  <li><a href="apis/mlsurveyapi/" target="_blank">Manage Learn Survey Service APIs</a></li>
+  <li><a href="apis/mlreportsapi/" target="_blank">Manage Learn Reports Service APIs</a></li>
 </ul>
 
 <h3 id="related-microservices-andor-apis">Related Microservices and/or APIs</h3>
 <ul>
   <li><a href="apis/questionapi//" target="_blank">Question Management APIs</a></li>
+  <li><a href="#user-n-org-service">User &amp; Org Service</a></li>
+  <li><a href="apis/coursehierarchyapi" target="_blank">Course Hieracrchy APIs</a></li>
 </ul>
 
 <h2 id="credentialing--badging">Credentialing &amp; Badging</h2>
@@ -1596,7 +1601,7 @@ The definition, it can be explained in detail as follows</p>
 
 <h3 id="api-management-service">API Management Service</h3>
 
-<p>The API management microservice provides services to create, manage and validate API tokens to register mobile and desktop apps, and to issue and refresh API tokens of registered mobile and desktop app devices</p>
+<p>The API management microservice provides services to create, manage and validate API tokens to register mobile and desktop apps, and to issue and refresh API tokens of registered mobile and desktop app devices.</p>
 <ul>
   <li><a href="apis/echoapi/" target="_blank">Echo API</a></li>
   <li><a href="apis/kongcredentialregisterapiv1/" target="_blank">Kong register version 1</a></li>

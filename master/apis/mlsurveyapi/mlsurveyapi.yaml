@@ -742,6 +742,7 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  
   /surveySubmissions/mlsurvey/v1/update/{submissionId}:
    post:
     tags:
@@ -1180,7 +1181,7 @@ components:
         role: 
           description: Represents the role of user
           type: string
-          example: HM
+          example: HM,DEO
         state: 
           description: Represents the state location Id
           type: string
@@ -1908,9 +1909,29 @@ components:
               example: 
             isValid: 
               type: boolean
-
+    
+    solutionId400Error:
+      description: 400 error response
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: params
+              param: 
+                type: string
+                example: _id
+              msg: 
+                type: string
+                example: required solution id
                 
-  
   securitySchemes:
             bearer:
               type: apiKey
