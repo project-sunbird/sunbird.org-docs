@@ -380,6 +380,191 @@ paths:
                   errmsg: INTERNAL_SERVER_ERROR
                 responseCode: SERVER_ERROR
                 result: {}
+      deprecated: false     
+ /user/v2/consent/read:
+    post:
+      tags:
+      - Consent APIs
+      summary: UserConsentReadV2
+      operationId: UserConsentReadV2
+      parameters:
+        - name: ts
+          in: header
+          required: false
+          description: Timestamp at which given API request is sent.
+          schema:
+            type: string
+        - name: X-msgid
+          in: header
+          required: false
+          description: >-
+            This ID uniquely identifies a request if the same API is executed
+            multiple times.
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            To make use of this API, you require authorization. Raise a
+            request to the administrator for the use of the API. You will
+            receive the authorization key. Specify the key received, here.
+          schema:
+            type: string
+        - name: x-authenticated-user-token
+          in: header
+          required: true
+          description: >-
+            It is a unique token/key to authenticate the user each time an API
+            is called. For corresponding sessions this token is used, not your
+            actual username/password
+          schema:
+            type: string
+        - name: x-authenticated-for
+          in: header
+          required: false
+          description: >-
+            Managed User token of registered MUA user performing given API
+            request.
+          schema:
+            type: string
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userconsentapiuserconsentreadrequest'
+            examples:
+              RequestReadConsentForCourse: 
+                value:
+                  request:
+                    consent:
+                      filters:
+                        userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
+                        consumerId: 0126632859575746566
+                        objectId: do_31313966505806233613406
+              RequestReadConsentForOrganisation: 
+                value:
+                  request:
+                    consent:
+                      filters:
+                        userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
+                        consumerId: 0126632859575746566
+                        objectId: 0126632859575746566
+        required: true
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userconsentapiConsentReadSuccess'
+              examples:
+                ReadConsentResponseForCourse: 
+                  value:
+                    id: api.user.consent.read
+                    ver: v1
+                    ts: 2020-09-17 14:11:19:029+0000
+                    params:
+                      resmsgid: 
+                      msgid: dfb32305-cb9f-470a-b52b-fe492ca89415
+                      err: 
+                      status: success
+                      errmsg: 
+                    responseCode: OK
+                    result:
+                      consents:
+                      - userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
+                        consumerId: 0126632859575746566
+                        status: ACTIVE
+                        objectType: Collection
+                        objectId: do_31313966505806233613406
+                ReadConsentResponseForOrganisation: 
+                  value:
+                    id: api.user.consent.read
+                    ver: v1
+                    ts: 2020-09-17 14:11:19:029+0000
+                    params:
+                      resmsgid: 
+                      msgid: dfb32305-cb9f-470a-b52b-fe492ca89415
+                      err: 
+                      status: success
+                      errmsg: 
+                    responseCode: OK
+                    result:
+                      consents:
+                      - userId: 5a8a3f2b-3409-42e0-9001-f913bc0fde31
+                        consumerId: 0126632859575746566
+                        status: ACTIVE
+                        objectType: Organisation
+                        objectId: 0126632859575746566
+        401:
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userconsentapiUnauthorizedRead'
+              example:
+                id: api.user.consent.read
+                ver: v1
+                ts: 2020-11-25 03:47:00:682+0000
+                params:
+                  resmsgid: 
+                  msgid: 3714a8e54fc515c1e8dccf06449cf677
+                  err: UNAUTHORIZED_USER
+                  status: SERVER_ERROR
+                  errmsg: You are not authorized.
+                responseCode: CLIENT_ERROR
+                result: {}
+        400:
+          description: >-
+            BAD REQUEST. The possible reason for failure is that you may have missed providing input for a
+            mandatory parameter.
+          content:
+            application/json:
+              example:
+                Bad Request
+        404:
+          description: >-
+            RESOURSE NOT FOUND. The possible reason for failure is the requested resource is not
+            available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userconsentapiResourceNotFoundRead'
+              example:
+                id: api.user.consent.read
+                ver: v1
+                ts: 2020-11-25 03:47:00:682+0000
+                params:
+                  resmsgid: 
+                  msgid: 3714a8e54fc515c1e8dccf06449cf677
+                  err: USER_CONSENT_NOT_FOUND
+                  status: USER_CONSENT_NOT_FOUND
+                  errmsg: User consent not found.
+                responseCode: RESOURCE_NOT_FOUND
+                result: {}
+        500:
+          description: >-
+            'INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userconsentapiServerErrorRead'
+              example:
+                id: api.user.consent.read
+                ver: v1
+                ts: 2020-11-25 03:47:00:682+0000
+                params:
+                  resmsgid: 
+                  msgid: 3714a8e54fc515c1e8dccf06449cf677
+                  err: INTERNAL_SERVER_ERROR
+                  status: INTERNAL_SERVER_ERROR
+                  errmsg: INTERNAL_SERVER_ERROR
+                responseCode: SERVER_ERROR
+                result: {}
       deprecated: false
 components:
   schemas:
