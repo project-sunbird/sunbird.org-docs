@@ -429,6 +429,130 @@ paths:
       deprecated: false
       security: 
         - bearer: []
+  /dialcode/v2/read:
+    post:
+      tags:
+        - DIAL APIs
+      summary: Get DIAL Code
+      description: |-
+        This API is associated with fetching/reading the DIAL code with context information
+          - The endpoint for **Get DIAL code** is `/dialcode/v2/read/{dialcode}`
+          - It points to knowledge-mw-service - `/v2/dialcode/read/{dialcode}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty."
+      operationId: ReadPost
+      parameters:
+        - name: X-Channel-ID
+          in: header
+          description: It the Unique ID to identify the root organization to which the
+            user belongs
+          required: true
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          description: "The Content Type entity is the media type of the resource.\n\
+            \ Possible media types can be:- \n   - Application/json"
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: All User APIs require authorization for use. Specify the authorization
+            key received from the administrator when placing the request for use of
+            the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains context information about the request for fetching/reading DIAL code
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dialapiGetDialcoderequest'
+            example:
+              request:
+                dialcode:
+                  identifier: Q13PMA
+        required: true
+      responses:
+        200:
+          description: OK ! Successful operation."Get DIAL code" operation was successfully
+            executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dialapiGetDialcodeResponse'
+              example:
+                id: api.dialcode.read
+                ver: '1.0'
+                ts: '2020-12-17T16:09:58.255Z'
+                params:
+                  resmsgid: 4f22f7f0-4082-11eb-9b0c-abcfbdf41bc3
+                  msgid: 4f21e680-4082-11eb-9b0c-abcfbdf41bc3
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  dialcode:
+                    identifier: V1T2P8
+                    channel: sunbird
+                    publisher: ef41a799-0438-4397-bbb4-a2a65aed4e55
+                    batchCode: ede34398-5310-4009-a49e-4f3dd0147c69
+                    status: Draft
+                    generatedOn: '2020-12-17T16:09:13.008+0000'
+                    publishedOn: null
+                    contextInfo: null
+        404:
+          description: RESOURCE NOT FOUND. The "Get DIAL code" operation failed ! The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dialapiDialcodeErrorResponse'
+              example:
+                id: api.dialcode.read
+                ver: '1.0'
+                ts: '2020-12-17T16:19:33.944Z'
+                params:
+                  resmsgid: a6462380-4083-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_DIALCODE_INFO
+                  errmsg: 'Dial Code Not Found With Id: {{invalid-dial}}'
+                responseCode: RESOURCE_NOT_FOUND
+                result: { }
+        400:
+          description: BAD REQUEST. The "Get DIAL code" operation failed ! The possible
+            reason for failure is that you may have missed providing input for a mandatory
+            parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dialapiDialcodeErrorResponse'
+              example:
+                id: api.dialcode.read
+                ver: '1.0'
+                ts: '2020-12-17T16:21:47.297Z'
+                params:
+                  resmsgid: f5c23111-4083-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_REQUEST_FIELDS_CHANNEL_ID_MISSING
+                  errmsg: Required field channel id is missing
+                responseCode: CLIENT_ERROR
+                result: { }
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel free
+            to contact us. In the meantime, try refreshing.
+          content: { }
+      deprecated: false
+      security:
+        - bearer: [ ]
   /dialcode/v1/publisher/read/{publisherId}:
     get:
       tags:
@@ -649,6 +773,131 @@ paths:
       deprecated: false
       security: 
         - bearer: []
+  /dialcode/v2/update/{dialcode}:
+    patch:
+      tags:
+        - DIAL APIs
+      summary: Update DIAL code
+      description: |-
+        This API is associated with updating the DIAL code.
+          - The endpoint for **Update DIAL code** is `/dialcode/v2/update/{dialcode}`
+          - It points to knowledge-mw-service - `/v2/dialcode/update/{dialcode}`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: UpdateDialcode
+      parameters:
+        - name: dialcode
+          in: path
+          description: The dialcode identifier which you want to update
+          required: true
+          schema:
+            type: string
+        - name: X-Channel-ID
+          in: header
+          description: It the Unique Id to identify the root organization to which the
+            user belongs
+          required: true
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          description: |-
+            The Content Type entity is the media type of the resource. Possible media types can be:
+            - Application/json
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: All User APIs require authorization for use. Specify the authorization
+            key received from the administrator when placing the request for use of
+            the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains context information about the request for updating DIAL code.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dialapiUpdateDialcoderequest'
+            example:
+              request:
+                dialcode:
+                  contextInfo:
+                    gradeLevel: Class 5
+                    subject: Math
+                    board: Test Board
+                    medium: English
+        required: true
+      responses:
+        200:
+          description: OK ! Successful operation."Update DIAL code" operation was
+            successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dialapiDialcodeUpdateResponse'
+              example:
+                id: api.dialcode.update
+                ver: '1.0'
+                ts: '2020-12-18T07:10:28.747Z'
+                params:
+                  resmsgid: 1bd1c5b0-4100-11eb-9b0c-abcfbdf41bc3
+                  msgid: 19fe8c50-4100-11eb-9b0c-abcfbdf41bc3
+                  status: successful
+                  err: null
+                  errmsg: null
+                responseCode: OK
+                result:
+                  identifier: V1T2P8
+        404:
+          description: RESOURCE NOT FOUND. The "Update DIAL code" operation failed ! The possible reason for failure is that you may have passed invalid dialcode id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dialapiDialcodeErrorResponse'
+              example:
+                id: api.dialcode.update
+                ver: '1.0'
+                ts: '2020-12-18T07:19:58.494Z'
+                params:
+                  resmsgid: 6f6a43e0-4101-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_DIALCODE_INFO
+                  errmsg: 'Dial Code Not Found With Id: {{invalid-dial}}'
+                responseCode: RESOURCE_NOT_FOUND
+                result: { }
+        400:
+          description: BAD REQUEST. The "Update DIAL code" operation failed ! The
+            possible reason for failure is that you may have missed providing input
+            for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dialapiDialcodeErrorResponse'
+              example:
+                id: api.dialcode.update
+                ver: '1.0'
+                ts: '2020-12-18T07:19:39.845Z'
+                params:
+                  resmsgid: 644ca750-4101-11eb-9b0c-abcfbdf41bc3
+                  msgid: null
+                  status: failed
+                  err: ERR_INVALID_CHANNEL_ID
+                  errmsg: Invalid Channel Id.
+                responseCode: CLIENT_ERROR
+                result: { }
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel free
+            to contact us. In the meantime, try refreshing.
+          content: { }
+      deprecated: false
+      security:
+        - bearer: [ ]
   /dialcode/v1/publisher/update/{publisherId}:
     patch:
       tags:
