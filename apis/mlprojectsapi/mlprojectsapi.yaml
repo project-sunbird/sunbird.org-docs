@@ -42,9 +42,16 @@ paths:
           required: true
           schema:
             type: string
+        - name: x-app-ver
+          in: header
+          description: Represents the app version.
+          required: true
+          schema:
+            type: string
+            example: 4.7
         - name: projectId
           in: path
-          description: Please append a valid project Id To the Request URL
+          description: Please append a valid project Id to the Request URL
           required: true
           schema:
             type: string
@@ -111,6 +118,13 @@ paths:
           required: true
           schema:
             type: string
+        - name: x-app-ver
+          in: header
+          description: Represents the app version.
+          required: true
+          schema:
+            type: string
+            example: 4.7
       requestBody:
         required: true
         description: >-
@@ -175,6 +189,13 @@ paths:
           schema:
             type: string
           example: 0125747659358699520
+        - name: x-app-ver
+          in: header
+          description: Represents the app version.
+          required: true
+          schema:
+            type: string
+            example: 4.7
       requestBody:
         required: true
         description: >-
@@ -470,20 +491,26 @@ paths:
       - Project Templates APIs
       summary: Project template details.
       description: |-
-        This API is used to get Project template details based on the template Id.
+        This API is used to get Project template details based on the template Id or solution link.
           - The endpoint for **Project details** is `/project/mlprojects/v1/templates/details`
-          - You need to provide a valid template Id value in {templateId} field of API URL.
+          - You need to provide a valid template Id value in {templateId} or a valid solution link in {link} query parameter of API URL.
           - It is mandatory to provide values for parameters marked with *. 
           - Mandatory fields cannot be null or empty.
       operationId: templateDetails
       parameters:
         - name: templateId
           in: path
-          description: Please append a valid Project template Id To the Request URL
+          description: Please append a valid Project template Id To the Request URL.
           required: true
           schema:
             type: string
           example: 5f731631e8d7cd3b88ac0659
+        - name: link
+          in: query
+          description: Please provide a valid Solution link in query for fetching template based on Solution link
+          schema:
+            type: string
+          example: 2105696645ffaec0894743c93a1635f3
       responses:
         200:
           description: "Project template details Successful Response"
@@ -496,7 +523,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/400ErrorTemplateIdMissing'
+                $ref: '#/components/schemas/400ErrorTemplateIdAndSolutionLinkMissing'
         500:
           description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
           content:
@@ -532,6 +559,12 @@ paths:
             To make use of the API, you require authorization. Raise a request
             to the administrator for the use of the API. You will receive the
             authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: x-app-ver
+          in: header
+          description: Represents the app version.
           required: true
           schema:
             type: string
@@ -991,11 +1024,11 @@ components:
                       type: integer
                       format: int32
                       example: 1
-                    completed: 
+                    submitted: 
                       type: integer
                       format: int32
                       example: 0
-                    notStarted: 
+                    started: 
                       type: integer
                       format: int32
                       example: 0
@@ -1740,6 +1773,19 @@ components:
             projectId: 
               type: string
               example: 
+            solutionInformation:
+              type: object
+              properties: 
+                _id: 
+                  type: string
+                  example: 5ff9dc1b9259097d48017bbe
+                name: 
+                  type: string
+                  example: MAHARASTHA IMPROVEMENT PROJECT
+                link: 
+                  type: string
+                  example: 2105696645ffaec0894743c93a1635f3
+                
     TaskObject1:
       description: Task object format
       type: object
@@ -1969,7 +2015,7 @@ components:
         link: 
           type: string
           example: https://staging.sunbirded.org/resources/play/content/do_31268582767737241615189
-    400ErrorTemplateIdMissing:
+    400ErrorTemplateIdAndSolutionLinkMissing:
       description: 400 status error response format
       type: object
       properties:
@@ -1989,7 +2035,7 @@ components:
                 example: projectId
               msg:
                 type: string
-                example: required project template external id
+                example: TemplateId or Link either one is required
     userprojectsapiDetailsRequest:
       description: Role and Location Request
       type: object

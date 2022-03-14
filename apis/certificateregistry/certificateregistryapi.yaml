@@ -609,7 +609,7 @@ paths:
       deprecated: false
       security:
       - bearer: []
-      
+          
   /certreg/v1/certs/read/{certId}: 
     get:
       tags:
@@ -964,8 +964,8 @@ paths:
                 allOf:
                 - $ref: '#/components/schemas/certificateregistryapi500ServerError'
       security:
-      - bearer: [] 
-  
+      - bearer: []
+
   /certreg/v1/certs/search:
     post:
       tags:
@@ -973,6 +973,117 @@ paths:
       summary: Search the certificate
       description: "This API allows you to search digitally generated certificates.\
         \ The **_/certreg/v1/certs/search_** endpoint executes the **search certificate**\
+        \ request based on parameters provided in the request body.\n   - All fields\
+        \ marked with an * are mandatory\n   - The mandatory fields cannot be null\
+        \ or empty\n   - This API is a wrapper for ElasticSearch. Hence, the manner\
+        \ in which the search request is sent to ElasticSearch, the same way it is\
+        \ sent to the search API inside the request object.\n   - The system does\
+        \ not validate the request.  \n - Backend route : http://cert-registry-service:9000/certs/v1/registry/validate"
+
+      operationId: Search certificate
+      parameters:
+      - name: ts
+        in: header
+        description: 'The timestamp at which the **search certificate** request was
+          sent. '
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: A unique ID that identifies the request, in case the same API
+          is executed multiple times.
+        schema:
+          type: string
+      requestBody:
+        description: The body refers to the format of the request. The body contains
+          metadata about the request to download the certificate.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/certificateregistryapiCertificateSearchRequest'
+            example:
+              request:
+                _source:
+                - data.badge.issuer.name
+                - pdfUrl
+                - data.issuedOn
+                - recipient
+                - related
+                - data
+                query:
+                  match_phrase:
+                    recipient.id: string
+        required: true
+      responses:
+        200:
+          description: OK! Operation successful."Certificate Search" operation was
+            executed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  certificateregistryapiApiResponse:
+                    $ref: '#/components/schemas/certificateregistryapiApiResponse'
+                  certificateregistryapiCertificateSearchResponse:
+                    $ref: '#/components/schemas/certificateregistryapiCertificateSearchResponse'
+              example:
+                id: api.certs.registry.search
+                ver: v1
+                ts: 1605779119142
+                params: 
+                responseCode: OK
+                result:
+                  response:
+                    content:
+                    - _index: certv3
+                      _type: _doc
+                      _source:
+                        pdfUrl: pdfURl
+                        related:
+                          type: completion certificate
+                          batchId: batchId
+                          courseId: batchId
+                      _id: 8a6d6cc2-16ee-4e7a-a4d1-d74d7523424
+                      _score: 55.460940000000001
+                    - _index: certv3
+                      _type: _doc
+                      _source:
+                        pdfUrl: string
+                        related:
+                          type: completion certificate
+                          batchId: batchId
+                          courseId: batchId
+                      _id: 8a6d6cc2-16ee-4e7a-a4d1-d74d7523222
+                      _score: 55.460940000000001
+                    count: 2
+        400:
+          description: BAD REQUEST. The "Certificate Search" operation failed. You
+            may have missed input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/certificateregistryapiIssueCertificateErrorResponse'
+        500:
+          description: 'INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically. Try refreshing the page. If the problem
+            persists, contact info@sunbird.org. '
+          content: 
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/certificateregistryapi500ServerError'
+      security:
+      - bearer: []     
+  
+  /certreg/v2/certs/search:
+    post:
+      tags:
+      - Search Certificate API
+      summary: Search the certificate
+      description: "This API allows you to search digitally generated certificates.\
+        \ The **_/certreg/v2/certs/search_** endpoint executes the **search certificate**\
         \ request based on parameters provided in the request body.\n   - All fields\
         \ marked with an * are mandatory\n   - The mandatory fields cannot be null\
         \ or empty\n   - This API is a wrapper for ElasticSearch. Hence, the manner\
