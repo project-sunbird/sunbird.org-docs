@@ -19,10 +19,20 @@ This document explains the procedure to set up Sunbird on your cloud infra. This
 * AKS (Azure Kubernetes Service)
 * Ubuntu 18.04 VM's
 
-### Infrastructure Components
+### Building Blocks
 
-Sunbird consists of 3 major subsystems
+Sunbird consists of these major building blocks
 
-* Knowledge Platform also knows as Learning Platform (Taxonomy and Content)
-* Data Pipeline (Data enrichment and Visualizations)
-* Core Services (User, Organization, Courses, Certificates, UI and Frontend)
+* Sunbird Anuvaad
+* Sunbird coKreat
+* Sunbird COMET
+* Sunbird cQube
+* Sunbird ED
+* Sunbird inQuiry
+* Sunbird Knowlg
+* Sunbird Lern
+* Sunbird Obsrv
+* Sunbird RC
+* Sunbird Saral
+* Sunbird UCI
+* Sunbird Vakyansh
