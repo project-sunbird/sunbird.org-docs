@@ -3589,6 +3589,68 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  /dialcode/v2/read:
+    post:
+      summary: Get DIAL Code
+      parameters:
+        - name: X-Channel-ID
+          in: header
+          description: >-
+            It is the Unique ID to identify the root organization to which the user belongs
+          required: true
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          description: "The Content Type entity is the media type of the resource.\n Possible media types can be:- \n   - Application/json"
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            All User APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains context information about the request for fetching/reading DIAL code
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dialapiGetDialcoderequest'
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation."Get DIAL code" operation was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dialapiGetDialcodeResponse'
+        '400':
+          description: >-
+            BAD REQUEST. The "Get DIAL code" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dialapiDialcodeErrorResponse'
+        '404':
+          description: >-
+            RESOURCE NOT FOUND. The "Get DIAL code" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dialapiDialcodeErrorResponse'
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.
+          content: { }
+      deprecated: false
+      security:
+        - bearer: [ ]
   '/dialcode/v1/publisher/read/{publisherId}':
     get:
       summary: Get Publisher
@@ -3715,6 +3777,77 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  '/dialcode/v2/update/{dialcode}':
+    patch:
+      summary: Update DIAL code
+      parameters:
+        - name: dialcode
+          in: path
+          description: The dialcode identifier which you want to update with context information
+          required: true
+          schema:
+            type: string
+        - name: X-Channel-ID
+          in: header
+          description: >-
+            It is the Unique Id to identify the root organization to which the user belongs
+          required: true
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          description: >-
+            The Content Type entity is the media type of the resource. Possible media types can be:
+
+            - Application/json
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            All User APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains contextInfo about the request for updating DIAL code.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dialapiUpdateDialcodeV2request'
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation."Update DIAL code" operation was successfully executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dialapiDialcodeUpdateResponse'
+        '400':
+          description: >-
+            BAD REQUEST. The "Update DIAL code" operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dialapiDialcodeErrorResponse'
+        '404':
+          description: >-
+            RESOURCE NOT FOUND. The "Update DIAL code" operation failed ! The possible reason for failure is that you may have passed invalid dialcode id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dialapiDialcodeErrorResponse'
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These errors are tracked automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.
+          content: { }
+      deprecated: false
+      security:
+        - bearer: [ ]
   '/dialcode/v1/publisher/update/{publisherId}':
     patch:
       summary: Update Publisher
@@ -23234,6 +23367,33 @@ components:
         metadata:
           type: object
           description: Additional metadata of dialcode
+    dialapiUpdateDialcodeV2request:
+      title: update dialcodeRequest
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/dialapiRequest10'
+      dialapiRequest10:
+        title: Request10
+        required:
+          - dialcode
+        type: object
+        properties:
+          dialcode:
+            $ref: '#/components/schemas/dialapiDialcode12'
+      dialapiDialcode12:
+        title: Dialcode12
+        type: object
+        properties:
+          publisher:
+            type: string
+            description: ' Represents the entity who owns the DIAL code.'
+            example: Sunbird
+          contextInfo:
+            type: object
+            description: Context Information of dialcode
     dialapiUpdatePublisherrequest:
       title: Update publisherRequest
       required:
