@@ -23,16 +23,9 @@ This document explains the procedure to set up Sunbird on your cloud infra. This
 
 Sunbird consists of these major building blocks
 
-* Sunbird Anuvaad
-* Sunbird coKreat
-* Sunbird COMET
-* Sunbird cQube
-* Sunbird ED
 * Sunbird inQuiry
 * Sunbird Knowlg
 * Sunbird Lern
 * Sunbird Obsrv
 * Sunbird RC
-* Sunbird Saral
 * Sunbird UCI
-* Sunbird Vakyansh
