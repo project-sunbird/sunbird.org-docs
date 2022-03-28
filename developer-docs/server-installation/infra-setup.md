@@ -1,3 +1,14 @@
+---
+title: Infra Setup
+page_title: Infra Setup
+description: Explains the infra setup and automation
+keywords: infra, setup, automation, install, sunbird
+allowSearch: true
+
+---
+
+
+
 #### Automation on Azure infrastructure creation
 
 You can run the following steps to create azure infrastructure using ansible.
