@@ -14,16 +14,14 @@ Ansible is the configuration management system used in Sunbird. The infrastructu
 Use the following git commands sequentially to clone and update your private GitHub repository -
 
 ```bash
-git clone https://github.com/project-sunbird/sunbird-devops
-cd sunbird-devops
-git checkout tags/release-4.3.0 -b release-4.3.0
+   git clone https://github.com/project-sunbird/sunbird-devops -b release-4.7.0
 ```
 
 - Copy the directory `sunbird-devops/private_repo/ansible` to your private repo
 
 - Update the files **common.yml**, **hosts**, and **secrets.yml** under **Core**, **KnowledgePlatform** and **DataPipeline** directories. After updating, push them to your private repo branch
 - Your private repo structure starting from the root path should be exactly as shown below
-  
+
 ```bash
 ansible
 └── inventory

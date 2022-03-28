@@ -10,55 +10,8 @@ allowSearch: true
 ## Overview
 
 
-To install Sunbird `release-4.6.0`, we will need to run many Jenkins jobs and a couple of manual steps. Some of the jobs need to be run in a specific order. This page details out the list of jobs, their order and the github release tags to be used for each job.
+To install Sunbird `release-4.7.0`, we will need to run many Jenkins jobs and a couple of manual steps. Some of the jobs need to be run in a specific order. This page details out the list of jobs, their order and the github release tags to be used for each job.
 
-
-### Installing Sunbird
-
-#### Create Plugin Containers / Folder Structure
-
-- We will create few folders in azure for storing sunbird plugins
-- Our deployment job always tries to delete the folder first before uploading, so we need to have the placeholders before running the jobs
-- We will create the folders by uploading random files from a random folder on your PC
-- Create a public container with the name you have set for the variable `sunbird_content_azure_storage_container` and run the below commands
-
-```bash
-az storage blob upload-batch --destination sunbird_content_azure_storage_container/collection-editor --source some_folder --account-name storage_account_name --account-key storage_account_key
-
-az storage blob upload-batch --destination sunbird_content_azure_storage_container/generic-editor --source some_folder --account-name storage_account_name --account-key storage_account_key
-
-az storage blob upload-batch --destination sunbird_content_azure_storage_container/content-editor --source some_folder --account-name storage_account_name --account-key storage_account_key
-
-az storage blob upload-batch --destination sunbird_content_azure_storage_container/v3/preview --source some_folder --account-name storage_account_name --account-key storage_account_key
-```
-
-- Upload the default T&C file to `sunbird_content_azure_storage_container` container in a folder named **terms-and-conditions**. You can get a copy of the sample T&C file from [here](https://sunbirdpublic.blob.core.windows.net/installation/terms-and-conditions/terms-and-conditions-v9.html). You are free to edit the HTML as per your requirements
-- Create a private container named `label` in Azure
-- Run the below command in your Jenkins VM where you cloned the sunbird-devops repo
-
-```bash
-cd sunbird-devops/utils/portal
-az storage blob upload-batch --destination label --source labels --account-name storage_account_name --account-key storage_account_key
-```
-
-#### Upload Initial Plugins
-
-- Upload the initial set of plugins to `sunbird_content_azure_storage_container` container
-- Download the initial Plugins from [here](https://sunbirdpublic.blob.core.windows.net/installation/content-plugins.zip)
-- Run the below command from the directory where **content-plugins.zip** is unzipped
-
-```bash
-az storage blob upload-batch --destination sunbird_content_azure_storage_container/content-plugins --source content-plugins --account-name storage_account_name --account-key storage_account_key
-```
-
-- Create a container named `public` in your Azure storage account from the Azure portal with public access level
-- Create a container named `artifacts` in your Azure storage account from the Azure portal with private access level
-
-
-#### Upload Maxmind Database to Azure Blob
-
-- Download the Maxmind city database in zip format from Maxmind website
-- Upload the zip file to the `artifacts` container in Azure
 
 #### Code Builds
 
