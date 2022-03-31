@@ -2858,6 +2858,194 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  /questionset/v1/add:
+    patch:
+      tags:
+      - QuestionSet APIs
+      summary: Add Children To QuestionSet Hierarchy
+      description: |-
+        This API is associated with adding children to QuestionSet hierarchy on the Sunbird Platform.
+          - The endpoint for **Add Children to QuestionSet** is `/questionset/v1/add`
+          - It points to assessment-service - `/questionset/v4/add`
+          - It is mandatory to provide values for parameters marked with *
+          - Mandatory fields cannot be null or empty.
+      operationId: Add Children To QuestionSet Hierarchy
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All QuestionSet APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/questionsetHierarchyAddRequest'
+            example:
+              request:
+                questionset:
+                  rootId: do_1134445959309803521184
+                  collectionId: do_1134445959318241281187
+                  children:
+                    - do_1134455063866736641416
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/questionsetHierarchyAddResponse200'
+              example:
+                id: api.questionset.add
+                ver: "3.0"
+                ts: 2022-01-04T11:54:05ZZ
+                params:
+                  resmsgid: bb899cb6-e81a-4a7d-9e87-710aa1fba0ce
+                  status: successful
+                responseCode: OK
+                result:
+                  rootId: do_1134445959309803521184
+        400:
+          description: Bad Request
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/questionsetAddHierarchyErrorResponse'
+              example:
+                id: api.questionset.add
+                ver: "3.0"
+                ts: 2022-01-04T12:16:21ZZ
+                params:
+                  resmsgid: 4e3ab83b-e931-46fb-ad83-078c2731891c
+                  err: ERR_BAD_REQUEST
+                  status: failed
+                  errmsg: rootId is mandatory
+                responseCode: CLIENT_ERROR
+                result: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/questionsetAddHierarchyErrorResponse'
+              example:
+                id: api.questionset.add
+                ver: "3.0"
+                ts: 2022-01-04T12:22:29ZZ
+                params:
+                  resmsgid: 112e8d10-9fb1-4b89-a1ad-333e3ee25819
+                  err: ERR_SYSTEM_EXCEPTION
+                  status: failed
+                  errmsg: Something went wrong in server while processing the request
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
+  /questionset/v1/remove:
+    delete:
+      tags:
+      - QuestionSet APIs
+      summary: Remove Children From QuestionSet Hierarchy
+      description: |-
+        This API is associated with removing children from QuestionSet hierarchy on the Sunbird Platform.
+          - The endpoint for **Remove Children From QuestionSet** is `/questionset/v1/remove`
+          - It points to assessment-service - `/questionset/v4/remove`
+          - It is mandatory to provide values for parameters marked with *
+          - Mandatory fields cannot be null or empty.
+      operationId: Remove Children From QuestionSet Hierarchy
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All QuestionSet APIs require authorization for use. Specify the authorization key received from the administrator when placing the request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/questionsetHierarchyRemoveRequest'
+            example:
+              request:
+                questionset:
+                  rootId: do_1134445959309803521184
+                  collectionId: do_1134445959318241281187
+                  children:
+                    - do_1134455063866736641416
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/questionsetHierarchyRemoveResponse200'
+              example:
+                id: api.questionset.remove
+                ver: "3.0"
+                ts: 2022-01-04T11:54:05ZZ
+                params:
+                  resmsgid: bb899cb6-e81a-4a7d-9e87-710aa1fba0ce
+                  status: successful
+                responseCode: OK
+                result:
+                  rootId: do_1134445959309803521184
+        400:
+          description: Bad Request
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/questionsetRemoveHierarchyErrorResponse'
+              example:
+                id: api.questionset.remove
+                ver: "3.0"
+                ts: 2022-01-04T12:16:21ZZ
+                params:
+                  resmsgid: 4e3ab83b-e931-46fb-ad83-078c2731891c
+                  err: ERR_BAD_REQUEST
+                  status: failed
+                  errmsg: rootId is mandatory
+                responseCode: CLIENT_ERROR
+                result: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/questionsetRemoveHierarchyErrorResponse'
+              example:
+                id: api.questionset.remove
+                ver: "3.0"
+                ts: 2022-01-04T12:22:29ZZ
+                params:
+                  resmsgid: 112e8d10-9fb1-4b89-a1ad-333e3ee25819
+                  err: ERR_SYSTEM_EXCEPTION
+                  status: failed
+                  errmsg: Something went wrong in server while processing the request
+                responseCode: SERVER_ERROR
+                result: {}
+      deprecated: false
   /questionset/v1/import:
     post:
       tags:
@@ -3995,6 +4183,122 @@ components:
                 type: string
         count:
           type: integer    
+    questionsetHierarchyAddRequest:
+      title: Request
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/questionsetHierarchyAddRequestQuestionset'
+    questionsetHierarchyAddRequestQuestionset:
+      title: QuestionSet
+      required:
+        - questionset
+      type: object
+      properties:
+        questionset:
+          $ref: '#/components/schemas/questionsetHierarchyAddRequestQuestionsetObject'
+    questionsetHierarchyAddRequestQuestionsetObject:
+      title: Object
+      required:
+        - rootId
+        - collectionId
+        - children
+      type: object
+      properties:
+        rootId:
+          type: string
+          description: Represents the root id of collection
+        collectionId:
+          type: string
+          description: Represents the id of first level unit
+        children:
+          type: array
+          description: Represents the children
+          items:
+            type: string
+    questionsetHierarchyAddResponse200:
+      description: Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/questionResponseHeader'
+        - $ref: '#/components/schemas/questionsetHierarchyAddResult'
+    questionsetHierarchyAddResult:
+      title: Result
+      type: object
+      properties:
+        result:
+          title: Result
+          type: object
+          properties:
+            identifier:
+              type: string
+              description: Question Identifier
+    questionsetAddHierarchyErrorResponse:
+      description: Error Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/questionResponseHeader'
+        - $ref: '#/components/schemas/questionEmptyResult'
+    questionsetHierarchyRemoveRequest:
+      title: Request
+      required:
+        - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/questionsetHierarchyRemoveRequestQuestionset'
+    questionsetHierarchyRemoveRequestQuestionset:
+      title: QuestionSet
+      required:
+        - questionset
+      type: object
+      properties:
+        questionset:
+          $ref: '#/components/schemas/questionsetHierarchyRemoveRequestQuestionsetObject'
+    questionsetHierarchyRemoveRequestQuestionsetObject:
+      title: Object
+      required:
+        - rootId
+        - collectionId
+        - children
+      type: object
+      properties:
+        rootId:
+          type: string
+          description: Represents the root id of collection
+        collectionId:
+          type: string
+          description: Represents the id of first level unit
+        children:
+          type: array
+          description: Represents the children
+          items:
+            type: string
+    questionsetHierarchyRemoveResponse200:
+      description: Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/questionResponseHeader'
+        - $ref: '#/components/schemas/questionsetHierarchyRemoveResult'
+    questionsetHierarchyRemoveResult:
+      title: Result
+      type: object
+      properties:
+        result:
+          title: Result
+          type: object
+          properties:
+            identifier:
+              type: string
+              description: Question Identifier
+    questionsetRemoveHierarchyErrorResponse:
+      description: Error Response
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/questionResponseHeader'
+        - $ref: '#/components/schemas/questionEmptyResult'
   securitySchemes:
     bearer:
       type: apiKey
