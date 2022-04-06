@@ -20,8 +20,8 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | sunbird_instance | EdDataProducts | This need to be added in DP/common.yml file.<br>Please copy value from core/common.yml file |
 | auto_creator_g_service_acct_cred |  | Updated in VDN KP common.yml <br>please note that the google service acct credentials json <br>key has to be updated in the environment variable <br>(existing key has '\\\\n' which is to be replaced with '\\n') |
 | sunbird_azure_uci_container_name | Inbound & Outbound | create in {{sunbird_private_storage_account_name}}<br>updated according to environment: uci-preprod |
-| ml_analytics_azure_sas_token |  | create SAS 1 year SAS token with Read, Write, Delete <br>permissions for <br>{{sunbird_public_storage_account_name}}/telemetry-data-store |
-| ml_analytics_azure_account_name |  | {{sunbird_public_storage_account_name}} |
+| ml_analytics_azure_sas_token |  | create SAS 1 year SAS token with Read, Write, Delete <br>permissions for <br>sunbird_public_storage_account_name/telemetry-data-store |
+| ml_analytics_azure_account_name |  | sunbird_public_storage_account_name |
 | uci_env | Sunbird Data Pipeline, Transformer | update according to environment<br>in staging env ---> "staging" |
 
 
