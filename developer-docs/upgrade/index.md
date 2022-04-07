@@ -44,12 +44,12 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | Build/Kubernetes/Taxonomy | release-4.8.0_RC4 | Deploy/Kubernetes/Taxonomy | release-4.8.0_RC3 |  |
 | Build/Kubernetes/Player | release-4.8.0_RC31 | Deploy/Kubernetes/Player | release-4.8.0_RC3 |  |
 |  |  | Deploy/Kubernetes/Keycloak | release-4.8.0_RC3 |  |
-|  |  | Deploy/Kubernetes/APIManager | release-4.8.0_RC3 | Fix typo in apimanager recording rules |
+|  |  | Deploy/Kubernetes/APIManager | release-4.8.0_RC3 |  |
 |  |  | Deploy/Kubernetes/Logging | release-4.8.0_RC3 |  |
 |  |  | Deploy/Kubernetes/Monitoring | release-4.8.0_RC3 |  |
 |  |  | Deploy/Kubernetes/OnboardAPIs | release-4.8.0_RC3 |  |
 |  |  | Deploy/Kubernetes/OnboardConsumers | release-4.8.0_RC3 |  |
-|  |  | Deploy/Kubernetes/nginx-public-ingress | release-4.8.0_RC3 | /dial endpoint routing based on header<br>Still being tested in dev |
+|  |  | Deploy/Kubernetes/nginx-public-ingress | release-4.8.0_RC3 |  |
 |  |  | Deploy/managed-learn/ml-analytics-service | release-4.8.0_RC3 |  |
 | Build/managed-learn/ml-core-service | release-4.8.0_RC4 | Deploy/managed-learn/ml-core-service | release-4.8.0_RC3 |  |
 | Build/managed-learn/ml-projects-service | release-4.8.0_RC7 | Deploy/managed-learn/ml-projects-service | release-4.8.0_RC3 |  |
