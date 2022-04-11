@@ -58,7 +58,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | Build/UCI/utils | release-4.8.0_RC1 |  |  | To be built in sequence-1 |
 | Build/UCI/message-rosa | release-4.8.0_RC1 |  |  | To be built in sequence-2 |
 | Build/UCI/dao | release-4.8.0_RC1 |  |  | To be built in sequence-3 |
-| Build/UCI/utils | release-4.8.0_RC1 |  |  | To be built in sequence-4 |
+| Build/UCI/Adapter | release-4.8.0_RC1 |  |  | To be built in sequence-4 |
 | Build/UCI/Inbound | release-4.8.0_RC1 | Deploy/UCI/Inbound | release-4.8.0_RC3 |  |
 | Build/UCI/Orchestrator | release-4.8.0_RC1 | Deploy/UCI/Orchestrator | release-4.8.0_RC3 |  |
 | Build/UCI/Outbound | release-4.8.0_RC1 | Deploy/UCI/Outbound | release-4.8.0_RC3 |  |
