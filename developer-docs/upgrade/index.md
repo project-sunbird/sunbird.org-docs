@@ -16,10 +16,10 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Variable Name|Service Name|Comments|
 |-------------|------------|--------|
-| uci_encryption_key_base64 | DP dataproducts | This need to be add in DP/secrets<br>use the same value which is added in core/secrets.yml<br>add this only if it is not added previously |
-| sunbird_instance | EdDataProducts | This need to be added in DP/common.yml file.<br>Please copy value from core/common.yml file |
-| auto_creator_g_service_acct_cred |  | Updated in VDN KP common.yml <br>please note that the google service acct credentials json <br>key has to be updated in the environment variable <br>(existing key has '\\\\n' which is to be replaced with '\\n') |
-| sunbird_azure_uci_container_name | Inbound & Outbound | create in {{sunbird_private_storage_account_name}}<br>updated according to environment: uci-preprod |
+| uci_encryption_key_base64 | DP dataproducts | This need to be added in DP/secrets<br>Use the same value which is added in core/secrets.yml<br>Add this only if it is not added previously |
+| sunbird_instance | EdDataProducts | This need to be added in DP/common.yml file.<br>Copy value from core/common.yml file |
+| auto_creator_g_service_acct_cred |  | Updated in VDN KP common.yml <br>Note that the google service acct credentials json <br>Key has to be updated in the environment variable <br>(existing key has '\\\\n' which is to be replaced with '\\n') |
+| sunbird_azure_uci_container_name | Inbound & Outbound | create in {{sunbird_private_storage_account_name}}<br>Updated according to environment: uci-preprod |
 | ml_analytics_azure_sas_token |  | create SAS 1 year SAS token with Read, Write, Delete <br>permissions for <br>sunbird_public_storage_account_name/telemetry-data-store |
 | ml_analytics_azure_account_name |  | sunbird_public_storage_account_name |
 | uci_env | Sunbird Data Pipeline, Transformer | update according to environment<br>in staging env ---> "staging" |
@@ -63,7 +63,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | Build/UCI/Orchestrator | release-4.8.0_RC1 | Deploy/UCI/Orchestrator | release-4.8.0_RC3 |  |
 | Build/UCI/Outbound | release-4.8.0_RC1 | Deploy/UCI/Outbound | release-4.8.0_RC3 |  |
 | Build/UCI/Transformer | release-4.8.0_RC1 | Deploy/UCI/Transformer | release-4.8.0_RC3 |  |
-| Build/KnowledgePlatform/Yarn | release-4.8.0_RC7 | Deploy/KnowledgePlatform/Yarn | release-4.8.0_RC7 | Before deploying please clear the jars and<br>extract folder |
+| Build/KnowledgePlatform/Yarn | release-4.8.0_RC7 | Deploy/KnowledgePlatform/Yarn | release-4.8.0_RC7 | Before deploying clear the jars and<br>extract folder |
 | Build/KnowledgePlatform/Learning | release-4.8.0_RC7 | Deploy/KnowledgePlatform/Learning | release-4.8.0_RC7 |  |
 | Build/KnowledgePlatform/FlinkJobs | release-4.8.0_RC17 | Deploy/KnowledgePlatform/FlinkJobs | release-4.8.0_RC7 |  |
 | Build/DataPipeline/CoreDataProducts | release-4.8.0_RC1 | Deploy/DataPipeline/CoreDataProducts | release-4.8.0_RC4 |  |
@@ -77,8 +77,8 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Manual Step|Instruction|
 |--------------------|--------------------|
-| SB-28756<br>Add content-auto-creator flink job in jenkins KP flink job list.<br>Deploy the content-auto-creator job<br>Please stop the autocreator samza job |  |
-| SB-28381<br>Add qrcode-image-generator flink job in jenkins KP flink job list.<br>Deploy the qrcode-image-generator job<br>Please stop the qrcode-image-generator samza job |  |
+| SB-28756<br>Add content-auto-creator flink job in jenkins KP flink job list.<br>Deploy the content-auto-creator job<br>Stop the autocreator samza job |  |
+| SB-28381<br>Add qrcode-image-generator flink job in jenkins KP flink job list.<br>Deploy the qrcode-image-generator job<br>Stop the qrcode-image-generator samza job |  |
 | Create uci-preprod private containers on Azure for storing <br>inbound and outbound images/videos/audio notes/files - to be accessed by concerned tenants |  |
 | Create DialUploadSchema Jenkins Job in Kubernet folder | check below PR for config.xml:<br>https://github.com/project-sunbird/sunbird-devops/pull/3218/files<br><br>Create container as a blob in {{sunbird_public_storage_account_name}}<br>container name should be :  sunbird-dial-{{env}} |
 
@@ -98,7 +98,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | Build/Kubernetes/Program | release-4.8.0_RC2 | Deploy/Kubernetes/Program | release-4.8.0-vdn_RC1 |  |
 | Build/Kubernetes/Search | release-4.8.0_RC4 | Deploy/Kubernetes/Search | release-4.8.0-vdn_RC1 |  |
 | Build/Kubernetes/Taxonomy | release-4.8.0_RC4 | Deploy/Kubernetes/Taxonomy | release-4.8.0-vdn_RC1 |  |
-| Build/KnowledgePlatform/Yarn | release-4.8.0_RC7 | Deploy/KnowledgePlatform/Yarn | release-4.8.0_RC7 | Before deploying please clear the jars and<br>extract folder |
+| Build/KnowledgePlatform/Yarn | release-4.8.0_RC7 | Deploy/KnowledgePlatform/Yarn | release-4.8.0_RC7 | Before deploying clear the jars and<br>extract folder |
 | Build/KnowledgePlatform/Learning | release-4.8.0_RC7 | Deploy/KnowledgePlatform/Learning | release-4.8.0_RC7 |  |
 | Build/KnowledgePlatform/FlinkJobs | release-4.8.0_RC17 | Deploy/KnowledgePlatform/FlinkJobs | release-4.8.0_RC7 |  |
 | Build/DataPipeline/EdDataProducts | release-4.8.0_RC7 | Deploy/DataPipeline/EdDataProducts | release-4.8.0_RC5 |  |
@@ -109,5 +109,5 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 | Manual Step                                                                                                       | Instruction                                                                                                                            |
 |-------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| SB-28756<br>Add content-auto-creator flink job in jenkins KP flink job list.<br>Deploy the content-auto-creator job<br>Please stop the autocreator samza job |  |
+| SB-28756<br>Add content-auto-creator flink job in jenkins KP flink job list.<br>Deploy the content-auto-creator job<br>Stop the autocreator samza job |  |
 | Update Default Content Visibility of Practice Set Object Type | Sourcing Circle - VDN https://project-sunbird.atlassian.net/browse/SB-28890 |
