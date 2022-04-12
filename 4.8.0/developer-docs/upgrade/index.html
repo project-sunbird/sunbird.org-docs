@@ -17,12 +17,12 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="pragma" content="no-cache" />
-<meta name="last-modified" content="2022-03-25 11:06:11 +0530">
+<meta name="last-modified" content="2022-04-12 11:35:25 +0530">
 <meta http-equiv="Expires" content="600" />
 
 <!--Build Details-->
 <meta name="buildVersion" content="" />
-<meta name="buildNo" content="4196" />
+<meta name="buildNo" content="4209" />
 <meta name="version" id="docsVersion" content="4.8.0" />
 <!--/Build Details-->
 
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" >
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?25032022"  />
+<link rel="stylesheet" href="/css/style.css?12042022"  />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js?25032022"></script>
-<script type="text/javascript" src="/js/jquery.tocLight.js?25032022"></script>
-<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?25032022"></script>
-<script type="text/javascript" src="/js/handlebars-v4.0.11.js?25032022"></script>
-<script type="text/javascript" src="/js/widgets-data.js?25032022"></script>
-<script type="text/javascript" src="/js/widgets.js?25032022"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js?12042022"></script>
+<script type="text/javascript" src="/js/jquery.tocLight.js?12042022"></script>
+<script type="text/javascript" src="/js/jquery.elevateZoom-3.0.8.min.js?12042022"></script>
+<script type="text/javascript" src="/js/handlebars-v4.0.11.js?12042022"></script>
+<script type="text/javascript" src="/js/widgets-data.js?12042022"></script>
+<script type="text/javascript" src="/js/widgets.js?12042022"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106552125-1"></script>
@@ -1223,7 +1223,7 @@ resetBase();
   </table>
 </div><h2 id="overview">Overview</h2>
 
-<p>This page details out the jobs required to be run as part of the upgrade from Sunbird and Vidaydaan release 4.5.0 to release 4.6.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.</p>
+<p>This page details out the jobs required to be run as part of the upgrade from Sunbird and Vidaydaan release 4.7.0 to release 4.8.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.</p>
 
 <h3 id="variables-for-sunbird">Variables for Sunbird</h3>
 
@@ -1233,24 +1233,43 @@ resetBase();
       <th>Variable Name</th>
       <th>Service Name</th>
       <th>Comments</th>
-      <th> </th>
-      <th> </th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>sunbird_portal_cdn_blob_url</td>
-      <td>Player</td>
-      <td>Change value from ‘https://sunbirdstagingpublic.blob.core.windows.net/uci’ to ‘https://sunbirdstagingpublic.blob.core.windows.net/uci/’</td>
-      <td> </td>
-      <td> </td>
+      <td>uci_encryption_key_base64</td>
+      <td>DP dataproducts</td>
+      <td>This need to be added in DP/secrets<br />Use the same value which is added in core/secrets.yml<br />Add this only if it is not added previously</td>
     </tr>
     <tr>
-      <td>Add host group</td>
-      <td>Monitoring</td>
-      <td>[redis-exporter-targets:children]<br />lp-redis<br />dp-redis<br /><br />[redis-cluster:children]<br />redis-exporter-targets<br /><br />[core:children]<br />redis-cluster</td>
+      <td>sunbird_instance</td>
+      <td>EdDataProducts</td>
+      <td>This need to be added in DP/common.yml file.<br />Copy value from core/common.yml file</td>
+    </tr>
+    <tr>
+      <td>auto_creator_g_service_acct_cred</td>
       <td> </td>
+      <td>Updated in VDN KP common.yml <br />Note that the google service acct credentials json <br />Key has to be updated in the environment variable <br />(existing key has ‘\\n’ which is to be replaced with ‘\n’)</td>
+    </tr>
+    <tr>
+      <td>sunbird_azure_uci_container_name</td>
+      <td>Inbound &amp; Outbound</td>
+      <td>create in <br />Updated according to environment: uci-preprod</td>
+    </tr>
+    <tr>
+      <td>ml_analytics_azure_sas_token</td>
       <td> </td>
+      <td>create SAS 1 year SAS token with Read, Write, Delete <br />permissions for <br />sunbird_public_storage_account_name/telemetry-data-store</td>
+    </tr>
+    <tr>
+      <td>ml_analytics_azure_account_name</td>
+      <td> </td>
+      <td>sunbird_public_storage_account_name</td>
+    </tr>
+    <tr>
+      <td>uci_env</td>
+      <td>Sunbird Data Pipeline, Transformer</td>
+      <td>update according to environment<br />in staging env —&gt; “staging”</td>
     </tr>
   </tbody>
 </table>
@@ -1269,269 +1288,290 @@ resetBase();
   </thead>
   <tbody>
     <tr>
-      <td>Build/Plugins/ContentPlayer</td>
-      <td>release-4.6.0_RC1</td>
-      <td>Deploy/staging/Plugins/ContentPlayer</td>
-      <td>release-4.6.0_RC2</td>
       <td> </td>
-    </tr>
-    <tr>
-      <td>Build/Plugins/ContentPlugins</td>
-      <td>release-4.6.0_RC2</td>
-      <td>Deploy/staging/Plugins/ContentPlugins</td>
-      <td>release-4.6.0_RC2</td>
+      <td> </td>
+      <td>Deploy/Kubernetes/UploadSchemas</td>
+      <td>branch_or_tag: release-4.8.0_RC3<br />kp_branch_or_tag: release-4.8.0_RC4</td>
       <td> </td>
     </tr>
     <tr>
       <td> </td>
       <td> </td>
-      <td>Deploy/staging/Core/KafkaSetup</td>
-      <td>release-4.6.0_RC2</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Build/Kubernetes/Cassandra</td>
-      <td>release-4.6.0_RC1</td>
-      <td>Deploy/staging/Kubernetes/Cassandra</td>
-      <td>release-4.6.0_RC2</td>
+      <td>Deploy/Kubernetes/DialUploadSchema</td>
+      <td>branch_or_tag: release-4.8.0_RC3<br />dial_branch_or_tag: release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/Core/OfflineInstaller</td>
-      <td>release-4.6.0_RC25</td>
-      <td>Deploy/staging/Core/OfflineInstaller</td>
-      <td>release-4.6.0_RC2</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/staging/Kubernetes/Keycloak</td>
-      <td>release-4.6.0_RC2</td>
+      <td>release-4.8.0_RC31</td>
+      <td>Deploy/Core/OfflineInstaller</td>
+      <td>release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/Kubernetes/Assessment</td>
-      <td>release-4.6.0_RC2</td>
-      <td>Deploy/staging/Kubernetes/Assessment</td>
-      <td>release-4.6.0_RC2</td>
+      <td>release-4.8.0_RC4</td>
+      <td>Deploy/Kubernetes/Assessment</td>
+      <td>release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
       <td> </td>
       <td> </td>
-      <td>Deploy/staging/Kubernetes/APIManager</td>
-      <td>release-4.6.0_RC2</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/staging/Kubernetes/Analytics</td>
-      <td>release-4.6.0_RC2</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/staging/Kubernetes/CertRegistry</td>
-      <td>release-4.6.0_RC2</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/staging/Kubernetes/KnowledgeMW</td>
-      <td>release-4.6.0_RC2</td>
+      <td>Deploy/Kubernetes/Analytics</td>
+      <td>release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/Kubernetes/Content</td>
-      <td>release-4.6.0_RC2</td>
-      <td>Deploy/staging/Kubernetes/Content</td>
-      <td>release-4.6.0_RC2</td>
+      <td>release-4.8.0_RC4</td>
+      <td>Deploy/Kubernetes/Content</td>
+      <td>release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
-      <td>Build/Kubernetes/DiscussionsMW</td>
-      <td>release-4.6.0_RC3</td>
-      <td>Deploy/staging/Kubernetes/DiscussionsMW</td>
-      <td>release-4.6.0_RC2</td>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/Learner</td>
+      <td>release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
-      <td>Build/Kubernetes/Learner</td>
-      <td>release-4.6.0_RC6</td>
-      <td>Deploy/staging/Kubernetes/Learner</td>
-      <td>release-4.6.0_RC2</td>
-      <td> </td>
+      <td>Build/Kubernetes/Dial</td>
+      <td>release-4.8.0_RC3</td>
+      <td>Deploy/Kubernetes/Dial</td>
+      <td>release-4.8.0_RC3</td>
+      <td>DialUploadSchema needs to be deployed before dial</td>
     </tr>
     <tr>
       <td>Build/Kubernetes/Lms</td>
-      <td>release-4.6.0_RC3</td>
-      <td>Deploy/staging/Kubernetes/Lms</td>
-      <td>release-4.6.0_RC2</td>
+      <td>release-4.8.0_RC2</td>
+      <td>Deploy/Kubernetes/Lms</td>
+      <td>release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
-      <td>Build/Kubernetes/Nodebb</td>
-      <td>release-4.6.0_RC3</td>
-      <td>Deploy/staging/Kubernetes/Nodebb</td>
-      <td>release-4.6.0_RC2</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Build/Kubernetes/Notification</td>
-      <td>release-4.6.0_RC2</td>
-      <td>Deploy/staging/Kubernetes/Notification</td>
-      <td>release-4.6.0_RC2</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>Build/Kubernetes/Player</td>
-      <td>release-4.6.0_RC25</td>
-      <td>Deploy/staging/Kubernetes/Player</td>
-      <td>release-4.6.0_RC2</td>
+      <td>Build/Kubernetes/KnowledgeMW</td>
+      <td>release-4.8.0_RC2</td>
+      <td>Deploy/Kubernetes/KnowledgeMW</td>
+      <td>release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/Kubernetes/Search</td>
-      <td>release-4.6.0_RC2</td>
-      <td>Deploy/staging/Kubernetes/Search</td>
-      <td>release-4.6.0_RC2</td>
+      <td>release-4.8.0_RC4</td>
+      <td>Deploy/Kubernetes/Search</td>
+      <td>release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/Kubernetes/Taxonomy</td>
-      <td>release-4.6.0_RC2</td>
-      <td>Deploy/staging/Kubernetes/Taxonomy</td>
-      <td>release-4.6.0_RC2</td>
+      <td>release-4.8.0_RC4</td>
+      <td>Deploy/Kubernetes/Taxonomy</td>
+      <td>release-4.8.0_RC3</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/Kubernetes/Player</td>
+      <td>release-4.8.0_RC31</td>
+      <td>Deploy/Kubernetes/Player</td>
+      <td>release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
       <td> </td>
       <td> </td>
-      <td>Deploy/staging/managed-learn/ml-analytics-service</td>
-      <td>release-4.6.0_RC2</td>
+      <td>Deploy/Kubernetes/Keycloak</td>
+      <td>release-4.8.0_RC3</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/APIManager</td>
+      <td>release-4.8.0_RC3</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/Logging</td>
+      <td>release-4.8.0_RC3</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/Monitoring</td>
+      <td>release-4.8.0_RC3</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/OnboardAPIs</td>
+      <td>release-4.8.0_RC3</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/OnboardConsumers</td>
+      <td>release-4.8.0_RC3</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/nginx-public-ingress</td>
+      <td>release-4.8.0_RC3</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/managed-learn/ml-analytics-service</td>
+      <td>release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/managed-learn/ml-core-service</td>
-      <td>release-4.6.0_RC3</td>
-      <td>Deploy/staging/managed-learn/ml-core-service</td>
-      <td>release-4.6.0_RC2</td>
+      <td>release-4.8.0_RC4</td>
+      <td>Deploy/managed-learn/ml-core-service</td>
+      <td>release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/managed-learn/ml-projects-service</td>
-      <td>release-4.6.0_RC4</td>
-      <td>Deploy/staging/managed-learn/ml-projects-service</td>
-      <td>release-4.6.0_RC2</td>
+      <td>release-4.8.0_RC7</td>
+      <td>Deploy/managed-learn/ml-projects-service</td>
+      <td>release-4.8.0_RC3</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/managed-learn/ml-reports-service</td>
+      <td>release-4.8.0_RC1</td>
+      <td>Deploy/managed-learn/ml-reports-service</td>
+      <td>release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/managed-learn/ml-survey-service</td>
-      <td>release-4.6.0_RC4</td>
-      <td>Deploy/staging/managed-learn/ml-survey-service</td>
-      <td>release-4.6.0_RC2</td>
+      <td>release-4.8.0_RC2</td>
+      <td>Deploy/managed-learn/ml-survey-service</td>
+      <td>release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
+      <td>Build/UCI/utils</td>
+      <td>release-4.8.0_RC1</td>
       <td> </td>
       <td> </td>
-      <td>Deploy/staging/UCI/fusionauth</td>
-      <td>release-4.6.0_RC2</td>
+      <td>To be built in sequence-1</td>
+    </tr>
+    <tr>
+      <td>Build/UCI/message-rosa</td>
+      <td>release-4.8.0_RC1</td>
       <td> </td>
+      <td> </td>
+      <td>To be built in sequence-2</td>
+    </tr>
+    <tr>
+      <td>Build/UCI/dao</td>
+      <td>release-4.8.0_RC1</td>
+      <td> </td>
+      <td> </td>
+      <td>To be built in sequence-3</td>
+    </tr>
+    <tr>
+      <td>Build/UCI/Adapter</td>
+      <td>release-4.8.0_RC1</td>
+      <td> </td>
+      <td> </td>
+      <td>To be built in sequence-4</td>
     </tr>
     <tr>
       <td>Build/UCI/Inbound</td>
-      <td>release-4.6.0</td>
-      <td>Deploy/staging/UCI/Inbound</td>
-      <td>release-4.6.0_RC2</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/staging/UCI/odk</td>
-      <td>release-4.6.0_RC2</td>
+      <td>release-4.8.0_RC1</td>
+      <td>Deploy/UCI/Inbound</td>
+      <td>release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/UCI/Orchestrator</td>
-      <td>release-4.6.0</td>
-      <td>Deploy/staging/UCI/Orchestrator</td>
-      <td>release-4.6.0_RC2</td>
+      <td>release-4.8.0_RC1</td>
+      <td>Deploy/UCI/Orchestrator</td>
+      <td>release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/UCI/Outbound</td>
-      <td>release-4.6.0</td>
-      <td>Deploy/staging/UCI/Outbound</td>
-      <td>release-4.6.0_RC2</td>
+      <td>release-4.8.0_RC1</td>
+      <td>Deploy/UCI/Outbound</td>
+      <td>release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/UCI/Transformer</td>
-      <td>release-4.6.0</td>
-      <td>Deploy/staging/UCI/Transformer</td>
-      <td>release-4.6.0_RC2</td>
+      <td>release-4.8.0_RC1</td>
+      <td>Deploy/UCI/Transformer</td>
+      <td>release-4.8.0_RC3</td>
       <td> </td>
     </tr>
     <tr>
-      <td>Build/UCI/UCI</td>
-      <td>release-4.6.0</td>
-      <td>Deploy/staging/UCI/UCI</td>
-      <td>release-4.6.0_RC2</td>
-      <td> </td>
+      <td>Build/KnowledgePlatform/Yarn</td>
+      <td>release-4.8.0_RC7</td>
+      <td>Deploy/KnowledgePlatform/Yarn</td>
+      <td>release-4.8.0_RC7</td>
+      <td>Before deploying clear the jars and<br />extract folder</td>
     </tr>
     <tr>
+      <td>Build/KnowledgePlatform/Learning</td>
+      <td>release-4.8.0_RC7</td>
+      <td>Deploy/KnowledgePlatform/Learning</td>
+      <td>release-4.8.0_RC7</td>
       <td> </td>
-      <td> </td>
-      <td>OpsAdministration/staging/Core/GraylogMongoImport</td>
-      <td>release-4.6.0_RC2</td>
-      <td>graylog_mongo_collections: grok_patterns,pipeline_processor_pipelines,pipeline_processor_pipelines_streams,pipeline_processor_rules</td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/staging/Kubernetes/OnboardConsumers</td>
-      <td>release-4.6.0_RC2</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/staging/Kubernetes/OnboardAPIs</td>
-      <td>release-4.6.0_RC2</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/staging/Kubernetes/Monitoring</td>
-      <td>release-4.6.0_RC2</td>
-      <td>tag: dashboards</td>
     </tr>
     <tr>
       <td>Build/KnowledgePlatform/FlinkJobs</td>
-      <td>release-4.6.0_RC5</td>
-      <td>Deploy/staging/KnowledgePlatform/FlinkJobs</td>
-      <td>release-4.6.0_RC1</td>
+      <td>release-4.8.0_RC17</td>
+      <td>Deploy/KnowledgePlatform/FlinkJobs</td>
+      <td>release-4.8.0_RC7</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/DataPipeline/CoreDataProducts</td>
+      <td>release-4.8.0_RC1</td>
+      <td>Deploy/DataPipeline/CoreDataProducts</td>
+      <td>release-4.8.0_RC4</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/DataPipeline/EdDataProducts</td>
-      <td>release-4.6.0_RC2</td>
-      <td>Deploy/staging/DataPipeline/EdDataProducts</td>
-      <td>release-4.6.0_RC2</td>
+      <td>release-4.8.0_RC7</td>
+      <td>Deploy/DataPipeline/EdDataProducts</td>
+      <td>release-4.8.0_RC5</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/DataPipeline/ETLJobs</td>
+      <td>release-4.8.0_RC7</td>
+      <td>Deploy/DataPipeline/ETLJobs</td>
+      <td>release-4.8.0_RC5</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/DataPipeline/ETLDruidContentIndexer</td>
+      <td>release-4.8.0_RC7</td>
+      <td>Deploy/DataPipeline/ETLDruidContentIndexer</td>
+      <td>release-4.8.0_RC5</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/DataPipeline/FlinkPipelineJobs</td>
-      <td>release-4.6.0_RC1</td>
-      <td>Deploy/staging/DataPipeline/FlinkPipelineJobs</td>
-      <td>release-4.6.0_RC2</td>
+      <td>release-4.8.0_RC4</td>
+      <td>Deploy/DataPipeline/FlinkPipelineJobs</td>
+      <td>release-4.8.0_RC5</td>
       <td> </td>
     </tr>
   </tbody>
@@ -1548,16 +1588,20 @@ resetBase();
   </thead>
   <tbody>
     <tr>
-      <td>Create Kafka Topic</td>
-      <td>Topic Name - .ml.projects.submissions<br /><br />This has to be accessible for consumption by data pipeline</td>
+      <td>SB-28756<br />Add content-auto-creator flink job in jenkins KP flink job list.<br />Deploy the content-auto-creator job<br />Stop the autocreator samza job</td>
+      <td> </td>
     </tr>
     <tr>
-      <td>Add refresh_data in ETLUserCacheIndexer</td>
-      <td>Job Name: ETLUserCacheIndexer<br />parameter: refresh_data<br /><br />“Please add refresh_data as another parameter in ETLUserCacheIndexer job.<br /><br />make default value as (““false””)”<br /><br />https://github.com/project-sunbird/sunbird-devops/pull/3154/files</td>
+      <td>SB-28381<br />Add qrcode-image-generator flink job in jenkins KP flink job list.<br />Deploy the qrcode-image-generator job<br />Stop the qrcode-image-generator samza job</td>
+      <td> </td>
     </tr>
     <tr>
-      <td>spark-script</td>
-      <td>https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/3050930177/SB-28196+User+org+association+issue+-+Data+correction</td>
+      <td>Create uci-preprod private containers on Azure for storing <br />inbound and outbound images/videos/audio notes/files - to be accessed by concerned tenants</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Create DialUploadSchema Jenkins Job in Kubernet folder</td>
+      <td>check below PR for config.xml:<br />https://github.com/project-sunbird/sunbird-devops/pull/3218/files<br /><br />Create container as a blob in <br />container name should be :  sunbird-dial-</td>
     </tr>
   </tbody>
 </table>
@@ -1578,101 +1622,108 @@ resetBase();
   </thead>
   <tbody>
     <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/UploadSchemas</td>
+      <td>branch_or_tag: release-4.8.0-vdn_RC1<br />schemas_branch: release-4.8.0_RC18</td>
+      <td> </td>
+    </tr>
+    <tr>
       <td>Build/Kubernetes/Assessment</td>
-      <td>release-4.6.0_RC2</td>
-      <td>Deploy/DockStaging/Kubernetes/Assessment</td>
-      <td>release-4.6.0-vdn</td>
+      <td>release-4.8.0_RC4</td>
+      <td>Deploy/Kubernetes/Assessment</td>
+      <td>release-4.8.0-vdn_RC1</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/Kubernetes/Content</td>
-      <td>release-4.6.0_RC2</td>
-      <td>Deploy/DockStaging/Kubernetes/Content</td>
-      <td>release-4.6.0-vdn</td>
+      <td>release-4.8.0_RC4</td>
+      <td>Deploy/Kubernetes/Content</td>
+      <td>release-4.8.0-vdn_RC1</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/OnboardConsumers</td>
+      <td>release-4.8.0-vdn_RC1</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>Deploy/Kubernetes/Onboardapi</td>
+      <td>release-4.8.0-vdn_RC1</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/Kubernetes/Player</td>
-      <td>release-4.6.0_RC9</td>
-      <td>Deploy/DockStaging/Kubernetes/Player</td>
-      <td>release-4.6.0-vdn</td>
+      <td>release-4.8.0_RC18</td>
+      <td>Deploy/Kubernetes/Player</td>
+      <td>release-4.8.0-vdn_RC1</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/Kubernetes/Program</td>
-      <td>release-4.6.0_RC6</td>
-      <td>Deploy/DockStaging/Kubernetes/Program</td>
-      <td>release-4.6.0-vdn</td>
+      <td>release-4.8.0_RC2</td>
+      <td>Deploy/Kubernetes/Program</td>
+      <td>release-4.8.0-vdn_RC1</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/Kubernetes/Search</td>
-      <td>release-4.6.0_RC2</td>
-      <td>Deploy/DockStaging/Kubernetes/Search</td>
-      <td>release-4.6.0-vdn</td>
+      <td>release-4.8.0_RC4</td>
+      <td>Deploy/Kubernetes/Search</td>
+      <td>release-4.8.0-vdn_RC1</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/Kubernetes/Taxonomy</td>
-      <td>release-4.6.0_RC2</td>
-      <td>Deploy/DockStaging/Kubernetes/Taxonomy</td>
-      <td>release-4.6.0-vdn</td>
+      <td>release-4.8.0_RC4</td>
+      <td>Deploy/Kubernetes/Taxonomy</td>
+      <td>release-4.8.0-vdn_RC1</td>
       <td> </td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/DockStaging/Kubernetes/Upload_CollectionHierarchy_CSV</td>
-      <td>release-4.6.0_RC2</td>
-      <td>After upload restart Assessment service</td>
+      <td>Build/KnowledgePlatform/Yarn</td>
+      <td>release-4.8.0_RC7</td>
+      <td>Deploy/KnowledgePlatform/Yarn</td>
+      <td>release-4.8.0_RC7</td>
+      <td>Before deploying clear the jars and<br />extract folder</td>
     </tr>
     <tr>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/DockStaging/Kubernetes/OnboardAPIs</td>
-      <td>release-4.6.0-vdn</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td>Deploy/DockStaging/Kubernetes/OnboardConsumers</td>
-      <td>release-4.6.0-vdn</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
+      <td>Build/KnowledgePlatform/Learning</td>
+      <td>release-4.8.0_RC7</td>
+      <td>Deploy/KnowledgePlatform/Learning</td>
+      <td>release-4.8.0_RC7</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/KnowledgePlatform/FlinkJobs</td>
-      <td>release-4.6.0_RC5</td>
-      <td>Deploy/DockStaging/KnowledgePlatform/FlinkJobs</td>
-      <td>release-4.6.0_RC1</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
+      <td>release-4.8.0_RC17</td>
+      <td>Deploy/KnowledgePlatform/FlinkJobs</td>
+      <td>release-4.8.0_RC7</td>
       <td> </td>
     </tr>
     <tr>
       <td>Build/DataPipeline/EdDataProducts</td>
-      <td>release-4.6.0_RC2</td>
-      <td>Deploy/DockStaging/DataPipeline/EdDataProducts</td>
-      <td>release-4.6.0_RC2</td>
+      <td>release-4.8.0_RC7</td>
+      <td>Deploy/DataPipeline/EdDataProducts</td>
+      <td>release-4.8.0_RC5</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/DataPipeline/ETLJobs</td>
+      <td>release-4.8.0_RC7</td>
+      <td>Deploy/DataPipeline/ETLJobs</td>
+      <td>release-4.8.0_RC5</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Build/DataPipeline/ETLDruidContentIndexer</td>
+      <td>release-4.8.0_RC7</td>
+      <td>Deploy/DataPipeline/ETLDruidContentIndexer</td>
+      <td>release-4.8.0_RC5</td>
       <td> </td>
     </tr>
   </tbody>
@@ -1689,16 +1740,12 @@ resetBase();
   </thead>
   <tbody>
     <tr>
-      <td>Config update for Exam Question Set object type for Haryana tenant</td>
-      <td>Sourcing Circle - VDN<br />https://project-sunbird.atlassian.net/browse/SB-28508</td>
+      <td>SB-28756<br />Add content-auto-creator flink job in jenkins KP flink job list.<br />Deploy the content-auto-creator job<br />Stop the autocreator samza job</td>
+      <td> </td>
     </tr>
     <tr>
-      <td>Config update for enabling Multiple Choice question in a question set for Haryana tenant</td>
-      <td>Sourcing Circle - VDN<br />https://project-sunbird.atlassian.net/browse/SB-28509</td>
-    </tr>
-    <tr>
-      <td>Config update for enabling Subjective question in a question set for Haryana tenant</td>
-      <td>Sourcing Circle - VDN<br />https://project-sunbird.atlassian.net/browse/SB-28509</td>
+      <td>Update Default Content Visibility of Practice Set Object Type</td>
+      <td>Sourcing Circle - VDN https://project-sunbird.atlassian.net/browse/SB-28890</td>
     </tr>
   </tbody>
 </table>
