@@ -1,0 +1,628 @@
+openapi: 3.0.1
+info:
+  title: Form API(s)
+  description: >-
+    - The Form APIs allow you to create and update metadata form fields based on
+    type, subtype and action. Use the APIs to configure form fields as required
+    for the specific form.
+
+    - The URL for Form API is `/data/v1/form/`.
+  version: '1.0'
+servers:
+  - url: 'http://staging.open-sunbird.org/api'
+paths:
+  /data/v1/form/create:
+    post:
+      tags:
+        - Form API(s)
+      summary: Create Form
+      description: |-
+        This API is used to create a form with default fields using meta data
+              
+          - The internal endpoint for **Create Form** is `/plugin/v1/form/create`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: FormCreate
+      parameters:
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of any User API, you require authorization. Raise a
+            request to the administrator for the use of the API. You will
+            receive the authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          description: |-
+            The Content Type entity is the media type of the resource.
+             Possible media types can be:- 
+               - Application/json
+               - Multipart/form-data
+               - Application/x-www-form-urlencoded
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the request for creating a form.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/formapiformcreateRequest'
+        required: true
+      responses:
+        '200':
+          description: SUCCESS. The "Create Form data" operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/formapicreateResponse'
+              examples:
+                Course Unit:
+                  value: |-
+                    {
+                        "id": "api.form.create",
+                        "params": {
+                            "resmsgid": "ae043094-08a8-4eb5-a128-3e42eadf6a06",
+                            "msgid": "0f02b637-b4c4-45ed-b9c6-5ec54b591e9c",
+                            "status": "successful"
+                        },
+                        "responseCode": "OK",
+                        "result": {
+                            "created": "OK"
+                        },
+                        "ts": "2020-12-09T11:31:12.644Z",
+                        "ver": "1.0"
+                    }
+        '400':
+          description: >-
+            BAD REQUEST. "Create Form data" operation failed. You may have
+            missed input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/formapiFailedResponseHeader'
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/formapiFailedResponseHeader'
+      security:
+        - bearer: []
+      x-codegen-request-body-name: Body
+  /data/v1/form/update:
+    post:
+      tags:
+        - Form API(s)
+      summary: Update Form
+      description: >-
+        This API is used to update the form metadata as per the requirement or
+        choice
+
+          - The endpoint for **Update Form** is `/plugin/v1/form/update`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: FormUpdate
+      parameters:
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of any User API, you require authorization. Raise a
+            request to the administrator for the use of the API. You will
+            receive the authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          description: |-
+            The Content Type entity is the media type of the resource.
+             Possible media types can be:- 
+               - Application/json
+               - Multipart/form-data
+               - Application/x-www-form-urlencoded
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the request for updating a form.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/formapiformcreateRequest'
+        required: true
+      responses:
+        '200':
+          description: SUCCESS. The "Update Form" operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/formapicreateResponse'
+              examples:
+                Update Course Unit:
+                  value: |-
+                    {
+                        "id": "api.form.update",
+                        "params": {
+                            "resmsgid": "89b226b2-ce80-4a9b-a641-4f47151b7934",
+                            "msgid": "131e4aa1-872e-4ab8-aba7-fc2fb39bdcab",
+                            "status": "successful"
+                        },
+                        "responseCode": "OK",
+                        "result": {
+                            "response": [
+                                {
+                                    "rootOrgId": "*",
+                                    "key": "content.courseunit.unitsave.*",
+                                    "status": "SUCCESS"
+                                }
+                            ]
+                        },
+                        "ts": "2020-12-09T11:34:47.993Z",
+                        "ver": "1.0"
+                    }
+        '400':
+          description: >-
+            BAD REQUEST. "Update Form" operation failed. You may have missed
+            input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/formapiFailedResponseHeader'
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/formapiFailedResponseHeader'
+      security:
+        - bearer: []
+      x-codegen-request-body-name: Body
+  /data/v1/form/read:
+    post:
+      tags:
+        - Form API(s)
+      summary: Read Form
+      description: >-
+        This API is used to view and read the form data and other fields of the
+        form
+
+          - The endpoint for **Read Form** is `/plugin/v1/form/read`
+          - The fields marked with an asterisk (*) are mandatory. They cannot be null or empty.
+      operationId: FormRead
+      parameters:
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of any User API, you require authorization. Raise a
+            request to the administrator for the use of the API. You will
+            receive the authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          description: |-
+            The Content Type entity is the media type of the resource.
+             Possible media types can be:- 
+               - Application/json
+               - Multipart/form-data
+               - Application/x-www-form-urlencoded
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata about the request for reading a form.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/formapiformReadRequest'
+        required: true
+      responses:
+        '200':
+          description: SUCCESS. The "Read Form data" operation was successful!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/formapireadResponse'
+              examples:
+                Course Unit:
+                  value: |-
+                    {
+                        "id": "api.form.read",
+                        "params": {
+                            "resmsgid": "b0cbec6a-a602-481b-b1c4-cd4230652c52",
+                            "msgid": "c02e139b-07ce-485d-8967-f9eed2bf6bdc",
+                            "status": "successful"
+                        },
+                        "responseCode": "OK",
+                        "result": {
+                            "form": {
+                                "type": "content",
+                                "subtype": "courseunit",
+                                "action": "unitsave",
+                                "component": "*",
+                                "framework": "*",
+                                "data": {
+                                    "templateName": "unitMetaTemplate",
+                                    "action": "unitsave",
+                                    "fields": [
+                                        {
+                                            "code": "name",
+                                            "dataType": "text",
+                                            "description": "Title of the content",
+                                            "editable": true,
+                                            "index": 1,
+                                            "inputType": "text",
+                                            "label": "Title",
+                                            "name": "Title",
+                                            "placeholder": "Enter the Title ",
+                                            "renderingHints": {},
+                                            "required": true,
+                                            "visible": true
+                                        },
+                                        {
+                                            "code": "description",
+                                            "dataType": "text",
+                                            "description": "Brief description",
+                                            "editable": true,
+                                            "index": 2,
+                                            "inputType": "textarea",
+                                            "label": "Description",
+                                            "name": "Description",
+                                            "placeholder": "Description",
+                                            "renderingHints": {},
+                                            "required": true,
+                                            "visible": true
+                                        },
+                                        {
+                                            "code": "keywords",
+                                            "dataType": "list",
+                                            "description": "Keywords for the content",
+                                            "editable": true,
+                                            "index": 3,
+                                            "inputType": "keywordsuggestion",
+                                            "label": "keywords",
+                                            "name": "Keywords",
+                                            "placeholder": "Enter Keywords",
+                                            "required": true,
+                                            "visible": true
+                                        },
+                                        {
+                                            "code": "topic",
+                                            "dataType": "list",
+                                            "description": "Choose a topic",
+                                            "editable": true,
+                                            "index": 4,
+                                            "inputType": "topicselector",
+                                            "label": "Topics",
+                                            "name": "Topics",
+                                            "placeholder": "Choose Topics",
+                                            "renderingHints": {},
+                                            "required": false,
+                                            "visible": true
+                                        }
+                                    ]
+                                },
+                                "created_on": "2020-12-09T11:31:12.565Z",
+                                "last_modified_on": "2020-12-09T11:34:46.917Z",
+                                "rootOrgId": "*"
+                            }
+                        },
+                        "ts": "2020-12-09T11:36:19.586Z",
+                        "ver": "1.0"
+                    }
+        '400':
+          description: >-
+            BAD REQUEST. "Read Form data" operation failed. You may have missed
+            input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/formapiFailedResponseHeader'
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR. We track these errors automatically and try
+            to set it right at the earliest. Try refreshing the page. If the
+            problem persists contact us at info@sunbird.org.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/formapiFailedResponseHeader'
+      security:
+        - bearer: []
+      x-codegen-request-body-name: Body
+components:
+  schemas:
+    formapireadRequest:
+      title: Form read API request object
+      type: object
+      properties:
+        request:
+          required:
+            - action
+            - framework
+            - rootOrgId
+            - subType
+            - type
+          type: object
+          properties:
+            type:
+              type: string
+            subType:
+              type: string
+            action:
+              type: string
+            framework:
+              type: string
+            rootOrgId:
+              type: string
+    formapiformReadRequest:
+      title: The Read Form API request body
+      allOf:
+        - $ref: '#/components/schemas/formapiApiRequest'
+        - $ref: '#/components/schemas/formapireadRequest'
+    formapiformcreateRequest:
+      title: The Create and Update form API request body
+      allOf:
+        - $ref: '#/components/schemas/formapiApiRequest'
+        - $ref: '#/components/schemas/formapicreateRequest'
+    formapicreateRequest:
+      title: Represents the request object of Create and Update Form request object
+      type: object
+      properties:
+        request:
+          required:
+            - action
+            - data
+            - framework
+            - rootOrgId
+            - subType
+            - type
+          type: object
+          properties:
+            type:
+              type: string
+            subType:
+              type: string
+            action:
+              type: string
+            framework:
+              type: string
+            rootOrgId:
+              type: string
+            data:
+              $ref: '#/components/schemas/formapidataFields'
+    formapireadResponse:
+      title: The basic reponse object for read form
+      allOf:
+        - $ref: '#/components/schemas/formapiApiResponse'
+        - $ref: '#/components/schemas/formapireadResult'
+    formapicreateResponse:
+      title: The response object for create and update form
+      allOf:
+        - $ref: '#/components/schemas/formapiApiResponse'
+        - $ref: '#/components/schemas/formapicreateResult'
+    formapireadResult:
+      title: The response object of read(Reading result)
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            form:
+              type: object
+              properties:
+                type:
+                  type: string
+                subType:
+                  type: string
+                action:
+                  type: string
+                framework:
+                  type: string
+                rootOrgId:
+                  type: string
+                data:
+                  $ref: '#/components/schemas/formapidataFields'
+    formapicreateResult:
+      title: The response object of create and update (Result)
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            response:
+              type: object
+              properties:
+                rootOrgId:
+                  type: string
+                key:
+                  type: string
+                status:
+                  type: string
+    formapiFailedResponseHeader:
+      title: Failure Response
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the API
+        ver:
+          type: string
+          description: The version information of the API
+        ts:
+          type: string
+          description: ETA for API execution
+        params:
+          $ref: '#/components/schemas/formapiFailedResponseParams'
+        responseCode:
+          type: string
+          description: It is the response code that comes on execution of API
+        result:
+          type: object
+          properties:
+            result:
+              type: string
+              description: result
+    formapiFailedResponseParams:
+      title: Failed Response Parameter
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          description: Unique ID that represents the Response
+        msgid:
+          type: string
+          description: Unique ID that represents a response message
+        err:
+          type: string
+          description: Represents that error code if the request fails
+        status:
+          type: string
+          description: Represents the response status after the exection of the API
+        errmsg:
+          type: string
+          description: Represents the error message after the execution of the API
+    formapidataFields:
+      type: object
+      properties:
+        templateName:
+          type: string
+        action:
+          type: string
+        fields:
+          type: array
+          items:
+            required:
+              - code
+              - dataType
+              - editable
+              - index
+              - inputType
+              - label
+              - placeholder
+              - required
+              - visible
+            type: object
+            properties:
+              code:
+                type: string
+                description: Unique code to identify a form field
+              dataType:
+                type: string
+                description: DataType of the form field
+              description:
+                type: string
+                description: Description about the form field
+              editable:
+                type: boolean
+                description: Based on this value form will be render in editable mode
+              inputType:
+                type: string
+                description: 'Type of field (text, select) etc.'
+              label:
+                type: string
+                description: The display label of the field
+              name:
+                type: string
+                description: Name of the field on the form
+              index:
+                type: integer
+                description: The position of a field on any form depends on this value
+              placeholder:
+                type: string
+                description: It defines the location at which the form field can be placed
+              required:
+                type: boolean
+                description: It specifies that the form field is mandatory
+              visible:
+                type: boolean
+                description: >-
+                  Represents the visibility property that is used to set whether
+                  a field should be visible or not
+              renderingHints:
+                type: object
+                properties: {}
+                description: Quick tips on the rendering of the form
+    formapiApiRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents an API uniquely
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since EPOCH
+          format: int64
+        params:
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the unique ID of the message being sent
+            did:
+              type: string
+              description: Represents the device UUID from which API is called
+    formapiApiResponse:
+      required:
+        - ets
+        - id
+        - params
+        - ver
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents the ID of the request which was made
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since EPOCH
+          format: int64
+        params:
+          required:
+            - msgid
+            - resmsgid
+            - status
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the ID of the message sent
+            resmsgid:
+              type: string
+              description: Represents the ID of the response message
+            status:
+              type: string
+              enum:
+                - success
+                - error
+        responseCode:
+          type: string
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+    userToken:
+      type: apiKey
+      name: x-authenticated-user-token
+      in: header
