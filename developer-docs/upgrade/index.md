@@ -78,6 +78,6 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 
 ### Manual Configuration for vdn
-| Manual Step | Instruction |
-|------|-------------------------|
+|Manual Step|Instruction|
+|--------------------|--------------------|
 | Enable reuse of questions from question set editor | [SB-28566](https://project-sunbird.atlassian.net/browse/SB-28566)  |
