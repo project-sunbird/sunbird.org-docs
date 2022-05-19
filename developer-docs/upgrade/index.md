@@ -55,8 +55,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Manual Step|Instruction|
 |--------------------|--------------------|
-| Add soft link to Core/keys directory in private repo for Sunbird-RC directory
-ln -s ../Core/keys/ keys | |
+| Add soft link to Core/keys directory in private repo for Sunbird-RC directory | ln -s ../Core/keys/ keys |
 | Enable reuse of questions from question set editor | [SB-28566](https://project-sunbird.atlassian.net/browse/SB-28566) || Creation of a new tab called Question Sets to be created on Web Portal for searchability by users | [SB-29588](https://project-sunbird.atlassian.net/browse/SB-29588) |
 | Addition of a new Content Type - Exam Question | [SB-29584](https://project-sunbird.atlassian.net/browse/SB-29584) |
 | Udpate the menu config | [SB-29779](https://project-sunbird.atlassian.net/browse/SB-29779) <br> [SB-29791](https://project-sunbird.atlassian.net/browse/SB-29791) |
