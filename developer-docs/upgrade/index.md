@@ -51,7 +51,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |             |                   | Deploy/Sunbird-RC/Registry | release-4.9.0_RC2 | |
 
 
-### Manual Configurations forSunbird
+### Manual Configurations for Sunbird
 
 |Manual Step|Instruction|
 |--------------------|--------------------|
@@ -77,7 +77,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |  |    | Deploy/Kubernetes/UploadSchemas | release-4.9.0-vdn_RC1 | schema branch : release-4.9.0 |
 
 
-### Manual Configu
-| Manual Step                                                                                                       | Instruction                                                                 |
-|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+### Manual Configuration for vdn
+| Manual Step | Instruction |
+|------|-------------------------|
 | Enable reuse of questions from question set editor | [SB-28566](https://project-sunbird.atlassian.net/browse/SB-28566)  |
