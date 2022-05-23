@@ -41,7 +41,8 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | Build/Kubernetes/Taxonomy | release-4.9.0_RC8 | Deploy/Kubernetes/Taxonomy | release-4.9.0_RC2 | |
 |             |   | Deploy/Kubernetes/nginx-private-ingress | release-4.9.0_RC2 | |
 |             |   | Deploy/Kubernetes/nginx-public-ingress | release-4.9.0_RC2 | |
-|             |   | Deploy/Kubernetes/OnboardAPIs | release-4.9.0_Rc2 | |
+|             |   | Deploy/Kubernetes/OnboardAPIs | release-4.9.0_RC2 | |
+|             |   | Deploy/Kuberenetes/OnboardConsumers | release-4.9.0_RC2 | |
 |          |  | Deploy/managed-learn/ml-analytics-service  | release-4.9.0_RC2 | |
 | Build//managed-learn/ml-core-service | release-4.9.0_RC4 | Deplo/managed-learn/ml-core-service | release-4.9.0_RC2 | |
 | Build/managed-learn/ml-projects-service | release-4.9.0_RC5 | Deploy/managed-learn/ml-projects-service | release-4.9.0_RC2 | |
