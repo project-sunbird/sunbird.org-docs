@@ -3057,7 +3057,7 @@ paths:
       responses:
         '200':
           description: >-
-            OK ! Successful operation. The **Copy Question Set** operation was successfuly
+            OK ! Successful operation. The **Copy Question Set** operation was successfully
             executed.
           content:
             application/json:
@@ -3370,6 +3370,155 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  /question/v1/copy/{Question_Id}:
+    post:
+      description: |-
+        This API is associated with copying Questions on the Sunbird Platform .
+          - **_/Copy/_** endpoint executes the "Copy Question" request based on parameters provided as metadata in the request body.
+          - The endpoint for **Copy Question** is `/question/v1/copy`
+          - It points to assessment-service - `/question/v4/copy`
+          - {...}refers to a section of review endpoint URL path that needs to be replaced with the appropriate ID.
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Copy Question
+      tags:
+        - Question APIs
+      operationId: Copy Question
+      parameters:
+        - in: path
+          name: Question_Id
+          required: true
+          description: Append a valid Question ID To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All question APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/questionUpdateQuestionRequest'
+            example:
+              request:
+                question:
+                  createdBy: ShikshaLokam
+                  createdFor: ["ShikshaLokam"]
+                  name: 'ShikshaLokam-Question'
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata which should be added to the new copied question.
+            - Click link to refer to the supported [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-4.9.0/schemas/question/1.0/schema.json)
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation. The 'Copy Question' operation was successfully
+            executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionCreateSuccessResponse'
+              example:
+                id: api.question.copy
+                ver: '3.0'
+                ts: '2022-05-30T18:09:31Z+05:30'
+                params:
+                  resmsgid: 5567a550-819b-4d24-878c-839c67b4aa80
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  node_id:
+                    - do_113540407357554688163 : do_11354886652353740811
+                  versionKey: '1653914371057'
+        '400':
+          description: >-
+            BAD REQUEST. The 'Copy Question' operation failed ! The possible
+            reason for failure is that you may have missed providing input for a
+            mandatory parameter or the question is part of a questionset
+            and has got visibility "Parent".
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              examples:
+                a:
+                  id: api.question.copy
+                  ver: '3.0'
+                  ts: '2022-05-30T18:11:17Z+05:30'
+                  params:
+                    resmsgid: c4e99170-fa4a-4810-9f40-990b431848c1
+                    msgid: null
+                    err: ERR_INVALID_REQUEST
+                    status: failed
+                    errmsg: Please provide valid value for List(createdFor)
+                  responseCode: CLIENT_ERROR
+                  result:
+                    messages: null
+                b:
+                  id: api.question.copy
+                    ver: '3.0'
+                    ts: '2022-05-30T12:45:09ZZ'
+                    params:
+                      resmsgid: 2c609f7c-8aab-46cd-bb5e-b1cf606988cc
+                      msgid: null
+                      err: ERR_INVALID_REQUEST
+                      status: failed
+                      errmsg: Question With Visibility Parent Cannot Be Copied Individually!
+                    responseCode: CLIENT_ERROR
+                    result:
+                      messages: null
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,The **CopyQuestion** operation failed!The possible
+            reason for failure is that you may have provided wrong question ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+              example:
+                id: api.question.copy
+                ver: '3.0'
+                ts: '2022-05-30T18:12:32Z+05:30'
+                params:
+                  resmsgid: 52d319c9-32e3-4156-9309-e7de6073df00
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) doesn''t Exists. | [Invalid Node Id.]: do_113540407358128128169'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact info@sunbird.org. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionErrorResponse'
+      deprecated: false
+      security:
+        - bearer: [ ]
 components:
   schemas:
     questionapiQuestionImportSuccessResponse:
@@ -3539,6 +3688,35 @@ components:
         description:
           type: string
           description: Represents the description for the Question
+    questionCopyQuestionRequest:
+      title: Request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/questionQuestionCopyRequestQuestion'
+      required:
+        - request
+      questionQuestionCopyRequestQuestion:
+        title: Question
+        type: object
+        properties:
+          question:
+            $ref: '#/components/schemas/questionQuestionCopyRequestQuestionObject'
+        required:
+          - question
+      questionQuestionCopyRequestQuestionObject:
+        title: Object
+        required:
+          - createdBy
+          - createdFor
+        type: object
+        properties:
+          createdBy:
+            type: string
+            description: Represents the name of the entity who copied the Questionset
+          createdFor:
+              type: array
+              description: Represents the name of the entity for whom the Questionset was copied
     questionCreateQuestionsetRequest:
       title: Request
       required:
@@ -3688,7 +3866,7 @@ components:
             type: string
             description: Represents the name of the entity who copied the Questionset
           createdFor:
-            type: string
+            type: array
             description: Represents the name of the entity for whom the Questionset was copied
     questionQuestionCreateSuccessResponse:
       description: Response
