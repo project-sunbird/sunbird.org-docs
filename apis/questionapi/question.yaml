@@ -2999,6 +2999,140 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  /questionset/v1/copy/{QuestionSet_Id}:
+    post:
+      description: |-
+        This API is associated with copying questionset on the Sunbird Platform.
+          - **_/Copy/_** endpoint executes the "Copy QuestionSet" request based on the parameters provided as metadata in the request body.
+          - The endpoint for **Copy QuestionSet** is `/questionset/v1/copy`
+          - It points to assessment-service - `/questionset/v4/copy`
+          - {...}refers to a section of copy endpoint URL path that needs to be replaced with the appropriate ID.
+          - It is mandatory to provide values for parameters marked with *.
+          - Mandatory fields cannot be null or empty.
+      summary: Copy QuestionSet
+      tags:
+        - QuestionSet APIs
+      operationId: Copy QuestionSet
+      parameters:
+        - in: path
+          name: QuestionSet_Id
+          required: true
+          description: Append a valid QuestionSet Id To the Request URL
+          schema:
+            type: string
+        - name: Content-Type
+          in: header
+          required: true
+          description: >-
+            The Content Type entity is the media type of the resource.Possible
+            media types can be:- 
+              - Application/json
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: >-
+            All question APIs require authorization for use. Specify the
+            authorization key received from the administrator when placing the
+            request for use of the API.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/questionCopyQuestionsetRequest'
+            example:
+              request:
+                questionset:
+                  createdBy: "ShikshaLokam"
+                  createdFor: ["ShikshaLokam"]
+                  name: "ShikshaLokam-QS"
+        description: |-
+          The body refers to the format of the request.
+            - The body contains metadata which should be added to the new copied questionset.
+            - Click the link to refer to the supported [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-4.9.0/schemas/questionset/1.0/schema.json)
+        required: true
+      responses:
+        '200':
+          description: >-
+            OK ! Successful operation. The **Copy Question Set** operation was successfuly
+            executed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetCreateSuccessResponse'
+              example:
+                id: api.questionset.copy
+                ver: '3.0'
+                ts: '2022-05-30T11:39:55ZZ'
+                params:
+                  resmsgid: d719507d-1e21-4611-9cc6-45b03dc16409
+                  msgid: null
+                  err: null
+                  status: successful
+                  errmsg: null
+                responseCode: OK
+                result:
+                  node_id:
+                    - do_1135439205421629441329: do_1135488372324843521495
+                  versionKey: '1653910794988'
+        '400':
+          description: >-
+            BAD REQUEST. The 'Copy QuestionSet' operation failed ! The possible
+            reason for failure is that you may have missed providing input for a
+            mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              example:
+                id: api.questionset.copy
+                ver: '3.0'
+                ts: '2022-05-30T11:46:48ZZ'
+                params:
+                  resmsgid: 23d6704c-d638-446c-9bc5-0836568b8cd0
+                  msgid: null
+                  err: ERR_INVALID_REQUEST
+                  status: failed
+                  errmsg: Please provide valid value for List(createdFor)
+                responseCode: CLIENT_ERROR
+                result:
+                  messages: null
+        '404':
+          description: >-
+            RESOURCE NOT FOUND,The **Copy Question Set** operation failed !The possible
+            reason for failure is that you may have provided wrong question ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+              example:
+                id: api.questionset.copy
+                ver: '3.0'
+                ts: '2022-05-30T11:48:22ZZ'
+                params:
+                  resmsgid: 8854d6de-ee55-4090-b481-41f20f6bdc8a
+                  msgid: null
+                  err: NOT_FOUND
+                  status: failed
+                  errmsg: 'Error! Node(s) does not exist. | [Invalid Node Id.]: do_1135439205421629441328'
+                responseCode: RESOURCE_NOT_FOUND
+                result:
+                  messages: null
+        '500':
+          description: >-
+            INTERNAL SERVER ERROR ! Looks like something went wrong! These
+            errors are tracked automatically, but if the problem persists feel
+            free to contact info@sunbird.org. In the meantime, try refreshing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionQuestionsetErrorResponse'
+        deprecated: false
+        security:
+          - bearer: [ ]
   /question/v1/bulkUpload:
     post:
       tags:
@@ -3527,6 +3661,35 @@ components:
           type: object
       required:
         - hierarchy
+    questionCopyQuestionsetRequest:
+      title: Request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/questionQuestionsetCopyRequestQuestionset'
+      required:
+        - request
+      questionQuestionsetCopyRequestQuestionset:
+        title: Questionset
+        type: object
+        properties:
+          questionset:
+            $ref: '#/components/schemas/questionQuestionsetCopyRequestQuestionsetObject'
+        required:
+          - question
+      questionQuestionsetCopyRequestQuestionsetObject:
+        title: Object
+        required:
+          - createdBy
+          - createdFor
+        type: object
+        properties:
+          createdBy:
+            type: string
+            description: Represents the name of the entity who copied the Questionset
+          createdFor:
+            type: string
+            description: Represents the name of the entity for whom the Questionset was copied
     questionQuestionCreateSuccessResponse:
       description: Response
       type: object
