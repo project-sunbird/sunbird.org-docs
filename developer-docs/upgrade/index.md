@@ -48,6 +48,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | Build/managed-learn/ml-projects-service | release-4.9.0_RC5 | Deploy/managed-learn/ml-projects-service | release-4.9.0_RC2 | |
 | Build/managed-learn/ml-reports-service | release-4.9.0_RC11 | Deploy/managed-learn/ml-reports-service | release-4.9.0_RC2 | |
 | Build/managed-learn/ml-survey-service    release-4.9.0_Rc2 |   Deploy/managed-learn/ml-survey-service | release-4.9.0_RC2 | |
+|    |       | Deploy/managed-learn/gotenberg | release-4.9.0_RC2 | |
 | Build/Plugins/ContentPlugins | release-4.9.0_RC1 | Deploy/Plugins/ContentPlugins | release-4.9.0_RC2 | |
 |             |                   | Deploy/Sunbird-RC/Registry | release-4.9.0_RC2 | |
 
