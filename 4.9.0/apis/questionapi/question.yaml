@@ -3257,7 +3257,7 @@ paths:
               request:
                 questionset:
                   createdBy: "ShikshaLokam"
-                  createdFor: ["ShikshaLokam"]
+                  createdFor: [ "ShikshaLokam" ]
                   name: "ShikshaLokam-QS"
         description: |-
           The body refers to the format of the request.
@@ -3265,7 +3265,7 @@ paths:
             - Click the link to refer to the supported [metadata](https://github.com/project-sunbird/knowledge-platform/blob/release-4.9.0/schemas/questionset/1.0/schema.json)
         required: true
       responses:
-        '200':
+        200:
           description: >-
             OK ! Successful operation. The **Copy Question Set** operation was successfully
             executed.
@@ -3288,7 +3288,7 @@ paths:
                   node_id:
                     - do_1135439205421629441329: do_1135488372324843521495
                   versionKey: '1653910794988'
-        '400':
+        400:
           description: >-
             BAD REQUEST. The 'Copy QuestionSet' operation failed ! The possible
             reason for failure is that you may have missed providing input for a
@@ -3310,7 +3310,7 @@ paths:
                 responseCode: CLIENT_ERROR
                 result:
                   messages: null
-        '404':
+        404:
           description: >-
             RESOURCE NOT FOUND, The **Copy Question Set** operation failed! The possible
             reason for failure is that you may have provided wrong question ID.
@@ -3331,7 +3331,7 @@ paths:
                 responseCode: RESOURCE_NOT_FOUND
                 result:
                   messages: null
-        '500':
+        500:
           description: >-
             INTERNAL SERVER ERROR ! Looks like something went wrong! These
             errors are tracked automatically, but if the problem persists feel
@@ -3340,9 +3340,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/questionQuestionsetErrorResponse'
-        deprecated: false
-        security:
-          - bearer: [ ]
+      deprecated: false
+      security:
+        - bearer: [ ]
   /question/v1/bulkUpload:
     post:
       tags:
@@ -3628,7 +3628,7 @@ paths:
               request:
                 question:
                   createdBy: ShikshaLokam
-                  createdFor: ["ShikshaLokam"]
+                  createdFor: [ "ShikshaLokam" ]
                   name: 'ShikshaLokam-Question'
         description: |-
           The body refers to the format of the request.
@@ -3657,7 +3657,7 @@ paths:
                 responseCode: OK
                 result:
                   node_id:
-                    - do_113540407357554688163 : do_11354886652353740811
+                    - do_113540407357554688163: do_11354886652353740811
                   versionKey: '1653914371057'
         '400':
           description: >-
@@ -3671,20 +3671,24 @@ paths:
                 $ref: '#/components/schemas/questionQuestionErrorResponse'
               examples:
                 a:
-                  id: api.question.copy
-                  ver: '3.0'
-                  ts: '2022-05-30T18:11:17Z+05:30'
-                  params:
-                    resmsgid: c4e99170-fa4a-4810-9f40-990b431848c1
-                    msgid: null
-                    err: ERR_INVALID_REQUEST
-                    status: failed
-                    errmsg: Please provide valid value for List(createdFor)
-                  responseCode: CLIENT_ERROR
-                  result:
-                    messages: null
+                  summary: Error Response - Missing mandatory field
+                  value:
+                    id: api.question.copy
+                    ver: '3.0'
+                    ts: '2022-05-30T18:11:17Z+05:30'
+                    params:
+                      resmsgid: c4e99170-fa4a-4810-9f40-990b431848c1
+                      msgid: null
+                      err: ERR_INVALID_REQUEST
+                      status: failed
+                      errmsg: Please provide valid value for List(createdFor)
+                    responseCode: CLIENT_ERROR
+                    result:
+                      messages: null
                 b:
-                  id: api.question.copy
+                  summary: Error Response - Invalid Request
+                  value:
+                    id: api.question.copy
                     ver: '3.0'
                     ts: '2022-05-30T12:45:09ZZ'
                     params:
@@ -3932,27 +3936,29 @@ components:
           $ref: '#/components/schemas/questionQuestionCopyRequestQuestion'
       required:
         - request
-      questionQuestionCopyRequestQuestion:
-        title: Question
-        type: object
-        properties:
-          question:
-            $ref: '#/components/schemas/questionQuestionCopyRequestQuestionObject'
-        required:
-          - question
-      questionQuestionCopyRequestQuestionObject:
-        title: Object
-        required:
-          - createdBy
-          - createdFor
-        type: object
-        properties:
-          createdBy:
+    questionQuestionCopyRequestQuestion:
+      title: Question
+      type: object
+      properties:
+        question:
+          $ref: '#/components/schemas/questionQuestionCopyRequestQuestionObject'
+      required:
+        - question
+    questionQuestionCopyRequestQuestionObject:
+      title: Object
+      required:
+        - createdBy
+        - createdFor
+      type: object
+      properties:
+        createdBy:
+          type: string
+          description: Represents the name of the entity who copied the Questionset
+        createdFor:
+          type: array
+          items:
             type: string
-            description: Represents the name of the entity who copied the Questionset
-          createdFor:
-              type: array
-              description: Represents the name of the entity for whom the Questionset was copied
+            description: Represents the name of the entity for whom the Questionset was copied
     questionCreateQuestionsetRequest:
       title: Request
       required:
@@ -4083,26 +4089,28 @@ components:
           $ref: '#/components/schemas/questionQuestionsetCopyRequestQuestionset'
       required:
         - request
-      questionQuestionsetCopyRequestQuestionset:
-        title: Questionset
-        type: object
-        properties:
-          questionset:
-            $ref: '#/components/schemas/questionQuestionsetCopyRequestQuestionsetObject'
-        required:
-          - question
-      questionQuestionsetCopyRequestQuestionsetObject:
-        title: Object
-        required:
-          - createdBy
-          - createdFor
-        type: object
-        properties:
-          createdBy:
+    questionQuestionsetCopyRequestQuestionset:
+      title: Questionset
+      type: object
+      properties:
+        questionset:
+          $ref: '#/components/schemas/questionQuestionsetCopyRequestQuestionsetObject'
+      required:
+        - question
+    questionQuestionsetCopyRequestQuestionsetObject:
+      title: Object
+      required:
+        - createdBy
+        - createdFor
+      type: object
+      properties:
+        createdBy:
+          type: string
+          description: Represents the name of the entity who copied the Questionset
+        createdFor:
+          type: array
+          items:
             type: string
-            description: Represents the name of the entity who copied the Questionset
-          createdFor:
-            type: array
             description: Represents the name of the entity for whom the Questionset was copied
     questionQuestionCreateSuccessResponse:
       description: Response
