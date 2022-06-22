@@ -5,9 +5,9 @@ description: Build and Deploy
 published: true
 allowSearch: true
 keywords: Upgrade, Sunbird 4.9.0
----
 
 ## Overview
+
 
 This page details out the jobs required to be run as part of the upgrade from Sunbird and Vidaydaan release 4.8.0 to release 4.9.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.
 
@@ -57,6 +57,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Manual Step|Instruction|
 |--------------------|--------------------|
+
 | Add soft link to Core/keys directory in private repo for Sunbird-RC directory | ln -s ../Core/keys/ keys |
 | Enable reuse of questions from question set editor | [SB-28566](https://project-sunbird.atlassian.net/browse/SB-28566) || Creation of a new tab called Question Sets to be created on Web Portal for searchability by users | [SB-29588](https://project-sunbird.atlassian.net/browse/SB-29588) |
 | Addition of a new Content Type - Exam Question | [SB-29584](https://project-sunbird.atlassian.net/browse/SB-29584) |
