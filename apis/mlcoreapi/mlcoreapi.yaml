@@ -555,7 +555,64 @@ paths:
       deprecated: false
       security:
         - bearer: []
-
+  /solutions/mlcore/v1/read/{solutionId}:
+    get:
+      summary: Read Solution Report Informations For Given Solution Id
+      description: |-
+        The API is used to get the solution information for the given solutionId. It is used in the report dashboard and this API is only accessible for program managers and program designers.
+         
+          - The endpoint for **Solution read** is `/solutions/mlcore/v1/read`
+          - It is mandatory to provide values for parameters marked with *. 
+          - Mandatory fields cannot be null or empty.
+      tags:
+       - Solutions APIs
+      operationId: Get Solution Report Informations
+      parameters:
+        - name: X-Authenticated-User-Token
+          in: header
+          description: Represents the authorized User ID to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          description: >-
+            To make use of the API, you require authorization. Raise a request
+            to the administrator for the use of the API. You will receive the
+            authorization key. Specify the key received, here.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: solutionId
+          required: true
+          description: Please append a valid solution id to the request URL
+          schema:
+            type: string
+          example: 600ac0d1c7de076e6f9943b9
+      
+      responses:
+        200:
+          description: "Solution Detail Successful Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/solutionapiReadResponse'
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/solutionIdMissing400Error'
+      deprecated: false
+      security:
+        - bearer: []
   /entities/mlcore/v1/subEntityListBasedOnRoleAndLocation/{locationId}:
     get:
       summary: Get the list of sub entity based on role and location
@@ -1463,7 +1520,8 @@ components:
           type: string
           example: TN-Program-1597301830708
         isReusable:
-          description: 'Represents the isReusable'
+
+          description: 'Represents the solution is reusable or not'
           type: boolean
     solutionapiCreateResponse:
       description: Solution creation response
@@ -1737,7 +1795,41 @@ components:
                 title: 
                   type: string
                   example: Come See Our School!- Parent Mela
-      
+    solutionapiReadResponse:
+      description: Solution Read Response
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        message: 
+          type: string
+          example: Solutions data fetched successfully
+        result: 
+          type: object
+          properties: 
+            districts:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: ANANTAPUR
+                  locationId:
+                    type: string
+                    example: 2f76dcf5-e43b-4f71-a3f2-c8f19e1fce03
+            organisations:
+              type: array
+              items:
+                type: object
+                properties:
+                  orgName:
+                    type: string
+                    example: TAMILNADU
+                  organisationId:
+                    type: string
+                    example: 01269878797503692810
   securitySchemes:
     bearer:
       type: apiKey
