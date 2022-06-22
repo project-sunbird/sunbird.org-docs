@@ -9,8 +9,8 @@ keywords: Upgrade, Sunbird 4.8.0
 
 ## Overview
 
-This page details out the jobs required to be run as part of the upgrade from Sunbird and Vidaydaan release 4.7.0 to release 4.8.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.
 
+This page details out the jobs required to be run as part of the upgrade from Sunbird and Vidaydaan release 4.7.0 to release 4.8.0. Use the following table to understand the jobs that need to be executed in order to successfully complete the upgrade. Any jenkins job configuration or pre-requisites mentioned under manual configuration section needs to be done first before running any of the mentioned jobs. The order of the jobs should also be run as shown below. They can be run in parallel to speed up the execution.
 
 ### Variables for Sunbird
 
@@ -25,8 +25,8 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | uci_env | Sunbird Data Pipeline, Transformer | update according to environment<br>in staging env ---> "staging" |
 
 
-
 ### Build and Deploy for Sunbird
+
 
 |Service to be Build|Build Tag|Service to Deploy|Deploy Tag|Comments|
 |-------------------|---------|-----------------|----------|--------|
@@ -81,7 +81,6 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | SB-28381<br>Add qrcode-image-generator flink job in jenkins KP flink job list.<br>Deploy the qrcode-image-generator job<br>Stop the qrcode-image-generator samza job |  |
 | Create uci-preprod private containers on Azure for storing <br>inbound and outbound images/videos/audio notes/files - to be accessed by concerned tenants |  |
 | Create DialUploadSchema Jenkins Job in Kubernet folder | check below PR for config.xml:<br>https://github.com/project-sunbird/sunbird-devops/pull/3218/files<br><br>Create container as a blob in {{sunbird_public_storage_account_name}}<br>container name should be :  sunbird-dial-{{env}} |
-
 ##### Note: The below jobs are applicable only if you are running Vidyadaan infrastructure
 
 
