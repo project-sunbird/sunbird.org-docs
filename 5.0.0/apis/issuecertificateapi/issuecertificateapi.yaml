@@ -1,0 +1,272 @@
+openapi: 3.0.1
+info:
+  title: Issue Certificate api
+  description: This api is used for issuing course certificate.
+  version: "1.0"
+servers:
+- url: https://staging.open-sunbird.org/api
+paths:
+  /course/batch/cert/v1/issue:
+    post:
+      tags:
+      - Issue Certificate Api
+      summary: issuance of certificate
+      description: |-
+        This API is associated with issuing digitally generated certificates.
+           - The **_ /issue_** endpoint executes the "Certificate issue" request based on parameters provided as filter in the request body.
+           - All fields marked with an * are mandatory
+           - Required fields cannot be null or empty
+      operationId: GeneratePost for certificate
+      parameters:
+      - name: Content-Type
+        in: header
+        description: The Content Type entity is the media type of the resource.Possible
+          media types can be Application/json
+        required: true
+        schema:
+          type: string
+      - name: ts
+        in: header
+        description: 'The timestamp at which the **issue certificate** request was
+          sent. '
+        required: true
+        schema:
+          type: string
+      - name: X-msgid
+        in: header
+        description: A unique ID that identifies the request in case the same API
+          is executed multiple times.
+        required: true
+        schema:
+          type: string
+      - name: x-authenticated-user-token
+        in: header
+        description: The alphanumeric string to access the API
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: To make use of the API, you require authorization. Raise a request
+          to the administrator for the use of the API. You will receive the authorization
+          key. Specify the key received, here.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The body refers to the format of the request. The body contains
+          metadata about the request to issue the certificate.
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/issuecertificateapiApiRequest'
+              - $ref: '#/components/schemas/issuecertificateapiIssueCertificateRequests'
+        required: true
+      responses:
+        200:
+          description: OK ! Operation successful."Certificate generation" operation
+            was executed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  issuecertificateapiissuecertificateapiApiResponse:
+                    $ref: '#/components/schemas/issuecertificateapiissuecertificateapiApiResponse'
+                  issuecertificateapiIssueCertificateResponse:
+                    $ref: '#/components/schemas/issuecertificateapiIssueCertificateResponse'
+        400:
+          description: BAD REQUEST. The "Certificate generation" operation failed.
+            You may have missed providing input for a mandatory parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/issuecertificateapiIssueCertificateErrorResponse'
+        500:
+          description: INTERNAL SERVER ERROR ! Looks like something went wrong. These
+            errors are tracked automatically, but if the problem persists, contact
+            us. In the meantime, try refreshing.
+          content: {}
+      x-codegen-request-body-name: Body
+components:
+  schemas:
+    issuecertificateapiIssueCertificateRequests:
+      title: Issue certificate request
+      required:
+      - request
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/issuecertificateapiRequest'
+    issuecertificateapiRequest:
+      title: Request
+      required:
+      - batchId
+      - certificate
+      - courseId
+      type: object
+      properties:
+        courseId:
+          type: string
+          description: Course identifier
+        batchId:
+          type: string
+          description: Batch identifier
+        certificate:
+          type: string
+          description: Name of the certificate to be issued
+        filters:
+          $ref: '#/components/schemas/issuecertificateapiUserCoursesFilter'
+    issuecertificateapiUserCoursesFilter:
+      title: Issue Certificate Filter
+      type: object
+      properties:
+        status:
+          type: string
+          description: User's course status
+        completionPercentage:
+          type: string
+          description: Course progress percentage
+    issuecertificateapiIssueCertificateResponse:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            courseId:
+              type: string
+              description: The course identifier
+            batchId:
+              type: string
+              description: The batch identifier
+            certificate:
+              type: string
+              description: The name of the certificate to be issued
+            status:
+              type: string
+              description: The certificate issue status
+          description: response details
+      description: Issue certificate Response
+    issuecertificateapiResponseHeader:
+      title: ResponseHeader
+      type: object
+      properties:
+        id:
+          type: string
+          description: API Identifier
+        ver:
+          type: string
+          description: API version information
+        ts:
+          type: string
+          description: API execution timestamp
+        params:
+          $ref: '#/components/schemas/issuecertificateapiResponseParams'
+        responseCode:
+          type: object
+          properties: {}
+          description: 'API response code '
+    issuecertificateapiResponseParams:
+      title: Response Parameter
+      type: object
+      properties:
+        resmsgid:
+          type: string
+          description: Represents the response Message ID
+        msgid:
+          type: string
+          description: Represents the error Message ID
+        err:
+          type: string
+          description: Represents the Error Code
+        status:
+          type: string
+          description: Response Status
+        errmsg:
+          type: string
+          description: Error Message
+    issuecertificateapiEmptyResult:
+      title: Empty Result
+      type: object
+      properties:
+        result:
+          type: object
+          properties: {}
+          description: Empty Result
+    issuecertificateapiIssueCertificateErrorResponse:
+      title: Create Content Error Response
+      allOf:
+      - $ref: '#/components/schemas/issuecertificateapiEmptyResult'
+      - $ref: '#/components/schemas/issuecertificateapiResponseHeader'
+    issuecertificateapiApiRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents an API uniquely
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the unique ID of the message being sent
+            did:
+              type: string
+              description: Represents the device UUID from which API is called
+    issuecertificateapiissuecertificateapiApiResponse:
+      required:
+      - ets
+      - id
+      - params
+      - ver
+      type: object
+      properties:
+        id:
+          type: string
+          description: Represents the ID of the request which was made
+        ver:
+          type: string
+          description: Represents the version of the API which was used
+        ets:
+          type: integer
+          description: Represents the EPOCH (UTC) timestamp in milliseconds since
+            EPOCH
+          format: int64
+        params:
+          required:
+          - msgid
+          - resmsgid
+          - status
+          type: object
+          properties:
+            msgid:
+              type: string
+              description: Represents the ID of the message sent
+            resmsgid:
+              type: string
+              description: Represents the ID of the response message
+            status:
+              type: string
+              enum:
+              - success
+              - error
+        responseCode:
+          type: string
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+    userToken:
+      type: apiKey
+      name: x-authenticated-user-token
+      in: header
