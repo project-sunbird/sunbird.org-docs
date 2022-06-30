@@ -26,7 +26,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | Build/Kubernetes/Taxonomy | release-4.10.0_RC2 | Deploy/Kubernetes/Taxonomy | release-4.10.0_RC1 |
 | Build/Kubernetes/Content | release-4.10.0_RC2 | Deploy/Kubernetes/Content | release-4.10.0_RC1 |
 | Build/Kubernetes/Player | release-4.10.0_RC12 | Deploy/Kubernetes/Player | release-4.10.0_RC1 |
-| Build/Core/OfflineInstaller | release-4.10.0_RC12 | Deploy/Core/Player | release-4.10.0_RC1 |
+| Build/Core/OfflineInstaller | release-4.10.0_RC12 | Deploy/Core/OfflineInstaller | release-4.10.0_RC1 |
 | Build/managed-learn/ml-core-service | release-4.10.0_RC1 | Deploy/managed-learn/ml-core-service | release-4.10.0_RC1 |
 | Build/managed-learn/ml-projects-service | release-4.10.0_RC1 | Deploy/managed-learn/ml-projects-service | release-4.10.0_RC1 |
 | Build/managed-learn/ml-reports-service | release-4.10.0_RC1 | Deploy/managed-learn/ml-reports-service | release-4.10.0_RC1 |
