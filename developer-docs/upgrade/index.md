@@ -27,10 +27,10 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | Build/Kubernetes/Content | release-4.10.0_RC2 | Deploy/Kubernetes/Content | release-4.10.0_RC1 |
 | Build/Kubernetes/Player | release-4.10.0_RC12 | Deploy/Kubernetes/Player | release-4.10.0_RC1 |
 | Build/Core/OfflineInstaller | release-4.10.0_RC12 | Deploy/Core/Player | release-4.10.0_RC1 |
-| Build/managed-learn/ml-core-service |  | Deploy/managed-learn/ml-core-service | release-4.10.0_RC1 |
-| Build/managed-learn/ml-projects-service |  | Deploy/managed-learn/ml-projects-service | release-4.10.0_RC1 |
-| Build/managed-learn/ml-reports-service |  | Deploy/managed-learn/ml-reports-service | release-4.10.0_RC1 |
-| Build/managed-learn/ml-survey-service |  | Deploy/managed-learn/ml-csurveyore-service | release-4.10.0_RC1 |
+| Build/managed-learn/ml-core-service | release-4.10.0_RC1 | Deploy/managed-learn/ml-core-service | release-4.10.0_RC1 |
+| Build/managed-learn/ml-projects-service | release-4.10.0_RC1 | Deploy/managed-learn/ml-projects-service | release-4.10.0_RC1 |
+| Build/managed-learn/ml-reports-service | release-4.10.0_RC1 | Deploy/managed-learn/ml-reports-service | release-4.10.0_RC1 |
+| Build/managed-learn/ml-survey-service | release-4.10.0_RC1 | Deploy/managed-learn/ml-csurveyore-service | release-4.10.0_RC1 |
 |  |  | Deploy/managed-learn/ml-analytics-service | release-4.10.0_RC1 |
 | Build/KnowledgePlatform/FlinkJobs | release-4.10.0_RC1 | Deploy/KnowledgePlatform/FlinkJobs | release-4.10.0_RC1 |
 |  |  | Provision/DataPipeline/AnalyticsSpark | release-4.10.5_RC2 |
