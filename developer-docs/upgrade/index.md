@@ -16,25 +16,28 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 | SERVICE TO BE BUILD | BUILD TAG | SERVICE TO DEPLOY  | DEPLOY TAG  | COMMENTS  |
 |-----------------------------------------|--------------------|--------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------|
-|  |  | Provision/Core/ESMapping | release-4.10.0_RC1 | check the manual task for this |
-| Build/Kubernetes/Cassandra | release-4.10.0_RC1 | Deploy/Kubernetes/Cassandra | release-4.10.0_RC1 |  |
-| Build/Kubernetes/Learner | release-4.10.0_RC4 | Deploy/Kubernetes/Learner | release-4.10.0_RC1 |  |
-| Build/Kubernetes/DiscussionMW | release-4.10.0_RC3 | Deploy/Kubernetes/DiscussionMW | release-4.10.0_RC1 |  |
-| Build/Kubernetes/Assessment | release-4.10.0_RC2 | Deploy/Kubernetes/Assessment | release-4.10.0_RC1 |  |
-| Build/Kubernetes/Report | release-4.10.0_RC6 | Deploy/Kubernetes/Report | release-4.10.0_RC1 |  |
-| Build/Kubernetes/Search | release-4.10.0_RC2 | Deploy/Kubernetes/Search | release-4.10.0_RC1 |  |
-| Build/Kubernetes/Taxonomy | release-4.10.0_RC2 | Deploy/Kubernetes/Taxonomy | release-4.10.0_RC1 |  |
-| Build/Kubernetes/Content | release-4.10.0_RC2 | Deploy/Kubernetes/Content | release-4.10.0_RC1 |  |
-| Build/Kubernetes/Player | release-4.10.0_RC10 | Deploy/Kubernetes/Player | release-4.10.0_RC1 |  |
-| Build/Core/OfflineInstaller | release-4.10.0_RC10 | Deploy/Core/Player | release-4.10.0_RC1 |  |
-|  |  | Deploy/managed-learn/ml-analytics-service | release-4.10.0_RC1 |  |
-| Build/KnowledgePlatform/FlinkJobs | release-4.10.0_RC1 | Deploy/KnowledgePlatform/FlinkJobs | release-4.10.0_RC1 |  |
-|  |  | Provision/DataPipeline/AnalyticsSpark | release-4.10.5_RC2 |  |
-| Build/DataPipeline/AnalyticsCore | release-4.10.5_RC1 | Deploy/DataPipeline/AnalyticsCore | release-4.10.5_RC2 |  |
-| Build/DataPipeline/CoreDataProducts | release-4.10.5_RC1 | Deploy/DataPipeline/CoreDataProducts | release-4.10.5_RC2 |  |
-| Build/DataPipeline/EdDataProducts | release-4.10.5_RC3 | Deploy/DataPipeline/EdDataProducts | release-4.10.5_RC2 |  |
-| Build/DataPipeline/ETLJobs | release-4.10.5_RC2 | Deploy/DataPipeline/ETLJobs | release-4.10.5_RC2 |  |
-
+|  |  | Provision/Core/ESMapping | release-4.10.0_RC1 |
+| Build/Kubernetes/Cassandra | release-4.10.0_RC1 | Deploy/Kubernetes/Cassandra | release-4.10.0_RC1 |
+| Build/Kubernetes/Learner | release-4.10.0_RC4 | Deploy/Kubernetes/Learner | release-4.10.0_RC1 |
+| Build/Kubernetes/DiscussionMW | release-4.10.0_RC3 | Deploy/Kubernetes/DiscussionMW | release-4.10.0_RC1 |
+| Build/Kubernetes/Assessment | release-4.10.0_RC2 | Deploy/Kubernetes/Assessment | release-4.10.0_RC1 |
+| Build/Kubernetes/Report | release-4.10.0_RC6 | Deploy/Kubernetes/Report | release-4.10.0_RC1 |
+| Build/Kubernetes/Search | release-4.10.0_RC2 | Deploy/Kubernetes/Search | release-4.10.0_RC1 |
+| Build/Kubernetes/Taxonomy | release-4.10.0_RC2 | Deploy/Kubernetes/Taxonomy | release-4.10.0_RC1 |
+| Build/Kubernetes/Content | release-4.10.0_RC2 | Deploy/Kubernetes/Content | release-4.10.0_RC1 |
+| Build/Kubernetes/Player | release-4.10.0_RC12 | Deploy/Kubernetes/Player | release-4.10.0_RC1 |
+| Build/Core/OfflineInstaller | release-4.10.0_RC12 | Deploy/Core/Player | release-4.10.0_RC1 |
+| Build/managed-learn/ml-core-service |  | Deploy/managed-learn/ml-core-service | release-4.10.0_RC1 |
+| Build/managed-learn/ml-projects-service |  | Deploy/managed-learn/ml-projects-service | release-4.10.0_RC1 |
+| Build/managed-learn/ml-reports-service |  | Deploy/managed-learn/ml-reports-service | release-4.10.0_RC1 |
+| Build/managed-learn/ml-survey-service |  | Deploy/managed-learn/ml-csurveyore-service | release-4.10.0_RC1 |
+|  |  | Deploy/managed-learn/ml-analytics-service | release-4.10.0_RC1 |
+| Build/KnowledgePlatform/FlinkJobs | release-4.10.0_RC1 | Deploy/KnowledgePlatform/FlinkJobs | release-4.10.0_RC1 |
+|  |  | Provision/DataPipeline/AnalyticsSpark | release-4.10.5_RC2 |
+| Build/DataPipeline/AnalyticsCore | release-4.10.5_RC1 | Deploy/DataPipeline/AnalyticsCore | release-4.10.5_RC2 |
+| Build/DataPipeline/CoreDataProducts | release-4.10.5_RC2 | Deploy/DataPipeline/CoreDataProducts | release-4.10.5_RC2 |
+| Build/DataPipeline/EdDataProducts | release-4.10.5_RC3 | Deploy/DataPipeline/EdDataProducts | release-4.10.5_RC2 |
+| Build/DataPipeline/ETLJobs | release-4.10.5_RC2 | Deploy/DataPipeline/ETLJobs | release-4.10.5_RC2 |
 
 ### Manual Configurations for Sunbird
 
@@ -51,14 +54,15 @@ This page details out the jobs required to be run as part of the upgrade from Su
 |-----------------------------------|--------------------|---------------------------------------------------|-----------------------------------------------------------|----------|
 | Build/Kubernetes/Assessment | release-4.10.0_RC2 | Deploy/Kubernetes/Assessment | release-4.10.0-vdn |
 | Build/Kubernetes/Content | release-4.10.0_RC2 | Deploy/Kubernetes/Content | release-4.10.0-vdn |
-| Build/Kubernetes/Player | release-4.10.0_RC6 | Deploy/Kubernetes/Player | release-4.10.0-vdn |
+| Build/Kubernetes/Player | release-4.10.0_RC7 | Deploy/Kubernetes/Player | release-4.10.0-vdn |
 | Build/Kubernetes/Search | release-4.10.0_RC2 | Deploy/Kubernetes/Search | release-4.10.0-vdn |
 | Build/Kubernetes/Taxonomy | release-4.10.0_RC2 | Deploy/Kubernetes/Taxonomy | release-4.10.0-vdn |
 | Build/KnowledgePlatform/FlinkJobs | release-4.10.0_RC1 | DeployKnowledgePlatform/FlinkJobs | release-4.10.0_RC1 |
-| Build/DataPipeline/EdDataProducts | release-4.10.5_RC1 | Deploy/DataPipeline/EdDataProducts | release-4.10.5_RC2 |
-
+| Build/DataPipeline/EdDataProducts | release-4.10.5_RC3 | Deploy/DataPipeline/EdDataProducts | release-4.10.5_RC2 |
+| Build/DataPipeline/ETLJobs | release-4.10.5_RC2 | Deploy/DataPipeline/ETLJobs | release-4.10.5_RC2 |
 
 ### Manual Configuration for vdn
 
 |Manual Step|Instruction|
 |--------------------|--------------------|
+| N/A | N/A |
