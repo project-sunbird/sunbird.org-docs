@@ -30,8 +30,8 @@ This page details out the jobs required to be run as part of the upgrade from Su
 | Build/managed-learn/ml-core-service | release-4.10.0_RC1 | Deploy/managed-learn/ml-core-service | release-4.10.0_RC1 |
 | Build/managed-learn/ml-projects-service | release-4.10.0_RC1 | Deploy/managed-learn/ml-projects-service | release-4.10.0_RC1 |
 | Build/managed-learn/ml-reports-service | release-4.10.0_RC1 | Deploy/managed-learn/ml-reports-service | release-4.10.0_RC1 |
-| Build/managed-learn/ml-survey-service | release-4.10.0_RC1 | Deploy/managed-learn/ml-csurveyore-service | release-4.10.0_RC1 |
-|  |  | Deploy/managed-learn/ml-analytics-service | release-4.10.0_RC1 |
+| Build/managed-learn/ml-survey-service | release-4.10.0_RC1 | Deploy/managed-learn/ml-survey-service | release-4.10.0_RC1 |
+|  |  | Deploy/managed-learn/ml-analytics-service | release-4.10.0_RC3 |
 | Build/KnowledgePlatform/FlinkJobs | release-4.10.0_RC1 | Deploy/KnowledgePlatform/FlinkJobs | release-4.10.0_RC1 |
 |  |  | Provision/DataPipeline/AnalyticsSpark | release-4.10.5_RC2 |
 | Build/DataPipeline/AnalyticsCore | release-4.10.5_RC1 | Deploy/DataPipeline/AnalyticsCore | release-4.10.5_RC2 |
