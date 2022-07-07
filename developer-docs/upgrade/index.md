@@ -43,7 +43,7 @@ This page details out the jobs required to be run as part of the upgrade from Su
 
 |Manual Step|Instruction|
 |--------------------|--------------------|
-| ES mapping and reindexing<br>SB-29813 | Please follow the wiki to create new pindex and mapping of org and reindex the data<br> https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2346156058/SC-2190+ES+scaling+-+reindexing+Org+index |
+| ES mapping and reindexing<br>SB-29813 | Please follow the wiki to create new index and mapping of org and reindex the data<br> https://project-sunbird.atlassian.net/wiki/spaces/UM/pages/2346156058/SC-2190+ES+scaling+-+reindexing+Org+index |
 
 ##### Note: The below jobs are applicable only if you are running Vidyadaan infrastructure
 
